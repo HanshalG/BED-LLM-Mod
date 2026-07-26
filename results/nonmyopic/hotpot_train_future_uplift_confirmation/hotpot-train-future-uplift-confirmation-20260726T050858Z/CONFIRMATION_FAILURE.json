@@ -1,0 +1,45 @@
+{
+  "error": "GateExecutionError: JSONDecodeError: Unterminated string starting at: line 1 column 1799 (char 1798)",
+  "interface_version": "hotpot-future-uplift-confirmation-1",
+  "private_raw_sha256": "1c462e2e7d876dc96a34255b70f84aded193d2ea33d26a99d45454b6e746bd78",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.41783249999999994,
+    "generator": {
+      "adapter_completion_tokens": 22346,
+      "adapter_cost_usd": 0.41783249999999994,
+      "adapter_prompt_tokens": 33057,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 50,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 22346,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 50,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 22346,
+          "cost_usd": 0.41783249999999994,
+          "prompt_tokens": 33057,
+          "reasoning_tokens": 0,
+          "requests": 50
+        }
+      },
+      "prompt_tokens": 33057,
+      "reasoning_tokens": 0,
+      "remaining_usd": 8.911412390776619,
+      "requests": 50,
+      "retry_count": 0,
+      "run_budget_usd": 1.2,
+      "run_cost_usd": 0.41783249999999994,
+      "run_remaining_usd": 0.7821675,
+      "total_spent_usd": 96.08858760922338
+    },
+    "physical_requests": 50,
+    "reasoning_tokens": 0
+  }
+}

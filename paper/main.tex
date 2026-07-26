@@ -59,7 +59,7 @@ is promising but not execution-robust. Negative location, Paprika, MediQ, and
 MovieLens audits localize why deeper semantic planning otherwise fails.
 \end{abstract}
 
-\small
+\fontsize{9}{10.4}\selectfont
 
 \section{Introduction}
 
@@ -487,10 +487,16 @@ produce selection bias that grows with width and horizon. Root likelihood error
 also changes branch mass and downstream context; more rollouts reduce variance,
 not bias \citep{catanach2023misspecification}.
 Zendo's entropy scorer had $\rho=0$; external readiness later reached $.80$ on
-one rule, but confirmation failed before endpoints. Hotpot had 166/500
-directional unlocks, yet answer-first beliefs recovered the enabling document.
-MuSiQue passed a 120/120 branching audit and found the deep child on 2/2 smoke
-tasks; generic/discrete root fidelity was $.073/.302$, but neither beat myopic.
+one rule, but confirmation failed before endpoints. An initial Hotpot audit had
+166/500 directional unlocks, yet answer-first beliefs recovered the enabling
+document. A fresh train split then had 320/1000 strict unlocks and 31 cases in
+which an enabling-first policy improved exact support coverage within the
+top-four retrieval roots. The ten-call serving gate passed, but the single
+preregistered confirmation stopped after 50 calls when one branch refresh ended
+mid-JSON; no continuation scores or policy endpoints were computed, and the run
+was not repaired or repeated. MuSiQue passed a 120/120 branching audit and found
+the deep child on 2/2 smoke tasks; generic/discrete root fidelity was
+$.073/.302$, but neither beat myopic.
 
 BED-LLM's strong one-step results use a concrete entity or profile, small response
 space, prior-likelihood construction, and diverse filtered hypotheses
@@ -591,7 +597,10 @@ interval crosses zero, so it is not an all-gates confirmation. Animals is only p
 its transition confirmation stopped after seven of 60 states on malformed model output,
 so it supplies no holdout efficacy estimate.
 ClariQ open-support V2 failed serving; its joint-particle replay is post hoc.
-natural location uses one model family and environment. Paprika
+Fresh Hotpot supplies structural opportunity and serving evidence only: its
+confirmation cohort was consumed by a malformed refresh before scientific
+scoring, with no repair or rerun.
+Natural location uses one model family and environment. Paprika
 policy counts are endpoint-invalid and its structured support saturates at the prior;
 MediQ stops before a calibrated policy comparison,
 the iCRAFT profile-support gate fails before likelihood, staged iCRAFT recovery

@@ -26,7 +26,10 @@ regeneration loses to compute-matched fixed support, plus a strict
 semantic-partition exact-EIG replay and post hoc cached-answer diagnostic that
 localize the loss to first-link question ranking rather than simulator noise,
 and an all-candidate target-alignment audit showing abundant target headroom but
-negative EIG-to-target correlation, an
+negative EIG-to-target correlation, a fresh Hotpot train opportunity gate with
+320/1,000 strict directional unlocks and 31 qualifying top-four retrieval
+misses followed by a clean serving pass and a no-repair confirmation failure
+before scientific scoring, an
 exploratory externally scored Zendo
 path-dependent-belief smoke with pre-endpoint confirmation failures, and the
 Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
