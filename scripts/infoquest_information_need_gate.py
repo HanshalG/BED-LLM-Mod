@@ -24,14 +24,14 @@ from scripts import infoquest_support_causal_link_gate as base
 from scripts import infoquest_target_alignment_audit as alignment
 
 
-INTERFACE_VERSION = "infoquest-information-need-belief-1"
+INTERFACE_VERSION = "infoquest-information-need-belief-2"
 TARGET_AUDIT_SHA256 = (
     "d550cdfe9770b355c59ef999059175b79a5c7e01a8b0c3f82a96d62a98d916cf"
 )
 NEED_COUNT = 5
-EXPECTED_SERVING_REQUESTS = 2
+EXPECTED_SERVING_REQUESTS = 10
 EXPECTED_MECHANICS_REQUESTS = 30
-SERVING_MAX_COST_USD = 0.03
+SERVING_MAX_COST_USD = 0.08
 MECHANICS_MAX_COST_USD = 0.35
 
 ModelBundle = refresh.ModelBundle
@@ -401,7 +401,7 @@ def run_serving_gate(
                 f"What is synthetic detail {index}?" for index in range(5)
             ),
         )
-        for _ in range(2)
+        for _ in range(EXPECTED_SERVING_REQUESTS)
     ]
     raw: dict[str, Any] = {"interface_version": INTERFACE_VERSION}
     try:
@@ -411,10 +411,10 @@ def run_serving_gate(
                 information_need_messages(
                     f"Synthetic ambiguous request {index}.",
                     initials[index],
-                    index,
+                    index % base.ROOT_COUNT,
                     f"Synthetic answer {index}.",
                 )
-                for index in range(2)
+                for index in range(EXPECTED_SERVING_REQUESTS)
             ],
             max_new_tokens=650,
         )
@@ -425,7 +425,11 @@ def run_serving_gate(
             responses,
         )
         parsed = [
-            parse_information_need_belief(response, initials[index], index)
+            parse_information_need_belief(
+                response,
+                initials[index],
+                index % base.ROOT_COUNT,
+            )
             for index, response in enumerate(responses)
         ]
         usage = refresh.aggregate_usage(models)
@@ -437,20 +441,20 @@ def run_serving_gate(
         ) from exc
 
     gates = {
-        "exact_2_physical_requests": (
+        "exact_10_physical_requests": (
             usage["physical_requests"] == EXPECTED_SERVING_REQUESTS
         ),
-        "exact_2_http_attempts": (
+        "exact_10_http_attempts": (
             usage["http_attempts"] == EXPECTED_SERVING_REQUESTS
         ),
-        "all_outputs_parse": len(parsed) == 2,
-        "both_outputs_have_score_spread": all(
+        "all_10_outputs_parse": len(parsed) == EXPECTED_SERVING_REQUESTS,
+        "all_10_outputs_have_score_spread": all(
             max(item.scores) > min(item.scores) for item in parsed
         ),
         "zero_retries": usage["retry_count"] == 0,
         "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
         "zero_forced_exits": usage["forced_exits"] == 0,
-        "cost_at_most_0_03": (
+        "cost_at_most_0_08": (
             usage["adapter_cost_usd"] <= SERVING_MAX_COST_USD
         ),
     }
@@ -696,7 +700,7 @@ def main() -> None:
     config = load_config(args.config)
     config.run_id = args.run_id
     config.openrouter_projected_cost_usd = (
-        0.02 if args.stage == "serving" else 0.20
+        0.06 if args.stage == "serving" else 0.20
     )
     config.openrouter_run_budget_usd = (
         SERVING_MAX_COST_USD
@@ -719,7 +723,7 @@ def main() -> None:
         selected_actions = (
             _oracle_actions(loaded[4])
             if args.stage == "mechanics" and loaded is not None
-            else [0, 1]
+            else [index % 4 for index in range(EXPECTED_SERVING_REQUESTS)]
         )
         models = ModelBundle(
             generator=DeterministicNeedGenerator(

@@ -127,13 +127,13 @@ def test_parser_selects_highest_expected_resolved_mass_and_rejects_duplicates():
         )
 
 
-def test_serving_gate_has_exact_two_calls_and_no_scientific_endpoint(tmp_path):
+def test_serving_gate_has_exact_ten_calls_and_no_scientific_endpoint(tmp_path):
     result = gate.run_serving_gate(
-        _models([0, 1]),
+        _models([index % 4 for index in range(10)]),
         raw_path=tmp_path / "raw.json",
     )
     assert result["status"] == "passed"
-    assert result["usage"]["physical_requests"] == 2
+    assert result["usage"]["physical_requests"] == 10
     assert result["protocol"]["scientific_endpoint_evaluated"] is False
     assert result["protocol"]["target_or_checklist_content_in_prompt"] is False
 
