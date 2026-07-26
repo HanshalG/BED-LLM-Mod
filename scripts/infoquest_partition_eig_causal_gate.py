@@ -87,7 +87,11 @@ def dynamic_partition_messages(
     initial: base.InitialPolicy,
     asked_root_index: int,
     answer: str,
+    *,
+    max_cluster_label: int = 3,
 ) -> list[dict[str, str]]:
+    if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
+        raise ValueError("cluster label maximum is outside support")
     return [
         {
             "role": "system",
@@ -97,12 +101,13 @@ def dynamic_partition_messages(
                 "each context an integer posterior plausibility w1..w8 from 1 "
                 "to 100. For each candidate action A, B, C, and D, predict the "
                 "answer under every context and cluster semantically "
-                "indistinguishable answers: output integer labels 0..3 in "
-                "fields a1..a8, b1..b8, c1..c8, and d1..d8. Cluster labels are "
-                "local to each action. Use the same label within an action iff "
-                "the answers would convey the same information. Do not choose "
-                "an action. Output only one JSON object with exactly h1..h8, "
-                "w1..w8, a1..a8, b1..b8, c1..c8, and d1..d8."
+                "indistinguishable answers: output integer labels "
+                f"0..{max_cluster_label} in fields a1..a8, b1..b8, c1..c8, "
+                "and d1..d8. Cluster labels are local to each action. Use the "
+                "same label within an action iff the answers would convey the "
+                "same information. Do not choose an action. Output only one "
+                "JSON object with exactly h1..h8, w1..w8, a1..a8, b1..b8, "
+                "c1..c8, and d1..d8."
             ),
         },
         {
@@ -125,7 +130,11 @@ def fixed_partition_messages(
     initial: base.InitialPolicy,
     asked_root_index: int,
     answer: str,
+    *,
+    max_cluster_label: int = 3,
 ) -> list[dict[str, str]]:
+    if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
+        raise ValueError("cluster label maximum is outside support")
     return [
         {
             "role": "system",
@@ -137,10 +146,10 @@ def fixed_partition_messages(
                 "w1..w8 from 1 to 100. For each candidate action A, B, C, and "
                 "D, predict the answer under every hypothesis and cluster "
                 "semantically indistinguishable answers using integer labels "
-                "0..3 in a1..a8, b1..b8, c1..c8, and d1..d8. Labels are local "
-                "to each action. Do not choose an action. Output only one JSON "
-                "object with exactly h1..h8, w1..w8, a1..a8, b1..b8, c1..c8, "
-                "and d1..d8."
+                f"0..{max_cluster_label} in a1..a8, b1..b8, c1..c8, and "
+                "d1..d8. Labels are local to each action. Do not choose an "
+                "action. Output only one JSON object with exactly h1..h8, "
+                "w1..w8, a1..a8, b1..b8, c1..c8, and d1..d8."
             ),
         },
         {
@@ -178,7 +187,10 @@ def parse_partition_belief(
     asked_root_index: int,
     *,
     require_fixed_support: bool,
+    max_cluster_label: int = 3,
 ) -> PartitionBelief:
+    if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
+        raise ValueError("cluster label maximum is outside support")
     expected = {
         *(f"h{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
         *(f"w{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
@@ -211,7 +223,7 @@ def parse_partition_belief(
             _parse_bounded_integer(
                 value[f"{action}{index}"],
                 minimum=0,
-                maximum=3,
+                maximum=max_cluster_label,
                 name=f"{action}{index}",
             )
             for index in range(1, base.SUPPORT_SIZE + 1)

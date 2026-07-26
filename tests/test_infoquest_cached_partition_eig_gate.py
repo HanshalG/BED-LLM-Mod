@@ -140,6 +140,55 @@ def test_dry_mechanics_is_exactly_126_calls_and_passes(tmp_path):
     assert result["gates"]["all_pass"] is True
 
 
+def test_v2_allows_eight_nominal_answer_clusters(tmp_path):
+    initial = _initial(0)
+    response = json.loads(
+        gate.CachedDeterministicGenerator("generator")
+        .chat_complete_messages_batched(
+            [
+                partition.dynamic_partition_messages(
+                    "Ambiguous request",
+                    initial,
+                    0,
+                    "Answer.",
+                    max_cluster_label=7,
+                )
+            ],
+            temperature=0.0,
+            block_size=1,
+        )[0]
+    )
+    for action in partition.ACTION_KEYS:
+        for index in range(1, 9):
+            response[f"{action}{index}"] = index - 1
+    serialized = json.dumps(response)
+
+    with pytest.raises(ValueError, match=r"outside \[0, 3\]"):
+        partition.parse_partition_belief(
+            serialized,
+            initial,
+            0,
+            require_fixed_support=False,
+        )
+    parsed = partition.parse_partition_belief(
+        serialized,
+        initial,
+        0,
+        require_fixed_support=False,
+        max_cluster_label=7,
+    )
+    assert parsed.profiles[0] == tuple(range(8))
+
+    result = gate.run_serving_gate(
+        _models(),
+        raw_path=tmp_path / "v2-raw.json",
+        cluster_label_max=7,
+    )
+    assert result["gates"]["all_pass"] is True
+    assert result["protocol"]["interface_version"] == gate.INTERFACE_VERSION_V2
+    assert result["protocol"]["response_cluster_label_max"] == 7
+
+
 class BadChecklistModel(base.DeterministicFixtureModel):
     def chat_complete_messages_batched(
         self,
