@@ -1,0 +1,977 @@
+{
+  "protocol": {
+    "cannot_rescue_v2": true,
+    "cost_usd": 0.0,
+    "fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+    "interface_version": "infoquest-information-need-scoring-audit-1",
+    "llm_calls": 0,
+    "post_hoc_development_audit": true,
+    "private_semantic_text_emitted": false,
+    "source_mechanics_public_sha256": "e38980e38254a3d1b1c19865cf3bde11c7cccfa43150c38973c2978f098b9312",
+    "source_mechanics_raw_sha256": "a12153fcdee1d532d843274b2eb1998a959b60706a6e1beb1293b378fe91d530",
+    "source_target_audit_sha256": "d550cdfe9770b355c59ef999059175b79a5c7e01a8b0c3f82a96d62a98d916cf",
+    "target_or_checklist_content_used_by_scorers": false,
+    "variant_family": [
+      "power_1",
+      "power_2",
+      "power_3",
+      "power_4",
+      "power_6",
+      "power_8",
+      "power_12",
+      "power_16",
+      "max_resolution",
+      "weighted_max_resolution",
+      "resolution_margin",
+      "max_minus_mean_remainder",
+      "peak_ratio"
+    ]
+  },
+  "ranked_by_selected_gain_then_target_spearman": [
+    "max_resolution",
+    "power_16",
+    "power_12",
+    "max_minus_mean_remainder",
+    "power_8",
+    "resolution_margin",
+    "peak_ratio",
+    "power_6",
+    "power_4",
+    "power_3",
+    "weighted_max_resolution",
+    "power_1",
+    "power_2"
+  ],
+  "schema_version": 1,
+  "status": "diagnostic_complete",
+  "validation": {
+    "cells_per_variant": 30,
+    "power_1_exactly_reproduces_banked_v2": true,
+    "variants_evaluated": 13
+  },
+  "variants": {
+    "max_minus_mean_remainder": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 1.0,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.4,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.6000000000000001,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 4,
+        "information_need_target_optimal_cells": 20,
+        "information_need_vs_fixed_wins_ties_losses": [
+          14,
+          11,
+          5
+        ],
+        "mean_information_need_oracle_regret": 0.4,
+        "mean_information_need_selected_target_gain": 0.7,
+        "mean_information_need_target_spearman": 0.2891794652689628,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": true,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": true
+      }
+    },
+    "max_resolution": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.6,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.6000000000000001,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.6000000000000001,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.8,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 1.0
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 27,
+        "defined_within_cell_target_spearman": 26,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 5,
+        "information_need_target_optimal_cells": 22,
+        "information_need_vs_fixed_wins_ties_losses": [
+          14,
+          13,
+          3
+        ],
+        "mean_information_need_oracle_regret": 0.3333333333333333,
+        "mean_information_need_selected_target_gain": 0.7666666666666667,
+        "mean_information_need_target_spearman": 0.4453521290241813,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": true,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": true
+      }
+    },
+    "peak_ratio": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 1.0,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": -0.19999999999999996,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.4,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 4,
+        "information_need_target_optimal_cells": 18,
+        "information_need_vs_fixed_wins_ties_losses": [
+          12,
+          13,
+          5
+        ],
+        "mean_information_need_oracle_regret": 0.4666666666666667,
+        "mean_information_need_selected_target_gain": 0.6333333333333333,
+        "mean_information_need_target_spearman": 0.1844732785061608,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_1": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": -0.19999999999999996,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.0
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.20000000000000007,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.20000000000000007,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 3,
+        "information_need_target_optimal_cells": 11,
+        "information_need_vs_fixed_wins_ties_losses": [
+          5,
+          21,
+          4
+        ],
+        "mean_information_need_oracle_regret": 0.6666666666666666,
+        "mean_information_need_selected_target_gain": 0.43333333333333335,
+        "mean_information_need_target_spearman": -0.12375393350773627,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": false,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": false,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_12": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.6,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.6000000000000001,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.8,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 1.0
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 5,
+        "information_need_target_optimal_cells": 21,
+        "information_need_vs_fixed_wins_ties_losses": [
+          13,
+          14,
+          3
+        ],
+        "mean_information_need_oracle_regret": 0.36666666666666664,
+        "mean_information_need_selected_target_gain": 0.7333333333333333,
+        "mean_information_need_target_spearman": 0.278734849730114,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": true,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": true
+      }
+    },
+    "power_16": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.6,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.6000000000000001,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.8,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 1.0
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 5,
+        "information_need_target_optimal_cells": 21,
+        "information_need_vs_fixed_wins_ties_losses": [
+          13,
+          14,
+          3
+        ],
+        "mean_information_need_oracle_regret": 0.36666666666666664,
+        "mean_information_need_selected_target_gain": 0.7333333333333333,
+        "mean_information_need_target_spearman": 0.32499832512666144,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": true,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": true
+      }
+    },
+    "power_2": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": -0.19999999999999996,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.0
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.4,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 1,
+        "information_need_target_optimal_cells": 9,
+        "information_need_vs_fixed_wins_ties_losses": [
+          3,
+          22,
+          5
+        ],
+        "mean_information_need_oracle_regret": 0.7666666666666667,
+        "mean_information_need_selected_target_gain": 0.3333333333333333,
+        "mean_information_need_target_spearman": -0.1896951291299705,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": false,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": false,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": false,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_3": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.4,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 2,
+        "information_need_target_optimal_cells": 12,
+        "information_need_vs_fixed_wins_ties_losses": [
+          5,
+          21,
+          4
+        ],
+        "mean_information_need_oracle_regret": 0.6666666666666666,
+        "mean_information_need_selected_target_gain": 0.43333333333333335,
+        "mean_information_need_target_spearman": -0.11020367528534454,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": false,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_4": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.20000000000000007,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.20000000000000007,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 3,
+        "information_need_target_optimal_cells": 13,
+        "information_need_vs_fixed_wins_ties_losses": [
+          7,
+          19,
+          4
+        ],
+        "mean_information_need_oracle_regret": 0.6,
+        "mean_information_need_selected_target_gain": 0.5,
+        "mean_information_need_target_spearman": 0.04187681814606317,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": false,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_6": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.20000000000000007,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.20000000000000007,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.6000000000000001,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.6000000000000001,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.8
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 5,
+        "information_need_target_optimal_cells": 15,
+        "information_need_vs_fixed_wins_ties_losses": [
+          9,
+          16,
+          5
+        ],
+        "mean_information_need_oracle_regret": 0.5666666666666667,
+        "mean_information_need_selected_target_gain": 0.5333333333333333,
+        "mean_information_need_target_spearman": 0.11498061900676788,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "power_8": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.4,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.6000000000000001,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.8,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 1.0
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 5,
+        "information_need_target_optimal_cells": 19,
+        "information_need_vs_fixed_wins_ties_losses": [
+          12,
+          14,
+          4
+        ],
+        "mean_information_need_oracle_regret": 0.43333333333333335,
+        "mean_information_need_selected_target_gain": 0.6666666666666666,
+        "mean_information_need_target_spearman": 0.17905091438587808,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    },
+    "resolution_margin": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": 0.20000000000000007,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.8
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 1.0,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 1.0
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": -0.19999999999999996,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.20000000000000007,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.39999999999999997,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.4
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 4,
+        "information_need_target_optimal_cells": 17,
+        "information_need_vs_fixed_wins_ties_losses": [
+          12,
+          13,
+          5
+        ],
+        "mean_information_need_oracle_regret": 0.4666666666666667,
+        "mean_information_need_selected_target_gain": 0.6333333333333333,
+        "mean_information_need_target_spearman": 0.21715721444605943,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": true,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": true,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": true,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": true,
+        "mean_target_spearman_at_least_0_20": true
+      }
+    },
+    "weighted_max_resolution": {
+      "fixture_metrics": [
+        {
+          "fixture_id": "I0W1",
+          "information_need_minus_fixed_target_gain": -0.19999999999999996,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I0W2",
+          "information_need_minus_fixed_target_gain": 0.2,
+          "mean_fixed_target_gain": 0.0,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I1W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.6,
+          "mean_information_need_target_gain": 0.6
+        },
+        {
+          "fixture_id": "I1W2",
+          "information_need_minus_fixed_target_gain": -0.4,
+          "mean_fixed_target_gain": 0.8,
+          "mean_information_need_target_gain": 0.4
+        },
+        {
+          "fixture_id": "I4W1",
+          "information_need_minus_fixed_target_gain": 0.0,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.2
+        },
+        {
+          "fixture_id": "I4W2",
+          "information_need_minus_fixed_target_gain": 0.6000000000000001,
+          "mean_fixed_target_gain": 0.2,
+          "mean_information_need_target_gain": 0.8
+        }
+      ],
+      "metrics": {
+        "candidate_actions": 120,
+        "cells_with_information_need_score_spread": 30,
+        "defined_within_cell_target_spearman": 29,
+        "fixtures": 6,
+        "fixtures_with_positive_information_need_minus_fixed": 2,
+        "information_need_target_optimal_cells": 11,
+        "information_need_vs_fixed_wins_ties_losses": [
+          7,
+          17,
+          6
+        ],
+        "mean_information_need_oracle_regret": 0.6666666666666666,
+        "mean_information_need_selected_target_gain": 0.43333333333333335,
+        "mean_information_need_target_spearman": -0.12323917223381323,
+        "mean_oracle_target_gain": 1.1,
+        "mean_v3_dynamic_selected_target_gain": 0.3,
+        "mean_v3_fixed_selected_target_gain": 0.4,
+        "root_world_cells": 30
+      },
+      "retrospective_all_thresholds_met": false,
+      "retrospective_v2_thresholds": {
+        "at_least_12_of_30_choices_are_target_optimal": false,
+        "at_least_15_defined_target_correlations": true,
+        "at_least_24_cells_have_score_spread": true,
+        "at_least_4_of_6_fixtures_improve_over_fixed": false,
+        "exact_6_fixtures_30_cells_120_actions": true,
+        "information_need_wins_exceed_losses": true,
+        "mean_target_gain_at_least_0_15_above_fixed": false,
+        "mean_target_spearman_at_least_0_20": false
+      }
+    }
+  }
+}
