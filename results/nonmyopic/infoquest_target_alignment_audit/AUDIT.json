@@ -1,0 +1,282 @@
+{
+  "fixture_metrics": [
+    {
+      "dynamic_target_gains": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "dynamic_target_regrets": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "fixed_target_gains": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "fixed_target_regrets": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "fixture_id": "I0W1",
+      "oracle_target_gains": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "dynamic_target_gains": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dynamic_target_regrets": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "fixed_target_gains": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fixed_target_regrets": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "fixture_id": "I0W2",
+      "oracle_target_gains": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "dynamic_target_gains": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "dynamic_target_regrets": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "fixed_target_gains": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "fixed_target_regrets": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fixture_id": "I1W1",
+      "oracle_target_gains": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "dynamic_target_gains": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "dynamic_target_regrets": [
+        1,
+        2,
+        0,
+        2,
+        1
+      ],
+      "fixed_target_gains": [
+        2,
+        0,
+        0,
+        1,
+        1
+      ],
+      "fixed_target_regrets": [
+        0,
+        2,
+        1,
+        1,
+        0
+      ],
+      "fixture_id": "I1W2",
+      "oracle_target_gains": [
+        2,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "dynamic_target_gains": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "dynamic_target_regrets": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "fixed_target_gains": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fixed_target_regrets": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "fixture_id": "I4W1",
+      "oracle_target_gains": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "dynamic_target_gains": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dynamic_target_regrets": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "fixed_target_gains": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fixed_target_regrets": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "fixture_id": "I4W2",
+      "oracle_target_gains": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "gates": {
+    "all_pass": false,
+    "at_least_15_cells_have_target_gain_spread": true,
+    "dynamic_mean_target_spearman_at_least_0_20": false,
+    "dynamic_regret_no_worse_than_fixed": false,
+    "exact_6_fixtures_30_cells_120_actions": true,
+    "oracle_has_at_least_0_15_gain_headroom_over_fixed": true,
+    "selected_path_additive_agreement_at_least_0_90": true,
+    "zero_llm_calls": true
+  },
+  "metrics": {
+    "candidate_actions": 120,
+    "cells_with_candidate_target_gain_spread": 29,
+    "dynamic_defined_within_cell_rhos": 26,
+    "dynamic_target_optimal_cells": 8,
+    "dynamic_vs_fixed_target_wins_ties_losses": [
+      3,
+      21,
+      6
+    ],
+    "fixed_defined_within_cell_rhos": 18,
+    "fixed_target_optimal_cells": 10,
+    "fixtures": 6,
+    "mean_dynamic_eig_target_gain_spearman": -0.1443575330313697,
+    "mean_dynamic_selected_target_gain": 0.3,
+    "mean_fixed_eig_target_gain_spearman": -0.18440341432739962,
+    "mean_fixed_selected_target_gain": 0.4,
+    "mean_oracle_minus_dynamic_regret": 0.8,
+    "mean_oracle_minus_fixed_regret": 0.7,
+    "mean_oracle_target_gain": 1.1,
+    "root_world_cells": 30,
+    "selected_path_additive_bit_agreement": 0.9466666666666667,
+    "selected_path_bits_checked": 300
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "diagnostic_public_sha256": "9855e57d3a00afcd074e15812aa14bb987ede1bc8b09d97a9382ae8b901451f2",
+    "diagnostic_raw_sha256": "e5a128d92fa48693e3b6f28b216d3b8c314bb3c67081ad1ba6cdb485e932dc9a",
+    "fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+    "interface_version": "infoquest-target-alignment-audit-1",
+    "llm_calls": 0,
+    "post_hoc_development_audit": true,
+    "private_semantic_text_emitted": false,
+    "selected_path_proxy_validation": true,
+    "target_gain_proxy": "new immediate checklist bits from candidate root answer",
+    "v3_public_sha256": "0cfbe3d1590001af508d351d131d12d747f2fcadf0448e2e7868809f40d968f7",
+    "v3_raw_sha256": "134a9659dc5f86df3dba6e18fdc8c72a79f3524b166d2cd52d91a7fe88747e1e"
+  },
+  "schema_version": 1,
+  "status": "gate_failed"
+}
