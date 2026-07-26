@@ -33,6 +33,7 @@ from scripts.hotpot_causal_belief_smoke import (
     parse_refresh,
     parse_scorer,
     refresh_messages,
+    run_smoke,
     scorer_messages,
     token_f1,
 )
@@ -237,6 +238,93 @@ def opportunity_payload(paths: Sequence[Path]) -> dict[str, Any]:
             },
         },
         "gates": gates,
+    }
+
+
+def run_serving(
+    config: Config,
+    *,
+    validation_path: Path,
+    raw_path: Path,
+    model_adapter: Any | None = None,
+) -> dict[str, Any]:
+    """Exercise the exact all-stage transport on the already-open smoke row."""
+    payload = run_smoke(
+        config,
+        data_path=validation_path,
+        raw_path=raw_path,
+        model_adapter=model_adapter,
+    )
+    old_gates = payload["summary"]["gates"]
+    continuation_rows = payload["continuation_rows"]
+    future_scores = [
+        max(row["aligned_scores"]) for row in continuation_rows
+    ]
+    immediate_scores = payload["initial"]["root_scores"]
+    gates = {
+        "exact_10_physical_requests": old_gates[
+            "exact_10_physical_requests"
+        ],
+        "exact_10_http_attempts": old_gates["exact_10_http_attempts"],
+        "zero_transport_retries": old_gates["zero_transport_retries"],
+        "zero_reasoning_tokens": old_gates["zero_reasoning_tokens"],
+        "zero_forced_exits": old_gates["zero_forced_exits"],
+        "all_responses_parsed_without_repair": old_gates[
+            "all_responses_parsed_without_repair"
+        ],
+        "all_refreshed_states_differ_from_initial": old_gates[
+            "all_refreshed_states_differ_from_initial"
+        ],
+        "all_refreshed_states_pairwise_distinct": old_gates[
+            "all_refreshed_states_pairwise_distinct"
+        ],
+        "balanced_blinding_labels": old_gates["balanced_blinding_labels"],
+        "aligned_score_variation_at_least_3_roots": old_gates[
+            "aligned_score_variation_at_least_3_roots"
+        ],
+        "aligned_shuffled_vectors_differ_at_least_3_roots": old_gates[
+            "aligned_shuffled_vectors_differ_at_least_3_roots"
+        ],
+        "aligned_initial_vectors_differ_at_least_3_roots": old_gates[
+            "aligned_initial_vectors_differ_at_least_3_roots"
+        ],
+        "future_scores_have_spread": len(set(future_scores)) >= 2,
+        "future_first_root_is_defined": 0
+        <= future_first_root(immediate_scores, continuation_rows)
+        < ROOTS_PER_TASK,
+        "cost_at_most_0_15": float(
+            payload["usage"]["adapter_cost_usd"]
+        )
+        <= SERVING_COST_CAP,
+    }
+    gates["all_pass"] = all(gates.values())
+    return {
+        "schema_version": 1,
+        "status": "passed" if gates["all_pass"] else "gate_failed",
+        "protocol": {
+            "interface_version": INTERFACE_VERSION,
+            "stage": "serving",
+            "source": "already_open_validation_smoke_task",
+            "scientific_training_record_accessed": False,
+            "scientific_endpoint_reported": False,
+            "model": MODEL_ID,
+            "reasoning_requested": False,
+            "repairs_or_scientific_retries": 0,
+        },
+        "metrics": {
+            "logical_stage_counts": {
+                "initial": 1,
+                "refresh": 4,
+                "continuation_scorer": 4,
+                "final_answer": 1,
+            },
+            "future_score_spread": max(future_scores) - min(future_scores),
+            "future_first_root_index": future_first_root(
+                immediate_scores, continuation_rows
+            ),
+        },
+        "gates": gates,
+        "usage": payload["usage"],
     }
 
 
@@ -866,10 +954,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--stage",
-        choices=("manifest", "opportunity", "confirmation"),
+        choices=("manifest", "opportunity", "serving", "confirmation"),
         required=True,
     )
     parser.add_argument("--train-shard", type=Path, action="append", required=True)
+    parser.add_argument("--validation-data", type=Path)
     parser.add_argument("--config", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--private-raw-dir", type=Path)
@@ -883,6 +972,53 @@ def main() -> None:
     elif args.stage == "opportunity":
         payload = opportunity_payload(paths)
         output_name = "OPPORTUNITY.json"
+    elif args.stage == "serving":
+        if (
+            args.config is None
+            or args.private_raw_dir is None
+            or not args.run_id
+            or args.validation_data is None
+        ):
+            parser.error(
+                "serving requires --config, --private-raw-dir, --run-id, "
+                "and --validation-data"
+            )
+        config = load_config(str(args.config))
+        config.run_id = args.run_id
+        config.openrouter_budget_usd = min(
+            float(config.openrouter_budget_usd), 105.0
+        )
+        config.openrouter_projected_cost_usd = 0.10
+        config.openrouter_run_budget_usd = SERVING_COST_CAP
+        config.openrouter_concurrency = 4
+        config.log_path = args.output_dir / "run.log"
+        private_dir = args.private_raw_dir / args.run_id
+        private_dir.mkdir(parents=True, exist_ok=True)
+        raw_path = private_dir / "RAW_RESPONSES.json"
+        try:
+            payload = run_serving(
+                config,
+                validation_path=args.validation_data,
+                raw_path=raw_path,
+            )
+            payload["protocol"]["private_raw_sha256"] = sha256_file(raw_path)
+        except Exception as exc:
+            failure: dict[str, Any] = {
+                "schema_version": 1,
+                "status": "failed_closed",
+                "interface_version": INTERFACE_VERSION,
+                "error": f"{type(exc).__name__}: {exc}",
+            }
+            if isinstance(exc, GateExecutionError):
+                failure["usage"] = exc.usage
+            if raw_path.exists():
+                failure["private_raw_sha256"] = sha256_file(raw_path)
+            (args.output_dir / "SERVING_FAILURE.json").write_text(
+                json.dumps(failure, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            raise
+        output_name = "SERVING.json"
     else:
         if args.config is None or args.private_raw_dir is None or not args.run_id:
             parser.error(

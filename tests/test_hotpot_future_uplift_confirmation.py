@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
+from helpers import load_config
 from scripts.hotpot_future_uplift_confirmation import (
     _pairwise_accuracy,
     _sign_flip_p,
     future_first_root,
     policy_selections,
+    run_serving,
     title_bm25_order,
 )
 
@@ -65,3 +70,84 @@ def test_title_bm25_order_is_deterministic() -> None:
     second = title_bm25_order("red planet science", titles)
     assert first == second
     assert first[0] == 0
+
+
+class _FakeServingModel:
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def chat_complete_messages_batched(
+        self,
+        messages,
+        temperature,
+        block_size,
+        max_new_tokens,
+    ):
+        del temperature, block_size, max_new_tokens
+        self.calls += len(messages)
+        if len(messages) == 1 and self.calls == 1:
+            return [
+                json.dumps(
+                    {
+                        **{
+                            f"hypothesis_{index}": f"initial hypothesis {index}"
+                            for index in range(1, 9)
+                        },
+                        "root_1_score": 98,
+                        "root_2_score": 42,
+                        "root_3_score": 0,
+                        "root_4_score": 1,
+                    }
+                )
+            ]
+        if len(messages) == 4 and self.calls == 5:
+            return [
+                json.dumps(
+                    {
+                        f"hypothesis_{index}": (
+                            f"branch {branch} hypothesis {index}"
+                        )
+                        for index in range(1, 9)
+                    }
+                )
+                for branch in range(4)
+            ]
+        if len(messages) == 4 and self.calls == 9:
+            responses = []
+            for root in range(4):
+                payload = {}
+                for state_offset, state in enumerate(("a", "b", "c")):
+                    for index in range(1, 10):
+                        payload[
+                            f"state_{state}_title_{index}_score"
+                        ] = (root * 17 + state_offset * 11 + index * 7) % 101
+                responses.append(json.dumps(payload))
+            return responses
+        if len(messages) == 1 and self.calls == 10:
+            return ['{"answer":"Army and Navy","confidence":90}']
+        raise AssertionError("unexpected fake serving stage")
+
+    def usage_snapshot(self):
+        return {
+            "adapter_requests": self.calls,
+            "adapter_reasoning_tokens": 0,
+            "adapter_cost_usd": 0.01,
+            "http_attempts": self.calls,
+            "retry_count": 0,
+            "forced_exits": 0,
+        }
+
+
+def test_serving_stage_accepts_exact_fake_transport(tmp_path: Path) -> None:
+    config = load_config(
+        "configs/config_hotpot_causal_belief_smoke_openrouter.yaml"
+    )
+    payload = run_serving(
+        config,
+        validation_path=Path("/tmp/hotpotqa-distractor-validation.parquet"),
+        raw_path=tmp_path / "raw.json",
+        model_adapter=_FakeServingModel(),
+    )
+    assert payload["status"] == "passed"
+    assert payload["gates"]["all_pass"] is True
+    assert payload["usage"]["physical_requests"] == 10

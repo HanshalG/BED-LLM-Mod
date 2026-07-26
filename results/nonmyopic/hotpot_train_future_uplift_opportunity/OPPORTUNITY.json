@@ -1,0 +1,32 @@
+{
+  "gates": {
+    "all_pass": true,
+    "development_confirmation_holdout_not_materialized": true,
+    "every_qualifying_row_has_unit_structural_gain": true,
+    "exact_1000_opportunity_rows": true,
+    "qualifying_top_four_misses_at_least_20": true,
+    "strict_directional_unlocks_at_least_250": true,
+    "zero_model_calls": true
+  },
+  "metrics": {
+    "qualifying_levels": {
+      "easy": 13,
+      "hard": 5,
+      "medium": 13
+    },
+    "qualifying_neither_title_in_question": 9,
+    "qualifying_top_four_misses": 31,
+    "strict_directional_unlocks": 320
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "endpoint_rows_materialized": 1000,
+    "interface_version": "hotpot-future-uplift-confirmation-1",
+    "model_calls": 0,
+    "other_split_endpoint_rows_materialized": 0,
+    "split": "opportunity",
+    "split_sha256": "2e63446b32879cae47876214261054ef696e153ebf621042fc5420bc7e1eb60c"
+  },
+  "schema_version": 1,
+  "status": "passed"
+}
