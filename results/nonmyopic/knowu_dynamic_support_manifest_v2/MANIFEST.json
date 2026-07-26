@@ -1,0 +1,81 @@
+{
+  "amendment_from_v1": {
+    "eligibility_semantics_changed": false,
+    "profile_or_endpoint_content_read": false,
+    "scope": "Accept profile-independent GOAL_REQUEST expressions made only of constant strings and zero-slot f-strings.",
+    "selection_seed_changed": false,
+    "split_sizes_changed": false
+  },
+  "construction": {
+    "belief_support": "llm_generated_and_history_regenerated",
+    "eligible_families": 10,
+    "initial_observation": "task_relevant_clean_behavior_logs_only",
+    "minimum_eligible_families": 10,
+    "profile_labels_hidden_from_policy": true,
+    "question_interface": "one_atomic_task_preference_per_turn",
+    "selection_seed": 24415,
+    "world_prior": "uniform_over_supported_official_profiles"
+  },
+  "endpoint_content_emitted": false,
+  "gates": {
+    "all_splits_nonempty": true,
+    "at_least_10_eligible_families": true,
+    "every_selected_family_has_at_least_three_worlds": true,
+    "source_audit_authorizes_manifest": true
+  },
+  "goal_content_emitted": false,
+  "interface_version": "knowu-dynamic-support-manifest-2",
+  "log_content_emitted": false,
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "passed": true,
+  "profile_content_emitted": false,
+  "source": {
+    "clean_log_source_sha256": "d5acd87e9d2b8528bc388b0dc7eea48363514de4a1c09a01d1bec83368f1d2d8",
+    "commit": "c03a825991ede13add6631f2ed19b90755930dc6",
+    "preference_source_sha256": "a67717f0f4f665e15e941625acfe21225481824282eba760d516df131b80f846",
+    "profile_source_sha256": "d77840606416c3b94c3a2de294ff4564a30e5cfda537081f6427799c93712a3e",
+    "repository": "https://github.com/ZJU-REAL/KnowU-Bench"
+  },
+  "splits": {
+    "development": {
+      "family_count": 2,
+      "family_ids": [
+        "SearchWhiteSneakersCheckoutPreferenceAskUserTask",
+        "TakeoutReamarkPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "df33c350f984653da9d3f196ef41d16ee724f6bf489b07de2acead19c2aaddcc",
+      "profile_world_count": 8
+    },
+    "holdout": {
+      "family_count": 3,
+      "family_ids": [
+        "OrderLunchPreferenceTask",
+        "SortFilesByHabitPreferenceAskUserTask",
+        "SearchTopInfoPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "0e3c4321fefd73b42399ad9bb3c25a25b702204a5093c7a00d4341d2331154f7",
+      "profile_world_count": 12
+    },
+    "mechanics": {
+      "family_count": 2,
+      "family_ids": [
+        "BuyComputerPreferenceAskUserTask",
+        "MattermostLeaveNoticeTask"
+      ],
+      "ordered_sha256": "b01108b17cd92ec30e7d0c532de0275c02cdcf9f02bd6a120a3a2810e90a09d4",
+      "profile_world_count": 6
+    },
+    "opportunity": {
+      "family_count": 3,
+      "family_ids": [
+        "CalendarInviteConflictResolutionTask",
+        "CartManagementPreferenceAskUserTask",
+        "ShareFavoritePhotosPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "0826daa1505c46993d718e95496780ca7c1e83c4cff93c7a17fa9f5ab0c23e15",
+      "profile_world_count": 11
+    }
+  }
+}

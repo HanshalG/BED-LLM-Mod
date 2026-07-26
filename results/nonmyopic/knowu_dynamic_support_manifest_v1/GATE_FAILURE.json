@@ -1,0 +1,86 @@
+{
+  "construction": {
+    "belief_support": "llm_generated_and_history_regenerated",
+    "eligible_families": 9,
+    "initial_observation": "task_relevant_clean_behavior_logs_only",
+    "minimum_eligible_families": 10,
+    "profile_labels_hidden_from_policy": true,
+    "question_interface": "one_atomic_task_preference_per_turn",
+    "selection_seed": 24415,
+    "world_prior": "uniform_over_supported_official_profiles"
+  },
+  "endpoint_content_emitted": false,
+  "gates": {
+    "all_splits_nonempty": true,
+    "at_least_10_eligible_families": false,
+    "every_selected_family_has_at_least_three_worlds": true,
+    "source_audit_authorizes_manifest": true
+  },
+  "goal_content_emitted": false,
+  "interface_version": "knowu-dynamic-support-manifest-1",
+  "log_content_emitted": false,
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "passed": false,
+  "profile_content_emitted": false,
+  "source": {
+    "clean_log_source_sha256": "d5acd87e9d2b8528bc388b0dc7eea48363514de4a1c09a01d1bec83368f1d2d8",
+    "commit": "c03a825991ede13add6631f2ed19b90755930dc6",
+    "preference_source_sha256": "a67717f0f4f665e15e941625acfe21225481824282eba760d516df131b80f846",
+    "profile_source_sha256": "d77840606416c3b94c3a2de294ff4564a30e5cfda537081f6427799c93712a3e",
+    "repository": "https://github.com/ZJU-REAL/KnowU-Bench"
+  },
+  "splits": {
+    "development": {
+      "family_count": 2,
+      "family_ids": [
+        "ShareFavoritePhotosPreferenceAskUserTask",
+        "TakeoutReamarkPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "0f1d764fd0cef95bb2203bd8c95cb2c14d821d86904a48bb22ae92545907342b",
+      "profile_variant_histogram": {
+        "4": 2
+      },
+      "profile_world_count": 8
+    },
+    "holdout": {
+      "family_count": 2,
+      "family_ids": [
+        "OrderLunchPreferenceTask",
+        "SearchWhiteSneakersCheckoutPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "4ae323d51d46d68166a898de5de64cd2a098d7e493396297c61173c99a4f983c",
+      "profile_variant_histogram": {
+        "4": 2
+      },
+      "profile_world_count": 8
+    },
+    "mechanics": {
+      "family_count": 2,
+      "family_ids": [
+        "BuyComputerPreferenceAskUserTask",
+        "MattermostLeaveNoticeTask"
+      ],
+      "ordered_sha256": "b01108b17cd92ec30e7d0c532de0275c02cdcf9f02bd6a120a3a2810e90a09d4",
+      "profile_variant_histogram": {
+        "3": 2
+      },
+      "profile_world_count": 6
+    },
+    "opportunity": {
+      "family_count": 3,
+      "family_ids": [
+        "CalendarInviteConflictResolutionTask",
+        "CartManagementPreferenceAskUserTask",
+        "SortFilesByHabitPreferenceAskUserTask"
+      ],
+      "ordered_sha256": "e46939921a0d60838cc4ddc545ab4402a63c168e4199e792c2ad5023c59f470a",
+      "profile_variant_histogram": {
+        "3": 1,
+        "4": 2
+      },
+      "profile_world_count": 11
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "decision": {
+    "derived_dynamic_support_manifest_authorized": true,
+    "derived_route": "Use the official cross-profile task families with a frozen uniform prior, profile labels hidden, task-relevant clean logs as the initial observation, atomic clarification questions, and LLM-generated path-dependent support.",
+    "direct_nonmyopic_claim_authorized": false,
+    "reason": "Unrestricted ask_user permits direct terminal-preference questions, and the release defines neither a profile prior nor a reference non-myopic policy."
+  },
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "profiles": {
+    "clean_log_entry_counts": {
+      "developer": 138,
+      "grandma": 168,
+      "student": 96,
+      "user": 159
+    },
+    "profile_ids": [
+      "developer",
+      "grandma",
+      "student",
+      "user"
+    ],
+    "profile_leaf_counts": {
+      "developer": 109,
+      "grandma": 119,
+      "student": 141,
+      "user": 159
+    },
+    "top_level_section_coverage": {
+      "decision_criteria": 4,
+      "digital_context": 4,
+      "habits": 4,
+      "identity": 4,
+      "locations": 4,
+      "preferences": 4,
+      "social_graph": 4
+    }
+  },
+  "released_mechanics": {
+    "explicit_profile_prior_released": false,
+    "free_form_ask_user_released": true,
+    "profile_conditioned_clean_logs_released": true,
+    "profile_hidden_from_gui_agent": true,
+    "reference_nonmyopic_policy_released": false,
+    "registry_cross_products_task_profiles": true,
+    "simulator_receives_full_dialogue_history": true,
+    "task_specific_programmatic_or_hybrid_endpoints": true
+  },
+  "source": {
+    "clean_log_source_sha256": "d5acd87e9d2b8528bc388b0dc7eea48363514de4a1c09a01d1bec83368f1d2d8",
+    "commit": "c03a825991ede13add6631f2ed19b90755930dc6",
+    "preference_source_sha256": "a67717f0f4f665e15e941625acfe21225481824282eba760d516df131b80f846",
+    "profile_source_sha256": "d77840606416c3b94c3a2de294ff4564a30e5cfda537081f6427799c93712a3e",
+    "repository": "https://github.com/ZJU-REAL/KnowU-Bench"
+  },
+  "task_structure": {
+    "hard_multi_profile_families": 10,
+    "hard_multi_profile_family_ids": [
+      "BuyComputerPreferenceAskUserTask",
+      "CalendarInviteConflictResolutionTask",
+      "CartManagementPreferenceAskUserTask",
+      "MattermostLeaveNoticeTask",
+      "OrderLunchPreferenceTask",
+      "SearchTopInfoPreferenceAskUserTask",
+      "SearchWhiteSneakersCheckoutPreferenceAskUserTask",
+      "ShareFavoritePhotosPreferenceAskUserTask",
+      "SortFilesByHabitPreferenceAskUserTask",
+      "TakeoutReamarkPreferenceAskUserTask"
+    ],
+    "official_profile_variants": 86,
+    "preference_task_families": 26,
+    "profile_variant_histogram": {
+      "1": 2,
+      "2": 3,
+      "3": 6,
+      "4": 15
+    }
+  }
+}
