@@ -21,6 +21,8 @@ receding-policy result, failed same-task execution replication, and the
 ClariQ multisample-likelihood development signal with a serving-invalid
 untouched holdout and a post hoc dynamic-support particle replay showing that
 answer-conditioned future entropy can reduce first-link fidelity, an
+InfoQuest shared-action causal mechanics result in which complete support
+regeneration loses to compute-matched fixed support, an
 exploratory externally scored Zendo
 path-dependent-belief smoke with pre-endpoint confirmation failures, and the
 Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
