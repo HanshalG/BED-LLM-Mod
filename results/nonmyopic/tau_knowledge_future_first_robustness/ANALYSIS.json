@@ -1,0 +1,308 @@
+{
+  "classification": "null_or_adverse",
+  "limitations": [
+    "post hoc same-task audit on already-open V3.1 trees and endpoints",
+    "six scorer runs share tasks and generated retrieval trees",
+    "a pass is mechanism robustness rather than task generalization"
+  ],
+  "protocol": {
+    "future_first_tie_break": [
+      "full_minus_myopic",
+      "myopic",
+      "root_order"
+    ],
+    "model_calls": 0,
+    "replicate_sha256": [
+      "932ca6c046a0c8bd6cd9c48786600e549da3f3dd10e4eb80ddf540b52b8f4135",
+      "9c81e75209c095f508f3838ac4da72bf6b5693aa2924f0d005c00e4009f72877",
+      "4ef14acb5121629510d887c18414d9881f19cc7e15503365ac105013026fc4ec",
+      "d28a863fa4d6fce30aa2cecbba9c65c8c7c46613620db87d55bca1becec5c953",
+      "0cccf93296ac336b2ea587f7206cb22059cfd789c27aab075aa6add9f3a106f6",
+      "607adc749723bdd5490a111989d839432f1aa56a192a0b554af49913e4ba726a"
+    ],
+    "same_open_tasks_only": true,
+    "source_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae"
+  },
+  "replicates": [
+    {
+      "block": "scorer_retest",
+      "endpoint_totals": {
+        "future_first": 20,
+        "myopic": 26,
+        "random": 22,
+        "raw_full": 29
+      },
+      "future_first_advantages": {
+        "myopic": -6,
+        "random": -2,
+        "raw_full": -9
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.6020408163265306,
+      "future_gain_points": 59.0,
+      "replicate_index": 1,
+      "task_counts": {
+        "myopic": {
+          "losses": 7,
+          "ties": 11,
+          "wins": 2
+        },
+        "random": {
+          "losses": 4,
+          "ties": 12,
+          "wins": 4
+        },
+        "raw_full": {
+          "losses": 7,
+          "ties": 13,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "block": "scorer_retest",
+      "endpoint_totals": {
+        "future_first": 22,
+        "myopic": 25,
+        "random": 22,
+        "raw_full": 31
+      },
+      "future_first_advantages": {
+        "myopic": -3,
+        "random": 0,
+        "raw_full": -9
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.6020408163265306,
+      "future_gain_points": 59.0,
+      "replicate_index": 2,
+      "task_counts": {
+        "myopic": {
+          "losses": 6,
+          "ties": 11,
+          "wins": 3
+        },
+        "random": {
+          "losses": 4,
+          "ties": 12,
+          "wins": 4
+        },
+        "raw_full": {
+          "losses": 7,
+          "ties": 12,
+          "wins": 1
+        }
+      }
+    },
+    {
+      "block": "scorer_retest",
+      "endpoint_totals": {
+        "future_first": 22,
+        "myopic": 29,
+        "random": 22,
+        "raw_full": 31
+      },
+      "future_first_advantages": {
+        "myopic": -7,
+        "random": 0,
+        "raw_full": -9
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.5561224489795918,
+      "future_gain_points": 54.5,
+      "replicate_index": 3,
+      "task_counts": {
+        "myopic": {
+          "losses": 8,
+          "ties": 10,
+          "wins": 2
+        },
+        "random": {
+          "losses": 4,
+          "ties": 12,
+          "wins": 4
+        },
+        "raw_full": {
+          "losses": 9,
+          "ties": 11,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "block": "rank_ensemble",
+      "endpoint_totals": {
+        "future_first": 22,
+        "myopic": 26,
+        "random": 22,
+        "raw_full": 32
+      },
+      "future_first_advantages": {
+        "myopic": -4,
+        "random": 0,
+        "raw_full": -10
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.6275510204081632,
+      "future_gain_points": 61.5,
+      "replicate_index": 4,
+      "task_counts": {
+        "myopic": {
+          "losses": 6,
+          "ties": 11,
+          "wins": 3
+        },
+        "random": {
+          "losses": 4,
+          "ties": 11,
+          "wins": 5
+        },
+        "raw_full": {
+          "losses": 9,
+          "ties": 11,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "block": "rank_ensemble",
+      "endpoint_totals": {
+        "future_first": 24,
+        "myopic": 29,
+        "random": 22,
+        "raw_full": 30
+      },
+      "future_first_advantages": {
+        "myopic": -5,
+        "random": 2,
+        "raw_full": -6
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.5816326530612245,
+      "future_gain_points": 57.0,
+      "replicate_index": 5,
+      "task_counts": {
+        "myopic": {
+          "losses": 9,
+          "ties": 7,
+          "wins": 4
+        },
+        "random": {
+          "losses": 4,
+          "ties": 11,
+          "wins": 5
+        },
+        "raw_full": {
+          "losses": 7,
+          "ties": 11,
+          "wins": 2
+        }
+      }
+    },
+    {
+      "block": "rank_ensemble",
+      "endpoint_totals": {
+        "future_first": 24,
+        "myopic": 26,
+        "random": 22,
+        "raw_full": 31
+      },
+      "future_first_advantages": {
+        "myopic": -2,
+        "random": 2,
+        "raw_full": -7
+      },
+      "future_gain_comparable": 98,
+      "future_gain_pairwise_accuracy": 0.5612244897959183,
+      "future_gain_points": 55.0,
+      "replicate_index": 6,
+      "task_counts": {
+        "myopic": {
+          "losses": 7,
+          "ties": 9,
+          "wins": 4
+        },
+        "random": {
+          "losses": 2,
+          "ties": 13,
+          "wins": 5
+        },
+        "raw_full": {
+          "losses": 8,
+          "ties": 11,
+          "wins": 1
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "completed",
+  "summary": {
+    "block_mean_future_gain_pairwise_accuracy": {
+      "rank_ensemble": 0.5901360544217686,
+      "scorer_retest": 0.586734693877551
+    },
+    "directional_gates": {
+      "at_least_3_nonnegative_replicates_vs_myopic": false,
+      "at_least_3_nonnegative_replicates_vs_raw_full": false,
+      "both_block_accuracies_at_least_0_50": true,
+      "pooled_accuracy_at_least_0_55": true,
+      "positive_mean_gain_vs_myopic": false,
+      "positive_mean_gain_vs_raw_full": false
+    },
+    "future_first_root_agreement": 0.73,
+    "mean_endpoint_totals": {
+      "future_first": 22.333333333333332,
+      "myopic": 26.833333333333332,
+      "random": 22.0,
+      "raw_full": 30.666666666666668
+    },
+    "mean_future_first_advantages": {
+      "myopic": -4.5,
+      "random": 0.33333333333333215,
+      "raw_full": -8.333333333333336
+    },
+    "nonnegative_replicate_counts": {
+      "myopic": 0,
+      "random": 5,
+      "raw_full": 0
+    },
+    "pooled_future_gain_comparable": 588,
+    "pooled_future_gain_pairwise_accuracy": 0.5884353741496599,
+    "pooled_future_gain_points": 346.0,
+    "strong_gates": {
+      "at_least_4_nonnegative_replicates_vs_myopic": false,
+      "at_least_4_nonnegative_replicates_vs_raw_full": false,
+      "future_first_root_agreement_at_least_0_50": true,
+      "mean_gain_vs_myopic_at_least_2": false,
+      "mean_gain_vs_raw_full_at_least_1": false,
+      "pooled_accuracy_at_least_0_60": false,
+      "rank_ensemble_block_accuracy_at_least_0_55": true,
+      "scorer_retest_block_accuracy_at_least_0_55": true,
+      "task_clustered_p_vs_myopic_at_most_0_10": false
+    },
+    "task_clustered": {
+      "myopic": {
+        "losses": 9,
+        "mean_difference": -0.225,
+        "one_sided_sign_flip_p": 0.87646484375,
+        "ties": 7,
+        "wins": 4
+      },
+      "random": {
+        "losses": 5,
+        "mean_difference": 0.016666666666666666,
+        "one_sided_sign_flip_p": 0.482421875,
+        "ties": 10,
+        "wins": 5
+      },
+      "raw_full": {
+        "losses": 11,
+        "mean_difference": -0.4166666666666667,
+        "one_sided_sign_flip_p": 0.999755859375,
+        "ties": 8,
+        "wins": 1
+      }
+    }
+  }
+}
