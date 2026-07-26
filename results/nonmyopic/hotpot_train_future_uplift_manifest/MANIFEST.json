@@ -1,0 +1,41 @@
+{
+  "protocol": {
+    "endpoint_columns_read": false,
+    "interface_version": "hotpot-future-uplift-confirmation-1",
+    "metadata_columns_read": [
+      "id",
+      "type",
+      "level"
+    ],
+    "metadata_sha256": "e75f2c4ec26b8e3edefb76a1efa81390d9440b634c435ab3a978b5e455c83542",
+    "selection_seed": 24419,
+    "source_hashes": [
+      "76d3bb3048a7cc73c1958107c0c5872a00d7e7d00c105b81e92f6769e7822e68",
+      "713661628434fbb19fff7392e2e321e4ed107e3c7c7784d0690946e5f722763f"
+    ],
+    "source_rows": [
+      45224,
+      45223
+    ]
+  },
+  "schema_version": 1,
+  "splits": {
+    "confirmation": {
+      "count": 500,
+      "ordered_id_sha256": "eb97d88de626bcf6aefa118f0ec19e2d62200495200da4ed63dc5587aa756079"
+    },
+    "development": {
+      "count": 100,
+      "ordered_id_sha256": "01755657af1915c4c3171cbc2454f5c12ea6e48e18f8c5fae7cf7fbb68db3a7a"
+    },
+    "holdout": {
+      "count": 71391,
+      "ordered_id_sha256": "f1fc6d1119a8fdda01860055adf1d146f900433c76f1af508bc725ff4ec088d8"
+    },
+    "opportunity": {
+      "count": 1000,
+      "ordered_id_sha256": "2e63446b32879cae47876214261054ef696e153ebf621042fc5420bc7e1eb60c"
+    }
+  },
+  "status": "passed"
+}
