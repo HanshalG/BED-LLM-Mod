@@ -539,10 +539,13 @@ Target-free audits expose the same prerequisite. ClariQ multisample GPT-5.4
 changed two of three development roots and gained $+.026$ NDCG, but stability
 and holdout-serving gates failed; an open-support replay ranked terminal NDCG
 $.207$ versus $.487$ myopic, with shuffling removing the harm. A prospective
-six-world InfoQuest gate changed all 30 supports (novel fraction 1.0), yet shared
-actions differed in only 12/30 cells and lost official-checklist gain to fixed
-support ($.167$ versus $.333$; 0/26/4 wins/ties/losses). DiscoverLLM's released
-scores are immediate only \citep{kim2026discoverllm}; DAD or RL-BED
+six-world InfoQuest gate changed all 30 supports (novel fraction 1.0), yet
+direct choices lost official-checklist gain to fixed support ($.167$ versus
+$.333$). Exact EIG over LLM-generated weights and answer partitions also lost
+in a post-hoc cached-answer diagnostic ($.267$ versus $.433$): all 18 shared
+actions tied, while the 12 changed actions yielded 0/7/5 wins/ties/losses.
+Thus the failure is first-link ranking, not merely answer-simulator noise.
+DiscoverLLM's released scores are immediate only \citep{kim2026discoverllm}; DAD or RL-BED
 amortization cannot repair a broken simulator
 \citep{foster2021deep,blau2022rlbed}.
 

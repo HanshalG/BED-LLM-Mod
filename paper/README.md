@@ -22,7 +22,9 @@ ClariQ multisample-likelihood development signal with a serving-invalid
 untouched holdout and a post hoc dynamic-support particle replay showing that
 answer-conditioned future entropy can reduce first-link fidelity, an
 InfoQuest shared-action causal mechanics result in which complete support
-regeneration loses to compute-matched fixed support, an
+regeneration loses to compute-matched fixed support, plus a strict
+semantic-partition exact-EIG replay and post hoc cached-answer diagnostic that
+localize the loss to first-link question ranking rather than simulator noise, an
 exploratory externally scored Zendo
 path-dependent-belief smoke with pre-endpoint confirmation failures, and the
 Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
