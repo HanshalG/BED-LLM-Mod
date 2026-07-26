@@ -1,0 +1,949 @@
+{
+  "followup_questions": {
+    "root_1_maybe": [
+      "Have you had abdominal pain for more than 24 hours?",
+      "Have you recently had a fever?"
+    ],
+    "root_1_no": [
+      "Do you have a cough?",
+      "Do you have constipation?"
+    ],
+    "root_1_yes": [
+      "Have you vomited since the diarrhea began?",
+      "Did the diarrhea start suddenly within the last 48 hours?"
+    ],
+    "root_2_maybe": [
+      "Have you had loose or watery stools?",
+      "Have you been constipated or had fewer bowel movements than usual?"
+    ],
+    "root_2_no": [
+      "Do you have a cough?",
+      "Is the pain mainly in the upper middle part of your abdomen?"
+    ],
+    "root_2_yes": [
+      "Did the pain start near your belly button before moving to the right lower abdomen?",
+      "Is pressing on the right lower abdomen and then quickly releasing it more painful than the pressure itself?"
+    ],
+    "root_3_maybe": [
+      "Do you have a sour or burning sensation in your chest or throat after eating or when lying down?",
+      "Do your symptoms get worse around dust, pollen, pets, or after being outdoors?"
+    ],
+    "root_3_no": [
+      "Do you have diarrhea?",
+      "Do you have abdominal pain?"
+    ],
+    "root_3_yes": [
+      "Do you have a fever?",
+      "Are you bringing up phlegm when you cough?"
+    ],
+    "root_4_maybe": [
+      "Have you had diarrhea?",
+      "Do you have pain in the lower right side of your abdomen?"
+    ],
+    "root_4_no": [
+      "Do you have a runny or blocked nose?",
+      "Have your bowel movements become less frequent than usual?"
+    ],
+    "root_4_yes": [
+      "Have you had diarrhea?",
+      "Do you have severe upper abdominal pain?"
+    ]
+  },
+  "gates": {
+    "adapter_reports_nonreasoning_model": true,
+    "all_pass": false,
+    "all_roots_have_answer_conditioned_followups": true,
+    "all_roots_have_at_least_two_positive_outcomes": true,
+    "all_twelve_branch_question_sets_complete": true,
+    "cost_at_most_0_25": true,
+    "depth_two_changes_root": false,
+    "depth_two_gain_at_least_0_03_nats": false,
+    "depth_two_score_range_at_least_0_05": true,
+    "exact_dynamic_request_count": true,
+    "exact_source_rows_and_hash": true,
+    "four_complete_root_maps": true,
+    "immediate_score_range_at_least_0_05": true,
+    "one_map_per_unique_question": true,
+    "zero_forced_exits": true,
+    "zero_forced_final_requests": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "global_followup_answer_maps": {
+    "Are you bringing up phlegm when you cough?": {
+      "Allergic rhinitis": "Maybe",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "Maybe",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "Yes",
+      "Upper respiratory tract infection": "Maybe"
+    },
+    "Did the diarrhea start suddenly within the last 48 hours?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Yes",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Did the pain start near your belly button before moving to the right lower abdomen?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have a cough?": {
+      "Allergic rhinitis": "Maybe",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "Yes",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "Yes",
+      "Upper respiratory tract infection": "Yes"
+    },
+    "Do you have a fever?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "Yes",
+      "Cold": "Maybe",
+      "Constipation": "No",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "Yes",
+      "Upper respiratory tract infection": "Maybe"
+    },
+    "Do you have a runny or blocked nose?": {
+      "Allergic rhinitis": "Yes",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "Yes",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "Maybe",
+      "Upper respiratory tract infection": "Yes"
+    },
+    "Do you have a sour or burning sensation in your chest or throat after eating or when lying down?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "Yes",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have abdominal pain?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "Yes",
+      "Cold": "No",
+      "Constipation": "Yes",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Yes",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "Yes",
+      "Gastritis": "Yes",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Yes",
+      "Pancreatitis": "Yes",
+      "Pneumonia": "Maybe",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have constipation?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "Yes",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have diarrhea?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Yes",
+      "Enteritis": "Yes",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have pain in the lower right side of your abdomen?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "Maybe",
+      "Diarrhea": "No",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have severe upper abdominal pain?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "No",
+      "Cholecystitis": "Yes",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "Yes",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do your symptoms get worse around dust, pollen, pets, or after being outdoors?": {
+      "Allergic rhinitis": "Yes",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have you been constipated or had fewer bowel movements than usual?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "No",
+      "Constipation": "Yes",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have you had abdominal pain for more than 24 hours?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "Yes",
+      "Cold": "No",
+      "Constipation": "Maybe",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Yes",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have you had diarrhea?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Yes",
+      "Enteritis": "Yes",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have you had loose or watery stools?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Yes",
+      "Enteritis": "Yes",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have you recently had a fever?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "Maybe",
+      "Constipation": "No",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "Yes",
+      "Upper respiratory tract infection": "Maybe"
+    },
+    "Have you vomited since the diarrhea began?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Have your bowel movements become less frequent than usual?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "No",
+      "Constipation": "Yes",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Is pressing on the right lower abdomen and then quickly releasing it more painful than the pressure itself?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Is the pain mainly in the upper middle part of your abdomen?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "Yes",
+      "Gastritis": "Yes",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Yes",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    }
+  },
+  "metrics": {
+    "depth_two_score_range_nats": 0.16044112949872513,
+    "full_minus_myopic_depth_two_eig_nats": 0.0,
+    "full_root_index": 3,
+    "immediate_score_range_nats": 0.12413810880036191,
+    "myopic_root_index": 3,
+    "path_dependent_roots": 4,
+    "positive_outcomes_per_root": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "reused_question_occurrences": 3,
+    "unique_new_followup_questions": 21
+  },
+  "prior": {
+    "Allergic rhinitis": 0.04208416833667335,
+    "Appendicitis": 0.052104208416833664,
+    "Cholecystitis": 0.07615230460921844,
+    "Cold": 0.09018036072144289,
+    "Constipation": 0.08817635270541083,
+    "Diarrhea": 0.03406813627254509,
+    "Enteritis": 0.08016032064128256,
+    "Esophagitis": 0.08016032064128256,
+    "Gastric ulcer": 0.08016032064128256,
+    "Gastritis": 0.08016032064128256,
+    "Gastroenteritis": 0.09018036072144289,
+    "Irritable bowel syndrome": 0.10020040080160321,
+    "Pancreatitis": 0.01603206412825651,
+    "Pneumonia": 0.050100200400801605,
+    "Upper respiratory tract infection": 0.04008016032064128
+  },
+  "protocol": {
+    "base_requests": 17,
+    "diagnoses": [
+      "Enteritis",
+      "Gastritis",
+      "Gastroenteritis",
+      "Esophagitis",
+      "Cholecystitis",
+      "Appendicitis",
+      "Pancreatitis",
+      "Gastric ulcer",
+      "Constipation",
+      "Cold",
+      "Irritable bowel syndrome",
+      "Diarrhea",
+      "Allergic rhinitis",
+      "Upper respiratory tract infection",
+      "Pneumonia"
+    ],
+    "expected_requests": 38,
+    "followups_per_branch": 2,
+    "hidden_patient_exposed": false,
+    "interface_version": "voi-medical-global-likelihood-tree-mechanics-2",
+    "model": "openai/gpt-5.4",
+    "outcomes": [
+      "Yes",
+      "No",
+      "Maybe"
+    ],
+    "private_raw_sha256": "593c5d9ef5b7470b09a9b53fccb93de212c10d03b96c183d29b32c05ec44bec1",
+    "reasoning_requested": false,
+    "repairs_or_scientific_retries": 0,
+    "root_count": 4,
+    "source_rows": 499,
+    "source_sha256": "e851864a9cb53c36304245bc3213a8a894cf7b86f8945d60978923e1f1ef0169",
+    "unique_new_followup_questions": 21
+  },
+  "root_answer_maps": {
+    "Do you currently have diarrhea?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Yes",
+      "Enteritis": "Yes",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "Maybe",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    },
+    "Do you have a cough?": {
+      "Allergic rhinitis": "Maybe",
+      "Appendicitis": "No",
+      "Cholecystitis": "No",
+      "Cold": "Yes",
+      "Constipation": "No",
+      "Diarrhea": "No",
+      "Enteritis": "No",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "No",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "No",
+      "Pneumonia": "Yes",
+      "Upper respiratory tract infection": "Yes"
+    },
+    "Have you been vomiting?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Maybe",
+      "Cholecystitis": "Maybe",
+      "Cold": "No",
+      "Constipation": "No",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "Maybe",
+      "Gastric ulcer": "Maybe",
+      "Gastritis": "Maybe",
+      "Gastroenteritis": "Yes",
+      "Irritable bowel syndrome": "No",
+      "Pancreatitis": "Yes",
+      "Pneumonia": "Maybe",
+      "Upper respiratory tract infection": "No"
+    },
+    "Is the abdominal pain mainly in the right lower part of your abdomen?": {
+      "Allergic rhinitis": "No",
+      "Appendicitis": "Yes",
+      "Cholecystitis": "No",
+      "Cold": "No",
+      "Constipation": "Maybe",
+      "Diarrhea": "Maybe",
+      "Enteritis": "Maybe",
+      "Esophagitis": "No",
+      "Gastric ulcer": "No",
+      "Gastritis": "No",
+      "Gastroenteritis": "Maybe",
+      "Irritable bowel syndrome": "Maybe",
+      "Pancreatitis": "No",
+      "Pneumonia": "No",
+      "Upper respiratory tract infection": "No"
+    }
+  },
+  "root_questions": [
+    "Do you currently have diarrhea?",
+    "Is the abdominal pain mainly in the right lower part of your abdomen?",
+    "Do you have a cough?",
+    "Have you been vomiting?"
+  ],
+  "schema_version": 1,
+  "scores": {
+    "full_minus_myopic_depth_two_eig_nats": 0.0,
+    "full_root_index": 3,
+    "initial_entropy_nats": 2.631471253212638,
+    "myopic_root_index": 3,
+    "roots": [
+      {
+        "branches": {
+          "Maybe": {
+            "expected_entropies": [
+              0.22083589898752695,
+              0.22083589898752695
+            ],
+            "followups": [
+              "Have you had abdominal pain for more than 24 hours?",
+              "Have you recently had a fever?"
+            ],
+            "posterior": {
+              "Appendicitis": 0.3095238095238095,
+              "Irritable bowel syndrome": 0.5952380952380952,
+              "Pancreatitis": 0.09523809523809523
+            },
+            "probability": 0.1683366733466934,
+            "selected_followup": "Have you had abdominal pain for more than 24 hours?",
+            "selected_followup_index": 0
+          },
+          "No": {
+            "expected_entropies": [
+              1.1403108804205186,
+              1.7522754895366726
+            ],
+            "followups": [
+              "Do you have a cough?",
+              "Do you have constipation?"
+            ],
+            "posterior": {
+              "Allergic rhinitis": 0.0670926517571885,
+              "Cholecystitis": 0.12140575079872204,
+              "Cold": 0.14376996805111822,
+              "Constipation": 0.14057507987220447,
+              "Esophagitis": 0.1277955271565495,
+              "Gastric ulcer": 0.1277955271565495,
+              "Gastritis": 0.1277955271565495,
+              "Pneumonia": 0.07987220447284345,
+              "Upper respiratory tract infection": 0.06389776357827474
+            },
+            "probability": 0.6272545090180361,
+            "selected_followup": "Do you have a cough?",
+            "selected_followup_index": 0
+          },
+          "Yes": {
+            "expected_entropies": [
+              0.34053056130447285,
+              0.5761800646809319
+            ],
+            "followups": [
+              "Have you vomited since the diarrhea began?",
+              "Did the diarrhea start suddenly within the last 48 hours?"
+            ],
+            "posterior": {
+              "Diarrhea": 0.16666666666666666,
+              "Enteritis": 0.392156862745098,
+              "Gastroenteritis": 0.4411764705882353
+            },
+            "probability": 0.20440881763527055,
+            "selected_followup": "Have you vomited since the diarrhea began?",
+            "selected_followup_index": 0
+          }
+        },
+        "depth_two_eig_nats": 1.809423881790532,
+        "expected_entropy_after_root": 1.7144512029458923,
+        "expected_entropy_after_two": 0.8220473714221059,
+        "immediate_eig_nats": 0.9170200502667456,
+        "root_index": 0,
+        "root_question": "Do you currently have diarrhea?"
+      },
+      {
+        "branches": {
+          "Maybe": {
+            "expected_entropies": [
+              0.5343245403153987,
+              0.5343245403153987
+            ],
+            "followups": [
+              "Have you had loose or watery stools?",
+              "Have you been constipated or had fewer bowel movements than usual?"
+            ],
+            "posterior": {
+              "Constipation": 0.22448979591836735,
+              "Diarrhea": 0.08673469387755102,
+              "Enteritis": 0.2040816326530612,
+              "Gastroenteritis": 0.22959183673469388,
+              "Irritable bowel syndrome": 0.25510204081632654
+            },
+            "probability": 0.3927855711422846,
+            "selected_followup": "Have you had loose or watery stools?",
+            "selected_followup_index": 0
+          },
+          "No": {
+            "expected_entropies": [
+              1.0540326032448637,
+              1.1335673364734953
+            ],
+            "followups": [
+              "Do you have a cough?",
+              "Is the pain mainly in the upper middle part of your abdomen?"
+            ],
+            "posterior": {
+              "Allergic rhinitis": 0.07581227436823104,
+              "Cholecystitis": 0.1371841155234657,
+              "Cold": 0.1624548736462094,
+              "Esophagitis": 0.1444043321299639,
+              "Gastric ulcer": 0.1444043321299639,
+              "Gastritis": 0.1444043321299639,
+              "Pancreatitis": 0.028880866425992777,
+              "Pneumonia": 0.09025270758122744,
+              "Upper respiratory tract infection": 0.07220216606498195
+            },
+            "probability": 0.5551102204408818,
+            "selected_followup": "Do you have a cough?",
+            "selected_followup_index": 0
+          },
+          "Yes": {
+            "expected_entropies": [
+              0.0,
+              0.0
+            ],
+            "followups": [
+              "Did the pain start near your belly button before moving to the right lower abdomen?",
+              "Is pressing on the right lower abdomen and then quickly releasing it more painful than the pressure itself?"
+            ],
+            "posterior": {
+              "Appendicitis": 1.0
+            },
+            "probability": 0.052104208416833664,
+            "selected_followup": "Did the pain start near your belly button before moving to the right lower abdomen?",
+            "selected_followup_index": 0
+          }
+        },
+        "depth_two_eig_nats": 1.8364920127303825,
+        "expected_entropy_after_root": 1.7837425771237094,
+        "expected_entropy_after_two": 0.7949792404822553,
+        "immediate_eig_nats": 0.8477286760889284,
+        "root_index": 1,
+        "root_question": "Is the abdominal pain mainly in the right lower part of your abdomen?"
+      },
+      {
+        "branches": {
+          "Maybe": {
+            "expected_entropies": [
+              0.0,
+              0.0
+            ],
+            "followups": [
+              "Do you have a sour or burning sensation in your chest or throat after eating or when lying down?",
+              "Do your symptoms get worse around dust, pollen, pets, or after being outdoors?"
+            ],
+            "posterior": {
+              "Allergic rhinitis": 0.3442622950819672,
+              "Esophagitis": 0.6557377049180327
+            },
+            "probability": 0.12224448897795591,
+            "selected_followup": "Do you have a sour or burning sensation in your chest or throat after eating or when lying down?",
+            "selected_followup_index": 0
+          },
+          "No": {
+            "expected_entropies": [
+              1.1618294839878653,
+              2.0254483481639665
+            ],
+            "followups": [
+              "Do you have diarrhea?",
+              "Do you have abdominal pain?"
+            ],
+            "posterior": {
+              "Appendicitis": 0.07471264367816091,
+              "Cholecystitis": 0.10919540229885058,
+              "Constipation": 0.12643678160919541,
+              "Diarrhea": 0.048850574712643674,
+              "Enteritis": 0.11494252873563217,
+              "Gastric ulcer": 0.11494252873563217,
+              "Gastritis": 0.11494252873563217,
+              "Gastroenteritis": 0.12931034482758622,
+              "Irritable bowel syndrome": 0.14367816091954022,
+              "Pancreatitis": 0.022988505747126433
+            },
+            "probability": 0.6973947895791583,
+            "selected_followup": "Do you have diarrhea?",
+            "selected_followup_index": 0
+          },
+          "Yes": {
+            "expected_entropies": [
+              0.4457857225830245,
+              0.4457857225830245
+            ],
+            "followups": [
+              "Do you have a fever?",
+              "Are you bringing up phlegm when you cough?"
+            ],
+            "posterior": {
+              "Cold": 0.5,
+              "Pneumonia": 0.2777777777777778,
+              "Upper respiratory tract infection": 0.2222222222222222
+            },
+            "probability": 0.18036072144288579,
+            "selected_followup": "Do you have a fever?",
+            "selected_followup_index": 0
+          }
+        },
+        "depth_two_eig_nats": 1.740815190166046,
+        "expected_entropy_after_root": 1.8142812676932087,
+        "expected_entropy_after_two": 0.8906560630465918,
+        "immediate_eig_nats": 0.8171899855194291,
+        "root_index": 2,
+        "root_question": "Do you have a cough?"
+      },
+      {
+        "branches": {
+          "Maybe": {
+            "expected_entropies": [
+              1.03929628972,
+              1.3162900085551565
+            ],
+            "followups": [
+              "Have you had diarrhea?",
+              "Do you have pain in the lower right side of your abdomen?"
+            ],
+            "posterior": {
+              "Appendicitis": 0.09774436090225563,
+              "Cholecystitis": 0.14285714285714288,
+              "Diarrhea": 0.06390977443609022,
+              "Enteritis": 0.15037593984962405,
+              "Esophagitis": 0.15037593984962405,
+              "Gastric ulcer": 0.15037593984962405,
+              "Gastritis": 0.15037593984962405,
+              "Pneumonia": 0.09398496240601505
+            },
+            "probability": 0.533066132264529,
+            "selected_followup": "Have you had diarrhea?",
+            "selected_followup_index": 0
+          },
+          "No": {
+            "expected_entropies": [
+              0.8493814119135287,
+              0.4884691043048088
+            ],
+            "followups": [
+              "Do you have a runny or blocked nose?",
+              "Have your bowel movements become less frequent than usual?"
+            ],
+            "posterior": {
+              "Allergic rhinitis": 0.11666666666666668,
+              "Cold": 0.25000000000000006,
+              "Constipation": 0.24444444444444446,
+              "Irritable bowel syndrome": 0.2777777777777778,
+              "Upper respiratory tract infection": 0.11111111111111112
+            },
+            "probability": 0.3607214428857715,
+            "selected_followup": "Have your bowel movements become less frequent than usual?",
+            "selected_followup_index": 1
+          },
+          "Yes": {
+            "expected_entropies": [
+              0.0,
+              0.0
+            ],
+            "followups": [
+              "Have you had diarrhea?",
+              "Do you have severe upper abdominal pain?"
+            ],
+            "posterior": {
+              "Gastroenteritis": 0.8490566037735849,
+              "Pancreatitis": 0.15094339622641506
+            },
+            "probability": 0.10621242484969941,
+            "selected_followup": "Have you had diarrhea?",
+            "selected_followup_index": 0
+          }
+        },
+        "depth_two_eig_nats": 1.9012563196647712,
+        "expected_entropy_after_root": 1.6901431588928468,
+        "expected_entropy_after_two": 0.7302149335478668,
+        "immediate_eig_nats": 0.941328094319791,
+        "root_index": 3,
+        "root_question": "Have you been vomiting?"
+      }
+    ]
+  },
+  "status": "gate_failed",
+  "unique_new_followup_questions": [
+    "Have you vomited since the diarrhea began?",
+    "Did the diarrhea start suddenly within the last 48 hours?",
+    "Do you have constipation?",
+    "Have you had abdominal pain for more than 24 hours?",
+    "Have you recently had a fever?",
+    "Did the pain start near your belly button before moving to the right lower abdomen?",
+    "Is pressing on the right lower abdomen and then quickly releasing it more painful than the pressure itself?",
+    "Is the pain mainly in the upper middle part of your abdomen?",
+    "Have you had loose or watery stools?",
+    "Have you been constipated or had fewer bowel movements than usual?",
+    "Do you have a fever?",
+    "Are you bringing up phlegm when you cough?",
+    "Do you have diarrhea?",
+    "Do you have abdominal pain?",
+    "Do you have a sour or burning sensation in your chest or throat after eating or when lying down?",
+    "Do your symptoms get worse around dust, pollen, pets, or after being outdoors?",
+    "Have you had diarrhea?",
+    "Do you have severe upper abdominal pain?",
+    "Do you have a runny or blocked nose?",
+    "Have your bowel movements become less frequent than usual?",
+    "Do you have pain in the lower right side of your abdomen?"
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.07717,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 4010,
+      "adapter_cost_usd": 0.07717,
+      "adapter_prompt_tokens": 6808,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 38,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 4010,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 38,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 4010,
+          "cost_usd": 0.07717,
+          "prompt_tokens": 6808,
+          "reasoning_tokens": 0,
+          "requests": 38
+        }
+      },
+      "prompt_tokens": 6808,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.76144489077663,
+      "requests": 38,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.07717,
+      "run_remaining_usd": 0.17282999999999998,
+      "total_spent_usd": 96.23855510922337
+    },
+    "http_attempts": 38,
+    "physical_requests": 38,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
