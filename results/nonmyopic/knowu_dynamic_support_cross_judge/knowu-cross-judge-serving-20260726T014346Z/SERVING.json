@@ -1,0 +1,65 @@
+{
+  "gates": {
+    "all_10_judgments_parse": true,
+    "all_pass": true,
+    "cost_at_most_0_05": true,
+    "exact_10_http_attempts": true,
+    "exact_10_physical_requests": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "knowu-dynamic-support-cross-judge-1",
+    "model": "google/gemma-4-26b-a4b-it",
+    "private_raw_sha256": "a47458d57c7c677d6bd7eb04efde178d813fdd23827184c381540407879ebe9b",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "scientific_endpoint_evaluated": false,
+    "stage": "serving"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.0014517100000000002,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 1910,
+      "adapter_cost_usd": 0.0014517100000000002,
+      "adapter_prompt_tokens": 7909,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 1910,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 1910,
+          "cost_usd": 0.0014517100000000002,
+          "prompt_tokens": 7909,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 7909,
+      "reasoning_tokens": 0,
+      "remaining_usd": 11.636920580776717,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.05,
+      "run_cost_usd": 0.0014517100000000002,
+      "run_remaining_usd": 0.04854829,
+      "total_spent_usd": 93.36307941922328
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

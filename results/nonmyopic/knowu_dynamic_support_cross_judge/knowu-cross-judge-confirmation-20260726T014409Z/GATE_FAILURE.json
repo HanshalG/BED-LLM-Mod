@@ -1,0 +1,49 @@
+{
+  "error": "CrossJudgeExecutionError: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+  "interface_version": "knowu-dynamic-support-cross-judge-1",
+  "private_raw_sha256": "6c556c96787367eef8cc33b40064be42cb93618905cc73094e17be583af36380",
+  "schema_version": 1,
+  "stage": "confirmation",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.00721724,
+    "forced_exits": 0,
+    "http_attempts": 6,
+    "model": {
+      "adapter_completion_tokens": 1794,
+      "adapter_cost_usd": 0.00721724,
+      "adapter_prompt_tokens": 49775,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 6,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 1794,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 6,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 1794,
+          "cost_usd": 0.00721724,
+          "prompt_tokens": 49775,
+          "reasoning_tokens": 0,
+          "requests": 6
+        }
+      },
+      "prompt_tokens": 49775,
+      "reasoning_tokens": 0,
+      "remaining_usd": 11.629703340776729,
+      "requests": 6,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.00721724,
+      "run_remaining_usd": 0.14278276,
+      "total_spent_usd": 93.37029665922327
+    },
+    "physical_requests": 6,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
