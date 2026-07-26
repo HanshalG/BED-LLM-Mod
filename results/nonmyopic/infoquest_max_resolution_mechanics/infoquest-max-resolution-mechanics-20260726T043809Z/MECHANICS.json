@@ -1,0 +1,328 @@
+{
+  "fixture_metrics": [
+    {
+      "fixture_id": "D443W1",
+      "max_minus_linear_target_gain": 0.0,
+      "mean_linear_target_gain": 0.0,
+      "mean_max_target_gain": 0.0,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D443W2",
+      "max_minus_linear_target_gain": -0.6,
+      "mean_linear_target_gain": 0.8,
+      "mean_max_target_gain": 0.2,
+      "mean_oracle_target_gain": 1.0,
+      "mean_random_target_gain": 0.4
+    },
+    {
+      "fixture_id": "D153W1",
+      "max_minus_linear_target_gain": 0.2,
+      "mean_linear_target_gain": 0.4,
+      "mean_max_target_gain": 0.6,
+      "mean_oracle_target_gain": 1.0,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D153W2",
+      "max_minus_linear_target_gain": 0.4,
+      "mean_linear_target_gain": 0.2,
+      "mean_max_target_gain": 0.6,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D210W1",
+      "max_minus_linear_target_gain": 0.0,
+      "mean_linear_target_gain": 0.2,
+      "mean_max_target_gain": 0.2,
+      "mean_oracle_target_gain": 0.2,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D210W2",
+      "max_minus_linear_target_gain": 0.0,
+      "mean_linear_target_gain": 0.8,
+      "mean_max_target_gain": 0.8,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D356W1",
+      "max_minus_linear_target_gain": 0.0,
+      "mean_linear_target_gain": 0.2,
+      "mean_max_target_gain": 0.2,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.2
+    },
+    {
+      "fixture_id": "D356W2",
+      "max_minus_linear_target_gain": 0.0,
+      "mean_linear_target_gain": 0.2,
+      "mean_max_target_gain": 0.2,
+      "mean_oracle_target_gain": 1.8,
+      "mean_random_target_gain": 0.6
+    },
+    {
+      "fixture_id": "D237W1",
+      "max_minus_linear_target_gain": -0.4,
+      "mean_linear_target_gain": 0.4,
+      "mean_max_target_gain": 0.0,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.8
+    },
+    {
+      "fixture_id": "D237W2",
+      "max_minus_linear_target_gain": -0.2,
+      "mean_linear_target_gain": 0.2,
+      "mean_max_target_gain": 0.0,
+      "mean_oracle_target_gain": 0.8,
+      "mean_random_target_gain": 0.4
+    }
+  ],
+  "gates": {
+    "all_pass": false,
+    "at_least_20_of_50_max_choices_are_target_optimal": true,
+    "at_least_30_cells_have_target_gain_spread": true,
+    "at_least_30_defined_max_target_correlations": true,
+    "at_least_40_cells_have_max_score_spread": true,
+    "at_least_7_of_10_fixtures_improve_over_linear": false,
+    "cost_at_most_0_60": true,
+    "exact_10_fixtures_50_cells_200_actions": true,
+    "exact_115_http_attempts": true,
+    "exact_115_physical_requests": true,
+    "exact_stage_counts_5_50_50_10": true,
+    "max_gain_at_least_0_15_above_linear": false,
+    "max_gain_at_least_0_15_above_random": false,
+    "max_wins_exceed_losses_vs_linear": false,
+    "max_wins_exceed_losses_vs_random": false,
+    "mean_max_target_spearman_at_least_0_20": false,
+    "oracle_beats_random_by_at_least_0_20": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "candidate_actions": 200,
+    "cells_with_max_score_spread": 41,
+    "cells_with_target_gain_spread": 38,
+    "defined_linear_target_spearman": 38,
+    "defined_max_target_spearman": 30,
+    "fixtures": 10,
+    "fixtures_with_positive_max_minus_linear": 2,
+    "max_minus_linear_target_gain": -0.06,
+    "max_minus_random_target_gain": -0.06,
+    "max_target_optimal_cells": 24,
+    "max_vs_linear_wins_ties_losses": [
+      5,
+      37,
+      8
+    ],
+    "max_vs_random_wins_ties_losses": [
+      7,
+      34,
+      9
+    ],
+    "mean_linear_selected_target_gain": 0.34,
+    "mean_linear_target_spearman": -0.09961213989428304,
+    "mean_max_selected_target_gain": 0.28,
+    "mean_max_target_spearman": -0.20223291281892447,
+    "mean_oracle_target_gain": 0.88,
+    "mean_random_selected_target_gain": 0.34,
+    "root_world_cells": 50
+  },
+  "protocol": {
+    "checklist_labels_generated_after_all_compiler_checkpoints": true,
+    "compiler_target_or_checklist_content": false,
+    "confirmation_ids": [
+      443,
+      153,
+      210,
+      356,
+      237
+    ],
+    "development_confirmation": true,
+    "development_split_sha256": "068587d494c71d5488da4f1d53ebe34be713c178083f6be98733085337c48b48",
+    "dry_run": false,
+    "expected_requests": 115,
+    "holdout_accessed": false,
+    "interface_version": "infoquest-max-resolution-confirmation-1",
+    "manifest_sha256": "392ae5ee33ee807994cb917ea8ff38ba6bd9ddaf95112ecb15e2c599783d32cb",
+    "max_resolution_frozen_before_fresh_content": true,
+    "models": {
+      "checklist_judge": "openai/gpt-5.4-mini",
+      "root_and_need_generator": "openai/gpt-5.4",
+      "simulator": "google/gemini-2.5-flash"
+    },
+    "paired_controls": [
+      "linear_same_belief",
+      "seeded_random"
+    ],
+    "private_fixture_sha256": "e2f144df92292eae221349c45af2cfd81804caf3e77f0354907a7c4029954b87",
+    "private_raw_sha256": "996455fb27fd5fa5f64df5476aa8bc8ecf4e3c01f3e4452c40cbca2aef27b055",
+    "random_seed": 24418,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "stage": "mechanics",
+    "stage_counts": {
+      "checklist_judgments": 10,
+      "hidden_world_root_answers": 50,
+      "information_need_beliefs": 50,
+      "initial_root_banks": 5
+    }
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.17626315,
+    "forced_exits": 0,
+    "http_attempts": 115,
+    "models": {
+      "checklist_judge": {
+        "adapter_completion_tokens": 648,
+        "adapter_cost_usd": 0.00792075,
+        "adapter_prompt_tokens": 6673,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 10,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 9274,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 10,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 680,
+            "cost_usd": 0.013784899999999996,
+            "prompt_tokens": 40283,
+            "reasoning_tokens": 0,
+            "requests": 50
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 7946,
+            "cost_usd": 0.15455750000000001,
+            "prompt_tokens": 14147,
+            "reasoning_tokens": 0,
+            "requests": 55
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 648,
+            "cost_usd": 0.00792075,
+            "prompt_tokens": 6673,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 61103,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.408202390776651,
+        "requests": 115,
+        "retry_count": 0,
+        "run_budget_usd": 0.6,
+        "run_cost_usd": 0.17626314999999998,
+        "run_remaining_usd": 0.42373685,
+        "total_spent_usd": 95.59179760922335
+      },
+      "generator": {
+        "adapter_completion_tokens": 7946,
+        "adapter_cost_usd": 0.15455750000000001,
+        "adapter_prompt_tokens": 14147,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 55,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 9274,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 55,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 680,
+            "cost_usd": 0.013784899999999996,
+            "prompt_tokens": 40283,
+            "reasoning_tokens": 0,
+            "requests": 50
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 7946,
+            "cost_usd": 0.15455750000000001,
+            "prompt_tokens": 14147,
+            "reasoning_tokens": 0,
+            "requests": 55
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 648,
+            "cost_usd": 0.00792075,
+            "prompt_tokens": 6673,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 61103,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.408202390776651,
+        "requests": 115,
+        "retry_count": 0,
+        "run_budget_usd": 0.6,
+        "run_cost_usd": 0.17626314999999998,
+        "run_remaining_usd": 0.42373685,
+        "total_spent_usd": 95.59179760922335
+      },
+      "simulator": {
+        "adapter_completion_tokens": 680,
+        "adapter_cost_usd": 0.013784899999999996,
+        "adapter_prompt_tokens": 40283,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 50,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 9274,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 50,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 680,
+            "cost_usd": 0.013784899999999996,
+            "prompt_tokens": 40283,
+            "reasoning_tokens": 0,
+            "requests": 50
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 7946,
+            "cost_usd": 0.15455750000000001,
+            "prompt_tokens": 14147,
+            "reasoning_tokens": 0,
+            "requests": 55
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 648,
+            "cost_usd": 0.00792075,
+            "prompt_tokens": 6673,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 61103,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.408202390776651,
+        "requests": 115,
+        "retry_count": 0,
+        "run_budget_usd": 0.6,
+        "run_cost_usd": 0.17626314999999998,
+        "run_remaining_usd": 0.42373685,
+        "total_spent_usd": 95.59179760922335
+      }
+    },
+    "physical_requests": 115,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
