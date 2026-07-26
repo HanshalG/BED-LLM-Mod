@@ -1,0 +1,372 @@
+{
+  "gates": {
+    "all_pass": true,
+    "all_policy_answer_refresh_and_judge_objects_parse": true,
+    "cost_at_most_0_75": true,
+    "each_refresh_contains_one_question_answer_pair": true,
+    "exact_42_http_attempts": true,
+    "exact_42_physical_requests": true,
+    "initial_truth_missing_in_at_least_one_world": true,
+    "missing_truth_enters_after_at_least_one_atomic_question": true,
+    "positive_truth_support_score_gain_exists": true,
+    "profile_labels_hidden_from_support_policy": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "branch_isolation": "one physical refresh request per world/question branch",
+    "cached_initial_raw_sha256": "3f9a1512b4514920a77086db0177c4d788915b3d3c4167e9ddb2181e7c47b11f",
+    "cached_initial_responses": true,
+    "expected_requests": 42,
+    "fixture_sha256": "2cb9d0e34e3e13aee896b5d4f2c6bf0c470d1a92096a23128f6d8cc26905eff8",
+    "interface_version": "knowu-dynamic-support-mechanics-4",
+    "model": "openai/gpt-5.4",
+    "policy_requests": 30,
+    "post_policy_judge_requests": 6,
+    "private_raw_sha256": "0f12315cb22ca54cf923c9075b7397dc9cd38a814c7c5762120ec0928ef5cf97",
+    "profile_conditioned_user_requests": 6,
+    "question_count": 4,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "response_format": "prompt_only_strict_flat_json",
+    "stage": "mechanics",
+    "support_size": 4,
+    "truth_match_threshold": 70,
+    "world_count": 6
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "initial_truth_missing_worlds": 2,
+    "mean_support_gain_range": 10.0,
+    "truth_entry_events": 2,
+    "worlds": 6,
+    "worlds_with_truth_entry": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.3573799999999999,
+    "forced_exits": 0,
+    "http_attempts": 42,
+    "physical_requests": 42,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "segments": {
+      "cached_initial": {
+        "adapter_cost_usd": 0.040382499999999995,
+        "forced_exits": 0,
+        "http_attempts": 6,
+        "model": {
+          "adapter_completion_tokens": 1830,
+          "adapter_cost_usd": 0.040382499999999995,
+          "adapter_prompt_tokens": 5173,
+          "adapter_reasoning_tokens": 0,
+          "adapter_requests": 6,
+          "backend": "openrouter",
+          "budget_usd": 105.0,
+          "completion_tokens": 1830,
+          "forced_exits": 0,
+          "forced_final_requests": 0,
+          "forced_final_successes": 0,
+          "http_attempts": 6,
+          "model": "openai/gpt-5.4",
+          "model_usage": {
+            "openai/gpt-5.4": {
+              "completion_tokens": 1830,
+              "cost_usd": 0.040382499999999995,
+              "prompt_tokens": 5173,
+              "reasoning_tokens": 0,
+              "requests": 6
+            }
+          },
+          "prompt_tokens": 5173,
+          "reasoning_tokens": 0,
+          "remaining_usd": 11.955369790776714,
+          "requests": 6,
+          "retry_count": 0,
+          "run_budget_usd": 0.75,
+          "run_cost_usd": 0.040382499999999995,
+          "run_remaining_usd": 0.7096175,
+          "total_spent_usd": 93.04463020922329
+        },
+        "physical_requests": 6,
+        "reasoning_tokens": 0,
+        "retry_count": 0
+      },
+      "continuation": {
+        "adapter_cost_usd": 0.31699749999999993,
+        "forced_exits": 0,
+        "http_attempts": 36,
+        "model": {
+          "adapter_completion_tokens": 8764,
+          "adapter_cost_usd": 0.31699749999999993,
+          "adapter_prompt_tokens": 74215,
+          "adapter_reasoning_tokens": 0,
+          "adapter_requests": 36,
+          "backend": "openrouter",
+          "budget_usd": 105.0,
+          "completion_tokens": 8764,
+          "forced_exits": 0,
+          "forced_final_requests": 0,
+          "forced_final_successes": 0,
+          "http_attempts": 36,
+          "model": "openai/gpt-5.4",
+          "model_usage": {
+            "openai/gpt-5.4": {
+              "completion_tokens": 8764,
+              "cost_usd": 0.31699749999999993,
+              "prompt_tokens": 74215,
+              "reasoning_tokens": 0,
+              "requests": 36
+            }
+          },
+          "prompt_tokens": 74215,
+          "reasoning_tokens": 0,
+          "remaining_usd": 11.63837229077673,
+          "requests": 36,
+          "retry_count": 0,
+          "run_budget_usd": 0.7096175,
+          "run_cost_usd": 0.31699749999999993,
+          "run_remaining_usd": 0.3926200000000001,
+          "total_spent_usd": 93.36162770922327
+        },
+        "physical_requests": 36,
+        "reasoning_tokens": 0,
+        "retry_count": 0
+      }
+    }
+  },
+  "world_metrics": [
+    {
+      "branch_truth_present": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial_truth_present": true,
+      "question_dimensions": [
+        "\u76ee\u6807\u673a\u578b",
+        "\u5185\u5b58\u5bb9\u91cf",
+        "\u9884\u7b97\u4e0a\u9650",
+        "\u9996\u9009\u64cd\u4f5c\u7cfb\u7edf"
+      ],
+      "questions": [
+        "\u4f60\u66f4\u60f3\u4e70 X1 Carbon Gen 12 \u5417?",
+        "\u4f60\u9700\u8981 32GB \u5185\u5b58\u5417?",
+        "\u4f60\u7684\u9884\u7b97\u4e0a\u9650\u662f\u591a\u5c11?",
+        "\u4f60\u51c6\u5907\u4f7f\u7528 Fedora \u5417?"
+      ],
+      "support_gain_range": 7,
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_entry_branches": [],
+      "truth_support_score_gains": [
+        5,
+        -2,
+        0,
+        2
+      ],
+      "truth_support_scores": [
+        90,
+        95,
+        88,
+        90,
+        92
+      ],
+      "world_id": "T1W1"
+    },
+    {
+      "branch_truth_present": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "initial_truth_present": false,
+      "question_dimensions": [
+        "\u9884\u7b97\u4e0a\u9650",
+        "\u6e38\u620f\u6027\u80fd\u76ee\u6807",
+        "\u5c4f\u5e55\u5c3a\u5bf8\u504f\u597d",
+        "\u8d2d\u4e70\u5e73\u53f0\u786e\u8ba4"
+      ],
+      "questions": [
+        "\u4f60\u7684\u9884\u7b97\u4e0a\u9650\u662f\u591a\u5c11?",
+        "\u4f60\u60f3\u73a9\u7684\u6e38\u620f\u5f3a\u5ea6\u5230\u4ec0\u4e48\u7ea7\u522b?",
+        "\u4f60\u504f\u597d\u51e0\u82f1\u5bf8\u5c4f\u5e55?",
+        "\u8fd9\u6b21\u5c31\u5728\u6dd8\u70b9\u4e0b\u5355\u5417?"
+      ],
+      "support_gain_range": 12,
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_entry_branches": [],
+      "truth_support_score_gains": [
+        5,
+        -3,
+        -7,
+        -5
+      ],
+      "truth_support_scores": [
+        55,
+        60,
+        52,
+        48,
+        50
+      ],
+      "world_id": "T1W2"
+    },
+    {
+      "branch_truth_present": [
+        true,
+        false,
+        true,
+        false
+      ],
+      "initial_truth_present": false,
+      "question_dimensions": [
+        "\u64cd\u4f5c\u7cfb\u7edf\u504f\u597d",
+        "\u9884\u7b97\u4e0a\u9650",
+        "\u8d2d\u4e70\u5e73\u53f0",
+        "\u6838\u5fc3\u4f7f\u7528\u573a\u666f"
+      ],
+      "questions": [
+        "\u4f60\u66f4\u60f3\u8981 macOS \u8fd8\u662f Windows?",
+        "\u4f60\u7684\u9884\u7b97\u4e0a\u9650\u662f\u591a\u5c11?",
+        "\u8fd9\u6b21\u66f4\u60f3\u5728\u54ea\u4e2a\u5e73\u53f0\u4e0b\u5355?",
+        "\u8fd9\u53f0\u7535\u8111\u4e3b\u8981\u7528\u4e8e\u4ec0\u4e48\u573a\u666f?"
+      ],
+      "support_gain_range": 16,
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_entry_branches": [
+        1,
+        3
+      ],
+      "truth_support_score_gains": [
+        10,
+        -2,
+        14,
+        1
+      ],
+      "truth_support_scores": [
+        68,
+        78,
+        66,
+        82,
+        69
+      ],
+      "world_id": "T1W3"
+    },
+    {
+      "branch_truth_present": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial_truth_present": true,
+      "question_dimensions": [
+        "\u8bf7\u5047\u65f6\u957f",
+        "\u6b63\u5f0f\u7a0b\u5ea6",
+        "\u662f\u5426\u8bf4\u660e\u53ef\u8054\u7cfb",
+        "\u75c5\u56e0\u7ec6\u8282\u7a0b\u5ea6"
+      ],
+      "questions": [
+        "\u8fd9\u6b21\u8bf7\u5047\u662f\u534a\u5929\u8fd8\u662f\u4e00\u5929?",
+        "\u4f60\u60f3\u8981\u66f4\u53e3\u8bed\u4e00\u4e9b\u8fd8\u662f\u66f4\u6b63\u5f0f\u4e00\u4e9b?",
+        "\u9700\u8981\u63d0\u4e00\u53e5\u7d27\u6025\u60c5\u51b5\u53ef\u8054\u7cfb\u4f60\u5417?",
+        "\u53ea\u5199\u8eab\u4f53\u4e0d\u9002\u5373\u53ef\u5417?"
+      ],
+      "support_gain_range": 2,
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_entry_branches": [],
+      "truth_support_score_gains": [
+        4,
+        3,
+        5,
+        4
+      ],
+      "truth_support_scores": [
+        91,
+        95,
+        94,
+        96,
+        95
+      ],
+      "world_id": "T2W1"
+    },
+    {
+      "branch_truth_present": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial_truth_present": true,
+      "question_dimensions": [
+        "Mattermost destination",
+        "formality level",
+        "health detail specificity",
+        "extra availability note"
+      ],
+      "questions": [
+        "\u4f60\u8981\u53d1\u5230\u54ea\u4e2aMattermost\u9891\u9053?",
+        "\u8bed\u6c14\u60f3\u66f4\u968f\u610f\u8fd8\u662f\u66f4\u6b63\u5f0f?",
+        "\u8981\u4e0d\u8981\u8bf4\u660e\u5177\u4f53\u75c7\u72b6?",
+        "\u8981\u4e0d\u8981\u8865\u4e00\u53e5\u4eca\u5929\u7a0d\u540e\u4f1a\u770b\u6d88\u606f?"
+      ],
+      "support_gain_range": 5,
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_entry_branches": [],
+      "truth_support_score_gains": [
+        8,
+        4,
+        6,
+        9
+      ],
+      "truth_support_scores": [
+        82,
+        90,
+        86,
+        88,
+        91
+      ],
+      "world_id": "T2W2"
+    },
+    {
+      "branch_truth_present": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial_truth_present": true,
+      "question_dimensions": [
+        "destination scope",
+        "formality level",
+        "coverage mention",
+        "message length"
+      ],
+      "questions": [
+        "\u8981\u53d1\u5230\u54ea\u4e2aMattermost\u9891\u9053\uff1f",
+        "\u8bed\u6c14\u8981\u6b63\u5f0f\u4e00\u70b9\u5417\uff1f",
+        "\u9700\u8981\u63d0\u5230\u7d27\u6025\u4e8b\u9879\u627e\u8c01\u5417\uff1f",
+        "\u60f3\u8981\u4e00\u53e5\u8bdd\u7248\u672c\u5417\uff1f"
+      ],
+      "support_gain_range": 18,
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_entry_branches": [],
+      "truth_support_score_gains": [
+        5,
+        4,
+        -12,
+        6
+      ],
+      "truth_support_scores": [
+        90,
+        95,
+        94,
+        78,
+        96
+      ],
+      "world_id": "T2W3"
+    }
+  ]
+}
