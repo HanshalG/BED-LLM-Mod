@@ -21,6 +21,7 @@ from scripts import infoquest_support_causal_link_gate as base
 
 INTERFACE_VERSION = "infoquest-cached-partition-eig-1"
 INTERFACE_VERSION_V2 = "infoquest-cached-partition-eig-2"
+INTERFACE_VERSION_V3 = "infoquest-cached-partition-eig-3"
 CACHED_PUBLIC_SHA256 = (
     "140f77447da9bd3d83e8a7be7fd45dc8fc792422d4e1cef398f6d8460d13ccc3"
 )
@@ -88,6 +89,27 @@ class CachedDeterministicGenerator(partition.DeterministicGenerator):
                         labels = (0,) * base.SUPPORT_SIZE
                     for index, label in enumerate(labels, start=1):
                         value[f"{action}{index}"] = label
+                if "COMPACT_ARRAYS=true" in messages[0]["content"]:
+                    value = {
+                        "h": [
+                            value[f"h{index}"]
+                            for index in range(1, base.SUPPORT_SIZE + 1)
+                        ],
+                        "w": [
+                            value[f"w{index}"]
+                            for index in range(1, base.SUPPORT_SIZE + 1)
+                        ],
+                        **{
+                            action: [
+                                value[f"{action}{index}"]
+                                for index in range(
+                                    1,
+                                    base.SUPPORT_SIZE + 1,
+                                )
+                            ]
+                            for action in partition.ACTION_KEYS
+                        },
+                    }
                 responses.append(json.dumps(value, separators=(",", ":")))
             self.requests += len(responses)
             return responses
@@ -159,12 +181,18 @@ def discrete_interface_version() -> str:
     return "infoquest-discrete-action-causal-1"
 
 
-def interface_version(cluster_label_max: int) -> str:
-    if cluster_label_max == 3:
+def interface_version(
+    cluster_label_max: int,
+    *,
+    compact_arrays: bool = False,
+) -> str:
+    if cluster_label_max == 3 and not compact_arrays:
         return INTERFACE_VERSION
-    if cluster_label_max == 7:
+    if cluster_label_max == 7 and not compact_arrays:
         return INTERFACE_VERSION_V2
-    raise ValueError("cached partition cluster label maximum must be 3 or 7")
+    if cluster_label_max == 7 and compact_arrays:
+        return INTERFACE_VERSION_V3
+    raise ValueError("unsupported cached partition interface variant")
 
 
 def _synthetic_initial() -> base.InitialPolicy:
@@ -188,8 +216,12 @@ def run_serving_gate(
     *,
     raw_path: Path,
     cluster_label_max: int = 3,
+    compact_arrays: bool = False,
 ) -> dict[str, Any]:
-    version = interface_version(cluster_label_max)
+    version = interface_version(
+        cluster_label_max,
+        compact_arrays=compact_arrays,
+    )
     raw: dict[str, Any] = {"interface_version": version}
     try:
         seed_message = "Synthetic ambiguous request."
@@ -204,6 +236,7 @@ def run_serving_gate(
                     0,
                     root_answer,
                     max_cluster_label=cluster_label_max,
+                    compact_arrays=compact_arrays,
                 )
             ],
             max_new_tokens=1_300,
@@ -220,6 +253,7 @@ def run_serving_gate(
             0,
             require_fixed_support=False,
             max_cluster_label=cluster_label_max,
+            compact_arrays=compact_arrays,
         )
 
         fixed_raw = refresh._complete(
@@ -231,6 +265,7 @@ def run_serving_gate(
                     0,
                     root_answer,
                     max_cluster_label=cluster_label_max,
+                    compact_arrays=compact_arrays,
                 )
             ],
             max_new_tokens=1_300,
@@ -247,6 +282,7 @@ def run_serving_gate(
             0,
             require_fixed_support=True,
             max_cluster_label=cluster_label_max,
+            compact_arrays=compact_arrays,
         )
 
         simulator_system = (
@@ -346,6 +382,7 @@ def run_serving_gate(
             "synthetic_initial_and_root_answer": True,
             "exact_eig_scorer": True,
             "response_cluster_label_max": cluster_label_max,
+            "compact_array_transport": compact_arrays,
             "scientific_endpoint_evaluated": False,
             "reasoning_requested": False,
             "repairs_or_reissues": 0,
@@ -369,10 +406,14 @@ def run_mechanics_gate(
     *,
     raw_path: Path,
     cluster_label_max: int = 3,
+    compact_arrays: bool = False,
 ) -> dict[str, Any]:
     if len(fixtures) != 6 or len(root_answers) != 6:
         raise ValueError("cached mechanics requires six fixtures")
-    version = interface_version(cluster_label_max)
+    version = interface_version(
+        cluster_label_max,
+        compact_arrays=compact_arrays,
+    )
     raw: dict[str, Any] = {
         "interface_version": version,
         "cached_public_sha256": CACHED_PUBLIC_SHA256,
@@ -403,6 +444,7 @@ def run_mechanics_gate(
                         root_index,
                         answer,
                         max_cluster_label=cluster_label_max,
+                        compact_arrays=compact_arrays,
                     )
                 )
                 fixed_requests.append(
@@ -412,6 +454,7 @@ def run_mechanics_gate(
                         root_index,
                         answer,
                         max_cluster_label=cluster_label_max,
+                        compact_arrays=compact_arrays,
                     )
                 )
 
@@ -438,6 +481,7 @@ def run_mechanics_gate(
                     root_index,
                     require_fixed_support=False,
                     max_cluster_label=cluster_label_max,
+                    compact_arrays=compact_arrays,
                 )
             )
         dynamic_beliefs = [
@@ -468,6 +512,7 @@ def run_mechanics_gate(
                     root_index,
                     require_fixed_support=True,
                     max_cluster_label=cluster_label_max,
+                    compact_arrays=compact_arrays,
                 )
             )
         fixed_beliefs = [
@@ -610,6 +655,7 @@ def run_mechanics_gate(
             "exact_eig_scorer": True,
             "shared_discrete_action_bank": True,
             "response_clusters_per_action": cluster_label_max + 1,
+            "compact_array_transport": compact_arrays,
             "reasoning_requested": False,
             "repairs_or_reissues": 0,
             "all_batches_checkpointed_before_parse": True,
@@ -650,6 +696,7 @@ def main() -> None:
         choices=(3, 7),
         default=3,
     )
+    parser.add_argument("--compact-arrays", action="store_true")
     args = parser.parse_args()
 
     fixtures, public_fixture = base.build_fixtures(
@@ -705,6 +752,7 @@ def main() -> None:
                 models,
                 raw_path=raw_path,
                 cluster_label_max=args.cluster_label_max,
+                compact_arrays=args.compact_arrays,
             )
         else:
             assert cached is not None
@@ -715,6 +763,7 @@ def main() -> None:
                 models,
                 raw_path=raw_path,
                 cluster_label_max=args.cluster_label_max,
+                compact_arrays=args.compact_arrays,
             )
         result["protocol"]["private_raw_sha256"] = hashlib.sha256(
             raw_path.read_bytes()
@@ -726,7 +775,10 @@ def main() -> None:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": interface_version(args.cluster_label_max),
+            "interface_version": interface_version(
+                args.cluster_label_max,
+                compact_arrays=args.compact_arrays,
+            ),
             "stage": args.stage,
             "error": f"{type(exc).__name__}: {exc}",
         }

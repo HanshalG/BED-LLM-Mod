@@ -89,25 +89,54 @@ def dynamic_partition_messages(
     answer: str,
     *,
     max_cluster_label: int = 3,
+    compact_arrays: bool = False,
 ) -> list[dict[str, str]]:
     if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
         raise ValueError("cluster label maximum is outside support")
+    output_instruction = (
+        "Output only one JSON object with exactly six fields: h is an array "
+        "of eight hypothesis strings; w is an array of eight integer weights; "
+        "and a, b, c, and d are arrays of eight integer cluster labels. "
+        "COMPACT_ARRAYS=true."
+        if compact_arrays
+        else (
+            "Output only one JSON object with exactly h1..h8, w1..w8, "
+            "a1..a8, b1..b8, c1..c8, and d1..d8."
+        )
+    )
+    weight_instruction = (
+        "Assign each context a posterior plausibility in the eight-integer w "
+        "array, with every value from 1 to 100. "
+        if compact_arrays
+        else (
+            "Assign each context an integer posterior plausibility w1..w8 "
+            "from 1 to 100. "
+        )
+    )
+    profile_instruction = (
+        "For each candidate action A, B, C, and D, predict the answer under "
+        "every context and cluster semantically indistinguishable answers: "
+        f"put integer labels 0..{max_cluster_label} in the corresponding "
+        "eight-value arrays a, b, c, and d. "
+        if compact_arrays
+        else (
+            "For each candidate action A, B, C, and D, predict the answer "
+            "under every context and cluster semantically indistinguishable "
+            f"answers: output integer labels 0..{max_cluster_label} in fields "
+            "a1..a8, b1..b8, c1..c8, and d1..d8. "
+        )
+    )
     return [
         {
             "role": "system",
             "content": (
                 "STAGE=PARTITION_DYNAMIC. Regenerate eight distinct concrete "
-                "latent contexts from the complete observed history. Assign "
-                "each context an integer posterior plausibility w1..w8 from 1 "
-                "to 100. For each candidate action A, B, C, and D, predict the "
-                "answer under every context and cluster semantically "
-                "indistinguishable answers: output integer labels "
-                f"0..{max_cluster_label} in fields a1..a8, b1..b8, c1..c8, "
-                "and d1..d8. Cluster labels are local to each action. Use the "
+                "latent contexts from the complete observed history. "
+                f"{weight_instruction}{profile_instruction}"
+                "Cluster labels are local to each action. Use the "
                 "same label within an action iff the answers would convey the "
-                "same information. Do not choose an action. Output only one "
-                "JSON object with exactly h1..h8, w1..w8, a1..a8, b1..b8, "
-                "c1..c8, and d1..d8."
+                "same information. Do not choose an action. "
+                f"{output_instruction}"
             ),
         },
         {
@@ -132,24 +161,63 @@ def fixed_partition_messages(
     answer: str,
     *,
     max_cluster_label: int = 3,
+    compact_arrays: bool = False,
 ) -> list[dict[str, str]]:
     if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
         raise ValueError("cluster label maximum is outside support")
+    output_instruction = (
+        "Output only one JSON object with exactly six fields: h is the array "
+        "of eight verbatim hypothesis strings; w is an array of eight integer "
+        "weights; and a, b, c, and d are arrays of eight integer cluster "
+        "labels. COMPACT_ARRAYS=true."
+        if compact_arrays
+        else (
+            "Output only one JSON object with exactly h1..h8, w1..w8, "
+            "a1..a8, b1..b8, c1..c8, and d1..d8."
+        )
+    )
+    support_instruction = (
+        "Keep the supplied eight hypotheses exactly fixed and copy them "
+        "verbatim into the h array without adding, removing, rewriting, or "
+        "reordering. "
+        if compact_arrays
+        else (
+            "Keep the supplied eight hypotheses exactly fixed and copy "
+            "h1..h8 verbatim without adding, removing, rewriting, or "
+            "reordering. "
+        )
+    )
+    weight_instruction = (
+        "Using the complete observed history, assign posterior plausibilities "
+        "in the eight-integer w array, with every value from 1 to 100. "
+        if compact_arrays
+        else (
+            "Using the complete observed history, assign integer posterior "
+            "plausibilities w1..w8 from 1 to 100. "
+        )
+    )
+    profile_instruction = (
+        "For each candidate action A, B, C, and D, predict the answer under "
+        "every hypothesis and cluster semantically indistinguishable answers "
+        f"using integer labels 0..{max_cluster_label} in the corresponding "
+        "eight-value arrays a, b, c, and d. "
+        if compact_arrays
+        else (
+            "For each candidate action A, B, C, and D, predict the answer "
+            "under every hypothesis and cluster semantically indistinguishable "
+            f"answers using integer labels 0..{max_cluster_label} in a1..a8, "
+            "b1..b8, c1..c8, and d1..d8. "
+        )
+    )
     return [
         {
             "role": "system",
             "content": (
-                "STAGE=PARTITION_FIXED. Keep the supplied eight hypotheses "
-                "exactly fixed and copy h1..h8 verbatim without adding, "
-                "removing, rewriting, or reordering. Using the complete "
-                "observed history, assign integer posterior plausibilities "
-                "w1..w8 from 1 to 100. For each candidate action A, B, C, and "
-                "D, predict the answer under every hypothesis and cluster "
-                "semantically indistinguishable answers using integer labels "
-                f"0..{max_cluster_label} in a1..a8, b1..b8, c1..c8, and "
-                "d1..d8. Labels are local to each action. Do not choose an "
-                "action. Output only one JSON object with exactly h1..h8, "
-                "w1..w8, a1..a8, b1..b8, c1..c8, and d1..d8."
+                "STAGE=PARTITION_FIXED. "
+                f"{support_instruction}{weight_instruction}"
+                f"{profile_instruction}"
+                "Labels are local to each action. Do not choose an "
+                f"action. {output_instruction}"
             ),
         },
         {
@@ -188,30 +256,57 @@ def parse_partition_belief(
     *,
     require_fixed_support: bool,
     max_cluster_label: int = 3,
+    compact_arrays: bool = False,
 ) -> PartitionBelief:
     if not 0 <= max_cluster_label < base.SUPPORT_SIZE:
         raise ValueError("cluster label maximum is outside support")
-    expected = {
-        *(f"h{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
-        *(f"w{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
-        *(
-            f"{action}{index}"
-            for action in ACTION_KEYS
+    if compact_arrays:
+        value = base._parse_exact_object(
+            response,
+            {"h", "w", *ACTION_KEYS},
+        )
+        for key in ("h", "w", *ACTION_KEYS):
+            if not isinstance(value[key], list):
+                raise ValueError(f"{key} is not an array")
+            if len(value[key]) != base.SUPPORT_SIZE:
+                raise ValueError(f"{key} array does not have eight values")
+        hypothesis_values = value["h"]
+        weight_values = value["w"]
+        profile_values = [value[action] for action in ACTION_KEYS]
+    else:
+        expected = {
+            *(f"h{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
+            *(f"w{index}" for index in range(1, base.SUPPORT_SIZE + 1)),
+            *(
+                f"{action}{index}"
+                for action in ACTION_KEYS
+                for index in range(1, base.SUPPORT_SIZE + 1)
+            ),
+        }
+        value = base._parse_exact_object(response, expected)
+        hypothesis_values = [
+            value[f"h{index}"]
             for index in range(1, base.SUPPORT_SIZE + 1)
-        ),
-    }
-    value = base._parse_exact_object(response, expected)
-    hypotheses = tuple(
-        base._clean_text(value[f"h{index}"])
-        for index in range(1, base.SUPPORT_SIZE + 1)
-    )
+        ]
+        weight_values = [
+            value[f"w{index}"]
+            for index in range(1, base.SUPPORT_SIZE + 1)
+        ]
+        profile_values = [
+            [
+                value[f"{action}{index}"]
+                for index in range(1, base.SUPPORT_SIZE + 1)
+            ]
+            for action in ACTION_KEYS
+        ]
+    hypotheses = tuple(base._clean_text(item) for item in hypothesis_values)
     if len({base._normalize(item) for item in hypotheses}) != base.SUPPORT_SIZE:
         raise ValueError("partition hypotheses are not distinct")
     if require_fixed_support and hypotheses != initial.hypotheses:
         raise ValueError("fixed partition changed the initial support")
     weights = tuple(
         _parse_bounded_integer(
-            value[f"w{index}"],
+            weight_values[index - 1],
             minimum=1,
             maximum=100,
             name=f"w{index}",
@@ -221,14 +316,14 @@ def parse_partition_belief(
     profiles = tuple(
         tuple(
             _parse_bounded_integer(
-                value[f"{action}{index}"],
+                profile_values[action_index][index - 1],
                 minimum=0,
                 maximum=max_cluster_label,
                 name=f"{action}{index}",
             )
             for index in range(1, base.SUPPORT_SIZE + 1)
         )
-        for action in ACTION_KEYS
+        for action_index, action in enumerate(ACTION_KEYS)
     )
     scores = tuple(partition_eig(weights, profile) for profile in profiles)
     selected = max(range(len(scores)), key=scores.__getitem__)

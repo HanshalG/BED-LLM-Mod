@@ -189,6 +189,55 @@ def test_v2_allows_eight_nominal_answer_clusters(tmp_path):
     assert result["protocol"]["response_cluster_label_max"] == 7
 
 
+def test_v3_compact_arrays_are_strict_and_dry_clean(tmp_path):
+    initial = _initial(0)
+    model = gate.CachedDeterministicGenerator("generator")
+    messages = partition.dynamic_partition_messages(
+        "Ambiguous request",
+        initial,
+        0,
+        "Answer.",
+        max_cluster_label=7,
+        compact_arrays=True,
+    )
+    response = model.chat_complete_messages_batched(
+        [messages],
+        temperature=0.0,
+        block_size=1,
+    )[0]
+    parsed = partition.parse_partition_belief(
+        response,
+        initial,
+        0,
+        require_fixed_support=False,
+        max_cluster_label=7,
+        compact_arrays=True,
+    )
+    assert len(parsed.hypotheses) == 8
+
+    value = json.loads(response)
+    value["c"].pop()
+    with pytest.raises(ValueError, match="c array does not have eight"):
+        partition.parse_partition_belief(
+            json.dumps(value),
+            initial,
+            0,
+            require_fixed_support=False,
+            max_cluster_label=7,
+            compact_arrays=True,
+        )
+
+    result = gate.run_serving_gate(
+        _models(),
+        raw_path=tmp_path / "v3-raw.json",
+        cluster_label_max=7,
+        compact_arrays=True,
+    )
+    assert result["gates"]["all_pass"] is True
+    assert result["protocol"]["interface_version"] == gate.INTERFACE_VERSION_V3
+    assert result["protocol"]["compact_array_transport"] is True
+
+
 class BadChecklistModel(base.DeterministicFixtureModel):
     def chat_complete_messages_batched(
         self,
