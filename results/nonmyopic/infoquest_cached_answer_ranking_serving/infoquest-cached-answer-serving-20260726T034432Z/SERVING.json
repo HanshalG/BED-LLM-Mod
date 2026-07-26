@@ -1,0 +1,139 @@
+{
+  "gates": {
+    "all_pass": true,
+    "all_stage_parsers_pass": true,
+    "cost_at_most_0_02": true,
+    "exact_1_http_attempt": true,
+    "exact_1_physical_request": true,
+    "identical_paths_score_identically": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "all_batches_checkpointed_before_parse": true,
+    "cached_answer_replay": true,
+    "expected_requests": 1,
+    "fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+    "interface_version": "infoquest-cached-answer-ranking-diagnostic-1",
+    "models": {
+      "checklist_judge": "openai/gpt-5.4-mini"
+    },
+    "private_raw_sha256": "6b10d1d1eb224b29218b8d5f3612d31d9b29deb40b85863717f19602160619fb",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "scientific_endpoint_evaluated": false,
+    "stage": "serving"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.000621,
+    "forced_exits": 0,
+    "http_attempts": 1,
+    "models": {
+      "checklist_judge": {
+        "adapter_completion_tokens": 63,
+        "adapter_cost_usd": 0.000621,
+        "adapter_prompt_tokens": 450,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 1,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 63,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 1,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000621,
+            "prompt_tokens": 450,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 450,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.718046790776654,
+        "requests": 1,
+        "retry_count": 0,
+        "run_budget_usd": 0.02,
+        "run_cost_usd": 0.000621,
+        "run_remaining_usd": 0.019379,
+        "total_spent_usd": 95.28195320922335
+      },
+      "generator": {
+        "adapter_completion_tokens": 0,
+        "adapter_cost_usd": 0.0,
+        "adapter_prompt_tokens": 0,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 0,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 63,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000621,
+            "prompt_tokens": 450,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 450,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.718046790776654,
+        "requests": 1,
+        "retry_count": 0,
+        "run_budget_usd": 0.02,
+        "run_cost_usd": 0.000621,
+        "run_remaining_usd": 0.019379,
+        "total_spent_usd": 95.28195320922335
+      },
+      "simulator": {
+        "adapter_completion_tokens": 0,
+        "adapter_cost_usd": 0.0,
+        "adapter_prompt_tokens": 0,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 0,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 63,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 0,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000621,
+            "prompt_tokens": 450,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 450,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.718046790776654,
+        "requests": 1,
+        "retry_count": 0,
+        "run_budget_usd": 0.02,
+        "run_cost_usd": 0.000621,
+        "run_remaining_usd": 0.019379,
+        "total_spent_usd": 95.28195320922335
+      }
+    },
+    "physical_requests": 1,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
