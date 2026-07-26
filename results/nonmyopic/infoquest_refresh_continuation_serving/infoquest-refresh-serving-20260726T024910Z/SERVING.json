@@ -1,0 +1,181 @@
+{
+  "gates": {
+    "all_pass": true,
+    "all_stage_parsers_pass": true,
+    "cost_at_most_0_12": true,
+    "exact_10_http_attempts": true,
+    "exact_10_physical_requests": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "all_batches_checkpointed_before_parse": true,
+    "expected_requests": 10,
+    "fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+    "interface_version": "infoquest-refresh-continuation-1",
+    "models": {
+      "checklist_judge": "openai/gpt-5.4-mini",
+      "generator_refresh_fixed": "openai/gpt-5.4",
+      "simulator": "google/gemini-2.5-flash"
+    },
+    "private_raw_sha256": "039eb24fc530bd4e8690e8ce1d7ad73e314a6948a5a4be7248600688c10b5441",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "scientific_endpoint_evaluated": false,
+    "stage": "serving"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.044333,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "models": {
+      "checklist_judge": {
+        "adapter_completion_tokens": 63,
+        "adapter_cost_usd": 0.000798,
+        "adapter_prompt_tokens": 686,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 1,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 2626,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 1,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 59,
+            "cost_usd": 0.000185,
+            "prompt_tokens": 125,
+            "reasoning_tokens": 0,
+            "requests": 3
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 2504,
+            "cost_usd": 0.04335,
+            "prompt_tokens": 2316,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000798,
+            "prompt_tokens": 686,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 3127,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.556740390776696,
+        "requests": 10,
+        "retry_count": 0,
+        "run_budget_usd": 0.12,
+        "run_cost_usd": 0.044333,
+        "run_remaining_usd": 0.075667,
+        "total_spent_usd": 93.4432596092233
+      },
+      "generator": {
+        "adapter_completion_tokens": 2504,
+        "adapter_cost_usd": 0.04335,
+        "adapter_prompt_tokens": 2316,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 2626,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 6,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 59,
+            "cost_usd": 0.000185,
+            "prompt_tokens": 125,
+            "reasoning_tokens": 0,
+            "requests": 3
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 2504,
+            "cost_usd": 0.04335,
+            "prompt_tokens": 2316,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000798,
+            "prompt_tokens": 686,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 3127,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.556740390776696,
+        "requests": 10,
+        "retry_count": 0,
+        "run_budget_usd": 0.12,
+        "run_cost_usd": 0.044333,
+        "run_remaining_usd": 0.075667,
+        "total_spent_usd": 93.4432596092233
+      },
+      "simulator": {
+        "adapter_completion_tokens": 59,
+        "adapter_cost_usd": 0.000185,
+        "adapter_prompt_tokens": 125,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 3,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 2626,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 3,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 59,
+            "cost_usd": 0.000185,
+            "prompt_tokens": 125,
+            "reasoning_tokens": 0,
+            "requests": 3
+          },
+          "openai/gpt-5.4": {
+            "completion_tokens": 2504,
+            "cost_usd": 0.04335,
+            "prompt_tokens": 2316,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 63,
+            "cost_usd": 0.000798,
+            "prompt_tokens": 686,
+            "reasoning_tokens": 0,
+            "requests": 1
+          }
+        },
+        "prompt_tokens": 3127,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.556740390776696,
+        "requests": 10,
+        "retry_count": 0,
+        "run_budget_usd": 0.12,
+        "run_cost_usd": 0.044333,
+        "run_remaining_usd": 0.075667,
+        "total_spent_usd": 93.4432596092233
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
