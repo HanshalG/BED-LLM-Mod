@@ -1,0 +1,10 @@
+{
+  "all_other_fields_equal": true,
+  "new_all_gates": true,
+  "new_gate_value": true,
+  "new_passed": true,
+  "new_sha256": "4e20a793a1350ab5aabd0e6f9ebe8240c1519f492d462d8320e51ee8783cab28",
+  "old_gate_value": false,
+  "old_passed": false,
+  "old_sha256": "ca24275121e366314719155aa97fb072f8e862e7c9fe2d27e97be6c3dcb69015"
+}
