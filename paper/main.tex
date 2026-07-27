@@ -490,15 +490,19 @@ produce selection bias that grows with width and horizon. Root likelihood error
 also changes branch mass and downstream context; more rollouts reduce variance,
 not bias \citep{catanach2023misspecification}.
 Zendo's entropy scorer had $\rho=0$; external readiness later reached $.80$ on
-one rule, but confirmation failed before endpoints. An initial Hotpot audit had
-166/500 directional unlocks, yet answer-first beliefs recovered the enabling
-document. A fresh train split then had 320/1000 strict unlocks and 31 cases in
-which an enabling-first policy improved exact support coverage within the
-top-four retrieval roots. The ten-call serving gate passed, but the single
-preregistered confirmation stopped after 50 calls when one branch refresh ended
-mid-JSON; no continuation scores or policy endpoints were computed, and the run
-was not repaired or repeated. MuSiQue passed a 120/120 branching audit and found
-the deep child on 2/2 smoke tasks; generic/discrete root fidelity was
+one rule, but confirmation failed before endpoints. Hotpot exposed an
+action-space failure rather than a planning gain. An unrestricted-title
+five-task comparison tied non-myopic and myopic support coverage at 9/10
+(fixed belief: 10/10), because either support article could select the other
+next. The frozen source graph instead permits only paragraph-mentioned links:
+on those same open tasks this made the enabling root uniquely optimal in 5/5.
+A corrected serving task then favored non-myopic 2/2 versus myopic 1/2, but its
+20-task development stopped before scoring when one otherwise valid rank
+response permuted two root rows. A fresh 500-row replacement contained only 15
+strict tasks versus 20 required, so confirmation remained sealed. This shows
+that semantic lookahead is uninterpretable when the implemented action menu
+erases the benchmark's directional transition. MuSiQue passed a 120/120
+branching audit and found the deep child on 2/2 smoke tasks; generic/discrete root fidelity was
 $.073/.302$, but neither beat myopic.
 
 BED-LLM's strong one-step results use a concrete entity or profile, small response
