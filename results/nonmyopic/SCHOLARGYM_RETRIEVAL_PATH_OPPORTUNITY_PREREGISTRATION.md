@@ -35,12 +35,13 @@ because examples or dataset previews exposed records from that range during
 source inspection. They can never enter opportunity, development, holdout, or
 policy evidence.
 
-Only queries with at least two ground-truth papers are eligible. Selection
-preserves released file order before a seeded shuffle:
+Only queries with at least two distinct canonical ground-truth arXiv IDs are
+eligible. Version suffixes are removed before deduplication. Selection preserves
+released file order before a seeded shuffle:
 
-- opportunity pool: 542 `AutoScholarQuery_dev_*` queries, seed `270727`;
+- opportunity pool: 541 `AutoScholarQuery_dev_*` queries, seed `270727`;
   first 40 IDs have hash
-  `02d6cf131f8be972c62d14e7167e1a7e17ef4b23d79e61e7e9f40377ca55f432`;
+  `6f930b3cd8a98fa565371150a87ddbb07143591a14f437379bf1d0aa9b5dbb53`;
 - development pool: 480 `AutoScholarQuery_test_100..999` queries, seed
   `270728`; first 24 IDs have hash
   `dcf14914b3516afe2362915422b99c44beeae16ea4596778dad31f682ac6efdf`;
@@ -51,7 +52,7 @@ preserves released file order before a seeded shuffle:
 The corresponding complete shuffled-pool hashes are:
 
 - opportunity:
-  `f2cdce46589fc6feddb56f6af2bf24c0a59d9921d92bc1b48918dd98dedb004f`;
+  `9450c76b17fc77c499ee33659a87ef9cb09becc30fc87df76f0674112880fa4a`;
 - development:
   `79895a164dc7a0d880a442e68097b834f1a99e2d1ea01fbb6277f5e5b68155ff`;
 - holdout:
@@ -61,6 +62,13 @@ The opportunity audit may inspect only the 40 opportunity queries and their
 retrievals. Development and holdout bytes may be hash-verified and used to
 reproduce ID selection, but their query text, paper labels, retrieval outcomes,
 and task records remain sealed.
+
+Protocol correction before outcome access: the initial frozen commit counted
+citation-list entries and therefore reported 542 eligible development rows.
+The first audit attempt stopped during split validation, before corpus indexing
+or retrieval, because `AutoScholarQuery_dev_496` repeats arXiv ID `2304.07327`.
+This revision freezes the intended distinct-canonical-ID rule and its corrected
+541-row pool and hashes.
 
 ## Exact Environment
 
