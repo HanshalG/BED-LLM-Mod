@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v2"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v3"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -58,8 +58,16 @@ POLICIES = ("myopic", "depth2", "random", "naive_thinking")
 BED_POLICIES = ("myopic", "depth2", "random")
 
 GENERIC_QUESTION_PATTERNS = (
-    re.compile(r"\banything else\b", re.IGNORECASE),
-    re.compile(r"\bany other\b", re.IGNORECASE),
+    re.compile(
+        r"^(?:(?:is there|do you have) )?anything else"
+        r"(?: you (?:need|want|would like to add|would like to mention))?\??$",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"^(?:(?:are there|do you have) )?any other "
+        r"(?:needs|requirements|things|details|information)\??$",
+        re.IGNORECASE,
+    ),
     re.compile(r"\beverything (?:you )?(?:need|want)\b", re.IGNORECASE),
     re.compile(r"\blist (?:all|every)\b", re.IGNORECASE),
     re.compile(r"\ball (?:your|the) requirements\b", re.IGNORECASE),

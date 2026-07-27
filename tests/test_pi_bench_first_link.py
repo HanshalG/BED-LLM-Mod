@@ -141,6 +141,12 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
     assert invalid_question_reason("Is there anything else?") == (
         "generic_or_omnibus"
     )
+    assert (
+        invalid_question_reason(
+            "Does the draft exist before doing anything else?"
+        )
+        is None
+    )
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(
