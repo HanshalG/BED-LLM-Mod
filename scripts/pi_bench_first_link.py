@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v5"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v6"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -150,6 +150,7 @@ class SemanticMap:
     matches: tuple[tuple[int, ...], ...]
     question_count: int
     world_count: int
+    padding_normalized_pair_count: int = 0
 
     def for_pair(self, question_index: int, world_index: int) -> tuple[int, ...]:
         offset = question_index * self.world_count + world_index
@@ -176,6 +177,7 @@ class BranchRefresh:
 class BranchSemanticMap:
     support_map: SemanticMap
     particle_matches: tuple[tuple[int, ...], ...]
+    particle_padding_normalized_pair_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -197,6 +199,7 @@ class Trajectory:
     inferred_by_turn: list[list[int]]
     refreshed_belief: BeliefAndQuestions | None = None
     refreshed_truth_recall: float | None = None
+    semantic_padding_normalized_pair_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -918,15 +921,16 @@ def parse_belief(
 
 def _parse_match_bitset(
     value: Any, requirement_count: int
-) -> tuple[int, ...]:
+) -> tuple[tuple[int, ...], int]:
     if not isinstance(value, str) or re.fullmatch(r"[01]{7}", value) is None:
         raise ValueError("semantic match bitset has wrong type or format")
-    if "1" in value[requirement_count:]:
-        raise ValueError("semantic match bitset selects an absent requirement")
-    return tuple(
-        index
-        for index, bit in enumerate(value[:requirement_count])
-        if bit == "1"
+    return (
+        tuple(
+            index
+            for index, bit in enumerate(value[:requirement_count])
+            if bit == "1"
+        ),
+        int("1" in value[requirement_count:]),
     )
 
 
@@ -941,17 +945,19 @@ def parse_semantic_map(
     if len(payload["matches"]) != expected_pairs:
         raise ValueError("semantic map has wrong pair count")
     parsed = []
+    padding_normalized = 0
     for offset, value in enumerate(payload["matches"]):
         world_index = offset % len(belief.worlds)
-        parsed.append(
-            _parse_match_bitset(
-                value, len(belief.worlds[world_index].requirements)
-            )
+        indexes, normalized = _parse_match_bitset(
+            value, len(belief.worlds[world_index].requirements)
         )
+        parsed.append(indexes)
+        padding_normalized += normalized
     return SemanticMap(
         matches=tuple(parsed),
         question_count=len(belief.questions),
         world_count=len(belief.worlds),
+        padding_normalized_pair_count=padding_normalized,
     )
 
 
@@ -998,29 +1004,38 @@ def parse_branch_maps(
         if len(raw["support_matches"]) != support_expected:
             raise ValueError("branch support map has wrong pair count")
         support_matches = []
+        support_padding_normalized = 0
         for offset, value in enumerate(raw["support_matches"]):
             world_index = offset % REFRESH_WORLD_COUNT
-            support_matches.append(
-                _parse_match_bitset(
-                    value, len(refresh.worlds[world_index].requirements)
-                )
+            indexes, normalized = _parse_match_bitset(
+                value, len(refresh.worlds[world_index].requirements)
             )
+            support_matches.append(indexes)
+            support_padding_normalized += normalized
         if len(raw["particle_matches"]) != REFRESH_QUESTION_COUNT:
             raise ValueError("branch particle map has wrong question count")
-        particle_matches = tuple(
-            _parse_match_bitset(
+        particle_matches_list = []
+        particle_padding_normalized = 0
+        for value in raw["particle_matches"]:
+            indexes, normalized = _parse_match_bitset(
                 value, len(branch.remaining_particle_requirements)
             )
-            for value in raw["particle_matches"]
-        )
+            particle_matches_list.append(indexes)
+            particle_padding_normalized += normalized
         parsed.append(
             BranchSemanticMap(
                 support_map=SemanticMap(
                     matches=tuple(support_matches),
                     question_count=REFRESH_QUESTION_COUNT,
                     world_count=REFRESH_WORLD_COUNT,
+                    padding_normalized_pair_count=(
+                        support_padding_normalized
+                    ),
                 ),
-                particle_matches=particle_matches,
+                particle_matches=tuple(particle_matches_list),
+                particle_padding_normalized_pair_count=(
+                    particle_padding_normalized
+                ),
             )
         )
     return tuple(parsed)
@@ -1846,6 +1861,9 @@ def run_actual_trajectories(
         semantic_map = parse_semantic_map(
             response, trajectory.refreshed_belief
         )
+        trajectory.semantic_padding_normalized_pair_count += (
+            semantic_map.padding_normalized_pair_count
+        )
         followup_index = select_max(
             immediate_scores(trajectory.refreshed_belief, semantic_map)
         )
@@ -2229,6 +2247,32 @@ def build_public_result(
             )
             for refresh in plan.refreshes
         ]
+        planning_padding_normalized = (
+            plan.semantic_map.padding_normalized_pair_count
+            + sum(
+                branch_map.support_map.padding_normalized_pair_count
+                + branch_map.particle_padding_normalized_pair_count
+                for branch_map in plan.branch_maps
+            )
+        )
+        planning_semantic_pair_count = (
+            INITIAL_QUESTION_COUNT * INITIAL_WORLD_COUNT
+            + len(plan.branch_maps)
+            * REFRESH_QUESTION_COUNT
+            * (REFRESH_WORLD_COUNT + 1)
+        )
+        realized_padding_normalized = sum(
+            trajectories[(task_id, policy)].semantic_padding_normalized_pair_count
+            for policy in BED_POLICIES
+        )
+        realized_semantic_pair_count = sum(
+            (
+                ACTUAL_REFRESH_QUESTION_COUNT
+                * ACTUAL_REFRESH_WORLD_COUNT
+            )
+            for policy in BED_POLICIES
+            if trajectories[(task_id, policy)].refreshed_belief is not None
+        )
         rows.append(
             {
                 "task_id": task_id,
@@ -2255,6 +2299,14 @@ def build_public_result(
                 ),
                 "rollout_refresh_unique_fingerprint_count": len(
                     set(branch_fingerprints)
+                ),
+                "semantic_padding_normalized_pair_count": (
+                    planning_padding_normalized
+                    + realized_padding_normalized
+                ),
+                "semantic_pair_count": (
+                    planning_semantic_pair_count
+                    + realized_semantic_pair_count
                 ),
                 "policies": policy_rows,
             }
@@ -2320,6 +2372,13 @@ def build_public_result(
     path_sensitive_count = sum(
         row["rollout_refresh_unique_fingerprint_count"] >= 2 for row in rows
     )
+    padding_normalized_pairs = sum(
+        row["semantic_padding_normalized_pair_count"] for row in rows
+    )
+    semantic_pairs = sum(row["semantic_pair_count"] for row in rows)
+    padding_normalization_rate = (
+        padding_normalized_pairs / semantic_pairs if semantic_pairs else 0.0
+    )
 
     integrity_gates = {
         "all_tasks_complete": len(rows) == len(tasks),
@@ -2343,6 +2402,9 @@ def build_public_result(
             )
             for row in rows
             for policy in POLICIES
+        ),
+        "semantic_padding_normalization_rate_at_most_0_10": (
+            padding_normalization_rate <= 0.10
         ),
     }
     if stage == "serving_smoke":
@@ -2396,6 +2458,9 @@ def build_public_result(
         "myopic_depth2_root_changed_count": root_changed_count,
         "myopic_depth2_root_changed_fraction": root_changed_count / len(rows),
         "path_sensitive_task_count": path_sensitive_count,
+        "semantic_padding_normalized_pair_count": padding_normalized_pairs,
+        "semantic_pair_count": semantic_pairs,
+        "semantic_padding_normalization_rate": padding_normalization_rate,
         "changed_root_mean_refreshed_truth_recall_difference": (
             changed_recall_mean
         ),
@@ -2651,6 +2716,20 @@ def run_planning_preflight(
         _checkpoint_private(private_raw_path, raw)
         usage = _usage(bed_model)
         selected = _selected_root_indexes(task.task_id, planning)
+        padding_normalized_pairs = (
+            planning.semantic_map.padding_normalized_pair_count
+            + sum(
+                branch_map.support_map.padding_normalized_pair_count
+                + branch_map.particle_padding_normalized_pair_count
+                for branch_map in planning.branch_maps
+            )
+        )
+        semantic_pairs = (
+            INITIAL_WORLD_COUNT * INITIAL_QUESTION_COUNT
+            + len(planning.branch_maps)
+            * REFRESH_QUESTION_COUNT
+            * (REFRESH_WORLD_COUNT + 1)
+        )
         payload = {
             "schema_version": SCHEMA_VERSION,
             "status": "passed",
@@ -2684,6 +2763,15 @@ def run_planning_preflight(
                 "depth2_root_id": question_id(selected["depth2"]),
                 "root_changed": (
                     selected["myopic"] != selected["depth2"]
+                ),
+                "semantic_padding_normalized_pair_count": (
+                    padding_normalized_pairs
+                ),
+                "semantic_pair_count": semantic_pairs,
+                "semantic_padding_normalization_rate": (
+                    padding_normalized_pairs / semantic_pairs
+                    if semantic_pairs
+                    else 0.0
                 ),
                 "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
                 "zero_forced_exits": usage["forced_exits"] == 0,

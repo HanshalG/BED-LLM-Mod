@@ -26,6 +26,7 @@ from scripts.pi_bench_first_link import (
     invalid_question_reason,
     load_tasks,
     parse_belief,
+    parse_semantic_map,
     run_actual_trajectories,
     run_initial_planning,
     run_official_turns,
@@ -214,6 +215,19 @@ def test_policy_leakage_guard_allows_visible_reply_but_rejects_unrevealed() -> N
             private,
             allowed_visible=(visible_reply,),
         )
+
+
+def test_semantic_bitset_masks_and_counts_only_absent_padding() -> None:
+    belief = _belief()
+    matches = ["0000000"] * (len(belief.questions) * len(belief.worlds))
+    matches[0] = "1011000"
+    parsed = parse_semantic_map(
+        json.dumps({"matches": matches}),
+        belief,
+    )
+
+    assert parsed.for_pair(0, 0) == (0, 2)
+    assert parsed.padding_normalized_pair_count == 1
 
 
 class _DecisionModel:

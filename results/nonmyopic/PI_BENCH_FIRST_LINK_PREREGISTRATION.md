@@ -113,6 +113,13 @@ requirements in a world, the simulated reply is those requirement texts in world
 order. If it matches none, the reply is the world's first unresolved requirement,
 matching the released simulator's first-unmet fallback.
 
+Interface v6 encodes each local semantic match as a fixed seven-bit string for
+requirements `R0` through `R6`. Bits beyond a pair's actual support are padding and
+cannot denote a requirement. They are deterministically masked to zero and every pair
+requiring that normalization is counted. Active-support bits, pair counts, and
+bitstring syntax are never repaired. A padding-normalization rate above `0.10` fails
+the serving/integrity gate as evidence that packed semantic mapping is unreliable.
+
 For a world with `m` requirements, immediate utility is the number of newly resolved
 requirements divided by `m`. Initial worlds are uniform.
 
@@ -211,6 +218,7 @@ All five frozen mechanics tasks must complete. The gate requires:
 - exact requested world/question/branch counts;
 - zero BED reasoning tokens and positive naive reasoning tokens;
 - zero malformed accepted outputs;
+- semantic-map padding normalization on at most 10% of mapped pairs;
 - at least four unique valid root questions per task;
 - nonidentical refreshed-support fingerprints for at least two histories on at least
   four tasks;
