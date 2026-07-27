@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from helpers import load_config
@@ -76,5 +77,25 @@ def test_dry_smoke_passes_exact_ten_request_gates(tmp_path: Path) -> None:
     )
     assert payload["status"] == "passed"
     assert payload["usage"]["physical_requests"] == 10
+    assert payload["diagnostics"]["unique_branch_support_count"] == 8
+    assert payload["gates"]["all_pass"]
+
+
+def test_frozen_live_v2_smoke_artifact_passes_all_gates() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_four_hop_support_smoke"
+        / "longvid-four-hop-support-smoke-v2-20260727T145208Z"
+        / "SMOKE.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    assert payload["status"] == "passed"
+    assert payload["usage"]["physical_requests"] == 10
+    assert payload["usage"]["http_attempts"] == 10
+    assert payload["usage"]["reasoning_tokens"] == 0
+    assert payload["usage"]["adapter_cost_usd"] == 0.054835
+    assert payload["diagnostics"]["valid_anchor_counts"] == [6] * 8
     assert payload["diagnostics"]["unique_branch_support_count"] == 8
     assert payload["gates"]["all_pass"]

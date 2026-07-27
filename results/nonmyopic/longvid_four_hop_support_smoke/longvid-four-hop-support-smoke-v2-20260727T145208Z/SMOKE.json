@@ -1,0 +1,100 @@
+{
+  "diagnostics": {
+    "branch_support_signatures": [
+      "d54cd7649f4f575acbe0f4e374df2cbe4becdf69cb5c83315787d6c898d5391f",
+      "b15860ec0c7720a0c44713be5678b7b6f82bdc3f2314a500b0ef29146fc6d151",
+      "1eb64e9265a40cad9617dec5bf90b10dd7245f0313ab7209e7a0c3a4b7327d45",
+      "55c5e8ed7f188c17ac5e9e1460ea58b9d70c272540cf269cc1d54e511dad9c3c",
+      "84b28e41d0082364dcb0ff1fca3dd4ab05079d59ee59d56cff12bd53750678fe",
+      "f6d8b030335c435ec98ca89cae63987c13e9013b4be33482507cd4266b893ee5",
+      "0e3cc68b656521ac7f0eddcd19233c213a690f315b4f2e1363525c44ac92b8df",
+      "a37f922650160105bc721d2b0bd2aea3f40382c2166ef5fd8ba65a2c5d49e502"
+    ],
+    "initial_support_signature": "8b362683c4303943e2a2eb1a573c6a779a84ff1aa56a74e5971f0c5fba753f39",
+    "unique_branch_support_count": 8,
+    "valid_anchor_counts": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ]
+  },
+  "gates": {
+    "all_branch_supports_change_from_initial": true,
+    "all_pass": true,
+    "all_ten_supports_parse": true,
+    "at_least_six_unique_branch_supports": true,
+    "cost_at_most_0_20": true,
+    "every_branch_has_four_valid_observation_anchors": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "initial_support_has_six_distinct_queries_and_hypotheses": true,
+    "preflight_discarded": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "branch_count": 8,
+    "expected_requests": 10,
+    "fixture_sha256": "6bf2ccc7952689533b9bc609f53b75d1aa4a793ee233f63520e7cf2292cde7ad",
+    "interface_version": "longvid-four-hop-semantic-support-smoke-1",
+    "max_cost_usd": 0.2,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "1d83734225567f107c10cf0c26bfb5ef26c7cc3846838512a98355bb1be80036",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "scientific_longvid_task_accessed": false,
+    "support_size": 6
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.054835,
+    "completion_tokens": 2969,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 2969,
+      "adapter_cost_usd": 0.054835,
+      "adapter_prompt_tokens": 4120,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2969,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2969,
+          "cost_usd": 0.054835,
+          "prompt_tokens": 4120,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 4120,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.134404890776565,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.2,
+      "run_cost_usd": 0.054835,
+      "run_remaining_usd": 0.14516500000000002,
+      "total_spent_usd": 96.86559510922343
+    },
+    "physical_requests": 10,
+    "prompt_tokens": 4120,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
