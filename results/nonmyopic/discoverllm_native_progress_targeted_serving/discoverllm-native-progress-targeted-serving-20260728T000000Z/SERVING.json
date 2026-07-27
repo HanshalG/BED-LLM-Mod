@@ -1,0 +1,106 @@
+{
+  "gates": {
+    "all_pass": false,
+    "bounded_transport_retries": true,
+    "cost_at_most_0_35": true,
+    "dialog_actions_never_advance": true,
+    "exact_8_logical_requests": true,
+    "http_attempts_match_requests_plus_retries": true,
+    "targeted_R2_advances_at_least_two_worlds": false,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "parse_counts": {
+    "actions": 4,
+    "followup_feedback": 16,
+    "followup_tiers": 16,
+    "followup_transitions": 64,
+    "followups": 16,
+    "root_feedback": 16,
+    "root_tiers": 16,
+    "root_transitions": 16
+  },
+  "protocol": {
+    "action_slots": [
+      "D1",
+      "D2",
+      "R1",
+      "R2"
+    ],
+    "expected_logical_requests": 8,
+    "interface_version": "discoverllm-native-progress-targeted-serving-1",
+    "manifest_sha256": "9edfd3b20f762491db78087c95bccb1d345063af3423d4d7ccf6c481aa97ad3a",
+    "maximum_transport_retries": 3,
+    "model": "openai/gpt-5.4",
+    "observation_seed": 24417,
+    "private_raw_sha256": "c8e465332128868af3df750ba2bdb04d4bafabf5f46e7e30d661588266eae7a2",
+    "reasoning_requested": false,
+    "released_scores_read": false,
+    "released_winner_labels_read": false,
+    "reserved_mechanics_task_ids": [
+      "technical_writing:artifact_83",
+      "creative_writing:artifact_348",
+      "svg_drawing:artifact_27"
+    ],
+    "semantic_content_emitted": false,
+    "semantic_reissues_allowed": false,
+    "state_delta_codes": {
+      "A": "advance",
+      "C": "stay_clear",
+      "T": "terminal",
+      "V": "stay_vague"
+    },
+    "task_id": "technical_writing:artifact_352",
+    "temperature": 0.0,
+    "tier_weights": {
+      "H": 4.0,
+      "L": 1.0,
+      "M": 2.0
+    },
+    "truth_map_exposed_to_likelihood_scorer": false,
+    "truth_map_exposed_to_policy": false,
+    "world_presentation_seed": 24418
+  },
+  "root_transition_summary": {
+    "D1_advance_cells": 0,
+    "D2_advance_cells": 0,
+    "R1_advance_cells": 0,
+    "R2_advance_cells": 0
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_completion_tokens": 3963,
+    "adapter_cost_usd": 0.1673425,
+    "adapter_prompt_tokens": 43159,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 8,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 3963,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 8,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 3963,
+        "cost_usd": 0.1673425,
+        "prompt_tokens": 43159,
+        "reasoning_tokens": 0,
+        "requests": 8
+      }
+    },
+    "prompt_tokens": 43159,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 42.1195873907766,
+    "requests": 8,
+    "retry_count": 0,
+    "run_budget_usd": 0.35,
+    "run_cost_usd": 0.1673425,
+    "run_remaining_usd": 0.18265749999999997,
+    "total_spent_usd": 97.8804126092234
+  }
+}
