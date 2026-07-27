@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
 
 from scripts.worldvalues_persona_nonmyopic_opportunity import (
@@ -114,3 +117,22 @@ def test_frozen_task_spec_hash_is_stable() -> None:
         )
         for spec in specs
     )
+
+
+def test_frozen_opportunity_artifact_records_gate_failure() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "worldvalues_persona_nonmyopic_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "opportunity_failed"
+    assert payload["source"]["persona_count"] == 2058
+    assert payload["source"]["question_count"] == 91
+    assert summary["num_tasks"] == 20
+    assert summary["root_change_count"] == 1
+    assert summary["strict_tradeoff_count"] == 1
+    assert not summary["gates"]["all_pass"]
