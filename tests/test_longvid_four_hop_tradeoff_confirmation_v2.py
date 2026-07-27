@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from scripts.longvid_bridge_path_opportunity_audit import _id_hash
 from scripts.longvid_four_hop_tradeoff_confirmation_v2 import (
     apply_scorable_eligibility,
@@ -109,3 +112,22 @@ def test_v2_summary_rejects_too_few_scorable_tasks() -> None:
     assert summary["answer_scorable_task_count"] == 37
     assert not summary["gates"]["answer_scorable_tasks_at_least_38"]
     assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_v2_confirmation_artifact_passes_all_gates() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_four_hop_tradeoff_confirmation_v2"
+        / "CONFIRMATION.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "confirmation_passed"
+    assert summary["num_records"] == 40
+    assert summary["retrieval_complete_task_count"] == 40
+    assert summary["answer_scorable_task_count"] == 40
+    assert summary["eligible_strict_tradeoff_count"] == 10
+    assert summary["eligible_strict_total_gap"] == 10
+    assert summary["gates"]["all_pass"]
