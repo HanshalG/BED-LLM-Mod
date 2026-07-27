@@ -1,0 +1,42 @@
+{
+  "gates": {
+    "all_pass": false,
+    "all_qualifying_unique_enabling_optimum": true,
+    "at_least_20_qualifying": false,
+    "exact_500_development_rows_materialized": true,
+    "v2_confirmation_endpoints_unopened": true,
+    "zero_model_calls": true
+  },
+  "metrics": {
+    "malformed_count": 0,
+    "qualifying_count": 15,
+    "selected_id_sha256": "4a34700d1db45c08cba56585b86afad721b00a21491e87137c6fbbfaafa91b28",
+    "selected_task_ids": [
+      "5ac4190d554299204fd21ef5",
+      "5ac396e5554299741d48a2a9",
+      "5ac4f8fa5542995c82c4ad90",
+      "5ab76fee5542993667793fdd",
+      "5a7d195e5542995ed0d165e7",
+      "5addba585542995b365fab71",
+      "5a7ea6cb55429930675135bb",
+      "5a7f97a455429969796c1ad4",
+      "5a77d7ec55429967ab1052cf",
+      "5adbd6c955429944faac237a",
+      "5ab97a375542996be2020518",
+      "5a792e4155429907847277d9",
+      "5a8deee0554299068b959e1e",
+      "5ab3f9665542992ade7c6f07",
+      "5adfbf59554299025d62a344"
+    ]
+  },
+  "protocol": {
+    "confirmation_endpoint_rows_materialized": 0,
+    "confirmation_split_sha256": "50c734d8d2c0d49b95fa38832d6e880a4681431700a5f4cf39e229fc343f49af",
+    "development_endpoint_rows_materialized": 500,
+    "development_split_sha256": "56bf9bdb87028cf3dc136d12aec63383458b23ef5eea3b288957db51f40b4af0",
+    "interface_version": "hotpot-link-restricted-v2-split-1",
+    "model_calls": 0
+  },
+  "schema_version": 1,
+  "status": "gate_failed"
+}
