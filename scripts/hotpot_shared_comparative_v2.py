@@ -421,10 +421,13 @@ def run_tasks(
     raw_path: Path,
     cohort_rows_materialized: int,
     model_adapter: Any | None = None,
+    plan_message_builder: Any = plan_rank_messages,
+    plan_response_parser: Any = parse_plan,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     model = model_adapter if model_adapter is not None else _build_model(config)
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "stage": stage,
         "task_ids": [str(task["row"]["id"]) for task in tasks],
     }
@@ -511,7 +514,7 @@ def run_tasks(
         for name, states_by_task in plan_states.items():
             responses = model.chat_complete_messages_batched(
                 [
-                    plan_rank_messages(
+                    plan_message_builder(
                         states=states,
                         all_titles=task["titles"],
                         root_context_indices=task["roots"],
@@ -527,7 +530,9 @@ def run_tasks(
             raw[name] = responses
             _checkpoint(raw_path, raw)
             plans[name] = [
-                parse_plan(text, candidate_count=len(task["titles"]) - 1)
+                plan_response_parser(
+                    text, candidate_count=len(task["titles"]) - 1
+                )
                 for text, task in zip(responses, tasks, strict=True)
             ]
 
@@ -811,7 +816,7 @@ def run_tasks(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "stage": stage,
             "model": MODEL_ID,
             "reasoning_requested": False,
