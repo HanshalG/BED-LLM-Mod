@@ -1,0 +1,94 @@
+{
+  "gates": {
+    "all_pass": true,
+    "bounded_transport_retries": true,
+    "cost_at_most_0_15": true,
+    "exact_5_logical_requests": true,
+    "http_attempts_match_requests_plus_retries": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "parse_counts": {
+    "followup_observations": 8,
+    "followup_tiers": 8,
+    "followups": 8,
+    "root_observations": 8,
+    "root_tiers": 8
+  },
+  "protocol": {
+    "expected_logical_requests": 5,
+    "interface_version": "discoverllm-priority-world-tier-serving-1",
+    "manifest_sha256": "9edfd3b20f762491db78087c95bccb1d345063af3423d4d7ccf6c481aa97ad3a",
+    "maximum_transport_retries": 2,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "a9cc96858137452a17c96d16b8bf42b43cb5d8960f258943c48d9b6103e73361",
+    "reasoning_requested": false,
+    "released_scores_read": false,
+    "released_winner_labels_read": false,
+    "reserved_mechanics_task_ids": [
+      "technical_writing:artifact_333",
+      "creative_writing:artifact_367",
+      "technical_writing:artifact_249"
+    ],
+    "semantic_content_emitted": false,
+    "semantic_reissues_allowed": false,
+    "sensitivity_tier_weights": [
+      {
+        "H": 3.0,
+        "L": 1.0,
+        "M": 2.0
+      },
+      {
+        "H": 9.0,
+        "L": 1.0,
+        "M": 3.0
+      }
+    ],
+    "task_id": "creative_writing:artifact_385",
+    "temperature": 0.0,
+    "tier_weights": {
+      "H": 4.0,
+      "L": 1.0,
+      "M": 2.0
+    },
+    "truth_map_exposed_to_likelihood_scorer": false,
+    "truth_map_exposed_to_policy": false,
+    "world_presentation_seed": 24415
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_completion_tokens": 1646,
+    "adapter_cost_usd": 0.0840275,
+    "adapter_prompt_tokens": 23735,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 5,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 1646,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 5,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 1646,
+        "cost_usd": 0.0840275,
+        "prompt_tokens": 23735,
+        "reasoning_tokens": 0,
+        "requests": 5
+      }
+    },
+    "prompt_tokens": 23735,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 42.675692390776575,
+    "requests": 5,
+    "retry_count": 0,
+    "run_budget_usd": 0.15,
+    "run_cost_usd": 0.0840275,
+    "run_remaining_usd": 0.06597249999999999,
+    "total_spent_usd": 97.32430760922342
+  }
+}
