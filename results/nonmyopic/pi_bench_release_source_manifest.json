@@ -1,0 +1,645 @@
+{
+  "commit": "383910b1698758a198b86037c63a111c8edc32ad",
+  "counts": {
+    "confirmation": 30,
+    "development": 30,
+    "mechanics": 20,
+    "retained": 20
+  },
+  "git_tree": "a90d1c76b05c1c3651cb3156bc0f80b21490d751",
+  "partition_rule": {
+    "ordering": "release session position within each persistent persona",
+    "ranges": {
+      "confirmation": [
+        11,
+        16
+      ],
+      "development": [
+        5,
+        10
+      ],
+      "mechanics": [
+        1,
+        4
+      ],
+      "retained": [
+        17,
+        20
+      ]
+    }
+  },
+  "partitions": {
+    "confirmation": [
+      {
+        "persona": "financier",
+        "session_position": 11,
+        "task_id": "Financier_task_011",
+        "task_path": "data/Financier/tasks/Financier_task_011/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 12,
+        "task_id": "Financier_task_012",
+        "task_path": "data/Financier/tasks/Financier_task_012/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 13,
+        "task_id": "Financier_task_013",
+        "task_path": "data/Financier/tasks/Financier_task_013/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 14,
+        "task_id": "Financier_task_014",
+        "task_path": "data/Financier/tasks/Financier_task_014/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 15,
+        "task_id": "Financier_task_015",
+        "task_path": "data/Financier/tasks/Financier_task_015/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 16,
+        "task_id": "Financier_task_016",
+        "task_path": "data/Financier/tasks/Financier_task_016/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 11,
+        "task_id": "law_trainee_task_011",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_011/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 12,
+        "task_id": "law_trainee_task_012",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_012/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 13,
+        "task_id": "law_trainee_task_013",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_013/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 14,
+        "task_id": "law_trainee_task_014",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_014/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 15,
+        "task_id": "law_trainee_task_015",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_015/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 16,
+        "task_id": "law_trainee_task_016",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_016/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 11,
+        "task_id": "marketer_task_011",
+        "task_path": "data/marketer/tasks/marketer_task_011/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 12,
+        "task_id": "marketer_task_012",
+        "task_path": "data/marketer/tasks/marketer_task_012/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 13,
+        "task_id": "marketer_task_013",
+        "task_path": "data/marketer/tasks/marketer_task_013/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 14,
+        "task_id": "marketer_task_014",
+        "task_path": "data/marketer/tasks/marketer_task_014/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 15,
+        "task_id": "marketer_task_015",
+        "task_path": "data/marketer/tasks/marketer_task_015/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 16,
+        "task_id": "marketer_task_016",
+        "task_path": "data/marketer/tasks/marketer_task_016/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 11,
+        "task_id": "pharmacist_task_011",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_011/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 12,
+        "task_id": "pharmacist_task_012",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_012/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 13,
+        "task_id": "pharmacist_task_013",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_013/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 14,
+        "task_id": "pharmacist_task_014",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_014/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 15,
+        "task_id": "pharmacist_task_015",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_015/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 16,
+        "task_id": "pharmacist_task_016",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_016/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 11,
+        "task_id": "researcher_task_011",
+        "task_path": "data/researcher/tasks/researcher_task_011/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 12,
+        "task_id": "researcher_task_012",
+        "task_path": "data/researcher/tasks/researcher_task_012/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 13,
+        "task_id": "researcher_task_013",
+        "task_path": "data/researcher/tasks/researcher_task_013/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 14,
+        "task_id": "researcher_task_014",
+        "task_path": "data/researcher/tasks/researcher_task_014/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 15,
+        "task_id": "researcher_task_015",
+        "task_path": "data/researcher/tasks/researcher_task_015/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 16,
+        "task_id": "researcher_task_016",
+        "task_path": "data/researcher/tasks/researcher_task_016/task.yaml"
+      }
+    ],
+    "development": [
+      {
+        "persona": "financier",
+        "session_position": 5,
+        "task_id": "Financier_task_005",
+        "task_path": "data/Financier/tasks/Financier_task_005/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 6,
+        "task_id": "Financier_task_006",
+        "task_path": "data/Financier/tasks/Financier_task_006/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 7,
+        "task_id": "Financier_task_007",
+        "task_path": "data/Financier/tasks/Financier_task_007/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 8,
+        "task_id": "Financier_task_008",
+        "task_path": "data/Financier/tasks/Financier_task_008/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 9,
+        "task_id": "Financier_task_009",
+        "task_path": "data/Financier/tasks/Financier_task_009/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 10,
+        "task_id": "Financier_task_010",
+        "task_path": "data/Financier/tasks/Financier_task_010/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 5,
+        "task_id": "law_trainee_task_005",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_005/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 6,
+        "task_id": "law_trainee_task_006",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_006/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 7,
+        "task_id": "law_trainee_task_007",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_007/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 8,
+        "task_id": "law_trainee_task_008",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_008/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 9,
+        "task_id": "law_trainee_task_009",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_009/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 10,
+        "task_id": "law_trainee_task_010",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_010/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 5,
+        "task_id": "marketer_task_005",
+        "task_path": "data/marketer/tasks/marketer_task_005/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 6,
+        "task_id": "marketer_task_006",
+        "task_path": "data/marketer/tasks/marketer_task_006/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 7,
+        "task_id": "marketer_task_007",
+        "task_path": "data/marketer/tasks/marketer_task_007/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 8,
+        "task_id": "marketer_task_008",
+        "task_path": "data/marketer/tasks/marketer_task_008/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 9,
+        "task_id": "marketer_task_009",
+        "task_path": "data/marketer/tasks/marketer_task_009/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 10,
+        "task_id": "marketer_task_010",
+        "task_path": "data/marketer/tasks/marketer_task_010/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 5,
+        "task_id": "pharmacist_task_005",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_005/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 6,
+        "task_id": "pharmacist_task_006",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_006/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 7,
+        "task_id": "pharmacist_task_007",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_007/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 8,
+        "task_id": "pharmacist_task_008",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_008/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 9,
+        "task_id": "pharmacist_task_009",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_009/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 10,
+        "task_id": "pharmacist_task_010",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_010/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 5,
+        "task_id": "researcher_task_005",
+        "task_path": "data/researcher/tasks/researcher_task_005/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 6,
+        "task_id": "researcher_task_006",
+        "task_path": "data/researcher/tasks/researcher_task_006/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 7,
+        "task_id": "researcher_task_007",
+        "task_path": "data/researcher/tasks/researcher_task_007/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 8,
+        "task_id": "researcher_task_008",
+        "task_path": "data/researcher/tasks/researcher_task_008/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 9,
+        "task_id": "researcher_task_009",
+        "task_path": "data/researcher/tasks/researcher_task_009/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 10,
+        "task_id": "researcher_task_010",
+        "task_path": "data/researcher/tasks/researcher_task_010/task.yaml"
+      }
+    ],
+    "mechanics": [
+      {
+        "persona": "financier",
+        "session_position": 1,
+        "task_id": "Financier_task_001",
+        "task_path": "data/Financier/tasks/Financier_task_001/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 2,
+        "task_id": "Financier_task_002",
+        "task_path": "data/Financier/tasks/Financier_task_002/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 3,
+        "task_id": "Financier_task_003",
+        "task_path": "data/Financier/tasks/Financier_task_003/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 4,
+        "task_id": "Financier_task_004",
+        "task_path": "data/Financier/tasks/Financier_task_004/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 1,
+        "task_id": "law_trainee_task_001",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_001/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 2,
+        "task_id": "law_trainee_task_002",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_002/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 3,
+        "task_id": "law_trainee_task_003",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_003/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 4,
+        "task_id": "law_trainee_task_004",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_004/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 1,
+        "task_id": "marketer_task_001",
+        "task_path": "data/marketer/tasks/marketer_task_001/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 2,
+        "task_id": "marketer_task_002",
+        "task_path": "data/marketer/tasks/marketer_task_002/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 3,
+        "task_id": "marketer_task_003",
+        "task_path": "data/marketer/tasks/marketer_task_003/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 4,
+        "task_id": "marketer_task_004",
+        "task_path": "data/marketer/tasks/marketer_task_004/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 1,
+        "task_id": "pharmacist_task_001",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_001/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 2,
+        "task_id": "pharmacist_task_002",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_002/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 3,
+        "task_id": "pharmacist_task_003",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_003/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 4,
+        "task_id": "pharmacist_task_004",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_004/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 1,
+        "task_id": "researcher_task_001",
+        "task_path": "data/researcher/tasks/researcher_task_001/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 2,
+        "task_id": "researcher_task_002",
+        "task_path": "data/researcher/tasks/researcher_task_002/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 3,
+        "task_id": "researcher_task_003",
+        "task_path": "data/researcher/tasks/researcher_task_003/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 4,
+        "task_id": "researcher_task_004",
+        "task_path": "data/researcher/tasks/researcher_task_004/task.yaml"
+      }
+    ],
+    "retained": [
+      {
+        "persona": "financier",
+        "session_position": 17,
+        "task_id": "Financier_task_017",
+        "task_path": "data/Financier/tasks/Financier_task_017/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 18,
+        "task_id": "Financier_task_018",
+        "task_path": "data/Financier/tasks/Financier_task_018/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 19,
+        "task_id": "Financier_task_019",
+        "task_path": "data/Financier/tasks/Financier_task_019/task.yaml"
+      },
+      {
+        "persona": "financier",
+        "session_position": 20,
+        "task_id": "Financier_task_020",
+        "task_path": "data/Financier/tasks/Financier_task_020/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 17,
+        "task_id": "law_trainee_task_017",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_017/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 18,
+        "task_id": "law_trainee_task_018",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_018/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 19,
+        "task_id": "law_trainee_task_019",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_019/task.yaml"
+      },
+      {
+        "persona": "law_trainee",
+        "session_position": 20,
+        "task_id": "law_trainee_task_020",
+        "task_path": "data/law_trainee/tasks/law_trainee_task_020/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 17,
+        "task_id": "marketer_task_017",
+        "task_path": "data/marketer/tasks/marketer_task_017/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 18,
+        "task_id": "marketer_task_018",
+        "task_path": "data/marketer/tasks/marketer_task_018/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 19,
+        "task_id": "marketer_task_019",
+        "task_path": "data/marketer/tasks/marketer_task_019/task.yaml"
+      },
+      {
+        "persona": "marketer",
+        "session_position": 20,
+        "task_id": "marketer_task_020",
+        "task_path": "data/marketer/tasks/marketer_task_020/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 17,
+        "task_id": "pharmacist_task_017",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_017/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 18,
+        "task_id": "pharmacist_task_018",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_018/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 19,
+        "task_id": "pharmacist_task_019",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_019/task.yaml"
+      },
+      {
+        "persona": "pharmacist",
+        "session_position": 20,
+        "task_id": "pharmacist_task_020",
+        "task_path": "data/pharmacist/tasks/pharmacist_task_020/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 17,
+        "task_id": "researcher_task_017",
+        "task_path": "data/researcher/tasks/researcher_task_017/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 18,
+        "task_id": "researcher_task_018",
+        "task_path": "data/researcher/tasks/researcher_task_018/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 19,
+        "task_id": "researcher_task_019",
+        "task_path": "data/researcher/tasks/researcher_task_019/task.yaml"
+      },
+      {
+        "persona": "researcher",
+        "session_position": 20,
+        "task_id": "researcher_task_020",
+        "task_path": "data/researcher/tasks/researcher_task_020/task.yaml"
+      }
+    ]
+  },
+  "schema_version": 1,
+  "source": "https://github.com/Simplified-Reasoning/Pi-Bench",
+  "tracked_file_count": 15581,
+  "tracked_tree_manifest_sha256": "920d167432637298840a035b28572291a0ed744cf8705579e75739a687b2866e"
+}
