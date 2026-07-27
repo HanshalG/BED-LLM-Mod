@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v3"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v4"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -450,9 +450,10 @@ def semantic_map_response_format(
                 "items": {
                     "type": "array",
                     "items": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": MAX_REQUIREMENTS - 1,
+                        "type": "string",
+                        "enum": [
+                            f"R{index}" for index in range(MAX_REQUIREMENTS)
+                        ],
                     },
                     "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
@@ -510,9 +511,10 @@ def branch_map_response_format(
                 "items": {
                     "type": "array",
                     "items": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": MAX_REQUIREMENTS - 1,
+                        "type": "string",
+                        "enum": [
+                            f"R{index}" for index in range(MAX_REQUIREMENTS)
+                        ],
                     },
                     "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
@@ -525,9 +527,10 @@ def branch_map_response_format(
                 "items": {
                     "type": "array",
                     "items": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": MAX_REQUIREMENTS - 1,
+                        "type": "string",
+                        "enum": [
+                            f"R{index}" for index in range(MAX_REQUIREMENTS)
+                        ],
                     },
                     "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
@@ -640,7 +643,10 @@ def semantic_map_messages(
                     "question_index": question_index,
                     "world_index": world_index,
                     "question": question,
-                    "requirements": list(world.requirements),
+                    "requirements": [
+                        {"id": f"R{index}", "content": requirement}
+                        for index, requirement in enumerate(world.requirements)
+                    ],
                 }
             )
     return _messages(
@@ -649,8 +655,9 @@ def semantic_map_messages(
             "For every ordered pair, mark which requirements the question clearly "
             "and specifically asks about. Broad topical overlap is false. A close "
             "confirmation or short explicit options question counts. Return one "
-            "list of matched zero-based requirement indexes per pair in the supplied "
-            "order. Return an empty list when there is no match."
+            "list of matched requirement IDs per pair in the supplied order, using "
+            "only the R IDs listed inside that pair. Return an empty list when there "
+            "is no match."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -713,14 +720,24 @@ def branch_map_messages(
                         "question_index": question_index,
                         "world_index": world_index,
                         "question": question,
-                        "requirements": list(world.requirements),
+                        "requirements": [
+                            {"id": f"R{index}", "content": requirement}
+                            for index, requirement in enumerate(
+                                world.requirements
+                            )
+                        ],
                     }
                 )
         particle_pairs = [
             {
                 "question_index": question_index,
                 "question": question,
-                "requirements": list(branch.remaining_particle_requirements),
+                "requirements": [
+                    {"id": f"R{index}", "content": requirement}
+                    for index, requirement in enumerate(
+                        branch.remaining_particle_requirements
+                    )
+                ],
             }
             for question_index, question in enumerate(refresh.questions)
         ]
@@ -736,9 +753,10 @@ def branch_map_messages(
         (
             "For each branch independently, mark which requirements each follow-up "
             "question clearly and specifically asks about. Broad topical overlap is "
-            "false. Return zero-based matched requirement indexes: support_matches "
-            "in question-major/world-major order and particle_matches in question "
-            "order. Return an empty list for no match. Do not compare across branches."
+            "false. Return matched requirement IDs using only the R IDs listed "
+            "inside each pair: support_matches in question-major/world-major order "
+            "and particle_matches in question order. Return an empty list for no "
+            "match. Do not compare across branches."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -931,13 +949,19 @@ def parse_belief(
 def _parse_matched_indexes(
     values: Sequence[Any], requirement_count: int
 ) -> tuple[int, ...]:
-    if any(type(value) is not int for value in values):
-        raise ValueError("semantic match indexes have wrong type")
-    indexes = tuple(sorted(set(int(value) for value in values)))
+    if any(
+        not isinstance(value, str)
+        or re.fullmatch(r"R[0-6]", value) is None
+        for value in values
+    ):
+        raise ValueError("semantic match IDs have wrong type or format")
+    indexes = tuple(
+        sorted(set(int(str(value)[1:]) for value in values))
+    )
     if len(indexes) != len(values):
-        raise ValueError("semantic match indexes contain duplicates")
+        raise ValueError("semantic match IDs contain duplicates")
     if indexes and (indexes[0] < 0 or indexes[-1] >= requirement_count):
-        raise ValueError("semantic match index is out of range")
+        raise ValueError("semantic match ID is out of range")
     return indexes
 
 
