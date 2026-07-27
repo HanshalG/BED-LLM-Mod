@@ -289,10 +289,11 @@ class _PipelineModel:
         for pair in payload["ordered_pairs"]:
             count = len(pair["requirements"])
             question_index = int(pair["question_index"])
-            indexes = ["R0"]
+            bits = ["0"] * 7
+            bits[0] = "1"
             if question_index == 0 and count >= 2:
-                indexes.append("R1")
-            vectors.append(indexes)
+                bits[1] = "1"
+            vectors.append("".join(bits))
         return {"matches": vectors}
 
     @staticmethod
@@ -327,22 +328,24 @@ class _PipelineModel:
             support_matches = []
             for pair in branch["support_pairs"]:
                 support_matches.append(
-                    ["R0"] if int(pair["question_index"]) == 0 else []
+                    "1000000"
+                    if int(pair["question_index"]) == 0
+                    else "0000000"
                 )
             particle_matches = []
             root_index = int(branch["branch_index"]) // 4
             for pair in branch["particle_pairs"]:
                 if int(pair["question_index"]) == 0:
                     if root_index == 1:
-                        indexes = [
-                            f"R{index}"
-                            for index in range(len(pair["requirements"]))
-                        ]
+                        bits = ["0"] * 7
+                        for index in range(len(pair["requirements"])):
+                            bits[index] = "1"
+                        value = "".join(bits)
                     else:
-                        indexes = ["R0"]
+                        value = "1000000"
                 else:
-                    indexes = []
-                particle_matches.append(indexes)
+                    value = "0000000"
+                particle_matches.append(value)
             branches.append(
                 {
                     "support_matches": support_matches,

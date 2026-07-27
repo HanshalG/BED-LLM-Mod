@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v4"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v5"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -447,17 +447,7 @@ def semantic_map_response_format(
         {
             "matches": {
                 "type": "array",
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type": "string",
-                        "enum": [
-                            f"R{index}" for index in range(MAX_REQUIREMENTS)
-                        ],
-                    },
-                    "minItems": 0,
-                    "maxItems": MAX_REQUIREMENTS,
-                },
+                "items": {"type": "string", "pattern": "^[01]{7}$"},
                 "minItems": pair_count,
                 "maxItems": pair_count,
             }
@@ -508,33 +498,13 @@ def branch_map_response_format(
         "properties": {
             "support_matches": {
                 "type": "array",
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type": "string",
-                        "enum": [
-                            f"R{index}" for index in range(MAX_REQUIREMENTS)
-                        ],
-                    },
-                    "minItems": 0,
-                    "maxItems": MAX_REQUIREMENTS,
-                },
+                "items": {"type": "string", "pattern": "^[01]{7}$"},
                 "minItems": REFRESH_QUESTION_COUNT * REFRESH_WORLD_COUNT,
                 "maxItems": REFRESH_QUESTION_COUNT * REFRESH_WORLD_COUNT,
             },
             "particle_matches": {
                 "type": "array",
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type": "string",
-                        "enum": [
-                            f"R{index}" for index in range(MAX_REQUIREMENTS)
-                        ],
-                    },
-                    "minItems": 0,
-                    "maxItems": MAX_REQUIREMENTS,
-                },
+                "items": {"type": "string", "pattern": "^[01]{7}$"},
                 "minItems": REFRESH_QUESTION_COUNT,
                 "maxItems": REFRESH_QUESTION_COUNT,
             },
@@ -655,9 +625,9 @@ def semantic_map_messages(
             "For every ordered pair, mark which requirements the question clearly "
             "and specifically asks about. Broad topical overlap is false. A close "
             "confirmation or short explicit options question counts. Return one "
-            "list of matched requirement IDs per pair in the supplied order, using "
-            "only the R IDs listed inside that pair. Return an empty list when there "
-            "is no match."
+            "seven-character 0/1 bitstring per pair in supplied order: character i "
+            "is 1 exactly when Ri is matched. Characters for R IDs absent from that "
+            "pair must be 0. Use 0000000 when there is no match."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -753,10 +723,10 @@ def branch_map_messages(
         (
             "For each branch independently, mark which requirements each follow-up "
             "question clearly and specifically asks about. Broad topical overlap is "
-            "false. Return matched requirement IDs using only the R IDs listed "
-            "inside each pair: support_matches in question-major/world-major order "
-            "and particle_matches in question order. Return an empty list for no "
-            "match. Do not compare across branches."
+            "false. Return seven-character 0/1 bitstrings where character i marks "
+            "Ri. Characters for absent IDs must be 0. Return support_matches in "
+            "question-major/world-major order and particle_matches in question "
+            "order. Use 0000000 for no match. Do not compare across branches."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -946,23 +916,18 @@ def parse_belief(
     return BeliefAndQuestions(worlds=tuple(worlds), questions=questions)
 
 
-def _parse_matched_indexes(
-    values: Sequence[Any], requirement_count: int
+def _parse_match_bitset(
+    value: Any, requirement_count: int
 ) -> tuple[int, ...]:
-    if any(
-        not isinstance(value, str)
-        or re.fullmatch(r"R[0-6]", value) is None
-        for value in values
-    ):
-        raise ValueError("semantic match IDs have wrong type or format")
-    indexes = tuple(
-        sorted(set(int(str(value)[1:]) for value in values))
+    if not isinstance(value, str) or re.fullmatch(r"[01]{7}", value) is None:
+        raise ValueError("semantic match bitset has wrong type or format")
+    if "1" in value[requirement_count:]:
+        raise ValueError("semantic match bitset selects an absent requirement")
+    return tuple(
+        index
+        for index, bit in enumerate(value[:requirement_count])
+        if bit == "1"
     )
-    if len(indexes) != len(values):
-        raise ValueError("semantic match IDs contain duplicates")
-    if indexes and (indexes[0] < 0 or indexes[-1] >= requirement_count):
-        raise ValueError("semantic match ID is out of range")
-    return indexes
 
 
 def parse_semantic_map(
@@ -976,11 +941,11 @@ def parse_semantic_map(
     if len(payload["matches"]) != expected_pairs:
         raise ValueError("semantic map has wrong pair count")
     parsed = []
-    for offset, values in enumerate(payload["matches"]):
+    for offset, value in enumerate(payload["matches"]):
         world_index = offset % len(belief.worlds)
         parsed.append(
-            _parse_matched_indexes(
-                values, len(belief.worlds[world_index].requirements)
+            _parse_match_bitset(
+                value, len(belief.worlds[world_index].requirements)
             )
         )
     return SemanticMap(
@@ -1033,20 +998,20 @@ def parse_branch_maps(
         if len(raw["support_matches"]) != support_expected:
             raise ValueError("branch support map has wrong pair count")
         support_matches = []
-        for offset, values in enumerate(raw["support_matches"]):
+        for offset, value in enumerate(raw["support_matches"]):
             world_index = offset % REFRESH_WORLD_COUNT
             support_matches.append(
-                _parse_matched_indexes(
-                    values, len(refresh.worlds[world_index].requirements)
+                _parse_match_bitset(
+                    value, len(refresh.worlds[world_index].requirements)
                 )
             )
         if len(raw["particle_matches"]) != REFRESH_QUESTION_COUNT:
             raise ValueError("branch particle map has wrong question count")
         particle_matches = tuple(
-            _parse_matched_indexes(
-                values, len(branch.remaining_particle_requirements)
+            _parse_match_bitset(
+                value, len(branch.remaining_particle_requirements)
             )
-            for values in raw["particle_matches"]
+            for value in raw["particle_matches"]
         )
         parsed.append(
             BranchSemanticMap(
