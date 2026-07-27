@@ -185,6 +185,7 @@ Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, 
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
+LongVidSearch 4-hop & Exact retrieval endpoint & 10/40 gaps replicated & Support smoke passes; ranking stops pre-endpoint & Policy unmeasured \\
 Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; holdout invalid \\
 DiscoverPhysics & LLM support, exact likelihood & Central scout & MSE: B 2.928, D 3.785, fixed 3.001 & Paired positive \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -287,6 +288,14 @@ A preregistered three-call scorer ensemble on fixed trees retained a $+.120$
 root-ranking gain and $+4$ documents, but failed its loss cap (4/20). Thus the
 first execution shows possibility and fixed-tree scorer fidelity, not
 reliability under full tree regeneration.
+
+\paragraph{Four-hop video retrieval.}
+LongVidSearch requires 2--4 necessary clips \citep{yu2026longvidsearch}.
+On two disjoint 40-video blocks, a lower-direct-answer root improved four-search
+coverage on 10/40 tasks (total gaps 11/10; mean sacrifices $.265/.204$).
+GPT-5.4 regenerated distinct grounded supports on all eight synthetic branches,
+but ranking stopped on a frozen grammar before paths, scores, or endpoints.
+Thus the structural gap and support serving replicate; policy value is unmeasured.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
@@ -589,15 +598,12 @@ policy counts are endpoint-invalid and its structured support saturates at the p
 MediQ stops before a calibrated policy comparison,
 the iCRAFT profile-support gate fails before likelihood, staged iCRAFT recovery
 remains below its reliability gate, and ClinDiag has no policy result.
-We do not claim that non-myopic BED cannot work.
-OpenRouter nondeterminism and failed scorer transfers remain limiting.
-The constructive result has three parts. Given a coherent simulator and an
-enabling-information gap, LLM proposals plus exact rollout verification produce
-a large paired gain. Retained path-dependent LLM support can add a small
-fresh-map gain when exact likelihoods prevent scorer drift. In open retrieval,
-semantic ranking can work once yet fail under fresh generation. Depth still cannot
-replace a valid joint model, deployment-matched branches, or genuinely
-non-myopic task.
+We do not claim that non-myopic BED cannot work; OpenRouter nondeterminism and
+failed scorer transfers remain limiting. With a coherent simulator and an
+enabling-information gap, LLM proposals plus exact rollouts produce a large
+paired gain. Retained path-dependent support adds a small fresh-map gain under
+exact likelihoods, while open-retrieval ranking fails to replicate. Depth cannot
+replace a valid joint model, deployment-matched branches, or a non-myopic task.
 
 {\fontsize{6}{6.2}\selectfont
 \setlength{\bibsep}{0pt}
