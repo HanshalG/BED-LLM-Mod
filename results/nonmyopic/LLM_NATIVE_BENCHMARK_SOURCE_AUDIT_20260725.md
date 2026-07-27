@@ -307,6 +307,41 @@ POMDP planner can therefore own the entire belief update and rollout.
 justify paid work toward the headline claim because the LLM would not be
 irreducible. See `MEDCONCEAL_SELF_DRIVING_SOURCE_AUDIT_RESULT.md`.
 
+## InteractWeb-Bench
+
+InteractWeb-Bench releases history-conditioned semantic clarification over 101
+website tasks and four personas, but all four variants share the same
+ground-truth requirements. It provides no prior over alternative requirement
+worlds, does not prohibit asking broadly for all requirements, and uses an
+LLM/VLM website judge rather than an exact target-blind endpoint.
+
+**Decision:** close direct use. A BED version would require inventing the
+latent-world prior, information budget, and endpoint. See
+`INTERACTWEB_ENVSIM_MEDQDX_SOURCE_AUDIT_RESULT.md`.
+
+## EnvSimBench
+
+EnvSimBench provides exact reference transitions for 400 samples over 167
+released environments, but every item is a fully observed one-step transition
+prediction from environment code, state, and action.
+
+**Decision:** close direct use. It tests environment simulation rather than
+hidden-state adaptive information gathering. See
+`INTERACTWEB_ENVSIM_MEDQDX_SOURCE_AUDIT_RESULT.md`.
+
+## MedQDx
+
+MedQDx contains natural-language diagnostic questioning and a
+history-conditioned LLM patient, but each hidden full case is generated from a
+published binary symptom vector and disease label. Its released benchmark
+stores 99 fixed three-turn trajectories spanning 29 diseases. A classical
+enumerator can own the support and response relation; the LLM principally
+paraphrases the explicit symptom table.
+
+**Decision:** retain as supporting diagnostic dialogue only, not as the
+headline LLM-native substrate. See
+`INTERACTWEB_ENVSIM_MEDQDX_SOURCE_AUDIT_RESULT.md`.
+
 ## Portfolio Decision
 
 - **Headline:** continue to concentrate on an LLM-native result. The current
@@ -319,6 +354,10 @@ irreducible. See `MEDCONCEAL_SELF_DRIVING_SOURCE_AUDIT_RESULT.md`.
   preserve the same simulator mismatch rather than define new worlds. The 24
   reserved cases remain unused.
 - **Supporting result:** retain RockSample as exact-verification evidence only.
+- **Semantic clarification sources:** InteractWeb-Bench and MedQDx are useful
+  supporting dialogue environments, but neither releases the alternative-world
+  structure needed for irreducible LLM-owned belief dynamics. EnvSimBench is
+  fully observed and one-step.
 - **Next external source:** retry RegretBench when its official environment is
   released.
 - **Future semantic-state substrate:** DiscoverLLM has the right path-dependent
