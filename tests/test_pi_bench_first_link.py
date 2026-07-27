@@ -148,6 +148,7 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
         )
         is None
     )
+    assert invalid_question_reason("你希望先比较哪些方案？") is None
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(

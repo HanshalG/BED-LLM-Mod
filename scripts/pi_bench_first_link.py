@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v6"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v7"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -363,14 +363,14 @@ def invalid_question_reason(question: str) -> str | None:
     normalized = _normalize_text(question)
     if not normalized:
         return "empty"
-    if not normalized.endswith("?"):
+    if not normalized.endswith(("?", "？")):
         return "not_a_question"
     if len(normalized) > 320:
         return "too_long"
     for pattern in GENERIC_QUESTION_PATTERNS:
         if pattern.search(normalized):
             return "generic_or_omnibus"
-    if normalized.count("?") > 2:
+    if normalized.count("?") + normalized.count("？") > 2:
         return "too_many_questions"
     return None
 
