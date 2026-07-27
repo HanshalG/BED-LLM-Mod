@@ -248,10 +248,22 @@ def evaluate_roots(
     heldout_features: np.ndarray,
     *,
     noise_seed: int,
+    prior: np.ndarray | None = None,
+    root_samples_per_hypothesis: int = ROOT_SAMPLES_PER_HYPOTHESIS,
+    continuation_samples_per_hypothesis: int = (
+        CONTINUATION_SAMPLES_PER_HYPOTHESIS
+    ),
 ) -> dict[str, np.ndarray]:
     rng = np.random.default_rng(noise_seed)
     num_actions, num_hypotheses, feature_size = observation_means.shape
-    prior = np.full(num_hypotheses, 1.0 / num_hypotheses)
+    if prior is None:
+        prior = np.full(num_hypotheses, 1.0 / num_hypotheses)
+    else:
+        prior = np.asarray(prior, dtype=float)
+        if prior.shape != (num_hypotheses,):
+            raise ValueError("prior has the wrong shape")
+        if np.any(prior <= 0.0) or not np.isclose(prior.sum(), 1.0):
+            raise ValueError("prior must be positive and sum to one")
     prior_entropy = entropy(prior)
     root_noise = rng.normal(
         0.0,
@@ -259,7 +271,7 @@ def evaluate_roots(
         size=(
             num_actions,
             num_hypotheses,
-            ROOT_SAMPLES_PER_HYPOTHESIS,
+            root_samples_per_hypothesis,
             feature_size,
         ),
     )
@@ -269,7 +281,7 @@ def evaluate_roots(
         size=(
             num_actions,
             num_hypotheses,
-            CONTINUATION_SAMPLES_PER_HYPOTHESIS,
+            continuation_samples_per_hypothesis,
             feature_size,
         ),
     )
@@ -289,8 +301,8 @@ def evaluate_roots(
             OBSERVATION_NOISE_STD,
         )[0]
         root_weights = np.repeat(
-            prior / ROOT_SAMPLES_PER_HYPOTHESIS,
-            ROOT_SAMPLES_PER_HYPOTHESIS,
+            prior / root_samples_per_hypothesis,
+            root_samples_per_hypothesis,
         )
         immediate_eig[root_index] = prior_entropy - np.sum(
             root_weights * entropy(root_posteriors)
@@ -312,8 +324,8 @@ def evaluate_roots(
                 OBSERVATION_NOISE_STD,
             )
             outcome_weights = np.repeat(
-                root_posteriors / CONTINUATION_SAMPLES_PER_HYPOTHESIS,
-                CONTINUATION_SAMPLES_PER_HYPOTHESIS,
+                root_posteriors / continuation_samples_per_hypothesis,
+                continuation_samples_per_hypothesis,
                 axis=1,
             )
             expected_entropies[continuation_index] = np.sum(
@@ -327,10 +339,10 @@ def evaluate_roots(
             )
             truths = np.repeat(
                 heldout_features[:, None, :],
-                CONTINUATION_SAMPLES_PER_HYPOTHESIS,
+                continuation_samples_per_hypothesis,
                 axis=1,
             ).reshape(
-                num_hypotheses * CONTINUATION_SAMPLES_PER_HYPOTHESIS,
+                num_hypotheses * continuation_samples_per_hypothesis,
                 -1,
             )
             squared_error = np.mean(
