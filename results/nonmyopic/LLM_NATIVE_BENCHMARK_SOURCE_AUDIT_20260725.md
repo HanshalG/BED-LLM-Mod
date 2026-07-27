@@ -15,6 +15,8 @@ test outcomes as model evidence and it authorizes no paid run.
 | IG-clarifier | paper: `https://arxiv.org/abs/2606.03135`; code: `https://github.com/Demi-deng2/IG-clarifier` | code `4071af11` | Code-only single-turn reward interface; task data, tau-Bench harness, trajectories, simulator service clients, and compatible `verl` checkout absent |
 | OPEN | paper: `https://arxiv.org/abs/2403.05534` | arXiv v1 | Greedy one-step BOED over a fixed Bradley--Terry feature model; promised code and anonymized user data were not linked from the paper |
 | BIRD-Interact | code: `https://github.com/bird-bench/BIRD-Interact`; data: `https://huggingface.co/datasets/birdsql/mini-interact` | code `451fe2c3`; data `10253f23` | 300 SQLite tasks and a clarification simulator; one annotated interpretation per task term, with no released latent-world prior |
+| MedConceal | `https://github.com/FAIRHealth/MedConceal` | `f98d02c1` | 300 hidden-concern cases and logged traces available; patient simulator and latent transition state explicitly withheld |
+| Self-Driving Negotiator | `https://app.primeintellect.ai/dashboard/environments/ashu1069/self-driving-negotiator` | Hub `0.4.0`, content `ff1cd701` | Complete seeded POMDP source and exact endpoints available; latent state and dynamics are compact and classically enumerable |
 
 ## RegretBench
 
@@ -278,6 +280,32 @@ were eligible, so the zero-call manifest failed and the exact construction
 closed without threshold or split changes. See
 `BIRD_INTERACT_SOURCE_AUDIT_RESULT.md` and
 `BIRD_INTERACT_INTENT_WORLD_MANIFEST_RESULT.md`.
+
+## MedConceal
+
+MedConceal has the right semantic object: hidden patient concerns that must be
+elicited through natural dialogue, with explicit hidden, revealed, and addressed
+states. The current public release cannot support counterfactual planning,
+however. Its README says the patient simulator will be released after paper
+publication, and its traces remove latent policy weights and hidden-state
+transitions.
+
+**Decision:** keep it in the source-release retry queue, but do not infer an
+action-conditioned simulator from logged conversations. See
+`MEDCONCEAL_SELF_DRIVING_SOURCE_AUDIT_RESULT.md`.
+
+## Self-Driving Negotiator
+
+The public Prime Intellect `0.4.0` artifact is complete and reproducible. Its
+delayed-reveal and bluff tiers create a genuine hedge-now, learn-later control
+problem with exact privileged-state endpoints. The latent intent/bluff space is
+tiny and source-defined, observations are generated from numeric kinematics,
+and a bundled scripted policy captures the effective solution. A classical
+POMDP planner can therefore own the entire belief update and rollout.
+
+**Decision:** retain as a supporting exact-control candidate only. It does not
+justify paid work toward the headline claim because the LLM would not be
+irreducible. See `MEDCONCEAL_SELF_DRIVING_SOURCE_AUDIT_RESULT.md`.
 
 ## Portfolio Decision
 
