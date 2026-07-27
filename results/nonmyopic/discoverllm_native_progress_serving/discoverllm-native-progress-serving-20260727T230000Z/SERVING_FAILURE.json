@@ -1,0 +1,41 @@
+{
+  "error": "ServingExecutionError: ValueError: artifact transition outcome is invalid",
+  "interface_version": "discoverllm-native-progress-serving-1",
+  "private_raw_sha256": "2323d59ce760a7def523b80da74dd059d1928e53068efcbce462fd9b2d3ebbbb",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 3300,
+    "adapter_cost_usd": 0.1522325,
+    "adapter_prompt_tokens": 41093,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 6,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 3300,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 6,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 3300,
+        "cost_usd": 0.1522325,
+        "prompt_tokens": 41093,
+        "reasoning_tokens": 0,
+        "requests": 6
+      }
+    },
+    "prompt_tokens": 41093,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 42.28692989077658,
+    "requests": 6,
+    "retry_count": 0,
+    "run_budget_usd": 0.3,
+    "run_cost_usd": 0.1522325,
+    "run_remaining_usd": 0.1477675,
+    "total_spent_usd": 97.71307010922342
+  }
+}

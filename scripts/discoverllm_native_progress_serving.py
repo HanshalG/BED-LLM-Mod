@@ -685,13 +685,24 @@ def run_serving(
     manifest_path: Path,
     raw_path: Path,
     model: ChatModel,
+    task_loader: Any = None,
+    action_messages_builder: Any = None,
+    transition_messages_builder: Any = None,
+    transition_parser: Any = None,
+    gates_builder: Any = None,
 ) -> dict[str, Any]:
     del config
-    task = _load_task(paths, manifest_path)
+    task = (task_loader or _load_task)(paths, manifest_path)
+    build_action_messages = action_messages_builder or _action_messages
+    build_transition_messages = (
+        transition_messages_builder or _transition_messages
+    )
+    parse_transition_output = transition_parser or _parse_transitions
+    build_gates = gates_builder or _serving_gates
     raw: dict[str, Any] = {"task_id": task.key}
     try:
         action_raw = model.chat_complete_messages_batched(
-            [_action_messages(task)],
+            [build_action_messages(task)],
             temperature=0.0,
             block_size=1,
             max_new_tokens=900,
@@ -701,14 +712,20 @@ def run_serving(
         actions = _parse_actions(action_raw[0])
 
         root_transition_raw = model.chat_complete_messages_batched(
-            [_transition_messages("ROOT_PROGRESS_TRANSITIONS", task, actions)],
+            [
+                build_transition_messages(
+                    "ROOT_PROGRESS_TRANSITIONS",
+                    task,
+                    actions,
+                )
+            ],
             temperature=0.0,
             block_size=1,
             max_new_tokens=800,
         )
         raw["root_transitions"] = root_transition_raw
         ordinal._checkpoint(raw_path, raw)
-        root_transitions = _parse_transitions(
+        root_transitions = parse_transition_output(
             root_transition_raw[0],
             _root_transition_keys(),
         )
@@ -771,7 +788,7 @@ def run_serving(
         )
         followup_transition_raw = model.chat_complete_messages_batched(
             [
-                _transition_messages(
+                build_transition_messages(
                     "FOLLOWUP_PROGRESS_TRANSITIONS",
                     task,
                     actions,
@@ -784,7 +801,7 @@ def run_serving(
         )
         raw["followup_transitions"] = followup_transition_raw
         ordinal._checkpoint(raw_path, raw)
-        followup_transitions = _parse_transitions(
+        followup_transitions = parse_transition_output(
             followup_transition_raw[0],
             _followup_transition_keys(),
         )
@@ -843,7 +860,7 @@ def run_serving(
             model.usage_snapshot(),
         ) from exc
 
-    gates = _serving_gates(usage, root_transitions)
+    gates = build_gates(usage, root_transitions)
     return {
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
