@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 from scripts.longvid_bridge_path_opportunity_audit import _id_hash
@@ -116,4 +119,25 @@ def test_confirmation_summary_fails_without_replication() -> None:
     summary = summarize(records)
     assert summary["semantic_tradeoff_count"] == 4
     assert not summary["gates"]["semantic_tradeoffs_at_least_5"]
+    assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_confirmation_artifact_closes_exact_route() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_three_hop_tradeoff_confirmation"
+        / "CONFIRMATION.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "confirmation_failed"
+    assert summary["num_records"] == 40
+    assert summary["depth_three_gain_task_count"] == 36
+    assert summary["semantic_tradeoff_count"] == 4
+    assert summary["semantic_tradeoff_total_gap"] == 4
+    assert summary["mean_semantic_tradeoff_answer_sacrifice"] == pytest.approx(
+        0.4573677956030897
+    )
     assert not summary["gates"]["all_pass"]
