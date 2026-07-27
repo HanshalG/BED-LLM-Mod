@@ -1,0 +1,41 @@
+{
+  "error": "ValueError: refresh[1] is not exact JSON: Expecting ',' delimiter: line 1 column 468 (char 467)",
+  "interface_version": "discoverphysics-dark-matter-grounded-policy-1",
+  "policy_endpoint_accessed": false,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 5075,
+    "adapter_cost_usd": 0.10412750000000001,
+    "adapter_prompt_tokens": 11201,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 9,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 5075,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 9,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 5075,
+        "cost_usd": 0.10412750000000001,
+        "prompt_tokens": 11201,
+        "reasoning_tokens": 0,
+        "requests": 9
+      }
+    },
+    "prompt_tokens": 11201,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 43.27989739077658,
+    "requests": 9,
+    "retry_count": 0,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.10412750000000001,
+    "run_remaining_usd": 0.1458725,
+    "total_spent_usd": 96.72010260922342
+  }
+}
