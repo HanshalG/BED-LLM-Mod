@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from scripts.longvid_bridge_path_opportunity_audit import _id_hash
 from scripts.longvid_four_hop_tradeoff_opportunity import (
     CONFIRMATION_ID_HASH,
@@ -79,4 +82,28 @@ def test_four_hop_summary_rejects_sparse_tradeoffs() -> None:
     summary = summarize(records)
     assert summary["strict_tradeoff_count"] == 5
     assert not summary["gates"]["strict_tradeoffs_at_least_6"]
+    assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_four_hop_artifact_fails_only_completeness() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_four_hop_tradeoff_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "gate_failed"
+    assert summary["num_records"] == 40
+    assert summary["complete_task_count"] == 39
+    assert summary["strict_tradeoff_count"] == 10
+    assert summary["strict_total_gap"] == 11
+    assert not summary["gates"]["all_tasks_complete"]
+    assert all(
+        passed
+        for name, passed in summary["gates"].items()
+        if name not in {"all_tasks_complete", "all_pass"}
+    )
     assert not summary["gates"]["all_pass"]
