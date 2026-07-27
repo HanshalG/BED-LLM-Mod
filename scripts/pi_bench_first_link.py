@@ -25,7 +25,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from helpers import Config, load_config
-from model_factory import build_model_adapter
+from openrouter_model import OpenRouterAdapter
 
 
 SOURCE_COMMIT = "383910b1698758a198b86037c63a111c8edc32ad"
@@ -79,6 +79,34 @@ class StructuredModel(Protocol):
     ) -> list[str]: ...
 
     def usage_snapshot(self) -> dict[str, Any]: ...
+
+
+class PiBenchGPT54Adapter(OpenRouterAdapter):
+    """Use only GPT-5.4 parameters advertised by OpenRouter routing."""
+
+    def _payload(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        n: int,
+        max_tokens: int | None = None,
+        *,
+        disable_reasoning: bool = False,
+        response_format: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        payload = super()._payload(
+            messages,
+            temperature,
+            n,
+            max_tokens,
+            disable_reasoning=disable_reasoning,
+            response_format=response_format,
+        )
+        for unsupported in ("temperature", "top_p", "top_k", "n"):
+            payload.pop(unsupported, None)
+        if disable_reasoning or not self.reasoning_enabled:
+            payload["reasoning"] = {"enabled": False, "exclude": True}
+        return payload
 
 
 @dataclass(frozen=True)
@@ -2453,8 +2481,8 @@ def build_models(config: Config) -> tuple[StructuredModel, StructuredModel]:
         thinking_final_max_new_tokens=None,
     )
     return (
-        build_model_adapter(bed_spec, config),
-        build_model_adapter(naive_spec, config),
+        PiBenchGPT54Adapter(bed_spec, config),
+        PiBenchGPT54Adapter(naive_spec, config),
     )
 
 

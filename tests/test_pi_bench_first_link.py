@@ -5,12 +5,14 @@ from pathlib import Path
 
 import pytest
 
+from helpers import Config, ModelSpec
 from scripts.pi_bench_first_link import (
     BED_POLICIES,
     BranchRefresh,
     BranchSemanticMap,
     BeliefAndQuestions,
     PrivateTask,
+    PiBenchGPT54Adapter,
     PublicTask,
     RequirementWorld,
     SemanticMap,
@@ -139,6 +141,49 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
     assert invalid_question_reason("Is there anything else?") == (
         "generic_or_omnibus"
     )
+
+
+def test_gpt54_payload_uses_only_routable_structured_parameters(
+    monkeypatch, tmp_path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    config = Config(
+        task="mediq",
+        run_id="payload-test",
+        mediq_seed=24422,
+        openrouter_budget_usd=140.0,
+        openrouter_spend_path=str(tmp_path / "spend.json"),
+    )
+    adapter = PiBenchGPT54Adapter(
+        ModelSpec(
+            model="openai/gpt-5.4",
+            backend="openrouter",
+            reasoning_effort="none",
+        ),
+        config,
+    )
+    payload = adapter._payload(
+        [{"role": "user", "content": "test"}],
+        0.0,
+        1,
+        response_format={
+            "type": "json_schema",
+            "json_schema": {
+                "name": "test_schema",
+                "strict": True,
+                "schema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+    )
+
+    assert not {"temperature", "top_p", "top_k", "n"} & set(payload)
+    assert payload["reasoning"] == {"enabled": False, "exclude": True}
+    assert payload["seed"] == 24422
 
 
 def test_policy_leakage_guard_allows_visible_reply_but_rejects_unrevealed() -> None:
