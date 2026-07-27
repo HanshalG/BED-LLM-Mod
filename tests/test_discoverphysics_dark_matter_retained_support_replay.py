@@ -49,3 +49,22 @@ def test_exact_root_observation_updates_across_both_components():
 
     assert posterior[1] > 0.99
     assert np.isclose(posterior.sum(), 1.0)
+
+
+def test_zero_refresh_mass_recovers_initial_component():
+    posterior = retained_support_full_history_posterior(
+        initial_branch_prior=np.array([0.6, 0.4]),
+        refresh_branch_prior=np.array([1.0]),
+        representative_observation=np.array([0.0, 0.0]),
+        actual_root_observation=np.array([0.0, 0.0]),
+        initial_root_means=np.zeros((2, 2)),
+        refresh_root_means=np.zeros((1, 2)),
+        continuation_observations=np.array([[0.0, 0.0]]),
+        initial_continuation_means=np.zeros((2, 2)),
+        refresh_continuation_means=np.zeros((1, 2)),
+        initial_component_mass=1.0,
+        refresh_component_mass=0.0,
+    )[0]
+
+    assert np.allclose(posterior[:2], [0.6, 0.4])
+    assert posterior[2] == 0.0

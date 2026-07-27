@@ -77,8 +77,18 @@ def retained_support_full_history_posterior(
     continuation_observations: np.ndarray,
     initial_continuation_means: np.ndarray,
     refresh_continuation_means: np.ndarray,
+    initial_component_mass: float = INITIAL_COMPONENT_MASS,
+    refresh_component_mass: float = REFRESH_COMPONENT_MASS,
 ) -> np.ndarray:
     """Update an equal branch-level mixture of retained and refreshed support."""
+
+    if initial_component_mass < 0.0 or refresh_component_mass < 0.0:
+        raise ValueError("component masses must be non-negative")
+    if initial_component_mass + refresh_component_mass <= 0.0:
+        raise ValueError("at least one component mass must be positive")
+    component_total = initial_component_mass + refresh_component_mass
+    initial_component_mass /= component_total
+    refresh_component_mass /= component_total
 
     def component_logits(
         *,
@@ -108,7 +118,7 @@ def retained_support_full_history_posterior(
             / OBSERVATION_NOISE_STD**2
         )
         return (
-            np.log(component_mass)
+            (np.log(component_mass) if component_mass > 0.0 else -np.inf)
             + np.log(branch_prior[None, :] + 1e-300)
             + actual_root_ll[None, :]
             - representative_ll[None, :]
@@ -118,13 +128,13 @@ def retained_support_full_history_posterior(
     logits = np.concatenate(
         [
             component_logits(
-                component_mass=INITIAL_COMPONENT_MASS,
+                component_mass=initial_component_mass,
                 branch_prior=initial_branch_prior,
                 root_means=initial_root_means,
                 continuation_means=initial_continuation_means,
             ),
             component_logits(
-                component_mass=REFRESH_COMPONENT_MASS,
+                component_mass=refresh_component_mass,
                 branch_prior=refresh_branch_prior,
                 root_means=refresh_root_means,
                 continuation_means=refresh_continuation_means,
@@ -149,6 +159,8 @@ def evaluate_retained_root(
     rng: np.random.Generator,
     root_samples: int,
     continuation_samples: int,
+    initial_component_mass: float = INITIAL_COMPONENT_MASS,
+    refresh_component_mass: float = REFRESH_COMPONENT_MASS,
 ) -> np.ndarray:
     num_truths = len(true_heldout)
     per_truth = np.zeros(num_truths)
@@ -203,6 +215,8 @@ def evaluate_retained_root(
                 continuation_observations=continuation_observations,
                 initial_continuation_means=initial_action_means[continuation],
                 refresh_continuation_means=model["continuation_means"],
+                initial_component_mass=initial_component_mass,
+                refresh_component_mass=refresh_component_mass,
             )
             combined_heldout = np.concatenate(
                 [initial_heldout, model["heldout"]],
