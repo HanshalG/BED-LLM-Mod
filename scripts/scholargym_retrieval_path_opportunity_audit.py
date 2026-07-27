@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import argparse
-from collections import Counter
+from concurrent.futures import ProcessPoolExecutor
 import hashlib
 import json
 import math
@@ -731,6 +731,21 @@ def analyze_task(row: dict[str, Any], corpus: ScholarCorpus) -> dict[str, Any]:
     }
 
 
+def analyze_task_from_index(
+    row: dict[str, Any],
+    index_path: Path,
+) -> dict[str, Any]:
+    corpus = ScholarCorpus(index_path)
+    try:
+        return analyze_task(row, corpus)
+    finally:
+        corpus.close()
+
+
+def _analyze_task_worker(arguments: tuple[dict[str, Any], Path]) -> dict[str, Any]:
+    return analyze_task_from_index(*arguments)
+
+
 def _mean(values: Sequence[float]) -> float:
     return sum(values) / len(values) if values else 0.0
 
@@ -832,6 +847,8 @@ def run_audit(
     benchmark_path: Path,
     corpus_path: Path,
     index_path: Path,
+    *,
+    workers: int = 1,
 ) -> dict[str, Any]:
     if sha256_file(benchmark_path) != BENCHMARK_SHA256:
         raise ValueError("benchmark SHA-256 does not match frozen source")
@@ -844,12 +861,28 @@ def run_audit(
     corpus = ScholarCorpus(index_path)
     try:
         verify_gt_coverage(rows, corpus)
-        records = [
-            analyze_task(by_id[task_id], corpus)
-            for task_id in splits["opportunity"]
-        ]
     finally:
         corpus.close()
+    task_rows = [by_id[task_id] for task_id in splits["opportunity"]]
+    if workers <= 1:
+        records = []
+        for index, row in enumerate(task_rows, start=1):
+            records.append(analyze_task_from_index(row, index_path))
+            print(f"completed={index}/{len(task_rows)}", file=sys.stderr, flush=True)
+    else:
+        arguments = [(row, index_path) for row in task_rows]
+        records = []
+        with ProcessPoolExecutor(max_workers=workers) as executor:
+            for index, record in enumerate(
+                executor.map(_analyze_task_worker, arguments),
+                start=1,
+            ):
+                records.append(record)
+                print(
+                    f"completed={index}/{len(task_rows)}",
+                    file=sys.stderr,
+                    flush=True,
+                )
     summary = summarize(records)
     return {
         "schema_version": SCHEMA_VERSION,
@@ -883,6 +916,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--corpus-path", type=Path, required=True)
     parser.add_argument("--index-path", type=Path, required=True)
     parser.add_argument("--output-path", type=Path, required=True)
+    parser.add_argument("--workers", type=int, default=1)
     return parser.parse_args()
 
 
@@ -892,6 +926,7 @@ def main() -> int:
         args.benchmark_path,
         args.corpus_path,
         args.index_path,
+        workers=args.workers,
     )
     args.output_path.parent.mkdir(parents=True, exist_ok=True)
     args.output_path.write_text(

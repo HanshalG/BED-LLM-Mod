@@ -78,6 +78,12 @@ which is the documented auxiliary path for the same default BM25 score and
 stable row-ID tie break. This is an execution-only correction; the retriever,
 scores, candidates, and protocol are unchanged.
 
+The corrected serial implementation was then interrupted before writing any
+record because it used only one CPU core. The final runner distributes complete
+tasks across independent read-only SQLite connections and restores frozen task
+order before summarization. Worker count affects scheduling only, not queries,
+scores, tie breaks, records, or gates.
+
 ## Exact Environment
 
 The visible initial state is the released research query. A search action is a

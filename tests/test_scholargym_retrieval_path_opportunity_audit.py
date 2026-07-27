@@ -9,6 +9,8 @@ from scripts.scholargym_retrieval_path_opportunity_audit import (
     OPPORTUNITY_ID_HASH,
     ScholarCorpus,
     _id_hash,
+    analyze_task,
+    analyze_task_from_index,
     followup_queries,
     root_queries,
     stream_json_object,
@@ -193,6 +195,26 @@ def test_default_rank_matches_scalar_bm25_order(tmp_path: Path) -> None:
         assert rank_rows == scalar_rows
     finally:
         corpus.close()
+
+
+def test_task_worker_reopens_index_without_changing_record(tmp_path: Path) -> None:
+    index_path = tmp_path / "tiny.sqlite"
+    corpus = _build_tiny_index(index_path)
+    row = {
+        "qid": "tiny",
+        "query": (
+            "How do researchers assess fish stocks and study migration "
+            "barriers near marine reserves?"
+        ),
+        "cited_paper": [{"arxiv_id": "a"}, {"arxiv_id": "b"}],
+        "gt_label": [1, 1],
+        "date": "2024-12-31",
+    }
+    try:
+        direct = analyze_task(row, corpus)
+    finally:
+        corpus.close()
+    assert analyze_task_from_index(row, index_path) == direct
 
 
 def test_summary_requires_strict_lower_immediate_tradeoffs() -> None:
