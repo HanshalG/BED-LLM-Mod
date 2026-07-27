@@ -5,9 +5,10 @@ from scripts import validate_paper_draft as vpd
 
 
 VALID_LIMITATIONS_TEXT = """
-This is a positive structured-benchmark result and a qualified external
-LLM-native result. Its final endpoint gains remain underpowered. The parser amendment
-followed iterative development, so this is not a pristine one-shot preregistration.
+This is a positive structured-benchmark result and a narrow simulator-grounded
+LLM-native result. It uses one frozen GPT-5.4 support tree, with a mixture
+selected on a disclosed development curve and exact rather than learned
+likelihoods. It tests fresh physical worlds, not fresh model generation.
 Rock Diagnosis has an exact finite simulator and does
 not test robustness to learned likelihoods. Animals streams are only partially
 paired. Paprika policy counts are endpoint-invalid. MediQ stops before a calibrated
@@ -125,12 +126,12 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
     assert "structured_positive_scope" in limitations_check["detail"]
 
 
-def test_validate_paper_draft_accepts_unstable_external_scope(tmp_path, monkeypatch):
+def test_validate_paper_draft_accepts_inline_native_scope(tmp_path, monkeypatch):
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()
     limitations = VALID_LIMITATIONS_TEXT.replace(
-        "qualified external\nLLM-native result",
-        "unstable external\nLLM-native result",
+        "simulator-grounded\nLLM-native result",
+        "simulator-grounded LLM-native result",
     )
     (paper_dir / "main.tex").write_text(
         "\\documentclass{article}\\begin{document}\n"
