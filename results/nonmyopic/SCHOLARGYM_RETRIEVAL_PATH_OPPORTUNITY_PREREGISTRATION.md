@@ -70,6 +70,14 @@ or retrieval, because `AutoScholarQuery_dev_496` repeats arXiv ID `2304.07327`.
 This revision freezes the intended distinct-canonical-ID rule and its corrected
 541-row pool and hashes.
 
+A second incomplete attempt was interrupted during the first opportunity task
+after revealing that calling FTS5's scalar `bm25()` function defeated its
+top-N optimization for broad OR queries. No record or aggregate was written or
+inspected. The implementation now orders by FTS5's default `rank` column,
+which is the documented auxiliary path for the same default BM25 score and
+stable row-ID tie break. This is an execution-only correction; the retriever,
+scores, candidates, and protocol are unchanged.
+
 ## Exact Environment
 
 The visible initial state is the released research query. A search action is a

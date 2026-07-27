@@ -168,6 +168,33 @@ def test_roots_and_followups_are_observation_conditioned(tmp_path: Path) -> None
         corpus.close()
 
 
+def test_default_rank_matches_scalar_bm25_order(tmp_path: Path) -> None:
+    corpus = _build_tiny_index(tmp_path / "tiny.sqlite")
+    try:
+        match_query = '"fish" OR "reserves"'
+        rank_rows = corpus.connection.execute(
+            """
+            SELECT papers.arxiv_id
+            FROM papers_fts JOIN papers ON papers.rowid = papers_fts.rowid
+            WHERE papers_fts MATCH ?
+            ORDER BY papers_fts.rank ASC, papers.rowid ASC
+            """,
+            (match_query,),
+        ).fetchall()
+        scalar_rows = corpus.connection.execute(
+            """
+            SELECT papers.arxiv_id
+            FROM papers_fts JOIN papers ON papers.rowid = papers_fts.rowid
+            WHERE papers_fts MATCH ?
+            ORDER BY bm25(papers_fts) ASC, papers.rowid ASC
+            """,
+            (match_query,),
+        ).fetchall()
+        assert rank_rows == scalar_rows
+    finally:
+        corpus.close()
+
+
 def test_summary_requires_strict_lower_immediate_tradeoffs() -> None:
     records = []
     for index in range(40):

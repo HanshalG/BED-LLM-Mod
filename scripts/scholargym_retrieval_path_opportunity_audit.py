@@ -505,11 +505,11 @@ class ScholarCorpus:
         rows = self.connection.execute(
             f"""
             SELECT papers.arxiv_id, papers.title, papers.abstract, papers.date,
-                   bm25(papers_fts) AS score
+                   papers_fts.rank AS score
             FROM papers_fts
             JOIN papers ON papers.rowid = papers_fts.rowid
             WHERE {' AND '.join(clauses)}
-            ORDER BY score ASC, papers.rowid ASC
+            ORDER BY papers_fts.rank ASC, papers.rowid ASC
             LIMIT ?
             """,
             parameters,
