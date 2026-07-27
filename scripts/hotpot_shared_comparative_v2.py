@@ -421,6 +421,8 @@ def run_tasks(
     raw_path: Path,
     cohort_rows_materialized: int,
     model_adapter: Any | None = None,
+    myopic_message_builder: Any = myopic_rank_messages,
+    myopic_response_parser: Any = parse_myopic_order,
     plan_message_builder: Any = plan_rank_messages,
     plan_response_parser: Any = parse_plan,
     interface_version: str = INTERFACE_VERSION,
@@ -482,7 +484,7 @@ def run_tasks(
 
         myopic_raw = model.chat_complete_messages_batched(
             [
-                myopic_rank_messages(
+                myopic_message_builder(
                     initial,
                     [task["titles"][index] for index in task["roots"]],
                 )
@@ -494,7 +496,9 @@ def run_tasks(
         )
         raw["myopic"] = myopic_raw
         _checkpoint(raw_path, raw)
-        myopic_orders = [parse_myopic_order(text) for text in myopic_raw]
+        myopic_orders = [
+            myopic_response_parser(text) for text in myopic_raw
+        ]
 
         plan_states = {
             "aligned": refreshes,
