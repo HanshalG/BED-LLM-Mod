@@ -1,0 +1,198 @@
+{
+  "gates": {
+    "all_pass": true,
+    "all_refreshes_change": true,
+    "all_responses_parsed_without_repair": true,
+    "all_tasks_complete": true,
+    "all_tasks_have_four_distinct_refreshes": true,
+    "cost_at_most_0_25": true,
+    "exact_logical_request_count": true,
+    "http_attempts_match_requests_plus_retries": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "metrics": {
+    "aligned_fixed_order_changes": 1,
+    "aligned_shuffled_order_changes": 1,
+    "comparisons": {
+      "fixed": {
+        "exact_one_sided_sign_flip_p": 1.0,
+        "gain": 0,
+        "losses": 0,
+        "ties": 1,
+        "wins": 0
+      },
+      "myopic": {
+        "exact_one_sided_sign_flip_p": 1.0,
+        "gain": 0,
+        "losses": 0,
+        "ties": 1,
+        "wins": 0
+      },
+      "random": {
+        "exact_one_sided_sign_flip_p": 1.0,
+        "gain": 0,
+        "losses": 0,
+        "ties": 1,
+        "wins": 0
+      },
+      "shuffled": {
+        "exact_one_sided_sign_flip_p": 0.5,
+        "gain": 1,
+        "losses": 0,
+        "ties": 0,
+        "wins": 1
+      }
+    },
+    "mean_final_answer_token_f1": 0.1111111111111111,
+    "nonmyopic_enabling_roots": 0,
+    "policy_support_totals": {
+      "fixed": 2,
+      "myopic": 2,
+      "nonmyopic": 2,
+      "random": 2,
+      "shuffled": 1
+    },
+    "refreshes_changed": 4,
+    "root_changes_vs_myopic": 1,
+    "root_pairwise_accuracy": {
+      "fixed": 1.0,
+      "myopic": 1.0,
+      "nonmyopic": 1.0,
+      "shuffled": 0.25
+    },
+    "tasks_with_four_distinct_refreshes": 1
+  },
+  "protocol": {
+    "bounded_transport_retries_configured": true,
+    "cohort_rows_materialized": 500,
+    "development_split_sha256": null,
+    "endpoint_hidden_until_all_model_outputs_frozen": true,
+    "expected_calls_per_task": 10,
+    "interface_version": "hotpot-shared-comparative-v4-1",
+    "model": "openai/gpt-5.4",
+    "myopic_uses_aligned_receding_followup": true,
+    "private_raw_sha256": "3729443dc041898f1522d42262c97c1e62b956a57be7f458c66a5d23cd248626",
+    "reasoning_requested": false,
+    "selected_qualifying_count": 1,
+    "semantic_reissues_allowed": false,
+    "stage": "serving",
+    "task_ids": [
+      "5adf89c05542993344016cdd"
+    ]
+  },
+  "records": [
+    {
+      "aligned_order": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "final_answer_token_f1": 0.1111111111111111,
+      "fixed_order": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "myopic_order": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "policies": {
+        "fixed": {
+          "followup_candidate_index": 8,
+          "followup_role": "answer",
+          "root_index": 1,
+          "root_role": "enabling",
+          "support_coverage": 2
+        },
+        "myopic": {
+          "followup_candidate_index": 8,
+          "followup_role": "answer",
+          "root_index": 1,
+          "root_role": "enabling",
+          "support_coverage": 2
+        },
+        "nonmyopic": {
+          "followup_candidate_index": 0,
+          "followup_role": "enabling",
+          "root_index": 0,
+          "root_role": "answer",
+          "support_coverage": 2
+        },
+        "random": {
+          "followup_candidate_index": 8,
+          "followup_role": "answer",
+          "root_index": 1,
+          "root_role": "enabling",
+          "support_coverage": 2
+        },
+        "shuffled": {
+          "followup_candidate_index": 0,
+          "followup_role": "enabling",
+          "root_index": 2,
+          "root_role": "distractor",
+          "support_coverage": 1
+        }
+      },
+      "root_values": [
+        2,
+        2,
+        1,
+        1
+      ],
+      "shuffled_order": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "task_id": "5adf89c05542993344016cdd"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.06635250000000001,
+    "generator": {
+      "adapter_completion_tokens": 2369,
+      "adapter_cost_usd": 0.06635250000000001,
+      "adapter_prompt_tokens": 12327,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2369,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2369,
+          "cost_usd": 0.06635250000000001,
+          "prompt_tokens": 12327,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 12327,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 39.07102189077658,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.06635250000000001,
+      "run_remaining_usd": 0.1836475,
+      "total_spent_usd": 100.92897810922342
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
