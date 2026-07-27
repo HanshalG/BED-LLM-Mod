@@ -1,0 +1,155 @@
+{
+  "protocol": {
+    "balanced_ab_orders": true,
+    "complete_future_trees_visible": true,
+    "development_tasks_previously_open": false,
+    "disagreement_or_tie_fallback": "myopic finalist",
+    "interface_version": 1,
+    "model": "openai/gpt-5.4",
+    "oracle_continuation_used_for_first_link_endpoint_only": true,
+    "primary_artifact_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+    "private_raw_sha256": "282674e5e3b17f3d86a0bc96f450f06af2964f1292d017a2d0466dff7ea25007",
+    "rank_artifact_sha256": "9eef6301598149066fe552bb2ccfcf734bfeb11ae01f6fc727f05d8cea4f99eb",
+    "rank_artifact_status": "gate_failed",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "required_documents_hidden_from_model": true,
+    "secondary_artifact_sha256": "627dfe7641dca9fade90890dc90f818da1c6967c08b7878208224cd961fd7f20",
+    "stage": "serving_smoke",
+    "task_ids": [
+      "task_025",
+      "task_021"
+    ],
+    "unanimity_required_for_override": true
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "changed_finalist_count": 2,
+    "duel_advantage_over_myopic": 0,
+    "duel_selected_oracle_tail_total": 2,
+    "duel_selected_vs_all_accuracy": 0.4,
+    "duel_vs_myopic_losses": 0,
+    "duel_vs_myopic_ties": 2,
+    "duel_vs_myopic_wins": 0,
+    "fallback_count": 2,
+    "gates": {
+      "all_changed_tasks_have_balanced_duels": true,
+      "all_pass": true,
+      "all_tasks_complete": true,
+      "exact_logical_request_count": true,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true
+    },
+    "myopic_selected_oracle_tail_total": 2,
+    "myopic_selected_vs_all_accuracy": 0.4,
+    "num_tasks": 2,
+    "selected_vs_all_accuracy_gain": 0.0,
+    "task_diagnostics": [
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers card reward options and MCC-dependent software/operations treatment plus review steps, but shows no evidence on opening eligibility or approving a new $100,000 charge.",
+          "candidate_b_coverage": "B covers high-limit application eligibility and documentation plus one reward exclusion showing Apple is only 1% on Silver, but lacks broad product comparison or clear large-charge approval procedure.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 7,
+        "oracle_tail_values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          3,
+          1,
+          1
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers high-limit eligibility and underwriting well via D1-D3 plus an Apple exclusion and software-rate rule in D4/D6, but it lacks broad product comparison and clear procedures for a $100,000 first charge.",
+          "candidate_b_coverage": "B covers rewards classification, rates, exclusions, posting/review procedures, and some transaction-limit evidence via D11/D12/D17 and D1, but its large-charge approval and underwriting support is thinner.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 1,
+        "selected_root_index": 0,
+        "task_id": "task_025"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers posting timing, returns reversals, card/category/promo recalculation, and some exclusions, but its followup evidence is mostly off-card/product and misses customer review or dispute steps.",
+          "candidate_b_coverage": "B covers posted eligibility, ineligible types, refunds/disputes, promo rules, and dispute/correction workflow, though some evidence is from mixed card products and omits transaction-level review details.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 5,
+        "oracle_tail_values": [
+          1,
+          1,
+          2,
+          0,
+          0,
+          1,
+          3,
+          1,
+          1,
+          1
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers posted-date accrual, returns/reversals, dispute correction steps, and some promo/category logic, but its best followup adds mostly mismatched card-product rules and misses clear transaction-level review/error procedures.",
+          "candidate_b_coverage": "B covers posted-date accrual, exclusions, returns/credits, MCC/category-based rates, and dispute/correction workflow, though some followup evidence is from mismatched products and weak on account review specifics.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 1,
+        "selected_root_index": 0,
+        "task_id": "task_021"
+      }
+    ],
+    "unanimous_duel_count": 0
+  },
+  "usage": {
+    "adapter_cost_usd": 0.04864,
+    "generator": {
+      "adapter_completion_tokens": 390,
+      "adapter_cost_usd": 0.04864,
+      "adapter_prompt_tokens": 17116,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 390,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 4,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 390,
+          "cost_usd": 0.04864,
+          "prompt_tokens": 17116,
+          "reasoning_tokens": 0,
+          "requests": 4
+        }
+      },
+      "prompt_tokens": 17116,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 39.57217689077659,
+      "requests": 4,
+      "retry_count": 0,
+      "run_budget_usd": 0.4,
+      "run_cost_usd": 0.04864,
+      "run_remaining_usd": 0.35136,
+      "total_spent_usd": 100.42782310922341
+    },
+    "physical_requests": 4,
+    "reasoning_tokens": 0
+  }
+}

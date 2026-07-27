@@ -1,0 +1,700 @@
+{
+  "protocol": {
+    "balanced_ab_orders": true,
+    "complete_future_trees_visible": true,
+    "development_tasks_previously_open": true,
+    "disagreement_or_tie_fallback": "myopic finalist",
+    "interface_version": 1,
+    "model": "openai/gpt-5.4",
+    "oracle_continuation_used_for_first_link_endpoint_only": true,
+    "primary_artifact_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+    "private_raw_sha256": "d9597d38e05df1071da02c257e7d142cf1655bfa1971decfb0ec71dd81714780",
+    "rank_artifact_sha256": "9eef6301598149066fe552bb2ccfcf734bfeb11ae01f6fc727f05d8cea4f99eb",
+    "rank_artifact_status": "gate_failed",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "required_documents_hidden_from_model": true,
+    "secondary_artifact_sha256": "627dfe7641dca9fade90890dc90f818da1c6967c08b7878208224cd961fd7f20",
+    "stage": "development",
+    "task_ids": [
+      "task_025",
+      "task_021",
+      "task_028",
+      "task_015",
+      "task_016",
+      "task_062",
+      "task_048",
+      "task_081",
+      "task_029",
+      "task_022",
+      "task_019",
+      "task_027",
+      "task_012",
+      "task_089",
+      "task_023",
+      "task_020",
+      "task_007",
+      "task_005",
+      "task_017",
+      "task_004"
+    ],
+    "unanimity_required_for_override": true
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "changed_finalist_count": 13,
+    "duel_advantage_over_myopic": 7,
+    "duel_selected_oracle_tail_total": 38,
+    "duel_selected_vs_all_accuracy": 0.8076923076923077,
+    "duel_vs_myopic_losses": 0,
+    "duel_vs_myopic_ties": 17,
+    "duel_vs_myopic_wins": 3,
+    "fallback_count": 7,
+    "gates": {
+      "all_changed_tasks_have_balanced_duels": true,
+      "all_pass": false,
+      "all_tasks_complete": true,
+      "exact_logical_request_count": true,
+      "fallbacks_at_most_5": false,
+      "losses_at_most_1": true,
+      "oracle_tail_gain_over_myopic_at_least_4": true,
+      "selected_vs_all_accuracy_at_least_0_70": true,
+      "selected_vs_all_accuracy_gain_at_least_0_08": true,
+      "unanimous_duels_at_least_8": false,
+      "wins_exceed_losses_by_at_least_3": true,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true
+    },
+    "myopic_selected_oracle_tail_total": 31,
+    "myopic_selected_vs_all_accuracy": 0.6213592233009708,
+    "num_tasks": 20,
+    "selected_vs_all_accuracy_gain": 0.1863330843913369,
+    "task_diagnostics": [
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers rewards products, MCC-based software/operations treatment, and review process, but lacks solid large-charge approval or application eligibility evidence.",
+          "candidate_b_coverage": "B covers high-limit eligibility, underwriting documents, and possible six-figure limits, plus Apple is excluded from Silver software rewards, but it offers little cross-product rewards comparison.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 7,
+        "oracle_tail_values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          3,
+          1,
+          1
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers high-limit eligibility and underwriting well via D1-D3 and adds a key Apple exclusion from software rewards in D4, but lacks broad product/rewards comparison and concrete large-charge approval procedure.",
+          "candidate_b_coverage": "B covers card reward structures, merchant-category dependence, exclusions/review steps, and some credit-line info via D11-D12/D16-D17 plus D1, but gives weaker evidence on new-account high-limit eligibility and $100,000 approval process.",
+          "winner": "T"
+        },
+        "selected_oracle_tail": 1,
+        "selected_root_index": 0,
+        "task_id": "task_025"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers posting timing, returns reversals, exclusions, card/category/promotion recalculation, and dispute correction workflow, but its followup evidence is mostly off-product and misses transaction-level review details.",
+          "candidate_b_coverage": "B covers posted-date eligibility, pending/disputed/refunded reversals, common exclusions, a promo example, account-standing delay, and dispute submission/correction workflow, though some evidence is from mismatched products.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 5,
+        "oracle_tail_values": [
+          1,
+          1,
+          2,
+          0,
+          0,
+          1,
+          3,
+          1,
+          1,
+          1
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers posted-date accrual, refunds/reversals, good-standing delay, dispute correction workflow, and some promo/category recalculation via D1/D2, but its best followup adds mostly mismatched card products.",
+          "candidate_b_coverage": "B covers posted-date accrual, category/MCC and exclusion rules, refunds/credits, and dispute workflow via D1/D2/D14, with its best followup D15/D13/D16 largely off-product and weakly relevant.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 1,
+        "selected_root_index": 0,
+        "task_id": "task_021"
+      },
+      {
+        "advantage_over_myopic": 2,
+        "decision": "unanimous_nonmyopic",
+        "forward": {
+          "candidate_a_coverage": "A covers dispute-correction procedure and some posting/return/category rules, but its evidence is fragmented across specific card products and misses statement review and general eligibility coverage.",
+          "candidate_b_coverage": "B covers posting timing, statement rewards fields, returns/credits, ineligible transactions, good-standing and redemption/representation rules, plus rounding, though still tied to selected card products.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 5,
+        "oracle_tail_values": [
+          1,
+          3,
+          1,
+          0,
+          1,
+          3,
+          2,
+          1,
+          1,
+          1
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers posting-based accrual, statement display, returns reversals, good standing, rounding, and points-to-cash conversion, but its product-specific rate evidence is limited to Diamond Elite/other card examples.",
+          "candidate_b_coverage": "B covers points-to-cash conversion plus internal dispute-correction procedure, and some posted/returns/eligibility rules, but much evidence is either dispute-operations focused or not clearly credit-card cash-back policy.",
+          "winner": "A"
+        },
+        "selected_oracle_tail": 3,
+        "selected_root_index": 5,
+        "task_id": "task_028"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 3,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          3,
+          3,
+          2,
+          1,
+          2,
+          2,
+          2,
+          3,
+          3,
+          4
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 3,
+        "selected_root_index": 0,
+        "task_id": "task_015"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 0,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          2,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          2
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 2,
+        "selected_root_index": 0,
+        "task_id": "task_016"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers personal savings opening rules and business/bronze closure details, but its Evergreen checking support is only generic personal checking closure with no Evergreen-linked exceptions.",
+          "candidate_b_coverage": "B covers Bronze closure, business checking opening, personal savings opening, and Evergreen-linked APY relationship evidence, but still lacks direct Evergreen checking closure procedure.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 3,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 5,
+        "oracle_tail_values": [
+          2,
+          3,
+          2,
+          2,
+          1,
+          1,
+          3,
+          2,
+          1,
+          3
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers Bronze closure conditions, LLC business-checking opening docs/rules, personal savings opening eligibility, and Evergreen-linked APY effects, but lacks direct Evergreen closure policy.",
+          "candidate_b_coverage": "B covers Bronze closure conditions, LLC business-checking opening docs/rules, personal savings opening eligibility plus checking-tenure/dependency rules, but also lacks direct Evergreen closure policy.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 2,
+        "selected_root_index": 3,
+        "task_id": "task_062"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 8,
+        "myopic_oracle_tail": 4,
+        "nonmyopic_finalist_index": 8,
+        "oracle_tail_values": [
+          1,
+          3,
+          2,
+          3,
+          2,
+          2,
+          3,
+          3,
+          4,
+          2
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 4,
+        "selected_root_index": 8,
+        "task_id": "task_048"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers the cross-product wallet-theft protocol, debit freeze/close rules with verification, transfer documents, and debit dispute follow-up, but its credit-card evidence is weak and not clearly product-specific.",
+          "candidate_b_coverage": "B covers the same cross-product protocol plus debit eligibility/verification and a concrete credit-card account lookup plus replacement-order check, while transfer evidence remains similarly indirect.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 5,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          2,
+          1,
+          2,
+          3,
+          2,
+          2,
+          1,
+          2,
+          2,
+          2
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers the debit lost/stolen close-vs-freeze rules, verification/eligibility, and D1\u2019s cross-product credit-card replacement offer, but its human-transfer evidence is only a purchase-decline/incident flow.",
+          "candidate_b_coverage": "B covers the same debit verification/close rules, D1\u2019s cross-product credit-card replacement offer, human-transfer reason-code evidence for security concerns, and unauthorized-transaction dispute follow-up.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 2,
+        "selected_root_index": 5,
+        "task_id": "task_081"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 1,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 1,
+        "oracle_tail_values": [
+          1,
+          2,
+          0,
+          1,
+          1,
+          1,
+          0,
+          2,
+          0,
+          1
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 2,
+        "selected_root_index": 1,
+        "task_id": "task_029"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A gives internal correction workflow and cash-back-card representation plus one card's MCC-based rate, but little broad card-rate, cap, eligibility, or dispute/remediation coverage.",
+          "candidate_b_coverage": "B gives broader rewards-policy coverage with categories, posting/finalization, reversals, card-specific rates/promos, MCC-dependent qualification, and green-vendor eligibility, though little concrete correction procedure.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 5,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 8,
+        "oracle_tail_values": [
+          2,
+          0,
+          1,
+          0,
+          1,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers category/MCC behavior, posting timing, refunds/disputes reversals, and one card promo, but lacks broad card-by-card rate schedules, caps, multi-card policy, and concrete correction procedures.",
+          "candidate_b_coverage": "B covers internal reconciliation/correction workflow, cash-back card identification and points conversion, MCC-based earning logic, and transaction/dispute handling, but has little broad card-rate or valid promotion evidence.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 2,
+        "selected_root_index": 5,
+        "task_id": "task_022"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "unanimous_nonmyopic",
+        "forward": {
+          "candidate_a_coverage": "A gives the dispute submission/correction process plus one relevant Gold card rate/posting doc, but its EcoCard followup misses and leaves posting, account-issue, and comparison coverage weak.",
+          "candidate_b_coverage": "B covers EcoCard rates/exclusions, generic posting/returns and points-to-cash representation plus dispute correction, but its Gold-card evidence is off-target and lacks Gold-specific rates/categories.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 3,
+        "myopic_oracle_tail": 2,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          2,
+          3,
+          0,
+          2,
+          0,
+          2,
+          2,
+          0,
+          0,
+          0
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A gives Gold cash-back-as-points conversion and dispute correction plus EcoCard green/standard rates and exclusions, but lacks Gold-specific earning rules.",
+          "candidate_b_coverage": "B covers dispute submission/correction steps and rounding, but its Gold/EcoCard evidence is mostly wrong-card materials with little product-specific rewards policy.",
+          "winner": "A"
+        },
+        "selected_oracle_tail": 2,
+        "selected_root_index": 0,
+        "task_id": "task_019"
+      },
+      {
+        "advantage_over_myopic": 2,
+        "decision": "unanimous_nonmyopic",
+        "forward": {
+          "candidate_a_coverage": "A covers posted earning, refunds/reversals, disputes not earning until resolved, and some ineligible transactions, but its followup drifts to dispute/provisional-credit process rather than cash-back statement details.",
+          "candidate_b_coverage": "B covers cash-back-as-points display, posting timing, net-of-returns calculation, merchant/category-based rates and exclusions, plus cash-back dispute submission and correction procedures.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 3,
+        "myopic_oracle_tail": 0,
+        "nonmyopic_finalist_index": 1,
+        "oracle_tail_values": [
+          2,
+          2,
+          2,
+          0,
+          0,
+          1,
+          2,
+          1,
+          0,
+          2
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers cash-back calculation, posting after transactions post, net-of-returns, MCC/category effects, points-to-cash statement display, and the specific cash-back dispute procedure.",
+          "candidate_b_coverage": "B covers posting, refunds/reversals, disputed transactions, ineligible transaction types, redemption timing, and generic card-dispute/provisional-credit procedures, but not the cash-back statement representation or cash-back-specific correction process.",
+          "winner": "A"
+        },
+        "selected_oracle_tail": 2,
+        "selected_root_index": 1,
+        "task_id": "task_027"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 9,
+        "myopic_oracle_tail": 0,
+        "nonmyopic_finalist_index": 9,
+        "oracle_tail_values": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 0,
+        "selected_root_index": 9,
+        "task_id": "task_012"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 5,
+        "myopic_oracle_tail": 4,
+        "nonmyopic_finalist_index": 5,
+        "oracle_tail_values": [
+          3,
+          3,
+          1,
+          3,
+          2,
+          4,
+          2,
+          2,
+          2,
+          3
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 4,
+        "selected_root_index": 5,
+        "task_id": "task_089"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "unanimous_myopic",
+        "forward": {
+          "candidate_a_coverage": "A uses D1 plus D6 to cover the governing eligibility rules, monthly cardmember-year windows, first-year fee-waiver exception, and adds a relevant servicing procedure from D10, with only one weak off-topic followup result.",
+          "candidate_b_coverage": "B uses D1 plus D6 to cover the same core eligibility and first-year waiver rule, but its other followup evidence is mostly off-product or generic and adds less useful procedure support.",
+          "winner": "A"
+        },
+        "myopic_finalist_index": 7,
+        "myopic_oracle_tail": 3,
+        "nonmyopic_finalist_index": 1,
+        "oracle_tail_values": [
+          2,
+          2,
+          3,
+          3,
+          3,
+          2,
+          2,
+          3,
+          2,
+          3
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A cites the core Platinum rebate policy in D2 and the first-year fee-waiver exception in D4, but its other returned docs are mostly irrelevant and do not add reliable account-checking or posting details.",
+          "candidate_b_coverage": "B cites the same core Platinum rebate policy in D2 plus D4, and its first results add one irrelevant card doc while the best followup adds only weak cross-product posting/net-purchase clues from D6.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 3,
+        "selected_root_index": 7,
+        "task_id": "task_023"
+      },
+      {
+        "advantage_over_myopic": 3,
+        "decision": "unanimous_nonmyopic",
+        "forward": {
+          "candidate_a_coverage": "A mainly covers generic posting/eligibility/reversal rules from unrelated Platinum and Business Gold cards plus a dispute-help article, with no Silver or Business Silver product-specific rates or statement details.",
+          "candidate_b_coverage": "B provides Business Silver promo and exclusion rules plus generic points-to-cash and reversal/rounding policies, but misses direct Silver Rewards card earn/posting rules and relies on unrelated cards for them.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 9,
+        "myopic_oracle_tail": 0,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          3,
+          3,
+          2,
+          1,
+          1,
+          1,
+          2,
+          2,
+          1,
+          0
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers Business Silver promo timing, base rates, exclusions, and cash-back/points display, but its Silver card and posting/reversal support is weak or off-card.",
+          "candidate_b_coverage": "B covers general posting, eligible vs ineligible purchases, returns, availability, and dispute-help procedures, but lacks Silver or Business Silver product-specific earn rates and differences.",
+          "winner": "A"
+        },
+        "selected_oracle_tail": 3,
+        "selected_root_index": 0,
+        "task_id": "task_020"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A covers two actual signup promos with spend windows, exclusions, offer dates, good-standing and posting rules, plus one prior-cardholder fee-waiver item, but misses broad fee comparison and offer-comparison policy.",
+          "candidate_b_coverage": "B covers one real signup promo plus EcoCard application and redemption terms, and adds Silver and Gold fee/eligibility details, but much of the evidence is not about signup offers or bonus restrictions.",
+          "winner": "A"
+        },
+        "myopic_finalist_index": 7,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 2,
+        "oracle_tail_values": [
+          2,
+          1,
+          2,
+          2,
+          0,
+          3,
+          2,
+          1,
+          2,
+          2
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A covers two consumer card promos plus Silver\u2019s $0 annual fee, one offer window, spend/good-standing rules, EcoCard exclusions, and point value, but misses broad fee comparisons and prior-cardholder limits.",
+          "candidate_b_coverage": "B covers Silver and EcoCard promo qualification and timing plus EcoCard exclusions and a business fee-waiver promo, but its fee evidence is mostly irrelevant and it lacks reward valuation and clear consumer fee comparison.",
+          "winner": "A"
+        },
+        "selected_oracle_tail": 1,
+        "selected_root_index": 7,
+        "task_id": "task_007"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "fallback_myopic",
+        "forward": {
+          "candidate_a_coverage": "A only shows generic digital access and internal credit-card lookup/ID-verification snippets, with no Gold Rewards balance-specific channels, balance types, or user/exception rules.",
+          "candidate_b_coverage": "B at least identifies Gold Rewards as a card tied to Gold Account materials and adds one general credit-card rule about pending transactions posting versus statement balance, but still lacks actual balance-inquiry procedures, channels, and authentication policy.",
+          "winner": "B"
+        },
+        "myopic_finalist_index": 8,
+        "myopic_oracle_tail": 0,
+        "nonmyopic_finalist_index": 0,
+        "oracle_tail_values": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A\u2019s evidence is largely off-topic savings/APY and closure content, with only generic identity verification and a stray statement-balance mention but no balance-inquiry channels or procedures.",
+          "candidate_b_coverage": "B has some relevant digital evidence that card account details are available in the app/website and recent transactions can be viewed online, but it lacks clear balance-check procedures, balance-type definitions, eligibility, exceptions, or authorized-user rules.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 0,
+        "selected_root_index": 8,
+        "task_id": "task_005"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "same_finalist",
+        "forward": null,
+        "myopic_finalist_index": 1,
+        "myopic_oracle_tail": 1,
+        "nonmyopic_finalist_index": 1,
+        "oracle_tail_values": [
+          3,
+          1,
+          2,
+          0,
+          1,
+          1,
+          1,
+          0,
+          2,
+          1
+        ],
+        "reversed": null,
+        "selected_oracle_tail": 1,
+        "selected_root_index": 1,
+        "task_id": "task_017"
+      },
+      {
+        "advantage_over_myopic": 0,
+        "decision": "unanimous_myopic",
+        "forward": {
+          "candidate_a_coverage": "A surfaces joint-business authority, identity-verification, dual-authorization, and role/approval evidence, but nothing specifically about changing an account email or customer-facing update steps/channels.",
+          "candidate_b_coverage": "B has only generic support-channel/process evidence from CLI and scattered notification/verification snippets, with no document actually governing account email-change policy or procedure.",
+          "winner": "A"
+        },
+        "myopic_finalist_index": 9,
+        "myopic_oracle_tail": 0,
+        "nonmyopic_finalist_index": 6,
+        "oracle_tail_values": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reversed": {
+          "candidate_a_coverage": "A\u2019s documents are mostly unrelated; only D1 gives generic support channels and needed details, with no email-change policy, verification, timing, notifications, or exceptions.",
+          "candidate_b_coverage": "B covers joint-business eligibility, authority, documentation, identity verification, roles, dual authorization, and some audit/notification controls, but not the actual email-change procedure or timing.",
+          "winner": "B"
+        },
+        "selected_oracle_tail": 0,
+        "selected_root_index": 9,
+        "task_id": "task_004"
+      }
+    ],
+    "unanimous_duel_count": 6
+  },
+  "usage": {
+    "adapter_cost_usd": 0.28107750000000004,
+    "generator": {
+      "adapter_completion_tokens": 2462,
+      "adapter_cost_usd": 0.28107750000000004,
+      "adapter_prompt_tokens": 111483,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 26,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2462,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 26,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2462,
+          "cost_usd": 0.28107750000000004,
+          "prompt_tokens": 111483,
+          "reasoning_tokens": 0,
+          "requests": 26
+        }
+      },
+      "prompt_tokens": 111483,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 39.291099390776594,
+      "requests": 26,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.28107750000000004,
+      "run_remaining_usd": 1.2189225,
+      "total_spent_usd": 100.7089006092234
+    },
+    "physical_requests": 26,
+    "reasoning_tokens": 0
+  }
+}
