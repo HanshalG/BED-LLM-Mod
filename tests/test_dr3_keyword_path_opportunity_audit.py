@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from scripts.bright_biology_unlock_audit import BM25Corpus
 from scripts.dr3_keyword_path_opportunity_audit import (
     ALL_ORDER_HASH,
@@ -130,4 +133,26 @@ def test_summary_fails_when_depth_two_is_only_order_commutative() -> None:
     summary = summarize(records)
     assert summary["pair_gain_task_count"] == 20
     assert not summary["gates"]["strict_opportunities_at_least_4"]
+    assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_opportunity_artifact_fails_only_nonmyopic_tradeoff_gates() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "dr3_keyword_path_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "gate_failed"
+    assert summary["num_records"] == 20
+    assert summary["pair_gain_task_count"] == 20
+    assert summary["strict_opportunity_count"] == 0
+    assert summary["mean_best_immediate_coverage"] == 0.3
+    assert summary["mean_oracle_pair_coverage"] == 0.59
+    assert not summary["gates"]["strict_opportunities_at_least_4"]
+    assert not summary["gates"]["strict_total_gap_at_least_4"]
+    assert not summary["gates"]["mean_strict_normalized_gap_at_least_0_10"]
     assert not summary["gates"]["all_pass"]
