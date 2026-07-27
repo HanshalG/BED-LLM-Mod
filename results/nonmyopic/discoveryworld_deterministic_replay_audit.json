@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "interface_version": "discoveryworld-deterministic-replay-audit-1",
+  "status": "deterministic_replay_pass",
+  "source": {
+    "repository": "https://github.com/allenai/discoveryworld",
+    "commit": "fd591323920be0d3786ef350955de1945aa571e5"
+  },
+  "protocol": {
+    "difficulty": "Challenge",
+    "scenario_seed": 0,
+    "num_steps": 5,
+    "num_themes": 8,
+    "object_rng_seed": "sha256(interface,world_seed,object_uuid)",
+    "process_rngs_reset": [
+      "random",
+      "numpy"
+    ],
+    "new_model_calls": 0,
+    "openrouter_cost_usd": 0.0,
+    "oatml_jobs": 0
+  },
+  "summary": {
+    "passed": true,
+    "num_exact_themes": 8,
+    "num_themes": 8
+  },
+  "themes": {
+    "Combinatorial Chemistry": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 14418654067893024580,
+        "teleport_locations": [
+          "shed"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "shed"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "shed"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "shed"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "shed"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "shed"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "23462518438ec2fed647449240a612067832cd2a3a0dab75bccda39be5481688",
+          "1173c6feb31ed54fd27cff7177861df21b3b568c4226eba85f63c0e9a7e1531e",
+          "04d8ee09fd9df60bb112010665d2037c179cd4fffb334be7dec9277d0104fd10",
+          "0c25335b35518259b6acd2943e592dc01931a4e9dd54aa4d653b0c364408ac0b",
+          "c3fc6e32dbce901d784616c1c0170b5ca54fbad5f78a3e160e208421577262a0",
+          "e769399004f1a476d366e521f2b09bc3c77129b92186d4d66f3760b478cf9183"
+        ],
+        "scorecard_hashes": [
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e",
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e",
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e",
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e",
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e",
+          "63b4a427c2c6d917c0e5462d9a2254b67479512769150f18a3950adf8a9be31e"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Archaeology Dating": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 9632649992159203323,
+        "teleport_locations": [
+          "base camp",
+          "dig site 1",
+          "dig site 2",
+          "dig site 3",
+          "dig site 4",
+          "dig site 5",
+          "dig site 6"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "base camp"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "dig site 1"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "dig site 2"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "dig site 3"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "dig site 4"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "7b9968a0d249a08a62cfbc36ba5e729662891a60eddb2259793f2c864993b3b1",
+          "d93d55e5100d275477d2163cb907cd32786522b9cb2dd3f055de10d8ef9cfb24",
+          "31634bc4b36da925a2bb633fec85ada76741c43a7b20210b09ca31aa74d6028b",
+          "3dc6be37ce50da5ebf8b724177357ff460bad17b98019b83ffdc67eaaa364d2d",
+          "d7eda6ad58a97b23cab13d7b3b5cbbdadd43e2e4d5a9b305b07578bc04760f93",
+          "38d29252cf9cd2eede09089756f1b8a8fa51f861baf677b6d59dcf54db5d04f0"
+        ],
+        "scorecard_hashes": [
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e",
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e",
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e",
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e",
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e",
+          "65ce0f9581cce6578ed12381dea89685d79a584306f0e363ce92bd5691f9880e"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Plant Nutrients": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 3253018694480388015,
+        "teleport_locations": [
+          "Experimental Field #1",
+          "Experimental Field #2",
+          "Experimental Field #3",
+          "Pilot Field",
+          "Storage Building"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Experimental Field #1"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Experimental Field #2"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Experimental Field #3"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Pilot Field"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Storage Building"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "223880be1f71522463378f1e5506ee705f263a340c5e64bd856140a5098d2606",
+          "2ffe0c202021a68922b8ab85b8168e808d9f9548138b4e0207f83a56b2897afd",
+          "6d3c3679b9a53791187665c67291f29f7e71c81ce2aad7494cbf5adfd178a73e",
+          "92dbec13910e39bab175200db363249129f42b7e0f5ad33caf9266a8248138f9",
+          "7e7c877b3d64ecb86536782a3dfb4ba2e177578cd6a733cb5050f5ea86c5118c",
+          "a47d85151019fabf34e72436eec2964bb70b4401dce52577dfa814589e674202"
+        ],
+        "scorecard_hashes": [
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6",
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6",
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6",
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6",
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6",
+          "24f5634a97a85a171b7ebec05964249e23057c8cb475e8ba660fc67786db65d6"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Reactor Lab": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 2350300059375450838,
+        "teleport_locations": [
+          "reactor lab",
+          "science lab (crystal bench)",
+          "science lab (instruments)"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "reactor lab"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "science lab (crystal bench)"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "science lab (instruments)"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "reactor lab"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "science lab (crystal bench)"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "64ed9c6e98a38934c33409316d18078628376c48a96715b3b125ba5e2f27a276",
+          "560121306dc5e88c9f31de656cbfd74288c86e4c697af15720a096a170ff7706",
+          "6831d88c545ef5642b96626f850873445a156c9658a230903ae4e1c6e2b9449a",
+          "f174f17e0938ce0a21cd37f2d6e27efb1ba312ca1ba1f9fe9bd237a82d6ead44",
+          "ac8aada8a01611e88ac35e0de1a29e4baab7ccc2a33256dfdfc6bef80a1c9f7d",
+          "ecff06c1302371b33f2bfcde47967038695eeab6584dc64fed939d24d10f1120"
+        ],
+        "scorecard_hashes": [
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253",
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253",
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253",
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253",
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253",
+          "1dd832df1f8d1189cfd16168c14fd6ea640c425af2e71b68dd3b9aea3c4ff253"
+        ],
+        "final_score_normalized": 0.10344827586206896,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Lost in Translation": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 11909256574128232629,
+        "teleport_locations": [
+          "general store",
+          "key shop",
+          "paint shop",
+          "school",
+          "town square"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "general store"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "key shop"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "paint shop"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "school"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "town square"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "939e8ec5a3efbdf43b7606108c9ee15453187e4f0622426e3a8fc05401960443",
+          "20a8a73cb3f4dbb619f3f5143bfa40fcf82a229182ac52d6e3560527750afb4d",
+          "92dcb6e9a844cc0ea60dca768713a180ba7b28ffb2a6e7f25b2077e673124370",
+          "ee11881effa50f327d86158c02c93a85a0f872d26d1aa41862d8d6f05678c0b8",
+          "d7b200310c954eb3b933c66493598263386f2dea242d9dfc07545773cef73108",
+          "caaa678070457b7dc63003c7e766b8ca6c54aa0b00528b1d919a486733016315"
+        ],
+        "scorecard_hashes": [
+          "b30ebdfc11a6943a41efdcbbf8760d0bbd04c1dad90db63d31308348273c50b9",
+          "b30ebdfc11a6943a41efdcbbf8760d0bbd04c1dad90db63d31308348273c50b9",
+          "b30ebdfc11a6943a41efdcbbf8760d0bbd04c1dad90db63d31308348273c50b9",
+          "3c24d54116f8211077133ea4c3f9c0f92c270e58778d0fb6800729ca98d20f38",
+          "2dc745a43e2de4408acf31259678afed2abfbfdaf62d9c769e6a70e5adb7e6f8",
+          "2dc745a43e2de4408acf31259678afed2abfbfdaf62d9c769e6a70e5adb7e6f8"
+        ],
+        "final_score_normalized": 0.18181818181818182,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Space Sick": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 6140546145847243597,
+        "teleport_locations": [
+          "barracks",
+          "cafeteria",
+          "cave",
+          "farm",
+          "farmers field",
+          "infirmary",
+          "science lab",
+          "town square"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "barracks"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "cafeteria"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "cave"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "farm"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "farmers field"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "eedc6b4020cc01b41271adfcd5fd97dff26b4f6b8ab338ad61c2bd4e0ee28e02",
+          "21b8476e68b471e12d27749ec3261d30041fea9ece658870874119b3103cde76",
+          "e93b16585174d929910a853ceade89a940ae84fdcce07a181a6248961804db44",
+          "3a7642a6f13e39a19327853006c57e458d0be97ca8fc4d18e4a1976a2d8fa761",
+          "e6e95a209ac6b8d61ac5a1e596a66bc266aea24aca9b459dea5c16ec9f2a0a30",
+          "da333eeafdc6fff6de1b03ad9d2a9fe169b09a8be41cc340bf3784ce639e76b4"
+        ],
+        "scorecard_hashes": [
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7",
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7",
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7",
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7",
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7",
+          "5506b0ebc48646f6f77805699faf3335be3338df0bfeaf664322e918d36b63a7"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "Proteomics": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 16197436450288814491,
+        "teleport_locations": [
+          "Instrument Table",
+          "Possible Animal Area 1",
+          "Possible Animal Area 10",
+          "Possible Animal Area 11",
+          "Possible Animal Area 12",
+          "Possible Animal Area 2",
+          "Possible Animal Area 3",
+          "Possible Animal Area 4",
+          "Possible Animal Area 5",
+          "Possible Animal Area 6",
+          "Possible Animal Area 7",
+          "Possible Animal Area 8",
+          "Possible Animal Area 9",
+          "Statue of a animaplant",
+          "Statue of a echojelly",
+          "Statue of a prismatic beast",
+          "Statue of a spheroid",
+          "Statue of a vortisquid"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Instrument Table"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Possible Animal Area 1"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Possible Animal Area 10"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Possible Animal Area 11"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "Possible Animal Area 12"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "318ab78f26f6e8deee93f99121c5744fc84e91169a397ec4c3ca55a821b906eb",
+          "c93a9c09597dfde76e582825f6e12e24518184d71fc54f255b4d3af3ca32a2ea",
+          "d9961ade8cd10a6c3f27b9cf2427b3c9d1ee258697ff496666818baf4921befe",
+          "ec0b25048217382a5640ee0eb79ac9ac908ee7a90d2e18fa58210c352d46f651",
+          "5b65239a47cec7dad0cc1c5ef03ffff6ffd912aa1cf478b0a0094aa50cca992e",
+          "8f50a111132c6ec6e42681c293883012b1c19b6d372ffc34497b7338dde1eced"
+        ],
+        "scorecard_hashes": [
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b",
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b",
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b",
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b",
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b",
+          "b8cb2a3916019d8b5cc65983b5e88418f496afc2a00bdd6abe4d3fc327aa1d0b"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    },
+    "It's (not) Rocket Science!": {
+      "comparison": {
+        "exact_match": true,
+        "mismatched_fields": [],
+        "num_observations": 6,
+        "num_actions": 5
+      },
+      "trace": {
+        "process_seed": 2841201285882510469,
+        "teleport_locations": [
+          "control room",
+          "northern observation post",
+          "rocket",
+          "southern observation post",
+          "thrust test site"
+        ],
+        "actions": [
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "control room"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "northern observation post"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "rocket"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "southern observation post"
+          },
+          {
+            "action": "TELEPORT_TO_LOCATION",
+            "arg1": "thrust test site"
+          }
+        ],
+        "action_results": [
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          },
+          {
+            "errors": [],
+            "success": true
+          }
+        ],
+        "observation_hashes": [
+          "52168b1622a99528e9caa6a50b75b0d1d732868f98c0a9573c92fd88d9a4de14",
+          "c7d6cf93c52ba20e4796e0be061d9ba4db28a9d0ae3094b5caed8fc675a33edb",
+          "5ecface5fd2d32fb128bc19d6021672d3c047ada8125724518b94d248cedb94b",
+          "eb0484fc88b67ec90e92fd3d766a0d148c58123ba7041df823a57991451ccd98",
+          "2d6879247c03a04276b20b77f7da27fdb29e95e6f8fd57896ec0aa4de514c160",
+          "c49e7fa5e0cde161d23a7b12ed7d8eda9bdeeb88c725576ec0b66f611f015888"
+        ],
+        "scorecard_hashes": [
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613",
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613",
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613",
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613",
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613",
+          "50fd888d375040c8e9c952ef671df54be9e340251556c6ea0cf811ab0c106613"
+        ],
+        "final_score_normalized": 0.0,
+        "completed": false,
+        "completed_successfully": false
+      }
+    }
+  }
+}

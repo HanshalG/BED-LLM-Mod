@@ -2,17 +2,20 @@
 
 ## Decision
 
-DiscoveryWorld is a strong end-to-end scientific-agent benchmark, but the
-released environment is **not ready for a paired non-myopic BED experiment**.
-Do not spend OpenRouter budget on it yet.
+DiscoveryWorld is a strong end-to-end scientific-agent benchmark, but it is
+**not yet ready for a paid non-myopic BED experiment**. A later preregistered
+deterministic wrapper passed exact replay for all eight themes, removing the
+paired-simulator blocker described below. The release still lacks a BED prior,
+reference planner, and demonstrated non-myopic opportunity.
 
 The attraction is real: its action space is semantic and open-ended, actions
 change a persistent simulated world, and task completion plus procedural
 progress are scored by the environment rather than by the planning model.
-However, the release does not define a belief prior or a BED objective, and
-same-seed reset/replay is not observation-deterministic. A StrategyEIG wrapper
-would therefore need both a new probabilistic task construction and a patched
-counterfactual simulator before it could produce auditable evidence.
+However, the release does not define a belief prior or a BED objective, and its
+unmodified same-seed reset/replay is not observation-deterministic. A
+StrategyEIG experiment therefore still needs a non-seed probabilistic task
+construction and a strict oracle opportunity gate before it can produce
+auditable evidence.
 
 ## Frozen Source
 
@@ -79,6 +82,13 @@ Its world-history export is a log, not a state loader.
 This is acceptable for ordinary agent evaluation, but it breaks paired
 counterfactual rollouts: two candidate strategies can inherit different hidden
 world details even when reloaded with the same advertised seed.
+
+**Subsequent status:** the preregistered deterministic wrapper seeds each
+object's private RNG from the interface version, world seed, and object UUID.
+It passed exact replay across all eight Challenge themes for an initial
+observation plus five actions. See
+`DISCOVERYWORLD_DETERMINISTIC_REPLAY_RESULT.md`. This fixes the tested mechanics
+but does not address the missing BED prior or opportunity.
 
 ### Endpoint and cost mismatch
 
