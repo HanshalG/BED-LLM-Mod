@@ -88,9 +88,15 @@ class MechanicsExecutionError(RuntimeError):
 
 
 def layout_hash() -> str:
+    return layout_hash_for(TASK_LAYOUT)
+
+
+def layout_hash_for(
+    task_layout: Sequence[tuple[int, tuple[int, int]]],
+) -> str:
     text = "\n".join(
         f"{row_index}:{roots[0]},{roots[1]}"
-        for row_index, roots in TASK_LAYOUT
+        for row_index, roots in task_layout
     )
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -647,15 +653,21 @@ def run_mechanics(
     caption_path: Path,
     raw_path: Path,
     model: StructuredChatModel,
+    task_layout: Sequence[tuple[int, tuple[int, int]]] = TASK_LAYOUT,
+    task_layout_hash: str = TASK_LAYOUT_HASH,
+    excluded_prior_rows: Sequence[int] = EXCLUDED_PRIOR_ROWS,
+    response_format_name: str = "chat_strict_flat_json_schema",
+    interface_version: str = INTERFACE_VERSION,
+    layout_seed: int = LAYOUT_SEED,
 ) -> dict[str, Any]:
     if sha256_file(qa_path) != QA_SHA256:
         raise ValueError("QA SHA-256 does not match frozen source")
     if sha256_file(caption_path) != CAPTION_SHA256:
         raise ValueError("caption SHA-256 does not match frozen source")
-    if layout_hash() != TASK_LAYOUT_HASH:
+    if layout_hash_for(task_layout) != task_layout_hash:
         raise AssertionError("task layout hash does not reproduce")
-    if set(EXCLUDED_PRIOR_ROWS) & {row for row, _ in TASK_LAYOUT}:
-        raise AssertionError("task layout reuses prior entropy-mechanics rows")
+    if set(excluded_prior_rows) & {row for row, _ in task_layout}:
+        raise AssertionError("task layout reuses a prior mechanics row")
 
     root = Path(__file__).resolve().parents[1]
     bindings = {
@@ -677,7 +689,7 @@ def run_mechanics(
         if sha256_file(path) != expected_bindings[name]:
             raise ValueError(f"{name} artifact hash does not match")
 
-    selected_ids = {row_index for row_index, _ in TASK_LAYOUT}
+    selected_ids = {row_index for row_index, _ in task_layout}
     visible_rows = _visible_rows(qa_path, selected_ids)
     video_ids = {row["video_id"] for row in visible_rows.values()}
     captions = load_selected_captions(caption_path, video_ids)
@@ -686,10 +698,10 @@ def run_mechanics(
         for row_index, row in visible_rows.items()
     }
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
-        "task_layout": TASK_LAYOUT,
-        "task_layout_hash": TASK_LAYOUT_HASH,
-        "excluded_prior_rows": EXCLUDED_PRIOR_ROWS,
+        "interface_version": interface_version,
+        "task_layout": task_layout,
+        "task_layout_hash": task_layout_hash,
+        "excluded_prior_rows": excluded_prior_rows,
         "endpoint_loaded": False,
         "visible_rows": visible_rows,
         "responses": {
@@ -704,7 +716,7 @@ def run_mechanics(
             model,
             [
                 initial_messages(visible_rows[row_index]["question"])
-                for row_index, _ in TASK_LAYOUT
+                for row_index, _ in task_layout
             ],
             support_response_format(),
             block_size=config.openrouter_concurrency,
@@ -721,7 +733,7 @@ def run_mechanics(
             raise ValueError("initial support anchors must all be QUESTION")
 
         paths: list[dict[str, Any]] = []
-        for task_offset, (row_index, root_indices) in enumerate(TASK_LAYOUT):
+        for task_offset, (row_index, root_indices) in enumerate(task_layout):
             row = visible_rows[row_index]
             corpus = corpora[row_index]
             roots = root_queries(row["question"], corpus)
@@ -804,7 +816,7 @@ def run_mechanics(
             [
                 path for path in paths if path["row_index"] == row_index
             ]
-            for row_index, _ in TASK_LAYOUT
+            for row_index, _ in task_layout
         ]
         immediate_responses = _complete_structured(
             model,
@@ -816,7 +828,7 @@ def run_mechanics(
                     final=False,
                 )
                 for (row_index, _), candidates in zip(
-                    TASK_LAYOUT, grouped_paths, strict=True
+                    task_layout, grouped_paths, strict=True
                 )
             ],
             rank_response_format(),
@@ -838,7 +850,7 @@ def run_mechanics(
                     final=True,
                 )
                 for (row_index, _), candidates in zip(
-                    TASK_LAYOUT, grouped_paths, strict=True
+                    task_layout, grouped_paths, strict=True
                 )
             ],
             rank_response_format(),
@@ -853,7 +865,7 @@ def run_mechanics(
         valid_anchor_refreshes = 0
         complete_paths = 0
         for task_offset, ((row_index, _), candidates) in enumerate(
-            zip(TASK_LAYOUT, grouped_paths, strict=True)
+            zip(task_layout, grouped_paths, strict=True)
         ):
             public_candidates = []
             for path in candidates:
@@ -966,15 +978,15 @@ def run_mechanics(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "model": MODEL_ID,
             "reasoning_requested": False,
-            "layout_seed": LAYOUT_SEED,
+            "layout_seed": layout_seed,
             "random_control_seed": RANDOM_CONTROL_SEED,
-            "task_layout_hash": TASK_LAYOUT_HASH,
-            "excluded_prior_rows": list(EXCLUDED_PRIOR_ROWS),
+            "task_layout_hash": task_layout_hash,
+            "excluded_prior_rows": list(excluded_prior_rows),
             "expected_requests": EXPECTED_REQUESTS,
-            "response_format": "chat_strict_flat_json_schema",
+            "response_format": response_format_name,
             "repairs_reissues_or_retries": 0,
             "max_cost_usd": MAX_COST_USD,
             "endpoint_loaded_after_policy_freeze": True,

@@ -99,6 +99,18 @@ def prompt_only_support_messages(
     return result
 
 
+def prompt_only_rank_schema_messages(
+    messages: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    result = [dict(message) for message in messages]
+    result[-1]["content"] += (
+        "\nReturn exactly one valid JSON object with every field shown here, "
+        "no markdown or extra fields:\n"
+        + json.dumps(rank_template(), separators=(",", ":"))
+    )
+    return result
+
+
 def prompt_only_rank_messages(
     supports: list[list[dict[str, Any]]],
 ) -> list[dict[str, str]]:
@@ -117,7 +129,8 @@ def prompt_only_rank_messages(
                 ],
             }
         )
-    return [
+    return prompt_only_rank_schema_messages(
+        [
         {
             "role": "system",
             "content": (
@@ -133,12 +146,10 @@ def prompt_only_rank_messages(
                 f"QUESTION={QUESTION}\n"
                 "TRAJECTORIES="
                 + json.dumps(trajectories, separators=(",", ":"))
-                + "\nReturn exactly one valid JSON object with every field shown "
-                "here, no markdown or extra fields:\n"
-                + json.dumps(rank_template(), separators=(",", ":"))
             ),
         },
-    ]
+        ]
+    )
 
 
 def _usage(model: ChatModel) -> dict[str, Any]:
