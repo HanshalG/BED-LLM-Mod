@@ -1,0 +1,47 @@
+{
+  "error": "GateExecutionError: ValueError: order line has invalid shape",
+  "interface_version": "hotpot-shared-comparative-v2-1",
+  "private_raw_sha256": "a16de50dea45613ec0e2babf77836be084af70c818f10d3bfc9b8a33b110bf49",
+  "schema_version": 1,
+  "stage": "serving",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.051625000000000004,
+    "generator": {
+      "adapter_completion_tokens": 2292,
+      "adapter_cost_usd": 0.051625000000000004,
+      "adapter_prompt_tokens": 6898,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 7,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2292,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 7,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2292,
+          "cost_usd": 0.051625000000000004,
+          "prompt_tokens": 6898,
+          "reasoning_tokens": 0,
+          "requests": 7
+        }
+      },
+      "prompt_tokens": 6898,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 39.172406890776585,
+      "requests": 7,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.051625000000000004,
+      "run_remaining_usd": 0.198375,
+      "total_spent_usd": 100.82759310922341
+    },
+    "physical_requests": 7,
+    "reasoning_tokens": 0
+  }
+}
