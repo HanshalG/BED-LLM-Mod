@@ -123,23 +123,26 @@ SHA256-derived seed. The same four world indexes are used for every root questio
 For each of the resulting `6 x 4 = 24` branches:
 
 1. append the root question and its simulated reply to visible history;
-2. discard the old support and regenerate `W2=4` possible remaining-requirement
+2. if the root resolved every requirement in that sampled world, assign terminal
+   utility one and make no unnecessary regeneration request for that branch;
+3. otherwise discard the old support and regenerate `W2=4` possible remaining-requirement
    worlds from that history;
-3. generate `Q2=4` follow-up questions from the refreshed support;
-4. semantically map every follow-up question to the unresolved requirements of the
+4. generate `Q2=4` follow-up questions from the refreshed support;
+5. semantically map every follow-up question to the unresolved requirements of the
    branch's original sampled world;
-5. select the follow-up with maximum expected immediate resolution under the refreshed
+6. select the follow-up with maximum expected immediate resolution under the refreshed
    support;
-6. score the selected follow-up against the original sampled world.
+7. score the selected follow-up against the original sampled world.
 
 Step 6 is crucial: refreshed support that forgets the sampled world's remaining truth
 receives no self-consistency credit. Terminal utility is the fraction of unique
 requirements in the original sampled world resolved after the two questions. The
 depth-two root score is mean terminal utility across the four common rollout worlds.
 
-All 24 refreshes may be packed into one physical request, but every branch is parsed
-and scored separately. Packing cannot mix branch histories or share generated support
-between branches.
+Up to 24 incomplete-branch refreshes may be packed into one physical request, but
+every branch is parsed and scored separately. Packing cannot mix branch histories or
+share generated support between branches. Skipped terminal-complete branches remain
+in the root's four-world mean with value one.
 
 ## Policies
 
