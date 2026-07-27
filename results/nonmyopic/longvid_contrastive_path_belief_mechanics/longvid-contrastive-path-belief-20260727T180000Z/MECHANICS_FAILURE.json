@@ -1,0 +1,43 @@
+{
+  "error": "MechanicsExecutionError: RuntimeError: OpenRouter HTTP 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404}}",
+  "interface_version": "longvid-contrastive-path-belief-mechanics-1",
+  "private_raw_sha256": "2eb4551b5859ae5392a3c58a8e7521a80ac49788e24586a696f03e8b5db9635a",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0,
+    "completion_tokens": 0,
+    "forced_exits": 0,
+    "http_attempts": 4,
+    "model": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 0,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 4,
+      "model": "openai/gpt-5.4",
+      "model_usage": {},
+      "prompt_tokens": 0,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.018447390776586,
+      "requests": 0,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.0,
+      "run_remaining_usd": 0.75,
+      "total_spent_usd": 96.98155260922341
+    },
+    "physical_requests": 0,
+    "prompt_tokens": 0,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
