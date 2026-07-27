@@ -1,0 +1,58 @@
+{
+  "interface_version": "discoverphysics-extra-dimensions-llm-support-smoke-2",
+  "status": "failed_closed",
+  "failure_stage": "branch_support_parse",
+  "failure_reason": "six of eight branch refreshes contain log_amplitude values outside the frozen [-6.0,-0.5] interval",
+  "scientific_scores_computed": false,
+  "scientific_endpoint_evaluated": false,
+  "requests": {
+    "physical_requests": 10,
+    "http_attempts": 10,
+    "transport_retries": 0,
+    "finish_reasons": [
+      "stop"
+    ]
+  },
+  "tokens": {
+    "prompt": 3887,
+    "completion": 5396,
+    "reasoning": 0
+  },
+  "cost_usd": 0.0906575,
+  "parse_audit": {
+    "preflight_valid": true,
+    "initial_valid": true,
+    "valid_branch_indices": [
+      1,
+      2
+    ],
+    "invalid_branch_indices": [
+      0,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "valid_supports": 4,
+    "total_supports": 10,
+    "repair_or_partial_scoring_used": false
+  },
+  "budget": {
+    "pre_run_verified_remaining_usd": 33.664700094,
+    "post_run_provider_observed_remaining_usd": 33.657640094,
+    "post_run_conservative_remaining_after_full_local_cost_usd": 33.574042594,
+    "protected_reserve_usd": 25.0,
+    "conservative_headroom_above_reserve_usd": 8.574042594
+  },
+  "artifacts": {
+    "frozen_commit": "fd1824a",
+    "raw_response_sha256": "11df0b6edea7af4d2d53caeeda45c6d27dcb3afe899af3a1537e564d11d67932",
+    "run_log_sha256": "9ee3ab2523af1a774ceeafbae0ad6a5089480f8e52fdaa47a4bc459f30c2cc6a"
+  },
+  "authorization": {
+    "paired_endpoint_authorized": false,
+    "v3_transport_authorized": false,
+    "route_closed": true
+  }
+}
