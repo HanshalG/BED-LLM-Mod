@@ -206,3 +206,26 @@ def test_summary_rejects_order_commutative_retrieval() -> None:
     assert summary["ordered_chain_task_count"] == 40
     assert not summary["gates"]["strict_opportunities_at_least_5"]
     assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_two_hop_artifact_closes_backtracking_route() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_bridge_path_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "gate_failed"
+    assert summary["num_records"] == 40
+    assert summary["pair_gain_task_count"] == 27
+    assert summary["ordered_chain_task_count"] == 21
+    assert summary["strict_opportunity_count"] == 1
+    assert summary["strict_total_gap"] == 1
+    assert (
+        sum(record["greedy_pair_count"] == 2 for record in payload["records"])
+        == 23
+    )
+    assert not summary["gates"]["all_pass"]
