@@ -1,0 +1,602 @@
+{
+  "all_gates_pass": false,
+  "mechanics_gates": {
+    "at_least_3_roots_have_branch_distinct_supports": true,
+    "at_least_6_refreshes_change_support": true,
+    "center_branches_choose_distinct_continuations": true,
+    "center_continuations_target_distinct_quadrants": false,
+    "exact_10_requests": true,
+    "expected_readiness_range_at_least_5": true,
+    "scorer_has_unique_maximum": true,
+    "scorer_scores_vary": true,
+    "within_run_budget": true,
+    "zero_reasoning_tokens": true
+  },
+  "mechanism": {
+    "center_continuation_quadrants": [
+      [
+        -1,
+        1
+      ],
+      null
+    ],
+    "center_continuations": [
+      "r4.5_a3",
+      "r4.5_a6"
+    ],
+    "refreshes_changed_from_initial": 8,
+    "roots_with_branch_distinct_supports": 4
+  },
+  "policy_endpoint_exists": false,
+  "protocol": {
+    "discoverphysics_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+    "expected_requests": 10,
+    "interface_version": "discoverphysics-dark-matter-semantic-smoke-1",
+    "minimum_immediate_sacrifice_nats": 0.03,
+    "minimum_readiness_range": 5.0,
+    "minimum_scorer_gain": 5,
+    "model": "openai/gpt-5.4",
+    "num_branches": 2,
+    "num_hypotheses": 8,
+    "num_roots": 4,
+    "projected_cost_usd": 0.1,
+    "reasoning_enabled": false,
+    "region_prior": [
+      0.4,
+      0.3,
+      0.2,
+      0.1
+    ],
+    "roots": [
+      {
+        "action_id": "r4.5_a3",
+        "id": "A",
+        "position": [
+          -3.182,
+          3.182
+        ]
+      },
+      {
+        "action_id": "center",
+        "id": "B",
+        "position": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "action_id": "r4.5_a5",
+        "id": "C",
+        "position": [
+          -3.182,
+          -3.182
+        ]
+      },
+      {
+        "action_id": "r4.5_a1",
+        "id": "D",
+        "position": [
+          3.182,
+          3.182
+        ]
+      }
+    ],
+    "run_budget_usd": 0.2,
+    "seed": 24506
+  },
+  "raw_responses_sha256": "9faba6dc8194a6e1542ade783b6757e1bcaf3d321b2f440d21b93f1ef9a0ef6b",
+  "refreshes": [
+    [
+      {
+        "belief": {
+          "descriptions": [
+            "Northeast compact halo centered in the inner northeast near the y=x diagonal, close enough to pull a northwest-start probe mainly eastward with only modest vertical bias",
+            "Northeast broad oval halo with major axis east-west, centered somewhat more east than north, creating noticeable east pull from the northwest while leaving north-south displacement ambiguous",
+            "Northeast tall oval halo with major axis north-south, centered somewhat more north than east, producing eastward drift from the northwest and possible crossing into the northern half-plane",
+            "Northwest compact halo positioned well east of the far-west edge and slightly north of the probe, so a start at outer northwest is drawn inward mostly eastward rather than deeper northwest",
+            "Northwest elongated ridge running from near the upper center toward far northwest, with the probe beginning on its western flank and therefore sliding east toward the ridge core",
+            "Northwest diffuse east-west halo near the northern midline, broad enough that the probe at outer northwest experiences lateral restoring pull toward the interior with weak vertical signal",
+            "Southeast diagonal halo extending from near the origin toward far southeast, whose long-range field weakly overcomes local expectations and nudges the northwest probe chiefly eastward",
+            "Bimodally appearing but actually single highly elongated trans-quadrant northern halo spanning from upper-left toward upper-right, with the probe sensing the western tail and being pulled east along the arc"
+          ],
+          "probabilities": [
+            0.22,
+            0.14,
+            0.17,
+            0.16,
+            0.11,
+            0.09,
+            0.06,
+            0.05
+          ]
+        },
+        "continuation_action": "r4.5_a1",
+        "continuation_position": [
+          3.182,
+          3.182
+        ],
+        "expected_learning": "A probe in the outer northeast will strongly discriminate northeast versus northwest mass and sharply reveal halo orientation and concentration if the source is actually in the northeast.",
+        "expected_map_readiness": 76
+      },
+      {
+        "belief": {
+          "descriptions": [
+            "Broad southwest halo centered well inside the southwest quadrant with moderate compactness, close enough to explain the northwest-start probe lingering southwestward through a shallow long-range pull",
+            "Southwest halo elongated mainly east-west across the lower-left quadrant, producing diffuse attraction that can tug northwest-side starts leftward and slightly downward without a sharp turn",
+            "Southwest halo elongated along a southwest-to-northeast diagonal, with its nearest upper extent influencing the first probe while most mass remains deeper southwest",
+            "Weak far-northwest halo spread broadly enough that a probe from the northwest edge experiences only mild westward retention and limited northward correction rather than strong inward capture",
+            "Northwest halo displaced farther west than north and stretched irregularly, so the chosen start landed outside its high-curvature zone and saw only modest local steering",
+            "Southeast diagonal halo with low overall strength at the sampled location, leaving the first probe dominated by inertia and noise while still preserving some probability of a distant non-southwest source",
+            "Northeast halo of moderate compactness but unusually weak long-range field, making the observed southwestward persistence mostly a null result rather than direct evidence for southwestern mass",
+            "Bimodally dense single-halo shape within the southwest region, with one lobe extending toward the origin and another deeper southwest, allowing coarse attraction from afar but uncertain local geometry"
+          ],
+          "probabilities": [
+            0.22000000000000003,
+            0.18000000000000002,
+            0.12000000000000001,
+            0.10000000000000002,
+            0.09000000000000001,
+            0.08000000000000002,
+            0.08000000000000002,
+            0.13000000000000003
+          ]
+        },
+        "continuation_action": "r4.5_a5",
+        "continuation_position": [
+          -3.182,
+          -3.182
+        ],
+        "expected_learning": "A probe launched into the southwest quadrant should sharply distinguish true local southwest structure from merely distant weak influence and greatly refine halo extent and orientation.",
+        "expected_map_readiness": 74
+      }
+    ],
+    [
+      {
+        "belief": {
+          "descriptions": [
+            "Northeast compact halo moderately close to the origin but still fully in the northeast quadrant, producing a noticeable northward pull from center with limited east-west resolution under noise",
+            "Northeast elongated halo oriented north-south, with its main mass lying above and slightly east of the origin, so central probes drift north more than east",
+            "Northeast broad diagonal halo running from near north-central toward far northeast, giving a clear northern component from the origin while keeping northeast versus northwest ambiguous",
+            "Northwest compact halo centered in the upper-left quadrant not too far from the y-axis, causing clear northward drift at the origin with only modest westward evidence",
+            "Northwest elongated halo slanting from near north-central toward far northwest, yielding a strong upward component and weaker resolvable leftward component from the center",
+            "Northern cross-axis halo whose densest core is just east of the y-axis but with substantial spread into the northwest side, creating a predominantly northward central signal",
+            "Northern cross-axis halo whose densest core is just west of the y-axis but with substantial spread into the northeast side, also consistent with net upward drift from center",
+            "Very broad northern halo spanning much of the upper half-plane with low curvature, making the first probe indicate northward attraction but little lateral discrimination"
+          ],
+          "probabilities": [
+            0.2,
+            0.16,
+            0.12,
+            0.21,
+            0.17,
+            0.06,
+            0.05,
+            0.03
+          ]
+        },
+        "continuation_action": "r4.5_a3",
+        "continuation_position": [
+          -3.182,
+          3.182
+        ],
+        "expected_learning": "A northwest-near probe best separates northwest from northeast mass while also revealing whether the northern halo is compact, elongated, or cross-axis.",
+        "expected_map_readiness": 73
+      },
+      {
+        "belief": {
+          "descriptions": [
+            "Compact halo in the southwest quadrant, centered well below and slightly left of the origin, with the origin lying outside most of its influence so a central probe shows only a weak southward drift.",
+            "Broad east-west elongated halo across the southwest, with much of its mass at negative y and spread wide enough that the origin feels a shallow downward pull without strong lateral commitment.",
+            "Southeast diagonal halo running from near south-central toward far southeast, close enough to induce a mild south or slight southeast deflection from the origin.",
+            "Compact halo in the southeast quadrant, centered moderately far below and right of the origin, producing weak net attraction at center that can look nearly stationary with a faint southeast bias.",
+            "Southward-shifted vertical halo straddling the y-axis but concentrated in the southern half-plane, causing central trajectories to descend while masking whether the mass leans east or west.",
+            "Two-lobed-looking but still single connected southwest-to-south-central elongated halo, with densest portion southwest and a tail reaching toward the negative y-axis, yielding ambiguous slight southwest or near-center motion.",
+            "Far-southern compact halo nearly due south of the origin, distant enough that the first probe barely moves except for a small downward drift, making quadrant discrimination still coarse.",
+            "Low-probability northern halo with strong local elongation and cancellation at the origin, retained only because noise could mask a weak northward tendency and leave an apparent near-center or slight south outcome."
+          ],
+          "probabilities": [
+            0.23,
+            0.2,
+            0.18,
+            0.1,
+            0.08,
+            0.08,
+            0.07,
+            0.06
+          ]
+        },
+        "continuation_action": "r4.5_a6",
+        "continuation_position": [
+          -0.0,
+          -4.5
+        ],
+        "expected_learning": "A probe launched due south should strongly separate southwest, southeast, and near-axis southern halos while revealing whether the field is compact or laterally elongated.",
+        "expected_map_readiness": 76
+      }
+    ],
+    [
+      {
+        "belief": {
+          "descriptions": [
+            "A compact southwest halo lies very near the first probe location, centered in the mid-to-deep southwest with roughly circular concentration, producing strong local capture and noticeable inward curvature from nearby starts but only weak pull from the origin.",
+            "A mildly elongated southwest halo is centered southwest of the origin with its major axis running east-west, so the first probe is drawn onto a broad band and curves inward gradually rather than collapsing to a point.",
+            "A southwest halo is elongated northeast-southwest, with the first probe starting on or just off the band and therefore showing strong capture while trajectories from central locations would still indicate only coarse southwest preference.",
+            "A deep southwest compact core is embedded within a broader low-density southwest skirt, creating strong local attraction at the observed start while allowing somewhat wider southwest influence than a purely tight cluster.",
+            "A broad southwest halo stretched mainly north-south sits west of the negative y axis, so the observed motion reflects local capture near its eastern flank and should differ from starts placed farther south or farther west.",
+            "A far-southwest compact halo near the diagonal captures the first probe because the start landed close to its outer basin, implying a sharper dropoff and less influence on trajectories launched from the center or south axis.",
+            "A southwest elongated band runs mostly east-west across the lower-left quadrant with a denser knot near the current probe, so local curvature is high despite globally broad support.",
+            "A weaker southeast or northwest explanation remains possible only if the observed southwest motion was dominated by noise, but this would require an implausibly large error relative to the strong local capture signal."
+          ],
+          "probabilities": [
+            0.29,
+            0.22,
+            0.14,
+            0.11,
+            0.08,
+            0.06,
+            0.06,
+            0.04
+          ]
+        },
+        "continuation_action": "r6.5_a5",
+        "continuation_position": [
+          -4.596,
+          -4.596
+        ],
+        "expected_learning": "A farther southwest probe best separates compact-core versus broad-band geometry by testing how quickly attraction persists or decays away from the first captured location.",
+        "expected_map_readiness": 83
+      },
+      {
+        "belief": {
+          "descriptions": [
+            "Northeast compact halo centered in the inner northeast near the diagonal, far enough from the southwest start to cause only a gentle drift north or east until a probe gets close",
+            "Northeast broad east-west elongated halo with strongest mass in the east-northeast, producing a noticeable north/east bias from afar but requiring an eastern probe to resolve its span",
+            "Northeast north-south elongated halo with mass concentrated more north than east, consistent with weak remote attraction and potentially stronger pull for a high-north probe than a diagonal one",
+            "Northwest compact halo in the upper-left quadrant, moderately interior rather than extreme corner, yielding mild upward drift from the southwest without local capture",
+            "Northwest diagonal elongated halo running from near west-central up toward far northwest, creating a broad northward component that can masquerade as generic northern pull from the southwest",
+            "Northern bridge halo straddling the upper center but weighted into the northeast, an elongated cluster not confined to a single corner yet still most compatible with the prior northern mass",
+            "Northern bridge halo straddling the upper center but weighted into the northwest, with diffuse attraction over the left half and stronger curvature only for probes placed high and west",
+            "Southeast weak diffuse elongated halo beginning near south-central and extending to the far southeast, retained as a low-probability explanation for eastward drift without southwest trapping"
+          ],
+          "probabilities": [
+            0.22,
+            0.14,
+            0.17,
+            0.16,
+            0.13,
+            0.08,
+            0.06,
+            0.04
+          ]
+        },
+        "continuation_action": "center",
+        "continuation_position": [
+          0.0,
+          0.0
+        ],
+        "expected_learning": "A central second probe best separates northeast from northwest while also revealing whether the field is compact or elongated through the direction and curvature of the early trajectory.",
+        "expected_map_readiness": 72
+      }
+    ],
+    [
+      {
+        "belief": {
+          "descriptions": [
+            "A compact, high-density halo sits in the inner northeast quadrant near the probe site, roughly circular and centered slightly northeast of the first probe, producing strong short-range curvature with limited far-field influence.",
+            "A compact but mildly elliptical halo lies in the northeast quadrant with its major axis east-west, close enough to the first probe to generate strong local pull while implying denser mass extending farther east than north.",
+            "A compact but mildly elliptical halo lies in the northeast quadrant with its major axis north-south, close enough to the first probe to generate strong local pull while implying denser mass extending farther north than east.",
+            "An elongated northeast halo runs mainly east-west across mid-to-outer northeast, and the first probe happened to land near one dense segment, creating strong local attraction despite broader anisotropic structure.",
+            "An elongated northeast halo runs mainly north-south across mid-to-outer northeast, and the first probe sampled near its central dense spine, causing strong local acceleration with directional asymmetry.",
+            "A diagonal northeast halo extends along the southwest-to-northeast direction, with a concentrated knot near the first probe and weaker continuation toward the far northeast corner.",
+            "A broader northwest-to-northeast cross-quadrant band has a dominant northeastern lobe near the first probe, so the observation reflects local compactness embedded in a larger anisotropic structure.",
+            "A relatively unlikely southeast-to-northeast tilted structure reaches into the northeast quadrant, but the observed strong short-range pull is explained by a compact northeastern endpoint rather than a purely northeast-centered halo."
+          ],
+          "probabilities": [
+            0.29,
+            0.16,
+            0.2,
+            0.08,
+            0.1,
+            0.06,
+            0.04,
+            0.07
+          ]
+        },
+        "continuation_action": "r2.5_a1",
+        "continuation_position": [
+          1.768,
+          1.768
+        ],
+        "expected_learning": "A second, slightly more central northeast probe should distinguish truly compact geometry from east-west, north-south, or diagonal anisotropy while preserving strong signal.",
+        "expected_map_readiness": 82
+      },
+      {
+        "belief": {
+          "descriptions": [
+            "Northwest compact halo centered in the upper-left interior, close enough to influence a northeast probe only weakly while pulling it slightly west or stalling strong northeast capture",
+            "Northwest elongated halo oriented roughly north-south along the western side, producing broad westward bias from the northeast without requiring strong southward motion",
+            "Northwest diagonal halo running from near the upper center toward far northwest, creating anisotropic pull that can deflect a northeast start leftward and somewhat downward",
+            "Southwest broad low-density halo with large spread, too distant for capture but able to reduce northeast attraction and induce weak southward drift from the sampled point",
+            "Southwest east-west elongated halo occupying the lower-left quadrant with diffuse influence, consistent with only mild motion away from the northeast start",
+            "Bimodally appearing but actually single highly elongated halo spanning from west-central into northwest, with densest mass left of the y-axis and a tail toward the origin",
+            "Far-north halo near the quadrant boundary but shifted into northwest, narrow east-west, so the chosen northeast probe landed outside the capture basin despite nearby northern mass",
+            "Residual northeast halo that is very small, far from the probe, and tucked near the north boundary, making the observed weak or contrary motion plausible but unlikely"
+          ],
+          "probabilities": [
+            0.24,
+            0.16,
+            0.15,
+            0.11,
+            0.09,
+            0.1,
+            0.08,
+            0.07
+          ]
+        },
+        "continuation_action": "r4.5_a3",
+        "continuation_position": [
+          -3.182,
+          3.182
+        ],
+        "expected_learning": "A northwest probe at r4.5_a3 will sharply test the now-dominant northwest mass while still separating compact, vertical, and diagonal spreads if the pull is present.",
+        "expected_map_readiness": 78
+      }
+    ]
+  ],
+  "schema_version": 1,
+  "scientific_gates": {
+    "center_sacrifices_immediate_eig": true,
+    "center_scorer_gain_at_least_5": false,
+    "complete_path_root_is_center_scout": false,
+    "llm_likelihood_myopic_root_is_northeast_target": false
+  },
+  "scores": {
+    "A": 75,
+    "B": 74,
+    "C": 76,
+    "D": 80
+  },
+  "selection": {
+    "expected_readiness": {
+      "A": 75.16,
+      "B": 73.89999999999999,
+      "C": 75.74000000000001,
+      "D": 80.2
+    },
+    "immediate_eig_nats": {
+      "A": 0.1513593472262036,
+      "B": 0.2021254874602345,
+      "C": 0.342805721935896,
+      "D": 0.23486532751453093
+    },
+    "immediate_sacrifice_nats": 0.03273984005429642,
+    "lookahead_root": "D",
+    "myopic_root": "C",
+    "pathway_scores": {
+      "A": 75,
+      "B": 74,
+      "C": 76,
+      "D": 80
+    },
+    "scorer_gain": -6
+  },
+  "simulator_calls": 0,
+  "status": "gate_failed",
+  "tree": {
+    "belief": {
+      "descriptions": [
+        "Northeast compact, roughly circular halo centered well inside the northeast quadrant near the diagonal, causing strong localized attraction only when probed nearby",
+        "Northeast elongated halo stretched mainly east-west in the northeast quadrant, with its densest segment offset more east than north",
+        "Northeast elongated halo stretched mainly north-south in the northeast quadrant, with its densest segment offset more north than east",
+        "Northwest compact to mildly oval halo centered in the northwest quadrant near y-dominant latitudes, producing moderate pull from the origin and strong pull from nearby northwest",
+        "Northwest elongated diagonal halo running from west-central toward far northwest, giving anisotropic pull favoring northwest trajectories",
+        "Southwest compact halo centered deep in the southwest quadrant, yielding weak influence at the origin and strong southwest pull only for nearby southwest starts",
+        "Southwest elongated halo stretched mainly east-west across the southwest quadrant, with broad but low-curvature influence",
+        "Southeast elongated diagonal halo running from south-central toward far southeast, relatively unlikely but capable of clear southeast deflection from central or nearby southeast probes"
+      ],
+      "probabilities": [
+        0.17,
+        0.1,
+        0.13,
+        0.18,
+        0.12,
+        0.11,
+        0.09,
+        0.1
+      ]
+    },
+    "prior_entropy_nats": 2.0495890760657756,
+    "roots": [
+      {
+        "action_id": "r4.5_a3",
+        "branches": [
+          {
+            "observation": "Probe drifts noticeably eastward with slight north or south ambiguity, ending closer to the center or crossing toward the northern half-plane; this suggests attraction from an opposite-side northern halo rather than a local southwest source",
+            "posterior_probabilities": [
+              0.24,
+              0.12,
+              0.16,
+              0.2,
+              0.14,
+              0.03,
+              0.02,
+              0.09
+            ],
+            "probability": 0.58
+          },
+          {
+            "observation": "Probe remains in the southwest vicinity or moves further southwest/west with only modest northward correction, indicating either a local southwest halo or a distant weak field from elsewhere",
+            "posterior_probabilities": [
+              0.07,
+              0.05,
+              0.06,
+              0.11,
+              0.08,
+              0.23,
+              0.26,
+              0.14
+            ],
+            "probability": 0.42
+          }
+        ],
+        "id": "A",
+        "immediate_eig_nats": 0.1513593472262036,
+        "position": [
+          -3.182,
+          3.182
+        ]
+      },
+      {
+        "action_id": "center",
+        "branches": [
+          {
+            "observation": "From the origin the probe shows a clear net drift into the northern half-plane, with northwest versus northeast not fully resolved because of noise and distance",
+            "posterior_probabilities": [
+              0.22,
+              0.11,
+              0.15,
+              0.24,
+              0.16,
+              0.04,
+              0.03,
+              0.05
+            ],
+            "probability": 0.7
+          },
+          {
+            "observation": "From the origin the probe drifts southward or stays near-center with slight southeast or southwest tendency, implying the halo is more likely in the southern half-plane",
+            "posterior_probabilities": [
+              0.05,
+              0.03,
+              0.04,
+              0.08,
+              0.05,
+              0.28,
+              0.22,
+              0.25
+            ],
+            "probability": 0.3
+          }
+        ],
+        "id": "B",
+        "immediate_eig_nats": 0.2021254874602345,
+        "position": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "action_id": "r4.5_a5",
+        "branches": [
+          {
+            "observation": "Probe is strongly captured locally in the southwest, moving inward toward a nearby source cluster or along a broad southwest band; geometry appears close enough to reveal local curvature",
+            "posterior_probabilities": [
+              0.019999999999999997,
+              0.009999999999999998,
+              0.019999999999999997,
+              0.039999999999999994,
+              0.029999999999999992,
+              0.4599999999999999,
+              0.31999999999999995,
+              0.09999999999999998
+            ],
+            "probability": 0.34
+          },
+          {
+            "observation": "Probe departs the southwest corner toward north or east without strong local trapping, implying the true halo is elsewhere, most plausibly in the north",
+            "posterior_probabilities": [
+              0.25,
+              0.13,
+              0.16,
+              0.21,
+              0.14,
+              0.04,
+              0.03,
+              0.04
+            ],
+            "probability": 0.66
+          }
+        ],
+        "id": "C",
+        "immediate_eig_nats": 0.342805721935896,
+        "position": [
+          -3.182,
+          -3.182
+        ]
+      },
+      {
+        "action_id": "r4.5_a1",
+        "branches": [
+          {
+            "observation": "Probe shows strong local attraction within the northeast quadrant, with curvature or short-range acceleration revealing compactness versus anisotropy of a nearby northeastern halo",
+            "posterior_probabilities": [
+              0.28,
+              0.17,
+              0.22,
+              0.08,
+              0.05,
+              0.03,
+              0.02,
+              0.15
+            ],
+            "probability": 0.55
+          },
+          {
+            "observation": "Probe fails to exhibit strong local northeast capture and instead moves westward, southward, or only weakly, favoring a halo in another quadrant, especially northwest",
+            "posterior_probabilities": [
+              0.04,
+              0.03,
+              0.04,
+              0.31,
+              0.22,
+              0.14,
+              0.11,
+              0.11
+            ],
+            "probability": 0.45
+          }
+        ],
+        "id": "D",
+        "immediate_eig_nats": 0.23486532751453093,
+        "position": [
+          3.182,
+          3.182
+        ]
+      }
+    ]
+  },
+  "usage": {
+    "adapter_completion_tokens": 4273,
+    "adapter_cost_usd": 0.096155,
+    "adapter_prompt_tokens": 12824,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 4273,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 10,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 4273,
+        "cost_usd": 0.096155,
+        "prompt_tokens": 12824,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 12824,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 43.51558989077658,
+    "requests": 10,
+    "retry_count": 0,
+    "run_budget_usd": 0.2,
+    "run_cost_usd": 0.096155,
+    "run_remaining_usd": 0.103845,
+    "total_spent_usd": 96.48441010922342
+  }
+}
