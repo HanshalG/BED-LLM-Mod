@@ -1,0 +1,51 @@
+{
+  "error": "MechanicsExecutionError: ValueError: H2 anchor must be one token",
+  "interface_version": "longvid-four-hop-ranking-mechanics-1",
+  "private_raw_sha256": "1af086f7e3aae783b95277d7781f5e1504fdf573c85c420efafd71c5afd92ad0",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.11595750000000002,
+    "completion_tokens": 5948,
+    "forced_exits": 0,
+    "http_attempts": 18,
+    "model": {
+      "adapter_completion_tokens": 5948,
+      "adapter_cost_usd": 0.11595750000000002,
+      "adapter_prompt_tokens": 10695,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 18,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 5948,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 18,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 5948,
+          "cost_usd": 0.11595750000000002,
+          "prompt_tokens": 10695,
+          "reasoning_tokens": 0,
+          "requests": 18
+        }
+      },
+      "prompt_tokens": 10695,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.018447390776586,
+      "requests": 18,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.11595750000000002,
+      "run_remaining_usd": 0.6340425,
+      "total_spent_usd": 96.98155260922341
+    },
+    "physical_requests": 18,
+    "prompt_tokens": 10695,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

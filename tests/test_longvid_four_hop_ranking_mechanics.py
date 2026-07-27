@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 from scripts.longvid_four_hop_ranking_mechanics import (
@@ -83,3 +86,21 @@ def test_analysis_marks_tied_coverage_tasks_unrankable() -> None:
     assert summary["rankable_task_count"] == 0
     assert summary["final_pairwise_accuracy"] == 0.0
 
+
+def test_frozen_live_mechanics_failure_has_no_endpoint() -> None:
+    root = Path(__file__).resolve().parents[1]
+    failure_path = (
+        root
+        / "results"
+        / "nonmyopic"
+        / "longvid_four_hop_ranking_mechanics"
+        / "longvid-four-hop-ranking-mechanics-20260727T150132Z"
+        / "MECHANICS_FAILURE.json"
+    )
+    failure = json.loads(failure_path.read_text(encoding="utf-8"))
+    assert failure["status"] == "failed_closed"
+    assert "H2 anchor must be one token" in failure["error"]
+    assert failure["usage"]["physical_requests"] == 18
+    assert failure["usage"]["http_attempts"] == 18
+    assert failure["usage"]["reasoning_tokens"] == 0
+    assert failure["usage"]["adapter_cost_usd"] == pytest.approx(0.1159575)
