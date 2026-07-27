@@ -1,0 +1,47 @@
+{
+  "error": "GateExecutionError: ValueError: support map has wrong line count",
+  "interface_version": 1,
+  "private_raw_sha256": "fd95e4347ac5d92b7c696d2b75f1e28151152363ac2ede505ec5dce580a15164",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0670675,
+    "generator": {
+      "adapter_completion_tokens": 714,
+      "adapter_cost_usd": 0.0670675,
+      "adapter_prompt_tokens": 22543,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 8,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 714,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 8,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 714,
+          "cost_usd": 0.0670675,
+          "prompt_tokens": 22543,
+          "reasoning_tokens": 0,
+          "requests": 8
+        }
+      },
+      "prompt_tokens": 22543,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 39.22403189077657,
+      "requests": 8,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.0670675,
+      "run_remaining_usd": 0.4329325,
+      "total_spent_usd": 100.77596810922343
+    },
+    "physical_requests": 8,
+    "reasoning_tokens": 0
+  }
+}
