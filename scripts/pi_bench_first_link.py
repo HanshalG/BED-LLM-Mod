@@ -2575,6 +2575,89 @@ def validate_only(
     }
 
 
+def run_planning_preflight(
+    config: Config,
+    *,
+    pi_bench_repo: Path,
+    manifest_path: Path,
+    private_raw_path: Path,
+) -> dict[str, Any]:
+    manifest = validate_source(pi_bench_repo, manifest_path)
+    tasks, private_tasks, cohort = load_tasks(
+        pi_bench_repo, manifest, stage="serving_smoke"
+    )
+    task = tasks[0]
+    private = {task.task_id: private_tasks[task.task_id]}
+    bed_model, _naive_model = build_models(config)
+    raw: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "stage": "planning_preflight",
+        "task_id": task.task_id,
+        "calls": [],
+    }
+    try:
+        planning = run_initial_planning(
+            [task],
+            private,
+            model=bed_model,
+            block_size=config.batched_block_size,
+            raw_calls=raw["calls"],
+        )[task.task_id]
+        _checkpoint_private(private_raw_path, raw)
+        usage = _usage(bed_model)
+        selected = _selected_root_indexes(task.task_id, planning)
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "status": "passed",
+            "protocol": {
+                "interface_version": INTERFACE_VERSION,
+                "stage": "planning_preflight",
+                "task_id": task.task_id,
+                "source_commit": SOURCE_COMMIT,
+                "manifest_sha256": MANIFEST_SHA256,
+                "formal_serving_cohort_unchanged": cohort[
+                    "included_task_ids"
+                ],
+                "private_raw_sha256": sha256_file(private_raw_path),
+            },
+            "summary": {
+                "initial_world_count": len(planning.belief.worlds),
+                "root_question_count": len(planning.belief.questions),
+                "incomplete_rollout_branch_count": len(planning.branches),
+                "rollout_refresh_unique_fingerprint_count": len(
+                    {
+                        _sha256_json(
+                            [
+                                list(world.requirements)
+                                for world in refresh.worlds
+                            ]
+                        )
+                        for refresh in planning.refreshes
+                    }
+                ),
+                "myopic_root_id": question_id(selected["myopic"]),
+                "depth2_root_id": question_id(selected["depth2"]),
+                "root_changed": (
+                    selected["myopic"] != selected["depth2"]
+                ),
+                "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
+                "zero_forced_exits": usage["forced_exits"] == 0,
+            },
+            "usage": usage,
+        }
+        leaked = public_payload_has_private_text(
+            payload, private[task.task_id].hidden_intents
+        )
+        if leaked:
+            raise ValueError("preflight public artifact contains private text")
+        return payload
+    except Exception:
+        raw["failure_usage"] = _usage(bed_model)
+        _checkpoint_private(private_raw_path, raw)
+        raise
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path)
@@ -2595,7 +2678,10 @@ def main() -> None:
     parser.add_argument("--private-raw-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--validate-only", action="store_true")
+    parser.add_argument("--planning-preflight", action="store_true")
     args = parser.parse_args()
+    if args.validate_only and args.planning_preflight:
+        parser.error("--validate-only and --planning-preflight are exclusive")
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     private_run_dir = args.private_raw_dir / args.run_id
@@ -2604,7 +2690,11 @@ def main() -> None:
     output_name = (
         "VALIDATION.json"
         if args.validate_only
-        else f"{args.stage.upper()}.json"
+        else (
+            "PREFLIGHT.json"
+            if args.planning_preflight
+            else f"{args.stage.upper()}.json"
+        )
     )
     output_path = args.output_dir / output_name
     try:
@@ -2624,13 +2714,25 @@ def main() -> None:
             config.log_path = args.output_dir / "run.log"
             config.openrouter_projected_cost_usd = 0.0
             config.openrouter_run_budget_usd = None
-            payload = run_experiment(
-                config,
-                stage=args.stage,
-                pi_bench_repo=args.pi_bench_repo.resolve(),
-                manifest_path=args.manifest.resolve(),
-                private_raw_path=private_raw_path,
-            )
+            if args.planning_preflight:
+                if args.stage != "serving_smoke":
+                    parser.error(
+                        "--planning-preflight requires --stage serving_smoke"
+                    )
+                payload = run_planning_preflight(
+                    config,
+                    pi_bench_repo=args.pi_bench_repo.resolve(),
+                    manifest_path=args.manifest.resolve(),
+                    private_raw_path=private_raw_path,
+                )
+            else:
+                payload = run_experiment(
+                    config,
+                    stage=args.stage,
+                    pi_bench_repo=args.pi_bench_repo.resolve(),
+                    manifest_path=args.manifest.resolve(),
+                    private_raw_path=private_raw_path,
+                )
     except Exception as exc:
         failure = {
             "schema_version": SCHEMA_VERSION,
