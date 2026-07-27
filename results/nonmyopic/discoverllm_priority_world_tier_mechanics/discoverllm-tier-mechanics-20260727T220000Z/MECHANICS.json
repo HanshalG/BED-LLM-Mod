@@ -1,0 +1,292 @@
+{
+  "calibration": {
+    "followup": {
+      "mean_truth_weight_advantage": 2.625,
+      "nonuniform_rate": 1,
+      "truth_strict_top_rate": 0.9583333333333334,
+      "truth_top_tier_rate": 1
+    },
+    "root": {
+      "mean_truth_weight_advantage": 2.041666666666667,
+      "nonuniform_rate": 0.8333333333333334,
+      "truth_strict_top_rate": 0.7083333333333334,
+      "truth_top_tier_rate": 0.9166666666666666
+    }
+  },
+  "gates": {
+    "all_pass": false,
+    "at_least_one_root_change": true,
+    "at_least_one_strict_delayed_reversal": false,
+    "at_least_one_weight_robust_delayed_reversal": false,
+    "at_least_two_dynamic_tasks": false,
+    "bounded_transport_retries": true,
+    "cost_at_most_0_50": true,
+    "depth_rho_advantage_at_least_0_10": false,
+    "depth_score_terminal_rho_at_least_0_20": true,
+    "exact_15_logical_requests": true,
+    "followup_truth_top_tier_rate_at_least_0_60": true,
+    "followup_truth_weight_advantage_positive": true,
+    "http_attempts_match_requests_plus_retries": true,
+    "nonmyopic_mean_terminal_map_no_lower": true,
+    "nonmyopic_mean_terminal_truth_log_above_myopic": true,
+    "nonmyopic_mean_terminal_truth_log_above_random": true,
+    "root_truth_top_tier_rate_at_least_0_60": true,
+    "root_truth_weight_advantage_positive": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "expected_logical_requests": 15,
+    "interface_version": "discoverllm-priority-world-tier-mechanics-1",
+    "manifest_sha256": "9edfd3b20f762491db78087c95bccb1d345063af3423d4d7ccf6c481aa97ad3a",
+    "maximum_transport_retries": 4,
+    "model": "openai/gpt-5.4",
+    "observation_shuffle_seed": 24413,
+    "private_raw_sha256": "84523f4c231517f84f53e08abbe6e24a7c306df91cdf97cf04e5ca911f8baed7",
+    "reasoning_requested": false,
+    "released_scores_read": false,
+    "released_winner_labels_read": false,
+    "semantic_content_emitted": false,
+    "semantic_reissues_allowed": false,
+    "sensitivity_tier_weights": [
+      {
+        "H": 3.0,
+        "L": 1.0,
+        "M": 2.0
+      },
+      {
+        "H": 9.0,
+        "L": 1.0,
+        "M": 3.0
+      }
+    ],
+    "task_ids": [
+      "technical_writing:artifact_333",
+      "creative_writing:artifact_367",
+      "technical_writing:artifact_249"
+    ],
+    "temperature": 0.0,
+    "tier_weights": {
+      "H": 4.0,
+      "L": 1.0,
+      "M": 2.0
+    },
+    "truth_map_exposed_to_likelihood_scorer": false,
+    "truth_map_exposed_to_policy": false,
+    "world_presentation_seed": 24415
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "depth_two_eig_terminal_truth_log_spearman": 1.0,
+    "dynamic_tasks": 1,
+    "mean_nonmyopic_minus_myopic_terminal_map_accuracy": 0,
+    "mean_nonmyopic_minus_myopic_terminal_truth_log_posterior": 0.024371279267036555,
+    "mean_nonmyopic_minus_random_terminal_truth_log_posterior": 0.021169286901327532,
+    "root_changes": 2,
+    "root_eig_terminal_truth_log_spearman": 0.9710083124552245,
+    "strict_delayed_reversals": 0,
+    "weight_robust_delayed_reversals": 0
+  },
+  "tasks": [
+    {
+      "actions": {
+        "A": {
+          "depth_two_eig": 0.5874804386861782,
+          "root_eig": 0.1881032009596899,
+          "root_truth_log_posterior": -0.6597643324038147,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.31826583182370655
+        },
+        "B": {
+          "depth_two_eig": 0.6169669265765403,
+          "root_eig": 0.1881032009596899,
+          "root_truth_log_posterior": -0.6597643324038147,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.28180286257056575
+        }
+      },
+      "delayed_reversal": false,
+      "myopic_action": "A",
+      "nonmyopic_action": "B",
+      "root_changed": true,
+      "sensitivity_choices": [
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 4.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 3.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 9.0,
+            "L": 1.0,
+            "M": 3.0
+          }
+        }
+      ],
+      "task_id": "technical_writing:artifact_333"
+    },
+    {
+      "actions": {
+        "A": {
+          "depth_two_eig": 0.2751139544474883,
+          "root_eig": 0.0993540181258672,
+          "root_truth_log_posterior": -1.2192759753679332,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.6353082077110551
+        },
+        "B": {
+          "depth_two_eig": 0.17309800830725952,
+          "root_eig": 0.0,
+          "root_truth_log_posterior": -1.3862943611198906,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.6892100913179106
+        }
+      },
+      "delayed_reversal": false,
+      "myopic_action": "A",
+      "nonmyopic_action": "A",
+      "root_changed": false,
+      "sensitivity_choices": [
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "A",
+          "weights": {
+            "H": 4.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "A",
+          "weights": {
+            "H": 3.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "A",
+          "weights": {
+            "H": 9.0,
+            "L": 1.0,
+            "M": 3.0
+          }
+        }
+      ],
+      "task_id": "creative_writing:artifact_367"
+    },
+    {
+      "actions": {
+        "A": {
+          "depth_two_eig": 0.7076802555286489,
+          "root_eig": 0.23255241841880037,
+          "root_truth_log_posterior": -0.5596157879354228,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.208501125474628
+        },
+        "B": {
+          "depth_two_eig": 0.7766669375237922,
+          "root_eig": 0.23255241841880037,
+          "root_truth_log_posterior": -0.5596157879354228,
+          "terminal_map_accuracy": 1,
+          "terminal_truth_log_posterior": -0.17185025692665915
+        }
+      },
+      "delayed_reversal": false,
+      "myopic_action": "A",
+      "nonmyopic_action": "B",
+      "root_changed": true,
+      "sensitivity_choices": [
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 4.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 3.0,
+            "L": 1.0,
+            "M": 2.0
+          }
+        },
+        {
+          "delayed_reversal": false,
+          "myopic_action": "A",
+          "nonmyopic_action": "B",
+          "weights": {
+            "H": 9.0,
+            "L": 1.0,
+            "M": 3.0
+          }
+        }
+      ],
+      "task_id": "technical_writing:artifact_249"
+    }
+  ],
+  "usage": {
+    "adapter_completion_tokens": 4942,
+    "adapter_cost_usd": 0.23653,
+    "adapter_prompt_tokens": 64960,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 15,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 4942,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 15,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 4942,
+        "cost_usd": 0.23653,
+        "prompt_tokens": 64960,
+        "reasoning_tokens": 0,
+        "requests": 15
+      }
+    },
+    "prompt_tokens": 64960,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 42.43916239077659,
+    "requests": 15,
+    "retry_count": 0,
+    "run_budget_usd": 0.5,
+    "run_cost_usd": 0.23653,
+    "run_remaining_usd": 0.26347,
+    "total_spent_usd": 97.56083760922341
+  }
+}
