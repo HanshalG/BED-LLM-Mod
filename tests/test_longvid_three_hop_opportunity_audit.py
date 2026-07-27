@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from scripts.longvid_bridge_path_opportunity_audit import _id_hash
 from scripts.longvid_three_hop_opportunity_audit import (
     DEVELOPMENT_ID_HASH,
@@ -146,4 +149,30 @@ def test_summary_rejects_order_commutative_retrieval() -> None:
     assert summary["depth_three_gain_task_count"] == 20
     assert summary["ordered_chain_task_count"] == 15
     assert not summary["gates"]["strict_opportunities_at_least_5"]
+    assert not summary["gates"]["all_pass"]
+
+
+def test_frozen_three_hop_artifact_closes_source_order_route() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "longvid_three_hop_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "gate_failed"
+    assert summary["num_records"] == 40
+    assert summary["depth_three_gain_task_count"] == 36
+    assert summary["ordered_chain_task_count"] == 5
+    assert summary["strict_opportunity_count"] == 0
+    assert summary["strict_total_gap"] == 0
+    assert (
+        sum(
+            record["greedy_root_index"] == record["oracle_root_index"]
+            for record in payload["records"]
+        )
+        == 34
+    )
     assert not summary["gates"]["all_pass"]
