@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v1"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v2"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -441,8 +441,12 @@ def semantic_map_response_format(
                 "type": "array",
                 "items": {
                     "type": "array",
-                    "items": {"type": "boolean"},
-                    "minItems": 1,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": MAX_REQUIREMENTS - 1,
+                    },
+                    "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
                 },
                 "minItems": pair_count,
@@ -497,8 +501,12 @@ def branch_map_response_format(
                 "type": "array",
                 "items": {
                     "type": "array",
-                    "items": {"type": "boolean"},
-                    "minItems": 1,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": MAX_REQUIREMENTS - 1,
+                    },
+                    "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
                 },
                 "minItems": REFRESH_QUESTION_COUNT * REFRESH_WORLD_COUNT,
@@ -508,8 +516,12 @@ def branch_map_response_format(
                 "type": "array",
                 "items": {
                     "type": "array",
-                    "items": {"type": "boolean"},
-                    "minItems": 1,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": MAX_REQUIREMENTS - 1,
+                    },
+                    "minItems": 0,
                     "maxItems": MAX_REQUIREMENTS,
                 },
                 "minItems": REFRESH_QUESTION_COUNT,
@@ -628,9 +640,9 @@ def semantic_map_messages(
         (
             "For every ordered pair, mark which requirements the question clearly "
             "and specifically asks about. Broad topical overlap is false. A close "
-            "confirmation or short explicit options question is true. Return one "
-            "boolean vector per pair in the supplied order; each vector must have "
-            "exactly one entry per requirement."
+            "confirmation or short explicit options question counts. Return one "
+            "list of matched zero-based requirement indexes per pair in the supplied "
+            "order. Return an empty list when there is no match."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -716,9 +728,9 @@ def branch_map_messages(
         (
             "For each branch independently, mark which requirements each follow-up "
             "question clearly and specifically asks about. Broad topical overlap is "
-            "false. Return support_matches in question-major/world-major order and "
-            "particle_matches in question order. Every boolean vector must exactly "
-            "match its listed requirement count. Do not compare across branches."
+            "false. Return zero-based matched requirement indexes: support_matches "
+            "in question-major/world-major order and particle_matches in question "
+            "order. Return an empty list for no match. Do not compare across branches."
         ),
         {
             "visible_initial_input": task.initial_input,
@@ -908,10 +920,17 @@ def parse_belief(
     return BeliefAndQuestions(worlds=tuple(worlds), questions=questions)
 
 
-def _indexes_from_flags(flags: Sequence[Any], expected: int) -> tuple[int, ...]:
-    if len(flags) != expected or any(type(value) is not bool for value in flags):
-        raise ValueError("semantic match vector has wrong shape or type")
-    return tuple(index for index, value in enumerate(flags) if value)
+def _parse_matched_indexes(
+    values: Sequence[Any], requirement_count: int
+) -> tuple[int, ...]:
+    if any(type(value) is not int for value in values):
+        raise ValueError("semantic match indexes have wrong type")
+    indexes = tuple(sorted(set(int(value) for value in values)))
+    if len(indexes) != len(values):
+        raise ValueError("semantic match indexes contain duplicates")
+    if indexes and (indexes[0] < 0 or indexes[-1] >= requirement_count):
+        raise ValueError("semantic match index is out of range")
+    return indexes
 
 
 def parse_semantic_map(
@@ -925,11 +944,11 @@ def parse_semantic_map(
     if len(payload["matches"]) != expected_pairs:
         raise ValueError("semantic map has wrong pair count")
     parsed = []
-    for offset, flags in enumerate(payload["matches"]):
+    for offset, values in enumerate(payload["matches"]):
         world_index = offset % len(belief.worlds)
         parsed.append(
-            _indexes_from_flags(
-                flags, len(belief.worlds[world_index].requirements)
+            _parse_matched_indexes(
+                values, len(belief.worlds[world_index].requirements)
             )
         )
     return SemanticMap(
@@ -982,20 +1001,20 @@ def parse_branch_maps(
         if len(raw["support_matches"]) != support_expected:
             raise ValueError("branch support map has wrong pair count")
         support_matches = []
-        for offset, flags in enumerate(raw["support_matches"]):
+        for offset, values in enumerate(raw["support_matches"]):
             world_index = offset % REFRESH_WORLD_COUNT
             support_matches.append(
-                _indexes_from_flags(
-                    flags, len(refresh.worlds[world_index].requirements)
+                _parse_matched_indexes(
+                    values, len(refresh.worlds[world_index].requirements)
                 )
             )
         if len(raw["particle_matches"]) != REFRESH_QUESTION_COUNT:
             raise ValueError("branch particle map has wrong question count")
         particle_matches = tuple(
-            _indexes_from_flags(
-                flags, len(branch.remaining_particle_requirements)
+            _parse_matched_indexes(
+                values, len(branch.remaining_particle_requirements)
             )
-            for flags in raw["particle_matches"]
+            for values in raw["particle_matches"]
         )
         parsed.append(
             BranchSemanticMap(
@@ -1328,7 +1347,7 @@ def run_initial_planning(
         stage="initial_semantic_map",
         messages=map_messages,
         response_format=semantic_map_response_format(
-            name="pi_bench_initial_semantic_map_v1",
+            name="pi_bench_initial_semantic_map_v2",
             pair_count=INITIAL_WORLD_COUNT * INITIAL_QUESTION_COUNT,
         ),
         block_size=block_size,
@@ -1419,7 +1438,7 @@ def run_initial_planning(
             stage=f"rollout_followup_semantic_map_n{branch_count}",
             messages=branch_map_messages_batch,
             response_format=branch_map_response_format(
-                name=f"pi_bench_rollout_followup_map_n{branch_count}_v1",
+                name=f"pi_bench_rollout_followup_map_n{branch_count}_v2",
                 branch_count=branch_count,
             ),
             block_size=block_size,
@@ -1815,7 +1834,7 @@ def run_actual_trajectories(
         stage="realized_followup_semantic_map",
         messages=actual_map_messages,
         response_format=semantic_map_response_format(
-            name="pi_bench_realized_semantic_map_v1",
+            name="pi_bench_realized_semantic_map_v2",
             pair_count=(
                 ACTUAL_REFRESH_WORLD_COUNT * ACTUAL_REFRESH_QUESTION_COUNT
             ),
