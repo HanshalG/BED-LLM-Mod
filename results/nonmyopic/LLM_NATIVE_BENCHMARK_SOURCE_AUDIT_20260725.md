@@ -224,6 +224,27 @@ comparison.
 clarification rewards can be trained, but applying it here would require us to
 invent both the sequential BED task and its evaluation data.
 
+## DiscoveryWorld
+
+DiscoveryWorld is the strongest newly audited source for exact, external
+scientific-agent endpoints. Its eight themes contain semantic experiment
+design, persistent state, prerequisites, and exact task-completion and
+procedural-progress scorecards. The native action space is broad enough that an
+LLM could remain load-bearing for hypothesis and experiment proposal.
+
+The released simulator is not yet suitable for paired BED rollouts. It has no
+prior over scientific-law hypotheses or reference information-gathering
+planner, and same-seed reset/replay is not observation-deterministic. A
+headless replay audit found divergent post-action UI state even after resetting
+Python and NumPy global RNGs. The source creates an unseeded `random.Random()`
+inside every world object, and the API has no snapshot/restore operation.
+
+**Decision:** do not buy an end-to-end run. A successor must first seed every
+object RNG, prove exact trace replay, define a non-seed latent-law prior, and
+pass a zero-call oracle myopic-versus-lookahead opportunity gate while keeping
+LLM-generated hypotheses and experiments open-ended. See
+`DISCOVERYWORLD_SOURCE_AUDIT_RESULT.md`.
+
 ## OPEN
 
 OPEN uses an LLM to name and verbalize domain features, then performs greedy
@@ -276,6 +297,11 @@ closed without threshold or split changes. See
   LLM state, but its released preference scores are exactly one-step and its
   counterfactual candidate states are absent. Any use must be a new,
   prospectively gated BED construction rather than a dataset replay.
+- **Future scientific-agent substrate:** DiscoveryWorld has exact terminal
+  task scoring and native delayed experiments, but its released same-seed
+  replay is not observation-deterministic and it has no BED prior. Patch and
+  verify replay plus a non-seed scientific-law opportunity before any paid
+  agent run.
 - **Closed semantic SQL construction:** BIRD-Interact has natural
   clarification actions and executable SQLite endpoints but no released
   alternative-world prior. The separately gated LLM-generated intent
