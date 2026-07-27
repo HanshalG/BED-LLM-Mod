@@ -1,0 +1,77 @@
+{
+  "gates": {
+    "all_pass": true,
+    "bounded_transport_retries": true,
+    "cost_at_most_0_15": true,
+    "exact_5_logical_requests": true,
+    "http_attempts_match_requests_plus_retries": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "parse_counts": {
+    "followup_observations": 8,
+    "followup_rankings": 8,
+    "followups": 8,
+    "root_observations": 8,
+    "root_rankings": 8
+  },
+  "protocol": {
+    "expected_logical_requests": 5,
+    "interface_version": "discoverllm-priority-world-ordinal-serving-1",
+    "manifest_sha256": "9edfd3b20f762491db78087c95bccb1d345063af3423d4d7ccf6c481aa97ad3a",
+    "maximum_transport_retries": 2,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "fd498d1378013bb0a4a9bb53812dd1866595f0f0c09cbd5af8dca188fa041a30",
+    "reasoning_requested": false,
+    "released_scores_read": false,
+    "released_winner_labels_read": false,
+    "reserved_mechanics_task_ids": [
+      "creative_writing:artifact_385",
+      "technical_writing:artifact_333",
+      "creative_writing:artifact_367"
+    ],
+    "semantic_content_emitted": false,
+    "semantic_reissues_allowed": false,
+    "task_id": "svg_drawing:artifact_347",
+    "temperature": 0.0,
+    "truth_map_exposed_to_likelihood_scorer": false,
+    "truth_map_exposed_to_policy": false,
+    "world_presentation_seed": 24414
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_completion_tokens": 2111,
+    "adapter_cost_usd": 0.069245,
+    "adapter_prompt_tokens": 15032,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 5,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 2111,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 5,
+    "model": "openai/gpt-5.4",
+    "model_usage": {
+      "openai/gpt-5.4": {
+        "completion_tokens": 2111,
+        "cost_usd": 0.069245,
+        "prompt_tokens": 15032,
+        "reasoning_tokens": 0,
+        "requests": 5
+      }
+    },
+    "prompt_tokens": 15032,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 42.75971989077658,
+    "requests": 5,
+    "retry_count": 0,
+    "run_budget_usd": 0.15,
+    "run_cost_usd": 0.069245,
+    "run_remaining_usd": 0.080755,
+    "total_spent_usd": 97.24028010922342
+  }
+}

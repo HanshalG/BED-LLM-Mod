@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 import random
 import sys
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -76,12 +76,25 @@ def _load_task(
     expected_prefix = (SERVING_TASK_ID, *RESERVED_MECHANICS_TASK_IDS)
     if development_ids[: len(expected_prefix)] != expected_prefix:
         raise ValueError("DiscoverLLM ordinal task reservation changed")
+    return _load_task_by_id(paths, manifest_path, SERVING_TASK_ID)
 
+
+def _load_task_by_id(
+    paths: dict[str, Path],
+    manifest_path: Path,
+    task_id: str,
+) -> cardinal.MechanicsTask:
+    if manifest_v1.sha256_file(manifest_path) != cardinal.MANIFEST_SHA256:
+        raise ValueError("DiscoverLLM priority-world manifest hash changed")
+    frozen = json.loads(manifest_path.read_text(encoding="utf-8"))
+    development_ids = set(frozen["splits"]["development"]["artifact_ids"])
+    if task_id not in development_ids:
+        raise ValueError("DiscoverLLM task is outside the development split")
     for domain, expected_sha256 in manifest_v2.SOURCE_SHA256.items():
         if manifest_v1.sha256_file(paths[domain]) != expected_sha256:
             raise ValueError(f"DiscoverLLM {domain} Parquet hash changed")
 
-    domain, artifact_id = SERVING_TASK_ID.split(":", 1)
+    domain, artifact_id = task_id.split(":", 1)
     try:
         import pyarrow.parquet as parquet
     except ImportError as exc:  # pragma: no cover - runtime dependency
@@ -139,7 +152,7 @@ def _load_task(
         for message in candidates[0]["prompt"]
     )
     return cardinal.MechanicsTask(
-        key=SERVING_TASK_ID,
+        key=task_id,
         conversation=conversation,
         actions=tuple(candidate["completion"] for candidate in candidates),
         worlds=worlds,
@@ -288,15 +301,29 @@ def _serving_gates(usage: dict[str, Any]) -> dict[str, bool]:
     return gates
 
 
-def run_serving(
-    config: Config,
+def _run_five_stages(
+    task: cardinal.MechanicsTask,
     *,
-    paths: dict[str, Path],
-    manifest_path: Path,
     raw_path: Path,
     model: ChatModel,
+    root_likelihood_messages: Callable[
+        [cardinal.MechanicsTask, dict[str, dict[str, str]]],
+        list[dict[str, str]],
+    ],
+    followup_likelihood_messages: Callable[
+        [
+            cardinal.MechanicsTask,
+            dict[str, dict[str, str]],
+            dict[str, str],
+            dict[str, str],
+        ],
+        list[dict[str, str]],
+    ],
+    likelihood_parser: Callable[
+        [str, set[str]],
+        dict[str, Any],
+    ],
 ) -> dict[str, Any]:
-    task = _load_task(paths, manifest_path)
     raw: dict[str, Any] = {"task_id": task.key}
     try:
         root_raw = model.chat_complete_messages_batched(
@@ -317,16 +344,16 @@ def run_serving(
             root_output,
         )
 
-        root_rank_raw = model.chat_complete_messages_batched(
-            [_root_ranking_messages(task, observations)],
+        root_likelihood_raw = model.chat_complete_messages_batched(
+            [root_likelihood_messages(task, observations)],
             temperature=0.0,
             block_size=1,
             max_new_tokens=320,
         )
-        raw["root_rankings"] = root_rank_raw
+        raw["root_likelihoods"] = root_likelihood_raw
         _checkpoint(raw_path, raw)
-        root_rankings = _parse_rankings(
-            root_rank_raw[0],
+        root_likelihoods = likelihood_parser(
+            root_likelihood_raw[0],
             cardinal._branch_keys(),
         )
 
@@ -365,9 +392,9 @@ def run_serving(
             maximum_length=800,
         )
 
-        followup_rank_raw = model.chat_complete_messages_batched(
+        followup_likelihood_raw = model.chat_complete_messages_batched(
             [
-                _followup_ranking_messages(
+                followup_likelihood_messages(
                     task,
                     observations,
                     followups,
@@ -378,10 +405,10 @@ def run_serving(
             block_size=1,
             max_new_tokens=320,
         )
-        raw["followup_rankings"] = followup_rank_raw
+        raw["followup_likelihoods"] = followup_likelihood_raw
         _checkpoint(raw_path, raw)
-        followup_rankings = _parse_rankings(
-            followup_rank_raw[0],
+        followup_likelihoods = likelihood_parser(
+            followup_likelihood_raw[0],
             cardinal._branch_keys(),
         )
         usage = model.usage_snapshot()
@@ -391,7 +418,36 @@ def run_serving(
             f"{type(exc).__name__}: {exc}",
             model.usage_snapshot(),
         ) from exc
+    return {
+        "root_observations": root_output,
+        "root_likelihoods": root_likelihoods,
+        "followups": followups,
+        "followup_observations": second_observations,
+        "followup_likelihoods": followup_likelihoods,
+        "usage": usage,
+    }
 
+
+def run_serving(
+    config: Config,
+    *,
+    paths: dict[str, Path],
+    manifest_path: Path,
+    raw_path: Path,
+    model: ChatModel,
+) -> dict[str, Any]:
+    del config
+    task = _load_task(paths, manifest_path)
+    stages = _run_five_stages(
+        task,
+        raw_path=raw_path,
+        model=model,
+        root_likelihood_messages=_root_ranking_messages,
+        followup_likelihood_messages=_followup_ranking_messages,
+        likelihood_parser=_parse_rankings,
+    )
+
+    usage = stages["usage"]
     gates = _serving_gates(usage)
     return {
         "schema_version": 1,
@@ -417,11 +473,13 @@ def run_serving(
             "semantic_content_emitted": False,
         },
         "parse_counts": {
-            "root_observations": len(root_output),
-            "root_rankings": len(root_rankings),
-            "followups": len(followups),
-            "followup_observations": len(second_observations),
-            "followup_rankings": len(followup_rankings),
+            "root_observations": len(stages["root_observations"]),
+            "root_rankings": len(stages["root_likelihoods"]),
+            "followups": len(stages["followups"]),
+            "followup_observations": len(
+                stages["followup_observations"]
+            ),
+            "followup_rankings": len(stages["followup_likelihoods"]),
         },
         "gates": gates,
         "usage": usage,
