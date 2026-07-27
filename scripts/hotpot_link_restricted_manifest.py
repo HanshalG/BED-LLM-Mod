@@ -24,6 +24,7 @@ from scripts.hotpot_future_uplift_confirmation import (
 
 
 INTERFACE_VERSION = "hotpot-link-restricted-split-1"
+OPPORTUNITY_INTERFACE_VERSION = "hotpot-link-restricted-opportunity-2"
 SPLIT_SIZES = {
     "mechanics": 100,
     "development": 500,
@@ -101,11 +102,20 @@ def manifest(paths: Sequence[Path]) -> dict[str, Any]:
 
 
 def _restricted_diagnostic(row: dict[str, Any]) -> dict[str, Any]:
-    diagnostic = qualification(row)
+    try:
+        diagnostic = qualification(row)
+    except ValueError as exc:
+        return {
+            "task_id": str(row["id"]),
+            "qualifies": False,
+            "malformed": True,
+            "malformed_error": str(exc),
+        }
     if not diagnostic["qualifies"]:
         return {
             "task_id": str(row["id"]),
             "qualifies": False,
+            "malformed": False,
         }
     titles = [str(value) for value in row["context"]["title"]]
     paragraphs = [
@@ -146,6 +156,7 @@ def _restricted_diagnostic(row: dict[str, Any]) -> dict[str, Any]:
     return {
         "task_id": str(row["id"]),
         "qualifies": True,
+        "malformed": False,
         "root_values": root_values,
         "candidate_counts": candidate_counts,
         "root_roles": root_roles,
@@ -200,7 +211,7 @@ def opportunity(paths: Sequence[Path]) -> dict[str, Any]:
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": OPPORTUNITY_INTERFACE_VERSION,
             "mechanics_split_sha256": ordered_list_hash(
                 splits["mechanics"]
             ),
@@ -220,6 +231,10 @@ def opportunity(paths: Sequence[Path]) -> dict[str, Any]:
         "metrics": {
             "qualifying_counts": {
                 name: len(values) for name, values in qualifying.items()
+            },
+            "malformed_counts": {
+                name: sum(row["malformed"] for row in values)
+                for name, values in diagnostics.items()
             },
             "candidate_count_range": {
                 name: [

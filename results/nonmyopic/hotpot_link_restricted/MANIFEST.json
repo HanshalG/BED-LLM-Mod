@@ -1,0 +1,39 @@
+{
+  "gates": {
+    "all_pass": true,
+    "new_splits_disjoint": true,
+    "new_splits_exhaust_old_holdout": true,
+    "old_holdout_exact_71391": true,
+    "only_metadata_columns_read": true,
+    "zero_endpoint_rows_materialized": true,
+    "zero_model_calls": true
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "endpoint_rows_materialized": 0,
+    "interface_version": "hotpot-link-restricted-split-1",
+    "metadata_rows": 90447,
+    "model_calls": 0,
+    "old_holdout_ordered_id_sha256": "f1fc6d1119a8fdda01860055adf1d146f900433c76f1af508bc725ff4ec088d8"
+  },
+  "schema_version": 1,
+  "splits": {
+    "confirmation": {
+      "count": 2000,
+      "ordered_id_sha256": "4e96e799ae4d8ec3c1feadbd3438ba4b2592a817f0c95972d9e9d984dd5424c2"
+    },
+    "development": {
+      "count": 500,
+      "ordered_id_sha256": "ad210c9e438c326a0d279631b733e5cc2b3af1e7121cbe69b30b173b425d7fc2"
+    },
+    "holdout": {
+      "count": 68791,
+      "ordered_id_sha256": "e835180ec34f93f553e14ab03d5c549e7167186aa319121983ba347e5cec224c"
+    },
+    "mechanics": {
+      "count": 100,
+      "ordered_id_sha256": "ebaf587774b60728859c6c6d01a652f5ca5875e9edd1c6b299d6cd13611ea012"
+    }
+  },
+  "status": "passed"
+}
