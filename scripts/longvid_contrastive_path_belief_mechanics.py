@@ -11,7 +11,7 @@ from pathlib import Path
 import random
 import re
 import sys
-from typing import Any, Protocol, Sequence
+from typing import Any, Callable, Protocol, Sequence
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -659,6 +659,8 @@ def run_mechanics(
     response_format_name: str = "chat_strict_flat_json_schema",
     interface_version: str = INTERFACE_VERSION,
     layout_seed: int = LAYOUT_SEED,
+    support_parser: Callable[[str], list[dict[str, Any]]] = parse_support,
+    rank_parser: Callable[[str], dict[str, Any]] = parse_rank,
 ) -> dict[str, Any]:
     if sha256_file(qa_path) != QA_SHA256:
         raise ValueError("QA SHA-256 does not match frozen source")
@@ -724,7 +726,7 @@ def run_mechanics(
         raw["responses"]["initial"] = initial_responses
         _checkpoint(raw_path, raw)
         initial_supports = [
-            parse_support(response) for response in initial_responses
+            support_parser(response) for response in initial_responses
         ]
         if any(
             {row["anchor"] for row in support} != {"QUESTION"}
@@ -783,7 +785,7 @@ def run_mechanics(
             )
             raw["responses"]["refreshes"].append(responses)
             _checkpoint(raw_path, raw)
-            supports = [parse_support(response) for response in responses]
+            supports = [support_parser(response) for response in responses]
             for path, support in zip(paths, supports):
                 anchor_count = valid_anchor_count(
                     support,
@@ -837,7 +839,7 @@ def run_mechanics(
         raw["responses"]["immediate_ranks"] = immediate_responses
         _checkpoint(raw_path, raw)
         immediate_ranks = [
-            parse_rank(response) for response in immediate_responses
+            rank_parser(response) for response in immediate_responses
         ]
 
         final_responses = _complete_structured(
@@ -858,7 +860,7 @@ def run_mechanics(
         )
         raw["responses"]["final_ranks"] = final_responses
         _checkpoint(raw_path, raw)
-        final_ranks = [parse_rank(response) for response in final_responses]
+        final_ranks = [rank_parser(response) for response in final_responses]
 
         records = []
         changed_refreshes = 0
