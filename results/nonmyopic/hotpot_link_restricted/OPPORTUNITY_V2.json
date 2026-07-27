@@ -1,0 +1,69 @@
+{
+  "gates": {
+    "all_pass": false,
+    "all_qualifying_have_unique_enabling_optimum": true,
+    "confirmation_and_holdout_endpoints_unopened": true,
+    "development_has_at_least_20_qualifying": true,
+    "exact_100_mechanics_rows_materialized": true,
+    "exact_500_development_rows_materialized": true,
+    "mechanics_has_at_least_3_qualifying": false,
+    "zero_model_calls": true
+  },
+  "metrics": {
+    "candidate_count_range": {
+      "development": [
+        0,
+        3
+      ],
+      "mechanics": [
+        0,
+        1
+      ]
+    },
+    "malformed_counts": {
+      "development": 1,
+      "mechanics": 0
+    },
+    "qualifying_counts": {
+      "development": 24,
+      "mechanics": 2
+    },
+    "selected_development_id_sha256": "e158910288d6bede87136a90532c8dd5b7804ce2d1bcec47f438c0efe4105af0",
+    "selected_development_task_ids": [
+      "5a820055554299676cceb1cb",
+      "5ab811a85542991d3222382d",
+      "5ac2d94055429921a00ab06f",
+      "5a7eb8e55542994959419a68",
+      "5a811083554299260e20a22b",
+      "5abda64555429965af743d98",
+      "5ae742645542997b22f6a651",
+      "5adc195055429944faac241b",
+      "5ac3bc72554299391541391c",
+      "5ae0bed25542993d6555ec34",
+      "5a7e0d505542997cc2c47510",
+      "5a80b8d05542992bc0c4a7e1",
+      "5a7cdb5d554299683c1c63a2",
+      "5aba10615542994dbf0198a4",
+      "5a7ea61e55429930675135ba",
+      "5a82404c55429940e5e1a812",
+      "5ac0bdb9554299012d1db625",
+      "5a7b8b1e55429927d897bfe8",
+      "5a8b2b2e55429971feec465f",
+      "5ae7948855429952e35ea987"
+    ]
+  },
+  "protocol": {
+    "confirmation_endpoint_rows_materialized": 0,
+    "confirmation_split_sha256": "4e96e799ae4d8ec3c1feadbd3438ba4b2592a817f0c95972d9e9d984dd5424c2",
+    "cost_usd": 0.0,
+    "development_split_sha256": "ad210c9e438c326a0d279631b733e5cc2b3af1e7121cbe69b30b173b425d7fc2",
+    "endpoint_rows_materialized": 600,
+    "holdout_endpoint_rows_materialized": 0,
+    "holdout_split_sha256": "e835180ec34f93f553e14ab03d5c549e7167186aa319121983ba347e5cec224c",
+    "interface_version": "hotpot-link-restricted-opportunity-2",
+    "mechanics_split_sha256": "ebaf587774b60728859c6c6d01a652f5ca5875e9edd1c6b299d6cd13611ea012",
+    "model_calls": 0
+  },
+  "schema_version": 1,
+  "status": "gate_failed"
+}
