@@ -17,12 +17,12 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from helpers import Config, ModelSpec
+from openrouter_model import OpenRouterAdapter
 from scripts.discoverphysics_dark_matter_opportunity import (
     active_probe_actions,
     verify_discoverphysics,
 )
 from scripts.discoverphysics_oscillator_belief_smoke import (
-    NonReasoningOpenRouterAdapter,
     SmokeExecutionError,
     canonical_text,
     checkpoint,
@@ -61,6 +61,31 @@ MYOPIC_ROOT_ID = "D"
 LOOKAHEAD_ROOT_ID = "B"
 BLIND_LABELS = {"A": "K", "B": "M", "C": "Q", "D": "T"}
 SCORER_ORDER = ("Q", "K", "T", "M")
+
+
+class NonReasoningOpenRouterAdapter(OpenRouterAdapter):
+    """Force this smoke onto the explicit non-reasoning route."""
+
+    def _payload(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        n: int,
+        max_tokens: int | None = None,
+        *,
+        disable_reasoning: bool = False,
+        response_format: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        payload = super()._payload(
+            messages,
+            temperature,
+            n,
+            max_tokens,
+            disable_reasoning=disable_reasoning,
+            response_format=response_format,
+        )
+        payload["reasoning"] = {"enabled": False, "exclude": True}
+        return payload
 
 
 def root_by_id(root_id: str) -> dict[str, Any]:

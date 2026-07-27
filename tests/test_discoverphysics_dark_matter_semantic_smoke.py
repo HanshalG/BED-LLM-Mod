@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import json
 
 import numpy as np
@@ -7,6 +8,7 @@ import pytest
 
 from scripts.discoverphysics_dark_matter_semantic_smoke import (
     NUM_HYPOTHESES,
+    NonReasoningOpenRouterAdapter,
     action_table,
     parse_refresh,
     parse_scorer,
@@ -117,3 +119,11 @@ def test_action_table_and_quadrants_are_frozen():
     assert quadrant("r4.5_a1") == (1, 1)
     assert quadrant("r4.5_a5") == (-1, -1)
     assert quadrant("center") is None
+
+
+def test_nonreasoning_adapter_accepts_current_response_format_keyword():
+    parameters = inspect.signature(
+        NonReasoningOpenRouterAdapter._payload
+    ).parameters
+
+    assert "response_format" in parameters
