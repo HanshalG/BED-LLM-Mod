@@ -15,6 +15,8 @@ from scripts.number_game_generator_aware_bed import (
     merge_controlled_support,
     parse_proposals,
     proposal_response_format,
+    predictive_bayes_risk_scores,
+    choose_predictive_bayes_risk_root,
     query_eig,
     run_experiment,
 )
@@ -239,3 +241,40 @@ def test_fake_end_to_end_rehearsal_makes_exact_17_calls(tmp_path):
     assert (tmp_path / "RESULT.json").exists()
     assert (tmp_path / "MODEL.json").exists()
     assert (tmp_path / "private" / "RAW_RESPONSES.json").exists()
+
+
+def test_predictive_bayes_risk_selection_uses_terminal_brier():
+    support = [
+        _rule("even", "divisible(n, 2)"),
+        _rule("three", "divisible(n, 3)"),
+        _rule("five", "divisible(n, 5)"),
+    ]
+    roots = [2, 3]
+    branches = {
+        (2, False): [
+            _rule("odd", "n % 2 == 1"),
+            _rule("three", "divisible(n, 3)"),
+        ],
+        (2, True): [
+            _rule("even", "divisible(n, 2)"),
+            _rule("five", "divisible(n, 5)"),
+        ],
+        (3, False): [
+            _rule("even", "divisible(n, 2)"),
+            _rule("five", "divisible(n, 5)"),
+        ],
+        (3, True): [_rule("three", "divisible(n, 3)")],
+    }
+
+    scores = predictive_bayes_risk_scores(
+        support=support,
+        roots=roots,
+        branches=branches,
+    )
+    selected = choose_predictive_bayes_risk_root(scores)
+
+    assert selected in roots
+    assert scores[selected]["mean_posterior_predictive_brier"] == min(
+        score["mean_posterior_predictive_brier"]
+        for score in scores.values()
+    )

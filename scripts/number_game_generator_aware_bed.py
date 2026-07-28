@@ -622,6 +622,41 @@ def evaluate_policy_root(
     }
 
 
+def predictive_bayes_risk_scores(
+    *,
+    support: Sequence[RuleHypothesis],
+    roots: Sequence[int],
+    branches: dict[tuple[int, bool], Sequence[RuleHypothesis]],
+) -> dict[int, dict[str, Any]]:
+    targets = {
+        f"particle_{index:02d}": hypothesis
+        for index, hypothesis in enumerate(support)
+    }
+    return {
+        root: evaluate_policy_root(
+            policy="predictive_bayes_risk",
+            root=root,
+            targets=targets,
+            branches=branches,
+        )
+        for root in roots
+    }
+
+
+def choose_predictive_bayes_risk_root(
+    scores: dict[int, dict[str, Any]],
+) -> int:
+    return min(
+        scores,
+        key=lambda root: (
+            scores[root]["mean_posterior_predictive_brier"],
+            scores[root]["mean_best_hamming_error"],
+            -scores[root]["truth_extension_coverage_rate"],
+            root,
+        ),
+    )
+
+
 def target_hypotheses() -> dict[str, RuleHypothesis]:
     return {
         name: RuleHypothesis(

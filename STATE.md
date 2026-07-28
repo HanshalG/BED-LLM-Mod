@@ -1220,3 +1220,13 @@ Bayes-risk over current particles selects root34 and gives Brier.1858 vs
 myopic.2116(-12.2%),Hamming.0732 vs.0943(-22.4%),retention69.6% vs65.2%.
 Diagnostic only. Prospectively freeze root34/predictive-risk successor before
 fresh independently generated targets;independent trees remain required.
+2026-07-28: Freeze predictive-risk cross-model target holdout before response.
+Source MODEL/RESULT hashes bf45eb9f/6c1de697 immutable. Empirical terminal
+posterior-predictive Brier over each source particle as simulated truth selects
+root34;myopic/fixed select48. Exactly1 fresh GPT-5.4 nonreasoning/temp0 strict
+call proposes24 target rules;require >=16 valid and >=8 novel extensions. Pass
+requires source >=10% Brier gain;fresh >=5% Brier+Hamming gains versus48 with
+paired20k-bootstrap upper<0,no coverage loss,>=5% versus exact uniform8-root
+control,and directional novel-target gains. Cap$.20,no reserve. Pass only
+authorizes independent tree replication. Fake exact1-call rehearsal and34
+focused tests pass;OatML0.
