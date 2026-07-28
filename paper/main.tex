@@ -292,10 +292,14 @@ on 68/96; its mean oracle regret is $.0070$ versus $.0449$ myopic. Mean
 leave-one-particle-out root agreement is $.868$, indicating that the ranking
 signal is not carried by one indispensable hypothesis.
 
-A depth-three development changed 7/8 depth-two roots and reduced Brier
-12.3\%, but failed before confirmation: three twice-conditioned supports were
-empty and mean truth coverage fell 1.71 points. Longer horizon remains gated
-by reliable semantic support under multiple observations.
+A generated-only depth-three development changed 7/8 depth-two roots and
+reduced Brier 12.3\%, but three twice-conditioned supports were empty.
+Retaining consistent parent particles repaired every second support in a
+preregistered fresh six-tree test. Brier, Hamming, and coverage improved
+1.86\%, 3.71\%, and 2.21 points over depth two, but the conjunction failed:
+only 2/6 roots changed (both wins, four ties), one first support retained seven
+rather than eight rules, and generated-only roots differed on 1/6. Thus the
+depth-two result is confirmed, but monotonic deeper improvement is not.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and

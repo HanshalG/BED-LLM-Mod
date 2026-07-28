@@ -1428,3 +1428,16 @@ CI[.5060,.8214],concordance.7545. Public SHAfd5d0587. Freeze before fresh
 responses:6 GPTmini/Gemini trees seeds27800--805/27900--805,exact300,same
 nonreasoning interface,retention+risk set fixed,conjunctive mechanics/depth/
 controls/ranking gates,cap$1.07,no reserve;live balance$1.080791044.
+2026-07-28: Fresh6 retained-rejuvenation d3 is a frozen gated null with a
+directional monotonic effect. Exact300/300,0 retry/reasoning/forced,cost
+$.9743724. Candidate Brier.180220 vs d2.183627(-1.855%),Hamming-3.706%,
+coverage+2.207pp;only2/6 roots differ and both win(no losses,4 exact ties),so
+frozen root>=3 and wins>=3 fail. Candidate vs parent-only Brier-1.278%,roots
+differ3;vs generated-only-2.367% but roots differ1<2. Myopic-8.205%,fixed-d3
+-9.399%(CI<0),random-3.673%(CI<0);PTS is1.59% better. Ranking passes:
+rho.5317,concordance.7262. Retention fully fixes second-step mechanics(min9
+despite generated min0),but seed27804 first branch7<8 fails. Four gates fail:
+first-support,root depth difference,d2 wins,generated-root difference. No
+rerun/repair. Public RESULT SHA39edaa69,TREESb6c157f7,private4d3a5f19,log
+6534cb7d. Live provider balance$.127224544. Next principled change is retention
+at first and second refresh,which changes second queries and needs fresh calls.
