@@ -1183,3 +1183,12 @@ reproduction<1e-10,selected minimum gain>=.5%,mean>=1%,and one full tree>=1%.
 Failure closes route;pass alone authorizes one separately frozen fresh balanced
 branch sample+new384-map endpoint with original D/B/random/fixed/coverage gates.
 No region labels/tree removal/grid refinement. Model0,cost0,OatML0.
+2026-07-28: Robust clipped-step selection is a magnitude-gated development
+null and closes global coefficient calibration. Maximin beta=.125;all3 gains
+and paired lower bounds positive. Original2.983213 vs3.000591=+.579%,
+CI[.01209,.02285];structured3.023792 vs3.070884=+1.534%,CI[.04099,.05318];
+fixed-initial fresh branches3.038439 vs3.048537=+.331%,CI[.00354,.01676].
+Worst.331%<.5% and mean.815%<1%,so no confirmation. Fresh-branch curve peaks
+near.125 then loses paired positivity by.175,while structured keeps improving:
+heterogeneous branch quality,not merely a timid global step,is binding. Public
+SHA2755e696;model0,cost0. No grid/threshold/tree refinement.
