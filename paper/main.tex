@@ -271,10 +271,17 @@ depth two, 11.0\% over random, and 10.4\% over PTS. More importantly, a
 preregistered support-rich control pooled all 141--179 generated rules into
 one static support per tree. Root-conditioned generation still reduced Brier
 from $.2045$ to $.1838$ (10.1\%; $[-.0299,-.0123]$; 22/32 wins) and Hamming
-by 17.7\% ($[-.0301,-.0101]$). Root-local answer pooling was an exact 32/32
-identity, while the global-pool root differed on 26/32 trees. Thus
-root-conditioned semantic generation, not support count or answer indexing,
-is load-bearing.
+by 17.7\% ($[-.0301,-.0101]$).
+
+A post-hoc exact-size audit removes the remaining count confound. On each of
+the 96 independent trees, 32 static supports were sampled from the global rule
+pool to match every realized branch size exactly. Root-conditioned generation
+reduced Brier 9.93\% ($[-.0240,-.0170]$; 88/96 wins), Hamming 14.61\%
+($[-.0209,-.0132]$), and raised coverage 4.01 points; every dataset's
+intervals excluded zero, including the model-role swap. A 128-sample
+sensitivity gave 9.64\%/14.39\%. This descriptive audit isolates semantic
+focusing rather than support count; the preregistered global-pool confirmation
+remains the formal mechanism claim.
 
 A depth-three development changed 7/8 depth-two roots and reduced Brier
 12.3\%, but failed before confirmation: three twice-conditioned supports were

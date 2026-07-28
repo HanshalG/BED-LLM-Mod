@@ -1393,3 +1393,15 @@ CIs<0. Hamming vs d2-8.20% but CI crosses;coverage -1.71pp. Mechanics fails:
 second-support min0,3/256 cells empty(2 all inconsistent,1 all invalid grammar),
 8 cells<4. No promotion/repair. Public RESULT SHAb3eb13f9,TREES016ed921,
 private3cfaa68e,log2f6a6291. Provider remaining$1.248146094;pause paid work.
+2026-07-28: Zero-call post-hoc exact-size static-support audit closes support
+count confound across all three independent fresh32 Number Game datasets.
+For each root/answer,32 deterministic samples from one global rule pool match
+the realized branch size exactly;sampled static roots deploy on unchanged
+actual branches. Candidate Brier gains:powered Gemini/GPT9.58%,CI[-.02507,
+-.01376],29 wins;GPTmini/Gemini11.64%,CI[-.03300,-.01738],29;confirmation
+Gemini/GPT8.48%,CI[-.02135,-.01309],30. Combined96 gain9.93%,CI[-.02402,
+-.01701],88 wins;Hamming-14.61%,CI[-.02089,-.01317],78 wins;coverage+4.01pp;
+novel gains79/96 Brier,74/96 Hamming. Candidate differs modal sampled root
+71/96 and is sampled only19.11%. 128-sample sensitivity stays9.64% Brier/
+14.39% Hamming with all per-source CIs<0. Primary SHA93b086b8,sensitivity
+1997ce2f. Post-hoc mechanism evidence;no affordable fresh confirmation.
