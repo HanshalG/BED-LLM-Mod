@@ -1366,3 +1366,12 @@ myopic Brier.229045 by19.75%(31 wins),fixed.234025 by21.46%,random.206580 by
 11.02%,PTS.205125 by10.39%(27 wins);all Brier CIs<0,roots differ myopic/fixed
 32/32. Public confirmation SHA5171b587,base de3acb04,pooled92a9a24e,
 trees46b9acbc,privated254c79e. Provider remaining$3.481717894.
+2026-07-28: Freeze Number Game depth-three development before eight-tree
+responses. Two excluded mechanics smokes50 calls each:seed27390/27490 min
+first11/min second3,cost$.1236533,d3=d2 root22;prompt-only hard executable
+constraint repair seed27391/27491 accepted50/52 with2 zero-cost retries,min
+first11/min second4,cost$.1302163,d3 root80/d2 root84. No target endpoints
+inspected. Development fresh Gemini27400--407/GPT27500--507,50 calls/tree=400,
+cap$1.20. Require all mechanics,min second4;promote only if d3 differs d2>=4/8,
+Brier gain>=3%,wins>=5,Hamming/coverage no worse,and directional vs myopic/
+random.

@@ -279,8 +279,56 @@ def initial_messages() -> list[dict[str, str]]:
     ]
 
 
-def branch_messages(root: int, label: bool) -> list[dict[str, str]]:
-    answer = "YES" if label else "NO"
+def history_messages(
+    observations: Sequence[tuple[int, bool]],
+    *,
+    enforce_constraints: bool = False,
+) -> list[dict[str, str]]:
+    if not observations:
+        return initial_messages()
+    if len(observations) == 1 and not enforce_constraints:
+        root, label = observations[0]
+        answer = "YES" if label else "NO"
+        return [
+            {
+                "role": "system",
+                "content": (
+                    "You rejuvenate executable hypotheses after an active "
+                    "Number Game query. Return only the requested strict JSON."
+                ),
+            },
+            {
+                "role": "user",
+                "content": (
+                    f"The only observation is: Is {root} in the concept? "
+                    f"{answer}.\n"
+                    f"Propose exactly {NUM_PROPOSALS} distinct hypotheses "
+                    "consistent with that observation. Generate coherent "
+                    "general rules rather than encoding the observation as "
+                    f"an exception.\n\n{_GRAMMAR}"
+                ),
+            },
+        ]
+    observation_lines = "\n".join(
+        f"- Is {number} in the concept? {'YES' if label else 'NO'}."
+        for number, label in observations
+    )
+    hard_constraints = "\n".join(
+        f"- expression evaluated at n={number} MUST return {label}."
+        for number, label in observations
+    )
+    constraint_text = (
+        f"Hard executable constraints:\n{hard_constraints}\n"
+        if enforce_constraints
+        else ""
+    )
+    verification_text = (
+        " Check every returned expression against every hard constraint "
+        "before returning it; a single contradiction makes that hypothesis "
+        "unusable."
+        if enforce_constraints
+        else ""
+    )
     return [
         {
             "role": "system",
@@ -292,14 +340,19 @@ def branch_messages(root: int, label: bool) -> list[dict[str, str]]:
         {
             "role": "user",
             "content": (
-                f"The only observation is: Is {root} in the concept? {answer}.\n"
+                f"The observations so far are:\n{observation_lines}\n"
+                f"{constraint_text}"
                 f"Propose exactly {NUM_PROPOSALS} distinct hypotheses consistent "
-                "with that observation. Generate coherent general rules rather "
-                "than encoding the observation as an exception.\n\n"
+                "with every observation. Generate coherent general rules rather "
+                f"than encoding observations as exceptions.{verification_text}\n\n"
                 f"{_GRAMMAR}"
             ),
         },
     ]
+
+
+def branch_messages(root: int, label: bool) -> list[dict[str, str]]:
+    return history_messages(((root, label),))
 
 
 def parse_proposals(
