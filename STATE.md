@@ -1157,3 +1157,12 @@ NE-.0532/NW-.0132,exactly cancelling under.4/.3/.2/.1. No rerun/weight tuning.
 Public result/model/policy SHAsacc911ca/6dfe2306/d1948b48;private rawe04df8ce;
 balance$8.612217344. The robust claim is root lookahead;next LLM-native work must
 calibrate generated support value across semantic regions rather than add breadth.
+2026-07-28: Freeze zero-call uncertainty-clipped modular development before
+computing it on any open endpoint. Sole rule keeps 5% generated-support update
+but clips refresh-minus-initial trajectory displacement to one posterior RMS
+dispersion of the initial component;no fitted scalar,region label,endpoint
+value,grid,or exception. Replay exact original,structured,and fixed-initial
+fresh-branch384-map endpoints. Require fixed reproduction<1e-10,positive gain
+and positive paired CI on all3,>=1% on one independently generated full tree,
+and mean gain>=.5%. Failure closes rule;pass alone authorizes a separately
+frozen fresh branch+endpoint confirmation. Model0,cost0,OatML0.

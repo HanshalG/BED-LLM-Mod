@@ -10,6 +10,11 @@ import pytest
 from scripts.analyze_discoverphysics_dark_matter_structured_replication import (
     weighted_correlation,
 )
+from scripts.analyze_discoverphysics_uncertainty_clipped_blend import (
+    default_endpoint_specs,
+    uncertainty_clip_factors,
+    uncertainty_clipped_predictions,
+)
 from scripts.discoverphysics_dark_matter_balanced_modular_replication import (
     MAP_SEEDS as BALANCED_MAP_SEEDS,
     balance_support_regions,
@@ -400,6 +405,49 @@ def test_fixed_initial_branch_mechanics_requires_exact_eight_calls():
         refreshes=refreshes,
         usage=usage,
     )[0]["exact_8_accepted_requests"]
+
+
+def test_uncertainty_clipping_uses_one_initial_posterior_rms():
+    factors = uncertainty_clip_factors(
+        initial_variance=np.array([1.0, 4.0, 0.0]),
+        displacement_mse=np.array([4.0, 1.0, 0.0]),
+    )
+
+    assert np.allclose(factors, [0.5, 1.0, 0.0])
+
+    initial = np.zeros((2, 3))
+    refresh = np.array([[2.0, 2.0, 2.0], [0.5, 0.5, 0.5]])
+    predictions, factors = uncertainty_clipped_predictions(
+        initial_prediction=initial,
+        refresh_prediction=refresh,
+        initial_variance=np.array([1.0, 4.0]),
+    )
+
+    assert np.allclose(factors, [0.5, 1.0])
+    assert np.allclose(predictions[0], [0.05, 0.05, 0.05])
+    assert np.allclose(predictions[1], [0.025, 0.025, 0.025])
+
+
+def test_uncertainty_clipped_development_uses_all_three_open_endpoints():
+    specs = default_endpoint_specs(REPO_ROOT)
+
+    assert [spec.name for spec in specs] == [
+        "original_tree",
+        "structured_v3_tree",
+        "fixed_initial_fresh_branches",
+    ]
+    assert [spec.bootstrap_seed for spec in specs] == [
+        24617,
+        24717,
+        24757,
+    ]
+    assert [spec.independently_generated_full_tree for spec in specs] == [
+        True,
+        True,
+        False,
+    ]
+    assert all(spec.result_path.exists() for spec in specs)
+    assert all((spec.source_dir / "MODEL_FROZEN.json").exists() for spec in specs)
 
 
 def test_stratified_bootstrap_preserves_constant_difference():
