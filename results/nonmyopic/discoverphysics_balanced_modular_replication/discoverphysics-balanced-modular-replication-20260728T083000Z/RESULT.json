@@ -1,0 +1,135 @@
+{
+  "endpoint_accessed": false,
+  "phase_a": {
+    "balanced_support_gates": {
+      "all_refresh_region_masses_match_disclosed_prior": true,
+      "all_refreshes_have_three_geometry_types": true,
+      "all_refreshes_have_two_maps_per_region": true
+    },
+    "mechanics_gates": {
+      "all_8_refreshes_change_support": true,
+      "all_refresh_supports_keep_two_regions": true,
+      "at_least_3_roots_have_branch_distinct_supports": true,
+      "center_branches_choose_distinct_continuations": true,
+      "exact_10_accepted_requests": true,
+      "transport_attempt_accounting_exact": true,
+      "within_run_budget": true,
+      "zero_forced_exits": true,
+      "zero_forced_final_requests": true,
+      "zero_reasoning_tokens": true
+    },
+    "mechanism": {
+      "center_continuations": [
+        "r4.5_a3",
+        "r4.5_a1"
+      ],
+      "refreshes_changed_from_initial": 8,
+      "roots_with_branch_distinct_supports": 4
+    },
+    "protocol": {
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 24737,
+      "continuation_samples": 4,
+      "discarded_preflight_requests": 1,
+      "discoverphysics_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+      "expected_accepted_requests": 10,
+      "initial_component_mass": 0.95,
+      "interface_version": "discoverphysics-dark-matter-balanced-modular-1",
+      "map_seeds": [
+        24720,
+        24721,
+        24722,
+        24723,
+        24724,
+        24725,
+        24726,
+        24727,
+        24728,
+        24729,
+        24730,
+        24731,
+        24732,
+        24733,
+        24734,
+        24735
+      ],
+      "model": "openai/gpt-5.4",
+      "noise_seed": 24736,
+      "policy_noise_seed": 24510,
+      "reasoning_enabled": false,
+      "refresh_component_mass": 0.05,
+      "refresh_maps_per_region": 2,
+      "refresh_region_mass": {
+        "NE": 0.4,
+        "NW": 0.3,
+        "SE": 0.1,
+        "SW": 0.2
+      },
+      "response_format": "chat_strict_json_schema_default_routing",
+      "root_samples": 8,
+      "run_budget_usd": 0.25,
+      "scientific_tree_requests": 9,
+      "temperature": 0.0
+    },
+    "raw_responses_sha256": "a81b0c62a24b0d13bc269ba27732cfe73d2245022162c7fcc71137b6ffeaa5e8",
+    "selection": {
+      "immediate_eig_nats": {
+        "A": 1.1077945236388005,
+        "B": 1.356228238881978,
+        "C": 0.9438941017092466,
+        "D": 1.3321338516584047
+      },
+      "internal_risk_reduction": 0.8090250197791974,
+      "lookahead_root": "B",
+      "modular_internal_trajectory_risk": {
+        "A": 1.7003178539756125,
+        "B": 0.2011222337636407,
+        "C": 1.2264438104514745,
+        "D": 1.0531339421064787
+      },
+      "myopic_root": "B"
+    },
+    "selection_gates": {
+      "internal_risk_reduction_at_least_10_percent": true,
+      "modular_lookahead_root_is_B": true,
+      "myopic_root_is_D": false
+    },
+    "status": "null",
+    "usage": {
+      "adapter_completion_tokens": 6239,
+      "adapter_cost_usd": 0.1315875,
+      "adapter_prompt_tokens": 15201,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 6239,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 6239,
+          "cost_usd": 0.1315875,
+          "prompt_tokens": 15201,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 15201,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 18.34969214077661,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.1315875,
+      "run_remaining_usd": 0.1184125,
+      "total_spent_usd": 121.65030785922339
+    }
+  },
+  "schema_version": 1,
+  "status": "phase_a_null"
+}

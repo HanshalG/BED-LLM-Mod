@@ -1126,3 +1126,13 @@ Only then open new384-map seeds24720--24735/noise24736/bootstrap24737 and test B
 D/random/fixed plus coverage under original thresholds. This is a new support
 generator,not a third-tree run of closed modular cut. Projected$.14,cap$.25,balance
 $8.858329844,no reserve;OpenRouter only,OatML0. 43 DiscoverPhysics tests pass.
+2026-07-28: Balanced-modular fresh tree is Phase-A null before endpoint. Exact10/10
+accepted/HTTP,0 retry/reasoning/forced,$.1315875. Generator intervention succeeds:
+8/8 changed,4/4 roots branch-distinct,B continuations r4.5_a3/r4.5_a1,every refresh
+exact2 maps/region,projected.4/.3/.2/.1,and>=3 geometries. Modular risks
+B.2011<D1.0531=80.90% gain. But fresh initial support removes non-myopic gap:
+immediate B1.3562>D1.3321,so myopic-D gate fails;24720--24737 unopened,no
+model/policy files. Do not rerun/change samples/read close score as tie. Private
+SHAa81b0c62,public SHAb38fdca2,balance$8.726742344. Distinct next isolation may
+fix public structured-V3 initial support/branches(D myopic)and generate one fresh
+balanced branch tree on new endpoint,with explicit narrower claim.
