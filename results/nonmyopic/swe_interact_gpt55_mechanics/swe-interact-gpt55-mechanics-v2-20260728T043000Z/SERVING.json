@@ -1,0 +1,222 @@
+{
+  "protocol": {
+    "development_confirmation_retained_sealed": true,
+    "elapsed_seconds": 13.85047812499397,
+    "expected_judge_requests": 3,
+    "expected_user_requests": 24,
+    "interface_version": "swe-interact-gpt55-mechanics-serving-2",
+    "judge_id_grammar": "bare_decimal",
+    "judge_model": "openai/gpt-5.4-mini",
+    "judge_reasoning_disabled": true,
+    "manifest_sha256": "d6184d7decef79e596a522f57b79fecd1aafbc838721290245baaf54d3295102",
+    "private_raw_sha256": "fc574f854536856daa424e3831c1540453b498e6ea1f58fbc0377936f82fc3a3",
+    "seed": 24424,
+    "source_commit": "b32f98c3b8f76ca65e84341d1f30e5af7135f85d",
+    "source_tree": "d2b16852aa541c780598283ceb0302a4dbe66aff",
+    "user_model": "openai/gpt-5.5",
+    "user_reasoning_effort": "high"
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "distinct_aligned_review_task_count": 3,
+    "distinct_aligned_root_task_count": 3,
+    "exact_root_repeat_pair_count": 5,
+    "gates": {
+      "all_pass": false,
+      "all_replies_nonempty": true,
+      "bounded_judge_transport_retries": true,
+      "bounded_user_transport_retries": true,
+      "combined_cost_at_most_4": true,
+      "distinct_aligned_reviews_on_3_of_3": true,
+      "distinct_aligned_roots_on_3_of_3": true,
+      "exact_24_user_requests": true,
+      "exact_3_judge_requests": true,
+      "exact_root_repeat_agreement_6_of_6": false,
+      "generic_zero_on_3_of_3": true,
+      "initial_at_most_one_on_3_of_3": false,
+      "judge_http_attempts_accounted": true,
+      "user_http_attempts_accounted": true,
+      "zero_judge_forced_exits": true,
+      "zero_judge_reasoning_tokens": true,
+      "zero_user_forced_exits": true
+    },
+    "generic_zero_progress_count": 3,
+    "initial_vague_count": 1,
+    "num_tasks": 3
+  },
+  "tasks": [
+    {
+      "family": "deepswe",
+      "generic_new_requirement_count": 0,
+      "initial_requirement_count": 14,
+      "review_a_aligned": true,
+      "review_a_requirement_ids": [
+        "R2"
+      ],
+      "review_b_aligned": true,
+      "review_b_requirement_ids": [
+        "R4"
+      ],
+      "review_sets_distinct": true,
+      "root_a_aligned": true,
+      "root_a_repeat_exact": true,
+      "root_a_requirement_ids": [
+        "R2"
+      ],
+      "root_b_aligned": true,
+      "root_b_repeat_exact": true,
+      "root_b_requirement_ids": [
+        "R4"
+      ],
+      "root_sets_distinct": true,
+      "task_id": "deepswe_clack-async-autocomplete-options"
+    },
+    {
+      "family": "refactoring",
+      "generic_new_requirement_count": 0,
+      "initial_requirement_count": 6,
+      "review_a_aligned": true,
+      "review_a_requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "review_b_aligned": true,
+      "review_b_requirement_ids": [
+        "R5"
+      ],
+      "review_sets_distinct": true,
+      "root_a_aligned": true,
+      "root_a_repeat_exact": false,
+      "root_a_requirement_ids": [
+        "R1",
+        "R3",
+        "R4"
+      ],
+      "root_b_aligned": true,
+      "root_b_repeat_exact": true,
+      "root_b_requirement_ids": [
+        "R5"
+      ],
+      "root_sets_distinct": true,
+      "task_id": "rf_task-694b4b99829f00e24fd118a1"
+    },
+    {
+      "family": "swebench_pro",
+      "generic_new_requirement_count": 0,
+      "initial_requirement_count": 0,
+      "review_a_aligned": true,
+      "review_a_requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "review_b_aligned": true,
+      "review_b_requirement_ids": [
+        "R3",
+        "R5"
+      ],
+      "review_sets_distinct": true,
+      "root_a_aligned": true,
+      "root_a_repeat_exact": true,
+      "root_a_requirement_ids": [
+        "R2"
+      ],
+      "root_b_aligned": true,
+      "root_b_repeat_exact": true,
+      "root_b_requirement_ids": [
+        "R3"
+      ],
+      "root_sets_distinct": true,
+      "task_id": "swebenchpro_instance_qutebrowser__qutebrowser-fea33d607fde83cf505b228238cf365936437a63-v9f8e9d96c85c85a605e382f1510bd08563afc566"
+    }
+  ],
+  "usage": {
+    "released_user": {
+      "adapter_completion_tokens": 2169,
+      "adapter_cost_usd": 0.20934400000000003,
+      "adapter_prompt_tokens": 66410,
+      "adapter_reasoning_tokens": 813,
+      "adapter_requests": 24,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2383,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 24,
+      "model": "openai/gpt-5.5",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 214,
+          "cost_usd": 0.0032535000000000003,
+          "prompt_tokens": 3054,
+          "reasoning_tokens": 0,
+          "requests": 3
+        },
+        "openai/gpt-5.5": {
+          "completion_tokens": 2169,
+          "cost_usd": 0.20934400000000003,
+          "prompt_tokens": 66410,
+          "reasoning_tokens": 813,
+          "requests": 24
+        }
+      },
+      "prompt_tokens": 69464,
+      "reasoning_enabled": true,
+      "reasoning_tokens": 813,
+      "remaining_usd": 18.613104640776612,
+      "requests": 27,
+      "retry_count": 0,
+      "run_budget_usd": 4.0,
+      "run_cost_usd": 0.21259750000000005,
+      "run_remaining_usd": 3.7874025,
+      "total_spent_usd": 121.38689535922339
+    },
+    "semantic_judge": {
+      "adapter_completion_tokens": 214,
+      "adapter_cost_usd": 0.0032535000000000003,
+      "adapter_prompt_tokens": 3054,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 3,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 2383,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 3,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 214,
+          "cost_usd": 0.0032535000000000003,
+          "prompt_tokens": 3054,
+          "reasoning_tokens": 0,
+          "requests": 3
+        },
+        "openai/gpt-5.5": {
+          "completion_tokens": 2169,
+          "cost_usd": 0.20934400000000003,
+          "prompt_tokens": 66410,
+          "reasoning_tokens": 813,
+          "requests": 24
+        }
+      },
+      "prompt_tokens": 69464,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 813,
+      "remaining_usd": 18.613104640776612,
+      "requests": 27,
+      "retry_count": 0,
+      "run_budget_usd": 4.0,
+      "run_cost_usd": 0.21259750000000005,
+      "run_remaining_usd": 3.7874025,
+      "total_spent_usd": 121.38689535922339
+    },
+    "total_cost_usd": 0.21259750000000002,
+    "total_physical_requests": 27
+  }
+}
