@@ -1468,3 +1468,12 @@ $3.25 projection(no reserve)before any output/call. Scientific prompts,seeds,
 inference,controls,endpoints,and gates unchanged. Fixed one-shot launcher
 exports.env and refuses overwrite;live insufficient-balance execution leaves
 no run directory. Budget/method tests34 passed.
+2026-07-28: Zero-call exact first-retention path audit on open d3 development8
+and fresh confirmation6. All224 recorded generated-only second queries
+reproduce. Retaining consistent initial particles changes159/224(71.0%,
+tree-bootstrap CI63.4--77.7%),on all14 trees;only29.0% old branch responses
+are reusable. Independent-target exact-support coverage rises22.4%->51.8%,
++29.5pp(CI25.3--33.1),recovering738/2504 paths with0 losses. Support mean
+18.04->26.34,min7->16;new greedy q gains.01494 nat on retained support.
+Post-hoc mechanism evidence,not a policy endpoint;proves fresh calls are
+necessary for frozen20-tree test. RESULT SHA4ec136a2,model0,cost0.

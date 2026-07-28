@@ -301,6 +301,16 @@ only 2/6 roots changed (both wins, four ties), one first support retained seven
 rather than eight rules, and generated-only roots differed on 1/6. Thus the
 depth-two result is confirmed, but monotonic deeper improvement is not.
 
+A zero-call post-hoc audit isolates the omitted first-refresh retention.
+Across the eight development and six fresh trees, unioning consistent initial
+particles changes 159/224 greedy second queries (71.0\%; tree-bootstrap
+$[63.4,77.7]$) and raises independent-target exact-support coverage from
+22.4\% to 51.8\% ($+29.5$ points; $[25.3,33.1]$), with no coverage loss.
+All recorded generated-only second queries reproduce exactly, but only 29.0\%
+remain reusable after retention. This establishes a large decision-relevant
+path effect and the need for fresh branches; it is not evidence that depth
+three beats depth two.
+
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
 eight branch-conditioned supports; official N-body simulation supplied
