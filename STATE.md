@@ -1477,3 +1477,12 @@ are reusable. Independent-target exact-support coverage rises22.4%->51.8%,
 18.04->26.34,min7->16;new greedy q gains.01494 nat on retained support.
 Post-hoc mechanism evidence,not a policy endpoint;proves fresh calls are
 necessary for frozen20-tree test. RESULT SHA4ec136a2,model0,cost0.
+2026-07-28: Zero-call two-query endpoint audit separates first-retention
+support and root-selection effects on same14 trees. Complete retained policy
+Brier.180605 vs generated.194065(-6.94%,tree CI[-.01742,-.00959],14/14
+wins);Hamming-.05650 CI<0,coverage+28.18pp CI[22.20,34.29]. Replicates
+development8.40%(8/8)and fresh4.91%(6/6). But under common retained support,
+retained-vs-generated root selection is only.64%,CI[-.00452,.00182],3 wins/
+4 losses/7 ties;source-target rho.474 vs.488. Thus retention strongly improves
+the LLM belief transition,but not root ranking;frozen d3 test must add value
+through the second transition. RESULT SHAd467dfc5,model0,cost0.

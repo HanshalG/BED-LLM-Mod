@@ -1,0 +1,887 @@
+{
+  "aggregate": {
+    "complete_policy": {
+      "baseline_mean_brier": 0.19406484929491863,
+      "brier_tree_losses": 0,
+      "brier_tree_ties": 0,
+      "brier_tree_wins": 14,
+      "candidate_mean_brier": 0.1806051527212664,
+      "mean_candidate_minus_baseline_brier": -0.013459696573652234,
+      "mean_candidate_minus_baseline_hamming": -0.05650081423404097,
+      "mean_coverage_difference": 0.2818222150520287,
+      "relative_brier_reduction": 0.06935669505608225,
+      "tree_bootstrap_brier_difference_95pct": [
+        -0.01741663477555961,
+        -0.00958954530493134
+      ],
+      "tree_bootstrap_coverage_difference_95pct": [
+        0.2220026350461133,
+        0.34285176521201366
+      ],
+      "tree_bootstrap_hamming_difference_95pct": [
+        -0.06760192434505206,
+        -0.045116778758621204
+      ]
+    },
+    "ranking": {
+      "generated_source_risk_spearman_target_brier_95pct": [
+        0.3095238095238095,
+        0.66156462585034
+      ],
+      "generated_source_risk_spearman_target_brier_mean": 0.4880952380952381,
+      "retained_source_risk_spearman_target_brier_95pct": [
+        0.3010204081632653,
+        0.6292517006802721
+      ],
+      "retained_source_risk_spearman_target_brier_mean": 0.4744897959183674
+    },
+    "roots_changed": 7,
+    "selection_only": {
+      "baseline_mean_brier": 0.18176495252410435,
+      "brier_tree_losses": 4,
+      "brier_tree_ties": 7,
+      "brier_tree_wins": 3,
+      "candidate_mean_brier": 0.1806051527212664,
+      "mean_candidate_minus_baseline_brier": -0.00115979980283796,
+      "mean_candidate_minus_baseline_hamming": 0.0010560284067448456,
+      "mean_coverage_difference": -0.01595143986448335,
+      "relative_brier_reduction": 0.006380766956072831,
+      "tree_bootstrap_brier_difference_95pct": [
+        -0.004521909459453238,
+        0.0018175058447010264
+      ],
+      "tree_bootstrap_coverage_difference_95pct": [
+        -0.038961038961038974,
+        0.0
+      ],
+      "tree_bootstrap_hamming_difference_95pct": [
+        -0.006053844071186177,
+        0.008239177955062587
+      ]
+    },
+    "tree_count": 14
+  },
+  "protocol": {
+    "bootstrap_samples": 50000,
+    "bootstrap_seed": 28320,
+    "complete_policy_comparison": "retained-selected root on retained first support versus generated-selected root on generated first support",
+    "endpoint": "two queries with independent target rules",
+    "interface_version": "number-game-first-retention-two-query-audit-1",
+    "model_calls": 0,
+    "selection_only_comparison": "retained-selected versus generated-selected root, both deployed on retained first support"
+  },
+  "schema_version": 1,
+  "sources": [
+    {
+      "aggregate": {
+        "complete_policy": {
+          "baseline_mean_brier": 0.19671346879038923,
+          "brier_tree_losses": 0,
+          "brier_tree_ties": 0,
+          "brier_tree_wins": 8,
+          "candidate_mean_brier": 0.1801819687184237,
+          "mean_candidate_minus_baseline_brier": -0.01653150007196551,
+          "mean_candidate_minus_baseline_hamming": -0.05786828682868286,
+          "mean_coverage_difference": 0.29561923583662714,
+          "relative_brier_reduction": 0.08403847572623963,
+          "tree_bootstrap_brier_difference_95pct": [
+            -0.020955782703717278,
+            -0.011906259872273478
+          ],
+          "tree_bootstrap_coverage_difference_95pct": [
+            0.20438076416337284,
+            0.3871870882740448
+          ],
+          "tree_bootstrap_hamming_difference_95pct": [
+            -0.07338424059797283,
+            -0.04089539388721481
+          ]
+        },
+        "ranking": {
+          "generated_source_risk_spearman_target_brier_95pct": [
+            0.24404761904761904,
+            0.6964285714285714
+          ],
+          "generated_source_risk_spearman_target_brier_mean": 0.47023809523809523,
+          "retained_source_risk_spearman_target_brier_95pct": [
+            0.21726190476190477,
+            0.6428571428571429
+          ],
+          "retained_source_risk_spearman_target_brier_mean": 0.44047619047619047
+        },
+        "roots_changed": 3,
+        "selection_only": {
+          "baseline_mean_brier": 0.18289271479234792,
+          "brier_tree_losses": 1,
+          "brier_tree_ties": 5,
+          "brier_tree_wins": 2,
+          "candidate_mean_brier": 0.1801819687184237,
+          "mean_candidate_minus_baseline_brier": -0.0027107460739242105,
+          "mean_candidate_minus_baseline_hamming": -0.001077242817449444,
+          "mean_coverage_difference": 0.0,
+          "relative_brier_reduction": 0.014821509303976,
+          "tree_bootstrap_brier_difference_95pct": [
+            -0.007587971997046229,
+            0.001424991515258392
+          ],
+          "tree_bootstrap_coverage_difference_95pct": [
+            0.0,
+            0.0
+          ],
+          "tree_bootstrap_hamming_difference_95pct": [
+            -0.006284557027131285,
+            0.00407416518049321
+          ]
+        },
+        "tree_count": 8
+      },
+      "label": "development_8",
+      "path": "results/nonmyopic/number_game_depth_three_development_v2/number-game-depth-three-development-v2-20260728T193000Z/TREES.json",
+      "sha256": "016ed9218e9f034984e0745c9a7cb62b4111901db821c065e20c38c5ce76b65f",
+      "trees": [
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.016639104405434924,
+            "candidate_minus_baseline_hamming": -0.037451571244080925,
+            "coverage_difference": 0.17391304347826086
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.1360309944037882,
+              "mean_posterior_predictive_brier": 0.1817023268981587,
+              "mean_survivor_count": 10.434782608695652,
+              "policy": "generated_first_support",
+              "root": 0,
+              "truth_extension_coverage_rate": 0.30434782608695654
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.10417563495479983,
+              "mean_posterior_predictive_brier": 0.18081728441260214,
+              "mean_survivor_count": 13.652173913043478,
+              "policy": "generated_root_on_retained_support",
+              "root": 0,
+              "truth_extension_coverage_rate": 0.4782608695652174
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.09857942315970729,
+              "mean_posterior_predictive_brier": 0.1650632224927238,
+              "mean_survivor_count": 14.26086956521739,
+              "policy": "retained_first_support",
+              "root": 69,
+              "truth_extension_coverage_rate": 0.4782608695652174
+            }
+          },
+          "generated_root": 0,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.2619047619047619,
+            "retained_source_risk_spearman_target_brier": 0.6666666666666666
+          },
+          "retained_root": 69,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": -0.015754061919878354,
+            "candidate_minus_baseline_hamming": -0.005596211795092537,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27700,
+          "tree_index": 0,
+          "tree_seed": 27600
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.020274816504021187,
+            "candidate_minus_baseline_hamming": -0.08685868586858683,
+            "coverage_difference": 0.27272727272727276
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.17056705670567054,
+              "mean_posterior_predictive_brier": 0.2010013609675518,
+              "mean_survivor_count": 9.227272727272727,
+              "policy": "generated_first_support",
+              "root": 36,
+              "truth_extension_coverage_rate": 0.3181818181818182
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.09945994599459947,
+              "mean_posterior_predictive_brier": 0.19235841719607952,
+              "mean_survivor_count": 12.818181818181818,
+              "policy": "generated_root_on_retained_support",
+              "root": 36,
+              "truth_extension_coverage_rate": 0.5909090909090909
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.08370837083708371,
+              "mean_posterior_predictive_brier": 0.18072654446353062,
+              "mean_survivor_count": 11.909090909090908,
+              "policy": "retained_first_support",
+              "root": 11,
+              "truth_extension_coverage_rate": 0.5909090909090909
+            }
+          },
+          "generated_root": 36,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.6904761904761905,
+            "retained_source_risk_spearman_target_brier": 0.7380952380952381
+          },
+          "retained_root": 11,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": -0.011631872732548898,
+            "candidate_minus_baseline_hamming": -0.015751575157515754,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27701,
+          "tree_index": 1,
+          "tree_seed": 27601
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.004551544352695586,
+            "candidate_minus_baseline_hamming": -0.016501650165016507,
+            "coverage_difference": 0.3333333333333333
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.1456859971711457,
+              "mean_posterior_predictive_brier": 0.19744749078082413,
+              "mean_survivor_count": 9.476190476190476,
+              "policy": "generated_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.14285714285714285
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.11645450259311645,
+              "mean_posterior_predictive_brier": 0.18719598036709498,
+              "mean_survivor_count": 13.333333333333334,
+              "policy": "generated_root_on_retained_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.47619047619047616
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.12918434700612919,
+              "mean_posterior_predictive_brier": 0.19289594642812855,
+              "mean_survivor_count": 13.571428571428571,
+              "policy": "retained_first_support",
+              "root": 36,
+              "truth_extension_coverage_rate": 0.47619047619047616
+            }
+          },
+          "generated_root": 60,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.5714285714285714,
+            "retained_source_risk_spearman_target_brier": 0.2857142857142857
+          },
+          "retained_root": 36,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.005699966061033568,
+            "candidate_minus_baseline_hamming": 0.01272984441301274,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27702,
+          "tree_index": 2,
+          "tree_seed": 27602
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.02197050885110599,
+            "candidate_minus_baseline_hamming": -0.06930693069306929,
+            "coverage_difference": 0.47826086956521735
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.15023676280671544,
+              "mean_posterior_predictive_brier": 0.1990377595171582,
+              "mean_survivor_count": 9.521739130434783,
+              "policy": "generated_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.08695652173913043
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.08092983211364616,
+              "mean_posterior_predictive_brier": 0.17706725066605222,
+              "mean_survivor_count": 13.73913043478261,
+              "policy": "generated_root_on_retained_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.5652173913043478
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.08092983211364616,
+              "mean_posterior_predictive_brier": 0.17706725066605222,
+              "mean_survivor_count": 13.73913043478261,
+              "policy": "retained_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.5652173913043478
+            }
+          },
+          "generated_root": 60,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.23809523809523808,
+            "retained_source_risk_spearman_target_brier": -0.14285714285714285
+          },
+          "retained_root": 60,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27703,
+          "tree_index": 3,
+          "tree_seed": 27603
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.02736273159697361,
+            "candidate_minus_baseline_hamming": -0.08437365475678,
+            "coverage_difference": 0.391304347826087
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.198019801980198,
+              "mean_posterior_predictive_brier": 0.2212554632614444,
+              "mean_survivor_count": 7.782608695652174,
+              "policy": "generated_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.08695652173913043
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.113646147223418,
+              "mean_posterior_predictive_brier": 0.1938927316644708,
+              "mean_survivor_count": 12.608695652173912,
+              "policy": "generated_root_on_retained_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.4782608695652174
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.113646147223418,
+              "mean_posterior_predictive_brier": 0.1938927316644708,
+              "mean_survivor_count": 12.608695652173912,
+              "policy": "retained_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.4782608695652174
+            }
+          },
+          "generated_root": 60,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": -0.09523809523809523,
+            "retained_source_risk_spearman_target_brier": 0.16666666666666666
+          },
+          "retained_root": 60,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27704,
+          "tree_index": 4,
+          "tree_seed": 27604
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.010156768995308652,
+            "candidate_minus_baseline_hamming": -0.03572965992251401,
+            "coverage_difference": 0.13043478260869565
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.13646147223417995,
+              "mean_posterior_predictive_brier": 0.17311486504137652,
+              "mean_survivor_count": 10.08695652173913,
+              "policy": "generated_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.08695652173913043
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.10073181231166595,
+              "mean_posterior_predictive_brier": 0.16295809604606787,
+              "mean_survivor_count": 14.521739130434783,
+              "policy": "generated_root_on_retained_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.21739130434782608
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.10073181231166595,
+              "mean_posterior_predictive_brier": 0.16295809604606787,
+              "mean_survivor_count": 14.521739130434783,
+              "policy": "retained_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.21739130434782608
+            }
+          },
+          "generated_root": 60,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.8809523809523809,
+            "retained_source_risk_spearman_target_brier": 0.5952380952380952
+          },
+          "retained_root": 60,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27705,
+          "tree_index": 5,
+          "tree_seed": 27605
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.01641453183412575,
+            "candidate_minus_baseline_hamming": -0.06255625562556257,
+            "coverage_difference": 0.45454545454545453
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.13456345634563457,
+              "mean_posterior_predictive_brier": 0.1991523992744879,
+              "mean_survivor_count": 10.045454545454545,
+              "policy": "generated_first_support",
+              "root": 43,
+              "truth_extension_coverage_rate": 0.18181818181818182
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.07200720072007201,
+              "mean_posterior_predictive_brier": 0.18273786744036216,
+              "mean_survivor_count": 14.727272727272727,
+              "policy": "generated_root_on_retained_support",
+              "root": 43,
+              "truth_extension_coverage_rate": 0.6363636363636364
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.07200720072007201,
+              "mean_posterior_predictive_brier": 0.18273786744036216,
+              "mean_survivor_count": 14.727272727272727,
+              "policy": "retained_first_support",
+              "root": 43,
+              "truth_extension_coverage_rate": 0.6363636363636364
+            }
+          },
+          "generated_root": 43,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.9047619047619048,
+            "retained_source_risk_spearman_target_brier": 0.8333333333333334
+          },
+          "retained_root": 43,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27706,
+          "tree_index": 6,
+          "tree_seed": 27606
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.014881994036058388,
+            "candidate_minus_baseline_hamming": -0.07016788635385279,
+            "coverage_difference": 0.13043478260869562
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.15497201894102455,
+              "mean_posterior_predictive_brier": 0.2009960845821121,
+              "mean_survivor_count": 10.26086956521739,
+              "policy": "generated_first_support",
+              "root": 83,
+              "truth_extension_coverage_rate": 0.43478260869565216
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.08480413258717176,
+              "mean_posterior_predictive_brier": 0.1861140905460537,
+              "mean_survivor_count": 15.782608695652174,
+              "policy": "generated_root_on_retained_support",
+              "root": 83,
+              "truth_extension_coverage_rate": 0.5652173913043478
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.08480413258717176,
+              "mean_posterior_predictive_brier": 0.1861140905460537,
+              "mean_survivor_count": 15.782608695652174,
+              "policy": "retained_first_support",
+              "root": 83,
+              "truth_extension_coverage_rate": 0.5652173913043478
+            }
+          },
+          "generated_root": 83,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.30952380952380953,
+            "retained_source_risk_spearman_target_brier": 0.38095238095238093
+          },
+          "retained_root": 83,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27707,
+          "tree_index": 7,
+          "tree_seed": 27607
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "complete_policy": {
+          "baseline_mean_brier": 0.19053335663429116,
+          "brier_tree_losses": 0,
+          "brier_tree_ties": 0,
+          "brier_tree_wins": 6,
+          "candidate_mean_brier": 0.18116939805838997,
+          "mean_candidate_minus_baseline_brier": -0.009363958575901199,
+          "mean_candidate_minus_baseline_hamming": -0.05467751744118512,
+          "mean_coverage_difference": 0.26342618733923084,
+          "relative_brier_reduction": 0.04914603270163519,
+          "tree_bootstrap_brier_difference_95pct": [
+            -0.015027555237750257,
+            -0.0046943839343476694
+          ],
+          "tree_bootstrap_coverage_difference_95pct": [
+            0.19499341238471676,
+            0.33185896229374495
+          ],
+          "tree_bootstrap_hamming_difference_95pct": [
+            -0.06812668844524204,
+            -0.03979310974575718
+          ]
+        },
+        "ranking": {
+          "generated_source_risk_spearman_target_brier_95pct": [
+            0.21825396825396826,
+            0.7777777777777777
+          ],
+          "generated_source_risk_spearman_target_brier_mean": 0.5119047619047619,
+          "retained_source_risk_spearman_target_brier_95pct": [
+            0.2341269841269841,
+            0.746031746031746
+          ],
+          "retained_source_risk_spearman_target_brier_mean": 0.5198412698412699
+        },
+        "roots_changed": 4,
+        "selection_only": {
+          "baseline_mean_brier": 0.1802612694997796,
+          "brier_tree_losses": 3,
+          "brier_tree_ties": 2,
+          "brier_tree_wins": 1,
+          "candidate_mean_brier": 0.18116939805838997,
+          "mean_candidate_minus_baseline_brier": 0.0009081285586103743,
+          "mean_candidate_minus_baseline_hamming": 0.0039003900390038987,
+          "mean_coverage_difference": -0.03722002635046115,
+          "relative_brier_reduction": -0.005037846239130534,
+          "tree_bootstrap_brier_difference_95pct": [
+            -0.0025740050212291706,
+            0.004827372640555767
+          ],
+          "tree_bootstrap_coverage_difference_95pct": [
+            -0.08267457180500662,
+            0.0
+          ],
+          "tree_bootstrap_hamming_difference_95pct": [
+            -0.011326132613261328,
+            0.018292046595963937
+          ]
+        },
+        "tree_count": 6
+      },
+      "label": "fresh_confirmation_6",
+      "path": "results/nonmyopic/number_game_retained_depth_three_confirmation/number-game-retained-depth-three-confirmation-20260728T070902Z/TREES.json",
+      "sha256": "b6c157f7b4d15b4934a2329adeba7c0c28557293aab48de201f5ec8aba0b4f3c",
+      "trees": [
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.011506912459122332,
+            "candidate_minus_baseline_hamming": -0.036590615583297445,
+            "coverage_difference": 0.26086956521739135
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.10848041325871717,
+              "mean_posterior_predictive_brier": 0.1814129436659081,
+              "mean_survivor_count": 10.347826086956522,
+              "policy": "generated_first_support",
+              "root": 22,
+              "truth_extension_coverage_rate": 0.34782608695652173
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.06328024106758502,
+              "mean_posterior_predictive_brier": 0.16859915559911257,
+              "mean_survivor_count": 16.08695652173913,
+              "policy": "generated_root_on_retained_support",
+              "root": 22,
+              "truth_extension_coverage_rate": 0.6086956521739131
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.07188979767541973,
+              "mean_posterior_predictive_brier": 0.16990603120678577,
+              "mean_survivor_count": 11.0,
+              "policy": "retained_first_support",
+              "root": 25,
+              "truth_extension_coverage_rate": 0.6086956521739131
+            }
+          },
+          "generated_root": 22,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.9761904761904762,
+            "retained_source_risk_spearman_target_brier": 0.9285714285714286
+          },
+          "retained_root": 25,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0013068756076732024,
+            "candidate_minus_baseline_hamming": 0.008609556607834704,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27900,
+          "tree_index": 0,
+          "tree_seed": 27800
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.022035817348898007,
+            "candidate_minus_baseline_hamming": -0.07318123116659492,
+            "coverage_difference": 0.34782608695652173
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.15411106328024107,
+              "mean_posterior_predictive_brier": 0.1964339449242831,
+              "mean_survivor_count": 8.608695652173912,
+              "policy": "generated_first_support",
+              "root": 46,
+              "truth_extension_coverage_rate": 0.21739130434782608
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.06973740852346104,
+              "mean_posterior_predictive_brier": 0.18023496827562682,
+              "mean_survivor_count": 14.782608695652174,
+              "policy": "generated_root_on_retained_support",
+              "root": 46,
+              "truth_extension_coverage_rate": 0.6521739130434783
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.08092983211364616,
+              "mean_posterior_predictive_brier": 0.1743981275753851,
+              "mean_survivor_count": 14.956521739130435,
+              "policy": "retained_first_support",
+              "root": 36,
+              "truth_extension_coverage_rate": 0.5652173913043478
+            }
+          },
+          "generated_root": 46,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.5,
+            "retained_source_risk_spearman_target_brier": 0.5
+          },
+          "retained_root": 36,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": -0.0058368407002417355,
+            "candidate_minus_baseline_hamming": 0.011192423590185116,
+            "coverage_difference": -0.08695652173913049
+          },
+          "target_seed": 27901,
+          "tree_index": 1,
+          "tree_seed": 27801
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.008069739423548883,
+            "candidate_minus_baseline_hamming": -0.0697784064120698,
+            "coverage_difference": 0.380952380952381
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.15511551155115513,
+              "mean_posterior_predictive_brier": 0.17845551756592826,
+              "mean_survivor_count": 8.904761904761905,
+              "policy": "generated_first_support",
+              "root": 24,
+              "truth_extension_coverage_rate": 0.23809523809523808
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.08533710513908534,
+              "mean_posterior_predictive_brier": 0.17038577814237937,
+              "mean_survivor_count": 12.523809523809524,
+              "policy": "generated_root_on_retained_support",
+              "root": 24,
+              "truth_extension_coverage_rate": 0.6190476190476191
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.08533710513908534,
+              "mean_posterior_predictive_brier": 0.17038577814237937,
+              "mean_survivor_count": 12.523809523809524,
+              "policy": "retained_first_support",
+              "root": 24,
+              "truth_extension_coverage_rate": 0.6190476190476191
+            }
+          },
+          "generated_root": 24,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": -0.047619047619047616,
+            "retained_source_risk_spearman_target_brier": 0.6190476190476191
+          },
+          "retained_root": 24,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27902,
+          "tree_index": 2,
+          "tree_seed": 27802
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.007724423224652166,
+            "candidate_minus_baseline_hamming": -0.048604860486048604,
+            "coverage_difference": 0.27272727272727276
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.1548154815481548,
+              "mean_posterior_predictive_brier": 0.1804886937557392,
+              "mean_survivor_count": 8.727272727272727,
+              "policy": "generated_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.13636363636363635
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.1062106210621062,
+              "mean_posterior_predictive_brier": 0.17276427053108703,
+              "mean_survivor_count": 13.136363636363637,
+              "policy": "generated_root_on_retained_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.4090909090909091
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.1062106210621062,
+              "mean_posterior_predictive_brier": 0.17276427053108703,
+              "mean_survivor_count": 13.136363636363637,
+              "policy": "retained_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.4090909090909091
+            }
+          },
+          "generated_root": 60,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.6904761904761905,
+            "retained_source_risk_spearman_target_brier": 0.5714285714285714
+          },
+          "retained_root": 60,
+          "root_changed": false,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0,
+            "candidate_minus_baseline_hamming": 0.0,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27903,
+          "tree_index": 3,
+          "tree_seed": 27803
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.00104405446156286,
+            "candidate_minus_baseline_hamming": -0.027902790279027923,
+            "coverage_difference": 0.13636363636363635
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.15436543654365437,
+              "mean_posterior_predictive_brier": 0.2072827035789999,
+              "mean_survivor_count": 9.363636363636363,
+              "policy": "generated_first_support",
+              "root": 69,
+              "truth_extension_coverage_rate": 0.3181818181818182
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.09360936093609361,
+              "mean_posterior_predictive_brier": 0.20547903275176005,
+              "mean_survivor_count": 13.181818181818182,
+              "policy": "generated_root_on_retained_support",
+              "root": 69,
+              "truth_extension_coverage_rate": 0.5909090909090909
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.12646264626462644,
+              "mean_posterior_predictive_brier": 0.20623864911743703,
+              "mean_survivor_count": 12.5,
+              "policy": "retained_first_support",
+              "root": 60,
+              "truth_extension_coverage_rate": 0.45454545454545453
+            }
+          },
+          "generated_root": 69,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.19047619047619047,
+            "retained_source_risk_spearman_target_brier": -0.11904761904761904
+          },
+          "retained_root": 60,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0007596163656769794,
+            "candidate_minus_baseline_hamming": 0.032853285328532836,
+            "coverage_difference": -0.1363636363636364
+          },
+          "target_seed": 27904,
+          "tree_index": 4,
+          "tree_seed": 27804
+        },
+        {
+          "complete_policy_difference": {
+            "candidate_minus_baseline_brier": -0.005802804537622941,
+            "candidate_minus_baseline_hamming": -0.072007200720072,
+            "coverage_difference": 0.18181818181818185
+          },
+          "endpoint": {
+            "generated_policy": {
+              "mean_best_hamming_error": 0.18046804680468045,
+              "mean_posterior_predictive_brier": 0.19912633631488852,
+              "mean_survivor_count": 9.727272727272727,
+              "policy": "generated_first_support",
+              "root": 54,
+              "truth_extension_coverage_rate": 0.22727272727272727
+            },
+            "generated_root_on_retained_support": {
+              "mean_best_hamming_error": 0.13771377137713772,
+              "mean_posterior_predictive_brier": 0.18410441169871178,
+              "mean_survivor_count": 13.727272727272727,
+              "policy": "generated_root_on_retained_support",
+              "root": 54,
+              "truth_extension_coverage_rate": 0.4090909090909091
+            },
+            "retained_policy": {
+              "mean_best_hamming_error": 0.10846084608460846,
+              "mean_posterior_predictive_brier": 0.19332353177726558,
+              "mean_survivor_count": 15.136363636363637,
+              "policy": "retained_first_support",
+              "root": 67,
+              "truth_extension_coverage_rate": 0.4090909090909091
+            }
+          },
+          "generated_root": 54,
+          "ranking": {
+            "generated_source_risk_spearman_target_brier": 0.7619047619047619,
+            "retained_source_risk_spearman_target_brier": 0.6190476190476191
+          },
+          "retained_root": 67,
+          "root_changed": true,
+          "selection_only_difference": {
+            "candidate_minus_baseline_brier": 0.0092191200785538,
+            "candidate_minus_baseline_hamming": -0.029252925292529264,
+            "coverage_difference": 0.0
+          },
+          "target_seed": 27905,
+          "tree_index": 5,
+          "tree_seed": 27805
+        }
+      ]
+    }
+  ],
+  "status": "completed_posthoc_audit"
+}
