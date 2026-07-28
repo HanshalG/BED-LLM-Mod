@@ -256,6 +256,15 @@ on 28/32 and 30/32 trees. Two zero-cost provider errors were retried with
 identical seeded payloads; 576 successful responses contained no reasoning
 tokens or forced exits.
 
+A preregistered role swap made GPT-5.4 Mini the planning generator and Gemini
+the independent target generator. Predictive-risk BED again beat PTS
+($.1890$ versus $.2267$ Brier; $[-.0532,-.0238]$; 29/32 wins), random by
+15.1\%, and myopic by 9.99\% ($[-.0323,-.0111]$). The formal conjunction
+failed: the myopic threshold was 10\%, wins were 23/32 rather than 24/32,
+Hamming improved 12.8\% rather than 15\%, and three of 512 branches retained
+seven valid rules rather than eight. We report this as directional
+model-family robustness, not a second all-gates confirmation.
+
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
 eight branch-conditioned supports; official N-body simulation supplied

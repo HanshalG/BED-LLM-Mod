@@ -1332,3 +1332,14 @@ schema unchanged. Require exact576 and all original structural gates;root
 differences>=24;PTS>=2% Brier+CI<0+20 wins and Hamming+CI<0;myopic>=10%+
 CI<0+24 wins,Hamming>=15%,no coverage loss;fixed>=10%+CI<0;random>=5%+
 CI<0;novel Brier/Hamming gains. Cap$3,no reserve.
+2026-07-28: Cross-planner fresh32 role swap is a formal preregistered null but
+strong directional robustness. Exact576/576,0 retry/reasoning/forced,cost
+$1.6033413. GPT-mini-planned candidate Brier.188976:myopic.209957(-9.9928%,
+CI[-.03227,-.01106],23 wins),fixed.209976(-10.0009%,CI<0),random.222609
+(-15.11%,30 wins),PTS.226718(-16.65%,CI[-.05320,-.02376],29 wins).
+Hamming vs myopic-12.80% with CI<0 and PTS-21.68% with CI<0;coverage and novel
+means positive. Roots differ myopic/fixed30/32. Frozen conjunction fails
+myopic >=10% by.0072pp,wins24 by1,Hamming15% by2.2pp,and branch-min8:three of
+512 branch cells retained7 after correct answer-consistency filtering. No
+rerun/drop/threshold change. Public RESULT SHA1eeeb607,TREESa4b0d8b5,private
+3b68855d. Provider remaining$4.976764194.
