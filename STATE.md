@@ -1572,3 +1572,15 @@ in-sample-d3 magnitude1.808%<2%(its CI<0). Preserve overall gated_null;
 primary replication is valid without threshold repair/removal. Public RESULT
 SHA25e09391,TREES197dcfe3,ENDPOINTS10362676,private rawa867ba9a. Live
 $23.074576194.
+2026-07-28: Zero-call post-hoc stratified audit pools the two independent
+32-tree/16-endpoint-draw crossfit-d3 studies without changing either frozen
+status. Across64 trees,d3 Brier.158118 vs equally-crossfit d2.161906
+(-2.3393%,stratified tree CI[-.005862,-.001975],26 wins/29 same-root ties/
+9 losses,exact one-sided sign p=.002994). Coverage+.928pp(CI>0);Hamming
+directional with CI narrowly crossing. Novel Brier-.005251 and coverage
++1.897pp,both CIs favorable. D3 ranking rho.9200 vs d2.5078 and concordance
+.9146 vs.7042. Study gains1.862/2.807%;descriptive heterogeneity interval
+crosses zero. Model0,cost0;posthoc robustness,not a third confirmation.
+Public pooled RESULT SHAec2a2fb3.
+OpenRouter key still reports$180 total/$156.925423806 used=$23.074576194
+remaining after user-reported$40 top-up,so the top-up is not yet visible.

@@ -1,0 +1,285 @@
+{
+  "comparisons": {
+    "crossfit_depth_two": {
+      "baseline_mean_brier": 0.16190567006594378,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 9,
+      "mean_brier_difference": -0.0037874858706554706,
+      "mean_coverage_difference": 0.009275050767280727,
+      "mean_hamming_difference": -0.0022339877439316136,
+      "one_sided_exact_sign_pvalue_excluding_ties": 0.0029940602835267782,
+      "relative_brier_reduction": 0.023393163865804145,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.005862326545739115,
+        -0.0019751077384307643
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        0.0010146333653891408,
+        0.017743523036067195
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.004767931467909019,
+        0.00021251034810876307
+      ],
+      "ties": 29,
+      "wins": 26
+    },
+    "fixed_support_depth_three": {
+      "baseline_mean_brier": 0.169644050038388,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 8,
+      "mean_brier_difference": -0.011525865843099684,
+      "mean_coverage_difference": 0.015067694915478543,
+      "mean_hamming_difference": -0.005648485149490299,
+      "one_sided_exact_sign_pvalue_excluding_ties": 2.3440920510209295e-08,
+      "relative_brier_reduction": 0.06794146827131003,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.014760874177448534,
+        -0.008564520691529897
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        0.0038985347334956704,
+        0.026469071293290045
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.008587228245582711,
+        -0.0028426724933023196
+      ],
+      "ties": 8,
+      "wins": 48
+    },
+    "myopic_eig": {
+      "baseline_mean_brier": 0.17286301953770014,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 4,
+      "mean_brier_difference": -0.014744835342411819,
+      "mean_coverage_difference": 0.012551571432982777,
+      "mean_hamming_difference": -0.006983100411166894,
+      "one_sided_exact_sign_pvalue_excluding_ties": 2.427472285682075e-13,
+      "relative_brier_reduction": 0.08529780043091326,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.017445981614110335,
+        -0.012120433228651986
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        -0.000697820352202146,
+        0.026343444330239506
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.010031588292636524,
+        -0.0039506719620913955
+      ],
+      "ties": 3,
+      "wins": 57
+    },
+    "positive_test_strategy": {
+      "baseline_mean_brier": 0.17026341248859744,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 4,
+      "mean_brier_difference": -0.012145228293309112,
+      "mean_coverage_difference": 0.004616654186223643,
+      "mean_hamming_difference": -0.0042793293531968694,
+      "one_sided_exact_sign_pvalue_excluding_ties": 3.681522317902641e-14,
+      "relative_brier_reduction": 0.07133199150535335,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.014373787372107443,
+        -0.009965469085810367
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        -0.004867041925465847,
+        0.01412860131546442
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.006891264517380018,
+        -0.0017509639435653586
+      ],
+      "ties": 0,
+      "wins": 60
+    },
+    "predictive_bayes_risk_depth_two": {
+      "baseline_mean_brier": 0.16530436959311745,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 8,
+      "mean_brier_difference": -0.007186185397829134,
+      "mean_coverage_difference": 0.016314976421336815,
+      "mean_hamming_difference": -0.005788046035169316,
+      "one_sided_exact_sign_pvalue_excluding_ties": 2.0196608696565477e-07,
+      "relative_brier_reduction": 0.04347244670856127,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.009331489027768513,
+        -0.005191690289925544
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        0.005054754037855258,
+        0.02765617004428995
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.009043314878969456,
+        -0.002573578125232942
+      ],
+      "ties": 12,
+      "wins": 44
+    },
+    "retained_risk_set_depth_three": {
+      "baseline_mean_brier": 0.16243447573245168,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 8,
+      "mean_brier_difference": -0.004316291537163353,
+      "mean_coverage_difference": 0.010083021597967251,
+      "mean_hamming_difference": -0.004227779826822938,
+      "one_sided_exact_sign_pvalue_excluding_ties": 5.611071310340776e-05,
+      "relative_brier_reduction": 0.02657250880824568,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.005954023786287416,
+        -0.002822274174164962
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        0.0004078614292184297,
+        0.01997052391392575
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.007156229637545471,
+        -0.0014236762955944274
+      ],
+      "ties": 23,
+      "wins": 33
+    },
+    "uniform_random_candidate_root": {
+      "baseline_mean_brier": 0.17134384902723906,
+      "candidate_mean_brier": 0.15811818419528834,
+      "losses": 0,
+      "mean_brier_difference": -0.013225664831950736,
+      "mean_coverage_difference": 0.008977557512050332,
+      "mean_hamming_difference": -0.005903518522950898,
+      "one_sided_exact_sign_pvalue_excluding_ties": 5.421010862427522e-20,
+      "relative_brier_reduction": 0.07718785884078164,
+      "stratified_tree_bootstrap_brier_difference_95pct": [
+        -0.014515484614886406,
+        -0.0119763560323299
+      ],
+      "stratified_tree_bootstrap_coverage_difference_95pct": [
+        0.0019308499825016418,
+        0.01626332342433947
+      ],
+      "stratified_tree_bootstrap_hamming_difference_95pct": [
+        -0.007975549359832745,
+        -0.003802951023854569
+      ],
+      "ties": 0,
+      "wins": 64
+    }
+  },
+  "interface_version": "number-game-crossfit-depth-three-pooled-audit-1",
+  "novel_targets": {
+    "candidate_minus_baseline_brier": {
+      "mean": -0.005250729529901294,
+      "stratified_tree_bootstrap_95pct": [
+        -0.008480821836585595,
+        -0.002224633129330518
+      ]
+    },
+    "candidate_minus_baseline_hamming": {
+      "mean": -0.004250058717895393,
+      "stratified_tree_bootstrap_95pct": [
+        -0.009396005159745107,
+        0.0007024665489356898
+      ]
+    },
+    "coverage_difference": {
+      "mean": 0.018972238392566915,
+      "stratified_tree_bootstrap_95pct": [
+        0.003310417957079202,
+        0.03565768134859931
+      ]
+    }
+  },
+  "protocol": {
+    "bootstrap": "resample 32 trees independently within each source study",
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 31600,
+    "model_calls": 0,
+    "source_studies_remain_separately_preregistered": true,
+    "study_count": 2,
+    "tree_count": 64
+  },
+  "ranking": {
+    "crossfit_depth_three_pairwise_concordance": {
+      "mean": 0.9146205357142857,
+      "stratified_tree_bootstrap_95pct": [
+        0.8984375,
+        0.9296875
+      ]
+    },
+    "crossfit_depth_three_spearman_brier": {
+      "mean": 0.9200148809523809,
+      "stratified_tree_bootstrap_95pct": [
+        0.8995535714285714,
+        0.9386160714285714
+      ]
+    },
+    "crossfit_depth_two_pairwise_concordance": {
+      "mean": 0.7042410714285714,
+      "stratified_tree_bootstrap_95pct": [
+        0.6702008928571428,
+        0.7371651785714286
+      ]
+    },
+    "crossfit_depth_two_spearman_brier": {
+      "mean": 0.5078125,
+      "stratified_tree_bootstrap_95pct": [
+        0.42373511904761907,
+        0.5870535714285714
+      ]
+    }
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "fixed_policy_fresh_endpoints": "47e684b11ac5c6340ff4f063ff7a14db8b8d0bd18b184d61f91e315903e4809e",
+    "fresh_tree_replication": "25e0939164f6806b30481e48a88372f22639f6065096cb59978600509d43a3d8"
+  },
+  "status": "posthoc_pooled_positive",
+  "studies": [
+    {
+      "baseline_mean_brier": 0.16024187928545872,
+      "brier_difference_95pct": [
+        -0.004995699761437157,
+        -0.0011599493707995388
+      ],
+      "candidate_mean_brier": 0.15725833786566287,
+      "depth_three_spearman": 0.9226190476190476,
+      "depth_two_spearman": 0.5677083333333334,
+      "losses": 6,
+      "mean_brier_difference": -0.0029835414197958415,
+      "relative_brier_reduction": 0.01861898670372488,
+      "study": "fixed_policy_fresh_endpoints",
+      "ties": 13,
+      "tree_count": 32,
+      "wins": 13
+    },
+    {
+      "baseline_mean_brier": 0.16356946084642887,
+      "brier_difference_95pct": [
+        -0.008247763536417516,
+        -0.0015380300541030603
+      ],
+      "candidate_mean_brier": 0.15897803052491377,
+      "depth_three_spearman": 0.9174107142857143,
+      "depth_two_spearman": 0.4479166666666667,
+      "losses": 3,
+      "mean_brier_difference": -0.0045914303215151,
+      "relative_brier_reduction": 0.028070217372825328,
+      "study": "fresh_tree_replication",
+      "ties": 16,
+      "tree_count": 32,
+      "wins": 13
+    }
+  ],
+  "study_effect_difference": {
+    "fixed_policy_minus_fresh_replication_mean_brier_difference": 0.0016078889017192583,
+    "note": "index pairing is descriptive only; studies use independent seeds",
+    "paired_index_descriptive_95pct": [
+      -0.002158855903167936,
+      0.0058912156357340045
+    ]
+  }
+}
