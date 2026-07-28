@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "failed_closed_before_validation",
+  "interface_version": "semantic-object-game-depth-three-mechanics-2",
+  "usage": {
+    "accepted_requests": 37,
+    "http_attempts": 37,
+    "retry_count": 0,
+    "reasoning_tokens": 0,
+    "forced_exits": 0,
+    "prompt_tokens": 15738,
+    "completion_tokens": 27927,
+    "run_cost_usd": 0.137475
+  },
+  "planning_supports": {
+    "initial_valid": 16,
+    "first_retained_min": 6,
+    "first_retained_max": 27,
+    "first_retained_below_gate": 0,
+    "second_retained_min": 4,
+    "second_retained_max": 29,
+    "second_retained_below_gate": 0
+  },
+  "validation_responses": 0,
+  "endpoint_responses": 0,
+  "raw_responses_sha256": "7cbde1714420764f5ccce4231c172c6d178704ac97b0c73e45967e4b89e6b8d9"
+}

@@ -29,12 +29,14 @@ from scripts.number_game_predictive_risk_replication import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "semantic-object-game-depth-three-mechanics-2"
+INTERFACE_VERSION = "semantic-object-game-depth-three-bitstring-1"
 PLANNING_MODEL_ID = "openai/gpt-5.4-mini"
 TARGET_MODEL_ID = "google/gemini-2.5-flash"
-TREE_SEED = 36000
-VALIDATION_SEEDS = tuple(range(36100, 36104))
-ENDPOINT_SEEDS = tuple(range(36200, 36208))
+SERVING_PLANNING_SEED = 36300
+SERVING_TARGET_SEED = 36301
+TREE_SEED = 36400
+VALIDATION_SEEDS = tuple(range(36500, 36504))
+ENDPOINT_SEEDS = tuple(range(36600, 36608))
 TEMPERATURE = 0.7
 NUM_PROPOSALS = 16
 NUM_ROOTS = 6
@@ -46,8 +48,10 @@ MIN_FIRST_VALID = 6
 MIN_SECOND_VALID = 4
 MIN_TARGET_VALID = 12
 EXPECTED_REQUESTS = 49
+SERVING_EXPECTED_REQUESTS = 2
 MAX_TOKENS = 8192
 RUN_BUDGET_USD = 0.75
+SERVING_BUDGET_USD = 0.08
 PROJECTED_PLANNING_COST_USD = 0.35
 PROJECTED_TARGET_COST_USD = 0.15
 
@@ -134,7 +138,7 @@ def proposal_response_format() -> dict[str, Any]:
                             "required": [
                                 "name",
                                 "description",
-                                "members",
+                                "membership_bits",
                             ],
                             "properties": {
                                 "name": {
@@ -147,14 +151,10 @@ def proposal_response_format() -> dict[str, Any]:
                                     "minLength": 1,
                                     "maxLength": 240,
                                 },
-                                "members": {
-                                    "type": "array",
-                                    "minItems": MIN_MEMBERS,
-                                    "maxItems": MAX_MEMBERS,
-                                    "items": {
-                                        "type": "string",
-                                        "enum": list(OBJECT_IDS),
-                                    },
+                                "membership_bits": {
+                                    "type": "string",
+                                    "minLength": len(OBJECT_IDS),
+                                    "maxLength": len(OBJECT_IDS),
                                 },
                             },
                         },
@@ -167,8 +167,8 @@ def proposal_response_format() -> dict[str, Any]:
 
 def _object_catalogue() -> str:
     return "\n".join(
-        f"- {object_id}: {display_name}"
-        for object_id, display_name in OBJECTS
+        f"- {index:02d} {object_id}: {display_name}"
+        for index, (object_id, display_name) in enumerate(OBJECTS)
     )
 
 
@@ -188,8 +188,9 @@ def initial_messages() -> list[dict[str, str]]:
                 f"Propose exactly {NUM_PROPOSALS} distinct, human-plausible "
                 "concepts. Each concept must be expressible as one coherent "
                 "semantic property, not an arbitrary list, exception rule, or "
-                "memorized subset. Include every object that satisfies your "
-                "property and no others. Use only exact object IDs. Concepts "
+                "memorized subset. Encode membership as exactly 32 characters "
+                "in the displayed object order, using 1 for included and 0 for "
+                "excluded. Concepts "
                 f"must contain {MIN_MEMBERS}--{MAX_MEMBERS} objects and should "
                 "span taxonomic, functional, physical, ecological, cultural, "
                 "and relational properties.\n\nObject universe:\n"
@@ -225,8 +226,10 @@ def history_messages(
                 "concepts consistent with every label. Each concept must be "
                 "one coherent semantic property, not an arbitrary list, "
                 "exception rule, or encoding of the observations. Include "
-                "every object satisfying the property and no others. Use only "
-                f"exact IDs and {MIN_MEMBERS}--{MAX_MEMBERS} members.\n\n"
+                "every object satisfying the property and no others. Encode "
+                "membership as exactly 32 characters in displayed order, with "
+                f"1 included and 0 excluded, and {MIN_MEMBERS}--{MAX_MEMBERS} "
+                "included objects.\n\n"
                 f"Object universe:\n{_object_catalogue()}"
             ),
         },
@@ -249,7 +252,7 @@ def parse_proposals(
     rejected = {
         "wrong_fields": 0,
         "invalid_text": 0,
-        "invalid_members": 0,
+        "invalid_membership_bits": 0,
         "inconsistent": 0,
         "duplicate_extension": 0,
     }
@@ -257,13 +260,13 @@ def parse_proposals(
         if not isinstance(item, dict) or set(item) != {
             "name",
             "description",
-            "members",
+            "membership_bits",
         }:
             rejected["wrong_fields"] += 1
             continue
         name = item["name"]
         description = item["description"]
-        members = item["members"]
+        membership_bits = item["membership_bits"]
         if (
             not isinstance(name, str)
             or not name.strip()
@@ -273,17 +276,16 @@ def parse_proposals(
             rejected["invalid_text"] += 1
             continue
         if (
-            not isinstance(members, list)
-            or not MIN_MEMBERS <= len(members) <= MAX_MEMBERS
-            or len(set(members)) != len(members)
-            or any(member not in OBJECT_INDEX for member in members)
+            not isinstance(membership_bits, str)
+            or len(membership_bits) != len(OBJECT_IDS)
+            or any(bit not in "01" for bit in membership_bits)
+            or not MIN_MEMBERS
+            <= membership_bits.count("1")
+            <= MAX_MEMBERS
         ):
-            rejected["invalid_members"] += 1
+            rejected["invalid_membership_bits"] += 1
             continue
-        member_set = set(members)
-        extension = tuple(
-            object_id in member_set for object_id in OBJECT_IDS
-        )
+        extension = tuple(bit == "1" for bit in membership_bits)
         if any(
             extension[index] != label for index, label in observations
         ):
@@ -656,13 +658,14 @@ def _adapter(
     request_seed: int,
     concurrency: int,
     projected_cost: float,
+    run_budget_usd: float,
 ) -> SeededStructuredAdapter:
     config = Config(
         task="animals",
         run_id=run_id,
         log_path=output_dir / "run.log",
         openrouter_budget_usd=500.0,
-        openrouter_run_budget_usd=RUN_BUDGET_USD,
+        openrouter_run_budget_usd=run_budget_usd,
         openrouter_projected_cost_usd=projected_cost,
         openrouter_concurrency=concurrency,
         openrouter_max_retries=4,
@@ -701,6 +704,7 @@ def _generate_independent_supports(
     seeds: Sequence[int],
     output_dir: Path,
     run_id: str,
+    run_budget_usd: float,
 ) -> tuple[
     list[list[SemanticHypothesis]],
     list[dict[str, Any]],
@@ -715,6 +719,7 @@ def _generate_independent_supports(
             request_seed=seed,
             concurrency=1,
             projected_cost=PROJECTED_TARGET_COST_USD,
+            run_budget_usd=run_budget_usd,
         )
         for seed in seeds
     ]
@@ -737,6 +742,148 @@ def _generate_independent_supports(
         supports.append(support)
         diagnostics.append(diagnostic)
     return supports, diagnostics, responses, adapters
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_serving_result(path: Path) -> dict[str, Any]:
+    result = json.loads(path.read_text())
+    if result.get("status") != "passed":
+        raise ValueError("semantic object bitstring serving did not pass")
+    protocol = result.get("protocol") or {}
+    if protocol.get("interface_version") != INTERFACE_VERSION:
+        raise ValueError("semantic object serving interface changed")
+    if protocol.get("planning_model") != PLANNING_MODEL_ID:
+        raise ValueError("semantic object serving planning model changed")
+    if protocol.get("target_model") != TARGET_MODEL_ID:
+        raise ValueError("semantic object serving target model changed")
+    return result
+
+
+def run_serving(
+    *,
+    output_dir: Path,
+    run_id: str,
+) -> dict[str, Any]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    private_dir = output_dir / "private"
+    private_dir.mkdir(parents=True, exist_ok=True)
+    raw_path = private_dir / "RAW_RESPONSES.json"
+    planning = _adapter(
+        model=PLANNING_MODEL_ID,
+        run_id=run_id,
+        output_dir=output_dir,
+        request_seed=SERVING_PLANNING_SEED,
+        concurrency=1,
+        projected_cost=0.04,
+        run_budget_usd=SERVING_BUDGET_USD,
+    )
+    target = _adapter(
+        model=TARGET_MODEL_ID,
+        run_id=run_id,
+        output_dir=output_dir,
+        request_seed=SERVING_TARGET_SEED,
+        concurrency=1,
+        projected_cost=0.02,
+        run_budget_usd=SERVING_BUDGET_USD,
+    )
+    raw: dict[str, Any] = {"planning": None, "target": None}
+    try:
+        planning_response = planning.chat_complete_messages_batched_structured(
+            [initial_messages()],
+            temperature=TEMPERATURE,
+            block_size=1,
+            response_format=proposal_response_format(),
+            max_new_tokens=MAX_TOKENS,
+        )[0]
+        raw["planning"] = planning_response
+        checkpoint(raw_path, raw)
+        target_response = target.chat_complete_messages_batched_structured(
+            [initial_messages()],
+            temperature=TEMPERATURE,
+            block_size=1,
+            response_format=proposal_response_format(),
+            max_new_tokens=MAX_TOKENS,
+        )[0]
+        raw["target"] = target_response
+        checkpoint(raw_path, raw)
+        planning_support, planning_diagnostic = parse_proposals(
+            planning_response
+        )
+        target_support, target_diagnostic = parse_proposals(target_response)
+        usage = _usage([planning, target])
+        gates = {
+            "exact_two_accepted_requests": (
+                usage["adapter_requests"] == SERVING_EXPECTED_REQUESTS
+            ),
+            "transport_attempt_accounting_exact": (
+                usage["http_attempts"]
+                == usage["adapter_requests"] + usage["retry_count"]
+            ),
+            "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
+            "zero_forced_exits": usage["forced_exits"] == 0,
+            "within_serving_budget": (
+                usage["run_cost_usd"] <= SERVING_BUDGET_USD
+            ),
+            "planning_has_at_least_12_valid_concepts": (
+                len(planning_support) >= MIN_INITIAL_VALID
+            ),
+            "target_has_at_least_12_valid_concepts": (
+                len(target_support) >= MIN_TARGET_VALID
+            ),
+        }
+        result = {
+            "schema_version": SCHEMA_VERSION,
+            "status": "passed" if all(gates.values()) else "gated_null",
+            "protocol": {
+                "interface_version": INTERFACE_VERSION,
+                "stage": "serving",
+                "planning_model": PLANNING_MODEL_ID,
+                "target_model": TARGET_MODEL_ID,
+                "planning_seed": SERVING_PLANNING_SEED,
+                "target_seed": SERVING_TARGET_SEED,
+                "temperature": TEMPERATURE,
+                "expected_requests": SERVING_EXPECTED_REQUESTS,
+                "run_budget_usd": SERVING_BUDGET_USD,
+                "scientific_endpoint_accessed": False,
+            },
+            "usage": usage,
+            "gates": gates,
+            "diagnostics": {
+                "planning": planning_diagnostic,
+                "target": target_diagnostic,
+            },
+            "supports": {
+                "planning": [
+                    hypothesis.public_dict()
+                    for hypothesis in planning_support
+                ],
+                "target": [
+                    hypothesis.public_dict() for hypothesis in target_support
+                ],
+            },
+            "raw_responses_sha256": sha256_file(raw_path),
+        }
+        checkpoint(output_dir / "SERVING.json", result)
+        return result
+    except Exception as exc:
+        checkpoint(
+            output_dir / "FAILURE.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "status": "failed_closed",
+                "interface_version": INTERFACE_VERSION,
+                "stage": "serving",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+                "raw_responses_sha256": (
+                    sha256_file(raw_path) if raw_path.exists() else None
+                ),
+            },
+        )
+        raise
 
 
 def mechanics_gates(
@@ -806,7 +953,9 @@ def run_mechanics(
     *,
     output_dir: Path,
     run_id: str,
+    serving_result_path: Path,
 ) -> dict[str, Any]:
+    serving = validate_serving_result(serving_result_path)
     output_dir.mkdir(parents=True, exist_ok=True)
     private_dir = output_dir / "private"
     private_dir.mkdir(parents=True, exist_ok=True)
@@ -818,6 +967,7 @@ def run_mechanics(
         request_seed=TREE_SEED,
         concurrency=32,
         projected_cost=PROJECTED_PLANNING_COST_USD,
+        run_budget_usd=RUN_BUDGET_USD,
     )
     raw: dict[str, Any] = {
         "initial": None,
@@ -947,6 +1097,7 @@ def run_mechanics(
             seeds=all_target_seeds,
             output_dir=output_dir,
             run_id=run_id,
+            run_budget_usd=RUN_BUDGET_USD,
         )
         raw["validation"] = [
             {"seed": seed, "response": response}
@@ -1027,6 +1178,12 @@ def run_mechanics(
                 "num_roots": NUM_ROOTS,
                 "expected_requests": EXPECTED_REQUESTS,
                 "run_budget_usd": RUN_BUDGET_USD,
+                "serving_result_sha256": sha256_file(
+                    serving_result_path
+                ),
+                "serving_raw_responses_sha256": serving[
+                    "raw_responses_sha256"
+                ],
                 "efficacy_is_mechanics_only": True,
             },
             "usage": usage,
@@ -1095,22 +1252,39 @@ def run_mechanics(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--stage",
+        choices=("serving", "mechanics"),
+        required=True,
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--serving-result", type=Path)
     args = parser.parse_args()
     if args.output_dir.exists() and any(args.output_dir.iterdir()):
         raise FileExistsError(f"output directory is not empty: {args.output_dir}")
-    result = run_mechanics(
-        output_dir=args.output_dir.resolve(),
-        run_id=args.run_id,
-    )
+    if args.stage == "serving":
+        result = run_serving(
+            output_dir=args.output_dir.resolve(),
+            run_id=args.run_id,
+        )
+    else:
+        if args.serving_result is None:
+            parser.error("--serving-result is required for mechanics")
+        result = run_mechanics(
+            output_dir=args.output_dir.resolve(),
+            run_id=args.run_id,
+            serving_result_path=args.serving_result.resolve(),
+        )
     print(
         json.dumps(
             {
                 "status": result["status"],
                 "usage": result["usage"],
                 "gates": result["gates"],
-                "endpoint_descriptive": result["endpoint_descriptive"],
+                "endpoint_descriptive": result.get(
+                    "endpoint_descriptive"
+                ),
             },
             indent=2,
             sort_keys=True,

@@ -1684,3 +1684,22 @@ provider keyword removed;the unchanged local parser still rejects duplicate
 member IDs,so accepted semantics/models/prompts/seeds/tree/gates/exact49 calls/
 $.75 cap are unchanged. Any further schema/response failure closes the exact
 interface.
+2026-07-29: Semantic Object Game V2 closes before validation/policy/endpoint.
+GPTmini completed the full37-call planning tree cleanly for$.137475,zero
+retry/reasoning/forced:initial16,retained first supports6--27,and retained
+second4--29,so every planning support gate passes. Gemini2.5-Flash then rejects
+the nested16-concept membership-array schema as too many serving states before
+its first target response;validation/endpoint counts0/0,raw SHA7cbde171.
+No partial efficacy score,target substitution,recovery,or pooling. V2 exact
+interface closes. A distinct fresh-seed bitstring-extension interface is
+admissible only after an exact2-call GPTmini+Gemini cross-provider serving gate;
+it must rerun a fresh tree and preserve all semantic/scientific settings.
+2026-07-29: Freeze the transport-distinct Semantic Object Game bitstring
+interface before any new response. Each concept now carries one exact32-char
+0/1 extension in published object order instead of a nested member enum;local
+parser preserves binary/length/3--29/duplicate/observation checks. Exact2-call
+cross-provider serving uses fresh GPTmini/Gemini seeds36300/36301,nonreasoning,
+cap$.08,and needs>=12 valid each. Only a full pass unlocks one fresh exact49
+mechanics tree seed36400,validation36500--503,endpoint36600--607,cap$.75,
+all original semantic/support/active-depth gates unchanged and serving hash
+bound. No V2 reuse/recovery/pooling;any bitstring failure closes the route.

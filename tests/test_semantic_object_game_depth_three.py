@@ -13,7 +13,10 @@ def _response() -> str:
             {
                 "name": f"concept {index}",
                 "description": f"coherent semantic property {index}",
-                "members": list(semantic.OBJECT_IDS[: 3 + index]),
+                "membership_bits": (
+                    "1" * (3 + index)
+                    + "0" * (len(semantic.OBJECT_IDS) - 3 - index)
+                ),
             }
         )
     return json.dumps({"concepts": concepts})
@@ -44,10 +47,14 @@ def test_universe_and_request_count_are_frozen() -> None:
         + len(semantic.VALIDATION_SEEDS)
         + len(semantic.ENDPOINT_SEEDS)
     )
-    members_schema = semantic.proposal_response_format()["json_schema"][
+    membership_schema = semantic.proposal_response_format()["json_schema"][
         "schema"
-    ]["properties"]["concepts"]["items"]["properties"]["members"]
-    assert "uniqueItems" not in members_schema
+    ]["properties"]["concepts"]["items"]["properties"]["membership_bits"]
+    assert membership_schema == {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 32,
+    }
 
 
 def test_parse_proposals_accepts_exact_memberships() -> None:
@@ -63,8 +70,10 @@ def test_parse_proposals_accepts_exact_memberships() -> None:
 
 def test_parse_proposals_filters_inconsistent_and_duplicate_extensions() -> None:
     payload = json.loads(_response())
-    payload["concepts"][0]["members"] = list(semantic.OBJECT_IDS[1:4])
-    payload["concepts"][-1]["members"] = payload["concepts"][1]["members"]
+    payload["concepts"][0]["membership_bits"] = "0111" + "0" * 28
+    payload["concepts"][-1]["membership_bits"] = payload["concepts"][1][
+        "membership_bits"
+    ]
     support, diagnostic = semantic.parse_proposals(
         json.dumps(payload),
         observations=((0, True),),
