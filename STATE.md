@@ -1072,3 +1072,12 @@ refresh2.2747 vs initial3.0252. Coverage gain alone is insufficient because
 probe-observation likelihood overweights branch-skewed maps with poor held-out
 trajectories. Paper/result updated;next prospective method must calibrate generated
 support against held-out-predictive consistency,not rerun V3.
+2026-07-28: Freeze zero-call DiscoverPhysics conservative-mixture development before
+computing its counterfactual. Sole candidate caps final refreshed-component mass at
+its frozen.05 prior after exact within-component updates;no grid/temperature/region
+exception/support edit. Motivation:data-dependent regenerated component reached.2526
+mean mass and was anti-calibrated. Replay exact original and structured384-map open
+endpoints with common random numbers. Require both reproduce retained/fixed<1e-10,
+cap beats fixed>=1%,and paired fixed-minus-cap CI lower>0. Any failure rejects cap
+and forbids paid third tree;pass only authorizes separately frozen confirmation with
+internal D/B/>=10% gate. Model0,cost0,OatML0.
