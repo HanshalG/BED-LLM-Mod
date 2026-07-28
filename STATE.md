@@ -1292,3 +1292,12 @@ versus PTS >=5%+CI<0+6/8 wins;versus original one-draw >=2%+CI<=0+3 wins;
 versus myopic>=10%+CI<0+no coverage loss. Zero-call target-union upper bound
 selected better roots on3 trees,mean Brier.1803 vs original.1863/PTS.1918,
 but is diagnostic only. 42 focused tests pass.
+2026-07-28: Multi-draw prior development is null and closes unweighted
+three-draw pooling. Exact16/16,0 retry/reasoning/forced,cost$.0361394;all draws
+valid>=16,but one ensemble31<32. Candidate Brier.18739 versus original
+one-draw.18632(-.58% gain/worse),CI[-.00266,.00583],wins1/8;versus PTS.19176
+gain2.28%,CI[-.01507,.00568],wins5/8;versus myopic retains15.18% gain,
+CI[-.04812,-.01826]. Extra draws change3 roots:one helps,one neutral,one
+materially harms. Do not add draws/grid weights. Preserve one-draw method and
+power the small PTS comparison with fresh trees. Public SHA34911265;private
+fe4aa7bc.
