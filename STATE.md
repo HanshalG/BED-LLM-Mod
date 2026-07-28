@@ -1405,3 +1405,14 @@ novel gains79/96 Brier,74/96 Hamming. Candidate differs modal sampled root
 71/96 and is sampled only19.11%. 128-sample sensitivity stays9.64% Brier/
 14.39% Hamming with all per-source CIs<0. Primary SHA93b086b8,sensitivity
 1997ce2f. Post-hoc mechanism evidence;no affordable fresh confirmation.
+2026-07-28: Zero-call post-hoc ranking-fidelity audit validates the first
+planning link on all three independent fresh32 Number Game datasets. Across96
+trees,current-particle terminal risk ranks independent-target Brier at Spearman
+.7274,tree-bootstrap CI[.6746,.7741],and pairwise concordance.8058,CI[.7839,
+.8270];per-source rho=.754/.719/.709. Myopic and fixed-depth-two rankings are
+anti-aligned combined(rho=-.2395/-.2366,both CIs<0). Candidate mean oracle
+regret.00704 vs myopic.04487,fixed.04743,PTS.03365,random.03391;candidate wins
+84/85/83/90 of96. Selected root is oracle45/96,top-two68/96. Leave-one-particle-
+out agreement.8684,CI[.8349,.9008],with70/96 trees>=75% stable. Public SHA
+735935bb. Descriptive first-link evidence;no calls/cost and no depth-three
+repair.
