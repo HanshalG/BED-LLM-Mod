@@ -1622,3 +1622,12 @@ cap$4.50/live>=3.80. Primary d3-d2 roots>=12,gain>=1%+CI<0+12 wins,no
 Hamming/coverage/novel regression;myopic/fixed>=5%,PTS>=3%,all CIs<0;
 rho>=.7/gap>=.15. Explicit tree/request counts;no response/seed/threshold
 repair. This tests the remaining planning-generator-family limitation.
+2026-07-28: Qwen3.7-Plus full-history planner mechanics passes every frozen
+gate and authorizes fresh32. Exact73/73 requests/HTTP,0 retry/reasoning/
+forced,cost$.10962272. Initial22;first retained min15(mean23.5);generated
+second min3 but correctly retained second min13(mean21.03);all8 validation
+min21;all16 endpoints min20;novel total157. D3/d2 both select root52 on this
+single smoke;efficacy was frozen descriptive/non-gating. D3 source-endpoint
+rho1.0 vs d2.786. Public RESULT SHA2f311f91,TREESd310bfc6,
+ENDPOINTS83322c5c;private raw169ca250. Observed cost projects formal near
+$3.51<4.50 cap;no protocol change.
