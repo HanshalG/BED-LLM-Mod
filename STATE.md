@@ -1549,3 +1549,13 @@ All endpoint draws>=20 rules;novel total/tree>=148. Public RESULT SHA47e684b1,
 ENDPOINTS0e6bd789,private rawbc64658f. Live$29.925036144. Preserve prior
 single-endpoint null;next strongest check is wholly fresh planning-tree
 replication,not further endpoint draws.
+2026-07-28: Freeze wholly fresh Number Game crossfit-d3 replication before
+responses. New GPTmini trees30600--631;8 Gemini validation draws/tree seeds
+30700--30955;16 independent Gemini endpoints/tree seeds31000--031 plus
+31100--31579. Nonreasoning,temp.7,full retention/eight roots/prompts/parser/
+likelihoods unchanged;equal draw weight. Exact2336(49+8+16/tree). Gates:
+d3-d2 roots>=12,Brier>=1%+CI<0+12 wins,no Hamming/coverage regression,
+novel all no regression;vs in-sample d3>=2%+CI<0;myopic/fixed>=5%;PTS>=3%+
+CI<0;rho>=.7 and gap>=.15;all support/transport. Projected$6.90,cap$7.60,
+no reserve;live$29.925036144. This is the independent planning-tree
+replication required by the endpoint-precision result's claim boundary.
