@@ -1,0 +1,84 @@
+{
+  "mechanics_gates": {
+    "all_8_refreshes_change_support": true,
+    "all_refresh_supports_keep_two_regions": true,
+    "at_least_3_roots_have_branch_distinct_supports": true,
+    "center_branches_choose_distinct_continuations": true,
+    "exact_10_accepted_requests": true,
+    "transport_attempt_accounting_exact": true,
+    "within_run_budget": true,
+    "zero_forced_exits": true,
+    "zero_forced_final_requests": true,
+    "zero_reasoning_tokens": true
+  },
+  "mechanism": {
+    "center_continuations": [
+      "r4.5_a5",
+      "r4.5_a2"
+    ],
+    "refreshes_changed_from_initial": 8,
+    "roots_with_branch_distinct_supports": 4
+  },
+  "model_frozen_sha256": "473cf5c883929a2cf8b6d862bebf69e1bb6b6401bea8c7b0edba955e847b7e1d",
+  "protocol": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 24717,
+    "continuation_samples": 4,
+    "discarded_preflight_requests": 1,
+    "discoverphysics_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+    "expected_accepted_requests": 10,
+    "initial_component_mass": 0.95,
+    "interface_version": "discoverphysics-dark-matter-structured-replication-2",
+    "map_seeds": [
+      24700,
+      24701,
+      24702,
+      24703,
+      24704,
+      24705,
+      24706,
+      24707,
+      24708,
+      24709,
+      24710,
+      24711,
+      24712,
+      24713,
+      24714,
+      24715
+    ],
+    "model": "openai/gpt-5.4",
+    "noise_seed": 24716,
+    "policy_noise_seed": 24510,
+    "reasoning_enabled": false,
+    "refresh_component_mass": 0.05,
+    "response_format": "chat_strict_json_schema",
+    "root_samples": 8,
+    "run_budget_usd": 0.25,
+    "scientific_tree_requests": 9,
+    "temperature": 0.0
+  },
+  "schema_version": 1,
+  "selection": {
+    "immediate_eig_nats": {
+      "A": 1.1164342122949693,
+      "B": 1.2767135234240756,
+      "C": 0.939147772262209,
+      "D": 1.4057679631272815
+    },
+    "internal_risk_reduction": 0.5405932514914339,
+    "lookahead_root": "B",
+    "myopic_root": "D",
+    "retained_internal_trajectory_risk": {
+      "A": 1.5088678635250634,
+      "B": 0.4955434185733512,
+      "C": 0.8708534518731113,
+      "D": 1.0786594236634537
+    }
+  },
+  "selection_gates": {
+    "internal_risk_reduction_at_least_10_percent": true,
+    "lookahead_root_is_B": true,
+    "myopic_root_is_D": true
+  }
+}

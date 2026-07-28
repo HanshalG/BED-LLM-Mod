@@ -1,0 +1,60 @@
+{
+  "by_region": {
+    "NE": {
+      "branch_one_fraction": 0.9908854166666665,
+      "initial_component_mse": 2.4608106088602453,
+      "mean_refresh_posterior_mass": 0.10764742088699897,
+      "refresh_component_better_fraction": 0.7373046875000001,
+      "refresh_component_mse": 2.160682383131518,
+      "retained_mse": 2.2531849337104304
+    },
+    "NW": {
+      "branch_one_fraction": 0.5794270833333334,
+      "initial_component_mse": 2.1149031571464034,
+      "mean_refresh_posterior_mass": 0.3347515377834484,
+      "refresh_component_better_fraction": 0.3746744791666667,
+      "refresh_component_mse": 3.2610060749147625,
+      "retained_mse": 2.821454671438148
+    },
+    "SE": {
+      "branch_one_fraction": 0.5429687500000001,
+      "initial_component_mse": 3.025180582815921,
+      "mean_refresh_posterior_mass": 0.7101000641245387,
+      "refresh_component_better_fraction": 0.9427083333333334,
+      "refresh_component_mse": 2.274694878777368,
+      "retained_mse": 2.584272986752
+    },
+    "SW": {
+      "branch_one_fraction": 0.013020833333333336,
+      "initial_component_mse": 5.747853270721526,
+      "mean_refresh_posterior_mass": 0.19069804155056766,
+      "refresh_component_better_fraction": 0.5159505208333334,
+      "refresh_component_mse": 6.872297227604099,
+      "retained_mse": 6.192464152356474
+    }
+  },
+  "event_level": {
+    "mean_refresh_mass_when_better": 0.22874474221045937,
+    "mean_refresh_mass_when_worse": 0.2891911110139898,
+    "refresh_better_fraction": 0.60478515625,
+    "refresh_mass_advantage_correlation": -0.3111778940361
+  },
+  "interface_version": "discoverphysics-dark-matter-structured-replication-analysis-1",
+  "new_model_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "overall": {
+    "branch_one_fraction": 0.6270833333333333,
+    "initial_component_mse": 3.0708839031139163,
+    "mean_refresh_posterior_mass": 0.2526340444124015,
+    "refresh_component_better_fraction": 0.60478515625,
+    "refresh_component_mse": 3.444503709125593,
+    "retained_mse": 3.2446305040621115
+  },
+  "reproduction": {
+    "fixed_max_abs_error": 9.769962616701378e-14,
+    "retained_max_abs_error": 1.7763568394002505e-15
+  },
+  "schema_version": 1,
+  "source_status": "replication_null",
+  "status": "posthoc_descriptive"
+}

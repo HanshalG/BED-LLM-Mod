@@ -1,0 +1,1184 @@
+{
+  "branches": {
+    "A": [
+      {
+        "index": 0,
+        "posterior_probabilities": [
+          0.06973534168892587,
+          0.22316434885496486,
+          0.00810867513484413,
+          2.1960493301308246e-67,
+          2.1374500012706264e-10,
+          0.15785667498273498,
+          0.2288951550113815,
+          0.3122398041134037
+        ],
+        "probability": 0.8297872340425532,
+        "representative_final_coordinate": [
+          -3.137667362483525,
+          3.1001620773659293
+        ]
+      },
+      {
+        "index": 1,
+        "posterior_probabilities": [
+          3.3368338781254213e-54,
+          4.5682051026408656e-58,
+          4.641614766012958e-49,
+          1.0,
+          7.655250948067233e-120,
+          9.148689371467188e-79,
+          2.4151096849981995e-64,
+          4.827550584079791e-72
+        ],
+        "probability": 0.1702127659574468,
+        "representative_final_coordinate": [
+          -2.6066048851602126,
+          4.29982129754659
+        ]
+      }
+    ],
+    "B": [
+      {
+        "index": 0,
+        "posterior_probabilities": [
+          2.5235318763442765e-07,
+          8.398699453057678e-06,
+          2.8530320638924774e-05,
+          0.0022693551542770376,
+          0.06853204513359004,
+          0.682790153582288,
+          4.408768861119e-06,
+          0.2463668559877042
+        ],
+        "probability": 0.32978723404255317,
+        "representative_final_coordinate": [
+          -0.16164486416432816,
+          -0.09641731105574305
+        ]
+      },
+      {
+        "index": 1,
+        "posterior_probabilities": [
+          0.37965985486673254,
+          0.2694794146596725,
+          0.3208631873959799,
+          0.028412709900020844,
+          0.0010288741446741732,
+          2.768457451457834e-07,
+          0.0005455254686106784,
+          1.0156718564288357e-05
+        ],
+        "probability": 0.6702127659574468,
+        "representative_final_coordinate": [
+          0.06581333983587226,
+          0.13725416857329167
+        ]
+      }
+    ],
+    "C": [
+      {
+        "index": 0,
+        "posterior_probabilities": [
+          9.108369661146763e-23,
+          9.13627592714279e-25,
+          1.721132282511748e-22,
+          9.467490257305075e-19,
+          9.378974414417387e-16,
+          0.9999999999999991,
+          1.3482989949229418e-28,
+          1.2401235257576404e-64
+        ],
+        "probability": 0.1276595744680851,
+        "representative_final_coordinate": [
+          -3.5508607903867073,
+          -2.466571036725721
+        ]
+      },
+      {
+        "index": 1,
+        "posterior_probabilities": [
+          0.3280352680966433,
+          0.3072811990125477,
+          0.13310471834239995,
+          0.09824855053763504,
+          0.006841516937142627,
+          2.6096795105780783e-26,
+          0.12648874683320752,
+          2.4042390639412975e-10
+        ],
+        "probability": 0.8723404255319149,
+        "representative_final_coordinate": [
+          -3.1006084519109702,
+          -3.133802399685626
+        ]
+      }
+    ],
+    "D": [
+      {
+        "index": 0,
+        "posterior_probabilities": [
+          1.0,
+          2.62987957683686e-100,
+          5.03033910745188e-30,
+          1.106780969013389e-34,
+          4.5385297435642133e-39,
+          1.9998249396889535e-42,
+          1.0758764798934576e-55,
+          1.2249417904853406e-45
+        ],
+        "probability": 0.19148936170212766,
+        "representative_final_coordinate": [
+          2.088193864025424,
+          3.4008917781533405
+        ]
+      },
+      {
+        "index": 1,
+        "posterior_probabilities": [
+          4.025662629428828e-48,
+          1.2060966844861686e-10,
+          6.133981732421526e-09,
+          0.055735755311896326,
+          0.14948043438380648,
+          0.34988200275641423,
+          0.04770904961425639,
+          0.3971927516790351
+        ],
+        "probability": 0.8085106382978724,
+        "representative_final_coordinate": [
+          3.1625692452064698,
+          3.1303988370661853
+        ]
+      }
+    ]
+  },
+  "initial_support": [
+    {
+      "center": [
+        2.1,
+        3.4
+      ],
+      "description": "Tight near-round positive halo centered in the inner northeast, suggesting the ten concealed sources cluster into a compact support.",
+      "geometry": "compact",
+      "major_spread": 0.6,
+      "minor_spread": 0.5,
+      "orientation_degrees": 22.0,
+      "probability": 0.19148936170212766,
+      "region": "NE"
+    },
+    {
+      "center": [
+        4.8,
+        2.6
+      ],
+      "description": "Moderately elongated northeast halo with principal axis slanting northeast-southwest, consistent with a stretched aggregate of the ten sources.",
+      "geometry": "elliptical",
+      "major_spread": 1.5,
+      "minor_spread": 0.7,
+      "orientation_degrees": 38.0,
+      "probability": 0.14893617021276595,
+      "region": "NE"
+    },
+    {
+      "center": [
+        1.6,
+        5.2
+      ],
+      "description": "Broad tangential northeast halo whose elongation follows an arc about the origin, placing the concealed sources in a curved support band.",
+      "geometry": "tangential",
+      "major_spread": 1.3,
+      "minor_spread": 0.5,
+      "orientation_degrees": 0.0,
+      "probability": 0.0851063829787234,
+      "region": "NE"
+    },
+    {
+      "center": [
+        -2.7,
+        4.1
+      ],
+      "description": "Northwest compact halo in the mid-field, with the ten positive sources packed into a dense roughly circular concentration.",
+      "geometry": "compact",
+      "major_spread": 0.7,
+      "minor_spread": 0.6,
+      "orientation_degrees": 74.0,
+      "probability": 0.1702127659574468,
+      "region": "NW"
+    },
+    {
+      "center": [
+        -5.1,
+        1.8
+      ],
+      "description": "Elongated northwest halo aligned mostly east-west, representing a stretched hidden support across the upper-left sector.",
+      "geometry": "elliptical",
+      "major_spread": 1.8,
+      "minor_spread": 0.8,
+      "orientation_degrees": 12.0,
+      "probability": 0.09574468085106383,
+      "region": "NW"
+    },
+    {
+      "center": [
+        -3.3,
+        -2.4
+      ],
+      "description": "Southwest radial halo extending outward from its center direction relative to the origin, allowing the ten sources to occupy a spoke-like footprint.",
+      "geometry": "radial",
+      "major_spread": 1.4,
+      "minor_spread": 0.5,
+      "orientation_degrees": 0.0,
+      "probability": 0.1276595744680851,
+      "region": "SW"
+    },
+    {
+      "center": [
+        3.9,
+        -1.7
+      ],
+      "description": "Southeast compact-to-mildly extended halo low in the field, a plausible isolated southern positive aggregate.",
+      "geometry": "compact",
+      "major_spread": 0.8,
+      "minor_spread": 0.7,
+      "orientation_degrees": 133.0,
+      "probability": 0.07446808510638298,
+      "region": "SE"
+    },
+    {
+      "center": [
+        -1.4,
+        -4.9
+      ],
+      "description": "Southwest elliptical halo with a northwest-southeast tilt, capturing an alternative elongated arrangement of the ten concealed sources.",
+      "geometry": "elliptical",
+      "major_spread": 1.6,
+      "minor_spread": 0.6,
+      "orientation_degrees": 128.0,
+      "probability": 0.10638297872340426,
+      "region": "SW"
+    }
+  ],
+  "protocol": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 24717,
+    "continuation_samples": 4,
+    "discarded_preflight_requests": 1,
+    "discoverphysics_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+    "expected_accepted_requests": 10,
+    "initial_component_mass": 0.95,
+    "interface_version": "discoverphysics-dark-matter-structured-replication-2",
+    "map_seeds": [
+      24700,
+      24701,
+      24702,
+      24703,
+      24704,
+      24705,
+      24706,
+      24707,
+      24708,
+      24709,
+      24710,
+      24711,
+      24712,
+      24713,
+      24714,
+      24715
+    ],
+    "model": "openai/gpt-5.4",
+    "noise_seed": 24716,
+    "policy_noise_seed": 24510,
+    "reasoning_enabled": false,
+    "refresh_component_mass": 0.05,
+    "response_format": "chat_strict_json_schema",
+    "root_samples": 8,
+    "run_budget_usd": 0.25,
+    "scientific_tree_requests": 9,
+    "temperature": 0.0
+  },
+  "raw_responses_sha256": "4863a49024c3be1cd0359220e2d9289334db7d62d1bac0b0d232cf1307b0e5ee",
+  "refreshes": {
+    "A": [
+      {
+        "continuation_action": "r6.5_a5",
+        "hypotheses": [
+          {
+            "center": [
+              -1.6,
+              -4.7
+            ],
+            "description": "Southwest elongated halo in the lower-left field with a northwest-southeast tilt, preserving the strongest posterior mode consistent with the probe ending left of the y-axis after a northwest launch.",
+            "geometry": "elliptical",
+            "major_spread": 1.6,
+            "minor_spread": 0.6,
+            "orientation_degrees": 126.0,
+            "probability": 0.25,
+            "region": "SW"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Southeast compact-to-mildly extended halo low in the field, allowing the observed northwest-side endpoint to arise from weak far-field pull while keeping a strong alternative southern mode.",
+            "geometry": "compact",
+            "major_spread": 0.9,
+            "minor_spread": 0.7,
+            "orientation_degrees": 136.0,
+            "probability": 0.18548387096774194,
+            "region": "SE"
+          },
+          {
+            "center": [
+              -3.2,
+              -2.5
+            ],
+            "description": "Southwest spoke-like radial halo centered in the mid-lower left, representing a broader southern-left aggregate that still fits the updated evidence.",
+            "geometry": "radial",
+            "major_spread": 1.4,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.12903225806451613,
+            "region": "SW"
+          },
+          {
+            "center": [
+              4.7,
+              2.7
+            ],
+            "description": "Northeast moderately elongated halo with axis slanting northeast-southwest, retained as a viable upper-right explanation after the single noisy observation.",
+            "geometry": "elliptical",
+            "major_spread": 1.5,
+            "minor_spread": 0.7,
+            "orientation_degrees": 40.0,
+            "probability": 0.1774193548387097,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.2,
+              3.3
+            ],
+            "description": "Inner northeast compact halo, near-round and concentrated, capturing a smaller but still plausible clustered positive support near the upper-right interior.",
+            "geometry": "compact",
+            "major_spread": 0.6,
+            "minor_spread": 0.5,
+            "orientation_degrees": 20.0,
+            "probability": 0.056451612903225805,
+            "region": "NE"
+          },
+          {
+            "center": [
+              4.4,
+              -1.2
+            ],
+            "description": "Southeast elongated halo stretched roughly east-west just below the x-axis, adding a distinct southern-right alternative compatible with the posterior mass on SE.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.7,
+            "orientation_degrees": 8.0,
+            "probability": 0.0967741935483871,
+            "region": "SE"
+          },
+          {
+            "center": [
+              1.8,
+              5.0
+            ],
+            "description": "Northeast tangential halo following a curved arc in the upper-right sector, preserving a low-probability structured alternative to simple compact clustering.",
+            "geometry": "tangential",
+            "major_spread": 1.2,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.03225806451612903,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -2.4,
+              -3.6
+            ],
+            "description": "Southwest compact halo in the lower-left interior, representing a tighter clustered source aggregate between the two broader southwest explanations.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 58.0,
+            "probability": 0.07258064516129033,
+            "region": "SW"
+          }
+        ]
+      },
+      {
+        "continuation_action": "r4.5_a2",
+        "hypotheses": [
+          {
+            "center": [
+              -2.7,
+              4.2
+            ],
+            "description": "Compact northwest halo centered just above and left of the probe report, representing a dense hidden positive cluster in the upper-left interior.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 70.0,
+            "probability": 0.58,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -3.4,
+              4.0
+            ],
+            "description": "Mildly elongated northwest halo with east-west bias across the upper-left mid-field, allowing a stretched source aggregate near the observed pull.",
+            "geometry": "elliptical",
+            "major_spread": 1.2,
+            "minor_spread": 0.6,
+            "orientation_degrees": 8.0,
+            "probability": 0.14,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -2.3,
+              4.8
+            ],
+            "description": "Northwest radial halo whose support extends outward from the origin through the upper-left sector, matching a spoke-like positive arrangement.",
+            "geometry": "radial",
+            "major_spread": 1.3,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.08,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -3.0,
+              3.6
+            ],
+            "description": "Northwest tangential halo following an arc around the origin in the upper-left quadrant, preserving a curved alternative to the dominant compact map.",
+            "geometry": "tangential",
+            "major_spread": 1.1,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.06,
+            "region": "NW"
+          },
+          {
+            "center": [
+              2.0,
+              3.5
+            ],
+            "description": "Inner northeast compact halo as a low-probability rival, keeping open the possibility of a strong cluster across the vertical axis from the current report.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.5,
+            "orientation_degrees": 24.0,
+            "probability": 0.05,
+            "region": "NE"
+          },
+          {
+            "center": [
+              4.4,
+              2.8
+            ],
+            "description": "Moderately elongated northeast halo slanting northeast-southwest, retaining an alternative stretched hidden support in the upper-right field.",
+            "geometry": "elliptical",
+            "major_spread": 1.4,
+            "minor_spread": 0.7,
+            "orientation_degrees": 36.0,
+            "probability": 0.04,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -1.6,
+              -4.6
+            ],
+            "description": "Southwest elliptical halo low in the field with northwest-southeast tilt, included as a remote but still admissible competing source arrangement.",
+            "geometry": "elliptical",
+            "major_spread": 1.5,
+            "minor_spread": 0.6,
+            "orientation_degrees": 126.0,
+            "probability": 0.03,
+            "region": "SW"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Southeast compact halo in the lower-right sector, preserving a weak alternative isolated positive aggregate despite the current northwest-favoring evidence.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.7,
+            "orientation_degrees": 132.0,
+            "probability": 0.02,
+            "region": "SE"
+          }
+        ]
+      }
+    ],
+    "B": [
+      {
+        "continuation_action": "r4.5_a5",
+        "hypotheses": [
+          {
+            "center": [
+              -3.2,
+              -2.5
+            ],
+            "description": "Dominant southwest radial halo centered in the inner lower-left, with the ten concealed positive sources distributed along a spoke-like footprint pointing away from the origin.",
+            "geometry": "radial",
+            "major_spread": 1.5,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.38,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -1.6,
+              -4.7
+            ],
+            "description": "Southwest elongated halo deeper in the lower-left sector, tilted northwest-southeast to capture a stretched hidden aggregate consistent with the probe drift.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 126.0,
+            "probability": 0.16,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -2.4,
+              -2.0
+            ],
+            "description": "Alternative southwest compact halo in the mid-lower field, representing a denser clustered support slightly closer to the origin than the dominant spoke-like map.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.6,
+            "orientation_degrees": 40.0,
+            "probability": 0.1,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -5.0,
+              1.9
+            ],
+            "description": "Northwest elongated halo across the upper-left sector with a mostly east-west principal axis, preserving the strongest non-southwest alternative.",
+            "geometry": "elliptical",
+            "major_spread": 1.9,
+            "minor_spread": 0.8,
+            "orientation_degrees": 14.0,
+            "probability": 0.15,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -2.8,
+              4.0
+            ],
+            "description": "Northwest compact halo in the inner upper-left field, allowing for a tighter clustered arrangement of the ten positive sources.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 72.0,
+            "probability": 0.08,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -4.2,
+              2.7
+            ],
+            "description": "Northwest radial-style support closer to the left flank, expressing a spoke-like alternative where the hidden sources extend outward relative to the origin.",
+            "geometry": "radial",
+            "major_spread": 1.3,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.05,
+            "region": "NW"
+          },
+          {
+            "center": [
+              2.2,
+              3.3
+            ],
+            "description": "Low-probability northeast compact halo in the inner upper-right, retained as a weak prior-consistent alternative despite the observed southwest-biased probe outcome.",
+            "geometry": "compact",
+            "major_spread": 0.6,
+            "minor_spread": 0.5,
+            "orientation_degrees": 24.0,
+            "probability": 0.04,
+            "region": "NE"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Low-probability southeast compact-to-mildly extended halo low in the field, preserving a southern-right contingency map for robustness.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.7,
+            "orientation_degrees": 132.0,
+            "probability": 0.04,
+            "region": "SE"
+          }
+        ]
+      },
+      {
+        "continuation_action": "r4.5_a2",
+        "hypotheses": [
+          {
+            "center": [
+              2.0,
+              3.3
+            ],
+            "description": "Compact positive halo in the inner northeast, keeping the ten concealed sources tightly clustered near the most supported sector after the weak drift observation.",
+            "geometry": "compact",
+            "major_spread": 0.6,
+            "minor_spread": 0.5,
+            "orientation_degrees": 20.0,
+            "probability": 0.3076923076923077,
+            "region": "NE"
+          },
+          {
+            "center": [
+              4.6,
+              2.7
+            ],
+            "description": "Northeast elongated halo with mild northeast-southwest slant, preserving a stretched aggregate interpretation while staying close to the dominant posterior mass.",
+            "geometry": "elliptical",
+            "major_spread": 1.4,
+            "minor_spread": 0.7,
+            "orientation_degrees": 36.0,
+            "probability": 0.21153846153846154,
+            "region": "NE"
+          },
+          {
+            "center": [
+              1.7,
+              5.0
+            ],
+            "description": "Broad tangential halo high in the northeast, with the ten sources distributed along an arc-like support around the origin.",
+            "geometry": "tangential",
+            "major_spread": 1.2,
+            "minor_spread": 0.5,
+            "orientation_degrees": 2.0,
+            "probability": 0.23076923076923078,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.6,
+              4.0
+            ],
+            "description": "Inner northeast compact-to-elliptical halo shifted slightly upward, capturing a denser alternative consistent with the same small positive displacement.",
+            "geometry": "elliptical",
+            "major_spread": 0.9,
+            "minor_spread": 0.5,
+            "orientation_degrees": 58.0,
+            "probability": 0.1346153846153846,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -2.8,
+              4.0
+            ],
+            "description": "Northwest compact halo in the upper mid-field, retaining a lower-probability but still plausible hidden concentration of the ten positive sources.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 72.0,
+            "probability": 0.028846153846153848,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -5.0,
+              1.9
+            ],
+            "description": "Northwest elongated halo aligned mostly east-west, representing a stretched upper-left alternative that remains weakly viable.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.8,
+            "orientation_degrees": 14.0,
+            "probability": 0.009615384615384616,
+            "region": "NW"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Southeast compact halo low in the field, included as a very small residual alternative despite poor support from the observed probe endpoint.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.7,
+            "orientation_degrees": 130.0,
+            "probability": 0.009615384615384616,
+            "region": "SE"
+          },
+          {
+            "center": [
+              3.4,
+              5.6
+            ],
+            "description": "Far northeast radial halo extending outward from its center direction relative to the origin, covering a diffuse spoke-like positive arrangement.",
+            "geometry": "radial",
+            "major_spread": 1.5,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.0673076923076923,
+            "region": "NE"
+          }
+        ]
+      }
+    ],
+    "C": [
+      {
+        "continuation_action": "r6.5_a5",
+        "hypotheses": [
+          {
+            "center": [
+              -3.4,
+              -2.5
+            ],
+            "description": "Dominant southwest radial halo centered near the observed pull direction, with the ten concealed positive sources occupying a spoke-like support that drives trajectories toward the inner southwest.",
+            "geometry": "radial",
+            "major_spread": 1.5,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.5918367346938775,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -3.7,
+              -2.2
+            ],
+            "description": "Southwest compact halo slightly west of the observed terminal coordinate, representing a dense clustered aggregate of the ten hidden sources in the lower-left field.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.7,
+            "orientation_degrees": 36.0,
+            "probability": 0.14285714285714285,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -2.8,
+              -3.4
+            ],
+            "description": "Southwest elliptical halo elongated northwest-southeast around the inferred attraction zone, allowing the concealed sources to form a stretched support.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 132.0,
+            "probability": 0.08163265306122448,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -2.9,
+              3.9
+            ],
+            "description": "Northwest compact halo in the upper-left mid-field, retaining a plausible alternative in which a tighter positive cluster bends trajectories from above.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 72.0,
+            "probability": 0.061224489795918366,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -5.0,
+              1.9
+            ],
+            "description": "Northwest elliptical halo stretched broadly east-west across the upper-left sector, preserving an alternative elongated hidden support.",
+            "geometry": "elliptical",
+            "major_spread": 1.8,
+            "minor_spread": 0.8,
+            "orientation_degrees": 14.0,
+            "probability": 0.04081632653061224,
+            "region": "NW"
+          },
+          {
+            "center": [
+              2.1,
+              3.4
+            ],
+            "description": "Inner northeast compact halo with a near-round support, kept as a low-weight fallback despite the southwest-favoring observation.",
+            "geometry": "compact",
+            "major_spread": 0.6,
+            "minor_spread": 0.5,
+            "orientation_degrees": 22.0,
+            "probability": 0.030612244897959183,
+            "region": "NE"
+          },
+          {
+            "center": [
+              1.7,
+              5.0
+            ],
+            "description": "Northeast tangential halo arcing about the origin, representing a curved alternative arrangement of the ten sources in the upper-right field.",
+            "geometry": "tangential",
+            "major_spread": 1.3,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.030612244897959183,
+            "region": "NE"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Southeast compact-to-mildly extended halo low in the field, included as a small residual alternative for a southern positive aggregate outside the southwest mode.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.7,
+            "orientation_degrees": 130.0,
+            "probability": 0.02040816326530612,
+            "region": "SE"
+          }
+        ]
+      },
+      {
+        "continuation_action": "r6.5_a1",
+        "hypotheses": [
+          {
+            "center": [
+              2.3,
+              3.2
+            ],
+            "description": "Compact inner-northeast halo slightly east of the y-axis, keeping the ten concealed positive sources in a dense cluster consistent with the strongest posterior mode.",
+            "geometry": "compact",
+            "major_spread": 0.7,
+            "minor_spread": 0.5,
+            "orientation_degrees": 20.0,
+            "probability": 0.2621359223300971,
+            "region": "NE"
+          },
+          {
+            "center": [
+              4.6,
+              2.8
+            ],
+            "description": "Elongated northeast halo in the mid-field with a northeast-southwest slant, preserving the second strong posterior branch of a stretched aggregate.",
+            "geometry": "elliptical",
+            "major_spread": 1.6,
+            "minor_spread": 0.7,
+            "orientation_degrees": 36.0,
+            "probability": 0.24271844660194175,
+            "region": "NE"
+          },
+          {
+            "center": [
+              1.8,
+              5.0
+            ],
+            "description": "Broad northeast tangential halo high in the quadrant, with the hidden sources distributed along an arc-like band about the origin.",
+            "geometry": "tangential",
+            "major_spread": 1.4,
+            "minor_spread": 0.5,
+            "orientation_degrees": 4.0,
+            "probability": 0.10679611650485436,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.9,
+              2.4
+            ],
+            "description": "Inner-northeast compact-to-mildly elongated halo, representing a nearby alternative where the ten sources remain concentrated but slightly stretched.",
+            "geometry": "elliptical",
+            "major_spread": 1.0,
+            "minor_spread": 0.5,
+            "orientation_degrees": 48.0,
+            "probability": 0.08737864077669903,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -2.5,
+              4.0
+            ],
+            "description": "Northwest compact halo in the upper mid-field, retaining a plausible but reduced posterior branch with a dense hidden concentration.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.6,
+            "orientation_degrees": 70.0,
+            "probability": 0.07766990291262135,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -1.6,
+              4.8
+            ],
+            "description": "Northwest tangential halo nearer the vertical axis, allowing the ten positive sources to follow a curved support in the upper-left sector.",
+            "geometry": "tangential",
+            "major_spread": 1.2,
+            "minor_spread": 0.5,
+            "orientation_degrees": 176.0,
+            "probability": 0.05825242718446602,
+            "region": "NW"
+          },
+          {
+            "center": [
+              3.8,
+              -1.9
+            ],
+            "description": "Southeast compact halo low in the field, preserving the non-negligible alternative that the hidden positive aggregate sits in the lower-right sector.",
+            "geometry": "compact",
+            "major_spread": 0.9,
+            "minor_spread": 0.7,
+            "orientation_degrees": 136.0,
+            "probability": 0.0970873786407767,
+            "region": "SE"
+          },
+          {
+            "center": [
+              4.7,
+              -1.2
+            ],
+            "description": "Southeast elliptical halo shifted farther east, representing a secondary southern-right possibility with a mildly stretched support.",
+            "geometry": "elliptical",
+            "major_spread": 1.3,
+            "minor_spread": 0.6,
+            "orientation_degrees": 118.0,
+            "probability": 0.06796116504854369,
+            "region": "SE"
+          }
+        ]
+      }
+    ],
+    "D": [
+      {
+        "continuation_action": "center",
+        "hypotheses": [
+          {
+            "center": [
+              2.1,
+              3.4
+            ],
+            "description": "Compact near-round positive halo tightly centered in the inner northeast around the observed settling point, with the ten concealed sources densely clustered.",
+            "geometry": "compact",
+            "major_spread": 0.6,
+            "minor_spread": 0.5,
+            "orientation_degrees": 22.0,
+            "probability": 0.54,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.4,
+              3.8
+            ],
+            "description": "Slightly broader northeast compact halo offset a bit northward from the observation, allowing mild uncertainty while keeping a dense source aggregate.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.6,
+            "orientation_degrees": 35.0,
+            "probability": 0.14,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.7,
+              3.1
+            ],
+            "description": "Northeast elliptical halo elongated along a northeast-southwest slant, representing a stretched but still concentrated support near the observed endpoint.",
+            "geometry": "elliptical",
+            "major_spread": 1.2,
+            "minor_spread": 0.5,
+            "orientation_degrees": 40.0,
+            "probability": 0.09,
+            "region": "NE"
+          },
+          {
+            "center": [
+              1.8,
+              4.1
+            ],
+            "description": "Inner northeast tangential halo following a shallow arc about the origin, capturing the possibility that the ten sources occupy a curved band near the observation.",
+            "geometry": "tangential",
+            "major_spread": 1.1,
+            "minor_spread": 0.4,
+            "orientation_degrees": 0.0,
+            "probability": 0.06,
+            "region": "NE"
+          },
+          {
+            "center": [
+              2.6,
+              3.6
+            ],
+            "description": "Northeast radial halo extending outward from the origin through the observed region, allowing the concealed sources to align in a spoke-like footprint.",
+            "geometry": "radial",
+            "major_spread": 1.0,
+            "minor_spread": 0.4,
+            "orientation_degrees": 0.0,
+            "probability": 0.05,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -2.4,
+              4.0
+            ],
+            "description": "Northwest compact halo in the upper-left inner field, retained as a low-probability alternative in case the probe was deflected across sectors by noise.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.6,
+            "orientation_degrees": 70.0,
+            "probability": 0.04,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -4.7,
+              2.1
+            ],
+            "description": "Northwest elliptical halo stretched mostly east-west, preserving a secondary upper-left alternative with a broader hidden support.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.7,
+            "orientation_degrees": 15.0,
+            "probability": 0.04,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -1.6,
+              -4.6
+            ],
+            "description": "Southwest elliptical halo with a northwest-southeast tilt, kept as a distant fallback alternative despite the strong northeast evidence.",
+            "geometry": "elliptical",
+            "major_spread": 1.5,
+            "minor_spread": 0.6,
+            "orientation_degrees": 126.0,
+            "probability": 0.04,
+            "region": "SW"
+          }
+        ]
+      },
+      {
+        "continuation_action": "r6.5_a5",
+        "hypotheses": [
+          {
+            "center": [
+              -1.6,
+              -4.7
+            ],
+            "description": "Southwest elongated halo centered deep in the lower-left quadrant, with the ten concealed positive sources arranged in a northwest-southeast slanted support consistent with the strongest posterior mode.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.6,
+            "orientation_degrees": 126.0,
+            "probability": 0.3225806451612903,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -3.1,
+              -2.5
+            ],
+            "description": "Southwest spoke-like positive halo in the mid-to-lower field, with sources distributed radially around a center left and below the origin.",
+            "geometry": "radial",
+            "major_spread": 1.5,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.28225806451612906,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -4.8,
+              1.9
+            ],
+            "description": "Northwest elongated halo across the upper-left sector, preserving the alternative that the hidden source aggregate is stretched mainly east-west.",
+            "geometry": "elliptical",
+            "major_spread": 1.7,
+            "minor_spread": 0.8,
+            "orientation_degrees": 14.0,
+            "probability": 0.12903225806451613,
+            "region": "NW"
+          },
+          {
+            "center": [
+              -2.8,
+              4.0
+            ],
+            "description": "Northwest compact halo in the upper-left interior, representing a dense clustered source configuration that remains plausible under the observation.",
+            "geometry": "compact",
+            "major_spread": 0.8,
+            "minor_spread": 0.6,
+            "orientation_degrees": 70.0,
+            "probability": 0.08064516129032258,
+            "region": "NW"
+          },
+          {
+            "center": [
+              3.8,
+              -1.8
+            ],
+            "description": "Southeast compact halo low and right of the origin, maintaining a lighter but viable isolated southern positive aggregate.",
+            "geometry": "compact",
+            "major_spread": 0.9,
+            "minor_spread": 0.7,
+            "orientation_degrees": 132.0,
+            "probability": 0.04838709677419355,
+            "region": "SE"
+          },
+          {
+            "center": [
+              4.6,
+              2.7
+            ],
+            "description": "Northeast moderately elongated halo near the inner-right upper field, retaining a weak alternative of a stretched concealed cluster aligned northeast-southwest.",
+            "geometry": "elliptical",
+            "major_spread": 1.4,
+            "minor_spread": 0.7,
+            "orientation_degrees": 40.0,
+            "probability": 0.03225806451612903,
+            "region": "NE"
+          },
+          {
+            "center": [
+              -2.4,
+              -3.6
+            ],
+            "description": "Southwest compact halo nearer the lower-central left area, capturing the possibility that the ten sources form a tighter concentration than the broader southwest modes.",
+            "geometry": "compact",
+            "major_spread": 0.9,
+            "minor_spread": 0.7,
+            "orientation_degrees": 28.0,
+            "probability": 0.06451612903225806,
+            "region": "SW"
+          },
+          {
+            "center": [
+              -3.6,
+              3.2
+            ],
+            "description": "Northwest tangential halo arcing in the upper-left region, representing a curved support alternative around the origin while staying consistent with upper-left mass.",
+            "geometry": "tangential",
+            "major_spread": 1.4,
+            "minor_spread": 0.5,
+            "orientation_degrees": 0.0,
+            "probability": 0.04032258064516129,
+            "region": "NW"
+          }
+        ]
+      }
+    ]
+  },
+  "schema_version": 1
+}

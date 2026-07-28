@@ -1054,3 +1054,21 @@ preflight precedes exact10 accepted responses;failure closes V3 without ordinary
 fallback or second tree. Since V2 accepted0 and opened0 seeds,the same untouched
 24700--24717 endpoint remains valid. Projected$.14,cap$.25,full authenticated
 $8.990154844 available,no reserve;OpenRouter only,no OatML/cluster.
+2026-07-28: DiscoverPhysics structured V3 is a conjunctive replication null with a
+strong root result. Exact10/10 accepted/HTTP,0 retry/reasoning/forced,$.131825;
+all support/diversity/accounting gates pass. Immediate D1.4058;retained risks
+B.4955<D1.0787=54.06% internal gain. On fresh384 maps retained B3.2446 beats
+D3.7284 by12.98%(CI D-B[.2917,.6758]),random A6.5050 by50.12%,and nearest-support
+risk by27.80%. But fixed B3.0709 beats retained B by5.66%,with fixed-B CI
+[-.2448,-.1050],failing both support gates. No rerun/rescue;tree/policy hashes
+473cf5c8/917e1613,private raw SHA4863a490. Balance$8.858329844.
+2026-07-28: Zero-call exact decomposition reproduces V3 retained/fixed errors to
+1.8e-15/9.8e-14 and localizes failure to support calibration. Nominal5% refresh
+mass becomes25.26% final posterior;refresh-only MSE3.4445 vs initial3.0709.
+Refresh is better60.48% of weighted events,but receives22.87% mass when better and
+28.92% when worse;mass-vs-advantage correlation-.311. NW is decisive:refresh
+mass33.48%,refresh MSE3.2610 vs initial2.1149. SE behaves correctly:mass71.01%,
+refresh2.2747 vs initial3.0252. Coverage gain alone is insufficient because
+probe-observation likelihood overweights branch-skewed maps with poor held-out
+trajectories. Paper/result updated;next prospective method must calibrate generated
+support against held-out-predictive consistency,not rerun V3.

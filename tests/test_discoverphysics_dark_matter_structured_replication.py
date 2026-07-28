@@ -5,6 +5,9 @@ import json
 
 import numpy as np
 
+from scripts.analyze_discoverphysics_dark_matter_structured_replication import (
+    weighted_correlation,
+)
 from scripts.discoverphysics_dark_matter_executable_support_v2 import (
     parse_weighted_support,
 )
@@ -165,6 +168,25 @@ def test_stratified_bootstrap_preserves_constant_difference():
 
     assert np.isclose(lower, 0.25)
     assert np.isclose(upper, 0.25)
+
+
+def test_weighted_correlation_handles_alignment_and_constant_input():
+    values = np.array([-2.0, -1.0, 1.0, 2.0])
+    weights = np.array([0.1, 0.2, 0.3, 0.4])
+
+    assert np.isclose(
+        weighted_correlation(values, values, weights),
+        1.0,
+    )
+    assert np.isclose(
+        weighted_correlation(values, -values, weights),
+        -1.0,
+    )
+    assert weighted_correlation(
+        values,
+        np.ones_like(values),
+        weights,
+    ) == 0.0
 
 
 def test_phase_a_mechanics_enforces_accounting_and_support_diversity():

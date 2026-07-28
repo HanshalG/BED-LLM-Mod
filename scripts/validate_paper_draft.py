@@ -15,11 +15,12 @@ ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 REQUIRED_LIMITATION_PATTERNS = {
     "structured_positive_scope": (
         r"positive structured-benchmark result",
-        r"narrow simulator-grounded\s+LLM-native result",
-        r"one frozen GPT-5\.4 support tree",
-        r"selected on a disclosed\s+development curve",
-        r"exact rather than learned\s+likelihoods",
-        r"not fresh model generation",
+        r"narrow,\s+unstable\s+simulator-grounded LLM-native result",
+        r"first tree",
+        r"fresh structured tree",
+        r"reverses the support effect",
+        r"exact\s+rather than learned\s+likelihoods",
+        r"does not replicate across generations",
     ),
     "rock_exact_scope": (
         r"Rock Diagnosis",
