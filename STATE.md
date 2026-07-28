@@ -1536,3 +1536,16 @@ weight;average within tree then tree-bootstrap. Gates:d3-vs-d2 Brier>=1%+
 CI<0+12 wins,no Hamming regression,novel Brier/Hamming no regression;
 vs in-sample d3>=2%+CI<0;myopic>=5%;rho>=.7 and rho gap>=.15;support/
 transport. Coverage descriptive. Projected$1.14,cap$1.50,no reserve.
+2026-07-28: Fixed-policy fresh endpoint-precision study passes all frozen
+gates and yields the first Number Game monotonic-depth positive. Exact512/512
+fresh Gemini responses,0 retry/reasoning/forced,cost$1.1463158;opened single
+endpoint excluded. Across fixed32 trees/16 equal-weight draws each,crossfit
+d3 Brier.157258 vs equally-crossfit d2.160242(-1.8619%,tree CI[-.004996,
+-.001160],13 wins/13 same-root ties/6 losses),Hamming-3.211%,coverage+.273pp.
+Novel Brier-.006235,Hamming-.004213,coverage+.733pp. D3 also beats in-sample
+d3 by3.501%(CI<0),myopic8.748%,fixed6.477%,random7.993%,PTS6.739%. High-
+precision rank fidelity d3 rho.9226 vs d2.5677,concordance.9174 vs.7321.
+All endpoint draws>=20 rules;novel total/tree>=148. Public RESULT SHA47e684b1,
+ENDPOINTS0e6bd789,private rawbc64658f. Live$29.925036144. Preserve prior
+single-endpoint null;next strongest check is wholly fresh planning-tree
+replication,not further endpoint draws.

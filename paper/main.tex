@@ -47,8 +47,10 @@ GPT-5.4 supplies independent target concepts. Across 32 fresh proposal trees,
 it lowers two-query Brier loss by 20.5\% versus myopic EIG, 21.4\% versus
 fixed-support depth two, 11.6\% versus random, and 10.2\% versus a positive-test
 strategy (PTS), with every whole-tree interval excluding zero. The LLM proposal
-dynamics are load-bearing. Finite Rock Diagnosis separately verifies exact
-lookahead but leaves the LLM replaceable. DiscoverPhysics preserves a
+dynamics are load-bearing. With independent prior draws and fixed policies,
+depth three further beats equally cross-fitted depth two by 1.86\%
+($[-.0050,-.0012]$). Finite Rock Diagnosis separately verifies exact lookahead
+but leaves the LLM replaceable. DiscoverPhysics preserves a
 non-myopic root gain across three trees while regenerated-support value fails
 to replicate, localizing a distinct calibration failure. Negative semantic
 audits explain why deeper planning otherwise breaks.
@@ -96,7 +98,8 @@ Our contributions are:
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
   \item a powered LLM-native result in which non-myopic BED plans over
   branch-conditioned LLM support regeneration and beats myopic, fixed-support,
-  random, and PTS controls on independent cross-model target concepts;
+  random, and PTS controls on independent cross-model target concepts, plus a
+  fixed-policy fresh-endpoint result where depth three beats depth two;
   \item a fresh-map confirmation and fresh-tree replication separating robust
   non-myopic root value from generation-unstable LLM support updates;
   \item a cross-environment audit, including fresh-generation retrieval
@@ -184,7 +187,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Number Game & LLM executable-rule support & Proposal-aware terminal risk & Brier .184 vs .231 myopic / .204 PTS & Powered LLM-native positive \\
+Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 .157 vs d2 .160 / myopic .172 & LLM-native depth positive \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
@@ -328,6 +331,19 @@ random controls by 5.82\% and 5.09\%, respectively. Thus retention repairs
 LLM belief dynamics but does not establish monotonic improvement beyond depth
 two; the failure is now localized to deeper root ranking and support
 generalization.
+
+Independent Monte Carlo risk resolves that ranking failure. Eight fresh prior
+supports per tree raise depth-three source-to-target Spearman from $.499$ to
+$.771$, versus $.527$ for depth two. A preregistered 32-tree comparison is
+directional (1.54\%, 13 wins), but its one-support endpoint interval narrowly
+crosses zero. Keeping every selected root fixed and excluding those opened
+endpoints, a separately frozen 16-draw endpoint study gives depth three Brier
+$.1573$ versus $.1602$ for equally cross-fitted depth two (1.86\%;
+$[-.0050,-.0012]$), with 3.21\% lower Hamming, higher coverage, and improved
+novel-target metrics. High-precision rank correlation is $.923$ versus $.568$.
+Thus non-myopia over the LLM's own retained, regenerated belief dynamics
+improves beyond depth two once both selection and evaluation use independent
+support draws.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -592,6 +608,10 @@ queries rather than full convergence. One earlier eight-tree replication
 failed its preregistered 5\% PTS magnitude gate despite directional gains; the
 separately preregistered 32-tree study establishes a powered 10.2\% gain rather
 than retroactively rescoring that null.
+For three-query planning, the first fresh one-support endpoint comparison also
+remains a null. Endpoint precision was selected after that result; the positive
+study fixes every root, excludes opened endpoints, and uses 512 fresh responses,
+but a wholly fresh planning-tree replication is still warranted.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
