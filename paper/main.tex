@@ -47,9 +47,9 @@ The LLM remains replaceable there. In DiscoverPhysics, GPT-5.4 instead generates
 executable branch-conditioned dark-matter supports while official N-body dynamics
 supply likelihoods. One frozen support tree passes every gate on 384 fresh maps:
 lookahead MSE is $2.928$ versus $3.785$ myopic and $3.001$ same-root fixed.
-A structured fresh-tree replication preserves the non-myopic root gain
-($3.245$ versus $3.728$) but regenerated support is worse than fixed
-($3.071$), localizing the failure to likelihood-weighted support calibration.
+Two fresh checks preserve the non-myopic root gain, but regenerated support is
+first worse than fixed ($3.245$ versus $3.071$) and then tied ($3.049$ each),
+localizing failure to support calibration rather than lookahead.
 In open retrieval, a positive
 $\tau$-Knowledge execution reverses under fresh generation. Negative semantic
 audits localize why deeper planning otherwise fails.
@@ -187,7 +187,7 @@ Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup &
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
 LongVidSearch 4-hop & Exact retrieval endpoint & 10/40 gaps replicated & Support smoke passes; ranking stops pre-endpoint & Policy unmeasured \\
 Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; holdout invalid \\
-DiscoverPhysics & LLM support, exact likelihood & Central scout & Tree1: 2.928/3.785/3.001; Tree2: 3.245/3.728/3.071 & Root robust; support nonreplication \\
+DiscoverPhysics & LLM support, exact likelihood & Central scout & T1: 2.928/3.785/3.001; T2: 3.245/3.728/3.071; T3: 3.049/3.481/3.049 & Root robust; support nonreplication \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
 MediQ iMEDQA & A--D often not generative & Channel too sparse & 8/30 replies available & Gate failure \\
 \bottomrule
@@ -240,13 +240,14 @@ support (2.41\%; $[.0341,.1100]$). Thus branch-conditioned generation added
 small value beyond root choice for that frozen tree. Post hoc, map-level coverage
 gain correlated $.279$ with endpoint gain.
 
-A structured fresh-tree replication again selected D myopically and B
-non-myopically (54.1\% predicted reduction). On 384 new maps B beat D by 13.0\%
-($[.2917,.6758]$) and random A by 50.1\%, but trailed same-root fixed B by
-5.66\% ($[-.2448,-.1050]$), despite 27.8\% better support coverage. Exact
-decomposition found that nominal 5\% refreshed mass grew to 25.3\% and
-correlated $-.311$ with held-out advantage. Thus root value replicated;
-LLM-native support value did not.
+A fresh tree again selected D myopically and B non-myopically. On 384 maps B
+beat D by 13.0\% ($[.2917,.6758]$) but trailed fixed B by 5.66\%
+($[-.2448,-.1050]$), despite 27.8\% better coverage; nominal 5\% refresh mass
+grew to 25.3\% and correlated $-.311$ with held-out advantage. A branch-only
+isolation fixed that initial support and generated eight balanced branches with
+modular 95/5 inference. On another 384 maps B beat D by 12.4\%
+($[.2591,.6094]$), but generated and fixed B tied ($3.0491$ versus $3.0485$;
+$[-.0098,.0088]$), as SW/SE gains canceled NE/NW losses.
 
 \paragraph{LLM-native semantic lookahead is not execution-robust in retrieval.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking
@@ -591,12 +592,11 @@ Future depth studies should cross the following gates in order:
 \section{Limitations and Conclusion}
 
 This is a positive structured-benchmark result and a narrow, unstable
-simulator-grounded LLM-native result. DiscoverPhysics's first tree confirms a
-22.6\% non-myopic gain and 2.41\% gain from branch-generated support over
-same-root fixed support on 384 fresh maps. A fresh structured tree retains the
-root gain but reverses the support effect to $-5.66\%$. The path-dependent
-support claim therefore does not replicate across generations, despite exact
-rather than learned likelihoods.
+simulator-grounded LLM-native result. DiscoverPhysics's first tree gives 22.6\%
+non-myopic and 2.41\% branch-support gains. A fresh structured tree retains the
+root gain but reverses the support effect. Thus support value does not replicate across generations,
+despite exact rather than learned likelihoods; fixing the
+initial tree puts fresh branch support at parity with fixed support.
 Rock Diagnosis uses an exact finite simulator and does not test robustness to learned likelihoods
 or open responses. Animals is only partially paired.
 Natural location uses one model family; Paprika policy counts are

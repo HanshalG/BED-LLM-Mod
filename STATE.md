@@ -1146,3 +1146,14 @@ noise24756/bootstrap24757. Policy remains modular.95/.05 and endpoint retains
 B-vs-D/random/fixed/coverage gates. Claim is branch-support robustness conditional on
 an independently frozen initial belief,not full-tree robustness. Projected$.11,
 cap$.25,approximately$8.60 available,no reserve;OpenRouter only,OatML0.
+2026-07-28: Fixed-initial fresh-branch replication is a clean support null and
+root pass. Exact8/8 HTTP,0 retry/reasoning/forced,$.114525;all breadth/diversity
+gates pass. Frozen source keeps D myopic1.4058>B1.2767;fresh modular tree selects
+B risk.2858<D.5921=51.73% internal gain. On new384 maps B3.0491 beats D3.4813
+by12.42%(CI[.2591,.6094]),random by36.33%,coverage by15.64%;but fixed B3.0485
+is indistinguishable and slightly better:modular support effect-.018%,paired
+CI[-.00975,.00880]. Regionally support helps SW+.0736/SE+.0999 but harms
+NE-.0532/NW-.0132,exactly cancelling under.4/.3/.2/.1. No rerun/weight tuning.
+Public result/model/policy SHAsacc911ca/6dfe2306/d1948b48;private rawe04df8ce;
+balance$8.612217344. The robust claim is root lookahead;next LLM-native work must
+calibrate generated support value across semantic regions rather than add breadth.

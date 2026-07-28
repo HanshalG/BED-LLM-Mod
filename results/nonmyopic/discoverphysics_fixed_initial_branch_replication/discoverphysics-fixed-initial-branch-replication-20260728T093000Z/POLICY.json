@@ -1,0 +1,93 @@
+{
+  "mechanics_gates": {
+    "all_8_refreshes_change_support": true,
+    "all_refresh_region_masses_match_disclosed_prior": true,
+    "all_refreshes_have_three_geometry_types": true,
+    "all_refreshes_have_two_maps_per_region": true,
+    "at_least_3_roots_have_branch_distinct_supports": true,
+    "center_branches_choose_distinct_continuations": true,
+    "exact_8_accepted_requests": true,
+    "transport_attempt_accounting_exact": true,
+    "within_run_budget": true,
+    "zero_forced_exits": true,
+    "zero_forced_final_requests": true,
+    "zero_reasoning_tokens": true
+  },
+  "mechanism": {
+    "center_continuations": [
+      "r4.5_a5",
+      "r4.5_a2"
+    ],
+    "refreshes_changed_from_initial": 8,
+    "roots_with_branch_distinct_supports": 4
+  },
+  "model_frozen_sha256": "6dfe230678f37ad4306ae77e7fbfda9c984a0e97b84f35b3742bff4f124e01d1",
+  "protocol": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 24757,
+    "continuation_samples": 4,
+    "discoverphysics_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+    "expected_accepted_requests": 8,
+    "initial_component_mass": 0.95,
+    "interface_version": "discoverphysics-dark-matter-fixed-initial-branch-1",
+    "map_seeds": [
+      24740,
+      24741,
+      24742,
+      24743,
+      24744,
+      24745,
+      24746,
+      24747,
+      24748,
+      24749,
+      24750,
+      24751,
+      24752,
+      24753,
+      24754,
+      24755
+    ],
+    "model": "openai/gpt-5.4",
+    "noise_seed": 24756,
+    "policy_noise_seed": 24510,
+    "reasoning_enabled": false,
+    "refresh_component_mass": 0.05,
+    "refresh_maps_per_region": 2,
+    "refresh_region_mass": {
+      "NE": 0.4,
+      "NW": 0.3,
+      "SE": 0.1,
+      "SW": 0.2
+    },
+    "response_format": "chat_strict_json_schema_default_routing",
+    "root_samples": 8,
+    "run_budget_usd": 0.25,
+    "scientific_branch_requests": 8,
+    "source_model_sha256": "473cf5c883929a2cf8b6d862bebf69e1bb6b6401bea8c7b0edba955e847b7e1d",
+    "temperature": 0.0
+  },
+  "schema_version": 1,
+  "selection": {
+    "immediate_eig_nats": {
+      "A": 1.1164342122949693,
+      "B": 1.2767135234240756,
+      "C": 0.939147772262209,
+      "D": 1.4057679631272815
+    },
+    "internal_risk_reduction": 0.5172815542346678,
+    "lookahead_root": "B",
+    "modular_internal_trajectory_risk": {
+      "A": 1.9031179905842002,
+      "B": 0.2858085228364385,
+      "C": 0.7953654469177789,
+      "D": 0.5920812128554559
+    },
+    "myopic_root": "D"
+  },
+  "selection_gates": {
+    "internal_risk_reduction_at_least_10_percent": true,
+    "modular_lookahead_root_is_B": true,
+    "source_myopic_root_is_D": true
+  }
+}
