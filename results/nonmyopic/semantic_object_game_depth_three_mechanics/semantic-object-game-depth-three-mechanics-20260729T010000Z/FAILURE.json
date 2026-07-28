@@ -1,0 +1,8 @@
+{
+  "error": "OpenRouter HTTP 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Invalid schema for response_format 'semantic_object_concepts': In context=('properties', 'concepts', 'items', 'properties', 'members'), 'uniqueItems' is not permitted.\\\",\\n    \\\"type\\\": \\\"invalid_request_error\\\",\\n    \\\"param\\\": \\\"text.format.schema\\\",\\n    \\\"code\\\": \\\"invalid_json_schema\\\"\\n  }\\n}\",\"provider_name\":\"Azure\",\"is_byok\":false,\"provider_error_code\":\"invalid_json_schema\",\"",
+  "error_type": "RuntimeError",
+  "interface_version": "semantic-object-game-depth-three-mechanics-1",
+  "raw_responses_sha256": null,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

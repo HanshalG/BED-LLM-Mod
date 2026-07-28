@@ -44,6 +44,10 @@ def test_universe_and_request_count_are_frozen() -> None:
         + len(semantic.VALIDATION_SEEDS)
         + len(semantic.ENDPOINT_SEEDS)
     )
+    members_schema = semantic.proposal_response_format()["json_schema"][
+        "schema"
+    ]["properties"]["concepts"]["items"]["properties"]["members"]
+    assert "uniqueItems" not in members_schema
 
 
 def test_parse_proposals_accepts_exact_memberships() -> None:

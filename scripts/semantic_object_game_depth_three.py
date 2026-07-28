@@ -29,7 +29,7 @@ from scripts.number_game_predictive_risk_replication import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "semantic-object-game-depth-three-mechanics-1"
+INTERFACE_VERSION = "semantic-object-game-depth-three-mechanics-2"
 PLANNING_MODEL_ID = "openai/gpt-5.4-mini"
 TARGET_MODEL_ID = "google/gemini-2.5-flash"
 TREE_SEED = 36000
@@ -151,7 +151,6 @@ def proposal_response_format() -> dict[str, Any]:
                                     "type": "array",
                                     "minItems": MIN_MEMBERS,
                                     "maxItems": MAX_MEMBERS,
-                                    "uniqueItems": True,
                                     "items": {
                                         "type": "string",
                                         "enum": list(OBJECT_IDS),

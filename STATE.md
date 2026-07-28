@@ -1676,3 +1676,11 @@ and twice-refreshed semantic supports,Gemini2.5-Flash supplies4 crossfit+
 transport,and active d2/d3-root gates must pass. One-tree endpoint is
 descriptive only;pass authorizes only separately preregistered multi-tree
 development. Six focused tests pass;OpenRouter only,no OatML/Slurm.
+2026-07-29: Semantic Object Game V1 fails serving before any accepted response,
+token,raw artifact,or charge. Azure rejects JSON-schema `uniqueItems` on the
+members array;credits remain exactly total$180/usage$161.579636306. Preserve
+V1 as transport failure. Freeze admissible V2 before response with only that
+provider keyword removed;the unchanged local parser still rejects duplicate
+member IDs,so accepted semantics/models/prompts/seeds/tree/gates/exact49 calls/
+$.75 cap are unchanged. Any further schema/response failure closes the exact
+interface.
