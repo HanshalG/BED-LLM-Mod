@@ -1559,3 +1559,16 @@ novel all no regression;vs in-sample d3>=2%+CI<0;myopic/fixed>=5%;PTS>=3%+
 CI<0;rho>=.7 and gap>=.15;all support/transport. Projected$6.90,cap$7.60,
 no reserve;live$29.925036144. This is the independent planning-tree
 replication required by the endpoint-precision result's claim boundary.
+2026-07-28: Wholly fresh32 Number Game crossfit-d3 replication independently
+passes the monotonic-depth primary but is a formal conjunctive null on2
+auxiliary gates. Exact2336 accepted/2337 attempts,1 transport retry,
+0 provider-error retry/reasoning/forced,cost$6.8473362. D3 Brier.158978 vs
+equally-crossfit d2.163569(-2.807%,tree CI[-.008248,-.001538],13 wins/
+16 ties/3 losses),Hamming-2.716%,coverage+1.582pp;novel Brier-.004266,
+Hamming-.004288,coverage+3.061pp. Roots differ16/32. D3 rho.9174 vs d2
+.4479,concordance.9118 vs.6763. Myopic/fixed/PTS gains8.31/7.11/7.52%,
+all CIs<0. Fails only one endpoint response14<16 valid and crossfit-vs-
+in-sample-d3 magnitude1.808%<2%(its CI<0). Preserve overall gated_null;
+primary replication is valid without threshold repair/removal. Public RESULT
+SHA25e09391,TREES197dcfe3,ENDPOINTS10362676,private rawa867ba9a. Live
+$23.074576194.

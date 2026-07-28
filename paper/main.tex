@@ -49,8 +49,9 @@ fixed-support depth two, 11.6\% versus random, and 10.2\% versus a positive-test
 strategy (PTS), with every whole-tree interval excluding zero. The LLM proposal
 dynamics are load-bearing. With independent prior draws and fixed policies,
 depth three further beats equally cross-fitted depth two by 1.86\%
-($[-.0050,-.0012]$). Finite Rock Diagnosis separately verifies exact lookahead
-but leaves the LLM replaceable. DiscoverPhysics preserves a
+($[-.0050,-.0012]$), replicated on wholly fresh trees at 2.81\%
+($[-.0082,-.0015]$). Finite Rock Diagnosis separately verifies exact
+lookahead but leaves the LLM replaceable. DiscoverPhysics preserves a
 non-myopic root gain across three trees while regenerated-support value fails
 to replicate, localizing a distinct calibration failure. Negative semantic
 audits explain why deeper planning otherwise breaks.
@@ -345,6 +346,17 @@ Thus non-myopia over the LLM's own retained, regenerated belief dynamics
 improves beyond depth two once both selection and evaluation use independent
 support draws.
 
+A wholly fresh 32-tree replication independently regenerates planning trees,
+validation supports, roots, and 16-draw endpoints. Depth three again beats
+equally cross-fitted depth two: Brier $.1590$ versus $.1636$ (2.81\%;
+$[-.0082,-.0015]$), with 13 wins, 16 same-root ties, and 3 losses; Hamming,
+coverage, and novel-target metrics also improve. Rank correlation is $.917$
+versus $.448$. The overall preregistered conjunction is formally null because
+one of 512 endpoint supports parsed 14 rather than 16 rules and the gain over
+the in-sample depth-three selector is 1.81\% rather than the frozen 2\%,
+although its interval excludes zero. Neither miss affects the primary
+depth-three-versus-depth-two replication, and neither is repaired.
+
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
 eight branch-conditioned supports; official N-body simulation supplied
@@ -611,7 +623,9 @@ than retroactively rescoring that null.
 For three-query planning, the first fresh one-support endpoint comparison also
 remains a null. Endpoint precision was selected after that result; the positive
 study fixes every root, excludes opened endpoints, and uses 512 fresh responses,
-but a wholly fresh planning-tree replication is still warranted.
+and a wholly fresh planning-tree replication reproduces its primary depth gain.
+That replication misses two auxiliary conjunction gates, so broader model and
+task robustness remains warranted.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
