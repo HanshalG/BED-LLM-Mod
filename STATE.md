@@ -1584,3 +1584,14 @@ crosses zero. Model0,cost0;posthoc robustness,not a third confirmation.
 Public pooled RESULT SHAec2a2fb3.
 OpenRouter key still reports$180 total/$156.925423806 used=$23.074576194
 remaining after user-reported$40 top-up,so the top-up is not yet visible.
+2026-07-28: Freeze Qwen3.7-Plus cross-judge depth-three robustness before
+any Qwen response. Hold all64 policies from the two independent32-tree
+studies fixed;replace only target concepts with16 Qwen nonreasoning draws/tree,
+seeds31700--32723,exact1024,temp.7,concurrency128. Conditional on exact10
+generic-support smoke seeds31610--619 passing min16 valid/zero reasoning/
+forced/cost<=$.10. Formal gates include min16 each/128 novel per tree,
+fixed35 root differences,d3-d2 Brier>=1%+CI<0+23 wins,both studies
+directional,no Hamming/coverage/novel regression,>=3%+CI vs myopic/fixed/PTS,
+rho>=.7 and gap>=.15. Cap$3.50,live preflight>=3,no reserve;failure remains
+public with no repair/reselection. This tests endpoint model-family
+robustness,not a third planner family.
