@@ -213,6 +213,7 @@ def aggregate_tree_comparisons(
     trees: Sequence[dict[str, Any]],
     *,
     baseline: str,
+    candidate: str = "predictive_bayes_risk",
 ) -> dict[str, Any]:
     differences = [
         tree["comparisons"][baseline][
@@ -231,7 +232,7 @@ def aggregate_tree_comparisons(
         for tree in trees
     ]
     candidate_brier = sum(
-        tree["endpoint"]["predictive_bayes_risk"][
+        tree["endpoint"][candidate][
             "mean_posterior_predictive_brier"
         ]
         for tree in trees
@@ -241,7 +242,7 @@ def aggregate_tree_comparisons(
         for tree in trees
     ) / len(trees)
     candidate_hamming = sum(
-        tree["endpoint"]["predictive_bayes_risk"][
+        tree["endpoint"][candidate][
             "mean_best_hamming_error"
         ]
         for tree in trees

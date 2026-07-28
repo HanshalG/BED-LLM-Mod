@@ -590,6 +590,7 @@ def run_development(
             baseline: aggregate_tree_comparisons(
                 trees,
                 baseline=baseline,
+                candidate="predictive_bayes_risk_depth_three",
             )
             for baseline in baselines
         }

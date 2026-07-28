@@ -119,3 +119,18 @@ def test_aggregate_tree_comparisons_equal_weights_trees():
     assert result["baseline_mean_brier"] == pytest.approx(0.3)
     assert result["relative_brier_reduction"] == pytest.approx(0.5)
     assert result["brier_tree_wins"] == 2
+
+
+def test_aggregate_tree_comparisons_accepts_candidate_key():
+    tree = _tree(0.1, 0.2)
+    tree["endpoint"]["depth_three"] = tree["endpoint"].pop(
+        "predictive_bayes_risk"
+    )
+
+    result = aggregate_tree_comparisons(
+        [tree],
+        baseline="myopic_eig",
+        candidate="depth_three",
+    )
+
+    assert result["candidate_mean_brier"] == pytest.approx(0.1)

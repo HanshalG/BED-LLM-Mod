@@ -1384,3 +1384,12 @@ Freeze V2 before responses:excluded GPTmini-planner/Gemini-target smoke seed
 second-min4,target23,novel14,cost$.16479565,d3=d2 root36,no endpoints inspected.
 Fresh GPTmini27600--607/Gemini27700--707;same50-call method/prompt/controls and
 promotion rule;exact400,cap$1.50,no reserve.
+2026-07-28: Depth-three V2 is a gated development null after deterministic
+zero-call replay of all400 frozen responses (local aggregator hard-coded d2
+candidate key). Exact400/400,0 retry/reasoning/forced,cost$1.2877987. D3 roots
+differ d2 on7/8 and Brier.189507 vs d2.216140(-12.32%,CI[-.05267,-.00658],
+6 wins);vs myopic-8.49%,fixed-d3-15.13%,random-12.51%,PTS-14.03%,all Brier
+CIs<0. Hamming vs d2-8.20% but CI crosses;coverage -1.71pp. Mechanics fails:
+second-support min0,3/256 cells empty(2 all inconsistent,1 all invalid grammar),
+8 cells<4. No promotion/repair. Public RESULT SHAb3eb13f9,TREES016ed921,
+private3cfaa68e,log2f6a6291. Provider remaining$1.248146094;pause paid work.

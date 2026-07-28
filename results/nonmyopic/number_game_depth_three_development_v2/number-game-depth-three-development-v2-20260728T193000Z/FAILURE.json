@@ -1,0 +1,7 @@
+{
+  "completed_trees": 8,
+  "error": "KeyError: 'predictive_bayes_risk'",
+  "raw_responses_sha256": "3cfaa68e16dcc869244dba106492bff3fa2536d32715bf3990cad09d2ddaa0ce",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
