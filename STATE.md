@@ -1090,3 +1090,12 @@ or gate may be interpreted. Prospectively repair only diagnostic component
 normalization by recomputing initial-only and refresh-only conditionals in their own
 stable log spaces;cap/data/noise/thresholds unchanged,then rerun both exact open
 replays. Model0,cost0.
+2026-07-28: Conservative-mixture stable replays reproduce uncapped/fixed to<=3.6e-15
+on both trees. Structured tree passes:cap B3.026841 vs fixed3.070884=1.434%,paired
+CI[.03898,.04931],and all4 regions improve. Original tree is directionally positive
+but misses frozen magnitude:cap2.974949 vs fixed3.000591=.855%,CI[.02169,.02942];
+positive CI but <1% makes conjunctive gate fail. Do not round/relax/tune cap or launch
+a third paid tree. This fixed rule repairs fresh-tree uncapped support effect
+-5.66% to+1.43% and helps both trees,so overpromotion diagnosis is credible,but exact
+hard-cap method is rejected. Model0,cost0;next route must model data-dependent support
+selection generatively rather than tune this endpoint.
