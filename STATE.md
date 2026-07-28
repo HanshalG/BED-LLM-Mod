@@ -1081,3 +1081,12 @@ endpoints with common random numbers. Require both reproduce retained/fixed<1e-1
 cap beats fixed>=1%,and paired fixed-minus-cap CI lower>0. Any failure rejects cap
 and forbids paid third tree;pass only authorizes separately frozen confirmation with
 internal D/B/>=10% gate. Model0,cost0,OatML0.
+2026-07-28: Conservative replay structured-tree side passes:cap B3.02684 vs fixed
+3.07088=1.434% gain,paired CI[.03898,.04931],reproduction<1e-13. Original-tree
+first execution is numerically inadmissible:combined posterior rounds refresh mass
+to1 on some events,so dividing the tiny initial slice by1-m produces inf/NaN and
+fixed reproduction fails. Uncapped retained still reproduces1.8e-15,but no cap value
+or gate may be interpreted. Prospectively repair only diagnostic component
+normalization by recomputing initial-only and refresh-only conditionals in their own
+stable log spaces;cap/data/noise/thresholds unchanged,then rerun both exact open
+replays. Model0,cost0.

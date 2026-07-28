@@ -233,12 +233,38 @@ def analyze(
             initial_probabilities = posterior[:, :split]
             refresh_probabilities = posterior[:, split:]
             refresh_mass = refresh_probabilities.sum(axis=1)
-            initial_prediction = (
-                initial_probabilities @ initial_heldout
-            ) / (1.0 - refresh_mass[:, None])
-            refresh_prediction = (
-                refresh_probabilities @ model["heldout"]
-            ) / refresh_mass[:, None]
+            initial_conditional = retained_support_full_history_posterior(
+                initial_branch_prior=np.asarray(
+                    branch["posterior_probabilities"]
+                ),
+                refresh_branch_prior=model["prior"],
+                representative_observation=centers[branch_index],
+                actual_root_observation=root_observation,
+                initial_root_means=initial_action_means[root_action],
+                refresh_root_means=model["root_means"],
+                continuation_observations=continuation_observations,
+                initial_continuation_means=initial_action_means[continuation],
+                refresh_continuation_means=model["continuation_means"],
+                initial_component_mass=1.0,
+                refresh_component_mass=0.0,
+            )[:, :split]
+            refresh_conditional = retained_support_full_history_posterior(
+                initial_branch_prior=np.asarray(
+                    branch["posterior_probabilities"]
+                ),
+                refresh_branch_prior=model["prior"],
+                representative_observation=centers[branch_index],
+                actual_root_observation=root_observation,
+                initial_root_means=initial_action_means[root_action],
+                refresh_root_means=model["root_means"],
+                continuation_observations=continuation_observations,
+                initial_continuation_means=initial_action_means[continuation],
+                refresh_continuation_means=model["continuation_means"],
+                initial_component_mass=0.0,
+                refresh_component_mass=1.0,
+            )[:, split:]
+            initial_prediction = initial_conditional @ initial_heldout
+            refresh_prediction = refresh_conditional @ model["heldout"]
             retained_prediction = (
                 initial_probabilities @ initial_heldout
                 + refresh_probabilities @ model["heldout"]
