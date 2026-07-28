@@ -360,6 +360,12 @@ A post-hoc stratified audit pooling both 32-tree studies estimates a 2.34\%
 gain ($[-.0059,-.0020]$; 26 wins, 29 ties, 9 losses), with depth-three
 rank correlation $.920$ versus $.508$; it improves precision but does not
 change either study's frozen status.
+A preregistered cross-judge test then holds all 64 policies fixed and replaces
+only the endpoint generator with Qwen~3.7 Plus. Across 1,024 fresh supports,
+depth three again beats depth two: Brier $.1377$ versus $.1404$ (1.96\%;
+$[-.0048,-.0008]$; 24 wins), with 5.60\% lower Hamming, 1.19 points higher
+coverage, and favorable novel-target metrics. This establishes endpoint
+model-family robustness, not a third planning-generator replication.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -629,7 +635,8 @@ remains a null. Endpoint precision was selected after that result; the positive
 study fixes every root, excludes opened endpoints, and uses 512 fresh responses,
 and a wholly fresh planning-tree replication reproduces its primary depth gain.
 That replication misses two auxiliary conjunction gates, so broader model and
-task robustness remains warranted.
+task robustness remains warranted. A third-family endpoint audit passes, but
+planning-generator and task-domain robustness remain open.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%

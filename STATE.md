@@ -1601,3 +1601,13 @@ and parse to21--24 valid unique rules(min gate16). No source policy or
 scientific endpoint scored. Public SUPPORTS SHAb41e505b;private raw
 e40c3665. Observed cost projects formal exact1024 near$1.07,well below$3.50
 cap;conditional fixed-policy cross-judge is authorized without method change.
+2026-07-28: Qwen3.7-Plus fixed-policy cross-judge passes every frozen gate,
+establishing endpoint-model-family robustness. Exact1024/1024 requests/HTTP,
+0 retry/reasoning/forced,cost$1.06953856;all supports>=18 valid and every
+tree>=130 novel. Across unchanged64 policies,d3 Brier.137662 vs d2.140410
+(-1.9573%,tree CI[-.004829,-.000780],24 wins/29 same-root ties/11 losses),
+Hamming-5.598%(CI<0),coverage+1.192pp;novel Brier-.003874,Hamming-.006073,
+coverage+2.491pp. Both32-tree blocks directional(1.50/2.40%;second CI<0).
+D3 rho.7842 vs d2.4658;myopic/fixed/PTS gains9.87/6.73/7.66%,all CIs<0.
+Public RESULT SHAa7e0549f,ENDPOINTS647de3c6;private rawc32a090e. No root
+reselection;this is target-family robustness,not a third planner replication.
