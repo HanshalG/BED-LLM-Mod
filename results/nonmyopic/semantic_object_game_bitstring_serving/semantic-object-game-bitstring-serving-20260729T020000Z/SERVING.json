@@ -1,0 +1,453 @@
+{
+  "diagnostics": {
+    "planning": {
+      "raw_count": 16,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_membership_bits": 1,
+        "invalid_text": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 14
+    },
+    "target": {
+      "raw_count": 16,
+      "rejected": {
+        "duplicate_extension": 0,
+        "inconsistent": 0,
+        "invalid_membership_bits": 1,
+        "invalid_text": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 15
+    }
+  },
+  "gates": {
+    "exact_two_accepted_requests": true,
+    "planning_has_at_least_12_valid_concepts": true,
+    "target_has_at_least_12_valid_concepts": true,
+    "transport_attempt_accounting_exact": true,
+    "within_serving_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "expected_requests": 2,
+    "interface_version": "semantic-object-game-depth-three-bitstring-1",
+    "planning_model": "openai/gpt-5.4-mini",
+    "planning_seed": 36300,
+    "run_budget_usd": 0.08,
+    "scientific_endpoint_accessed": false,
+    "stage": "serving",
+    "target_model": "google/gemini-2.5-flash",
+    "target_seed": 36301,
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "5bc9515374865468c55538e7daf5e3d16fff917b19304b5b5c109451ec56a786",
+  "schema_version": 1,
+  "status": "passed",
+  "supports": {
+    "planning": [
+      {
+        "description": "Things commonly eaten as food by humans.",
+        "extension_sha256": "a900e9267972931830ddf9e5299363cfb0b75cf5b5f8257a489c038633466c76",
+        "members": [
+          "apple",
+          "banana",
+          "carrot",
+          "bread",
+          "cheese"
+        ],
+        "name": "edible foods"
+      },
+      {
+        "description": "Living organisms that are animals rather than plants, fungi, or artifacts.",
+        "extension_sha256": "d84cfcd709e01de2c2b662221c58db0c15a3ac134c2ff94fdecf3bba81a24075",
+        "members": [
+          "salmon",
+          "dog",
+          "dolphin",
+          "eagle"
+        ],
+        "name": "animals"
+      },
+      {
+        "description": "Living organisms that are plants.",
+        "extension_sha256": "71a2e674eced2a98629ee5bd9b0f9a2124bc8bda1f7edd349e24703ff1b1032b",
+        "members": [
+          "oak_tree",
+          "cactus",
+          "rose"
+        ],
+        "name": "plants"
+      },
+      {
+        "description": "Human-made physical objects intended for use or manufacture.",
+        "extension_sha256": "9b79e96ac72566a9ac8a4d129de2789664ba7076eaf98dab87b480cd24fd3d6e",
+        "members": [
+          "mushroom",
+          "hammer",
+          "scissors",
+          "compass",
+          "thermometer",
+          "bicycle",
+          "canoe",
+          "helicopter",
+          "train",
+          "violin",
+          "drum",
+          "flute",
+          "piano",
+          "smartphone",
+          "camera",
+          "refrigerator",
+          "book"
+        ],
+        "name": "artifacts and tools"
+      },
+      {
+        "description": "Objects primarily used to produce music by playing them.",
+        "extension_sha256": "d6f8b4b4e5710a0381ef8e86d1be14d537baf5fb06ed718325e150a5579bd970",
+        "members": [
+          "helicopter",
+          "train",
+          "violin",
+          "drum"
+        ],
+        "name": "musical instruments"
+      },
+      {
+        "description": "Objects designed to transport people or goods from place to place.",
+        "extension_sha256": "ee70e611a27de5a4c87f52c468084380a79a0f7028da06229dbc0e6d268d981b",
+        "members": [
+          "thermometer",
+          "bicycle",
+          "canoe",
+          "helicopter"
+        ],
+        "name": "vehicles"
+      },
+      {
+        "description": "Powered devices that operate with electronics or digital circuitry.",
+        "extension_sha256": "a0556830038d6f44592c36196e9009040cdeef92abce8baac1df4bb627c8d6c4",
+        "members": [
+          "piano",
+          "smartphone",
+          "refrigerator",
+          "umbrella"
+        ],
+        "name": "electronic devices"
+      },
+      {
+        "description": "Objects that are typically carried or used by hand rather than moved by larger transport or fixed in place.",
+        "extension_sha256": "a22c9a31a808a7aed649e93d836154f1f2a5a17af2cb084dcecbe318fa7ff3a2",
+        "members": [
+          "mushroom",
+          "hammer",
+          "scissors",
+          "compass",
+          "thermometer",
+          "helicopter",
+          "train",
+          "violin",
+          "drum",
+          "piano",
+          "smartphone",
+          "book"
+        ],
+        "name": "portable handheld objects"
+      },
+      {
+        "description": "Non-artifact living things drawn from land, sea, air, and decomposition-related ecology.",
+        "extension_sha256": "01d5615629c147acc2a086323ed646291b2fe4bb0169ef18a9317d63933c4836",
+        "members": [
+          "dolphin",
+          "eagle",
+          "oak_tree",
+          "cactus",
+          "rose"
+        ],
+        "name": "natural land/sea/air creatures and organisms"
+      },
+      {
+        "description": "Objects whose overall silhouette is roughly round, spherical, oval, or arched.",
+        "extension_sha256": "b1662511a4fccea82ded9826509178a004d2c8efaca87ce7137eff3c60e24aa7",
+        "members": [
+          "apple",
+          "salmon",
+          "dolphin",
+          "ant",
+          "cactus",
+          "hammer",
+          "violin",
+          "camera",
+          "umbrella",
+          "book"
+        ],
+        "name": "round or curved shapes"
+      },
+      {
+        "description": "Objects made of wood or strongly associated with wood as a material or source.",
+        "extension_sha256": "191d584b6664934322667b9da4b8a4ae4b06fe813453c7551ea6c589f4890036",
+        "members": [
+          "oak_tree",
+          "train",
+          "smartphone"
+        ],
+        "name": "wood-related objects"
+      },
+      {
+        "description": "Objects primarily used for reading, writing, measuring, orienting, or recording information.",
+        "extension_sha256": "9485870fd19c7b9e298bb5811dbe74f5f5de87db467343f3c0a63d03771728d0",
+        "members": [
+          "compass",
+          "thermometer",
+          "smartphone",
+          "camera"
+        ],
+        "name": "writing or reference objects"
+      },
+      {
+        "description": "Edible items that come directly from plants or animals rather than prepared tools or devices.",
+        "extension_sha256": "67600cc7957e9741b86443cd8c7e0284f74bc94e5745c2d30ca5fc63d4db4469",
+        "members": [
+          "apple",
+          "banana",
+          "carrot",
+          "bread",
+          "cheese",
+          "dog",
+          "dolphin",
+          "eagle"
+        ],
+        "name": "natural foods from plants or animals"
+      },
+      {
+        "description": "Objects whose notable structure includes wheels or cutting blades.",
+        "extension_sha256": "c258a9c7389f105790e2b6e2acaa9050b586be2df99a12a804240905bd8eb7fc",
+        "members": [
+          "mushroom",
+          "scissors",
+          "bicycle",
+          "helicopter"
+        ],
+        "name": "things with wheels or blades"
+      }
+    ],
+    "target": [
+      {
+        "description": "Objects that are typically consumed as food by humans.",
+        "extension_sha256": "6b2769b47808c38dca63e4487b2ae5843ffe558ed63135f427496b68d4869acf",
+        "members": [
+          "apple",
+          "banana",
+          "carrot",
+          "bread",
+          "cheese",
+          "salmon"
+        ],
+        "name": "Edible items"
+      },
+      {
+        "description": "Living organisms that are typically mobile, heterotrophic, and multicellular, excluding plants and fungi.",
+        "extension_sha256": "32abacc1198c73d2e5ef9e6eb967d459311a7ab3d39060fa43f7765ee785d7f5",
+        "members": [
+          "salmon",
+          "dog",
+          "dolphin",
+          "eagle",
+          "ant"
+        ],
+        "name": "Animals"
+      },
+      {
+        "description": "Living organisms that are sessile, typically photosynthetic (plants), or heterotrophic and decomposers (fungi).",
+        "extension_sha256": "75c6115fd01845fc18b568b6e32bcf382537f3eb4a92368f1bdf712b7b085856",
+        "members": [
+          "oak_tree",
+          "cactus",
+          "rose",
+          "mushroom"
+        ],
+        "name": "Plants or Fungi"
+      },
+      {
+        "description": "Objects designed to extend human capabilities or measure physical properties.",
+        "extension_sha256": "832659b1e6e428eab3305c6798174d9ec04e0067878a1874d1045989c697cc59",
+        "members": [
+          "hammer",
+          "scissors",
+          "compass",
+          "thermometer"
+        ],
+        "name": "Tools or Instruments"
+      },
+      {
+        "description": "Vehicles or devices primarily used for moving people or goods from one place to another.",
+        "extension_sha256": "ee70e611a27de5a4c87f52c468084380a79a0f7028da06229dbc0e6d268d981b",
+        "members": [
+          "thermometer",
+          "bicycle",
+          "canoe",
+          "helicopter"
+        ],
+        "name": "Modes of transportation"
+      },
+      {
+        "description": "Objects specifically designed and used to produce musical sounds.",
+        "extension_sha256": "c3dffb2e8d3d449ca086722d15b8d4c75c1ce450926255f54b0456e2dd38cdc8",
+        "members": [
+          "train",
+          "violin",
+          "drum",
+          "flute"
+        ],
+        "name": "Musical instruments"
+      },
+      {
+        "description": "Devices that operate using electronic circuits, often for communication, computing, or entertainment.",
+        "extension_sha256": "1b2a04b999f4d42dc5d969f08fec8791a08b3fb4b78de01cade92bcd2c69ac0f",
+        "members": [
+          "piano",
+          "smartphone",
+          "camera"
+        ],
+        "name": "Electronic devices"
+      },
+      {
+        "description": "Objects commonly found and used in a kitchen environment.",
+        "extension_sha256": "fdf2534cee649d6e489d60eeae94bfa17416f60ef7493eefc73694572693de9c",
+        "members": [
+          "apple",
+          "banana",
+          "carrot",
+          "bread",
+          "cheese",
+          "salmon",
+          "camera"
+        ],
+        "name": "Items found in a kitchen"
+      },
+      {
+        "description": "Objects that are manufactured or constructed by humans, as opposed to occurring naturally.",
+        "extension_sha256": "55a30102fed4b7b32334a2b439ea484ba786dad7b34b8e39cab5df4c53d6d0dc",
+        "members": [
+          "hammer",
+          "scissors",
+          "compass",
+          "thermometer",
+          "bicycle",
+          "canoe",
+          "helicopter",
+          "train",
+          "violin",
+          "drum",
+          "flute",
+          "piano",
+          "smartphone",
+          "camera",
+          "refrigerator",
+          "umbrella",
+          "book",
+          "candle"
+        ],
+        "name": "Man-made objects"
+      },
+      {
+        "description": "Objects that incorporate wheels as a primary component for movement.",
+        "extension_sha256": "133c85ca9dcef890158b27d8c077498c01d0205c4b9332aac66501b236ac764d",
+        "members": [
+          "thermometer",
+          "canoe",
+          "helicopter"
+        ],
+        "name": "Things with wheels"
+      },
+      {
+        "description": "Objects used to provide data, direction, or knowledge.",
+        "extension_sha256": "cf49766b945d0c0761fb597499c1715ed329d4b08dfbfad0f596dfb61c057954",
+        "members": [
+          "scissors",
+          "compass",
+          "piano",
+          "smartphone",
+          "book"
+        ],
+        "name": "Items that provide information/guidance"
+      },
+      {
+        "description": "Objects generally small enough to be comfortably grasped and used with a single hand.",
+        "extension_sha256": "10278c0011dbaa296dbf21b55ff6cccde3062ce5032950c568af9722a1d2b2c7",
+        "members": [
+          "banana",
+          "carrot",
+          "hammer",
+          "scissors",
+          "compass",
+          "thermometer",
+          "violin",
+          "drum",
+          "flute",
+          "piano",
+          "smartphone",
+          "camera",
+          "book",
+          "candle"
+        ],
+        "name": "Items that can be held in one hand"
+      },
+      {
+        "description": "Objects designed or commonly known to generate audible sounds, either intentionally or as a primary function.",
+        "extension_sha256": "fcd0d78ed350d3c8ab220dcde51e858ac0f61feb014c436c9d0935df0564905b",
+        "members": [
+          "train",
+          "violin",
+          "drum",
+          "flute",
+          "piano",
+          "smartphone"
+        ],
+        "name": "Items that produce sound"
+      },
+      {
+        "description": "Organisms that are alive, including animals, plants, and fungi.",
+        "extension_sha256": "169e7e04facaa308cb36bfe594e915aff79800c45f3f42387c114284fb24d2eb",
+        "members": [
+          "apple",
+          "banana",
+          "carrot",
+          "salmon",
+          "dog",
+          "dolphin",
+          "eagle",
+          "ant",
+          "oak_tree",
+          "cactus",
+          "rose",
+          "mushroom"
+        ],
+        "name": "Living things"
+      },
+      {
+        "description": "Objects that are typically found in, on, or used in relation to water.",
+        "extension_sha256": "caec9cc51ea207c1ac577392ae22719c1a07f2acf85d68fe7dc4dfd311484734",
+        "members": [
+          "salmon",
+          "dolphin",
+          "bicycle"
+        ],
+        "name": "Items related to water"
+      }
+    ]
+  },
+  "usage": {
+    "adapter_requests": 2,
+    "forced_exits": 0,
+    "http_attempts": 2,
+    "provider_error_retries": 0,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.00626555
+  }
+}

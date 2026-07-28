@@ -1703,3 +1703,10 @@ cap$.08,and needs>=12 valid each. Only a full pass unlocks one fresh exact49
 mechanics tree seed36400,validation36500--503,endpoint36600--607,cap$.75,
 all original semantic/support/active-depth gates unchanged and serving hash
 bound. No V2 reuse/recovery/pooling;any bitstring failure closes the route.
+2026-07-29: Semantic Object Game bitstring cross-provider serving passes every
+frozen gate. Exact2/2 requests+HTTP,0 retry/provider-error/reasoning/forced,
+cost$.00626555. GPTmini yields14/16 valid unique concepts(one duplicate,one
+outside3--29);Gemini yields15/16(one outside range),both>=12. No scientific
+endpoint opened. Public SERVING SHA975303f2,private raw5bc95153. This
+authorizes exactly one fresh hash-bound49-call mechanics tree under frozen
+seed36400/validation36500--503/endpoint36600--607 and$.75 cap.
