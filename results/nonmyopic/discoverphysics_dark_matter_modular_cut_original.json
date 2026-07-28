@@ -1,0 +1,95 @@
+{
+  "by_region": {
+    "NE": {
+      "branch_one_fraction": 0.9830729166666666,
+      "capped_at_prior_mse": 2.7743192356220345,
+      "initial_component_mse": 2.826851082182344,
+      "mean_refresh_posterior_mass": 0.32007064737402224,
+      "modular_cut_mse": 2.7680809812421345,
+      "refresh_component_better_fraction": 0.6018880208333333,
+      "refresh_component_mse": 2.4795606284650638,
+      "retained_mse": 2.5323820715158325
+    },
+    "NW": {
+      "branch_one_fraction": 0.4479166666666667,
+      "capped_at_prior_mse": 1.5131078776777882,
+      "initial_component_mse": 1.5209923264368979,
+      "mean_refresh_posterior_mass": 0.17425316726700274,
+      "modular_cut_mse": 1.5107323257298482,
+      "refresh_component_better_fraction": 0.34993489583333337,
+      "refresh_component_mse": 2.469722510600344,
+      "retained_mse": 1.7626004974939868
+    },
+    "SE": {
+      "branch_one_fraction": 0.5312500000000001,
+      "capped_at_prior_mse": 2.432171139525991,
+      "initial_component_mse": 2.4768342265312673,
+      "mean_refresh_posterior_mass": 0.5560466703058522,
+      "modular_cut_mse": 2.4321495726655096,
+      "refresh_component_better_fraction": 0.8616536458333334,
+      "refresh_component_mse": 2.1664232907619096,
+      "retained_mse": 2.2111384790343647
+    },
+    "SW": {
+      "branch_one_fraction": 0.011718750000000003,
+      "capped_at_prior_mse": 5.840357082671189,
+      "initial_component_mse": 5.8293482648862724,
+      "mean_refresh_posterior_mass": 0.3198141975352729,
+      "modular_cut_mse": 5.840671901061605,
+      "refresh_component_better_fraction": 0.18782552083333337,
+      "refresh_component_mse": 6.56018658957556,
+      "retained_mse": 5.827692659628837
+    }
+  },
+  "conservative_cap": {
+    "capped_mse": 2.9749485880389868,
+    "capped_vs_fixed_reduction": 0.008545855343578193,
+    "fixed_minus_capped_ci95": [
+      0.02169347715998161,
+      0.029423920581371603
+    ],
+    "fixed_support_mse": 3.000591206434388,
+    "paired_lower_bound_positive": true,
+    "reduction_at_least_1_percent": false,
+    "refresh_mass_cap": 0.05
+  },
+  "endpoint_kind": "original_confirmation",
+  "event_level": {
+    "mean_refresh_mass_when_better": 0.41994206249079813,
+    "mean_refresh_mass_when_worse": 0.19362220395500593,
+    "refresh_better_fraction": 0.46946614583333335,
+    "refresh_mass_advantage_correlation": 0.06689831056226156
+  },
+  "interface_version": "discoverphysics-dark-matter-structured-replication-analysis-1",
+  "modular_cut": {
+    "cut_mse": 2.97180142769468,
+    "cut_vs_fixed_reduction": 0.009594702096697468,
+    "fixed_minus_cut_ci95": [
+      0.024891095969171197,
+      0.03255442100891866
+    ],
+    "fixed_support_mse": 3.000591206434388,
+    "paired_lower_bound_positive": true,
+    "reduction_at_least_1_percent": false,
+    "refresh_component_mass": 0.05
+  },
+  "new_model_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "overall": {
+    "branch_one_fraction": 0.5830729166666667,
+    "capped_at_prior_mse": 2.9749485880389868,
+    "initial_component_mse": 3.000591206434388,
+    "mean_refresh_posterior_mass": 0.2998717156673495,
+    "modular_cut_mse": 2.97180142769468,
+    "refresh_component_better_fraction": 0.46946614583333335,
+    "refresh_component_mse": 3.2614206515574313,
+    "retained_mse": 2.928385357683733
+  },
+  "reproduction": {
+    "fixed_max_abs_error": 3.552713678800501e-15,
+    "retained_max_abs_error": 1.7763568394002505e-15
+  },
+  "schema_version": 1,
+  "source_status": "confirmation_pass",
+  "status": "posthoc_descriptive"
+}

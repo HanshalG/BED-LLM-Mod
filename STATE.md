@@ -1107,3 +1107,11 @@ min(m,.05):cut mass is always.05,no grid/tuning/region exception. On both existi
 384-map endpoints require exact reproduction,+>=1% vs fixed B,and positive paired CI;
 only then require each tree internal immediate D,cut-risk B,and>=10% B-vs-D. Any
 failure forbids paid third tree;do not relax after cap.855%. Model0,cost0,OatML0.
+2026-07-28: Modular-cut endpoint development is directionally replicated but misses
+the frozen conjunction. Exact reproduction<=3.6e-15. Original cut B2.971801 vs
+fixed3.000591=.9595%,CI[.02489,.03255],positive but <1%;structured cut3.024578 vs
+fixed3.070884=1.5079%,CI[.04132,.05149]. Do not round/relax,run internal gates,or
+buy third tree. Model0,cost0. Both trees benefiting from fixed module probability
+supports the cut-feedback diagnosis;next distinct successor may change branch support
+generation itself to require all4 regions and bounded regional masses,then use a new
+tree/endpoint rather than retune the closed cut.
