@@ -1453,3 +1453,10 @@ parent/generated controls,myopic/fixed/random,rho/concordance and novel
 targets. PTS descriptive only. Cap$3.60,no reserve;projected$3.25. Live
 balance$.127224544,so runner is frozen and tested but paid execution awaits
 top-up.
+2026-07-28: Zero-cost full-retention launch rehearsal passes after freeze.
+Deterministic fake structured adapters execute the complete50-call tree
+(49 planning+1 target),all controls,public rescoring,and both retention
+refreshes;mean retained support is strictly larger than generated-only at each
+refresh. Focused suite47 passed;legacy replay remains exact. Live OpenRouter
+credits endpoint reports$140 total/$139.893581356 used=$.106418644 remaining,
+so the exact1000-call run is not started. No reserve will be held after top-up.

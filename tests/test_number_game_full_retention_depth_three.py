@@ -1,5 +1,9 @@
+import json
+import re
+
 import pytest
 
+from scripts import number_game_depth_three_development as depth
 from scripts.number_game_full_retention_depth_three import (
     BRIER_TOLERANCE,
     EXPECTED_REQUESTS,
@@ -8,6 +12,7 @@ from scripts.number_game_full_retention_depth_three import (
     TREE_SEEDS,
     powered_gates,
 )
+from scripts.number_game_retained_depth_three import score_public_tree
 
 
 def _comparison(
@@ -107,3 +112,143 @@ def test_powered_gate_is_conjunctive():
         usage=usage,
         aggregate=aggregate,
     )["brier_cluster_ci_vs_depth_two_below_zero"]
+
+
+class _DepthFakeAdapter:
+    def __init__(self, stage_offsets: list[int]) -> None:
+        self.stage_offsets = stage_offsets
+        self.batch_index = 0
+        self.requests = 0
+
+    @staticmethod
+    def _response(
+        observations: list[tuple[int, bool]],
+        *,
+        offset: int,
+    ) -> str:
+        if not observations and offset == 0:
+            expressions = []
+            for modulus in range(2, 12):
+                for remainder in range(modulus):
+                    expressions.append(
+                        f"n % {modulus} == {remainder}"
+                    )
+                    if len(expressions) == 24:
+                        return json.dumps(
+                            {
+                                "hypotheses": [
+                                    {
+                                        "name": f"fake_prior_{index}",
+                                        "expression": expression,
+                                    }
+                                    for index, expression in enumerate(
+                                        expressions
+                                    )
+                                ]
+                            }
+                        )
+            raise AssertionError("fake prior pool was too small")
+        positives = [
+            number for number, label in observations if label
+        ]
+        observed = {number for number, _ in observations}
+        extras = []
+        for step in range(101):
+            number = (offset + step) % 101
+            if number in observed:
+                continue
+            extras.append(number)
+            if len(extras) == 24:
+                break
+        hypotheses = []
+        for index, extra in enumerate(extras):
+            members = [*positives, extra]
+            expression = " or ".join(
+                f"n == {number}" for number in members
+            )
+            hypotheses.append(
+                {
+                    "name": f"fake_{offset}_{index}",
+                    "expression": expression,
+                }
+            )
+        return json.dumps({"hypotheses": hypotheses})
+
+    def chat_complete_messages_batched_structured(
+        self,
+        messages,
+        **kwargs,
+    ):
+        del kwargs
+        offset = self.stage_offsets[self.batch_index]
+        self.batch_index += 1
+        self.requests += len(messages)
+        responses = []
+        for request in messages:
+            prompt = request[-1]["content"]
+            observations = [
+                (int(number), label == "YES")
+                for number, label in re.findall(
+                    r"Is (\d+) in the concept\? (YES|NO)\.",
+                    prompt,
+                )
+            ]
+            responses.append(
+                self._response(observations, offset=offset)
+            )
+        return responses
+
+    def usage_snapshot(self):
+        return {
+            "adapter_requests": self.requests,
+            "http_attempts": self.requests,
+            "retry_count": 0,
+            "adapter_reasoning_tokens": 0,
+            "forced_exits": 0,
+            "adapter_cost_usd": 0.0,
+        }
+
+
+def test_full_retention_rehearsal_exercises_both_refreshes(
+    tmp_path,
+    monkeypatch,
+):
+    planning = _DepthFakeAdapter([0, 30, 60])
+    target = _DepthFakeAdapter([70])
+    adapters = iter((planning, target))
+    monkeypatch.setattr(
+        depth,
+        "_adapter",
+        lambda **kwargs: next(adapters),
+    )
+
+    tree, artifacts = depth.run_tree_depth_three(
+        tree_index=0,
+        tree_seed=28000,
+        target_seed=28100,
+        output_dir=tmp_path,
+        run_id="fake-full-retention",
+        first_support_mode=depth.FIRST_SUPPORT_RETAINED_REJUVENATION,
+        second_support_mode=depth.SECOND_SUPPORT_RETAINED_REJUVENATION,
+        brier_tolerance=BRIER_TOLERANCE,
+    )
+    scored = score_public_tree(artifacts["public"])
+
+    assert planning.requests == 49
+    assert target.requests == 1
+    assert tree["mechanics"]["exact_50_requests"]
+    assert tree["first_support_mode"] == "retained_rejuvenation"
+    assert tree["second_support_mode"] == "retained_rejuvenation"
+    assert (
+        scored["mechanics"]["mean_first_branch_valid"]
+        > scored["mechanics"]["mean_generated_first_branch_valid"]
+    )
+    assert (
+        scored["mechanics"]["mean_retained_second_branch_valid"]
+        > scored["mechanics"]["mean_generated_second_branch_valid"]
+    )
+    assert scored["mechanics"]["minimum_first_branch_valid"] >= 24
+    assert (
+        scored["mechanics"]["minimum_retained_second_branch_valid"]
+        >= 24
+    )
