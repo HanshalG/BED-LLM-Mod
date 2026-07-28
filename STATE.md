@@ -1242,3 +1242,14 @@ positive with load-bearing LLM proposal dynamics,but one planning tree only.
 All criteria authorize a prospectively frozen independent multi-tree
 replication;no final claim yet. Public RESULT SHA59b6368e;private SHA
 c7ff1f83.
+2026-07-28: Freeze independent Number Game predictive-risk replication before
+responses. Eight fresh Gemini2.5Flash planning trees seeds26070--26077 and
+eight independent GPT-5.4 target supports seeds26170--26177;nonreasoning,
+temp.7,strict schema. Exact18 calls/tree=144. Same safe grammar/filter,
+24-rule supports,8 candidates,terminal predictive-Brier policy,and shared
+realized branch execution. Controls:myopic,fixed-depth2,uniform2-root PTS,
+exact uniform8-root random. Equal tree weighting;50k whole-tree bootstrap
+seed26270. Require all structural gates,root difference >=6/8,>=5% Brier
+gains with CIs versus myopic/fixed,>=6/8 myopic wins,>=5% Hamming+CI/no
+coverage loss,>=5% versus PTS/random,and novel-target directional gains.
+Cap$2,no reserve,no OatML. 37 focused tests pass.
