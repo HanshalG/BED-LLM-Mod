@@ -1192,3 +1192,18 @@ Worst.331%<.5% and mean.815%<1%,so no confirmation. Fresh-branch curve peaks
 near.125 then loses paired positivity by.175,while structured keeps improving:
 heterogeneous branch quality,not merely a timid global step,is binding. Public
 SHA2755e696;model0,cost0. No grid/threshold/tree refinement.
+2026-07-28: Pivot to the Number Game after closing DiscoverPhysics global
+support coefficients. Freeze a fresh generator-aware depth2 development tree
+before any Number Game response: Gemini2.5Flash nonreasoning/temp0 proposes
+24 safe executable rules initially and after both labels of8 candidate roots
+(exact17 calls). Uniform extension-deduped particles;simulated branch support
+always retains its sampled current truth plus valid history-consistent generated
+rules. Compare against matched myopic EIG,classical fixed-support depth2,and
+seeded random. Mechanics require >=16 initial/>=8 every branch,branch
+path-dependence,a root distinct from both deterministic controls,>=.01nat
+advantage,and >=75% leave-one-out stability. Published12-rule endpoint is
+developmental;independent-tree confirmation requires frozen >=5% Brier and
+best-Hamming gains versus myopic,no coverage loss,and parity or better versus
+fixed depth2. Full live OpenRouter balance is usable with no reserve;provider
+remaining before this run is$8.6122. Fake exact17-call rehearsal and30 focused
+tests pass. OatML remains excluded.
