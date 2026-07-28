@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v10"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v11"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -450,7 +450,7 @@ def invalid_question_reason(question: str) -> str | None:
         return "empty"
     has_question_punctuation = normalized.endswith(("?", "？"))
     has_chinese_interrogative = re.search(
-        r"(?:是否|还是|要不要|哪(?:个|些|一|种)?|什么|如何|怎么|几|谁|何时|哪里|吗|呢)",
+        r"(?:是否|还是|要不要|会不会|哪(?:个|些|一|种)?|什么|如何|怎么|几|谁|何时|哪里|吗|呢)",
         normalized,
     ) is not None
     has_specific_request = re.match(
@@ -458,15 +458,25 @@ def invalid_question_reason(question: str) -> str | None:
         r"(?:tell|share|provide|paste|confirm|specify|clarify|choose|indicate|send|list)\b",
         normalized,
         re.IGNORECASE,
+    ) is not None
+    has_chinese_request = (
+        "请" in normalized
+        and re.search(
+            r"(?:给|发|告诉|分享|提供|上传|粘贴|确认|说明|选择|指出|发送|列出)",
+            normalized,
+        )
+        is not None
+    ) or re.search(
+        r"(?:给我|发我|告诉我|传给我|列给我)", normalized
     ) is not None or re.match(
-        r"^(?:请)?(?:先)?"
-        r"(?:告诉|分享|提供|粘贴|确认|说明|选择|指出|发送|发一下|发|给我|给|列出)",
+        r"^(?:先)?(?:发一下|发来|发我|给我|告诉我|提供|上传|粘贴|列出)",
         normalized,
     ) is not None
     if (
         not has_question_punctuation
         and not has_chinese_interrogative
         and not has_specific_request
+        and not has_chinese_request
     ):
         return "not_a_question"
     if len(normalized) > 320:

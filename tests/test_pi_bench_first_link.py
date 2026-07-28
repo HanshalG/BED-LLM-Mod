@@ -181,6 +181,19 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
         )
         is None
     )
+    assert (
+        invalid_question_reason(
+            "若需并入旧线程，请把现有主题发我。"
+        )
+        is None
+    )
+    assert (
+        invalid_question_reason(
+            "请直接上传或粘贴评论文件，我才能开始整理。"
+        )
+        is None
+    )
+    assert invalid_question_reason("这份结果会不会直接发给导师？") is None
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(
