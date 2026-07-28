@@ -1651,3 +1651,15 @@ independent-provider replication is authorized only if all original science
 gates pass on31:roots/wins>=12,Brier>=1%+CI<0,no Hamming/coverage/novel
 regression,myopic/fixed>=5%,PTS>=3% with CIs<0,rho>=.7/gap>=.15. Otherwise
 close Qwen planner efficacy route without more spend.
+2026-07-28: Zero-call replay31 fails the frozen all-metric spend gate despite
+strong primary proper-score planner transfer;formal serving failure remains.
+D3 Brier.164628 vs equally-crossfit d2.174717(-5.7745%,CI[-.014129,
+-.006345],21 wins,roots differ22/31),rho.9293 vs.5131,concordance.9251
+vs.7039. Myopic/fixed/PTS gains10.44/8.52/12.63%,all CIs<0;crossfit also
+beats in-sample d3 by2.44%(CI<0). Fails Hamming(+2.162%,CI crosses),
+coverage(-1.349pp),and novel conjunction(Brier-.007498 but Hamming+.002810,
+coverage-2.916pp). One tree novel total125<original formal128. Model0;
+replays2263 original responses/$3.3512 represented. Public RESULT
+SHAa645c921,TREES7abae080,ENDPOINTSaa93e20f. No further Qwen-planner paid
+replication. Interpret as strong posthoc Brier/ranking evidence with
+loss-alignment limitation,not formal all-gates robustness.
