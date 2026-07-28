@@ -1441,3 +1441,15 @@ first-support,root depth difference,d2 wins,generated-root difference. No
 rerun/repair. Public RESULT SHA39edaa69,TREESb6c157f7,private4d3a5f19,log
 6534cb7d. Live provider balance$.127224544. Next principled change is retention
 at first and second refresh,which changes second queries and needs fresh calls.
+2026-07-28: Freeze powered full-retention Number Game d3 before any response.
+Both refreshes now union valid generated rules with consistent parent
+particles;the first merged support therefore changes the greedy second query.
+Fresh20 GPTmini/Gemini trees seeds28000--019/28100--119,exact1000,
+nonreasoning,temp.7,same prompts/parser/eight roots and frozen.005 Brier risk
+set. Six-tree paired d3-d2 Brier mean-.003406976,SD.007758362 gives normal
+n=19.921,fixing20. Primary gates require d3-d2 root differences/wins>=6,
+Brier gain>=1% with tree CI<0,no Hamming/coverage regression;plus mechanics,
+parent/generated controls,myopic/fixed/random,rho/concordance and novel
+targets. PTS descriptive only. Cap$3.60,no reserve;projected$3.25. Live
+balance$.127224544,so runner is frozen and tested but paid execution awaits
+top-up.

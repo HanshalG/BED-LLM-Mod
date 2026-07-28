@@ -55,6 +55,12 @@ MIN_FIRST_BRANCH_VALID = 8
 MIN_SECOND_BRANCH_VALID = 4
 MIN_TARGET_VALID = 16
 MIN_NOVEL_TARGETS = 8
+FIRST_SUPPORT_GENERATED_ONLY = "generated_only"
+FIRST_SUPPORT_RETAINED_REJUVENATION = "retained_rejuvenation"
+FIRST_SUPPORT_MODES = {
+    FIRST_SUPPORT_GENERATED_ONLY,
+    FIRST_SUPPORT_RETAINED_REJUVENATION,
+}
 SECOND_SUPPORT_GENERATED_ONLY = "generated_only"
 SECOND_SUPPORT_RETAINED_REJUVENATION = "retained_rejuvenation"
 SECOND_SUPPORT_MODES = {
@@ -324,9 +330,14 @@ def run_tree_depth_three(
     projected_planning_cost: float = 0.30,
     projected_target_cost: float = 0.02,
     run_budget_usd: float = RUN_BUDGET_USD,
+    first_support_mode: str = FIRST_SUPPORT_GENERATED_ONLY,
     second_support_mode: str = SECOND_SUPPORT_GENERATED_ONLY,
     brier_tolerance: float = 0.0,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    if first_support_mode not in FIRST_SUPPORT_MODES:
+        raise ValueError(
+            f"unsupported first_support_mode {first_support_mode!r}"
+        )
     if second_support_mode not in SECOND_SUPPORT_MODES:
         raise ValueError(
             f"unsupported second_support_mode {second_support_mode!r}"
@@ -376,6 +387,7 @@ def run_tree_depth_three(
         response_format=proposal_response_format(),
         max_new_tokens=MAX_TOKENS,
     )
+    generated_first_branches = {}
     first_branches = {}
     first_diagnostics = {}
     for key, response in zip(
@@ -383,14 +395,42 @@ def run_tree_depth_three(
         first_responses,
         strict=True,
     ):
-        hypotheses, diagnostics = parse_proposals(
+        generated, diagnostics = parse_proposals(
             response,
             observations=(key,),
         )
+        generated_first_branches[key] = generated
+        if (
+            first_support_mode
+            == FIRST_SUPPORT_RETAINED_REJUVENATION
+        ):
+            hypotheses, retention = retain_parent_hypotheses(
+                parent_support=initial,
+                generated_support=generated,
+                query=key[0],
+                label=key[1],
+            )
+        else:
+            hypotheses = generated
+            retained = [
+                hypothesis
+                for hypothesis in initial
+                if hypothesis.extension[key[0]] == key[1]
+            ]
+            retention = {
+                "generated_unique_count": len(generated),
+                "retained_parent_consistent_count": len(retained),
+                "retained_parent_novel_count": 0,
+                "merged_unique_count": len(generated),
+            }
         first_branches[key] = hypotheses
         first_diagnostics[
             f"{key[0]}:{int(key[1])}"
-        ] = diagnostics
+        ] = {
+            **diagnostics,
+            **retention,
+            "valid_unique_count": len(hypotheses),
+        }
 
     second_keys = []
     for root, first_label in first_keys:
@@ -612,6 +652,14 @@ def run_tree_depth_three(
             item["valid_unique_count"]
             for item in first_diagnostics.values()
         ),
+        "minimum_generated_first_branch_valid": min(
+            item["generated_unique_count"]
+            for item in first_diagnostics.values()
+        ),
+        "minimum_retained_initial_consistent": min(
+            item["retained_parent_consistent_count"]
+            for item in first_diagnostics.values()
+        ),
         "minimum_second_branch_valid": min(
             item["valid_unique_count"]
             for item in second_diagnostics.values()
@@ -653,6 +701,7 @@ def run_tree_depth_three(
         "initial_diagnostics": initial_diagnostics,
         "first_branch_diagnostics": first_diagnostics,
         "second_branch_diagnostics": second_diagnostics,
+        "first_support_mode": first_support_mode,
         "second_support_mode": second_support_mode,
         "brier_tolerance": brier_tolerance,
         "target_diagnostics": {
@@ -700,6 +749,13 @@ def run_tree_depth_three(
             ]
             for root, label in first_keys
         },
+        "generated_first_branches": {
+            f"{root}:{int(label)}": [
+                hypothesis.public_dict()
+                for hypothesis in generated_first_branches[(root, label)]
+            ]
+            for root, label in first_keys
+        },
         "second_branches": {
             f"{root}:{int(first_label)}:{second_query}:{int(second_label)}": [
                 hypothesis.public_dict()
@@ -719,6 +775,7 @@ def run_tree_depth_three(
             for root, first_label, second_query, second_label in second_keys
         },
         "second_support_mode": second_support_mode,
+        "first_support_mode": first_support_mode,
         "brier_tolerance": brier_tolerance,
         "targets": [
             {

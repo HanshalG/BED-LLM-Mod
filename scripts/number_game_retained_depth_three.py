@@ -64,10 +64,12 @@ def _rule(item: dict[str, Any]) -> RuleHypothesis:
 
 def _first_branches(
     tree: dict[str, Any],
+    *,
+    key: str = "first_branches",
 ) -> dict[tuple[int, bool], list[RuleHypothesis]]:
     branches = {}
-    for key, items in tree["first_branches"].items():
-        root, label = key.split(":")
+    for branch_key, items in tree[key].items():
+        root, label = branch_key.split(":")
         branches[(int(root), bool(int(label)))] = [
             _rule(item) for item in items
         ]
@@ -141,6 +143,15 @@ def score_public_tree(tree: dict[str, Any]) -> dict[str, Any]:
     initial = [_rule(item) for item in tree["initial"]]
     roots = [int(root) for root in tree["roots"]]
     first = _first_branches(tree)
+    generated_first_key = (
+        "generated_first_branches"
+        if "generated_first_branches" in tree
+        else "first_branches"
+    )
+    generated_first = _first_branches(
+        tree,
+        key=generated_first_key,
+    )
     generated_key = (
         "generated_second_branches"
         if "generated_second_branches" in tree
@@ -286,6 +297,17 @@ def score_public_tree(tree: dict[str, Any]) -> dict[str, Any]:
             "minimum_first_branch_valid": min(
                 len(branch) for branch in first.values()
             ),
+            "minimum_generated_first_branch_valid": min(
+                len(branch) for branch in generated_first.values()
+            ),
+            "mean_first_branch_valid": sum(
+                len(branch) for branch in first.values()
+            )
+            / len(first),
+            "mean_generated_first_branch_valid": sum(
+                len(branch) for branch in generated_first.values()
+            )
+            / len(generated_first),
             "minimum_generated_second_branch_valid": min(
                 len(branch) for branch in generated.values()
             ),

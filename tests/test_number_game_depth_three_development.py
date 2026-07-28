@@ -1,4 +1,7 @@
+import pytest
+
 from scripts.number_game_depth_three_development import (
+    FIRST_SUPPORT_RETAINED_REJUVENATION,
     PLANNING_MODEL_ID,
     TARGET_MODEL_ID,
     TARGET_SEEDS,
@@ -6,6 +9,7 @@ from scripts.number_game_depth_three_development import (
     choose_risk_set_root,
     evaluate_policy_root_depth_three,
     retain_parent_hypotheses,
+    run_tree_depth_three,
     static_depth_three_branches,
 )
 from scripts.number_game_generator_aware_bed import (
@@ -121,6 +125,20 @@ def test_retained_rejuvenation_merges_consistent_parent_particles():
         "retained_parent_novel_count": 1,
         "merged_unique_count": 2,
     }
+
+
+def test_first_support_mode_is_opt_in_and_validated(tmp_path):
+    assert FIRST_SUPPORT_RETAINED_REJUVENATION == "retained_rejuvenation"
+
+    with pytest.raises(ValueError, match="unsupported first_support_mode"):
+        run_tree_depth_three(
+            tree_index=0,
+            tree_seed=1,
+            target_seed=2,
+            output_dir=tmp_path,
+            run_id="invalid-first-support-mode",
+            first_support_mode="not-a-mode",
+        )
 
 
 def test_risk_set_uses_hamming_only_inside_brier_tolerance():
