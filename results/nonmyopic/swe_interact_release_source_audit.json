@@ -1,0 +1,156 @@
+{
+  "all_pass": true,
+  "audit": "swe_interact_release_source_mechanics",
+  "counts": {
+    "materially_incomplete_public_starts": 9,
+    "mechanics_tasks": 9,
+    "shared_persona_prefix_lines": 190,
+    "tasks_with_at_least_four_atomic_requirements": 9,
+    "tasks_with_dependency_structure": 9,
+    "tasks_with_external_verifier": 9
+  },
+  "decision": "authorize_preregistered_mechanics_serving_gate",
+  "gates": {
+    "dependency_structure_at_least_6_of_9": true,
+    "external_verifier_not_user_satisfaction": true,
+    "forkable_and_target_blind": true,
+    "four_atomic_hidden_requirements_at_least_7_of_9": true,
+    "not_finite_candidate_response_table": true,
+    "public_start_materially_incomplete_at_least_7_of_9": true,
+    "reply_conditions_on_history_or_workspace": true,
+    "vague_questions_do_not_auto_dump_requirements": true
+  },
+  "manifest_sha256": "d6184d7decef79e596a522f57b79fecd1aafbc838721290245baaf54d3295102",
+  "model_requests": 0,
+  "opened_partitions": [
+    "mechanics"
+  ],
+  "openrouter_cost_usd": 0.0,
+  "schema_version": 1,
+  "sealed_partitions": [
+    "development",
+    "confirmation",
+    "retained"
+  ],
+  "simulator_checks": {
+    "forkable_private_state": true,
+    "full_conversation_conditions_reply": true,
+    "generative_not_response_table": true,
+    "generic_questions_do_not_dump_checklist": true,
+    "one_issue_at_a_time": true,
+    "private_task_unavailable_to_policy": true,
+    "workspace_state_conditions_review": true
+  },
+  "source_commit": "b32f98c3b8f76ca65e84341d1f30e5af7135f85d",
+  "source_tree": "d2b16852aa541c780598283ceb0302a4dbe66aff",
+  "tasks": [
+    {
+      "atomic_requirement_count": 14,
+      "count_source": "private task bullet groups backed by released tests",
+      "dependency_example": "async detection -> fetch lifecycle -> stale-result handling",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "deepswe",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 413,
+      "public_initial_instruction_words": 61,
+      "task_id": "deepswe_clack-async-autocomplete-options"
+    },
+    {
+      "atomic_requirement_count": 47,
+      "count_source": "private task bullet groups backed by released tests",
+      "dependency_example": "per-origin state -> transition rules -> fast-fail behavior",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "deepswe",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 490,
+      "public_initial_instruction_words": 61,
+      "task_id": "deepswe_ofetch-per-origin-circuit-breaker"
+    },
+    {
+      "atomic_requirement_count": 11,
+      "count_source": "conservative API/rule groups backed by released tests",
+      "dependency_example": "conflict representation -> analysis API -> strict build behavior",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "deepswe",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 354,
+      "public_initial_instruction_words": 61,
+      "task_id": "deepswe_participle-grammar-conflict-analysis"
+    },
+    {
+      "atomic_requirement_count": 7,
+      "count_source": "released positive verifier rubrics",
+      "dependency_example": "shared extraction -> inheritance -> duplicate removal",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "refactoring",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 135,
+      "public_initial_instruction_words": 62,
+      "task_id": "rf_task-694b4b99829f00e24fd118a1"
+    },
+    {
+      "atomic_requirement_count": 10,
+      "count_source": "released positive verifier rubrics",
+      "dependency_example": "feature-flag removal -> component consolidation -> cleanup",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "refactoring",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 748,
+      "public_initial_instruction_words": 61,
+      "task_id": "rf_task-696719205599a51110d4b428"
+    },
+    {
+      "atomic_requirement_count": 21,
+      "count_source": "released positive verifier rubrics",
+      "dependency_example": "symbol extraction -> type propagation -> build registration",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "refactoring",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 1148,
+      "public_initial_instruction_words": 62,
+      "task_id": "rf_task-69b7c2a04b6f8ff9ed98813b"
+    },
+    {
+      "atomic_requirement_count": 29,
+      "count_source": "released verifier requirement bullets",
+      "dependency_example": "CLI surface -> validation pipeline -> output/exit semantics",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "swebench_pro",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 1494,
+      "public_initial_instruction_words": 64,
+      "task_id": "swebenchpro_instance_flipt-io__flipt-c1728053367c753688f114ec26e703c8fdeda125"
+    },
+    {
+      "atomic_requirement_count": 12,
+      "count_source": "released verifier requirement bullets",
+      "dependency_example": "configuration -> validation -> external-scanner execution",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "swebench_pro",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 920,
+      "public_initial_instruction_words": 64,
+      "task_id": "swebenchpro_instance_future-architect__vuls-7eb77f5b5127c847481bcf600b4dca2b7a85cf3e"
+    },
+    {
+      "atomic_requirement_count": 7,
+      "count_source": "released verifier requirement bullets",
+      "dependency_example": "version-check mode -> runtime bounds -> workaround behavior",
+      "dependency_structure": true,
+      "external_verifier": true,
+      "family": "swebench_pro",
+      "materially_incomplete_public_start": true,
+      "private_task_suffix_words": 314,
+      "public_initial_instruction_words": 64,
+      "task_id": "swebenchpro_instance_qutebrowser__qutebrowser-fea33d607fde83cf505b228238cf365936437a63-v9f8e9d96c85c85a605e382f1510bd08563afc566"
+    }
+  ]
+}
