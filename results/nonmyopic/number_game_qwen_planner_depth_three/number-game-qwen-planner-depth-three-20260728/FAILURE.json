@@ -1,0 +1,6 @@
+{
+  "error": "number-game hypotheses is not exact JSON: Expecting ',' delimiter: line 44 column 473 (char 1312)",
+  "error_type": "ValueError",
+  "schema_version": 1,
+  "status": "failed_closed"
+}

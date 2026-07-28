@@ -1631,3 +1631,15 @@ single smoke;efficacy was frozen descriptive/non-gating. D3 source-endpoint
 rho1.0 vs d2.786. Public RESULT SHA2f311f91,TREESd310bfc6,
 ENDPOINTS83322c5c;private raw169ca250. Observed cost projects formal near
 $3.51<4.50 cap;no protocol change.
+2026-07-28: Qwen planner formal fails closed at the independent endpoint,
+so efficacy is unmeasured and no resume/repair is allowed. All exact2336
+requests completed for$3.46457762,0 retries/reasoning,2335 stop+1 length:
+1568 Qwen planning and768 Gemini target/validation/endpoint. Every Qwen
+initial/first/second refresh parsed and31 full trees checkpointed. One final-
+tree Gemini extra-endpoint response ended length and malformed exact JSON at
+line44 col473;runner writes only FAILURE,raw checkpoint,and log,no RESULT/
+TREES/ENDPOINTS. Do not normalize,reissue,drop,or use31 as formal aggregate.
+Private raw SHA bed953cb. This is strong Qwen planning serving evidence but
+not planner-family efficacy. Live authenticated balance$18.481667794.
+Next zero-call replay31 only as posthoc development to decide whether a
+separately frozen independent-provider replication is worth further spend.
