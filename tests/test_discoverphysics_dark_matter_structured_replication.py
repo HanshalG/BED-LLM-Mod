@@ -15,6 +15,11 @@ from scripts.analyze_discoverphysics_uncertainty_clipped_blend import (
     uncertainty_clip_factors,
     uncertainty_clipped_predictions,
 )
+from scripts.analyze_discoverphysics_robust_step_selection import (
+    COEFFICIENTS,
+    per_map_risk_from_terms,
+    select_maximin,
+)
 from scripts.discoverphysics_dark_matter_balanced_modular_replication import (
     MAP_SEEDS as BALANCED_MAP_SEEDS,
     balance_support_regions,
@@ -448,6 +453,54 @@ def test_uncertainty_clipped_development_uses_all_three_open_endpoints():
     ]
     assert all(spec.result_path.exists() for spec in specs)
     assert all((spec.source_dir / "MODEL_FROZEN.json").exists() for spec in specs)
+
+
+def test_robust_step_quadratic_reconstructs_candidate_risk():
+    candidate = per_map_risk_from_terms(
+        fixed=np.array([3.0, 4.0]),
+        linear=np.array([-2.0, 1.0]),
+        quadratic=np.array([4.0, 2.0]),
+        coefficient=0.25,
+    )
+
+    assert np.allclose(candidate, [2.75, 4.375])
+    assert COEFFICIENTS == tuple(
+        pytest.approx(index * 0.025)
+        for index in range(21)
+    )
+
+
+def test_robust_step_selection_is_maximin_then_smaller_coefficient():
+    def point(coefficient, reductions, eligible=True):
+        return {
+            "coefficient": coefficient,
+            "minimum_relative_reduction": min(reductions),
+            "mean_relative_reduction": float(np.mean(reductions)),
+            "endpoints": {
+                name: {
+                    "relative_reduction": reduction,
+                    "positive_gain": eligible,
+                    "paired_lower_bound_positive": eligible,
+                }
+                for name, reduction in zip(
+                    ("original", "structured", "fresh"),
+                    reductions,
+                    strict=True,
+                )
+            },
+        }
+
+    curve = [
+        point(0.0, (0.0, 0.0, 0.0), eligible=False),
+        point(0.10, (0.02, 0.01, 0.015)),
+        point(0.20, (0.01, 0.03, 0.02)),
+        point(0.30, (0.04, 0.04, 0.01)),
+    ]
+
+    selected = select_maximin(curve)
+
+    assert selected is not None
+    assert selected["coefficient"] == 0.10
 
 
 def test_stratified_bootstrap_preserves_constant_difference():

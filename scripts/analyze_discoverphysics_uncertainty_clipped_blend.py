@@ -224,12 +224,16 @@ def replay_endpoint(
     standard_cut_errors = np.empty(num_truths)
     clipped_errors = np.empty(num_truths)
     clip_factors = np.empty(num_truths)
+    linear_terms = np.empty(num_truths)
+    quadratic_terms = np.empty(num_truths)
 
     for truth_index in range(num_truths):
         fixed_events = []
         standard_events = []
         clipped_events = []
         factors = []
+        linear_events = []
+        quadratic_events = []
         for root_sample in range(spec.root_samples):
             root_observation = (
                 hidden_action_means[root_action][truth_index]
@@ -295,6 +299,11 @@ def replay_endpoint(
                 + REFRESH_COMPONENT_MASS * refresh_prediction
             )
             truth = hidden_heldout[truth_index]
+            clipped_direction = (
+                event_factors[:, None]
+                * (refresh_prediction - initial_prediction)
+            )
+            initial_residual = initial_prediction - truth[None, :]
             fixed_events.extend(
                 np.mean(
                     (initial_prediction - truth[None, :]) ** 2,
@@ -314,10 +323,26 @@ def replay_endpoint(
                 ).tolist()
             )
             factors.extend(event_factors.tolist())
+            linear_events.extend(
+                (
+                    2.0
+                    * np.mean(
+                        initial_residual * clipped_direction,
+                        axis=1,
+                    )
+                ).tolist()
+            )
+            quadratic_events.extend(
+                np.mean(clipped_direction**2, axis=1).tolist()
+            )
         fixed_errors[truth_index] = float(np.mean(fixed_events))
         standard_cut_errors[truth_index] = float(np.mean(standard_events))
         clipped_errors[truth_index] = float(np.mean(clipped_events))
         clip_factors[truth_index] = float(np.mean(factors))
+        linear_terms[truth_index] = float(np.mean(linear_events))
+        quadratic_terms[truth_index] = float(
+            np.mean(quadratic_events)
+        )
 
     expected_fixed = np.asarray(endpoint["per_map_fixed_support_mse"])
     fixed_risk = weighted_mean(fixed_errors, hidden_prior)
@@ -369,7 +394,11 @@ def replay_endpoint(
             hidden_prior,
         ),
         "by_region": by_region,
+        "regions": hidden_regions,
+        "per_map_fixed_mse": fixed_errors.tolist(),
         "per_map_clipped_mse": clipped_errors.tolist(),
+        "per_map_linear_term": linear_terms.tolist(),
+        "per_map_quadratic_term": quadratic_terms.tolist(),
     }
 
 

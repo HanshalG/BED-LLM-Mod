@@ -1175,3 +1175,11 @@ mean.381%<.5% and no full tree reaches1%,so no confirmation and exact5%/
 one-RMS rule closes. Mean clip factors.446/.573/.369 imply effective steps
 2.23%/2.87%/1.85%. Public SHAf4a31f3d;model0,cost0. This supports robust
 displacement calibration but needs a prospectively selected stronger step.
+2026-07-28: Freeze robust clipped-step selection before evaluating any beta
+other than closed.05. Keep exact one-RMS endpoint-blind direction;evaluate
+beta0:.025:.5 on all3 open endpoints. Eligible requires positive gain+paired
+CI on every tree;select maximin relative gain,tie smaller beta. Require fixed
+reproduction<1e-10,selected minimum gain>=.5%,mean>=1%,and one full tree>=1%.
+Failure closes route;pass alone authorizes one separately frozen fresh balanced
+branch sample+new384-map endpoint with original D/B/random/fixed/coverage gates.
+No region labels/tree removal/grid refinement. Model0,cost0,OatML0.
