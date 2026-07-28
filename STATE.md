@@ -1518,3 +1518,21 @@ Hamming no regression;crossfit-vs-in-sample-d3>=2%+CI<0+10 wins;myopic>=5%;
 rho>=.7 and d3-d2 rho gap>=.15. Coverage descriptive. Cap$6.50,projected
 $5.80,no reserve;live$36.858332144 leaves about$31 after run for remaining
 three-plus days.
+2026-07-28: Fresh32 crossfit-d3 confirmation completes exact1856/1856,
+0 retries/reasoning/forced,cost$5.7869802 and is a gated null. D3 Brier
+.155900 vs equally-crossfit d2.158345(-1.544%,13 wins,13 ties,6 losses),
+Hamming-3.66%,coverage equal,novel all improve;but tree CI[-.005115,.000214]
+crosses zero. Roots differ19/32. One endpoint has7<8 novel rules;all branch/
+validation size gates pass. Crossfit strongly beats original in-sample d3
+by4.066%,CI[-.01052,-.00324],18 wins,Hamming-8.59%,coverage+1.00pp;myopic
+-9.52%. Ranking d3 rho.7708 vs d2.5268,concordance.8237 vs.7165. Public
+RESULT SHA1081da1e,TREEScf239683,private raw79d46320. Live$31.071351944.
+Do not repair/reinterpret;single heldout support is now the noisy link.
+2026-07-28: Freeze fixed-policy endpoint-precision extension before calls.
+Bind source RESULT1081da1e/TREEScf239683;keep all32 d3/d2/control roots
+unchanged and exclude opened endpoint from primary. Generate16 entirely fresh
+Gemini nonreasoning supports/tree,seeds29000--29511,exact512,temp.7,equal draw
+weight;average within tree then tree-bootstrap. Gates:d3-vs-d2 Brier>=1%+
+CI<0+12 wins,no Hamming regression,novel Brier/Hamming no regression;
+vs in-sample d3>=2%+CI<0;myopic>=5%;rho>=.7 and rho gap>=.15;support/
+transport. Coverage descriptive. Projected$1.14,cap$1.50,no reserve.
