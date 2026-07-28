@@ -228,26 +228,20 @@ $0.542$ for horizons 1, 3, and 5. Unconstrained horizons were flat; depth was
 non-monotonic and naive remained competitive.
 
 \paragraph{LLM-native generated support is not generation-robust.}
-In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter source maps,
-then regenerated eight maps and a continuation after each of eight hypothetical
-root branches. Official N-body simulation supplied all likelihoods and held-out
-trajectory endpoints. Immediate EIG selected northeast target D; depth-two risk
-selected central scout B. A 5\% regenerated component, selected on a disclosed
-96-map development curve and then frozen, passed all gates on 384 new maps.
-B reduced MSE from $3.7854$ to $2.9284$ versus myopic D (22.6\%;
-paired interval $[.6393,1.0878]$) and from $3.0006$ versus same-root fixed
-support (2.41\%; $[.0341,.1100]$). Thus branch-conditioned generation added
-small value beyond root choice for that frozen tree. Post hoc, map-level coverage
-gain correlated $.279$ with endpoint gain.
+In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
+eight branch-conditioned supports; official N-body simulation supplied
+likelihoods and held-out trajectories. Immediate EIG chose northeast D while
+depth-two risk chose central B. A frozen 5\% regenerated component reduced MSE
+from $3.7854$ to $2.9284$ versus D (22.6\%; $[.6393,1.0878]$) and from $3.0006$
+versus fixed B (2.41\%; $[.0341,.1100]$). Coverage gain correlated $.279$ with
+endpoint gain.
 
-A fresh tree again selected D myopically and B non-myopically. On 384 maps B
-beat D by 13.0\% ($[.2917,.6758]$) but trailed fixed B by 5.66\%
-($[-.2448,-.1050]$), despite 27.8\% better coverage; nominal 5\% refresh mass
-grew to 25.3\% and correlated $-.311$ with held-out advantage. A branch-only
-isolation fixed that initial support and generated eight balanced branches with
-modular 95/5 inference. On another 384 maps B beat D by 12.4\%
-($[.2591,.6094]$), but generated and fixed B tied ($3.0491$ versus $3.0485$;
-$[-.0098,.0088]$), as SW/SE gains canceled NE/NW losses.
+A fresh tree preserved B over D by 13.0\% ($[.2917,.6758]$), but trailed fixed
+B by 5.66\% ($[-.2448,-.1050]$) despite 27.8\% better coverage. A fixed-initial
+branch isolation again put B over D by 12.4\% ($[.2591,.6094]$), but generated
+and fixed B tied ($3.0491$ versus $3.0485$; $[-.0098,.0088]$). A frozen
+uncertainty clip made support gains positive on all three endpoints
+($.28/.67/.20\%$), but failed preregistered $.5/1\%$ magnitude gates.
 
 \paragraph{LLM-native semantic lookahead is not execution-robust in retrieval.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking

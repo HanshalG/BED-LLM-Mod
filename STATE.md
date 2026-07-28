@@ -1166,3 +1166,12 @@ fresh-branch384-map endpoints. Require fixed reproduction<1e-10,positive gain
 and positive paired CI on all3,>=1% on one independently generated full tree,
 and mean gain>=.5%. Failure closes rule;pass alone authorizes a separately
 frozen fresh branch+endpoint confirmation. Model0,cost0,OatML0.
+2026-07-28: Uncertainty-clipped blend is a frozen magnitude-gated development
+null but directionally consistent. Fixed reproduces<=3.6e-15. Clipped vs fixed:
+original2.992324 vs3.000591=+.276%,CI[.00615,.01044];structured3.050453 vs
+3.070884=+.665%,CI[.01796,.02290];fixed-initial fresh branches3.042343 vs
+3.048537=+.203%,CI[.00355,.00887]. All3 gains and lower bounds positive,but
+mean.381%<.5% and no full tree reaches1%,so no confirmation and exact5%/
+one-RMS rule closes. Mean clip factors.446/.573/.369 imply effective steps
+2.23%/2.87%/1.85%. Public SHAf4a31f3d;model0,cost0. This supports robust
+displacement calibration but needs a prospectively selected stronger step.
