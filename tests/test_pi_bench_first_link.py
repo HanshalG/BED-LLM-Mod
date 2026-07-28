@@ -194,6 +194,18 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
         is None
     )
     assert invalid_question_reason("这份结果会不会直接发给导师？") is None
+    assert (
+        invalid_question_reason(
+            "请先贴出文件里最相关的三项事实；我才能筛选案例。"
+        )
+        is None
+    )
+    assert (
+        invalid_question_reason(
+            "你先发一下论文页或项目链接吧，我按具体版本讨论。"
+        )
+        is None
+    )
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(
