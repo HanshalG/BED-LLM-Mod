@@ -1611,7 +1611,7 @@ coverage+2.491pp. Both32-tree blocks directional(1.50/2.40%;second CI<0).
 D3 rho.7842 vs d2.4658;myopic/fixed/PTS gains9.87/6.73/7.66%,all CIs<0.
 Public RESULT SHAa7e0549f,ENDPOINTS647de3c6;private rawc32a090e. No root
 reselection;this is target-family robustness,not a third planner replication.
-2026-07-29: Freeze Qwen3.7-Plus planner-family depth-three replication before
+2026-07-28: Freeze Qwen3.7-Plus planner-family depth-three replication before
 any Qwen history-conditioned response. Same full-retention/crossfit method;
 Qwen owns initial+both branch refreshes,Gemini independently supplies8
 validation+16 endpoint draws/tree. First exact73-call full-history tree seed

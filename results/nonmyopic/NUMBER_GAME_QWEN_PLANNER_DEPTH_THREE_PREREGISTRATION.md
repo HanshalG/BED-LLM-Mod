@@ -1,6 +1,6 @@
 # Number Game Qwen Planner Depth-Three Preregistration
 
-Date frozen: 2026-07-29, before any Qwen history-conditioned planning
+Date frozen: 2026-07-28, before any Qwen history-conditioned planning
 response.
 
 ## Claim
