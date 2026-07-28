@@ -1322,3 +1322,13 @@ PTS.10497(-14.81%),CI[-.02205,-.00925]. Coverage gains+10.24pp myopic,
 +3.98pp PTS. Novel target mean diffs Brier-.05499(wins28),Hamming-.04927
 (wins30). Public RESULT SHAa48ccef1,TREES52c2c6cf,privatebc5047e2.
 Paper updated to make this headline while preserving V2's formal5% PTS null.
+2026-07-28: Freeze Number Game cross-planner replication before responses.
+One excluded mechanics-only GPT-mini planner/Gemini target smoke seed26890/26990
+had initial20,branch-min14,target22,novel13,exact18/18,zero retry/reasoning/
+forced,cost$.05210415;policy endpoint was not inspected. Primary uses fresh32
+GPT-5.4 Mini planning trees seeds27000--27031 and fresh32 Gemini targets
+27100--27131, swapping powered-study roles with method/controls/temp.7/strict
+schema unchanged. Require exact576 and all original structural gates;root
+differences>=24;PTS>=2% Brier+CI<0+20 wins and Hamming+CI<0;myopic>=10%+
+CI<0+24 wins,Hamming>=15%,no coverage loss;fixed>=10%+CI<0;random>=5%+
+CI<0;novel Brier/Hamming gains. Cap$3,no reserve.

@@ -292,22 +292,28 @@ def run_tree(
     target_seed: int,
     output_dir: Path,
     run_id: str,
+    planning_model: str = PLANNING_MODEL_ID,
+    target_model: str = TARGET_MODEL_ID,
+    planning_concurrency: int = 16,
+    target_concurrency: int = 1,
+    projected_planning_cost: float = PROJECTED_PLANNING_COST_USD,
+    projected_target_cost: float = PROJECTED_TARGET_COST_USD,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     planning_adapter = _adapter(
-        model=PLANNING_MODEL_ID,
+        model=planning_model,
         run_id=f"{run_id}-tree{tree_index}-planning",
         output_dir=output_dir,
         request_seed=tree_seed,
-        concurrency=16,
-        projected_cost=PROJECTED_PLANNING_COST_USD,
+        concurrency=planning_concurrency,
+        projected_cost=projected_planning_cost,
     )
     target_adapter = _adapter(
-        model=TARGET_MODEL_ID,
+        model=target_model,
         run_id=f"{run_id}-tree{tree_index}-target",
         output_dir=output_dir,
         request_seed=target_seed,
-        concurrency=1,
-        projected_cost=PROJECTED_TARGET_COST_USD,
+        concurrency=target_concurrency,
+        projected_cost=projected_target_cost,
     )
     initial_response = planning_adapter.chat_complete_messages_batched_structured(
         [initial_messages()],

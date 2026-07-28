@@ -8,7 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
-from typing import Any
+from typing import Any, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -42,7 +42,20 @@ def run_powered_replication(
     *,
     output_dir: Path,
     run_id: str,
+    tree_seeds: Sequence[int] = TREE_SEEDS,
+    target_seeds: Sequence[int] = TARGET_SEEDS,
+    planning_model: str = PLANNING_MODEL_ID,
+    target_model: str = TARGET_MODEL_ID,
+    planning_concurrency: int = 16,
+    target_concurrency: int = 1,
+    projected_planning_cost: float = 0.10,
+    projected_target_cost: float = 0.08,
+    interface_version: str = INTERFACE_VERSION,
+    run_budget_usd: float = RUN_BUDGET_USD,
 ) -> dict[str, Any]:
+    if len(tree_seeds) != len(target_seeds):
+        raise ValueError("tree and target seed counts must match")
+    expected_requests = len(tree_seeds) * EXPECTED_REQUESTS_PER_TREE
     output_dir.mkdir(parents=True, exist_ok=True)
     private_dir = output_dir / "private"
     private_dir.mkdir(parents=True, exist_ok=True)
@@ -52,7 +65,7 @@ def run_powered_replication(
     tree_results = []
     try:
         for tree_index, (tree_seed, target_seed) in enumerate(
-            zip(TREE_SEEDS, TARGET_SEEDS, strict=True)
+            zip(tree_seeds, target_seeds, strict=True)
         ):
             tree, artifacts = run_tree(
                 tree_index=tree_index,
@@ -60,6 +73,12 @@ def run_powered_replication(
                 target_seed=target_seed,
                 output_dir=output_dir,
                 run_id=run_id,
+                planning_model=planning_model,
+                target_model=target_model,
+                planning_concurrency=planning_concurrency,
+                target_concurrency=target_concurrency,
+                projected_planning_cost=projected_planning_cost,
+                projected_target_cost=projected_target_cost,
             )
             tree_results.append(tree)
             raw["trees"].append(artifacts["raw"])
@@ -119,7 +138,7 @@ def run_powered_replication(
         random_control = aggregate["uniform_random_candidate_root"]
         gates = {
             "exact_576_accepted_requests": (
-                usage["adapter_requests"] == EXPECTED_REQUESTS
+                usage["adapter_requests"] == expected_requests
             ),
             "transport_attempt_accounting_exact": (
                 usage["http_attempts"]
@@ -127,7 +146,7 @@ def run_powered_replication(
             ),
             "zero_reasoning_tokens": usage["adapter_reasoning_tokens"] == 0,
             "zero_forced_exits": usage["forced_exits"] == 0,
-            "within_run_budget": usage["run_cost_usd"] <= RUN_BUDGET_USD,
+            "within_run_budget": usage["run_cost_usd"] <= run_budget_usd,
             "all_trees_have_at_least_16_initial_rules": all(
                 tree["mechanics"]["initial_valid"] >= MIN_INITIAL_VALID
                 for tree in tree_results
@@ -205,16 +224,17 @@ def run_powered_replication(
         public = {
             "schema_version": SCHEMA_VERSION,
             "protocol": {
-                "interface_version": INTERFACE_VERSION,
-                "planning_model": PLANNING_MODEL_ID,
-                "target_model": TARGET_MODEL_ID,
+                "interface_version": interface_version,
+                "planning_model": planning_model,
+                "target_model": target_model,
                 "reasoning": "disabled",
                 "temperature": TEMPERATURE,
-                "tree_seeds": list(TREE_SEEDS),
-                "target_seeds": list(TARGET_SEEDS),
-                "num_trees": len(TREE_SEEDS),
+                "tree_seeds": list(tree_seeds),
+                "target_seeds": list(target_seeds),
+                "num_trees": len(tree_seeds),
                 "requests_per_tree": EXPECTED_REQUESTS_PER_TREE,
                 "tree_bootstrap_samples": BOOTSTRAP_SAMPLES,
+                "run_budget_usd": run_budget_usd,
             },
             "raw_responses_sha256": hashlib.sha256(
                 raw_path.read_bytes()
@@ -257,9 +277,9 @@ def run_powered_replication(
             "schema_version": SCHEMA_VERSION,
             "status": "failed_closed",
             "protocol": {
-                "interface_version": INTERFACE_VERSION,
-                "planning_model": PLANNING_MODEL_ID,
-                "target_model": TARGET_MODEL_ID,
+                "interface_version": interface_version,
+                "planning_model": planning_model,
+                "target_model": target_model,
             },
             "error": f"{type(exc).__name__}: {exc}",
             "completed_trees": len(tree_results),
