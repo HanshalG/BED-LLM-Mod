@@ -2683,13 +2683,15 @@ def apply_private_replay(
     bed_model: StructuredModel,
     naive_model: StructuredModel,
     replay_path: Path,
+    *,
+    expected_stage: str,
 ) -> tuple[StructuredModel, StructuredModel, str]:
     source_sha256 = sha256_file(replay_path)
     raw = json.loads(replay_path.read_text(encoding="utf-8"))
     if raw.get("source_commit") != SOURCE_COMMIT:
         raise ValueError("replay source commit does not match")
-    if raw.get("stage") != "serving_smoke":
-        raise ValueError("only a serving-smoke checkpoint may be replayed")
+    if raw.get("stage") != expected_stage:
+        raise ValueError("replay checkpoint stage does not match current stage")
     entries: dict[str, list[tuple[list[dict[str, str]], str]]] = {
         "bed_and_judge": [],
         "naive_thinking": [],
@@ -2744,6 +2746,7 @@ def run_experiment(
             bed_model,
             naive_model,
             replay_private_raw_path,
+            expected_stage=stage,
         )
     raw: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,

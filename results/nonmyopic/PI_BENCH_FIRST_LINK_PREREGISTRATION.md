@@ -77,12 +77,13 @@ Raw prompts, responses, task values, and hidden-intent text stay in an untracked
 private directory. Public artifacts contain task IDs, hashes, candidate IDs, selected
 IDs, integer intent indexes, scores, aggregate metrics, usage, and gates.
 
-An interface-only failed serving run may resume from an exact SHA256-bound private
-checkpoint only when no endpoint aggregate was inspected and the model prompts,
-generated responses, policy scores, and selection rules are unchanged. Replay is by
-exact request-message hash; cache misses are sent live. The final artifact reports the
-checkpoint hash, replayed request count, newly live request count, and combined prior
-plus resumed usage/cost. Development and confirmation never reuse mechanics responses.
+An interface-only failed run may resume from an exact SHA256-bound private checkpoint
+only when no endpoint aggregate was inspected, the checkpoint stage is identical to
+the resumed stage, and the model prompts, generated responses, policy scores, and
+selection rules are unchanged. Replay is by exact request-message hash; cache misses
+are sent live. The final artifact reports the checkpoint hash, replayed request count,
+newly live request count, and combined prior plus resumed usage/cost. Responses never
+cross mechanics, development, confirmation, or retained partitions.
 
 ## Models And Reasoning
 
