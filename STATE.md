@@ -1643,3 +1643,11 @@ Private raw SHA bed953cb. This is strong Qwen planning serving evidence but
 not planner-family efficacy. Live authenticated balance$18.481667794.
 Next zero-call replay31 only as posthoc development to decide whether a
 separately frozen independent-provider replication is worth further spend.
+2026-07-28: Freeze zero-call Qwen-planner replay31 development audit before
+any endpoint replay. Hash-bind31 complete raw trees bed953cb and full log
+48523bcf;exclude incomplete tree32;exact full-retention/crossfit reconstruction
+and16 endpoint draws/tree,model0. Formal failure stays immutable. A new
+independent-provider replication is authorized only if all original science
+gates pass on31:roots/wins>=12,Brier>=1%+CI<0,no Hamming/coverage/novel
+regression,myopic/fixed>=5%,PTS>=3% with CIs<0,rho>=.7/gap>=.15. Otherwise
+close Qwen planner efficacy route without more spend.
