@@ -1283,3 +1283,12 @@ gain only2.84%,wins5/8,CI[-.01487,.00248];two frozen PTS gates fail,so full
 status replication_failed. Do not drop/relax PTS. Diagnose one-draw prior
 Monte Carlo mismatch;develop prospectively fixed multi-draw proposal prior.
 Public RESULT SHA07963100;private SHA71f2a5b2.
+2026-07-28: Freeze multi-draw prior development before extra responses. On
+eight open V2 trees/endpoints,request exactly2 fresh Gemini prior supports/tree
+seeds26300--26315,temp.7,nonreasoning,strict(total16);pool original+2 by
+extension,uniformly rescore terminal Brier over existing8 roots. Extra prompts
+never see exposed GPT targets. Require every draw>=16/ensemble>=32,cost<$.50;
+versus PTS >=5%+CI<0+6/8 wins;versus original one-draw >=2%+CI<=0+3 wins;
+versus myopic>=10%+CI<0+no coverage loss. Zero-call target-union upper bound
+selected better roots on3 trees,mean Brier.1803 vs original.1863/PTS.1918,
+but is diagnostic only. 42 focused tests pass.
