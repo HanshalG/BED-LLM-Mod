@@ -1301,3 +1301,12 @@ CI[-.04812,-.01826]. Extra draws change3 roots:one helps,one neutral,one
 materially harms. Do not add draws/grid weights. Preserve one-draw method and
 power the small PTS comparison with fresh trees. Public SHA34911265;private
 fe4aa7bc.
+2026-07-28: Freeze powered unchanged one-draw Number Game replication before
+responses. 32 entirely fresh Gemini planning trees seeds26400--26431 and
+GPT targets26500--26531;exact V2 nonreasoning/temp.7/strict method,controls,
+18 successes/tree=576,50k whole-tree bootstrap,primary fresh32 only. Require
+all structural/transport gates;root differences>=24;versus PTS >=2% Brier,
+CI<0,>=20 wins,positive Hamming+CI<0;versus myopic>=10%,CI<0,>=24 wins,
+Hamming>=15%,no coverage loss;versus fixed>=10%+CI<0;random>=5%+CI<0;
+novel Brier/Hamming gains. Cap$3,no reserve. This does not retroactively change
+V2's failed5% PTS gate. 43 focused tests pass.
