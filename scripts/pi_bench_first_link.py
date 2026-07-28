@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v8"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v9"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -115,6 +115,91 @@ class PiBenchGPT54Adapter(OpenRouterAdapter):
         if disable_reasoning or not self.reasoning_enabled:
             payload["reasoning"] = {"enabled": False, "exclude": True}
         return payload
+
+
+class ReplayStructuredModel:
+    """Replay exact prior responses, then delegate cache misses live."""
+
+    def __init__(
+        self,
+        delegate: StructuredModel,
+        entries: Sequence[tuple[list[dict[str, str]], str]],
+        baseline_usage: Mapping[str, Any],
+        *,
+        source_sha256: str,
+    ) -> None:
+        self.delegate = delegate
+        self.source_sha256 = source_sha256
+        self._responses: dict[str, list[str]] = defaultdict(list)
+        self._cursors: dict[str, int] = defaultdict(int)
+        for messages, response in entries:
+            self._responses[_sha256_json(messages)].append(response)
+        self.baseline_usage = dict(baseline_usage)
+        self.replayed_requests = 0
+        self.live_requests = 0
+
+    def chat_complete_messages_batched_structured(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        *,
+        temperature: float,
+        block_size: int,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]:
+        results: list[str | None] = [None] * len(batch_messages)
+        missing_messages = []
+        missing_indexes = []
+        for index, messages in enumerate(batch_messages):
+            key = _sha256_json(messages)
+            cursor = self._cursors[key]
+            cached = self._responses.get(key, [])
+            if cursor < len(cached):
+                results[index] = cached[cursor]
+                self._cursors[key] += 1
+                self.replayed_requests += 1
+            else:
+                missing_messages.append(messages)
+                missing_indexes.append(index)
+        if missing_messages:
+            live = self.delegate.chat_complete_messages_batched_structured(
+                missing_messages,
+                temperature=temperature,
+                block_size=block_size,
+                response_format=response_format,
+                max_new_tokens=max_new_tokens,
+            )
+            if len(live) != len(missing_messages):
+                raise ValueError("replay delegate returned wrong response count")
+            for index, response in zip(
+                missing_indexes, live, strict=True
+            ):
+                results[index] = response
+            self.live_requests += len(live)
+        if any(result is None for result in results):
+            raise AssertionError("replay left an unresolved response")
+        return [str(result) for result in results]
+
+    def usage_snapshot(self) -> dict[str, Any]:
+        snapshot = dict(self.delegate.usage_snapshot())
+        additive = {
+            "adapter_requests": "physical_requests",
+            "http_attempts": "http_attempts",
+            "retry_count": "transport_retries",
+            "adapter_prompt_tokens": "prompt_tokens",
+            "adapter_completion_tokens": "completion_tokens",
+            "adapter_reasoning_tokens": "reasoning_tokens",
+            "adapter_cost_usd": "cost_usd",
+            "forced_exits": "forced_exits",
+        }
+        for target, source in additive.items():
+            snapshot[target] = snapshot.get(target, 0) + self.baseline_usage.get(
+                source, 0
+            )
+        snapshot["replayed_requests"] = self.replayed_requests
+        snapshot["live_requests_after_replay"] = self.live_requests
+        snapshot["replay_source_sha256"] = self.source_sha256
+        return snapshot
 
 
 @dataclass(frozen=True)
@@ -365,10 +450,23 @@ def invalid_question_reason(question: str) -> str | None:
         return "empty"
     has_question_punctuation = normalized.endswith(("?", "？"))
     has_chinese_interrogative = re.search(
-        r"(?:是否|还是|哪(?:个|些|一|种)?|什么|如何|怎么|几|谁|何时|哪里|吗|呢)",
+        r"(?:是否|还是|要不要|哪(?:个|些|一|种)?|什么|如何|怎么|几|谁|何时|哪里|吗|呢)",
         normalized,
     ) is not None
-    if not has_question_punctuation and not has_chinese_interrogative:
+    has_specific_request = re.match(
+        r"^(?:please )"
+        r"(?:tell|share|provide|paste|confirm|specify|clarify|choose|indicate|send|list)\b",
+        normalized,
+        re.IGNORECASE,
+    ) is not None or re.match(
+        r"^请(?:告诉|分享|提供|粘贴|确认|说明|选择|指出|发送|列出)",
+        normalized,
+    ) is not None
+    if (
+        not has_question_punctuation
+        and not has_chinese_interrogative
+        and not has_specific_request
+    ):
         return "not_a_question"
     if len(normalized) > 320:
         return "too_long"
@@ -2175,6 +2273,14 @@ def _usage(model: StructuredModel) -> dict[str, Any]:
         ),
         "cost_usd": float(snapshot.get("adapter_cost_usd", 0.0)),
         "forced_exits": int(snapshot.get("forced_exits", 0)),
+        "replayed_requests": int(snapshot.get("replayed_requests", 0)),
+        "live_requests_after_replay": int(
+            snapshot.get(
+                "live_requests_after_replay",
+                snapshot.get("adapter_requests", 0),
+            )
+        ),
+        "replay_source_sha256": snapshot.get("replay_source_sha256"),
         "tracker": snapshot,
     }
 
@@ -2572,6 +2678,50 @@ def build_models(config: Config) -> tuple[StructuredModel, StructuredModel]:
     )
 
 
+def apply_private_replay(
+    bed_model: StructuredModel,
+    naive_model: StructuredModel,
+    replay_path: Path,
+) -> tuple[StructuredModel, StructuredModel, str]:
+    source_sha256 = sha256_file(replay_path)
+    raw = json.loads(replay_path.read_text(encoding="utf-8"))
+    if raw.get("source_commit") != SOURCE_COMMIT:
+        raise ValueError("replay source commit does not match")
+    if raw.get("stage") != "serving_smoke":
+        raise ValueError("only a serving-smoke checkpoint may be replayed")
+    entries: dict[str, list[tuple[list[dict[str, str]], str]]] = {
+        "bed_and_judge": [],
+        "naive_thinking": [],
+    }
+    for call in raw.get("calls", []):
+        target = (
+            "naive_thinking"
+            if str(call.get("stage", "")).startswith("naive_thinking_")
+            else "bed_and_judge"
+        )
+        messages = call.get("messages") or []
+        responses = call.get("responses") or []
+        if len(messages) != len(responses):
+            raise ValueError("replay call has inconsistent response count")
+        entries[target].extend(zip(messages, responses, strict=True))
+    failure_usage = raw.get("failure_usage") or {}
+    return (
+        ReplayStructuredModel(
+            bed_model,
+            entries["bed_and_judge"],
+            failure_usage.get("bed_and_judge") or {},
+            source_sha256=source_sha256,
+        ),
+        ReplayStructuredModel(
+            naive_model,
+            entries["naive_thinking"],
+            failure_usage.get("naive_thinking") or {},
+            source_sha256=source_sha256,
+        ),
+        source_sha256,
+    )
+
+
 def run_experiment(
     config: Config,
     *,
@@ -2579,6 +2729,7 @@ def run_experiment(
     pi_bench_repo: Path,
     manifest_path: Path,
     private_raw_path: Path,
+    replay_private_raw_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.monotonic()
     manifest = validate_source(pi_bench_repo, manifest_path)
@@ -2586,11 +2737,19 @@ def run_experiment(
         pi_bench_repo, manifest, stage=stage
     )
     bed_model, naive_model = build_models(config)
+    replay_source_sha256 = None
+    if replay_private_raw_path is not None:
+        bed_model, naive_model, replay_source_sha256 = apply_private_replay(
+            bed_model,
+            naive_model,
+            replay_private_raw_path,
+        )
     raw: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
         "stage": stage,
         "source_commit": SOURCE_COMMIT,
+        "replay_source_sha256": replay_source_sha256,
         "cohort": cohort,
         "private_tasks": {
             task_id: {
@@ -2655,6 +2814,7 @@ def run_experiment(
             elapsed_seconds=time.monotonic() - started,
             private_raw_sha256=private_hash,
         )
+        result["protocol"]["replay_source_sha256"] = replay_source_sha256
         return result
     except Exception:
         raw["failure_usage"] = {
@@ -2816,6 +2976,7 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--validate-only", action="store_true")
     parser.add_argument("--planning-preflight", action="store_true")
+    parser.add_argument("--replay-private-raw", type=Path)
     args = parser.parse_args()
     if args.validate_only and args.planning_preflight:
         parser.error("--validate-only and --planning-preflight are exclusive")
@@ -2869,6 +3030,11 @@ def main() -> None:
                     pi_bench_repo=args.pi_bench_repo.resolve(),
                     manifest_path=args.manifest.resolve(),
                     private_raw_path=private_raw_path,
+                    replay_private_raw_path=(
+                        args.replay_private_raw.resolve()
+                        if args.replay_private_raw is not None
+                        else None
+                    ),
                 )
     except Exception as exc:
         failure = {

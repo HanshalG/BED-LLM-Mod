@@ -15,6 +15,7 @@ from scripts.pi_bench_first_link import (
     PiBenchGPT54Adapter,
     PublicTask,
     RequirementWorld,
+    ReplayStructuredModel,
     SemanticMap,
     TurnCase,
     assert_policy_messages_target_blind,
@@ -158,6 +159,16 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
     assert invalid_question_reason("I will prepare the report.") == (
         "not_a_question"
     )
+    assert (
+        invalid_question_reason(
+            "Please paste the draft, or tell me its exact contents."
+        )
+        is None
+    )
+    assert invalid_question_reason("Please prepare the report.") == (
+        "not_a_question"
+    )
+    assert invalid_question_reason("这次输出要不要直接服务你的选题。") is None
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(
@@ -465,6 +476,56 @@ def test_official_turn_deduplicates_paired_identical_cases() -> None:
         "provided",
         "not_provided",
     )
+
+
+def test_replay_model_reuses_exact_messages_and_combines_usage() -> None:
+    delegate = _DecisionModel()
+    cached_messages = [
+        {
+            "role": "user",
+            "content": json.dumps({"candidates": [{"idx": 1}]}),
+        }
+    ]
+    live_messages = [
+        {
+            "role": "user",
+            "content": json.dumps(
+                {"candidates": [{"idx": 1}, {"idx": 2}]}
+            ),
+        }
+    ]
+    replay = ReplayStructuredModel(
+        delegate,
+        [(cached_messages, json.dumps({"decisions": [True]}))],
+        {
+            "physical_requests": 1,
+            "http_attempts": 1,
+            "transport_retries": 0,
+            "prompt_tokens": 10,
+            "completion_tokens": 2,
+            "reasoning_tokens": 0,
+            "cost_usd": 0.01,
+            "forced_exits": 0,
+        },
+        source_sha256="a" * 64,
+    )
+    responses = replay.chat_complete_messages_batched_structured(
+        [cached_messages, live_messages],
+        temperature=0.0,
+        block_size=8,
+        response_format={
+            "json_schema": {"name": "targeted_test"}
+        },
+    )
+    snapshot = replay.usage_snapshot()
+
+    assert json.loads(responses[0]) == {"decisions": [True]}
+    assert json.loads(responses[1]) == {"decisions": [False, True]}
+    assert delegate.requests == 1
+    assert snapshot["adapter_requests"] == 2
+    assert snapshot["adapter_cost_usd"] == 0.01
+    assert snapshot["replayed_requests"] == 1
+    assert snapshot["live_requests_after_replay"] == 1
 
 
 def test_exact_one_sided_permutation_p() -> None:
