@@ -1207,3 +1207,16 @@ best-Hamming gains versus myopic,no coverage loss,and parity or better versus
 fixed depth2. Full live OpenRouter balance is usable with no reserve;provider
 remaining before this run is$8.6122. Fake exact17-call rehearsal and30 focused
 tests pass. OatML remains excluded.
+2026-07-28: Number Game max-future-EIG tree is a clean mechanics null. Exact
+17/17 Gemini2.5Flash calls,0 retry/reasoning/forced,cost$.039824;initial23
+valid unique and branch minimum13. Generator-aware root72 differs from
+myopic/fixed48 but margin only.000521nat<.01 and LOO16/23=69.6%<75%.
+Published12 targets: root72 Brier.18587/Hamming.11799/coverage4/12 versus
+root48 .16624/.10231/5/12,so all development criteria fail. Cause is objective
+saturation: every rich branch offers a near-half split,so best future EIG is
+~ln2 regardless of proposal quality;valid-rate penalty also fails because72
+has highest expected valid rate89.5%. Posthoc zero-call empirical terminal
+Bayes-risk over current particles selects root34 and gives Brier.1858 vs
+myopic.2116(-12.2%),Hamming.0732 vs.0943(-22.4%),retention69.6% vs65.2%.
+Diagnostic only. Prospectively freeze root34/predictive-risk successor before
+fresh independently generated targets;independent trees remain required.
