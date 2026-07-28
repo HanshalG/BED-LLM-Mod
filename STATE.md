@@ -1343,3 +1343,15 @@ myopic >=10% by.0072pp,wins24 by1,Hamming15% by2.2pp,and branch-min8:three of
 512 branch cells retained7 after correct answer-consistency filtering. No
 rerun/drop/threshold change. Public RESULT SHA1eeeb607,TREESa4b0d8b5,private
 3b68855d. Provider remaining$4.976764194.
+2026-07-28: Post-hoc zero-call global pooled-support mechanism audit is strong
+on both open fresh32 sources. Root-local pooling is exact identity64/64 because
+label filtering reconstructs answer-consistent branches;the load-bearing
+transition is root-conditioned generation. One global static union gives each
+tree 134--221 rules yet loses:powered Gemini/GPT candidate.183585 vs pool
+.207765(-11.64%,CI[-.03528,-.01357],roots differ25);role-swap GPTmini/Gemini
+.188976 vs.215945(-12.49%,CI[-.04483,-.01274],roots differ27). Hamming
+-17.91/-22.81%,CIs<0;coverage/novel gains both. Public SHA182c900c.
+Freeze fresh32 confirmation before responses:Gemini seeds27200--231,GPT targets
+27300--331,same method,exact576. Require structural gates;root-local identity
+32;global roots differ>=20;Brier gain>=8%,CI<0,wins>=18;Hamming>=10%,CI<0,
+wins>=16;no coverage loss;novel Brier/Hamming gains. Cap$3,no reserve.
