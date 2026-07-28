@@ -1,11 +1,12 @@
 \documentclass[10pt]{article}
 
-\usepackage[margin=0.65in]{geometry}
+\usepackage[margin=0.6in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
+\usepackage{multicol}
 \usepackage{natbib}
 
 \setlength{\parindent}{1em}
@@ -39,23 +40,21 @@
 Sequential Bayesian experimental design (BED) offers a principled way for
 language-model agents to ask questions and plan future information gathering.
 Yet deeper planning can optimize errors in an LLM-derived model rather than
-useful information. We separate two regimes. In finite Rock Diagnosis, an LLM
-proposes contingent policies and an exact verifier scores them; across five
-preregistered maps, depth-two StrategyEIG beats shared-root myopic, exhaustive
-one-step, and matched-random controls, with all 15 paired intervals positive.
-The LLM remains replaceable there. In DiscoverPhysics, GPT-5.4 instead generates
-executable branch-conditioned dark-matter supports while official N-body dynamics
-supply likelihoods. One frozen support tree passes every gate on 384 fresh maps:
-lookahead MSE is $2.928$ versus $3.785$ myopic and $3.001$ same-root fixed.
-Two fresh checks preserve the non-myopic root gain, but regenerated support is
-first worse than fixed ($3.245$ versus $3.071$) and then tied ($3.049$ each),
-localizing failure to support calibration rather than lookahead.
-In open retrieval, a positive
-$\tau$-Knowledge execution reverses under fresh generation. Negative semantic
-audits localize why deeper planning otherwise fails.
+useful information. We separate two regimes. In a Number Game with open-ended
+executable concepts, Gemini proposes initial and branch-conditioned rule
+supports; predictive-risk BED plans over the induced future belief states, and
+GPT-5.4 supplies independent target concepts. Across 32 fresh proposal trees,
+it lowers two-query Brier loss by 20.5\% versus myopic EIG, 21.4\% versus
+fixed-support depth two, 11.6\% versus random, and 10.2\% versus a positive-test
+strategy (PTS), with every whole-tree interval excluding zero. The LLM proposal
+dynamics are load-bearing. Finite Rock Diagnosis separately verifies exact
+lookahead but leaves the LLM replaceable. DiscoverPhysics preserves a
+non-myopic root gain across three trees while regenerated-support value fails
+to replicate, localizing a distinct calibration failure. Negative semantic
+audits explain why deeper planning otherwise breaks.
 \end{abstract}
 
-\fontsize{9}{10.4}\selectfont
+\fontsize{9}{9.6}\selectfont
 
 \section{Introduction}
 
@@ -78,12 +77,12 @@ belief on which later calls condition, and maximizes over more noisy continuatio
 scores. A larger tree can therefore make a confidently worse decision.
 
 We investigate this distinction using a validation-first sequence. Exact
-constrained location verifies the recursion, and Rock Diagnosis combines enabling
-movement, LLM-generated policies, and exact verification. DiscoverPhysics then
-tests path-dependent LLM-generated physical hypotheses under exact simulator
-likelihoods. $\tau$-Knowledge supplies an unstructured retrieval contrast with
-external endpoints \citep{shi2026tau}; other semantic environments expose failures
-in horizon value, ranking, utility, and model sufficiency.
+constrained location and Rock Diagnosis verify the recursion under exact
+models. The Number Game then makes the LLM the proposal distribution over an
+open-ended executable concept space, extending the support-mismatch setting of
+\citet{chari2026wild}. DiscoverPhysics tests branch-conditioned physical
+hypotheses under exact simulator likelihoods. $\tau$-Knowledge supplies an
+unstructured retrieval contrast with external endpoints \citep{shi2026tau}.
 
 Our contributions are:
 \begin{enumerate}
@@ -95,6 +94,9 @@ Our contributions are:
   their total information gain \citep{kambhampati2024llmmodulo};
   \item preregistered paired evidence that both the LLM proposal prior and
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
+  \item a powered LLM-native result in which non-myopic BED plans over
+  branch-conditioned LLM support regeneration and beats myopic, fixed-support,
+  random, and PTS controls on independent cross-model target concepts;
   \item a fresh-map confirmation and fresh-tree replication separating robust
   non-myopic root value from generation-unstable LLM support updates;
   \item a cross-environment audit, including fresh-generation retrieval
@@ -182,6 +184,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
+Number Game & LLM executable-rule support & Proposal-aware terminal risk & Brier .184 vs .231 myopic / .204 PTS & Powered LLM-native positive \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
@@ -226,6 +229,32 @@ movement-constrained study using exact physical likelihoods but LLM-generated
 strategies, final RMSE was $0.412$ for greedy EIG versus $0.929$, $1.127$, and
 $0.542$ for horizons 1, 3, and 5. Unconstrained horizons were flat; depth was
 non-monotonic and naive remained competitive.
+
+\paragraph{Planning over LLM proposal dynamics works in the Number Game.}
+We use the classic domain $\{0,\ldots,100\}$ and an open-ended space of
+executable predicates. Gemini 2.5 Flash proposes 24 safe rules initially and
+after both labels of eight candidate queries. Myopic EIG scores the initial
+particles. Our depth-two policy instead treats each current particle as a
+simulated truth, executes the corresponding regenerated branch, takes its
+greedy second query, and minimizes terminal posterior-predictive Brier loss.
+Thus the value of a root includes whether the LLM can regenerate a useful
+belief state after that answer. GPT-5.4 independently generates target rules;
+all models are nonreasoning and targets are hidden from planning. This extends
+the documented proposal-support trap in active concept learning
+\citep{chari2026wild} with a generator-aware acquisition rule.
+
+In a preregistered powered replication over 32 fresh planning trees and 32
+fresh target supports, predictive-risk BED chooses a different root from
+myopic and fixed-support depth two on all 32 trees. Mean Brier is $.1836$
+versus $.2309$ myopic (20.5\%; whole-tree difference CI
+$[-.0628,-.0333]$), $.2335$ fixed depth two (21.4\%), $.2078$ exact random
+(11.6\%), and $.2044$ PTS (10.2\%; $[-.0270,-.0143]$). It wins 30/32
+trees versus myopic and 27/32 versus PTS. Best-rule Hamming falls 35.1\%
+versus myopic and 14.8\% versus PTS; exact-extension coverage also rises.
+On extensions absent from planning support, Brier and Hamming gains persist
+on 28/32 and 30/32 trees. Two zero-cost provider errors were retried with
+identical seeded payloads; 576 successful responses contained no reasoning
+tokens or forced exits.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -385,187 +414,83 @@ seeds make this a descriptive E4B-to-12B boundary, not a causal size comparison.
 Exact verification removes scoring noise but cannot recover a useful branch
 absent from the bounded proposal set.
 
-A Gated Sensor control had a large exact d2 gap, but its GPT-5.4 Mini proposal
-tied random because it activated redundantly at the terminal step. Verification
-cannot recover setup value absent from the proposal.
+\paragraph{Boundary audits.}
+A Gated Sensor control had a large exact d2 gap, but the model proposed a
+redundant terminal activation: verification cannot recover setup value absent
+from the proposal. Three data-derived unlocks were partial successes. Mushroom
+collected 50/50 with zero projected branches, exactly matched d2, and its
+truth-log intervals agreed. Cleveland recovered 100.9\% of exact d2 with zero
+projected branches, but its independent truth-log interval crossed zero, so it
+is not an all-gates confirmation. Thyroid's native delayed-assay metadata
+created an exact d2 gap; names exposed ungrounded empirical assay utility, a
+utility-card repair failed before endpoints, and a projection-only ablation
+collected 0/50 with projected branches. Bounded utility beat d1 and
+matched-random continuations, but was not unaided LLM planning.
 
-Three data-derived unlocks were more favorable. On Mushroom, grounded GPT
-collected 50/50 with zero projected branches, exactly matched d2, beat d1 and
-random, and truth-log intervals agreed. Cleveland recovered 100.9\% of exact d2
-with zero projected branches and positive entropy AUC, but its independent
-truth-log interval against random crossed zero, so it is not an all-gates
-confirmation. Thyroid's native delayed-assay metadata produced an exact d2 gap.
-Names-only scoring exposed ungrounded empirical assay utility; a utility-card
-repair failed before endpoints. A projection-only ablation collected 0/50 with
-projected branches and recovered .432. Bounded utility then recovered .994 and
-beat d1 and matched-random continuations, but remains machine-grounded rather
-than unaided LLM planning.
+A range-gated task supplied stronger depth evidence: Exact d3 beat exact d2 by
+.4630 and 26B found 16/16 routes, but a tied-control identity audit left no
+trajectory, only proposal evidence. Exact d4 gained .3484 (500/0/0);
+reasoning-only models stopped, while semantic target selection found 10/10
+routes before provider truncation---mechanism evidence, not an LLM-policy claim.
+Exact h5 scored 500/500; a compiler found 15/16 routes with .937 recovery. The
+initial 50-pair run matched exhaustive d5; three additional preregistered runs
+gained .2727 over identical compiled plans (150/0/0) and .2118 over
+matched-random h5 (148/2/0). Across four seeds, 51 physical prompts represented
+1,200 logical decisions and 200 positive trajectories: an engineered exact
+result, not unaided LLM planning.
 
-Deeper receding horizon was not automatically better: terminal-EIG d3 repeated
-a noisy check and lost to d2. A range-gated task made depth load-bearing: Exact d3 beat exact d2
-by .4630, and 26B recovered the route on 16/16 cells, but a
-tied-control identity audit left no trajectory, only proposal evidence. The
-exact d4 policy then gained .3484 (500/0/0); score-free models produced reasoning-only stops,
-while semantic target selection recovered 10/10 routes before provider
-truncation---mechanism evidence, not an LLM-policy claim. A focused prior yielded
-an exact h5 gain (500/500); a compiler selected the route on 15/16 cells with
-.937 recovery. Its initial 50-pair run matched exhaustive d5, and three
-additional preregistered replications gained .2727 over identical compiled plans
-at h4 (150/0/0) and .2118 over matched-random h5 (148/2/0). Replay used 51
-physical prompts for 1,200 logical decisions. Across four seeds, these 200
-positive trajectories remain an engineered exact result, not unaided LLM planning.
+\paragraph{Natural-task gates.}
+Paprika mixes diagnostic questions and world-changing remedies
+\citep{tajwar2025curious}, making pure EIG misaligned with resolution utility.
+Its simulator also used fixed support and synthetic outcomes while deployment
+refreshed support and could terminate; later endpoint review invalidated the
+policy counts. A target-hidden check found initial support already covered 9/12
+solutions and recovered only one omission, so path dependence was too saturated.
 
-\paragraph{Paprika fails before a horizon claim.}
-Paprika troubleshooting mixes information-gathering questions with corrective
-actions that change and may terminate the world \citep{tajwar2025curious}. Pure
-EIG values discrimination among cause/remedy strings, not the probability of
-resolution minus action cost. A remedy that resolves under every hypothesis can
-have zero EIG, while a diagnostic that identifies the cause but cannot resolve
-the task can score highly.
-
-The implementation also used fixed support and synthetic outcome labels in
-lookahead while deployment refreshed support, observed free text, and could
-terminate. A ten-task full-depth diagnostic used 70,004 requests versus 3,365
-for one-step EIG and resolved 2 versus 3 tasks. Those counts are not policy
-evidence: later manual audit found a customer response claiming that the exact
-private remedy had failed. A separate 50-task arbitration evaluation was also
-quarantined by endpoint review. The defensible result is the failure mechanism,
-not which arm won an invalid simulator contest.
-
-A separate target-hidden support diagnostic removed that endpoint entirely and
-measured semantic coverage of the private cause/remedy after faithful diagnostic
-replies. Eight initial LLM hypotheses already covered 9/12 solutions; only one of
-three omissions was recovered. Although oracle best-match gain was $.105$ and
-5/12 tasks had candidate-dependent spread, the frozen non-saturation and recovery
-gates failed. Paprika therefore exhibits path-dependent support changes, but its
-short scenarios make the initial semantic differential too saturated for a clean
-open-world horizon advantage.
-
-\paragraph{MediQ validates the interface but rejects the joint model.}
-MediQ's official FactSelect patient returns only atomic record facts that answer
-the question and otherwise abstains \citep{li2024mediq}. After several failed
-closed repairs, the final five-case environment gate achieved clean canonical
-Yes/No/unavailable questions, verbatim grounding, relevance, and semantic
-deduplication on every selected interaction. This isolates the remaining issue
-to probability modeling.
-
-The first scorer treated each A--D option as a complete patient world. Across
-ten selected turns, predicted EIG averaged $0.140$ nats but realized true-label
-log-probability gain averaged $-0.290$ nats; the realized outcome was less likely
-under the true label than under the predictive mixture on 6/10 turns. A repair
-made record missingness label-independent and scored only Yes versus No under
-each option. Missingness became exactly posterior-neutral, yet available
-outcomes still had mean true-label log gain $-0.118$ nats.
-
-A final data-estimation construction elicited the response marginal and
-hypothetical A--D posteriors, then projected their joint table to exact local
-marginals. Before scoring it, a frozen held-out bank required at least 15
-available responses. All 30 questions were canonical, unique, grounded, and
-relevant, but only 8 were answerable; 22 facts were absent from the static
-records. The scorer was therefore not run. At observed answerability $a=8/30$,
-an unavailable-neutral binary channel has the loose ceiling
-\[
- I(\theta;Y\mid x)\leq a\log 2=0.1848\ \text{nats per query},
-\]
-before accounting for diagnostic ambiguity. There is little signal on which a
-depth-two advantage could operate.
-
-The iCRAFT profile gate failed before likelihood: only 14/48 outcomes were
-available versus 24 required. An options-hidden diagnostic raised coverage from
-5/20 to 11/20 but failed reliability. On no-leak ClinDiag, full workups raised
-diagnosis coverage from 6/20 to 17/20; a five-action follow-up nevertheless had
-a non-myopic gap on only 1/12 cases and was unstable. These tests validate
-observation-driven belief recovery, not planning.
-
-\paragraph{MovieLens isolates a load-bearing semantic opportunity and a horizon boundary.}
-A 12-user recorded-rating gate found that regenerated profiles improved held-out
-NLL by $.0612$. One-step semantic ranking passed ($\rho=.274$; 4/4 wins), but
-common-tree depth two reversed fidelity ($\rho=-.526$) and worsened NLL
-($1.515$ versus $1.484$). Receding rescoring also failed ($1.509$ versus $1.505$
-EIG and $1.494$ random), despite changing every first query. Path-dependent
-semantic value did not become reliable action selection.
+MediQ's FactSelect interface produced grounded Yes/No/unavailable observations
+\citep{li2024mediq}, but its joint model failed: predicted EIG was positive while
+true-label log probability fell, and only 8/30 held-out questions were
+answerable. MediQ therefore stops before a calibrated policy comparison. The
+iCRAFT profile-support gate failed before likelihood (14/48 available outcomes);
+ClinDiag improved support coverage but had a stable non-myopic gap on only 1/12
+cases. MovieLens similarly passed one-step semantic ranking
+($\rho=.274$) but reversed at depth two ($\rho=-.526$).
 
 \section{Why Horizon Magnifies Model Error}
 
-Let an estimated continuation score be $\widehat V_j=V_j+\epsilon_j$ for branch
-candidate $j$. Depth two uses $\max_j\widehat V_j$, so even zero-mean errors
-produce selection bias that grows with width and horizon. Root likelihood error
-also changes branch mass and downstream context; more rollouts reduce variance,
-not bias \citep{catanach2023misspecification}.
-Zendo's entropy scorer had $\rho=0$; external readiness later reached $.80$ on
-one rule, but confirmation failed before endpoints. Hotpot exposed an
-action-space failure rather than a planning gain. An unrestricted-title
-five-task comparison tied non-myopic and myopic support coverage at 9/10
-(fixed belief: 10/10), because either support article could select the other
-next. The frozen source graph instead permits only paragraph-mentioned links:
-on those same open tasks this made the enabling root uniquely optimal in 5/5.
-A corrected serving task then favored non-myopic 2/2 versus myopic 1/2, but its
-20-task development stopped before scoring when one otherwise valid rank
-response permuted two root rows. A fresh 500-row replacement contained only 15
-strict tasks versus 20 required, so confirmation remained sealed. This shows
-that semantic lookahead is uninterpretable when the implemented action menu
-erases the benchmark's directional transition. MuSiQue passed a 120/120
-branching audit and found the deep child on 2/2 smoke tasks; generic/discrete root fidelity was
-$.073/.302$, but neither beat myopic.
+For continuation candidate $j$, write
+$\widehat V_j=V_j+\epsilon_j$. Depth uses $\max_j\widehat V_j$, so selection
+bias grows with width and horizon; root likelihood error also changes branch
+mass and downstream context. More rollouts reduce variance, not model bias
+\citep{catanach2023misspecification}. This explains repeated failures:
+Zendo's scorer had $\rho=0$; Hotpot's unrestricted actions erased its directional
+transition; MuSiQue and BRIGHT lacked root opportunity
+\citep{trivedi2022musique,su2025bright}; and BrowseComp-Plus future ranking
+trailed direct and shuffled controls \citep{chen2026browsecompplus}.
 
-BED-LLM's strong one-step results use a concrete entity or profile, small response
-space, prior-likelihood construction, and diverse filtered hypotheses
-\citep{choudhury2025bedllm}. It finds raw in-context beliefs overconfident and
-data-estimation weaker than prior-likelihood BED; our MediQ belief likewise reached
-top probability $0.867$ after round one at only 50\% accuracy.
+BED-LLM succeeds myopically with concrete entities, small response spaces,
+prior--likelihood construction, and filtered hypotheses
+\citep{choudhury2025bedllm}. UoT plans over explicit disease sets
+\citep{hu2024uot}; CA-BED uses finite hypotheses and soft LLM likelihoods
+\citep{arnould2026cabed}. In our Detective audit, d2 tracked entropy reduction
+($\rho=.750$) but ranked truth-posterior gain backwards ($\rho=-.208$).
+Exact role-conditioned answers restored correlation to $.933$ but removed most
+action opportunity. Calibration and a non-myopic gap must coexist.
 
-Rock follows LLM-Modulo: the model supplies semantic policies, while an external
-component checks grammar, legality, Bayesian updates, and total information gain
-\citep{kambhampati2024llmmodulo}. Random-policy and same-root d1 controls attribute
-the gain to useful LLM search bias plus external lookahead, not either alone.
+Rock instead follows LLM-Modulo \citep{kambhampati2024llmmodulo}: the model
+proposes semantic policies while an exact component checks grammar, legality,
+updates, and information gain. Number Game moves the irreducible semantic
+component into the transition itself: future LLM-generated rule support changes
+with the simulated answer, while executable predicates retain exact scoring.
 
-UoT reports depth gains on explicit sets of 5 or 15 diseases \citep{hu2024uot}.
-CA-BED uses finite hypotheses, soft LLM likelihoods, binary questions, and d2
-\citep{arnould2026cabed}, but lacks a causal d1/d2 ablation. In our 12-case
-shared-tree Detective audit, d2 score tracked realized entropy reduction
-($\rho=.750$) while ranking truth-posterior gain backwards ($\rho=-.208$);
-d2 lost $.262$ truth-NLL nats to d1 despite lower final entropy. Thus deeper
-semantic planning can amplify likelihood--answerer mismatch into confident-wrong
-beliefs even when its nominal information objective behaves as designed.
-Replacing numerical introspection by the exact role-conditioned answer function
-restored truth-rank correlation to $.933$, but only 23/241 questions changed
-between murderer and innocent roles, leaving four rankable cases and two depth
-changes. Calibration and non-myopic opportunity therefore traded off rather than
-combining into a usable policy.
-
-MuSiQue and BRIGHT lacked root opportunity
-\citep{trivedi2022musique,su2025bright}; MultiHop-RAG improved continuation
-recall on 2/5 tasks but never changed the best root
-\citep{tang2024multihoprag}. BrowseComp-Plus had bridges on 75/120 tasks
-\citep{chen2026browsecompplus}, yet prompted future ranking trailed direct and
-shuffled controls; its untouched gate failed before endpoints.
-
-The $\tau$-Knowledge splits separate scorer fidelity from opportunity. The
-first had little oracle-greedy complementarity and a joint scorer discarded much
-of its selected root's value. The blind holdout had a larger gap, and
-count-dominant receding selection preserved 30/33 available documents in its
-first execution, but fresh generation did not reproduce the root advantage.
-Better semantic prediction is useful only when candidates expose a real greedy
-gap, the next action preserves it, and the generated simulator is stable.
-
-\paragraph{Path-dependent support is insufficient without an enabling endpoint.}
-On 25 Pi-Bench tasks, GPT-5.4 supports were path-sensitive on 25/25 and depth
-two changed 14/25 roots. Yet truth recall fell $.0771$ and coverage changed
-$-.0029$ (0/24/1 wins/ties/losses). The simulator reveals the first unmet
-intent after an untargeted question, giving every policy the same $.2168$
-second-turn gain. LLM-owned dynamics were real, but no enabling link existed;
-the gate failed and confirmation stayed sealed.
-
-Target-free audits expose the same prerequisite. ClariQ changed two of three
-development roots but failed stability and holdout-serving gates. InfoQuest
-support refresh lost to fixed support ($.167$ versus $.333$); an external
-checklist showed opportunity, yet dynamic EIG was anti-aligned. A post-hoc
-repair looked positive, but fresh confirmation again gave negative correlation
-and fewer gains than random. The failure is target-misaligned ranking, not
-absent opportunity.
-DiscoverLLM's released scores are immediate only \citep{kim2026discoverllm}; DAD or RL-BED
-amortization cannot repair a broken simulator
-\citep{foster2021deep,blau2022rlbed}.
+Path dependence alone is insufficient. Pi-Bench supports changed on 25/25 tasks
+and d2 changed 14/25 roots, yet its fallback equalized second-turn gains.
+ClariQ failed stability; InfoQuest's dynamic EIG was anti-aligned; and
+$\tau$-Knowledge fresh generation did not reproduce the root advantage.
+DiscoverLLM reports immediate scores only \citep{kim2026discoverllm}; DAD or
+RL-BED amortization cannot repair a broken simulator
+\citep{foster2021deep,blau2022rlbed}. A useful non-myopic policy needs a
+structural gap, calibrated branch transitions, and stable semantic generation.
 
 \section{A Validation-First Path Forward}
 
@@ -585,8 +510,18 @@ Future depth studies should cross the following gates in order:
 
 \section{Limitations and Conclusion}
 
-This is a positive structured-benchmark result and a narrow, unstable
-simulator-grounded LLM-native result. DiscoverPhysics's first tree gives 22.6\%
+This remains a positive structured-benchmark result, now with a powered
+LLM-native component. In the Number Game, classical BED can evaluate a
+fixed rule set, but cannot enumerate the open-ended support or predict how that
+support changes after a counterfactual answer. The endpoint remains synthetic,
+uses deterministic labels and a restricted safe grammar, and measures two
+queries rather than full convergence. One earlier eight-tree replication
+failed its preregistered 5\% PTS magnitude gate despite directional gains; the
+separately preregistered 32-tree study establishes a powered 10.2\% gain rather
+than retroactively rescoring that null.
+
+DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
+Its first tree gives 22.6\%
 non-myopic and 2.41\% branch-support gains. A fresh structured tree retains the
 root gain but reverses the support effect. Thus support value does not replicate across generations,
 despite exact rather than learned likelihoods; fixing the
@@ -597,13 +532,18 @@ Natural location uses one model family; Paprika policy counts are
 endpoint-invalid; MediQ stops before a calibrated policy comparison; and the
 iCRAFT profile-support gate fails before likelihood. Pi-Bench changed 56\% of
 roots, but its fallback equalized second-turn gains.
-We do not claim that non-myopic BED cannot work; OpenRouter nondeterminism
-remains limiting, and depth cannot replace a coherent simulator or enabling gap.
+OpenRouter nondeterminism remains a limitation, and depth cannot replace a
+coherent simulator or enabling gap. The positive result instead sharpens the
+condition: non-myopia helps when it values the future inference process itself,
+including the LLM's path-dependent ability to regenerate useful support.
+We do not claim that non-myopic BED cannot work outside this setting.
 
-{\fontsize{6}{6.2}\selectfont
+{\fontsize{5.8}{6.0}\selectfont
 \setlength{\bibsep}{0pt}
+\begin{multicols}{2}
 \bibliographystyle{plainnat}
 \bibliography{references}
+\end{multicols}
 }
 
 \end{document}

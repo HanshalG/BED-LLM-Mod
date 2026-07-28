@@ -1310,3 +1310,15 @@ CI<0,>=20 wins,positive Hamming+CI<0;versus myopic>=10%,CI<0,>=24 wins,
 Hamming>=15%,no coverage loss;versus fixed>=10%+CI<0;random>=5%+CI<0;
 novel Brier/Hamming gains. Cap$3,no reserve. This does not retroactively change
 V2's failed5% PTS gate. 43 focused tests pass.
+2026-07-28: Powered fresh32 Number Game replication passes every frozen gate
+and is the headline LLM-native non-myopic result. Exact576 successes/578 HTTP,
+2 explicit zero-cost provider-error retries,0 reasoning/forced,cost$1.4966614;
+all structural gates. Predictive root differs myopic/fixed32/32. Brier
+candidate.183585:myopic.230856(-20.48%),tree CI[-.06281,-.03333],wins30/32;
+fixed.233547(-21.39%),CI[-.06487,-.03691],wins31;random.207789(-11.65%),
+CI[-.02951,-.01877],wins30;PTS.204367(-10.17%),CI[-.02705,-.01431],
+wins27. Hamming candidate.08943:myopic.13774(-35.07%),CI[-.05827,-.03822];
+PTS.10497(-14.81%),CI[-.02205,-.00925]. Coverage gains+10.24pp myopic,
++3.98pp PTS. Novel target mean diffs Brier-.05499(wins28),Hamming-.04927
+(wins30). Public RESULT SHAa48ccef1,TREES52c2c6cf,privatebc5047e2.
+Paper updated to make this headline while preserving V2's formal5% PTS null.
