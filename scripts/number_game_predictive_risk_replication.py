@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import random
 import sys
+import time
 from typing import Any, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -40,11 +41,11 @@ from scripts.number_game_predictive_risk_holdout import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "number-game-predictive-risk-replication-1"
+INTERFACE_VERSION = "number-game-predictive-risk-replication-2"
 PLANNING_MODEL_ID = "google/gemini-2.5-flash"
 TARGET_MODEL_ID = "openai/gpt-5.4"
-TREE_SEEDS = tuple(range(26070, 26078))
-TARGET_SEEDS = tuple(range(26170, 26178))
+TREE_SEEDS = tuple(range(26080, 26088))
+TARGET_SEEDS = tuple(range(26180, 26188))
 TEMPERATURE = 0.7
 EXPECTED_REQUESTS_PER_TREE = 18
 EXPECTED_REQUESTS = len(TREE_SEEDS) * EXPECTED_REQUESTS_PER_TREE
@@ -69,6 +70,7 @@ class SeededStructuredAdapter(DefaultRoutingStructuredAdapter):
     ) -> None:
         super().__init__(spec, config)
         self.request_seed = request_seed
+        self.provider_error_retries = 0
 
     def _payload(
         self,
@@ -90,6 +92,41 @@ class SeededStructuredAdapter(DefaultRoutingStructuredAdapter):
         )
         payload["seed"] = self.request_seed
         return payload
+
+    def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
+        for attempt in range(self.max_retries + 1):
+            data = super()._post(payload)
+            choices = data.get("choices")
+            provider_error = (
+                isinstance(choices, list)
+                and choices
+                and any(
+                    choice.get("finish_reason") == "error"
+                    for choice in choices
+                    if isinstance(choice, dict)
+                )
+            )
+            if not provider_error:
+                return data
+            cost = float((data.get("usage") or {}).get("cost", 0.0) or 0.0)
+            if cost > 1e-12:
+                raise RuntimeError(
+                    "provider-error response reported nonzero cost"
+                )
+            if attempt >= self.max_retries:
+                raise RuntimeError(
+                    "provider-error response persisted after retries"
+                )
+            with self._usage_lock:
+                self.retry_count += 1
+                self.provider_error_retries += 1
+            time.sleep(self.backoff_seconds * (2**attempt))
+        raise AssertionError("unreachable")
+
+    def usage_snapshot(self) -> dict[str, Any]:
+        snapshot = super().usage_snapshot()
+        snapshot["provider_error_retries"] = self.provider_error_retries
+        return snapshot
 
 
 def _adapter(
@@ -139,6 +176,7 @@ def _tree_usage(
         "adapter_prompt_tokens",
         "adapter_completion_tokens",
         "adapter_cost_usd",
+        "provider_error_retries",
     ):
         summed[key] = sum(float(item.get(key, 0) or 0) for item in snapshots)
     summed["adapter_requests"] = int(summed["adapter_requests"])
@@ -537,6 +575,7 @@ def run_replication(
                 "adapter_requests",
                 "http_attempts",
                 "retry_count",
+                "provider_error_retries",
                 "adapter_reasoning_tokens",
                 "forced_exits",
                 "run_cost_usd",

@@ -1253,3 +1253,20 @@ seed26270. Require all structural gates,root difference >=6/8,>=5% Brier
 gains with CIs versus myopic/fixed,>=6/8 myopic wins,>=5% Hamming+CI/no
 coverage loss,>=5% versus PTS/random,and novel-target directional gains.
 Cap$2,no reserve,no OatML. 37 focused tests pass.
+2026-07-28: Number Game independent-tree V1 closes as transport failure;
+science unmeasured. One tree completed,then one tree2 Gemini branch returned
+HTTP-success finish_reason=error with0 tokens/cost and malformed JSON. Other
+34 responses stopped normally;normal branch outputs804--996 tokens under4200,
+so not truncation. Runner failed before aggregate metrics. Logged35 responses,
+cost$.0837777,reasoning/length0. Do not retain/select completed tree. Freeze
+transport-only V2: retry only explicit zero-cost provider-error responses,
+keep all science/gates,temp/tree count/aggregation,and use entirely fresh
+planning/target seeds.
+2026-07-28: Freeze Number Game replication V2 before responses. Sole transport
+change retries explicit finish_reason=error only when reported cost0,with
+identical payload and normal retry accounting;nonzero-cost error or normal-stop
+malformed output still fails. V1 tree discarded. Entirely fresh Gemini seeds
+26080--26087 and GPT target seeds26180--26187. All science,8 trees,temp.7,
+nonreasoning,strict schemas,144 successful responses,controls,tree bootstrap,
+gates,and$2 cap unchanged. Added direct provider-error retry and seed tests;
+39 focused tests pass.

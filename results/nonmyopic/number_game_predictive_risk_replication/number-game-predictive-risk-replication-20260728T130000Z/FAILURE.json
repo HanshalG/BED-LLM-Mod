@@ -1,0 +1,12 @@
+{
+  "completed_trees": 1,
+  "error": "ValueError: number-game hypotheses is not exact JSON: Unterminated string starting at: line 2 column 3 (char 4)",
+  "protocol": {
+    "interface_version": "number-game-predictive-risk-replication-1",
+    "planning_model": "google/gemini-2.5-flash",
+    "target_model": "openai/gpt-5.4"
+  },
+  "raw_responses_sha256": "636249d896e59e7d11046d57787ab68ee361bf26249826ed2dd88fd8c564add1",
+  "schema_version": 1,
+  "status": "failed_closed"
+}

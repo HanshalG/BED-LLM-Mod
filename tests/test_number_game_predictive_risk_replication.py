@@ -4,6 +4,8 @@ import pytest
 
 from scripts.number_game_predictive_risk_replication import (
     SeededStructuredAdapter,
+    TARGET_SEEDS,
+    TREE_SEEDS,
     aggregate_tree_comparisons,
     cluster_bootstrap_interval,
 )
@@ -35,6 +37,47 @@ def test_seeded_adapter_adds_seed_without_changing_structured_route(
     assert payload["seed"] == 123
     assert payload["provider"] == {"require_parameters": False}
     assert payload["reasoning"]["enabled"] is False
+
+
+def test_v2_uses_entirely_fresh_seed_ranges():
+    assert TREE_SEEDS == tuple(range(26080, 26088))
+    assert TARGET_SEEDS == tuple(range(26180, 26188))
+    assert not set(TREE_SEEDS) & set(range(26070, 26078))
+    assert not set(TARGET_SEEDS) & set(range(26170, 26178))
+
+
+def test_zero_cost_provider_error_is_retried(monkeypatch):
+    adapter = object.__new__(SeededStructuredAdapter)
+    adapter.max_retries = 2
+    adapter.backoff_seconds = 0.0
+    adapter.retry_count = 0
+    adapter.provider_error_retries = 0
+    import threading
+
+    adapter._usage_lock = threading.Lock()
+    responses = iter(
+        [
+            {
+                "choices": [{"finish_reason": "error"}],
+                "usage": {"cost": 0.0},
+            },
+            {
+                "choices": [{"finish_reason": "stop"}],
+                "usage": {"cost": 0.1},
+            },
+        ]
+    )
+    monkeypatch.setattr(
+        DefaultRoutingStructuredAdapter,
+        "_post",
+        lambda self, payload: next(responses),
+    )
+
+    result = adapter._post({"test": True})
+
+    assert result["choices"][0]["finish_reason"] == "stop"
+    assert adapter.retry_count == 1
+    assert adapter.provider_error_retries == 1
 
 
 def test_tree_cluster_bootstrap_is_reproducible():
