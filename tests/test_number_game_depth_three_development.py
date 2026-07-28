@@ -1,4 +1,8 @@
 from scripts.number_game_depth_three_development import (
+    PLANNING_MODEL_ID,
+    TARGET_MODEL_ID,
+    TARGET_SEEDS,
+    TREE_SEEDS,
     evaluate_policy_root_depth_three,
     static_depth_three_branches,
 )
@@ -33,6 +37,15 @@ def test_legacy_single_observation_prompt_remains_default():
 
     assert "The only observation is: Is 3 in the concept? YES." in prompt
     assert "Hard executable constraints" not in prompt
+
+
+def test_v2_uses_fresh_seeds_and_swapped_models():
+    assert PLANNING_MODEL_ID == "openai/gpt-5.4-mini"
+    assert TARGET_MODEL_ID == "google/gemini-2.5-flash"
+    assert TREE_SEEDS == tuple(range(27600, 27608))
+    assert TARGET_SEEDS == tuple(range(27700, 27708))
+    assert not set(TREE_SEEDS) & set(range(27400, 27408))
+    assert not set(TARGET_SEEDS) & set(range(27500, 27508))
 
 
 def test_static_depth_three_branches_condition_sequentially():

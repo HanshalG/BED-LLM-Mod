@@ -34,8 +34,6 @@ from scripts.number_game_predictive_risk_holdout import (
     policy_comparison,
 )
 from scripts.number_game_predictive_risk_replication import (
-    PLANNING_MODEL_ID,
-    TARGET_MODEL_ID,
     TEMPERATURE,
     _adapter,
     _tree_usage,
@@ -44,12 +42,14 @@ from scripts.number_game_predictive_risk_replication import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "number-game-depth-three-development-1"
-TREE_SEEDS = tuple(range(27400, 27408))
-TARGET_SEEDS = tuple(range(27500, 27508))
+INTERFACE_VERSION = "number-game-depth-three-development-2"
+PLANNING_MODEL_ID = "openai/gpt-5.4-mini"
+TARGET_MODEL_ID = "google/gemini-2.5-flash"
+TREE_SEEDS = tuple(range(27600, 27608))
+TARGET_SEEDS = tuple(range(27700, 27708))
 EXPECTED_REQUESTS_PER_TREE = 50
 EXPECTED_REQUESTS = len(TREE_SEEDS) * EXPECTED_REQUESTS_PER_TREE
-RUN_BUDGET_USD = 1.20
+RUN_BUDGET_USD = 1.50
 MIN_INITIAL_VALID = 16
 MIN_FIRST_BRANCH_VALID = 8
 MIN_SECOND_BRANCH_VALID = 4
@@ -256,7 +256,7 @@ def run_tree_depth_three(
         output_dir=output_dir,
         request_seed=tree_seed,
         concurrency=32,
-        projected_cost=0.25,
+        projected_cost=0.30,
     )
     target = _adapter(
         model=TARGET_MODEL_ID,
@@ -264,7 +264,7 @@ def run_tree_depth_three(
         output_dir=output_dir,
         request_seed=target_seed,
         concurrency=1,
-        projected_cost=0.08,
+        projected_cost=0.02,
     )
     initial_response = planning.chat_complete_messages_batched_structured(
         [initial_messages()],

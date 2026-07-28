@@ -1375,3 +1375,12 @@ inspected. Development fresh Gemini27400--407/GPT27500--507,50 calls/tree=400,
 cap$1.20. Require all mechanics,min second4;promote only if d3 differs d2>=4/8,
 Brier gain>=3%,wins>=5,Hamming/coverage no worse,and directional vs myopic/
 random.
+2026-07-28: Depth-three V1 transport failure after4/8 complete trees and249
+successful calls;tree5 paid Gemini normal-stop response3843 completion tokens
+was malformed JSON. Fail closed,no partial endpoint aggregate inspected,raw
+SHAdfe3b96d. Strict require-parameters route returned HTTP404 before response.
+Freeze V2 before responses:excluded GPTmini-planner/Gemini-target smoke seed
+27591/27691 exact50/50,zero retry/reasoning/forced,initial22,first-min9,
+second-min4,target23,novel14,cost$.16479565,d3=d2 root36,no endpoints inspected.
+Fresh GPTmini27600--607/Gemini27700--707;same50-call method/prompt/controls and
+promotion rule;exact400,cap$1.50,no reserve.

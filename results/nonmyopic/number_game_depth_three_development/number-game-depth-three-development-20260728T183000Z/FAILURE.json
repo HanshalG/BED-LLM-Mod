@@ -1,0 +1,7 @@
+{
+  "completed_trees": 4,
+  "error": "ValueError: number-game hypotheses is not exact JSON: Expecting ',' delimiter: line 36 column 540 (char 1225)",
+  "raw_responses_sha256": "dfe3b96d61214902d0d443a3ee698090070c6b69aaffd12ae419ed82e2b1fb9a",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
