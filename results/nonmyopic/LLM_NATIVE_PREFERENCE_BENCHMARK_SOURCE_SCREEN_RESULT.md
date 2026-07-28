@@ -113,6 +113,48 @@ immediate value or improve a scarce endpoint. Tightening the query budget would
 manufacture the non-myopia rather than use the released environment. No paid
 ClarQ-LLM experiment is authorized.
 
+## CRA-Bench
+
+- Dataset: `https://huggingface.co/datasets/anonymous-crabench/CRA-Bench`
+- Repository: `https://github.com/anonymous-crabench/CRA-Bench`
+- Audited repository commit:
+  `9d40323d1960470558ad0fde3e5de1f05381b975`
+- Audited repository tree:
+  `bd161318423612cb5f17265b74d0e44d62995b1c`
+- Audited canonical dataset commit:
+  `e834c4f5140bfedbbcd700581345f6aabb527f2d`
+
+CRA-Bench has a strong scientific structure: a hidden user profile contains
+latent constraints and patience, the agent may acquire only one or two new
+information points per turn, and the final endpoint is a target product rather
+than the policy's own belief score.
+
+The public release is not an executable counterfactual environment. It
+contains benchmark examples and user prompt text, but omits the controller
+that injects remaining patience, turn type, maximum response length, maximum
+new-information count, and ground-truth-list checks. It also does not release
+the full simulator runner and depends on an external Amazon Reviews search
+index. Reconstructing those controls would invent benchmark behavior. Keep it
+on the release-watch list rather than treating prompt text alone as the user
+simulator.
+
+## GroupTravelBench
+
+- Paper: `https://arxiv.org/abs/2605.25200`
+- Audited arXiv source archive SHA256:
+  `2283f4bc88329a692d5ff64320300c4e3788503987e976b1c3eb9064158c498e`
+
+GroupTravelBench is also a strong conceptual fit: 650 tasks require eliciting
+private preferences from multiple users, resolving group conflicts, and
+acting through a cached ten-tool travel sandbox. The semantic preferences and
+cross-user tradeoffs could make language-native information acquisition
+load-bearing.
+
+No official repository, dataset, simulator, or artifact URL is present in the
+paper source or discoverable under the benchmark name. There is therefore no
+runnable hidden-state process or endpoint to audit. Keep it on the release
+watch list; do not recreate its tasks or users from the paper.
+
 ## ProactiveBench
 
 - Paper: `https://arxiv.org/abs/2603.19466`
@@ -126,9 +168,9 @@ over multiple information actions. It is not the next sequential BED route.
 
 ## Next Action
 
-PrefDisco is first in the runnable-candidate queue once its gated datasets are
-explicitly accessible. The first stage must be a zero-call source/schema audit
-that verifies:
+PrefDisco is first in the preference-candidate queue once its gated datasets
+are explicitly accessible. The first stage must be a zero-call source/schema
+audit that verifies:
 
 1. hidden preference values and task rubrics are released without leaking into
    policy-visible prompts;
@@ -138,8 +180,9 @@ that verifies:
 5. multiple candidate questions have answer-dependent continuation value; and
 6. a fixed-support classical table cannot replace the semantic interaction.
 
-ATRBench and ADAPT stay on the release-watch list. PrefBench and ClarQ-LLM are
-closed as headline routes for structural, not cost, reasons.
+ATRBench, ADAPT, CRA-Bench, and GroupTravelBench stay on the release-watch
+list. PrefBench and ClarQ-LLM are closed as headline routes for structural,
+not cost, reasons.
 
 ## Accounting
 

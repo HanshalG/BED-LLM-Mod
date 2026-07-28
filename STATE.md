@@ -1017,3 +1017,23 @@ allows about 11 follow-up questions and assigns no success cost to querying. A r
 myopic policy has at least five turns of slack to collect all facts. Do not tighten the
 budget post hoc or spend on this route; proceed to a zero-call PrefDisco schema audit
 only after explicit gated-dataset access.
+2026-07-28: Close CRA-Bench and GroupTravelBench at zero-call release gates. CRA-Bench
+has the right hidden-profile/patience/scarce-disclosure structure, but its public
+commit9d40323d omits the controller enforcing patience, turn type, character and
+new-information limits, ground-truth checks, full simulator runner, and external Amazon
+Reviews index. GroupTravelBench has650 multi-user preference tasks and a cached
+ten-tool sandbox in the paper, but no official code/data/simulator release or artifact
+URL. Reconstructing either would invent the counterfactual environment. Keep both on
+release watch; model0/cost0.
+2026-07-28: Freeze a scientifically distinct DiscoverPhysics retained-support V2
+replication before any new model output. V1 remains failed at7/9 strict ordinary-JSON
+responses because two numeric literals contained Devanagari text; its outputs and
+24630--24647 endpoint seeds remain quarantined. V2 changes transport only to
+provider-enforced GPT-5.4 strict JSON Schema,nonreasoning,temp0,same prompts/compiler/
+exact likelihoods. One discarded parse+compile preflight precedes one fresh initial
+support and8 branch refreshes=exact10 accepted requests;no semantic retry/coercion.
+Phase A must reproduce D myopic,B retained-lookahead,>=10% internal gain and all
+diversity/accounting gates before hashing policy and opening fresh384-map seeds
+24700--24715/noise24716/bootstrap24717. Endpoint retains paired myopic/random/fixed-B
+and nearest-support gates. Projected$.14,cap$.25;full balance available,no reserve;
+OpenRouter only,no OatML/cluster. All36 DiscoverPhysics tests pass.
