@@ -1486,3 +1486,35 @@ retained-vs-generated root selection is only.64%,CI[-.00452,.00182],3 wins/
 4 losses/7 ties;source-target rho.474 vs.488. Thus retention strongly improves
 the LLM belief transition,but not root ranking;frozen d3 test must add value
 through the second transition. RESULT SHAd467dfc5,model0,cost0.
+2026-07-28: Powered full-retention Number Game d3 completes exact1000/1000,
+0 retries/reasoning/forced,cost$3.2480865 and is a frozen gated null.
+Candidate Brier.162454 vs d2.163177(-.44%,tree CI[-.00869,.00556],5/20
+wins),with Hamming+7.24%,coverage-.24pp,and novel-target regressions. Roots
+change13/20,so policy is active;source-target Brier rho.4988 and concordance
+.6893 pass,but Hamming rho-.1047. Candidate still beats fixed d3 by5.82%
+(CI<0),random5.09%,and PTS5.19%,showing inherited proposal-aware value rather
+than incremental depth. One retained second support is6<8. The.005 risk set
+equals pure Brier20/20,so no tie-break repair. Public RESULT SHA3702be26,
+TREES0df3fe0d;private rawa055546a. Live balance after run$36.858332144.
+Budget remaining over four days at about$9/day,no reserve;next do zero-call
+d2/d3 ranking decomposition before another paid policy run.
+2026-07-28: Zero-call cross-fit decomposition localizes the full-retention
+d3 null to in-sample argmin noise. Each open20 tree validates on the next
+k independent target supports and keeps own target held out;equal draw weight.
+k1/2/4/8/19 d3-vs-equally-crossfit-d2 Brier gains are.70/1.21/2.58/3.20/
+2.77%. k8 gives.154525 vs.159635,tree CI[-.00899,-.00194],10/9/1 W/T/L,
+roots11/20,rho.850 vs.446,concordance.868 vs.675;novel Brier-.00966.
+Versus original in-sample d3,k8 gains4.88%,13 wins/0 losses. Shared replay
+Hamming improves3.05%;coverage is-.25pp overall/-.32pp novel and will be
+reported but not gated. Posthoc development only,model0,cost0,RESULT
+SHA76b576f4.
+2026-07-28: Freeze fresh32 Number Game crossfit-d3 confirmation before any
+response. GPTmini trees28300--331;per tree8 unique Gemini validation supports
+seeds28500--28755 plus independent Gemini endpoint28400--431;nonreasoning,
+temp.7,full retention unchanged. Equal-draw validation Brier selects d3 and
+d2 roots;both deploy same3-query tree. Exact1856. Primary gates:different
+roots>=12,d3 Brier>=1.5%+CI<0+10 wins,no Hamming regression,novel Brier/
+Hamming no regression;crossfit-vs-in-sample-d3>=2%+CI<0+10 wins;myopic>=5%;
+rho>=.7 and d3-d2 rho gap>=.15. Coverage descriptive. Cap$6.50,projected
+$5.80,no reserve;live$36.858332144 leaves about$31 after run for remaining
+three-plus days.

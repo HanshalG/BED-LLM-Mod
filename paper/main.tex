@@ -319,6 +319,16 @@ changing only the selected root yields 0.64\% with an interval crossing zero
 The replicated gain is therefore support preservation, not yet better deeper
 root ranking.
 
+A preregistered 20-tree test then retained consistent particles at both
+refreshes. Depth three changed 13/20 depth-two roots, but Brier improved only
+0.44\% ($[-.0087,.0056]$; 5 wins), while Hamming, coverage, and novel-target
+metrics regressed. Source-to-target Brier ranking remained positive
+(Spearman $.499$, concordance $.689$), and depth three beat fixed-support and
+random controls by 5.82\% and 5.09\%, respectively. Thus retention repairs
+LLM belief dynamics but does not establish monotonic improvement beyond depth
+two; the failure is now localized to deeper root ranking and support
+generalization.
+
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
 eight branch-conditioned supports; official N-body simulation supplied
