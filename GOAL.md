@@ -53,11 +53,12 @@ that don't saturate (entropy-AUC, truth-log-posterior), criteria fixed before lo
 That's not bureaucracy, it's the whole value.
 
 Common sense: OpenRouter, key from `OPENROUTER_API_KEY` (never commit/log), backoff and
-fail-closed. On 2026-07-24 the live balance was $66.292031753. Preserve at least $25
-through Monday 2026-07-27: cap additional pre-Monday spend at $41.292031753, check the
-live balance before every paid stage, project cost from smokes before larger runs, and
-stop paid work if the live remainder reaches $25. Ledger spends in `EXPERIMENTS.md`;
-use a small serving smoke before paid runs and swap models freely. Do not pursue the
-OatML cluster until Hanshal explicitly re-enables it; use OpenRouter or zero-call local
-work meanwhile. Commit and push code + results, keep tests green, and add a few
-`STATE.md` lines each session.
+fail-closed. The full authenticated balance is available for research by expected
+scientific value: there is no reserve, no artificial spend ceiling, and no requirement
+to be cost-conservative. Check the live balance before every paid stage and use
+source/mechanics gates to avoid experiments that cannot answer the research question,
+not to preserve a fixed dollar remainder. Ledger spends in `EXPERIMENTS.md`; use a
+small serving smoke when interface risk is material and swap models freely. Do not
+pursue the OatML cluster until Hanshal explicitly re-enables it; use OpenRouter or
+zero-call local work meanwhile. Commit and push code + results, keep tests green, and
+add a few `STATE.md` lines each session.

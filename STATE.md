@@ -997,3 +997,23 @@ on wholly fresh targets, never relabel this null.
 2026-07-28: SWE-Interact GPT-5.4 mechanics V1 fails formally and scientifically;no first-link/development. Exact24 user+3 judge calls/HTTP,0 retries/forced,2681 user reasoning+0 judge reasoning,$.14773775. Judge omitted required R prefix on2 tasks,so frozen parser fails and no formal aggregate/rerun. Labeled zero-call diagnostic(normalization not rescue) shows generic full-checklist request reveals13/14,6/7,7/7 atoms;generic-zero gate0/3. Target repeat stability6/6,distinct intended roots2/3,reviews3/3:simulator is stable/path-conditioned but direct one-turn extraction collapses hidden uncertainty. Raw SHA2a59fe5c;development21/confirmation24/retained21 sealed. Exact GPT-5.4 route closed. Only separately preregister native openai/gpt-5.5 replication if OpenRouter actually exposes the official run-config model;retain anti-extraction gate. Live$9.238956594,no reserve;OpenRouter only,no OatML/Slurm/SSH.
 2026-07-28: OpenRouter model inventory confirms exact official SWE-Interact simulator openai/gpt-5.5 is available(context1.05M,seed+high reasoning). Freeze one native V2 before calls:all three mechanics tasks/probes/review surfaces/gates unchanged from V1,all27 requests fresh,seed24424. Only prospective transport repair is numeric-only judge IDs with strict bare-decimal parser;R prefixes/leading zeros/unknowns remain errors. Require generic new atoms0/3 plus initial/root stability/alignment/review gates unchanged. GPT-5.5 high environment user,GPT-5.4 Mini nonreasoning judge;projected$1,runaway ceiling$4 not reserve. V1 not replayed/rescored. Development/confirmation/retained sealed;OpenRouter only,no OatML/Slurm/SSH.
 2026-07-28: Native SWE-Interact GPT-5.5 V2 parses/completes exact27 requests/HTTP,0 retries/forced,813 user reasoning+0 judge reasoning,$.2125975,but fails scientifically and closes candidate before first-link/development. Generic new atoms0/3 and distinct intended roots/reviews3/3;repeat stability5/6. Decisive failure:the initial “short version” already reveals14/14 DeepSWE and6/7 refactoring atoms(only SWE-bench Pro0/7),so incomplete-start gate1/3<3/3. GPT-5.4 started vague but dumped86--100% on direct generic;exact GPT-5.5 dumps86--100% immediately. Thus released interface is semantic/path-conditioned after implementation but unrestricted ask_user collapses task uncertainty in one turn. Do not manufacture sequentiality by restricting broad questions after outcome. Raw SHAfc574f85;development21/confirmation24/retained21 unopened. Live$9.202752344,no reserve;OpenRouter only,no OatML/Slurm/SSH.
+2026-07-28: User removed the OpenRouter reserve and all artificial cost conservatism.
+Authenticated credits now report total $140, usage $131.009845156, and remaining
+$8.990154844. The full remainder is available by expected scientific value. Continue
+to gate on whether an experiment can answer the research question, not on preserving
+a fixed dollar balance; OpenRouter only and no OatML/cluster work.
+2026-07-28: Zero-call preference-benchmark source screen identifies ATRBench as the
+strongest conceptual native non-myopic environment, but no official code/data release
+exists; ADAPT is likewise unreleased. PrefBench is fully released but collapses to a
+finite numeric POMDP. ProactiveBench is one intervention then answer. PrefDisco is the
+strongest conditional runnable lead: five-turn semantic preference discovery plus
+external rubrics, but its GitHub is empty and all nine HF datasets require explicit
+contact-sharing access. No gated row was opened.
+2026-07-28: ClarQ-LLM source control flow has real hidden semantic dependency trees:
+144/310 English paired tasks contain child unlocks, with depth up to four, targeted
+questions only, and one fact served per normal-provider turn. It still fails native
+non-myopic eligibility because every task has only 2--6 hidden facts while the release
+allows about 11 follow-up questions and assigns no success cost to querying. A receding
+myopic policy has at least five turns of slack to collect all facts. Do not tighten the
+budget post hoc or spend on this route; proceed to a zero-call PrefDisco schema audit
+only after explicit gated-dataset access.
