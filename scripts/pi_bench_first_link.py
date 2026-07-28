@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v12"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v13"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -462,7 +462,7 @@ def invalid_question_reason(question: str) -> str | None:
     has_chinese_request = (
         "请" in normalized
         and re.search(
-            r"(?:给|发|告诉|分享|提供|上传|粘贴|贴出|确认|说明|选择|指出|发送|列出)",
+            r"(?:给|发|告诉|分享|提供|上传|粘贴|贴|确认|说明|选择|指出|发送|列出)",
             normalized,
         )
         is not None

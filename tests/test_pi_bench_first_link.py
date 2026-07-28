@@ -206,6 +206,12 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
         )
         is None
     )
+    assert (
+        invalid_question_reason(
+            "请把评论内容直接贴上来，我才能逐条标注。"
+        )
+        is None
+    )
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(
