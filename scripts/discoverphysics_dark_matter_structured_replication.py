@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Callable
 import json
 from pathlib import Path
 import sys
@@ -395,12 +396,14 @@ def run_replication(
     discoverphysics_root: Path,
     output_dir: Path,
     run_id: str,
+    adapter_factory: Callable[..., Any] = _adapter,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     commit = verify_discoverphysics(discoverphysics_root)
     if commit != DISCOVERPHYSICS_COMMIT:
         raise ValueError("DiscoverPhysics commit changed")
     executor_class = load_executor_class(discoverphysics_root)
-    adapter = _adapter(run_id=run_id, output_dir=output_dir)
+    adapter = adapter_factory(run_id=run_id, output_dir=output_dir)
     raw_path = output_dir / "RAW_RESPONSES.json"
     raw: dict[str, Any] = {
         "discarded_preflight": None,
@@ -498,7 +501,7 @@ def run_replication(
         selection_gates.values()
     )
     protocol = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "discoverphysics_commit": commit,
         "model": MODEL_ID,
         "reasoning_enabled": False,

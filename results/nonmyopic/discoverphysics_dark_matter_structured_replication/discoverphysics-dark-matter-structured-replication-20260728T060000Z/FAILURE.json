@@ -1,0 +1,33 @@
+{
+  "endpoint_accessed": false,
+  "error": "RuntimeError: OpenRouter HTTP 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404}}",
+  "interface_version": "discoverphysics-dark-matter-structured-replication-1",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 0,
+    "adapter_cost_usd": 0.0,
+    "adapter_prompt_tokens": 0,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 0,
+    "backend": "openrouter",
+    "budget_usd": 140.0,
+    "completion_tokens": 0,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 1,
+    "model": "openai/gpt-5.4",
+    "model_usage": {},
+    "prompt_tokens": 0,
+    "reasoning_enabled": false,
+    "reasoning_tokens": 0,
+    "remaining_usd": 18.613104640776612,
+    "requests": 0,
+    "retry_count": 0,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.0,
+    "run_remaining_usd": 0.25,
+    "total_spent_usd": 121.38689535922339
+  }
+}

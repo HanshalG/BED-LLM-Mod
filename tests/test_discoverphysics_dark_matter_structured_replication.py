@@ -23,6 +23,9 @@ from scripts.discoverphysics_dark_matter_structured_replication import (
     stratified_bootstrap_interval,
     support_response_format,
 )
+from scripts.discoverphysics_dark_matter_structured_replication_v3 import (
+    use_default_structured_routing,
+)
 from tests.test_discoverphysics_dark_matter_executable_support import (
     _valid_payload,
 )
@@ -99,6 +102,31 @@ def test_structured_weighted_payload_reuses_semantic_compiler():
         }
         for hypothesis in hypotheses
     )
+
+
+def test_v3_changes_only_provider_filter_in_structured_payload():
+    payload = {
+        "model": "openai/gpt-5.4",
+        "messages": [{"role": "user", "content": "test"}],
+        "temperature": 0.0,
+        "top_p": 0.95,
+        "top_k": 50,
+        "max_tokens": 3500,
+        "n": 1,
+        "reasoning": {"enabled": False, "exclude": True},
+        "response_format": support_response_format(),
+        "provider": {"require_parameters": True},
+    }
+
+    routed = use_default_structured_routing(payload)
+
+    assert routed["provider"] == {"require_parameters": False}
+    assert {
+        key: value for key, value in routed.items() if key != "provider"
+    } == {
+        key: value for key, value in payload.items() if key != "provider"
+    }
+    assert payload["provider"] == {"require_parameters": True}
 
 
 def test_replication_endpoint_is_fresh_stratified_384_map_family():

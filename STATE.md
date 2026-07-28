@@ -1037,3 +1037,20 @@ diversity/accounting gates before hashing policy and opening fresh384-map seeds
 24700--24715/noise24716/bootstrap24717. Endpoint retains paired myopic/random/fixed-B
 and nearest-support gates. Projected$.14,cap$.25;full balance available,no reserve;
 OpenRouter only,no OatML/cluster. All36 DiscoverPhysics tests pass.
+2026-07-28: DiscoverPhysics structured V2 closes uncharged at its discarded
+preflight before any model output or endpoint. Frozen commit5639c27;one HTTP attempt
+returns OpenRouter404 no endpoints for requested parameters;accepted requests/
+responses/tokens/retries/reasoning/forced/cost all0. No raw/model/policy files;
+24700--24717 remain unopened;public failure SHAd6ad93b2. Cause audit:all five live
+GPT-5.4 endpoints advertise response_format+structured_outputs,but V2 combined
+require_parameters=true with generic temperature/top_p/top_k fields absent from the
+endpoint supported-parameter lists,so OpenRouter filtered every route. Do not rerun
+V2.
+2026-07-28: Freeze DiscoverPhysics structured V3 before any V3 response. Sole
+prospective change is provider.require_parameters=false,OpenRouter's documented
+default;strict response_format and every model/prompt/schema/parser/compiler/
+likelihood/mixture/control/seed/request-count/gate remain exact V2. One new discarded
+preflight precedes exact10 accepted responses;failure closes V3 without ordinary-JSON
+fallback or second tree. Since V2 accepted0 and opened0 seeds,the same untouched
+24700--24717 endpoint remains valid. Projected$.14,cap$.25,full authenticated
+$8.990154844 available,no reserve;OpenRouter only,no OatML/cluster.
