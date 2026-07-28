@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "failed_closed",
+  "interface_version": "semantic-object-game-depth-three-bitstring-1",
+  "usage": {
+    "accepted_requests": 1,
+    "http_attempts": 1,
+    "retry_count": 0,
+    "reasoning_tokens": 0,
+    "forced_exits": 0,
+    "prompt_tokens": 409,
+    "completion_tokens": 576,
+    "run_cost_usd": 0.00289875
+  },
+  "initial_support": {
+    "raw_count": 16,
+    "valid_unique_count": 6,
+    "minimum_required": 12,
+    "rejected": {
+      "wrong_fields": 0,
+      "invalid_text": 0,
+      "invalid_membership_bits": 10,
+      "inconsistent": 0,
+      "duplicate_extension": 0
+    }
+  },
+  "first_branch_responses": 0,
+  "second_branch_responses": 0,
+  "validation_responses": 0,
+  "endpoint_responses": 0,
+  "raw_responses_sha256": "d3f2117d711fab9bcfa2176fb80ca453a1d902f6270f7297ea6e48b27dcbd846"
+}

@@ -1710,3 +1710,12 @@ outside3--29);Gemini yields15/16(one outside range),both>=12. No scientific
 endpoint opened. Public SERVING SHA975303f2,private raw5bc95153. This
 authorizes exactly one fresh hash-bound49-call mechanics tree under frozen
 seed36400/validation36500--503/endpoint36600--607 and$.75 cap.
+2026-07-29: Fresh Semantic Object Game bitstring mechanics fails its first
+support gate and closes the route. Exact1/1 GPTmini request/HTTP,stop,0 retry/
+reasoning/forced,$.00289875;only6/16 valid concepts vs frozen>=12 because10
+extensions violate the3--29 member rule. No branch,validation,target,policy,
+or endpoint call exists. The two-call serving pass remains transport evidence
+only and did not generalize across fresh planning seeds. No threshold/prompt/
+seed/representation repair. Public failure+diagnostic;private raw d3f2117d.
+Authenticated usage$161.726275606/180,visible balance$18.273724394;reported
+$40 top-up still absent. Return to zero-call task-domain selection.

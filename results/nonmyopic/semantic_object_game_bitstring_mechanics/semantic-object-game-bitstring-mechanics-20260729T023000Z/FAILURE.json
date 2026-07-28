@@ -1,0 +1,8 @@
+{
+  "error": "initial semantic support is too small",
+  "error_type": "ValueError",
+  "interface_version": "semantic-object-game-depth-three-bitstring-1",
+  "raw_responses_sha256": "d3f2117d711fab9bcfa2176fb80ca453a1d902f6270f7297ea6e48b27dcbd846",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
