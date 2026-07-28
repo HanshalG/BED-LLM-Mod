@@ -330,6 +330,7 @@ def run_tree_depth_three(
     projected_planning_cost: float = 0.30,
     projected_target_cost: float = 0.02,
     run_budget_usd: float = RUN_BUDGET_USD,
+    shared_budget_run_id: str | None = None,
     first_support_mode: str = FIRST_SUPPORT_GENERATED_ONLY,
     second_support_mode: str = SECOND_SUPPORT_GENERATED_ONLY,
     brier_tolerance: float = 0.0,
@@ -344,7 +345,10 @@ def run_tree_depth_three(
         )
     planning = _adapter(
         model=planning_model,
-        run_id=f"{run_id}-tree{tree_index}-planning",
+        run_id=(
+            shared_budget_run_id
+            or f"{run_id}-tree{tree_index}-planning"
+        ),
         output_dir=output_dir,
         request_seed=tree_seed,
         concurrency=planning_concurrency,
@@ -353,7 +357,10 @@ def run_tree_depth_three(
     )
     target = _adapter(
         model=target_model,
-        run_id=f"{run_id}-tree{tree_index}-target",
+        run_id=(
+            shared_budget_run_id
+            or f"{run_id}-tree{tree_index}-target"
+        ),
         output_dir=output_dir,
         request_seed=target_seed,
         concurrency=target_concurrency,

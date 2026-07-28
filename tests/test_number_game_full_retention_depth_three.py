@@ -4,9 +4,11 @@ import re
 import pytest
 
 from scripts import number_game_depth_three_development as depth
+from scripts import number_game_full_retention_depth_three as full
 from scripts.number_game_full_retention_depth_three import (
     BRIER_TOLERANCE,
     EXPECTED_REQUESTS,
+    MIN_STARTING_BALANCE_USD,
     RUN_BUDGET_USD,
     TARGET_SEEDS,
     TREE_SEEDS,
@@ -35,6 +37,7 @@ def test_powered_protocol_constants_are_frozen():
     assert TARGET_SEEDS == tuple(range(28100, 28120))
     assert EXPECTED_REQUESTS == 1000
     assert RUN_BUDGET_USD == pytest.approx(3.60)
+    assert MIN_STARTING_BALANCE_USD == pytest.approx(3.25)
     assert BRIER_TOLERANCE == pytest.approx(0.005)
 
 
@@ -209,6 +212,51 @@ class _DepthFakeAdapter:
         }
 
 
+class _CreditResponse:
+    def __init__(self, payload: dict) -> None:
+        self.payload = payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        del args
+
+    def read(self):
+        return json.dumps(self.payload).encode()
+
+
+def test_openrouter_balance_preflight_uses_live_credit(
+    monkeypatch,
+):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    def fake_urlopen(request, *, timeout):
+        assert request.get_header("Authorization") == "Bearer test-key"
+        assert timeout == pytest.approx(30.0)
+        return _CreditResponse(
+            {
+                "data": {
+                    "total_credits": 10.0,
+                    "total_usage": 6.75,
+                }
+            }
+        )
+
+    monkeypatch.setattr(
+        full.urllib.request,
+        "urlopen",
+        fake_urlopen,
+    )
+
+    remaining = full.openrouter_remaining_credit()
+
+    assert remaining == pytest.approx(3.25)
+    full.require_starting_balance(remaining)
+    with pytest.raises(RuntimeError, match="below the frozen"):
+        full.require_starting_balance(3.249)
+
+
 def test_full_retention_rehearsal_exercises_both_refreshes(
     tmp_path,
     monkeypatch,
@@ -216,11 +264,13 @@ def test_full_retention_rehearsal_exercises_both_refreshes(
     planning = _DepthFakeAdapter([0, 30, 60])
     target = _DepthFakeAdapter([70])
     adapters = iter((planning, target))
-    monkeypatch.setattr(
-        depth,
-        "_adapter",
-        lambda **kwargs: next(adapters),
-    )
+    adapter_run_ids = []
+
+    def fake_adapter(**kwargs):
+        adapter_run_ids.append(kwargs["run_id"])
+        return next(adapters)
+
+    monkeypatch.setattr(depth, "_adapter", fake_adapter)
 
     tree, artifacts = depth.run_tree_depth_three(
         tree_index=0,
@@ -228,6 +278,7 @@ def test_full_retention_rehearsal_exercises_both_refreshes(
         target_seed=28100,
         output_dir=tmp_path,
         run_id="fake-full-retention",
+        shared_budget_run_id="fake-shared-budget",
         first_support_mode=depth.FIRST_SUPPORT_RETAINED_REJUVENATION,
         second_support_mode=depth.SECOND_SUPPORT_RETAINED_REJUVENATION,
         brier_tolerance=BRIER_TOLERANCE,
@@ -236,6 +287,10 @@ def test_full_retention_rehearsal_exercises_both_refreshes(
 
     assert planning.requests == 49
     assert target.requests == 1
+    assert adapter_run_ids == [
+        "fake-shared-budget",
+        "fake-shared-budget",
+    ]
     assert tree["mechanics"]["exact_50_requests"]
     assert tree["first_support_mode"] == "retained_rejuvenation"
     assert tree["second_support_mode"] == "retained_rejuvenation"

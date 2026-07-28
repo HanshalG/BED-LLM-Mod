@@ -6,9 +6,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 from typing import Any, Sequence
+import urllib.request
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -32,11 +34,41 @@ TARGET_SEEDS = tuple(range(28100, 28120))
 EXPECTED_REQUESTS_PER_TREE = 50
 EXPECTED_REQUESTS = len(TREE_SEEDS) * EXPECTED_REQUESTS_PER_TREE
 RUN_BUDGET_USD = 3.60
+MIN_STARTING_BALANCE_USD = 3.25
 MIN_INITIAL_VALID = 16
 MIN_FIRST_BRANCH_VALID = 8
 MIN_SECOND_BRANCH_VALID = 8
 MIN_TARGET_VALID = 16
 MIN_NOVEL_TARGETS = 8
+
+
+def openrouter_remaining_credit() -> float:
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENROUTER_API_KEY is required")
+    request = urllib.request.Request(
+        "https://openrouter.ai/api/v1/credits",
+        headers={"Authorization": f"Bearer {api_key}"},
+    )
+    with urllib.request.urlopen(request, timeout=30.0) as response:
+        payload = json.loads(response.read())
+    data = payload.get("data") if isinstance(payload, dict) else None
+    if (
+        not isinstance(data, dict)
+        or not isinstance(data.get("total_credits"), (int, float))
+        or not isinstance(data.get("total_usage"), (int, float))
+    ):
+        raise RuntimeError("OpenRouter credits response has invalid fields")
+    return float(data["total_credits"]) - float(data["total_usage"])
+
+
+def require_starting_balance(remaining_usd: float) -> None:
+    if remaining_usd + 1e-12 < MIN_STARTING_BALANCE_USD:
+        raise RuntimeError(
+            "OpenRouter balance "
+            f"${remaining_usd:.6f} is below the frozen "
+            f"${MIN_STARTING_BALANCE_USD:.2f} projected run cost"
+        )
 
 
 def powered_gates(
@@ -201,6 +233,7 @@ def run_powered(
                 projected_planning_cost=0.18,
                 projected_target_cost=0.02,
                 run_budget_usd=RUN_BUDGET_USD,
+                shared_budget_run_id=run_id,
                 first_support_mode=(
                     depth.FIRST_SUPPORT_RETAINED_REJUVENATION
                 ),
@@ -246,6 +279,10 @@ def run_powered(
                 ),
                 "brier_tolerance": BRIER_TOLERANCE,
                 "run_budget_usd": RUN_BUDGET_USD,
+                "minimum_starting_balance_usd": (
+                    MIN_STARTING_BALANCE_USD
+                ),
+                "cumulative_budget_run_id": run_id,
                 "tree_bootstrap_samples": BOOTSTRAP_SAMPLES,
             },
             "raw_responses_sha256": hashlib.sha256(
@@ -290,6 +327,13 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     args = parser.parse_args()
+    remaining_usd = openrouter_remaining_credit()
+    require_starting_balance(remaining_usd)
+    print(
+        "OpenRouter preflight: "
+        f"${remaining_usd:.6f} remaining; "
+        f"${MIN_STARTING_BALANCE_USD:.2f} required"
+    )
     result = run_powered(
         output_dir=args.output_dir.resolve(),
         run_id=args.run_id,

@@ -1460,3 +1460,11 @@ refreshes;mean retained support is strictly larger than generated-only at each
 refresh. Focused suite47 passed;legacy replay remains exact. Live OpenRouter
 credits endpoint reports$140 total/$139.893581356 used=$.106418644 remaining,
 so the exact1000-call run is not started. No reserve will be held after top-up.
+2026-07-28: Harden frozen full-retention launch accounting before responses.
+Audit found the$3.60 run cap was scoped to each distinct tree/model adapter
+run ID,not the full experiment. All40 adapters now share one ledger run ID,so
+the cap is cumulative. CLI live-credit preflight requires exactly the observed
+$3.25 projection(no reserve)before any output/call. Scientific prompts,seeds,
+inference,controls,endpoints,and gates unchanged. Fixed one-shot launcher
+exports.env and refuses overwrite;live insufficient-balance execution leaves
+no run directory. Budget/method tests34 passed.

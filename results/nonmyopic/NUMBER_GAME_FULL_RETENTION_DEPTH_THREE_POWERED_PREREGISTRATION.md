@@ -66,6 +66,22 @@ The prior exact-300 serving run qualifies the unchanged models, prompts,
 schema, and transport path. Full retention is deterministic local inference,
 so no paid smoke is required.
 
+## Operational Hardening After Freeze
+
+Before any response, the launch path was hardened without changing prompts,
+models, seeds, responses, inference, controls, endpoints, or gates:
+
+- all planning and target adapters share one OpenRouter ledger run ID, making
+  the `$3.60` cap cumulative over the complete experiment; and
+- the CLI checks live OpenRouter credit before creating the run and starts only
+  when at least the observed-cost projection of `$3.25` is available; and
+- `scripts/run_number_game_full_retention_depth_three.sh` exports `.env`, uses
+  one fixed run ID and output path, and refuses to overwrite an existing
+  attempt.
+
+The credit threshold includes no reserve. It prevents a known-insufficient
+balance from producing a paid partial dataset.
+
 ## Frozen Conjunctive Gates
 
 All gates must pass:
