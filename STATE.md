@@ -1663,3 +1663,16 @@ replays2263 original responses/$3.3512 represented. Public RESULT
 SHAa645c921,TREES7abae080,ENDPOINTSaa93e20f. No further Qwen-planner paid
 replication. Interpret as strong posthoc Brier/ranking evidence with
 loss-alignment limitation,not formal all-gates robustness.
+2026-07-29: User reports a new$40 OpenRouter top-up to pace across four days,
+with no reserve and no need for conservative underspending. Authenticated
+credits still show total$180/usage$161.579636306/remaining$18.420363694,so use
+the provider-visible balance as the hard limit until it refreshes. Zero-call
+task inventory rules out more tau-Knowledge task-level evidence(all97 banking
+tasks consumed)and closed Animals/Detective routes remain closed. Freeze a
+distinct Semantic Object Game mechanics gate before responses:32 real objects,
+16 coherent concept+complete-membership hypotheses,GPT-5.4 Mini owns initial
+and twice-refreshed semantic supports,Gemini2.5-Flash supplies4 crossfit+
+8 endpoint draws. Exact49 nonreasoning calls,seed36000,$.75 cap;all support,
+transport,and active d2/d3-root gates must pass. One-tree endpoint is
+descriptive only;pass authorizes only separately preregistered multi-tree
+development. Six focused tests pass;OpenRouter only,no OatML/Slurm.
