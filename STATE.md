@@ -1099,3 +1099,11 @@ a third paid tree. This fixed rule repairs fresh-tree uncapped support effect
 -5.66% to+1.43% and helps both trees,so overpromotion diagnosis is credible,but exact
 hard-cap method is rejected. Model0,cost0;next route must model data-dependent support
 selection generatively rather than tune this endpoint.
+2026-07-28: Freeze distinct zero-call DiscoverPhysics modular-cut development before
+computing it. Treat branch support generation as a data-dependent module:keep component
+mass fixed.95/.05 and cut component-level likelihood feedback,while exact
+full-history inference remains inside each support. This differs from rejected cap
+min(m,.05):cut mass is always.05,no grid/tuning/region exception. On both existing
+384-map endpoints require exact reproduction,+>=1% vs fixed B,and positive paired CI;
+only then require each tree internal immediate D,cut-risk B,and>=10% B-vs-D. Any
+failure forbids paid third tree;do not relax after cap.855%. Model0,cost0,OatML0.

@@ -178,6 +178,7 @@ def analyze(
     initial_component_errors = np.empty(num_truths)
     refresh_component_errors = np.empty(num_truths)
     capped_errors = np.empty(num_truths)
+    cut_errors = np.empty(num_truths)
     refresh_masses = np.empty(num_truths)
     refresh_better_fractions = np.empty(num_truths)
     branch_one_fractions = np.empty(num_truths)
@@ -193,6 +194,7 @@ def analyze(
         refresh_better = []
         branch_indices = []
         capped = []
+        cut = []
         for root_sample in range(root_samples):
             root_observation = (
                 hidden_action_means[root_action][truth_index]
@@ -277,6 +279,10 @@ def analyze(
                 (1.0 - capped_mass[:, None]) * initial_prediction
                 + capped_mass[:, None] * refresh_prediction
             )
+            cut_prediction = (
+                (1.0 - REFRESH_COMPONENT_MASS) * initial_prediction
+                + REFRESH_COMPONENT_MASS * refresh_prediction
+            )
             truth = hidden_heldout[truth_index]
             initial_error = np.mean(
                 (initial_prediction - truth[None, :]) ** 2,
@@ -294,10 +300,15 @@ def analyze(
                 (capped_prediction - truth[None, :]) ** 2,
                 axis=1,
             )
+            cut_error = np.mean(
+                (cut_prediction - truth[None, :]) ** 2,
+                axis=1,
+            )
             retained.extend(retained_error.tolist())
             initial_only.extend(initial_error.tolist())
             refresh_only.extend(refresh_error.tolist())
             capped.extend(capped_error.tolist())
+            cut.extend(cut_error.tolist())
             masses.extend(refresh_mass.tolist())
             refresh_better.extend((refresh_error < initial_error).tolist())
             event_masses.extend(refresh_mass.tolist())
@@ -310,6 +321,7 @@ def analyze(
         initial_component_errors[truth_index] = float(np.mean(initial_only))
         refresh_component_errors[truth_index] = float(np.mean(refresh_only))
         capped_errors[truth_index] = float(np.mean(capped))
+        cut_errors[truth_index] = float(np.mean(cut))
         refresh_masses[truth_index] = float(np.mean(masses))
         refresh_better_fractions[truth_index] = float(
             np.mean(refresh_better)
@@ -344,6 +356,9 @@ def analyze(
             "capped_at_prior_mse": weighted_mean(
                 capped_errors[mask], weights
             ),
+            "modular_cut_mse": weighted_mean(
+                cut_errors[mask], weights
+            ),
             "mean_refresh_posterior_mass": weighted_mean(
                 refresh_masses[mask], weights
             ),
@@ -366,6 +381,14 @@ def analyze(
         seed=bootstrap_seed,
     )
     capped_reduction = (fixed_risk - capped_risk) / fixed_risk
+    cut_risk = weighted_mean(cut_errors, hidden_prior)
+    cut_difference = expected_fixed - cut_errors
+    cut_ci = stratified_bootstrap_interval(
+        cut_difference,
+        hidden_regions,
+        seed=bootstrap_seed,
+    )
+    cut_reduction = (fixed_risk - cut_risk) / fixed_risk
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -412,6 +435,15 @@ def analyze(
             "fixed_minus_capped_ci95": list(capped_ci),
             "reduction_at_least_1_percent": capped_reduction >= 0.01,
             "paired_lower_bound_positive": capped_ci[0] > 0.0,
+        },
+        "modular_cut": {
+            "refresh_component_mass": REFRESH_COMPONENT_MASS,
+            "fixed_support_mse": fixed_risk,
+            "cut_mse": cut_risk,
+            "cut_vs_fixed_reduction": cut_reduction,
+            "fixed_minus_cut_ci95": list(cut_ci),
+            "reduction_at_least_1_percent": cut_reduction >= 0.01,
+            "paired_lower_bound_positive": cut_ci[0] > 0.0,
         },
         "new_model_calls": 0,
         "openrouter_cost_usd": 0.0,
