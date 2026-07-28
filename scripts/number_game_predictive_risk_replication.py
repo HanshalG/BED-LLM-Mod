@@ -137,13 +137,14 @@ def _adapter(
     request_seed: int,
     concurrency: int,
     projected_cost: float,
+    run_budget_usd: float = RUN_BUDGET_USD,
 ) -> SeededStructuredAdapter:
     config = Config(
         task="animals",
         run_id=run_id,
         log_path=output_dir / "run.log",
         openrouter_budget_usd=200.0,
-        openrouter_run_budget_usd=RUN_BUDGET_USD,
+        openrouter_run_budget_usd=run_budget_usd,
         openrouter_projected_cost_usd=projected_cost,
         openrouter_concurrency=concurrency,
         openrouter_max_retries=4,

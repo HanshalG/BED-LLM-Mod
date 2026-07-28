@@ -1416,3 +1416,15 @@ regret.00704 vs myopic.04487,fixed.04743,PTS.03365,random.03391;candidate wins
 out agreement.8684,CI[.8349,.9008],with70/96 trees>=75% stable. Public SHA
 735935bb. Descriptive first-link evidence;no calls/cost and no depth-three
 repair.
+2026-07-28: Post-hoc zero-call retained-rejuvenation d3 development on the
+open V2 eight trees repairs the evidenced destructive resampling failure.
+Second refresh now unions valid generated rules with consistent parent rules,
+deduped;minimum second support rises0->7. A frozen.005 Brier near-optimal set
+then breaks finite-particle ties by source Hamming/coverage. Candidate Brier
+.171004 vs d2-root.175934(-2.80%,4/8),Hamming-.00627,coverage+3.29pp;vs
+parent-only Brier-5.27%(5/8),generated-only-1.84%(3/8),myopic-9.51%(7/8).
+Roots differ d2/parent/generated5/5/4 of8. Source-target ranking rho.6726,
+CI[.5060,.8214],concordance.7545. Public SHAfd5d0587. Freeze before fresh
+responses:6 GPTmini/Gemini trees seeds27800--805/27900--805,exact300,same
+nonreasoning interface,retention+risk set fixed,conjunctive mechanics/depth/
+controls/ranking gates,cap$1.07,no reserve;live balance$1.080791044.

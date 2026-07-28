@@ -3,7 +3,9 @@ from scripts.number_game_depth_three_development import (
     TARGET_MODEL_ID,
     TARGET_SEEDS,
     TREE_SEEDS,
+    choose_risk_set_root,
     evaluate_policy_root_depth_three,
+    retain_parent_hypotheses,
     static_depth_three_branches,
 )
 from scripts.number_game_generator_aware_bed import (
@@ -97,3 +99,48 @@ def test_depth_three_evaluator_follows_target_path():
 
     assert result["targets"][0]["first_label"] is True
     assert result["targets"][0]["truth_extension_covered"] is True
+
+
+def test_retained_rejuvenation_merges_consistent_parent_particles():
+    generated = [_rule("generated", {1, 2})]
+    duplicate = _rule("duplicate", {1, 2})
+    retained = _rule("retained", {1, 3})
+    inconsistent = _rule("inconsistent", {2, 3})
+
+    merged, diagnostics = retain_parent_hypotheses(
+        parent_support=[duplicate, retained, inconsistent],
+        generated_support=generated,
+        query=1,
+        label=True,
+    )
+
+    assert merged == [generated[0], retained]
+    assert diagnostics == {
+        "generated_unique_count": 1,
+        "retained_parent_consistent_count": 2,
+        "retained_parent_novel_count": 1,
+        "merged_unique_count": 2,
+    }
+
+
+def test_risk_set_uses_hamming_only_inside_brier_tolerance():
+    scores = {
+        1: {
+            "mean_posterior_predictive_brier": 0.100,
+            "mean_best_hamming_error": 0.20,
+            "truth_extension_coverage_rate": 0.8,
+        },
+        2: {
+            "mean_posterior_predictive_brier": 0.104,
+            "mean_best_hamming_error": 0.10,
+            "truth_extension_coverage_rate": 0.4,
+        },
+        3: {
+            "mean_posterior_predictive_brier": 0.106,
+            "mean_best_hamming_error": 0.01,
+            "truth_extension_coverage_rate": 1.0,
+        },
+    }
+
+    assert choose_risk_set_root(scores, brier_tolerance=0.0) == 1
+    assert choose_risk_set_root(scores, brier_tolerance=0.005) == 2

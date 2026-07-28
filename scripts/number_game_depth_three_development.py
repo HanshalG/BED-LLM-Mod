@@ -55,6 +55,12 @@ MIN_FIRST_BRANCH_VALID = 8
 MIN_SECOND_BRANCH_VALID = 4
 MIN_TARGET_VALID = 16
 MIN_NOVEL_TARGETS = 8
+SECOND_SUPPORT_GENERATED_ONLY = "generated_only"
+SECOND_SUPPORT_RETAINED_REJUVENATION = "retained_rejuvenation"
+SECOND_SUPPORT_MODES = {
+    SECOND_SUPPORT_GENERATED_ONLY,
+    SECOND_SUPPORT_RETAINED_REJUVENATION,
+}
 
 
 def _terminal_metrics(
@@ -242,6 +248,68 @@ def static_depth_three_branches(
     return first, second
 
 
+def retain_parent_hypotheses(
+    *,
+    parent_support: Sequence[RuleHypothesis],
+    generated_support: Sequence[RuleHypothesis],
+    query: int,
+    label: bool,
+) -> tuple[list[RuleHypothesis], dict[str, int]]:
+    retained = [
+        hypothesis
+        for hypothesis in parent_support
+        if hypothesis.extension[query] == label
+    ]
+    merged = []
+    seen = set()
+    generated_unique = 0
+    for source, hypotheses in (
+        ("generated", generated_support),
+        ("retained", retained),
+    ):
+        for hypothesis in hypotheses:
+            if hypothesis.extension in seen:
+                continue
+            seen.add(hypothesis.extension)
+            merged.append(hypothesis)
+            if source == "generated":
+                generated_unique += 1
+    return merged, {
+        "generated_unique_count": generated_unique,
+        "retained_parent_consistent_count": len(retained),
+        "retained_parent_novel_count": len(merged) - generated_unique,
+        "merged_unique_count": len(merged),
+    }
+
+
+def choose_risk_set_root(
+    scores: dict[int, dict[str, Any]],
+    *,
+    brier_tolerance: float,
+) -> int:
+    if brier_tolerance < 0.0:
+        raise ValueError("brier_tolerance must be non-negative")
+    minimum_brier = min(
+        score["mean_posterior_predictive_brier"]
+        for score in scores.values()
+    )
+    eligible = [
+        root
+        for root, score in scores.items()
+        if score["mean_posterior_predictive_brier"]
+        <= minimum_brier + brier_tolerance
+    ]
+    return min(
+        eligible,
+        key=lambda root: (
+            scores[root]["mean_best_hamming_error"],
+            -scores[root]["truth_extension_coverage_rate"],
+            scores[root]["mean_posterior_predictive_brier"],
+            root,
+        ),
+    )
+
+
 def run_tree_depth_three(
     *,
     tree_index: int,
@@ -249,22 +317,37 @@ def run_tree_depth_three(
     target_seed: int,
     output_dir: Path,
     run_id: str,
+    planning_model: str = PLANNING_MODEL_ID,
+    target_model: str = TARGET_MODEL_ID,
+    planning_concurrency: int = 32,
+    target_concurrency: int = 1,
+    projected_planning_cost: float = 0.30,
+    projected_target_cost: float = 0.02,
+    run_budget_usd: float = RUN_BUDGET_USD,
+    second_support_mode: str = SECOND_SUPPORT_GENERATED_ONLY,
+    brier_tolerance: float = 0.0,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    if second_support_mode not in SECOND_SUPPORT_MODES:
+        raise ValueError(
+            f"unsupported second_support_mode {second_support_mode!r}"
+        )
     planning = _adapter(
-        model=PLANNING_MODEL_ID,
+        model=planning_model,
         run_id=f"{run_id}-tree{tree_index}-planning",
         output_dir=output_dir,
         request_seed=tree_seed,
-        concurrency=32,
-        projected_cost=0.30,
+        concurrency=planning_concurrency,
+        projected_cost=projected_planning_cost,
+        run_budget_usd=run_budget_usd,
     )
     target = _adapter(
-        model=TARGET_MODEL_ID,
+        model=target_model,
         run_id=f"{run_id}-tree{tree_index}-target",
         output_dir=output_dir,
         request_seed=target_seed,
-        concurrency=1,
-        projected_cost=0.02,
+        concurrency=target_concurrency,
+        projected_cost=projected_target_cost,
+        run_budget_usd=run_budget_usd,
     )
     initial_response = planning.chat_complete_messages_batched_structured(
         [initial_messages()],
@@ -332,7 +415,9 @@ def run_tree_depth_three(
         response_format=proposal_response_format(),
         max_new_tokens=MAX_TOKENS,
     )
+    generated_second_branches = {}
     second_branches = {}
+    parent_only_second_branches = {}
     second_diagnostics = {}
     for key, response in zip(
         second_keys,
@@ -340,14 +425,43 @@ def run_tree_depth_three(
         strict=True,
     ):
         observations = ((key[0], key[1]), (key[2], key[3]))
-        hypotheses, diagnostics = parse_proposals(
+        generated, diagnostics = parse_proposals(
             response,
             observations=observations,
         )
+        generated_second_branches[key] = generated
+        parent_only = [
+            hypothesis
+            for hypothesis in first_branches[(key[0], key[1])]
+            if hypothesis.extension[key[2]] == key[3]
+        ]
+        parent_only_second_branches[key] = parent_only
+        if (
+            second_support_mode
+            == SECOND_SUPPORT_RETAINED_REJUVENATION
+        ):
+            hypotheses, retention = retain_parent_hypotheses(
+                parent_support=first_branches[(key[0], key[1])],
+                generated_support=generated,
+                query=key[2],
+                label=key[3],
+            )
+        else:
+            hypotheses = generated
+            retention = {
+                "generated_unique_count": len(generated),
+                "retained_parent_consistent_count": len(parent_only),
+                "retained_parent_novel_count": 0,
+                "merged_unique_count": len(generated),
+            }
         second_branches[key] = hypotheses
         second_diagnostics[
             f"{key[0]}:{int(key[1])}:{key[2]}:{int(key[3])}"
-        ] = diagnostics
+        ] = {
+            **diagnostics,
+            **retention,
+            "valid_unique_count": len(hypotheses),
+        }
 
     target_response = target.chat_complete_messages_batched_structured(
         [initial_messages()],
@@ -374,7 +488,10 @@ def run_tree_depth_three(
         first_branches=first_branches,
         second_branches=second_branches,
     )
-    depth_three_root = choose_predictive_bayes_risk_root(depth_three)
+    depth_three_root = choose_risk_set_root(
+        depth_three,
+        brier_tolerance=brier_tolerance,
+    )
     depth_two = predictive_bayes_risk_scores(
         support=initial,
         roots=roots,
@@ -392,12 +509,42 @@ def run_tree_depth_three(
         second_branches=static_second,
     )
     static_root = choose_predictive_bayes_risk_root(static_scores)
+    generated_only_scores = depth_three_scores(
+        support=initial,
+        roots=roots,
+        first_branches=first_branches,
+        second_branches=generated_second_branches,
+    )
+    generated_only_root = choose_risk_set_root(
+        generated_only_scores,
+        brier_tolerance=brier_tolerance,
+    )
+    parent_only_scores = depth_three_scores(
+        support=initial,
+        roots=roots,
+        first_branches=first_branches,
+        second_branches=parent_only_second_branches,
+    )
+    parent_only_root = choose_risk_set_root(
+        parent_only_scores,
+        brier_tolerance=brier_tolerance,
+    )
     policy_roots = {
         "predictive_bayes_risk_depth_three": depth_three_root,
         "predictive_bayes_risk_depth_two": depth_two_root,
         "myopic_eig": int(candidate_metadata["myopic_root"]),
         "fixed_support_depth_three": static_root,
     }
+    if (
+        second_support_mode
+        == SECOND_SUPPORT_RETAINED_REJUVENATION
+    ):
+        policy_roots.update(
+            {
+                "generated_only_depth_three": generated_only_root,
+                "retained_parent_only_depth_three": parent_only_root,
+            }
+        )
     per_root = {
         root: evaluate_policy_root_depth_three(
             policy=f"root_{root}",
@@ -425,6 +572,17 @@ def run_tree_depth_three(
         "fixed_support_depth_three",
         "uniform_random_candidate_root",
         "positive_test_strategy",
+        *(
+            (
+                "generated_only_depth_three",
+                "retained_parent_only_depth_three",
+            )
+            if (
+                second_support_mode
+                == SECOND_SUPPORT_RETAINED_REJUVENATION
+            )
+            else ()
+        ),
     )
     comparisons = {
         baseline: policy_comparison(
@@ -458,6 +616,14 @@ def run_tree_depth_three(
             item["valid_unique_count"]
             for item in second_diagnostics.values()
         ),
+        "minimum_generated_second_branch_valid": min(
+            item["generated_unique_count"]
+            for item in second_diagnostics.values()
+        ),
+        "minimum_retained_parent_consistent": min(
+            item["retained_parent_consistent_count"]
+            for item in second_diagnostics.values()
+        ),
         "target_valid": len(targets),
         "novel_targets": len(novel_targets),
         "exact_50_requests": (
@@ -480,11 +646,15 @@ def run_tree_depth_three(
             "predictive_bayes_risk_depth_three_root": depth_three_root,
             "predictive_bayes_risk_depth_two_root": depth_two_root,
             "fixed_support_depth_three_root": static_root,
+            "generated_only_depth_three_root": generated_only_root,
+            "retained_parent_only_depth_three_root": parent_only_root,
             "pts_roots": pts_roots,
         },
         "initial_diagnostics": initial_diagnostics,
         "first_branch_diagnostics": first_diagnostics,
         "second_branch_diagnostics": second_diagnostics,
+        "second_support_mode": second_support_mode,
+        "brier_tolerance": brier_tolerance,
         "target_diagnostics": {
             **target_diagnostics,
             "novel_unique_count": len(novel_targets),
@@ -539,6 +709,17 @@ def run_tree_depth_three(
             ]
             for root, first_label, second_query, second_label in second_keys
         },
+        "generated_second_branches": {
+            f"{root}:{int(first_label)}:{second_query}:{int(second_label)}": [
+                hypothesis.public_dict()
+                for hypothesis in generated_second_branches[
+                    (root, first_label, second_query, second_label)
+                ]
+            ]
+            for root, first_label, second_query, second_label in second_keys
+        },
+        "second_support_mode": second_support_mode,
+        "brier_tolerance": brier_tolerance,
         "targets": [
             {
                 **hypothesis.public_dict(),
