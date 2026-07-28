@@ -1,0 +1,107 @@
+{
+  "diagnostic_normalization": "accept an optional missing R prefix only for the labeled zero-call diagnostic",
+  "formal_decision": "close_exact_swe_interact_route",
+  "formal_v1_status": "failed_closed_on_noncanonical_requirement_ids",
+  "model_requests": 0,
+  "openrouter_cost_usd": 0.0,
+  "raw_sha256": "2a59fe5cda0517c23667f8f35e64210d9fbc32a52750b1b642ce2cb50b754a77",
+  "schema_version": 1,
+  "status": "diagnostic_only_not_gate_rescue",
+  "summary": {
+    "distinct_aligned_review_task_count": 3,
+    "distinct_aligned_root_task_count": 2,
+    "exact_root_repeat_pair_count": 6,
+    "generic_requirement_counts": [
+      13,
+      6,
+      7
+    ],
+    "generic_requirement_fractions": [
+      0.9285714285714286,
+      0.8571428571428571,
+      1.0
+    ],
+    "generic_zero_progress_count": 0,
+    "initial_at_most_one_count": 3,
+    "num_tasks": 3,
+    "scientific_generic_gate_would_pass": false
+  },
+  "tasks": [
+    {
+      "distinct_aligned_reviews": true,
+      "distinct_aligned_roots": true,
+      "family": "deepswe",
+      "generic_new_requirement_count": 13,
+      "generic_requirement_fraction": 0.9285714285714286,
+      "initial_requirement_count": 1,
+      "requirement_count": 14,
+      "review_a_requirement_ids": [
+        "R2"
+      ],
+      "review_b_requirement_ids": [
+        "R4"
+      ],
+      "root_a_requirement_ids": [
+        "R2"
+      ],
+      "root_b_requirement_ids": [
+        "R4"
+      ],
+      "root_repeat_pairs_exact": 2,
+      "task_id": "deepswe_clack-async-autocomplete-options"
+    },
+    {
+      "distinct_aligned_reviews": true,
+      "distinct_aligned_roots": true,
+      "family": "refactoring",
+      "generic_new_requirement_count": 6,
+      "generic_requirement_fraction": 0.8571428571428571,
+      "initial_requirement_count": 0,
+      "requirement_count": 7,
+      "review_a_requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R7"
+      ],
+      "review_b_requirement_ids": [
+        "R5"
+      ],
+      "root_a_requirement_ids": [
+        "R1",
+        "R7"
+      ],
+      "root_b_requirement_ids": [
+        "R5"
+      ],
+      "root_repeat_pairs_exact": 2,
+      "task_id": "rf_task-694b4b99829f00e24fd118a1"
+    },
+    {
+      "distinct_aligned_reviews": true,
+      "distinct_aligned_roots": false,
+      "family": "swebench_pro",
+      "generic_new_requirement_count": 7,
+      "generic_requirement_fraction": 1.0,
+      "initial_requirement_count": 0,
+      "requirement_count": 7,
+      "review_a_requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "review_b_requirement_ids": [
+        "R3",
+        "R5"
+      ],
+      "root_a_requirement_ids": [],
+      "root_b_requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "root_repeat_pairs_exact": 2,
+      "task_id": "swebenchpro_instance_qutebrowser__qutebrowser-fea33d607fde83cf505b228238cf365936437a63-v9f8e9d96c85c85a605e382f1510bd08563afc566"
+    }
+  ]
+}
