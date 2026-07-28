@@ -1,0 +1,59 @@
+{
+  "gates": {
+    "all_support_extensions_are_unique_within_response": true,
+    "all_supports_have_at_least_sixteen_valid_rules": true,
+    "exact_ten_accepted_requests": true,
+    "retries_within_cap": true,
+    "transport_attempt_accounting_exact": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "number-game-qwen-crossjudge-depth-three-1",
+    "model": "qwen/qwen3.7-plus",
+    "reasoning": false,
+    "run_budget_usd": 0.1,
+    "scientific_endpoint_scored": false,
+    "seeds": [
+      31610,
+      31611,
+      31612,
+      31613,
+      31614,
+      31615,
+      31616,
+      31617,
+      31618,
+      31619
+    ],
+    "stage": "support_serving_smoke",
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "e40c366521b94ce586d7b0a1ae498dd27f3337547c5a7ff16c8687e2fc8e1523",
+  "schema_version": 1,
+  "status": "passed",
+  "supports_sha256": "b41e505b9cb34d7ee87e946418d4435980c9c6f63496a173200755a338774bad",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.0104736
+  },
+  "valid_support_counts": [
+    22,
+    21,
+    22,
+    21,
+    23,
+    24,
+    21,
+    24,
+    22,
+    22
+  ]
+}

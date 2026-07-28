@@ -1595,3 +1595,9 @@ directional,no Hamming/coverage/novel regression,>=3%+CI vs myopic/fixed/PTS,
 rho>=.7 and gap>=.15. Cap$3.50,live preflight>=3,no reserve;failure remains
 public with no repair/reselection. This tests endpoint model-family
 robustness,not a third planner family.
+2026-07-28: Qwen3.7-Plus cross-judge support smoke passes all frozen gates.
+Exact10/10 requests/HTTP,0 retries/reasoning/forced,cost$.0104736;all stop
+and parse to21--24 valid unique rules(min gate16). No source policy or
+scientific endpoint scored. Public SUPPORTS SHAb41e505b;private raw
+e40c3665. Observed cost projects formal exact1024 near$1.07,well below$3.50
+cap;conditional fixed-policy cross-judge is authorized without method change.
