@@ -149,6 +149,15 @@ def test_parse_belief_rejects_generic_or_duplicate_questions() -> None:
         is None
     )
     assert invalid_question_reason("你希望先比较哪些方案？") is None
+    assert (
+        invalid_question_reason(
+            "关系图是服务于今晚汇报，还是后续诉讼准备，这会影响细节层次。"
+        )
+        is None
+    )
+    assert invalid_question_reason("I will prepare the report.") == (
+        "not_a_question"
+    )
 
 
 def test_gpt54_payload_uses_only_routable_structured_parameters(

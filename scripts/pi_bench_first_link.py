@@ -34,7 +34,7 @@ MANIFEST_SHA256 = (
     "ccdf9211016d6c77eefc6cb3aae4e0324640c252b9d3aa17551ad158fc61594e"
 )
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "pi_bench_dynamic_support_v7"
+INTERFACE_VERSION = "pi_bench_dynamic_support_v8"
 POLICY_SEED = 24422
 
 INITIAL_WORLD_COUNT = 8
@@ -363,7 +363,12 @@ def invalid_question_reason(question: str) -> str | None:
     normalized = _normalize_text(question)
     if not normalized:
         return "empty"
-    if not normalized.endswith(("?", "？")):
+    has_question_punctuation = normalized.endswith(("?", "？"))
+    has_chinese_interrogative = re.search(
+        r"(?:是否|还是|哪(?:个|些|一|种)?|什么|如何|怎么|几|谁|何时|哪里|吗|呢)",
+        normalized,
+    ) is not None
+    if not has_question_punctuation and not has_chinese_interrogative:
         return "not_a_question"
     if len(normalized) > 320:
         return "too_long"
