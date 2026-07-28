@@ -1355,3 +1355,14 @@ Freeze fresh32 confirmation before responses:Gemini seeds27200--231,GPT targets
 27300--331,same method,exact576. Require structural gates;root-local identity
 32;global roots differ>=20;Brier gain>=8%,CI<0,wins>=18;Hamming>=10%,CI<0,
 wins>=16;no coverage loss;novel Brier/Hamming gains. Cap$3,no reserve.
+2026-07-28: Fresh32 pooled-support confirmation passes every frozen gate and
+also independently passes all original powered gates. Exact576/579,3 explicit
+zero-cost provider-error retries,0 reasoning/forced,cost$1.4939861. Global
+static pool141--179 rules;candidate Brier.183811 vs pool.204520(-10.13%,
+CI[-.02992,-.01233],22 wins),Hamming.092313 vs.112216(-17.74%,
+CI[-.03007,-.01012],21 wins),coverage+5.69pp,novel diffs negative. Global
+root differs26/32;root-local pooled identity32/32. Same fresh candidate beats
+myopic Brier.229045 by19.75%(31 wins),fixed.234025 by21.46%,random.206580 by
+11.02%,PTS.205125 by10.39%(27 wins);all Brier CIs<0,roots differ myopic/fixed
+32/32. Public confirmation SHA5171b587,base de3acb04,pooled92a9a24e,
+trees46b9acbc,privated254c79e. Provider remaining$3.481717894.

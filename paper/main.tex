@@ -265,6 +265,17 @@ Hamming improved 12.8\% rather than 15\%, and three of 512 branches retained
 seven valid rules rather than eight. We report this as directional
 model-family robustness, not a second all-gates confirmation.
 
+A second fresh 32-tree run with the original model assignment passed every
+original gate again: Brier improved 19.7\% over myopic, 21.5\% over fixed
+depth two, 11.0\% over random, and 10.4\% over PTS. More importantly, a
+preregistered support-rich control pooled all 141--179 generated rules into
+one static support per tree. Root-conditioned generation still reduced Brier
+from $.2045$ to $.1838$ (10.1\%; $[-.0299,-.0123]$; 22/32 wins) and Hamming
+by 17.7\% ($[-.0301,-.0101]$). Root-local answer pooling was an exact 32/32
+identity, while the global-pool root differed on 26/32 trees. Thus
+root-conditioned semantic generation, not support count or answer indexing,
+is load-bearing.
+
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
 eight branch-conditioned supports; official N-body simulation supplied
