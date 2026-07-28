@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -24,6 +25,15 @@ from scripts.discoverphysics_dark_matter_grounded_policy import (
     MYOPIC_ROOT_ID,
     ROOTS,
 )
+from scripts.discoverphysics_dark_matter_fixed_initial_branch_replication import (
+    BOOTSTRAP_SEED as FIXED_BRANCH_BOOTSTRAP_SEED,
+    EXPECTED_REQUESTS as FIXED_BRANCH_EXPECTED_REQUESTS,
+    MAP_SEEDS as FIXED_BRANCH_MAP_SEEDS,
+    NOISE_SEED as FIXED_BRANCH_NOISE_SEED,
+    SOURCE_MODEL_SHA256,
+    branch_mechanics,
+    load_frozen_source,
+)
 from scripts.discoverphysics_dark_matter_structured_replication import (
     EXPECTED_REQUESTS,
     REPLICATION_MAP_SEEDS,
@@ -40,6 +50,8 @@ from scripts.discoverphysics_dark_matter_structured_replication_v3 import (
 from tests.test_discoverphysics_dark_matter_executable_support import (
     _valid_payload,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _parsed_weighted_support() -> list[dict]:
@@ -265,6 +277,129 @@ def test_balanced_endpoint_uses_new_stratified_map_family():
     assert len(regions) == 384
     assert np.isclose(prior.sum(), 1.0)
     assert set(BALANCED_MAP_SEEDS).isdisjoint(REPLICATION_MAP_SEEDS)
+
+
+def test_fixed_initial_branch_source_and_endpoint_are_frozen():
+    source = (
+        REPO_ROOT
+        / "results"
+        / "nonmyopic"
+        / "discoverphysics_dark_matter_structured_replication_v3"
+        / "discoverphysics-dark-matter-structured-replication-v3-20260728T063000Z"
+        / "MODEL_FROZEN.json"
+    )
+
+    initial_support, branches = load_frozen_source(source)
+
+    assert SOURCE_MODEL_SHA256 == (
+        "473cf5c883929a2cf8b6d862bebf69e1bb6b6401bea8c7b0edba955e847b7e1d"
+    )
+    assert len(initial_support) == 8
+    assert set(branches) == {"A", "B", "C", "D"}
+    assert FIXED_BRANCH_MAP_SEEDS == tuple(range(24740, 24756))
+    assert FIXED_BRANCH_NOISE_SEED == 24756
+    assert FIXED_BRANCH_BOOTSTRAP_SEED == 24757
+    assert set(FIXED_BRANCH_MAP_SEEDS).isdisjoint(REPLICATION_MAP_SEEDS)
+    assert set(FIXED_BRANCH_MAP_SEEDS).isdisjoint(BALANCED_MAP_SEEDS)
+
+
+def test_fixed_initial_branch_mechanics_requires_exact_eight_calls():
+    initial_support = [
+        {
+            "description": f"initial-{index}",
+            "region": region,
+            "geometry": "compact",
+            "probability": 0.125,
+            "center": [3.0, 3.0],
+            "major_spread": 1.0,
+            "minor_spread": 0.5,
+            "orientation_degrees": float(index * 10),
+        }
+        for index, region in enumerate(
+            ("NE", "NE", "NW", "NW", "SW", "SW", "SE", "SE")
+        )
+    ]
+    refreshes = {}
+    continuations = ["r4.5_a3", "r4.5_a1"]
+    for root in ROOTS:
+        root_refreshes = []
+        for branch_index in range(2):
+            hypotheses = []
+            region_centers = {
+                "NE": (3.0, 3.0),
+                "NW": (-3.0, 3.0),
+                "SW": (-3.0, -3.0),
+                "SE": (3.0, -3.0),
+            }
+            for region, region_mass in {
+                "NE": 0.4,
+                "NW": 0.3,
+                "SW": 0.2,
+                "SE": 0.1,
+            }.items():
+                for item_index in range(2):
+                    hypotheses.append(
+                        {
+                            "description": (
+                                f"{root['id']}-{branch_index}-{region}-"
+                                f"{item_index}"
+                            ),
+                            "region": region,
+                            "geometry": (
+                                "compact",
+                                "elliptical",
+                                "radial",
+                            )[len(hypotheses) % 3],
+                            "probability": region_mass / 2.0,
+                            "center": [
+                                region_centers[region][0]
+                                + 0.1 * item_index,
+                                region_centers[region][1]
+                                + 0.1 * branch_index,
+                            ],
+                            "major_spread": 1.0
+                            + 0.05 * len(hypotheses),
+                            "minor_spread": 0.5,
+                            "orientation_degrees": float(
+                                10 * len(hypotheses)
+                            ),
+                        }
+                    )
+            root_refreshes.append(
+                {
+                    "hypotheses": hypotheses,
+                    "continuation_action": (
+                        continuations[branch_index]
+                        if root["id"] == LOOKAHEAD_ROOT_ID
+                        else f"r2.5_a{branch_index}"
+                    ),
+                }
+            )
+        refreshes[root["id"]] = root_refreshes
+    usage = {
+        "adapter_requests": FIXED_BRANCH_EXPECTED_REQUESTS,
+        "http_attempts": FIXED_BRANCH_EXPECTED_REQUESTS,
+        "retry_count": 0,
+        "adapter_reasoning_tokens": 0,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "run_cost_usd": 0.1,
+    }
+
+    gates, mechanism = branch_mechanics(
+        initial_support=initial_support,
+        refreshes=refreshes,
+        usage=usage,
+    )
+
+    assert all(gates.values())
+    assert mechanism["refreshes_changed_from_initial"] == 8
+    usage["adapter_requests"] = FIXED_BRANCH_EXPECTED_REQUESTS + 1
+    assert not branch_mechanics(
+        initial_support=initial_support,
+        refreshes=refreshes,
+        usage=usage,
+    )[0]["exact_8_accepted_requests"]
 
 
 def test_stratified_bootstrap_preserves_constant_difference():

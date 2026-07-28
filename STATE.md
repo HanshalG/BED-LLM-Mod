@@ -1136,3 +1136,13 @@ model/policy files. Do not rerun/change samples/read close score as tie. Private
 SHAa81b0c62,public SHAb38fdca2,balance$8.726742344. Distinct next isolation may
 fix public structured-V3 initial support/branches(D myopic)and generate one fresh
 balanced branch tree on new endpoint,with explicit narrower claim.
+2026-07-28: Freeze fixed-initial DiscoverPhysics branch replication before any new
+response. Pin public structured-V3 MODEL_FROZEN SHA473cf5c8 and load only its initial
+support+branches;old refreshes are ignored. Generate exactly8 fresh GPT-5.4
+nonreasoning strict-schema balanced branch supports,no preflight/new initial tree.
+Require exact transport/breadth/diversity,source immediate D,modular B,and>=10%
+internal gain before hashing policy and opening new384-map seeds24740--24755/
+noise24756/bootstrap24757. Policy remains modular.95/.05 and endpoint retains
+B-vs-D/random/fixed/coverage gates. Claim is branch-support robustness conditional on
+an independently frozen initial belief,not full-tree robustness. Projected$.11,
+cap$.25,approximately$8.60 available,no reserve;OpenRouter only,OatML0.

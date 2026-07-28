@@ -313,10 +313,13 @@ def evaluate_modular_root(
     return per_truth
 
 
-def hidden_map_family() -> tuple[np.ndarray, list[str], np.ndarray]:
+def hidden_map_family(
+    *,
+    map_seeds: tuple[int, ...] = MAP_SEEDS,
+) -> tuple[np.ndarray, list[str], np.ndarray]:
     maps = []
     regions = []
-    for seed in MAP_SEEDS:
+    for seed in map_seeds:
         seed_maps, _ = hidden_halo_family(seed=seed)
         maps.append(seed_maps)
         regions.extend(
@@ -338,8 +341,10 @@ def hidden_map_family() -> tuple[np.ndarray, list[str], np.ndarray]:
 def stratified_bootstrap_interval(
     differences: np.ndarray,
     regions: list[str],
+    *,
+    bootstrap_seed: int = BOOTSTRAP_SEED,
 ) -> tuple[float, float]:
-    rng = np.random.default_rng(BOOTSTRAP_SEED)
+    rng = np.random.default_rng(bootstrap_seed)
     region_array = np.asarray(regions)
     estimates = np.empty(BOOTSTRAP_SAMPLES)
     for sample_index in range(BOOTSTRAP_SAMPLES):
@@ -416,8 +421,13 @@ def endpoint_metrics(
     initial_heldout: np.ndarray,
     branches: dict[str, list[dict[str, Any]]],
     refresh_models: dict[str, list[dict[str, Any]]],
+    map_seeds: tuple[int, ...] = MAP_SEEDS,
+    noise_seed: int = NOISE_SEED,
+    bootstrap_seed: int = BOOTSTRAP_SEED,
 ) -> tuple[dict[str, Any], dict[str, bool]]:
-    hidden_maps, hidden_regions, hidden_prior = hidden_map_family()
+    hidden_maps, hidden_regions, hidden_prior = hidden_map_family(
+        map_seeds=map_seeds
+    )
     required_actions = {
         root["action_id"] for root in ROOTS
     } | {
@@ -440,7 +450,7 @@ def endpoint_metrics(
             initial_heldout=initial_heldout,
             branches=branches,
             refresh_models=refresh_models,
-            rng=np.random.default_rng(NOISE_SEED),
+            rng=np.random.default_rng(noise_seed),
             root_samples=ROOT_SAMPLES,
             continuation_samples=CONTINUATION_SAMPLES,
         )
@@ -453,7 +463,7 @@ def endpoint_metrics(
         initial_prior=initial_prior,
         branches=branches,
         refresh_models=refresh_models,
-        rng=np.random.default_rng(NOISE_SEED),
+        rng=np.random.default_rng(noise_seed),
         root_samples=ROOT_SAMPLES,
         continuation_samples=CONTINUATION_SAMPLES,
     )
@@ -472,10 +482,12 @@ def endpoint_metrics(
     myopic_ci = stratified_bootstrap_interval(
         myopic_difference,
         hidden_regions,
+        bootstrap_seed=bootstrap_seed,
     )
     fixed_ci = stratified_bootstrap_interval(
         fixed_difference,
         hidden_regions,
+        bootstrap_seed=bootstrap_seed,
     )
     initial_coverage, refreshed_coverage = retained_coverage_risk(
         root_id=LOOKAHEAD_ROOT_ID,
