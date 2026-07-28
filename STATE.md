@@ -1270,3 +1270,16 @@ malformed output still fails. V1 tree discarded. Entirely fresh Gemini seeds
 nonreasoning,strict schemas,144 successful responses,controls,tree bootstrap,
 gates,and$2 cap unchanged. Added direct provider-error retry and seed tests;
 39 focused tests pass.
+2026-07-28: Number Game independent-tree V2 is a strong selective replication
+but formal conjunctive null on PTS. Exact144/144,8/8 trees,0 retry/provider
+error/reasoning/forced,cost$.3709795;all structural gates. Predictive root
+differs myopic/fixed7/8. Brier candidate.18632:vs myopic.22094(-15.67%),
+tree CI[-.04852,-.02012],wins7/8;vs fixed.22146(-15.87%),
+CI[-.04881,-.02070],wins7/8;vs exact random.20371(-8.54%),
+CI[-.02196,-.01256],wins8/8. Hamming vs myopic.09732 vs.14032
+(-30.65%),CI[-.06607,-.02077],coverage+8.16pp. Novel targets Brier wins7/8,
+mean diff-.04411;Hamming wins6/8,diff-.04934. Against seeded PTS.19176,
+gain only2.84%,wins5/8,CI[-.01487,.00248];two frozen PTS gates fail,so full
+status replication_failed. Do not drop/relax PTS. Diagnose one-draw prior
+Monte Carlo mismatch;develop prospectively fixed multi-draw proposal prior.
+Public RESULT SHA07963100;private SHA71f2a5b2.
