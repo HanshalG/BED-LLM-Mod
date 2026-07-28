@@ -4,9 +4,17 @@ from copy import deepcopy
 import json
 
 import numpy as np
+import pytest
 
 from scripts.analyze_discoverphysics_dark_matter_structured_replication import (
     weighted_correlation,
+)
+from scripts.discoverphysics_dark_matter_balanced_modular_replication import (
+    MAP_SEEDS as BALANCED_MAP_SEEDS,
+    balance_support_regions,
+    balanced_refresh_messages,
+    hidden_map_family as balanced_hidden_map_family,
+    modular_component_posteriors,
 )
 from scripts.discoverphysics_dark_matter_executable_support_v2 import (
     parse_weighted_support,
@@ -132,6 +140,101 @@ def test_v3_changes_only_provider_filter_in_structured_payload():
     assert payload["provider"] == {"require_parameters": True}
 
 
+def test_balanced_support_projects_region_mass_and_preserves_ratios():
+    hypotheses = [
+        {
+            "region": region,
+            "probability": probability,
+            "description": f"{region}-{index}",
+        }
+        for region, probabilities in {
+            "NE": (0.03, 0.07),
+            "NW": (0.08, 0.02),
+            "SW": (0.01, 0.09),
+            "SE": (0.04, 0.06),
+        }.items()
+        for index, probability in enumerate(probabilities)
+    ]
+
+    balanced = balance_support_regions(hypotheses)
+
+    regional_mass = {
+        region: sum(
+            item["probability"]
+            for item in balanced
+            if item["region"] == region
+        )
+        for region in ("NE", "NW", "SW", "SE")
+    }
+    assert all(
+        np.isclose(regional_mass[region], expected)
+        for region, expected in {
+            "NE": 0.4,
+            "NW": 0.3,
+            "SW": 0.2,
+            "SE": 0.1,
+        }.items()
+    )
+    assert np.isclose(
+        balanced[0]["probability"] / balanced[1]["probability"],
+        3.0 / 7.0,
+    )
+    assert hypotheses[0]["probability"] == 0.03
+
+
+def test_balanced_support_rejects_missing_region_breadth():
+    hypotheses = [
+        {"region": "NE", "probability": 0.125}
+        for _ in range(8)
+    ]
+
+    with pytest.raises(ValueError, match="exactly two maps per region"):
+        balance_support_regions(hypotheses)
+
+
+def test_balanced_refresh_prompt_freezes_two_maps_per_region():
+    messages = balanced_refresh_messages(
+        [],
+        {
+            "B": [
+                {
+                    "representative_final_coordinate": [0.0, 0.0],
+                    "posterior_probabilities": [0.5, 0.5],
+                }
+            ]
+        },
+        root_id="B",
+        branch_index=0,
+    )
+
+    assert "FROZEN_BREADTH_CONSTRAINT" in messages[-1]["content"]
+    assert "exactly two hypotheses for each of NE, NW, SW, and SE" in (
+        messages[-1]["content"]
+    )
+
+
+def test_modular_component_posteriors_normalize_independently():
+    initial, refresh = modular_component_posteriors(
+        initial_branch_prior=np.array([0.6, 0.4]),
+        refresh_branch_prior=np.array([0.3, 0.7]),
+        representative_observation=np.array([0.0, 0.0]),
+        actual_root_observation=np.array([0.1, -0.1]),
+        initial_root_means=np.array([[-0.2, 0.0], [0.2, 0.0]]),
+        refresh_root_means=np.array([[0.0, -0.2], [0.0, 0.2]]),
+        continuation_observations=np.array([[0.0, 0.1], [0.1, 0.0]]),
+        initial_continuation_means=np.array(
+            [[-0.1, 0.0], [0.1, 0.0]]
+        ),
+        refresh_continuation_means=np.array(
+            [[0.0, -0.1], [0.0, 0.1]]
+        ),
+    )
+
+    assert initial.shape == refresh.shape == (2, 2)
+    assert np.allclose(initial.sum(axis=1), 1.0)
+    assert np.allclose(refresh.sum(axis=1), 1.0)
+
+
 def test_replication_endpoint_is_fresh_stratified_384_map_family():
     maps, regions, prior = replication_hidden_map_family()
 
@@ -152,6 +255,16 @@ def test_replication_endpoint_is_fresh_stratified_384_map_family():
             "SE": 0.1,
         }.items()
     )
+
+
+def test_balanced_endpoint_uses_new_stratified_map_family():
+    maps, regions, prior = balanced_hidden_map_family()
+
+    assert BALANCED_MAP_SEEDS == tuple(range(24720, 24736))
+    assert maps.shape == (384, 10, 2)
+    assert len(regions) == 384
+    assert np.isclose(prior.sum(), 1.0)
+    assert set(BALANCED_MAP_SEEDS).isdisjoint(REPLICATION_MAP_SEEDS)
 
 
 def test_stratified_bootstrap_preserves_constant_difference():

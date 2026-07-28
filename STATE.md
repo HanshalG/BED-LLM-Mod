@@ -1115,3 +1115,14 @@ buy third tree. Model0,cost0. Both trees benefiting from fixed module probabilit
 supports the cut-feedback diagnosis;next distinct successor may change branch support
 generation itself to require all4 regions and bounded regional masses,then use a new
 tree/endpoint rather than retune the closed cut.
+2026-07-28: Freeze distinct DiscoverPhysics balanced-modular replication before any
+new response. One discarded structured preflight+fresh initial+8 refreshes=exact10
+GPT-5.4 nonreasoning calls. Every refresh must parse/compile exactly2 maps in each
+NE/NW/SW/SE and>=3 geometries;deterministic projection preserves LLM within-region
+weights while fixing regional totals to disclosed.4/.3/.2/.1. Policy cuts component
+feedback at fixed.95/.05 but exact inference remains within supports. Phase A requires
+all transport/diversity/breadth gates plus immediate D,modular B,>=10% internal gain.
+Only then open new384-map seeds24720--24735/noise24736/bootstrap24737 and test B vs
+D/random/fixed plus coverage under original thresholds. This is a new support
+generator,not a third-tree run of closed modular cut. Projected$.14,cap$.25,balance
+$8.858329844,no reserve;OpenRouter only,OatML0. 43 DiscoverPhysics tests pass.
