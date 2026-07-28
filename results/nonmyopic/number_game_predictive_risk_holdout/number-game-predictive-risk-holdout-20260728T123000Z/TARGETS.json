@@ -1,0 +1,182 @@
+{
+  "protocol": {
+    "interface_version": "number-game-predictive-risk-holdout-1",
+    "model": "openai/gpt-5.4",
+    "reasoning": "disabled",
+    "source_model_sha256": "bf45eb9f5dd8da0289d834671952b53f9dff8fc7144190fe1ecfab50045bcecb",
+    "source_result_sha256": "6c1de697892c387df02ab0a2f657f05b1a2164872192653b407281e8e22a453c",
+    "temperature": 0.0
+  },
+  "raw_response_sha256": "c7ff1f831d794bb2f500af3a468bfc01033cedc10548a0196a7e34a15d07dfee",
+  "schema_version": 1,
+  "targets": [
+    {
+      "expression": "n % 2 == 0",
+      "extension_sha256": "45037f588bbfbe7f185f86cbd68e323b1d60146502218a46054c188084b1bff0",
+      "name": "even numbers",
+      "novel_to_planning_support": false,
+      "positive_count": 51
+    },
+    {
+      "expression": "n % 2 == 1",
+      "extension_sha256": "9282e66ffea5587f8e928ac40b51902b7ee29e0b53892b80ede1119c89d28c89",
+      "name": "odd numbers",
+      "novel_to_planning_support": false,
+      "positive_count": 50
+    },
+    {
+      "expression": "divisible(n, 3)",
+      "extension_sha256": "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+      "name": "multiples of 3",
+      "novel_to_planning_support": false,
+      "positive_count": 34
+    },
+    {
+      "expression": "divisible(n, 5)",
+      "extension_sha256": "067ec50febbf9ad1b10564096e5a2e4f4976e1c0986f90d8d917fd4e886f3352",
+      "name": "multiples of 5",
+      "novel_to_planning_support": false,
+      "positive_count": 21
+    },
+    {
+      "expression": "divisible(n, 7)",
+      "extension_sha256": "1859f51628757197fd2e44cbb478c08ab1994b60e9736fe9e50f92755beded77",
+      "name": "multiples of 7",
+      "novel_to_planning_support": false,
+      "positive_count": 15
+    },
+    {
+      "expression": "is_prime(n)",
+      "extension_sha256": "17d3bf5e29341bb9870b9e22271a66f2a496116bb5a785e004b08c5d94b540c1",
+      "name": "prime numbers",
+      "novel_to_planning_support": false,
+      "positive_count": 25
+    },
+    {
+      "expression": "is_square(n)",
+      "extension_sha256": "acbdb7bf17e0115379e17c857ec9b62581add7f30ec818a09efe289b5050e7c3",
+      "name": "perfect squares",
+      "novel_to_planning_support": false,
+      "positive_count": 11
+    },
+    {
+      "expression": "is_power_of_two(n)",
+      "extension_sha256": "0ca2907d77dfdd0c9b4fbcf7a95b7425f4d3733116b77cce1e6bf1c714755080",
+      "name": "powers of two",
+      "novel_to_planning_support": false,
+      "positive_count": 7
+    },
+    {
+      "expression": "n < 50",
+      "extension_sha256": "d53b145231d22447836e2f4f6eccd131cb554f44f70ff70b20ee6ed98ad399d9",
+      "name": "less than 50",
+      "novel_to_planning_support": true,
+      "positive_count": 50
+    },
+    {
+      "expression": "n >= 20 and n <= 40",
+      "extension_sha256": "0bf0b3eac50461fd935f66fe505d201f45632167d6e8a1a55483c548c8d6855f",
+      "name": "between 20 and 40 inclusive",
+      "novel_to_planning_support": true,
+      "positive_count": 21
+    },
+    {
+      "expression": "n > 75",
+      "extension_sha256": "cdfb4396f6cf3e3e8fb1ba81904378532b68c1447e5983ccd29b25affa2d4e97",
+      "name": "greater than 75",
+      "novel_to_planning_support": true,
+      "positive_count": 25
+    },
+    {
+      "expression": "n >= 10 and n <= 99",
+      "extension_sha256": "7bcb5297b1ca490cc315802c7a1539425460ee09bd4cd6837253cd1c535148b0",
+      "name": "two-digit numbers",
+      "novel_to_planning_support": true,
+      "positive_count": 90
+    },
+    {
+      "expression": "ends_with(n, 0)",
+      "extension_sha256": "4e79c525038c5311b20e943b31365b39a45f0ba83a818703e732fbeed31f35ea",
+      "name": "ends with 0",
+      "novel_to_planning_support": false,
+      "positive_count": 11
+    },
+    {
+      "expression": "ends_with(n, 5)",
+      "extension_sha256": "ccbbc7a495402b701177463c71306683d493b780ee4e322dfac462f99bb18581",
+      "name": "ends with 5",
+      "novel_to_planning_support": false,
+      "positive_count": 10
+    },
+    {
+      "expression": "digit_sum(n) == 5",
+      "extension_sha256": "cdfcd189472f89a33dee79383f7fe4183cfb1713bba649ba2ac5e69c989b04b1",
+      "name": "digit sum is 5",
+      "novel_to_planning_support": true,
+      "positive_count": 6
+    },
+    {
+      "expression": "digit_sum(n) % 2 == 0",
+      "extension_sha256": "60d34ac7f70b5bd38e73f453b1606046cc841f3b8ff6c403eb5a379ec6c4f8e9",
+      "name": "digit sum is even",
+      "novel_to_planning_support": false,
+      "positive_count": 50
+    },
+    {
+      "expression": "n % 3 == 1",
+      "extension_sha256": "9da402ef9d4c102854811c07d7b1ceddac5979b2542535aca71ca4aa3e4b2c0c",
+      "name": "one more than a multiple of 3",
+      "novel_to_planning_support": true,
+      "positive_count": 34
+    },
+    {
+      "expression": "n % 4 == 2",
+      "extension_sha256": "0745f10186bda1bf8d6c99d06f54a2e37907c6db46002c6671e3c6f05d1ac8f5",
+      "name": "two more than a multiple of 4",
+      "novel_to_planning_support": true,
+      "positive_count": 25
+    },
+    {
+      "expression": "n % 2 == 0 and n > 50",
+      "extension_sha256": "ef9f8faf9965f6c66ac727b06c8a236690ff011eb473c975a0ed3bf8971ae470",
+      "name": "even and greater than 50",
+      "novel_to_planning_support": true,
+      "positive_count": 25
+    },
+    {
+      "expression": "n % 2 == 1 and divisible(n, 3)",
+      "extension_sha256": "dcc6252b3a7a7d5ac4a0ea2627b965ba183b3e69c37dc1bb61f09b68f0457742",
+      "name": "odd multiples of 3",
+      "novel_to_planning_support": true,
+      "positive_count": 17
+    },
+    {
+      "expression": "is_prime(n) and n > 10",
+      "extension_sha256": "398c947cdacf61cb7a2862510e9c9be6fe0ec909641b7eb98b1e87875e9148ba",
+      "name": "prime and greater than 10",
+      "novel_to_planning_support": true,
+      "positive_count": 21
+    },
+    {
+      "expression": "is_square(n) and n % 2 == 0",
+      "extension_sha256": "275c6d0c1e38c6a6c5317e9d744a768fe5a618834822e9600d5dffd52fd67ac3",
+      "name": "square and even",
+      "novel_to_planning_support": true,
+      "positive_count": 6
+    },
+    {
+      "expression": "divisible(n, 3) or divisible(n, 5)",
+      "extension_sha256": "cd9adfa63382c0be3328330fe2aaaf70f9aeefa29f47362db09b818da4348305",
+      "name": "multiple of 3 or 5",
+      "novel_to_planning_support": false,
+      "positive_count": 48
+    },
+    {
+      "expression": "n >= 30 and n <= 70 and ends_with(n, 2)",
+      "extension_sha256": "a98d4ebfc8d032ec641d382f575e6f0e04b1937e04d178000b90074dc082c7df",
+      "name": "between 30 and 70 and ends with 2",
+      "novel_to_planning_support": true,
+      "positive_count": 4
+    }
+  ]
+}

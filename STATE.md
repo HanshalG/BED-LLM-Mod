@@ -1230,3 +1230,15 @@ paired20k-bootstrap upper<0,no coverage loss,>=5% versus exact uniform8-root
 control,and directional novel-target gains. Cap$.20,no reserve. Pass only
 authorizes independent tree replication. Fake exact1-call rehearsal and34
 focused tests pass;OatML0.
+2026-07-28: Predictive-risk cross-model holdout passes every frozen gate.
+Exact1/1 GPT-5.4 nonreasoning call,24/24 valid unique targets,12 novel,
+0 retry/reasoning/forced,cost$.0077275. Frozen root34 vs myopic/fixed48:
+Brier.17599 vs.20519(-14.23%),paired CI[-.05622,-.00657];
+Hamming.06271 vs.11221(-44.12%);coverage12/24 vs11/24(+4.17pp).
+Versus exact uniform8-root control Brier.21543,root34 gains18.31%,paired
+CI[-.05799,-.02150]. Novel12: Brier-12.09%,Hamming-31.34%,but Brier CI
+crosses0 and coverage is lower,so directional only. This is the first clean
+positive with load-bearing LLM proposal dynamics,but one planning tree only.
+All criteria authorize a prospectively frozen independent multi-tree
+replication;no final claim yet. Public RESULT SHA59b6368e;private SHA
+c7ff1f83.
