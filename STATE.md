@@ -2218,3 +2218,17 @@ scientific rescore:V1 remains failed. Authorize one prospective V2 on an
 untouched mechanics task/fresh seeds,changing only matched IDs from ordered
 list to unordered unique set canonicalized before exact replay. Authenticated
 balance$15.434642893;latest reported$40 top-up still not reflected;OatML0.
+2026-07-29: Prospective ICAE full first-link V2(commitf15954d) is a clean
+scientific gated null and closes this exact instrument. One preserved zero-call
+launch used wrong source root($0,no task/model/endpoint);unchanged rerun on
+hash-pinned ICAE checkout completed exact10/10 accepted+HTTP,0 retries/
+provider/reasoning/forced,$.08007025. Set-valued matcher works:realized root
+matches1 trigger,exact response,and all6 actual followups change. Semantic
+likelihood has30 values;positive/fallback supports differ and retention is
+10vs11. But fallback changes only2/6 questions(required>=4),and independent
+hidden endpoint saturates9/9(required.20-.90). This is broad/sticky support,
+not transport/controller noise. Public SERVING SHA52ecf603,private1214b1dc;
+no development/confirmation/retained or executable endpoint opened. Do not
+rerun/tune Ruby@023 or relax gates;next route needs selective-mass or
+executable particles. Authenticated balance$15.392823143;reported$40 top-up
+still absent;four-day budget/no reserve applies once visible;OatML0.

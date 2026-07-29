@@ -1,0 +1,62 @@
+{
+  "all_pass": false,
+  "decision": "close_exact_first_link_instrument",
+  "development_or_later_opened": false,
+  "diagnostics": {
+    "actual_match_count": 1,
+    "distinct_likelihood_values": 30,
+    "endpoint_constraint_count": 9,
+    "endpoint_coverage_rate": 1.0,
+    "endpoint_covered_count": 9,
+    "negative_proxy_covered": 11,
+    "positive_proxy_covered": 10
+  },
+  "executable_endpoint_opened": false,
+  "gates": {
+    "actual_history_changes_support": true,
+    "cost_within_cap": true,
+    "endpoint_is_unsaturated": false,
+    "endpoint_replays_exactly": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "likelihoods_are_nonconstant": true,
+    "proxy_detects_path_dependent_retention": true,
+    "realized_root_matches_controller": true,
+    "simulated_branches_change_support": false,
+    "zero_reasoning_and_forced_exits": true,
+    "zero_retries": true
+  },
+  "interface_version": "icae-first-link-instrument-smoke-2",
+  "manifest_sha256": "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f",
+  "models": {
+    "evaluator_matcher": "openai/gpt-5.4-mini",
+    "planner": "openai/gpt-5.4"
+  },
+  "private_raw_sha256": "1214b1dc82aa853a505827cd7c23014271ba7fc72572a02652b1d599a61a9785",
+  "run_id": "icae-first-link-instrument-v2-20260729T054230Z",
+  "schema_version": 1,
+  "seeds": {
+    "evaluator": 51200,
+    "planner": 51100,
+    "selection": 51000
+  },
+  "selected_task": {
+    "alias": "realcode@023",
+    "language": "Ruby"
+  },
+  "source_audit_sha256": "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552",
+  "status": "gated_null",
+  "usage": {
+    "adapter_completion_tokens": 5293,
+    "adapter_prompt_tokens": 12357,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.08007025
+  }
+}
