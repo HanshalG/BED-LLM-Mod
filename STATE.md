@@ -2083,3 +2083,11 @@ No repair/reissue/threshold change. Public RESULT SHA7200f75b;private raw
 001e8b88. Close exact Grok route. Permit one final distinct seeded structured
 family screen(GLM5.1)under the unchanged gate;stop family screening if it
 fails rather than fishing.
+2026-07-29: Freeze final Number Game planner-family screen before response:
+z-ai/glm-5.1 nonthinking,temp.7,requested seed46000,exact same strict schema,
+prompt,10 histories,and gates as DeepSeek/Grok. Exact10 must have all parse,
+10 HTTP/accepted,0 retry/provider/reasoning/forced,initial>=16,conditioned>=8,
+cost<=.10. Passage authorizes one fresh32-tree GLM-planner/GPT5.4-Mini
+endpoint study,seeds47000+,exact2336,cap/start$7.50,using byte-identical Grok
+scientific gates. Failure ends further model-family screening under this
+interface;no threshold/prompt repair.
