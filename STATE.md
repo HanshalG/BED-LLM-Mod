@@ -1953,3 +1953,15 @@ target is absent from both. Public FAILURE SHAb524f810;private raw498e2ddb.
 Close exact model/prompt/cases/seed/sparse-top32/thresholds;no dense-vector
 successor,new split,or threshold repair. Mechanics10/development32/
 confirmation64 remain unopened.
+2026-07-29: Affordance20Q is the strongest newly identified LLM-native
+sequential-BED substrate, but its official artifact is not yet released.
+Paper2606.14240 describes1009 games/454 objects/59 affordances, curated object
+property sets, complete object-affordance labels, and free-form questions
+answered by a Qwen3-14B Oracle conditioned on hidden-object descriptions. This
+would make counterfactual branches semantically model-dependent. However
+official commitb7b40db contains only one68-byte README(SHA394db13e),with one
+branch,no tags/releases/license/data/code. In issue1 the author says the team
+will organize and upload code/data to Hugging Face;no endpoint exists yet.
+Calls/cost0. Do not create a proxy or run models. Reopen only after official
+games,properties,label matrix,Oracle machinery,and licensing are available,
+starting with a zero-call opportunity audit.
