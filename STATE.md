@@ -2515,3 +2515,13 @@ second-step hypotheses while holding trajectories/endpoints fixed. Primary
 positive requires root changes>=12,merged-parent Brier gain>=2%,paired CI<0,
 W-L>=8;20k paired bootstrap seed63800. No alternate support/tree/threshold/
 endpoint/query. Retrospective,model0/cost0,cannot rescue source.
+2026-07-29: Frozen pooled second-refresh ablation is strongly positive on
+the LLM-native mechanism. Holding same32 trees/retained first supports/
+second queries/8 validation draws/exact33 outcomes,merged parent+new LLM
+second support selects different roots on22/32 and beats parent-only Brier
+.104586 vs.112588:7.11%,paired CI[-.01420,-.00232],15/10/7 W/T/L,W-L8;
+all4 gates pass. Merged vs generated-only+2.43%,CI[-.00740,+.00159],
+11/14/7:retention is complementary,not disposable. Thus path-dependent new
+LLM hypotheses add exact downstream value only when merged with compatible
+prior support. Retrospective/model0/$0,cannot rescue source status or make
+prospective7.11% claim. Public RESULT SHA77fa26cc.
