@@ -1,5 +1,15 @@
 # Validation-First Non-Myopic BED Draft
 
+Current headline: in the Number Game, non-myopic planning over LLM-generated
+belief trees beats myopic selection across four disjoint canonical-target
+cohorts and two planning models by 12.48% Brier
+(`95% CI [-.0192,-.0113]`; `95/128` wins), with positive first-link
+calibration. A hash-bound retrospective audit gives 3.79% versus
+compute-matched fixed-support depth three, but the preregistered
+second-refresh mechanism test is null and fresh dynamic-versus-fixed
+confirmation remains pending. The paper therefore claims a robust LLM-native
+policy result, not a settled causal regeneration or monotonic-depth result.
+
 This directory holds the evidence-supported workshop draft on non-myopic BED
 with LLM-derived probabilistic models. It combines exact planning controls,
 the paired Rock Diagnosis policy result, the exact Gated Sensor qualification and

@@ -2638,3 +2638,12 @@ and115 provider draws;the broader focused suite passes16/16. User reports a
 new$40 four-day budget with no reserve requirement, but OpenRouter still
 reports$1.548748023;keep the frozen$5.50 launch gate and open no scientific
 seed until the credit is provider-visible.
+2026-07-29: Zero-call paper audit moves the current LLM-native evidence into
+the abstract and Results rather than burying it in Limitations. The headline
+is now robust d3-over-myopic across128 disjoint canonical-target trees/two
+planning models:12.48% Brier,CI[-.0192,-.0113],95 wins,and first-link
+rho.423 CI[.255,.569]. It explicitly keeps d3-over-d2 null and labels the
+3.79% dynamic-vs-fixed d3 result retrospective,with the prospective
+second-refresh null binding and fresh mechanism confirmation pending. All29
+hash-pinned claim bundles,12 validator tests,and the six-page rendered visual
+audit pass. Model0/cost0.

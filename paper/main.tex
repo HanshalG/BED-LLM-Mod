@@ -41,19 +41,19 @@ Sequential Bayesian experimental design (BED) offers a principled way for
 language-model agents to ask questions and plan future information gathering.
 Yet deeper planning can optimize errors in an LLM-derived model rather than
 useful information. We separate two regimes. In a Number Game with open-ended
-executable concepts, Gemini proposes initial and branch-conditioned rule
-supports; predictive-risk BED plans over the induced future belief states, and
-GPT-5.4 supplies independent target concepts. Across 32 fresh proposal trees,
-it lowers two-query Brier loss by 20.5\% versus myopic EIG, 21.4\% versus
-fixed-support depth two, 11.6\% versus random, and 10.2\% versus a positive-test
-strategy (PTS), with every whole-tree interval excluding zero. The LLM proposal
-dynamics are load-bearing. With independent prior draws and fixed policies,
-depth three further beats equally cross-fitted depth two by 1.86\%
-($[-.0050,-.0012]$), replicated on wholly fresh trees at 2.81\%
-($[-.0082,-.0015]$). Finite Rock Diagnosis separately verifies exact
-lookahead but leaves the LLM replaceable. DiscoverPhysics preserves a
-non-myopic root gain across three trees while regenerated-support value fails
-to replicate, localizing a distinct calibration failure. Negative semantic
+executable concepts, LLMs propose initial and answer-conditioned rule supports,
+and predictive-risk BED plans over the induced future belief states. A
+preregistered 32-tree study lowers two-query Brier loss by 20.5\% versus
+myopic EIG, 21.4\% versus fixed-support depth two, 11.6\% versus random, and
+10.2\% versus a positive-test strategy. Across four disjoint canonical-target
+cohorts and two planning models, depth three improves Brier over myopic by
+12.48\% ($[-.0192,-.0113]$; 95/128 wins), and simulated root advantage
+predicts realized advantage at Spearman $.423$ ($[.255,.569]$). However,
+depth three versus depth two is not robust. A hash-bound pooled audit finds a
+3.79\% gain over compute-matched fixed-support depth three
+($[-.0079,-.0005]$), while a preregistered single-refresh isolation is null;
+fresh mechanism confirmation remains pending. Finite Rock Diagnosis separately
+verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
 
@@ -99,10 +99,10 @@ Our contributions are:
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
   \item a powered LLM-native result in which non-myopic BED plans over
   branch-conditioned LLM support regeneration and beats myopic, fixed-support,
-  random, and PTS controls on independent cross-model target concepts, plus a
-  fixed-policy fresh-endpoint result where depth three beats depth two;
-  \item a fresh-map confirmation and fresh-tree replication separating robust
-  non-myopic root value from generation-unstable LLM support updates;
+  random, and PTS controls on independent cross-model target concepts;
+  \item cross-planner and canonical-target evidence separating a robust
+  non-myopic-over-myopic root value from a non-robust extra-depth effect, plus
+  matched audits that isolate the still-provisional value of dynamic support;
   \item a cross-environment audit, including fresh-generation retrieval
   instability, that yields a validation contract spanning target sufficiency,
   calibrated likelihoods, branch equivalence, a verified greedy gap, and ranking
@@ -188,7 +188,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 .157 vs d2 .160 / myopic .172 & LLM-native depth positive \\
+Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; dynamic beats fixed d3 3.79\% post hoc & Policy robust; mechanism pending \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
@@ -333,6 +333,30 @@ $[-.0048,-.0008]$), establishing endpoint-family robustness. Against 416,366
 deterministic classical extensions, 50.98\% of unique second-refresh
 extensions remain new on every tree, although out-of-bank endpoint mass is too
 small for a powered efficacy claim.
+
+Two independent Qwen planning cohorts then fixed evaluation to all 33 canonical
+Number Game concepts. Depth three reduced Brier versus myopic by 11.37\%
+($[-.0190,-.0078]$) and 12.61\% ($[-.0245,-.0070]$), although both
+registered composite statuses remain null because transparent provider retries
+violated transport gates. Pooling those cohorts with two disjoint GPT-5.4 Mini
+cohorts gives a retrospective 12.48\% reduction
+($[-.0192,-.0113]$; 95/128 wins); both model families are separately
+directional. On the 123 trees where roots differ, simulated depth-three
+advantage predicts realized advantage at Spearman $.423$
+($[.255,.569]$), with mean realized advantage $.01579$
+($[.01179,.01990]$). The first link of the non-myopic simulator is therefore
+calibrated against myopic selection across planner families.
+
+The causal support claim is narrower. Across two independent pooled-Qwen
+cohorts, full answer-conditioned depth three reduces Brier 3.79\% versus
+compute-matched depth three on the fixed initial support
+($[-.0079,-.0005]$; 30/64 wins), with both cohort means favorable. This
+analysis is retrospective and its Hamming and coverage intervals cross zero.
+A preregistered isolation of newly generated second-refresh hypotheses gives
+only 1.39\% with an interval crossing zero, while retention versus
+generated-only support is stable. Thus the policy result is robust, but fresh
+confirmation is still required to say that path-dependent regeneration itself
+causes the gain.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -574,65 +598,22 @@ and a wholly fresh planning-tree replication reproduces its primary depth gain.
 That replication misses two auxiliary conjunction gates, so broader model and
 task robustness remains warranted. A third-family endpoint audit passes, but
 planning-generator and task-domain robustness remain open.
-An earlier Qwen-planner replication completed all 1,568 planning responses
-but failed closed on one truncated generated endpoint. A single fresh
-32-tree confirmation instead fixed all 33 canonical Number Game concepts
-\citep{tenenbaum2001generalization}: depth three beats depth two by 4.62\%
-($[-.0095,-.0010]$) and myopic EIG by 11.37\%
-($[-.0190,-.0078]$), with all seven scientific gates and all six diagnostics
-favorable. Its registered composite status is nevertheless a null because
-two transient provider errors used the bounded retry path; all 1,856 accepted
-responses were exact, but the zero-provider-retry gate fails and no rerun is
-performed.
-An independent fresh 32-tree Qwen replication again passes every scientific
-primary against myopic EIG: Brier falls from $.1203$ to $.1051$ (12.61\%;
-$[-.0245,-.0070]$; 25/32 wins), with 12.61\% lower Hamming and 1.52 points
-higher coverage. Its registered composite also remains a transport null:
-nine transparent provider retries exceed the prospectively relaxed cap of
-eight by one, despite exact accounting and all support gates. The extra-depth
-diagnostic does not replicate in this cohort (0.42\%;
-$[-.0043,.0039]$). Thus two independent fresh Qwen cohorts reproduce the
-non-myopic-over-myopic effect (11.37\% and 12.61\%), while only one supports a
-monotonic depth-three-over-depth-two claim.
-A retrospective cohort-stratified synthesis quantifies that robustness:
-across 64 disjoint trees, depth three improves Brier over myopic by 12.00\%
-($[-.0196,-.0094]$; 50/64 wins), fixed-support depth three by 4.49\%,
-PTS by 6.47\%, and random by 8.28\%, with every interval below zero.
-This zero-call synthesis cannot rescue either source's transport-null status.
-Its depth-three versus depth-two interval still reaches $+.00016$, preserving
-the monotonic-depth null.
-A second retrospective synthesis adds the two independent GPT-5.4-Mini
-blocks. Across four disjoint 32-tree blocks and two planner families, depth
-three improves Brier over myopic by 12.48\% ($[-.0192,-.0113]$; 95/128
-wins), fixed-support depth three by 5.85\%, PTS by 7.37\%, and random by
-8.91\%; every interval is below zero. Qwen and GPT-5.4 Mini separately give
-12.00\% and 12.93\%. Pooled Hamming also improves, but depth three versus
-depth two remains null ($[-.0042,.0003]$). This model-family synthesis is
-retrospective and does not alter source-study statuses.
-A four-block first-link audit explains that boundary. Depth three changes the
-myopic root on 123/128 trees; simulated-risk advantage predicts exact-endpoint
-advantage at Spearman $.423$ ($[.255,.569]$), with mean realized advantage
-$.01579$ ($[.01179,.01990]$) and 95/123 wins. Qwen and GPT-5.4 Mini
-independently give correlations $.407$ and $.447$, with both family intervals
-above zero. Against fixed-support depth three the pooled relationship is
-positive but heterogeneous by family; against depth two, mean-advantage and
-correlation intervals cross zero. The simulator is calibrated to reject
-myopic roots across model families, not universally to order deeper planners.
-A retrospective ablation gives a 7.11\% second-refresh gain
-($[-.0142,-.0023]$), but fresh preregistration gives only 1.39\%
-($[-.0056,.0024]$), so the increment does not replicate. Across both fresh
-cohorts, dynamic depth three lowers Brier 11.22\% versus myopic
-($[-.0178,-.0086]$; 47/64 wins) and 3.79\% versus fixed-support depth three
-($[-.0079,-.0005]$; 30/64 wins); Hamming and coverage intervals cross zero.
-Merged versus generated-only improves 2.75\% ($[-.0058,-.0003]$), making
-retention the stable component. The prospective second-refresh primary
-remains null.
-A preregistered zero-call replay of the 64 fixed GPT-5.4-Mini policies on the
-same canonical bank is more heterogeneous: depth three improves only 1.08\%
-over depth two ($[-.0045,.0021]$; 19/64 wins), but beats myopic by 12.93\%
-($[-.0220,-.0104]$; 45/64 wins). Thus the external bank robustly supports
-non-myopic over myopic selection, while the extra-step benefit remains
-model- and target-distribution-dependent.
+The two Qwen studies on all 33 canonical concepts
+\citep{tenenbaum2001generalization} remain registered transport nulls: one
+used two transparent provider retries under a zero-retry gate, and the other
+used nine against a cap of eight. The 128-tree cross-planner synthesis and its
+first-link audit are retrospective and cannot reclassify any source study.
+They establish robust non-myopic-over-myopic selection, not monotonic depth:
+depth three versus depth two remains null ($[-.0042,.0003]$), with
+model- and target-distribution dependence.
+
+The mechanism evidence has the same boundary. Dynamic depth three beats
+compute-matched fixed-support depth three by 3.79\% only in a retrospective
+pooled audit; Hamming and coverage intervals cross zero. A retrospective
+second-refresh gain of 7.11\% shrinks to a preregistered 1.39\% with an
+interval crossing zero, while retention versus generated-only support is the
+stable component. The prospective second-refresh primary therefore remains
+null, and fresh dynamic-versus-fixed confirmation is required.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
@@ -648,8 +629,10 @@ iCRAFT profile-support gate fails before likelihood. Pi-Bench changed 56\% of
 roots, but its fallback equalized second-turn gains.
 OpenRouter nondeterminism remains a limitation, and depth cannot replace a
 coherent simulator or enabling gap. The positive result instead sharpens the
-condition: non-myopia helps when it values the future inference process itself,
-including the LLM's path-dependent ability to regenerate useful support.
+condition: non-myopia helps when it accurately values the future inference
+process. Number Game establishes this against myopic selection; whether the
+LLM's path-dependent regeneration supplies incremental value beyond
+compute-matched fixed-support planning remains an open confirmation target.
 Battleship further shows that a large, novel static experiment bank is not
 enough when one-step task-utility replanning can recover the same policy.
 We do not claim that non-myopic BED cannot work outside this setting.
