@@ -2548,3 +2548,14 @@ CI[.01028,.02367],24/5;rho.389 CI[-.005,.704]. Exact3424 accepted/3434
 attempts,10 retries,$4.10783796,all strict JSON,0 salvage/reasoning/forced;
 all mechanics gates pass. Public RESULT71281c48,TREES50613278,
 TARGETSf8e848df,private1571d655. No reclassification or mechanism rescue.
+2026-07-29: Freeze zero-call pooled replication synthesis64 before any
+cross-cohort aggregate. Bind first pooled policy RESULTcef6ded0+matched
+ablation77fa26cc and independent fresh prospective RESULT71281c48;32
+disjoint trees each,same pooled-Qwen planner,8 Gemini validation draws,
+exact33 endpoint. Cohort-stratified20k bootstrap seed64600. Report pooled
+d3-myopic Brier/Hamming/coverage/WTL,merged-parent and merged-generated
+support effects,source effects,and cohort1-minus-cohort2 effect contrasts.
+Policy robust only if both source efficacy passes remain and pooled Brier
+CI<0. Prospective mechanism gated_null remains binding regardless of pooled
+estimate;no rescue/reclassification/subset/weight/endpoint/transform.
+Model0,cost0.
