@@ -2559,3 +2559,11 @@ Policy robust only if both source efficacy passes remain and pooled Brier
 CI<0. Prospective mechanism gated_null remains binding regardless of pooled
 estimate;no rescue/reclassification/subset/weight/endpoint/transform.
 Model0,cost0.
+2026-07-29: First synthesis execution is invalid before banking because code
+read generic retained-risk selection fields for prospective support ablation:
+reconstructed parent root changes25 vs frozen19 and mean difference-.001215
+vs-.001446. Preserve INVALID_RESULT SHA20dcb1a1;exclude scientifically.
+Source runner shows exact preregistered rows already in second_refresh.rows.
+Correction reads those hash-bound rows and adds exact source root-count/mean
+invariants. No model/tree/endpoint/bootstrap/gate/analysis change;commit
+correction before one replacement zero-call execution.

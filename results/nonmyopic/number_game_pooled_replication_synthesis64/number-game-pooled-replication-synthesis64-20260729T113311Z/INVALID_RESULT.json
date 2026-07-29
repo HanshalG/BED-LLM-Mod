@@ -1,0 +1,278 @@
+{
+  "interpretation": {
+    "policy_effect_replicates_across_both_fresh_cohorts": true,
+    "prospective_regeneration_increment_confirmed": false,
+    "retention_contribution_is_directionally_replicated": true
+  },
+  "pooled": {
+    "policy_vs_myopic": {
+      "brier": {
+        "baseline_mean": 0.11672550909811398,
+        "candidate_mean": 0.10363151886035879,
+        "cohort_one_minus_two_95pct_bootstrap": [
+          -0.005107448850968724,
+          0.01339597649224571
+        ],
+        "cohort_one_minus_two_mean_difference": 0.004077612500502682,
+        "losses": 12,
+        "mean_candidate_minus_baseline": -0.01309399023775518,
+        "relative_reduction": 0.11217762371675755,
+        "source_mean_differences": [
+          -0.011055183987503839,
+          -0.015132796488006521
+        ],
+        "stratified_bootstrap_difference_95pct": [
+          -0.017823729622124654,
+          -0.00858940598326592
+        ],
+        "ties": 5,
+        "wins": 47
+      },
+      "coverage": {
+        "baseline_mean": 0.5989583333333334,
+        "candidate_mean": 0.6084280303030303,
+        "cohort_one_minus_two_95pct_bootstrap": [
+          -0.08996212121212124,
+          -0.01609848484848487
+        ],
+        "cohort_one_minus_two_mean_difference": -0.05303030303030305,
+        "losses": 28,
+        "mean_candidate_minus_baseline": 0.009469696969696968,
+        "relative_reduction": -0.01581027667984179,
+        "source_mean_differences": [
+          -0.017045454545454558,
+          0.035984848484848495
+        ],
+        "stratified_bootstrap_difference_95pct": [
+          -0.008996212121212125,
+          0.027935606060606057
+        ],
+        "ties": 14,
+        "wins": 22
+      },
+      "hamming": {
+        "baseline_mean": 0.025971347134713472,
+        "candidate_mean": 0.024269614461446144,
+        "cohort_one_minus_two_95pct_bootstrap": [
+          0.0014345184518451846,
+          0.012198094809480947
+        ],
+        "cohort_one_minus_two_mean_difference": 0.006685043504350435,
+        "losses": 23,
+        "mean_candidate_minus_baseline": -0.0017017326732673265,
+        "relative_reduction": 0.06552346570397118,
+        "source_mean_differences": [
+          0.0016407890789078912,
+          -0.005044254425442544
+        ],
+        "stratified_bootstrap_difference_95pct": [
+          -0.004373874887488749,
+          0.0010127184593459251
+        ],
+        "ties": 6,
+        "wins": 35
+      }
+    },
+    "second_refresh": {
+      "generated_only": {
+        "baseline_mean": 0.10623508076589883,
+        "candidate_mean": 0.10363151886035879,
+        "cohort_one_minus_two_95pct_bootstrap": [
+          -0.0064339102193949295,
+          0.006258231590678939
+        ],
+        "cohort_one_minus_two_mean_difference": -3.55602829820844e-07,
+        "losses": 16,
+        "mean_candidate_minus_baseline": -0.0026035619055400257,
+        "relative_reduction": 0.024507553312613214,
+        "root_differences": {
+          "per_cohort": [
+            18,
+            20
+          ],
+          "pooled": 38
+        },
+        "source_mean_differences": [
+          -0.002603739706954936,
+          -0.002603384104125115
+        ],
+        "stratified_bootstrap_difference_95pct": [
+          -0.005923096629313441,
+          0.00043994863053181763
+        ],
+        "ties": 26,
+        "wins": 22
+      },
+      "parent_only": {
+        "baseline_mean": 0.10823996031974231,
+        "candidate_mean": 0.10363151886035879,
+        "cohort_one_minus_two_95pct_bootstrap": [
+          -0.014071922297199805,
+          0.00018435885958927145
+        ],
+        "cohort_one_minus_two_mean_difference": -0.006787424548319469,
+        "losses": 20,
+        "mean_candidate_minus_baseline": -0.004608441459383515,
+        "relative_reduction": 0.04257615621596796,
+        "root_differences": {
+          "per_cohort": [
+            22,
+            25
+          ],
+          "pooled": 47
+        },
+        "source_mean_differences": [
+          -0.00800215373354325,
+          -0.001214729185223781
+        ],
+        "stratified_bootstrap_difference_95pct": [
+          -0.00825509433084621,
+          -0.0010978512604251083
+        ],
+        "ties": 17,
+        "wins": 27
+      }
+    }
+  },
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "bootstrap": "resample 32 trees independently within each cohort",
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 64600,
+    "cannot_rescue_or_reclassify_sources": true,
+    "cohort_count": 2,
+    "cost_usd": 0.0,
+    "interface_version": "number-game-pooled-replication-synthesis64-1",
+    "model_calls": 0,
+    "prospective_mechanism_status_remains_binding": true,
+    "source_hashes": {
+      "first_policy": "cef6ded08050e6df07de62bbbf548635f229a8bf73fac149b4d0bd960f7b0253",
+      "first_second_refresh_ablation": "77fa26cc9d4599804521081bcb201c6d9cf1dfdc0d56d5f51487314d8e70f95c",
+      "prospective_confirmation": "71281c483297e7ee4cc011d0ba795dabd28ec2d8598366771e11afee2af2a459"
+    },
+    "target_count": 33,
+    "tree_count": 64,
+    "trees_per_cohort": 32
+  },
+  "robustness_checks": {
+    "both_source_policy_efficacy_gate_sets_pass": true,
+    "exactly_two_disjoint_32_tree_cohorts": true,
+    "pooled_policy_brier_interval_below_zero": true
+  },
+  "schema_version": 1,
+  "sources": [
+    {
+      "mechanism_status": "retrospective_second_refresh_positive",
+      "name": "retrospective_ablation_cohort",
+      "policy_myopic": {
+        "baseline_mean_brier": 0.11564121664439682,
+        "baseline_mean_hamming": 0.02538066306630663,
+        "brier_tree_wins": 23,
+        "candidate_mean_brier": 0.10458603265689298,
+        "candidate_mean_hamming": 0.027021452145214522,
+        "hamming_tree_wins": 13,
+        "mean_candidate_minus_baseline_brier": -0.011055183987503839,
+        "mean_candidate_minus_baseline_hamming": 0.0016407890789078912,
+        "mean_coverage_difference": -0.017045454545454558,
+        "relative_brier_reduction": 0.09559899409826468,
+        "relative_hamming_reduction": -0.06464721093461397,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.01791244041350807,
+          -0.004410854796763438
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.0026065106510651066,
+          0.006066231623162315
+        ]
+      },
+      "policy_status": "gated_null",
+      "second_refresh_generated_only": {
+        "baseline_mean_brier": 0.10718977236384791,
+        "candidate_mean_brier": 0.10458603265689298,
+        "losses": 7,
+        "mean_candidate_minus_baseline_brier": -0.002603739706954936,
+        "relative_brier_reduction": 0.024290934195817928,
+        "root_differences": 18,
+        "ties": 14,
+        "tree_bootstrap_brier_difference_95pct": [
+          -0.00740329657659708,
+          0.0015937849281111374
+        ],
+        "wins": 11,
+        "wins_minus_losses": 4
+      },
+      "second_refresh_parent_only": {
+        "baseline_mean_brier": 0.11258818639043623,
+        "candidate_mean_brier": 0.10458603265689298,
+        "losses": 7,
+        "mean_candidate_minus_baseline_brier": -0.00800215373354325,
+        "relative_brier_reduction": 0.07107454156684943,
+        "root_differences": 22,
+        "ties": 10,
+        "tree_bootstrap_brier_difference_95pct": [
+          -0.014198403158389574,
+          -0.0023230466840021367
+        ],
+        "wins": 15,
+        "wins_minus_losses": 8
+      }
+    },
+    {
+      "mechanism_status": "gated_null",
+      "name": "prospective_confirmation_cohort",
+      "policy_myopic": {
+        "baseline_mean_brier": 0.11780980155183113,
+        "baseline_mean_hamming": 0.026562031203120312,
+        "brier_tree_wins": 24,
+        "candidate_mean_brier": 0.10267700506382461,
+        "candidate_mean_hamming": 0.02151777677767777,
+        "hamming_tree_wins": 22,
+        "mean_candidate_minus_baseline_brier": -0.015132796488006521,
+        "mean_candidate_minus_baseline_hamming": -0.005044254425442544,
+        "mean_coverage_difference": 0.035984848484848495,
+        "relative_brier_reduction": 0.12845108207188305,
+        "relative_hamming_reduction": 0.18990469466996115,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.021723877140652863,
+          -0.009163456845405666
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.0084008400840084,
+          -0.0019126912691269132
+        ]
+      },
+      "policy_status": "gated_null",
+      "second_refresh_generated_only": {
+        "baseline_mean_brier": 0.10594392817108217,
+        "candidate_mean_brier": 0.10267700506382461,
+        "losses": 9,
+        "mean_candidate_minus_baseline_brier": -0.0032669231072575645,
+        "relative_brier_reduction": 0.030836341106608836,
+        "root_differences": 22,
+        "ties": 10,
+        "tree_bootstrap_brier_difference_95pct": [
+          -0.006599518890511484,
+          -0.0002466736400184033
+        ],
+        "wins": 13,
+        "wins_minus_losses": 4
+      },
+      "second_refresh_parent_only": {
+        "baseline_mean_brier": 0.10412347138746653,
+        "candidate_mean_brier": 0.10267700506382461,
+        "losses": 11,
+        "mean_candidate_minus_baseline_brier": -0.0014464663236419214,
+        "relative_brier_reduction": 0.013891837300153876,
+        "root_differences": 19,
+        "ties": 13,
+        "tree_bootstrap_brier_difference_95pct": [
+          -0.005565374476633667,
+          0.0024412078753053975
+        ],
+        "wins": 8,
+        "wins_minus_losses": -3
+      }
+    }
+  ],
+  "status": "retrospective_policy_robustness_positive"
+}

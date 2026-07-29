@@ -41,6 +41,30 @@ def test_hash_bound_sources_are_two_disjoint_cohorts() -> None:
         {row["tree_seed"] for row in cohorts[0]}
         & {row["tree_seed"] for row in cohorts[1]}
     )
+    for cohort, source in zip(
+        cohorts,
+        (first_ablation, second["second_refresh"]),
+        strict=True,
+    ):
+        parent = source["comparisons"]["parent_only"]
+        generated = source["comparisons"]["generated_only"]
+        assert analysis.summarize_root_differences(
+            [cohort],
+            "parent_only",
+        )["pooled"] == parent["root_differences"]
+        assert analysis.summarize_root_differences(
+            [cohort],
+            "generated_only",
+        )["pooled"] == generated["root_differences"]
+        assert abs(
+            sum(
+                row["support"]["candidate_brier"]
+                - row["support"]["parent_only_brier"]
+                for row in cohort
+            )
+            / len(cohort)
+            - parent["mean_candidate_minus_baseline_brier"]
+        ) < 1e-12
 
 
 def test_stratified_summary_uses_both_cohorts_and_reports_contrast() -> None:

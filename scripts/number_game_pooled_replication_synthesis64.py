@@ -156,32 +156,49 @@ def cohort_rows(
             }
         )
 
+    second_ablation_by_seed = {
+        int(row["tree_seed"]): row
+        for row in second["second_refresh"]["rows"]
+    }
     second_rows = []
     for tree in second["trees"]:
-        selection = tree["selection"]
-        per_root = {
-            int(root): float(value)
-            for root, value in tree["per_root_endpoint_brier"].items()
-        }
-        candidate_root = int(selection["crossfit_depth_three_root"])
-        parent_root = int(selection["retained_parent_only_depth_three_root"])
-        generated_root = int(selection["generated_only_depth_three_root"])
+        seed = int(tree["tree_seed"])
+        ablation = second_ablation_by_seed[seed]
         policy = _policy_values(tree)
-        if abs(policy["candidate_brier"] - per_root[candidate_root]) > 1e-12:
+        if abs(
+            policy["candidate_brier"]
+            - float(ablation["endpoint_brier"]["merged_retained_generated"])
+        ) > 1e-12:
             raise ValueError(
-                f"second cohort endpoint mismatch for tree {tree['tree_seed']}"
+                f"second cohort endpoint mismatch for tree {seed}"
             )
         second_rows.append(
             {
-                "tree_seed": int(tree["tree_seed"]),
+                "tree_seed": seed,
                 "policy": policy,
                 "support": {
-                    "candidate_brier": per_root[candidate_root],
-                    "parent_only_brier": per_root[parent_root],
-                    "generated_only_brier": per_root[generated_root],
-                    "candidate_root": candidate_root,
-                    "parent_only_root": parent_root,
-                    "generated_only_root": generated_root,
+                    "candidate_brier": float(
+                        ablation["endpoint_brier"][
+                            "merged_retained_generated"
+                        ]
+                    ),
+                    "parent_only_brier": float(
+                        ablation["endpoint_brier"]["parent_only"]
+                    ),
+                    "generated_only_brier": float(
+                        ablation["endpoint_brier"]["generated_only"]
+                    ),
+                    "candidate_root": int(
+                        ablation["selected_roots"][
+                            "merged_retained_generated"
+                        ]
+                    ),
+                    "parent_only_root": int(
+                        ablation["selected_roots"]["parent_only"]
+                    ),
+                    "generated_only_root": int(
+                        ablation["selected_roots"]["generated_only"]
+                    ),
                 },
             }
         )
