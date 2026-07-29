@@ -2016,3 +2016,15 @@ Public FAILURE SHA27ae82a7;private raw be1d19c6. Do not widen validator,
 repair/prompt/model/selection/threshold,or rerun. Opportunity audit remains
 positive retrospectively,but fresh lightweight generation+translation does
 not qualify;policy/branch mechanics/endpoint remain unopened.
+2026-07-29: Freeze a distinct Battleship direct-executable candidate-bank gate
+before any response. This removes the failed cross-model translation link:
+GPT-5.4 directly pairs each question with the pure expression that operationally
+defines it,target-blind. This matters because official Spotter translation sees
+the true board and retries up to10,so it is not a clean counterfactual template.
+Exact10 nonthinking calls,seed40000,temp.7,6 candidates/call,no retries/repair;
+fresh official-prior blocks40010/40011,n4096. Filter unsafe/non-Boolean or
+prevalence outside[.05,.95],dedupe joint behavior,and compare against released
+program behaviors. Require>=3 valid/call,>=20 unique,>=8 novel,then exact
+first25 bank d1/d2 roots disjoint,d2 three-question gain>=.01,d3 nonregression,
+and best(d2,d3)-greedyEIG>=.02 on both blocks.
+Projected$.25,cap$.50. Passage only to separately frozen branch regeneration.
