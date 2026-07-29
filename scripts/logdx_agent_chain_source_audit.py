@@ -24,9 +24,9 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "logdx-agent-chain-source-audit-2"
+INTERFACE_VERSION = "logdx-agent-chain-source-audit-3"
 SUPERSEDED_AUDIT_SHA256 = (
-    "f7f7289f33434a7e9b3a69bc7dd54abbaedbd55a92fb28be8e29090500c1d9ab"
+    "dadc701229327e145d5fc01c71f76fe1320c4c4ecfe096d52c56abe0ce39194d"
 )
 SOURCE_ROOT = REPO_ROOT / "external/LogDx"
 SOURCE_COMMIT = "99591c1471118c95155976346df72f520a05f100"
@@ -349,6 +349,16 @@ def _line_prefix_present(text: str, line_number: int) -> bool:
     ) is not None
 
 
+def observation_log_content(observation: str) -> str:
+    """Return only numbered raw-log lines, excluding tool-generated headers."""
+
+    return "\n".join(
+        line
+        for line in observation.splitlines()
+        if re.match(r"^\s*\d+\s*:", line) is not None
+    )
+
+
 def dependencies_for_call(
     call: dict[str, Any],
     *,
@@ -358,7 +368,10 @@ def dependencies_for_call(
 ) -> list[dict[str, str]]:
     if not prior_observations:
         return []
-    prior_text = "\n".join(prior_observations)
+    prior_text = "\n".join(
+        observation_log_content(observation)
+        for observation in prior_observations
+    )
     prior_argument_text = canonical_json(
         [prior_call.get("args", {}) for prior_call in prior_calls]
     )
@@ -723,7 +736,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         type=Path,
         default=(
             REPO_ROOT
-            / "results/nonmyopic/logdx_agent_chain_source_audit_v2/AUDIT.json"
+            / "results/nonmyopic/logdx_agent_chain_source_audit_v3/AUDIT.json"
         ),
     )
     args = parser.parse_args(argv)

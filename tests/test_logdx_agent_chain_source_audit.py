@@ -61,6 +61,26 @@ def test_dependencies_exclude_literals_echoed_from_prior_tool_arguments() -> Non
     ) == []
 
 
+def test_dependencies_exclude_tool_header_literals() -> None:
+    assert audit.dependencies_for_call(
+        {
+            "tool": "grep",
+            "args": {"pattern": "showing"},
+        },
+        initial_context="A short unrelated excerpt.",
+        prior_observations=[
+            "grep pattern='specific' matches=3 (showing 1 merged range)\n"
+            "120: actual log content"
+        ],
+        prior_calls=[
+            {
+                "tool": "grep",
+                "args": {"pattern": "specific"},
+            }
+        ],
+    ) == []
+
+
 def test_line_dependency_uses_exact_prior_line_prefix() -> None:
     call = {
         "tool": "view_log_lines",
