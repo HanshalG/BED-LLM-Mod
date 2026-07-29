@@ -1,0 +1,162 @@
+{
+  "diagnostics": {
+    "changed_refresh_count": 16,
+    "complete_unique_path_count": 4,
+    "valid_anchor_refresh_count": 14
+  },
+  "gates": {
+    "all_16_refreshes_have_four_valid_anchors": false,
+    "all_four_paths_complete": true,
+    "all_outputs_parse": true,
+    "all_pass": false,
+    "at_least_14_of_16_refreshes_change": true,
+    "both_pairs_rankable": true,
+    "both_policy_changes_correct": false,
+    "cost_at_most_0_50": true,
+    "endpoint_loaded_after_policy_freeze": true,
+    "exact_22_accepted_requests": true,
+    "final_coverage_gain_exactly_2": false,
+    "final_rank_beats_immediate": true,
+    "final_rank_correct_2_of_2": false,
+    "http_attempts_within_24": true,
+    "transport_retries_at_most_2": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "endpoint_loaded_after_policy_freeze": true,
+    "excluded_prior_rows": [
+      955,
+      1802,
+      540,
+      479,
+      1332,
+      1068,
+      2156,
+      2062,
+      1689,
+      1648,
+      1404,
+      2703,
+      1867,
+      1295,
+      2989,
+      549,
+      2642,
+      2345
+    ],
+    "expected_requests": 22,
+    "interface_version": "longvid-robust-keyed-belief-1",
+    "layout_seed": 40410,
+    "max_cost_usd": 0.5,
+    "max_transport_retries": 2,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "a155969fc839c0eb4250c44afc649c8f8bcd533769df3863592d320cc9c265af",
+    "random_control_seed": 270742,
+    "reasoning_requested": false,
+    "repairs_reissues_or_retries": 0,
+    "response_format": "order_insensitive_keyed_pipe_rows",
+    "semantic_repairs_or_reissues": 0,
+    "structural_confirmation_sha256": "895e448c047ca7afa924393da0a4f637a21735c8a770336fa17db0a72fdd4081",
+    "task_layout_hash": "a2783ca4a1a1140e427e031820eddc0a2e055582ab4c4fb03fc68dd149c46a9f"
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "correct_policy_change_count": 1,
+    "final_coverage_gain_over_immediate": 1,
+    "final_pairwise_accuracy": 0.5,
+    "final_pairwise_correct": 1,
+    "final_selected_coverage_total": 4,
+    "immediate_pairwise_accuracy": 0.0,
+    "immediate_pairwise_correct": 0,
+    "immediate_selected_coverage_total": 3,
+    "policy_change_count": 1,
+    "random_selected_coverage_total": 4,
+    "rankable_task_count": 2
+  },
+  "task_metrics": [
+    {
+      "category": "Global_Summary",
+      "coverage_counts": [
+        1,
+        2
+      ],
+      "final_choice": 1,
+      "final_confidence": 79,
+      "immediate_choice": 0,
+      "immediate_confidence": 74,
+      "policy_changed": true,
+      "random_choice": 1,
+      "rankable": true,
+      "root_indices": [
+        0,
+        9
+      ],
+      "row_index": 319
+    },
+    {
+      "category": "Global_Summary",
+      "coverage_counts": [
+        2,
+        3
+      ],
+      "final_choice": 0,
+      "final_confidence": 80,
+      "immediate_choice": 0,
+      "immediate_confidence": 79,
+      "policy_changed": false,
+      "random_choice": 0,
+      "rankable": true,
+      "root_indices": [
+        2,
+        1
+      ],
+      "row_index": 120
+    }
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.16752,
+    "completion_tokens": 7176,
+    "forced_exits": 0,
+    "http_attempts": 22,
+    "model": {
+      "adapter_completion_tokens": 7176,
+      "adapter_cost_usd": 0.16752,
+      "adapter_prompt_tokens": 23952,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 22,
+      "backend": "openrouter",
+      "budget_usd": 500.0,
+      "completion_tokens": 7176,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 22,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 7176,
+          "cost_usd": 0.16752,
+          "prompt_tokens": 23952,
+          "reasoning_tokens": 0,
+          "requests": 22
+        }
+      },
+      "prompt_tokens": 23952,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 342.15489412887854,
+      "requests": 22,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.16752,
+      "run_remaining_usd": 0.33248,
+      "total_spent_usd": 157.84510587112146
+    },
+    "physical_requests": 22,
+    "prompt_tokens": 23952,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
