@@ -1,0 +1,515 @@
+{
+  "all_gates_pass": true,
+  "data": {
+    "eligibility_error_counts": {
+      "empty_answer": 1,
+      "function_answer_names_target": 1,
+      "material_answer_names_target": 14,
+      "missing_function_question": 6
+    },
+    "eligible_count": 837,
+    "excluded_count": 21,
+    "function_collision_excess": 128,
+    "game_count": 858,
+    "material_collision_excess": 284,
+    "object_count": 858,
+    "unique_function_answer_count": 709,
+    "unique_material_answer_count": 553
+  },
+  "gates": {
+    "at_least_eight_hundred_clean_two_action_rows": true,
+    "both_actions_retain_at_least_one_hundred_collisions": true,
+    "exact_object_count": true,
+    "exact_released_game_count": true,
+    "games_have_unique_targets_matching_vocabulary": true,
+    "object_vocabulary_is_unique": true,
+    "public_manifest_excludes_targets_questions_and_answers": true,
+    "selected_rows_preserve_eligibility": true,
+    "source_hashes_match": true,
+    "split_has_exact_sizes": true,
+    "split_rows_are_disjoint": true,
+    "two_orders_have_identical_evidence_sets": true
+  },
+  "protocol": {
+    "adaptation": "Uniform hidden-object prior with two immutable semantic observations. Material-first and function-first expose the same evidence in different order; an LLM retrieves a bounded hypothesis belief from the released vocabulary.",
+    "audit_disclosure": "Source counts were inspected exploratorily before this reproducibility and split freeze; this is not a blind statistical confirmation.",
+    "cost_usd": 0.0,
+    "interface_version": "guessinggame-path-bed-source-audit-1",
+    "model_boundary": {
+      "hidden": [
+        "current target id and name",
+        "unasked target answers",
+        "split membership beyond the active opaque case"
+      ],
+      "visible": [
+        "released object vocabulary with opaque integer ids",
+        "the policy's own ordered question-answer history"
+      ]
+    },
+    "model_calls": 0,
+    "split_seed": 39400
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "df56f1f13fefc4a8ba2c1f89d5026c027f5f42b3",
+    "games_sha256": "a41a4dd3bccc444555c054f362c41e0fe747de79fda9183a893bf195cf0db6d4",
+    "objects_sha256": "a55a5f9410c8fe3e7cb34e3f57f51b0ad96a6d52db4b261204a48b9685e9fa58",
+    "repository": "https://github.com/cincynlp/GuessingGame"
+  },
+  "splits": {
+    "confirmation": [
+      {
+        "case_id": "gg-59431c571ee1eef6",
+        "source_row_sha256": "59431c571ee1eef6360daf65065cc8a66e627e257b08679f77ed8c2033c27d49"
+      },
+      {
+        "case_id": "gg-b61e3e6e65488d75",
+        "source_row_sha256": "b61e3e6e65488d752b7346071e2bb6b40ec4f603e8932f2c55e11d50d2baf375"
+      },
+      {
+        "case_id": "gg-353a25e095384d85",
+        "source_row_sha256": "353a25e095384d8516fc30a1d37c6e3e38248ce4589b72097122876ffd391bcf"
+      },
+      {
+        "case_id": "gg-a36f4e395666b5fa",
+        "source_row_sha256": "a36f4e395666b5fa58cc25c24fc4ceeb0a9e9b068dc0db76d8f15737a112ae40"
+      },
+      {
+        "case_id": "gg-db69a7f9a406992c",
+        "source_row_sha256": "db69a7f9a406992c849a03d7827ec6d27216b733f2337707491fe37e57a89872"
+      },
+      {
+        "case_id": "gg-5927c74e5e847b17",
+        "source_row_sha256": "5927c74e5e847b174474c3967fc39ec7c4ec609da11d63e58d3c4e80987c048a"
+      },
+      {
+        "case_id": "gg-146aeed7b7055226",
+        "source_row_sha256": "146aeed7b70552266e200ff121301c603815d44ef5a10fd07a9421f8dd5b2159"
+      },
+      {
+        "case_id": "gg-69010b85489eecc2",
+        "source_row_sha256": "69010b85489eecc295edb4d63fc27b14b8d9be188fb597ba08f82139bb2586da"
+      },
+      {
+        "case_id": "gg-71a48decf35e5b03",
+        "source_row_sha256": "71a48decf35e5b03a46c6b95f6255433ff1a68d715ccdffd937660ad33f52a07"
+      },
+      {
+        "case_id": "gg-ce06eba0499c2693",
+        "source_row_sha256": "ce06eba0499c2693b99ffb429c06e388512d02313e45892c0626bac0f12a021f"
+      },
+      {
+        "case_id": "gg-8024e04596eafe91",
+        "source_row_sha256": "8024e04596eafe914c0e42cc42f3c1afd87cf94476a91f850b79d811106e0f2e"
+      },
+      {
+        "case_id": "gg-afb2ca5b515b504b",
+        "source_row_sha256": "afb2ca5b515b504b9293d6d63432774374151369ad465e7e4d745d7200d1f3c6"
+      },
+      {
+        "case_id": "gg-f54338aba5c18b4c",
+        "source_row_sha256": "f54338aba5c18b4c1dafce7ce47029cb79ab18305f6a69dae38ba3ab2fdd64e7"
+      },
+      {
+        "case_id": "gg-4fc9f04de2f422e3",
+        "source_row_sha256": "4fc9f04de2f422e3b3b6e6b20d57c797108090061d19a8cfb37d6ce674b211f1"
+      },
+      {
+        "case_id": "gg-5b665df67b06e0b7",
+        "source_row_sha256": "5b665df67b06e0b709f2b7703987c325d7fd05f2ce8cf8b05fd70fae3205f24d"
+      },
+      {
+        "case_id": "gg-3cb2938c688b0aac",
+        "source_row_sha256": "3cb2938c688b0aac688f8c15ada41a6c0944e1c55c2eb1442bcf559de87bb3e6"
+      },
+      {
+        "case_id": "gg-52cc951bd236322d",
+        "source_row_sha256": "52cc951bd236322d5f4780992e93758e73edd2045d75a0093c37b16f805e2b7b"
+      },
+      {
+        "case_id": "gg-db320f028dc0174b",
+        "source_row_sha256": "db320f028dc0174b5661b33ef89da72004d7fbe06f4df971a4a98165f81f1c1f"
+      },
+      {
+        "case_id": "gg-d6d4321b8e43c8c1",
+        "source_row_sha256": "d6d4321b8e43c8c13212c28b7dd91f8be9019faa92469cd4d04c26678bedb570"
+      },
+      {
+        "case_id": "gg-6de9c68439100617",
+        "source_row_sha256": "6de9c6843910061770646aa881154c2bf9499332594378dd67289198ac8d940f"
+      },
+      {
+        "case_id": "gg-94e8c34904533d39",
+        "source_row_sha256": "94e8c34904533d398d24a8ce40cc731798ee6dc2252cf41d2a62e2d1ae0fd2e2"
+      },
+      {
+        "case_id": "gg-0f637a52528155c0",
+        "source_row_sha256": "0f637a52528155c017c9db3be8eb5f5e5e6a4f722abade070fba32918b7e8599"
+      },
+      {
+        "case_id": "gg-f4446049d6d9058c",
+        "source_row_sha256": "f4446049d6d9058c6dda00090ff99060c46458f771768f7bb734041eee212bd1"
+      },
+      {
+        "case_id": "gg-7fdea80896b02455",
+        "source_row_sha256": "7fdea80896b02455d8e78be156f198528838afef2db383237650940c4f6a9b7b"
+      },
+      {
+        "case_id": "gg-f5f3f2dbd078b1bd",
+        "source_row_sha256": "f5f3f2dbd078b1bdf1149b3096cd4c0c729f206668e47a46e64d0a9ba928309f"
+      },
+      {
+        "case_id": "gg-ca4b8b1f6347799d",
+        "source_row_sha256": "ca4b8b1f6347799d6678f4f11897592816bbe683309b9bc4c094473943440002"
+      },
+      {
+        "case_id": "gg-eceb2eea6abb8756",
+        "source_row_sha256": "eceb2eea6abb87562fe4de773eaa1ac1bbc226c1a30e666b0331cf1e08e2f161"
+      },
+      {
+        "case_id": "gg-54536d35991966ad",
+        "source_row_sha256": "54536d35991966ad5c21bb6bb06047e6a041a23741ecc3671e7a906f4a8e357a"
+      },
+      {
+        "case_id": "gg-35555577551be83c",
+        "source_row_sha256": "35555577551be83c38428918a31c86627ce8c0345f5cb9f4b3455e082eb04393"
+      },
+      {
+        "case_id": "gg-55e670bb9fa9bf0b",
+        "source_row_sha256": "55e670bb9fa9bf0b8e4541452b26b43bf652c0f9e84db585619adc16edf73a94"
+      },
+      {
+        "case_id": "gg-43196d1e15a20f34",
+        "source_row_sha256": "43196d1e15a20f346f64013aab0225d9dad5d23130a854a6a8d71a319d5a5b0e"
+      },
+      {
+        "case_id": "gg-5a7eebb9715176f1",
+        "source_row_sha256": "5a7eebb9715176f1e91ae827386f38d28414cc6d0551ab56b01fe92462b92e7a"
+      },
+      {
+        "case_id": "gg-0b91da71a30e54e0",
+        "source_row_sha256": "0b91da71a30e54e07ed305bb84ba92f6b326f8d8876fff1865b368fd3197ffb5"
+      },
+      {
+        "case_id": "gg-8f832af1a8e26621",
+        "source_row_sha256": "8f832af1a8e26621b50289571ecadaca03385262ca7183653d7ccf21e9d0e2f6"
+      },
+      {
+        "case_id": "gg-8d6d741ad310ab46",
+        "source_row_sha256": "8d6d741ad310ab466cdbbf8a5c13cef9a6017776a2a27117e8f46e0274a0ec18"
+      },
+      {
+        "case_id": "gg-3b840553ba9c3586",
+        "source_row_sha256": "3b840553ba9c358637a90a9b0f26a0d33b850aee283e58f9a915e420492164ea"
+      },
+      {
+        "case_id": "gg-43d13a0d7b5485c3",
+        "source_row_sha256": "43d13a0d7b5485c3ca72e9cfce7b01d272bdaa7fb5282b82fb089b073f085cf5"
+      },
+      {
+        "case_id": "gg-cf695277f43a1946",
+        "source_row_sha256": "cf695277f43a194608180cbed6fc439adc719c035d9b685cb34115a04af75176"
+      },
+      {
+        "case_id": "gg-d5e8df0c499187dc",
+        "source_row_sha256": "d5e8df0c499187dc996b8e5ddc386af97aa670f5f080a5890b9fcdc8da722e56"
+      },
+      {
+        "case_id": "gg-7a07dccd5872158f",
+        "source_row_sha256": "7a07dccd5872158f4214e13386bbfb87ff6941d9ed1c33665ba744b068090c6c"
+      },
+      {
+        "case_id": "gg-caefa966f44e7d21",
+        "source_row_sha256": "caefa966f44e7d21960dca62f4a1b5bd9b42cb152898baca6bf7233663b164e0"
+      },
+      {
+        "case_id": "gg-732a9a840de4ad6e",
+        "source_row_sha256": "732a9a840de4ad6e1e607b9d19a4e54221895ae6a1efae20ae4ce04663838e73"
+      },
+      {
+        "case_id": "gg-60c8c9f84daa4112",
+        "source_row_sha256": "60c8c9f84daa4112fb243ea008290a7bb3bb49ac233b1967528e0cc396f0ef90"
+      },
+      {
+        "case_id": "gg-fe239084dd00fa50",
+        "source_row_sha256": "fe239084dd00fa50db7acaf72d715f78dbb048782021771fc104d0257153d91b"
+      },
+      {
+        "case_id": "gg-29d9e6f965904390",
+        "source_row_sha256": "29d9e6f965904390ff3fb7c4e1407a850c593a80cab9fe28d6b58d807dbfe6ec"
+      },
+      {
+        "case_id": "gg-b57d47bf0a43e312",
+        "source_row_sha256": "b57d47bf0a43e3120de8098ef068c7a3ec526bc40b967370e8ba68498e37e68d"
+      },
+      {
+        "case_id": "gg-2948c266709ab2dd",
+        "source_row_sha256": "2948c266709ab2dd643614602c75c5404b5c5e80fe1317be46f9de466f4b7bac"
+      },
+      {
+        "case_id": "gg-5ff042746f295242",
+        "source_row_sha256": "5ff042746f29524211f4ed9b37aa5c40839a2261ea06ffca9f16f5e2cf1c4cf5"
+      },
+      {
+        "case_id": "gg-753c57e694ec5aed",
+        "source_row_sha256": "753c57e694ec5aed6f9fb0028c8a0a1bc1e2d3258a72e9e76d2f5d3e83cca105"
+      },
+      {
+        "case_id": "gg-0ae9f8631d4a3860",
+        "source_row_sha256": "0ae9f8631d4a3860057217f74c4b80289b4a10c09c236f8ffb2fa8296cd28a92"
+      },
+      {
+        "case_id": "gg-1ad87bb4004b6635",
+        "source_row_sha256": "1ad87bb4004b6635988c1e72f588f766b459deb771921390551a80342fc6221e"
+      },
+      {
+        "case_id": "gg-ea180e4bf688dd36",
+        "source_row_sha256": "ea180e4bf688dd36aafa1c4f8c4ec782bbcc874afa6d6898b2342d86c620b128"
+      },
+      {
+        "case_id": "gg-2037f76ae522adb4",
+        "source_row_sha256": "2037f76ae522adb4ba5cc46c7ccb18fa860a21e6eb59ac5194d3437aa228d86a"
+      },
+      {
+        "case_id": "gg-1719502aaedc5707",
+        "source_row_sha256": "1719502aaedc57078ed9b36f0495e1f5f5d0aee86c3cc03a8b7673bd1a2611b3"
+      },
+      {
+        "case_id": "gg-13d5e9bb45a15a63",
+        "source_row_sha256": "13d5e9bb45a15a6348b032370f281f2abfb7c51ccc9bb3c4cec3225717207438"
+      },
+      {
+        "case_id": "gg-8ec1d9cecb146c8f",
+        "source_row_sha256": "8ec1d9cecb146c8f84e860c19ccb85a6c2c0e480997fd1f77b3d21e015b774f0"
+      },
+      {
+        "case_id": "gg-2fc20058f421a8fc",
+        "source_row_sha256": "2fc20058f421a8fc82653f6bee908df594486630b200479a2748e99ccf66e79a"
+      },
+      {
+        "case_id": "gg-48933c7e10a00607",
+        "source_row_sha256": "48933c7e10a0060725a0675ffe7d4dac24b520133315e2c31012c1995cd41d9b"
+      },
+      {
+        "case_id": "gg-c236abda9d6662c8",
+        "source_row_sha256": "c236abda9d6662c8eae83870302ad534457a400dc85264d0813794cc97259da2"
+      },
+      {
+        "case_id": "gg-937b82c81f3aa4d0",
+        "source_row_sha256": "937b82c81f3aa4d01a9a5b09a7b12f5c940b4b3e132b0cf59b83366a090aa7ef"
+      },
+      {
+        "case_id": "gg-b25df496276e0562",
+        "source_row_sha256": "b25df496276e05622556fcc08cbd90a58f1712945a0d360ca07603edb87e385d"
+      },
+      {
+        "case_id": "gg-6837120eb6673d61",
+        "source_row_sha256": "6837120eb6673d618c67cc25c0a71ea783b9ca703b6311fad64a5b5c025e6e8c"
+      },
+      {
+        "case_id": "gg-72a95bcf9fa27ca7",
+        "source_row_sha256": "72a95bcf9fa27ca7324fa5000a7dd1f27fb511f219c5d7a43cd3dd7547b978da"
+      },
+      {
+        "case_id": "gg-542f13291917f3dd",
+        "source_row_sha256": "542f13291917f3dd72e5341efba07baeb6f061f8bec4f51d575107c2da4fa6c2"
+      }
+    ],
+    "development": [
+      {
+        "case_id": "gg-4e931b76092d7847",
+        "source_row_sha256": "4e931b76092d78478c5c58dfaa90f9dc0a974349411b5f3634f4d8d60f7c8bad"
+      },
+      {
+        "case_id": "gg-acd8a5cac7d7ff29",
+        "source_row_sha256": "acd8a5cac7d7ff29cfb4f4f16986d90de9b259af6952d115a81a9915b56d2d93"
+      },
+      {
+        "case_id": "gg-d65236ae8f8e7a03",
+        "source_row_sha256": "d65236ae8f8e7a03a7f94b00d0c275b34c7eda1fb8c7cd88af14f1400a913914"
+      },
+      {
+        "case_id": "gg-db6997e556ec0806",
+        "source_row_sha256": "db6997e556ec0806506e497ba39b44c7f0c71fed112bf46f2c092c206b47d1ea"
+      },
+      {
+        "case_id": "gg-58b5ef1f537efcc2",
+        "source_row_sha256": "58b5ef1f537efcc2759953535460f955300f9a1ac8d29e7fe9438ef2b225c4df"
+      },
+      {
+        "case_id": "gg-2d1c20ec26963e4f",
+        "source_row_sha256": "2d1c20ec26963e4fb990df68cd613869a87e8d6e019506ddbd5bd79f530d40ea"
+      },
+      {
+        "case_id": "gg-970c067f1a83348c",
+        "source_row_sha256": "970c067f1a83348c22c34a4bb329c193081e1ce1eefa1e9913f8d71b9bca416e"
+      },
+      {
+        "case_id": "gg-319ce8bb1813399a",
+        "source_row_sha256": "319ce8bb1813399a93a2ab6334792d968cd402da5f6567ac82ad9e1a4a3aaa12"
+      },
+      {
+        "case_id": "gg-69f7ee33a4264b8e",
+        "source_row_sha256": "69f7ee33a4264b8e1c75a50e8b920e7bff5d943428cdda80bd38d6f8c4b17d0a"
+      },
+      {
+        "case_id": "gg-4f2446e89b3cc577",
+        "source_row_sha256": "4f2446e89b3cc577102b39a1a67f2130f9a4652933124001cfaa705d82121b7f"
+      },
+      {
+        "case_id": "gg-01850618b236636b",
+        "source_row_sha256": "01850618b236636b1a652e16c6a7af056d8800f29b11924eedb1d72bae1bc87e"
+      },
+      {
+        "case_id": "gg-f2be1031b5f6f44d",
+        "source_row_sha256": "f2be1031b5f6f44dc821c62b18264ea8bfeb8113c7aa89b889337ef006f3b599"
+      },
+      {
+        "case_id": "gg-8e6e0fa2d4b86769",
+        "source_row_sha256": "8e6e0fa2d4b867692a2df2eda371bfb43f83224072cadd6aeeaab3d3be21c7de"
+      },
+      {
+        "case_id": "gg-a5d91af28b5814e5",
+        "source_row_sha256": "a5d91af28b5814e536af1b25f648f5d4e930c75489695696533355ff049ee471"
+      },
+      {
+        "case_id": "gg-fdf33c91c56f2b27",
+        "source_row_sha256": "fdf33c91c56f2b2704308bfdae187d54d3da64e7d056e7041c533f6fa57fb04f"
+      },
+      {
+        "case_id": "gg-57c184581264e212",
+        "source_row_sha256": "57c184581264e212682588d111b36d79df1c9833fec97d5852ac489807044e22"
+      },
+      {
+        "case_id": "gg-c2daeb54740be9b8",
+        "source_row_sha256": "c2daeb54740be9b875d2bafa00d958c081d6fba3a2855b5de916cde68027bd00"
+      },
+      {
+        "case_id": "gg-0dbdd4778cbc6f84",
+        "source_row_sha256": "0dbdd4778cbc6f849fe603b2830ba15e816c833535ff8ed8939dc8e9056d641b"
+      },
+      {
+        "case_id": "gg-d1ebaf61085916c8",
+        "source_row_sha256": "d1ebaf61085916c845f9610425d88fe384193ed8ab4b706ebbd1cc9ba9a626ed"
+      },
+      {
+        "case_id": "gg-11341833dda86690",
+        "source_row_sha256": "11341833dda86690b22a0af843821c7fd6bc12fa57807b3c8285d49ebd87a07c"
+      },
+      {
+        "case_id": "gg-beb1238703acf48e",
+        "source_row_sha256": "beb1238703acf48e9da68facf9a9a7203990de1651fc4f23f24e529473185a52"
+      },
+      {
+        "case_id": "gg-e4346e87b54e0baa",
+        "source_row_sha256": "e4346e87b54e0baa58b6e30f3b87b4d78987da864049a391ce874ff86f4ca9f4"
+      },
+      {
+        "case_id": "gg-c9f7115cb7fada44",
+        "source_row_sha256": "c9f7115cb7fada44c21b165f06876f23579e99363e58c3c820c11e6d6a232208"
+      },
+      {
+        "case_id": "gg-1b6ccc5c8e7ca149",
+        "source_row_sha256": "1b6ccc5c8e7ca14905dd726530aefb919008ca0a6b4d646b93062126a2041376"
+      },
+      {
+        "case_id": "gg-d005ab8b5bc6a384",
+        "source_row_sha256": "d005ab8b5bc6a384ef9a00b84b294b3c32a965f127d671ad297d9edb97b556e6"
+      },
+      {
+        "case_id": "gg-32efa2bb6fcd2635",
+        "source_row_sha256": "32efa2bb6fcd26354a13448e49aa5616b1e81643b95b5aeadbde62ed5be00116"
+      },
+      {
+        "case_id": "gg-41384f3d7e648ca3",
+        "source_row_sha256": "41384f3d7e648ca3b004fba1c9666c0506da25ace5439f854a06923be518eea1"
+      },
+      {
+        "case_id": "gg-669721b755e4ab17",
+        "source_row_sha256": "669721b755e4ab17d4941285f54cb5184741a454f82667c0bedf26b7554f23b1"
+      },
+      {
+        "case_id": "gg-506d32a11293a9f9",
+        "source_row_sha256": "506d32a11293a9f98dac80bf69cf170cce36b38e333e2c9576cd501e04a862a2"
+      },
+      {
+        "case_id": "gg-97b531ab3d690476",
+        "source_row_sha256": "97b531ab3d6904763676034135b811db9eeff9de5284f9cc640c5bf2ad5b546f"
+      },
+      {
+        "case_id": "gg-621e5fce83807abf",
+        "source_row_sha256": "621e5fce83807abf0e70eb05e13b2a47413b95612916f860d437e9b380684924"
+      },
+      {
+        "case_id": "gg-7a2b6021b8b3307d",
+        "source_row_sha256": "7a2b6021b8b3307dcbe801d93acc505e4cb3107094b4bbb77e4bd21f460240d5"
+      }
+    ],
+    "mechanics": [
+      {
+        "case_id": "gg-fdf96f59f88905fd",
+        "source_row_sha256": "fdf96f59f88905fd466e2832fd5d3ef291a00a0637ed304be010c720f18a9ced"
+      },
+      {
+        "case_id": "gg-7487628aaf390efc",
+        "source_row_sha256": "7487628aaf390efcdd6a5a77c4544804cd3029accdf28d7f0041918c92867858"
+      },
+      {
+        "case_id": "gg-c6f8e18823679ba7",
+        "source_row_sha256": "c6f8e18823679ba70868c2ccc5eb657d09488961a075cd0af78a163db2de8ac5"
+      },
+      {
+        "case_id": "gg-6ee7d8b675c72b2d",
+        "source_row_sha256": "6ee7d8b675c72b2d465790a355b2e2728f41f1c879ead5ad60114a50ab381539"
+      },
+      {
+        "case_id": "gg-9f04a3610ddd2323",
+        "source_row_sha256": "9f04a3610ddd232361e84dd939e6e05447b812f4f59ee8a80ba25726686cf27d"
+      },
+      {
+        "case_id": "gg-e6fa221862b33a15",
+        "source_row_sha256": "e6fa221862b33a15063e33b8a7d01561f574c6886f78a7200026b87196024333"
+      },
+      {
+        "case_id": "gg-f451c219dac2af55",
+        "source_row_sha256": "f451c219dac2af55afbe0fbac159b809ed2affbd2fa15fc87d7762ce9d1adb23"
+      },
+      {
+        "case_id": "gg-580c632909e86958",
+        "source_row_sha256": "580c632909e86958517270802b66e166e3ea39a0257f7a893235ce034fb21a6a"
+      },
+      {
+        "case_id": "gg-fc39346fca75878c",
+        "source_row_sha256": "fc39346fca75878cc75188f1e959fd26788f4f1833fa1e7778078bb7ee875cd1"
+      },
+      {
+        "case_id": "gg-7cd67006b4b85b5d",
+        "source_row_sha256": "7cd67006b4b85b5d1cd43d477c4eea883c01796904891ff74378700720bb5d86"
+      }
+    ],
+    "serving_smoke": [
+      {
+        "case_id": "gg-e126b76653e9ea41",
+        "source_row_sha256": "e126b76653e9ea413e62f99f0732c4fb342a97c134488a91b50a15fc053efc9e"
+      },
+      {
+        "case_id": "gg-62c12b1cb64198c0",
+        "source_row_sha256": "62c12b1cb64198c07d9a5abff6ad65a1241222a79f7679cc62d9ffa4f213c8dd"
+      },
+      {
+        "case_id": "gg-ee6db36ebc2690c0",
+        "source_row_sha256": "ee6db36ebc2690c095241ad3026c6043968f48c139b40728ac0a1933c820c316"
+      },
+      {
+        "case_id": "gg-223fa5ee0e9f047a",
+        "source_row_sha256": "223fa5ee0e9f047aa755881009d0e7d78b2fac06c80b44bf9644f7f62845aac9"
+      },
+      {
+        "case_id": "gg-00812b555fa5383b",
+        "source_row_sha256": "00812b555fa5383bcb8c84c65505a5372e3d913c107b21d5c453a2b0752affc4"
+      }
+    ],
+    "unused_count": 726
+  },
+  "status": "pass"
+}

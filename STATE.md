@@ -1924,3 +1924,12 @@ action,and opaque seed39400 splits serving5/mechanics10/development32/
 confirmation64. Public manifest excludes targets/questions/answers;repo has no
 license,so never redistribute vocabulary/raw logs. Passage only authorizes an
 exact10 structured retrieval smoke;model0/cost0 and20 focused tests pass.
+2026-07-29: GuessingGame path-BED source audit passes every frozen gate at
+model0/cost0. Exact858 objects/games and hashes reproduce;837 rows are clean
+after21 exclusions(6 missing function,1 empty,14 material target-name,1
+function target-name;categories overlap). Material answers have553 unique/
+284 collision excess;function709/128,both above100. Seed39400 freezes opaque
+serving5/mechanics10/development32/confirmation64/unused726;all disjoint and
+eligible. Public manifest contains no target/question/answer,SHA8d1269e1.
+Authorize only exact10 structured semantic-retrieval serving qualification;
+mechanics/development/confirmation remain unopened.
