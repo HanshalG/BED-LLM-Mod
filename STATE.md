@@ -2296,3 +2296,18 @@ d3-d2 Brier>=1%+stratified CI<0+24 wins,and d3-myopic>=5%+CI<0+32 wins.
 Hamming/coverage/fixed/PTS/random/ranking are diagnostics,not an unrelated
 conjunction. Prospective combination of open policies+open bank,not fresh
 trees;model0/cost0/OatML0.
+2026-07-29: Zero-call64-tree GPTmini external-canonical replay(commit584525f)
+is a formal monotonic-depth gated null but strong exact-endpoint nonmyopic
+positive. D3 Brier.108114 vs d2.109298:1.083%,stratified CI[-.004520,
++.002120],19/29/16 W/T/L,so CI+24-win gates fail;blocks directional but
+heterogeneous(.0075% and2.13%). D3 decisively beats myopic.124175 by12.93%,
+CI[-.021971,-.010399],45 wins,and beats fixed/PTS/random7.13/8.23/9.51%
+with CIs<0. Hamming+coverage directional;rho.503 vs.346;all6 diagnostics
+favorable. Public RESULT SHA33263d27,TARGETS8e09b391;model0/cost0/OatML0.
+Interpret robust nonmyopic-over-myopic LLM proposal-dynamics gain,but
+monotonic extra-step effect is model/target-distribution dependent.
+2026-07-29: Paper now includes the64-tree canonical boundary;claim manifest
+expands to16 hash-pinned bundles with18 exact checks for this result. All
+claims validate,focused replay suite9 passes,and draft compiles cleanly at6
+pages with14 required limitation topics+2 figures. No scientific value or
+status altered.

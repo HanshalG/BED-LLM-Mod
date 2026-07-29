@@ -212,6 +212,34 @@
       ]
     },
     {
+      "id": "number_game_gptmini_external_canonical_replay64",
+      "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_gptmini_external_canonical_replay64/number-game-gptmini-external-canonical-replay64-20260729T061141Z/RESULT.json",
+        "sha256": "33263d27fa0f3fb19b44908070df1a21fb014ffbf1bc1cd715d362d3ac531427"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.10811392889440084, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.10929789917093966, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.01083250717094852, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.004520214735850275, 0.00212014609604948], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/wins", "equals": 19},
+        {"pointer": "/pooled/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.1241748848297371, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.12934142002513874, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.021970613752452302, -0.010398619994238542], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/wins", "equals": 45},
+        {"pointer": "/primary_gates/depth_three_vs_depth_two_ci_below_zero", "equals": false},
+        {"pointer": "/primary_gates/depth_three_wins_at_least_24_trees_vs_depth_two", "equals": false},
+        {"pointer": "/primary_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/diagnostic_gates/depth_three_rank_rho_exceeds_depth_two", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_classical_grammar_scope",
       "paper_scope": "Classical grammar novelty audit and its explicitly underpowered endpoint boundary.",
       "artifact": {
