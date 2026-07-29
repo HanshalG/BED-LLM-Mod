@@ -24,7 +24,10 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "logdx-agent-chain-source-audit-1"
+INTERFACE_VERSION = "logdx-agent-chain-source-audit-2"
+SUPERSEDED_AUDIT_SHA256 = (
+    "f7f7289f33434a7e9b3a69bc7dd54abbaedbd55a92fb28be8e29090500c1d9ab"
+)
 SOURCE_ROOT = REPO_ROOT / "external/LogDx"
 SOURCE_COMMIT = "99591c1471118c95155976346df72f520a05f100"
 SOURCE_TAG_OBJECT = "8d358ae6b973320b8a5e29ce7e0eab243033d31f"
@@ -351,10 +354,14 @@ def dependencies_for_call(
     *,
     initial_context: str,
     prior_observations: Sequence[str],
+    prior_calls: Sequence[dict[str, Any]] = (),
 ) -> list[dict[str, str]]:
     if not prior_observations:
         return []
     prior_text = "\n".join(prior_observations)
+    prior_argument_text = canonical_json(
+        [prior_call.get("args", {}) for prior_call in prior_calls]
+    )
     tool = call.get("tool")
     args = call.get("args")
     if not isinstance(args, dict):
@@ -373,6 +380,7 @@ def dependencies_for_call(
                 isinstance(value, int)
                 and _line_prefix_present(prior_text, value)
                 and not _line_prefix_present(initial_context, value)
+                and str(value) not in prior_argument_text
             ):
                 dependencies.append(
                     {
@@ -386,6 +394,7 @@ def dependencies_for_call(
             if (
                 candidate.casefold() in prior_text.casefold()
                 and candidate.casefold() not in initial_context.casefold()
+                and candidate.casefold() not in prior_argument_text.casefold()
             ):
                 dependencies.append(
                     {
@@ -416,6 +425,7 @@ def replay_dependencies(
             call,
             initial_context=initial_context,
             prior_observations=observations,
+            prior_calls=tool_calls[:call_index],
         ):
             dependencies.append(
                 {
@@ -693,6 +703,7 @@ def run_audit() -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
+        "supersedes_audit_sha256": SUPERSEDED_AUDIT_SHA256,
         "source": source,
         "manifest": manifest_summary,
         "ground_truth": ground_truth_summary,
@@ -712,7 +723,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         type=Path,
         default=(
             REPO_ROOT
-            / "results/nonmyopic/logdx_agent_chain_source_audit/AUDIT.json"
+            / "results/nonmyopic/logdx_agent_chain_source_audit_v2/AUDIT.json"
         ),
     )
     args = parser.parse_args(argv)

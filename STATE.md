@@ -1827,3 +1827,12 @@ and15 dependency cases gaining>=.10. Case-mean score gain is+.1738 overall and
 other literal). Public AUDIT SHA f7f7289f;model0/cost0. Admit LogDx as the first
 new executable semantic unlock source;next freeze only a ten-call support/query/
 likelihood serving smoke before policy work.
+2026-07-29: Before any LogDx paid work,identify and freeze a zero-call V2
+correction to the just-published agent-chain audit. V1 reconstructed grep
+observations whose header echoes the search pattern;because V1 excluded only
+initial-context literals,a repeated prior query could be falsely labeled
+observation-learned. Preserve/supersede V1 SHA f7f7289f;keep exact source,
+420 rows,case averaging,scores,and every threshold. V2 additionally excludes
+line numbers/search literals present in any prior tool argument via canonical
+JSON. Failure closes LogDx;pass still authorizes only a separate exact10-call
+serving smoke. Model0/cost0;commit correction before recomputing.

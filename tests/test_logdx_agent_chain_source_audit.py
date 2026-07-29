@@ -40,6 +40,27 @@ def test_dependencies_require_prior_observation_and_absence_from_initial() -> No
     ) == []
 
 
+def test_dependencies_exclude_literals_echoed_from_prior_tool_arguments() -> None:
+    call = {
+        "tool": "grep",
+        "args": {"pattern": "tests/foo_test.py::test_shape"},
+    }
+    assert audit.dependencies_for_call(
+        call,
+        initial_context="A short unrelated excerpt.",
+        prior_observations=[
+            "grep pattern='tests/foo_test.py::test_shape'\n"
+            "120: FAILED tests/foo_test.py::test_shape"
+        ],
+        prior_calls=[
+            {
+                "tool": "grep",
+                "args": {"pattern": "tests/foo_test.py::test_shape"},
+            }
+        ],
+    ) == []
+
+
 def test_line_dependency_uses_exact_prior_line_prefix() -> None:
     call = {
         "tool": "view_log_lines",
