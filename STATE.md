@@ -2208,3 +2208,13 @@ SERVING SHAa5e7731b,private378692c4. Authorize separately frozen paired
 mechanics first-link only;development/confirmation/retained and executable
 endpoint unopened. Live balance still$15.555228793 before charge settlement;
 reported$40 top-up absent,OatML0.
+2026-07-29: Preregistered ICAE full first-link instrument V1(commit804def3)
+failed closed after7 accepted/7 HTTP,$.06164225,0 retry/provider/reasoning/
+forced. GPT-5.4-Mini returned known unique actual-match trigger IDs outside
+catalog order;the frozen parser rejected before realized refresh or either
+hidden endpoint call. No development/confirmation/retained or executable
+endpoint opened. Public FAILURE SHA1b8d88e2. This is a codec failure,not a
+scientific rescore:V1 remains failed. Authorize one prospective V2 on an
+untouched mechanics task/fresh seeds,changing only matched IDs from ordered
+list to unordered unique set canonicalized before exact replay. Authenticated
+balance$15.434642893;latest reported$40 top-up still not reflected;OatML0.
