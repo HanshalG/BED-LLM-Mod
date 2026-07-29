@@ -1,0 +1,721 @@
+{
+  "all_gates_pass": true,
+  "data": {
+    "checklist_item_count_distribution": {
+      "2": 257,
+      "3": 375,
+      "4": 124
+    },
+    "eligibility_error_counts": {},
+    "eligible_rows": 756,
+    "instance_type_counts": {
+      "changing": 252,
+      "consistent": 252,
+      "contrastive": 252
+    },
+    "prior_interaction_count_distribution": {
+      "8": 756
+    },
+    "total_rows": 756
+  },
+  "gates": {
+    "all_rows_eligible": true,
+    "candidate_payload_respects_hidden_state_boundary": true,
+    "exact_released_row_count": true,
+    "instance_types_balanced": true,
+    "official_formatter_exposes_dialogue_only": true,
+    "selected_rows_preserve_source_structure": true,
+    "source_hashes_match": true,
+    "source_row_ids_unique": true,
+    "split_has_exact_sizes_and_unique_ids": true
+  },
+  "official_formatter_control_flow": {
+    "official_formatter_excludes_context_metadata": true,
+    "official_formatter_excludes_preference_metadata": true,
+    "official_formatter_includes_assistant_dialogue": true,
+    "official_formatter_includes_user_dialogue": true
+  },
+  "protocol": {
+    "adaptation": "Active contextual-preference interview; this is a released-task adaptation and not the official CUPID evaluation protocol.",
+    "candidate_observation": {
+      "hidden": [
+        "current_contextual_preference",
+        "current_checklist",
+        "all prior contextual_preference metadata",
+        "same-context prior dialogue",
+        "remaining prior dialogues"
+      ],
+      "visible": [
+        "current_request",
+        "current_context_factor",
+        "two earliest nonmatching-context prior dialogues"
+      ]
+    },
+    "cost_usd": 0.0,
+    "interface_version": "cupid-active-preference-source-audit-1",
+    "model_calls": 0,
+    "split_seed": 37400
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "a8560cab293ae98be4fe260689d58bddf96b51ef",
+    "data_sha256": "6d68af09f7fbe52df0a3bd621604104696d0f481f166be5c06dd65bbb089aaae",
+    "dataset_repository": "kixlab/CUPID",
+    "dataset_revision": "f6e5fdae9b31f2b400d6ceb281a6a6760cc00309",
+    "evaluator_sha256": "eaead752332b51761f292c5c88f7279890d8718af2ca0ce75647f63c05b36b91",
+    "formatter_sha256": "ab9597c8c0f506bc9a25fe8061f3d9b474b20c1ffaa3880ad95a1db5ac51b2e2",
+    "inferrer_prompt_sha256": "b20374118413bd228b67a6fc3ac210766ff2415f8c3014cc61b6b432e83be472",
+    "inferrer_sha256": "35187639331dd458a1cddd26b9981e56deb36d74371555e122222bc6eaa28138",
+    "tree": "f035180dd7cc963ef0222e0d25a8c2e4d8d1d9c5"
+  },
+  "splits": {
+    "development": [
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "79+mathematics_professor:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "8b7feffe10f6160a749cb4a2c92a348c4210eb2c878abc0ab8e0ae3077086ed0"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "66+horticulturist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "0439e2472ff88ef9849e99632cbe849e72ae1e3580e8b156722836abee10e88d"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "34+game_developer:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "728f6f8da71f4e9ac819eb07015ad9a180d065311ba9d637c511ad1a96abf094"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "217+genealogist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "85a3572e99280a9e0d0062a7f1d6b22300655e2188e978d368fa09493723cb38"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "229+guitarist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "8e49bf4b23dc641dd5d76186f59630c47f47d4b6b3db4e746a4a4f5eeb966eeb"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "85+design_research_associate:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "0335c0cc039c1b19e55665787c92c3b43fe95af065639f9fbda35d65abf0e04c"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "212+maritime_preservationist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "d2263c0f78cfa75ff253f57c8944144680e4bc9519eb57aa2178dfa2ab74c63d"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "113+demographer:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "5d4ede9eb417379e75f72159b7bde86251118579ee530f5d407651860d032c9b"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "158+it_administrator:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "d1aa0ff7c17515678a228ab5b592313c65a1b18b37b661ea5fd78796f3892916"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "88+data_scientist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "9470151a609391b96ef9ed4b6e1321b44bdb9f6a5d718a9af47c9463a8658856"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "153+music_therapist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "27b7495aa589c771b306254cf2572c93fa0b6f73e645e0db5cc794aad9a5ba7b"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "59+literary_festival_director:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "6b8eac1aa8fb8c44422e65b1baea379e698721056481ff07d08b9ce01feae236"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "24+chemistry_teacher:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "622bdb1d0ff70ccd6ed640403540550685d6922eb936f6b8bec68c32ef0aacd9"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "200+musicologist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "f7f9e3720de3a8e7577dbdf739b696cd2754efaf6f07b027d0c9a1f157782c39"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "193+research_mathematician:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "c5373059ec1ffcf84f2b3b6e0ec64468f0f805fca1c030043e0617b3b926fa87"
+      }
+    ],
+    "holdout": [
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "11+amateur_meteorologist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "7a2d591e07e12f3ba9627b05b2025e1fa5790df032d13ca3c7ce3910a774cea8"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "234+real_estate_agent:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "959335e3dc263f7d46550efbfa6d5430640d214bed67d34b422155c1180643b1"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "228+medical_device_engineer:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "936e7a32671487a7911dca5b06bcbc44942200f8a184107db4c933cd3ca94483"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "77+science_fiction_author:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "7adad76b24d1616fbd90867ac9868ddfaa7524ece4b1781c5f9fde606f491cee"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "24+chemistry_teacher:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "fc4db04252a5ffa8f642aefd5a709727773fc4071d037cf13b721c079e144b56"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "214+etymologist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "8e67e2442b433f063cf9c8798489b2a2c865b235961fb4c47587d810020748b4"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "107+geologist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "354c03fc50eafc3d0ab2b8f44515e53f906b31c616b8c4a4c1a6f6c0776b36de"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "58+entomologist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "e8cde5978eebafe57afe1802e354a29138bc2f18b6bebb0494e281c00ffbc573"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "152+junior_professor_of_african_literature:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "b0a01d4237f7e85f6c5ea4b16aee69758b5fe1bcc14c9fa78650e0b6bc72ff73"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "86+music_history_research_fellow:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "07c452b9fdc2f0ceaf1db07ee13adc2eb612a7bf8f1a743904d3c34c510a16ee"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "169+novelist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "3e5fb5a526222c8006b70b2adb6782c75dd0bbf015b2174763336a4338f66c03"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "61+sports_analyst:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "bca0b181f58eb1e684966cd6cc5a4d2c9ba7e0f05123a598b7095a30c093dbaa"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "46+u.s._army_officer:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "0f958cecacc11e4f6bb704500529b879bb3808f1b2f5e0947a6418eff6e2432f"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "92+historical_researcher:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "f3789821f48fec37444749865b38da41d9737db2a52cb10fabe92208608a86ec"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "127+cultural_studies_scholar:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "e6c45c26cf1aa88c3cae98a748b54b30cc96c461ab6b6d2fcb622baa43d26f9a"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "156+international_relations_data_analyst:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "df004c3bff66f8807e564872429db583042067e7f04183b700f8b447a6aa4d7f"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "148+real_estate_developer:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "ed0fa9949ed1503cae1930c848e1dd89fc3ee8118d4d68a7fab76777679b0d40"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "68+cultural_tourism_developer:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "2f1aba0a5b0ff17bda0da3c28f590e5308b854b649972f3d992ec19ac816cf09"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "161+anthropologist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "896f8207c5d45406b8f0fe672e74defbc2bede34d5e45ff0368706ce75601a72"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "71+environmental_scientist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "71695e1374a100f02331cc07003fbd9ee4587a317754ea9d0e8f1ceeb95c9cae"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "164+urban_planner:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "eb6f5b967562b7573966e49d0812a2048a350c5468f8130fddc51bb7321ce3c4"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "149+martial_arts_practitioner:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "ab2ca45ac5d8138946ab459fb9e1c763898590d6f210635edfbb901ef876169c"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "31+immunologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "cfaad37a51dd245a85ceb8d8a4081c813481669e62e10a44f21bd701e9165af7"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "168+photographer:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "733108b8eb44c7cd242fcc1b35e5e825807bb0c7ed197539e9ab4e8e0cd91d3e"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "246+senior_manuscript_curator:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "fa86f73ae8be6fa6b8dff98549702be024abc2c94d9ac9f42a87b2ef46ebbfec"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "200+musicologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "ea3819d08d034f0930d5cead88a100158a43c5a692284fd64166fad2bff88363"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "16+audio_engineer:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "293fbd3545c5a1d88f0c1052843a18458091a5be9cd52ef863b5a88410fb7e27"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "56+transportation_logistics_manager:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "9a45fb4d0fd53b7702c125a7032517f731c084a07e264a56a6d128094d4c7c15"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "107+geologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "5081f44c715231ff719c69cf792c4c9843140af408e2bb35c273fba904ecec8b"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "22+public_finance_economist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "4da9544b2a16e0386df771489d060e34ec0645a179ef851867d40b6aea976e11"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "190+sports_analytics_consultant:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "980252f09606993129851ba82dc56edf163d7eb92e78a0d980bac10279fcaf0b"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "193+research_mathematician:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "2fe1586c23fbdbb3540e9645ae3e201704649220c7052b1e26f3e21cc5bc4e87"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "133+marine_biologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "f8d40d8000305c5126a965970faf0543b336e015efc83e6202afcf12a5a1b7a7"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "14+high_school_music_teacher:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "0d09f944fd8a9dae567c807da31543fc931b8345627246f43ef959a67c278afc"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "97+intellectual_property_lawyer:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "d4617bbd9ba4218fa9549688d532e2a3f67a63d91c013349a73ed52e4e6aef83"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "76+high_school_physics_teacher:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "abe71d79d4bd46b6882439d3ea219590c87bad8a80905f0c61d2605c3ee128a0"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "67+ornithologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "0c4976aaf68f17ed44583edb77ce3bd7661b0bc35d405a7c3e31957918e86012"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "174+research_sociologist:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "913d47e10ce1fc60cea077643f19a85cfe80fc6b561831cedfb06969303d2eb1"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "159+language_educator:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "cc32e954c8f83adb558d835208a89b3a63a365a0d1f12623f7b851dc53e5dfbd"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "30+pta_president:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "8903f1c918b95badb9ea882d0180abfdc1718d5eb96380ae0b741b283c668ef2"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "103+professional_genealogist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "3598625510867c3c4d7ed1c1d9355f26d06654fbf1aaaadc3f1bb071e84cd105"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "191+literary_collections_archivist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "b2621a2023c51e17bb5046b7f012353c3f081358bda555032115b00cfefcba46"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "233+architectural_historian:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "20f225166e7057789839e801855adeabb996874500e997abdcfb670e757e8df1"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "62+financial_advisor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "14bfa072fe5ef96cd7c102b395e6564b52279be37b91a66849cd430c84e78f58"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "100+linguistics_professor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "3c0cb44be068dbdd1fb78b9be770532ba7ec74c512a07646a70e2a09ededca02"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "171+amateur_astronomer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "e6fc99981f7a36ba839fbc4a075de43015669673ac420b638370d137a493087b"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "208+project_manager_and_casual_gamer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "206ec9ca78ff4434a24ea5f6614e51b02a9600f57784d30119c32c81afc42080"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "196+stamp_collector:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "253de39685726600994ef9024bed4f672e5aec5c0eeba5b5d4a8cbef04495fe7"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "48+rock_climbing_instructor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "f1c1d83f74ef04e44c1241acccd26060ef91cf210a66f4c72aaa6739fa447622"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "160+military_officer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "7267de25390703c1d851c4ea0632cd760a6832e9b5c0209daf8cff3c30d9de5f"
+      },
+      {
+        "checklist_item_count": 4,
+        "exposed_background_count": 2,
+        "id": "121+travel_blogger:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "d27b82e670bebb5e9aa8007d9dc9c5b8a1b29a9eaf0bcee1ed71fe6fc6b750cf"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "35+cryonics_researcher:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "5b7883b5bc0b851155b052ceca055816ff3067f0d817b48f5117c508ec300d00"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "179+financial_analyst:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "06e90dd696035f7e2234f0d46376e0c2e218d784a421b21b1843e8a99cd207a6"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "145+biochemist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "467f07d15e5fca34c8dc03d2d1a7262f150a24b6f13c143668ffd3bf31366000"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "29+choir_conductor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "3d142486211449df3a26e95a9b8f315618f897ef8c85572bedddb81da4ffffb2"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "110+adventure_guide_and_graphic_designer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "8935492fba240ff061f3812ee9866802b22688b6b1040a3e903bd4e4bbfaba66"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "190+sports_analytics_consultant:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "c5c2e9e2f4ebd7b42f19fa1fbed76379d247cd6f38b83282b9ddff137107af2f"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "109+film_studies_professor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "95114071a570cd1b5c528d3ba0f4138258c3eacdbb5ad4a001c32418a44c61a5"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "228+medical_device_engineer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "ed74f61fbe455eaf6c89ed9868781ff4bf37b5e5c055f259053b135cc3113d29"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "141+film_festival_programmer:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "e07b9de477d014f8089805b41b768bc3e36816f07308a8e4ddb52e5160532649"
+      }
+    ],
+    "serving_smoke": [
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "22+public_finance_economist:consistent",
+        "instance_type": "consistent",
+        "prior_interaction_count": 8,
+        "row_sha256": "33180befc13cab160e15cc2dbc2759a54e7281d0bd8fde411490b6845b8b7996"
+      },
+      {
+        "checklist_item_count": 2,
+        "exposed_background_count": 2,
+        "id": "195+school_administrator:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "f528ef8aac87c20f323f61059b26dde24c648fc14cac070aba684b6a911497d2"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "245+human_rights_lawyer:contrastive",
+        "instance_type": "contrastive",
+        "prior_interaction_count": 8,
+        "row_sha256": "07739c54e0e44463a1cc24b617025476b32d67f1b75e9dc081613f43d45540f4"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "72+high_school_guidance_counselor:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "0ea58ce88e1dba090f8b4b4b74f3d9ab23b8d85a17a672beeb6a5e9440d0ff52"
+      },
+      {
+        "checklist_item_count": 3,
+        "exposed_background_count": 2,
+        "id": "53+environmental_scientist:changing",
+        "instance_type": "changing",
+        "prior_interaction_count": 8,
+        "row_sha256": "beea8d507b989bfcafc6883719873e8c35132ad726b02d3662b6149243d8a2a0"
+      }
+    ],
+    "unused_count": 676
+  },
+  "status": "pass"
+}

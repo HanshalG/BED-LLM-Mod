@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-07-29: CUPID is the next LLM-native route. A zero-call, hash-bound source
+audit passes all gates on the full 756-row human-curated release: exactly 252
+consistent/contrastive/changing cases, eight valid histories per row, unique
+source keys, and a deterministic 5 serving / 15 development / 60 sealed-holdout
+split. The active-interview adaptation shows only two nonmatching-context
+dialogues and hides the exact-context session, current open-text preference,
+checklist, and structured preference metadata. Next is a separately frozen
+exact ten-request smoke: five planner calls for open hypotheses/binary questions
+and five independent hidden-preference target calls. No policy endpoint opens
+unless schema, partition diversity, and answer-signature coverage pass.
+
 2026-07-21: Next loop frozen before outcomes: independent GPT-5.4 Mini non-thinking
 replication on RockSample 7-8, fresh seed 24073, 30 paired ten-round trials and the
 same shared-d1/width/random controls. A ten-cell actual-prompt gate must pass first;
