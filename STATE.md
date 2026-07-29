@@ -2333,3 +2333,12 @@ linked exact10 mini-tree with stronger private literal-substitution prompt:
 transport,0 retry/provider/reasoning/forced,cost<=.10,initial>=16,every raw
 conditioned draw>=4 genuine valid hypotheses,merged first>=8,merged second>=4.
 No efficacy;no V1 reuse/repair. Pass alone may authorize prospective cohort.
+2026-07-29: GPTmini planner serving V2(commit3791918) is another exact10
+transport-clean scientific null:$.026847,0 retry/provider/reasoning/forced;
+initial23/23,conditioned8/8/14/8/8/12/13/1. Retained merge itself passes
+first10/25/22/22 and second9/17/19/12,but frozen every-draw>=4 fails on
+42N75N. Public RESULT SHA327bd2e6,private55836bf5. No efficacy. Close
+single-draw GPTmini prompt iteration;future use requires pooled independent
+draw method. Next highest ROI is fresh Qwen exact-bank replication:prior
+fresh cohort d3-myopic11.37%,CI<0,25 wins and d3-d2 4.62%,CI<0,14 wins;
+its status null was solely frozen zero-provider-retry gate(2 transient).
