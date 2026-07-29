@@ -649,6 +649,61 @@
         {"pointer": "/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.5721829577790233, 0.6877239196123403], "tolerance": 1e-12},
         {"pointer": "/comparisons/random_strategy/wins_ties_losses", "equals": [30, 0, 0]}
       ]
+    },
+    {
+      "id": "number_game_qwen_pooled_second_refresh_confirmation32",
+      "paper_scope": "Fresh preregistered pooled-Qwen confirmation separating robust non-myopic policy efficacy from the nonreplicating second-refresh increment.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_pooled_second_refresh_confirmation32/number-game-qwen-pooled-second-refresh-confirmation32-20260729T104705Z/RESULT.json",
+        "sha256": "71281c483297e7ee4cc011d0ba795dabd28ec2d8598366771e11afee2af2a459"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/tree_count", "equals": 32},
+        {"pointer": "/protocol/expected_requests", "equals": 3424},
+        {"pointer": "/protocol/planning_support_pool_size", "equals": 2},
+        {"pointer": "/usage/adapter_requests", "equals": 3424},
+        {"pointer": "/usage/http_attempts", "equals": 3434},
+        {"pointer": "/usage/retry_count", "equals": 10},
+        {"pointer": "/usage/run_cost_usd", "equals": 4.1078379599999995, "tolerance": 1e-12},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0},
+        {"pointer": "/protocol/parse_accounting/strict_json_draws", "equals": 3424},
+        {"pointer": "/protocol/parse_accounting/item_salvaged_draws", "equals": 0},
+        {"pointer": "/mechanics_gates/exactly_32_fresh_trees", "equals": true},
+        {"pointer": "/mechanics_gates/accepted_request_count_exact", "equals": true},
+        {"pointer": "/mechanics_gates/transport_attempt_accounting_exact", "equals": true},
+        {"pointer": "/mechanics_gates/retries_within_cap", "equals": true},
+        {"pointer": "/mechanics_gates/all_pooled_initial_supports_valid", "equals": true},
+        {"pointer": "/mechanics_gates/all_deployed_retained_branches_non_degenerate", "equals": true},
+        {"pointer": "/mechanics_gates/all_eight_validation_supports_valid", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_beats_myopic_by_eight_percent", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_wins_at_least_twenty_trees", "equals": true},
+        {"pointer": "/aggregate/comparisons/myopic_eig/candidate_mean_brier", "equals": 0.10267700506382461, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.11780980155183113, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.12845108207188305, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.021723877140652863, -0.009163456845405666], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/brier_tree_wins", "equals": 24},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_hamming_reduction", "equals": 0.18990469466996115, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/mean_coverage_difference", "equals": 0.035984848484848495, "tolerance": 1e-12},
+        {"pointer": "/second_refresh/comparisons/parent_only/root_differences", "equals": 19},
+        {"pointer": "/second_refresh/comparisons/parent_only/relative_brier_reduction", "equals": 0.013891837300153876, "tolerance": 1e-12},
+        {"pointer": "/second_refresh/comparisons/parent_only/tree_bootstrap_brier_difference_95pct", "equals": [-0.005565374476633667, 0.0024412078753053975], "tolerance": 1e-12},
+        {"pointer": "/second_refresh/comparisons/parent_only/wins", "equals": 8},
+        {"pointer": "/second_refresh/comparisons/parent_only/ties", "equals": 13},
+        {"pointer": "/second_refresh/comparisons/parent_only/losses", "equals": 11},
+        {"pointer": "/second_refresh/gates/merged_and_parent_only_roots_differ_on_at_least_twelve_trees", "equals": true},
+        {"pointer": "/second_refresh/gates/merged_beats_parent_only_by_two_percent", "equals": false},
+        {"pointer": "/second_refresh/gates/merged_vs_parent_only_interval_below_zero", "equals": false},
+        {"pointer": "/second_refresh/gates/merged_wins_minus_losses_at_least_eight", "equals": false},
+        {"pointer": "/second_refresh/comparisons/generated_only/relative_brier_reduction", "equals": 0.030836341106608836, "tolerance": 1e-12},
+        {"pointer": "/second_refresh/comparisons/generated_only/tree_bootstrap_brier_difference_95pct", "equals": [-0.006599518890511484, -0.0002466736400184033], "tolerance": 1e-12},
+        {"pointer": "/first_link/root_differences", "equals": 29},
+        {"pointer": "/first_link/mean_realized_advantage", "equals": 0.016698258193662368, "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_advantage_spearman", "equals": 0.38866995073891625, "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_spearman_95pct_bootstrap", "equals": [-0.00544466424881854, 0.7036490092518045], "tolerance": 1e-12}
+      ]
     }
   ]
 }

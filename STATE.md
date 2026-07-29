@@ -2534,3 +2534,17 @@ Exact3424,retries<=96,0 reasoning/forced,salvage<=16,cap$5.25,start>=5.50;
 deployed supports initial>=24,retained first>=12/second>=8,validation>=16.
 Generated-only minima diagnostic,not deployed gate. Bootstrap20k seeds64500/
 64501. No continuation/replacement/third draw/repair/threshold/endpoint.
+2026-07-29: Fresh prospective pooled second-refresh confirmation32 is
+gated_null on its regeneration-specific primary despite clean mechanics and
+strong policy efficacy. Merged vs parent-only changes19/32 roots,Brier
+.102677 vs.104123:1.39%,CI[-.005565,+.002441],8/13/11 W/T/L,W-L-3;
+only root-difference gate passes,so retrospective7.11% generation increment
+does not replicate. Merged beats generated-only3.08%,CI[-.006600,-.000247],
+13/10/9,showing retained parent support is necessary. Full d3 independently
+beats myopic Brier.117810 by12.85%,CI[-.021724,-.009163],24 wins;Hamming
+improves18.99%,CI[-.008401,-.001913],22 wins;coverage+3.60pt. D3-d2
+2.96%,CI crosses. First link changes29/32,realized+.01670
+CI[.01028,.02367],24/5;rho.389 CI[-.005,.704]. Exact3424 accepted/3434
+attempts,10 retries,$4.10783796,all strict JSON,0 salvage/reasoning/forced;
+all mechanics gates pass. Public RESULT71281c48,TREES50613278,
+TARGETSf8e848df,private1571d655. No reclassification or mechanism rescue.
