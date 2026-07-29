@@ -8,7 +8,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -533,16 +533,34 @@ def run_instrument_smoke(
     run_id: str,
     planner_model: ServingModel,
     evaluator_model: ServingModel,
+    task_selector: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+    match_message_builder: Callable[
+        [dict[str, Any], str], list[dict[str, str]]
+    ]
+    | None = None,
+    match_parser: Callable[..., dict[str, Any]] | None = None,
+    interface_version: str = INTERFACE_VERSION,
+    planner_model_id: str = PLANNER_MODEL_ID,
+    evaluator_model_id: str = EVALUATOR_MODEL_ID,
+    selection_seed: int = SELECTION_SEED,
+    planner_seed: int = PLANNER_SEED,
+    evaluator_seed: int = EVALUATOR_SEED,
 ) -> dict[str, Any]:
     if sha256_bytes(manifest_path.read_bytes()) != EXPECTED_MANIFEST_SHA256:
         raise ValueError("Frozen ICAE manifest hash mismatch")
     if sha256_bytes(source_audit_path.read_bytes()) != EXPECTED_SOURCE_AUDIT_SHA256:
         raise ValueError("Frozen ICAE source-audit hash mismatch")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    selected = select_instrument_task(manifest)
+    selected = (task_selector or select_instrument_task)(manifest)
     record = json.loads(
         (repo / selected["oracle_record"]).read_text(encoding="utf-8")
     )
+    private_path = output_dir / "private" / "RAW_RESPONSES.json"
+    private: dict[str, Any] = {"selected": selected}
+
+    def save_raw(name: str, value: Any) -> None:
+        private[name] = value
+        checkpoint(private_path, private)
 
     initial_raw = planner_model.chat_complete_messages_batched_structured(
         [initial_messages(record["fuzzy_prd"])],
@@ -551,6 +569,7 @@ def run_instrument_smoke(
         response_format=planner_response_format(),
         max_new_tokens=PLANNER_MAX_TOKENS,
     )[0]
+    save_raw("initial_raw", initial_raw)
     initial = parse_support(initial_raw, label="initial")
 
     branch_answers_raw = planner_model.chat_complete_messages_batched_structured(
@@ -560,6 +579,7 @@ def run_instrument_smoke(
         response_format=branch_answers_response_format(),
         max_new_tokens=PLANNER_MAX_TOKENS,
     )[0]
+    save_raw("branch_answers_raw", branch_answers_raw)
     branch_answers = parse_branch_answers(branch_answers_raw)
 
     likelihood_raw = evaluator_model.chat_complete_messages_batched_structured(
@@ -569,6 +589,7 @@ def run_instrument_smoke(
         response_format=likelihood_response_format(),
         max_new_tokens=EVALUATOR_MAX_TOKENS,
     )[0]
+    save_raw("likelihood_raw", likelihood_raw)
     likelihoods = parse_likelihoods(likelihood_raw)
 
     root_question = initial["questions"][0]["question"]
@@ -586,6 +607,7 @@ def run_instrument_smoke(
         response_format=planner_response_format(),
         max_new_tokens=PLANNER_MAX_TOKENS,
     )[0]
+    save_raw("positive_raw", positive_raw)
     negative_raw = planner_model.chat_complete_messages_batched_structured(
         [
             followup_messages(
@@ -600,6 +622,7 @@ def run_instrument_smoke(
         response_format=planner_response_format(),
         max_new_tokens=PLANNER_MAX_TOKENS,
     )[0]
+    save_raw("negative_raw", negative_raw)
     positive = parse_support(positive_raw, label="positive refresh")
     negative = parse_support(negative_raw, label="negative refresh")
 
@@ -610,17 +633,21 @@ def run_instrument_smoke(
         response_format=proxy_response_format(),
         max_new_tokens=EVALUATOR_MAX_TOKENS,
     )[0]
+    save_raw("proxy_raw", proxy_raw)
     proxy = parse_proxy_coverage(proxy_raw)
 
     valid_ids = [row["id"] for row in trigger_catalog(record)]
+    build_match_messages = match_message_builder or matcher_messages
     actual_match_raw = evaluator_model.chat_complete_messages_batched_structured(
-        [matcher_messages(record, root_question)],
+        [build_match_messages(record, root_question)],
         temperature=0.0,
         block_size=1,
         response_format=matcher_response_format(),
         max_new_tokens=EVALUATOR_MAX_TOKENS,
     )[0]
-    actual_match = parse_matcher(
+    save_raw("actual_match_raw", actual_match_raw)
+    parse_actual_match = match_parser or parse_matcher
+    actual_match = parse_actual_match(
         actual_match_raw,
         valid_ids=valid_ids,
         label="actual match",
@@ -643,6 +670,7 @@ def run_instrument_smoke(
         response_format=planner_response_format(),
         max_new_tokens=PLANNER_MAX_TOKENS,
     )[0]
+    save_raw("actual_refresh_raw", actual_refresh_raw)
     actual_refresh = parse_support(actual_refresh_raw, label="actual refresh")
 
     constraints = substantive_constraints(
@@ -662,6 +690,7 @@ def run_instrument_smoke(
         response_format=endpoint_format,
         max_new_tokens=EVALUATOR_MAX_TOKENS,
     )[0]
+    save_raw("endpoint_raw", endpoint_raw)
     endpoint_repeat_raw = evaluator_model.chat_complete_messages_batched_structured(
         [endpoint_prompt],
         temperature=0.0,
@@ -669,6 +698,7 @@ def run_instrument_smoke(
         response_format=endpoint_format,
         max_new_tokens=EVALUATOR_MAX_TOKENS,
     )[0]
+    save_raw("endpoint_repeat_raw", endpoint_repeat_raw)
     endpoint = parse_coverage(
         endpoint_raw,
         expected_ids=endpoint_ids,
@@ -735,24 +765,9 @@ def run_instrument_smoke(
         "cost_within_cap": usage["run_cost_usd"] <= RUN_BUDGET_USD,
     }
     all_pass = all(gates.values())
-    private = {
-        "selected": selected,
-        "initial_raw": initial_raw,
-        "branch_answers_raw": branch_answers_raw,
-        "likelihood_raw": likelihood_raw,
-        "positive_raw": positive_raw,
-        "negative_raw": negative_raw,
-        "proxy_raw": proxy_raw,
-        "actual_match_raw": actual_match_raw,
-        "actual_refresh_raw": actual_refresh_raw,
-        "endpoint_raw": endpoint_raw,
-        "endpoint_repeat_raw": endpoint_repeat_raw,
-    }
-    private_path = output_dir / "private" / "RAW_RESPONSES.json"
-    checkpoint(private_path, private)
     return {
         "schema_version": SCHEMA_VERSION,
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "status": "passed" if all_pass else "gated_null",
         "run_id": run_id,
         "manifest_sha256": EXPECTED_MANIFEST_SHA256,
@@ -762,13 +777,13 @@ def run_instrument_smoke(
             "language": selected["language"],
         },
         "models": {
-            "planner": PLANNER_MODEL_ID,
-            "evaluator_matcher": EVALUATOR_MODEL_ID,
+            "planner": planner_model_id,
+            "evaluator_matcher": evaluator_model_id,
         },
         "seeds": {
-            "selection": SELECTION_SEED,
-            "planner": PLANNER_SEED,
-            "evaluator": EVALUATOR_SEED,
+            "selection": selection_seed,
+            "planner": planner_seed,
+            "evaluator": evaluator_seed,
         },
         "usage": usage,
         "diagnostics": {
