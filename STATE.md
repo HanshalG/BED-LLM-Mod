@@ -2630,3 +2630,11 @@ historical engine myopic gates were computed before frozen-seed intervals
 replaced them. Finalization now recomputes both myopic and dynamic gates from
 seed66800 comparisons;dedicated regression test proves stale gate removal.
 11 focused tests pass;scientific seeds remain unopened.
+2026-07-29: Added a zero-provider-call one-tree integration run through the
+actual pooled adapter, all49 planning histories, target generation, all16
+validation draws, canonical scoring, frozen finalization, and public artifact
+serialization. It proves exact115 requests,49 pooled/66 total parse events,
+and115 provider draws;the broader focused suite passes16/16. User reports a
+new$40 four-day budget with no reserve requirement, but OpenRouter still
+reports$1.548748023;keep the frozen$5.50 launch gate and open no scientific
+seed until the credit is provider-visible.
