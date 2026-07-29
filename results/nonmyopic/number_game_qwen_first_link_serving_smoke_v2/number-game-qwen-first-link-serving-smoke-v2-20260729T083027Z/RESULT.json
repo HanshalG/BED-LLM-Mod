@@ -1,0 +1,233 @@
+{
+  "diagnostics": [
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 2,
+        "invalid_expression": 1,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 20
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 2,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 20
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 5,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 19
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 0,
+        "inconsistent": 7,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 17
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 6,
+        "inconsistent": 5,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 13
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 13,
+        "inconsistent": 3,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 8
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 2,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 20
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 0,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 24
+    }
+  ],
+  "gates": {
+    "all_merged_first_supports_have_at_least_eight": true,
+    "all_merged_second_supports_have_at_least_four": true,
+    "all_pass": true,
+    "both_initial_supports_have_at_least_sixteen_valid": true,
+    "every_conditioned_draw_adds_at_least_four_valid": true,
+    "exact_ten_accepted_requests": true,
+    "exact_ten_http_attempts": true,
+    "exact_ten_parsed_responses": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "generated_valid_counts": [
+    23,
+    23,
+    20,
+    20,
+    19,
+    17,
+    13,
+    8,
+    20,
+    24
+  ],
+  "merged_first_valid_counts": [
+    23,
+    26,
+    21,
+    26
+  ],
+  "merged_second_valid_counts": [
+    18,
+    10,
+    23,
+    31
+  ],
+  "protocol": {
+    "efficacy_used_for_authorization": false,
+    "expected_requests": 10,
+    "interface_version": "number-game-qwen-first-link-serving-smoke-v2-1",
+    "model": "qwen/qwen3.7-plus",
+    "model_seed": 60001,
+    "prompt_mix": {
+      "initial": 2,
+      "linked_one_observation": 4,
+      "linked_two_observations": 4
+    },
+    "reasoning": false,
+    "run_budget_usd": 0.1,
+    "support_update": "retained_rejuvenation",
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "e93e57767e74fd6906f101258abf23cd8d53678111723a99e2ebf0b1883eee31",
+  "retention_diagnostics": [
+    {
+      "generated_unique_count": 20,
+      "merged_unique_count": 23,
+      "retained_parent_consistent_count": 6,
+      "retained_parent_novel_count": 3
+    },
+    {
+      "generated_unique_count": 20,
+      "merged_unique_count": 26,
+      "retained_parent_consistent_count": 17,
+      "retained_parent_novel_count": 6
+    },
+    {
+      "generated_unique_count": 19,
+      "merged_unique_count": 21,
+      "retained_parent_consistent_count": 7,
+      "retained_parent_novel_count": 2
+    },
+    {
+      "generated_unique_count": 17,
+      "merged_unique_count": 26,
+      "retained_parent_consistent_count": 16,
+      "retained_parent_novel_count": 9
+    },
+    {
+      "generated_unique_count": 13,
+      "merged_unique_count": 18,
+      "retained_parent_consistent_count": 6,
+      "retained_parent_novel_count": 5
+    },
+    {
+      "generated_unique_count": 8,
+      "merged_unique_count": 10,
+      "retained_parent_consistent_count": 2,
+      "retained_parent_novel_count": 2
+    },
+    {
+      "generated_unique_count": 20,
+      "merged_unique_count": 23,
+      "retained_parent_consistent_count": 8,
+      "retained_parent_novel_count": 3
+    },
+    {
+      "generated_unique_count": 24,
+      "merged_unique_count": 31,
+      "retained_parent_consistent_count": 18,
+      "retained_parent_novel_count": 7
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 7435,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 2650,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.0103648
+  }
+}
