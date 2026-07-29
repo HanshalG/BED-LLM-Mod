@@ -2392,3 +2392,10 @@ differ53;mean+.00596 CI[.00105,.01112] but rho.127 CI crosses. Vs d2 roots
 differ41;mean+.00430 and rho-.014 both CIs cross. Simulator is calibrated to
 reject myopic roots,not universally among deep planners;explains replicated
 nonmyopic gain+nonmonotonic depth. Public RESULT SHA800532be;model0/cost0.
+2026-07-29: Freeze retrospective cross-planner exact-canonical pooled128
+after all outcomes:two disjoint32-tree Qwen blocks+two disjoint32-tree
+GPTmini blocks,exact33 bank,4-block stratified bootstrap,model-family+global
+summaries. Checks require every block d3-myopic>=8%+CI<0+20 wins,both
+families/global>=10%+CI<0,and global>=80 wins. All controls/rank/Hamming/
+coverage/depth reported;pooled depth cannot erase known block heterogeneity.
+No source rescue,model0,cost0.
