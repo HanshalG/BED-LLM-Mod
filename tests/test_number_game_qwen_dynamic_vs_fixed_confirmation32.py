@@ -157,3 +157,64 @@ def test_frozen_bootstrap_is_deterministic(monkeypatch) -> None:
 
     assert first == second
     assert "tree_cluster_coverage_difference_95pct_bootstrap" in first
+
+
+def test_finalization_recomputes_myopic_gate_from_frozen_bootstrap(
+    monkeypatch,
+) -> None:
+    passing = {
+        "relative_brier_reduction": 0.04,
+        "tree_cluster_brier_difference_95pct_bootstrap": [-0.02, -0.001],
+        "brier_tree_wins": 18,
+    }
+    failing_myopic = {
+        "relative_brier_reduction": 0.09,
+        "tree_cluster_brier_difference_95pct_bootstrap": [-0.02, 0.001],
+        "brier_tree_wins": 22,
+    }
+
+    def fake_comparison(trees, *, baseline, seed=0, samples=0):
+        del trees, seed, samples
+        return (
+            failing_myopic
+            if baseline == "myopic_eig"
+            else passing
+        )
+
+    monkeypatch.setattr(
+        run,
+        "comparison_with_frozen_bootstrap",
+        fake_comparison,
+    )
+    monkeypatch.setattr(
+        run.pooled,
+        "parser_accounting",
+        lambda _: {"parse_events": 0},
+    )
+    result = {
+        "aggregate": {"comparisons": {}},
+        "trees": [
+            {
+                "selection": {
+                    "crossfit_depth_three_root": index,
+                    "fixed_support_depth_three_root": index + 1,
+                }
+            }
+            for index in range(32)
+        ],
+        "protocol": {},
+        "primary_gates": {
+            "historical_bootstrap_gate_that_must_not_survive": True
+        },
+        "mechanics_gates": {"mechanics": True},
+    }
+
+    run.finalize_result(result, parse_events=[])
+
+    assert result["status"] == "gated_null"
+    assert result["myopic_policy_gates"][
+        "depth_three_vs_myopic_ci_below_zero"
+    ] is False
+    assert "historical_bootstrap_gate_that_must_not_survive" not in (
+        result["myopic_policy_gates"]
+    )

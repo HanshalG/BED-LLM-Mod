@@ -2625,3 +2625,8 @@ seeds66200--66711,exact3680 requests,2112 parse events,16-support mechanics,
 dynamic/fixed+myopic gates,and paired bootstrap seed66800;10 focused tests
 pass. Live balance after smoke$1.548748023< frozen$5.50,so no scientific
 request launched. Reported$40 top-up still not provider-visible.
+2026-07-29: Prelaunch integration audit fixes one runner-only bootstrap bug:
+historical engine myopic gates were computed before frozen-seed intervals
+replaced them. Finalization now recomputes both myopic and dynamic gates from
+seed66800 comparisons;dedicated regression test proves stale gate removal.
+11 focused tests pass;scientific seeds remain unopened.

@@ -302,7 +302,16 @@ def run_confirmation(
             run_id=run_id,
             smoke_result_path=smoke_result_path,
         )
+    finalize_result(result, parse_events=parse_events)
+    checkpoint(output_dir / "RESULT.json", result)
+    return result
 
+
+def finalize_result(
+    result: dict[str, Any],
+    *,
+    parse_events: Sequence[dict[str, Any]],
+) -> None:
     fixed = comparison_with_frozen_bootstrap(
         result["trees"],
         baseline="fixed_support_depth_three",
@@ -332,7 +341,10 @@ def run_confirmation(
             ),
         }
     )
-    result["myopic_policy_gates"] = result.pop("primary_gates")
+    result.pop("primary_gates")
+    result["myopic_policy_gates"] = myopic_policy_gates(
+        result["aggregate"]
+    )
     result["dynamic_support"] = {
         "comparison": fixed,
         "root_differences": root_differences,
@@ -348,8 +360,6 @@ def run_confirmation(
         and all(result["dynamic_support"]["gates"].values())
         else "gated_null"
     )
-    checkpoint(output_dir / "RESULT.json", result)
-    return result
 
 
 def main() -> int:
