@@ -2350,3 +2350,14 @@ whole-tree CI<0,>=20 wins. D3-d2/fixed/PTS/random/rank/Hamming/coverage are
 diagnostics. Mechanics allow<=8 transparently reported transport/provider
 retries with exact attempt accounting;0 reasoning/forced;support minima
 16/16/8/4;cost cap$3.50,start>=3.25. Hash-bound clean73-call Qwen smoke.
+2026-07-29: Fresh Qwen exact-canonical replication V2(commit d8e03ef)
+scientifically replicates d3>myopic but composite is transport gated null.
+Exact32 trees/33 concepts/1856 accepted;d3 Brier.105123 vs myopic.120295:
+12.612%,CI[-.024465,-.007040],25 wins;Hamming12.609%,coverage+1.515pt,all
+3 primary gates pass. D3-d2 only.421%,CI[-.004309,+.003908],11 wins:null;
+PTS+6.665% CI<0,random+8.190% CI<0,fixed+3.843% CI crosses;rho.323>.286.
+All support/accounting/reasoning/forced/cost mechanics pass,except9 provider
+retries exceed frozen cap8 by one;1865 attempts,$2.36537776. Public RESULT
+SHAa03c5a6f,TREESf1ccd0b9,TARGETS6b63cf26;private de522c82. No rerun/
+reclassification. Two independent fresh Qwen cohorts now d3-myopic11.37%
+and12.61%,both CI<0 and25/32 wins;extra d3 step heterogeneous.
