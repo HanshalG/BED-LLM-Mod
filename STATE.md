@@ -1902,3 +1902,13 @@ No target-derived public hash;human QA/outcome neither prompted nor scored;
 development/holdout/policy endpoint unopened. All14 focused tests and real-
 image exact10 fixture pass;live balance$18.195686794. Passage authorizes only a
 separately frozen first-link ranking-fidelity test.
+2026-07-29: Frozen GuessWhat?! exact10 multimodal serving smoke fails semantic
+qualification and closes this interface before ranking/policy work. Transport
+is exact10/10 with all schemas,0 retry/reasoning/forced,and cost$.005813914;
+both planners return4 distinct semantic questions and oracle answers cover
+Yes+No. But Gemini emits only2 distinct probabilities on7 rows and1 on the
+eighth(six exact0/100 partitions),so discriminatory questions are0/8 under
+the frozen>=3-value calibration gate;balanced questions are3/8;Qwen/Gemini
+target consistency is4/6<5/6 with one case1/3<2/3. Public SERVING SHAa74a6d96;
+private raw ef228fd2. No prompt/model/case/seed/threshold repair or rerun;
+development20,holdout60,and exact target endpoint remain unopened.

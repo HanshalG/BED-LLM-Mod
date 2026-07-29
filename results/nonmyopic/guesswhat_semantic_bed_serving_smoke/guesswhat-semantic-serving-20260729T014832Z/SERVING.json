@@ -1,0 +1,271 @@
+{
+  "cases": [
+    {
+      "balanced_question_count": 2,
+      "candidate_count": 7,
+      "candidate_overlay_sha256": "bd057dcc0e76182850cde55a8278589fce0d47645a683f023161ba7cfa6e5e26",
+      "cross_model_consistent_count": 1,
+      "dialogue_id": "169059",
+      "discriminatory_question_count": 0,
+      "oracle_no_count": 1,
+      "oracle_yes_count": 2,
+      "picture_id": "257339",
+      "question_count": 4,
+      "questions": [
+        {
+          "cross_model_consistent": false,
+          "likelihood_range": 100,
+          "oracle_answer": "Yes",
+          "question": "Is the hidden object a stuffed animal or toy?",
+          "question_id": "Q1",
+          "uniform_prior_yes_mass": 0.14285714285714285,
+          "unique_probability_count": 2
+        },
+        {
+          "cross_model_consistent": false,
+          "likelihood_range": 100,
+          "oracle_answer": "Yes",
+          "question": "Is the hidden object a drinking glass or cup?",
+          "question_id": "Q2",
+          "uniform_prior_yes_mass": 0.14285714285714285,
+          "unique_probability_count": 2
+        },
+        {
+          "cross_model_consistent": true,
+          "likelihood_range": 100,
+          "oracle_answer": "No",
+          "question": "Is the hidden object located on the lower part of the person's lap or legs?",
+          "question_id": "Q3",
+          "uniform_prior_yes_mass": 0.2857142857142857,
+          "unique_probability_count": 2
+        },
+        {
+          "cross_model_consistent": null,
+          "likelihood_range": 100,
+          "oracle_answer": null,
+          "question": "Is the hidden object mostly blue in color?",
+          "question_id": "Q4",
+          "uniform_prior_yes_mass": 0.2857142857142857,
+          "unique_probability_count": 2
+        }
+      ],
+      "source_image_sha256": "f5fd8fadae84ac7ba6371157e6295f1a66c204913da7609fd0676affaa7da624",
+      "unique_question_count": 4
+    },
+    {
+      "balanced_question_count": 1,
+      "candidate_count": 6,
+      "candidate_overlay_sha256": "f46c3357f127c9b90341a70877b6e4ce817d6e21c097616e73045f7beecb4129",
+      "cross_model_consistent_count": 3,
+      "dialogue_id": "202643",
+      "discriminatory_question_count": 0,
+      "oracle_no_count": 3,
+      "oracle_yes_count": 0,
+      "picture_id": "215592",
+      "question_count": 4,
+      "questions": [
+        {
+          "cross_model_consistent": true,
+          "likelihood_range": 100,
+          "oracle_answer": "No",
+          "question": "Is the object a piece of fruit in the bowl rather than on the plate behind it?",
+          "question_id": "Q1",
+          "uniform_prior_yes_mass": 0.5,
+          "unique_probability_count": 2
+        },
+        {
+          "cross_model_consistent": true,
+          "likelihood_range": 0,
+          "oracle_answer": "No",
+          "question": "Is the object an apple rather than an orange, tomato, or pear?",
+          "question_id": "Q2",
+          "uniform_prior_yes_mass": 0.0,
+          "unique_probability_count": 1
+        },
+        {
+          "cross_model_consistent": true,
+          "likelihood_range": 100,
+          "oracle_answer": "No",
+          "question": "Is the object located toward the front-left area of the bowl?",
+          "question_id": "Q3",
+          "uniform_prior_yes_mass": 0.16666666666666666,
+          "unique_probability_count": 2
+        },
+        {
+          "cross_model_consistent": null,
+          "likelihood_range": 100,
+          "oracle_answer": null,
+          "question": "Is the object larger than the small orange near the lower-left side of the bowl?",
+          "question_id": "Q4",
+          "uniform_prior_yes_mass": 0.16666666666666666,
+          "unique_probability_count": 2
+        }
+      ],
+      "source_image_sha256": "7d2812fda4134f29f67ba95fdf319e816c52b7a071b5a1b10bf8f5e1bf086959",
+      "unique_question_count": 4
+    }
+  ],
+  "gates": {
+    "all_pass": false,
+    "all_ten_schemas_parse": true,
+    "at_least_five_of_six_cross_model_answers_are_consistent": false,
+    "both_cases_have_at_least_two_balanced_questions": false,
+    "both_cases_have_at_least_two_discriminatory_questions": false,
+    "both_cases_have_four_unique_semantic_questions": true,
+    "cost_at_most_0_30": true,
+    "each_case_has_at_least_two_cross_model_consistent_answers": false,
+    "exact_10_accepted_requests": true,
+    "exact_10_http_attempts": true,
+    "oracle_answers_include_yes_and_no": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "balanced_question_count": 3,
+    "case_count": 2,
+    "cross_model_consistent_count": 4,
+    "discriminatory_question_count": 0,
+    "question_count": 8
+  },
+  "protocol": {
+    "development_accessed": false,
+    "expected_requests": 10,
+    "game_outcome_prompted_or_scored": false,
+    "holdout_accessed": false,
+    "human_dialogue_prompted_or_scored": false,
+    "interface_version": "guesswhat-semantic-bed-serving-smoke-1",
+    "likelihood_model": "google/gemini-2.5-flash",
+    "likelihood_seed": 39200,
+    "oracle_model": "qwen/qwen3-vl-32b-instruct",
+    "oracle_seed": 39300,
+    "planner_model": "openai/gpt-5.4-mini",
+    "planner_seed": 39100,
+    "policy_endpoint_accessed": false,
+    "private_raw_sha256": "ef228fd2152e21950714cb964d7cf96551b912e7c93c49f9dce2fc80fed68932",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "source_audit_sha256": "027a7f49fc599001eca6fbac0b3fe3e6be021d8cb3512eacad3ee167d0f5fff2"
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_completion_tokens": 1465,
+    "adapter_prompt_tokens": 6315,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "models": [
+      {
+        "adapter_completion_tokens": 202,
+        "adapter_cost_usd": 0.0016012499999999998,
+        "adapter_prompt_tokens": 923,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 202,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 2,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 202,
+            "cost_usd": 0.0016012499999999998,
+            "prompt_tokens": 923,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 923,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.8159464267794,
+        "requests": 2,
+        "retry_count": 0,
+        "run_budget_usd": 0.3,
+        "run_cost_usd": 0.0016012499999999998,
+        "run_remaining_usd": 0.29839875,
+        "total_spent_usd": 152.18405357322058
+      },
+      {
+        "adapter_completion_tokens": 1221,
+        "adapter_cost_usd": 0.0039432,
+        "adapter_prompt_tokens": 2969,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 1221,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 2,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 1221,
+            "cost_usd": 0.0039432,
+            "prompt_tokens": 2969,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 2969,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.8159464267794,
+        "requests": 2,
+        "retry_count": 0,
+        "run_budget_usd": 0.3,
+        "run_cost_usd": 0.0039432,
+        "run_remaining_usd": 0.2960568,
+        "total_spent_usd": 152.18405357322058
+      },
+      {
+        "adapter_completion_tokens": 42,
+        "adapter_cost_usd": 0.000269464,
+        "adapter_prompt_tokens": 2423,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 42,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 6,
+        "model": "qwen/qwen3-vl-32b-instruct",
+        "model_usage": {
+          "qwen/qwen3-vl-32b-instruct": {
+            "completion_tokens": 42,
+            "cost_usd": 0.000269464,
+            "prompt_tokens": 2423,
+            "reasoning_tokens": 0,
+            "requests": 6
+          }
+        },
+        "prompt_tokens": 2423,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.8159464267794,
+        "requests": 6,
+        "retry_count": 0,
+        "run_budget_usd": 0.3,
+        "run_cost_usd": 0.000269464,
+        "run_remaining_usd": 0.299730536,
+        "total_spent_usd": 152.18405357322058
+      }
+    ],
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.005813914
+  }
+}
