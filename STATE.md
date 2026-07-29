@@ -2492,3 +2492,10 @@ Public RESULT cef6ded0,TREES78bbc36b,TARGETSad7df72b,private522ae568.
 No reclassification. Pooling fixes average selection/support,not raw
 cross-tree score scale. Provider-visible balance$5.667298943;reported$40
 still absent,so pause powered paid runs and use zero-call analysis.
+2026-07-29: Freeze one zero-call pooled-margin scale diagnostic before any
+transformed score. On30 changed roots divide raw d3-myopic predicted advantage
+by population SD of all8 within-tree crossfit-d3 root risks;no alternative
+scale/clipping/rank/subset/regularizer. Report raw/normalized rho and paired
+delta with20k tree bootstrap seed63700,plus scale distribution/correlation.
+Positive only normalized rho>=.25 and CI lower>0;otherwise close. Retrospective
+mechanism only,model0/cost0,cannot rescue source gated_null.
