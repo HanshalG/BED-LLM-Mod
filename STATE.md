@@ -2361,3 +2361,7 @@ retries exceed frozen cap8 by one;1865 attempts,$2.36537776. Public RESULT
 SHAa03c5a6f,TREESf1ccd0b9,TARGETS6b63cf26;private de522c82. No rerun/
 reclassification. Two independent fresh Qwen cohorts now d3-myopic11.37%
 and12.61%,both CI<0 and25/32 wins;extra d3 step heterogeneous.
+2026-07-29: Paper/claim package now adds fresh Qwen V2 as a separate
+hash-pinned bundle,preserving all3 scientific-primary passes and the9>8
+transport-null qualifier. Text claims only replicated d3-over-myopic across
+two independent fresh Qwen cohorts;d3-over-d2 explicitly nonrobust.
