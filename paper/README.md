@@ -32,7 +32,9 @@ misses followed by a clean serving pass and a no-repair confirmation failure
 before scientific scoring, an
 exploratory externally scored Zendo
 path-dependent-belief smoke with pre-endpoint confirmation failures, and the
-Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
+Collaborative Battleship released-bank opportunity followed by a target-blind
+fresh executable-bank depth null, plus the Paprika and MediQ validation
+failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
 gate failed.
 

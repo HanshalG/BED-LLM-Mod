@@ -234,6 +234,17 @@ strategies, final RMSE was $0.412$ for greedy EIG versus $0.929$, $1.127$, and
 $0.542$ for horizons 1, 3, and 5. Unconstrained horizons were flat; depth was
 non-monotonic and naive remained competitive.
 
+Collaborative Battleship makes the objective issue explicit
+\citep{grand2026shoot}. On two independent particle blocks, exact task-utility
+lookahead over 25 released LLM-generated question programs raised
+three-question next-shot hit probability from $.638/.636$ at h1 to
+$.678/.673$ at h3, while greedy configuration EIG reached only $.436/.401$.
+But a target-blind GPT-5.4 gate generated 19 safe, balanced behaviors, all
+novel to the released bank, and erased the depth effect: receding h1--h3 were
+exactly $.591$ and $.580$ on two fresh blocks. Task-aligned h1 still beat
+configuration EIG by $.219/.217$. Rich semantic actions can repair utility
+alignment without creating non-myopic value.
+
 \paragraph{Planning over LLM proposal dynamics works in the Number Game.}
 We use the classic domain $\{0,\ldots,100\}$ and an open-ended space of
 executable predicates. Gemini 2.5 Flash proposes 24 safe rules initially and
@@ -672,6 +683,8 @@ OpenRouter nondeterminism remains a limitation, and depth cannot replace a
 coherent simulator or enabling gap. The positive result instead sharpens the
 condition: non-myopia helps when it values the future inference process itself,
 including the LLM's path-dependent ability to regenerate useful support.
+Battleship further shows that a large, novel static experiment bank is not
+enough when one-step task-utility replanning can recover the same policy.
 We do not claim that non-myopic BED cannot work outside this setting.
 
 {\fontsize{5.8}{6.0}\selectfont
