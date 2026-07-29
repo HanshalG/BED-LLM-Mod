@@ -1719,3 +1719,14 @@ only and did not generalize across fresh planning seeds. No threshold/prompt/
 seed/representation repair. Public failure+diagnostic;private raw d3f2117d.
 Authenticated usage$161.726275606/180,visible balance$18.273724394;reported
 $40 top-up still absent. Return to zero-call task-domain selection.
+2026-07-29: Freeze a zero-call Number Game classical-grammar irreducibility
+audit before constructing the bank or measuring artifact overlap. Hash-bind
+the fixed64 GPTmini-planned trees,selected crossfit d3/d2 roots,and16 Qwen
+endpoint draws/tree. The deterministic extension bank spans thresholds,
+modular/digit/shifted-number-theoretic atoms,affine/inverse transforms,
+complements,and full pairwise Boolean closure;require>=100k unique nonconstant
+extensions. Positive status requires second-refresh support novelty,>=5%
+grammar-novel powered Qwen endpoints,and fixed-root d3 beating d2 there by
+>=1% Brier with tree CI<0,>=20 wins,no Hamming/coverage regression,and both
+source blocks directional. No calls/cost,grammar repair,root reselection,or
+threshold change;paid follow-up only after the full conjunction.
