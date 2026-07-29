@@ -2442,3 +2442,12 @@ reasoning/forced,cap$.10. Pass only authorizes independent32 trees62100--
 salvaged<=8. Primary first-link gates changed>=28,realized>=.008+CI>0,
 rho>=.25+CI>0,W-L>=8;policy d3-myopic>=8%+CI<0+20 wins. Provider-visible
 balance remains$9.783928063;reported top-up absent.
+2026-07-29: Qwen item-isolated exact10 is transport-clean but fails frozen
+single-draw support gate,so conditional32 is not run. Exact10 strict JSON,
+0 retry/provider/reasoning/forced,$.01149504;initial23/23,merged first
+21/24/17/26,merged second7/4/24/26,0 salvage. Conditioned generated counts
+17/19/15/16/6/2/22/16;one2<4 from18 duplicate+2 inconsistent+2 invalid.
+Do not relax/reseed/rerun/reclassify. Public RESULT SHA984086f4,private
+8cba3a23. Parsing fragility is addressed;remaining bottleneck is stochastic
+single-draw support collapse. Only a separately frozen pooled-independent-
+draw method is scientifically distinct enough to pursue.

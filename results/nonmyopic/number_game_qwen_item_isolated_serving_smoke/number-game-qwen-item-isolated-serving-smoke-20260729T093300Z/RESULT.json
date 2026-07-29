@@ -1,0 +1,276 @@
+{
+  "diagnostics": [
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 3,
+        "inconsistent": 4,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 17
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 0,
+        "inconsistent": 5,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 19
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 9,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 15
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 7,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 16
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 11,
+        "inconsistent": 7,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 6
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 18,
+        "inconsistent": 2,
+        "invalid_expression": 2,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 2
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 1,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 0,
+        "inconsistent": 8,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 16
+    }
+  ],
+  "gates": {
+    "all_merged_first_supports_have_at_least_eight": true,
+    "all_merged_second_supports_have_at_least_four": true,
+    "all_pass": false,
+    "all_ten_live_responses_are_strict_json": true,
+    "both_initial_supports_have_at_least_sixteen_valid": true,
+    "every_conditioned_draw_adds_at_least_four_valid": false,
+    "exact_ten_accepted_requests": true,
+    "exact_ten_http_attempts": true,
+    "exact_ten_parsed_responses": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "generated_valid_counts": [
+    23,
+    23,
+    17,
+    19,
+    15,
+    16,
+    6,
+    2,
+    22,
+    16
+  ],
+  "merged_first_valid_counts": [
+    21,
+    24,
+    17,
+    26
+  ],
+  "merged_second_valid_counts": [
+    7,
+    4,
+    24,
+    26
+  ],
+  "protocol": {
+    "codec": "strict_json_with_complete_item_salvage",
+    "efficacy_used_for_authorization": false,
+    "expected_requests": 10,
+    "interface_version": "number-game-qwen-item-isolated-serving-smoke-1",
+    "model": "qwen/qwen3.7-plus",
+    "model_seed": 62000,
+    "prompt_mix": {
+      "initial": 2,
+      "linked_one_observation": 4,
+      "linked_two_observations": 4
+    },
+    "reasoning": false,
+    "run_budget_usd": 0.1,
+    "semantic_repair": false,
+    "support_update": "retained_rejuvenation",
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "8cba3a23d3e07926820dfb36bc96c4751daf012524d8cc792134c425c13740c4",
+  "retention_diagnostics": [
+    {
+      "generated_unique_count": 17,
+      "merged_unique_count": 21,
+      "retained_parent_consistent_count": 7,
+      "retained_parent_novel_count": 4
+    },
+    {
+      "generated_unique_count": 19,
+      "merged_unique_count": 24,
+      "retained_parent_consistent_count": 16,
+      "retained_parent_novel_count": 5
+    },
+    {
+      "generated_unique_count": 15,
+      "merged_unique_count": 17,
+      "retained_parent_consistent_count": 5,
+      "retained_parent_novel_count": 2
+    },
+    {
+      "generated_unique_count": 16,
+      "merged_unique_count": 26,
+      "retained_parent_consistent_count": 18,
+      "retained_parent_novel_count": 10
+    },
+    {
+      "generated_unique_count": 6,
+      "merged_unique_count": 7,
+      "retained_parent_consistent_count": 1,
+      "retained_parent_novel_count": 1
+    },
+    {
+      "generated_unique_count": 2,
+      "merged_unique_count": 4,
+      "retained_parent_consistent_count": 2,
+      "retained_parent_novel_count": 2
+    },
+    {
+      "generated_unique_count": 22,
+      "merged_unique_count": 24,
+      "retained_parent_consistent_count": 5,
+      "retained_parent_novel_count": 2
+    },
+    {
+      "generated_unique_count": 16,
+      "merged_unique_count": 26,
+      "retained_parent_consistent_count": 22,
+      "retained_parent_novel_count": 10
+    }
+  ],
+  "schema_version": 1,
+  "status": "gated_null",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 8318,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 2650,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.011495040000000002
+  }
+}
