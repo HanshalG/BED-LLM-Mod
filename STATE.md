@@ -2326,3 +2326,10 @@ conditioned>=8 gate fails. Failures are explicit constraint contradictions
 RESULT SHA540ada86,private d830943e. No efficacy/formal authorization. Close
 V1;one V2 may strengthen prospective substitution checking without repair,
 reuse,or threshold relaxation. Balance authenticated$15.182081;top-up absent.
+2026-07-29: Freeze GPTmini planner serving V2 before seed53100 calls. V1
+gated raw draws although formal method is retained-rejuvenation. V2 is a
+linked exact10 mini-tree with stronger private literal-substitution prompt:
+2 initial,4 linked first,4 linked second;fresh responses only. Require exact
+transport,0 retry/provider/reasoning/forced,cost<=.10,initial>=16,every raw
+conditioned draw>=4 genuine valid hypotheses,merged first>=8,merged second>=4.
+No efficacy;no V1 reuse/repair. Pass alone may authorize prospective cohort.
