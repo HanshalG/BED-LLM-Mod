@@ -2121,3 +2121,29 @@ User reports adding$40 for four days with no reserve;authenticated OpenRouter
 still reports total$180,usage$161.983342407,remaining$18.016657593,so recheck
 credit visibility before any paid call and then spend flexibly on gated
 LLM-native work only. No OpenRouter experiment calls or OatML use in this step.
+2026-07-29: Prospective Number Game diversity-grid feasibility gate fails
+before API use and closes the exact interface. Four six-rule cells requested
+periodic/digit,ordered,transformed number-theoretic,and compositional support.
+Nine/10 frozen histories are feasible,but YES42/YES75 has only14
+non-near-constant periodic/digit extensions versus frozen16;the same cell has
+315 ordered,62 number-theoretic,8810 compositional,and9173 union extensions.
+Do not lower threshold,change history/families,or run the conditional DeepSeek
+smoke/formal. Public RESULT SHA74559b8a;model0,cost$0,OatML0. Existing Qwen
+31-tree proper-score replay remains the honest second-planner-family evidence.
+2026-07-29: External canonical Number Game replay is a composite gated null
+with a clean preregistered nonmyopic-vs-myopic component. All31 hash-bound
+Qwen trees were scored with zero calls on all33 Tenenbaum-Griffiths concepts,
+equal concept/tree weight and preregistered natural 0-domain extension. D3
+Brier .104322 vs d2 .110622:5.70% gain,14/31 wins,CI[-.013717,+.000140],
+missing strict CI by .000140;Hamming improves2.15% but coverage falls.59pt.
+D3 cleanly beats myopic .121009 by13.79%,CI[-.026375,-.007532],and random
+by8.08%,CI[-.013192,-.005143]. External rank rho is weak(.265 vs .157).
+Posthoc family decomposition is diagnostic only;the below-100 catch-all is
+the sole family reversal and remains included. RESULT SHA8e7b9906;TARGETS
+SHA46e6517a;model0,cost$0,OatML0. Live OpenRouter balance still$18.016657593;
+reported new$40 is not visible yet,so recheck before any paid batch.
+Validation:14-bundle/139-field claim manifest passes,Path-A preflight green,
+paper compiles/render-checks at6 pages,and owned suite2175 passed/1 skipped.
+Only failure is the pre-existing absent external Hotpot parquet fixture at
+`/tmp/hotpotqa-distractor-validation.parquet`;unrestricted pytest also
+collects optional vendored repos and is not the project test surface.

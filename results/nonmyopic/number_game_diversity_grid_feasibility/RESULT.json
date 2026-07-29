@@ -1,0 +1,211 @@
+{
+  "banks": {
+    "compositional": {
+      "sha256": "c042985dc33a4282e2e5e7e145c3b3622649e254ce269ec29254ebf1448499e9",
+      "unique_count": 50464
+    },
+    "number_theoretic": {
+      "sha256": "5d067d3d797ebad5faa7e2a103dc40049b2c2e8b732fe8d61bae585b46f16394",
+      "unique_count": 3091
+    },
+    "ordered": {
+      "sha256": "dfef2e005bf5334cd0d103470b63789984f2bb60abc5021cb9f16b5e714c2638",
+      "unique_count": 1368
+    },
+    "periodic_digit": {
+      "sha256": "0cbe4942672bd0ebf565887453e5c608eb258a2c478ed81d54652d973352eda3",
+      "unique_count": 289
+    }
+  },
+  "cases": [
+    {
+      "case_index": 0,
+      "feasible_unique_by_family": {
+        "compositional": 50464,
+        "number_theoretic": 3091,
+        "ordered": 1368,
+        "periodic_digit": 289
+      },
+      "feasible_unique_union": 54907,
+      "observations": []
+    },
+    {
+      "case_index": 1,
+      "feasible_unique_by_family": {
+        "compositional": 50464,
+        "number_theoretic": 3091,
+        "ordered": 1368,
+        "periodic_digit": 289
+      },
+      "feasible_unique_union": 54907,
+      "observations": []
+    },
+    {
+      "case_index": 2,
+      "feasible_unique_by_family": {
+        "compositional": 12201,
+        "number_theoretic": 422,
+        "ordered": 320,
+        "periodic_digit": 42
+      },
+      "feasible_unique_union": 12939,
+      "observations": [
+        [
+          10,
+          true
+        ]
+      ]
+    },
+    {
+      "case_index": 3,
+      "feasible_unique_by_family": {
+        "compositional": 38263,
+        "number_theoretic": 2669,
+        "ordered": 1048,
+        "periodic_digit": 247
+      },
+      "feasible_unique_union": 41968,
+      "observations": [
+        [
+          10,
+          false
+        ]
+      ]
+    },
+    {
+      "case_index": 4,
+      "feasible_unique_by_family": {
+        "compositional": 20754,
+        "number_theoretic": 351,
+        "ordered": 704,
+        "periodic_digit": 42
+      },
+      "feasible_unique_union": 21784,
+      "observations": [
+        [
+          42,
+          true
+        ]
+      ]
+    },
+    {
+      "case_index": 5,
+      "feasible_unique_by_family": {
+        "compositional": 29710,
+        "number_theoretic": 2740,
+        "ordered": 664,
+        "periodic_digit": 247
+      },
+      "feasible_unique_union": 33123,
+      "observations": [
+        [
+          42,
+          false
+        ]
+      ]
+    },
+    {
+      "case_index": 6,
+      "feasible_unique_by_family": {
+        "compositional": 4515,
+        "number_theoretic": 290,
+        "ordered": 34,
+        "periodic_digit": 24
+      },
+      "feasible_unique_union": 4844,
+      "observations": [
+        [
+          10,
+          true
+        ],
+        [
+          20,
+          false
+        ]
+      ]
+    },
+    {
+      "case_index": 7,
+      "feasible_unique_by_family": {
+        "compositional": 7176,
+        "number_theoretic": 270,
+        "ordered": 209,
+        "periodic_digit": 24
+      },
+      "feasible_unique_union": 7654,
+      "observations": [
+        [
+          10,
+          false
+        ],
+        [
+          20,
+          true
+        ]
+      ]
+    },
+    {
+      "case_index": 8,
+      "feasible_unique_by_family": {
+        "compositional": 8810,
+        "number_theoretic": 62,
+        "ordered": 315,
+        "periodic_digit": 14
+      },
+      "feasible_unique_union": 9173,
+      "observations": [
+        [
+          42,
+          true
+        ],
+        [
+          75,
+          true
+        ]
+      ]
+    },
+    {
+      "case_index": 9,
+      "feasible_unique_by_family": {
+        "compositional": 21580,
+        "number_theoretic": 2512,
+        "ordered": 439,
+        "periodic_digit": 219
+      },
+      "feasible_unique_union": 24540,
+      "observations": [
+        [
+          42,
+          false
+        ],
+        [
+          75,
+          false
+        ]
+      ]
+    }
+  ],
+  "gates": {
+    "all_pass": false,
+    "every_history_has_at_least_four_thousand_total": true,
+    "every_history_has_at_least_sixteen_per_family": false,
+    "exact_ten_frozen_histories": true
+  },
+  "protocol": {
+    "families": [
+      "periodic_digit",
+      "ordered",
+      "number_theoretic",
+      "compositional"
+    ],
+    "interface_version": "number-game-diversity-grid-1",
+    "items_per_family": 6,
+    "maximum_positive_count": 98,
+    "minimum_feasible_per_family": 16,
+    "minimum_feasible_union": 4000,
+    "minimum_positive_count": 3,
+    "model_calls": 0
+  },
+  "schema_version": 1,
+  "status": "gated_null"
+}

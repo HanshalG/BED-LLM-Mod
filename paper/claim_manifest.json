@@ -159,6 +159,29 @@
       ]
     },
     {
+      "id": "number_game_external_canonical_replay",
+      "paper_scope": "Preregistered zero-call replay on all 33 canonical Tenenbaum--Griffiths Number Game concepts, including its composite-null qualifier.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_external_canonical_replay/number-game-external-canonical-replay-20260729/RESULT.json",
+        "sha256": "8e7b9906dfe3bea12110c3f1df9bc00c75c6c53c178335e2f7d243c97489d6fd"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/tree_count", "equals": 31},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/aggregate/comparisons/myopic_eig/candidate_mean_brier", "equals": 0.10432172586860627, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.12100926858397457, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.13790301280755157, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.02637460202237489, -0.007532469576445663], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.056954219006614445, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.013716762912436007, 0.00014026414225444403], "tolerance": 1e-12},
+        {"pointer": "/gates/depth_three_beats_myopic_by_five_percent_with_ci", "equals": true},
+        {"pointer": "/gates/depth_three_brier_ci_below_zero", "equals": false}
+      ]
+    },
+    {
       "id": "number_game_classical_grammar_scope",
       "paper_scope": "Classical grammar novelty audit and its explicitly underpowered endpoint boundary.",
       "artifact": {
