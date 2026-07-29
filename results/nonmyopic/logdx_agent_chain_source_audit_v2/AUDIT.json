@@ -1,0 +1,594 @@
+{
+  "cases": [
+    {
+      "case_id": "actions-terraform-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.15035,
+      "multi_tool_context_count": 2,
+      "split": [
+        "holdout"
+      ],
+      "tool_context_count": 4
+    },
+    {
+      "case_id": "airflow-precommit-tsc-middle-v2-001",
+      "dependency_context_count": 4,
+      "dependency_types": [
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.13517500000000002,
+      "mean_score_gain": -0.12605833333333333,
+      "multi_tool_context_count": 10,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "argocd-race-conditions-batch5-v2-001",
+      "dependency_context_count": 6,
+      "dependency_types": [
+        "error_token",
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.2655666666666667,
+      "mean_score_gain": 0.26611666666666667,
+      "multi_tool_context_count": 10,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "biome-pnpm-not-found-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.21791666666666668,
+      "multi_tool_context_count": 3,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "cargo-tokio-001",
+      "dependency_context_count": 4,
+      "dependency_types": [
+        "error_token",
+        "line_number",
+        "other_literal",
+        "test_or_symbol"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.07542500000000003,
+      "mean_score_gain": -0.013608333333333328,
+      "multi_tool_context_count": 6,
+      "split": [
+        "dev"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "cleanup-k8s-stress-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.1452,
+      "multi_tool_context_count": 2,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 4
+    },
+    {
+      "case_id": "cleanup-tsc-stress-001",
+      "dependency_context_count": 1,
+      "dependency_types": [
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.585,
+      "mean_score_gain": 0.17472500000000002,
+      "multi_tool_context_count": 3,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 3
+    },
+    {
+      "case_id": "cpython-tcl-windows-matrix-v2-001",
+      "dependency_context_count": 4,
+      "dependency_types": [
+        "line_number",
+        "test_or_symbol"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.42347500000000005,
+      "mean_score_gain": 0.24539166666666667,
+      "multi_tool_context_count": 8,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "dependabot-cargo-001",
+      "dependency_context_count": 2,
+      "dependency_types": [
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.1725,
+      "mean_score_gain": 0.04145833333333333,
+      "multi_tool_context_count": 2,
+      "split": [
+        "holdout"
+      ],
+      "tool_context_count": 8
+    },
+    {
+      "case_id": "docbuild-hf-stress-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.09653333333333336,
+      "multi_tool_context_count": 1,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 5
+    },
+    {
+      "case_id": "docs-transformers-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.14409999999999998,
+      "multi_tool_context_count": 0,
+      "split": [
+        "holdout"
+      ],
+      "tool_context_count": 6
+    },
+    {
+      "case_id": "dubbo-samples-test-timeout-batch6-v2-001",
+      "dependency_context_count": 1,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.0,
+      "mean_score_gain": 0.272225,
+      "multi_tool_context_count": 4,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 8
+    },
+    {
+      "case_id": "gh-cli-go-test-prompter-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.35118333333333335,
+      "multi_tool_context_count": 1,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 9
+    },
+    {
+      "case_id": "go-redis-pubsub-channel-timeout-batch5-v2-001",
+      "dependency_context_count": 2,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": -0.01034999999999997,
+      "mean_score_gain": 0.22921666666666665,
+      "multi_tool_context_count": 6,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 8
+    },
+    {
+      "case_id": "gradle-projecthealth-batch5-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.3177166666666667,
+      "multi_tool_context_count": 5,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "hibernate-orm-dbversion-test-batch6-v2-001",
+      "dependency_context_count": 1,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.6499999999999999,
+      "mean_score_gain": 0.23902499999999996,
+      "multi_tool_context_count": 9,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "jest-nextjs-001",
+      "dependency_context_count": 4,
+      "dependency_types": [
+        "error_token",
+        "line_number",
+        "other_literal",
+        "test_or_symbol"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": -0.05187500000000002,
+      "mean_score_gain": -0.07458333333333332,
+      "multi_tool_context_count": 6,
+      "split": [
+        "dev"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "lint-react-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.13681666666666664,
+      "multi_tool_context_count": 0,
+      "split": [
+        "dev"
+      ],
+      "tool_context_count": 9
+    },
+    {
+      "case_id": "moby-buildx-bake-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": -0.12604166666666666,
+      "multi_tool_context_count": 3,
+      "split": [
+        "v2/dev"
+      ],
+      "tool_context_count": 4
+    },
+    {
+      "case_id": "mypy-pandas-001",
+      "dependency_context_count": 2,
+      "dependency_types": [
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.4281,
+      "mean_score_gain": 0.12555833333333336,
+      "multi_tool_context_count": 6,
+      "split": [
+        "dev"
+      ],
+      "tool_context_count": 9
+    },
+    {
+      "case_id": "nodejs-test-debugger-exec-timeout-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.3963833333333333,
+      "multi_tool_context_count": 2,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 7
+    },
+    {
+      "case_id": "numpy-pytest-segfault-argsort-v2-001",
+      "dependency_context_count": 5,
+      "dependency_types": [
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.6295,
+      "mean_score_gain": 0.4727166666666667,
+      "multi_tool_context_count": 7,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "pandas-cpp-xsimd-neon64-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.06711666666666667,
+      "multi_tool_context_count": 0,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 5
+    },
+    {
+      "case_id": "pip-pytest-network-github-v2-001",
+      "dependency_context_count": 3,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.015266666666666687,
+      "mean_score_gain": 0.2947916666666667,
+      "multi_tool_context_count": 6,
+      "split": [
+        "v2/dev"
+      ],
+      "tool_context_count": 9
+    },
+    {
+      "case_id": "pnpm-audit-vuln-ip-address-v2-001",
+      "dependency_context_count": 1,
+      "dependency_types": [
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.46,
+      "mean_score_gain": 0.18847499999999998,
+      "multi_tool_context_count": 1,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 7
+    },
+    {
+      "case_id": "pnpm-jest-config-v2-001",
+      "dependency_context_count": 3,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.7437,
+      "mean_score_gain": 0.3105,
+      "multi_tool_context_count": 5,
+      "split": [
+        "v2/dev"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "prettier-jest-snapshot-babel-v2-001",
+      "dependency_context_count": 1,
+      "dependency_types": [
+        "file_or_path"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.475,
+      "mean_score_gain": 0.02575,
+      "multi_tool_context_count": 1,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 7
+    },
+    {
+      "case_id": "prettier-react-stress-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.1155666666666667,
+      "multi_tool_context_count": 0,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 7
+    },
+    {
+      "case_id": "pushpr-nextjs-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.08687500000000002,
+      "multi_tool_context_count": 0,
+      "split": [
+        "holdout"
+      ],
+      "tool_context_count": 3
+    },
+    {
+      "case_id": "pytest-pandas-001",
+      "dependency_context_count": 3,
+      "dependency_types": [
+        "line_number",
+        "other_literal"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": -0.08333333333333333,
+      "mean_score_gain": 0.11364166666666668,
+      "multi_tool_context_count": 9,
+      "split": [
+        "dev"
+      ],
+      "tool_context_count": 10
+    },
+    {
+      "case_id": "pytest-sklearn-stress-001",
+      "dependency_context_count": 5,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.53734,
+      "mean_score_gain": 0.290625,
+      "multi_tool_context_count": 6,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 9
+    },
+    {
+      "case_id": "pytest-sklearn-stress-002",
+      "dependency_context_count": 4,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.699375,
+      "mean_score_gain": 0.25,
+      "multi_tool_context_count": 4,
+      "split": [
+        "stress"
+      ],
+      "tool_context_count": 8
+    },
+    {
+      "case_id": "rust-compiletest-wasm-exceptions-asm-v2-001",
+      "dependency_context_count": 2,
+      "dependency_types": [
+        "line_number"
+      ],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": 0.71875,
+      "mean_score_gain": 0.3675,
+      "multi_tool_context_count": 10,
+      "split": [
+        "v2/stress"
+      ],
+      "tool_context_count": 11
+    },
+    {
+      "case_id": "spring-boot-checkformat-batch5-v2-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.1948,
+      "multi_tool_context_count": 3,
+      "split": [
+        "v2/holdout"
+      ],
+      "tool_context_count": 6
+    },
+    {
+      "case_id": "tsc-typescript-001",
+      "dependency_context_count": 0,
+      "dependency_types": [],
+      "matched_context_count": 12,
+      "mean_dependency_score_gain": null,
+      "mean_score_gain": 0.09436666666666667,
+      "multi_tool_context_count": 0,
+      "split": [
+        "holdout"
+      ],
+      "tool_context_count": 4
+    }
+  ],
+  "cost_usd": 0.0,
+  "gates": {
+    "concrete_root_causes": true,
+    "dependency_cases": true,
+    "dependency_improved_cases": true,
+    "dependency_mean_gain": true,
+    "dependency_type_diversity": true,
+    "evidence_spans": true,
+    "leakage_boundary": true,
+    "manifest_hashes": true,
+    "matched_cases": true,
+    "multi_tool_cases": true,
+    "positive_all_case_mean_gain": true,
+    "required_signals": true,
+    "source_hashes": true,
+    "tool_cases": true
+  },
+  "ground_truth": {
+    "concrete_root_cause_count": 35,
+    "evidence_span_count": 35,
+    "required_signal_count": 35
+  },
+  "interface_version": "logdx-agent-chain-source-audit-2",
+  "leakage_boundary": {
+    "prompt_forbids_benchmark_ground_truth": true,
+    "prompt_names_only_raw_log_tools": true,
+    "runner_passes_only_raw_log_path": true,
+    "shim_rejects_ground_truth_keys": true,
+    "shim_tools_read_only_raw_log": true
+  },
+  "manifest": {
+    "case_count": 35,
+    "split_counts": {
+      "dev": 5,
+      "holdout": 5,
+      "stress": 6,
+      "v2/dev": 3,
+      "v2/holdout": 10,
+      "v2/stress": 6
+    }
+  },
+  "metrics": {
+    "all_case_mean_score_gain": 0.17378142857142856,
+    "dependency_case_count": 20,
+    "dependency_case_mean_score_gain": 0.34343075,
+    "dependency_improved_case_count": 14,
+    "dependency_types": [
+      "error_token",
+      "file_or_path",
+      "line_number",
+      "other_literal",
+      "test_or_symbol"
+    ],
+    "matched_case_count": 35,
+    "matched_row_count": 420,
+    "multi_tool_case_count": 29,
+    "tool_case_count": 35
+  },
+  "schema_version": 1,
+  "source": {
+    "agent_prompt_sha256": "51986cc58f73058e9f4724708309257c5ccf98f06c6343618cd80b8ce240c6bd",
+    "agent_tools_sha256": "25bed12c8bbfd3c6992d4efe197f4681cd2f19b7aca380da4a2e275ad3b33d42",
+    "commit": "99591c1471118c95155976346df72f520a05f100",
+    "diagnosis_eval_schema_sha256": "0b89131054e349032349ec9f9b72bb04c2b2cf49ff69ff64ebb52197f4f46b46",
+    "evaluator_sha256": "ff6a51b19049b40c80ad29c7c9ca3a25fc184b01d443acbcc9c3463b12472e54",
+    "ground_truth_schema_sha256": "ff4a339b8583125b537632c9629395438e7f7437e73032c42c4e1eff8bd15921",
+    "manifest_sha256": {
+      "dev": "44acf2de7843d278e6f2153adbc5f54cdebcb7b416da96effb4becb87062296e",
+      "holdout": "f00b9af42a5fe32ba6862e9c7e26f300560f7b8f39676f327def5d4500d14ded",
+      "stress": "dd856ae0ecfe9dd36f4128c0db9ab233e3195ef09a416445c508ab0c8d0cd127",
+      "v2/dev": "37e06c718d9908eeb747714f9fccbd200da5fa424943df452ae2f2a00c63eb66",
+      "v2/holdout": "3fb7b4ebaed4a4f4c21706dfdb7b7ee342925eabf6587c9538c27afc73fe55d1",
+      "v2/stress": "9c8e885463a7e9d7b094c13416f1f596782e2d35a3a0310b6586562162f121fe"
+    },
+    "protocol_sha256": "c5e77e91267036ceb1e80df1d035caa78eb0c831ae690ab5eb0149215fb36087",
+    "runner_sha256": "d226abeff82f4468f722e1c8aec8f3278f5792fdcbda4097fcca37d1c1f43238",
+    "search_tools_sha256": "4c839cc40ad90f530fe08cb94daa020e69de72eec6b575dbcaa009bb0a71afcc",
+    "tag_object": "8d358ae6b973320b8a5e29ce7e0eab243033d31f"
+  },
+  "status": "passed",
+  "supersedes_audit_sha256": "f7f7289f33434a7e9b3a69bc7dd54abbaedbd55a92fb28be8e29090500c1d9ab"
+}

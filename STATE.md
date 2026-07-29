@@ -1836,3 +1836,11 @@ observation-learned. Preserve/supersede V1 SHA f7f7289f;keep exact source,
 line numbers/search literals present in any prior tool argument via canonical
 JSON. Failure closes LogDx;pass still authorizes only a separate exact10-call
 serving smoke. Model0/cost0;commit correction before recomputing.
+2026-07-29: Corrected LogDx V2 dependency audit passes all unchanged gates.
+Exclude any later line/search literal already present in prior tool arguments,
+eliminating query-header echoes. Counts move V1->V2:dependency cases21->20,
+dependency+gain>=.10 cases15->14;tool35,multi29,matched35/420 unchanged.
+All-case gain stays+.1738;corrected dependency-case gain is+.3434;all five
+dependency types remain. Public V2 AUDIT SHA dadc7012;V1 f7f7289f is preserved
+and superseded. LogDx remains admitted only for separately frozen exact10-call
+serving qualification;model0/cost0.

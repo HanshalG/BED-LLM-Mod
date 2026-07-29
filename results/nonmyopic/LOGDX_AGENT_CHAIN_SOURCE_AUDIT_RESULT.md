@@ -2,7 +2,13 @@
 
 Date: 2026-07-29
 
-**Status: all frozen source and published-trace gates pass.**
+**Status: superseded by the stricter V2 correction.**
+
+V1 passed its literal rule, but a later review found that repeated `grep`
+patterns could be matched against the tool's query-echo header rather than log
+content. The preserved V1 artifact is not used for admission. See
+`LOGDX_AGENT_CHAIN_SOURCE_AUDIT_V2_CORRECTION_RESULT.md`; V2 keeps every
+threshold and excludes values already present in prior tool arguments.
 
 ## Pinned Release
 
