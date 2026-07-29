@@ -1,0 +1,265 @@
+{
+  "analyses": {
+    "crossfit_depth_two": {
+      "all_trees": {
+        "losses": 16,
+        "mean_predicted_advantage": 0.00856990962725119,
+        "mean_realized_advantage": 0.002757431198286505,
+        "score_to_realized_advantage_spearman": 0.14091607451507587,
+        "ties": 23,
+        "tree_count": 64,
+        "wins": 25
+      },
+      "baseline": "crossfit_depth_two",
+      "by_study": [
+        {
+          "all_trees": {
+            "losses": 5,
+            "mean_predicted_advantage": 0.008432134858316353,
+            "mean_realized_advantage": 0.005070208301481764,
+            "score_to_realized_advantage_spearman": 0.3436763550667714,
+            "ties": 13,
+            "tree_count": 32,
+            "wins": 14
+          },
+          "divergent_trees": {
+            "losses": 5,
+            "mean_predicted_advantage": 0.0142014902876907,
+            "mean_realized_advantage": 0.008539298191969287,
+            "score_to_realized_advantage_spearman": -0.10701754385964912,
+            "ties": 0,
+            "tree_count": 19,
+            "wins": 14
+          },
+          "study": "confirmation_v1"
+        },
+        {
+          "all_trees": {
+            "losses": 11,
+            "mean_predicted_advantage": 0.008707684396186029,
+            "mean_realized_advantage": 0.00044465409509124657,
+            "score_to_realized_advantage_spearman": -0.005481005481005481,
+            "ties": 10,
+            "tree_count": 32,
+            "wins": 11
+          },
+          "divergent_trees": {
+            "losses": 11,
+            "mean_predicted_advantage": 0.01266572275808877,
+            "mean_realized_advantage": 0.000646769592859995,
+            "score_to_realized_advantage_spearman": 0.057029926595143984,
+            "ties": 0,
+            "tree_count": 22,
+            "wins": 11
+          },
+          "study": "replication_v2"
+        }
+      ],
+      "divergent_trees": {
+        "losses": 16,
+        "mean_predicted_advantage": 0.013377419905953078,
+        "mean_realized_advantage": 0.004304282846105764,
+        "score_to_realized_advantage_spearman": -0.013588850174216028,
+        "ties": 0,
+        "tree_count": 41,
+        "wins": 25
+      },
+      "root_differences": 41,
+      "stratified_bootstrap": {
+        "divergent_mean_realized_advantage_95pct": [
+          -0.00032594469129163857,
+          0.008777715643054688
+        ],
+        "divergent_score_to_realized_spearman_95pct": [
+          -0.35079011248260006,
+          0.3249549909281325
+        ],
+        "mean_realized_advantage_95pct": [
+          -0.00019755443979395872,
+          0.005700400323400238
+        ]
+      }
+    },
+    "fixed_support_depth_three": {
+      "all_trees": {
+        "losses": 23,
+        "mean_predicted_advantage": 0.01726622270918045,
+        "mean_realized_advantage": 0.004932400092057551,
+        "score_to_realized_advantage_spearman": 0.1504371836171192,
+        "ties": 11,
+        "tree_count": 64,
+        "wins": 30
+      },
+      "baseline": "fixed_support_depth_three",
+      "by_study": [
+        {
+          "all_trees": {
+            "losses": 12,
+            "mean_predicted_advantage": 0.017846545004384033,
+            "mean_realized_advantage": 0.005663074516682798,
+            "score_to_realized_advantage_spearman": 0.12839325018341893,
+            "ties": 3,
+            "tree_count": 32,
+            "wins": 17
+          },
+          "divergent_trees": {
+            "losses": 12,
+            "mean_predicted_advantage": 0.01969273931518238,
+            "mean_realized_advantage": 0.006248909811512052,
+            "score_to_realized_advantage_spearman": 0.08817733990147783,
+            "ties": 0,
+            "tree_count": 29,
+            "wins": 17
+          },
+          "study": "confirmation_v1"
+        },
+        {
+          "all_trees": {
+            "losses": 11,
+            "mean_predicted_advantage": 0.01668590041397687,
+            "mean_realized_advantage": 0.004201725667432304,
+            "score_to_realized_advantage_spearman": 0.13626209977661952,
+            "ties": 8,
+            "tree_count": 32,
+            "wins": 13
+          },
+          "divergent_trees": {
+            "losses": 11,
+            "mean_predicted_advantage": 0.022247867218635826,
+            "mean_realized_advantage": 0.005602300889909738,
+            "score_to_realized_advantage_spearman": 0.1617391304347826,
+            "ties": 0,
+            "tree_count": 24,
+            "wins": 13
+          },
+          "study": "replication_v2"
+        }
+      ],
+      "divergent_trees": {
+        "losses": 23,
+        "mean_predicted_advantage": 0.02084977836580281,
+        "mean_realized_advantage": 0.0059561057715411935,
+        "score_to_realized_advantage_spearman": 0.1269956458635704,
+        "ties": 0,
+        "tree_count": 53,
+        "wins": 30
+      },
+      "root_differences": 53,
+      "stratified_bootstrap": {
+        "divergent_mean_realized_advantage_95pct": [
+          0.001047671878341476,
+          0.011117459592478821
+        ],
+        "divergent_score_to_realized_spearman_95pct": [
+          -0.15678108717333855,
+          0.4011294884928091
+        ],
+        "mean_realized_advantage_95pct": [
+          0.0008403919025518132,
+          0.00926654305763653
+        ]
+      }
+    },
+    "myopic_eig": {
+      "all_trees": {
+        "losses": 12,
+        "mean_predicted_advantage": 0.02254665490590203,
+        "mean_realized_advantage": 0.014294240292891879,
+        "score_to_realized_advantage_spearman": 0.4399139174431649,
+        "ties": 2,
+        "tree_count": 64,
+        "wins": 50
+      },
+      "baseline": "myopic_eig",
+      "by_study": [
+        {
+          "all_trees": {
+            "losses": 5,
+            "mean_predicted_advantage": 0.025194620546637056,
+            "mean_realized_advantage": 0.013416814401299057,
+            "score_to_realized_advantage_spearman": 0.33528872593950504,
+            "ties": 2,
+            "tree_count": 32,
+            "wins": 25
+          },
+          "divergent_trees": {
+            "losses": 5,
+            "mean_predicted_advantage": 0.02687426191641286,
+            "mean_realized_advantage": 0.014311268694718994,
+            "score_to_realized_advantage_spearman": 0.23915461624026696,
+            "ties": 0,
+            "tree_count": 30,
+            "wins": 25
+          },
+          "study": "confirmation_v1"
+        },
+        {
+          "all_trees": {
+            "losses": 7,
+            "mean_predicted_advantage": 0.019898689265167004,
+            "mean_realized_advantage": 0.015171666184484699,
+            "score_to_realized_advantage_spearman": 0.6370967741935484,
+            "ties": 0,
+            "tree_count": 32,
+            "wins": 25
+          },
+          "divergent_trees": {
+            "losses": 7,
+            "mean_predicted_advantage": 0.019898689265167004,
+            "mean_realized_advantage": 0.015171666184484699,
+            "score_to_realized_advantage_spearman": 0.6370967741935484,
+            "ties": 0,
+            "tree_count": 32,
+            "wins": 25
+          },
+          "study": "replication_v2"
+        }
+      ],
+      "divergent_trees": {
+        "losses": 12,
+        "mean_predicted_advantage": 0.023273966354479515,
+        "mean_realized_advantage": 0.014755344818469036,
+        "score_to_realized_advantage_spearman": 0.4067135050741608,
+        "ties": 0,
+        "tree_count": 62,
+        "wins": 50
+      },
+      "root_differences": 62,
+      "stratified_bootstrap": {
+        "divergent_mean_realized_advantage_95pct": [
+          0.009604650699070917,
+          0.020270824367930505
+        ],
+        "divergent_score_to_realized_spearman_95pct": [
+          0.16000251449253752,
+          0.6110825030911496
+        ],
+        "mean_realized_advantage_95pct": [
+          0.009268248171171724,
+          0.019697048940539055
+        ]
+      }
+    }
+  },
+  "interface_version": "number-game-qwen-first-link-mechanism64-1",
+  "interpretation": {
+    "first_link": "cross-fitted simulated risk advantage versus a competing root predicts exact-canonical realized Brier advantage",
+    "formal_status_unchanged": true,
+    "second_link_not_tested": "no realized online observation trajectory or posterior execution noise is introduced"
+  },
+  "protocol": {
+    "advantage_sign": "positive means crossfit depth three has lower Brier",
+    "analysis_is_retrospective": true,
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 56000,
+    "cost_usd": 0.0,
+    "model_calls": 0,
+    "source_hashes": {
+      "confirmation_v1": "370e1c2923e56fb6a8344558db0a69bd5f86a8b013da7d9452675df380f7f12b",
+      "replication_v2": "a03c5a6f6e01af403ce27ef7984e29176bf0aa5f40caeae2bb6d213ce8c5dc83"
+    },
+    "tree_count": 64
+  },
+  "schema_version": 1,
+  "status": "retrospective_first_link_summary"
+}

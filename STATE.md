@@ -2384,3 +2384,11 @@ advantage to same-tree exact-canonical per-root realized Brier advantage;
 report root changes,mean,W/T/L,Spearman on all+changed subsets and20k
 cohort-stratified bootstrap. Explicitly first link only,no online execution
 noise,no gates/status rescue,hash-bound same64 trees,model0/cost0.
+2026-07-29: Qwen first-link mechanism64(commit0286122) localizes the positive.
+Vs myopic roots differ62/64;changed-root predicted-risk advantage predicts
+same-tree exact endpoint advantage rho.407,bootstrap[.160,.611],mean realized
+.01476 CI[.00960,.02027],50/62 wins(25 each cohort). Vs fixed-d3 roots
+differ53;mean+.00596 CI[.00105,.01112] but rho.127 CI crosses. Vs d2 roots
+differ41;mean+.00430 and rho-.014 both CIs cross. Simulator is calibrated to
+reject myopic roots,not universally among deep planners;explains replicated
+nonmyopic gain+nonmonotonic depth. Public RESULT SHA800532be;model0/cost0.

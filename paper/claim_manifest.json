@@ -273,6 +273,32 @@
       ]
     },
     {
+      "id": "number_game_qwen_first_link_mechanism64",
+      "paper_scope": "Retrospective first-link analysis connecting simulated-risk advantage to exact-canonical realized advantage on the fixed 64 Qwen trees.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_first_link_mechanism64/number-game-qwen-first-link-mechanism64-20260729T071529Z/RESULT.json",
+        "sha256": "800532bebb47fcaf499f4136ad2c886ce79fc2cd3f00bc9bdb12e65ca2afe821"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_first_link_summary"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/interpretation/formal_status_unchanged", "equals": true},
+        {"pointer": "/analyses/myopic_eig/root_differences", "equals": 62},
+        {"pointer": "/analyses/myopic_eig/divergent_trees/mean_realized_advantage", "equals": 0.014755344818469036, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.4067135050741608, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/divergent_trees/wins", "equals": 50},
+        {"pointer": "/analyses/myopic_eig/stratified_bootstrap/divergent_mean_realized_advantage_95pct", "equals": [0.009604650699070917, 0.020270824367930505], "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/stratified_bootstrap/divergent_score_to_realized_spearman_95pct", "equals": [0.16000251449253752, 0.6110825030911496], "tolerance": 1e-12},
+        {"pointer": "/analyses/fixed_support_depth_three/root_differences", "equals": 53},
+        {"pointer": "/analyses/fixed_support_depth_three/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.1269956458635704, "tolerance": 1e-12},
+        {"pointer": "/analyses/crossfit_depth_two/root_differences", "equals": 41},
+        {"pointer": "/analyses/crossfit_depth_two/divergent_trees/score_to_realized_advantage_spearman", "equals": -0.013588850174216028, "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {
