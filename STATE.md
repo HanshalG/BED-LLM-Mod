@@ -1868,3 +1868,14 @@ gain>=.10,all gain+.1738,dependency gain+.3434,five types. Therefore generated
 tool headers drove no case-level admission,but V3 SHA 7f6666a1 supersedes V2
 and becomes binding. Update still-uncommitted exact10 serving source hash;
 model0/cost0.
+2026-07-29: Frozen LogDx semantic BED serving smoke fails all three semantic
+gates by one case and closes the exact interface before ranking/policy work.
+Exact10/10 HTTP+accepted,0 retry/reasoning/forced,all parses,all6-hypothesis/
+4-regex supports valid,and all15 followups execute;cost$.0260848. But Q1 raw-log
+matches,likelihood dynamic range,and corrected observation dependence each
+pass only3/5<4/5. The same three cases pass all three:the two empty probes
+produce flat likelihoods and no learned followup,localizing failure to probe
+recall/downstream evidence. No prompt/model/case/threshold repair or rerun.
+Public SERVING SHA bdbb3e51;private raw b3424740. LogDx source unlock remains
+positive,but this tested BED factorization is not qualified. OpenRouter live
+credits$180,usage$161.804313206,remaining$18.195686794;OatML0.
