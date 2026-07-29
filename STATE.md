@@ -2670,3 +2670,21 @@ result,bank/zero-call analyze before choosing one next gated experiment;target
 roughly$8--10/day thereafter and permit larger spend only for a committed
 confirmation whose smoke and causal gate pass. Recheck total credits,usage,
 remaining,and run ledger before and after every paid stage.
+2026-07-29: Fresh Qwen dynamic-vs-fixed confirmation32 is gated_null. Dynamic
+d3 Brier.099644 vs fixed d3.104284,4.45%,roots differ25/32,but CI
+[-.011599,+.000372] crosses0 and14/7/11 W/T/L misses16 wins. One tree supplies
+62.97% of summed gain;leave-one-extreme mean-.001774 is diagnostic only.
+One merged first branch has11<12,so one mechanics gate also fails. Co-required
+d3-myopic is strong:17.19%,CI[-.028400,-.013584],26 wins;Hamming23.48%,
+coverage+4.26pt. Exact3680 accepted/3697 HTTP,17 retries,1 provider retry,
+1 item salvage,0 reasoning/forced,$4.6478466. No rerun/subset/outlier rescue.
+2026-07-29: Planner price/intelligence screen uses the linked exact10 gate,
+not efficacy. Qwen3.7 Flash fails strict top-level schema. DeepSeek V4 Flash
+passes exact10 at$.001933696,conditioned valid mean13.25/min7 versus Qwen
+17.625/min8 at$.0103648:5.36x cheaper and4.41x valid rules per dollar.
+MiniMax M3 passes at$.0088494 but conditioned mean11.125/min4,so is dominated
+for direct support generation despite stronger reasoning-mode AA. Qwen remains
+paper-critical default;DeepSeek is sole cost challenger. A 32-tree paired
+efficacy protocol is frozen against Qwen's hash-bound canonical/validation
+bank before candidate efficacy:exact1568 calls,cap$.50,d3-myopic>=8%+CI<0+
+20 wins,and DeepSeek-minus-Qwen Brier upper CI<+.005 for replacement.

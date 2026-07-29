@@ -784,6 +784,39 @@
         {"pointer": "/pooled/coverage/mean_candidate_minus_baseline", "equals": -0.0009469696969697005, "tolerance": 1e-12},
         {"pointer": "/pooled/coverage/stratified_bootstrap_difference_95pct", "equals": [-0.021780303030303032, 0.020833333333333325], "tolerance": 1e-12}
       ]
+    },
+    {
+      "id": "number_game_qwen_dynamic_vs_fixed_confirmation32",
+      "paper_scope": "Fresh preregistered dynamic-support versus fixed-support depth-three result and co-required depth-three versus myopic efficacy.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_dynamic_vs_fixed_confirmation32/number-game-qwen-dynamic-vs-fixed-confirmation32-20260729T215013Z/RESULT.json",
+        "sha256": "75f55d7ffe792771de8d2dd909c32208a71b8dd169a171b8148e958e6eb0458e"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/analysis_was_preregistered", "equals": true},
+        {"pointer": "/protocol/tree_count", "equals": 32},
+        {"pointer": "/protocol/validation_draws_per_tree", "equals": 16},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 66800},
+        {"pointer": "/usage/adapter_requests", "equals": 3680},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0},
+        {"pointer": "/mechanics_gates/all_deployed_retained_branches_non_degenerate", "equals": false},
+        {"pointer": "/dynamic_support/root_differences", "equals": 25},
+        {"pointer": "/dynamic_support/comparison/candidate_mean_brier", "equals": 0.09964381377388451, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/baseline_mean_brier", "equals": 0.10428439341253715, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/relative_brier_reduction", "equals": 0.04449927248744722, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.011598770702179826, 0.00037159205167925204], "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/brier_tree_wins", "equals": 14},
+        {"pointer": "/dynamic_support/gates/dynamic_vs_fixed_ci_below_zero", "equals": false},
+        {"pointer": "/dynamic_support/gates/dynamic_wins_at_least_sixteen_trees", "equals": false},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.17192094646612116, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.028399821746243815, -0.013583680150196606], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/brier_tree_wins", "equals": 26},
+        {"pointer": "/myopic_policy_gates/depth_three_beats_myopic_by_eight_percent", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_wins_at_least_twenty_trees", "equals": true}
+      ]
     }
   ]
 }

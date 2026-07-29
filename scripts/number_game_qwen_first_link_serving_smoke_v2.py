@@ -61,16 +61,19 @@ def run_smoke(
     output_dir: Path,
     run_id: str,
     adapter: StructuredModel | None = None,
+    model_id: str = MODEL_ID,
+    model_seed: int = MODEL_SEED,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     private_dir = output_dir / "private"
     private_dir.mkdir(parents=True, exist_ok=True)
     raw_path = private_dir / "RAW_RESPONSES.json"
     adapter = adapter or _adapter(
-        model=MODEL_ID,
+        model=model_id,
         run_id=run_id,
         output_dir=output_dir,
-        request_seed=MODEL_SEED,
+        request_seed=model_seed,
         concurrency=CONCURRENCY,
         projected_cost=PROJECTED_COST_USD,
         run_budget_usd=RUN_BUDGET_USD,
@@ -105,9 +108,9 @@ def run_smoke(
         "schema_version": SCHEMA_VERSION,
         "status": "passed" if gates["all_pass"] else "gated_null",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
-            "model": MODEL_ID,
-            "model_seed": MODEL_SEED,
+            "interface_version": interface_version,
+            "model": model_id,
+            "model_seed": model_seed,
             "temperature": TEMPERATURE,
             "reasoning": False,
             "expected_requests": EXPECTED_REQUESTS,

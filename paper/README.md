@@ -6,9 +6,11 @@ cohorts and two planning models by 12.48% Brier
 (`95% CI [-.0192,-.0113]`; `95/128` wins), with positive first-link
 calibration. A hash-bound retrospective audit gives 3.79% versus
 compute-matched fixed-support depth three, but the preregistered
-second-refresh mechanism test is null and fresh dynamic-versus-fixed
-confirmation remains pending. The paper therefore claims a robust LLM-native
-policy result, not a settled causal regeneration or monotonic-depth result.
+second-refresh mechanism test is null. A fresh dynamic-versus-fixed study
+again favors dynamic support by 4.45%, but its confidence interval crosses
+zero and it wins only 14/32 trees. The paper therefore claims a robust
+LLM-native policy result, not a settled causal regeneration or monotonic-depth
+result.
 
 This directory holds the evidence-supported workshop draft on non-myopic BED
 with LLM-derived probabilistic models. It combines exact planning controls,

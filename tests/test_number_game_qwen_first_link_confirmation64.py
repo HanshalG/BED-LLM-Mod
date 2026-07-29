@@ -69,9 +69,18 @@ def test_v2_smoke_gates_linked_retained_supports(tmp_path) -> None:
         output_dir=tmp_path,
         run_id="test-qwen-first-link-v2",
         adapter=FakeSmokeAdapter(),
+        model_id="test/frontier-model",
+        model_seed=1234,
+        interface_version="test-frontier-interface",
     )
 
     assert result["status"] == "passed"
+    assert result["protocol"]["model"] == "test/frontier-model"
+    assert result["protocol"]["model_seed"] == 1234
+    assert (
+        result["protocol"]["interface_version"]
+        == "test-frontier-interface"
+    )
     assert result["protocol"]["support_update"] == "retained_rejuvenation"
     assert min(result["generated_valid_counts"][2:]) >= 4
     assert min(result["merged_first_valid_counts"]) >= 8
