@@ -2479,3 +2479,16 @@ forced0,cap$5.25,start>=5.50. Supports initial>=24,generated first/second
 realized>=.008+CI>0,rho>=.25+CI>0,W-L>=8;policy d3-myopic>=8%+CI<0+
 20 wins. Bootstrap20k seed63600. Diagnostics cannot rescue;no continuation/
 replacement/third draw/repair.
+2026-07-29: Fresh pooled-Qwen32 is registered gated_null with a strong
+average policy effect but null cross-tree margin calibration. D3 changes
+30/32 myopic roots;realized advantage+.01179 CI[.00469,.01892],23/7 W/L,
+but predicted-vs-realized rho-.037 CI[-.391,.307],so2 first-link rank gates
+fail. Policy Brier.104586 vs myopic.115641:9.56%,CI[-.01791,-.00441],23
+wins;all efficacy gates pass. D3-d2+4.16%,CI[-.0092045,+.0000075],16 wins:
+near but still null. Exact3424 accepted,$4.092881,0 reasoning/forced/salvage,
+all strict JSON. Mechanics fail50>24 retries and generated-only minima;
+deployed supports remain healthy(initial>=26,retained first>=12,second>=9).
+Public RESULT cef6ded0,TREES78bbc36b,TARGETSad7df72b,private522ae568.
+No reclassification. Pooling fixes average selection/support,not raw
+cross-tree score scale. Provider-visible balance$5.667298943;reported$40
+still absent,so pause powered paid runs and use zero-call analysis.

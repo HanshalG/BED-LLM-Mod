@@ -430,6 +430,44 @@
       ]
     },
     {
+      "id": "number_game_qwen_pooled_first_link_confirmation32",
+      "paper_scope": "Fresh pooled-support Qwen confirmation with positive myopic-policy Brier efficacy, null first-link rank calibration, and preserved composite gated-null status.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_pooled_first_link_confirmation32/number-game-qwen-pooled-first-link-confirmation32-20260729T094455Z/RESULT.json",
+        "sha256": "cef6ded08050e6df07de62bbbf548635f229a8bf73fac149b4d0bd960f7b0253"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/tree_count", "equals": 32},
+        {"pointer": "/protocol/expected_requests", "equals": 3424},
+        {"pointer": "/protocol/planning_support_pool_size", "equals": 2},
+        {"pointer": "/protocol/parse_accounting/item_salvaged_draws", "equals": 0},
+        {"pointer": "/protocol/parse_accounting/strict_json_draws", "equals": 3424},
+        {"pointer": "/usage/adapter_requests", "equals": 3424},
+        {"pointer": "/usage/retry_count", "equals": 50},
+        {"pointer": "/usage/run_cost_usd", "equals": 4.092881279999999, "tolerance": 1e-12},
+        {"pointer": "/mechanics_gates/retries_within_cap", "equals": false},
+        {"pointer": "/mechanics_gates/all_pooled_generated_branches_valid", "equals": false},
+        {"pointer": "/mechanics_gates/all_retained_branches_non_degenerate", "equals": true},
+        {"pointer": "/efficacy_gates/depth_three_beats_myopic_by_eight_percent", "equals": true},
+        {"pointer": "/efficacy_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/efficacy_gates/depth_three_wins_at_least_twenty_trees", "equals": true},
+        {"pointer": "/first_link/root_differences", "equals": 30},
+        {"pointer": "/first_link/mean_realized_advantage", "equals": 0.011792196253337429, "tolerance": 1e-12},
+        {"pointer": "/first_link/mean_realized_advantage_95pct_bootstrap", "equals": [0.004686555802138496, 0.018920232186061516], "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_advantage_spearman", "equals": -0.03670745272525028, "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_spearman_95pct_bootstrap", "equals": [-0.39085061786562764, 0.3074411355556695], "tolerance": 1e-12},
+        {"pointer": "/first_link/wins", "equals": 23},
+        {"pointer": "/first_link/losses", "equals": 7},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.09559899409826468, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.01791244041350807, -0.004410854796763438], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.041636590192504604, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.009204546596397866, 0.000007514434196174372], "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_three_spearman_brier/mean", "equals": 0.3072916666666667, "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_two_spearman_brier/mean", "equals": 0.07291666666666667, "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {
