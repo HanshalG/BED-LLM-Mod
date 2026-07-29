@@ -2342,3 +2342,11 @@ single-draw GPTmini prompt iteration;future use requires pooled independent
 draw method. Next highest ROI is fresh Qwen exact-bank replication:prior
 fresh cohort d3-myopic11.37%,CI<0,25 wins and d3-d2 4.62%,CI<0,14 wins;
 its status null was solely frozen zero-provider-retry gate(2 transient).
+2026-07-29: Freeze independent fresh Qwen external-canonical replication V2
+before calls. Seeds tree55000..55031,target55100..55131,validation55200..
+55455;32 trees,exact1856 accepted,retained rejuvenation,8 crossfit supports,
+exact33 literature concepts only. Primary is d3 versus myopic:Brier gain>=8%,
+whole-tree CI<0,>=20 wins. D3-d2/fixed/PTS/random/rank/Hamming/coverage are
+diagnostics. Mechanics allow<=8 transparently reported transport/provider
+retries with exact attempt accounting;0 reasoning/forced;support minima
+16/16/8/4;cost cap$3.50,start>=3.25. Hash-bound clean73-call Qwen smoke.
