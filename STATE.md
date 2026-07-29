@@ -2451,3 +2451,13 @@ Do not relax/reseed/rerun/reclassify. Public RESULT SHA984086f4,private
 8cba3a23. Parsing fragility is addressed;remaining bottleneck is stochastic
 single-draw support collapse. Only a separately frozen pooled-independent-
 draw method is scientifically distinct enough to pursue.
+2026-07-29: Freeze pooled-independent Qwen support method before seeds63000/
+63001. Two independently seeded generations are unioned by executable
+extension at every history before retained rejuvenation/posterior/lookahead.
+Exact10=5 linked historiesx2 calls;require strict JSON,0 retry/reasoning/
+forced,each second draw contributes>=2 novel extensions,pooled initial>=24,
+conditioned>=8,merged first>=12,second>=8,cap$.12;no individual-draw minimum.
+Pass only authorizes fresh32 trees63100--63131,target63200--63231,validation
+63300--63555,exact3424,cap$5.25,start>=5.50,salvage<=16. Primary first-link
+gates mirror the closed32 plan. This is variance-reduction estimator change,
+not threshold relaxation/rerun;single-draw null stays closed.
