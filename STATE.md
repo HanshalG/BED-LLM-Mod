@@ -1965,3 +1965,16 @@ will organize and upload code/data to Hugging Face;no endpoint exists yet.
 Calls/cost0. Do not create a proxy or run models. Reopen only after official
 games,properties,label matrix,Oracle machinery,and licensing are available,
 starting with a zero-call opportunity audit.
+2026-07-29: AllenAI TwentyQuestions official Apache2 source is reproducible
+(commit7aee4ec,archive SHA5e670110,all-jsonl SHA059a91ca)but fails the
+non-myopic opportunity screen at model0/cost0. Release has78890 human-labeled
+rows/8806 subjects/24924 literal questions,including counterfactual relabels.
+Normalization gives19995 questions/76078 pairs/1118 questions with support>=8.
+Exhaustively closing these supports under intersection yields7380 complete
+submatrices;max common questions for>=8 subjects is6 and mostly redundant.
+Only one complete subgame has>=8 distinct answer signatures:8 deterministic
+representatives x5 generic questions. Exact uniform-prior DP chooses the same
+root(`is it made of metal`)for greedy,d2,d3;remaining entropy1.3863/.6931/0.
+Close route:no LLM matrix completion/paraphrase pooling/paid serving,because
+synthetic filling would replace the external human endpoint and no first-link
+planning opportunity exists in observed counterfactuals.
