@@ -2647,3 +2647,16 @@ rho.423 CI[.255,.569]. It explicitly keeps d3-over-d2 null and labels the
 second-refresh null binding and fresh mechanism confirmation pending. All29
 hash-pinned claim bundles,12 validator tests,and the six-page rendered visual
 audit pass. Model0/cost0.
+2026-07-29: Correct prior top-up interpretation after user clarification.
+Authenticated history proves one$40 purchase posted:total credits rose from
+$140 to$180. The last pre-top-up snapshot was usage$139.893581356/
+balance$.106418644;current usage is$178.451251977/balance$1.548748023,so
+post-snapshot spend is exactly$38.557670621. Ten major Number Game runs
+account for$36.09399418(full-retention,crossfit confirmation+replication,
+Qwen formal+crossjudge+two canonical cohorts,failed first-link prefix,and two
+pooled confirmations);smokes/smaller gates account for the residual
+$2.463676441. Earlier notes saying the top-up was absent were mistaken:they
+looked only at remaining balance and failed to reconcile total credits. If the
+user intended a second later$40 purchase,total should be$220 and that purchase
+is missing;otherwise the posted$40 has been almost fully consumed. Keep the
+fresh dynamic-vs-fixed run unopened at$1.548748023<$5.50.
