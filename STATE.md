@@ -1992,3 +1992,14 @@ only.43616/.40085 endpoint hit. Public RESULT SHA16aff401;model0/cost0. This
 is source opportunity,not fresh efficacy. It localizes prior failure to
 utility mismatch and authorizes only a separately frozen exact10 fresh
 question+cross-translation serving smoke before branch-conditioned trees.
+2026-07-29: Freeze Collaborative Battleship exact10 semantic serving smoke
+before any fresh response. GPT-5.4-Mini nonthinking seed39700/temp.7 makes2
+independent four-question proposals;the first2 from each are selected. Each
+of4 is independently compiled to a pure Boolean board expression by GPTmini
+seed39800 and Gemini2.5-Flash seed39900,temp0. Frozen AST validation forbids
+statements/imports/assignment/lambda/private/arbitrary calls. Execute all8 on
+fresh official-prior blocks seeds39710/39711,n4096. Require exact10,zero
+retry/reasoning/forced,all schema+safe Boolean,prevalence[.05,.95] both
+blocks,>=.97 cross-model agreement for>=3/4,>=3 reference behaviors,and
+cost<=.25. Public output excludes expressions;trajectory questions and policy
+endpoint unopened. Passage only authorizes separately frozen branch mechanics.
