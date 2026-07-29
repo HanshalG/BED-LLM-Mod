@@ -1,0 +1,90 @@
+{
+  "all_pass": true,
+  "decision": "authorize_separately_frozen_mechanics_first_link_test",
+  "development_or_later_opened": false,
+  "endpoint_accessed": false,
+  "gates": {
+    "controller_responses_are_exact": true,
+    "cost_within_cap": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "followups_use_answer_introduced_terms": true,
+    "generic_queries_make_no_progress": true,
+    "history_changes_question_support": true,
+    "root_questions_match_catalog": true,
+    "semantic_matcher_replays_exactly": true,
+    "zero_reasoning_and_forced_exits": true,
+    "zero_retries": true
+  },
+  "interface_version": "icae-exact-response-controller-smoke-1",
+  "manifest_sha256": "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f",
+  "models": {
+    "planner": "openai/gpt-5.4",
+    "semantic_matcher": "openai/gpt-5.4-mini"
+  },
+  "private_raw_sha256": "378692c4f840974b7e04275df031cf1aac8261988a9982536e93de715ebdaed3",
+  "run_id": "icae-exact-controller-20260729T052833Z",
+  "schema_version": 1,
+  "seeds": {
+    "planner": 50500,
+    "selection": 50400,
+    "semantic_matcher": 50600
+  },
+  "selected_tasks": [
+    {
+      "alias": "realcode@235",
+      "language": "Kotlin"
+    },
+    {
+      "alias": "realcode@185",
+      "language": "Go"
+    }
+  ],
+  "source_audit_sha256": "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552",
+  "status": "passed",
+  "tasks": [
+    {
+      "alias": "realcode@235",
+      "changed_followup_questions": 6,
+      "controller_reply_exact_by_construction": true,
+      "followup_hypothesis_count": 12,
+      "followup_question_count": 6,
+      "generic_exact_fallback": true,
+      "initial_hypothesis_count": 12,
+      "initial_question_count": 6,
+      "language": "Kotlin",
+      "matcher_exact_replay": true,
+      "new_answer_terms_used": 2,
+      "root_fallback": false,
+      "root_match_count": 1
+    },
+    {
+      "alias": "realcode@185",
+      "changed_followup_questions": 6,
+      "controller_reply_exact_by_construction": true,
+      "followup_hypothesis_count": 12,
+      "followup_question_count": 6,
+      "generic_exact_fallback": true,
+      "initial_hypothesis_count": 12,
+      "initial_question_count": 6,
+      "language": "Go",
+      "matcher_exact_replay": true,
+      "new_answer_terms_used": 3,
+      "root_fallback": false,
+      "root_match_count": 1
+    }
+  ],
+  "usage": {
+    "adapter_completion_tokens": 3021,
+    "adapter_prompt_tokens": 18675,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.05894365
+  }
+}

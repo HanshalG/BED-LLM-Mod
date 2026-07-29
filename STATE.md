@@ -2195,3 +2195,16 @@ executable endpoint opened. No rerun/normalization/model swap/trigger repair;
 source opportunity remains positive but exact LLM Oracle route is closed.
 Authenticated balance still reports$15.628982893 immediately after run,so
 reported top-up and this charge are both pending settlement;OatML0.
+2026-07-29: Distinct ICAE semantic-matcher/exact-response controller passes
+all exact10 serving gates and repairs the measured observation-noise link
+without rerunning failed tasks. Commit05990ca freezes untouched mechanics
+Kotlin@235+Go@185 by seed50400;GPT-5.4 nonthinking generates initial/refreshed
+12x6 supports, GPT-5.4-Mini sees only IDs+trigger phrases and returns IDs,
+then code emits exact stored response. Exact10/10 accepted+HTTP,0 retry/
+provider/reasoning/forced,18675 prompt+3021 completion,$.05894365. Both roots
+match exactly1 trigger,repeated IDs exact,generic queries empty+fallback,all6
+followups change,and refreshed supports use2/3 answer-new terms. Public
+SERVING SHAa5e7731b,private378692c4. Authorize separately frozen paired
+mechanics first-link only;development/confirmation/retained and executable
+endpoint unopened. Live balance still$15.555228793 before charge settlement;
+reported$40 top-up absent,OatML0.
