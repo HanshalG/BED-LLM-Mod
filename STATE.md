@@ -32,6 +32,16 @@ is2/4 valid cases, hence at most3/5 versus required4/5. No V3 or repair; the
 60-case holdout is untouched. Return to the strongest remaining LLM-native
 line rather than adapting CUPID after aggregate inspection.
 
+2026-07-29: Zero-call Gemini endpoint classical-grammar audit is
+power-inconclusive and closes that fresh-confirmation route. The frozen
+416366-extension bank rebuilds exactly. Across two independent32-tree studies
+and1024 Gemini draws, only60/23054=.2603% endpoint occurrences are out of bank,
+23 unique;35/64 trees have any, but nonempty draws range0--4 and0/64 reach the
+frozen8-draw threshold. All power gates fail, so d3-vs-d2 efficacy stays
+unopened. Together with Qwen's.8955%, this bounds the claim: generated belief
+transitions are strongly non-enumerated, but available endpoint families are
+mostly classical and cannot establish an out-of-bank depth gain.
+
 2026-07-21: Next loop frozen before outcomes: independent GPT-5.4 Mini non-thinking
 replication on RockSample 7-8, fresh seed 24073, 30 paired ten-round trials and the
 same shared-d1/width/random controls. A ten-cell actual-prompt gate must pass first;
