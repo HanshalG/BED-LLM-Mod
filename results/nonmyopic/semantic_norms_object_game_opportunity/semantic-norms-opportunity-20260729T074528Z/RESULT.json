@@ -1,0 +1,285 @@
+{
+  "checks": {
+    "depth3_brier_gain": false,
+    "depth3_entropy_gain": false,
+    "depth3_root_differs": false,
+    "eligible_objects": true,
+    "mid_support_extensions": true,
+    "selected_category_count": true,
+    "selected_object_count": true,
+    "unique_target_extensions": true
+  },
+  "gates": {
+    "depth3_brier_gain_min": 0.001,
+    "depth3_entropy_gain_nats_min": 0.005,
+    "eligible_objects_min": 96,
+    "mid_support_extensions_min": 16,
+    "unique_target_extensions_min": 64
+  },
+  "planning": {
+    "depth1": {
+      "brier_gain": 0.0,
+      "entropy_gain_nats": 0.0,
+      "exact_root_index": 15,
+      "exact_root_object": "finger",
+      "exact_terminal_brier": 0.9948979591836735,
+      "exact_terminal_entropy_nats": 5.420417266612223,
+      "greedy_root_index": 15,
+      "greedy_root_object": "finger",
+      "greedy_terminal_brier": 0.9948979591836735,
+      "greedy_terminal_entropy_nats": 5.420417266612223,
+      "root_differs": false
+    },
+    "depth2": {
+      "brier_gain": 0.0,
+      "entropy_gain_nats": 0.0,
+      "exact_root_index": 15,
+      "exact_root_object": "finger",
+      "exact_terminal_brier": 0.9897959183673469,
+      "exact_terminal_entropy_nats": 4.858960880040322,
+      "greedy_root_index": 15,
+      "greedy_root_object": "finger",
+      "greedy_terminal_brier": 0.9897959183673469,
+      "greedy_terminal_entropy_nats": 4.858960880040322,
+      "root_differs": false
+    },
+    "depth3": {
+      "brier_gain": 0.0,
+      "entropy_gain_nats": 0.0,
+      "exact_root_index": 15,
+      "exact_root_object": "finger",
+      "exact_terminal_brier": 0.9795918367346939,
+      "exact_terminal_entropy_nats": 4.2824315274660165,
+      "greedy_root_index": 15,
+      "greedy_root_object": "finger",
+      "greedy_terminal_brier": 0.9795918367346939,
+      "greedy_terminal_entropy_nats": 4.2824315274660165,
+      "root_differs": false
+    }
+  },
+  "schema_version": 1,
+  "selection": {
+    "eligible_object_count": 199,
+    "num_categories": 8,
+    "object_order_sha256": "3efb009e03a2c6139dcf31cfe4b3aa2bf5a26bbd1b15bcc078a4be5628f842df",
+    "objects": [
+      {
+        "category": "person",
+        "english_name": "author",
+        "source_id": "60",
+        "vector_row": 77
+      },
+      {
+        "category": "person",
+        "english_name": "child",
+        "source_id": "311",
+        "vector_row": 64
+      },
+      {
+        "category": "person",
+        "english_name": "king",
+        "source_id": "836",
+        "vector_row": 62
+      },
+      {
+        "category": "person",
+        "english_name": "professor",
+        "source_id": "1201",
+        "vector_row": 75
+      },
+      {
+        "category": "place",
+        "english_name": "library",
+        "source_id": "882",
+        "vector_row": 49
+      },
+      {
+        "category": "place",
+        "english_name": "park",
+        "source_id": "1086",
+        "vector_row": 94
+      },
+      {
+        "category": "place",
+        "english_name": "mansion",
+        "source_id": "936",
+        "vector_row": 47
+      },
+      {
+        "category": "place",
+        "english_name": "palace",
+        "source_id": "1074",
+        "vector_row": 57
+      },
+      {
+        "category": "animal",
+        "english_name": "rabbit",
+        "source_id": "1226",
+        "vector_row": 17
+      },
+      {
+        "category": "animal",
+        "english_name": "donkey",
+        "source_id": "481",
+        "vector_row": 12
+      },
+      {
+        "category": "animal",
+        "english_name": "horse",
+        "source_id": "765",
+        "vector_row": 1
+      },
+      {
+        "category": "animal",
+        "english_name": "panther",
+        "source_id": "1079",
+        "vector_row": 18
+      },
+      {
+        "category": "bodypart",
+        "english_name": "blood",
+        "source_id": "141",
+        "vector_row": 35
+      },
+      {
+        "category": "bodypart",
+        "english_name": "thumb",
+        "source_id": "1559",
+        "vector_row": 34
+      },
+      {
+        "category": "bodypart",
+        "english_name": "lip",
+        "source_id": "895",
+        "vector_row": 32
+      },
+      {
+        "category": "bodypart",
+        "english_name": "finger",
+        "source_id": "580",
+        "vector_row": 30
+      },
+      {
+        "category": "nature",
+        "english_name": "road",
+        "source_id": "1280",
+        "vector_row": 104
+      },
+      {
+        "category": "nature",
+        "english_name": "nest",
+        "source_id": "1029",
+        "vector_row": 101
+      },
+      {
+        "category": "nature",
+        "english_name": "strait",
+        "source_id": "1484",
+        "vector_row": 99
+      },
+      {
+        "category": "nature",
+        "english_name": "fire",
+        "source_id": "583",
+        "vector_row": 86
+      },
+      {
+        "category": "tool",
+        "english_name": "shovel",
+        "source_id": "1380",
+        "vector_row": 138
+      },
+      {
+        "category": "tool",
+        "english_name": "saw",
+        "source_id": "1321",
+        "vector_row": 127
+      },
+      {
+        "category": "tool",
+        "english_name": "scissors",
+        "source_id": "1333",
+        "vector_row": 128
+      },
+      {
+        "category": "tool",
+        "english_name": "drill",
+        "source_id": "498",
+        "vector_row": 123
+      },
+      {
+        "category": "clothing",
+        "english_name": "skirt",
+        "source_id": "1398",
+        "vector_row": 262
+      },
+      {
+        "category": "clothing",
+        "english_name": "scarf",
+        "source_id": "1330",
+        "vector_row": 261
+      },
+      {
+        "category": "clothing",
+        "english_name": "shirt",
+        "source_id": "1371",
+        "vector_row": 257
+      },
+      {
+        "category": "clothing",
+        "english_name": "sweater",
+        "source_id": "1510",
+        "vector_row": 255
+      },
+      {
+        "category": "fruit",
+        "english_name": "grape",
+        "source_id": "676",
+        "vector_row": 274
+      },
+      {
+        "category": "fruit",
+        "english_name": "pineapple",
+        "source_id": "1140",
+        "vector_row": 284
+      },
+      {
+        "category": "fruit",
+        "english_name": "lemon",
+        "source_id": "873",
+        "vector_row": 288
+      },
+      {
+        "category": "fruit",
+        "english_name": "apple",
+        "source_id": "30",
+        "vector_row": 277
+      }
+    ],
+    "objects_per_category": 4,
+    "seed": 40400
+  },
+  "source": {
+    "commit": "d2b940472bb9e88983a5c087594022939cac8895",
+    "file_sha256": {
+      "data/aaltoprod/correspondence.csv": "e922d57ff87fc6c8a4f2276a589c1645386c0e8f296eca6722998dae35763821",
+      "data/aaltoprod/features.csv": "1d838554bed2dce20adac939d543d87c81947288801367ed568cfd7fc61adf88",
+      "data/aaltoprod/vectors.csv": "41b620c391b9147a12d63dc9ed1af619e636bd6db4532e56c71a1b144bc54f99",
+      "data/aaltoprod/vocab.csv": "a9b4ef36a118e1a23371597e673f20cbb058a00472e8c4cbf5703e3b2154156d"
+    },
+    "publication_doi": "10.3758/s13428-023-02311-1",
+    "raw_data_redistributed": false,
+    "repository": "https://github.com/AaltoImagingLanguage/Norms"
+  },
+  "status": "opportunity_failed",
+  "target_bank": {
+    "duplicate_feature_columns": 17,
+    "eligible_feature_columns": 409,
+    "extension_bank_sha256": "27a96cdae5517209f89cf387bdb32f0dfc20476cab2ad7de8a4546eb524a8a8c",
+    "mid_support_extension_count": 80,
+    "support_size_max": 29,
+    "support_size_median": 4,
+    "support_size_min": 3,
+    "unique_extension_count": 392
+  }
+}
