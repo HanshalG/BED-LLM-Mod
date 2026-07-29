@@ -1,0 +1,83 @@
+{
+  "all_pass": false,
+  "decision": "close_exact_full_world_instrument",
+  "development_or_later_opened": false,
+  "diagnostics": {
+    "actual_changed_questions": 6,
+    "actual_match_count": 2,
+    "distinct_likelihood_values": 15,
+    "effective_world_counts": {
+      "actual": 7.552870090634442,
+      "initial": 7.668711656441717,
+      "negative": 7.668711656441717,
+      "positive": 7.861635220125786
+    },
+    "endpoint_constraint_count": 14,
+    "endpoint_expected_coverage": 0.2764285714285714,
+    "endpoint_world_coverage_range": 0.21428571428571427,
+    "endpoint_world_coverage_rates": [
+      0.21428571428571427,
+      0.21428571428571427,
+      0.21428571428571427,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.42857142857142855,
+      0.42857142857142855
+    ],
+    "negative_changed_questions": 6,
+    "negative_retained_worlds": 8,
+    "positive_changed_questions": 6,
+    "positive_retained_worlds": 8
+  },
+  "executable_endpoint_opened": false,
+  "gates": {
+    "actual_history_changes_support": true,
+    "beliefs_remain_noncollapsed": true,
+    "cost_within_cap": true,
+    "endpoint_distinguishes_worlds": true,
+    "endpoint_is_unsaturated": true,
+    "endpoint_replays_exactly": false,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "likelihoods_are_nonconstant": true,
+    "realized_root_matches_controller": true,
+    "retention_is_path_dependent": false,
+    "simulated_branches_change_support": true,
+    "zero_reasoning_and_forced_exits": true,
+    "zero_retries": true
+  },
+  "interface_version": "icae-full-world-instrument-smoke-3",
+  "manifest_sha256": "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f",
+  "models": {
+    "evaluator_matcher": "openai/gpt-5.4-mini",
+    "planner": "openai/gpt-5.4"
+  },
+  "private_raw_sha256": "840b0ec0d39099a4eeb06f95418703158850ce24c8e66e92871bce8bffdb00f5",
+  "run_id": "icae-full-world-instrument-v3-20260729T060045Z",
+  "schema_version": 1,
+  "seeds": {
+    "evaluator": 52200,
+    "planner": 52100,
+    "selection": 52000
+  },
+  "selected_task": {
+    "alias": "realcode@212",
+    "language": "C#"
+  },
+  "source_audit_sha256": "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552",
+  "status": "gated_null",
+  "usage": {
+    "adapter_completion_tokens": 4668,
+    "adapter_prompt_tokens": 18624,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.08920180000000001
+  }
+}

@@ -2275,3 +2275,15 @@ semantic trigger IDs remain. Same beliefs/exact10/scientific gates;public
 eligibility+seed52000 select already-open unused C#@212;GPT-5.4 seed52100,
 Mini52200. V1/V2 remain failed and are not resumed. A scientific V3 failure
 closes full-world route;no further serialization variant.
+2026-07-29: ICAE full-world positional V3(commitc29d910) reaches all exact10
+stages cleanly,$.0892018,0 retry/provider/reasoning/forced,but is a scientific
+gated null closing the exact route. Representation fix works:weighted hidden
+coverage.2764,world range.2143(.2143-.4286),ESS7.55-7.86,15 likelihood values,
+positive/fallback/actual each change6/6 questions,and actual root matches2
+triggers. Yet semantic retention is8/8 in both branches despite zero exact
+world overlap,and duplicate endpoint disagrees28/112 cells(25%),moving
+weighted coverage.2764->.0914(|delta|.185). Public SERVING SHA52ecfd95,
+private840b0ec0;no later partition/executable endpoint. Do not rerun/relax/
+ensemble this task or open paired ICAE cohort. ICAE now requires deterministic
+world compatibility plus executable utility,not another free-text judge.
+Authenticated balance$15.205356643;reported$40 top-up still absent;OatML0.
