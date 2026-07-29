@@ -2041,3 +2041,17 @@ private raw0ef35f54. Interpretation:operational LLM measurement generation is
 safe,balanced,and novel,but a rich static bank lets one-step replanning catch
 up;non-myopic gain needs genuinely path-dependent action/support availability.
 No threshold/order/root-only repair or branch run.
+2026-07-29: Freeze a genuinely new Number Game planning-family replication
+before serving. DeepSeek V4 Pro nonthinking generates initial/first/second
+retained-rejuvenation supports; GPT-5.4-Mini independently generates targets,
+8 validation supports,and16 endpoint supports/tree. First require exact10
+DeepSeek transport calls(seed42000,temp.7):2 initial,4 one-observation,4
+two-observation;all parse,0 retry/reasoning/forced,initial>=16,conditioned>=8,
+cost<=.10,and no efficacy. Passage authorizes one fresh32-tree run(seeds
+43000+,exact2336 calls,cap$5). Primary frozen claim is the optimized proper
+score:depth3 endpoint Brier gain>=1% vs equally cross-fitted depth2,whole-tree
+CI<0,>=12 wins,>=12 root changes,novel Brier nonregression,control CIs<0,and
+rank rho>=.7 with>=.15 advantage. Hamming/coverage remain reported secondary
+diagnostics,not an unrelated all-loss conjunction. This is not a Qwen repair:
+new planner,target provider,seeds,smoke,and directory. 34 focused tests pass;
+live endpoint unopened.

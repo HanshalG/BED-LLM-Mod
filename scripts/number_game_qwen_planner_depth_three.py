@@ -96,6 +96,7 @@ def _generate_supports(
     output_dir: Path,
     run_id: str,
     run_budget_usd: float,
+    target_model: str = TARGET_MODEL_ID,
 ) -> tuple[
     list[list[Any]],
     list[dict[str, Any]],
@@ -104,7 +105,7 @@ def _generate_supports(
 ]:
     adapters = [
         depth._adapter(
-            model=TARGET_MODEL_ID,
+            model=target_model,
             run_id=run_id,
             output_dir=output_dir,
             request_seed=int(seed),
@@ -323,11 +324,16 @@ def run_study(
     run_id: str,
     run_budget_usd: float,
     smoke_result_path: Path | None = None,
+    planning_model: str = PLANNING_MODEL_ID,
+    target_model: str = TARGET_MODEL_ID,
+    interface_version: str = INTERFACE_VERSION,
+    smoke_validator: Any = validate_smoke_result,
+    formal_gate_fn: Any = formal_gates,
 ) -> dict[str, Any]:
     if len(tree_seeds) != len(target_seeds):
         raise ValueError("tree and target seed counts differ")
     smoke = (
-        validate_smoke_result(smoke_result_path)
+        smoke_validator(smoke_result_path)
         if smoke_result_path is not None
         else None
     )
@@ -350,8 +356,8 @@ def run_study(
                 target_seed=int(target_seed),
                 output_dir=output_dir,
                 run_id=run_id,
-                planning_model=PLANNING_MODEL_ID,
-                target_model=TARGET_MODEL_ID,
+                planning_model=planning_model,
+                target_model=target_model,
                 planning_concurrency=32,
                 target_concurrency=1,
                 projected_planning_cost=0.12,
@@ -380,6 +386,7 @@ def run_study(
                 output_dir=output_dir,
                 run_id=run_id,
                 run_budget_usd=run_budget_usd,
+                target_model=target_model,
             )
             extra_endpoint_seeds = extra_endpoint_seeds_for_tree(
                 tree_index,
@@ -395,6 +402,7 @@ def run_study(
                 output_dir=output_dir,
                 run_id=run_id,
                 run_budget_usd=run_budget_usd,
+                target_model=target_model,
             )
             support_snapshots.extend(validation_snapshots)
             support_snapshots.extend(endpoint_snapshots)
@@ -480,16 +488,16 @@ def run_study(
                 run_budget_usd=run_budget_usd,
             )
         else:
-            gates = formal_gates(
+            gates = formal_gate_fn(
                 scored_trees=scored_trees,
                 usage=usage,
                 aggregate=aggregate,
             )
         protocol = {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "stage": stage,
-            "planning_model": PLANNING_MODEL_ID,
-            "target_and_validation_model": TARGET_MODEL_ID,
+            "planning_model": planning_model,
+            "target_and_validation_model": target_model,
             "reasoning": False,
             "temperature": depth.TEMPERATURE,
             "tree_seeds": list(tree_seeds),
