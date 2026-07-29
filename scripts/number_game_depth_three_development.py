@@ -334,6 +334,8 @@ def run_tree_depth_three(
     first_support_mode: str = FIRST_SUPPORT_GENERATED_ONLY,
     second_support_mode: str = SECOND_SUPPORT_GENERATED_ONLY,
     brier_tolerance: float = 0.0,
+    planning_adapter: Any | None = None,
+    target_adapter: Any | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     if first_support_mode not in FIRST_SUPPORT_MODES:
         raise ValueError(
@@ -343,30 +345,34 @@ def run_tree_depth_three(
         raise ValueError(
             f"unsupported second_support_mode {second_support_mode!r}"
         )
-    planning = _adapter(
-        model=planning_model,
-        run_id=(
-            shared_budget_run_id
-            or f"{run_id}-tree{tree_index}-planning"
-        ),
-        output_dir=output_dir,
-        request_seed=tree_seed,
-        concurrency=planning_concurrency,
-        projected_cost=projected_planning_cost,
-        run_budget_usd=run_budget_usd,
-    )
-    target = _adapter(
-        model=target_model,
-        run_id=(
-            shared_budget_run_id
-            or f"{run_id}-tree{tree_index}-target"
-        ),
-        output_dir=output_dir,
-        request_seed=target_seed,
-        concurrency=target_concurrency,
-        projected_cost=projected_target_cost,
-        run_budget_usd=run_budget_usd,
-    )
+    planning = planning_adapter
+    if planning is None:
+        planning = _adapter(
+            model=planning_model,
+            run_id=(
+                shared_budget_run_id
+                or f"{run_id}-tree{tree_index}-planning"
+            ),
+            output_dir=output_dir,
+            request_seed=tree_seed,
+            concurrency=planning_concurrency,
+            projected_cost=projected_planning_cost,
+            run_budget_usd=run_budget_usd,
+        )
+    target = target_adapter
+    if target is None:
+        target = _adapter(
+            model=target_model,
+            run_id=(
+                shared_budget_run_id
+                or f"{run_id}-tree{tree_index}-target"
+            ),
+            output_dir=output_dir,
+            request_seed=target_seed,
+            concurrency=target_concurrency,
+            projected_cost=projected_target_cost,
+            run_budget_usd=run_budget_usd,
+        )
     initial_response = planning.chat_complete_messages_batched_structured(
         [initial_messages()],
         temperature=TEMPERATURE,

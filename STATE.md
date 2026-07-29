@@ -2688,3 +2688,16 @@ paper-critical default;DeepSeek is sole cost challenger. A 32-tree paired
 efficacy protocol is frozen against Qwen's hash-bound canonical/validation
 bank before candidate efficacy:exact1568 calls,cap$.50,d3-myopic>=8%+CI<0+
 20 wins,and DeepSeek-minus-Qwen Brier upper CI<+.005 for replacement.
+2026-07-30: DeepSeek V4 Flash paired efficacy32 closes the replacement route.
+Exact32 trees/1568 accepted planner calls reuse Qwen's hash-bound33 canonical
+targets and8 Gemini validation supports/tree with0 target/validator provider
+calls. D3 Brier.102248 vs own myopic.106577:4.06%,
+CI[-.007847,-.000926],18/6/8 W/T/L;only the CI gate passes,missing frozen8%
+and20-win minima. Against paired Qwen d3.104564,DeepSeek is numerically better
+by-.0023155,CI[-.007104,+.002169],and passes the +.005 noninferiority margin,
+but this cannot override own-myopic/mechanics failures. Four trees have merged
+first-branch minima5/4/7/6<8;2 provider-error retries violate zero-error gate.
+All strict parse,initial,second-support,reasoning/forced,cost gates pass.
+Cost$.3496433702. Qwen3.7 Plus remains paper-critical/scaled default;DeepSeek
+is at most a cheap exploratory generator. Public RESULT SHAadd44efc,TREES
+SHA0b678c0d,private9ff345e6. No repair/rerun.

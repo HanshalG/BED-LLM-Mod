@@ -817,6 +817,39 @@
         {"pointer": "/myopic_policy_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
         {"pointer": "/myopic_policy_gates/depth_three_wins_at_least_twenty_trees", "equals": true}
       ]
+    },
+    {
+      "id": "number_game_deepseek_v4_flash_paired_efficacy32",
+      "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_deepseek_v4_flash_paired_efficacy32/number-game-deepseek-v4-flash-paired-efficacy32-20260729T230558Z/RESULT.json",
+        "sha256": "add44efc18dc72121fcffb264ec88836f75d9b36b6a251a9b3a880446c460330"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "mechanics_failed"},
+        {"pointer": "/decision", "equals": "close_deepseek_route"},
+        {"pointer": "/protocol/candidate_planning_model", "equals": "deepseek/deepseek-v4-flash"},
+        {"pointer": "/protocol/expected_candidate_provider_calls", "equals": 1568},
+        {"pointer": "/protocol/provider_target_generation_calls", "equals": 0},
+        {"pointer": "/protocol/provider_validation_generation_calls", "equals": 0},
+        {"pointer": "/usage/adapter_requests", "equals": 1568},
+        {"pointer": "/usage/provider_error_retries", "equals": 2.0},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/run_cost_usd", "equals": 0.3496433702, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/candidate_mean_brier", "equals": 0.10224831333330353, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.1065773916689009, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.040619105682810464, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.007847247492144134, -0.0009259833547199752], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/brier_tree_wins", "equals": 18},
+        {"pointer": "/intelligence_gates/depth_three_beats_own_myopic_by_eight_percent", "equals": false},
+        {"pointer": "/intelligence_gates/depth_three_vs_own_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/intelligence_gates/depth_three_wins_at_least_twenty_trees", "equals": false},
+        {"pointer": "/mechanics_gates/all_merged_first_branches_valid", "equals": false},
+        {"pointer": "/mechanics_gates/zero_provider_error_retries", "equals": false},
+        {"pointer": "/qwen_noninferiority/mean_candidate_minus_qwen_brier", "equals": -0.002315499990801383, "tolerance": 1e-12},
+        {"pointer": "/qwen_noninferiority/paired_tree_bootstrap_95pct", "equals": [-0.007103586154010388, 0.002169391522195176], "tolerance": 1e-12},
+        {"pointer": "/qwen_noninferiority/upper_ci_below_margin", "equals": true}
+      ]
     }
   ]
 }
