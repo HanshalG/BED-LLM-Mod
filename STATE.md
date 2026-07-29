@@ -2378,3 +2378,9 @@ both cohorts pass every descriptive check. Fixed/PTS/random gains4.493/
 6.468/8.276%,all CI<0;rho.305>.185. D3-d22.563% but CI[-.005719,
 +.000164],so monotonic depth remains null. Public RESULT SHA1fca68eb;
 model0/cost0. Paper/manifest add explicit retrospective qualifier.
+2026-07-29: Freeze retrospective Qwen first-link mechanism64 after endpoints
+open:for myopic/fixed-d3/crossfit-d2 roots,compare crossfit-d3 predicted risk
+advantage to same-tree exact-canonical per-root realized Brier advantage;
+report root changes,mean,W/T/L,Spearman on all+changed subsets and20k
+cohort-stratified bootstrap. Explicitly first link only,no online execution
+noise,no gates/status rescue,hash-bound same64 trees,model0/cost0.
