@@ -2,7 +2,11 @@
 
 Date: 2026-07-29
 
-**Status: all frozen corrected gates pass.**
+**Status: superseded by the stricter V3 raw-content correction.**
+
+V2 passes unchanged under V3, but V3 additionally excludes all tool-generated
+header text from dependency matching. See
+`LOGDX_AGENT_CHAIN_SOURCE_AUDIT_V3_CORRECTION_RESULT.md`.
 
 ## Correction Boundary
 

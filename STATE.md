@@ -1844,3 +1844,27 @@ All-case gain stays+.1738;corrected dependency-case gain is+.3434;all five
 dependency types remain. Public V2 AUDIT SHA dadc7012;V1 f7f7289f is preserved
 and superseded. LogDx remains admitted only for separately frozen exact10-call
 serving qualification;model0/cost0.
+2026-07-29: Freeze LogDx semantic BED exact10-call serving smoke after corrected
+source pass. Five hash-first development cases use released rtk-log context.
+GPT-5.4-Mini nonthinking seed37900/temp.7 generates6 semantic root-cause
+hypotheses+4 valid targeted grep actions/case;execute fixed Q1 on deterministic
+raw log. Gemini2.5-Flash nonthinking seed38000/temp0 then returns6 relative
+observation likelihoods+3 grep/view-line followups. Require exact10 HTTP/
+accepted,zero retries/reasoning/forced,all parses,unique6/4 supports,Q1 matches
+>=4/5,likelihood range>=20+3 values on>=4/5,all15 followups execute,corrected
+observation dependency>=4/5 with>=2 types,cost<=.30. No GT/evaluator/policy/
+confirmation access;projected$.12,no repair/model swap;pass unlocks only a
+separately frozen small first-link ranking test.
+2026-07-29: Serving fixture reveals a second pre-call LogDx audit boundary:
+V2 search-literal dependency scans entire tool response,so generated header
+words could count despite not coming from raw log. Freeze V3 before aggregate:
+preserve/supersede V2 dadc7012;same420 rows,scores,case averaging,prior-argument
+exclusion,and thresholds,but reduce prior observations to only numbered
+`^\\s*\\d+\\s*:` raw-log lines before dependency matching. Failure closes;
+pass updates the still-uncommitted exact10 serving binding. Model0/cost0.
+2026-07-29: LogDx V3 raw-content correction passes with metrics exactly equal
+to V2:35/420 matched,35 tool,29 multi,20 corrected dependency,14 dependency
+gain>=.10,all gain+.1738,dependency gain+.3434,five types. Therefore generated
+tool headers drove no case-level admission,but V3 SHA 7f6666a1 supersedes V2
+and becomes binding. Update still-uncommitted exact10 serving source hash;
+model0/cost0.
