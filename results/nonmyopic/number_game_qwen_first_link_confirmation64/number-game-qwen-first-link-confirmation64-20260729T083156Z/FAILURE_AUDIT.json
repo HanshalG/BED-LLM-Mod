@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "failed_closed_before_endpoint_scoring",
+  "run_id": "number-game-qwen-first-link-confirmation64-20260729T083156Z",
+  "failure": {
+    "error_type": "ValueError",
+    "error": "number-game hypotheses is not exact JSON: Unterminated string starting at: line 4 column 13 (char 75)",
+    "stage": "tree_37_second_step_branch_parse",
+    "attempted_tree_index_zero_based": 36,
+    "attempted_tree_seed": 60136,
+    "provider_finish_reason": "stop"
+  },
+  "checkpoint": {
+    "complete_tree_count": 36,
+    "planned_tree_count": 64,
+    "endpoint_scoring_started": false,
+    "first_link_metrics_computed": false,
+    "continuation_or_seed_replacement": false
+  },
+  "usage_from_run_log": {
+    "accepted_completion_events": 2137,
+    "qwen_qwen3_7_plus_events": 1813,
+    "gemini_2_5_flash_events": 324,
+    "reasoning_tokens": 0,
+    "length_finish_events": 0,
+    "cost_usd": 2.7237034
+  },
+  "artifacts": {
+    "failure_sha256": "3606024a5cff2a30eee96343c385f6cc142c300239d8be8f177470dc5c359893",
+    "private_checkpoint_sha256": "6c2106ae7a676d0dbd4a7eb8e9b34cea20775e1f8a763132f43476452a1dc2a8"
+  }
+}
