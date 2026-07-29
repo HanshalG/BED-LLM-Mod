@@ -2525,3 +2525,12 @@ all4 gates pass. Merged vs generated-only+2.43%,CI[-.00740,+.00159],
 LLM hypotheses add exact downstream value only when merged with compatible
 prior support. Retrospective/model0/$0,cannot rescue source status or make
 prospective7.11% claim. Public RESULT SHA77fa26cc.
+2026-07-29: Freeze fresh prospective pooled second-refresh confirmation32
+before seeds64000--64501. Same validated Qwen2-draw49-history planner,
+Gemini target+8 validation,retained update,exact33 endpoint;only analysis
+changes. Primary merged-vs-parent requires roots differ>=12,Brier gain>=2%,
+paired CI<0,W-L>=8. Co-required merged d3-myopic>=8%,CI<0,>=20 wins.
+Exact3424,retries<=96,0 reasoning/forced,salvage<=16,cap$5.25,start>=5.50;
+deployed supports initial>=24,retained first>=12/second>=8,validation>=16.
+Generated-only minima diagnostic,not deployed gate. Bootstrap20k seeds64500/
+64501. No continuation/replacement/third draw/repair/threshold/endpoint.
