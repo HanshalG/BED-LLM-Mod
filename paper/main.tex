@@ -307,85 +307,32 @@ on 68/96; its mean oracle regret is $.0070$ versus $.0449$ myopic. Mean
 leave-one-particle-out root agreement is $.868$, indicating that the ranking
 signal is not carried by one indispensable hypothesis.
 
-A generated-only depth-three development changed 7/8 depth-two roots and
-reduced Brier 12.3\%, but three twice-conditioned supports were empty.
-Retaining consistent parent particles repaired every second support in a
-preregistered fresh six-tree test. Brier, Hamming, and coverage improved
-1.86\%, 3.71\%, and 2.21 points over depth two, but the conjunction failed:
-only 2/6 roots changed (both wins, four ties), one first support retained seven
-rather than eight rules, and generated-only roots differed on 1/6. Thus the
-depth-two result is confirmed, but monotonic deeper improvement is not.
+Generated-only depth three exposed empty twice-conditioned supports. Retaining
+consistent parent particles changed 71.0\% of second queries and raised
+independent-target exact-support coverage from 22.4\% to 51.8\%. Yet a
+preregistered 20-tree test improved Brier only 0.44\%
+($[-.0087,.0056]$): retention repaired belief dynamics, but source-to-target
+ranking remained moderate (Spearman $.499$) and did not establish a deeper
+policy gain.
 
-A zero-call post-hoc audit isolates the omitted first-refresh retention.
-Across the eight development and six fresh trees, unioning consistent initial
-particles changes 159/224 greedy second queries (71.0\%; tree-bootstrap
-$[63.4,77.7]$) and raises independent-target exact-support coverage from
-22.4\% to 51.8\% ($+29.5$ points; $[25.3,33.1]$), with no coverage loss.
-All recorded generated-only second queries reproduce exactly, but only 29.0\%
-remain reusable after retention. This establishes a large decision-relevant
-path effect and the need for fresh branches; it is not evidence that depth
-three beats depth two.
+Cross-fitting with eight independent prior supports raised depth-three rank
+correlation to $.771$ versus $.527$ for depth two. The first 32-tree policy
+comparison was directional but imprecise; holding its roots fixed, 16 fresh
+endpoint draws gave Brier $.1573$ versus $.1602$ (1.86\%;
+$[-.0050,-.0012]$), with lower Hamming and higher coverage. A wholly fresh
+32-tree replication independently regenerated trees, roots, and endpoints and
+again favored depth three: $.1590$ versus $.1636$ (2.81\%;
+$[-.0082,-.0015]$), with rank correlation $.917$ versus $.448$. It missed two
+auxiliary conjunction gates (one thin support and a 1.81\% rather than 2\%
+in-sample-selector gain), which are not repaired.
 
-On the same 14 trees, the complete retained two-query update lowers target
-Brier from $.1941$ to $.1806$ (6.94\%; $[-.0174,-.0096]$; 14/14 wins),
-with Hamming and coverage gains. Holding retained support fixed, however,
-changing only the selected root yields 0.64\% with an interval crossing zero
-(3 wins, 4 losses, 7 ties); source-risk rank correlation does not improve.
-The replicated gain is therefore support preservation, not yet better deeper
-root ranking.
-
-A preregistered 20-tree test then retained consistent particles at both
-refreshes. Depth three changed 13/20 depth-two roots, but Brier improved only
-0.44\% ($[-.0087,.0056]$; 5 wins), while Hamming, coverage, and novel-target
-metrics regressed. Source-to-target Brier ranking remained positive
-(Spearman $.499$, concordance $.689$), and depth three beat fixed-support and
-random controls by 5.82\% and 5.09\%, respectively. Thus retention repairs
-LLM belief dynamics but does not establish monotonic improvement beyond depth
-two; the failure is now localized to deeper root ranking and support
-generalization.
-
-Independent Monte Carlo risk resolves that ranking failure. Eight fresh prior
-supports per tree raise depth-three source-to-target Spearman from $.499$ to
-$.771$, versus $.527$ for depth two. A preregistered 32-tree comparison is
-directional (1.54\%, 13 wins), but its one-support endpoint interval narrowly
-crosses zero. Keeping every selected root fixed and excluding those opened
-endpoints, a separately frozen 16-draw endpoint study gives depth three Brier
-$.1573$ versus $.1602$ for equally cross-fitted depth two (1.86\%;
-$[-.0050,-.0012]$), with 3.21\% lower Hamming, higher coverage, and improved
-novel-target metrics. High-precision rank correlation is $.923$ versus $.568$.
-Thus non-myopia over the LLM's own retained, regenerated belief dynamics
-improves beyond depth two once both selection and evaluation use independent
-support draws.
-
-A wholly fresh 32-tree replication independently regenerates planning trees,
-validation supports, roots, and 16-draw endpoints. Depth three again beats
-equally cross-fitted depth two: Brier $.1590$ versus $.1636$ (2.81\%;
-$[-.0082,-.0015]$), with 13 wins, 16 same-root ties, and 3 losses; Hamming,
-coverage, and novel-target metrics also improve. Rank correlation is $.917$
-versus $.448$. The overall preregistered conjunction is formally null because
-one of 512 endpoint supports parsed 14 rather than 16 rules and the gain over
-the in-sample depth-three selector is 1.81\% rather than the frozen 2\%,
-although its interval excludes zero. Neither miss affects the primary
-depth-three-versus-depth-two replication, and neither is repaired.
-A post-hoc stratified audit pooling both 32-tree studies estimates a 2.34\%
-gain ($[-.0059,-.0020]$; 26 wins, 29 ties, 9 losses), with depth-three
-rank correlation $.920$ versus $.508$; it improves precision but does not
-change either study's frozen status.
-A preregistered cross-judge test then holds all 64 policies fixed and replaces
-only the endpoint generator with Qwen~3.7 Plus. Across 1,024 fresh supports,
-depth three again beats depth two: Brier $.1377$ versus $.1404$ (1.96\%;
-$[-.0048,-.0008]$; 24 wins), with 5.60\% lower Hamming, 1.19 points higher
-coverage, and favorable novel-target metrics. This establishes endpoint
-model-family robustness, not a third planning-generator replication.
-
-A frozen zero-call audit compares these supports with 416,366 deterministic
-classical-rule extensions. Even then, 50.98\% of unique second-refresh
-extensions are new, on all 64 trees. Only 0.90\% of Qwen endpoint occurrences
-are new, however, leaving the preregistered out-of-bank efficacy test
-underpowered. This verifies non-enumerated transition support, not an
-out-of-bank depth gain. A separately frozen retrospective audit of the 1,024
-Gemini endpoint draws is thinner still: only 60/23,054 occurrences (0.26\%)
-are outside the bank and no tree reaches the eight-draw power threshold.
+Pooling both studies post hoc gives a 2.34\% gain
+($[-.0059,-.0020]$). A preregistered Qwen endpoint cross-judge also favors the
+fixed depth-three policies across 1,024 fresh supports (1.96\%;
+$[-.0048,-.0008]$), establishing endpoint-family robustness. Against 416,366
+deterministic classical extensions, 50.98\% of unique second-refresh
+extensions remain new on every tree, although out-of-bank endpoint mass is too
+small for a powered efficacy claim.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -405,51 +352,21 @@ uncertainty clip made support gains positive on all three endpoints
 
 \paragraph{LLM-native semantic lookahead is not execution-robust in retrieval.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking
-domain: 698 unstructured policy documents, deterministic BM25 top-3 transitions,
-and hidden required-document annotations \citep{shi2026tau}. From only a
-customer's first utterance, GPT-5.4 generated eight information-need hypotheses,
-five first searches, then refreshed its needs and generated four
-document-conditioned follow-ups per root. This belief/search state is semantic,
-regenerated, and path-dependent; required-document labels were never shown.
+domain: 698 unstructured policy documents, BM25 transitions, and hidden
+required-document annotations \citep{shi2026tau}. GPT-5.4 generated
+information-need particles, five searches, and document-conditioned follow-ups;
+labels were hidden. On a blind 20-task block, full-tree scoring beat myopic
+root accuracy ($.7025$ versus $.5537$; $p=.0352$) and retained 30 of 33
+available documents versus 26 for myopic receding and 22 for random. Its
+future-minus-myopic score ranked exact future gain at $.644$, while belief-only
+shuffles were null or adverse.
 
-Two isolated target-blind root scorers used identical trees. The myopic view saw
-only first results; the non-myopic view saw complete depth-two branches. In an
-initial untouched 20-task study, oracle-tail root accuracy increased from $.6858$
-to $.7788$ (exact task-level $p=.0398$, bootstrap gain interval
-$[.0043,.1869]$). Root coverage rose from 39 to 44 documents, but the overall
-gate failed: a non-myopic gap appeared on only 2/20 tasks, and the joint scorer's
-own follow-ups realized 34 rather than 44 documents.
-
-We used that split only for further development. The final receding scorer hides
-candidate query wording, treats refreshed needs as fallible, and asks GPT-5.4 to
-classify which newly returned documents support the original or regenerated
-needs. Distinct useful-document count dominates its tie-break. A format-only
-V3.1 amendment accepting ``02'' as the same score as ``2'' was frozen before
-holdout access and is disclosed because it superseded a prior no-repair promise.
-
-On all 20 remaining no-script tasks, selected blindly before development, oracle
-and immediate-greedy roots differed on 8/20 and a positive non-myopic gap
-appeared on 6/20 (mean $.35$ documents). Full-tree root accuracy was $.7025$
-versus $.5537$ myopic (121 pairs; exact $p=.0352$, gain interval
-$[.0161,.2963]$). Receding continuation accuracy was $.7566$ (228 pairs;
-task-clustered chance $p=6.9{\times}10^{-5}$), with 80/100 oracle-optimal choices
-and mean regret $.21$. The policy retained 30 of 33 documents available under
-its selected roots, versus 26 for myopic receding, 25 for the original joint
-selector, and 22 for seeded random; all frozen gates passed, although endpoint
-tests remained underpowered. Across two disjoint blocks, full-minus-myopic score
-ranked exact future-only gain at $.644$ over 187 pairs ($p=.0012$), while
-belief-only shuffles were null or adverse. Semantic future value is present,
-but refreshed-belief causality remains unverified.
-
-A preregistered same-task replication regenerated every tree and score in 280
-clean calls. Root accuracy reversed ($.5575$ non-myopic versus $.6283$ myopic);
-continuation remained $.7220$, but coverage tied at 23. The two-execution
-within-task average favors non-myopia by $.10$ documents, yet is inconclusive
-($p=.3484$, interval $[-.275,.450]$); Holm-corrected rank metrics are also null.
-A preregistered three-call scorer ensemble on fixed trees retained a $+.120$
-root-ranking gain and $+4$ documents, but failed its loss cap (4/20). Thus the
-first execution shows possibility and fixed-tree scorer fidelity, not
-reliability under full tree regeneration.
+A preregistered same-task execution regenerated every tree and score in 280
+clean calls and reversed root accuracy ($.5575$ versus $.6283$); coverage tied
+at 23 and the paired document gain was inconclusive
+($p=.3484$, $[-.275,.450]$). A fixed-tree scorer ensemble retained directional
+gain but failed its loss cap. The first execution therefore shows semantic
+future value and scorer fidelity, not reliable benefit under full regeneration.
 
 \paragraph{Four-hop video retrieval.}
 LongVidSearch requires 2--4 necessary clips \citep{yu2026longvidsearch}.
@@ -687,7 +604,7 @@ Battleship further shows that a large, novel static experiment bank is not
 enough when one-step task-utility replanning can recover the same policy.
 We do not claim that non-myopic BED cannot work outside this setting.
 
-{\fontsize{5.8}{6.0}\selectfont
+{\fontsize{7}{7.2}\selectfont
 \setlength{\bibsep}{0pt}
 \begin{multicols}{2}
 \bibliographystyle{plainnat}

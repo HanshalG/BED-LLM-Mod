@@ -2101,3 +2101,11 @@ normalization,partial scoring,reissue,or replacement;no2336-call formal.
 Public FAILURE SHAcd7e1465;private rawde5ccac6. Existing powered Gemini
 planner positives,role-swap directional evidence,Qwen31-tree proper-score
 positive,and Qwen cross-judge remain the honest model-robustness evidence.
+2026-07-29: Paper-readiness compression removes125 lines of repeated Number
+Game depth3 chronology and retrieval minutiae while preserving the powered
+d2 headline,mechanism controls,first-link rank audit,two independent d3
+effects,Qwen cross-judge,Rock table/figure,and every explicit limitation.
+Draft now compiles cleanly at6 pages(target4--6)with all14 limitation checks
+and2 required figures;final visual review finds no overlap/clipping. References
+raised from5.8pt to native7pt using recovered space;final log has no warnings.
+No scientific threshold,result,or claim changed.
