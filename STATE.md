@@ -2065,3 +2065,12 @@ extensions leave7. No threshold/prompt/seed/response repair or reissue.
 Public RESULT SHA931c796a;private raw b874699c. This is serving qualification,
 not efficacy evidence;close exact DeepSeek route and try only a distinct
 planner family under a separately frozen exact10 gate.
+2026-07-29: Freeze distinct Grok4.3 Number Game planner route before any
+response. Exact same strict prompt/schema/history mix and thresholds as
+DeepSeek null,but model x-ai/grok-4.3 and fresh seed44000. Exact10 must have
+10 HTTP/accepted,all parse,0 retry/provider/reasoning/forced,initial>=16,
+every conditioned>=8,cost<=.10;no efficacy. Passage authorizes one fresh
+32-tree cross-fitted d3-vs-d2 study with GPT-5.4-Mini independent endpoints,
+seeds45000+,exact2336,cap/start$7.50. Primary Brier/ranking/control gates
+unchanged from newly frozen third-family design;Hamming/coverage secondary.
+This is neither DeepSeek repair nor Qwen continuation.
