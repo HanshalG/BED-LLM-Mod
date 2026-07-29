@@ -1,0 +1,22 @@
+{
+  "development_or_later_opened": false,
+  "error": "initial worlds are not in frozen order",
+  "executable_endpoint_opened": false,
+  "interface_version": "icae-full-world-instrument-smoke-1",
+  "run_id": "icae-full-world-instrument-20260729T055207Z",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 1191,
+    "adapter_prompt_tokens": 546,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 1,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 1,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.01923
+  }
+}

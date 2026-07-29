@@ -2244,3 +2244,11 @@ Mini seed51500 evaluator;exact10 calls,projected$.25/cap$.50. Gates include
 ESS>=2,both branches changing>=4 questions,retention difference,realized
 match/update,duplicate endpoint,weighted coverage.20-.90,and per-world range
 >=.10. Record SHA is manifest-validated;no fresh cohort/executable endpoint.
+2026-07-29: ICAE full-world instrument V1(commit4e68219) failed closed after
+call1/$0.01923 with0 retry/provider/reasoning/forced. GPT-5.4 returned complete
+unique indices but cyclic array order:worlds1..7,0;questions1..5,0;probabilities
+sum100. Frozen ordered parser rejected;no likelihood,branch,controller,hidden,
+or executable endpoint opened. Public FAILURE SHAb968e350,private99042c27.
+V1 remains failed/unresumed. Authorize one prospective V2 on a different
+already-open mechanics task/fresh seeds where every explicitly indexed array
+is a keyed set canonicalized by index;scientific gates stay unchanged.
