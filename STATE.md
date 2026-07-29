@@ -1879,3 +1879,13 @@ recall/downstream evidence. No prompt/model/case/threshold repair or rerun.
 Public SERVING SHA bdbb3e51;private raw b3424740. LogDx source unlock remains
 positive,but this tested BED factorization is not qualified. OpenRouter live
 credits$180,usage$161.804313206,remaining$18.195686794;OatML0.
+2026-07-29: GuessWhat?! visual-semantic BED source audit passes all zero-call
+gates on official commit346b7de/test archive c26c08fb. Exact23115 rows and all
+targets annotated;6566 eligible games/5931 unique images survive successful
+human game,5--12 objects,>=4 QA,noncrowd target,valid boxes,and same-category
+ambiguity. Seed39000 freezes image-disjoint serving2/development20/holdout60/
+unused5849. Public manifest SHA027a7f49 omits target,human QA,outcome,and
+categories. Adaptation uses image+numbered boxes,LLM semantic question
+proposals,separate visual likelihoods,independent visual realized oracle,and
+exact hidden-object endpoint. Authorize only a separately preregistered exact
+10-call multimodal serving smoke;model0/cost0,development/holdout unopened.

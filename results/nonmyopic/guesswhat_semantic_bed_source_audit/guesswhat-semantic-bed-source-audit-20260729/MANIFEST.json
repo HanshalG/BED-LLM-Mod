@@ -1,0 +1,921 @@
+{
+  "all_gates_pass": true,
+  "data": {
+    "eligibility_error_counts": {
+      "insufficient_human_questions": 8117,
+      "no_same_category_ambiguity": 2684,
+      "not_successful": 3522,
+      "object_count_outside_range": 11419
+    },
+    "eligible_human_question_count_distribution": {
+      "4": 1818,
+      "5": 1584,
+      "6": 1059,
+      "7": 710,
+      "8": 455,
+      "9": 299,
+      "10": 198,
+      "11": 140,
+      "12": 92,
+      "13": 55,
+      "14": 39,
+      "15": 33,
+      "16": 26,
+      "17": 8,
+      "18": 12,
+      "19": 8,
+      "20": 3,
+      "21": 7,
+      "22": 7,
+      "23": 3,
+      "25": 5,
+      "26": 1,
+      "28": 1,
+      "36": 1,
+      "38": 1,
+      "49": 1
+    },
+    "eligible_object_count_distribution": {
+      "5": 778,
+      "6": 787,
+      "7": 1098,
+      "8": 1002,
+      "9": 857,
+      "10": 759,
+      "11": 684,
+      "12": 601
+    },
+    "eligible_rows": 6566,
+    "eligible_unique_images": 5931,
+    "target_present_count": 23115,
+    "total_rows": 23115
+  },
+  "gates": {
+    "all_released_targets_are_annotated_objects": true,
+    "at_least_five_thousand_eligible_unique_images": true,
+    "candidate_payload_hides_target_and_human_answers": true,
+    "exact_released_row_count": true,
+    "public_manifest_excludes_target_and_human_answers": true,
+    "selected_rows_preserve_eligibility": true,
+    "source_hashes_match": true,
+    "split_dialogues_and_images_are_disjoint": true,
+    "split_has_exact_sizes": true
+  },
+  "protocol": {
+    "adaptation": "Visual-semantic Bayesian object identification using the released hidden target and annotated candidate objects.",
+    "candidate_observation": {
+      "hidden": [
+        "released target object id",
+        "released human question-answer dialogue",
+        "released game outcome",
+        "candidate object category annotations"
+      ],
+      "visible": [
+        "source image",
+        "numbered candidate bounding boxes",
+        "past policy questions and realized answers"
+      ]
+    },
+    "cost_usd": 0.0,
+    "interface_version": "guesswhat-semantic-bed-source-audit-1",
+    "model_calls": 0,
+    "split_seed": 39000
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "346b7de65d5f18fb8c7d357b7c743d02be429d8a",
+    "data_sha256": "c26c08fbb860786f25ab6940dab135c4f61a6404d0c89bbf5b7a21716306548c",
+    "data_url": "https://florian-strub.com/guesswhat.test.jsonl.gz",
+    "repository": "https://github.com/GuessWhatGame/guesswhat"
+  },
+  "splits": {
+    "development": [
+      {
+        "dialogue_id": "132408",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000256359.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000256359.jpg",
+        "object_count": 8,
+        "picture_id": "256359",
+        "row_sha256": "1c6b44fce1ac97e002569994c9f36edfe0e2371a1d71c2a0079af56f87271d74",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "204022",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000266676.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000266676.jpg",
+        "object_count": 9,
+        "picture_id": "266676",
+        "row_sha256": "4703da40631f36f590f3529a320ae997c0ebd6a9064ab2417d34bb20ed751c36",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "182388",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000529629.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000529629.jpg",
+        "object_count": 7,
+        "picture_id": "529629",
+        "row_sha256": "a7f2c53cb7528e0c6deb8021be369193b353f3b9b2b54f6d2cd987b4e1179efa",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "106800",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000416718.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000416718.jpg",
+        "object_count": 12,
+        "picture_id": "416718",
+        "row_sha256": "404c21cdc24678b8658410eb0d911ed0a4643161eba858495661d3a10202d7f1",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "70333",
+        "human_question_count": 6,
+        "image_file_name": "COCO_val2014_000000025972.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000025972.jpg",
+        "object_count": 11,
+        "picture_id": "25972",
+        "row_sha256": "d574e600e8892a5729fa69d57d3e28f0130962ff868511f7ce97733706481e62",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "131871",
+        "human_question_count": 15,
+        "image_file_name": "COCO_train2014_000000470189.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000470189.jpg",
+        "object_count": 12,
+        "picture_id": "470189",
+        "row_sha256": "b34bebea6b1b360b72f09c85a90ac230084dc253ca58c72ddcd4ab3f22b094df",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "46266",
+        "human_question_count": 16,
+        "image_file_name": "COCO_val2014_000000526321.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000526321.jpg",
+        "object_count": 9,
+        "picture_id": "526321",
+        "row_sha256": "908db2a276aefa8e1a852a61a1ff9c98ad0d36ad8761eb537f649f68fc01fca2",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "146534",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000460208.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000460208.jpg",
+        "object_count": 8,
+        "picture_id": "460208",
+        "row_sha256": "351e9884cdb8dcb9a5594aa5080e83d571db75aa8f7d2be8ade9605c5f949516",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "193104",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000034680.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000034680.jpg",
+        "object_count": 8,
+        "picture_id": "34680",
+        "row_sha256": "65f704b83306897c80774397d812f92f12a89a64a0c56abcfb3d78c8c9dfff94",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "218177",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000031765.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000031765.jpg",
+        "object_count": 10,
+        "picture_id": "31765",
+        "row_sha256": "6ae3d81f7938b3a159864bee0f17c7faf4d7c6cfa8c7d8c3dc295b3b1877f2e1",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "54156",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000432627.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000432627.jpg",
+        "object_count": 7,
+        "picture_id": "432627",
+        "row_sha256": "546f3ff7e69dd5021f372df4c6b8b0ac77c2ce61078f2b5322773e1451b967ca",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "81059",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000507501.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000507501.jpg",
+        "object_count": 5,
+        "picture_id": "507501",
+        "row_sha256": "7916017e255e15de7123a1a9833999696d5f426fb6c31db2076f91ae629b163a",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "113431",
+        "human_question_count": 6,
+        "image_file_name": "COCO_val2014_000000348083.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000348083.jpg",
+        "object_count": 11,
+        "picture_id": "348083",
+        "row_sha256": "d9b53b2ab3992c02c2c99d1e276fdbc744305900fb2e6a22092797ce44c3f5f7",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "125579",
+        "human_question_count": 8,
+        "image_file_name": "COCO_val2014_000000445267.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000445267.jpg",
+        "object_count": 5,
+        "picture_id": "445267",
+        "row_sha256": "526228caace31f56fa97a0aef6a0b9b2fe3875781124f74bc8a345aa06eb74a5",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "190274",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000515638.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000515638.jpg",
+        "object_count": 9,
+        "picture_id": "515638",
+        "row_sha256": "46a5804f27bf0f3cb8b9a86ccf9fe81b841c2e64f970eb62ebf8da9a744411f7",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "191050",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000504211.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000504211.jpg",
+        "object_count": 5,
+        "picture_id": "504211",
+        "row_sha256": "b209b81e3b6b76e93ffc5e55c413f5e385a90c1ddbfc59de6c32ec7326516f89",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "134563",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000109145.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000109145.jpg",
+        "object_count": 12,
+        "picture_id": "109145",
+        "row_sha256": "0f72bd51f213ab3f36586788ab623c5471aefb8a3285a14047b5ff3378645af0",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "135967",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000233748.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000233748.jpg",
+        "object_count": 11,
+        "picture_id": "233748",
+        "row_sha256": "20aa642a8b949220ad4300f1fd31b4b02f1714c5a76630527d1bfc87b0151125",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "72378",
+        "human_question_count": 9,
+        "image_file_name": "COCO_train2014_000000053088.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000053088.jpg",
+        "object_count": 10,
+        "picture_id": "53088",
+        "row_sha256": "3e660de35bcf58775c72b5c4a18848cedd8edbb1640119a16b041201706c08a4",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "81721",
+        "human_question_count": 4,
+        "image_file_name": "COCO_val2014_000000415530.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000415530.jpg",
+        "object_count": 12,
+        "picture_id": "415530",
+        "row_sha256": "ef2ddef761047de7c5cc7c7ab6722ddc7796b0034e275e6395392a158d553d82",
+        "same_category_group_count": 3
+      }
+    ],
+    "holdout": [
+      {
+        "dialogue_id": "120405",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000506803.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000506803.jpg",
+        "object_count": 7,
+        "picture_id": "506803",
+        "row_sha256": "02eda8646a06d56d86dbdab0d1887d7559c5866fe30a663efc5b6c23baeed4f1",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "86348",
+        "human_question_count": 8,
+        "image_file_name": "COCO_train2014_000000308040.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000308040.jpg",
+        "object_count": 6,
+        "picture_id": "308040",
+        "row_sha256": "151ddc664e685f72aee34af99516b6da9c3125f2e96266d70251758a0223a22b",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "86015",
+        "human_question_count": 14,
+        "image_file_name": "COCO_val2014_000000459721.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000459721.jpg",
+        "object_count": 8,
+        "picture_id": "459721",
+        "row_sha256": "74db963482199c71acb4bf0d3a0a9b7b7d3fc8cb3246d888218641b728e9e6f3",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "70504",
+        "human_question_count": 10,
+        "image_file_name": "COCO_train2014_000000104756.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000104756.jpg",
+        "object_count": 7,
+        "picture_id": "104756",
+        "row_sha256": "6d5d2364c12a965dd4df34ebc4b86ada0d88132933593bd12e037b161c9417d6",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "116428",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000581218.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000581218.jpg",
+        "object_count": 9,
+        "picture_id": "581218",
+        "row_sha256": "5a255b1452ab35071dfcab89b0d395833053f50edfcfe151b997910c0934797c",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "157502",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000233804.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000233804.jpg",
+        "object_count": 5,
+        "picture_id": "233804",
+        "row_sha256": "8d2cf2b47025bbba24031321772a4302228bbb54e3c495e57105ee690c448064",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "163513",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000352228.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000352228.jpg",
+        "object_count": 5,
+        "picture_id": "352228",
+        "row_sha256": "cb5bb6937561c410c7bbeadef88d3b95bb93127690c7c3263c516bbcf63fa5df",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "136979",
+        "human_question_count": 8,
+        "image_file_name": "COCO_train2014_000000439439.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000439439.jpg",
+        "object_count": 11,
+        "picture_id": "439439",
+        "row_sha256": "d3953129c74a6c42da8d2e5156ba60af75b60b9ad64212bd068106ca78075639",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "93190",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000484385.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000484385.jpg",
+        "object_count": 5,
+        "picture_id": "484385",
+        "row_sha256": "f0b4dc32cf22ee60e390ffaab42ed76ad748103438248d97b8d402ba7c983a6b",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "6352",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000025273.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000025273.jpg",
+        "object_count": 5,
+        "picture_id": "25273",
+        "row_sha256": "beb1556fffa70329050cf7d9705f54f17086fbc2d782230ef5d5863f73efc094",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "34409",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000397813.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000397813.jpg",
+        "object_count": 12,
+        "picture_id": "397813",
+        "row_sha256": "7444dcc8edb46e0b7cef1a70ab58fc1587ea1d1379153f189a7bb2ea8bc5f3f0",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "109682",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000433204.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000433204.jpg",
+        "object_count": 8,
+        "picture_id": "433204",
+        "row_sha256": "8c56051dfcb3a81909c555006a9368b553aedc806eba5818a0e4e8c824e3bdd1",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "111065",
+        "human_question_count": 8,
+        "image_file_name": "COCO_train2014_000000308468.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000308468.jpg",
+        "object_count": 9,
+        "picture_id": "308468",
+        "row_sha256": "8514516710875ab2adf1d265b99c429a7b2034740e4fd8dbede3a2ea696def76",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "130187",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000205513.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000205513.jpg",
+        "object_count": 5,
+        "picture_id": "205513",
+        "row_sha256": "3f472b7cdf2dbb9a92617912f6a2b34db3a6e1a9674ab0a5d04fd3f471ff28c3",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "103893",
+        "human_question_count": 15,
+        "image_file_name": "COCO_train2014_000000512625.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000512625.jpg",
+        "object_count": 7,
+        "picture_id": "512625",
+        "row_sha256": "14bd8379aec4dbecf0aadcf54e90f5a4a381ec4ddb1b1d999f8075ae545f307e",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "188053",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000190381.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000190381.jpg",
+        "object_count": 5,
+        "picture_id": "190381",
+        "row_sha256": "ab7f1d9ca6b64b4d90f75229c12218ad282232bff34036979071c0fd2415f24c",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "92779",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000297517.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000297517.jpg",
+        "object_count": 10,
+        "picture_id": "297517",
+        "row_sha256": "a65411e4e5fa07ae2c53cbbdfcba91e6337cd82daa7f752f7368b94367fdc6be",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "138983",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000377583.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000377583.jpg",
+        "object_count": 11,
+        "picture_id": "377583",
+        "row_sha256": "9e66467202c9c81cd9431548ac332777b6bd3eeddf997a8bc72833db09968787",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "54747",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000132793.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000132793.jpg",
+        "object_count": 10,
+        "picture_id": "132793",
+        "row_sha256": "bae5586729abb913f0144d717d2795fc52b5cfff2d995c08166294dc38064544",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "178985",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000416746.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000416746.jpg",
+        "object_count": 8,
+        "picture_id": "416746",
+        "row_sha256": "755288bfce3646750626b0c0c50f8508d457f9b6f079d9e2c04c0e34e9f0b2e8",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "150766",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000093232.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000093232.jpg",
+        "object_count": 10,
+        "picture_id": "93232",
+        "row_sha256": "5d3dcfe05a1ccebe42a1c7666e97c8d0a39654a42bacc26206dc68d82b6d6ffc",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "119320",
+        "human_question_count": 4,
+        "image_file_name": "COCO_val2014_000000491851.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000491851.jpg",
+        "object_count": 7,
+        "picture_id": "491851",
+        "row_sha256": "2fb7cf53ef72c3c4c2347d6cb1fee6d8c22553cf5838482b8af6ec158f8ccabc",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "174156",
+        "human_question_count": 9,
+        "image_file_name": "COCO_train2014_000000147122.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000147122.jpg",
+        "object_count": 12,
+        "picture_id": "147122",
+        "row_sha256": "5fd9b4f18a1a554eba57ac580230471c9734e9031baff9673dd8347c55f7127c",
+        "same_category_group_count": 4
+      },
+      {
+        "dialogue_id": "157849",
+        "human_question_count": 11,
+        "image_file_name": "COCO_train2014_000000321517.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000321517.jpg",
+        "object_count": 5,
+        "picture_id": "321517",
+        "row_sha256": "499737269a563d2dea2bdecd9732bf0e0c6d36bbfbff202e5983791d41737f3b",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "121199",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000059947.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000059947.jpg",
+        "object_count": 12,
+        "picture_id": "59947",
+        "row_sha256": "45a5bbe40a22c2a94f58846781b6c5969dd7475cd3373b33a9497cc655f269a9",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "122373",
+        "human_question_count": 7,
+        "image_file_name": "COCO_val2014_000000487685.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000487685.jpg",
+        "object_count": 12,
+        "picture_id": "487685",
+        "row_sha256": "bbd4c9bd1cb2fc2829f420d5335f9f86308ffebb3928a0a636ddd85245b7fa78",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "184844",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000345951.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000345951.jpg",
+        "object_count": 5,
+        "picture_id": "345951",
+        "row_sha256": "1c103540032deb6aaeea77dbafe8ca8b1595c1c9b430266e1a950772e1a195d5",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "189704",
+        "human_question_count": 8,
+        "image_file_name": "COCO_train2014_000000403986.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000403986.jpg",
+        "object_count": 11,
+        "picture_id": "403986",
+        "row_sha256": "a15660bbaa097b4be289efe618cb431c50cd8042b2e824c0a30c1cdc00918066",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "90791",
+        "human_question_count": 6,
+        "image_file_name": "COCO_val2014_000000162887.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000162887.jpg",
+        "object_count": 9,
+        "picture_id": "162887",
+        "row_sha256": "9c079d100442b4d88a6b5faefd98a1a556da360d70af3132ac471c92ef9bd24c",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "165899",
+        "human_question_count": 4,
+        "image_file_name": "COCO_val2014_000000210522.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000210522.jpg",
+        "object_count": 12,
+        "picture_id": "210522",
+        "row_sha256": "5ef8f0c53b14acd637eaac42b8d3004b752e4d6d4c47fab83114582b9438a3e5",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "126849",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000524925.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000524925.jpg",
+        "object_count": 6,
+        "picture_id": "524925",
+        "row_sha256": "56d982d054d137207ac194455248a583958a92c8b23d94bcf709fba93e78b595",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "60003",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000216715.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000216715.jpg",
+        "object_count": 10,
+        "picture_id": "216715",
+        "row_sha256": "0560205bda7e1e9aa7af451ccbe56a234d08ac8a04d5204dc7321182009674f7",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "72637",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000091408.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000091408.jpg",
+        "object_count": 8,
+        "picture_id": "91408",
+        "row_sha256": "62ae87bdf9a8cee18fe2172e37b7b5f9be7db236d59d6154f72f2e01d497a10a",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "174681",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000110484.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000110484.jpg",
+        "object_count": 8,
+        "picture_id": "110484",
+        "row_sha256": "83646e8fefbe22cd7bfeccf8e574ecddd3097178c54c6721914ce6a530fd7168",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "142979",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000002281.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000002281.jpg",
+        "object_count": 12,
+        "picture_id": "2281",
+        "row_sha256": "b47fe9d95a1905388d5831143bed571ca0076d4827b8a4a6146402ebd9cbf805",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "85134",
+        "human_question_count": 8,
+        "image_file_name": "COCO_val2014_000000425280.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000425280.jpg",
+        "object_count": 6,
+        "picture_id": "425280",
+        "row_sha256": "863db7eb250c590dc9e7d09a5245e3792705684168717514ad5b05fed9e3e94a",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "184144",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000241410.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000241410.jpg",
+        "object_count": 8,
+        "picture_id": "241410",
+        "row_sha256": "6b84018e4f85e2536c91bb43ed13728a3b28c66cc95b56012d12a3c7a73c6a84",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "191794",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000357435.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000357435.jpg",
+        "object_count": 10,
+        "picture_id": "357435",
+        "row_sha256": "908fc8e85a0b6ef86e802695d7d88674ae7efdb018a4323408c5f4c8cb736826",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "181731",
+        "human_question_count": 9,
+        "image_file_name": "COCO_train2014_000000126161.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000126161.jpg",
+        "object_count": 11,
+        "picture_id": "126161",
+        "row_sha256": "9b4a16b03b4b7baa1121f9f441681e2468459f7b1309c98ef7b6b323d48b626e",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "129948",
+        "human_question_count": 4,
+        "image_file_name": "COCO_val2014_000000244737.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000244737.jpg",
+        "object_count": 12,
+        "picture_id": "244737",
+        "row_sha256": "cc1824cd24af51ede6984862c12bedf7f200bd7dd09c35f41807c4ee064f7da4",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "172338",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000534440.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000534440.jpg",
+        "object_count": 6,
+        "picture_id": "534440",
+        "row_sha256": "776f938c48f07137f725194c9b5c3c6e5234904b19ec3484ef15dbeb25d1ba14",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "61412",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000316708.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000316708.jpg",
+        "object_count": 11,
+        "picture_id": "316708",
+        "row_sha256": "5fc77ed257440f1fbacc848143881a5d1d845c2bb1968fc2899f060852283b61",
+        "same_category_group_count": 4
+      },
+      {
+        "dialogue_id": "139670",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000027539.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000027539.jpg",
+        "object_count": 12,
+        "picture_id": "27539",
+        "row_sha256": "e8545541dc12b40db3d8b289e2edf3b853dad60d35eec9e9c2edbff9fe636232",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "101638",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000517251.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000517251.jpg",
+        "object_count": 9,
+        "picture_id": "517251",
+        "row_sha256": "57b0864dd6ba9594e337a2f1954fb18a265f447dcb4398812cbff89cb0333161",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "97334",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000155951.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000155951.jpg",
+        "object_count": 10,
+        "picture_id": "155951",
+        "row_sha256": "00b32714911dd1da0ebeb37b618962337783da05ff23a0ca63dd0774b90ce7b5",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "217778",
+        "human_question_count": 6,
+        "image_file_name": "COCO_val2014_000000489879.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000489879.jpg",
+        "object_count": 7,
+        "picture_id": "489879",
+        "row_sha256": "fc006b60d75ad16c7dea7fae688923240603123bf1e44955affbfdb21a8b3b3d",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "187038",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000479629.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000479629.jpg",
+        "object_count": 12,
+        "picture_id": "479629",
+        "row_sha256": "4ba0d5d9a5956ac0c2d8291a1844c6251e3dd0bd66eaef3348b911e3ed492fb1",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "170860",
+        "human_question_count": 11,
+        "image_file_name": "COCO_train2014_000000074555.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000074555.jpg",
+        "object_count": 6,
+        "picture_id": "74555",
+        "row_sha256": "37c166556bc181dd33792222ba468281ae83b19814f878c4f1ab42cb968b19c2",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "163007",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000396362.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000396362.jpg",
+        "object_count": 10,
+        "picture_id": "396362",
+        "row_sha256": "e369ebd49eba9cd9e910de93a36acbaffd9c4935ed7bfda1dfd5684c96f36526",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "45124",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000010817.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000010817.jpg",
+        "object_count": 6,
+        "picture_id": "10817",
+        "row_sha256": "b4e0e77c455022352bcfc859483d5c1ab4a87723952b9701e8728ea386fb9aa7",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "95224",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000381192.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000381192.jpg",
+        "object_count": 10,
+        "picture_id": "381192",
+        "row_sha256": "3f5a78bdee05edb7e0ea755ecd9100f90126761f872ac4d173ae767ab2a0853a",
+        "same_category_group_count": 3
+      },
+      {
+        "dialogue_id": "176933",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000346904.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000346904.jpg",
+        "object_count": 7,
+        "picture_id": "346904",
+        "row_sha256": "2d09ee54f35531095d6200743d6925582deaf8bad896804a5218e01d9ccfc888",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "198750",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000296631.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000296631.jpg",
+        "object_count": 12,
+        "picture_id": "296631",
+        "row_sha256": "e07f4b3c0c0f02953b5a1d5aba6b4f8447d80f66061cbcd6cfc5563c4ff3fd40",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "138559",
+        "human_question_count": 4,
+        "image_file_name": "COCO_val2014_000000524681.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000524681.jpg",
+        "object_count": 8,
+        "picture_id": "524681",
+        "row_sha256": "20c14a68d06a0704a3d574159ca87f79adf70120ff69a863c9b47797c14bf7de",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "56844",
+        "human_question_count": 5,
+        "image_file_name": "COCO_val2014_000000221067.jpg",
+        "image_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000221067.jpg",
+        "object_count": 8,
+        "picture_id": "221067",
+        "row_sha256": "0f072b3bc9f71a77d7a6fe38e85c16d0e02db537d80a4fe32ae56c2613c9d04a",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "49461",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000324018.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000324018.jpg",
+        "object_count": 12,
+        "picture_id": "324018",
+        "row_sha256": "0d0193783391089f35a2067960a6fc19beafd4910b4b30b681d6fb4ab6b678bf",
+        "same_category_group_count": 4
+      },
+      {
+        "dialogue_id": "203986",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000298224.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000298224.jpg",
+        "object_count": 7,
+        "picture_id": "298224",
+        "row_sha256": "691c1637419bed27b357dcb9dc7205acbe5f8e5d9562f90fac770893d00c5148",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "218741",
+        "human_question_count": 7,
+        "image_file_name": "COCO_train2014_000000000384.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000000384.jpg",
+        "object_count": 10,
+        "picture_id": "384",
+        "row_sha256": "7b344edc6355664551169c9df1115101f32000713934df6bececc6abfd3e443f",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "110611",
+        "human_question_count": 4,
+        "image_file_name": "COCO_train2014_000000375043.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000375043.jpg",
+        "object_count": 8,
+        "picture_id": "375043",
+        "row_sha256": "ee47b341afaca055b7be077fbe6046ffc8d670e90dca04af8a80e9368b909d75",
+        "same_category_group_count": 2
+      },
+      {
+        "dialogue_id": "171614",
+        "human_question_count": 8,
+        "image_file_name": "COCO_train2014_000000027776.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000027776.jpg",
+        "object_count": 6,
+        "picture_id": "27776",
+        "row_sha256": "971c309eedc63621c28f5742e4bd579defc52160946f58ffea1919455f1a4a91",
+        "same_category_group_count": 1
+      }
+    ],
+    "serving_smoke": [
+      {
+        "dialogue_id": "169059",
+        "human_question_count": 5,
+        "image_file_name": "COCO_train2014_000000257339.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000257339.jpg",
+        "object_count": 7,
+        "picture_id": "257339",
+        "row_sha256": "b43ec0f60deb567026bae6000f3f13c5a2bd4352519a1b57b0d1e8dc5a35773e",
+        "same_category_group_count": 1
+      },
+      {
+        "dialogue_id": "202643",
+        "human_question_count": 6,
+        "image_file_name": "COCO_train2014_000000215592.jpg",
+        "image_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000215592.jpg",
+        "object_count": 6,
+        "picture_id": "215592",
+        "row_sha256": "4f1548a7de648b34e4c100cd66ea22abbef885359ed6130eb21e1b114d93cc99",
+        "same_category_group_count": 1
+      }
+    ],
+    "unused_count": 5849
+  },
+  "status": "pass"
+}
