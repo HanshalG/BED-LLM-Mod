@@ -1730,3 +1730,14 @@ grammar-novel powered Qwen endpoints,and fixed-root d3 beating d2 there by
 >=1% Brier with tree CI<0,>=20 wins,no Hamming/coverage regression,and both
 source blocks directional. No calls/cost,grammar repair,root reselection,or
 threshold change;paid follow-up only after the full conjunction.
+2026-07-29: Classical-grammar audit is frozen-inconclusive at endpoint power
+but gives strong direct LLM-support evidence. Bank has416366 unique extensions
+(SHA6e2a523d). GPTmini generated-second supports are20.17% grammar-novel by
+occurrence and50.98% by unique extension(2981/5847),with novel support on64/64
+trees and32/32 per source;all support gates pass. Qwen endpoints are only
+208/23227=.8955% grammar-novel,34 unique;nonempty draws/tree0--6,so0/64 meet
+the frozen8-draw threshold and all endpoint-power gates fail. Efficacy stays
+unopened:do not pool sparse draws,narrow grammar,or report underpowered policy
+scores. Calls/cost0. This shows path-conditioned LLM support escapes a broad
+classical closure,but does not prove the d3 gain specifically on those targets;
+no paid follow-up is authorized by this route.
