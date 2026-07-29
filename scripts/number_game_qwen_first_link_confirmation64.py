@@ -20,7 +20,7 @@ from scripts import number_game_qwen_external_canonical_confirmation as engine
 from scripts.number_game_full_retention_depth_three import (
     openrouter_remaining_credit,
 )
-from scripts.number_game_qwen_first_link_serving_smoke import (
+from scripts.number_game_qwen_first_link_serving_smoke_v2 import (
     INTERFACE_VERSION as SMOKE_INTERFACE_VERSION,
     MODEL_ID,
 )
