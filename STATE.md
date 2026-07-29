@@ -2232,3 +2232,15 @@ no development/confirmation/retained or executable endpoint opened. Do not
 rerun/tune Ruby@023 or relax gates;next route needs selective-mass or
 executable particles. Authenticated balance$15.392823143;reported$40 top-up
 still absent;four-day budget/no reserve applies once visible;OatML0.
+2026-07-29: Distinct ICAE selective full-world development instrument frozen
+before calls. It adapts the coherent-world representation previously used in
+Pi-Bench to ICAE's informative unmatched-question fallback:8 competing
+probability-weighted worlds x6 atomic clauses,6 questions,8x6 LLM semantic
+likelihoods,positive/fallback regeneration,set-valued exact controller,and
+per-world rather than union hidden coverage. This directly targets V2's
+broad-support saturation while keeping the LLM load-bearing. Public mechanics
+eligibility+seed51300 select already-open Go@185;GPT-5.4 seed51400 planner,
+Mini seed51500 evaluator;exact10 calls,projected$.25/cap$.50. Gates include
+ESS>=2,both branches changing>=4 questions,retention difference,realized
+match/update,duplicate endpoint,weighted coverage.20-.90,and per-world range
+>=.10. Record SHA is manifest-validated;no fresh cohort/executable endpoint.
