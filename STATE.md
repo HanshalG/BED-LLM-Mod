@@ -2612,3 +2612,10 @@ validation>=16. Primary dynamic-vs-fixed roots differ>=24,gain>=3%,CI<0,
 wins>=16;co-required d3-myopic>=8%,CI<0,wins>=20. Only estimator change is
 8->16 validation draws;semantic generator unchanged. No continuation/repair/
 third draw/weight/threshold/endpoint/model change.
+2026-07-29: Fresh dynamic-vs-fixed exact10 serving smoke passes all frozen
+gates and authorizes confirmation subject to start balance. Exact10/10
+accepted+HTTP,all strict JSON,0 retry/provider/reasoning/forced/salvage,
+$.01071296. Second-draw novel contributions5/14/8/16/4;pools27/33/25/29/13,
+merged first37/33,second44/16. Public RESULT SHAaa89d044,privatefd846ad7.
+No efficacy target/endpoint used. Bind confirmation runner to this artifact;
+do not launch below frozen$5.50 provider-visible balance.

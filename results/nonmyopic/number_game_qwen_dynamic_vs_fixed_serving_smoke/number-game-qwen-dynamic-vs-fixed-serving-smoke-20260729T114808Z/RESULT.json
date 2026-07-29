@@ -1,0 +1,367 @@
+{
+  "diagnostics": [
+    {
+      "codec_mode": "pooled_independent_draws",
+      "draw_diagnostics": [
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 1,
+            "inconsistent": 0,
+            "invalid_expression": 1,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 22
+        },
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 3,
+            "inconsistent": 0,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 21
+        }
+      ],
+      "draw_novel_contributions": [
+        22,
+        5
+      ],
+      "draw_valid_counts": [
+        22,
+        21
+      ],
+      "pool_size": 2,
+      "raw_count": 48,
+      "valid_unique_count": 27
+    },
+    {
+      "codec_mode": "pooled_independent_draws",
+      "draw_diagnostics": [
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 3,
+            "inconsistent": 2,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 19
+        },
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 4,
+            "inconsistent": 2,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 18
+        }
+      ],
+      "draw_novel_contributions": [
+        19,
+        14
+      ],
+      "draw_valid_counts": [
+        19,
+        18
+      ],
+      "pool_size": 2,
+      "raw_count": 48,
+      "valid_unique_count": 33
+    },
+    {
+      "codec_mode": "pooled_independent_draws",
+      "draw_diagnostics": [
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 0,
+            "inconsistent": 7,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 17
+        },
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 0,
+            "inconsistent": 4,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 20
+        }
+      ],
+      "draw_novel_contributions": [
+        17,
+        8
+      ],
+      "draw_valid_counts": [
+        17,
+        20
+      ],
+      "pool_size": 2,
+      "raw_count": 48,
+      "valid_unique_count": 25
+    },
+    {
+      "codec_mode": "pooled_independent_draws",
+      "draw_diagnostics": [
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 8,
+            "inconsistent": 3,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 13
+        },
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 0,
+            "inconsistent": 0,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 24
+        }
+      ],
+      "draw_novel_contributions": [
+        13,
+        16
+      ],
+      "draw_valid_counts": [
+        13,
+        24
+      ],
+      "pool_size": 2,
+      "raw_count": 48,
+      "valid_unique_count": 29
+    },
+    {
+      "codec_mode": "pooled_independent_draws",
+      "draw_diagnostics": [
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 12,
+            "inconsistent": 3,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 9
+        },
+        {
+          "codec_mode": "strict_json",
+          "complete_item_count": 24,
+          "expected_item_count": 24,
+          "raw_count": 24,
+          "rejected": {
+            "duplicate_extension": 12,
+            "inconsistent": 3,
+            "invalid_expression": 0,
+            "invalid_name": 0,
+            "missing_or_incomplete": 0,
+            "wrong_fields": 0
+          },
+          "valid_unique_count": 9
+        }
+      ],
+      "draw_novel_contributions": [
+        9,
+        4
+      ],
+      "draw_valid_counts": [
+        9,
+        9
+      ],
+      "pool_size": 2,
+      "raw_count": 48,
+      "valid_unique_count": 13
+    }
+  ],
+  "draw_novel_contributions": [
+    [
+      22,
+      5
+    ],
+    [
+      19,
+      14
+    ],
+    [
+      17,
+      8
+    ],
+    [
+      13,
+      16
+    ],
+    [
+      9,
+      4
+    ]
+  ],
+  "draw_valid_counts": [
+    [
+      22,
+      21
+    ],
+    [
+      19,
+      18
+    ],
+    [
+      17,
+      20
+    ],
+    [
+      13,
+      24
+    ],
+    [
+      9,
+      9
+    ]
+  ],
+  "gates": {
+    "all_pass": true,
+    "all_ten_draws_are_strict_json": true,
+    "both_merged_first_supports_have_at_least_twelve": true,
+    "both_merged_second_supports_have_at_least_eight": true,
+    "each_second_draw_adds_at_least_two_extensions": true,
+    "every_pooled_conditioned_support_has_at_least_eight": true,
+    "exact_five_pooled_histories": true,
+    "exact_ten_accepted_requests": true,
+    "exact_ten_http_attempts": true,
+    "pooled_initial_has_at_least_twenty_four": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "merged_first_valid_counts": [
+    37,
+    33
+  ],
+  "merged_second_valid_counts": [
+    44,
+    16
+  ],
+  "pooled_valid_counts": [
+    27,
+    33,
+    25,
+    29,
+    13
+  ],
+  "protocol": {
+    "efficacy_used_for_authorization": false,
+    "expected_histories": 5,
+    "expected_requests": 10,
+    "interface_version": "number-game-qwen-dynamic-vs-fixed-serving-smoke-1",
+    "model": "qwen/qwen3.7-plus",
+    "model_seeds": [
+      65900,
+      65901
+    ],
+    "pool_size": 2,
+    "reasoning": false,
+    "run_budget_usd": 0.12,
+    "semantic_repair": false,
+    "support_update": "retained_rejuvenation",
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "fd846ad77518a8e1ab04465cbf12af02033dd48391c082d61663673f6fc0ad9a",
+  "retention_diagnostics": [
+    {
+      "generated_unique_count": 33,
+      "merged_unique_count": 37,
+      "retained_parent_consistent_count": 7,
+      "retained_parent_novel_count": 4
+    },
+    {
+      "generated_unique_count": 25,
+      "merged_unique_count": 33,
+      "retained_parent_consistent_count": 20,
+      "retained_parent_novel_count": 8
+    },
+    {
+      "generated_unique_count": 29,
+      "merged_unique_count": 44,
+      "retained_parent_consistent_count": 17,
+      "retained_parent_novel_count": 15
+    },
+    {
+      "generated_unique_count": 13,
+      "merged_unique_count": 16,
+      "retained_parent_consistent_count": 3,
+      "retained_parent_novel_count": 3
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 7707,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 2650,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.01071296
+  }
+}
