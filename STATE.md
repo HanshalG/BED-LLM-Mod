@@ -2259,3 +2259,12 @@ validation then canonicalization. Same full-world semantics/exact10/gates;
 public eligibility+seed51600 select different already-open Python@015;
 GPT-5.4 seed51700,Mini51800. V1 is not resumed/rescored;no fresh cohort or
 executable endpoint.
+2026-07-29: ICAE full-world V2(commitcd12bef) failed closed after4 accepted/
+HTTP,$.06406,0 retry/provider/reasoning/forced. Initial worlds,hypothetical
+answers,and8x6 likelihoods parse;positive refresh duplicates world ID5 and
+question ID5 while omitting0. No fallback/controller/hidden/executable
+endpoint opened. Public FAILURE SHA203c6801,private5c9d42e9. V2 stays failed,
+not reindexed/resumed. Root cause is model-generated bookkeeping IDs. One
+final prospective compact positional codec may remove all generated IDs and
+let code assign identity from fixed arrays/matrices on another opened task
+with fresh seeds;belief semantics/gates unchanged.
