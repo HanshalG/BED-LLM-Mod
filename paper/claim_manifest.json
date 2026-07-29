@@ -704,6 +704,49 @@
         {"pointer": "/first_link/score_to_realized_advantage_spearman", "equals": 0.38866995073891625, "tolerance": 1e-12},
         {"pointer": "/first_link/score_to_realized_spearman_95pct_bootstrap", "equals": [-0.00544466424881854, 0.7036490092518045], "tolerance": 1e-12}
       ]
+    },
+    {
+      "id": "number_game_pooled_replication_synthesis64",
+      "paper_scope": "Retrospective stratified synthesis of two independent pooled-Qwen cohorts, preserving the prospective mechanism null.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_pooled_replication_synthesis64/number-game-pooled-replication-synthesis64-20260729T113442Z/RESULT.json",
+        "sha256": "fb735fb557c3e24a6cb5c0d5fc518e497e01795a7d1273dce51cb83e63038a82"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_policy_robustness_positive"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/prospective_mechanism_status_remains_binding", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_or_reclassify_sources", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 64600},
+        {"pointer": "/robustness_checks/exactly_two_disjoint_32_tree_cohorts", "equals": true},
+        {"pointer": "/robustness_checks/both_source_policy_efficacy_gate_sets_pass", "equals": true},
+        {"pointer": "/robustness_checks/pooled_policy_brier_interval_below_zero", "equals": true},
+        {"pointer": "/pooled/policy_vs_myopic/brier/candidate_mean", "equals": 0.10363151886035879, "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/brier/baseline_mean", "equals": 0.11672550909811398, "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/brier/relative_reduction", "equals": 0.11217762371675755, "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/brier/stratified_bootstrap_difference_95pct", "equals": [-0.017823729622124654, -0.00858940598326592], "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/brier/wins", "equals": 47},
+        {"pointer": "/pooled/policy_vs_myopic/brier/ties", "equals": 5},
+        {"pointer": "/pooled/policy_vs_myopic/brier/losses", "equals": 12},
+        {"pointer": "/pooled/policy_vs_myopic/hamming/relative_reduction", "equals": 0.06552346570397118, "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/hamming/stratified_bootstrap_difference_95pct", "equals": [-0.004373874887488749, 0.0010127184593459251], "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/coverage/mean_candidate_minus_baseline", "equals": 0.009469696969696968, "tolerance": 1e-12},
+        {"pointer": "/pooled/policy_vs_myopic/coverage/stratified_bootstrap_difference_95pct", "equals": [-0.008996212121212125, 0.027935606060606057], "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/parent_only/relative_reduction", "equals": 0.04359996206050264, "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/parent_only/stratified_bootstrap_difference_95pct", "equals": [-0.008339804680018829, -0.0013074725824138746], "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/parent_only/root_differences/pooled", "equals": 41},
+        {"pointer": "/pooled/second_refresh/parent_only/source_mean_differences", "equals": [-0.00800215373354325, -0.0014464663236419214], "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/parent_only/cohort_one_minus_two_95pct_bootstrap", "equals": [-0.013712873098090354, 0.0004501030243182225], "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/generated_only/relative_reduction", "equals": 0.027544507506218473, "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/generated_only/stratified_bootstrap_difference_95pct", "equals": [-0.005812930746378347, -0.000328193494287346], "tolerance": 1e-12},
+        {"pointer": "/pooled/second_refresh/generated_only/root_differences/pooled", "equals": 40},
+        {"pointer": "/interpretation/policy_effect_replicates_across_both_fresh_cohorts", "equals": true},
+        {"pointer": "/interpretation/prospective_regeneration_increment_confirmed", "equals": false},
+        {"pointer": "/interpretation/retention_contribution_is_directionally_replicated", "equals": true}
+      ]
     }
   ]
 }

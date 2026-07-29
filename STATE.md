@@ -2567,3 +2567,14 @@ Source runner shows exact preregistered rows already in second_refresh.rows.
 Correction reads those hash-bound rows and adds exact source root-count/mean
 invariants. No model/tree/endpoint/bootstrap/gate/analysis change;commit
 correction before one replacement zero-call execution.
+2026-07-29: Corrected frozen pooled replication synthesis64 is positive for
+policy robustness. D3 vs myopic Brier.103632 vs.116726:11.22%,
+stratified CI[-.017824,-.008589],47/5/12 W/T/L;source effects-.011055/
+-.015133 and contrast CI[-.005107,.013396],so stable Brier effect. Pooled
+Hamming+6.55% and coverage+.95pt CIs cross;source directions heterogeneous.
+Merged vs parent-only pooled4.36%,CI[-.008340,-.001307],41 root changes,
+23/23/18;source effects-.008002/-.001446 and contrast
+CI[-.013713,+.000450]. This cannot rescue the prospective mechanism null.
+Merged vs generated-only pooled2.75%,CI[-.005813,-.000328],40 changes,
+24/24/16;source effects-.002604/-.003267,contrast CI crosses,so retention
+is the stable component. Model0,cost0. Public RESULT SHAfb735fb5.

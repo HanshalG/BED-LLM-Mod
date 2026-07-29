@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from scripts import number_game_pooled_replication_synthesis64 as analysis
 
 
@@ -115,3 +117,26 @@ def test_root_differences_are_reported_by_cohort() -> None:
         "pooled": 2,
         "per_cohort": [1, 1],
     }
+
+
+def test_zero_call_synthesis_preserves_prospective_null(tmp_path) -> None:
+    result = analysis.run_synthesis(tmp_path)
+
+    assert result["status"] == "retrospective_policy_robustness_positive"
+    assert result["protocol"]["model_calls"] == 0
+    assert result["protocol"]["cost_usd"] == 0.0
+    assert result["protocol"]["prospective_mechanism_status_remains_binding"]
+    assert all(result["robustness_checks"].values())
+    assert (
+        result["pooled"]["policy_vs_myopic"]["brier"]["relative_reduction"]
+        == 0.11217762371675755
+    )
+    assert (
+        result["pooled"]["second_refresh"]["parent_only"]["root_differences"][
+            "per_cohort"
+        ]
+        == [22, 19]
+    )
+    assert json.loads((tmp_path / "RESULT.json").read_text())["status"] == (
+        "retrospective_policy_robustness_positive"
+    )
