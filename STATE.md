@@ -2365,3 +2365,9 @@ and12.61%,both CI<0 and25/32 wins;extra d3 step heterogeneous.
 hash-pinned bundle,preserving all3 scientific-primary passes and the9>8
 transport-null qualifier. Text claims only replicated d3-over-myopic across
 two independent fresh Qwen cohorts;d3-over-d2 explicitly nonrobust.
+2026-07-29: Freeze explicitly retrospective zero-call Qwen pooled64
+synthesis after both outcomes:hash-bind RESULTs370e1c29+a03c5a6f,verify
+disjoint32+32 trees/same exact33 bank,preserve both composite nulls,stratified
+tree bootstrap. Descriptive robustness checks d3-myopic>=8%+CI<0+20 wins in
+each and pooled>=10%+CI<0+40 wins. Report d3-d2 heterogeneity,all controls,
+Hamming/coverage/rank. This cannot rescue source statuses;model0/cost0.
