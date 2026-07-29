@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 import re
 import sys
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -257,27 +257,38 @@ def run_smoke(
     *,
     raw_path: Path,
     model: ChatModel,
+    support_message_builder: Callable[
+        [list[dict[str, str]]], list[dict[str, str]]
+    ] = prompt_only_support_messages,
+    rank_message_builder: Callable[
+        [list[list[dict[str, Any]]]], list[dict[str, str]]
+    ] = prompt_only_rank_messages,
+    support_parser: Callable[[str], list[dict[str, Any]]] = parse_support,
+    rank_parser: Callable[[str], dict[str, Any]] = parse_rank,
+    interface_version: str = INTERFACE_VERSION,
+    response_format_name: str = "prompt_only_flat_json",
+    max_transport_retries: int = 0,
 ) -> dict[str, Any]:
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "synthetic_fixture_only": True,
         "responses": {"initial": None, "refreshes": [], "rank": None},
     }
     try:
         initial_response = model.chat_complete_messages_batched(
-            [prompt_only_support_messages(initial_messages(QUESTION))],
+            [support_message_builder(initial_messages(QUESTION))],
             temperature=0.0,
             block_size=1,
             max_new_tokens=MAX_NEW_TOKENS,
         )[0]
         raw["responses"]["initial"] = initial_response
         _checkpoint(raw_path, raw)
-        initial = parse_support(initial_response)
+        initial = support_parser(initial_response)
         if {row["anchor"] for row in initial} != {"QUESTION"}:
             raise ValueError("initial anchors are not exactly QUESTION")
 
         requests = [
-            prompt_only_support_messages(
+            support_message_builder(
                 refresh_messages(
                     QUESTION,
                     "synthetic initial venue funding query",
@@ -295,7 +306,9 @@ def run_smoke(
         )
         raw["responses"]["refreshes"] = refresh_responses
         _checkpoint(raw_path, raw)
-        refreshes = [parse_support(response) for response in refresh_responses]
+        refreshes = [
+            support_parser(response) for response in refresh_responses
+        ]
         valid_anchor_counts = [
             valid_anchor_count(
                 support,
@@ -310,7 +323,7 @@ def run_smoke(
 
         rank_response = model.chat_complete_messages_batched(
             [
-                prompt_only_rank_messages(
+                rank_message_builder(
                     [refreshes[:4], refreshes[4:]]
                 )
             ],
@@ -320,7 +333,7 @@ def run_smoke(
         )[0]
         raw["responses"]["rank"] = rank_response
         _checkpoint(raw_path, raw)
-        rank = parse_rank(rank_response)
+        rank = rank_parser(rank_response)
         usage = _usage(model)
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -337,8 +350,14 @@ def run_smoke(
     unique = len(set(refresh_signatures))
     gates = {
         "exact_request_count": usage["physical_requests"] == EXPECTED_REQUESTS,
-        "exact_http_attempt_count": usage["http_attempts"] == EXPECTED_REQUESTS,
-        "zero_retries": usage["retry_count"] == 0,
+        "http_attempts_within_cap": (
+            EXPECTED_REQUESTS
+            <= usage["http_attempts"]
+            <= EXPECTED_REQUESTS + max_transport_retries
+        ),
+        "transport_retries_within_cap": (
+            usage["retry_count"] <= max_transport_retries
+        ),
         "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
         "zero_forced_exits": usage["forced_exits"] == 0,
         "all_ten_outputs_parse": True,
@@ -358,13 +377,14 @@ def run_smoke(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "model": MODEL_ID,
             "reasoning_requested": False,
             "synthetic_fixture_only": True,
             "expected_requests": EXPECTED_REQUESTS,
-            "response_format": "prompt_only_flat_json",
-            "repairs_reissues_or_retries": 0,
+            "response_format": response_format_name,
+            "semantic_repairs_or_reissues": 0,
+            "max_transport_retries": max_transport_retries,
             "max_cost_usd": MAX_COST_USD,
         },
         "diagnostics": {
