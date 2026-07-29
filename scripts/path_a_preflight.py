@@ -17,6 +17,10 @@ from scripts.path_a_launch_commands import DEFAULT_EXCLUDE_NODES_ARG, build_spli
 from scripts.validate_experiments_ledger import summary_payload as ledger_summary_payload
 from scripts.validate_experiments_ledger import validate_experiments_ledger
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
+from scripts.validate_paper_claim_manifest import (
+    summary_payload as claim_summary_payload,
+)
+from scripts.validate_paper_claim_manifest import validate_claim_manifest
 from scripts.validate_paper_draft import summary_payload as paper_summary_payload
 from scripts.validate_paper_draft import validate_paper_draft
 
@@ -189,14 +193,23 @@ def run_preflight(root: Path) -> dict[str, Any]:
         _check_commands(),
         _check_package_validation_state(package_payload),
     ]
+    claim_payload = claim_summary_payload(
+        validate_claim_manifest(root / "paper" / "claim_manifest.json", root)
+    )
     paper_payload = paper_summary_payload(validate_paper_draft(root / "paper", max_pages=7))
     ledger_payload = ledger_summary_payload(validate_experiments_ledger(root / "EXPERIMENTS.md", root=root))
     return {
-        "ok": all(check.ok for check in checks) and bool(paper_payload["ok"]) and bool(ledger_payload["ok"]),
+        "ok": (
+            all(check.ok for check in checks)
+            and bool(claim_payload["ok"])
+            and bool(paper_payload["ok"])
+            and bool(ledger_payload["ok"])
+        ),
         "checks": [
             {"name": check.name, "ok": check.ok, "detail": check.detail}
             for check in checks
         ],
+        "claim_validation": claim_payload,
         "package_validation": package_payload,
         "paper_validation": paper_payload,
         "ledger_validation": ledger_payload,
@@ -216,6 +229,7 @@ def main() -> None:
             status = "ok" if check["ok"] else "fail"
             print(f"[{status}] {check['name']}: {check['detail']}")
         print(f"paper_validation_ok: {payload['paper_validation']['ok']}")
+        print(f"claim_validation_ok: {payload['claim_validation']['ok']}")
         print(f"ledger_validation_ok: {payload['ledger_validation']['ok']}")
         print(f"package_validation_ok: {payload['package_validation']['ok']}")
     raise SystemExit(0 if payload["ok"] else 1)

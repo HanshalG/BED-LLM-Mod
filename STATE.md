@@ -2109,3 +2109,15 @@ Draft now compiles cleanly at6 pages(target4--6)with all14 limitation checks
 and2 required figures;final visual review finds no overlap/clipping. References
 raised from5.8pt to native7pt using recovered space;final log has no warnings.
 No scientific threshold,result,or claim changed.
+2026-07-29: Added a machine-checkable paper claim manifest spanning13 public
+Number Game/Rock artifacts and126 exact JSON-field assertions,including
+positive endpoints,CIs,wins,transport counts,and adverse status/gate qualifiers.
+Every artifact SHA256 and value check passes;the six-page paper still compiles
+with14 limitation topics and2 figures. The manifest validator is included in
+Path-A preflight/sync inventory;27 focused tests pass. Full suite reached2165
+passed/1 skipped before bookkeeping repair,with only an external Hotpot fixture
+missing at `/tmp/hotpotqa-distractor-validation.parquet` remaining unrelated.
+User reports adding$40 for four days with no reserve;authenticated OpenRouter
+still reports total$180,usage$161.983342407,remaining$18.016657593,so recheck
+credit visibility before any paid call and then spend flexibly on gated
+LLM-native work only. No OpenRouter experiment calls or OatML use in this step.

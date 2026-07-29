@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "description": "Hash-pinned public artifacts and exact fields supporting the paper's headline Number Game and Rock Diagnosis claims.",
+  "claims": [
+    {
+      "id": "number_game_depth_two_powered",
+      "paper_scope": "Powered 32-tree depth-two predictive-risk result and controls.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_predictive_risk_powered_replication/number-game-predictive-risk-powered-replication-20260728T143000Z/RESULT.json",
+        "sha256": "a48ccef1637bbab3ad939a4785ec5128e33d09ecba7714775dc1b3a47f071ba9"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "passed"},
+        {"pointer": "/aggregate/myopic_eig/candidate_mean_brier", "equals": 0.18358540966879422, "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/baseline_mean_brier", "equals": 0.2308564261238609, "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/relative_brier_reduction", "equals": 0.20476370204962135, "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.06281418908797869, -0.033331097312768336], "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/brier_tree_wins", "equals": 30},
+        {"pointer": "/aggregate/fixed_support_depth_two/baseline_mean_brier", "equals": 0.23354743585612467, "tolerance": 1e-12},
+        {"pointer": "/aggregate/fixed_support_depth_two/relative_brier_reduction", "equals": 0.21392667405738172, "tolerance": 1e-12},
+        {"pointer": "/aggregate/uniform_random_candidate_root/baseline_mean_brier", "equals": 0.20778889735836725, "tolerance": 1e-12},
+        {"pointer": "/aggregate/uniform_random_candidate_root/relative_brier_reduction", "equals": 0.11648114022102926, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/baseline_mean_brier", "equals": 0.20436730041387924, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/relative_brier_reduction", "equals": 0.10168892334046634, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.027049777893463578, -0.014310689086395406], "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/brier_tree_wins", "equals": 27},
+        {"pointer": "/aggregate/myopic_eig/relative_hamming_reduction", "equals": 0.35073168060872517, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/relative_hamming_reduction", "equals": 0.1480700132908363, "tolerance": 1e-12},
+        {"pointer": "/usage/adapter_requests", "equals": 576},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0}
+      ]
+    },
+    {
+      "id": "number_game_role_swap_directional",
+      "paper_scope": "Directional GPT-5.4 Mini planner/Gemini target role swap, explicitly not an all-gates confirmation.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_cross_planner_replication/number-game-cross-planner-replication-20260728T160000Z/RESULT.json",
+        "sha256": "1eeeb607455fba9b594587f27c3283974920a591e3ab6ddc35f435bb066ac67d"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "replication_failed"},
+        {"pointer": "/aggregate/positive_test_strategy/candidate_mean_brier", "equals": 0.1889764272551581, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/baseline_mean_brier", "equals": 0.22671750602095858, "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.05320110990541173, -0.02376019393800834], "tolerance": 1e-12},
+        {"pointer": "/aggregate/positive_test_strategy/brier_tree_wins", "equals": 29},
+        {"pointer": "/aggregate/uniform_random_candidate_root/relative_brier_reduction", "equals": 0.15108429837123913, "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/relative_brier_reduction", "equals": 0.09992822553750422, "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.032265931596708826, -0.011056083594451024], "tolerance": 1e-12},
+        {"pointer": "/aggregate/myopic_eig/brier_tree_wins", "equals": 23},
+        {"pointer": "/gates/all_branches_have_at_least_8_rules", "equals": false}
+      ]
+    },
+    {
+      "id": "number_game_global_pool_mechanism",
+      "paper_scope": "Preregistered pooled-support mechanism confirmation.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_pooled_support_confirmation/number-game-pooled-support-confirmation-20260728T170000Z/CONFIRMATION_RESULT.json",
+        "sha256": "5171b5872ebcd4fc978393c5e47c3fa00bb011e3a5872264b31ff1e79660b15b"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "passed"},
+        {"pointer": "/aggregate/candidate_mean_brier", "equals": 0.18381142072597498, "tolerance": 1e-12},
+        {"pointer": "/aggregate/baseline_mean_brier", "equals": 0.20451962696981812, "tolerance": 1e-12},
+        {"pointer": "/aggregate/relative_brier_reduction", "equals": 0.10125290443102143, "tolerance": 1e-12},
+        {"pointer": "/aggregate/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.029916487723859325, -0.012327060310770657], "tolerance": 1e-12},
+        {"pointer": "/aggregate/brier_tree_wins", "equals": 22},
+        {"pointer": "/aggregate/relative_hamming_reduction", "equals": 0.177361890256916, "tolerance": 1e-12},
+        {"pointer": "/aggregate/tree_cluster_hamming_difference_95pct_bootstrap", "equals": [-0.030070619154306734, -0.010120305508811751], "tolerance": 1e-12}
+      ]
+    },
+    {
+      "id": "number_game_ranking_fidelity",
+      "paper_scope": "Post-hoc first-link ranking and leave-one-particle-out audit.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_ranking_fidelity_audit/RESULT.json",
+        "sha256": "735935bbaaca7b08016fc0745160f9ba1d2d68b9d9ce8d089ca6866a83ec2e11"
+      },
+      "checks": [
+        {"pointer": "/combined/num_trees", "equals": 96},
+        {"pointer": "/combined/ranking/predictive_risk_spearman_brier/mean", "equals": 0.7274305555555555, "tolerance": 1e-12},
+        {"pointer": "/combined/ranking/predictive_risk_spearman_brier/tree_bootstrap_95pct", "equals": [0.6746031746031745, 0.7740575396825397], "tolerance": 1e-12},
+        {"pointer": "/combined/ranking/predictive_pairwise_concordance/mean", "equals": 0.8058035714285715, "tolerance": 1e-12},
+        {"pointer": "/combined/ranking/myopic_spearman_brier/mean", "equals": -0.23948601024647775, "tolerance": 1e-12},
+        {"pointer": "/combined/ranking/fixed_depth_two_spearman_brier/mean", "equals": -0.23661698962586522, "tolerance": 1e-12},
+        {"pointer": "/combined/selection/oracle_root_count", "equals": 45},
+        {"pointer": "/combined/selection/top_two_count", "equals": 68},
+        {"pointer": "/combined/regret/predictive_bayes_risk/mean", "equals": 0.007037484651577321, "tolerance": 1e-12},
+        {"pointer": "/combined/regret/myopic_eig/mean", "equals": 0.04486596051666997, "tolerance": 1e-12},
+        {"pointer": "/combined/leave_one_particle_out/mean_agreement", "equals": 0.8684152766014179, "tolerance": 1e-12}
+      ]
+    },
+    {
+      "id": "number_game_depth_three_endpoint_precision",
+      "paper_scope": "Fixed-root 16-draw depth-three endpoint precision study.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_crossfit_endpoint_precision/number-game-crossfit-endpoint-precision-20260728/RESULT.json",
+        "sha256": "47e684b11ac5c6340ff4f063ff7a14db8b8d0bd18b184d61f91e315903e4809e"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "passed"},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.15725833786566287, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.16024187928545872, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.01861898670372488, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.004995699761437157, -0.0011599493707995388], "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_three_spearman_brier/mean", "equals": 0.9226190476190476, "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_two_spearman_brier/mean", "equals": 0.5677083333333334, "tolerance": 1e-12}
+      ]
+    },
+    {
+      "id": "number_game_depth_three_fresh_replication",
+      "paper_scope": "Wholly fresh depth-three replication, including its two failed auxiliary gates.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_crossfit_depth_three_fresh_replication/number-game-crossfit-depth-three-fresh-replication-20260728/RESULT.json",
+        "sha256": "25e0939164f6806b30481e48a88372f22639f6065096cb59978600509d43a3d8"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.15897803052491377, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.16356946084642887, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.028070217372825328, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.008247763536417516, -0.0015380300541030603], "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_three_spearman_brier/mean", "equals": 0.9174107142857143, "tolerance": 1e-12},
+        {"pointer": "/aggregate/ranking/crossfit_depth_two_spearman_brier/mean", "equals": 0.4479166666666667, "tolerance": 1e-12},
+        {"pointer": "/gates/all_sixteen_endpoint_supports_valid", "equals": false},
+        {"pointer": "/gates/crossfit_beats_source_depth_three_by_two_percent", "equals": false}
+      ]
+    },
+    {
+      "id": "number_game_depth_three_pooled",
+      "paper_scope": "Post-hoc pooled two-study depth-three comparison.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_crossfit_depth_three_pooled_audit/RESULT.json",
+        "sha256": "ec2a2fb3f1e8da69ccc2863852abc9ef3ef907a817ec13cd375a4814de48a472"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "posthoc_pooled_positive"},
+        {"pointer": "/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.15811818419528834, "tolerance": 1e-12},
+        {"pointer": "/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.16190567006594378, "tolerance": 1e-12},
+        {"pointer": "/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.023393163865804145, "tolerance": 1e-12},
+        {"pointer": "/comparisons/crossfit_depth_two/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.005862326545739115, -0.0019751077384307643], "tolerance": 1e-12}
+      ]
+    },
+    {
+      "id": "number_game_qwen_crossjudge",
+      "paper_scope": "Preregistered Qwen endpoint cross-judge robustness study.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_crossjudge_depth_three/number-game-qwen-crossjudge-depth-three-20260728/RESULT.json",
+        "sha256": "a7e0549f2f9ff7b1c2394ebe076bdbf1b70799479a3597e01bf66b7003edc1cb"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "passed"},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.13766202425569934, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.14041032056059727, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.0195733212054867, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.004828782707815795, -0.0007802455289298328], "tolerance": 1e-12},
+        {"pointer": "/protocol/expected_requests", "equals": 1024},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0}
+      ]
+    },
+    {
+      "id": "number_game_classical_grammar_scope",
+      "paper_scope": "Classical grammar novelty audit and its explicitly underpowered endpoint boundary.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_classical_grammar_irreducibility_audit/number-game-classical-grammar-irreducibility-audit-20260729/RESULT.json",
+        "sha256": "514945d268712227c128ecb9be9ee0a495cf1682a1c53c99ff5428b8da0bf9a7"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "inconclusive"},
+        {"pointer": "/bank/unique_nonconstant_extension_count", "equals": 416366},
+        {"pointer": "/support_novelty/stages/generated_second/grammar_novel_unique_fraction", "equals": 0.5098341029587823, "tolerance": 1e-12},
+        {"pointer": "/support_novelty/trees_with_grammar_novel_generated_second", "equals": 64},
+        {"pointer": "/endpoint_novelty_and_efficacy/all_endpoint_power_gates_pass", "equals": false}
+      ]
+    },
+    {
+      "id": "rock_diagnosis_paper_maps",
+      "paper_scope": "Rock Diagnosis 3-6 and 5-7 paired confirmation table.",
+      "artifact": {
+        "path": "results/nonmyopic/rock_branch_strategy_v2_confirmation_20260720/RESULT_AUDIT.json",
+        "sha256": "96fce835dbd492a07bebcfbd03fcf6ba4aeabcd242dffbd0239cc6c992ec0780"
+      },
+      "checks": [
+        {"pointer": "/maps/3-6/comparisons/shared_d1/entropy_auc_gain", "equals": 0.5204816009108482, "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/shared_d1/entropy_auc_ci95", "equals": [0.4857345503522042, 0.5531276966966208], "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/shared_d1/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/maps/3-6/comparisons/width/entropy_auc_gain", "equals": 0.5204816009108482, "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/width/entropy_auc_ci95", "equals": [0.4854858603897579, 0.5537343357854897], "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/width/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/maps/3-6/comparisons/random_strategy/entropy_auc_gain", "equals": 0.3747846077514091, "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.3229100202939276, 0.426728446466468], "tolerance": 1e-12},
+        {"pointer": "/maps/3-6/comparisons/random_strategy/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/maps/5-7/comparisons/shared_d1/entropy_auc_gain", "equals": 0.4750913325659044, "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/shared_d1/entropy_auc_ci95", "equals": [0.3929404157098626, 0.5543947936566824], "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/shared_d1/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/maps/5-7/comparisons/width/entropy_auc_gain", "equals": 0.45165915152755326, "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/width/entropy_auc_ci95", "equals": [0.3676739695312224, 0.5309537017767547], "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/width/wins_ties_losses", "equals": [29, 0, 1]},
+        {"pointer": "/maps/5-7/comparisons/random_strategy/entropy_auc_gain", "equals": 0.3621605315573807, "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.27137957091371856, 0.4481784161749769], "tolerance": 1e-12},
+        {"pointer": "/maps/5-7/comparisons/random_strategy/wins_ties_losses", "equals": [29, 0, 1]}
+      ]
+    },
+    {
+      "id": "rock_diagnosis_7_8",
+      "paper_scope": "Canonical RockSample[7,8] scale extension.",
+      "artifact": {
+        "path": "results/nonmyopic/rocksample_7_8_scale_20260721/AUDIT.json",
+        "sha256": "3f51b4e946ce5ae8e55d4641a9d692581d246ce3207ee0b04f1ddc4cbcc4c85b"
+      },
+      "checks": [
+        {"pointer": "/confirmation/comparisons/shared_d1/entropy_auc_gain", "equals": 0.7501790678242124, "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/shared_d1/entropy_auc_ci95", "equals": [0.705014491259579, 0.7937632292643915], "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/shared_d1/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/confirmation/comparisons/width/entropy_auc_gain", "equals": 0.7296559636462026, "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/width/entropy_auc_ci95", "equals": [0.6873543959248534, 0.7724206155995653], "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/width/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/confirmation/comparisons/random_strategy/entropy_auc_gain", "equals": 0.6735306907879907, "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.6251141433396195, 0.7212097290566404], "tolerance": 1e-12},
+        {"pointer": "/confirmation/comparisons/random_strategy/wins_ties_losses", "equals": [30, 0, 0]}
+      ]
+    },
+    {
+      "id": "rock_diagnosis_11_11",
+      "paper_scope": "Gemma RockSample[11,11] model replication.",
+      "artifact": {
+        "path": "results/nonmyopic/rocksample_11_11_model_replication_20260721/AUDIT.json",
+        "sha256": "30cb4ffc5d230e5b1db2bca3bd0df0a41642caa5f9d297406b0d912ba4c1b4f2"
+      },
+      "checks": [
+        {"pointer": "/runs/gemma/comparisons/shared_d1/entropy_auc_gain", "equals": 0.9411658614130751, "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/shared_d1/entropy_auc_ci95", "equals": [0.8967965632201039, 0.9806767741119945], "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/shared_d1/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/runs/gemma/comparisons/width/entropy_auc_gain", "equals": 0.9387086899171898, "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/width/entropy_auc_ci95", "equals": [0.8951529110361459, 0.9773420043648934], "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/width/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/runs/gemma/comparisons/random_strategy/entropy_auc_gain", "equals": 0.8867420817575279, "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.8304588054532872, 0.9385336147448043], "tolerance": 1e-12},
+        {"pointer": "/runs/gemma/comparisons/random_strategy/wins_ties_losses", "equals": [30, 0, 0]}
+      ]
+    },
+    {
+      "id": "rock_diagnosis_15_15",
+      "paper_scope": "Direct-vLLM RockSample[15,15] replication.",
+      "artifact": {
+        "path": "results/nonmyopic/rocksample_15_15_vllm_replication_20260722/AUDIT.json",
+        "sha256": "cb4511f547f602b2ab44ed4f0976d6ee29397a052c90ba2851e6f071cc58a69b"
+      },
+      "checks": [
+        {"pointer": "/comparisons/shared_d1/entropy_auc_gain", "equals": 0.672306929826385, "tolerance": 1e-12},
+        {"pointer": "/comparisons/shared_d1/entropy_auc_ci95", "equals": [0.6327691957145397, 0.7123891674555151], "tolerance": 1e-12},
+        {"pointer": "/comparisons/shared_d1/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/comparisons/width/entropy_auc_gain", "equals": 0.6699603102406885, "tolerance": 1e-12},
+        {"pointer": "/comparisons/width/entropy_auc_ci95", "equals": [0.6301203104606464, 0.7110789312552002], "tolerance": 1e-12},
+        {"pointer": "/comparisons/width/wins_ties_losses", "equals": [30, 0, 0]},
+        {"pointer": "/comparisons/random_strategy/entropy_auc_gain", "equals": 0.6345474490633627, "tolerance": 1e-12},
+        {"pointer": "/comparisons/random_strategy/entropy_auc_ci95", "equals": [0.5721829577790233, 0.6877239196123403], "tolerance": 1e-12},
+        {"pointer": "/comparisons/random_strategy/wins_ties_losses", "equals": [30, 0, 0]}
+      ]
+    }
+  ]
+}

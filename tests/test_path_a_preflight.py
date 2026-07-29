@@ -22,6 +22,11 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
     assert checks["package_banked_evidence"]["ok"] is True
     assert checks["package_banked_evidence"]["detail"] == "complete package validates"
     assert payload["paper_validation"]["ok"] is True
+    assert payload["claim_validation"]["ok"] is True
+    assert any(
+        check["name"] == "claim:number_game_depth_two_powered" and check["ok"] is True
+        for check in payload["claim_validation"]["checks"]
+    )
     assert any(
         check["name"] == "paper_page_count" and check["detail"] == "6 pages"
         for check in payload["paper_validation"]["checks"]

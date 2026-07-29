@@ -102,3 +102,14 @@ The model adapter supports transformers and vLLM backends. Per-model vLLM
 settings can be supplied under each `questioner` or `answerer` entry, including
 `cuda_visible_devices`, `tensor_parallel_size`, `gpu_memory_utilization`, and
 `max_model_len`.
+
+## Paper Reproducibility
+
+The workshop paper's headline Number Game and Rock Diagnosis values are bound
+to committed public result artifacts in `paper/claim_manifest.json`. Validate
+the artifact hashes and exact reported fields with:
+
+```bash
+python scripts/validate_paper_claim_manifest.py
+python scripts/validate_paper_draft.py
+```

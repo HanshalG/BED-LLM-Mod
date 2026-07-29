@@ -71,6 +71,7 @@ def test_required_sync_paths_include_package_builder_dependencies():
         "scripts/llm_token_usage.py",
         "scripts/validate_path_a_package.py",
         "scripts/validate_experiments_ledger.py",
+        "scripts/validate_paper_claim_manifest.py",
         "scripts/validate_paper_draft.py",
     ):
         assert path in REQUIRED_SYNC_PATHS
@@ -79,6 +80,7 @@ def test_required_sync_paths_include_package_builder_dependencies():
 def test_required_sync_paths_include_preflight_paper_and_ledger_inputs():
     for path in (
         "EXPERIMENTS.md",
+        "paper/claim_manifest.json",
         "paper/main.tex",
         "paper/references.bib",
     ):
