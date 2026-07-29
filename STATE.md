@@ -2091,3 +2091,13 @@ cost<=.10. Passage authorizes one fresh32-tree GLM-planner/GPT5.4-Mini
 endpoint study,seeds47000+,exact2336,cap/start$7.50,using byte-identical Grok
 scientific gates. Failure ends further model-family screening under this
 interface;no threshold/prompt repair.
+2026-07-29: Final GLM5.1 Number Game exact10 serving fails closed and ends
+planner-family screening under this interface. All10 responses finish stop;
+9 are exact JSON,1 wraps content in a Markdown fence so frozen parser stops
+before support/efficacy aggregation. Provider also reports3 reasoning tokens
+across3 responses despite explicit nonreasoning,an independent gate failure.
+Usage2563 prompt+7309 completion,cost$.030343251. No fence stripping,
+normalization,partial scoring,reissue,or replacement;no2336-call formal.
+Public FAILURE SHAcd7e1465;private rawde5ccac6. Existing powered Gemini
+planner positives,role-swap directional evidence,Qwen31-tree proper-score
+positive,and Qwen cross-judge remain the honest model-robustness evidence.
