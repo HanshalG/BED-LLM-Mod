@@ -2074,3 +2074,12 @@ every conditioned>=8,cost<=.10;no efficacy. Passage authorizes one fresh
 seeds45000+,exact2336,cap/start$7.50. Primary Brier/ranking/control gates
 unchanged from newly frozen third-family design;Hamming/coverage secondary.
 This is neither DeepSeek repair nor Qwen continuation.
+2026-07-29: Grok4.3 Number Game exact10 serving is a gated null,so no formal.
+Transport/schema clean:10/10 HTTP+accepted,all parsed,0 retry/provider/
+reasoning/forced,5198 prompt+4634 completion,cost$.0167385. Initial valid
+23/21;one-step8/20/12/18;two-step0/7/15/10. Frozen conditioned>=8 fails:
+YES10,NO20 has1 invalid+23 inconsistent of24,leaving0;opposite history leaves7.
+No repair/reissue/threshold change. Public RESULT SHA7200f75b;private raw
+001e8b88. Close exact Grok route. Permit one final distinct seeded structured
+family screen(GLM5.1)under the unchanged gate;stop family screening if it
+fails rather than fishing.
