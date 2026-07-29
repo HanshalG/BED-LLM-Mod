@@ -2431,3 +2431,14 @@ gates were not evaluated and confirmation remains failed_closed. Public
 RESULT SHA9a483237,TREES297ec94d. User added$40 to spread over four days
 without reserve;use provider-visible balance as hard cap and evidence gates
 before larger spend.
+2026-07-29: Freeze Qwen item-isolated serving successor before seed62000.
+Strict schema/prompt remain;only invalid outer JSON may yield independently
+decoded complete `{name,expression}` items,then unchanged executable/
+consistency/dedupe filters. Missing/incomplete items are rejected;no semantic
+repair/completion/continuation and support minima still fail closed. Exact10
+live smoke must itself be strict JSON,all prior linked support gates,0 retries/
+reasoning/forced,cap$.10. Pass only authorizes independent32 trees62100--
+62131,target62200--62231,validation62300--62555,exact1856,cap$3.25,
+salvaged<=8. Primary first-link gates changed>=28,realized>=.008+CI>0,
+rho>=.25+CI>0,W-L>=8;policy d3-myopic>=8%+CI<0+20 wins. Provider-visible
+balance remains$9.783928063;reported top-up absent.
