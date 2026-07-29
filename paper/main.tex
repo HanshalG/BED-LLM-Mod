@@ -609,6 +609,14 @@ fixed-support depth three, mean advantage remains positive but rank
 correlation is imprecise; against depth two, both intervals cross zero.
 The simulator is calibrated to reject myopic roots, not universally to order
 deeper planners.
+A second retrospective synthesis adds the two independent GPT-5.4-Mini
+blocks. Across four disjoint 32-tree blocks and two planner families, depth
+three improves Brier over myopic by 12.48\% ($[-.0192,-.0113]$; 95/128
+wins), fixed-support depth three by 5.85\%, PTS by 7.37\%, and random by
+8.91\%; every interval is below zero. Qwen and GPT-5.4 Mini separately give
+12.00\% and 12.93\%. Pooled Hamming also improves, but depth three versus
+depth two remains null ($[-.0042,.0003]$). This model-family synthesis is
+retrospective and does not alter source-study statuses.
 A preregistered zero-call replay of the 64 fixed GPT-5.4-Mini policies on the
 same canonical bank is more heterogeneous: depth three improves only 1.08\%
 over depth two ($[-.0045,.0021]$; 19/64 wins), but beats myopic by 12.93\%

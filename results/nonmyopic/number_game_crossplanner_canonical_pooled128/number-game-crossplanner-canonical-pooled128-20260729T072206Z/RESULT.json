@@ -1,0 +1,921 @@
+{
+  "blocks": [
+    {
+      "depth_two_comparison": {
+        "baseline_mean_brier": 0.10963402162558668,
+        "baseline_mean_hamming": 0.03547854785478548,
+        "brier_tree_wins": 14,
+        "candidate_mean_brier": 0.10456381332410492,
+        "candidate_mean_hamming": 0.0343440594059406,
+        "hamming_tree_wins": 9,
+        "mean_candidate_minus_baseline_brier": -0.005070208301481764,
+        "mean_candidate_minus_baseline_hamming": -0.0011344884488448848,
+        "mean_coverage_difference": 0.009469696969696963,
+        "relative_brier_reduction": 0.04624666892907689,
+        "relative_hamming_reduction": 0.03197674418604641,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.009544733352216107,
+          -0.001040029973652459
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.0057193219321932205,
+          0.0032534503450345025
+        ]
+      },
+      "family": "qwen/qwen3.7-plus",
+      "myopic_comparison": {
+        "baseline_mean_brier": 0.11798062772540396,
+        "baseline_mean_hamming": 0.03536603660366037,
+        "brier_tree_wins": 25,
+        "candidate_mean_brier": 0.10456381332410492,
+        "candidate_mean_hamming": 0.0343440594059406,
+        "hamming_tree_wins": 15,
+        "mean_candidate_minus_baseline_brier": -0.013416814401299057,
+        "mean_candidate_minus_baseline_hamming": -0.0010219771977197727,
+        "mean_coverage_difference": 0.009469696969696963,
+        "relative_brier_reduction": 0.11372048665926955,
+        "relative_hamming_reduction": 0.028897136797454915,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.019039114415777054,
+          -0.007844111755634679
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.005859960996099612,
+          0.0036191119111911186
+        ]
+      },
+      "name": "qwen_confirmation_v1",
+      "tree_count": 32
+    },
+    {
+      "depth_two_comparison": {
+        "baseline_mean_brier": 0.10556797414733012,
+        "baseline_mean_hamming": 0.03422217221722172,
+        "brier_tree_wins": 11,
+        "candidate_mean_brier": 0.10512332005223886,
+        "candidate_mean_hamming": 0.035544179417941794,
+        "hamming_tree_wins": 9,
+        "mean_candidate_minus_baseline_brier": -0.00044465409509124657,
+        "mean_candidate_minus_baseline_hamming": 0.0013220072007200723,
+        "mean_coverage_difference": -0.014204545454545458,
+        "relative_brier_reduction": 0.004212016936790887,
+        "relative_hamming_reduction": -0.03863013698630138,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.004309463733870445,
+          0.003908312234702099
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.0027471497149714973,
+          0.005841209120912091
+        ]
+      },
+      "family": "qwen/qwen3.7-plus",
+      "myopic_comparison": {
+        "baseline_mean_brier": 0.12029498623672356,
+        "baseline_mean_hamming": 0.040672817281728176,
+        "brier_tree_wins": 25,
+        "candidate_mean_brier": 0.10512332005223886,
+        "candidate_mean_hamming": 0.035544179417941794,
+        "hamming_tree_wins": 19,
+        "mean_candidate_minus_baseline_brier": -0.015171666184484699,
+        "mean_candidate_minus_baseline_hamming": -0.0051286378637863785,
+        "mean_coverage_difference": 0.01515151515151515,
+        "relative_brier_reduction": 0.12612051972497845,
+        "relative_hamming_reduction": 0.12609497464269254,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.024464694940619317,
+          -0.007039985846392092
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.011391764176417641,
+          0.0011063606360636065
+        ]
+      },
+      "name": "qwen_replication_v2",
+      "tree_count": 32
+    },
+    {
+      "depth_two_comparison": {
+        "baseline_mean_brier": 0.10805601585810119,
+        "baseline_mean_hamming": 0.05428667866786679,
+        "brier_tree_wins": 8,
+        "candidate_mean_brier": 0.10804794890397551,
+        "candidate_mean_hamming": 0.05197082208220822,
+        "hamming_tree_wins": 12,
+        "mean_candidate_minus_baseline_brier": -8.066954125677487e-06,
+        "mean_candidate_minus_baseline_hamming": -0.0023158565856585657,
+        "mean_coverage_difference": -0.00568181818181818,
+        "relative_brier_reduction": 7.465529856547511e-05,
+        "relative_hamming_reduction": 0.0426597582037997,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.0041778099213997215,
+          0.004076357679964938
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.005522427242724273,
+          0.000918841884188419
+        ]
+      },
+      "family": "openai/gpt-5.4-mini",
+      "myopic_comparison": {
+        "baseline_mean_brier": 0.11832737050657964,
+        "baseline_mean_hamming": 0.05773702370237024,
+        "brier_tree_wins": 21,
+        "candidate_mean_brier": 0.10804794890397551,
+        "candidate_mean_hamming": 0.05197082208220822,
+        "hamming_tree_wins": 21,
+        "mean_candidate_minus_baseline_brier": -0.010279421602604134,
+        "mean_candidate_minus_baseline_hamming": -0.005766201620162017,
+        "mean_coverage_difference": 0.0018939393939393897,
+        "relative_brier_reduction": 0.08687272909552687,
+        "relative_hamming_reduction": 0.09987008769080873,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.017201179344079734,
+          -0.0039033115215141275
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.009919741974197422,
+          -0.0015657815781578172
+        ]
+      },
+      "name": "gptmini_confirmation",
+      "tree_count": 32
+    },
+    {
+      "depth_two_comparison": {
+        "baseline_mean_brier": 0.11053978248377813,
+        "baseline_mean_hamming": 0.05767139213921392,
+        "brier_tree_wins": 11,
+        "candidate_mean_brier": 0.10817990888482618,
+        "candidate_mean_hamming": 0.05502737773777378,
+        "hamming_tree_wins": 9,
+        "mean_candidate_minus_baseline_brier": -0.002359873598951959,
+        "mean_candidate_minus_baseline_hamming": -0.0026440144014401434,
+        "mean_coverage_difference": 0.012310606060606058,
+        "relative_brier_reduction": 0.021348636173571904,
+        "relative_hamming_reduction": 0.04584620386928945,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.007581933495955031,
+          0.002875344146357369
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.00721947194719472,
+          0.001284503450345035
+        ]
+      },
+      "family": "openai/gpt-5.4-mini",
+      "myopic_comparison": {
+        "baseline_mean_brier": 0.13002239915289454,
+        "baseline_mean_hamming": 0.06126237623762376,
+        "brier_tree_wins": 24,
+        "candidate_mean_brier": 0.10817990888482618,
+        "candidate_mean_hamming": 0.05502737773777378,
+        "hamming_tree_wins": 21,
+        "mean_candidate_minus_baseline_brier": -0.021842490268068365,
+        "mean_candidate_minus_baseline_hamming": -0.006234998499849985,
+        "mean_coverage_difference": 0.022727272727272728,
+        "relative_brier_reduction": 0.1679902109972881,
+        "relative_hamming_reduction": 0.10177532904805624,
+        "tree_cluster_brier_difference_95pct_bootstrap": [
+          -0.03184169697896434,
+          -0.01255107379117371
+        ],
+        "tree_cluster_hamming_difference_95pct_bootstrap": [
+          -0.011663666366636663,
+          -0.0007782028202820278
+        ]
+      },
+      "name": "gptmini_fresh_replication",
+      "tree_count": 32
+    }
+  ],
+  "depth_interpretation": "Any pooled depth-three versus depth-two result is descriptive; block-level depth effects remain heterogeneous.",
+  "families": {
+    "openai/gpt-5.4-mini": {
+      "comparisons": {
+        "crossfit_depth_two": {
+          "baseline_mean_brier": 0.10929789917093966,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 16,
+          "mean_brier_difference": -0.0011839702765388182,
+          "mean_coverage_difference": 0.003314393939393939,
+          "mean_hamming_difference": -0.002479935493549355,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.3679394004284404,
+          "relative_brier_reduction": 0.01083250717094852,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.0045000240968028115,
+            0.0021667381604574616
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.009943181818181823,
+            0.017518939393939396
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.005231773177317731,
+            8.438343834383448e-05
+          ],
+          "ties": 29,
+          "wins": 19
+        },
+        "fixed_support_depth_three": {
+          "baseline_mean_brier": 0.11641578575179752,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 22,
+          "mean_brier_difference": -0.008301856857396676,
+          "mean_coverage_difference": 0.0146780303030303,
+          "mean_hamming_difference": -0.005508363336333633,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.07044771179924038,
+          "relative_brier_reduction": 0.07131212321236678,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.013536640144907488,
+            -0.0034803294164853786
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.001420454545454546,
+            0.030776515151515145
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.009436881188118813,
+            -0.0017626762676267622
+          ],
+          "ties": 8,
+          "wins": 34
+        },
+        "myopic_eig": {
+          "baseline_mean_brier": 0.1241748848297371,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 16,
+          "mean_brier_difference": -0.01606095593533625,
+          "mean_coverage_difference": 0.01231060606060606,
+          "mean_hamming_difference": -0.006000600060006001,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.00013213933091364921,
+          "relative_brier_reduction": 0.12934142002513874,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.022103207635013736,
+            -0.010408491020555976
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.004734848484848485,
+            0.030303030303030297
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.009488448844884489,
+            -0.0026205745574557466
+          ],
+          "ties": 3,
+          "wins": 45
+        },
+        "positive_test_strategy": {
+          "baseline_mean_brier": 0.11781516641168868,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 13,
+          "mean_brier_difference": -0.009701237517287836,
+          "mean_coverage_difference": 0.009469696969696963,
+          "mean_hamming_difference": -0.004087908790879088,
+          "one_sided_exact_sign_pvalue_excluding_ties": 9.404810782147007e-07,
+          "relative_brier_reduction": 0.08234285799324186,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.013334385615902009,
+            -0.006083436194586823
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.004971590909090913,
+            0.02438446969696969
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.007200720072007201,
+            -0.0010266651665166511
+          ],
+          "ties": 0,
+          "wins": 51
+        },
+        "predictive_bayes_risk_depth_two": {
+          "baseline_mean_brier": 0.11247185002871983,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 22,
+          "mean_brier_difference": -0.004357921134318982,
+          "mean_coverage_difference": 0.017518939393939396,
+          "mean_hamming_difference": -0.0037831908190819083,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.1658748816847453,
+          "relative_brier_reduction": 0.03874677204301509,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.008283219547232242,
+            -0.0006808895531023762
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.0018939393939393931,
+            0.036931818181818184
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.00706008100810081,
+            -0.000548492349234924
+          ],
+          "ties": 12,
+          "wins": 30
+        },
+        "retained_risk_set_depth_three": {
+          "baseline_mean_brier": 0.10870041588150162,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 22,
+          "mean_brier_difference": -0.0005864869871007785,
+          "mean_coverage_difference": 0.010890151515151518,
+          "mean_hamming_difference": -0.002325232523252325,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.7336453723819432,
+          "relative_brier_reduction": 0.005395443820013758,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.003842399882209311,
+            0.0026048205155540264
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.005681818181818182,
+            0.02840909090909091
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.0055552430243024295,
+            0.0009141539153915395
+          ],
+          "ties": 23,
+          "wins": 19
+        },
+        "uniform_random_candidate_root": {
+          "baseline_mean_brier": 0.1194810644119831,
+          "candidate_mean_brier": 0.10811392889440084,
+          "losses": 9,
+          "mean_brier_difference": -0.01136713551758226,
+          "mean_coverage_difference": 0.00958806818181818,
+          "mean_hamming_difference": -0.004737192469246924,
+          "one_sided_exact_sign_pvalue_excluding_ties": 1.771111690087538e-09,
+          "relative_brier_reduction": 0.09513754814224949,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.014145626806588155,
+            -0.008460287094050487
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.00254498106060606,
+            0.02314157196969696
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.007155598372337232,
+            -0.0022672189093909377
+          ],
+          "ties": 0,
+          "wins": 55
+        }
+      },
+      "novel_targets": {
+        "candidate_minus_baseline_brier": {
+          "mean": -0.0012173919655913562,
+          "stratified_tree_bootstrap_95pct": [
+            -0.006281171742511855,
+            0.003726746879854194
+          ]
+        },
+        "candidate_minus_baseline_hamming": {
+          "mean": -0.0039728672997601695,
+          "stratified_tree_bootstrap_95pct": [
+            -0.008219226027648366,
+            -5.320519808789479e-05
+          ]
+        },
+        "coverage_difference": {
+          "mean": 0.0063572991639057295,
+          "stratified_tree_bootstrap_95pct": [
+            -0.013771179002157262,
+            0.02849673965074324
+          ]
+        }
+      },
+      "protocol": {
+        "block_count": 2,
+        "bootstrap_samples": 20000,
+        "bootstrap_seed": 57000,
+        "model_calls": 0,
+        "tree_count": 64
+      },
+      "ranking": {
+        "crossfit_depth_three_pairwise_concordance": {
+          "mean": 0.7014508928571429,
+          "stratified_tree_bootstrap_95pct": [
+            0.6696428571428572,
+            0.7310267857142857
+          ]
+        },
+        "crossfit_depth_three_spearman_brier": {
+          "mean": 0.5029761904761905,
+          "stratified_tree_bootstrap_95pct": [
+            0.42150297619047616,
+            0.5766369047619048
+          ]
+        },
+        "crossfit_depth_two_pairwise_concordance": {
+          "mean": 0.6305803571428571,
+          "stratified_tree_bootstrap_95pct": [
+            0.5987723214285714,
+            0.6607142857142857
+          ]
+        },
+        "crossfit_depth_two_spearman_brier": {
+          "mean": 0.3463541666666667,
+          "stratified_tree_bootstrap_95pct": [
+            0.26450892857142855,
+            0.42447916666666663
+          ]
+        }
+      }
+    },
+    "qwen/qwen3.7-plus": {
+      "comparisons": {
+        "crossfit_depth_two": {
+          "baseline_mean_brier": 0.1076009978864584,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 16,
+          "mean_brier_difference": -0.002757431198286505,
+          "mean_coverage_difference": -0.0023674242424242473,
+          "mean_hamming_difference": 9.375937593759375e-05,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.10551179880440031,
+          "relative_brier_reduction": 0.025626446338315418,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.005726633867567883,
+            0.00021557800520127703
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.024147727272727276,
+            0.017992424242424233
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.0030096759675967595,
+            0.003248762376237624
+          ],
+          "ties": 23,
+          "wins": 25
+        },
+        "fixed_support_depth_three": {
+          "baseline_mean_brier": 0.10977596678022944,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 23,
+          "mean_brier_difference": -0.004932400092057551,
+          "mean_coverage_difference": -0.00047348484848485587,
+          "mean_hamming_difference": 0.00026721422142214233,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.20505135818734566,
+          "relative_brier_reduction": 0.04493151130185155,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.009232980833491626,
+            -0.0007676169833109342
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.025094696969696982,
+            0.025094696969696965
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.003272202220222022,
+            0.003773814881488149
+          ],
+          "ties": 11,
+          "wins": 30
+        },
+        "myopic_eig": {
+          "baseline_mean_brier": 0.11913780698106377,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 12,
+          "mean_brier_difference": -0.014294240292891879,
+          "mean_coverage_difference": 0.012310606060606057,
+          "mean_hamming_difference": -0.0030753075307530754,
+          "one_sided_exact_sign_pvalue_excluding_ties": 6.071903850093149e-07,
+          "relative_brier_reduction": 0.11998072362674825,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.019717564811340287,
+            -0.009336197725205607
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.010416666666666675,
+            0.03551136363636363
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.006999137413741375,
+            0.000890714071407141
+          ],
+          "ties": 2,
+          "wins": 50
+        },
+        "positive_test_strategy": {
+          "baseline_mean_brier": 0.11209334407011022,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 22,
+          "mean_brier_difference": -0.00724977738193834,
+          "mean_coverage_difference": -0.03338068181818182,
+          "mean_hamming_difference": 0.004366842934293429,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.008429095022140565,
+          "relative_brier_reduction": 0.06467625211898285,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.011390528660355854,
+            -0.0032006769930391452
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.0546875,
+            -0.011600378787878795
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            0.0011813681368136816,
+            0.007531221872187219
+          ],
+          "ties": 0,
+          "wins": 42
+        },
+        "predictive_bayes_risk_depth_two": {
+          "baseline_mean_brier": 0.1064395306269556,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 24,
+          "mean_brier_difference": -0.001595963938783718,
+          "mean_coverage_difference": -0.008522727272727276,
+          "mean_hamming_difference": 0.0004453570357035706,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.6706309614881718,
+          "relative_brier_reduction": 0.014994090347665892,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.004808658741907499,
+            0.0014120490308272091
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.03125,
+            0.013731060606060608
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.002578382838283828,
+            0.0034784728472847283
+          ],
+          "ties": 18,
+          "wins": 22
+        },
+        "retained_risk_set_depth_three": {
+          "baseline_mean_brier": 0.10551460587092912,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 22,
+          "mean_brier_difference": -0.0006710391827572269,
+          "mean_coverage_difference": -0.0033143939393939434,
+          "mean_hamming_difference": -0.0008203945394539456,
+          "one_sided_exact_sign_pvalue_excluding_ties": 0.8316081824050343,
+          "relative_brier_reduction": 0.006359680512649479,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.004612261103792103,
+            0.002594545241263003
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.025094696969696975,
+            0.01846590909090909
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.003769126912691269,
+            0.0021892814281428137
+          ],
+          "ties": 25,
+          "wins": 17
+        },
+        "uniform_random_candidate_root": {
+          "baseline_mean_brier": 0.11430382094516266,
+          "candidate_mean_brier": 0.10484356668817188,
+          "losses": 11,
+          "mean_brier_difference": -0.009460254256990774,
+          "mean_coverage_difference": -0.00591856060606061,
+          "mean_hamming_difference": 3.633175817581793e-05,
+          "one_sided_exact_sign_pvalue_excluding_ties": 5.029289922416297e-08,
+          "relative_brier_reduction": 0.08276411215972684,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.012098823215063274,
+            -0.006717851139825641
+          ],
+          "stratified_tree_bootstrap_coverage_difference_95pct": [
+            -0.022312973484848488,
+            0.010712594696969698
+          ],
+          "stratified_tree_bootstrap_hamming_difference_95pct": [
+            -0.00225725697569757,
+            0.0023562903165316534
+          ],
+          "ties": 0,
+          "wins": 53
+        }
+      },
+      "novel_targets": {
+        "candidate_minus_baseline_brier": {
+          "mean": 0.0008690531242451672,
+          "stratified_tree_bootstrap_95pct": [
+            -0.00307187700134512,
+            0.0048322641438910355
+          ]
+        },
+        "candidate_minus_baseline_hamming": {
+          "mean": 0.00017179995725136388,
+          "stratified_tree_bootstrap_95pct": [
+            -0.004847483103573514,
+            0.005222806115197986
+          ]
+        },
+        "coverage_difference": {
+          "mean": -0.004907065248348144,
+          "stratified_tree_bootstrap_95pct": [
+            -0.039120083589655956,
+            0.0271800773239918
+          ]
+        }
+      },
+      "protocol": {
+        "block_count": 2,
+        "bootstrap_samples": 20000,
+        "bootstrap_seed": 57000,
+        "model_calls": 0,
+        "tree_count": 64
+      },
+      "ranking": {
+        "crossfit_depth_three_pairwise_concordance": {
+          "mean": 0.6143973214285714,
+          "stratified_tree_bootstrap_95pct": [
+            0.5809151785714286,
+            0.6478794642857143
+          ]
+        },
+        "crossfit_depth_three_spearman_brier": {
+          "mean": 0.3050595238095238,
+          "stratified_tree_bootstrap_95pct": [
+            0.21986607142857145,
+            0.3872767857142857
+          ]
+        },
+        "crossfit_depth_two_pairwise_concordance": {
+          "mean": 0.5675223214285714,
+          "stratified_tree_bootstrap_95pct": [
+            0.53515625,
+            0.5987723214285714
+          ]
+        },
+        "crossfit_depth_two_spearman_brier": {
+          "mean": 0.18489583333333334,
+          "stratified_tree_bootstrap_95pct": [
+            0.10267857142857142,
+            0.2648809523809524
+          ]
+        }
+      }
+    }
+  },
+  "interface_version": "number-game-crossplanner-canonical-pooled128-1",
+  "pooled": {
+    "comparisons": {
+      "crossfit_depth_two": {
+        "baseline_mean_brier": 0.10844944852869903,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 32,
+        "mean_brier_difference": -0.001970700737412662,
+        "mean_coverage_difference": 0.0004734848484848459,
+        "mean_hamming_difference": -0.0011930880588058804,
+        "one_sided_exact_sign_pvalue_excluding_ties": 0.10336842090419616,
+        "relative_brier_reduction": 0.018171606809887622,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.004182319507839266,
+          0.00030210453875537666
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.012310606060606058,
+          0.012784090909090906
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.003283922142214221,
+          0.0008602422742274232
+        ],
+        "ties": 52,
+        "wins": 44
+      },
+      "fixed_support_depth_three": {
+        "baseline_mean_brier": 0.11309587626601347,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 45,
+        "mean_brier_difference": -0.006617128474727113,
+        "mean_coverage_difference": 0.007102272727272723,
+        "mean_hamming_difference": -0.0026205745574557457,
+        "one_sided_exact_sign_pvalue_excluding_ties": 0.042110787448350014,
+        "relative_brier_reduction": 0.05850901636026868,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.009936354600872447,
+          -0.003363961601038228
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.008049242424242428,
+          0.022253787878787873
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.005245837083708371,
+          -7.266351635163543e-05
+        ],
+        "ties": 19,
+        "wins": 64
+      },
+      "myopic_eig": {
+        "baseline_mean_brier": 0.12165634590540043,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 28,
+        "mean_brier_difference": -0.015177598114114064,
+        "mean_coverage_difference": 0.012310606060606058,
+        "mean_hamming_difference": -0.004537953795379538,
+        "one_sided_exact_sign_pvalue_excluding_ties": 5.082901389826464e-10,
+        "relative_brier_reduction": 0.12475796475028204,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.01919041672400167,
+          -0.011322283368072585
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.0018939393939393927,
+          0.026988636363636354
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.007165560306030603,
+          -0.001872843534353435
+        ],
+        "ties": 5,
+        "wins": 95
+      },
+      "positive_test_strategy": {
+        "baseline_mean_brier": 0.11495425524089946,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 35,
+        "mean_brier_difference": -0.008475507449613088,
+        "mean_coverage_difference": -0.01195549242424243,
+        "mean_hamming_difference": 0.00013946707170717077,
+        "one_sided_exact_sign_pvalue_excluding_ties": 1.4916209710738623e-07,
+        "relative_brier_reduction": 0.0737293928950409,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.011221532331803601,
+          -0.005760993345204913
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.02485795454545455,
+          0.0008285984848484858
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.002092006075607562,
+          0.002353360336033604
+        ],
+        "ties": 0,
+        "wins": 93
+      },
+      "predictive_bayes_risk_depth_two": {
+        "baseline_mean_brier": 0.10945569032783771,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 46,
+        "mean_brier_difference": -0.00297694253655135,
+        "mean_coverage_difference": 0.00449810606060606,
+        "mean_hamming_difference": -0.0016689168916891688,
+        "one_sided_exact_sign_pvalue_excluding_ties": 0.3068672338150695,
+        "relative_brier_reduction": 0.027197695502489738,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.005484601303329915,
+          -0.0005378511145848496
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.010416666666666664,
+          0.019176136363636364
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.00390742199219922,
+          0.0005602122712271234
+        ],
+        "ties": 30,
+        "wins": 52
+      },
+      "retained_risk_set_depth_three": {
+        "baseline_mean_brier": 0.10710751087621537,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 44,
+        "mean_brier_difference": -0.0006287630849290027,
+        "mean_coverage_difference": 0.003787878787878787,
+        "mean_hamming_difference": -0.0015728135313531353,
+        "one_sided_exact_sign_pvalue_excluding_ties": 0.8428467100680315,
+        "relative_brier_reduction": 0.005870392092816564,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.0031209693266702025,
+          0.0017191802225053053
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.01017992424242424,
+          0.017755681818181816
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.00374568706870687,
+          0.0006422517251725179
+        ],
+        "ties": 48,
+        "wins": 36
+      },
+      "uniform_random_candidate_root": {
+        "baseline_mean_brier": 0.11689244267857288,
+        "candidate_mean_brier": 0.10647874779128637,
+        "losses": 20,
+        "mean_brier_difference": -0.010413694887286518,
+        "mean_coverage_difference": 0.001834753787878785,
+        "mean_hamming_difference": -0.002350430355535553,
+        "one_sided_exact_sign_pvalue_excluding_ties": 4.2943114779374537e-16,
+        "relative_brier_reduction": 0.08908783706335709,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.012324872850808624,
+          -0.008452328872309248
+        ],
+        "stratified_tree_bootstrap_coverage_difference_95pct": [
+          -0.008404356060606072,
+          0.01242897727272727
+        ],
+        "stratified_tree_bootstrap_hamming_difference_95pct": [
+          -0.003983308487098709,
+          -0.0006475256900690049
+        ],
+        "ties": 0,
+        "wins": 108
+      }
+    },
+    "novel_targets": {
+      "candidate_minus_baseline_brier": {
+        "mean": -0.0001741694206730945,
+        "stratified_tree_bootstrap_95pct": [
+          -0.003352940552138247,
+          0.003003568562384199
+        ]
+      },
+      "candidate_minus_baseline_hamming": {
+        "mean": -0.0019005336712544028,
+        "stratified_tree_bootstrap_95pct": [
+          -0.0051585861596695325,
+          0.0013054544246122591
+        ]
+      },
+      "coverage_difference": {
+        "mean": 0.0007251169577787927,
+        "stratified_tree_bootstrap_95pct": [
+          -0.019390847520138137,
+          0.01971234405373421
+        ]
+      }
+    },
+    "protocol": {
+      "block_count": 4,
+      "bootstrap_samples": 20000,
+      "bootstrap_seed": 57000,
+      "model_calls": 0,
+      "tree_count": 128
+    },
+    "ranking": {
+      "crossfit_depth_three_pairwise_concordance": {
+        "mean": 0.6579241071428571,
+        "stratified_tree_bootstrap_95pct": [
+          0.6350446428571428,
+          0.6802455357142857
+        ]
+      },
+      "crossfit_depth_three_spearman_brier": {
+        "mean": 0.40401785714285715,
+        "stratified_tree_bootstrap_95pct": [
+          0.34523809523809523,
+          0.46056547619047616
+        ]
+      },
+      "crossfit_depth_two_pairwise_concordance": {
+        "mean": 0.5990513392857143,
+        "stratified_tree_bootstrap_95pct": [
+          0.5770089285714285,
+          0.6205357142857143
+        ]
+      },
+      "crossfit_depth_two_spearman_brier": {
+        "mean": 0.265625,
+        "stratified_tree_bootstrap_95pct": [
+          0.2072172619047619,
+          0.32161458333333337
+        ]
+      }
+    }
+  },
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "block_count": 4,
+    "bootstrap": "resample 32 trees independently within each of four blocks",
+    "cannot_rescue_source_statuses": true,
+    "cost_usd": 0.0,
+    "model_calls": 0,
+    "planner_family_count": 2,
+    "source_hashes": {
+      "gptmini_replay64": "33263d27fa0f3fb19b44908070df1a21fb014ffbf1bc1cd715d362d3ac531427",
+      "qwen_confirmation_v1": "370e1c2923e56fb6a8344558db0a69bd5f86a8b013da7d9452675df380f7f12b",
+      "qwen_replication_v2": "a03c5a6f6e01af403ce27ef7984e29176bf0aa5f40caeae2bb6d213ce8c5dc83"
+    },
+    "target_count": 33,
+    "tree_count": 128
+  },
+  "robustness_checks": {
+    "all_blocks_myopic_ci_below_zero": true,
+    "all_blocks_myopic_gain_at_least_eight_percent": true,
+    "all_blocks_myopic_wins_at_least_twenty": true,
+    "both_families_myopic_ci_below_zero": true,
+    "both_families_myopic_gain_at_least_ten_percent": true,
+    "exactly_four_disjoint_32_tree_blocks": true,
+    "pooled_myopic_ci_below_zero": true,
+    "pooled_myopic_gain_at_least_ten_percent": true,
+    "pooled_myopic_wins_at_least_eighty": true
+  },
+  "schema_version": 1,
+  "status": "retrospective_crossplanner_robustness_positive"
+}

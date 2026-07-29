@@ -299,6 +299,40 @@
       ]
     },
     {
+      "id": "number_game_crossplanner_canonical_pooled128",
+      "paper_scope": "Retrospective four-block exact-canonical robustness synthesis across Qwen and GPT-5.4 Mini planning generators.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_crossplanner_canonical_pooled128/number-game-crossplanner-canonical-pooled128-20260729T072206Z/RESULT.json",
+        "sha256": "42c189bbf4d0039b78c5fbc7d48774169744975b151c598f2619b9cb73a3e2f3"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_crossplanner_robustness_positive"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_source_statuses", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/planner_family_count", "equals": 2},
+        {"pointer": "/protocol/block_count", "equals": 4},
+        {"pointer": "/protocol/tree_count", "equals": 128},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/families/qwen~1qwen3.7-plus/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.11998072362674825, "tolerance": 1e-12},
+        {"pointer": "/families/openai~1gpt-5.4-mini/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.12934142002513874, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/candidate_mean_brier", "equals": 0.10647874779128637, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.12165634590540043, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.12475796475028204, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.01919041672400167, -0.011322283368072585], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/wins", "equals": 95},
+        {"pointer": "/pooled/comparisons/myopic_eig/ties", "equals": 5},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.018171606809887622, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.004182319507839266, 0.00030210453875537666], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/fixed_support_depth_three/relative_brier_reduction", "equals": 0.05850901636026868, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/positive_test_strategy/relative_brier_reduction", "equals": 0.0737293928950409, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/uniform_random_candidate_root/relative_brier_reduction", "equals": 0.08908783706335709, "tolerance": 1e-12},
+        {"pointer": "/robustness_checks/all_blocks_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/robustness_checks/both_families_myopic_ci_below_zero", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {

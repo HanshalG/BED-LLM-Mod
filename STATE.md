@@ -2399,3 +2399,10 @@ summaries. Checks require every block d3-myopic>=8%+CI<0+20 wins,both
 families/global>=10%+CI<0,and global>=80 wins. All controls/rank/Hamming/
 coverage/depth reported;pooled depth cannot erase known block heterogeneity.
 No source rescue,model0,cost0.
+2026-07-29: Cross-planner canonical pooled128(commit b71cac3) is strongest
+retrospective LLM-native robustness summary:d3 Brier.106479 vs myopic.121656,
+12.476%,4-block CI[-.019190,-.011322],95/5/28 W/T/L,Hamming CI<0;all4
+blocks individually>=8%+CI<0+>=20 wins. Qwen12.00% CI<0,GPTmini12.93%
+CI<0. Fixed/PTS/random gains5.851/7.373/8.909%,all CI<0;rho.404 vs.266.
+D3-d2 only1.817%,CI[-.004182,+.000302],so depth null preserved. Public
+RESULT SHA42c189bb;retrospective,no source rescue,model0/cost0.
