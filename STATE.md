@@ -2318,3 +2318,11 @@ requires exact10 accepted/HTTP/parsed,0 retry/provider/reasoning/forced,
 prior>=16,conditioned>=8,and cost<=.10. Passing only authorizes one fresh
 32-tree exact-canonical confirmation whose primary is d3 versus myopic;
 d3-versus-d2 is diagnostic,not a forced monotonicity claim. OpenRouter only.
+2026-07-29: GPTmini planner exact10 V1(commit8f36fe6) is transport-clean but
+scientific gated null:10/10 accepted+HTTP,$.032178,0 retry/provider/reasoning/
+forced;initial21/22,one-step14/21/20/14,two-step6/6/15/10,so frozen
+conditioned>=8 gate fails. Failures are explicit constraint contradictions
+(not parse):10Y20N emits multiples-of-10;10N20Y emits even rules. Public
+RESULT SHA540ada86,private d830943e. No efficacy/formal authorization. Close
+V1;one V2 may strengthen prospective substitution checking without repair,
+reuse,or threshold relaxation. Balance authenticated$15.182081;top-up absent.

@@ -1,0 +1,432 @@
+{
+  "cases": [
+    {
+      "case_index": 0,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 3,
+          "inconsistent": 0,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 21
+      },
+      "extension_sha256s": [
+        "45037f588bbfbe7f185f86cbd68e323b1d60146502218a46054c188084b1bff0",
+        "9282e66ffea5587f8e928ac40b51902b7ee29e0b53892b80ede1119c89d28c89",
+        "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+        "067ec50febbf9ad1b10564096e5a2e4f4976e1c0986f90d8d917fd4e886f3352",
+        "1859f51628757197fd2e44cbb478c08ab1994b60e9736fe9e50f92755beded77",
+        "4e79c525038c5311b20e943b31365b39a45f0ba83a818703e732fbeed31f35ea",
+        "17d3bf5e29341bb9870b9e22271a66f2a496116bb5a785e004b08c5d94b540c1",
+        "acbdb7bf17e0115379e17c857ec9b62581add7f30ec818a09efe289b5050e7c3",
+        "0ca2907d77dfdd0c9b4fbcf7a95b7425f4d3733116b77cce1e6bf1c714755080",
+        "ccbbc7a495402b701177463c71306683d493b780ee4e322dfac462f99bb18581",
+        "18478710873814a0c32a128e36d55405821b7366254a1c2253acc9f0f0b4d917",
+        "d53b145231d22447836e2f4f6eccd131cb554f44f70ff70b20ee6ed98ad399d9",
+        "f59e1e0880961ec59d45443d58965857538dfa46617403d8cda61c74ea64d495",
+        "127d89ee01c40637510cfb3065a9981419befd5a76b2428bc6eb5e53f2df2b23",
+        "9d03af2b08d9b710ce471f3c6d8c728f79a842b3e71ca33ff8439f2205db626b",
+        "e60bf7aafc82546f1e3c8d2380a3d45e64634865923f69b9c332407ac45aab0f",
+        "7aece34b3fd67ce52624303a42a4332c53040a117e296886f240609ed4b3eb93",
+        "e29548becb422629c751c0fe7ab7aa36cbdb61c2534589b555b89874b0429dc2",
+        "e9665b85589a4e5c278ce9cc7f8f3249f99c5dc0b468e025f28eebc0b8ed4af8",
+        "6d501c66d079dee56853d475a75f7702df04690a6d67104039a454d739ee0f0a",
+        "804786387aa1a285325d4c617d9fe498f2d4ad465909bb0aa16207948120a269"
+      ],
+      "observations": [],
+      "valid_unique_count": 21
+    },
+    {
+      "case_index": 1,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 2,
+          "inconsistent": 0,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 22
+      },
+      "extension_sha256s": [
+        "45037f588bbfbe7f185f86cbd68e323b1d60146502218a46054c188084b1bff0",
+        "9282e66ffea5587f8e928ac40b51902b7ee29e0b53892b80ede1119c89d28c89",
+        "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+        "067ec50febbf9ad1b10564096e5a2e4f4976e1c0986f90d8d917fd4e886f3352",
+        "1859f51628757197fd2e44cbb478c08ab1994b60e9736fe9e50f92755beded77",
+        "4e79c525038c5311b20e943b31365b39a45f0ba83a818703e732fbeed31f35ea",
+        "9d03af2b08d9b710ce471f3c6d8c728f79a842b3e71ca33ff8439f2205db626b",
+        "0ca2907d77dfdd0c9b4fbcf7a95b7425f4d3733116b77cce1e6bf1c714755080",
+        "17d3bf5e29341bb9870b9e22271a66f2a496116bb5a785e004b08c5d94b540c1",
+        "acbdb7bf17e0115379e17c857ec9b62581add7f30ec818a09efe289b5050e7c3",
+        "60d34ac7f70b5bd38e73f453b1606046cc841f3b8ff6c403eb5a379ec6c4f8e9",
+        "ad21415a30ec06abd581bfe9e2ac7472b7ca049143084a7248baf79b57f57727",
+        "ee6101513fe4a078a3decd20b6fc1574ff17af75923670784484f57a92095a89",
+        "b8b66f9b19638443906f5d9f15d4db4e47eb635ebcba37300977adb9d75285c4",
+        "0bf0b3eac50461fd935f66fe505d201f45632167d6e8a1a55483c548c8d6855f",
+        "001f3c0818f149016fa006f788469ed885fa582cae731f9db6bbf04b0c3444dd",
+        "f4dfca56c36534a5ec10716e6d1b1f06f04a28e01dfbbd2c193653baa77b0d5a",
+        "7aece34b3fd67ce52624303a42a4332c53040a117e296886f240609ed4b3eb93",
+        "77185368bb6171fee3de633eebbe3b3ac5f0db01b5e8e29b7b8a08942d79f323",
+        "e60bf7aafc82546f1e3c8d2380a3d45e64634865923f69b9c332407ac45aab0f",
+        "38d6467766126a1c49ce1d4c5cc38936cc24e0f5fb6157094576d9294213c835",
+        "903e1a04b3aba8e1523b5b56cbb25ca4dac2e1c92a85656c76bb1188cc490f13"
+      ],
+      "observations": [],
+      "valid_unique_count": 22
+    },
+    {
+      "case_index": 2,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 5,
+          "inconsistent": 5,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 14
+      },
+      "extension_sha256s": [
+        "45037f588bbfbe7f185f86cbd68e323b1d60146502218a46054c188084b1bff0",
+        "067ec50febbf9ad1b10564096e5a2e4f4976e1c0986f90d8d917fd4e886f3352",
+        "4e79c525038c5311b20e943b31365b39a45f0ba83a818703e732fbeed31f35ea",
+        "891ca47b8424dff24b0ffb0205f96fbcf4ab77493afdc2578601251838350fd4",
+        "21af022c39a10d685b687c0826bb5cf15b53fe7f65584579388595d98fe40e21",
+        "9110d76b73edda536bb215d71799176edbd26ff0384af76b20b574b9f8adb057",
+        "7e4503bd074f4292454b5e6e300b6022f18197e4d380680085f11153a7a9ae1d",
+        "5f882b7b68302adb5a560bb33d51f4f267de757042d938ffff2a55d4f4d4b687",
+        "36c735e7bafff073b3a916a07308065bdeda56da625e8e95af30038c6c156ec2",
+        "d96da00352ba8f1f89c133cae352a30e48817720a86a70dd09f108d6ba9facf8",
+        "db8642edeaa52abe6e15a5f15a8f689b4bd7c875833f0c24925042965300a992",
+        "231a7b1ac73f7bf00d92a970ef9cbf2c1d9088401eb304a131ffe85a82a11f7c",
+        "8c159381969c86487d5f7e572ca3a9f0e264d647905ed8deb2acdc149460bade",
+        "d271961b4ebd98fa57602438d20064bc7d7b95c22850cb0361c2ea475d8847ec"
+      ],
+      "observations": [
+        [
+          10,
+          true
+        ]
+      ],
+      "valid_unique_count": 14
+    },
+    {
+      "case_index": 3,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 0,
+          "inconsistent": 3,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 21
+      },
+      "extension_sha256s": [
+        "79e1611a00d16c822e1920eaf3268d680d151275dfd6af579e71aa8a8e2ca276",
+        "e8d1aaeb97b208c19fd99105bd98fb97f71cdd0974080f8b29efd7541a4d3e6e",
+        "903e1a04b3aba8e1523b5b56cbb25ca4dac2e1c92a85656c76bb1188cc490f13",
+        "3a5eb915d9b580d4f0ec527fc2b1ad8b3fe0f2b2837901606ea2e8b147cc6642",
+        "3e476a78ca83f6a9ea8cc019fb730c4d6a51a11b7b179a0dea27936cf57d8d7b",
+        "6b0e86d9b335ed4fcf366f3a85879923d08ca77ee9212e7cf45803bef7eefe58",
+        "1f1078676032e8152ca17003271cb25b76346761c673062a68707e48ca5c223b",
+        "60d34ac7f70b5bd38e73f453b1606046cc841f3b8ff6c403eb5a379ec6c4f8e9",
+        "17d3bf5e29341bb9870b9e22271a66f2a496116bb5a785e004b08c5d94b540c1",
+        "acfd02a7060c777d83f369392cd4ed9a8cd22afec24d5e51a8ec7764f65ae191",
+        "66f3559795b0f3360f6c3a713ae2af6f8b3861fdc66473b0b6efe13a869fd7d8",
+        "461536c0bf8f0e12675b2e61d48ff7024113b713be83926bc21e37a8fe6881b9",
+        "d257a8b581bcf549c057ca8fdff0f053e84946493817c6b26db27dd3b4acb206",
+        "a426ef0f5237dceb60f687e3858b657e1c3267f0e5b0b05c3a2ced8942bffa73",
+        "ec2387a9268cb46b63c3699b9d39d926826141def8fcfa9f795020de8aa28a7a",
+        "98da5a9a7ba2d0c62a08999f838df221068ea5e95bf1dd975bc764e3cb29dc07",
+        "ddbef3e8a118cf4124012c3551154ca4a057526007857385d187bc512e500a98",
+        "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+        "570cc8d4b695a1cbe23dd2ab1044b701596a8c7f6e07bea5c49988dd8d1850f7",
+        "8fd4b98f1386f201bb95decd165cffe9258aa5f1f4a367307941eeb267b14bbd",
+        "5b101bdb9fef31f7efb403a98c64667e34ad02858e45735783e5c28bb042bd90"
+      ],
+      "observations": [
+        [
+          10,
+          false
+        ]
+      ],
+      "valid_unique_count": 21
+    },
+    {
+      "case_index": 4,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 3,
+          "inconsistent": 1,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 20
+      },
+      "extension_sha256s": [
+        "e60bf7aafc82546f1e3c8d2380a3d45e64634865923f69b9c332407ac45aab0f",
+        "424e80147509d4902a1835719f68e506107ce60822e8a98ead423e3234e2ff54",
+        "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+        "2e5413a32230bbdaf42a6b45fa95207758f7a7af029c366ae910f43f4a4373be",
+        "53c133bbcff5587d264786ffdceb44c306beafd3b1a96ed366ebdb73ca99386d",
+        "a426ef0f5237dceb60f687e3858b657e1c3267f0e5b0b05c3a2ced8942bffa73",
+        "c06eb23581a9f6d6344bb2998567318e1e2349a752310c3e41027e58b30c50b1",
+        "67c789de8d0773b9a5cf5b2120140cea70eee76ae959923fbbbef00836cc7951",
+        "5aa176d916761cadd14665251178088914f3bad8598e970316a39165dd3c5fe6",
+        "e8d1aaeb97b208c19fd99105bd98fb97f71cdd0974080f8b29efd7541a4d3e6e",
+        "f0b7cba6c0df06b79e7e5431690ccc3350ce6f5619f9776d30739c8aed03afb9",
+        "1024ecc75daee5aadaebe21f16174ced3d876f4e84ed3835b0074255f0a87037",
+        "2b5a71a2eef5ea0f3b323f4dc9b14ccde2df782ef685bb87a408cb32cce9c24b",
+        "49ca8ef8a6926439f55bbecafe9517a1ef72714602ea562fa78273c469a1d5bc",
+        "ddf48b63b0d10c6b347ea9eba03a2d1d5ad7f20defb38d721346cdbe1e32bc99",
+        "5f882b7b68302adb5a560bb33d51f4f267de757042d938ffff2a55d4f4d4b687",
+        "61cfdefe2a28ea40d0f62c37566a0812cecf48b0cef3858a31908c67f2264f6f",
+        "461536c0bf8f0e12675b2e61d48ff7024113b713be83926bc21e37a8fe6881b9",
+        "31f6b655dfc3afe8242f0dd0e4b7dfe721f3c8984414382eca6941815cfe9173",
+        "e230d8ccc276717fcc183ddd4b07f132739d6894edc293b2a9f4c20d8acef78c"
+      ],
+      "observations": [
+        [
+          42,
+          true
+        ]
+      ],
+      "valid_unique_count": 20
+    },
+    {
+      "case_index": 5,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 0,
+          "inconsistent": 10,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 14
+      },
+      "extension_sha256s": [
+        "548613bb607e54aee4e549a7d3958ee6998c0e7ae63a6df483c2d0000cc68150",
+        "ccbbc7a495402b701177463c71306683d493b780ee4e322dfac462f99bb18581",
+        "4b681129e510f4659825cec344d99c67d2969c6d7ead514499db541c4a61cc5e",
+        "903e1a04b3aba8e1523b5b56cbb25ca4dac2e1c92a85656c76bb1188cc490f13",
+        "d18e8ccf3e37d84de7a112c3503748ab9df972972e5792110efd666530dc211f",
+        "8427e2fb8b1b2dbc6c167333366b5018535e307c5376074a98d7422aafaaebf8",
+        "46efb57790d37bbee8a8657a1b3cdfc0d7213a3505f3a2b300ff48778981c1af",
+        "dda61bcc5e94f30d4784e8cc2e1834c94e0a34aafa350e8d9ed2f7b2954c9e89",
+        "dcc6252b3a7a7d5ac4a0ea2627b965ba183b3e69c37dc1bb61f09b68f0457742",
+        "c44ee9f4d2915c242ebe4f631b93e406944838f5164768ff35ddec27423aea98",
+        "c0e4ff50760015e09bf2e1e86dc80d3059823a4344880d8fad4c1492fb963514",
+        "488e941ed59abda353cc8613befc82fc7873587a165df4bc6dadeba01f80e5e9",
+        "5df3f31cf03ce8f7625234dfab01048369da91fc969c2d385035bedcd41982e0",
+        "8b4da701853a52d4c94b392def93562b0a6cf51fa1e199aec5b6136550b90e81"
+      ],
+      "observations": [
+        [
+          42,
+          false
+        ]
+      ],
+      "valid_unique_count": 14
+    },
+    {
+      "case_index": 6,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 0,
+          "inconsistent": 18,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 6
+      },
+      "extension_sha256s": [
+        "929ab611b7c330f1029423cd273126b011a082682941597def401f7c687859eb",
+        "6ede3be336f1a4b58a630bddba3bffbc035a051eb07bfa524bcddea093d64f91",
+        "72a520e43965a9f6bfe13cad6d24d7e88f2544e19ac2d19affc60cf0487a7fc6",
+        "8d70284cfe1c65e99fb5dc0524eeb624af4ac09fd60c61286b06b160cf62ca40",
+        "b5678788e315067c0aa5dd8848b8db377ddb4eabb80bfed27d8cf65b0963217e",
+        "b08224c7ba00b1cc0fea367fb53f740b00aafd0ebf00b96f14bc4146dd997e31"
+      ],
+      "observations": [
+        [
+          10,
+          true
+        ],
+        [
+          20,
+          false
+        ]
+      ],
+      "valid_unique_count": 6
+    },
+    {
+      "case_index": 7,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 1,
+          "inconsistent": 17,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 6
+      },
+      "extension_sha256s": [
+        "9d03af2b08d9b710ce471f3c6d8c728f79a842b3e71ca33ff8439f2205db626b",
+        "66f3559795b0f3360f6c3a713ae2af6f8b3861fdc66473b0b6efe13a869fd7d8",
+        "9a06b4bea985912f7b83966883688a4084316e1453711c053bc882f5e545ca5e",
+        "d1f03fe9a85a16085fc53189eebf7c756bf4efa3eee8933819a79db66769a9df",
+        "35511f643970261810258f0543d928d7e152cfd313c7106ae12ba4fd5a410a7b",
+        "5b76666950e5d8ee9764143ba82400976e1f7c57faa282e51af11e56049212c1"
+      ],
+      "observations": [
+        [
+          10,
+          false
+        ],
+        [
+          20,
+          true
+        ]
+      ],
+      "valid_unique_count": 6
+    },
+    {
+      "case_index": 8,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 3,
+          "inconsistent": 6,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 15
+      },
+      "extension_sha256s": [
+        "1024ecc75daee5aadaebe21f16174ced3d876f4e84ed3835b0074255f0a87037",
+        "f24dbe8331c88077f247296f437131f268822c212567467ce48564793344c46e",
+        "de379e3152effcbcadd453774d3d0b5396438d5a3cdf2de2143e1e1341b6864b",
+        "d4a32601dcb8e3b56fc5056bd2d644a8a7a57355161d369c863eb27fc0a0edfa",
+        "7782ebe7136ef252451dc78af94713256eba863902d52028d53a5b64e3e7a374",
+        "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+        "e8d1aaeb97b208c19fd99105bd98fb97f71cdd0974080f8b29efd7541a4d3e6e",
+        "3a5eb915d9b580d4f0ec527fc2b1ad8b3fe0f2b2837901606ea2e8b147cc6642",
+        "470fb92160153dcf0f58ae8c52ca3b67946fec0d26fab4b8bf1d2115c82a13e0",
+        "84c233bc637f73162ce4b7d5719b11d9240aa76a9e0db7f6ea04565798e9644c",
+        "bda8ce36ed57fb8f4b7c84839acf4957c84a8b7c82831e308fee14ce24c755d2",
+        "346a21ab5547bd3dfbe75780d9bfa50237ebb8063d17f80a16d7c72b80b59619",
+        "8e735cd4a4e1e9b4431b2052108a501596406b006da019e1b82df236397be5ad",
+        "d4335c8be3c6123f914cc4a7e63ce4c610926fdfbeb00206064cb4a1a21d6ed2",
+        "789bec3d3d1e97e6c9950bd156965592f2c62d6c5b4cb3b0998dbca9a8192817"
+      ],
+      "observations": [
+        [
+          42,
+          true
+        ],
+        [
+          75,
+          true
+        ]
+      ],
+      "valid_unique_count": 15
+    },
+    {
+      "case_index": 9,
+      "diagnostics": {
+        "raw_count": 24,
+        "rejected": {
+          "duplicate_extension": 0,
+          "inconsistent": 14,
+          "invalid_expression": 0,
+          "invalid_name": 0,
+          "wrong_fields": 0
+        },
+        "valid_unique_count": 10
+      },
+      "extension_sha256s": [
+        "548613bb607e54aee4e549a7d3958ee6998c0e7ae63a6df483c2d0000cc68150",
+        "e19626bf7117ab2360f95a546829242dfb9ca5ca578aed781fcd769d4a76e3b1",
+        "0c5e3fc4131d3829470791dcacdf56d2b5d38d8b52aab8b8cc6852235966cdde",
+        "1f1078676032e8152ca17003271cb25b76346761c673062a68707e48ca5c223b",
+        "89cd2bf6148f3acda02ba3ce0926ca308d6d4f0da71601b05bb6b50992692e18",
+        "f93a49ccd4689d6f5faacaf09ded7e612ed9b503d1639453b8b0f897f87450ad",
+        "c42407287104fe49610f59e3fd42bb951a53b0aea49cd105ae9ad1c7f1fab6b0",
+        "2ce7262e2e9e57b47237d4d0b36a230e192eb4a98eb0246301d1b0e366b39fb2",
+        "841af8ac9cbc8f4d9b2412c8495d7b27cb0426ce1b57b77fd7df09fef1a63bb6",
+        "3eca9a5847dfd2b56c19f70431b8c346bebdf0a942ed2bc372836fc84797db3e"
+      ],
+      "observations": [
+        [
+          42,
+          false
+        ],
+        [
+          75,
+          false
+        ]
+      ],
+      "valid_unique_count": 10
+    }
+  ],
+  "gates": {
+    "all_conditioned_supports_have_at_least_eight_valid": false,
+    "all_pass": false,
+    "both_initial_supports_have_at_least_sixteen_valid": true,
+    "exact_ten_accepted_requests": true,
+    "exact_ten_cases": true,
+    "exact_ten_http_attempts": true,
+    "exact_ten_parsed_responses": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "efficacy_used_for_authorization": false,
+    "expected_requests": 10,
+    "interface_version": "number-game-gptmini-planner-serving-smoke-1",
+    "model": "openai/gpt-5.4-mini",
+    "model_seed": 53000,
+    "prompt_mix": {
+      "initial": 2,
+      "one_observation": 4,
+      "two_observations": 4
+    },
+    "reasoning": false,
+    "run_budget_usd": 0.1,
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "d830943ed4203386d639b72ccc6e7daaf5d55a5d30c5fff40f65d05eef338cce",
+  "schema_version": 1,
+  "status": "gated_null",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 6673,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 2866,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.032178
+  }
+}
