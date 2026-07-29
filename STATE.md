@@ -2660,3 +2660,13 @@ looked only at remaining balance and failed to reconcile total credits. If the
 user intended a second later$40 purchase,total should be$220 and that purchase
 is missing;otherwise the posted$40 has been almost fully consumed. Keep the
 fresh dynamic-vs-fixed run unopened at$1.548748023<$5.50.
+2026-07-29: User adds$35 and authenticated reconciliation confirms it exactly:
+total credits$180->$215,usage unchanged$178.451251977,operative balance
+$36.548748023,key limit none. Budget over3--4 days by explicit live checkpoints,
+not inferred top-ups:no reserve,but no unfrozen spending. First priority is the
+already-preregistered fresh dynamic-vs-fixed confirmation,cap$5.25(expected
+near prior pooled runs~$4.1),leaving at least$31.298748023 at cap. After its
+result,bank/zero-call analyze before choosing one next gated experiment;target
+roughly$8--10/day thereafter and permit larger spend only for a committed
+confirmation whose smoke and causal gate pass. Recheck total credits,usage,
+remaining,and run ledger before and after every paid stage.
