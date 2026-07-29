@@ -2028,3 +2028,16 @@ program behaviors. Require>=3 valid/call,>=20 unique,>=8 novel,then exact
 first25 bank d1/d2 roots disjoint,d2 three-question gain>=.01,d3 nonregression,
 and best(d2,d3)-greedyEIG>=.02 on both blocks.
 Projected$.25,cap$.50. Passage only to separately frozen branch regeneration.
+2026-07-29: Battleship direct-executable candidate-bank gate fails its frozen
+conjunction and branch mechanics stay closed. Exact10/10 GPT-5.4 nonthinking,
+0 retry/reasoning/forced,5990 prompt+3283 completion,cost$.06422. Of60 raw,
+49 are safe Boolean+nontrivial(4--6/call);dedupe leaves19 unique vs required20,
+but all19 are novel vs released bank(required8). More importantly,d1/d2 roots
+differ on both fresh blocks,but receding three-question task utility is exactly
+equal across d1/d2/d3:.590886 seed40010 and.579900 seed40011,so frozen d2-d1
+>=.01 fails as a true depth null. Task-aligned planning still crushes greedy
+configuration-EIG(.371999/.363185)by.218887/.216715. Public GATE SHAc4fde4dd;
+private raw0ef35f54. Interpretation:operational LLM measurement generation is
+safe,balanced,and novel,but a rich static bank lets one-step replanning catch
+up;non-myopic gain needs genuinely path-dependent action/support availability.
+No threshold/order/root-only repair or branch run.

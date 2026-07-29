@@ -1,0 +1,458 @@
+{
+  "blocks": [
+    {
+      "block_index": 0,
+      "depth": {
+        "1": {
+          "best_behavior_sha256": [
+            "cec6a94ed0a855c943809297c9f11e8e1b1df1f5698b674ee0852506f613a9a4"
+          ],
+          "best_indices": [
+            11
+          ],
+          "best_questions": [
+            "Is at least one of the cells C3, C4, D3, or D4 occupied by a ship?"
+          ],
+          "best_value": 0.4152099609375044
+        },
+        "2": {
+          "best_behavior_sha256": [
+            "2775ff60931f77275786dee3d8f187a5a3916b038ab4fdf98138745150e24a4e"
+          ],
+          "best_indices": [
+            0
+          ],
+          "best_questions": [
+            "Is there any ship segment in the 2x2 block B2:C3?"
+          ],
+          "best_value": 0.568413085937503
+        },
+        "3": {
+          "best_behavior_sha256": [
+            "2775ff60931f77275786dee3d8f187a5a3916b038ab4fdf98138745150e24a4e",
+            "cec6a94ed0a855c943809297c9f11e8e1b1df1f5698b674ee0852506f613a9a4",
+            "241f0e5dc2c63bb8420376c2a56695e8f6d7c8154b367747e0e326a7626499a6"
+          ],
+          "best_indices": [
+            0,
+            11,
+            12
+          ],
+          "best_questions": [
+            "Is there any ship segment in the 2x2 block B2:C3?",
+            "Is at least one of the cells C3, C4, D3, or D4 occupied by a ship?",
+            "Is there any ship segment in the 2x2 block A1-B2?"
+          ],
+          "best_value": 0.590885986328126
+        }
+      },
+      "greedy_eig": {
+        "root_eig_bits": 0.5309933994930713,
+        "root_index": 10,
+        "root_question": "Is the total number of ship segments on black checkerboard squares even?",
+        "three_question_hit_probability": 0.3719985351562486
+      },
+      "seed": 40010,
+      "three_question_receding_hit_probability": {
+        "1": 0.5908859863281235,
+        "2": 0.590885986328126,
+        "3": 0.590885986328126
+      }
+    },
+    {
+      "block_index": 1,
+      "depth": {
+        "1": {
+          "best_behavior_sha256": [
+            "cec6a94ed0a855c943809297c9f11e8e1b1df1f5698b674ee0852506f613a9a4"
+          ],
+          "best_indices": [
+            11
+          ],
+          "best_questions": [
+            "Is at least one of the cells C3, C4, D3, or D4 occupied by a ship?"
+          ],
+          "best_value": 0.4065429687500025
+        },
+        "2": {
+          "best_behavior_sha256": [
+            "2775ff60931f77275786dee3d8f187a5a3916b038ab4fdf98138745150e24a4e"
+          ],
+          "best_indices": [
+            0
+          ],
+          "best_questions": [
+            "Is there any ship segment in the 2x2 block B2:C3?"
+          ],
+          "best_value": 0.560686035156255
+        },
+        "3": {
+          "best_behavior_sha256": [
+            "2775ff60931f77275786dee3d8f187a5a3916b038ab4fdf98138745150e24a4e",
+            "cec6a94ed0a855c943809297c9f11e8e1b1df1f5698b674ee0852506f613a9a4",
+            "241f0e5dc2c63bb8420376c2a56695e8f6d7c8154b367747e0e326a7626499a6"
+          ],
+          "best_indices": [
+            0,
+            11,
+            12
+          ],
+          "best_questions": [
+            "Is there any ship segment in the 2x2 block B2:C3?",
+            "Is at least one of the cells C3, C4, D3, or D4 occupied by a ship?",
+            "Is there any ship segment in the 2x2 block A1-B2?"
+          ],
+          "best_value": 0.579899902343754
+        }
+      },
+      "greedy_eig": {
+        "root_eig_bits": 0.5310004439268151,
+        "root_index": 10,
+        "root_question": "Is the total number of ship segments on black checkerboard squares even?",
+        "three_question_hit_probability": 0.3631848144531253
+      },
+      "seed": 40011,
+      "three_question_receding_hit_probability": {
+        "1": 0.5798999023437519,
+        "2": 0.579899902343754,
+        "3": 0.579899902343754
+      }
+    }
+  ],
+  "candidate_bank": [
+    {
+      "behavior_sha256": "2775ff60931f77275786dee3d8f187a5a3916b038ab4fdf98138745150e24a4e",
+      "call_index": 0,
+      "candidate_index": 0,
+      "expression_sha256": "75de1069b8a281f169ac3b967434b4ff7ea536d13ae2eb00f22d8fad7303e482",
+      "novel_vs_released_bank": true,
+      "question": "Is there any ship segment in the 2x2 block B2:C3?",
+      "yes_prevalence": [
+        0.509033203125,
+        0.491943359375
+      ]
+    },
+    {
+      "behavior_sha256": "0d20b02c76b0d8817dc3d94447f8b032e73f584566b2ff5a3ebc326898410d28",
+      "call_index": 0,
+      "candidate_index": 1,
+      "expression_sha256": "966d74a5051af2d539babff0d9a8a2aca0344b582a6641f9dfb58710fed13d75",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-3 ship occupy at least two cells in rows A-D?",
+      "yes_prevalence": [
+        0.52099609375,
+        0.508056640625
+      ]
+    },
+    {
+      "behavior_sha256": "984ef4ee8766827dc2f0d27ac9c41e59795805b00e8027a5af2b149569eca950",
+      "call_index": 0,
+      "candidate_index": 2,
+      "expression_sha256": "10c6bc473b081990a29014a00388a5929462e80ee64e1b790d4bfa4c4c33d152",
+      "novel_vs_released_bank": true,
+      "question": "Is the length-5 ship horizontal?",
+      "yes_prevalence": [
+        0.484130859375,
+        0.4921875
+      ]
+    },
+    {
+      "behavior_sha256": "63c17a500d3e21dc9160d19985a27aeb3813e6d0728e85e352f5b65ae8bc4674",
+      "call_index": 0,
+      "candidate_index": 4,
+      "expression_sha256": "19331dbb3e3e85d71406255bc41e4123c7c97b4050ee5e658188b17ee07bd479",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-2 ship lie entirely above the length-4 ship?",
+      "yes_prevalence": [
+        0.32958984375,
+        0.330078125
+      ]
+    },
+    {
+      "behavior_sha256": "7c587c60156fe2288095bb8a7ff12ccd0b5a487a62e437addc58cd37f392d437",
+      "call_index": 1,
+      "candidate_index": 1,
+      "expression_sha256": "28d5a11cab44f4e7f76586bdc427d94923aec9896f584467737017dd1cd7db18",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-5 ship occupy at least three cells in rows A-D?",
+      "yes_prevalence": [
+        0.398681640625,
+        0.3876953125
+      ]
+    },
+    {
+      "behavior_sha256": "d49b0a1522cbcf1ceacb4a7eb501ac4f4dba358b2540bebcc81159f17fd03b98",
+      "call_index": 1,
+      "candidate_index": 2,
+      "expression_sha256": "a6f44b976b7cbd187658b0ccac5c0ada64bbfb7acf69278c432077cc4522bd65",
+      "novel_vs_released_bank": true,
+      "question": "Is the length-3 ship horizontal?",
+      "yes_prevalence": [
+        0.5029296875,
+        0.47509765625
+      ]
+    },
+    {
+      "behavior_sha256": "c75b844273c2e9a461a487efd34dff3cd24ded59f09265b9c812427ebe38ada2",
+      "call_index": 1,
+      "candidate_index": 5,
+      "expression_sha256": "6b9a6317c01b2c55fa63546b8174482cf90ee7895594b4db4d4ecced5e552b2e",
+      "novel_vs_released_bank": true,
+      "question": "Do exactly two ship IDs appear in column 4?",
+      "yes_prevalence": [
+        0.35986328125,
+        0.361083984375
+      ]
+    },
+    {
+      "behavior_sha256": "cad66ef9adb8d649ce2ec441cc6894fd0e1fe47f55b5ba0b15622f09021627e9",
+      "call_index": 2,
+      "candidate_index": 1,
+      "expression_sha256": "4d28157f3c0d8d3623973547bc1e0c3536fbb9af2050faa33edd7b18c3d668a0",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-5 ship occupy at least three cells in rows E through H?",
+      "yes_prevalence": [
+        0.4052734375,
+        0.407958984375
+      ]
+    },
+    {
+      "behavior_sha256": "d41dc1937026817fef6c28dbe72ca32cc2cf92982eb28dabbb8efa04e7604cc5",
+      "call_index": 2,
+      "candidate_index": 3,
+      "expression_sha256": "1530aa193d5dedf81c65d879b04f585c885a86e176f2d1c321ae72787ce15e24",
+      "novel_vs_released_bank": true,
+      "question": "Do ships occupy more even-parity cells than odd-parity cells, where parity is row+column mod 2?",
+      "yes_prevalence": [
+        0.25341796875,
+        0.25537109375
+      ]
+    },
+    {
+      "behavior_sha256": "f51e120d74fdb0a040f94b854f31673c30d857663c3b2c2aa144aa44e20cb441",
+      "call_index": 2,
+      "candidate_index": 5,
+      "expression_sha256": "c7f32e0eb80c5c36f262684d87d53094f50d0e84f169ff4add9c7ac6aefa158d",
+      "novel_vs_released_bank": true,
+      "question": "Do exactly three rows contain ship cells from exactly one distinct ship ID?",
+      "yes_prevalence": [
+        0.210205078125,
+        0.223876953125
+      ]
+    },
+    {
+      "behavior_sha256": "dd1f094f47036b8d7bad7edef7a88479ec39c54978b61d7d05f6b00946957e2d",
+      "call_index": 3,
+      "candidate_index": 3,
+      "expression_sha256": "6ffcc02d9f5afb0819b7bc3d07d1de917b5cf927bbaf132bf4b48e59a59595e2",
+      "novel_vs_released_bank": true,
+      "question": "Is the total number of ship segments on black checkerboard squares even?",
+      "yes_prevalence": [
+        0.49755859375,
+        0.49853515625
+      ]
+    },
+    {
+      "behavior_sha256": "cec6a94ed0a855c943809297c9f11e8e1b1df1f5698b674ee0852506f613a9a4",
+      "call_index": 4,
+      "candidate_index": 0,
+      "expression_sha256": "383f2ea47850ee18721adc19f78706db905df62a01e883ec4b6c0218fd9a95a1",
+      "novel_vs_released_bank": true,
+      "question": "Is at least one of the cells C3, C4, D3, or D4 occupied by a ship?",
+      "yes_prevalence": [
+        0.573974609375,
+        0.56640625
+      ]
+    },
+    {
+      "behavior_sha256": "241f0e5dc2c63bb8420376c2a56695e8f6d7c8154b367747e0e326a7626499a6",
+      "call_index": 5,
+      "candidate_index": 0,
+      "expression_sha256": "3def78bce2499022a6aa002913d450a1e16631e71729764ba6c28e0d145e5ade",
+      "novel_vs_released_bank": true,
+      "question": "Is there any ship segment in the 2x2 block A1-B2?",
+      "yes_prevalence": [
+        0.382568359375,
+        0.37255859375
+      ]
+    },
+    {
+      "behavior_sha256": "d7d9572ad959d00f4cef977c93334db3e378ae057be0e0af6294fb5729ad166f",
+      "call_index": 5,
+      "candidate_index": 4,
+      "expression_sha256": "4d2b3705238990208946107d57835690d6891bdf8c214f9f496261171a50556c",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-4 ship lie entirely above the length-2 ship?",
+      "yes_prevalence": [
+        0.3271484375,
+        0.31884765625
+      ]
+    },
+    {
+      "behavior_sha256": "70447224306e942954cee6e4af0a9844097ec7657a0c8594444fa0080675c76b",
+      "call_index": 5,
+      "candidate_index": 5,
+      "expression_sha256": "d3e1e5eed3f45f4007bbda9f8ea648366e024a7f07236f85c4525392c0486c2b",
+      "novel_vs_released_bank": true,
+      "question": "Do exactly two ships touch the outer border of the board?",
+      "yes_prevalence": [
+        0.418212890625,
+        0.41845703125
+      ]
+    },
+    {
+      "behavior_sha256": "e4ccce7a34c97f12fea46d1f7dc9e35dbbaa1a9ffaf883e7d421acdc70d10745",
+      "call_index": 6,
+      "candidate_index": 1,
+      "expression_sha256": "35457214b622a6f2df8fad45f028c31df4bbd47f996ca46c31be2e3783b26733",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-5 ship occupy at least three cells in columns 1 through 4?",
+      "yes_prevalence": [
+        0.406494140625,
+        0.388671875
+      ]
+    },
+    {
+      "behavior_sha256": "09325bb0dbb005985c562c99545d4070f4553280ddca7256a8efec81c75f55cd",
+      "call_index": 8,
+      "candidate_index": 2,
+      "expression_sha256": "5bffc30ea761b8e1a34c897c83f27b15d8edc385ff0cbf3ed38a126792b61ba1",
+      "novel_vs_released_bank": true,
+      "question": "Is the length-4 ship vertical?",
+      "yes_prevalence": [
+        0.4970703125,
+        0.486083984375
+      ]
+    },
+    {
+      "behavior_sha256": "0a91730815938d19bb3eebbdbe80af5997186b2b61a42a3e7cb589e248806784",
+      "call_index": 8,
+      "candidate_index": 4,
+      "expression_sha256": "a7cf7855534ee2c87da25385343305b771b968df12d1f3fdf6eaae0cd76e88e0",
+      "novel_vs_released_bank": true,
+      "question": "Does the length-3 ship lie entirely above the length-2 ship?",
+      "yes_prevalence": [
+        0.326416015625,
+        0.30517578125
+      ]
+    },
+    {
+      "behavior_sha256": "5d679b1622cf3691fa188ec2815f07e99ebe6ae756166222f2b2c1651d2bd5e2",
+      "call_index": 9,
+      "candidate_index": 5,
+      "expression_sha256": "311f6648a31ec9632ce6de5c4158dfc2cc251b27de4485799edfed1b05633d58",
+      "novel_vs_released_bank": true,
+      "question": "Do exactly three ship IDs appear within the central 4x4 region E?",
+      "yes_prevalence": [
+        0.16455078125,
+        0.170654296875
+      ]
+    }
+  ],
+  "counts": {
+    "novel_vs_released_bank": 19,
+    "planning_bank_size": 19,
+    "raw_candidates": 60,
+    "unique_valid_behaviors": 19,
+    "valid_nontrivial_candidates": 49,
+    "valid_per_call": [
+      4,
+      5,
+      6,
+      6,
+      4,
+      5,
+      5,
+      5,
+      4,
+      5
+    ]
+  },
+  "gates": {
+    "all_pass": false,
+    "all_ten_schemas_parse": true,
+    "at_least_20_unique_valid_behaviors": false,
+    "at_least_8_behaviors_novel_vs_released_bank": true,
+    "best_nonmyopic_beats_greedy_eig_by_0_02_on_both_blocks": true,
+    "cost_at_most_0_50": true,
+    "depth1_depth2_roots_disjoint_on_both_blocks": true,
+    "depth2_three_question_gain_at_least_0_01_on_both_blocks": false,
+    "depth3_does_not_regress_vs_depth2_on_both_blocks": true,
+    "each_call_has_at_least_three_valid_nontrivial_candidates": true,
+    "exact_10_accepted_requests": true,
+    "exact_10_http_attempts": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "board_seeds": [
+      40010,
+      40011
+    ],
+    "candidates_per_call": 6,
+    "failed_translation_responses_used": false,
+    "failed_translation_sha256": "27ae82a7dc531a8457a777c68c211be8e92d576b7ff89798ca58c592a2b9a625",
+    "hidden_target_accessed": false,
+    "interface_version": "battleship-executable-candidate-bank-1",
+    "max_planning_bank": 25,
+    "model": "openai/gpt-5.4",
+    "model_seed": 40000,
+    "num_calls": 10,
+    "num_samples_per_block": 4096,
+    "policy_endpoint_accessed": false,
+    "private_raw_sha256": "0ef35f540b111157263a9af8c91d993fc5f2f789f65129221e6e186ca718a7af",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "source_audit_sha256": "16aff4012fd5992341f161c01a4dfab48d562e04fe2591eb6fd87d85feba0872"
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_completion_tokens": 3283,
+    "adapter_prompt_tokens": 5990,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 3283,
+      "adapter_cost_usd": 0.06422,
+      "adapter_prompt_tokens": 5990,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 500.0,
+      "completion_tokens": 3283,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 3283,
+          "cost_usd": 0.06422,
+          "prompt_tokens": 5990,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 5990,
+      "provider_error_retries": 0,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 347.70817367677944,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.06422,
+      "run_remaining_usd": 0.43578,
+      "total_spent_usd": 152.29182632322056
+    },
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.06422
+  }
+}
