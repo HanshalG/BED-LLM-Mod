@@ -1978,3 +1978,17 @@ root(`is it made of metal`)for greedy,d2,d3;remaining entropy1.3863/.6931/0.
 Close route:no LLM matrix completion/paraphrase pooling/paid serving,because
 synthetic filling would replace the external human endpoint and no first-link
 planning opportunity exists in observed counterfactuals.
+2026-07-29: Official Collaborative Battleship(commitb98a4ba,trajectory
+SHAc39aa87d)provides the first strong new LLM-native non-myopic opportunity.
+Retrospective zero-call audit binds48 released trajectories and39 executable
+LLM-generated root-question programs;all compile/return Boolean/nonconstant on
+two independent4096-board prior blocks(seeds39600/39601),with25 unique joint
+behaviors. Exact BSC(.1) task-utility planning with the same3-question budget
+selects stable,disjoint roots:d1 tileD4,d2 rowD columns4/5,d3 region
+D4,D5,E4,E5. Receding endpoint hit probability is .63809/.66285/.67784 and
+.63586/.65802/.67253,strictly monotonic with every adjacent gain>=.01.
+Greedy configuration-EIG roots are unstable despite EIG~.53095bits and yield
+only.43616/.40085 endpoint hit. Public RESULT SHA16aff401;model0/cost0. This
+is source opportunity,not fresh efficacy. It localizes prior failure to
+utility mismatch and authorizes only a separately frozen exact10 fresh
+question+cross-translation serving smoke before branch-conditioned trees.

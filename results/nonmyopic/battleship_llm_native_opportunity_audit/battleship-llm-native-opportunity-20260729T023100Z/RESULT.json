@@ -1,0 +1,471 @@
+{
+  "status": "passed",
+  "source": {
+    "repository": "https://github.com/gabegrand/battleship",
+    "commit": "b98a4ba1c55be1bd5aa8038d42ad0070c41cabcb",
+    "trajectory_path": "external/battleship/docs/static/data/trajectory_samples.json",
+    "trajectory_sha256": "c39aa87d888fb98d5c6750ce4a3d70da6757adab9a5d4a69a44801f298290e94"
+  },
+  "config": {
+    "seeds": [
+      39600,
+      39601
+    ],
+    "num_samples_per_block": 4096,
+    "epsilon": 0.1,
+    "execution_question_budget": 3
+  },
+  "counts": {
+    "released_games": 48,
+    "stage_zero_programs": 39,
+    "valid_nonconstant_programs": 39,
+    "unique_joint_behaviors": 25,
+    "program_failures": 0
+  },
+  "program_failures": [],
+  "question_bank": [
+    {
+      "source_index": 0,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B08",
+      "question": "Is there any part of a ship on the tiles between D3 and E6?"
+    },
+    {
+      "source_index": 1,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B03",
+      "question": "Is there any part of a length 5 ship occupying either column 4 or column 5 anywhere on the board?"
+    },
+    {
+      "source_index": 2,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B13",
+      "question": "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+    },
+    {
+      "source_index": 3,
+      "model": "GPT-4o",
+      "captain_type": "LM",
+      "board_id": "B10",
+      "question": "Is there a part of any ship in row D, columns 4 or 5?"
+    },
+    {
+      "source_index": 4,
+      "model": "GPT-4o",
+      "captain_type": "LM",
+      "board_id": "B13",
+      "question": "Is there any part of a ship in Quadrant 1 (rows A-D, columns 1-4)?"
+    },
+    {
+      "source_index": 5,
+      "model": "GPT-4o",
+      "captain_type": "LM",
+      "board_id": "B18",
+      "question": "Is there part of a ship (of any size) in columns 1 to 4 (A1 to H4)?"
+    },
+    {
+      "source_index": 7,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-QM",
+      "board_id": "B07",
+      "question": "Is there any part of a ship on tile D4?"
+    },
+    {
+      "source_index": 9,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-M",
+      "board_id": "B16",
+      "question": "Is there any part of a ship in row D?"
+    },
+    {
+      "source_index": 10,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-M",
+      "board_id": "B04",
+      "question": "Does the row C to E contain any ship tiles?"
+    },
+    {
+      "source_index": 11,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-M",
+      "board_id": "B08",
+      "question": "Is there at least one tile belonging to any ship in column 4?"
+    },
+    {
+      "source_index": 12,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-QMD",
+      "board_id": "B11",
+      "question": "Is there a segment of the largest ship (length 5) in rows 4 or 5?"
+    },
+    {
+      "source_index": 13,
+      "model": "GPT-4o",
+      "captain_type": "+Bayes-QMD",
+      "board_id": "B14",
+      "question": "Is there a part of any ship located at coordinates E4?"
+    },
+    {
+      "source_index": 15,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B12",
+      "question": "Do at least two tiles of the length-3 ship lie on the same-color squares as A1 (the dark squares in a checkerboard coloring)?"
+    },
+    {
+      "source_index": 16,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B13",
+      "question": "Are there more ship tiles in columns 1-4 than in columns 5-8?"
+    },
+    {
+      "source_index": 17,
+      "model": "GPT-5",
+      "captain_type": "LM",
+      "board_id": "B08",
+      "question": "Does any ship occupy tiles in both columns 4 and 5 on the same row?"
+    },
+    {
+      "source_index": 18,
+      "model": "GPT-5",
+      "captain_type": "LM",
+      "board_id": "B01",
+      "question": "Is there a ship segment on any of these tiles: A1, A8, H1, H8, or E5?"
+    },
+    {
+      "source_index": 19,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-QM",
+      "board_id": "B02",
+      "question": "Is there at least one ship that is entirely contained within the central 4x4 region (rows C\u2013F and columns 3\u20136)?"
+    },
+    {
+      "source_index": 20,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-QM",
+      "board_id": "B17",
+      "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+    },
+    {
+      "source_index": 21,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-M",
+      "board_id": "B11",
+      "question": "Is the length-5 ship oriented horizontally?"
+    },
+    {
+      "source_index": 22,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-M",
+      "board_id": "B05",
+      "question": "Does the length-5 ship occupy at least one tile in the central 4x4 region (rows C\u2013F and columns 3\u20136)?"
+    },
+    {
+      "source_index": 23,
+      "model": "GPT-5",
+      "captain_type": "+Bayes-M",
+      "board_id": "B04",
+      "question": "Are at least 7 of the 13 ship segments located in the top half of the board (rows A\u2013D)?"
+    },
+    {
+      "source_index": 24,
+      "model": "Llama-4-Scout",
+      "captain_type": "+Bayes-Q",
+      "board_id": "B08",
+      "question": "Is there a ship in row A?"
+    },
+    {
+      "source_index": 27,
+      "model": "Llama-4-Scout",
+      "captain_type": "LM",
+      "board_id": "B05",
+      "question": "Is there a ship located in the top half of the board (rows A to D)?"
+    },
+    {
+      "source_index": 29,
+      "model": "Llama-4-Scout",
+      "captain_type": "LM",
+      "board_id": "B03",
+      "question": "Is there a ship in the 4x4 sub-grid from row B to E and column 2 to 5?"
+    },
+    {
+      "source_index": 33,
+      "model": "Llama-4-Scout",
+      "captain_type": "+Bayes-M",
+      "board_id": "B09",
+      "question": "Is there a ship in row E?"
+    }
+  ],
+  "blocks": [
+    {
+      "block_index": 0,
+      "seed": 39600,
+      "num_samples": 4096,
+      "base_hit_probability": 0.29931640625,
+      "depth": {
+        "1": {
+          "best_value": 0.48278808593750355,
+          "best_indices": [
+            6
+          ],
+          "best_questions": [
+            "Is there any part of a ship on tile D4?"
+          ],
+          "top_five": [
+            {
+              "index": 6,
+              "value": 0.48278808593750355,
+              "question": "Is there any part of a ship on tile D4?"
+            },
+            {
+              "index": 11,
+              "value": 0.4789794921874988,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            },
+            {
+              "index": 3,
+              "value": 0.44672851562499893,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 15,
+              "value": 0.4197998046874981,
+              "question": "Is there a ship segment on any of these tiles: A1, A8, H1, H8, or E5?"
+            },
+            {
+              "index": 17,
+              "value": 0.409814453124995,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            }
+          ]
+        },
+        "2": {
+          "best_value": 0.6123486328124924,
+          "best_indices": [
+            3
+          ],
+          "best_questions": [
+            "Is there a part of any ship in row D, columns 4 or 5?"
+          ],
+          "top_five": [
+            {
+              "index": 3,
+              "value": 0.6123486328124924,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 17,
+              "value": 0.6004296875000065,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            },
+            {
+              "index": 2,
+              "value": 0.593762207031255,
+              "question": "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+            },
+            {
+              "index": 11,
+              "value": 0.5821801757812539,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            },
+            {
+              "index": 6,
+              "value": 0.5762329101562507,
+              "question": "Is there any part of a ship on tile D4?"
+            }
+          ]
+        },
+        "3": {
+          "best_value": 0.6778388671875036,
+          "best_indices": [
+            2
+          ],
+          "best_questions": [
+            "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+          ],
+          "top_five": [
+            {
+              "index": 2,
+              "value": 0.6778388671875036,
+              "question": "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+            },
+            {
+              "index": 17,
+              "value": 0.6696147460937587,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            },
+            {
+              "index": 3,
+              "value": 0.6628518066406346,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 0,
+              "value": 0.65562280273438,
+              "question": "Is there any part of a ship on the tiles between D3 and E6?"
+            },
+            {
+              "index": 11,
+              "value": 0.6497019042968778,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            }
+          ]
+        }
+      },
+      "three_question_receding_hit_probability": {
+        "1": 0.6380891113281343,
+        "2": 0.6628518066406346,
+        "3": 0.6778388671875036
+      },
+      "greedy_eig": {
+        "root_index": 18,
+        "root_question": "Is the length-5 ship oriented horizontally?",
+        "root_eig_bits": 0.5309410057975658,
+        "three_question_hit_probability": 0.4361621093750008
+      }
+    },
+    {
+      "block_index": 1,
+      "seed": 39601,
+      "num_samples": 4096,
+      "base_hit_probability": 0.2998046875,
+      "depth": {
+        "1": {
+          "best_value": 0.4817138671875003,
+          "best_indices": [
+            6
+          ],
+          "best_questions": [
+            "Is there any part of a ship on tile D4?"
+          ],
+          "top_five": [
+            {
+              "index": 6,
+              "value": 0.4817138671875003,
+              "question": "Is there any part of a ship on tile D4?"
+            },
+            {
+              "index": 11,
+              "value": 0.48154296875000496,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            },
+            {
+              "index": 3,
+              "value": 0.4476562500000013,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 15,
+              "value": 0.41706542968750476,
+              "question": "Is there a ship segment on any of these tiles: A1, A8, H1, H8, or E5?"
+            },
+            {
+              "index": 17,
+              "value": 0.41062011718750274,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            }
+          ]
+        },
+        "2": {
+          "best_value": 0.6097802734375005,
+          "best_indices": [
+            3
+          ],
+          "best_questions": [
+            "Is there a part of any ship in row D, columns 4 or 5?"
+          ],
+          "top_five": [
+            {
+              "index": 3,
+              "value": 0.6097802734375005,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 17,
+              "value": 0.6065698242187506,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            },
+            {
+              "index": 2,
+              "value": 0.592041015624999,
+              "question": "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+            },
+            {
+              "index": 11,
+              "value": 0.5854565429687577,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            },
+            {
+              "index": 6,
+              "value": 0.5759033203124957,
+              "question": "Is there any part of a ship on tile D4?"
+            }
+          ]
+        },
+        "3": {
+          "best_value": 0.6725305175781318,
+          "best_indices": [
+            2
+          ],
+          "best_questions": [
+            "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+          ],
+          "top_five": [
+            {
+              "index": 2,
+              "value": 0.6725305175781318,
+              "question": "Is there any piece of a ship in the coordinates D4, D5, E4, and E5?"
+            },
+            {
+              "index": 17,
+              "value": 0.6637004394531301,
+              "question": "Do any ships occupy at least one of these three cells: D4, D5, or E4?"
+            },
+            {
+              "index": 3,
+              "value": 0.6580229492187557,
+              "question": "Is there a part of any ship in row D, columns 4 or 5?"
+            },
+            {
+              "index": 0,
+              "value": 0.6541687011718754,
+              "question": "Is there any part of a ship on the tiles between D3 and E6?"
+            },
+            {
+              "index": 11,
+              "value": 0.6480148925781235,
+              "question": "Is there a part of any ship located at coordinates E4?"
+            }
+          ]
+        }
+      },
+      "three_question_receding_hit_probability": {
+        "1": 0.635858398437503,
+        "2": 0.6580229492187557,
+        "3": 0.6725305175781318
+      },
+      "greedy_eig": {
+        "root_index": 12,
+        "root_question": "Do at least two tiles of the length-3 ship lie on the same-color squares as A1 (the dark squares in a checkerboard coloring)?",
+        "root_eig_bits": 0.5309558654829339,
+        "three_question_hit_probability": 0.4008481445312513
+      }
+    }
+  ],
+  "gates": {
+    "source_commit_matches": true,
+    "trajectory_sha256_matches": true,
+    "stage_zero_program_count_exact": true,
+    "all_stage_zero_programs_valid_nonconstant": true,
+    "at_least_20_unique_behaviors": true,
+    "stable_root_per_depth_across_blocks": true,
+    "pairwise_depth_roots_disjoint_each_block": true,
+    "three_question_value_strictly_monotonic_each_block": true,
+    "minimum_adjacent_horizon_gain_at_least_0_01": true
+  },
+  "run_id": "battleship-llm-native-opportunity-20260729T023100Z"
+}
