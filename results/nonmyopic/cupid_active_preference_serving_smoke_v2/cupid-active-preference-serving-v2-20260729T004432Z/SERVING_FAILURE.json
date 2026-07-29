@@ -1,0 +1,92 @@
+{
+  "error": "ServingExecutionError: ValueError: target answer_signature must contain only integer 0 or 1",
+  "holdout_accessed": false,
+  "interface_version": "cupid-active-preference-serving-smoke-2",
+  "policy_endpoint_accessed": false,
+  "private_raw_sha256": "4a006d991df9536903af9fb50b5092be317120ecda3229091b11af1030cefa02",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 3825,
+    "adapter_prompt_tokens": 12656,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "models": [
+      {
+        "adapter_completion_tokens": 3678,
+        "adapter_cost_usd": 0.02464725,
+        "adapter_prompt_tokens": 10795,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 5,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 3678,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 5,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 3678,
+            "cost_usd": 0.02464725,
+            "prompt_tokens": 10795,
+            "reasoning_tokens": 0,
+            "requests": 5
+          }
+        },
+        "prompt_tokens": 10795,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.84784514077944,
+        "requests": 5,
+        "retry_count": 0,
+        "run_budget_usd": 0.25,
+        "run_cost_usd": 0.02464725,
+        "run_remaining_usd": 0.22535275,
+        "total_spent_usd": 152.15215485922056
+      },
+      {
+        "adapter_completion_tokens": 147,
+        "adapter_cost_usd": 0.0009258000000000001,
+        "adapter_prompt_tokens": 1861,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 5,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 147,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 5,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 147,
+            "cost_usd": 0.0009258000000000001,
+            "prompt_tokens": 1861,
+            "reasoning_tokens": 0,
+            "requests": 5
+          }
+        },
+        "prompt_tokens": 1861,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.84784514077944,
+        "requests": 5,
+        "retry_count": 0,
+        "run_budget_usd": 0.25,
+        "run_cost_usd": 0.0009258000000000001,
+        "run_remaining_usd": 0.2490742,
+        "total_spent_usd": 152.15215485922056
+      }
+    ],
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.02557305
+  }
+}

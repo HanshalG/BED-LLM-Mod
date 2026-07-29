@@ -23,6 +23,15 @@ truncated, so the strict parser rejected them. V1 stays failed. One disjoint
 five-row V2 is allowed with the same models/prompts/gates and only a
 schema-enforced six-integer `0/1` representation; no policy or holdout opens.
 
+2026-07-29: CUPID serving V2 also failed and closes the route. Exact10/10
+GPTmini/Gemini calls cost `$0.02557305` with zero retries/reasoning/forced
+exits. All planner arrays parsed, but one Gemini target emitted four nulls.
+More importantly, frozen mechanics fail on saved responses: two cases have
+only7<8 unique signatures, one partition is1-vs-11, and exact target coverage
+is2/4 valid cases, hence at most3/5 versus required4/5. No V3 or repair; the
+60-case holdout is untouched. Return to the strongest remaining LLM-native
+line rather than adapting CUPID after aggregate inspection.
+
 2026-07-21: Next loop frozen before outcomes: independent GPT-5.4 Mini non-thinking
 replication on RockSample 7-8, fresh seed 24073, 30 paired ten-round trials and the
 same shared-d1/width/random controls. A ten-cell actual-prompt gate must pass first;
