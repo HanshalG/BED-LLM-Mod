@@ -2469,3 +2469,13 @@ first29/37,second25/20. Thus weak5/6 individual draws become healthy13/15
 pools without semantic repair. Public RESULT SHAf4c5371e,privatee940186c.
 Proceed unchanged to separately committed32-tree implementation/gates;no
 efficacy endpoint appeared in smoke.
+2026-07-29: Freeze exact pooled-Qwen confirmation32 implementation before
+seeds63100--63555. Every49 planning histories/tree gets2 independent Qwen
+draws(seed+1,000,000),pooled by executable extension before retained
+posterior/lookahead;Gemini target+8 validation remain single. Exact3424,
+parse events1568 pooled+288 single,retries<=24,salvage draws<=16,reasoning/
+forced0,cap$5.25,start>=5.50. Supports initial>=24,generated first/second
+>=8,retained first>=12/second>=8,validation>=16. Primary changed>=28,
+realized>=.008+CI>0,rho>=.25+CI>0,W-L>=8;policy d3-myopic>=8%+CI<0+
+20 wins. Bootstrap20k seed63600. Diagnostics cannot rescue;no continuation/
+replacement/third draw/repair.
