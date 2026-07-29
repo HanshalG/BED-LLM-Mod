@@ -333,6 +333,41 @@
       ]
     },
     {
+      "id": "number_game_crossplanner_first_link_mechanism128",
+      "paper_scope": "Retrospective four-block first-link analysis connecting simulated-risk advantage to exact-canonical realized advantage across Qwen and GPT-5.4 Mini planners.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_crossplanner_first_link_mechanism128/number-game-crossplanner-first-link-mechanism128-20260729T080614Z/RESULT.json",
+        "sha256": "b964013f675b10d4739eab622e26c5aacdc65cb428d046355d102e6df92acff1"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_crossplanner_first_link_summary"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_source_statuses", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/planner_family_count", "equals": 2},
+        {"pointer": "/protocol/block_count", "equals": 4},
+        {"pointer": "/protocol/tree_count", "equals": 128},
+        {"pointer": "/interpretation/formal_status_unchanged", "equals": true},
+        {"pointer": "/analyses/myopic_eig/pooled/root_differences", "equals": 123},
+        {"pointer": "/analyses/myopic_eig/pooled/divergent_trees/mean_realized_advantage", "equals": 0.01579457364720813, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/pooled/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.4233145451496821, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/pooled/divergent_trees/wins", "equals": 95},
+        {"pointer": "/analyses/myopic_eig/pooled/stratified_bootstrap/divergent_mean_realized_advantage_95pct", "equals": [0.011793460364199145, 0.019895986925120655], "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/pooled/stratified_bootstrap/divergent_score_to_realized_spearman_95pct", "equals": [0.2553101324909941, 0.569301347384283], "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/by_family/qwen~1qwen3.7-plus/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.4067135050741608, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/by_family/qwen~1qwen3.7-plus/stratified_bootstrap/divergent_score_to_realized_spearman_95pct", "equals": [0.16277892289343238, 0.6135749548767132], "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/by_family/openai~1gpt-5.4-mini/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.4471179270227393, "tolerance": 1e-12},
+        {"pointer": "/analyses/myopic_eig/by_family/openai~1gpt-5.4-mini/stratified_bootstrap/divergent_score_to_realized_spearman_95pct", "equals": [0.183883963277027, 0.6604354733076359], "tolerance": 1e-12},
+        {"pointer": "/analyses/fixed_support_depth_three/pooled/divergent_trees/mean_realized_advantage", "equals": 0.0077705728877529405, "tolerance": 1e-12},
+        {"pointer": "/analyses/fixed_support_depth_three/pooled/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.28934297099434714, "tolerance": 1e-12},
+        {"pointer": "/analyses/crossfit_depth_two/pooled/divergent_trees/mean_realized_advantage", "equals": 0.003319074926168694, "tolerance": 1e-12},
+        {"pointer": "/analyses/crossfit_depth_two/pooled/divergent_trees/score_to_realized_advantage_spearman", "equals": 0.020669856459330144, "tolerance": 1e-12},
+        {"pointer": "/analyses/crossfit_depth_two/pooled/stratified_bootstrap/divergent_mean_realized_advantage_95pct", "equals": [-0.0004966764410828096, 0.007110260373448544], "tolerance": 1e-12},
+        {"pointer": "/analyses/crossfit_depth_two/pooled/stratified_bootstrap/divergent_score_to_realized_spearman_95pct", "equals": [-0.23253446152753737, 0.26678998559997896], "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {
