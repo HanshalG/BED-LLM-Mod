@@ -10,6 +10,7 @@ from scripts.icae_bench_full_world_instrument_smoke import (
     WORLD_COUNT,
     effective_world_count,
     endpoint_statistics,
+    parse_branch_answers,
     parse_endpoint,
     parse_likelihoods,
     parse_retention,
@@ -22,7 +23,6 @@ def _support_payload() -> dict:
     return {
         "worlds": [
             {
-                "world_index": world,
                 "probability_percent": 13 if world < 4 else 12,
                 "clauses": [
                     f"World {world} clause {clause} has concrete behavior."
@@ -32,10 +32,7 @@ def _support_payload() -> dict:
             for world in range(WORLD_COUNT)
         ],
         "questions": [
-            {
-                "question_index": index,
-                "question": f"Which concrete behavior applies to topic {index}?",
-            }
+            f"Which concrete behavior applies to topic {index}?"
             for index in range(QUESTION_COUNT)
         ],
     }
@@ -54,17 +51,14 @@ def test_world_support_parser_requires_probability_distribution() -> None:
         parse_world_support(json.dumps(payload), label="support")
 
 
-def test_world_support_parser_canonicalizes_indexed_collections() -> None:
+def test_world_support_codec_has_no_model_generated_indexes() -> None:
     payload = _support_payload()
-    payload["worlds"] = payload["worlds"][1:] + payload["worlds"][:1]
-    payload["questions"] = (
-        payload["questions"][1:] + payload["questions"][:1]
-    )
     support = parse_world_support(json.dumps(payload), label="support")
-    assert [world["world_index"] for world in support["worlds"]] == list(
-        range(WORLD_COUNT)
-    )
+    assert support["worlds"][0]["world_index"] == 0
     assert support["questions"][0].endswith("topic 0?")
+    payload["worlds"][0]["world_index"] = 0
+    with pytest.raises(ValueError, match="unexpected fields"):
+        parse_world_support(json.dumps(payload), label="support")
 
 
 def test_world_support_parser_rejects_duplicate_worlds() -> None:
@@ -74,55 +68,42 @@ def test_world_support_parser_rejects_duplicate_worlds() -> None:
         parse_world_support(json.dumps(payload), label="support")
 
 
-def test_likelihood_parser_canonicalizes_indexed_cells() -> None:
-    cells = [
-        {
-            "world_index": world,
-            "question_index": question,
-            "positive_probability": 10 * question,
-        }
+def test_likelihood_parser_requires_fixed_matrix_shape() -> None:
+    probabilities = [
+        [10 * question for question in range(QUESTION_COUNT)]
         for world in range(WORLD_COUNT)
-        for question in range(QUESTION_COUNT)
     ]
-    cells.reverse()
-    parsed = parse_likelihoods(json.dumps({"cells": cells}))
+    parsed = parse_likelihoods(
+        json.dumps({"probabilities": probabilities})
+    )
     assert parsed[2][3] == 0.3
-    cells[0] = dict(cells[1])
-    with pytest.raises(ValueError, match="duplicated"):
-        parse_likelihoods(json.dumps({"cells": cells}))
+    probabilities[0].pop()
+    with pytest.raises(ValueError, match="question cardinality"):
+        parse_likelihoods(
+            json.dumps({"probabilities": probabilities})
+        )
 
 
-def test_retention_parser_canonicalizes_indexed_rows() -> None:
-    rows = [
-        {
-            "branch": branch,
-            "initial_world_index": world,
-            "represented": world % 2 == 0,
-        }
+def test_retention_parser_requires_fixed_boolean_vectors() -> None:
+    payload = {
+        branch: [world % 2 == 0 for world in range(WORLD_COUNT)]
         for branch in ("positive", "negative")
-        for world in range(WORLD_COUNT)
-    ]
-    rows.reverse()
-    parsed = parse_retention(json.dumps({"rows": rows}))
+    }
+    parsed = parse_retention(json.dumps(payload))
     assert sum(parsed["positive"]) == 4
-    rows[0] = dict(rows[1])
-    with pytest.raises(ValueError, match="duplicated"):
-        parse_retention(json.dumps({"rows": rows}))
+    payload["negative"].pop()
+    with pytest.raises(ValueError, match="negative vector"):
+        parse_retention(json.dumps(payload))
 
 
 def test_endpoint_is_per_world_and_probability_weighted() -> None:
     ids = ["C1", "C2"]
     rows = [
-        {
-            "world_index": world,
-            "constraint_id": constraint,
-            "covered": world == 0,
-        }
+        [world == 0 for _ in ids]
         for world in range(WORLD_COUNT)
-        for constraint in ids
     ]
     coverage = parse_endpoint(
-        json.dumps({"rows": rows}),
+        json.dumps({"coverage": rows}),
         constraint_ids=ids,
     )
     support = parse_world_support(
@@ -132,6 +113,18 @@ def test_endpoint_is_per_world_and_probability_weighted() -> None:
     expected, rates = endpoint_statistics(support, coverage)
     assert expected == pytest.approx(0.13)
     assert rates == [1.0] + [0.0] * (WORLD_COUNT - 1)
+
+
+def test_branch_answers_are_a_fixed_positional_vector() -> None:
+    answers = [
+        f"Concrete branch answer for question {index}."
+        for index in range(QUESTION_COUNT)
+    ]
+    assert parse_branch_answers(
+        json.dumps({"answers": answers})
+    ) == answers
+    with pytest.raises(ValueError, match="six strings"):
+        parse_branch_answers(json.dumps({"answers": answers[:-1]}))
 
 
 def test_effective_world_count_detects_noncollapsed_distribution() -> None:

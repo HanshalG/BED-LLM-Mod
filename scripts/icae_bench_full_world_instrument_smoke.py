@@ -20,10 +20,6 @@ from scripts.icae_bench_exact_response_controller_smoke import (
     matcher_response_format,
     trigger_catalog,
 )
-from scripts.icae_bench_first_link_instrument_smoke import (
-    branch_answers_response_format,
-    parse_branch_answers,
-)
 from scripts.icae_bench_first_link_instrument_smoke_v2 import (
     matcher_messages_set,
     parse_matcher_set,
@@ -42,16 +38,16 @@ from scripts.icae_bench_source_opportunity_audit import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "icae-full-world-instrument-smoke-2"
+INTERFACE_VERSION = "icae-full-world-instrument-smoke-3"
 EXPECTED_MANIFEST_SHA256 = (
     "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f"
 )
 EXPECTED_SOURCE_AUDIT_SHA256 = (
     "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552"
 )
-SELECTION_SEED = 51_600
-PLANNER_SEED = 51_700
-EVALUATOR_SEED = 51_800
+SELECTION_SEED = 52_000
+PLANNER_SEED = 52_100
+EVALUATOR_SEED = 52_200
 PLANNER_MODEL_ID = "openai/gpt-5.4"
 EVALUATOR_MODEL_ID = "openai/gpt-5.4-mini"
 WORLD_COUNT = 8
@@ -117,16 +113,10 @@ def world_support_response_format() -> dict[str, Any]:
                             "type": "object",
                             "additionalProperties": False,
                             "required": [
-                                "world_index",
                                 "probability_percent",
                                 "clauses",
                             ],
                             "properties": {
-                                "world_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": WORLD_COUNT - 1,
-                                },
                                 "probability_percent": {
                                     "type": "integer",
                                     "minimum": 1,
@@ -150,21 +140,9 @@ def world_support_response_format() -> dict[str, Any]:
                         "minItems": QUESTION_COUNT,
                         "maxItems": QUESTION_COUNT,
                         "items": {
-                            "type": "object",
-                            "additionalProperties": False,
-                            "required": ["question_index", "question"],
-                            "properties": {
-                                "question_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": QUESTION_COUNT - 1,
-                                },
-                                "question": {
-                                    "type": "string",
-                                    "minLength": 10,
-                                    "maxLength": 500,
-                                },
-                            },
+                            "type": "string",
+                            "minLength": 10,
+                            "maxLength": 500,
                         },
                     },
                 },
@@ -196,24 +174,15 @@ def parse_world_support(response: str, *, label: str) -> dict[str, Any]:
     ):
         raise ValueError(f"{label} must contain six questions")
 
-    worlds_by_index: dict[int, dict[str, Any]] = {}
+    worlds = []
     world_keys = set()
     total_probability = 0
-    for row in worlds_raw:
+    for world_index, row in enumerate(worlds_raw):
         if not isinstance(row, dict) or set(row) != {
-            "world_index",
             "probability_percent",
             "clauses",
         }:
             raise ValueError(f"{label} world has unexpected fields")
-        world_index = row["world_index"]
-        if (
-            not isinstance(world_index, int)
-            or isinstance(world_index, bool)
-            or not 0 <= world_index < WORLD_COUNT
-            or world_index in worlds_by_index
-        ):
-            raise ValueError(f"{label} world index is invalid or duplicated")
         probability = row["probability_percent"]
         if (
             not isinstance(probability, int)
@@ -242,50 +211,27 @@ def parse_world_support(response: str, *, label: str) -> dict[str, Any]:
             raise ValueError(f"{label} contains duplicate worlds")
         world_keys.add(world_key)
         total_probability += probability
-        worlds_by_index[world_index] = {
+        worlds.append({
             "world_index": world_index,
             "probability_percent": probability,
             "probability": probability / 100.0,
             "clauses": clauses,
-        }
-    if set(worlds_by_index) != set(range(WORLD_COUNT)):
-        raise ValueError(f"{label} worlds do not cover every index")
+        })
     if total_probability != 100:
         raise ValueError(f"{label} world probabilities do not sum to 100")
-    worlds = [worlds_by_index[index] for index in range(WORLD_COUNT)]
 
-    questions_by_index: dict[int, str] = {}
+    questions = []
     seen_questions = set()
-    for row in questions_raw:
-        if not isinstance(row, dict) or set(row) != {
-            "question_index",
-            "question",
-        }:
-            raise ValueError(f"{label} question has unexpected fields")
-        question_index = row["question_index"]
-        if (
-            not isinstance(question_index, int)
-            or isinstance(question_index, bool)
-            or not 0 <= question_index < QUESTION_COUNT
-            or question_index in questions_by_index
-        ):
-            raise ValueError(
-                f"{label} question index is invalid or duplicated"
-            )
+    for question_index, raw_question in enumerate(questions_raw):
         question = _normalized_text(
-            row["question"],
+            raw_question,
             label=f"{label}.question[{question_index}]",
         )
         key = canonical_text(question)
         if key in seen_questions:
             raise ValueError(f"{label} contains duplicate questions")
         seen_questions.add(key)
-        questions_by_index[question_index] = question
-    if set(questions_by_index) != set(range(QUESTION_COUNT)):
-        raise ValueError(f"{label} questions do not cover every index")
-    questions = [
-        questions_by_index[index] for index in range(QUESTION_COUNT)
-    ]
+        questions.append(question)
     return {"worlds": worlds, "questions": questions}
 
 
@@ -318,6 +264,51 @@ def initial_world_messages(fuzzy_prd: str) -> list[dict[str, str]]:
         },
         {"role": "user", "content": json.dumps(request, sort_keys=True)},
     ]
+
+
+def branch_answers_response_format() -> dict[str, Any]:
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "icae_world_branch_answers",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["answers"],
+                "properties": {
+                    "answers": {
+                        "type": "array",
+                        "minItems": QUESTION_COUNT,
+                        "maxItems": QUESTION_COUNT,
+                        "items": {
+                            "type": "string",
+                            "minLength": 10,
+                            "maxLength": 800,
+                        },
+                    }
+                },
+            },
+        },
+    }
+
+
+def parse_branch_answers(response: str) -> list[str]:
+    value = strict_json_object(response, label="branch answers")
+    if set(value) != {"answers"}:
+        raise ValueError("branch answers have unexpected fields")
+    answers = value["answers"]
+    if not isinstance(answers, list) or len(answers) != QUESTION_COUNT:
+        raise ValueError("branch answers must contain six strings")
+    parsed = []
+    for index, answer in enumerate(answers):
+        if not isinstance(answer, str):
+            raise ValueError("branch answer must be a string")
+        normalized = " ".join(answer.split())
+        if not 10 <= len(normalized) <= 800:
+            raise ValueError(f"branch answer {index} has invalid length")
+        parsed.append(normalized)
+    return parsed
 
 
 def branch_answer_messages(
@@ -365,36 +356,20 @@ def likelihood_response_format() -> dict[str, Any]:
             "schema": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["cells"],
+                "required": ["probabilities"],
                 "properties": {
-                    "cells": {
+                    "probabilities": {
                         "type": "array",
-                        "minItems": WORLD_COUNT * QUESTION_COUNT,
-                        "maxItems": WORLD_COUNT * QUESTION_COUNT,
+                        "minItems": WORLD_COUNT,
+                        "maxItems": WORLD_COUNT,
                         "items": {
-                            "type": "object",
-                            "additionalProperties": False,
-                            "required": [
-                                "world_index",
-                                "question_index",
-                                "positive_probability",
-                            ],
-                            "properties": {
-                                "world_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": WORLD_COUNT - 1,
-                                },
-                                "question_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": QUESTION_COUNT - 1,
-                                },
-                                "positive_probability": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": 100,
-                                },
+                            "type": "array",
+                            "minItems": QUESTION_COUNT,
+                            "maxItems": QUESTION_COUNT,
+                            "items": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 100,
                             },
                         },
                     }
@@ -421,9 +396,9 @@ def likelihood_messages(
             for index, question in enumerate(support["questions"])
         ],
         "rules": [
-            "positive_probability is the chance that a strict owner in that complete world gives a concrete informative answer rather than the fixed fallback.",
+            "probabilities is an 8-row by 6-column integer matrix.",
+            "Row w and column q is the chance that a strict owner in world w gives a concrete informative answer to question q rather than the fixed fallback.",
             "Use integer probabilities from 0 to 100.",
-            "Return every world-question pair exactly once; array order is irrelevant because each row is explicitly indexed.",
             "Judge semantic entailment, not lexical overlap.",
         ],
     }
@@ -441,42 +416,25 @@ def likelihood_messages(
 
 def parse_likelihoods(response: str) -> list[list[float]]:
     value = strict_json_object(response, label="likelihoods")
-    if set(value) != {"cells"}:
+    if set(value) != {"probabilities"}:
         raise ValueError("likelihoods have unexpected fields")
-    cells = value["cells"]
-    if not isinstance(cells, list) or len(cells) != (
-        WORLD_COUNT * QUESTION_COUNT
-    ):
-        raise ValueError("likelihoods have wrong cardinality")
-    matrix = [[0.0] * QUESTION_COUNT for _ in range(WORLD_COUNT)]
-    seen = set()
-    for cell in cells:
-        if not isinstance(cell, dict) or set(cell) != {
-            "world_index",
-            "question_index",
-            "positive_probability",
-        }:
-            raise ValueError("likelihood cell has unexpected fields")
-        world_index = cell["world_index"]
-        question_index = cell["question_index"]
-        probability = cell["positive_probability"]
-        if (
-            not isinstance(world_index, int)
-            or isinstance(world_index, bool)
-            or not isinstance(question_index, int)
-            or isinstance(question_index, bool)
-            or not 0 <= world_index < WORLD_COUNT
-            or not 0 <= question_index < QUESTION_COUNT
-            or (world_index, question_index) in seen
-            or not isinstance(probability, int)
-            or isinstance(probability, bool)
-            or not 0 <= probability <= 100
-        ):
-            raise ValueError("likelihood cell is invalid or duplicated")
-        seen.add((world_index, question_index))
-        matrix[world_index][question_index] = probability / 100.0
-    if len(seen) != WORLD_COUNT * QUESTION_COUNT:
-        raise ValueError("likelihoods do not cover every indexed pair")
+    rows = value["probabilities"]
+    if not isinstance(rows, list) or len(rows) != WORLD_COUNT:
+        raise ValueError("likelihoods have wrong world cardinality")
+    matrix = []
+    for row in rows:
+        if not isinstance(row, list) or len(row) != QUESTION_COUNT:
+            raise ValueError("likelihoods have wrong question cardinality")
+        parsed_row = []
+        for probability in row:
+            if (
+                not isinstance(probability, int)
+                or isinstance(probability, bool)
+                or not 0 <= probability <= 100
+            ):
+                raise ValueError("likelihood probability is invalid")
+            parsed_row.append(probability / 100.0)
+        matrix.append(parsed_row)
     return matrix
 
 
@@ -524,6 +482,12 @@ def refresh_messages(
 
 
 def retention_response_format() -> dict[str, Any]:
+    boolean_vector = {
+        "type": "array",
+        "minItems": WORLD_COUNT,
+        "maxItems": WORLD_COUNT,
+        "items": {"type": "boolean"},
+    }
     return {
         "type": "json_schema",
         "json_schema": {
@@ -532,34 +496,10 @@ def retention_response_format() -> dict[str, Any]:
             "schema": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["rows"],
+                "required": ["positive", "negative"],
                 "properties": {
-                    "rows": {
-                        "type": "array",
-                        "minItems": 2 * WORLD_COUNT,
-                        "maxItems": 2 * WORLD_COUNT,
-                        "items": {
-                            "type": "object",
-                            "additionalProperties": False,
-                            "required": [
-                                "branch",
-                                "initial_world_index",
-                                "represented",
-                            ],
-                            "properties": {
-                                "branch": {
-                                    "type": "string",
-                                    "enum": ["positive", "negative"],
-                                },
-                                "initial_world_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": WORLD_COUNT - 1,
-                                },
-                                "represented": {"type": "boolean"},
-                            },
-                        },
-                    }
+                    "positive": boolean_vector,
+                    "negative": boolean_vector,
                 },
             },
         },
@@ -587,9 +527,9 @@ def retention_messages(
             world["clauses"] for world in negative["worlds"]
         ],
         "rules": [
-            "represented=true only if one refreshed world preserves at least four of the initial world's six behavioral clauses semantically.",
+            "Return positive and negative boolean arrays, each with one value per initial world in supplied order.",
+            "A value is true only if one refreshed world preserves at least four of the initial world's six behavioral clauses semantically.",
             "Paraphrases and more specific forms count; broad topical overlap does not.",
-            "Return every branch/index pair once; row order is irrelevant.",
         ],
     }
     return [
@@ -606,48 +546,23 @@ def retention_messages(
 
 def parse_retention(response: str) -> dict[str, list[bool]]:
     value = strict_json_object(response, label="retention")
-    if set(value) != {"rows"}:
+    if set(value) != {"positive", "negative"}:
         raise ValueError("retention has unexpected fields")
-    rows = value["rows"]
-    if not isinstance(rows, list) or len(rows) != 2 * WORLD_COUNT:
-        raise ValueError("retention has wrong cardinality")
-    by_key: dict[tuple[str, int], bool] = {}
-    for row in rows:
-        if not isinstance(row, dict) or set(row) != {
-            "branch",
-            "initial_world_index",
-            "represented",
-        }:
-            raise ValueError("retention row has unexpected fields")
-        branch = row["branch"]
-        world_index = row["initial_world_index"]
+    parsed = {}
+    for branch in ("positive", "negative"):
+        rows = value[branch]
         if (
-            branch not in {"positive", "negative"}
-            or not isinstance(world_index, int)
-            or isinstance(world_index, bool)
-            or not 0 <= world_index < WORLD_COUNT
-            or (branch, world_index) in by_key
-            or not isinstance(row["represented"], bool)
+            not isinstance(rows, list)
+            or len(rows) != WORLD_COUNT
+            or any(not isinstance(item, bool) for item in rows)
         ):
-            raise ValueError("retention row is invalid or duplicated")
-        by_key[(branch, world_index)] = row["represented"]
-    expected_keys = {
-        (branch, world_index)
-        for branch in ("positive", "negative")
-        for world_index in range(WORLD_COUNT)
-    }
-    if set(by_key) != expected_keys:
-        raise ValueError("retention does not cover every indexed pair")
-    return {
-        branch: [
-            by_key[(branch, world_index)]
-            for world_index in range(WORLD_COUNT)
-        ]
-        for branch in ("positive", "negative")
-    }
+            raise ValueError(f"retention {branch} vector is invalid")
+        parsed[branch] = list(rows)
+    return parsed
 
 
 def endpoint_response_format(row_count: int) -> dict[str, Any]:
+    constraint_count = row_count // WORLD_COUNT
     return {
         "type": "json_schema",
         "json_schema": {
@@ -656,29 +571,17 @@ def endpoint_response_format(row_count: int) -> dict[str, Any]:
             "schema": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["rows"],
+                "required": ["coverage"],
                 "properties": {
-                    "rows": {
+                    "coverage": {
                         "type": "array",
-                        "minItems": row_count,
-                        "maxItems": row_count,
+                        "minItems": WORLD_COUNT,
+                        "maxItems": WORLD_COUNT,
                         "items": {
-                            "type": "object",
-                            "additionalProperties": False,
-                            "required": [
-                                "world_index",
-                                "constraint_id",
-                                "covered",
-                            ],
-                            "properties": {
-                                "world_index": {
-                                    "type": "integer",
-                                    "minimum": 0,
-                                    "maximum": WORLD_COUNT - 1,
-                                },
-                                "constraint_id": {"type": "string"},
-                                "covered": {"type": "boolean"},
-                            },
+                            "type": "array",
+                            "minItems": constraint_count,
+                            "maxItems": constraint_count,
+                            "items": {"type": "boolean"},
                         },
                     }
                 },
@@ -697,17 +600,17 @@ def endpoint_messages(
             "competing generated world."
         ),
         "hidden_requirements": [
-            {"constraint_id": identifier, "text": row["oracle_response"]}
-            for identifier, row in constraints
+            {"constraint_index": index, "text": row["oracle_response"]}
+            for index, (_, row) in enumerate(constraints)
         ],
         "worlds": [
             {"world_index": index, "clauses": world["clauses"]}
             for index, world in enumerate(support["worlds"])
         ],
         "rules": [
-            "For each world independently, covered=true only when one of its clauses is semantically equivalent to or more specific than the hidden behavioral contract.",
+            "coverage is an 8-row boolean matrix with one column per hidden requirement in supplied order.",
+            "For each world independently, a cell is true only when one of its clauses is semantically equivalent to or more specific than the hidden behavioral contract.",
             "Broad topical overlap, a disjunction, or combining evidence across different worlds does not count.",
-            "Return every world-constraint pair exactly once; row order is irrelevant because every pair is explicitly keyed.",
         ],
     }
     return [
@@ -728,42 +631,20 @@ def parse_endpoint(
     constraint_ids: list[str],
 ) -> list[list[bool]]:
     value = strict_json_object(response, label="endpoint")
-    if set(value) != {"rows"}:
+    if set(value) != {"coverage"}:
         raise ValueError("endpoint has unexpected fields")
-    expected_count = WORLD_COUNT * len(constraint_ids)
-    rows = value["rows"]
-    if not isinstance(rows, list) or len(rows) != expected_count:
-        raise ValueError("endpoint has wrong cardinality")
-    matrix = [
-        [False] * len(constraint_ids) for _ in range(WORLD_COUNT)
-    ]
-    seen = set()
-    constraint_offsets = {
-        constraint_id: offset
-        for offset, constraint_id in enumerate(constraint_ids)
-    }
+    rows = value["coverage"]
+    if not isinstance(rows, list) or len(rows) != WORLD_COUNT:
+        raise ValueError("endpoint has wrong world cardinality")
+    matrix = []
     for row in rows:
-        if not isinstance(row, dict) or set(row) != {
-            "world_index",
-            "constraint_id",
-            "covered",
-        }:
-            raise ValueError("endpoint row has unexpected fields")
-        world_index = row["world_index"]
-        constraint_id = row["constraint_id"]
         if (
-            not isinstance(world_index, int)
-            or isinstance(world_index, bool)
-            or not 0 <= world_index < WORLD_COUNT
-            or constraint_id not in constraint_offsets
-            or (world_index, constraint_id) in seen
-            or not isinstance(row["covered"], bool)
+            not isinstance(row, list)
+            or len(row) != len(constraint_ids)
+            or any(not isinstance(item, bool) for item in row)
         ):
-            raise ValueError("endpoint row is invalid or duplicated")
-        seen.add((world_index, constraint_id))
-        matrix[world_index][constraint_offsets[constraint_id]] = row["covered"]
-    if len(seen) != expected_count:
-        raise ValueError("endpoint does not cover every indexed pair")
+            raise ValueError("endpoint coverage row is invalid")
+        matrix.append(list(row))
     return matrix
 
 

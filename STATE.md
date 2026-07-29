@@ -2268,3 +2268,10 @@ not reindexed/resumed. Root cause is model-generated bookkeeping IDs. One
 final prospective compact positional codec may remove all generated IDs and
 let code assign identity from fixed arrays/matrices on another opened task
 with fresh seeds;belief semantics/gates unchanged.
+2026-07-29: Final ICAE full-world transport V3 frozen before calls. It removes
+all model-generated bookkeeping IDs:fixed arrays define worlds/questions/
+answers;fixed matrices define likelihoods/retention/coverage. Only released
+semantic trigger IDs remain. Same beliefs/exact10/scientific gates;public
+eligibility+seed52000 select already-open unused C#@212;GPT-5.4 seed52100,
+Mini52200. V1/V2 remain failed and are not resumed. A scientific V3 failure
+closes full-world route;no further serialization variant.
