@@ -42,16 +42,16 @@ from scripts.icae_bench_source_opportunity_audit import (
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "icae-full-world-instrument-smoke-1"
+INTERFACE_VERSION = "icae-full-world-instrument-smoke-2"
 EXPECTED_MANIFEST_SHA256 = (
     "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f"
 )
 EXPECTED_SOURCE_AUDIT_SHA256 = (
     "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552"
 )
-SELECTION_SEED = 51_300
-PLANNER_SEED = 51_400
-EVALUATOR_SEED = 51_500
+SELECTION_SEED = 51_600
+PLANNER_SEED = 51_700
+EVALUATOR_SEED = 51_800
 PLANNER_MODEL_ID = "openai/gpt-5.4"
 EVALUATOR_MODEL_ID = "openai/gpt-5.4-mini"
 WORLD_COUNT = 8
@@ -196,18 +196,24 @@ def parse_world_support(response: str, *, label: str) -> dict[str, Any]:
     ):
         raise ValueError(f"{label} must contain six questions")
 
-    worlds = []
+    worlds_by_index: dict[int, dict[str, Any]] = {}
     world_keys = set()
     total_probability = 0
-    for expected_index, row in enumerate(worlds_raw):
+    for row in worlds_raw:
         if not isinstance(row, dict) or set(row) != {
             "world_index",
             "probability_percent",
             "clauses",
         }:
             raise ValueError(f"{label} world has unexpected fields")
-        if row["world_index"] != expected_index:
-            raise ValueError(f"{label} worlds are not in frozen order")
+        world_index = row["world_index"]
+        if (
+            not isinstance(world_index, int)
+            or isinstance(world_index, bool)
+            or not 0 <= world_index < WORLD_COUNT
+            or world_index in worlds_by_index
+        ):
+            raise ValueError(f"{label} world index is invalid or duplicated")
         probability = row["probability_percent"]
         if (
             not isinstance(probability, int)
@@ -224,7 +230,7 @@ def parse_world_support(response: str, *, label: str) -> dict[str, Any]:
         clauses = [
             _normalized_text(
                 clause,
-                label=f"{label}.world[{expected_index}].clause",
+                label=f"{label}.world[{world_index}].clause",
             )
             for clause in clauses_raw
         ]
@@ -236,36 +242,50 @@ def parse_world_support(response: str, *, label: str) -> dict[str, Any]:
             raise ValueError(f"{label} contains duplicate worlds")
         world_keys.add(world_key)
         total_probability += probability
-        worlds.append(
-            {
-                "world_index": expected_index,
-                "probability_percent": probability,
-                "probability": probability / 100.0,
-                "clauses": clauses,
-            }
-        )
+        worlds_by_index[world_index] = {
+            "world_index": world_index,
+            "probability_percent": probability,
+            "probability": probability / 100.0,
+            "clauses": clauses,
+        }
+    if set(worlds_by_index) != set(range(WORLD_COUNT)):
+        raise ValueError(f"{label} worlds do not cover every index")
     if total_probability != 100:
         raise ValueError(f"{label} world probabilities do not sum to 100")
+    worlds = [worlds_by_index[index] for index in range(WORLD_COUNT)]
 
-    questions = []
+    questions_by_index: dict[int, str] = {}
     seen_questions = set()
-    for expected_index, row in enumerate(questions_raw):
+    for row in questions_raw:
         if not isinstance(row, dict) or set(row) != {
             "question_index",
             "question",
         }:
             raise ValueError(f"{label} question has unexpected fields")
-        if row["question_index"] != expected_index:
-            raise ValueError(f"{label} questions are not in frozen order")
+        question_index = row["question_index"]
+        if (
+            not isinstance(question_index, int)
+            or isinstance(question_index, bool)
+            or not 0 <= question_index < QUESTION_COUNT
+            or question_index in questions_by_index
+        ):
+            raise ValueError(
+                f"{label} question index is invalid or duplicated"
+            )
         question = _normalized_text(
             row["question"],
-            label=f"{label}.question[{expected_index}]",
+            label=f"{label}.question[{question_index}]",
         )
         key = canonical_text(question)
         if key in seen_questions:
             raise ValueError(f"{label} contains duplicate questions")
         seen_questions.add(key)
-        questions.append(question)
+        questions_by_index[question_index] = question
+    if set(questions_by_index) != set(range(QUESTION_COUNT)):
+        raise ValueError(f"{label} questions do not cover every index")
+    questions = [
+        questions_by_index[index] for index in range(QUESTION_COUNT)
+    ]
     return {"worlds": worlds, "questions": questions}
 
 
@@ -403,7 +423,7 @@ def likelihood_messages(
         "rules": [
             "positive_probability is the chance that a strict owner in that complete world gives a concrete informative answer rather than the fixed fallback.",
             "Use integer probabilities from 0 to 100.",
-            "Return every world-question pair exactly once in world-major then question-major order.",
+            "Return every world-question pair exactly once; array order is irrelevant because each row is explicitly indexed.",
             "Judge semantic entailment, not lexical overlap.",
         ],
     }
@@ -412,7 +432,7 @@ def likelihood_messages(
             "role": "system",
             "content": (
                 "You estimate semantic likelihoods for Bayesian experimental "
-                "design. Follow the schema and frozen row order exactly."
+                "design. Follow the schema exactly."
             ),
         },
         {"role": "user", "content": json.dumps(request, sort_keys=True)},
@@ -429,25 +449,34 @@ def parse_likelihoods(response: str) -> list[list[float]]:
     ):
         raise ValueError("likelihoods have wrong cardinality")
     matrix = [[0.0] * QUESTION_COUNT for _ in range(WORLD_COUNT)]
-    for offset, cell in enumerate(cells):
-        expected_world = offset // QUESTION_COUNT
-        expected_question = offset % QUESTION_COUNT
+    seen = set()
+    for cell in cells:
         if not isinstance(cell, dict) or set(cell) != {
             "world_index",
             "question_index",
             "positive_probability",
         }:
             raise ValueError("likelihood cell has unexpected fields")
+        world_index = cell["world_index"]
+        question_index = cell["question_index"]
         probability = cell["positive_probability"]
         if (
-            cell["world_index"] != expected_world
-            or cell["question_index"] != expected_question
+            not isinstance(world_index, int)
+            or isinstance(world_index, bool)
+            or not isinstance(question_index, int)
+            or isinstance(question_index, bool)
+            or not 0 <= world_index < WORLD_COUNT
+            or not 0 <= question_index < QUESTION_COUNT
+            or (world_index, question_index) in seen
             or not isinstance(probability, int)
             or isinstance(probability, bool)
             or not 0 <= probability <= 100
         ):
-            raise ValueError("likelihood cells are not valid and ordered")
-        matrix[expected_world][expected_question] = probability / 100.0
+            raise ValueError("likelihood cell is invalid or duplicated")
+        seen.add((world_index, question_index))
+        matrix[world_index][question_index] = probability / 100.0
+    if len(seen) != WORLD_COUNT * QUESTION_COUNT:
+        raise ValueError("likelihoods do not cover every indexed pair")
     return matrix
 
 
@@ -560,7 +589,7 @@ def retention_messages(
         "rules": [
             "represented=true only if one refreshed world preserves at least four of the initial world's six behavioral clauses semantically.",
             "Paraphrases and more specific forms count; broad topical overlap does not.",
-            "Return positive rows 0..7 followed by negative rows 0..7.",
+            "Return every branch/index pair once; row order is irrelevant.",
         ],
     }
     return [
@@ -568,7 +597,7 @@ def retention_messages(
             "role": "system",
             "content": (
                 "You are a strict semantic world-retention evaluator. "
-                "Follow the schema and row order exactly."
+                "Follow the schema exactly."
             ),
         },
         {"role": "user", "content": json.dumps(request, sort_keys=True)},
@@ -582,24 +611,40 @@ def parse_retention(response: str) -> dict[str, list[bool]]:
     rows = value["rows"]
     if not isinstance(rows, list) or len(rows) != 2 * WORLD_COUNT:
         raise ValueError("retention has wrong cardinality")
-    parsed = {"positive": [], "negative": []}
-    for offset, row in enumerate(rows):
-        branch = "positive" if offset < WORLD_COUNT else "negative"
-        expected_index = offset % WORLD_COUNT
+    by_key: dict[tuple[str, int], bool] = {}
+    for row in rows:
         if not isinstance(row, dict) or set(row) != {
             "branch",
             "initial_world_index",
             "represented",
         }:
             raise ValueError("retention row has unexpected fields")
+        branch = row["branch"]
+        world_index = row["initial_world_index"]
         if (
-            row["branch"] != branch
-            or row["initial_world_index"] != expected_index
+            branch not in {"positive", "negative"}
+            or not isinstance(world_index, int)
+            or isinstance(world_index, bool)
+            or not 0 <= world_index < WORLD_COUNT
+            or (branch, world_index) in by_key
             or not isinstance(row["represented"], bool)
         ):
-            raise ValueError("retention rows are not valid and ordered")
-        parsed[branch].append(row["represented"])
-    return parsed
+            raise ValueError("retention row is invalid or duplicated")
+        by_key[(branch, world_index)] = row["represented"]
+    expected_keys = {
+        (branch, world_index)
+        for branch in ("positive", "negative")
+        for world_index in range(WORLD_COUNT)
+    }
+    if set(by_key) != expected_keys:
+        raise ValueError("retention does not cover every indexed pair")
+    return {
+        branch: [
+            by_key[(branch, world_index)]
+            for world_index in range(WORLD_COUNT)
+        ]
+        for branch in ("positive", "negative")
+    }
 
 
 def endpoint_response_format(row_count: int) -> dict[str, Any]:
@@ -662,7 +707,7 @@ def endpoint_messages(
         "rules": [
             "For each world independently, covered=true only when one of its clauses is semantically equivalent to or more specific than the hidden behavioral contract.",
             "Broad topical overlap, a disjunction, or combining evidence across different worlds does not count.",
-            "Return every world-constraint pair in world-major then supplied-constraint order.",
+            "Return every world-constraint pair exactly once; row order is irrelevant because every pair is explicitly keyed.",
         ],
     }
     return [
@@ -692,23 +737,33 @@ def parse_endpoint(
     matrix = [
         [False] * len(constraint_ids) for _ in range(WORLD_COUNT)
     ]
-    for offset, row in enumerate(rows):
-        world_index = offset // len(constraint_ids)
-        constraint_offset = offset % len(constraint_ids)
-        constraint_id = constraint_ids[constraint_offset]
+    seen = set()
+    constraint_offsets = {
+        constraint_id: offset
+        for offset, constraint_id in enumerate(constraint_ids)
+    }
+    for row in rows:
         if not isinstance(row, dict) or set(row) != {
             "world_index",
             "constraint_id",
             "covered",
         }:
             raise ValueError("endpoint row has unexpected fields")
+        world_index = row["world_index"]
+        constraint_id = row["constraint_id"]
         if (
-            row["world_index"] != world_index
-            or row["constraint_id"] != constraint_id
+            not isinstance(world_index, int)
+            or isinstance(world_index, bool)
+            or not 0 <= world_index < WORLD_COUNT
+            or constraint_id not in constraint_offsets
+            or (world_index, constraint_id) in seen
             or not isinstance(row["covered"], bool)
         ):
-            raise ValueError("endpoint rows are not valid and ordered")
-        matrix[world_index][constraint_offset] = row["covered"]
+            raise ValueError("endpoint row is invalid or duplicated")
+        seen.add((world_index, constraint_id))
+        matrix[world_index][constraint_offsets[constraint_id]] = row["covered"]
+    if len(seen) != expected_count:
+        raise ValueError("endpoint does not cover every indexed pair")
     return matrix
 
 

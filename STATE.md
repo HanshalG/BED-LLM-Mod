@@ -2252,3 +2252,10 @@ or executable endpoint opened. Public FAILURE SHAb968e350,private99042c27.
 V1 remains failed/unresumed. Authorize one prospective V2 on a different
 already-open mechanics task/fresh seeds where every explicitly indexed array
 is a keyed set canonicalized by index;scientific gates stay unchanged.
+2026-07-29: Prospective ICAE full-world V2 freezes the only codec change
+authorized by V1:all explicitly keyed collections(worlds,questions,
+likelihoods,retention,endpoint)are unordered unique sets with complete-key
+validation then canonicalization. Same full-world semantics/exact10/gates;
+public eligibility+seed51600 select different already-open Python@015;
+GPT-5.4 seed51700,Mini51800. V1 is not resumed/rescored;no fresh cohort or
+executable endpoint.

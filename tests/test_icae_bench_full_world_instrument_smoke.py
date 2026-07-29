@@ -54,6 +54,19 @@ def test_world_support_parser_requires_probability_distribution() -> None:
         parse_world_support(json.dumps(payload), label="support")
 
 
+def test_world_support_parser_canonicalizes_indexed_collections() -> None:
+    payload = _support_payload()
+    payload["worlds"] = payload["worlds"][1:] + payload["worlds"][:1]
+    payload["questions"] = (
+        payload["questions"][1:] + payload["questions"][:1]
+    )
+    support = parse_world_support(json.dumps(payload), label="support")
+    assert [world["world_index"] for world in support["worlds"]] == list(
+        range(WORLD_COUNT)
+    )
+    assert support["questions"][0].endswith("topic 0?")
+
+
 def test_world_support_parser_rejects_duplicate_worlds() -> None:
     payload = _support_payload()
     payload["worlds"][1]["clauses"] = payload["worlds"][0]["clauses"]
@@ -61,7 +74,7 @@ def test_world_support_parser_rejects_duplicate_worlds() -> None:
         parse_world_support(json.dumps(payload), label="support")
 
 
-def test_likelihood_parser_requires_world_major_order() -> None:
+def test_likelihood_parser_canonicalizes_indexed_cells() -> None:
     cells = [
         {
             "world_index": world,
@@ -71,14 +84,15 @@ def test_likelihood_parser_requires_world_major_order() -> None:
         for world in range(WORLD_COUNT)
         for question in range(QUESTION_COUNT)
     ]
+    cells.reverse()
     parsed = parse_likelihoods(json.dumps({"cells": cells}))
     assert parsed[2][3] == 0.3
-    cells[0]["question_index"] = 1
-    with pytest.raises(ValueError, match="ordered"):
+    cells[0] = dict(cells[1])
+    with pytest.raises(ValueError, match="duplicated"):
         parse_likelihoods(json.dumps({"cells": cells}))
 
 
-def test_retention_parser_requires_branch_and_world_order() -> None:
+def test_retention_parser_canonicalizes_indexed_rows() -> None:
     rows = [
         {
             "branch": branch,
@@ -88,10 +102,11 @@ def test_retention_parser_requires_branch_and_world_order() -> None:
         for branch in ("positive", "negative")
         for world in range(WORLD_COUNT)
     ]
+    rows.reverse()
     parsed = parse_retention(json.dumps({"rows": rows}))
     assert sum(parsed["positive"]) == 4
-    rows[0], rows[1] = rows[1], rows[0]
-    with pytest.raises(ValueError, match="ordered"):
+    rows[0] = dict(rows[1])
+    with pytest.raises(ValueError, match="duplicated"):
         parse_retention(json.dumps({"rows": rows}))
 
 
