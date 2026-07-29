@@ -1,0 +1,59 @@
+{
+  "error": "ValueError: retrieval response contains duplicate object ids",
+  "private_raw_sha256": "498e2ddb9a04e93372d07506c0cb6a3b01ac4fc83c389bff82cdeae779cee689",
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "guessinggame-path-bed-serving-smoke-1",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "source_manifest_sha256": "8d1269e197c9cf05865852353b16eeadb36cc8db6231af1d429b7650b263e7b8"
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 3100,
+    "adapter_prompt_tokens": 88170,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 3100,
+      "adapter_cost_usd": 0.0401607,
+      "adapter_prompt_tokens": 88170,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 500.0,
+      "completion_tokens": 3100,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 3100,
+          "cost_usd": 0.0401607,
+          "prompt_tokens": 88170,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 88170,
+      "provider_error_retries": 0,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 347.7757857267794,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.2,
+      "run_cost_usd": 0.0401607,
+      "run_remaining_usd": 0.15983930000000002,
+      "total_spent_usd": 152.22421427322055
+    },
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.0401607
+  }
+}

@@ -1943,3 +1943,13 @@ per-case M/F Jaccard<=.75,and cost<=.20. No target marker/unasked answer or
 later split enters prompts/public output;projected$.05. All26 focused tests and
 exact10 fixture pass. Passage only authorizes separately frozen 10-case
 material/function order mechanics;development/confirmation stay sealed.
+2026-07-29: GuessingGame path-BED exact10 retrieval serving fails closed and
+the cycle stops before mechanics. Exact10/10 HTTP+accepted,0 retry/reasoning/
+forced,cost$.0401607,but only4/10 responses have32 unique IDs;the other6
+repeat1--6 rows despite32 distinct weights. No dedupe/backfill/reissue.
+Saved-response diagnostic ignoring multiplicity cannot rescue science:
+material recall3/5,function4/5,top16 2/5+4/5,but union4/5<required5 because one
+target is absent from both. Public FAILURE SHAb524f810;private raw498e2ddb.
+Close exact model/prompt/cases/seed/sparse-top32/thresholds;no dense-vector
+successor,new split,or threshold repair. Mechanics10/development32/
+confirmation64 remain unopened.
