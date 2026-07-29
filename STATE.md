@@ -2287,3 +2287,12 @@ private840b0ec0;no later partition/executable endpoint. Do not rerun/relax/
 ensemble this task or open paired ICAE cohort. ICAE now requires deterministic
 world compatibility plus executable utility,not another free-text judge.
 Authenticated balance$15.205356643;reported$40 top-up still absent;OatML0.
+2026-07-29: Freeze zero-call external-canonical replay across the64 fixed
+GPT-5.4-Mini crossfit-d3/d2 policies from independent32-tree studies
+(RESULT/TREES hashes1081da1e/cf239683 and25e09391/197dcfe3)before combined
+scoring. All33 Tenenbaum-Griffiths predicates,equal weights,exact extensions,
+no endpoint LLM. Primary requires both blocks directional,roots differ>=24,
+d3-d2 Brier>=1%+stratified CI<0+24 wins,and d3-myopic>=5%+CI<0+32 wins.
+Hamming/coverage/fixed/PTS/random/ranking are diagnostics,not an unrelated
+conjunction. Prospective combination of open policies+open bank,not fresh
+trees;model0/cost0/OatML0.
