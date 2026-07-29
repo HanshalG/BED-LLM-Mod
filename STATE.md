@@ -1802,3 +1802,16 @@ auditor's one-line source substring misses a line-wrapped three-turn default.
 These are audit-specification failures,not benchmark defects,but no posthoc
 leakage-rule/source-normalization repair or row removal is allowed. Calls/cost0;
 no support,question,simulator,endpoint,or holdout content opened.
+2026-07-29: Reported new$40 OpenRouter top-up is allocated across four days
+with no reserve or conservative underspend;authenticated balance remains
+$18.221771594 until settlement. RegretBench HEAD b2978e1 differs from the
+already-failed5e105c6 release only in README citation text,so the missing21252
+checksum-listed clean train CIGs remain absent and the prior zero-call closure
+stands. Select LogDx-CI v1.2 commit99591c1 as the next source candidate:
+35 real CI logs,deterministic grep/range/tail/window tools,and released
+root-cause scoring. Freeze a zero-call published-trace gate before opening any
+log,ground truth,diagnosis,or trace. Require>=25 matched cases,>=12 tool users,
+>=8 multi-tool,>=6 literal observation-dependent later calls,>=5 such cases
+with score gain>=.10,positive all-case mean gain,dependency-row mean>=.10,and
+>=2 dependency types. Passing only authorizes a separate ten-call serving
+test;OpenRouter only,no OatML.
