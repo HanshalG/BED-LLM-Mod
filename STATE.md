@@ -1933,3 +1933,13 @@ serving5/mechanics10/development32/confirmation64/unused726;all disjoint and
 eligible. Public manifest contains no target/question/answer,SHA8d1269e1.
 Authorize only exact10 structured semantic-retrieval serving qualification;
 mechanics/development/confirmation remain unopened.
+2026-07-29: Freeze GuessingGame path-BED exact10 semantic-retrieval serving
+before responses. Five source-audit serving targets each get independent
+material-only+function-only GPT-5.4-Mini nonthinking retrievals(seed39500,
+temp.3)over all858 opaque IDs;each returns exactly32 unique IDs+integer
+weights. Require exact10,zero retry/reasoning/forced,all schemas,>=4 weights
+and2x range,material recall>=2/5(top16>=1),function>=4/5(top16>=3),union5/5,
+per-case M/F Jaccard<=.75,and cost<=.20. No target marker/unasked answer or
+later split enters prompts/public output;projected$.05. All26 focused tests and
+exact10 fixture pass. Passage only authorizes separately frozen 10-case
+material/function order mechanics;development/confirmation stay sealed.
