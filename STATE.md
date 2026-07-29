@@ -1889,3 +1889,16 @@ categories. Adaptation uses image+numbered boxes,LLM semantic question
 proposals,separate visual likelihoods,independent visual realized oracle,and
 exact hidden-object endpoint. Authorize only a separately preregistered exact
 10-call multimodal serving smoke;model0/cost0,development/holdout unopened.
+2026-07-29: Freeze GuessWhat?! visual-semantic BED exact10-call serving smoke
+before any multimodal response. On the two source-audit serving images,
+GPT-5.4-Mini nonthinking seed39100/temp.7 proposes4 semantic binary questions
+per candidate overlay;Gemini2.5-Flash nonthinking seed39200/temp0 returns
+candidate-conditioned visual Yes probabilities;Qwen3-VL-32B-Instruct
+nonthinking seed39300/temp0 independently answers Q1--Q3 on target-only
+overlays. Require exact10 HTTP/accepted,zero retry/reasoning/forced,all schemas,
+4 unique questions/case,>=2 discriminatory and balanced questions/case,Yes+No
+oracle coverage,>=5/6 and>=2/3 per-case cross-model consistency,and cost<=.30.
+No target-derived public hash;human QA/outcome neither prompted nor scored;
+development/holdout/policy endpoint unopened. All14 focused tests and real-
+image exact10 fixture pass;live balance$18.195686794. Passage authorizes only a
+separately frozen first-link ranking-fidelity test.
