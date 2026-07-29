@@ -2055,3 +2055,13 @@ rank rho>=.7 with>=.15 advantage. Hamming/coverage remain reported secondary
 diagnostics,not an unrelated all-loss conjunction. This is not a Qwen repair:
 new planner,target provider,seeds,smoke,and directory. 34 focused tests pass;
 live endpoint unopened.
+2026-07-29: DeepSeek V4 Pro Number Game exact10 serving is a gated null,so
+the 2336-call formal is not authorized. Transport/schema were clean:10/10
+accepted+HTTP,all parsed,0 retry/provider/reasoning/forced,2596 prompt+6868
+completion tokens,cost$.0183607869. Initial valid counts22/22;one-step
+14/15/18/20;two-step7/10/13/8. Frozen conditioned minimum8 fails only
+YES10,NO20:24 schema-valid items but2 invalid expressions+15 duplicate
+extensions leave7. No threshold/prompt/seed/response repair or reissue.
+Public RESULT SHA931c796a;private raw b874699c. This is serving qualification,
+not efficacy evidence;close exact DeepSeek route and try only a distinct
+planner family under a separately frozen exact10 gate.
