@@ -1912,3 +1912,15 @@ the frozen>=3-value calibration gate;balanced questions are3/8;Qwen/Gemini
 target consistency is4/6<5/6 with one case1/3<2/3. Public SERVING SHAa74a6d96;
 private raw ef228fd2. No prompt/model/case/seed/threshold repair or rerun;
 development20,holdout60,and exact target endpoint remain unopened.
+2026-07-29: Select official GuessingGame(commitdf56f1f) as a distinct
+LLM-native path-BED source after the GuessWhat visual-likelihood null. Freeze a
+disclosed nonblind zero-call reproducibility/split audit over released GPT-4o
+open-game log a41a4dd3 and858-object vocabulary a55a5f94. Eligible rows must
+have immutable nonempty material+function answers that do not literally name
+the target. Compare material->function versus function->material:identical
+semantic evidence,so terminal belief differences isolate ordered LLM
+hypothesis retrieval. Require>=800 clean rows,>=100 exact-answer collisions per
+action,and opaque seed39400 splits serving5/mechanics10/development32/
+confirmation64. Public manifest excludes targets/questions/answers;repo has no
+license,so never redistribute vocabulary/raw logs. Passage only authorizes an
+exact10 structured retrieval smoke;model0/cost0 and20 focused tests pass.
