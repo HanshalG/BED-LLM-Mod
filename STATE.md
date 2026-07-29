@@ -2311,3 +2311,10 @@ expands to16 hash-pinned bundles with18 exact checks for this result. All
 claims validate,focused replay suite9 passes,and draft compiles cleanly at6
 pages with14 required limitation topics+2 figures. No scientific value or
 status altered.
+2026-07-29: Freeze exact10 GPT-5.4-Mini Number Game planner serving smoke
+before calls:seed53000,2 prior+4 one-step+4 two-step supports,nonreasoning,
+same strict extension codec,raw checkpoint before parse,no efficacy. Pass
+requires exact10 accepted/HTTP/parsed,0 retry/provider/reasoning/forced,
+prior>=16,conditioned>=8,and cost<=.10. Passing only authorizes one fresh
+32-tree exact-canonical confirmation whose primary is d3 versus myopic;
+d3-versus-d2 is diagnostic,not a forced monotonicity claim. OpenRouter only.
