@@ -2578,3 +2578,14 @@ CI[-.013713,+.000450]. This cannot rescue the prospective mechanism null.
 Merged vs generated-only pooled2.75%,CI[-.005813,-.000328],40 changes,
 24/24/16;source effects-.002604/-.003267,contrast CI crosses,so retention
 is the stable component. Model0,cost0. Public RESULT SHAfb735fb5.
+2026-07-29: Exploratory diagnosis before next method freeze:current pooled
+second generations are already76.47%/76.49% extension-novel relative to
+parent-only branches;mean novel counts19.58/19.61. Exact33 target coverage
+added by refresh is similar7.10%/6.49%. Novelty-effect correlations reverse
+between cohorts,so a novelty-only prompt is not the evidenced bottleneck.
+Freeze zero-call dynamic-vs-fixed-support64 synthesis instead:bind pooled
+RESULTs cef6ded0/71281c48,use stored crossfit d3 and fixed-support d3
+endpoints,20k stratified bootstrap seed64700. Positive requires both source
+mean Brier differences<0,pooled gain>=3%,CI<0,wins>=28/64. Hamming/coverage
+corroborating. Model0,cost0,no rescue;full pass only authorizes separately
+frozen fresh higher-validation confirmation.
