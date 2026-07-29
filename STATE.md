@@ -2506,3 +2506,12 @@ delta+.0676,paired CI[-.1654,.3166]. Risk SD range.00813--.01934 and
 correlation with realized advantage-.0643. Both gates fail;no alternate
 denominator/clipping/rank/subset/regularizer. Model0/cost0;source stays
 gated_null. Public RESULT SHA7d68fd2f.
+2026-07-29: Freeze zero-call pooled second-refresh ablation before computing
+alternative roots/endpoints. On same32 fresh trees/8 roots/retained first
+supports+queries/8 validation draws/exact33 outcomes,recompute crossfit d3
+using second support (a)merged parent+new LLM,(b)parent-only primary,
+(c)generated-only diagnostic. This isolates value of newly regenerated
+second-step hypotheses while holding trajectories/endpoints fixed. Primary
+positive requires root changes>=12,merged-parent Brier gain>=2%,paired CI<0,
+W-L>=8;20k paired bootstrap seed63800. No alternate support/tree/threshold/
+endpoint/query. Retrospective,model0/cost0,cannot rescue source.
