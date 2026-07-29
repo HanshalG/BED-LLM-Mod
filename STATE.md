@@ -2599,3 +2599,16 @@ direct retrospective evidence that path-dependent LLM support regeneration
 adds exact Brier value beyond depth-three planning on one fixed LLM support.
 Model0,cost0;cannot rescue sources. Public RESULT SHAc71fa24d. Authorizes a
 separately frozen fresh dynamic-vs-fixed primary with more validation draws.
+2026-07-29: Freeze fresh Qwen pooled dynamic-vs-fixed confirmation32 before
+successor responses. Fresh exact10 serving first,Qwen seeds65900/65901,same
+strict pooled interface;require exact10 HTTP/accepted,0 retry/provider/
+reasoning/forced/salvage,all strict JSON,second-draw novelty>=2,pooled
+initial>=24,conditioned>=8,merged first>=12/second>=8,cap$.12. Full pass
+alone authorizes trees66000--66031,target66100--66131,16 Gemini validation
+draws/tree seeds66200--66711,bootstrap20k seed66800. Exact3680 accepted,
+1568 pooled/2112 total parse events,retries<=96,salvage<=16,cap$5.25,
+start>=5.50,deployed supports initial>=24,first>=12,second>=8,all16
+validation>=16. Primary dynamic-vs-fixed roots differ>=24,gain>=3%,CI<0,
+wins>=16;co-required d3-myopic>=8%,CI<0,wins>=20. Only estimator change is
+8->16 validation draws;semantic generator unchanged. No continuation/repair/
+third draw/weight/threshold/endpoint/model change.
