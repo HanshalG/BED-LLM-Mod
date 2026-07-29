@@ -1,0 +1,131 @@
+{
+  "error": "ValueError: forbidden method call: reshape",
+  "private_raw_sha256": "be1d19c655d086f6c5d7c23a284d9cbcee8932666e322d6ac20d9744e0a35d3e",
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "battleship-semantic-serving-smoke-1",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "source_audit_sha256": "16aff4012fd5992341f161c01a4dfab48d562e04fe2591eb6fd87d85feba0872"
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 413,
+    "adapter_prompt_tokens": 3164,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "models": [
+      {
+        "adapter_completion_tokens": 140,
+        "adapter_cost_usd": 0.0010125,
+        "adapter_prompt_tokens": 510,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 140,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 2,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 140,
+            "cost_usd": 0.0010125,
+            "prompt_tokens": 510,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 510,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.7723936767794,
+        "requests": 2,
+        "retry_count": 0,
+        "run_budget_usd": 0.25,
+        "run_cost_usd": 0.0010125,
+        "run_remaining_usd": 0.2489875,
+        "total_spent_usd": 152.22760632322058
+      },
+      {
+        "adapter_completion_tokens": 146,
+        "adapter_cost_usd": 0.00167175,
+        "adapter_prompt_tokens": 1353,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 146,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 4,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 146,
+            "cost_usd": 0.00167175,
+            "prompt_tokens": 1353,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 1353,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.7723936767794,
+        "requests": 4,
+        "retry_count": 0,
+        "run_budget_usd": 0.25,
+        "run_cost_usd": 0.00167175,
+        "run_remaining_usd": 0.24832825,
+        "total_spent_usd": 152.22760632322058
+      },
+      {
+        "adapter_completion_tokens": 127,
+        "adapter_cost_usd": 0.0007078,
+        "adapter_prompt_tokens": 1301,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 500.0,
+        "completion_tokens": 127,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 4,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "google/gemini-2.5-flash": {
+            "completion_tokens": 127,
+            "cost_usd": 0.0007078,
+            "prompt_tokens": 1301,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 1301,
+        "provider_error_retries": 0,
+        "reasoning_enabled": false,
+        "reasoning_tokens": 0,
+        "remaining_usd": 347.7723936767794,
+        "requests": 4,
+        "retry_count": 0,
+        "run_budget_usd": 0.25,
+        "run_cost_usd": 0.0007078,
+        "run_remaining_usd": 0.2492922,
+        "total_spent_usd": 152.22760632322058
+      }
+    ],
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.0033920499999999998
+  }
+}

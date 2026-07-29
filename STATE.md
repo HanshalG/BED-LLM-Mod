@@ -2003,3 +2003,16 @@ retry/reasoning/forced,all schema+safe Boolean,prevalence[.05,.95] both
 blocks,>=.97 cross-model agreement for>=3/4,>=3 reference behaviors,and
 cost<=.25. Public output excludes expressions;trajectory questions and policy
 endpoint unopened. Passage only authorizes separately frozen branch mechanics.
+2026-07-29: Collaborative Battleship exact10 semantic serving fails closed and
+the exact interface is closed. Transport clean:10/10 accepted+HTTP,all
+schemas,0 retry/reasoning/forced,3164 prompt+413 completion tokens,cost
+$.00339205. Frozen AST rejects Gemini Q4 `.reshape`;no repair/reissue.
+Zero-call saved-response diagnostic confirms semantic failure,not mere codec
+friction. Questions are rowA,left-half,rowD,length5-inside-left-half.
+GPT/Gemini agree exactly on first3,but prevalences are .55,.994,.882;only
+rowA passes[.05,.95]. On Q4 GPT is constant false,Gemini constant true,
+agreement0. Planner diversity is also weak(two row/two left-side questions).
+Public FAILURE SHA27ae82a7;private raw be1d19c6. Do not widen validator,
+repair/prompt/model/selection/threshold,or rerun. Opportunity audit remains
+positive retrospectively,but fresh lightweight generation+translation does
+not qualify;policy/branch mechanics/endpoint remain unopened.
