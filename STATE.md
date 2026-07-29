@@ -2147,3 +2147,15 @@ paper compiles/render-checks at6 pages,and owned suite2175 passed/1 skipped.
 Only failure is the pre-existing absent external Hotpot parquet fixture at
 `/tmp/hotpotqa-distractor-validation.parquet`;unrestricted pytest also
 collects optional vendored repos and is not the project test surface.
+2026-07-29: Sole fresh Qwen external-canonical confirmation is a composite
+gated null for an operational reason,but every scientific gate passes.32
+fresh trees,seeds49000-49031;8 independent Gemini validation supports/tree;
+all33 canonical targets;no generated efficacy endpoints. D3 Brier .104564
+vs d2 .109634:4.62%,CI[-.009545,-.001040],14/32 wins;vs myopic .117981:
+11.37%,CI[-.019039,-.007844],25/32. Roots differ19/32;Hamming+coverage
+improve;D3 directionally beats fixed,cleanly beats PTS/random,and rank rho
+.287 vs .083. Exact1856 accepted/1858 HTTP,$2.3876747,zero reasoning/forced.
+Two transient provider errors recovered under retry cap,but frozen
+zero-provider-retry gate fails,so status remains gated_null;no rerun/relabel.
+RESULT SHA370e1c29,TARGETS9e788da2,TREES39b79f39. Balance after run
+$15.628982893;reported new$40 still absent;OatML0.

@@ -182,6 +182,36 @@
       ]
     },
     {
+      "id": "number_game_qwen_external_canonical_confirmation",
+      "paper_scope": "Fresh Qwen planning-tree confirmation on the 33 canonical concepts, including the two-retry composite-null qualifier.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_external_canonical_confirmation/number-game-qwen-external-canonical-confirmation-20260729/RESULT.json",
+        "sha256": "370e1c2923e56fb6a8344558db0a69bd5f86a8b013da7d9452675df380f7f12b"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/tree_count", "equals": 32},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/usage/adapter_requests", "equals": 1856},
+        {"pointer": "/usage/http_attempts", "equals": 1858},
+        {"pointer": "/usage/provider_error_retries", "equals": 2.0},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0},
+        {"pointer": "/usage/run_cost_usd", "equals": 2.3876747, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/candidate_mean_brier", "equals": 0.10456381332410492, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/baseline_mean_brier", "equals": 0.10963402162558668, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.04624666892907689, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/crossfit_depth_two/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.009544733352216107, -0.001040029973652459], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.11798062772540396, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.11372048665926955, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.019039114415777054, -0.007844111755634679], "tolerance": 1e-12},
+        {"pointer": "/aggregate/root_differences/crossfit_depth_two", "equals": 19},
+        {"pointer": "/mechanics_gates/zero_provider_error_retries", "equals": false},
+        {"pointer": "/primary_gates/depth_three_vs_depth_two_ci_below_zero", "equals": true},
+        {"pointer": "/primary_gates/depth_three_vs_myopic_ci_below_zero", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_classical_grammar_scope",
       "paper_scope": "Classical grammar novelty audit and its explicitly underpowered endpoint boundary.",
       "artifact": {
