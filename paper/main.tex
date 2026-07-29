@@ -594,6 +594,13 @@ diagnostic does not replicate in this cohort (0.42\%;
 $[-.0043,.0039]$). Thus two independent fresh Qwen cohorts reproduce the
 non-myopic-over-myopic effect (11.37\% and 12.61\%), while only one supports a
 monotonic depth-three-over-depth-two claim.
+A retrospective cohort-stratified synthesis quantifies that robustness:
+across 64 disjoint trees, depth three improves Brier over myopic by 12.00\%
+($[-.0196,-.0094]$; 50/64 wins), fixed-support depth three by 4.49\%,
+PTS by 6.47\%, and random by 8.28\%, with every interval below zero.
+This zero-call synthesis cannot rescue either source's transport-null status.
+Its depth-three versus depth-two interval still reaches $+.00016$, preserving
+the monotonic-depth null.
 A preregistered zero-call replay of the 64 fixed GPT-5.4-Mini policies on the
 same canonical bank is more heterogeneous: depth three improves only 1.08\%
 over depth two ($[-.0045,.0021]$; 19/64 wins), but beats myopic by 12.93\%

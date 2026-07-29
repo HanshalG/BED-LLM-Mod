@@ -2371,3 +2371,10 @@ disjoint32+32 trees/same exact33 bank,preserve both composite nulls,stratified
 tree bootstrap. Descriptive robustness checks d3-myopic>=8%+CI<0+20 wins in
 each and pooled>=10%+CI<0+40 wins. Report d3-d2 heterogeneity,all controls,
 Hamming/coverage/rank. This cannot rescue source statuses;model0/cost0.
+2026-07-29: Qwen pooled64 zero-call synthesis(commit ae1396a) is
+retrospective robustness positive without source rescue:d3 Brier.104844 vs
+myopic.119138,11.998%,stratified CI[-.019592,-.009358],50/2/12 W/T/L;
+both cohorts pass every descriptive check. Fixed/PTS/random gains4.493/
+6.468/8.276%,all CI<0;rho.305>.185. D3-d22.563% but CI[-.005719,
++.000164],so monotonic depth remains null. Public RESULT SHA1fca68eb;
+model0/cost0. Paper/manifest add explicit retrospective qualifier.

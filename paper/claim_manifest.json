@@ -243,6 +243,36 @@
       ]
     },
     {
+      "id": "number_game_qwen_external_canonical_pooled64",
+      "paper_scope": "Retrospective zero-call robustness synthesis across both independent Qwen canonical cohorts, without rescue of either source composite status.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_external_canonical_pooled64/number-game-qwen-external-canonical-pooled64-20260729T070712Z/RESULT.json",
+        "sha256": "1fca68eb22440ea91c6f486aa730d2e46a4600e0a55894e1941f7db42c121afe"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_robustness_positive"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_source_composite_statuses", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/sources/0/status", "equals": "gated_null"},
+        {"pointer": "/sources/1/status", "equals": "gated_null"},
+        {"pointer": "/pooled/comparisons/myopic_eig/candidate_mean_brier", "equals": 0.10484356668817188, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/baseline_mean_brier", "equals": 0.11913780698106377, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.11998072362674825, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.019592145529917816, -0.009357613816140701], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/myopic_eig/wins", "equals": 50},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/relative_brier_reduction", "equals": 0.025626446338315418, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/crossfit_depth_two/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.005719487931702293, 0.0001641092291245602], "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/fixed_support_depth_three/relative_brier_reduction", "equals": 0.04493151130185155, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/positive_test_strategy/relative_brier_reduction", "equals": 0.06467625211898285, "tolerance": 1e-12},
+        {"pointer": "/pooled/comparisons/uniform_random_candidate_root/relative_brier_reduction", "equals": 0.08276411215972684, "tolerance": 1e-12},
+        {"pointer": "/robustness_checks/pooled_myopic_ci_below_zero", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {
