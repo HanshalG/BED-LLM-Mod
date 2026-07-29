@@ -1741,3 +1741,14 @@ unopened:do not pool sparse draws,narrow grammar,or report underpowered policy
 scores. Calls/cost0. This shows path-conditioned LLM support escapes a broad
 classical closure,but does not prove the d3 gain specifically on those targets;
 no paid follow-up is authorized by this route.
+2026-07-29: Select newly released AskBench AskMind as the next distinct
+intrinsically semantic candidate and freeze a zero-call source audit before
+aggregate row inspection. Pin official commit f35da92/tree bfa4bf92,combined
+AskMind SHA406b9a48,and evaluator SHA14d78c93. Eligible rows are exact modified
+MedQA four-choice tasks with3--8 required points;sort IDs,shuffle seed37300,
+fix first10 development+next40 untouched holdout without semantic selection.
+Source pass requires>=60 eligible,strict hidden-state separation,official
+simulator revealing only asked-for facts,two clarification turns before final,
+and released-answer external scoring. Only a full pass can authorize a frozen
+exact10-call initial-world serving/opportunity screen;no paid call or row repair
+before the source result is committed.
