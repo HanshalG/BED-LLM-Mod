@@ -1,0 +1,93 @@
+{
+  "diagnostics": {
+    "changed_refresh_count": 8,
+    "rank": {
+      "choice": "B",
+      "confidence": 77,
+      "unresolved_need": "Need explicit end-to-end linkage across dispute, intermediate operational changes, and the specific final-performance alteration"
+    },
+    "unique_refresh_count": 8,
+    "valid_anchor_counts": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      5
+    ]
+  },
+  "gates": {
+    "all_eight_refreshes_change": true,
+    "all_eight_refreshes_unique": true,
+    "all_pass": true,
+    "all_refreshes_have_four_grounded_anchors": true,
+    "all_ten_outputs_parse": true,
+    "cost_at_most_0_20": true,
+    "exact_request_count": true,
+    "http_attempts_within_cap": true,
+    "rank_choice_and_confidence_valid": true,
+    "transport_retries_within_cap": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "longvid-robust-keyed-belief-1",
+    "max_cost_usd": 0.2,
+    "max_transport_retries": 2,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "ca41dd652864787a8e53464de4ef5a80b7c7ff6e66d169f6a6cae9463025d5bd",
+    "reasoning_requested": false,
+    "response_format": "order_insensitive_keyed_pipe_rows",
+    "semantic_repairs_or_reissues": 0,
+    "synthetic_fixture_only": true
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.0613375,
+    "completion_tokens": 2851,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 2851,
+      "adapter_cost_usd": 0.0613375,
+      "adapter_prompt_tokens": 7429,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 500.0,
+      "completion_tokens": 2851,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2851,
+          "cost_usd": 0.0613375,
+          "prompt_tokens": 7429,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 7429,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 342.32241412887856,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.2,
+      "run_cost_usd": 0.0613375,
+      "run_remaining_usd": 0.13866250000000002,
+      "total_spent_usd": 157.67758587112144
+    },
+    "physical_requests": 10,
+    "prompt_tokens": 7429,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
