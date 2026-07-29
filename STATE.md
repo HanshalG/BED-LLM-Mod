@@ -15,6 +15,14 @@ exact ten-request smoke: five planner calls for open hypotheses/binary questions
 and five independent hidden-preference target calls. No policy endpoint opens
 unless schema, partition diversity, and answer-signature coverage pass.
 
+2026-07-29: CUPID serving V1 failed closed after exactly five GPT-5.4 Mini
+planner calls (`$0.02637975`, zero retries/reasoning/forced exits), before any
+Gemini target call or hidden-preference access. Two cases emitted compact
+six-bit signatures; three inserted spaces/commas that the six-character schema
+truncated, so the strict parser rejected them. V1 stays failed. One disjoint
+five-row V2 is allowed with the same models/prompts/gates and only a
+schema-enforced six-integer `0/1` representation; no policy or holdout opens.
+
 2026-07-21: Next loop frozen before outcomes: independent GPT-5.4 Mini non-thinking
 replication on RockSample 7-8, fresh seed 24073, 30 paired ten-round trials and the
 same shared-d1/width/random controls. A ten-cell actual-prompt gate must pass first;
