@@ -1,0 +1,669 @@
+{
+  "all_gates_pass": false,
+  "control_flow": {
+    "default_allows_three_assistant_turns": false,
+    "final_answer_forced_only_on_last_turn": true,
+    "judge_receives_released_expected_answer": true,
+    "simulator_receives_checklist": true,
+    "simulator_receives_hidden_original_question": true,
+    "simulator_reveals_only_immediate_answer": true
+  },
+  "data": {
+    "eligibility_rejection_counts": {
+      "answer_options": 310,
+      "expected_answer_format": 300,
+      "explicit_no_modification": 23,
+      "required_point_count": 18,
+      "unchanged_question": 45,
+      "wrong_source_task": 300
+    },
+    "eligible_required_point_count_distribution": {
+      "3": 8,
+      "4": 11,
+      "5": 38,
+      "6": 12,
+      "7": 17,
+      "8": 3
+    },
+    "eligible_rows": 89,
+    "source_task_counts": {
+      "ask_mind_bbhde": 100,
+      "ask_mind_gpqade": 100,
+      "ask_mind_math500de": 100,
+      "ask_mind_medqade": 100
+    },
+    "total_rows": 400
+  },
+  "gates": {
+    "all_source_ids_unique": true,
+    "at_least_60_eligible_rows": true,
+    "hidden_state_excluded_from_candidate_payload": false,
+    "official_control_flow_matches_required_semantics": false,
+    "selected_rows_preserve_frozen_structure": true,
+    "selected_split_has_exact_sizes_and_unique_ids": true,
+    "source_hashes_match": true
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "interface_version": "askbench-llm-native-source-audit-1",
+    "model_calls": 0,
+    "preregistration": "results/nonmyopic/ASKBENCH_LLM_NATIVE_SOURCE_AUDIT_PREREGISTRATION.md",
+    "split_seed": 37300
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "f35da92feda34504f10413313554438e7abaeb08",
+    "data_sha256": "406b9a48036374552d9e819c63d5c3ba25feea764c68f391e21c552f6221af82",
+    "evaluator_sha256": "14d78c936b60bfe365db9d03162e35627e9b00e2bdc17f5946df812d29dff392",
+    "paper_sha256": "835509e5d90fc550756c81b0bdbfbaf39ffe44c9a3380c56e690d7da7ffe5533",
+    "tree": "bfa4bf929f5ebd61a465be4b12f42a212d38685a"
+  },
+  "splits": {
+    "development": [
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "924d9cb3deb6a78f1850b870cba350fe445e44e6ee2cda0f3377aba38a4cbb25",
+        "required_point_count": 7,
+        "row_sha256": "2db95e4954de73e92d6fa2f838fa3fc751cc64c97341c52fe16a2b0dbcc71cc0",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "14bd6b888f1356d5edb2f604bf4e56ad384ba8e7ddcdd5c6d09f58af96fa16d3",
+        "required_point_count": 7,
+        "row_sha256": "3993374054884dece41dc0f785ca135aa1e73eef5e6386e67efb22c6c0325e51",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "87643b490b1c5c7b65e1a9828f10776e542b3585476a3132a12ecf9d5ed79304",
+        "required_point_count": 6,
+        "row_sha256": "1dd14735e32626c0178536ab0e030790f5c57170a823f29212539d17046bdf1a",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "a038fefb780b059617728eed47f8d0a121ad7311c6630c49462e7570cd0ba5d6",
+        "required_point_count": 6,
+        "row_sha256": "2b3980987500b581cad99ead85f56bd171a76094eb9f7a08f13d82f908bb44a6",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "9446b566fc8b24fef181fb99a774f8402cfeb2df1f9d9ba5178c8ba4fdafe993",
+        "required_point_count": 5,
+        "row_sha256": "0a934d634ea15698d8465f20f24df1eca40e41dae8f0364068cfaa7b0b1dcdf6",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "118691154c5da779b6db58713b3f8c3f9e100a4625c733ac2d5a921a8d0d1095",
+        "required_point_count": 5,
+        "row_sha256": "38d6316189d97944b978833a10a3105af4cd43ac3c3da63254a92c2f8f5d62dc",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "3a3d57e84e7738daab5675ab43a6f6f66171baca4b5ffd2aaed46323397bdde1",
+        "required_point_count": 5,
+        "row_sha256": "4734dfc7adbc1caa024745cc4d1618444d3535ca1291a4c0edc88b1e35f87d42",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "9b7d287f72c55dd95bce21251823ac6a69e1b0d604e8617cc538a105c5bdb638",
+        "required_point_count": 5,
+        "row_sha256": "bbef2c5b952f7d26cd4a9875b3a5e8c65b09f4628da7f1fedf02a4373b89eee9",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "094e4c1db91581cb44c699e076a477c4d7e4e1e4e7e2ca3985ac1bccfd06a330",
+        "required_point_count": 5,
+        "row_sha256": "8eeccd4722e1232bbadeee5ba08b0c4fa876bd05be2c39f760390a7471f00ed3",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "f6a54dc1496a4083391f362ad9f5d68fd05db30d82cd0e30e28fc75506cd35f4",
+        "required_point_count": 3,
+        "row_sha256": "75db6c920c63e825a38c1bac21cbe8d4e9e8dd6bd71b423b131533b60fb8536f",
+        "source_task": "ask_mind_medqade"
+      }
+    ],
+    "holdout": [
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "2585d5824a72b3fcaca2af084eedcd8590e83df1e8a3454ee9bf9effdb926227",
+        "required_point_count": 5,
+        "row_sha256": "d4b58eff421e12c2b9562ec53a24544a257b47f8643c876274a73d16654832ca",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "2147599f0aa31f73a936fd0f5c5385919fa13b9de52055a82a1c83ecf8d9beca",
+        "required_point_count": 7,
+        "row_sha256": "97841174578da7a1f76ac08ae6dd06579701daa197211560decb0bb1b0fccf62",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "692f5fa89a7a2dd13ee4ddb1be7b1a4a34ec99db1709265965c2678ffda6b191",
+        "required_point_count": 3,
+        "row_sha256": "480230e1c2952f2bd9f35155f5fa29fa10ad63b3cdaac2939e391f80802d05f7",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "2a5d94d99e7d35efb689913f5cffc4c30a018de8f14b9aa6912a4f68c9f13883",
+        "required_point_count": 5,
+        "row_sha256": "b0961e5490e9a8d042c9dd9684a122a6a78c73ae3fb2425a44a0a13d13ee8e96",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "6e07962264cf78f0259133a47fac46e72a6640959a52e597d8c4aeaf8b02ebcd",
+        "required_point_count": 5,
+        "row_sha256": "58dc9b48f17f61077ba18f8ef15928a2ad936c76d50e952ae8fac6a73554ae73",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "a618539b01b4496bf7a3f746203029f0e161bc6c6275e654cea68e8ca042287b",
+        "required_point_count": 5,
+        "row_sha256": "e09ba7f8bf47474aa903772e0cf0b5adf75a91596854337c4123513dc15f6b25",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "de44b1b4649ac84c2f9b3098774f3c5dc0766484417969b5070a0b43bb93b537",
+        "required_point_count": 3,
+        "row_sha256": "eb7041bacf24970737cb090251b1e702e88e7dad5acb3fc6f2b4ec256bdb238d",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "6c38e6840c95ba1e2234e594c722e197f3c9b6e873158bd0f2debe3036bc97ba",
+        "required_point_count": 6,
+        "row_sha256": "f41197f56acb8bdf8e2e148959f390e93c4f9f9166ce00df3d9977a4fc000ce5",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "15e788c989b0e731f53e13d5149b38356b7d08fee3c6d05a849ffce8adf01b49",
+        "required_point_count": 5,
+        "row_sha256": "6839cf62475c75150af4a290f399961ca416780d005fe31014f7583b5607e60e",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "83e953217b895d5e7b282661c31f6721cf7b69a1a70948be1892beec77f731cb",
+        "required_point_count": 5,
+        "row_sha256": "3434e8ae49399b6099c732af8719391073273d198c9895a17c86566bd1083bc3",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "143f2445a69d2bd09fbc4257a4860e823abf301abf0579ccda495e3906a92793",
+        "required_point_count": 5,
+        "row_sha256": "0568d7e926649320b3341264221fb65f03b07e00501b5449e88677ec7a9c058b",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "cffc0ef3acfc6239e8b60ef032ba2add338efc514d7cfc65da808bbb232b0bfe",
+        "required_point_count": 4,
+        "row_sha256": "18c54c37c2dca15eae28056d6ca3a0f7679716d2a8f980b335b86f1ae713be83",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "6f6d3c544ed1e4d44f525e7542686a7ec59c877efcb42afaf477b686e6b5de79",
+        "required_point_count": 7,
+        "row_sha256": "fd1b8e4381cf93fa1c4ea5b3c055e013b8a87cadd437996dbd1a96ffafffc882",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "7f33012b67d33bd2dbf0b3328f0eb8d05b13b3fade929ed2dbb9aff176553cd1",
+        "required_point_count": 7,
+        "row_sha256": "6723567696e7add9c5ed4608d774f37349fded97c8e07e5a9c0630c020358586",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "2918f406cb74deed6c871c25cb3340066190457c51d9c0f3404087f2a18fe030",
+        "required_point_count": 8,
+        "row_sha256": "841c96fa82915465d48cf86cf680eb243842c78fd0c5052170b76f1805a07db8",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "faa5d2284b33a30eda137beba3a751b2ebc843a43c70acea6f01d72a696b9fed",
+        "required_point_count": 4,
+        "row_sha256": "ec9197cdef203f3676a9944f86ebaaa2485ef15400ce42ed189c23104f6c6135",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "a0e5f0deaec0e5e5a513266ba63e83b947fb47da6284b67c36f42dd3e747d427",
+        "required_point_count": 4,
+        "row_sha256": "1e284a64db2b13ce7da7a4bf6edf57c84da5101766c3279608dbcf0e53aba1f8",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "95fbced32e4fc816b015200b5d00cf0320c4707e3a9556c37e4b85ed6eda4781",
+        "required_point_count": 5,
+        "row_sha256": "38d1ba94e56dfd806a717b41563646b08141b3bb43026bfa97ba2c0ea274de6f",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "d7620b7854f1110f08e112e654e54f49974c96297933d7ab739eecbcc791e51b",
+        "required_point_count": 5,
+        "row_sha256": "7fe3fe68c97ae00ec799178925a580dd6b584a16fcd4292d88cc228c6b2f4ed9",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "119222bbb6e653e01e4dc8ee84728f5d622bbf32305e82c409b3a0e07454268a",
+        "required_point_count": 5,
+        "row_sha256": "6767adaa1dc14015059851495b5081585d228be7e6dde5b0b3801cb4729517ae",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "e9286aad7a603239f4f78faea573f6828f96ba14b7dfae9377a94ac521b2fda2",
+        "required_point_count": 5,
+        "row_sha256": "78f421438411a09f7b0503ef96772e80d21e80b12192f4e7b8f06f7fc80d4b95",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "f447ab55d7655b9cbcc1695a0ad13d17ab8992257548251270d94376dee44545",
+        "required_point_count": 7,
+        "row_sha256": "c4c12bcba283a8921468fdda7660ae6b6ae191c6fe679565b88abb6699c947f8",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "a6c18c71b19305cc83c6fbf3cda9d15ee7a35db119db13e25f99848f6b53208a",
+        "required_point_count": 7,
+        "row_sha256": "d565f003f791f2e7a41fd7ea579ec6da5e03868ec9c88299eecd750a4fbfcc06",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "905edafffd7368c7ea45e44b8e8d54e50333d1fca5672cb4cab8acf38dc376d3",
+        "required_point_count": 7,
+        "row_sha256": "505a31145fae34675f7a2a421edf682b96117448fa5e17a4715ec43efb42dc8f",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "8800ac46bb53ff43de1e56da8da278de0823962f9d2f0abf2e558e90bfd98c7a",
+        "required_point_count": 6,
+        "row_sha256": "e12578e8a3ff6e5de57b5a292075c83efbdc758085144cb45e74e63f92ceebcf",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "84620e55b3d317c1ad32b3c98acaf862fff5e6113145ac5378a0935ae5c7dcb7",
+        "required_point_count": 5,
+        "row_sha256": "65f9a367fc2f2760120fdee7a2b16c9b3f076df4a4cc7bc36223cefd837b17dc",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "61d526ad44e79c94571f8ce19a368df31a2d094b85d3f11c03d7c45ce7f38c39",
+        "required_point_count": 3,
+        "row_sha256": "b9a103f1ddebc60d4ec651482175906970940cf7b8f60fb8617ac4725f9f6676",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "9f78f6613cc9e53c819d1591dc5ad411cd13e4fe5865274a32f8834f0ed296c1",
+        "required_point_count": 7,
+        "row_sha256": "b84d63205916dec727251a6bf9eda28879297e396534be8373978fab5a549bfc",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "1ea35b7094e0d4658f969091550c327efd642a0e566257bad99afe95982fd2c2",
+        "required_point_count": 4,
+        "row_sha256": "d7ac2fd99b927d6c55a98039abbfc7c5148d5c8dddec0ad3164dcf2d687b9788",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "4df0494c498e24b3636f5eedbaf769026533e911a709cbd931d6da3315766bbd",
+        "required_point_count": 7,
+        "row_sha256": "a6cdb66870a86ee07366af74f01bf4370ee39f052f9b713f5e369bda20f45829",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "f79df354c44135cfa531ea8f73fe1c9aad8b7624898e1cc7f7db6b855d1f3825",
+        "required_point_count": 5,
+        "row_sha256": "1d02b458e6eef399ab8dd20cf827913e2a31ad6009783b1aae68a197a811f308",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "3d15e819ff8f4cbca9da12a0964571a5f7b31835f1b4b9f6bfbc948a8e49390c",
+        "required_point_count": 5,
+        "row_sha256": "14aa17ddaecba3e476f8df1cbadbb84c4ee94954223f3f459937b9d54c07dc58",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "a9989ec7e66975c49f67ddeab44b931acddfcd634c253c8e1098804dd812dc26",
+        "required_point_count": 5,
+        "row_sha256": "0037017815cbe9fde20a3a401c2f2b15355169656e3236832b74dad7d28907b6",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "d3bd747390c65f41f425400f4a57d8c9b20ee9ea6bdcceb6b9e33ebd9fdafecf",
+        "required_point_count": 4,
+        "row_sha256": "f674680ba45ff815079a2362f26bd1a6ed89f526c1348e3f1159a62abbc37a63",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "1d53a868f04aec625702e30878e070251ee89d32239361384b587ddef40e74c4",
+        "required_point_count": 4,
+        "row_sha256": "0cafc6bd5572777926458a730b7bdb57519ecf32e9ba830a3df497ab665d6491",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "460d76f8cda84a8dc4d096ae51d7e2a7c45d45fbbd3b9c9668d947376b9beb30",
+        "required_point_count": 5,
+        "row_sha256": "9bac47a266ec64269bac1cf42b6d3b26ee0b3324433b2b47b567f8018ce11f9a",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "727fb98348210e6c094884cb6cec7d1fa0ddf9fa70d165128c6c609f0b9c2fd7",
+        "required_point_count": 5,
+        "row_sha256": "1d7422d8b875f118ef50cbb5ae94d856d604636ec998e80d143980322639c038",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "ebdd9ff3fb2a9e7489970d7fccbe6cc154488b10de2553f2dce6b64fe9283648",
+        "required_point_count": 5,
+        "row_sha256": "08a65853d2e99878666245eb18f525a0d3d4a20105f40c917eb0aae25f4be697",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "216092733a43ac9156965ec10e44c4e688617cd1099112457b6b3a0e4c1b805f",
+        "required_point_count": 4,
+        "row_sha256": "b8f71a80bf422a67df9fa6176b606d09b3e26a7bc84c23ffdae39d604fdee91b",
+        "source_task": "ask_mind_medqade"
+      },
+      {
+        "answer_option_labels": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "id": "02907c41e082d88b65c16a3280236f4e67dc4d95fd86eb30a2cd11634c5e4316",
+        "required_point_count": 5,
+        "row_sha256": "6cb71cc47dfadcf798fe4977c5c502ab22af77bee11db28fb91527b99e302d55",
+        "source_task": "ask_mind_medqade"
+      }
+    ],
+    "unused_count": 39
+  },
+  "status": "fail"
+}

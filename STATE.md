@@ -1752,3 +1752,15 @@ simulator revealing only asked-for facts,two clarification turns before final,
 and released-answer external scoring. Only a full pass can authorize a frozen
 exact10-call initial-world serving/opportunity screen;no paid call or row repair
 before the source result is committed.
+2026-07-29: AskBench source audit fails closed before model calls and the route
+closes under its frozen conjunction. All hashes match;400 rows comprise four
+100-row sources;89 MedQA rows pass the structural filter and the fixed10/40
+split is valid. Official semantics are scientifically suitable:degraded
+candidate prompt,hidden original+checklist simulator,only asked-for disclosure,
+three assistant turns,and released-answer judging. Two exact audit assertions
+fail:the dataset's own format example `"The answer is A."` literally equals
+hidden expected_answer on13/50 selected rows(2 development,11 holdout),and the
+auditor's one-line source substring misses a line-wrapped three-turn default.
+These are audit-specification failures,not benchmark defects,but no posthoc
+leakage-rule/source-normalization repair or row removal is allowed. Calls/cost0;
+no support,question,simulator,endpoint,or holdout content opened.
