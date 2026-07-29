@@ -621,12 +621,12 @@ myopic roots across model families, not universally to order deeper planners.
 A retrospective ablation gives a 7.11\% second-refresh gain
 ($[-.0142,-.0023]$), but fresh preregistration gives only 1.39\%
 ($[-.0056,.0024]$), so the increment does not replicate. Across both fresh
-cohorts, depth three nevertheless lowers Brier 11.22\% versus myopic
-($[-.0178,-.0086]$; 47/64 wins); Hamming and coverage intervals cross zero.
+cohorts, dynamic depth three lowers Brier 11.22\% versus myopic
+($[-.0178,-.0086]$; 47/64 wins) and 3.79\% versus fixed-support depth three
+($[-.0079,-.0005]$; 30/64 wins); Hamming and coverage intervals cross zero.
 Merged versus generated-only improves 2.75\% ($[-.0058,-.0003]$), making
-retention the stable component. The prospective mechanism primary remains
-null; a separate 64-tree run fails at tree 37 and its positive prefix cannot
-rescue it.
+retention the stable component. The prospective second-refresh primary
+remains null.
 A preregistered zero-call replay of the 64 fixed GPT-5.4-Mini policies on the
 same canonical bank is more heterogeneous: depth three improves only 1.08\%
 over depth two ($[-.0045,.0021]$; 19/64 wins), but beats myopic by 12.93\%

@@ -2589,3 +2589,13 @@ endpoints,20k stratified bootstrap seed64700. Positive requires both source
 mean Brier differences<0,pooled gain>=3%,CI<0,wins>=28/64. Hamming/coverage
 corroborating. Model0,cost0,no rescue;full pass only authorizes separately
 frozen fresh higher-validation confirmation.
+2026-07-29: Frozen pooled dynamic-vs-fixed64 passes all4 Brier gates. Full
+path-dependent d3 Brier.103632 vs fixed-initial-support d3.107712:3.79%,
+stratified CI[-.007852,-.000465],30/12/22 W/T/L. Source mean differences
+-.004977/-.003184,both directional;cohort contrast-.001793
+CI[-.009185,.005641],no detected heterogeneity. Hamming is5.52% adverse but
+CI[-.001177,.003657] crosses;coverage-.095pt CI[-2.178,+2.083]pt. This is
+direct retrospective evidence that path-dependent LLM support regeneration
+adds exact Brier value beyond depth-three planning on one fixed LLM support.
+Model0,cost0;cannot rescue sources. Public RESULT SHAc71fa24d. Authorizes a
+separately frozen fresh dynamic-vs-fixed primary with more validation draws.

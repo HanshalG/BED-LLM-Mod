@@ -747,6 +747,43 @@
         {"pointer": "/interpretation/prospective_regeneration_increment_confirmed", "equals": false},
         {"pointer": "/interpretation/retention_contribution_is_directionally_replicated", "equals": true}
       ]
+    },
+    {
+      "id": "number_game_pooled_dynamic_vs_fixed64",
+      "paper_scope": "Retrospective stratified dynamic-support versus fixed-support depth-three synthesis across two pooled-Qwen cohorts.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_pooled_dynamic_vs_fixed64/number-game-pooled-dynamic-vs-fixed64-20260729T114252Z/RESULT.json",
+        "sha256": "c71fa24d25650065a97ccb5caf69e1a5dd3b1522f0c4f7d483f0aa98fa961290"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_dynamic_support_positive"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_or_reclassify_sources", "equals": true},
+        {"pointer": "/protocol/fresh_confirmation_required", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 64700},
+        {"pointer": "/protocol/candidate", "equals": "crossfit_depth_three"},
+        {"pointer": "/protocol/baseline", "equals": "fixed_support_depth_three"},
+        {"pointer": "/gates/both_source_mean_brier_differences_below_zero", "equals": true},
+        {"pointer": "/gates/pooled_relative_brier_reduction_at_least_three_percent", "equals": true},
+        {"pointer": "/gates/pooled_brier_interval_below_zero", "equals": true},
+        {"pointer": "/gates/pooled_brier_wins_at_least_twenty_eight", "equals": true},
+        {"pointer": "/pooled/brier/candidate_mean", "equals": 0.10363151886035879, "tolerance": 1e-12},
+        {"pointer": "/pooled/brier/baseline_mean", "equals": 0.10771190738735846, "tolerance": 1e-12},
+        {"pointer": "/pooled/brier/relative_reduction", "equals": 0.03788242754188348, "tolerance": 1e-12},
+        {"pointer": "/pooled/brier/stratified_bootstrap_difference_95pct", "equals": [-0.007851550469450247, -0.00046498714298540475], "tolerance": 1e-12},
+        {"pointer": "/pooled/brier/wins", "equals": 30},
+        {"pointer": "/pooled/brier/ties", "equals": 12},
+        {"pointer": "/pooled/brier/losses", "equals": 22},
+        {"pointer": "/pooled/brier/source_mean_differences", "equals": [-0.004976680465265256, -0.0031840965887340623], "tolerance": 1e-12},
+        {"pointer": "/pooled/brier/cohort_one_minus_two_95pct_bootstrap", "equals": [-0.00918466987870483, 0.005641261323773825], "tolerance": 1e-12},
+        {"pointer": "/pooled/hamming/relative_reduction", "equals": -0.05523848348960449, "tolerance": 1e-12},
+        {"pointer": "/pooled/hamming/stratified_bootstrap_difference_95pct", "equals": [-0.0011766801680168021, 0.0036566156615661567], "tolerance": 1e-12},
+        {"pointer": "/pooled/coverage/mean_candidate_minus_baseline", "equals": -0.0009469696969697005, "tolerance": 1e-12},
+        {"pointer": "/pooled/coverage/stratified_bootstrap_difference_95pct", "equals": [-0.021780303030303032, 0.020833333333333325], "tolerance": 1e-12}
+      ]
     }
   ]
 }
