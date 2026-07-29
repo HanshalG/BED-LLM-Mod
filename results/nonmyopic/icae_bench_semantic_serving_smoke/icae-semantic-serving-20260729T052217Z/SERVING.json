@@ -1,0 +1,87 @@
+{
+  "all_pass": false,
+  "decision": "close_exact_interface",
+  "development_or_later_opened": false,
+  "endpoint_accessed": false,
+  "gates": {
+    "cost_within_cap": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "followups_use_answer_introduced_terms": true,
+    "fresh_session_oracle_replay_is_exact": false,
+    "generic_queries_make_no_progress": true,
+    "history_changes_question_support": true,
+    "targeted_questions_match_hidden_requirements": false,
+    "zero_reasoning_and_forced_exits": true,
+    "zero_retries": true
+  },
+  "interface_version": "icae-bench-semantic-serving-smoke-1",
+  "manifest_sha256": "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f",
+  "models": {
+    "oracle": "google/gemini-3.1-flash-lite",
+    "planner": "openai/gpt-5.4"
+  },
+  "private_raw_sha256": "c6f3ed093f47e91910b36eff1bb4b48f5fa1f2253ed11a9933d641dc54a78748",
+  "run_id": "icae-semantic-serving-20260729T052217Z",
+  "schema_version": 1,
+  "seeds": {
+    "oracle": 50300,
+    "planner": 50200,
+    "selection": 50100
+  },
+  "selected_tasks": [
+    {
+      "alias": "realcode@044",
+      "language": "JavaScript"
+    },
+    {
+      "alias": "realcode@276",
+      "language": "PHP"
+    }
+  ],
+  "source_audit_sha256": "f63a313adb8bc3bd1090fe4542d1b38b4c2e63abca30c559447a70a6e6348552",
+  "status": "gated_null",
+  "tasks": [
+    {
+      "alias": "realcode@044",
+      "changed_followup_questions": 6,
+      "followup_hypothesis_count": 12,
+      "followup_question_count": 6,
+      "fresh_session_exact_replay": true,
+      "generic_exact_fallback": true,
+      "initial_hypothesis_count": 12,
+      "initial_question_count": 6,
+      "language": "JavaScript",
+      "new_answer_terms_used": 4,
+      "targeted_fallback": true,
+      "targeted_trigger_count": 0
+    },
+    {
+      "alias": "realcode@276",
+      "changed_followup_questions": 6,
+      "followup_hypothesis_count": 12,
+      "followup_question_count": 6,
+      "fresh_session_exact_replay": false,
+      "generic_exact_fallback": true,
+      "initial_hypothesis_count": 12,
+      "initial_question_count": 6,
+      "language": "PHP",
+      "new_answer_terms_used": 1,
+      "targeted_fallback": false,
+      "targeted_trigger_count": 1
+    }
+  ],
+  "usage": {
+    "adapter_completion_tokens": 3864,
+    "adapter_prompt_tokens": 92610,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.0737541
+  }
+}

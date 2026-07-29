@@ -2177,3 +2177,21 @@ gain must come from the intended LLM-native first link:early answers change
 generated belief/query support. Authorize only a separately frozen exact10
 semantic serving smoke;no policy/coding endpoint yet. Constraint recall alone
 cannot support efficacy;formal claim must use equal queries+official tests.
+2026-07-29: ICAE exact10 semantic serving is a gated null and closes the exact
+interface before policy/endpoint work. Preregistered commit a700743 selects
+mechanics JS realcode@044+PHP@276 by hash seed50100. GPT-5.4 nonthinking makes
+initial+history-refreshed12-hypothesis/6-question supports;official-style
+Gemini3.1-Flash-Lite Oracle handles targeted replay+generic fallback. Exact
+10/10 accepted+HTTP,0 retries/provider/reasoning/forced,92610 prompt+3864
+completion,$.0737541;all four planner supports parse. Generic questions make
+zero progress and both refreshed supports change all6 questions/use answer-new
+terms. But JS first root misses every hidden trigger and falls back;PHP hits
+one trigger but fresh-session replies differ(similarity.625). Saved-response
+diagnostic is worse:both PHP replies agree on trigger ID yet resemble its
+injected fixed response only.027/.028. Thus observation semantics are neither
+reliably matched nor deterministic enough for Bayesian likelihoods. Public
+SERVING SHA2e248dbf,privatec6f3ed09;no development/confirmation/retained or
+executable endpoint opened. No rerun/normalization/model swap/trigger repair;
+source opportunity remains positive but exact LLM Oracle route is closed.
+Authenticated balance still reports$15.628982893 immediately after run,so
+reported top-up and this charge are both pending settlement;OatML0.
