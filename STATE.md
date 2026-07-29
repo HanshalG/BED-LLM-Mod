@@ -1815,3 +1815,15 @@ log,ground truth,diagnosis,or trace. Require>=25 matched cases,>=12 tool users,
 with score gain>=.10,positive all-case mean gain,dependency-row mean>=.10,and
 >=2 dependency types. Passing only authorizes a separate ten-call serving
 test;OpenRouter only,no OatML.
+2026-07-29: LogDx-CI agent-chain source audit passes every frozen zero-call
+gate. Official v1.2 protocol reproduces27 locked hashes and35 cases;all
+raw/case/ground-truth manifest hashes,concrete root causes,required signals,
+evidence spans,and leakage boundaries pass. Across released same-Sonnet
+real-agent-v1 versus real-debugger-v2,420 matched rows cover35/35 cases and12
+context providers. Deterministic tool replay finds35 tool-use cases,29
+multi-tool,21 with a later argument literally learned from a prior observation,
+and15 dependency cases gaining>=.10. Case-mean score gain is+.1738 overall and
++.3300 on dependency cases;five dependency types(line,path,test/symbol,error,
+other literal). Public AUDIT SHA f7f7289f;model0/cost0. Admit LogDx as the first
+new executable semantic unlock source;next freeze only a ten-call support/query/
+likelihood serving smoke before policy work.
