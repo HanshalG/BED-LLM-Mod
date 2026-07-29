@@ -2159,3 +2159,21 @@ Two transient provider errors recovered under retry cap,but frozen
 zero-provider-retry gate fails,so status remains gated_null;no rerun/relabel.
 RESULT SHA370e1c29,TARGETS9e788da2,TREES39b79f39. Balance after run
 $15.628982893;reported new$40 still absent;OatML0.
+2026-07-29: User reports another$40 OpenRouter top-up for four days with no
+reserve/conservative underspend;authenticated balance still$15.628982893,so
+recheck before paid work. Newly released ICAE-Bench is the strongest distinct
+LLM-native candidate. Official commit66bbabb/PRD bundle b054e8f0/test archive
+f746c560 expose480 tasks across12 languages,static hidden requirement records,
+semantic LLM Oracle matching,full-history replies,fixed fallback for unmatched
+questions,max3 points/reply,configurable query budget,and independent
+public/hidden/enhanced executable tests. Freeze seed50000 one mechanics+3
+development+4 confirmation+32 retained aliases/language in public manifest
+SHA47ab7f2f before task scoring. Zero-call mechanics audit passes:11/12 have
+>=8 substantive requirements and>=2 answer-introduced lexical followup targets,
+12/12 have all executable test surfaces,and0 literal Oracle-answer leaks.
+Rust is adverse(6 requirements,0 unlocks). Public AUDIT SHAf63a313a. Hidden
+table is static,so any depth
+gain must come from the intended LLM-native first link:early answers change
+generated belief/query support. Authorize only a separately frozen exact10
+semantic serving smoke;no policy/coding endpoint yet. Constraint recall alone
+cannot support efficacy;formal claim must use equal queries+official tests.

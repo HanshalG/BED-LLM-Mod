@@ -1,0 +1,249 @@
+{
+  "all_pass": true,
+  "audit": "icae_bench_llm_native_source_opportunity",
+  "counts": {
+    "mechanics_tasks": 12,
+    "tasks_with_all_test_surfaces": 12,
+    "tasks_with_at_least_2_unlock_targets": 11,
+    "tasks_with_at_least_8_substantive_constraints": 11,
+    "tasks_with_literal_oracle_response_leak": 0
+  },
+  "decision": "authorize_separately_frozen_10_call_semantic_serving_smoke",
+  "gates": {
+    "answer_introduced_followups_at_least_10_of_12": true,
+    "external_executable_endpoint_all_12": true,
+    "no_literal_answer_leak_all_12": true,
+    "semantic_history_conditioned_oracle": true,
+    "source_and_manifest_hashes_match": true,
+    "substantive_uncertainty_at_least_10_of_12": true
+  },
+  "lexical_unlock_definition": {
+    "candidate_constraints": "C<number> or hc-<number> only",
+    "edge": "source response and target triggers share >=2 tokens with corpus-IDF score >=6",
+    "tokens": "lowercase content tokens absent from fuzzy PRD"
+  },
+  "limitations": [
+    "The hidden constraint table is static; path dependence must come from history-conditioned LLM belief/query regeneration.",
+    "Lexical unlocks establish opportunity, not causal efficacy or ranking fidelity.",
+    "A later policy claim must use released executable tests; constraint recall alone is not an efficacy endpoint.",
+    "Docker is not currently running locally; serving can be tested before endpoint execution, but a formal endpoint run requires the official language containers."
+  ],
+  "manifest_sha256": "47ab7f2fcf985433389f53873fa7fe8ccbebd88dd8390d654de93083bad84f5f",
+  "model_requests": 0,
+  "opened_partitions": [
+    "mechanics"
+  ],
+  "openrouter_cost_usd": 0.0,
+  "schema_version": 1,
+  "sealed_partitions": [
+    "development",
+    "confirmation",
+    "retained"
+  ],
+  "simulator_checks": {
+    "at_most_three_points_per_reply": true,
+    "complete_history_conditions_reply": true,
+    "free_form_semantic_matching_is_model_native": true,
+    "oracle_uses_only_injected_hidden_data": true,
+    "query_budget_is_enforced": true,
+    "sessions_are_forkable_by_fresh_identifier": true,
+    "unknown_questions_do_not_auto_progress": true
+  },
+  "source_commit": "66bbabb20a2138d066ac7d6f7ba6768b57c2f79b",
+  "source_tree": "0086e71719a176a959c34c8db78879996ca8dfc1",
+  "tasks": [
+    {
+      "alias": "realcode@212",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "C#",
+      "lexical_unlock_edge_count": 15,
+      "lexical_unlock_source_count": 8,
+      "lexical_unlock_target_count": 8,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 24,
+        "public_test_cases": 11,
+        "test_cases": 36
+      },
+      "substantive_constraint_count": 14,
+      "total_oracle_entry_count": 30
+    },
+    {
+      "alias": "realcode@207",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "C++",
+      "lexical_unlock_edge_count": 11,
+      "lexical_unlock_source_count": 9,
+      "lexical_unlock_target_count": 6,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 10,
+        "public_test_cases": 10,
+        "test_cases": 10
+      },
+      "substantive_constraint_count": 15,
+      "total_oracle_entry_count": 30
+    },
+    {
+      "alias": "realcode@352",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Dart",
+      "lexical_unlock_edge_count": 15,
+      "lexical_unlock_source_count": 9,
+      "lexical_unlock_target_count": 7,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 4,
+        "public_test_cases": 10,
+        "test_cases": 10
+      },
+      "substantive_constraint_count": 12,
+      "total_oracle_entry_count": 26
+    },
+    {
+      "alias": "realcode@185",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Go",
+      "lexical_unlock_edge_count": 19,
+      "lexical_unlock_source_count": 8,
+      "lexical_unlock_target_count": 8,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 10,
+        "public_test_cases": 10,
+        "test_cases": 10
+      },
+      "substantive_constraint_count": 13,
+      "total_oracle_entry_count": 28
+    },
+    {
+      "alias": "realcode@259",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Java",
+      "lexical_unlock_edge_count": 18,
+      "lexical_unlock_source_count": 10,
+      "lexical_unlock_target_count": 9,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 9,
+        "public_test_cases": 15,
+        "test_cases": 15
+      },
+      "substantive_constraint_count": 13,
+      "total_oracle_entry_count": 32
+    },
+    {
+      "alias": "realcode@044",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "JavaScript",
+      "lexical_unlock_edge_count": 10,
+      "lexical_unlock_source_count": 5,
+      "lexical_unlock_target_count": 8,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 13,
+        "public_test_cases": 25,
+        "test_cases": 25
+      },
+      "substantive_constraint_count": 15,
+      "total_oracle_entry_count": 44
+    },
+    {
+      "alias": "realcode@235",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Kotlin",
+      "lexical_unlock_edge_count": 5,
+      "lexical_unlock_source_count": 4,
+      "lexical_unlock_target_count": 5,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 14,
+        "public_test_cases": 14,
+        "test_cases": 14
+      },
+      "substantive_constraint_count": 13,
+      "total_oracle_entry_count": 31
+    },
+    {
+      "alias": "realcode@276",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "PHP",
+      "lexical_unlock_edge_count": 16,
+      "lexical_unlock_source_count": 9,
+      "lexical_unlock_target_count": 9,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 8,
+        "public_test_cases": 8,
+        "test_cases": 8
+      },
+      "substantive_constraint_count": 13,
+      "total_oracle_entry_count": 26
+    },
+    {
+      "alias": "realcode@015",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Python",
+      "lexical_unlock_edge_count": 9,
+      "lexical_unlock_source_count": 5,
+      "lexical_unlock_target_count": 7,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 10,
+        "public_test_cases": 9,
+        "test_cases": 9
+      },
+      "substantive_constraint_count": 12,
+      "total_oracle_entry_count": 25
+    },
+    {
+      "alias": "realcode@023",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Ruby",
+      "lexical_unlock_edge_count": 18,
+      "lexical_unlock_source_count": 6,
+      "lexical_unlock_target_count": 6,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 7,
+        "public_test_cases": 7,
+        "test_cases": 7
+      },
+      "substantive_constraint_count": 9,
+      "total_oracle_entry_count": 20
+    },
+    {
+      "alias": "realcode@288",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "Rust",
+      "lexical_unlock_edge_count": 0,
+      "lexical_unlock_source_count": 0,
+      "lexical_unlock_target_count": 0,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 7,
+        "public_test_cases": 7,
+        "test_cases": 7
+      },
+      "substantive_constraint_count": 6,
+      "total_oracle_entry_count": 10
+    },
+    {
+      "alias": "realcode@444",
+      "all_three_test_surfaces_nonempty": true,
+      "language": "TypeScript",
+      "lexical_unlock_edge_count": 8,
+      "lexical_unlock_source_count": 7,
+      "lexical_unlock_target_count": 5,
+      "oracle_response_literal_in_fuzzy_prd": false,
+      "released_test_surfaces": {
+        "enhanced_test_cases": 10,
+        "public_test_cases": 10,
+        "test_cases": 10
+      },
+      "substantive_constraint_count": 10,
+      "total_oracle_entry_count": 25
+    }
+  ],
+  "test_archive_sha256": "f746c560e724d0dad12d512ead771d91de91d4b3e6051335728c305e2adff204"
+}
