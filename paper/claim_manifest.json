@@ -401,6 +401,35 @@
       ]
     },
     {
+      "id": "number_game_qwen_first_link_failed_prefix36",
+      "paper_scope": "Endpoint-sealed zero-call diagnostic on the 36 complete trees from the failed prospective Qwen confirmation; explicitly underpowered and non-rescuing.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_first_link_failed_prefix36/number-game-qwen-first-link-failed-prefix36-20260729T092018Z/RESULT.json",
+        "sha256": "9a483237336a5d80ed89a479e254ee80eef85ba96e17ebbf7f634bf227cca9de"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "failed_run_prefix_diagnostic"},
+        {"pointer": "/protocol/analysis_was_frozen_before_endpoint_scoring", "equals": true},
+        {"pointer": "/protocol/analysis_is_underpowered_failed_prefix_diagnostic", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_confirmation", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 36},
+        {"pointer": "/protocol/target_count", "equals": 33},
+        {"pointer": "/first_link/root_differences", "equals": 31},
+        {"pointer": "/first_link/mean_realized_advantage", "equals": 0.01065455989334334, "tolerance": 1e-12},
+        {"pointer": "/first_link/mean_realized_advantage_95pct_bootstrap", "equals": [0.0040415300953837935, 0.01762533135620677], "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_advantage_spearman", "equals": 0.6165322580645162, "tolerance": 1e-12},
+        {"pointer": "/first_link/score_to_realized_spearman_95pct_bootstrap", "equals": [0.3672863850000394, 0.7725086238594427], "tolerance": 1e-12},
+        {"pointer": "/first_link/wins", "equals": 21},
+        {"pointer": "/first_link/losses", "equals": 10},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.07924253787314917, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.015401493562091636, -0.0033863762327762705], "tolerance": 1e-12},
+        {"pointer": "/interpretation/confirmation_status_unchanged", "equals": "failed_closed"},
+        {"pointer": "/interpretation/no_original_gate_evaluated", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {

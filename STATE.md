@@ -2421,3 +2421,13 @@ RESULT SHA42c189bb;retrospective,no source rescue,model0/cost0.
 2026-07-29: Qwen first-link linked V2 smoke passes every frozen gate and authorizes the unchanged64-tree confirmation. Exact10 accepted/HTTP/all parse,0 retry/provider/reasoning/forced,$.0103648. Initial23/23;generated conditioned20/20/19/17/13/8/20/24;merged first23/26/21/26;merged second18/10/23/31. Public SHA89d4917f/privatee93e5776. V1 stays failed. Provider balance now$12.517996263,so expected~$4.75 confirmation fits with no reliance on unposted top-up.
 2026-07-29: Fresh64 Qwen first-link confirmation fails closed before endpoint scoring;no confirmation result/null. Trees1--36 checkpoint,then one tree37 second-step branch has unterminated JSON despite provider finish`stop`;strict parse stops,no repair/reissue/continuation/seed replacement. Log has2137 accepted completion events=1813 Qwen+324 Gemini,exactly36x58 plus failed tree's49 planning calls;reasoning/length finishes0,cost$2.7237034. Canonical endpoint and first-link metrics never computed. Public FAILURE SHA3606024a/private checkpoint6c2106ae;live$9.783928063,reported top-up still absent. Prefix cannot serve as registered64 confirmation;only separately frozen zero-call underpowered diagnostic could reconstruct it.
 2026-07-29: Freeze zero-call failed-prefix36 diagnostic before reconstructing/scoring canonical outcomes. Bind private checkpoint6c2106ae+public failure3606024a;exact first36 complete seeds60100--60135,target60200--60235,validation61100--61387. Replay every saved response once through original strict parser/retained rejuvenation;score unchanged exact33 bank. Report original d3-myopic changed-root advantage/rho/WTL+20k tree bootstrap seed61800 and policy controls. No thresholds/original-gate evaluation/model calls/cost/continuation/seed substitution. Underpowered diagnostic only;cannot rescue failed64 confirmation.
+2026-07-29: Endpoint-sealed failed-prefix36 diagnostic is strongly positive but
+remains underpowered. D3 changes31/36 myopic roots;changed-root simulated
+advantage predicts exact realized advantage rho.617,bootstrap[.367,.773],
+with mean realized gain+.01065 CI[.00404,.01763] and21/10 W/L. Policy D3
+beats myopic Brier7.92%,tree CI[-.01540,-.00339],but d3-d2 and d3-fixed-d3
+CIs cross zero. Replay used0 calls/$0 and exact saved responses;original64
+gates were not evaluated and confirmation remains failed_closed. Public
+RESULT SHA9a483237,TREES297ec94d. User added$40 to spread over four days
+without reserve;use provider-visible balance as hard cap and evidence gates
+before larger spend.
