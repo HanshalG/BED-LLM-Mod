@@ -1,0 +1,3285 @@
+{
+  "comparisons": {
+    "depth_two": {
+      "by_block": [
+        {
+          "accepted_depth_three_changes": 16,
+          "accepted_score_to_realized_advantage_spearman": -0.0058823529411764705,
+          "baseline_mean_brier": 0.10963402162558668,
+          "candidate_mean_brier": 0.10555741972777975,
+          "family": "qwen/qwen3.7-plus",
+          "losses": 5,
+          "mean_brier_difference": -0.004076601897806923,
+          "name": "qwen_confirmation_v1",
+          "relative_brier_reduction": 0.03718373035451539,
+          "root_differences": 16,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.008476581465803958,
+            -5.220283893907392e-05
+          ],
+          "ties": 16,
+          "tree_count": 32,
+          "wins": 11
+        },
+        {
+          "accepted_depth_three_changes": 17,
+          "accepted_score_to_realized_advantage_spearman": -0.14950980392156862,
+          "baseline_mean_brier": 0.10556797414733012,
+          "candidate_mean_brier": 0.10442320387809517,
+          "family": "qwen/qwen3.7-plus",
+          "losses": 9,
+          "mean_brier_difference": -0.0011447702692349445,
+          "name": "qwen_replication_v2",
+          "relative_brier_reduction": 0.010843916239571948,
+          "root_differences": 17,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.003966305852875178,
+            0.0013582931367611614
+          ],
+          "ties": 15,
+          "tree_count": 32,
+          "wins": 8
+        },
+        {
+          "accepted_depth_three_changes": 12,
+          "accepted_score_to_realized_advantage_spearman": 0.24475524475524477,
+          "baseline_mean_brier": 0.10805601585810119,
+          "candidate_mean_brier": 0.10865157403399628,
+          "family": "openai/gpt-5.4-mini",
+          "losses": 8,
+          "mean_brier_difference": 0.0005955581758950875,
+          "name": "gptmini_confirmation",
+          "relative_brier_reduction": -0.005511568894758924,
+          "root_differences": 12,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.001631170914833413,
+            0.0027255752050218554
+          ],
+          "ties": 20,
+          "tree_count": 32,
+          "wins": 4
+        },
+        {
+          "accepted_depth_three_changes": 10,
+          "accepted_score_to_realized_advantage_spearman": 0.3090909090909091,
+          "baseline_mean_brier": 0.11053978248377813,
+          "candidate_mean_brier": 0.10950801111192796,
+          "family": "openai/gpt-5.4-mini",
+          "losses": 4,
+          "mean_brier_difference": -0.0010317713718501777,
+          "name": "gptmini_fresh_replication",
+          "relative_brier_reduction": 0.009333937055662215,
+          "root_differences": 10,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.004699973507959022,
+            0.002301400439887321
+          ],
+          "ties": 22,
+          "tree_count": 32,
+          "wins": 6
+        }
+      ],
+      "by_family": {
+        "openai/gpt-5.4-mini": {
+          "accepted_depth_three_changes": 22,
+          "accepted_score_to_realized_advantage_spearman": 0.28740824392998304,
+          "baseline_mean_brier": 0.10929789917093966,
+          "candidate_mean_brier": 0.10907979257296212,
+          "losses": 12,
+          "mean_brier_difference": -0.00021810659797754511,
+          "relative_brier_reduction": 0.001995524155834239,
+          "root_differences": 22,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.00233898701308078,
+            0.0017870712869348718
+          ],
+          "ties": 42,
+          "tree_count": 64,
+          "wins": 10
+        },
+        "qwen/qwen3.7-plus": {
+          "accepted_depth_three_changes": 33,
+          "accepted_score_to_realized_advantage_spearman": -0.05013368983957219,
+          "baseline_mean_brier": 0.1076009978864584,
+          "candidate_mean_brier": 0.10499031180293746,
+          "losses": 14,
+          "mean_brier_difference": -0.002610686083520934,
+          "relative_brier_reduction": 0.024262656804314726,
+          "root_differences": 33,
+          "stratified_tree_bootstrap_brier_difference_95pct": [
+            -0.00519556890256242,
+            -0.0002601434551360107
+          ],
+          "ties": 31,
+          "tree_count": 64,
+          "wins": 19
+        }
+      },
+      "pooled": {
+        "accepted_depth_three_changes": 55,
+        "accepted_score_to_realized_advantage_spearman": 0.10721500721500722,
+        "baseline_mean_brier": 0.10844944852869903,
+        "candidate_mean_brier": 0.10703505218794979,
+        "losses": 26,
+        "mean_brier_difference": -0.0014143963407492396,
+        "relative_brier_reduction": 0.013041987395398762,
+        "root_differences": 55,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.0030765165109756564,
+          0.0001470322708053357
+        ],
+        "ties": 73,
+        "tree_count": 128,
+        "wins": 29
+      }
+    },
+    "myopic": {
+      "pooled": {
+        "accepted_depth_three_changes": 55,
+        "accepted_score_to_realized_advantage_spearman": 0.10721500721500722,
+        "baseline_mean_brier": 0.12165634590540043,
+        "candidate_mean_brier": 0.10703505218794979,
+        "losses": 28,
+        "mean_brier_difference": -0.014621293717450643,
+        "relative_brier_reduction": 0.12018521194792511,
+        "root_differences": 121,
+        "stratified_tree_bootstrap_brier_difference_95pct": [
+          -0.018685260139329727,
+          -0.010829768076856924
+        ],
+        "ties": 7,
+        "tree_count": 128,
+        "wins": 93
+      }
+    }
+  },
+  "gate_counts": {
+    "accepted_changes": 55,
+    "candidate_changes": 76,
+    "fallbacks": 21,
+    "shared_roots": 52
+  },
+  "interface_version": "number-game-depth-three-uncertainty-gate128-1",
+  "interpretation": {
+    "formal_status_unchanged": true,
+    "positive_result_scope": "retrospective evidence for target-blind uncertainty-aware deployment, not a monotonic-depth confirmation",
+    "single_fixed_gate_no_threshold_sweep": true
+  },
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "block_count": 4,
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 59000,
+    "cannot_rescue_source_statuses": true,
+    "cost_usd": 0.0,
+    "gate_is_target_blind": true,
+    "lower_standard_error_multiplier": 1.0,
+    "minimum_positive_draws": 6,
+    "model_calls": 0,
+    "planner_family_count": 2,
+    "source_blocks": [
+      {
+        "family": "qwen/qwen3.7-plus",
+        "name": "qwen_confirmation_v1",
+        "tree_count": 32,
+        "trees_sha256": "39b79f391ae3b613d15794c9dd6c86ef02eb96907fbaa33591b157b2ac19cc63"
+      },
+      {
+        "family": "qwen/qwen3.7-plus",
+        "name": "qwen_replication_v2",
+        "tree_count": 32,
+        "trees_sha256": "f1ccd0b9a5f0e40786e8673a30400492626ae7a3f26de4dea42ac4316dc3d38c"
+      },
+      {
+        "family": "openai/gpt-5.4-mini",
+        "name": "gptmini_confirmation",
+        "tree_count": 32,
+        "trees_sha256": "cf239683033be3fbfed6a449f2aaa1ad1bcbe57d935ca21cf43e46ba938ea7f9"
+      },
+      {
+        "family": "openai/gpt-5.4-mini",
+        "name": "gptmini_fresh_replication",
+        "tree_count": 32,
+        "trees_sha256": "197dcfe3cb48eeb9a4b656d0f9b20ef2e0b45ac8d1df0ec4bd9358e07af18802"
+      }
+    ],
+    "tree_count": 128,
+    "validation_draws_per_tree": 8
+  },
+  "rows": [
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 22,
+      "depth_two_root": 11,
+      "endpoint_brier": {
+        "depth_three": 0.08644010568798444,
+        "depth_two": 0.11166811697875978,
+        "gated": 0.08644010568798444,
+        "myopic": 0.11166811697875978
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.005143990170031802,
+        "one_se_lower_bound": 0.003555374606798036,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0015886155632337663
+      },
+      "myopic_root": 11,
+      "selected_root": 22,
+      "tree_seed": 49000
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 36,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.11020969188521333,
+        "depth_two": 0.09654179515370798,
+        "gated": 0.11020969188521333,
+        "myopic": 0.09478250994147436
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.008536806750769694,
+        "one_se_lower_bound": 0.005751085507242862,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0027857212435268316
+      },
+      "myopic_root": 4,
+      "selected_root": 36,
+      "tree_seed": 49001
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 30,
+      "depth_two_root": 80,
+      "endpoint_brier": {
+        "depth_three": 0.08724690570672713,
+        "depth_two": 0.10428675706863429,
+        "gated": 0.08724690570672713,
+        "myopic": 0.11581502776417556
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.004796643743173793,
+        "one_se_lower_bound": 0.003239845620387263,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0015567981227865297
+      },
+      "myopic_root": 4,
+      "selected_root": 30,
+      "tree_seed": 49002
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 3,
+      "depth_two_root": 100,
+      "endpoint_brier": {
+        "depth_three": 0.09430468096898502,
+        "depth_two": 0.10544209809541862,
+        "gated": 0.10544209809541862,
+        "myopic": 0.1096757582478767
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0011516978059832213,
+        "one_se_lower_bound": -0.0007374988426350486,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0018891966486182699
+      },
+      "myopic_root": 4,
+      "selected_root": 100,
+      "tree_seed": 49003
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 78,
+      "depth_two_root": 78,
+      "endpoint_brier": {
+        "depth_three": 0.09971318189516082,
+        "depth_two": 0.09971318189516082,
+        "gated": 0.09971318189516082,
+        "myopic": 0.1057297867285323
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 78,
+      "tree_seed": 49004
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 66,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.097533967265217,
+        "depth_two": 0.1033481642840327,
+        "gated": 0.097533967265217,
+        "myopic": 0.1033481642840327
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.010854696165590677,
+        "one_se_lower_bound": 0.009865021885068336,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0009896742805223407
+      },
+      "myopic_root": 60,
+      "selected_root": 66,
+      "tree_seed": 49005
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 60,
+      "depth_two_root": 57,
+      "endpoint_brier": {
+        "depth_three": 0.09496988847517725,
+        "depth_two": 0.10536926729128364,
+        "gated": 0.09496988847517725,
+        "myopic": 0.11751938651670839
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.02370407768921772,
+        "one_se_lower_bound": 0.021443356791150565,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.002260720898067155
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 49006
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 4,
+      "depth_two_root": 74,
+      "endpoint_brier": {
+        "depth_three": 0.08881657267972252,
+        "depth_two": 0.10211075887243154,
+        "gated": 0.08881657267972252,
+        "myopic": 0.10277127598875047
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.004012377479371065,
+        "one_se_lower_bound": 0.0012764294304570098,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.002735948048914055
+      },
+      "myopic_root": 60,
+      "selected_root": 4,
+      "tree_seed": 49007
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 31,
+      "depth_two_root": 31,
+      "endpoint_brier": {
+        "depth_three": 0.0953855068415508,
+        "depth_two": 0.0953855068415508,
+        "gated": 0.0953855068415508,
+        "myopic": 0.12930921596256262
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 31,
+      "tree_seed": 49008
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 60,
+      "depth_two_root": 90,
+      "endpoint_brier": {
+        "depth_three": 0.09612346793157762,
+        "depth_two": 0.1197011065413316,
+        "gated": 0.09612346793157762,
+        "myopic": 0.12291588345496174
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.020874442353059228,
+        "one_se_lower_bound": 0.018416385988091054,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0024580563649681756
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 49009
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 55,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.10756142460477171,
+        "depth_two": 0.10953378656008014,
+        "gated": 0.10756142460477171,
+        "myopic": 0.10953378656008014
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.01732685455235526,
+        "one_se_lower_bound": 0.012468586829555671,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.004858267722799591
+      },
+      "myopic_root": 4,
+      "selected_root": 55,
+      "tree_seed": 49010
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 100,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.13174457993936414,
+        "depth_two": 0.11649603104196748,
+        "gated": 0.13174457993936414,
+        "myopic": 0.11649603104196748
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.017036244426639698,
+        "one_se_lower_bound": 0.01482142102941707,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0022148233972226284
+      },
+      "myopic_root": 4,
+      "selected_root": 100,
+      "tree_seed": 49011
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 0,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.12287518919771406,
+        "depth_two": 0.12287518919771406,
+        "gated": 0.12287518919771406,
+        "myopic": 0.1692336928373596
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 0,
+      "tree_seed": 49012
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 8,
+      "depth_two_root": 8,
+      "endpoint_brier": {
+        "depth_three": 0.10354382994794821,
+        "depth_two": 0.10354382994794821,
+        "gated": 0.10354382994794821,
+        "myopic": 0.13785642552898733
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 8,
+      "tree_seed": 49013
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 78,
+      "depth_two_root": 78,
+      "endpoint_brier": {
+        "depth_three": 0.11624057992434977,
+        "depth_two": 0.11624057992434977,
+        "gated": 0.11624057992434977,
+        "myopic": 0.1238575440264386
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 78,
+      "tree_seed": 49014
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 58,
+      "depth_two_root": 58,
+      "endpoint_brier": {
+        "depth_three": 0.11426037659520781,
+        "depth_two": 0.11426037659520781,
+        "gated": 0.11426037659520781,
+        "myopic": 0.10224328175503392
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 58,
+      "tree_seed": 49015
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 61,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.09103696781908108,
+        "depth_two": 0.10847853283371686,
+        "gated": 0.10847853283371686,
+        "myopic": 0.11434620507686383
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0022890762491175817,
+        "one_se_lower_bound": -0.00156895210198672,
+        "positive_draws": 4,
+        "shared_root": false,
+        "standard_error": 0.0038580283511043018
+      },
+      "myopic_root": 4,
+      "selected_root": 60,
+      "tree_seed": 49016
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 60,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.1010502296408893,
+        "depth_two": 0.1010502296408893,
+        "gated": 0.1010502296408893,
+        "myopic": 0.1315952732457145
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 49017
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 88,
+      "depth_two_root": 88,
+      "endpoint_brier": {
+        "depth_three": 0.09875918881589454,
+        "depth_two": 0.09875918881589454,
+        "gated": 0.09875918881589454,
+        "myopic": 0.12415056181160106
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 88,
+      "tree_seed": 49018
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 51,
+      "depth_two_root": 16,
+      "endpoint_brier": {
+        "depth_three": 0.10210223108425247,
+        "depth_two": 0.10065891323926218,
+        "gated": 0.10210223108425247,
+        "myopic": 0.11430028415217469
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.007249622117449495,
+        "one_se_lower_bound": 0.003916056133979259,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.003333565983470236
+      },
+      "myopic_root": 4,
+      "selected_root": 51,
+      "tree_seed": 49019
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 0,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.1217350416733667,
+        "depth_two": 0.1217350416733667,
+        "gated": 0.1217350416733667,
+        "myopic": 0.1217350416733667
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 0,
+      "tree_seed": 49020
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 30,
+      "depth_two_root": 30,
+      "endpoint_brier": {
+        "depth_three": 0.09607726044977609,
+        "depth_two": 0.09607726044977609,
+        "gated": 0.09607726044977609,
+        "myopic": 0.10871869402215834
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 2,
+      "selected_root": 30,
+      "tree_seed": 49021
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 7,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.10628463412436491,
+        "depth_two": 0.11015981614325242,
+        "gated": 0.10628463412436491,
+        "myopic": 0.11015981614325242
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.03668660102672514,
+        "one_se_lower_bound": 0.03276700199103478,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.003919599035690363
+      },
+      "myopic_root": 0,
+      "selected_root": 7,
+      "tree_seed": 49022
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 100,
+      "depth_two_root": 8,
+      "endpoint_brier": {
+        "depth_three": 0.11038910115498936,
+        "depth_two": 0.11062241649651715,
+        "gated": 0.11038910115498936,
+        "myopic": 0.0998682831718546
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.02232706221305896,
+        "one_se_lower_bound": 0.018231567918455455,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.004095494294603507
+      },
+      "myopic_root": 2,
+      "selected_root": 100,
+      "tree_seed": 49023
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 38,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.1292626447598331,
+        "depth_two": 0.12682756868981357,
+        "gated": 0.1292626447598331,
+        "myopic": 0.1266721809107927
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.017192326145867704,
+        "one_se_lower_bound": 0.012644257823513826,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.004548068322353879
+      },
+      "myopic_root": 4,
+      "selected_root": 38,
+      "tree_seed": 49024
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 38,
+      "depth_two_root": 64,
+      "endpoint_brier": {
+        "depth_three": 0.10783954560046782,
+        "depth_two": 0.11105596837699332,
+        "gated": 0.11105596837699332,
+        "myopic": 0.1140269034478
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0039922825343773095,
+        "one_se_lower_bound": -0.0017149500394511262,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.005707232573828436
+      },
+      "myopic_root": 36,
+      "selected_root": 64,
+      "tree_seed": 49025
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 60,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.10000143136680015,
+        "depth_two": 0.13872808696872388,
+        "gated": 0.10000143136680015,
+        "myopic": 0.13872808696872388
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.008005675563813805,
+        "one_se_lower_bound": 0.005170958958903176,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0028347166049106287
+      },
+      "myopic_root": 4,
+      "selected_root": 60,
+      "tree_seed": 49026
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 4,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.09759012436772987,
+        "depth_two": 0.09759012436772987,
+        "gated": 0.09759012436772987,
+        "myopic": 0.09759012436772987
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 4,
+      "tree_seed": 49027
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 75,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.1048307690881387,
+        "depth_two": 0.14075562907762748,
+        "gated": 0.1048307690881387,
+        "myopic": 0.14075562907762748
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.05064434536003561,
+        "one_se_lower_bound": 0.04559497812460765,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.005049367235427964
+      },
+      "myopic_root": 0,
+      "selected_root": 75,
+      "tree_seed": 49028
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 52,
+      "depth_two_root": 52,
+      "endpoint_brier": {
+        "depth_three": 0.09394886827492223,
+        "depth_two": 0.09394886827492223,
+        "gated": 0.09394886827492223,
+        "myopic": 0.1000546499898354
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 52,
+      "tree_seed": 49029
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 100,
+      "depth_two_root": 26,
+      "endpoint_brier": {
+        "depth_three": 0.12744854578909415,
+        "depth_two": 0.1146090078656237,
+        "gated": 0.12744854578909415,
+        "myopic": 0.1301984452985238
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.008003493119485477,
+        "one_se_lower_bound": 0.004158675025975116,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0038448180935103616
+      },
+      "myopic_root": 0,
+      "selected_root": 100,
+      "tree_seed": 49030
+    },
+    {
+      "block_index": 0,
+      "block_name": "qwen_confirmation_v1",
+      "depth_three_root": 60,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.11071549281508501,
+        "depth_two": 0.11071549281508501,
+        "gated": 0.11071549281508501,
+        "myopic": 0.12972402023720603
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 49031
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 8,
+      "depth_two_root": 8,
+      "endpoint_brier": {
+        "depth_three": 0.0869646874944986,
+        "depth_two": 0.0869646874944986,
+        "gated": 0.0869646874944986,
+        "myopic": 0.10341537108379188
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 8,
+      "tree_seed": 55000
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 32,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.09200812120536966,
+        "depth_two": 0.09940589600404738,
+        "gated": 0.09200812120536966,
+        "myopic": 0.1291365738210213
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.004636395180689774,
+        "one_se_lower_bound": 0.00037003696343915465,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.004266358217250619
+      },
+      "myopic_root": 0,
+      "selected_root": 32,
+      "tree_seed": 55001
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 8,
+      "depth_two_root": 83,
+      "endpoint_brier": {
+        "depth_three": 0.10451977553060093,
+        "depth_two": 0.11225285514877725,
+        "gated": 0.10451977553060093,
+        "myopic": 0.09516419158781796
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.010877810027984637,
+        "one_se_lower_bound": 0.0072604683238774205,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0036173417041072166
+      },
+      "myopic_root": 4,
+      "selected_root": 8,
+      "tree_seed": 55002
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 89,
+      "depth_two_root": 46,
+      "endpoint_brier": {
+        "depth_three": 0.1025614605110506,
+        "depth_two": 0.10844794470446259,
+        "gated": 0.1025614605110506,
+        "myopic": 0.11969668764811212
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.014966084910416302,
+        "one_se_lower_bound": 0.010164048834881843,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.00480203607553446
+      },
+      "myopic_root": 4,
+      "selected_root": 89,
+      "tree_seed": 55003
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 38,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.11449762341384365,
+        "depth_two": 0.12203053269167215,
+        "gated": 0.12203053269167215,
+        "myopic": 0.12459069190218723
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.011396555727507685,
+        "one_se_lower_bound": 0.005085221949678754,
+        "positive_draws": 4,
+        "shared_root": false,
+        "standard_error": 0.006311333777828931
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 55004
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 78,
+      "depth_two_root": 48,
+      "endpoint_brier": {
+        "depth_three": 0.09312826660675869,
+        "depth_two": 0.1045527081790818,
+        "gated": 0.09312826660675869,
+        "myopic": 0.11000844316053413
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.013549565439036525,
+        "one_se_lower_bound": 0.010374249622726069,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0031753158163104565
+      },
+      "myopic_root": 4,
+      "selected_root": 78,
+      "tree_seed": 55005
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 100,
+      "depth_two_root": 78,
+      "endpoint_brier": {
+        "depth_three": 0.1129983081897181,
+        "depth_two": 0.11690448366496901,
+        "gated": 0.1129983081897181,
+        "myopic": 0.12965528298861634
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.004249626905350901,
+        "one_se_lower_bound": 0.001046214500847927,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.003203412404502974
+      },
+      "myopic_root": 0,
+      "selected_root": 100,
+      "tree_seed": 55006
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 44,
+      "depth_two_root": 44,
+      "endpoint_brier": {
+        "depth_three": 0.09426928444064087,
+        "depth_two": 0.09426928444064087,
+        "gated": 0.09426928444064087,
+        "myopic": 0.11000060675200875
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 44,
+      "tree_seed": 55007
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 90,
+      "depth_two_root": 90,
+      "endpoint_brier": {
+        "depth_three": 0.10119751987174337,
+        "depth_two": 0.10119751987174337,
+        "gated": 0.10119751987174337,
+        "myopic": 0.1322164367319531
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 90,
+      "tree_seed": 55008
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 64,
+      "depth_two_root": 6,
+      "endpoint_brier": {
+        "depth_three": 0.11047471485793214,
+        "depth_two": 0.10501694725842999,
+        "gated": 0.11047471485793214,
+        "myopic": 0.11351311619965045
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.013306367321831401,
+        "one_se_lower_bound": 0.01106184013148974,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.002244527190341661
+      },
+      "myopic_root": 0,
+      "selected_root": 64,
+      "tree_seed": 55009
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 6,
+      "depth_two_root": 23,
+      "endpoint_brier": {
+        "depth_three": 0.13602859038480156,
+        "depth_two": 0.09011358541153242,
+        "gated": 0.09011358541153242,
+        "myopic": 0.0974316581535499
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 4.323571746745261e-05,
+        "one_se_lower_bound": -0.007768037486385228,
+        "positive_draws": 3,
+        "shared_root": false,
+        "standard_error": 0.007811273203852681
+      },
+      "myopic_root": 0,
+      "selected_root": 23,
+      "tree_seed": 55010
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 72,
+      "depth_two_root": 22,
+      "endpoint_brier": {
+        "depth_three": 0.1073934316785853,
+        "depth_two": 0.09511525050897614,
+        "gated": 0.1073934316785853,
+        "myopic": 0.12152022581841032
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.027814173219824198,
+        "one_se_lower_bound": 0.022395809055153534,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.005418364164670664
+      },
+      "myopic_root": 0,
+      "selected_root": 72,
+      "tree_seed": 55011
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 58,
+      "depth_two_root": 58,
+      "endpoint_brier": {
+        "depth_three": 0.11015807554269093,
+        "depth_two": 0.11015807554269093,
+        "gated": 0.11015807554269093,
+        "myopic": 0.09197259531447222
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 30,
+      "selected_root": 58,
+      "tree_seed": 55012
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 33,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.1053763503806138,
+        "depth_two": 0.12470895769572136,
+        "gated": 0.12470895769572136,
+        "myopic": 0.11406756499436546
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.006958950845367365,
+        "one_se_lower_bound": 0.0031839059605408455,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0037750448848265193
+      },
+      "myopic_root": 4,
+      "selected_root": 0,
+      "tree_seed": 55013
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 65,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.10496654908098058,
+        "depth_two": 0.11840288958057553,
+        "gated": 0.10496654908098058,
+        "myopic": 0.11840288958057553
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.03371060132360863,
+        "one_se_lower_bound": 0.030686327675774235,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0030242736478343973
+      },
+      "myopic_root": 0,
+      "selected_root": 65,
+      "tree_seed": 55014
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 0,
+      "depth_two_root": 37,
+      "endpoint_brier": {
+        "depth_three": 0.10899986203857356,
+        "depth_two": 0.10306896864450164,
+        "gated": 0.10899986203857356,
+        "myopic": 0.11294277320726588
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.014634383892933235,
+        "one_se_lower_bound": 0.011543293026769276,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.003091090866163959
+      },
+      "myopic_root": 1,
+      "selected_root": 0,
+      "tree_seed": 55015
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 60,
+      "depth_two_root": 47,
+      "endpoint_brier": {
+        "depth_three": 0.10986097099870669,
+        "depth_two": 0.10822284540067703,
+        "gated": 0.10986097099870669,
+        "myopic": 0.09618857719804488
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.010003686542128756,
+        "one_se_lower_bound": 0.0069373567998220545,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0030663297423067022
+      },
+      "myopic_root": 36,
+      "selected_root": 60,
+      "tree_seed": 55016
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 98,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.10658441880540095,
+        "depth_two": 0.09713290207417292,
+        "gated": 0.10658441880540095,
+        "myopic": 0.11107530531925555
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.018903328977829734,
+        "one_se_lower_bound": 0.015643794545986366,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0032595344318433685
+      },
+      "myopic_root": 0,
+      "selected_root": 98,
+      "tree_seed": 55017
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 46,
+      "depth_two_root": 46,
+      "endpoint_brier": {
+        "depth_three": 0.09735103117555223,
+        "depth_two": 0.09735103117555223,
+        "gated": 0.09735103117555223,
+        "myopic": 0.11289634579181453
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 46,
+      "tree_seed": 55018
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 42,
+      "depth_two_root": 6,
+      "endpoint_brier": {
+        "depth_three": 0.11184315519136948,
+        "depth_two": 0.10175848216103416,
+        "gated": 0.11184315519136948,
+        "myopic": 0.1331986024561389
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.027661559726993207,
+        "one_se_lower_bound": 0.022464243204080952,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.005197316522912256
+      },
+      "myopic_root": 0,
+      "selected_root": 42,
+      "tree_seed": 55019
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 69,
+      "depth_two_root": 69,
+      "endpoint_brier": {
+        "depth_three": 0.0997578569287952,
+        "depth_two": 0.0997578569287952,
+        "gated": 0.0997578569287952,
+        "myopic": 0.09848800814627916
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 4,
+      "selected_root": 69,
+      "tree_seed": 55020
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 80,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.1143591712665496,
+        "depth_two": 0.10742818718124307,
+        "gated": 0.1143591712665496,
+        "myopic": 0.13214314175852637
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0065324086714301545,
+        "one_se_lower_bound": 0.004637635555847019,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0018947731155831361
+      },
+      "myopic_root": 0,
+      "selected_root": 80,
+      "tree_seed": 55021
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 76,
+      "depth_two_root": 76,
+      "endpoint_brier": {
+        "depth_three": 0.10536630003867312,
+        "depth_two": 0.10536630003867312,
+        "gated": 0.10536630003867312,
+        "myopic": 0.11786987297649178
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 76,
+      "tree_seed": 55022
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 4,
+      "depth_two_root": 52,
+      "endpoint_brier": {
+        "depth_three": 0.1204467675061585,
+        "depth_two": 0.11207799271292004,
+        "gated": 0.11207799271292004,
+        "myopic": 0.11800386218131037
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.00035474524925414516,
+        "one_se_lower_bound": -0.002481152301504047,
+        "positive_draws": 4,
+        "shared_root": false,
+        "standard_error": 0.002835897550758192
+      },
+      "myopic_root": 2,
+      "selected_root": 52,
+      "tree_seed": 55023
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 60,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.09458506582672821,
+        "depth_two": 0.09458506582672821,
+        "gated": 0.09458506582672821,
+        "myopic": 0.11439919274143809
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 55024
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 2,
+      "depth_two_root": 63,
+      "endpoint_brier": {
+        "depth_three": 0.0966626064284088,
+        "depth_two": 0.12509881212262164,
+        "gated": 0.0966626064284088,
+        "myopic": 0.1614246816541397
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.02424935135837789,
+        "one_se_lower_bound": 0.0188949274758218,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.005354423882556089
+      },
+      "myopic_root": 1,
+      "selected_root": 2,
+      "tree_seed": 55025
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 60,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.10314270763250355,
+        "depth_two": 0.10314270763250355,
+        "gated": 0.10314270763250355,
+        "myopic": 0.10949707113232399
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 55026
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 40,
+      "depth_two_root": 95,
+      "endpoint_brier": {
+        "depth_three": 0.10422827037743082,
+        "depth_two": 0.11754109188511522,
+        "gated": 0.10422827037743082,
+        "myopic": 0.12854428151128924
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.005486266799447515,
+        "one_se_lower_bound": 0.00340711242082878,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.002079154378618735
+      },
+      "myopic_root": 2,
+      "selected_root": 40,
+      "tree_seed": 55027
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 8,
+      "depth_two_root": 52,
+      "endpoint_brier": {
+        "depth_three": 0.11299440033359123,
+        "depth_two": 0.11800894593456443,
+        "gated": 0.11800894593456443,
+        "myopic": 0.1347566775754503
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0016284099822711263,
+        "one_se_lower_bound": -0.004100246593077771,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.005728656575348897
+      },
+      "myopic_root": 0,
+      "selected_root": 52,
+      "tree_seed": 55028
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 24,
+      "depth_two_root": 24,
+      "endpoint_brier": {
+        "depth_three": 0.09818408675819021,
+        "depth_two": 0.09818408675819021,
+        "gated": 0.09818408675819021,
+        "myopic": 0.20702769885928254
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 24,
+      "tree_seed": 55029
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 64,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.09541743751353499,
+        "depth_two": 0.09416920873102003,
+        "gated": 0.09541743751353499,
+        "myopic": 0.1444520620206046
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.01748895171432872,
+        "one_se_lower_bound": 0.014437938967361142,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.003051012746967579
+      },
+      "myopic_root": 0,
+      "selected_root": 64,
+      "tree_seed": 55030
+    },
+    {
+      "block_index": 1,
+      "block_name": "qwen_replication_v2",
+      "depth_three_root": 30,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.10761937366164773,
+        "depth_two": 0.10573906930843144,
+        "gated": 0.10761937366164773,
+        "myopic": 0.10573906930843144
+      },
+      "family": "qwen/qwen3.7-plus",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.010193441143873425,
+        "one_se_lower_bound": 0.006565503581506978,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0036279375623664467
+      },
+      "myopic_root": 0,
+      "selected_root": 30,
+      "tree_seed": 55031
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 100,
+      "depth_two_root": 16,
+      "endpoint_brier": {
+        "depth_three": 0.12758563074352547,
+        "depth_two": 0.12346797227445916,
+        "gated": 0.12758563074352547,
+        "myopic": 0.12346797227445916
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.006101419857485767,
+        "one_se_lower_bound": 0.0015293410620202726,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.004572078795465494
+      },
+      "myopic_root": 16,
+      "selected_root": 100,
+      "tree_seed": 28300
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 60,
+      "depth_two_root": 35,
+      "endpoint_brier": {
+        "depth_three": 0.10404227310133904,
+        "depth_two": 0.09899995459220094,
+        "gated": 0.10404227310133904,
+        "myopic": 0.10404227310133904
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0054852427825503,
+        "one_se_lower_bound": 0.0017030797753421014,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0037821630072081987
+      },
+      "myopic_root": 60,
+      "selected_root": 60,
+      "tree_seed": 28301
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 94,
+      "depth_two_root": 36,
+      "endpoint_brier": {
+        "depth_three": 0.13386128286080942,
+        "depth_two": 0.10309693604164047,
+        "gated": 0.10309693604164047,
+        "myopic": 0.10309693604164047
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.00463170503697195,
+        "one_se_lower_bound": 0.00036626356079973166,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.004265441476172218
+      },
+      "myopic_root": 36,
+      "selected_root": 36,
+      "tree_seed": 28302
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 32,
+      "depth_two_root": 32,
+      "endpoint_brier": {
+        "depth_three": 0.10611418632346169,
+        "depth_two": 0.10611418632346169,
+        "gated": 0.10611418632346169,
+        "myopic": 0.13905183614582647
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 32,
+      "tree_seed": 28303
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 79,
+      "depth_two_root": 79,
+      "endpoint_brier": {
+        "depth_three": 0.10041784323652218,
+        "depth_two": 0.10041784323652218,
+        "gated": 0.10041784323652218,
+        "myopic": 0.13704311098036298
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 79,
+      "tree_seed": 28304
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 62,
+      "depth_two_root": 62,
+      "endpoint_brier": {
+        "depth_three": 0.12029979412278433,
+        "depth_two": 0.12029979412278433,
+        "gated": 0.12029979412278433,
+        "myopic": 0.11309493048412037
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 90,
+      "selected_root": 62,
+      "tree_seed": 28305
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 64,
+      "depth_two_root": 43,
+      "endpoint_brier": {
+        "depth_three": 0.11087092884417922,
+        "depth_two": 0.09861385216077084,
+        "gated": 0.09861385216077084,
+        "myopic": 0.11705584972958968
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0010119093022756265,
+        "one_se_lower_bound": -0.0023130728796647605,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.003324982181940387
+      },
+      "myopic_root": 36,
+      "selected_root": 43,
+      "tree_seed": 28306
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 40,
+      "depth_two_root": 40,
+      "endpoint_brier": {
+        "depth_three": 0.10452834309300199,
+        "depth_two": 0.10452834309300199,
+        "gated": 0.10452834309300199,
+        "myopic": 0.11704386787533233
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 16,
+      "selected_root": 40,
+      "tree_seed": 28307
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 4,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.10420949940138313,
+        "depth_two": 0.10420949940138313,
+        "gated": 0.10420949940138313,
+        "myopic": 0.11402847137646321
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 9,
+      "selected_root": 4,
+      "tree_seed": 28308
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 47,
+      "depth_two_root": 48,
+      "endpoint_brier": {
+        "depth_three": 0.11700631619148476,
+        "depth_two": 0.11314860712030295,
+        "gated": 0.11700631619148476,
+        "myopic": 0.11703534190000342
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.01066034522426965,
+        "one_se_lower_bound": 0.007705932200832976,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.002954413023436674
+      },
+      "myopic_root": 5,
+      "selected_root": 47,
+      "tree_seed": 28309
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 19,
+      "depth_two_root": 19,
+      "endpoint_brier": {
+        "depth_three": 0.09269169126456357,
+        "depth_two": 0.09269169126456357,
+        "gated": 0.09269169126456357,
+        "myopic": 0.11888184420506691
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 60,
+      "selected_root": 19,
+      "tree_seed": 28310
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 10,
+      "depth_two_root": 7,
+      "endpoint_brier": {
+        "depth_three": 0.10915198375457659,
+        "depth_two": 0.13097268386721359,
+        "gated": 0.13097268386721359,
+        "myopic": 0.11857389151345196
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.00185910423682039,
+        "one_se_lower_bound": -0.0015292831211565923,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0033883873579769823
+      },
+      "myopic_root": 36,
+      "selected_root": 7,
+      "tree_seed": 28311
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 36,
+      "depth_two_root": 36,
+      "endpoint_brier": {
+        "depth_three": 0.09896569504104825,
+        "depth_two": 0.09896569504104825,
+        "gated": 0.09896569504104825,
+        "myopic": 0.11189066055506433
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 16,
+      "selected_root": 36,
+      "tree_seed": 28312
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 62,
+      "depth_two_root": 62,
+      "endpoint_brier": {
+        "depth_three": 0.1254166795093204,
+        "depth_two": 0.1254166795093204,
+        "gated": 0.1254166795093204,
+        "myopic": 0.11771613694963162
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 62,
+      "tree_seed": 28313
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 19,
+      "depth_two_root": 24,
+      "endpoint_brier": {
+        "depth_three": 0.10332058918702505,
+        "depth_two": 0.1056974308044451,
+        "gated": 0.10332058918702505,
+        "myopic": 0.1807145796574735
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.01440799029921849,
+        "one_se_lower_bound": 0.013020348098973615,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0013876422002448735
+      },
+      "myopic_root": 36,
+      "selected_root": 19,
+      "tree_seed": 28314
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 16,
+      "depth_two_root": 4,
+      "endpoint_brier": {
+        "depth_three": 0.1122213850166556,
+        "depth_two": 0.10139062390803383,
+        "gated": 0.1122213850166556,
+        "myopic": 0.11150315619619723
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.011363837669412694,
+        "one_se_lower_bound": 0.009527818939074114,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.001836018730338579
+      },
+      "myopic_root": 0,
+      "selected_root": 16,
+      "tree_seed": 28315
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 58,
+      "depth_two_root": 46,
+      "endpoint_brier": {
+        "depth_three": 0.10675528293800869,
+        "depth_two": 0.09792180135069672,
+        "gated": 0.10675528293800869,
+        "myopic": 0.1340358572339393
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.007493143324861017,
+        "one_se_lower_bound": 0.005445665500571429,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.002047477824289588
+      },
+      "myopic_root": 60,
+      "selected_root": 58,
+      "tree_seed": 28316
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 60,
+      "depth_two_root": 84,
+      "endpoint_brier": {
+        "depth_three": 0.10918601594762169,
+        "depth_two": 0.11536883601434317,
+        "gated": 0.11536883601434317,
+        "myopic": 0.12798829014796723
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0007960746192462662,
+        "one_se_lower_bound": -0.002089744212795751,
+        "positive_draws": 2,
+        "shared_root": false,
+        "standard_error": 0.002885818832042017
+      },
+      "myopic_root": 45,
+      "selected_root": 84,
+      "tree_seed": 28317
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 6,
+      "depth_two_root": 30,
+      "endpoint_brier": {
+        "depth_three": 0.12539006527136062,
+        "depth_two": 0.10705156034722572,
+        "gated": 0.10705156034722572,
+        "myopic": 0.1092663632217835
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0005315166518495493,
+        "one_se_lower_bound": -0.002616119472057547,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0031476361239070965
+      },
+      "myopic_root": 0,
+      "selected_root": 30,
+      "tree_seed": 28318
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 20,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.12650428023080623,
+        "depth_two": 0.11249853871401928,
+        "gated": 0.12650428023080623,
+        "myopic": 0.12229523210026125
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.007220687487832129,
+        "one_se_lower_bound": 0.004604968011398553,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.002615719476433576
+      },
+      "myopic_root": 36,
+      "selected_root": 20,
+      "tree_seed": 28319
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 84,
+      "depth_two_root": 84,
+      "endpoint_brier": {
+        "depth_three": 0.09923822357677652,
+        "depth_two": 0.09923822357677652,
+        "gated": 0.09923822357677652,
+        "myopic": 0.0995955355931641
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 64,
+      "selected_root": 84,
+      "tree_seed": 28320
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 36,
+      "depth_two_root": 12,
+      "endpoint_brier": {
+        "depth_three": 0.08889804917605242,
+        "depth_two": 0.10234576806733138,
+        "gated": 0.08889804917605242,
+        "myopic": 0.10234576806733138
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.010002832393170048,
+        "one_se_lower_bound": 0.008713300413362353,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0012895319798076948
+      },
+      "myopic_root": 12,
+      "selected_root": 36,
+      "tree_seed": 28321
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 43,
+      "depth_two_root": 43,
+      "endpoint_brier": {
+        "depth_three": 0.09668942091149986,
+        "depth_two": 0.09668942091149986,
+        "gated": 0.09668942091149986,
+        "myopic": 0.11739123375162612
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 43,
+      "tree_seed": 28322
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 16,
+      "depth_two_root": 25,
+      "endpoint_brier": {
+        "depth_three": 0.10974409755368696,
+        "depth_two": 0.1061351679693652,
+        "gated": 0.10974409755368696,
+        "myopic": 0.1216907436267393
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.014372697618648407,
+        "one_se_lower_bound": 0.012563813653440614,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0018088839652077935
+      },
+      "myopic_root": 0,
+      "selected_root": 16,
+      "tree_seed": 28323
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 44,
+      "depth_two_root": 44,
+      "endpoint_brier": {
+        "depth_three": 0.12044571028162268,
+        "depth_two": 0.12044571028162268,
+        "gated": 0.12044571028162268,
+        "myopic": 0.1167766416849696
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 24,
+      "selected_root": 44,
+      "tree_seed": 28324
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 3,
+      "depth_two_root": 2,
+      "endpoint_brier": {
+        "depth_three": 0.11188035183043972,
+        "depth_two": 0.11956911530669781,
+        "gated": 0.11188035183043972,
+        "myopic": 0.11183687828427598
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0036996977604632844,
+        "one_se_lower_bound": 0.0012700831546975833,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.002429614605765701
+      },
+      "myopic_root": 0,
+      "selected_root": 3,
+      "tree_seed": 28325
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 80,
+      "depth_two_root": 80,
+      "endpoint_brier": {
+        "depth_three": 0.09045011489350031,
+        "depth_two": 0.09045011489350031,
+        "gated": 0.09045011489350031,
+        "myopic": 0.11213605101444535
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 80,
+      "tree_seed": 28326
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 36,
+      "depth_two_root": 42,
+      "endpoint_brier": {
+        "depth_three": 0.09790094071237788,
+        "depth_two": 0.11778217738273308,
+        "gated": 0.09790094071237788,
+        "myopic": 0.10458958231721183
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.01613361721183743,
+        "one_se_lower_bound": 0.013447244976655875,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0026863722351815537
+      },
+      "myopic_root": 60,
+      "selected_root": 36,
+      "tree_seed": 28327
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 20,
+      "depth_two_root": 28,
+      "endpoint_brier": {
+        "depth_three": 0.09287943748724191,
+        "depth_two": 0.11423337871252202,
+        "gated": 0.11423337871252202,
+        "myopic": 0.1169260419328533
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0007414033824645512,
+        "one_se_lower_bound": -0.0028288100237854655,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0035702134062500167
+      },
+      "myopic_root": 15,
+      "selected_root": 28,
+      "tree_seed": 28328
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 30,
+      "depth_two_root": 20,
+      "endpoint_brier": {
+        "depth_three": 0.1158977712220847,
+        "depth_two": 0.10374194878455825,
+        "gated": 0.1158977712220847,
+        "myopic": 0.10646923443206996
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.014046871666232367,
+        "one_se_lower_bound": 0.010405763362773726,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0036411083034586407
+      },
+      "myopic_root": 60,
+      "selected_root": 30,
+      "tree_seed": 28329
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 29,
+      "depth_two_root": 24,
+      "endpoint_brier": {
+        "depth_three": 0.0973214630814985,
+        "depth_two": 0.12863993426423662,
+        "gated": 0.12863993426423662,
+        "myopic": 0.11404580780285883
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0015836931258253993,
+        "one_se_lower_bound": -0.0014318023280239793,
+        "positive_draws": 4,
+        "shared_root": false,
+        "standard_error": 0.0030154954538493786
+      },
+      "myopic_root": 64,
+      "selected_root": 24,
+      "tree_seed": 28330
+    },
+    {
+      "block_index": 2,
+      "block_name": "gptmini_confirmation",
+      "depth_three_root": 61,
+      "depth_two_root": 61,
+      "endpoint_brier": {
+        "depth_three": 0.0976490181209569,
+        "depth_two": 0.0976490181209569,
+        "gated": 0.0976490181209569,
+        "myopic": 0.12484573601302884
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 60,
+      "selected_root": 61,
+      "tree_seed": 28331
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 30,
+      "depth_two_root": 42,
+      "endpoint_brier": {
+        "depth_three": 0.09962769746474678,
+        "depth_two": 0.12111694318691868,
+        "gated": 0.09962769746474678,
+        "myopic": 0.17039171813854517
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.007122599364460757,
+        "one_se_lower_bound": 0.004362832308525606,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0027597670559351513
+      },
+      "myopic_root": 0,
+      "selected_root": 30,
+      "tree_seed": 30600
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 31,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.0887060189040648,
+        "depth_two": 0.10874562653416665,
+        "gated": 0.10874562653416665,
+        "myopic": 0.12906584359776055
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0008205373714297061,
+        "one_se_lower_bound": -0.003629329314484951,
+        "positive_draws": 3,
+        "shared_root": false,
+        "standard_error": 0.004449866685914657
+      },
+      "myopic_root": 0,
+      "selected_root": 60,
+      "tree_seed": 30601
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 8,
+      "depth_two_root": 8,
+      "endpoint_brier": {
+        "depth_three": 0.11452135702898829,
+        "depth_two": 0.11452135702898829,
+        "gated": 0.11452135702898829,
+        "myopic": 0.12318004546967193
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 8,
+      "tree_seed": 30602
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 89,
+      "depth_two_root": 89,
+      "endpoint_brier": {
+        "depth_three": 0.09983382409206586,
+        "depth_two": 0.09983382409206586,
+        "gated": 0.09983382409206586,
+        "myopic": 0.128181910673685
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 89,
+      "tree_seed": 30603
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 40,
+      "depth_two_root": 53,
+      "endpoint_brier": {
+        "depth_three": 0.1028716584830925,
+        "depth_two": 0.10429823734764387,
+        "gated": 0.1028716584830925,
+        "myopic": 0.10450857082702304
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0035142684186976053,
+        "one_se_lower_bound": 0.001257519759071617,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.002256748659625988
+      },
+      "myopic_root": 36,
+      "selected_root": 40,
+      "tree_seed": 30604
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 47,
+      "depth_two_root": 47,
+      "endpoint_brier": {
+        "depth_three": 0.1141942681553348,
+        "depth_two": 0.1141942681553348,
+        "gated": 0.1141942681553348,
+        "myopic": 0.12307122621497983
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 47,
+      "tree_seed": 30605
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 41,
+      "depth_two_root": 41,
+      "endpoint_brier": {
+        "depth_three": 0.10487629923818735,
+        "depth_two": 0.10487629923818735,
+        "gated": 0.10487629923818735,
+        "myopic": 0.12633403831317236
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 41,
+      "tree_seed": 30606
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 17,
+      "depth_two_root": 17,
+      "endpoint_brier": {
+        "depth_three": 0.09859449506373605,
+        "depth_two": 0.09859449506373605,
+        "gated": 0.09859449506373605,
+        "myopic": 0.1273876637037466
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 17,
+      "tree_seed": 30607
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 5,
+      "depth_two_root": 5,
+      "endpoint_brier": {
+        "depth_three": 0.09303824418327726,
+        "depth_two": 0.09303824418327726,
+        "gated": 0.09303824418327726,
+        "myopic": 0.12455088117748742
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 42,
+      "selected_root": 5,
+      "tree_seed": 30608
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 10,
+      "depth_two_root": 10,
+      "endpoint_brier": {
+        "depth_three": 0.09915240237609478,
+        "depth_two": 0.09915240237609478,
+        "gated": 0.09915240237609478,
+        "myopic": 0.19027548956891416
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 42,
+      "selected_root": 10,
+      "tree_seed": 30609
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 52,
+      "depth_two_root": 52,
+      "endpoint_brier": {
+        "depth_three": 0.1018192401165921,
+        "depth_two": 0.1018192401165921,
+        "gated": 0.1018192401165921,
+        "myopic": 0.13708097717865728
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 52,
+      "tree_seed": 30610
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 12,
+      "depth_two_root": 89,
+      "endpoint_brier": {
+        "depth_three": 0.12000887966106331,
+        "depth_two": 0.1062953341218132,
+        "gated": 0.12000887966106331,
+        "myopic": 0.10692717761211523
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0032836250494440965,
+        "one_se_lower_bound": 0.000488586862340368,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0027950381871037285
+      },
+      "myopic_root": 36,
+      "selected_root": 12,
+      "tree_seed": 30611
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 7,
+      "depth_two_root": 48,
+      "endpoint_brier": {
+        "depth_three": 0.14520869218156163,
+        "depth_two": 0.10251197651706351,
+        "gated": 0.10251197651706351,
+        "myopic": 0.16585586343345
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0016325180133159346,
+        "one_se_lower_bound": -4.9625466948982925e-05,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0016821434802649176
+      },
+      "myopic_root": 20,
+      "selected_root": 48,
+      "tree_seed": 30612
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 24,
+      "depth_two_root": 52,
+      "endpoint_brier": {
+        "depth_three": 0.1261665624583319,
+        "depth_two": 0.11058869827795186,
+        "gated": 0.1261665624583319,
+        "myopic": 0.12493857321802104
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.026961923632144818,
+        "one_se_lower_bound": 0.025391364477599983,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0015705591545448344
+      },
+      "myopic_root": 36,
+      "selected_root": 24,
+      "tree_seed": 30613
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 87,
+      "depth_two_root": 5,
+      "endpoint_brier": {
+        "depth_three": 0.11255210242065401,
+        "depth_two": 0.11744332665572493,
+        "gated": 0.11255210242065401,
+        "myopic": 0.11868299892920159
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.015480938398239698,
+        "one_se_lower_bound": 0.01169713423728032,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.0037838041609593778
+      },
+      "myopic_root": 0,
+      "selected_root": 87,
+      "tree_seed": 30614
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 91,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.12016684009644564,
+        "depth_two": 0.12858219917553101,
+        "gated": 0.12858219917553101,
+        "myopic": 0.13026928752848244
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.001626949975397085,
+        "one_se_lower_bound": -0.0014364947494838192,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0030634447248809042
+      },
+      "myopic_root": 20,
+      "selected_root": 0,
+      "tree_seed": 30615
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 99,
+      "depth_two_root": 11,
+      "endpoint_brier": {
+        "depth_three": 0.0942237095188689,
+        "depth_two": 0.1295601719311258,
+        "gated": 0.0942237095188689,
+        "myopic": 0.1865014069950715
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.02538818247205853,
+        "one_se_lower_bound": 0.022505368025268636,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0028828144467898946
+      },
+      "myopic_root": 16,
+      "selected_root": 99,
+      "tree_seed": 30616
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 79,
+      "depth_two_root": 79,
+      "endpoint_brier": {
+        "depth_three": 0.11808845135978072,
+        "depth_two": 0.11808845135978072,
+        "gated": 0.11808845135978072,
+        "myopic": 0.10128755249354347
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 36,
+      "selected_root": 79,
+      "tree_seed": 30617
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 58,
+      "depth_two_root": 24,
+      "endpoint_brier": {
+        "depth_three": 0.11255160826933018,
+        "depth_two": 0.1329614732953054,
+        "gated": 0.11255160826933018,
+        "myopic": 0.0924317188373965
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.03915786830741434,
+        "one_se_lower_bound": 0.03574495005187346,
+        "positive_draws": 8,
+        "shared_root": false,
+        "standard_error": 0.0034129182555408815
+      },
+      "myopic_root": 30,
+      "selected_root": 58,
+      "tree_seed": 30618
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 94,
+      "depth_two_root": 94,
+      "endpoint_brier": {
+        "depth_three": 0.09837345809170324,
+        "depth_two": 0.09837345809170324,
+        "gated": 0.09837345809170324,
+        "myopic": 0.13120872521431248
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 94,
+      "tree_seed": 30619
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 30,
+      "depth_two_root": 36,
+      "endpoint_brier": {
+        "depth_three": 0.10950922002451642,
+        "depth_two": 0.11827194395869631,
+        "gated": 0.11827194395869631,
+        "myopic": 0.11827194395869631
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.001499884887535198,
+        "one_se_lower_bound": -0.00027161483727284144,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0017714997248080395
+      },
+      "myopic_root": 36,
+      "selected_root": 36,
+      "tree_seed": 30620
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 57,
+      "depth_two_root": 57,
+      "endpoint_brier": {
+        "depth_three": 0.09841735148910154,
+        "depth_two": 0.09841735148910154,
+        "gated": 0.09841735148910154,
+        "myopic": 0.16318292119114675
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 24,
+      "selected_root": 57,
+      "tree_seed": 30621
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 36,
+      "depth_two_root": 100,
+      "endpoint_brier": {
+        "depth_three": 0.12921297337970541,
+        "depth_two": 0.11910714711629707,
+        "gated": 0.12921297337970541,
+        "myopic": 0.11910714711629707
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0018066063647718504,
+        "one_se_lower_bound": 0.0003354751514139066,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.0014711312133579438
+      },
+      "myopic_root": 100,
+      "selected_root": 36,
+      "tree_seed": 30622
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 43,
+      "depth_two_root": 43,
+      "endpoint_brier": {
+        "depth_three": 0.10283122880207614,
+        "depth_two": 0.10283122880207614,
+        "gated": 0.10283122880207614,
+        "myopic": 0.11796381278883625
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 43,
+      "tree_seed": 30623
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 36,
+      "depth_two_root": 48,
+      "endpoint_brier": {
+        "depth_three": 0.09561120718591089,
+        "depth_two": 0.13798405897386778,
+        "gated": 0.13798405897386778,
+        "myopic": 0.11860923951732262
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.0016486062074350244,
+        "one_se_lower_bound": -0.0011495559106914823,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.0027981621181265067
+      },
+      "myopic_root": 42,
+      "selected_root": 48,
+      "tree_seed": 30624
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 36,
+      "depth_two_root": 36,
+      "endpoint_brier": {
+        "depth_three": 0.10076528333718268,
+        "depth_two": 0.10076528333718268,
+        "gated": 0.10076528333718268,
+        "myopic": 0.11995668727625476
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 36,
+      "tree_seed": 30625
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 8,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.10221204012014315,
+        "depth_two": 0.11277955081671309,
+        "gated": 0.10221204012014315,
+        "myopic": 0.14901596252185367
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.009275951081981634,
+        "one_se_lower_bound": 0.007006865313496796,
+        "positive_draws": 7,
+        "shared_root": false,
+        "standard_error": 0.002269085768484838
+      },
+      "myopic_root": 36,
+      "selected_root": 8,
+      "tree_seed": 30626
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 20,
+      "depth_two_root": 20,
+      "endpoint_brier": {
+        "depth_three": 0.12072651713675078,
+        "depth_two": 0.12072651713675078,
+        "gated": 0.12072651713675078,
+        "myopic": 0.12072651713675078
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 20,
+      "selected_root": 20,
+      "tree_seed": 30627
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 30,
+      "depth_two_root": 53,
+      "endpoint_brier": {
+        "depth_three": 0.09933389857756308,
+        "depth_two": 0.1049393430779942,
+        "gated": 0.1049393430779942,
+        "myopic": 0.11714482783128655
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": false,
+        "mean_advantage": 0.004987311992886354,
+        "one_se_lower_bound": 0.0014670505792507504,
+        "positive_draws": 5,
+        "shared_root": false,
+        "standard_error": 0.003520261413635604
+      },
+      "myopic_root": 36,
+      "selected_root": 53,
+      "tree_seed": 30628
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 54,
+      "depth_two_root": 54,
+      "endpoint_brier": {
+        "depth_three": 0.09442162298336428,
+        "depth_two": 0.09442162298336428,
+        "gated": 0.09442162298336428,
+        "myopic": 0.13602563153279326
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 54,
+      "tree_seed": 30629
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 6,
+      "depth_two_root": 60,
+      "endpoint_brier": {
+        "depth_three": 0.12669849841171793,
+        "depth_two": 0.1049915313373659,
+        "gated": 0.12669849841171793,
+        "myopic": 0.12113897919366454
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.00902542632035911,
+        "one_se_lower_bound": 0.005700993885201171,
+        "positive_draws": 6,
+        "shared_root": false,
+        "standard_error": 0.003324432435157939
+      },
+      "myopic_root": 16,
+      "selected_root": 6,
+      "tree_seed": 30630
+    },
+    {
+      "block_index": 3,
+      "block_name": "gptmini_fresh_replication",
+      "depth_three_root": 0,
+      "depth_two_root": 0,
+      "endpoint_brier": {
+        "depth_three": 0.11744143370248523,
+        "depth_two": 0.11744143370248523,
+        "gated": 0.11744143370248523,
+        "myopic": 0.11744143370248523
+      },
+      "family": "openai/gpt-5.4-mini",
+      "gate": {
+        "accepted": true,
+        "mean_advantage": 0.0,
+        "one_se_lower_bound": 0.0,
+        "positive_draws": 8,
+        "shared_root": true,
+        "standard_error": 0.0
+      },
+      "myopic_root": 0,
+      "selected_root": 0,
+      "tree_seed": 30631
+    }
+  ],
+  "schema_version": 1,
+  "status": "retrospective_uncertainty_gate_summary"
+}

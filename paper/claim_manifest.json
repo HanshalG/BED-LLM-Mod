@@ -368,6 +368,39 @@
       ]
     },
     {
+      "id": "number_game_depth_three_uncertainty_gate128",
+      "paper_scope": "Retrospective target-blind validation-support stability gate and its depth-three-versus-depth-two null.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_depth_three_uncertainty_gate128/number-game-depth-three-uncertainty-gate128-20260729T081711Z/RESULT.json",
+        "sha256": "bcdf37f746b156f0b849f5b1a94b4b4a2f31348bd146260a92a0358a2ea92bae"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_uncertainty_gate_summary"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/gate_is_target_blind", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_source_statuses", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0},
+        {"pointer": "/protocol/tree_count", "equals": 128},
+        {"pointer": "/protocol/minimum_positive_draws", "equals": 6},
+        {"pointer": "/protocol/lower_standard_error_multiplier", "equals": 1.0},
+        {"pointer": "/gate_counts/candidate_changes", "equals": 76},
+        {"pointer": "/gate_counts/accepted_changes", "equals": 55},
+        {"pointer": "/gate_counts/fallbacks", "equals": 21},
+        {"pointer": "/comparisons/depth_two/pooled/candidate_mean_brier", "equals": 0.10703505218794979, "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/pooled/baseline_mean_brier", "equals": 0.10844944852869903, "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/pooled/relative_brier_reduction", "equals": 0.013041987395398762, "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/pooled/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.0030765165109756564, 0.0001470322708053357], "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/pooled/accepted_score_to_realized_advantage_spearman", "equals": 0.10721500721500722, "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/by_family/qwen~1qwen3.7-plus/relative_brier_reduction", "equals": 0.024262656804314726, "tolerance": 1e-12},
+        {"pointer": "/comparisons/depth_two/by_family/openai~1gpt-5.4-mini/relative_brier_reduction", "equals": 0.001995524155834239, "tolerance": 1e-12},
+        {"pointer": "/comparisons/myopic/pooled/relative_brier_reduction", "equals": 0.12018521194792511, "tolerance": 1e-12},
+        {"pointer": "/comparisons/myopic/pooled/stratified_tree_bootstrap_brier_difference_95pct", "equals": [-0.018685260139329727, -0.010829768076856924], "tolerance": 1e-12},
+        {"pointer": "/interpretation/formal_status_unchanged", "equals": true},
+        {"pointer": "/interpretation/single_fixed_gate_no_threshold_sweep", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_gptmini_external_canonical_replay64",
       "paper_scope": "Prospective zero-call combination of 64 fixed GPT-5.4 Mini policies with the canonical external bank, including its monotonic-depth null and nonmyopic-over-myopic positive.",
       "artifact": {

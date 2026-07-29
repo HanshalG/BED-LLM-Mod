@@ -40,3 +40,23 @@ def test_source_blocks_are_hash_bound_and_aligned() -> None:
     }
     assert gate.MIN_POSITIVE_DRAWS == 6
     assert gate.LOWER_STANDARD_ERROR_MULTIPLIER == 1.0
+
+
+def test_draw_risk_recomputation_matches_frozen_mean() -> None:
+    block = gate.load_source_blocks()[0]
+    raw_tree = block["raw_trees"][0]
+    scored_tree = block["scored_trees"][0]
+    selection = scored_tree["selection"]
+    depth_three_root = int(selection["crossfit_depth_three_root"])
+    depth_two_root = int(selection["crossfit_depth_two_root"])
+    draw_risks = gate.depth_three_draw_risks(raw_tree)
+    recomputed = sum(
+        row[depth_two_root] - row[depth_three_root]
+        for row in draw_risks
+    ) / len(draw_risks)
+    expected = (
+        selection["crossfit_depth_three_brier"][str(depth_two_root)]
+        - selection["crossfit_depth_three_brier"][str(depth_three_root)]
+    )
+
+    assert recomputed == pytest.approx(expected, abs=1e-12)
