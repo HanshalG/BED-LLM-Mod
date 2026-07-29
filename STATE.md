@@ -2619,3 +2619,9 @@ $.01071296. Second-draw novel contributions5/14/8/16/4;pools27/33/25/29/13,
 merged first37/33,second44/16. Public RESULT SHAaa89d044,privatefd846ad7.
 No efficacy target/endpoint used. Bind confirmation runner to this artifact;
 do not launch below frozen$5.50 provider-visible balance.
+2026-07-29: Fresh dynamic-vs-fixed confirmation runner implemented and bound
+to public smoke aa89d044. It configures Qwen validation stride16 and proves
+seeds66200--66711,exact3680 requests,2112 parse events,16-support mechanics,
+dynamic/fixed+myopic gates,and paired bootstrap seed66800;10 focused tests
+pass. Live balance after smoke$1.548748023< frozen$5.50,so no scientific
+request launched. Reported$40 top-up still not provider-visible.
