@@ -2499,3 +2499,10 @@ scale/clipping/rank/subset/regularizer. Report raw/normalized rho and paired
 delta with20k tree bootstrap seed63700,plus scale distribution/correlation.
 Positive only normalized rho>=.25 and CI lower>0;otherwise close. Retrospective
 mechanism only,model0/cost0,cannot rescue source gated_null.
+2026-07-29: Frozen pooled-margin SD normalization is null and closes the
+scale-only explanation. Raw rho-.0367;divide by within-tree population SD
+of8 root risks gives rho+.0309 CI[-.2963,.3699]. Normalized-minus-raw
+delta+.0676,paired CI[-.1654,.3166]. Risk SD range.00813--.01934 and
+correlation with realized advantage-.0643. Both gates fail;no alternate
+denominator/clipping/rank/subset/regularizer. Model0/cost0;source stays
+gated_null. Public RESULT SHA7d68fd2f.

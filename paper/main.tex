@@ -626,7 +626,8 @@ A prospective 64-tree Qwen confirmation fails during tree 37 before scoring;
 its separately frozen 36-tree prefix has first-link Spearman $.617$
 ($[.367,.773]$) but cannot rescue the run. A fresh two-draw pooled study
 lowers Brier 9.56\% versus myopic ($[-.0179,-.0044]$; 23/32 wins), yet margin
-calibration is null ($-.037$; $[-.391,.307]$) and mechanics gates fail.
+calibration is null ($-.037$; $[-.391,.307]$), within-tree SD normalization
+does not repair it, and mechanics gates fail.
 A preregistered zero-call replay of the 64 fixed GPT-5.4-Mini policies on the
 same canonical bank is more heterogeneous: depth three improves only 1.08\%
 over depth two ($[-.0045,.0021]$; 19/64 wins), but beats myopic by 12.93\%

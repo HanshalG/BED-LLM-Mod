@@ -1,0 +1,255 @@
+{
+  "gates": {
+    "normalized_spearman_at_least_point_two_five": false,
+    "normalized_spearman_interval_above_zero": false
+  },
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 63700,
+    "cannot_rescue_source_status": true,
+    "cost_usd": 0.0,
+    "interface_version": "number-game-pooled-margin-scale-analysis-1",
+    "model_calls": 0,
+    "single_frozen_transformation": "raw predicted advantage divided by population standard deviation of the eight within-tree candidate-root risks",
+    "source_result_sha256": "cef6ded08050e6df07de62bbbf548635f229a8bf73fac149b4d0bd960f7b0253"
+  },
+  "schema_version": 1,
+  "status": "retrospective_scale_calibration_null",
+  "summary": {
+    "normalized_margin_spearman": 0.03092324805339266,
+    "normalized_margin_spearman_95pct_bootstrap": [
+      -0.29627479798885753,
+      0.36992536724197944
+    ],
+    "normalized_minus_raw_spearman": 0.06763070077864294,
+    "normalized_minus_raw_spearman_95pct_bootstrap": [
+      -0.16540478812992462,
+      0.31659271792858873
+    ],
+    "raw_margin_spearman": -0.03670745272525028,
+    "raw_margin_spearman_95pct_bootstrap": [
+      -0.3977180349710945,
+      0.31011732811343085
+    ],
+    "risk_scale": {
+      "maximum": 0.019343253704335442,
+      "mean": 0.012775782109122709,
+      "minimum": 0.008130363579569826
+    },
+    "risk_scale_to_realized_advantage_spearman": -0.064293659621802,
+    "rows": [
+      {
+        "normalized_predicted_advantage": 1.8313240664279418,
+        "raw_predicted_advantage": 0.017677344391718586,
+        "realized_advantage": -0.026451430270142795,
+        "risk_scale_population_sd": 0.00965276693283392,
+        "tree_seed": 63100
+      },
+      {
+        "normalized_predicted_advantage": 2.8983038249098367,
+        "raw_predicted_advantage": 0.03582163438612304,
+        "realized_advantage": 0.00017958264984048455,
+        "risk_scale_population_sd": 0.012359516651860133,
+        "tree_seed": 63101
+      },
+      {
+        "normalized_predicted_advantage": 1.7201618367313725,
+        "raw_predicted_advantage": 0.02624546024601465,
+        "realized_advantage": 0.012174795190501062,
+        "risk_scale_population_sd": 0.015257552914838471,
+        "tree_seed": 63102
+      },
+      {
+        "normalized_predicted_advantage": 1.6144028814330322,
+        "raw_predicted_advantage": 0.023555440055270438,
+        "realized_advantage": 0.01188875042714349,
+        "risk_scale_population_sd": 0.014590806499528384,
+        "tree_seed": 63103
+      },
+      {
+        "normalized_predicted_advantage": 0.5683019377691784,
+        "raw_predicted_advantage": 0.007081023218969279,
+        "realized_advantage": -0.0040012278288103775,
+        "risk_scale_population_sd": 0.012459966697923364,
+        "tree_seed": 63104
+      },
+      {
+        "normalized_predicted_advantage": 2.5606486229600938,
+        "raw_predicted_advantage": 0.04953127596157428,
+        "realized_advantage": 0.03743047895724266,
+        "risk_scale_population_sd": 0.019343253704335442,
+        "tree_seed": 63105
+      },
+      {
+        "normalized_predicted_advantage": 1.2077975189560877,
+        "raw_predicted_advantage": 0.014584671751430689,
+        "realized_advantage": -0.016302139340100413,
+        "risk_scale_population_sd": 0.012075427811804398,
+        "tree_seed": 63107
+      },
+      {
+        "normalized_predicted_advantage": 2.5546368761885403,
+        "raw_predicted_advantage": 0.02712698194705368,
+        "realized_advantage": 0.04267314113907364,
+        "risk_scale_population_sd": 0.010618723232213932,
+        "tree_seed": 63108
+      },
+      {
+        "normalized_predicted_advantage": 1.0783973955095372,
+        "raw_predicted_advantage": 0.013445613583142307,
+        "realized_advantage": -0.005682381499132277,
+        "risk_scale_population_sd": 0.012468143598204189,
+        "tree_seed": 63109
+      },
+      {
+        "normalized_predicted_advantage": 2.1052272017309788,
+        "raw_predicted_advantage": 0.020558576958208064,
+        "realized_advantage": 0.036189973635351674,
+        "risk_scale_population_sd": 0.009765490841703073,
+        "tree_seed": 63110
+      },
+      {
+        "normalized_predicted_advantage": 0.42430682538729936,
+        "raw_predicted_advantage": 0.0059003137888922474,
+        "realized_advantage": 0.010517894496954006,
+        "risk_scale_population_sd": 0.013905771568738144,
+        "tree_seed": 63111
+      },
+      {
+        "normalized_predicted_advantage": 2.0928445251157233,
+        "raw_predicted_advantage": 0.039186684946867695,
+        "realized_advantage": 0.0022331650389575547,
+        "risk_scale_population_sd": 0.018724126172105823,
+        "tree_seed": 63112
+      },
+      {
+        "normalized_predicted_advantage": 2.778108003098733,
+        "raw_predicted_advantage": 0.03755568093422623,
+        "realized_advantage": -0.021650920768566742,
+        "risk_scale_population_sd": 0.01351843804932573,
+        "tree_seed": 63113
+      },
+      {
+        "normalized_predicted_advantage": 2.93032881603222,
+        "raw_predicted_advantage": 0.032809940373061314,
+        "realized_advantage": 0.040009217459896315,
+        "risk_scale_population_sd": 0.011196675333346126,
+        "tree_seed": 63114
+      },
+      {
+        "normalized_predicted_advantage": 2.9348718801419253,
+        "raw_predicted_advantage": 0.026832364192053176,
+        "realized_advantage": 0.016542692775675355,
+        "risk_scale_population_sd": 0.009142601547143383,
+        "tree_seed": 63115
+      },
+      {
+        "normalized_predicted_advantage": 0.669119540612291,
+        "raw_predicted_advantage": 0.006745668583248043,
+        "realized_advantage": 0.015142346207467156,
+        "risk_scale_population_sd": 0.010081410232131747,
+        "tree_seed": 63116
+      },
+      {
+        "normalized_predicted_advantage": 1.8343728351138509,
+        "raw_predicted_advantage": 0.0264560083401236,
+        "realized_advantage": -0.006510307775338245,
+        "risk_scale_population_sd": 0.014422372504486854,
+        "tree_seed": 63118
+      },
+      {
+        "normalized_predicted_advantage": 2.5890154358317523,
+        "raw_predicted_advantage": 0.024604790150686007,
+        "realized_advantage": 0.037192324010576344,
+        "risk_scale_population_sd": 0.009503531655376717,
+        "tree_seed": 63119
+      },
+      {
+        "normalized_predicted_advantage": 2.793104707000112,
+        "raw_predicted_advantage": 0.03090428067197032,
+        "realized_advantage": -0.012052336583673898,
+        "risk_scale_population_sd": 0.011064490562963016,
+        "tree_seed": 63120
+      },
+      {
+        "normalized_predicted_advantage": 0.6422572817414007,
+        "raw_predicted_advantage": 0.00786054271964498,
+        "realized_advantage": 0.030186808353166686,
+        "risk_scale_population_sd": 0.01223893125560538,
+        "tree_seed": 63121
+      },
+      {
+        "normalized_predicted_advantage": 3.281482157619586,
+        "raw_predicted_advantage": 0.03536478995496392,
+        "realized_advantage": 0.0059094102316160635,
+        "risk_scale_population_sd": 0.010777078239735984,
+        "tree_seed": 63122
+      },
+      {
+        "normalized_predicted_advantage": 2.643362277791225,
+        "raw_predicted_advantage": 0.026162754775783864,
+        "realized_advantage": 0.04283443403380065,
+        "risk_scale_population_sd": 0.009897528990103195,
+        "tree_seed": 63123
+      },
+      {
+        "normalized_predicted_advantage": 0.9404084504361426,
+        "raw_predicted_advantage": 0.018013009396211255,
+        "realized_advantage": 0.049836294592327454,
+        "risk_scale_population_sd": 0.0191544529271905,
+        "tree_seed": 63124
+      },
+      {
+        "normalized_predicted_advantage": 1.3788617020825151,
+        "raw_predicted_advantage": 0.021151364693981572,
+        "realized_advantage": 0.002863490013852707,
+        "risk_scale_population_sd": 0.015339728895244792,
+        "tree_seed": 63125
+      },
+      {
+        "normalized_predicted_advantage": 1.9944149706690577,
+        "raw_predicted_advantage": 0.03310232144862649,
+        "realized_advantage": 0.008060798166701078,
+        "risk_scale_population_sd": 0.0165975095130387,
+        "tree_seed": 63126
+      },
+      {
+        "normalized_predicted_advantage": 0.21633972665943935,
+        "raw_predicted_advantage": 0.0023491424203089806,
+        "realized_advantage": 0.004924865051917429,
+        "risk_scale_population_sd": 0.010858580883792027,
+        "tree_seed": 63127
+      },
+      {
+        "normalized_predicted_advantage": 3.1741414727640342,
+        "raw_predicted_advantage": 0.025806924226562833,
+        "realized_advantage": 0.00641066783398643,
+        "risk_scale_population_sd": 0.008130363579569826,
+        "tree_seed": 63128
+      },
+      {
+        "normalized_predicted_advantage": 2.340523814773317,
+        "raw_predicted_advantage": 0.027019882486875618,
+        "realized_advantage": 0.010237448629365278,
+        "risk_scale_population_sd": 0.011544374091101709,
+        "tree_seed": 63129
+      },
+      {
+        "normalized_predicted_advantage": 0.822827647846741,
+        "raw_predicted_advantage": 0.01292192179728821,
+        "realized_advantage": 0.02002587997435798,
+        "risk_scale_population_sd": 0.015704287320806014,
+        "tree_seed": 63130
+      },
+      {
+        "normalized_predicted_advantage": 3.209258662982086,
+        "raw_predicted_advantage": 0.04133384292849007,
+        "realized_advantage": 0.0029521727961160926,
+        "risk_scale_population_sd": 0.012879561066630296,
+        "tree_seed": 63131
+      }
+    ],
+    "tree_count": 30
+  }
+}
