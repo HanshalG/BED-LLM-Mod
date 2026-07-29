@@ -2461,3 +2461,11 @@ Pass only authorizes fresh32 trees63100--63131,target63200--63231,validation
 63300--63555,exact3424,cap$5.25,start>=5.50,salvage<=16. Primary first-link
 gates mirror the closed32 plan. This is variance-reduction estimator change,
 not threshold relaxation/rerun;single-draw null stays closed.
+2026-07-29: Pooled-independent Qwen exact10 passes every frozen gate and
+authorizes fresh32. Exact10/10 HTTP,strict JSON,0 retry/provider/reasoning/
+forced/salvage,$.0122528. Draw pairs valid24/21,16/18,21/14,5/11,12/6;
+second draws add7/11/4/8/3 novel extensions. Pools31/27/25/13/15,merged
+first29/37,second25/20. Thus weak5/6 individual draws become healthy13/15
+pools without semantic repair. Public RESULT SHAf4c5371e,privatee940186c.
+Proceed unchanged to separately committed32-tree implementation/gates;no
+efficacy endpoint appeared in smoke.
