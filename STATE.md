@@ -2925,3 +2925,19 @@ realized dynamic-selection advantage. Mean contrast +.002462 still crosses
 [-.010642,.014706] and remains descriptive/null. Independent zero-call replay
 matches all trees and20k bootstrap. RESULT c47a6aba,controls c598d34d,private
 b8ac8f39;source/V3 statuses unchanged;live balance$2.469132069.
+2026-07-30: Freeze the next stronger replication before implementation: one
+fully fresh source+matched-control32 protocol. New Qwen trees100000--100031,
+Gemini targets100100--100131/16 validations per tree from100200,source
+bootstrap100800;fresh blind controls10000000+,bootstrap10100000. Stage A
+exact3680/cap$5.25;Stage B exact3072/cap$4.25;composite6752/cap$9.50,start
+$10.25. Control stage proceeds whenever source mechanics pass and>=20 roots
+differ,regardless observed policy endpoints. Composite requires source
+d3>myopic,dynamic>fixed,and all first-link gates. Current balance$2.469132069,
+so execution is forbidden until at least$7.780867931 is added.
+2026-07-30: Fully fresh source+control32 runner is ready and unopened. It
+scopes/restores the validated resilient source engine,injects fresh hash-bound
+source artifacts into the matched-control engine,translates component
+mechanics failures,and enforces exact6752 requests/$9.50 composite cap.
+Eleven new orchestration/context/gate tests and the complete source/control
+family pass:55 tests in175.26s. No model calls. Authenticated balance after
+provider reconciliation$2.458288549,so minimum top-up is now$7.791711451.
