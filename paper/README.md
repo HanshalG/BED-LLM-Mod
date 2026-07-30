@@ -13,7 +13,10 @@ an initial fresh dynamic-versus-fixed study is inconclusive. A new powered
 96-tree preregistered comparison passes every scientific gate: dynamic support
 improves Brier by 3.44% (`95% CI [-.0064,-.0010]`; `50/24/22` W/T/L).
 Its overall protocol remains a gated null because three trees miss an
-all-branches support floor by one or two rules. The paper therefore claims a
+all-branches support floor by one or two rules. A hash-bound retrospective
+mechanism audit finds better root-rank fidelity (Spearman `.318` versus `.157`)
+and lower candidate-set oracle regret (`-.00368`,
+`95% CI [-.00639,-.00097]`), without higher raw novelty. The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
 

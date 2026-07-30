@@ -874,6 +874,51 @@
       ]
     },
     {
+      "id": "number_game_dynamic_support_mechanism96",
+      "paper_scope": "Hash-bound retrospective first-link audit of the fresh powered dynamic-support study, including candidate-rank fidelity, changed-root realized advantage, oracle regret, and novelty-volume boundary.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_dynamic_support_mechanism96/number-game-dynamic-support-mechanism96-20260730T120000Z/RESULT.json",
+        "sha256": "53ae668d14073759604fc2f19b97a05babfc521820517eab1017f18a5ed205a5"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_mechanism_audit"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/source_status_unchanged", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_or_relabel_source", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0, "tolerance": 1e-12},
+        {"pointer": "/protocol/tree_count", "equals": 96},
+        {"pointer": "/protocol/candidate_roots_per_tree", "equals": 8},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 86000},
+        {"pointer": "/protocol/bootstrap_samples", "equals": 20000},
+        {"pointer": "/protocol/source_result_sha256", "equals": "04177da415498d765baa2b460f6d732a5162b118776df4d5019f7b540bfce36e"},
+        {"pointer": "/protocol/source_trees_sha256", "equals": "8535df7eba5437c564cc6df56816fcee0a6991c3358fdaa6b62c6ca96948da82"},
+        {"pointer": "/analysis/directionally_coherent", "equals": true},
+        {"pointer": "/analysis/candidate_ranking/dynamic_mean_spearman", "equals": 0.31795634920634924, "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_ranking/fixed_mean_spearman", "equals": 0.15702979797623295, "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_ranking/dynamic_minus_fixed_mean_spearman", "equals": 0.16092655123011626, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/dynamic_minus_fixed_mean_spearman_95pct", "equals": [0.07852558685531669, 0.24456301557045954], "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_ranking/dynamic_mean_pairwise_concordance", "equals": 0.6183035714285714, "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_ranking/fixed_mean_pairwise_concordance", "equals": 0.5611083553791887, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/dynamic_minus_fixed_mean_pairwise_concordance_95pct", "equals": [0.025573192239858916, 0.08935460758377427], "tolerance": 1e-12},
+        {"pointer": "/analysis/changed_root_first_link/tree_count", "equals": 72},
+        {"pointer": "/analysis/changed_root_first_link/mean_realized_advantage", "equals": 0.004907119683285995, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/changed_root_mean_realized_advantage_95pct", "equals": [0.0012952016957171525, 0.008446230132538495], "tolerance": 1e-12},
+        {"pointer": "/analysis/changed_root_first_link/wins", "equals": 50},
+        {"pointer": "/analysis/changed_root_first_link/ties", "equals": 0},
+        {"pointer": "/analysis/changed_root_first_link/losses", "equals": 22},
+        {"pointer": "/analysis/changed_root_first_link/dynamic_margin_to_realized_spearman", "equals": 0.20747314939867514, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/dynamic_margin_to_realized_spearman_95pct", "equals": [-0.030619415930858786, 0.4308073454783312], "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_set_oracle_regret/mean_dynamic_oracle_regret", "equals": 0.008536952045946863, "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_set_oracle_regret/mean_fixed_oracle_regret", "equals": 0.012217291808411359, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/mean_dynamic_minus_fixed_oracle_regret_95pct", "equals": [-0.006387977383806555, -0.0009733375164126358], "tolerance": 1e-12},
+        {"pointer": "/analysis/candidate_set_oracle_regret/dynamic_oracle_root_selections", "equals": 27},
+        {"pointer": "/analysis/candidate_set_oracle_regret/fixed_oracle_root_selections", "equals": 18},
+        {"pointer": "/analysis/support_regeneration/all_branches_mean_novel_fraction", "equals": 0.7391167379154786, "tolerance": 1e-12},
+        {"pointer": "/analysis/support_regeneration/selected_roots/dynamic_minus_fixed_mean_combined_mean_novel_count", "equals": -0.7447916666666666, "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_deepseek_v4_flash_paired_efficacy32",
       "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
       "artifact": {

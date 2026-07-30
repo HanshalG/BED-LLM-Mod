@@ -2806,3 +2806,12 @@ will compare recomputed fixed versus stored dynamic candidate-rank fidelity,
 changed-root score margins versus exact-canonical realized advantage, selected
 root oracle regret, and extension-hash support novelty. The already-known
 source status cannot be rescued or relabeled.
+2026-07-30: Dynamic-support96 mechanism audit passes all three frozen
+directional conditions at zero calls/cost. Dynamic vs fixed root-rank Spearman
+.318/.157 (difference CI[.079,.245]) and concordance .618/.561
+(CI[.026,.089]); on 72 changed roots, realized advantage .004907
+CI[.001295,.008446],50/0/22. Candidate oracle regret .008537 vs .012217,
+difference CI[-.006388,-.000973], oracle selections27 vs18. Dynamic roots have
+slightly fewer novel rules and novelty-effect rho only about.10, localizing the
+gain to path-conditioned support quality rather than volume. Margin-to-effect
+rho.207 remains imprecise. Source mechanics-qualified null is unchanged.
