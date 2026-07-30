@@ -2834,3 +2834,12 @@ rho.472 CI[.262,.645]. The frozen same-call blind pool equals routed support
 exactly because branch-consistency filtering removes all counterfactual-answer
 hypotheses, so fresh history-blind prompt generations are required to identify
 prompt-conditioning value. Source status unchanged. Public SHA139ff20e.
+2026-07-30: Froze the identifiable matched history-blind Qwen32 control before
+new responses. Source trees0--31/seeds80000--80031 are hash-bound; every one of
+48 stored branch slots/tree receives two fresh Qwen3.7 Plus nonreasoning draws
+from the no-observation prompt, then filtering and recursive retention match
+the conditional arm. Formal exact3072 calls,seeds9000000+,concurrency256,
+cap$4.25,start$5.00;fresh exact10 smoke seeds8900000--8900009 must pass first.
+Canonical predictive MSE,coverage,and changed-root prompt-benefit contrast are
+frozen; all four gates are conjunctive. Live authenticated balance before
+freeze is $15.404915749. No source result can be rescued or relabeled.
