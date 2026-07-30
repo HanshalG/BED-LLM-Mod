@@ -51,9 +51,10 @@ cohorts and two planning models, depth three improves Brier over myopic by
 predicts realized advantage at Spearman $.423$ ($[.255,.569]$). However,
 depth three versus depth two is not robust. A hash-bound pooled audit finds a
 5.85\% gain over compute-matched fixed-support depth three across both
-planner families ($[-.0099,-.0034]$), while a preregistered single-refresh
-isolation is null; fresh confirmation is also null despite a favorable 4.45\% mean
-($[-.0116,.0004]$; 14/32 wins). Finite Rock Diagnosis separately
+planner families ($[-.0099,-.0034]$). A fresh powered 96-tree comparison
+passes every scientific gate: dynamic support improves Brier by 3.44\%
+($[-.0064,-.0010]$; 50/24/22 wins/ties/losses), although the full protocol
+is a gated null because three trees miss a support-size floor. Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
@@ -189,7 +190,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; retrospective dynamic--fixed 5.85\%; fresh CI crosses 0 & Policy robust; mechanism unconfirmed \\
+Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; fresh powered dynamic--fixed 3.44\% & Policy robust; mechanism Brier-positive, mechanics-qualified \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
@@ -348,24 +349,22 @@ advantage predicts realized advantage at Spearman $.423$
 ($[.01179,.01990]$). The first link of the non-myopic simulator is therefore
 calibrated against myopic selection across planner families.
 
-The causal support claim is narrower. Across the same four canonical-target
-cohorts, full answer-conditioned depth three reduces Brier 5.85\% versus
-compute-matched depth three on the fixed initial support
-($[-.0099,-.0034]$; 64/128 wins). The effect is separately favorable for
-Qwen (4.49\%; $[-.0092,-.0008]$) and GPT-5.4 Mini
-(7.13\%; $[-.0135,-.0035]$). This analysis is retrospective; its pooled
-Hamming benefit is small and coverage is imprecise. A separate two-cohort
-pooled-Qwen audit gives a consistent 3.79\% Brier gain
-($[-.0079,-.0005]$; 30/64 wins).
-A preregistered isolation of newly generated second-refresh hypotheses gives
-only 1.39\% with an interval crossing zero, while retention versus
-generated-only support is stable. A fresh preregistered 32-tree comparison
-with 16 validation supports per tree again favors full path-dependent support
-by 4.45\%, but its interval crosses zero ($[-.0116,.0004]$), it wins only
-14/32 trees, and one retained first branch misses the frozen support minimum.
-The same run's depth-three policy beats myopic by 17.19\%
-($[-.0284,-.0136]$; 26/32 wins). Thus policy efficacy is robust, but
-path-dependent regeneration itself is not causally confirmed.
+The causal support claim is narrower. Retrospectively, answer-conditioned d3
+reduces Brier 5.85\% versus compute-matched fixed-support d3 across the four
+cohorts ($[-.0099,-.0034]$), separately for Qwen (4.49\%) and GPT-5.4 Mini
+(7.13\%). A preregistered second-refresh isolation is null (1.39\%, CI crosses
+zero), and an initial fresh dynamic--fixed comparison is inconclusive
+(4.45\%; $[-.0116,.0004]$; 14/32 wins).
+
+A separately frozen powered replication uses 96 new Qwen trees and 1,536
+Gemini validation supports. Dynamic d3 reduces canonical Brier from $.1070$
+to $.1033$ (3.44\%; $[-.0064,-.0010]$), changes 72 roots, and records
+50/24/22 wins/ties/losses; all scientific mechanism gates pass. It also beats
+myopic by 11.45\% ($[-.0164,-.0103]$; 72 wins). The composite remains null:
+three trees miss frozen $12/8$ support floors by one or two rules. Those trees
+have nearly zero mean effect, but this diagnostic cannot rescue the
+conjunction. Brier supplies fresh causal evidence; Hamming is 3.16\% adverse
+and coverage is imprecise.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -622,18 +621,14 @@ They establish robust non-myopic-over-myopic selection, not monotonic depth:
 depth three versus depth two remains null ($[-.0042,.0003]$), with
 model- and target-distribution dependence.
 
-The mechanism evidence has the same boundary. Dynamic depth three beats
-compute-matched fixed-support depth three by 5.85\% in a retrospective
-128-tree cross-planner audit ($[-.0099,-.0034]$), with separate Qwen and
-GPT-5.4 Mini intervals below zero. A second pooled-Qwen audit gives 3.79\%,
-but Hamming and coverage evidence is weaker. A retrospective
-second-refresh gain of 7.11\% shrinks to a preregistered 1.39\% with an
-interval crossing zero, while retention versus generated-only support is the
-stable component. The prospective second-refresh primary therefore remains
-null. A fresh dynamic-versus-fixed study reproduces a favorable 4.45\% mean
-but not the registered interval or win-count gates
-($[-.0116,.0004]$; 14/32 wins); one branch also misses the registered support
-minimum. The mechanism therefore remains unconfirmed rather than pending.
+The mechanism evidence is endpoint- and mechanics-qualified. Retrospective
+dynamic--fixed gains are 5.85\% cross-planner and 3.79\% pooled-Qwen, but
+Hamming and coverage are weaker; a preregistered second-refresh isolation and
+the first fresh dynamic--fixed study are null. The powered fresh study passes
+all scientific Brier gates at 3.44\% ($[-.0064,-.0010]$; 50/24/22), yet its
+conjunction remains null because three trees miss the support floor. It also
+worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
+unqualified all-metric, all-mechanics confirmation.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
@@ -650,9 +645,9 @@ roots, but its fallback equalized second-turn gains.
 OpenRouter nondeterminism remains a limitation, and depth cannot replace a
 coherent simulator or enabling gap. The positive result instead sharpens the
 condition: non-myopia helps when it accurately values the future inference
-process. Number Game establishes this against myopic selection; whether the
-LLM's path-dependent regeneration supplies incremental value beyond
-compute-matched fixed-support planning remains an open confirmation target.
+process. Number Game establishes this against myopic selection and supplies a
+fresh Brier-positive dynamic-support primary; the causal claim remains
+mechanics- and endpoint-qualified rather than universal.
 Battleship further shows that a large, novel static experiment bank is not
 enough when one-step task-utility replanning can recover the same policy.
 We do not claim that non-myopic BED cannot work outside this setting.

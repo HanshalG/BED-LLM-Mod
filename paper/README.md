@@ -8,12 +8,14 @@ calibration. A hash-bound retrospective audit gives 3.79% versus
 compute-matched fixed-support depth three on two pooled-Qwen cohorts; the
 larger four-cohort cross-planner audit gives 5.85%
 (`95% CI [-.0099,-.0034]`) with separate Qwen and GPT-5.4 Mini intervals
-below zero. The preregistered
-second-refresh mechanism test is null. A fresh dynamic-versus-fixed study
-again favors dynamic support by 4.45%, but its confidence interval crosses
-zero and it wins only 14/32 trees. The paper therefore claims a robust
-LLM-native policy result, not a settled causal regeneration or monotonic-depth
-result.
+below zero. The preregistered second-refresh mechanism test remains null, and
+an initial fresh dynamic-versus-fixed study is inconclusive. A new powered
+96-tree preregistered comparison passes every scientific gate: dynamic support
+improves Brier by 3.44% (`95% CI [-.0064,-.0010]`; `50/24/22` W/T/L).
+Its overall protocol remains a gated null because three trees miss an
+all-branches support floor by one or two rules. The paper therefore claims a
+robust LLM-native policy result and a fresh Brier-positive dynamic-support
+primary, not an unqualified all-metric or monotonic-depth result.
 
 This directory holds the evidence-supported workshop draft on non-myopic BED
 with LLM-derived probabilistic models. It combines exact planning controls,

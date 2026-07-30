@@ -2787,3 +2787,16 @@ supports22/22/23/23/22/23/23/23/23/23>=16,reasoning/forced0,cost$.022474.
 Public RESULT SHA26b9bcf9,private52b27b3f;no scientific content. Bind this
 exact artifact into fresh runner before opening seeds80000--84000. Live
 balance$29.431986469.
+2026-07-30: Fresh resilient96 V2 powered science is composite gated_null but
+passes every preregistered scientific gate. Dynamic d3 Brier.103332 vs fixed
+.107013:3.439%,CI[-.006416,-.000959],roots differ72,50/24/22 W/T/L;all4
+dynamic gates pass. D3 vs myopic.116688 gains11.445%,
+CI[-.016368,-.010329],72/6/18;all3 policy gates pass. Composite fails only
+all-branches support floor:trees80034 first11,80070 first10,80086 second7
+vs12/8;other93 pass,median minima24/19,all validators>=20. Bad3 mean effect
+-.000087;leave-largest-favorable diagnostic mean-.003174,49/24/22,not a
+rescue. Hamming worsens3.16%,coverage-.347pt CI crosses. Exact11040 accepted/
+11057 HTTP,17 provider retries,fallback0,strict11040,salvage/reasoning/
+forced0,cost$14.00459672,balance$15.404915749. Public RESULT SHA04177da4,
+TREES8535df7e,TARGETS2fd09b75,privatec0a95d6c. Paper may claim powered
+scientific Brier primary passes,but must retain mechanics-qualified null.

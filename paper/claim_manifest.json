@@ -827,6 +827,53 @@
       ]
     },
     {
+      "id": "number_game_qwen_dynamic_vs_fixed_resilient96_v2",
+      "paper_scope": "Fresh powered preregistered dynamic-support Brier primary, co-required depth-three versus myopic efficacy, and mechanics-qualified composite-null boundary.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_dynamic_vs_fixed_resilient96_v2/number-game-qwen-dynamic-vs-fixed-resilient96-v2-20260730T023000Z/RESULT.json",
+        "sha256": "04177da415498d765baa2b460f6d732a5162b118776df4d5019f7b540bfce36e"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gated_null"},
+        {"pointer": "/protocol/analysis_was_preregistered", "equals": true},
+        {"pointer": "/protocol/tree_count", "equals": 96},
+        {"pointer": "/protocol/validation_draws_per_tree", "equals": 16},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 84000},
+        {"pointer": "/protocol/provider_seed_fallback_count", "equals": 0},
+        {"pointer": "/usage/adapter_requests", "equals": 11040},
+        {"pointer": "/usage/http_attempts", "equals": 11057},
+        {"pointer": "/usage/retry_count", "equals": 17},
+        {"pointer": "/usage/run_cost_usd", "equals": 14.00459672, "tolerance": 1e-12},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0},
+        {"pointer": "/mechanics_gates/all_deployed_retained_branches_non_degenerate", "equals": false},
+        {"pointer": "/mechanics_gates/all_pooled_initial_supports_valid", "equals": true},
+        {"pointer": "/mechanics_gates/all_sixteen_validation_supports_valid", "equals": true},
+        {"pointer": "/trees/34/mechanics/minimum_first_branch_valid", "equals": 11},
+        {"pointer": "/trees/70/mechanics/minimum_first_branch_valid", "equals": 10},
+        {"pointer": "/trees/86/mechanics/minimum_retained_second_branch_valid", "equals": 7},
+        {"pointer": "/dynamic_support/root_differences", "equals": 72},
+        {"pointer": "/dynamic_support/comparison/candidate_mean_brier", "equals": 0.1033323358386818, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/baseline_mean_brier", "equals": 0.1070126756011463, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/relative_brier_reduction", "equals": 0.03439162456026915, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.006415543055331055, -0.0009591306566337491], "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/comparison/brier_tree_wins", "equals": 50},
+        {"pointer": "/dynamic_support/comparison/brier_tree_ties", "equals": 24},
+        {"pointer": "/dynamic_support/comparison/brier_tree_losses", "equals": 22},
+        {"pointer": "/dynamic_support/comparison/relative_hamming_reduction", "equals": -0.03161352128096354, "tolerance": 1e-12},
+        {"pointer": "/dynamic_support/gates/dynamic_and_fixed_roots_differ_on_at_least_forty_eight_trees", "equals": true},
+        {"pointer": "/dynamic_support/gates/dynamic_beats_fixed_by_three_percent", "equals": true},
+        {"pointer": "/dynamic_support/gates/dynamic_vs_fixed_ci_below_zero", "equals": true},
+        {"pointer": "/dynamic_support/gates/dynamic_wins_exceed_losses", "equals": true},
+        {"pointer": "/aggregate/comparisons/myopic_eig/relative_brier_reduction", "equals": 0.1144546764435468, "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/tree_cluster_brier_difference_95pct_bootstrap", "equals": [-0.016367541170541056, -0.010328637943185793], "tolerance": 1e-12},
+        {"pointer": "/aggregate/comparisons/myopic_eig/brier_tree_wins", "equals": 72},
+        {"pointer": "/myopic_policy_gates/depth_three_beats_myopic_by_eight_percent", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_vs_myopic_ci_below_zero", "equals": true},
+        {"pointer": "/myopic_policy_gates/depth_three_wins_at_least_sixty_trees", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_deepseek_v4_flash_paired_efficacy32",
       "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
       "artifact": {
