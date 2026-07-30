@@ -2800,3 +2800,9 @@ rescue. Hamming worsens3.16%,coverage-.347pt CI crosses. Exact11040 accepted/
 forced0,cost$14.00459672,balance$15.404915749. Public RESULT SHA04177da4,
 TREES8535df7e,TARGETS2fd09b75,privatec0a95d6c. Paper may claim powered
 scientific Brier primary passes,but must retain mechanics-qualified null.
+2026-07-30: Froze a zero-call, hash-bound mechanism audit of the fresh
+Qwen dynamic-support96 result before computing new derived diagnostics. It
+will compare recomputed fixed versus stored dynamic candidate-rank fidelity,
+changed-root score margins versus exact-canonical realized advantage, selected
+root oracle regret, and extension-hash support novelty. The already-known
+source status cannot be rescued or relabeled.
