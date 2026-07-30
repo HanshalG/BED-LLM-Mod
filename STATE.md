@@ -2892,3 +2892,14 @@ patched base global after execution. Seventeen focused V1/V2/V3 tests pass in
 zero-call V3 exact3072-response path through canonical scoring,bootstrap,and
 serialization. Live authenticated balance is $8.980232869;fresh seeds remain
 unopened until this exact implementation is committed and pushed.
+2026-07-30: Matched history-blind32 V3 completes cleanly as a conjunctive gated
+null with a strong answer-conditioning mechanism. Exact3072/3072,strict3072,
+retry/provider/reasoning/forced0,cost$3.25718784;all mechanics pass. At stage1
+conditional MSE is worse .03802 vs .02077 but coverage is +10.46pt. At stage2
+conditional MSE is better .03252 vs .03803,difference -.005515
+CI[-.007841,-.003112],and coverage is +16.58pt CI[15.61,17.58]. Roots differ
+27/32. Dynamic-minus-fixed prompt benefit is +.001295 but
+CI[-.006894,.009625],the sole failed science gate;its realized-advantage rho is
+.717 CI[.393,.889]. Independent zero-call replay exactly matches every tree
+and bootstrap. RESULT SHA29bb7607,controls6db0e3e2,privatebb2c9c90. Source
+status unchanged;live balance$5.749374309.

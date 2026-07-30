@@ -18,7 +18,13 @@ mechanism audit finds better root-rank fidelity (Spearman `.318` versus `.157`)
 and lower candidate-set oracle regret (`-.00368`,
 `95% CI [-.00639,-.00097]`), without higher raw novelty. A frozen
 support-quality audit is globally null, but its changed-root quality contrast
-tracks realized advantage (Spearman `.472`, `95% CI [.262,.645]`). The paper therefore claims a
+tracks realized advantage (Spearman `.472`, `95% CI [.262,.645]`). A fresh
+matched history-blind control directly identifies the path-dependent effect:
+after two answers, conditioned support lowers canonical predictive MSE by
+14.5% (`95% CI [-.00784,-.00311]`) and raises truth coverage by 16.58 points.
+Its dynamic-versus-fixed selected-root mean-benefit interval crosses zero,
+although the benefit contrast tracks realized advantage at Spearman `.717`
+(`95% CI [.393,.889]`), so the four-gate control remains null. The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
 

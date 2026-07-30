@@ -54,7 +54,9 @@ depth three versus depth two is not robust. A hash-bound pooled audit finds a
 planner families ($[-.0099,-.0034]$). A fresh powered 96-tree comparison
 passes every scientific gate: dynamic support improves Brier by 3.44\%
 ($[-.0064,-.0010]$; 50/24/22 wins/ties/losses), although the full protocol
-is a gated null because three trees miss a support-size floor. Finite Rock Diagnosis separately
+is a gated null because three trees miss a support-size floor. A fresh matched
+prompt control finds a 14.5\% second-stage MSE gain from answer conditioning,
+but its selected-root mean-contrast gate is null. Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
@@ -290,16 +292,6 @@ one static support per tree. Root-conditioned generation still reduced Brier
 from $.2045$ to $.1838$ (10.1\%; $[-.0299,-.0123]$; 22/32 wins) and Hamming
 by 17.7\% ($[-.0301,-.0101]$).
 
-A post-hoc exact-size audit removes the remaining count confound. On each of
-the 96 independent trees, 32 static supports were sampled from the global rule
-pool to match every realized branch size exactly. Root-conditioned generation
-reduced Brier 9.93\% ($[-.0240,-.0170]$; 88/96 wins), Hamming 14.61\%
-($[-.0209,-.0132]$), and raised coverage 4.01 points; every dataset's
-intervals excluded zero, including the model-role swap. A 128-sample
-sensitivity gave 9.64\%/14.39\%. This descriptive audit isolates semantic
-focusing rather than support count; the preregistered global-pool confirmation
-remains the formal mechanism claim.
-
 A zero-call post-hoc ranking audit further checks the simulator's first link.
 Across all 96 trees, current-particle terminal risk ranks independent-target
 root Brier at mean Spearman $.727$ ($[.675,.774]$) and pairwise concordance
@@ -308,14 +300,6 @@ $.806$, while myopic and fixed-depth-two scores are anti-aligned
 on 68/96; its mean oracle regret is $.0070$ versus $.0449$ myopic. Mean
 leave-one-particle-out root agreement is $.868$, indicating that the ranking
 signal is not carried by one indispensable hypothesis.
-
-Generated-only depth three exposed empty twice-conditioned supports. Retaining
-consistent parent particles changed 71.0\% of second queries and raised
-independent-target exact-support coverage from 22.4\% to 51.8\%. Yet a
-preregistered 20-tree test improved Brier only 0.44\%
-($[-.0087,.0056]$): retention repaired belief dynamics, but source-to-target
-ranking remained moderate (Spearman $.499$) and did not establish a deeper
-policy gain.
 
 Cross-fitting with eight independent prior supports raised depth-three rank
 correlation to $.771$ versus $.527$ for depth two. The first 32-tree policy
@@ -371,6 +355,14 @@ oracle regret from $.01222$ to $.00854$ ($[-.00639,-.00097]$). A frozen
 support-quality audit is globally null, but changed-root refresh-quality
 contrast predicts realized advantage (Spearman $.472$, $[.262,.645]$):
 the mechanism is selective, not uniformly better belief or more novelty.
+Fresh no-observation generations then isolate answer conditioning under matched
+filtering and retention. After one answer, conditioning raises coverage but
+worsens MSE; after two it raises coverage 16.58 points ($[15.61,17.58]$) and
+lowers MSE from $.03803$ to $.03252$ (14.5\%; $[-.00784,-.00311]$). On 27
+changed-root trees, conditioning-benefit contrast predicts realized advantage
+at Spearman $.717$ ($[.393,.889]$), but its mean interval crosses zero. Thus
+three of four preregistered gates pass: future belief quality improves, while
+preferential benefit at the selected dynamic root remains unconfirmed.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -635,8 +627,9 @@ all scientific Brier gates at 3.44\% ($[-.0064,-.0010]$; 50/24/22), yet its
 conjunction remains null because three trees miss the support floor. It also
 worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
 unqualified all-metric, all-mechanics confirmation. Retrospective audits find
-better ranking and selective quality calibration, but no global posterior gain;
-same-call pooling is degenerate, leaving history-blind generation untested.
+better ranking and selective calibration. A fresh history-blind control finds
+second-stage MSE and coverage gains from answer conditioning, but misses its
+selected-root mean-contrast gate; source and control remain qualified nulls.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
