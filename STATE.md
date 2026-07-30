@@ -2715,3 +2715,16 @@ uniform-initial/history-conditioned-multiset intervention. It cannot be
 replayed as a policy:weighted second queries match saved branches only
 28.1/30.3/32.0%,so prospective branch generation is required. Model0/$0.
 Public RESULT SHA385e1c5b.
+2026-07-30: Follow-up zero-call conditioned-frequency ablation keeps initial
+support uniform and freezes both propagated and local-refresh particle
+variants as co-required. Conjunctive result is null;decision
+`close_conditioned_particle_route`,so no narrowed prospective run. Propagated
+particles are a strong post-hoc diagnostic:canonical Brier improves
+2.87/3.13%,3.20/3.26%,3.49/3.23% across one/two stages and three cohorts,
+all96 trees win at both stages,and held-out Gemini gains1.59/2.31% with32/32
+wins. Local reset improves held-out canonical3.49/.696%,but held-out Gemini
+two-step worsens.113%,CI[-.000222,+.000633],13/32 wins,failing the frozen
+cross-bank gate. Thus frequency only helps when particle mass propagates
+sequentially;local reweighting is not sufficient. Weighted first actions match
+stored queries only34--36%,so no policy replay. Model0/$0. Public RESULT
+SHA6adc4c89. No source or manuscript status changes.

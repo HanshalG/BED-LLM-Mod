@@ -266,6 +266,7 @@ def reconstruct_tree_supports(
     )
 
     raw_first = _raw_rows(raw_tree["first_responses"])
+    generated_first = {}
     uniform_first = {}
     weighted_first = {}
     for root in roots:
@@ -275,6 +276,7 @@ def reconstruct_tree_supports(
                 raw_first[key],
                 observations=(key,),
             )
+            generated_first[key] = generated
             weighted_first[key] = retain_particle_multiset(
                 generated=generated,
                 parent=weighted_initial,
@@ -291,6 +293,7 @@ def reconstruct_tree_supports(
             )
 
     raw_second = _raw_rows(raw_tree["second_responses"])
+    generated_second = {}
     uniform_second = {}
     weighted_second = {}
     stored_second_queries = {}
@@ -311,6 +314,7 @@ def reconstruct_tree_supports(
             response,
             observations=observations,
         )
+        generated_second[key] = generated
         weighted_second[key] = retain_particle_multiset(
             generated=generated,
             parent=weighted_first[branch_key],
@@ -332,8 +336,10 @@ def reconstruct_tree_supports(
         "uniform_initial": uniform_initial,
         "weighted_initial": weighted_initial,
         "uniform_first": uniform_first,
+        "generated_first": generated_first,
         "weighted_first": weighted_first,
         "uniform_second": uniform_second,
+        "generated_second": generated_second,
         "weighted_second": weighted_second,
         "stored_second_queries": stored_second_queries,
     }
