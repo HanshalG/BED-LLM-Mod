@@ -2766,3 +2766,11 @@ never fallback on paid/valid/parser/low-support/scientific outcomes. Exact10
 Gemini validator smoke seeds79000--79009 must pass strict JSON,support>=16,
 transport/reasoning/forced/cost$.04 gates before runner hash binding. Full
 caps11040 accepted,$15.75,480 retries,96 fallback events,start$16.50.
+2026-07-30: Resilient96 V1 closes at its non-scientific validator smoke due
+to evaluator KeyError before public serialization. All10 Gemini seeds
+79000--79009 returned accepted stop responses,reasoning0,cost$.022189,but
+gate incorrectly expects pooled parser `codec_mode`;base strict parser
+diagnostic has raw_count/valid_unique_count/rejected. No scientific seed or
+endpoint opened. Bank FAILURE SHAdf347b37 and do not reconstruct/reuse smoke
+responses. Any V2 needs fresh smoke+scientific seeds and a synthetic full
+smoke proving the actual parser diagnostic contract before paid calls.

@@ -1,0 +1,34 @@
+{
+  "failure": {
+    "error": "'codec_mode'",
+    "error_type": "KeyError",
+    "failure_json_sha256": "df347b37c27f1bae9d409c5a73ecf77b30abe3a421076a4c6afd50eb8a07f134",
+    "stage": "post-response smoke gate evaluation"
+  },
+  "progress": {
+    "accepted_requests": 10,
+    "efficacy_used_for_authorization": false,
+    "scientific_seeds_opened": false,
+    "scientific_successor_authorized": false
+  },
+  "protocol": {
+    "interface_version": "number-game-validator-fallback-serving-smoke-1",
+    "model": "google/gemini-2.5-flash",
+    "run_id": "number-game-validator-fallback-serving-smoke-20260730T020000Z",
+    "seeds": [
+      79000,
+      79009
+    ]
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "accepted_response_cost_usd": 0.022189,
+    "accepted_responses": 10,
+    "finish_reason_counts": {
+      "stop": 10
+    },
+    "provider_visible_balance_after_failure_usd": 29.454175469,
+    "reasoning_tokens": 0
+  }
+}
