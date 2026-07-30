@@ -2903,3 +2903,12 @@ CI[-.006894,.009625],the sole failed science gate;its realized-advantage rho is
 .717 CI[.393,.889]. Independent zero-call replay exactly matches every tree
 and bootstrap. RESULT SHA29bb7607,controls6db0e3e2,privatebb2c9c90. Source
 status unchanged;live balance$5.749374309.
+2026-07-30: Freeze a disjoint matched history-blind first-link confirmation on
+source trees32--63,seeds80032--80063. V3 is development: its post-hoc
+conditioning-benefit-contrast to realized-advantage Spearman is .717,while its
+registered selected-root mean contrast remains null. The fresh confirmation
+replaces that mean gate with a preregistered positive Spearman-bootstrap gate
+and retains second-stage MSE/coverage gates. Cohort is the next contiguous
+block,not outcome-optimized;21 roots differ before controls. Exact3072 fresh
+Qwen nonreasoning calls,seeds9600000+,cap$4.25,start$5,bootstrap9700000. Source
+and V3 statuses cannot change. Live authenticated balance$5.723045029.

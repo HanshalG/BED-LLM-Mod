@@ -59,6 +59,7 @@ SOURCE_RESULT_SHA256 = quality.SOURCE_RESULT_SHA256
 SOURCE_TREES_SHA256 = quality.SOURCE_TREES_SHA256
 SOURCE_TARGETS_SHA256 = quality.SOURCE_TARGETS_SHA256
 TREE_COUNT = 32
+SOURCE_TREE_START = 0
 SOURCE_TREE_SEEDS = tuple(range(80_000, 80_032))
 ROOTS_PER_TREE = 8
 FIRST_SLOTS_PER_TREE = 16
@@ -218,7 +219,8 @@ def request_manifest(
         raise ValueError("formal source cohort must contain 32 trees")
     requests = []
     for tree_index, public_tree in enumerate(public_trees):
-        if int(public_tree["tree_index"]) != tree_index:
+        source_tree_index = SOURCE_TREE_START + tree_index
+        if int(public_tree["tree_index"]) != source_tree_index:
             raise ValueError("source tree indices changed")
         if int(public_tree["tree_seed"]) != SOURCE_TREE_SEEDS[tree_index]:
             raise ValueError("source tree seed schedule changed")
@@ -226,7 +228,8 @@ def request_manifest(
             for draw_index in range(DRAWS_PER_SLOT):
                 requests.append(
                     {
-                        "tree_index": tree_index,
+                        "tree_index": source_tree_index,
+                        "local_tree_index": tree_index,
                         "tree_seed": int(public_tree["tree_seed"]),
                         "history_index": history_index,
                         "draw_index": draw_index,
@@ -293,7 +296,8 @@ def parse_control_responses(
             }
             pool_rows.append(
                 {
-                    "tree_index": tree_index,
+                    "tree_index": int(public_tree["tree_index"]),
+                    "local_tree_index": tree_index,
                     "history_index": history_index,
                     "stage": slot["stage"],
                     "key": key_text,
@@ -303,7 +307,8 @@ def parse_control_responses(
             )
         controls["trees"].append(
             {
-                "tree_index": tree_index,
+                "tree_index": int(public_tree["tree_index"]),
+                "local_tree_index": tree_index,
                 "tree_seed": int(public_tree["tree_seed"]),
                 "branches": branches,
             }
@@ -820,8 +825,13 @@ def run_formal(
             targets_path=SOURCE_TARGETS,
         )
     )
-    public_trees = source_trees["trees"][:TREE_COUNT]
-    scored_source = source_result["trees"][:TREE_COUNT]
+    source_tree_stop = SOURCE_TREE_START + TREE_COUNT
+    public_trees = source_trees["trees"][
+        SOURCE_TREE_START:source_tree_stop
+    ]
+    scored_source = source_result["trees"][
+        SOURCE_TREE_START:source_tree_stop
+    ]
     manifest = request_manifest(public_trees)
     smoke = validate_smoke_result(smoke_result_path)
     available = (
@@ -944,7 +954,9 @@ def run_formal(
             "prompt_conditioning_control": (
                 "fresh initial no-observation prompt per branch slot"
             ),
-            "tree_indices": list(range(TREE_COUNT)),
+            "tree_indices": list(
+                range(SOURCE_TREE_START, source_tree_stop)
+            ),
             "tree_seeds": list(SOURCE_TREE_SEEDS),
             "tree_count": TREE_COUNT,
             "candidate_roots_per_tree": ROOTS_PER_TREE,
