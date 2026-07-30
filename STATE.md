@@ -2757,3 +2757,12 @@ trees;this is transport failure,not scientific null. Public failure summary
 records hashes. A successor requires entirely new seeds and a preregistered
 deterministic fallback-seed schedule after zero-cost provider errors,plus a
 fresh validator-path serving smoke;old attempt remains failed_closed.
+2026-07-30: Freeze transport-only resilient96 successor before any smoke or
+scientific seed. New trees73000--73095,target74000--74095,validators
+75000--76535,bootstrap78000;all policy/endpoint/scientific gates identical to
+powered96. After base original+4 identical-seed zero-cost provider errors,
+fallback deterministically to seed+10m then+20m;record/count each transition,
+never fallback on paid/valid/parser/low-support/scientific outcomes. Exact10
+Gemini validator smoke seeds79000--79009 must pass strict JSON,support>=16,
+transport/reasoning/forced/cost$.04 gates before runner hash binding. Full
+caps11040 accepted,$15.75,480 retries,96 fallback events,start$16.50.
