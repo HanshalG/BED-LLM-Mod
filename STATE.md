@@ -2941,3 +2941,9 @@ mechanics failures,and enforces exact6752 requests/$9.50 composite cap.
 Eleven new orchestration/context/gate tests and the complete source/control
 family pass:55 tests in175.26s. No model calls. Authenticated balance after
 provider reconciliation$2.458288549,so minimum top-up is now$7.791711451.
+2026-07-30: Post-push authenticated balance preflight for the fully fresh
+source+control32 runner fails exactly before either stage at
+$2.458289<$10.25. No source/control directory or adapter was constructed;
+OpenRouter usage remains exactly$212.541711451 and fresh seeds remain
+unopened. Public RUNNER_FAILURE SHA ee539319. Execution requires a top-up of
+at least$7.791711451;prefer$8 to clear the frozen gate.

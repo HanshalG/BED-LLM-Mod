@@ -1,0 +1,6 @@
+{
+  "error": "OpenRouter balance $2.458289 is below the frozen $10.25 requirement",
+  "error_type": "RuntimeError",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
