@@ -2843,3 +2843,11 @@ cap$4.25,start$5.00;fresh exact10 smoke seeds8900000--8900009 must pass first.
 Canonical predictive MSE,coverage,and changed-root prompt-benefit contrast are
 frozen; all four gates are conjunctive. Live authenticated balance before
 freeze is $15.404915749. No source result can be rescued or relabeled.
+2026-07-30: Matched history-blind smoke/formal implementation is ready before
+paid control responses. A thread-local seeded adapter binds all3072 unique
+per-request seeds under one shared budget/concurrency tracker; formal source,
+smoke,request,transport,parser,and cost gates fail closed before scoring.
+Eight focused tests pass, including a zero-call full3072-response integration
+through public controls,recursive retention,canonical scoring,bootstrap,and
+serialization. Formal smoke SHA remains intentionally unbound until fresh
+exact10 passes. Scientific calls0/cost$0 in this implementation checkpoint.
