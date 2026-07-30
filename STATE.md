@@ -2701,3 +2701,17 @@ All strict parse,initial,second-support,reasoning/forced,cost gates pass.
 Cost$.3496433702. Qwen3.7 Plus remains paper-critical/scaled default;DeepSeek
 is at most a cheap exploratory generator. Public RESULT SHAadd44efc,TREES
 SHA0b678c0d,private9ff345e6. No repair/rerun.
+2026-07-30: Zero-call proposal-frequency calibration audit reconstructs both
+independent pooled-Qwen draws on three disjoint32-tree cohorts. The frozen
+full-trajectory route is null because no-history frequency is inconsistent:
+held-out canonical Brier.141055 uniform vs.141293 weighted,-.168% reduction,
+CI[-.000453,+.000898]. Preserve decision
+`close_proposal_frequency_weighting_route`;no source status changes. A strong
+post-hoc conditioned signal replicates:after one observation weighted Brier
+improves5.30/5.92/5.88% across cohorts,and after two4.44/4.46/4.46%;all96
+trees improve at both stages,held-out CIs are strictly below0,and independent
+Gemini validation agrees. This motivates a scientifically distinct
+uniform-initial/history-conditioned-multiset intervention. It cannot be
+replayed as a policy:weighted second queries match saved branches only
+28.1/30.3/32.0%,so prospective branch generation is required. Model0/$0.
+Public RESULT SHA385e1c5b.
