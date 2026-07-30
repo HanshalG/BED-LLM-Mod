@@ -2869,3 +2869,9 @@ is principled removal of per-second-draw novelty as a gate;raw draw>=16 and
 final pool>=24 remain required,novelty becomes descriptive. Same source,
 prompt,model,endpoints,four scientific gates,exact3072,cap$4.25,start$5.00;
 new seeds9200000+. V1 is permanently banked and cannot be scored/reused.
+2026-07-30: V2 thin bound wrapper is ready before new responses. It verifies
+V1 FAILURE hash,status,sole failed gate,endpoint_accessed=false,and controls
+binding;scopes the new9200000 seed schedule;removes only the redundant novelty
+gate;and records full novelty descriptives after completion. Twelve focused
+tests pass,including the unchanged zero-call full3072-response base path and
+V2 binding/gate tests. No V2 calls/cost yet.
