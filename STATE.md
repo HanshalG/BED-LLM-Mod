@@ -2774,3 +2774,10 @@ diagnostic has raw_count/valid_unique_count/rejected. No scientific seed or
 endpoint opened. Bank FAILURE SHAdf347b37 and do not reconstruct/reuse smoke
 responses. Any V2 needs fresh smoke+scientific seeds and a synthetic full
 smoke proving the actual parser diagnostic contract before paid calls.
+2026-07-30: Freeze resilient96 V2 after V1 smoke code failure and before new
+calls. Only amendment is correct base strict-parser gate(raw_count24,
+valid_unique_count==support size,exact5 rejection fields),proved by synthetic
+full smoke+serialization before paid use. Fresh smoke85000--85009;fresh
+science trees80000--80095,target81000--81095,validators82000--83535,
+bootstrap84000. Provider fallback,models,policy,endpoint,all scientific/
+mechanics/budget gates unchanged. V1 outputs remain unused/closed.
