@@ -16,7 +16,9 @@ Its overall protocol remains a gated null because three trees miss an
 all-branches support floor by one or two rules. A hash-bound retrospective
 mechanism audit finds better root-rank fidelity (Spearman `.318` versus `.157`)
 and lower candidate-set oracle regret (`-.00368`,
-`95% CI [-.00639,-.00097]`), without higher raw novelty. The paper therefore claims a
+`95% CI [-.00639,-.00097]`), without higher raw novelty. A frozen
+support-quality audit is globally null, but its changed-root quality contrast
+tracks realized advantage (Spearman `.472`, `95% CI [.262,.645]`). The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
 

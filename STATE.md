@@ -2823,3 +2823,14 @@ canonical posterior-predictive MSE is primary; truth coverage is descriptive.
 Directional coherence requires dynamic to beat both fixed and blind-pool
 second-stage support and to concentrate refresh-quality gain at its changed
 selected roots. The source result and status cannot be rescued or relabeled.
+2026-07-30: Dynamic-support quality96 is a frozen directional null at zero
+calls/cost. First-refresh canonical predictive MSE worsens .039136 vs .018084,
+difference CI[.018980,.023133]; second refresh is .032887 vs .033131,
+difference -.000244 CI[-.001879,.001374]. Truth-extension coverage rises
+.4091->.5493->.6181, showing coverage/calibration tradeoff. Changed-root
+dynamic-vs-fixed refresh-quality contrast is +.002766 but
+CI[-.002718,.008106]; its correlation with realized advantage is strong,
+rho.472 CI[.262,.645]. The frozen same-call blind pool equals routed support
+exactly because branch-consistency filtering removes all counterfactual-answer
+hypotheses, so fresh history-blind prompt generations are required to identify
+prompt-conditioning value. Source status unchanged. Public SHA139ff20e.

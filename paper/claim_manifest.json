@@ -919,6 +919,51 @@
       ]
     },
     {
+      "id": "number_game_dynamic_support_quality96",
+      "paper_scope": "Frozen retrospective support-quality audit of the fresh powered dynamic-support study, including canonical posterior approximation, truth coverage, changed-root quality calibration, and the degenerate same-call blind-pool control.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_dynamic_support_quality96/number-game-dynamic-support-quality96-20260730T140000Z/RESULT.json",
+        "sha256": "139ff20ebc4cc056c6145192e335598eca5dd2ccb9f0a18aad54c47518bfbd7e"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_support_quality_audit"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/source_status_unchanged", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_or_relabel_source", "equals": true},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0, "tolerance": 1e-12},
+        {"pointer": "/protocol/tree_count", "equals": 96},
+        {"pointer": "/protocol/candidate_roots_per_tree", "equals": 8},
+        {"pointer": "/protocol/canonical_target_count", "equals": 33},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 87000},
+        {"pointer": "/protocol/bootstrap_samples", "equals": 20000},
+        {"pointer": "/protocol/source_result_sha256", "equals": "04177da415498d765baa2b460f6d732a5162b118776df4d5019f7b540bfce36e"},
+        {"pointer": "/protocol/source_trees_sha256", "equals": "8535df7eba5437c564cc6df56816fcee0a6991c3358fdaa6b62c6ca96948da82"},
+        {"pointer": "/protocol/source_targets_sha256", "equals": "2fd09b75bcce734e17f237ced9a49e97e13e290e2f5229b9354ad7a8a1bdafd6"},
+        {"pointer": "/analysis/directionally_coherent", "equals": false},
+        {"pointer": "/analysis/directional_coherence_conditions/second_stage_dynamic_mse_ci_below_fixed", "equals": false},
+        {"pointer": "/analysis/directional_coherence_conditions/second_stage_dynamic_mse_ci_below_history_blind", "equals": false},
+        {"pointer": "/analysis/directional_coherence_conditions/changed_root_refresh_quality_gain_contrast_ci_above_zero", "equals": false},
+        {"pointer": "/analysis/stages/first/fixed/posterior_predictive_mse", "equals": 0.01808439834215345, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/first/dynamic/posterior_predictive_mse", "equals": 0.03913611706091595, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/first_dynamic_minus_fixed_predictive_mse_95pct", "equals": [0.018980040565801434, 0.02313346674389966], "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/fixed/posterior_predictive_mse", "equals": 0.03313106239827041, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/dynamic/posterior_predictive_mse", "equals": 0.03288703726976612, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/differences/dynamic_minus_fixed_predictive_mse", "equals": -0.00024402512850429402, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/second_dynamic_minus_fixed_predictive_mse_95pct", "equals": [-0.0018787018679591884, 0.0013743219956251272], "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/first/fixed/truth_extension_coverage", "equals": 0.4090909090909091, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/first/dynamic/truth_extension_coverage", "equals": 0.5492818813131313, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/dynamic/truth_extension_coverage", "equals": 0.6180555555555556, "tolerance": 1e-12},
+        {"pointer": "/analysis/selected_root_quality/changed_root_tree_count", "equals": 72},
+        {"pointer": "/analysis/selected_root_quality/mean_dynamic_minus_fixed_root_refresh_quality_gain", "equals": 0.00276569024785608, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/changed_root_quality_gain_contrast_95pct", "equals": [-0.0027183843080375875, 0.008106247487345798], "tolerance": 1e-12},
+        {"pointer": "/analysis/selected_root_quality/quality_gain_contrast_to_realized_advantage_spearman", "equals": 0.4721847064119879, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/quality_gain_contrast_to_realized_spearman_95pct", "equals": [0.2621515092062579, 0.6445093871435943], "tolerance": 1e-12},
+        {"pointer": "/analysis/history_blind_control_diagnostic/exactly_matches_dynamic_support", "equals": true},
+        {"pointer": "/analysis/bootstrap/second_dynamic_minus_blind_predictive_mse_95pct", "equals": [0.0, 0.0], "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_deepseek_v4_flash_paired_efficacy32",
       "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
       "artifact": {

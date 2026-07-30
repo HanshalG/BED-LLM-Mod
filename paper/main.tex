@@ -365,14 +365,12 @@ three trees miss frozen $12/8$ support floors by one or two rules. Those trees
 have nearly zero mean effect, but this diagnostic cannot rescue the
 conjunction. Brier supplies fresh causal evidence; Hamming is 3.16\% adverse
 and coverage is imprecise.
-A hash-bound retrospective audit localizes the first link. Dynamic support
-ranks all eight candidate roots better than recomputed fixed support
-(Spearman $.318$ versus $.157$, paired difference
-$[.079,.245]$; concordance $.618$ versus $.561$). On the 72 changed-root
-trees, realized Brier advantage is $.00491$ ($[.00130,.00845]$), and
-candidate-set oracle regret falls from $.01222$ to $.00854$
-($[-.00639,-.00097]$). Dynamic roots contain slightly fewer novel rules, so
-raw generation count does not explain the gain.
+Hash-bound audits localize the first link. Dynamic support improves root
+ranking (Spearman $.318$ versus $.157$; $[.079,.245]$) and lowers candidate-set
+oracle regret from $.01222$ to $.00854$ ($[-.00639,-.00097]$). A frozen
+support-quality audit is globally null, but changed-root refresh-quality
+contrast predicts realized advantage (Spearman $.472$, $[.262,.645]$):
+the mechanism is selective, not uniformly better belief or more novelty.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -636,9 +634,9 @@ the first fresh dynamic--fixed study are null. The powered fresh study passes
 all scientific Brier gates at 3.44\% ($[-.0064,-.0010]$; 50/24/22), yet its
 conjunction remains null because three trees miss the support floor. It also
 worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
-unqualified all-metric, all-mechanics confirmation. Its retrospective
-mechanism audit resolves improved root ranking and regret, but not calibration
-of the simulated advantage magnitude.
+unqualified all-metric, all-mechanics confirmation. Retrospective audits find
+better ranking and selective quality calibration, but no global posterior gain;
+same-call pooling is degenerate, leaving history-blind generation untested.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%
