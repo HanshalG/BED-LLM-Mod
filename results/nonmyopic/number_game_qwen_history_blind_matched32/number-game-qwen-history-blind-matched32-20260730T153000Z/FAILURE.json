@@ -1,0 +1,39 @@
+{
+  "mechanics_gates": {
+    "accepted_request_count_exact": true,
+    "all_3072_draws_are_strict_json": true,
+    "every_draw_has_at_least_sixteen_valid": true,
+    "every_pool_has_at_least_twenty_four_valid": true,
+    "every_second_draw_adds_at_least_two_extensions": false,
+    "exactly_1536_control_branch_slots": true,
+    "exactly_thirty_two_source_trees": true,
+    "provider_error_retries_within_cap": true,
+    "retries_within_cap": true,
+    "transport_attempt_accounting_exact": true,
+    "within_run_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "controls_sha256": "3696476ea4aabd17f92ba06fb5142411369c11cc9aabb91f0c2feeac25437f89",
+    "endpoint_accessed": false,
+    "interface_version": "number-game-qwen-history-blind-matched32-1",
+    "smoke_result_sha256": "0e4ba2e5bedd000d5b22c46e16a91404ec8913ba620ab54db286309fef9b8ef4",
+    "source_result_sha256": "04177da415498d765baa2b460f6d732a5162b118776df4d5019f7b540bfce36e",
+    "source_targets_sha256": "2fd09b75bcce734e17f237ced9a49e97e13e290e2f5229b9354ad7a8a1bdafd6",
+    "source_trees_sha256": "8535df7eba5437c564cc6df56816fcee0a6991c3358fdaa6b62c6ca96948da82"
+  },
+  "schema_version": 1,
+  "status": "mechanics_failed",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 3072,
+    "completion_tokens": 2349325,
+    "forced_exits": 0,
+    "http_attempts": 3072,
+    "prompt_tokens": 635904,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 3.210625280000001
+  }
+}

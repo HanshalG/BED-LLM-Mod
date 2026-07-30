@@ -2858,3 +2858,14 @@ SHA0e4ba2e5,private raw SHA33790beb. Formal runner now binds the public hash;
 no smoke content is reused and formal seeds remain unopened at this checkpoint.
 Authenticated credits endpoint still reports $15.404915749 immediately after
 the run,so use the exact local accepted-cost ledger if provider posting lags.
+2026-07-30: Matched history-blind32 V1 failed closed before endpoint scoring.
+Accepted/HTTP3072/3072,retry/provider0,strict3072,reasoning/forced0,cost
+$3.21062528;all draws18--24 valid and pools24--41. Frozen second-draw novelty
+>=2 gate fails only2/1536 pools,each at1;all other mechanics pass. No endpoint,
+partial scoring,or response reuse. FAILURE SHAf394c889,controls3696476e,
+privatee60fca66. Live balance now$12.184006309.
+2026-07-30: Froze fresh-seed V2 before any successor response. The sole change
+is principled removal of per-second-draw novelty as a gate;raw draw>=16 and
+final pool>=24 remain required,novelty becomes descriptive. Same source,
+prompt,model,endpoints,four scientific gates,exact3072,cap$4.25,start$5.00;
+new seeds9200000+. V1 is permanently banked and cannot be scored/reused.
