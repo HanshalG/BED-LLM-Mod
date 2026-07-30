@@ -2884,3 +2884,11 @@ SHA4b3abc38,controls f2c8c345,private3057d850. Live balance$9.001245349.
 immutable original base mechanics function before patching and tests dispatch
 inside context;new seeds9400000+. Same V2 mechanics/science,exact3072,
 cap$4.25,start$5.00,smoke/source bindings. Both prior runs stay banked.
+2026-07-30: V3 wrapper is ready before any new response. It hash-validates
+both consumed failures,binds V2 controls/private hashes and endpoint=false,
+captures the immutable V1 mechanics function at import,and restores every
+patched base global after execution. Seventeen focused V1/V2/V3 tests pass in
+73.72s,including in-context low-novelty dispatch without recursion and a full
+zero-call V3 exact3072-response path through canonical scoring,bootstrap,and
+serialization. Live authenticated balance is $8.980232869;fresh seeds remain
+unopened until this exact implementation is committed and pushed.
