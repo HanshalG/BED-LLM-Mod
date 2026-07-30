@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "interface_version": "number-game-qwen-fully-fresh-source-control32-synthetic-dry-1",
+  "status": "synthetic_pipeline_passed",
+  "scientific_evidence": false,
+  "protocol": {
+    "runner_commit": "5c6737b7",
+    "model_calls": 0,
+    "network_calls": 0,
+    "cost_usd": 0.0,
+    "source_tree_count": 32,
+    "source_bootstrap_samples": 100,
+    "control_bootstrap_samples": 100,
+    "synthetic_source_hypotheses_per_response": 24,
+    "temporary_full_artifacts_deleted_after_validation": true
+  },
+  "source": {
+    "status": "gated_null",
+    "adapter_requests": 3680,
+    "all_mechanics_gates_passed": true,
+    "changed_root_trees": 32,
+    "myopic_policy_gates_passed": false,
+    "dynamic_support_gates_passed": false
+  },
+  "control": {
+    "status": "gated_null",
+    "adapter_requests": 3072,
+    "all_mechanics_gates_passed": true,
+    "scientific_gates_passed": false,
+    "replay_exact": true,
+    "replay_tree_count": 32
+  },
+  "composite": {
+    "status": "gated_null",
+    "decision": "complete_composite_endpoint",
+    "total_requests": 6752,
+    "total_cost_usd": 0.0,
+    "accepted_request_count_exact": true,
+    "within_composite_budget": true,
+    "stage_b_ran_despite_source_science_null": true
+  },
+  "artifact_contract_exercised": [
+    "RESULT.json",
+    "source/RESULT.json",
+    "source/TARGETS.json",
+    "source/TREES.json",
+    "source/private/RAW_RESPONSES.json",
+    "control/RESULT.json",
+    "control/CONTROLS.json",
+    "control/private/RAW_RESPONSES.json"
+  ]
+}

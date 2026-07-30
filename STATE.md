@@ -2947,3 +2947,12 @@ $2.458289<$10.25. No source/control directory or adapter was constructed;
 OpenRouter usage remains exactly$212.541711451 and fresh seeds remain
 unopened. Public RUNNER_FAILURE SHA ee539319. Execution requires a top-up of
 at least$7.791711451;prefer$8 to clear the frozen gate.
+2026-07-30: Exhaustive zero-network fully fresh source+control32 integration
+passes the real adaptive pipeline. Synthetic source exact3680,all mechanics,
+32 changed roots,but science intentionally null;Stage B still executes exact
+3072,all mechanics,then composite correctly remains gated_null. Total6752,
+cost/model/network0;all source/control/private artifact contracts produced in
+a temporary directory;independent control replay matches all32 trees and100
+bootstraps. This verifies endpoint-independent continuation and hash handoff,
+not scientific efficacy. Public synthetic summary SHA42b423d5;formal seeds
+unopened.
