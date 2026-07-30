@@ -50,9 +50,9 @@ cohorts and two planning models, depth three improves Brier over myopic by
 12.48\% ($[-.0192,-.0113]$; 95/128 wins), and simulated root advantage
 predicts realized advantage at Spearman $.423$ ($[.255,.569]$). However,
 depth three versus depth two is not robust. A hash-bound pooled audit finds a
-3.79\% gain over compute-matched fixed-support depth three
-($[-.0079,-.0005]$), while a preregistered single-refresh isolation is null;
-fresh confirmation is also null despite a favorable 4.45\% mean
+5.85\% gain over compute-matched fixed-support depth three across both
+planner families ($[-.0099,-.0034]$), while a preregistered single-refresh
+isolation is null; fresh confirmation is also null despite a favorable 4.45\% mean
 ($[-.0116,.0004]$; 14/32 wins). Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
@@ -189,7 +189,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; fresh dynamic--fixed mean 4.45\%, CI crosses 0 & Policy robust; mechanism unconfirmed \\
+Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; retrospective dynamic--fixed 5.85\%; fresh CI crosses 0 & Policy robust; mechanism unconfirmed \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
@@ -348,11 +348,15 @@ advantage predicts realized advantage at Spearman $.423$
 ($[.01179,.01990]$). The first link of the non-myopic simulator is therefore
 calibrated against myopic selection across planner families.
 
-The causal support claim is narrower. Across two independent pooled-Qwen
-cohorts, full answer-conditioned depth three reduces Brier 3.79\% versus
+The causal support claim is narrower. Across the same four canonical-target
+cohorts, full answer-conditioned depth three reduces Brier 5.85\% versus
 compute-matched depth three on the fixed initial support
-($[-.0079,-.0005]$; 30/64 wins), with both cohort means favorable. This
-analysis is retrospective and its Hamming and coverage intervals cross zero.
+($[-.0099,-.0034]$; 64/128 wins). The effect is separately favorable for
+Qwen (4.49\%; $[-.0092,-.0008]$) and GPT-5.4 Mini
+(7.13\%; $[-.0135,-.0035]$). This analysis is retrospective; its pooled
+Hamming benefit is small and coverage is imprecise. A separate two-cohort
+pooled-Qwen audit gives a consistent 3.79\% Brier gain
+($[-.0079,-.0005]$; 30/64 wins).
 A preregistered isolation of newly generated second-refresh hypotheses gives
 only 1.39\% with an interval crossing zero, while retention versus
 generated-only support is stable. A fresh preregistered 32-tree comparison
@@ -619,8 +623,10 @@ depth three versus depth two remains null ($[-.0042,.0003]$), with
 model- and target-distribution dependence.
 
 The mechanism evidence has the same boundary. Dynamic depth three beats
-compute-matched fixed-support depth three by 3.79\% only in a retrospective
-pooled audit; Hamming and coverage intervals cross zero. A retrospective
+compute-matched fixed-support depth three by 5.85\% in a retrospective
+128-tree cross-planner audit ($[-.0099,-.0034]$), with separate Qwen and
+GPT-5.4 Mini intervals below zero. A second pooled-Qwen audit gives 3.79\%,
+but Hamming and coverage evidence is weaker. A retrospective
 second-refresh gain of 7.11\% shrinks to a preregistered 1.39\% with an
 interval crossing zero, while retention versus generated-only support is the
 stable component. The prospective second-refresh primary therefore remains

@@ -2728,3 +2728,12 @@ cross-bank gate. Thus frequency only helps when particle mass propagates
 sequentially;local reweighting is not sufficient. Weighted first actions match
 stored queries only34--36%,so no policy replay. Model0/$0. Public RESULT
 SHA6adc4c89. No source or manuscript status changes.
+2026-07-30: Paper evidence audit finds the existing hash-bound cross-planner
+canonical128 artifact already gives stronger retrospective dynamic-support
+evidence than the manuscript used. Dynamic d3 Brier.106479 vs fixed-support
+d3.113096:5.85%,CI[-.009936,-.003364],64/19/45 W/T/L. The effect is separately
+positive for Qwen4.49%,CI[-.009233,-.000768],and GPT-5.4 Mini7.13%,
+CI[-.013537,-.003480]. Update abstract/results/table/README and exact manifest
+checks from the existing RESULT SHA42c189bb;model0/$0. Keep evidence status
+retrospective and the fresh preregistered4.45% CI-crossing result binding,so
+mechanism remains unconfirmed rather than promoted.

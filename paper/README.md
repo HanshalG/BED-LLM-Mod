@@ -5,7 +5,10 @@ belief trees beats myopic selection across four disjoint canonical-target
 cohorts and two planning models by 12.48% Brier
 (`95% CI [-.0192,-.0113]`; `95/128` wins), with positive first-link
 calibration. A hash-bound retrospective audit gives 3.79% versus
-compute-matched fixed-support depth three, but the preregistered
+compute-matched fixed-support depth three on two pooled-Qwen cohorts; the
+larger four-cohort cross-planner audit gives 5.85%
+(`95% CI [-.0099,-.0034]`) with separate Qwen and GPT-5.4 Mini intervals
+below zero. The preregistered
 second-refresh mechanism test is null. A fresh dynamic-versus-fixed study
 again favors dynamic support by 4.45%, but its confidence interval crosses
 zero and it wins only 14/32 trees. The paper therefore claims a robust
