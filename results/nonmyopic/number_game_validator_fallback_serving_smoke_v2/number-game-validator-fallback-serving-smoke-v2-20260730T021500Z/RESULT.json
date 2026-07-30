@@ -1,0 +1,174 @@
+{
+  "diagnostics": [
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    }
+  ],
+  "fallback_events": [],
+  "gates": {
+    "all_supports_have_at_least_sixteen_extensions": true,
+    "all_ten_base_strict_parser_contracts_valid": true,
+    "exact_ten_accepted_requests": true,
+    "fallback_events_within_cap": true,
+    "provider_error_retries_accounted": true,
+    "transport_attempt_accounting_exact": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "efficacy_used_for_authorization": false,
+    "expected_requests": 10,
+    "fallback_offsets": [
+      10000000,
+      20000000
+    ],
+    "interface_version": "number-game-validator-fallback-serving-smoke-2",
+    "model": "google/gemini-2.5-flash",
+    "provider_error_fallback_only": true,
+    "run_budget_usd": 0.04,
+    "seeds": [
+      85000,
+      85001,
+      85002,
+      85003,
+      85004,
+      85005,
+      85006,
+      85007,
+      85008,
+      85009
+    ]
+  },
+  "raw_responses_sha256": "52b27b3f9c498819becd98c496783c1dd73d832129bcff964e29a2c8c65bb91a",
+  "schema_version": 1,
+  "status": "passed",
+  "support_sizes": [
+    22,
+    22,
+    23,
+    23,
+    22,
+    23,
+    23,
+    23,
+    23,
+    23
+  ],
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.022474
+  }
+}

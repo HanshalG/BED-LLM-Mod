@@ -2781,3 +2781,9 @@ full smoke+serialization before paid use. Fresh smoke85000--85009;fresh
 science trees80000--80095,target81000--81095,validators82000--83535,
 bootstrap84000. Provider fallback,models,policy,endpoint,all scientific/
 mechanics/budget gates unchanged. V1 outputs remain unused/closed.
+2026-07-30: Resilient96 V2 exact10 Gemini validator smoke passes all gates.
+Accepted/HTTP10/10,retry/provider/fallback0,all base strict-parser contracts,
+supports22/22/23/23/22/23/23/23/23/23>=16,reasoning/forced0,cost$.022474.
+Public RESULT SHA26b9bcf9,private52b27b3f;no scientific content. Bind this
+exact artifact into fresh runner before opening seeds80000--84000. Live
+balance$29.431986469.
