@@ -83,8 +83,9 @@ SMOKE_RESULT = (
     / "number-game-qwen-history-blind-serving-smoke-20260730T150000Z"
     / "RESULT.json"
 )
-# Bound after the fresh serving smoke passes.
-SMOKE_RESULT_SHA256 = ""
+SMOKE_RESULT_SHA256 = (
+    "0e4ba2e5bedd000d5b22c46e16a91404ec8913ba620ab54db286309fef9b8ef4"
+)
 
 
 def require_starting_balance(remaining_usd: float) -> None:

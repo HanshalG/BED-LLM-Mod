@@ -2851,3 +2851,10 @@ Eight focused tests pass, including a zero-call full3072-response integration
 through public controls,recursive retention,canonical scoring,bootstrap,and
 serialization. Formal smoke SHA remains intentionally unbound until fresh
 exact10 passes. Scientific calls0/cost$0 in this implementation checkpoint.
+2026-07-30: Fresh Qwen history-blind exact10 smoke passes all frozen gates.
+Accepted/HTTP10/10,retry/provider0,strict JSON10/10,reasoning/forced0;draw
+valid21--23,pools29--32,second-draw novelty6--10,cost$.01028416. Public
+SHA0e4ba2e5,private raw SHA33790beb. Formal runner now binds the public hash;
+no smoke content is reused and formal seeds remain unopened at this checkpoint.
+Authenticated credits endpoint still reports $15.404915749 immediately after
+the run,so use the exact local accepted-cost ledger if provider posting lags.

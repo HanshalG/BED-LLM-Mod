@@ -1,0 +1,232 @@
+{
+  "draw_diagnostics": [
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 1,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 2,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 22
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 3,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 21
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    },
+    {
+      "codec_mode": "strict_json",
+      "complete_item_count": 24,
+      "expected_item_count": 24,
+      "raw_count": 24,
+      "rejected": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 0,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "valid_unique_count": 23
+    }
+  ],
+  "draw_valid_counts": [
+    23,
+    23,
+    22,
+    22,
+    22,
+    23,
+    23,
+    21,
+    23,
+    23
+  ],
+  "gates": {
+    "all_pass": true,
+    "all_ten_draws_are_strict_json": true,
+    "every_draw_has_at_least_sixteen_valid": true,
+    "every_pool_has_at_least_twenty_four_valid": true,
+    "every_second_draw_adds_at_least_two_extensions": true,
+    "exact_ten_accepted_requests": true,
+    "exact_ten_http_attempts": true,
+    "within_smoke_budget": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "pool_valid_counts": [
+    29,
+    31,
+    32,
+    31,
+    29
+  ],
+  "protocol": {
+    "efficacy_used_for_authorization": false,
+    "expected_requests": 10,
+    "interface_version": "number-game-qwen-history-blind-serving-smoke-1",
+    "model": "qwen/qwen3.7-plus",
+    "model_seeds": [
+      8900000,
+      8900001,
+      8900002,
+      8900003,
+      8900004,
+      8900005,
+      8900006,
+      8900007,
+      8900008,
+      8900009
+    ],
+    "pool_size": 2,
+    "prompt": "initial Number Game prompt with no observations",
+    "reasoning": false,
+    "run_budget_usd": 0.12,
+    "semantic_repair": false,
+    "temperature": 0.7
+  },
+  "raw_responses_sha256": "33790beba5a2fba5861dcee7bda4483def2c3fb45179a18feba3eb1445f57011",
+  "schema_version": 1,
+  "second_draw_novel_contributions": [
+    6,
+    9,
+    10,
+    8,
+    6
+  ],
+  "status": "passed",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 7517,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 2070,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.010284159999999999
+  }
+}
