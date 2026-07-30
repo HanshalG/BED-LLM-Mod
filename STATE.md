@@ -2815,3 +2815,11 @@ difference CI[-.006388,-.000973], oracle selections27 vs18. Dynamic roots have
 slightly fewer novel rules and novelty-effect rho only about.10, localizing the
 gain to path-conditioned support quality rather than volume. Margin-to-effect
 rho.207 remains imprecise. Source mechanics-qualified null is unchanged.
+2026-07-30: Froze a zero-call dynamic-support quality96 audit before computing
+new derived values. It hash-binds the fresh96 RESULT/TREES/TARGETS and compares
+each routed dynamic branch with filtered initial support and a same-call
+history-blind pool of every generated hypothesis under the root. Exact
+canonical posterior-predictive MSE is primary; truth coverage is descriptive.
+Directional coherence requires dynamic to beat both fixed and blind-pool
+second-stage support and to concentrate refresh-quality gain at its changed
+selected roots. The source result and status cannot be rescued or relabeled.
