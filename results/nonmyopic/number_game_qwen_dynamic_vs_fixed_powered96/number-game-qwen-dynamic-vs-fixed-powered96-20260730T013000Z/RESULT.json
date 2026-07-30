@@ -1,0 +1,39 @@
+{
+  "failure": {
+    "error": "provider-error response persisted after retries",
+    "error_type": "RuntimeError",
+    "failure_json_sha256": "ff9547df0dff4f852f6d58480cd13990d255a9f317be43efce862df5c62157b3",
+    "stage": "tree 13 cross-fit validation support generation"
+  },
+  "progress": {
+    "accepted_requests_before_failure": 1609,
+    "complete_trees_checkpointed": 13,
+    "gemini_2_5_flash_accepted_requests": 237,
+    "partial_tree_accepted_requests": 114,
+    "partial_trees_reused": false,
+    "qwen_3_7_plus_accepted_requests": 1372,
+    "scientific_endpoints_evaluated": false
+  },
+  "protocol": {
+    "expected_requests": 11040,
+    "interface_version": "number-game-qwen-dynamic-vs-fixed-powered96-1",
+    "preregistration": "results/nonmyopic/NUMBER_GAME_QWEN_DYNAMIC_VS_FIXED_POWERED96_PREREGISTRATION.md",
+    "run_id": "number-game-qwen-dynamic-vs-fixed-powered96-20260730T013000Z",
+    "smoke_result_sha256": "aa89d0443427d165e4d37d90dd85915eebad9b3637f3304eac30382309a31470",
+    "tree_seeds_opened": [
+      67000,
+      67013
+    ]
+  },
+  "raw_responses_sha256": "ee156a6b5c3c8309fc723375e4b42ef6a1eac3ea00f4b238ad2db9045d66fdd0",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "accepted_response_cost_usd": 2.03032588,
+    "finish_reason_counts": {
+      "stop": 1609
+    },
+    "provider_visible_balance_after_failure_usd": 29.462566969,
+    "reasoning_tokens": 0
+  }
+}

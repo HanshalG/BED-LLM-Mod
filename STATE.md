@@ -2747,3 +2747,13 @@ roots differ>=48,mean Brier gain>=3%,CI<0,and wins>losses;ties are exact
 no-treatment root matches. Co-required d3-myopic>=8%,CI<0,>=60 wins. This is
 a new independent replication,not a rescue/reclassification of the32 null.
 Live balance before engineering$31.484501;no scientific seed opened yet.
+2026-07-30: Powered96 attempt fails closed before scoring after13 complete
+trees plus114/115 accepted responses on partial tree14. One of16 concurrent
+Gemini validation calls returns provider-error on original+all4 identical-
+seed retries;runner writes FAILURE and no aggregate endpoint. Exact1609
+accepted(1372 Qwen/237 Gemini),all stop,reasoning0,accepted ledger
+$2.03032588,balance$29.462566969. Do not score/reuse partial or13 complete
+trees;this is transport failure,not scientific null. Public failure summary
+records hashes. A successor requires entirely new seeds and a preregistered
+deterministic fallback-seed schedule after zero-cost provider errors,plus a
+fresh validator-path serving smoke;old attempt remains failed_closed.
