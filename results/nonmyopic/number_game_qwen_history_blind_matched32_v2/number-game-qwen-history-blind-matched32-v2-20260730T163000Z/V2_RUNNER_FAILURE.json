@@ -1,0 +1,6 @@
+{
+  "error": "maximum recursion depth exceeded",
+  "error_type": "RecursionError",
+  "schema_version": 1,
+  "status": "failed_closed"
+}

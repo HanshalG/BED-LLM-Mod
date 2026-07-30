@@ -2875,3 +2875,12 @@ binding;scopes the new9200000 seed schedule;removes only the redundant novelty
 gate;and records full novelty descriptives after completion. Twelve focused
 tests pass,including the unchanged zero-call full3072-response base path and
 V2 binding/gate tests. No V2 calls/cost yet.
+2026-07-30: V2 evaluator failed closed after3072 fresh accepted stop responses
+but before mechanics/science:wrapper-patched base.mechanics_gates then called
+the patched name recursively. Transport audit strict3072,draws18--24,pools
+24--38,reasoning0,cost$3.20377344;no endpoint and no reuse. Runner failure
+SHA4b3abc38,controls f2c8c345,private3057d850. Live balance$9.001245349.
+2026-07-30: Froze V3 before code repair/new responses. V3 only captures the
+immutable original base mechanics function before patching and tests dispatch
+inside context;new seeds9400000+. Same V2 mechanics/science,exact3072,
+cap$4.25,start$5.00,smoke/source bindings. Both prior runs stay banked.
