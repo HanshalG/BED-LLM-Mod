@@ -24,7 +24,13 @@ after two answers, conditioned support lowers canonical predictive MSE by
 14.5% (`95% CI [-.00784,-.00311]`) and raises truth coverage by 16.58 points.
 Its dynamic-versus-fixed selected-root mean-benefit interval crosses zero,
 although the benefit contrast tracks realized advantage at Spearman `.717`
-(`95% CI [.393,.889]`), so the four-gate control remains null. The paper therefore claims a
+(`95% CI [.393,.889]`), so the development control remains null. A disjoint
+preregistered 32-tree confirmation then passes all four gates: conditioned
+second-stage MSE improves 9.51% (`95% CI [-.00580,-.00138]`), coverage rises
+17.25 points, and root-specific conditioning benefit predicts realized
+dynamic-selection advantage at Spearman `.530`
+(`95% CI [.058,.827]`). Its selected-root mean contrast still crosses zero.
+The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
 

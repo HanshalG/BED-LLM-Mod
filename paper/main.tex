@@ -55,8 +55,10 @@ planner families ($[-.0099,-.0034]$). A fresh powered 96-tree comparison
 passes every scientific gate: dynamic support improves Brier by 3.44\%
 ($[-.0064,-.0010]$; 50/24/22 wins/ties/losses), although the full protocol
 is a gated null because three trees miss a support-size floor. A fresh matched
-prompt control finds a 14.5\% second-stage MSE gain from answer conditioning,
-but its selected-root mean-contrast gate is null. Finite Rock Diagnosis separately
+prompt confirmation passes all four gates: answer-conditioned support improves
+second-stage MSE by 9.51\%, and root-specific benefit predicts realized
+advantage at Spearman $.530$ ($[.058,.827]$); its selected-root mean remains
+null. Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
@@ -363,6 +365,12 @@ changed-root trees, conditioning-benefit contrast predicts realized advantage
 at Spearman $.717$ ($[.393,.889]$), but its mean interval crosses zero. Thus
 three of four preregistered gates pass: future belief quality improves, while
 preferential benefit at the selected dynamic root remains unconfirmed.
+A disjoint preregistered confirmation on the next 32 trees passes all four new
+gates. After two answers, conditioning lowers MSE from $.03818$ to $.03455$
+(9.51\%; $[-.00580,-.00138]$) and raises coverage 17.25 points. Across 21
+changed-root trees, benefit contrast predicts realized advantage at Spearman
+$.530$ ($[.058,.827]$). Its mean contrast still crosses zero: the confirmation
+is selective first-link calibration, not uniform selected-root uplift.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -629,7 +637,9 @@ worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
 unqualified all-metric, all-mechanics confirmation. Retrospective audits find
 better ranking and selective calibration. A fresh history-blind control finds
 second-stage MSE and coverage gains from answer conditioning, but misses its
-selected-root mean-contrast gate; source and control remain qualified nulls.
+selected-root mean-contrast gate. A disjoint preregistered cohort confirms that
+root-specific conditioning benefit predicts realized advantage, while the mean
+contrast remains null; source-study status is unchanged.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%

@@ -2912,3 +2912,16 @@ and retains second-stage MSE/coverage gates. Cohort is the next contiguous
 block,not outcome-optimized;21 roots differ before controls. Exact3072 fresh
 Qwen nonreasoning calls,seeds9600000+,cap$4.25,start$5,bootstrap9700000. Source
 and V3 statuses cannot change. Live authenticated balance$5.723045029.
+2026-07-30: First-link confirmation32 PASSES all frozen mechanics/science
+gates on disjoint source trees32--63. A zero-call launcher preflight first
+failed before adapter construction because `.env` was sourced but not
+exported;formal seeds/cost0,FAILURE f97d9d4e. Corrected single paid execution
+is exact3072 requests/HTTP,strict3072,retry/provider/reasoning/forced0,cost
+$3.26475648. At stage2 conditional MSE .03455 vs blind .03818,difference
+-.003632 CI[-.005796,-.001377],9.51% gain;coverage +17.25pt
+CI[16.47,18.03]. Roots differ21/32. The preregistered first-link Spearman is
+.530 CI[.058,.827],confirming that root-specific conditioning benefit predicts
+realized dynamic-selection advantage. Mean contrast +.002462 still crosses
+[-.010642,.014706] and remains descriptive/null. Independent zero-call replay
+matches all trees and20k bootstrap. RESULT c47a6aba,controls c598d34d,private
+b8ac8f39;source/V3 statuses unchanged;live balance$2.469132069.

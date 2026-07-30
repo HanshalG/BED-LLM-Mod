@@ -1,0 +1,6 @@
+{
+  "error": "OPENROUTER_API_KEY is required",
+  "error_type": "RuntimeError",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
