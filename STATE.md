@@ -2737,3 +2737,13 @@ CI[-.013537,-.003480]. Update abstract/results/table/README and exact manifest
 checks from the existing RESULT SHA42c189bb;model0/$0. Keep evidence status
 retrospective and the fresh preregistered4.45% CI-crossing result binding,so
 mechanism remains unconfirmed rather than promoted.
+2026-07-30: Freeze a fresh powered96 Qwen dynamic-vs-fixed replication before
+opening seeds67000--70535. The prior32-tree prospective effect is4.45% but
+CI crosses and one extreme supplies62.97%;empirical resampling estimates only
+60% power at64 versus85% at96. Exact interface/model/two-draw generator/
+retention/16 Gemini validators/canonical33 endpoint unchanged;11040 accepted
+requests,bootstrap seed72000,cap$15.75,start gate$16.50. Primary requires
+roots differ>=48,mean Brier gain>=3%,CI<0,and wins>losses;ties are exact
+no-treatment root matches. Co-required d3-myopic>=8%,CI<0,>=60 wins. This is
+a new independent replication,not a rescue/reclassification of the32 null.
+Live balance before engineering$31.484501;no scientific seed opened yet.
