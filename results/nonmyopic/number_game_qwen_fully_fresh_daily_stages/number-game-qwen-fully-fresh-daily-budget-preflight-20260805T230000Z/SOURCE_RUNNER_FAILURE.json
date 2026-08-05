@@ -1,0 +1,7 @@
+{
+  "error": "projected $5.000000 exceeds today's remaining OpenRouter allowance $4.504258",
+  "error_type": "RuntimeError",
+  "schema_version": 1,
+  "stage": "source",
+  "status": "failed_closed"
+}

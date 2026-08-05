@@ -2974,3 +2974,7 @@ finalizer under stricter$9.25 total cap. Same-day,partial-budget,artifact-tamper
 and auth-tamper paths all refuse before calls;science-null source still invokes
 later control. Orchestration20/20 and full family44/44 pass(114.93s). Formal
 seeds remain unopened until a fresh$5 day.
+2026-08-05: Post-push daily source CLI preflight refuses exactly before calls:
+projected$5 exceeds remaining$4.504258. OpenRouter total usage is unchanged
+$213.037453143 before/after;only public SOURCE_RUNNER_FAILURE written, SHA
+01ad475c. This proves formal seeds cannot open until a new London-day ledger.

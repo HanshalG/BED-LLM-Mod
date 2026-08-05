@@ -46,3 +46,9 @@ confirmation, composite orchestration, and replay machinery.
 2026-08-05 has only `$4.504258308` remaining, below the exact source-stage
 reservation. The source command must be executed on the next day with a fresh
 `$5.00` ledger. No paid run is authorized before that calendar reset.
+
+An authenticated post-push CLI preflight confirmed this guard: it refused the
+`$5.00` reservation with `$4.504258` remaining, wrote only
+`SOURCE_RUNNER_FAILURE.json`, and left cumulative OpenRouter usage exactly
+unchanged at `$213.037453143`. The public failure SHA256 is
+`01ad475c31b70b4865400a45aabd7e0cfb612ba22463cd60283023463743253e`.

@@ -21,5 +21,12 @@
     "expected_cost_usd": 0.56,
     "actual_accepted_request_cost_usd": 0.4889055,
     "status": "failed_closed"
+  },
+  "formal_source_preflight": {
+    "description": "Fully fresh Qwen source-stage reservation",
+    "projected_cost_usd": 5.0,
+    "remaining_allowance_usd": 4.504258308,
+    "status": "refused_before_calls",
+    "actual_cost_usd": 0.0
   }
 }
