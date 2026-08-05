@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-05: Zero-call second-environment triage leaves the fully fresh Number
+Game replication as the next formal priority. Animals, Detective, InfoQuest,
+and MovieLens have scientific first-link or policy nulls under their tested
+apparatuses. Zendo remains the strongest mechanism-positive successor (one
+blinded task gained `.096605` truth agreement after choosing a deliberately
+low-immediate-EIG root), but its seven-rule confirmation died before endpoints
+and all ten public rules have now received calls. Do not reopen those rules with
+another parser repair; later search for a fresh executable-rule task family.
+The next London budget day is reserved exclusively for the frozen Qwen source
+stage; its matched history-blind control remains bound to a later day.
+
 2026-07-29: CUPID is the next LLM-native route. A zero-call, hash-bound source
 audit passes all gates on the full 756-row human-curated release: exactly 252
 consistent/contrastive/changing cases, eight valid histories per row, unique
