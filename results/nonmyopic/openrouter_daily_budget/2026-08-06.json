@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-06",
+  "timezone": "Europe/London",
+  "daily_cap_usd": 5.0,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 213.037453143,
+  "opening_balance_usd": 31.962546857,
+  "unspent_allowance_does_not_roll_over": true,
+  "account_wide_usage_counts_against_cap": true,
+  "recorded_actual_spend_usd": 0.0,
+  "first_authorized_block": {
+    "description": "Fully fresh Qwen Number Game source stage: 32 trees and 3680 accepted requests",
+    "maximum_cost_usd": 5.0,
+    "expected_cost_usd": 4.67,
+    "status": "authorized_pending"
+  },
+  "additional_paid_blocks_authorized": false
+}
