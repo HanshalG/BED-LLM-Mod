@@ -505,6 +505,29 @@ def _source_root_differences(result: dict[str, Any]) -> int:
     return int(result["dynamic_support"]["root_differences"])
 
 
+def source_control_authorization(
+    source_result: dict[str, Any],
+) -> dict[str, Any]:
+    mechanics_passed = all(source_result["mechanics_gates"].values())
+    root_differences = _source_root_differences(source_result)
+    opportunity_passed = root_differences >= MIN_CHANGED_ROOT_TREES
+    authorized = mechanics_passed and opportunity_passed
+    if not mechanics_passed:
+        decision = "stop_before_control_source_mechanics"
+    elif not opportunity_passed:
+        decision = "stop_before_control_changed_root_floor"
+    else:
+        decision = "run_control_regardless_of_source_science"
+    return {
+        "source_mechanics_passed": mechanics_passed,
+        "root_differences": root_differences,
+        "minimum_root_differences": MIN_CHANGED_ROOT_TREES,
+        "opportunity_passed": opportunity_passed,
+        "control_authorized": authorized,
+        "decision": decision,
+    }
+
+
 def _base_composite(
     *,
     run_id: str,
@@ -552,78 +575,14 @@ def _base_composite(
     }
 
 
-def run_combined(
+def finalize_composite_with_control(
     *,
     output_dir: Path,
-    run_id: str,
-    remaining_credit: float | None = None,
-    control_adapter=None,
-    control_remaining_credit: float | None = None,
-    bootstrap_samples: int = BOOTSTRAP_SAMPLES,
+    composite: dict[str, Any],
+    source_result: dict[str, Any],
+    control_result: dict[str, Any],
+    control_dir: Path,
 ) -> dict[str, Any]:
-    validate_predecessors()
-    available = (
-        openrouter_remaining_credit()
-        if remaining_credit is None
-        else remaining_credit
-    )
-    require_starting_balance(available)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    source_dir = output_dir / "source"
-    control_dir = output_dir / "control"
-    source_result = run_fresh_source(
-        output_dir=source_dir,
-        run_id=f"{run_id}-source",
-    )
-    source_hashes = _source_artifact_hashes(source_dir)
-    composite = _base_composite(
-        run_id=run_id,
-        starting_balance_usd=available,
-        source_result=source_result,
-        source_hashes=source_hashes,
-    )
-    if not all(source_result["mechanics_gates"].values()):
-        composite["status"] = "mechanics_failed"
-        composite["decision"] = "stop_before_control_source_mechanics"
-        checkpoint(output_dir / "RESULT.json", composite)
-        return composite
-
-    root_differences = _source_root_differences(source_result)
-    if root_differences < MIN_CHANGED_ROOT_TREES:
-        composite["status"] = "opportunity_failed"
-        composite["decision"] = "stop_before_control_changed_root_floor"
-        checkpoint(output_dir / "RESULT.json", composite)
-        return composite
-
-    try:
-        control_result = run_fresh_control(
-            source_dir=source_dir,
-            output_dir=control_dir,
-            run_id=f"{run_id}-control",
-            adapter=control_adapter,
-            remaining_credit=control_remaining_credit,
-            bootstrap_samples=bootstrap_samples,
-        )
-    except RuntimeError as exc:
-        failure_path = control_dir / "FAILURE.json"
-        if (
-            str(exc) != "formal history-blind mechanics gates failed"
-            or not failure_path.exists()
-        ):
-            raise
-        failure = json.loads(failure_path.read_text(encoding="utf-8"))
-        composite["protocol"]["control_failure_sha256"] = sha256_file(
-            failure_path
-        )
-        composite["control"] = {
-            "status": "mechanics_failed",
-            "usage": failure["usage"],
-            "mechanics_gates": failure["mechanics_gates"],
-        }
-        composite["status"] = "mechanics_failed"
-        composite["decision"] = "stop_at_control_mechanics"
-        checkpoint(output_dir / "RESULT.json", composite)
-        return composite
     control_hashes = _control_artifact_hashes(control_dir)
     composite["protocol"]["control_artifacts"] = control_hashes
     composite["control"] = {
@@ -631,9 +590,7 @@ def run_combined(
         "usage": control_result["usage"],
         "mechanics_gates": control_result["mechanics_gates"],
         "analysis": control_result["analysis"],
-        "second_draw_novelty": control_result[
-            "second_draw_novelty"
-        ],
+        "second_draw_novelty": control_result["second_draw_novelty"],
     }
     source_science_passed = (
         all(source_result["myopic_policy_gates"].values())
@@ -690,11 +647,92 @@ def run_combined(
     if not control_mechanics_passed:
         composite["status"] = "mechanics_failed"
         composite["decision"] = "stop_at_control_mechanics"
-        checkpoint(output_dir / "RESULT.json", composite)
-        return composite
-    composite["decision"] = "complete_composite_endpoint"
+    else:
+        composite["decision"] = "complete_composite_endpoint"
     checkpoint(output_dir / "RESULT.json", composite)
     return composite
+
+
+def run_combined(
+    *,
+    output_dir: Path,
+    run_id: str,
+    remaining_credit: float | None = None,
+    control_adapter=None,
+    control_remaining_credit: float | None = None,
+    bootstrap_samples: int = BOOTSTRAP_SAMPLES,
+) -> dict[str, Any]:
+    validate_predecessors()
+    available = (
+        openrouter_remaining_credit()
+        if remaining_credit is None
+        else remaining_credit
+    )
+    require_starting_balance(available)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    source_dir = output_dir / "source"
+    control_dir = output_dir / "control"
+    source_result = run_fresh_source(
+        output_dir=source_dir,
+        run_id=f"{run_id}-source",
+    )
+    source_hashes = _source_artifact_hashes(source_dir)
+    composite = _base_composite(
+        run_id=run_id,
+        starting_balance_usd=available,
+        source_result=source_result,
+        source_hashes=source_hashes,
+    )
+    authorization = source_control_authorization(source_result)
+    composite["protocol"]["control_authorization"] = authorization
+    if not authorization["source_mechanics_passed"]:
+        composite["status"] = "mechanics_failed"
+        composite["decision"] = authorization["decision"]
+        checkpoint(output_dir / "RESULT.json", composite)
+        return composite
+
+    if not authorization["opportunity_passed"]:
+        composite["status"] = "opportunity_failed"
+        composite["decision"] = authorization["decision"]
+        checkpoint(output_dir / "RESULT.json", composite)
+        return composite
+
+    try:
+        control_result = run_fresh_control(
+            source_dir=source_dir,
+            output_dir=control_dir,
+            run_id=f"{run_id}-control",
+            adapter=control_adapter,
+            remaining_credit=control_remaining_credit,
+            bootstrap_samples=bootstrap_samples,
+        )
+    except RuntimeError as exc:
+        failure_path = control_dir / "FAILURE.json"
+        if (
+            str(exc) != "formal history-blind mechanics gates failed"
+            or not failure_path.exists()
+        ):
+            raise
+        failure = json.loads(failure_path.read_text(encoding="utf-8"))
+        composite["protocol"]["control_failure_sha256"] = sha256_file(
+            failure_path
+        )
+        composite["control"] = {
+            "status": "mechanics_failed",
+            "usage": failure["usage"],
+            "mechanics_gates": failure["mechanics_gates"],
+        }
+        composite["status"] = "mechanics_failed"
+        composite["decision"] = "stop_at_control_mechanics"
+        checkpoint(output_dir / "RESULT.json", composite)
+        return composite
+    return finalize_composite_with_control(
+        output_dir=output_dir,
+        composite=composite,
+        source_result=source_result,
+        control_result=control_result,
+        control_dir=control_dir,
+    )
 
 
 def replay_fresh_control(

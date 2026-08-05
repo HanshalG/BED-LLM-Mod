@@ -2965,3 +2965,12 @@ amendment for the unopened fully fresh Qwen source+control32:source cap tightens
 $5.25->$5.00,control stays$4.25,on later calendar day,and a hash-bound manifest
 may authorize control from source mechanics+>=20 changed roots only,never
 source efficacy. Today's remaining$4.504258 forbids opening formal seeds.
+2026-08-05: Daily-staged fully fresh runner implemented with zero calls.
+Source requires an untouched$5 day,uses stricter$5 cap,and writes a hash-bound
+authorization containing mechanics+changed-root inputs only. Control requires
+a later London date,new$4.25 allowance,exact source/auth hashes,and recomputed
+authorization;it runs regardless source science and uses original composite
+finalizer under stricter$9.25 total cap. Same-day,partial-budget,artifact-tamper,
+and auth-tamper paths all refuse before calls;science-null source still invokes
+later control. Orchestration20/20 and full family44/44 pass(114.93s). Formal
+seeds remain unopened until a fresh$5 day.
