@@ -2956,3 +2956,12 @@ a temporary directory;independent control replay matches all32 trees and100
 bootstraps. This verifies endpoint-independent continuation and hash handoff,
 not scientific efficacy. Public synthetic summary SHA42b423d5;formal seeds
 unopened.
+2026-08-05: New budget-model screen spends$.495742 under a machine-enforced
+$5/day ledger. Luna exact10 passes at$.003578 but paired efficacy32 fails
+closed after1200 accepted/$.488906 on malformed strict JSON;endpoint unopened.
+DeepSeek V4 Flash0731 exact10 fails on one0/24 conditioned draw at$.003259.
+Qwen3.7 Plus remains the paper-critical planner. Freeze a daily-stages
+amendment for the unopened fully fresh Qwen source+control32:source cap tightens
+$5.25->$5.00,control stays$4.25,on later calendar day,and a hash-bound manifest
+may authorize control from source mechanics+>=20 changed roots only,never
+source efficacy. Today's remaining$4.504258 forbids opening formal seeds.
