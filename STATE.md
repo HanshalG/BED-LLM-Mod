@@ -4,6 +4,20 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Rechecked the new budget-model frontier and imposed a six-day
+`$5/day` London allocation. Live credits still show `$245` purchased and
+`$217.297890263` used (`$27.702109737` balance), so the reported new `$30`
+top-up is not counted until it posts. Luna and DeepSeek V4 Flash 0731 are the
+generic price-performance leaders: current OpenRouter prices are
+`$.10/$.60` and `$.09/$.18` per million input/output tokens, while AA max
+scores are 51 and 50. Direct task evidence reverses a blind price choice:
+Luna passed exact-10, then recorded 15/1,200 forced-length responses and a
+fatal strict-JSON failure at scale; 0731 had a zero-valid conditioned support
+in exact-10.
+Qwen remains paper-critical through the mandatory Aug-7 control. Then Luna
+gets the first reliability repair gate and 0731 remains the cheap challenger.
+Today is closed at `$4.26043712`; no calls use the remaining `$.73956288`.
+
 2026-08-06: A preregistered retrospective zero-call audit explains the fresh
 source's dynamic-vs-fixed miss. After two answers, dynamic support is globally
 better than fixed on exact-canonical posterior MSE (`.033123` vs `.036382`,
