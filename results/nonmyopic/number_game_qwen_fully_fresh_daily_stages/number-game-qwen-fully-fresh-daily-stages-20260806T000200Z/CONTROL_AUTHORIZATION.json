@@ -1,0 +1,20 @@
+{
+  "authorization_inputs": "source mechanics gates and changed-root count only",
+  "interface_version": "number-game-qwen-fully-fresh-daily-stages-1",
+  "schema_version": 1,
+  "source_artifacts": {
+    "result": "13fd3361a8ef8f525f68733182a9bdb30151e37a4a5e14dfb35dde78540ab523",
+    "targets": "b799a5d6609f5e8088e2f0115ec1eaa3c4520cebcd187283daf679714cdc5e2b",
+    "trees": "f812e4a356f5129a6f2f22d5f0f995b76b4ac624a0f312154064ff8c51f2c7b0"
+  },
+  "source_calendar_date": "2026-08-06",
+  "source_science_was_not_an_authorization_input": true,
+  "structural_authorization": {
+    "control_authorized": true,
+    "decision": "run_control_regardless_of_source_science",
+    "minimum_root_differences": 20,
+    "opportunity_passed": true,
+    "root_differences": 29,
+    "source_mechanics_passed": true
+  }
+}

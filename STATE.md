@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: The fully fresh Qwen source stage completed exactly 3,680/3,680
+requests for `$4.26043712`, with zero retries, reasoning, or forced exits and
+all mechanics gates true. Depth three strongly beat myopic EIG: Brier
+`.100505` vs `.119288`, 15.75% reduction, CI `[-.026221,-.011693]`,
+26/1/5 W/T/L. The full source is nevertheless a gated null: dynamic support
+beat compute-matched fixed d3 by only 2.85% (floor 3%) and its CI
+`[-.007940,+.001551]` crosses zero, despite 29/32 changed roots. The hash-bound
+history-blind control is structurally authorized and remains mandatory on a
+later London day regardless of this source science; no more paid work today.
+
 2026-08-05: Zero-call second-environment triage leaves the fully fresh Number
 Game replication as the next formal priority. Animals, Detective, InfoQuest,
 and MovieLens have scientific first-link or policy nulls under their tested

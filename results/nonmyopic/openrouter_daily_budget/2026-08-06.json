@@ -8,12 +8,13 @@
   "opening_balance_usd": 31.962546857,
   "unspent_allowance_does_not_roll_over": true,
   "account_wide_usage_counts_against_cap": true,
-  "recorded_actual_spend_usd": 0.0,
+  "recorded_actual_spend_usd": 4.26043712,
   "first_authorized_block": {
     "description": "Fully fresh Qwen Number Game source stage: 32 trees and 3680 accepted requests",
     "maximum_cost_usd": 5.0,
     "expected_cost_usd": 4.67,
-    "status": "authorized_pending"
+    "actual_cost_usd": 4.26043712,
+    "status": "complete_control_authorized"
   },
   "additional_paid_blocks_authorized": false
 }

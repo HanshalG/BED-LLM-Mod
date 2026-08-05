@@ -1,0 +1,45 @@
+{
+  "control_authorization_sha256": "f75b038601191162e482c84ac8e7f559794ba3765cd4a9fb5239c8088ed09a2f",
+  "decision": "run_control_regardless_of_source_science",
+  "interface_version": "number-game-qwen-fully-fresh-daily-stages-1",
+  "run_id": "number-game-qwen-fully-fresh-daily-stages-20260806T000200Z",
+  "schema_version": 1,
+  "source_artifacts": {
+    "result": "13fd3361a8ef8f525f68733182a9bdb30151e37a4a5e14dfb35dde78540ab523",
+    "targets": "b799a5d6609f5e8088e2f0115ec1eaa3c4520cebcd187283daf679714cdc5e2b",
+    "trees": "f812e4a356f5129a6f2f22d5f0f995b76b4ac624a0f312154064ff8c51f2c7b0"
+  },
+  "source_calendar_date": "2026-08-06",
+  "source_daily_budget_at_start": {
+    "authorized": true,
+    "current_total_usage_usd": 213.037453143,
+    "daily_cap_usd": 5.0,
+    "date": "2026-08-06",
+    "opening_total_usage_usd": 213.037453143,
+    "posted_spend_today_usd": 0.0,
+    "projected_cost_usd": 5.0,
+    "recorded_spend_today_usd": 0.0,
+    "remaining_today_usd": 5.0,
+    "spent_today_usd": 0.0,
+    "timezone": "Europe/London"
+  },
+  "source_starting_balance_usd": 31.962546857000007,
+  "source_usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 3680,
+    "forced_exits": 0,
+    "http_attempts": 3680,
+    "provider_error_retries": 0.0,
+    "retry_count": 0,
+    "run_cost_usd": 4.26043712
+  },
+  "status": "control_authorized",
+  "structural_authorization": {
+    "control_authorized": true,
+    "decision": "run_control_regardless_of_source_science",
+    "minimum_root_differences": 20,
+    "opportunity_passed": true,
+    "root_differences": 29,
+    "source_mechanics_passed": true
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "domain_adaptation": "Natural predicate extension to n=0; no target is omitted or reweighted.",
+  "evaluation_domain": [
+    0,
+    100
+  ],
+  "interface_version": "number-game-qwen-fully-fresh-source-control32-source-1",
+  "paper_domain": [
+    1,
+    100
+  ],
+  "schema_version": 1,
+  "source_doi": "10.1017/S0140525X01000061",
+  "targets": [
+    {
+      "expression": "divisible(n, 2)",
+      "extension_sha256": "45037f588bbfbe7f185f86cbd68e323b1d60146502218a46054c188084b1bff0",
+      "name": "even_numbers",
+      "positive_count": 51
+    },
+    {
+      "expression": "n % 2 == 1",
+      "extension_sha256": "9282e66ffea5587f8e928ac40b51902b7ee29e0b53892b80ede1119c89d28c89",
+      "name": "odd_numbers",
+      "positive_count": 50
+    },
+    {
+      "expression": "is_prime(n)",
+      "extension_sha256": "17d3bf5e29341bb9870b9e22271a66f2a496116bb5a785e004b08c5d94b540c1",
+      "name": "prime_numbers",
+      "positive_count": 25
+    },
+    {
+      "expression": "is_square(n)",
+      "extension_sha256": "acbdb7bf17e0115379e17c857ec9b62581add7f30ec818a09efe289b5050e7c3",
+      "name": "perfect_squares",
+      "positive_count": 11
+    },
+    {
+      "expression": "n == 0 or n == 1 or n == 8 or n == 27 or n == 64",
+      "extension_sha256": "3edd906ad820e85304fe650a19f353d3d08df11eb2e4acaa239f2bed8542c99a",
+      "name": "perfect_cubes",
+      "positive_count": 5
+    },
+    {
+      "expression": "divisible(n, 3)",
+      "extension_sha256": "8085f5f778e7ec4028fd21590858a196740b3c5c442d09ee87dde503f778eadc",
+      "name": "multiples_of_3",
+      "positive_count": 34
+    },
+    {
+      "expression": "divisible(n, 4)",
+      "extension_sha256": "9d03af2b08d9b710ce471f3c6d8c728f79a842b3e71ca33ff8439f2205db626b",
+      "name": "multiples_of_4",
+      "positive_count": 26
+    },
+    {
+      "expression": "divisible(n, 5)",
+      "extension_sha256": "067ec50febbf9ad1b10564096e5a2e4f4976e1c0986f90d8d917fd4e886f3352",
+      "name": "multiples_of_5",
+      "positive_count": 21
+    },
+    {
+      "expression": "divisible(n, 6)",
+      "extension_sha256": "e60bf7aafc82546f1e3c8d2380a3d45e64634865923f69b9c332407ac45aab0f",
+      "name": "multiples_of_6",
+      "positive_count": 17
+    },
+    {
+      "expression": "divisible(n, 7)",
+      "extension_sha256": "1859f51628757197fd2e44cbb478c08ab1994b60e9736fe9e50f92755beded77",
+      "name": "multiples_of_7",
+      "positive_count": 15
+    },
+    {
+      "expression": "divisible(n, 8)",
+      "extension_sha256": "38d6467766126a1c49ce1d4c5cc38936cc24e0f5fb6157094576d9294213c835",
+      "name": "multiples_of_8",
+      "positive_count": 13
+    },
+    {
+      "expression": "divisible(n, 9)",
+      "extension_sha256": "bec42245747678d51b121149a8b2529ab6930d3545d7960375bae61309df0633",
+      "name": "multiples_of_9",
+      "positive_count": 12
+    },
+    {
+      "expression": "divisible(n, 10)",
+      "extension_sha256": "4e79c525038c5311b20e943b31365b39a45f0ba83a818703e732fbeed31f35ea",
+      "name": "multiples_of_10",
+      "positive_count": 11
+    },
+    {
+      "expression": "is_power_of_two(n)",
+      "extension_sha256": "0ca2907d77dfdd0c9b4fbcf7a95b7425f4d3733116b77cce1e6bf1c714755080",
+      "name": "powers_of_2",
+      "positive_count": 7
+    },
+    {
+      "expression": "n == 1 or n == 3 or n == 9 or n == 27 or n == 81",
+      "extension_sha256": "1c7d644393c00db600f04ef2e2add549ff2d278391dd304f56c31bf01f78a887",
+      "name": "powers_of_3",
+      "positive_count": 5
+    },
+    {
+      "expression": "n == 1 or n == 4 or n == 16 or n == 64",
+      "extension_sha256": "91ca52c4f25a51e6257a5722008e42a6ef24f54ff97cdabe31f60d8b238f45bd",
+      "name": "powers_of_4",
+      "positive_count": 4
+    },
+    {
+      "expression": "n == 1 or n == 5 or n == 25",
+      "extension_sha256": "5dad85263afbdb3974eb87c30c8f7c45fac3961bf6263b55e08388f09e4e6c34",
+      "name": "powers_of_5",
+      "positive_count": 3
+    },
+    {
+      "expression": "n == 1 or n == 6 or n == 36",
+      "extension_sha256": "dc57df5bf23083523a1f32398a68dfd43ba6fb50c6aa87935bbd88f8c0b2e61b",
+      "name": "powers_of_6",
+      "positive_count": 3
+    },
+    {
+      "expression": "n == 1 or n == 7 or n == 49",
+      "extension_sha256": "b80bbb3fc7ca73e06d56e20279f860d3026b3a0f18cdf17147c9a703693ee60b",
+      "name": "powers_of_7",
+      "positive_count": 3
+    },
+    {
+      "expression": "n == 1 or n == 8 or n == 64",
+      "extension_sha256": "eb3692356a41c9dd020779650620d3bc699710aa855f299c813112a052fc46de",
+      "name": "powers_of_8",
+      "positive_count": 3
+    },
+    {
+      "expression": "n == 1 or n == 9 or n == 81",
+      "extension_sha256": "6b94092eb408cdc58f7c6a118219e81bbe698a4fb15746ec64e5a58480e7e995",
+      "name": "powers_of_9",
+      "positive_count": 3
+    },
+    {
+      "expression": "n == 1 or n == 10 or n == 100",
+      "extension_sha256": "891ca47b8424dff24b0ffb0205f96fbcf4ab77493afdc2578601251838350fd4",
+      "name": "powers_of_10",
+      "positive_count": 3
+    },
+    {
+      "expression": "ends_with(n, 1)",
+      "extension_sha256": "ad21415a30ec06abd581bfe9e2ac7472b7ca049143084a7248baf79b57f57727",
+      "name": "numbers_ending_in_1",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 2)",
+      "extension_sha256": "4343069b343dadcaa894ab521ac7f39a41ede655d6b73a9875b754d7678a7079",
+      "name": "numbers_ending_in_2",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 3)",
+      "extension_sha256": "fdf804e81b632a3b709e069e6aed7336be735b69c1b4e11943e95eabc08178a2",
+      "name": "numbers_ending_in_3",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 4)",
+      "extension_sha256": "67181a8c1f4da7ba865387a1b5d84e9950a2e2b46a7c5d06661d42b42ee4102f",
+      "name": "numbers_ending_in_4",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 5)",
+      "extension_sha256": "ccbbc7a495402b701177463c71306683d493b780ee4e322dfac462f99bb18581",
+      "name": "numbers_ending_in_5",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 6)",
+      "extension_sha256": "c70323fe5b6220fed79e4dd2f6c942f30f772a36d0cb548a3a0335020cff23ff",
+      "name": "numbers_ending_in_6",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 7)",
+      "extension_sha256": "f75e055fb4383133d7edc82cd54befd6bec20f37db2a2e020b8061af28fe1de2",
+      "name": "numbers_ending_in_7",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 8)",
+      "extension_sha256": "8c6c6dcfda3cc2005914f9c07a7ce21986bab9f91982ccaff5f0336c3b3642b5",
+      "name": "numbers_ending_in_8",
+      "positive_count": 10
+    },
+    {
+      "expression": "ends_with(n, 9)",
+      "extension_sha256": "fd8a5b9581a8c6a03f2f827508dbd5233b4cd2d9b79354c6f82b8e632b036dda",
+      "name": "numbers_ending_in_9",
+      "positive_count": 10
+    },
+    {
+      "expression": "n >= 11 and n <= 99 and n // 10 == n % 10",
+      "extension_sha256": "127b3fbc9874a02cf895b00ff75f08efa1e4b373329ac19877ccad29c8cad17b",
+      "name": "both_digits_equal",
+      "positive_count": 9
+    },
+    {
+      "expression": "n < 100",
+      "extension_sha256": "e55929abbae37950456560657419c1e8ced12f0bddcdd0313bb6702eeb5c6e9c",
+      "name": "numbers_less_than_100",
+      "positive_count": 100
+    }
+  ]
+}
