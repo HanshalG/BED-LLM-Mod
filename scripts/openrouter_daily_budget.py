@@ -51,13 +51,17 @@ def budget_status(
         )
     opening_usage = float(ledger["opening_total_usage_usd"])
     cap = float(ledger["daily_cap_usd"])
-    spent = max(0.0, total_usage_usd - opening_usage)
+    posted_spend = max(0.0, total_usage_usd - opening_usage)
+    recorded_spend = float(ledger.get("recorded_actual_spend_usd", 0.0))
+    spent = max(posted_spend, recorded_spend)
     return {
         "date": ledger_date,
         "timezone": timezone.key,
         "daily_cap_usd": cap,
         "opening_total_usage_usd": opening_usage,
         "current_total_usage_usd": total_usage_usd,
+        "posted_spend_today_usd": posted_spend,
+        "recorded_spend_today_usd": recorded_spend,
         "spent_today_usd": spent,
         "remaining_today_usd": max(0.0, cap - spent),
     }

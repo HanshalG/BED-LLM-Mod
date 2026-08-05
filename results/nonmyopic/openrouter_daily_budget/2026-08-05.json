@@ -8,6 +8,7 @@
   "opening_balance_usd": 32.458288549,
   "unspent_allowance_does_not_roll_over": true,
   "account_wide_usage_counts_against_cap": true,
+  "recorded_actual_spend_usd": 0.495741692,
   "first_authorized_block": {
     "description": "Number Game exact-10 planner gates for GPT-5.6 Luna and DeepSeek V4 Flash 0731",
     "maximum_cost_usd": 0.2,
@@ -17,6 +18,8 @@
   "second_authorized_block": {
     "description": "GPT-5.6 Luna paired Number Game efficacy32",
     "maximum_cost_usd": 0.85,
-    "expected_cost_usd": 0.56
+    "expected_cost_usd": 0.56,
+    "actual_accepted_request_cost_usd": 0.4889055,
+    "status": "failed_closed"
   }
 }
