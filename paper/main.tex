@@ -345,32 +345,28 @@ zero), and an initial fresh dynamic--fixed comparison is inconclusive
 A separately frozen powered replication uses 96 new Qwen trees and 1,536
 Gemini validation supports. Dynamic d3 reduces canonical Brier from $.1070$
 to $.1033$ (3.44\%; $[-.0064,-.0010]$), changes 72 roots, and records
-50/24/22 wins/ties/losses; all scientific mechanism gates pass. It also beats
-myopic by 11.45\% ($[-.0164,-.0103]$; 72 wins). The composite remains null:
-three trees miss frozen $12/8$ support floors by one or two rules. Those trees
-have nearly zero mean effect, but this diagnostic cannot rescue the
-conjunction. Brier supplies fresh causal evidence; Hamming is 3.16\% adverse
-and coverage is imprecise.
-Hash-bound audits localize the first link. Dynamic support improves root
-ranking (Spearman $.318$ versus $.157$; $[.079,.245]$) and lowers candidate-set
-oracle regret from $.01222$ to $.00854$ ($[-.00639,-.00097]$). A frozen
-support-quality audit is globally null, but changed-root refresh-quality
-contrast predicts realized advantage (Spearman $.472$, $[.262,.645]$):
-the mechanism is selective, not uniformly better belief or more novelty.
-Fresh no-observation generations then isolate answer conditioning under matched
-filtering and retention. After one answer, conditioning raises coverage but
-worsens MSE; after two it raises coverage 16.58 points ($[15.61,17.58]$) and
-lowers MSE from $.03803$ to $.03252$ (14.5\%; $[-.00784,-.00311]$). On 27
-changed-root trees, conditioning-benefit contrast predicts realized advantage
-at Spearman $.717$ ($[.393,.889]$), but its mean interval crosses zero. Thus
-three of four preregistered gates pass: future belief quality improves, while
-preferential benefit at the selected dynamic root remains unconfirmed.
-A disjoint preregistered confirmation on the next 32 trees passes all four new
-gates. After two answers, conditioning lowers MSE from $.03818$ to $.03455$
-(9.51\%; $[-.00580,-.00138]$) and raises coverage 17.25 points. Across 21
-changed-root trees, benefit contrast predicts realized advantage at Spearman
-$.530$ ($[.058,.827]$). Its mean contrast still crosses zero: the confirmation
-is selective first-link calibration, not uniform selected-root uplift.
+50/24/22 wins/ties/losses and beats myopic by 11.45\%. Its protocol remains
+null because three trees miss support floors; Hamming is adverse and coverage
+imprecise. Hash-bound audits find better root ranking and a selective
+refresh-quality signal (Spearman $.472$, $[.262,.645]$), not uniformly better
+beliefs.
+
+Fresh matched no-observation generations isolate answer conditioning. After
+two answers, conditioning lowers MSE 14.5\% and raises coverage 16.58 points;
+benefit contrast predicts realized advantage at Spearman $.717$
+($[.393,.889]$), although its mean interval crosses zero. A disjoint 32-tree
+confirmation lowers MSE 9.51\%, raises coverage 17.25 points, and confirms the
+correlation at $.530$ ($[.058,.827]$), while again missing uniform selected-root
+uplift.
+
+A fully fresh 32-tree source then preserves depth three over myopic by 15.75\%
+($[-.0262,-.0117]$; 26/1/5), but dynamic versus fixed depth three is only
+2.85\% ($[-.00794,.00155]$). A frozen retrospective audit finds better
+second-stage canonical support MSE ($.03312$ versus $.03638$), 20.54-point
+coverage gain, and positive selected-root quality contrast. That contrast does
+not predict realized advantage (Spearman $-.162$, $[-.521,.229]$). Thus belief
+improvement and endpoint calibration do not jointly reproduce; its mandatory
+fresh history-blind control remains pending.
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and

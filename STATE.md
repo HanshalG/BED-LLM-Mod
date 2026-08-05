@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: A preregistered retrospective zero-call audit explains the fresh
+source's dynamic-vs-fixed miss. After two answers, dynamic support is globally
+better than fixed on exact-canonical posterior MSE (`.033123` vs `.036382`,
+CI for difference `[-.006432,-.000141]`) and raises truth coverage 20.54 points.
+On 29 changed-root trees, the dynamic-selected root has `.006613` more refresh
+quality gain than the fixed root, CI `[.001195,.011495]`. But this contrast does
+not predict realized advantage: Spearman `-.162`, CI `[-.521,+.229]`. The prior
+96-tree cohort had the reverse pattern (global quality null, calibration
+`rho=.472`). Belief improvement and endpoint calibration do not co-occur
+robustly; source remains a gated null and the later fresh control is unchanged.
+
 2026-08-06: The fully fresh Qwen source stage completed exactly 3,680/3,680
 requests for `$4.26043712`, with zero retries, reasoning, or forced exits and
 all mechanics gates true. Depth three strongly beat myopic EIG: Brier
