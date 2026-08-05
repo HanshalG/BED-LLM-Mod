@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-05",
+  "timezone": "Europe/London",
+  "daily_cap_usd": 5.0,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 212.541711451,
+  "opening_balance_usd": 32.458288549,
+  "unspent_allowance_does_not_roll_over": true,
+  "account_wide_usage_counts_against_cap": true,
+  "first_authorized_block": {
+    "description": "Number Game exact-10 planner gates for GPT-5.6 Luna and DeepSeek V4 Flash 0731",
+    "maximum_cost_usd": 0.2
+  }
+}
