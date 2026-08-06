@@ -36,7 +36,9 @@ on the fresh cohort.
 
 ## Fresh Cohort
 
-- 32 entirely new tree seeds, target seeds, and validation seeds;
+- 32 entirely new tree seeds `110000..110031`;
+- target seeds `110100..110131`, validation seeds beginning at `110200`,
+  and bootstrap seed `110800`;
 - `qwen/qwen3.7-plus`, nonreasoning, for two support draws per planning
   history;
 - the same strict item-isolated parser, retained-parent support, eight root
@@ -48,6 +50,13 @@ on the fresh cohort.
 Seeds, hashes, and the concrete runner must be frozen before the first provider
 request. No response, tree, target, or endpoint from the 96-tree development
 cohort or August 6 fresh cohort may be reused.
+
+The concrete runner is
+`scripts/number_game_two_draw_diversity_bonus_confirmation32.py`. It requires
+a current Europe/London ledger with the full `$5.00` allowance remaining,
+checks the live account-wide usage and balance before constructing the source
+run, expects exactly `3,680` accepted requests, reconciles measured and posted
+spend, and authorizes no second paid block that day.
 
 ## Primary Comparison
 
