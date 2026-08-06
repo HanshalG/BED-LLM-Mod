@@ -9,6 +9,7 @@ import pytest
 
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_daily_execute as execute
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_staged as staged
+from scripts import number_game_two_draw_diversity_bonus_confirmation64_verify as verify
 
 
 LONDON = ZoneInfo("Europe/London")
@@ -36,6 +37,126 @@ def _live(usage: float = 100.0) -> dict[str, float]:
         "total_usage_usd": usage,
         "balance_usd": 130.0 - usage,
     }
+
+
+def _catalog(*, include_target: bool = True) -> dict:
+    model_ids = [execute.PLANNING_MODEL_ID]
+    if include_target:
+        model_ids.append(execute.TARGET_MODEL_ID)
+    return {
+        "data": [
+            {
+                "id": model_id,
+                "context_length": 1_000_000,
+                "architecture": {"input_modalities": ["text"]},
+                "supported_parameters": ["response_format"],
+                "top_provider": {"max_completion_tokens": 65_536},
+                "pricing": {
+                    "prompt": "0.0000003",
+                    "completion": "0.0000012",
+                },
+            }
+            for model_id in model_ids
+        ]
+    }
+
+
+def _preflight(*, block: str, run_dir: Path, ledger: Path, **overrides) -> dict:
+    kwargs = {
+        "block": block,
+        "run_dir": run_dir,
+        "ledger_path": ledger,
+        "control_execution_path": run_dir.parent / "control.json",
+        "live_reader": _live,
+        "model_catalog_reader": _catalog,
+        "protocol_validator": lambda: {"verified": True},
+        "aug7_validator": lambda _: {"verified": True, "status": "complete"},
+        "block_a_validator": lambda _: {
+            "verified": True,
+            "status": "complete",
+        },
+    }
+    kwargs.update(overrides)
+    return execute.preflight_formal_block(**kwargs)
+
+
+def _complete_block_a_predecessor(run_dir: Path, ledger: Path) -> None:
+    source_dir = staged.block_directory(run_dir, "a") / "source"
+    private_dir = source_dir / "private"
+    private_dir.mkdir(parents=True)
+    _write(source_dir / "TREES.json", {})
+    _write(source_dir / "TARGETS.json", {})
+    _write(private_dir / "RAW_RESPONSES.json", {})
+    spec = staged.BLOCKS["a"]
+    source_result = {
+        "protocol": {
+            "interface_version": f"{staged.SOURCE_INTERFACE_PREFIX}-a-1",
+            "tree_seeds": list(spec["tree_seeds"]),
+            "target_seeds": list(spec["target_seeds"]),
+            "validation_seeds": verify._expected_validation_seeds(
+                spec["validation_seed_start"]
+            ),
+            "bootstrap_seed": spec["source_bootstrap_seed"],
+            "staged_64_confirmation": True,
+            "staged_block": "a",
+            "block_calendar_date": staged.FORMAL_BLOCK_DATES["a"],
+        },
+        "usage": {
+            "adapter_requests": staged.EXPECTED_REQUESTS_PER_BLOCK,
+            "run_cost_usd": 4.2,
+        },
+        "mechanics_gates": {"mechanics": True},
+    }
+    _write(source_dir / "RESULT.json", source_result)
+    source_artifacts = verify._source_hashes(source_dir)
+    stage = {
+        "interface_version": staged.INTERFACE_VERSION,
+        "status": "block_b_authorized",
+        "block": "a",
+        "calendar_date": staged.FORMAL_BLOCK_DATES["a"],
+        "authorization_inputs": "source mechanics gates and request count only",
+        "source_science_was_not_an_authorization_input": True,
+        "mechanics_gates": {
+            "mechanics": True,
+            "accepted_request_count_exact": True,
+        },
+        "usage": source_result["usage"],
+        "source_artifacts": source_artifacts,
+    }
+    _write(staged.block_stage_path(run_dir, "a"), stage)
+    verify.verify_block_a_authorization(run_dir=run_dir)
+    _write(
+        run_dir / "BLOCK_A_DAILY_EXECUTION.json",
+        {
+            "status": "complete",
+            "run_id": execute.RUN_ID,
+            "block": "a",
+            "block_stage_status": "block_b_authorized",
+            "verification_status": "verified",
+            "measured_requests": staged.EXPECTED_REQUESTS_PER_BLOCK,
+            "measured_cost_usd": 4.2,
+        },
+    )
+    _write(
+        ledger,
+        {
+            "date": staged.FORMAL_BLOCK_DATES["a"],
+            "timezone": "Europe/London",
+            "daily_cap_usd": 5.0,
+            "recorded_actual_spend_usd": 4.2,
+            "first_authorized_block": {
+                "interface_version": staged.INTERFACE_VERSION,
+                "run_id": execute.RUN_ID,
+                "block": "a",
+                "status": "complete",
+                "actual_cost_usd": 4.2,
+            },
+            "diversity_bonus_confirmation64_block_a": {
+                "status": "complete",
+                "actual_cost_usd": 4.2,
+            },
+        },
+    )
 
 
 def test_block_a_initializes_exact_ledger_and_executes_once(
@@ -300,3 +421,131 @@ def test_report_failure_recovers_without_repeating_paid_block(
     )
     assert recovered["verified_report"]["sha256"] == "recovered"
     assert block_calls == ["b"]
+
+
+def test_block_a_preflight_waits_without_writing(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    before = sorted(
+        (str(path.relative_to(tmp_path)), path.read_bytes() if path.is_file() else None)
+        for path in tmp_path.rglob("*")
+    )
+    result = _preflight(block="a", run_dir=run_dir, ledger=ledger)
+    after = sorted(
+        (str(path.relative_to(tmp_path)), path.read_bytes() if path.is_file() else None)
+        for path in tmp_path.rglob("*")
+    )
+    assert after == before
+    assert result["status"] == "waiting_for_aug7_control"
+    assert result["predecessor"]["verified"] is False
+    assert result["budget"]["account_wide_daily_cap_usd"] == 5.0
+    assert result["budget"]["expected_requests"] == 3_680
+    assert result["model_calls_made"] == 0
+    assert result["files_written"] == 0
+
+
+def test_block_a_preflight_becomes_ready_after_verified_control(
+    tmp_path: Path,
+) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    control = tmp_path / "control.json"
+    _write(control, {})
+    result = _preflight(
+        block="a",
+        run_dir=run_dir,
+        ledger=ledger,
+        control_execution_path=control,
+    )
+    assert result["status"] == "ready_without_paid_calls"
+    assert result["predecessor"]["kind"] == "verified_aug7_control"
+
+
+def test_block_b_preflight_waits_then_becomes_ready(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    waiting = _preflight(block="b", run_dir=run_dir, ledger=ledger)
+    assert waiting["status"] == "waiting_for_block_a"
+
+    _write(run_dir / "BLOCK_A_DAILY_EXECUTION.json", {"status": "complete"})
+    ready = _preflight(block="b", run_dir=run_dir, ledger=ledger)
+    assert ready["status"] == "ready_without_paid_calls"
+    assert ready["predecessor"]["kind"] == "verified_block_a"
+
+
+def test_preflight_refuses_partial_or_terminal_target(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    _write(run_dir / "block_a/source/partial.json", {})
+    with pytest.raises(RuntimeError, match="partial Block A"):
+        _preflight(block="a", run_dir=run_dir, ledger=ledger)
+
+
+def test_preflight_refuses_existing_target_ledger(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    _write(ledger, {})
+    with pytest.raises(RuntimeError, match="daily ledger already exists"):
+        _preflight(block="a", run_dir=run_dir, ledger=ledger)
+
+
+def test_preflight_refuses_low_balance_or_missing_model(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    with pytest.raises(RuntimeError, match=r"below the \$5 start gate"):
+        _preflight(
+            block="a",
+            run_dir=run_dir,
+            ledger=ledger,
+            live_reader=lambda: _live(usage=125.001),
+        )
+    with pytest.raises(RuntimeError, match="does not expose exact model"):
+        _preflight(
+            block="a",
+            run_dir=run_dir,
+            ledger=ledger,
+            model_catalog_reader=lambda: _catalog(include_target=False),
+        )
+
+
+def test_preflight_rejects_invalid_existing_predecessor(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    control = tmp_path / "control.json"
+    _write(control, {})
+
+    def invalid(_: Path) -> dict:
+        raise RuntimeError("control replay changed")
+
+    with pytest.raises(RuntimeError, match="control replay changed"):
+        _preflight(
+            block="a",
+            run_dir=run_dir,
+            ledger=ledger,
+            control_execution_path=control,
+            aug7_validator=invalid,
+        )
+
+
+def test_default_block_a_predecessor_replays_without_writing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "2026-08-08.json"
+    _complete_block_a_predecessor(run_dir, ledger)
+    monkeypatch.setitem(execute.LEDGER_PATHS, "a", ledger)
+    before = {
+        str(path.relative_to(tmp_path)): path.read_bytes()
+        for path in tmp_path.rglob("*")
+        if path.is_file()
+    }
+    result = execute._verify_block_a_predecessor(run_dir)
+    after = {
+        str(path.relative_to(tmp_path)): path.read_bytes()
+        for path in tmp_path.rglob("*")
+        if path.is_file()
+    }
+    assert after == before
+    assert result["verified"] is True
+    assert result["request_count"] == staged.EXPECTED_REQUESTS_PER_BLOCK
+    assert result["cost_usd"] == pytest.approx(4.2)

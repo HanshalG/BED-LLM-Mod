@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Added read-only preflights for both `$5` Aug8--9 Number Game
+diversity-bonus confirmation blocks. They bind the amendment/preregistration
+and canonical date/seed/model/request manifest (`041994f4...eba`), validate
+3,680 requests/block, pristine target paths, live Qwen3.7+/Gemini2.5 Flash
+structured endpoints, finite prices, and authenticated `$27.702109737`
+balance. Absent future predecessors return explicit waiting states; malformed
+ones fail. Completed Aug7 control and Block A are independently replayed
+without rewriting artifacts. Real A/B preflights correctly report
+`waiting_for_aug7_control` / `waiting_for_block_a`, with model0/files0/cost0.
+The default full-shape Block-A replay is byte-stable; focused tests pass61/61.
+
 2026-08-06: Made the new `$5/day` instruction executable and rechecked the
 reported `$30` top-up. Authenticated credits are still `$245.00` with
 `$217.297890263` used (`$27.702109737` balance), so the credit remains unposted
