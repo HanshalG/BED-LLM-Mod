@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Froze the post-control claim boundary before any Aug7 control
+response. New zero-call classifier independently replays the completed public
+control,requires exact stored verification,separates nonmyopic-policy,
+dynamic-fixed-endpoint,and matched-conditioning families,rejects nonfinite or
+inconsistent artifacts,and banks JSON+Markdown once. Actual source hash
+13fd3361...523 proves policy pass but dynamic endpoint fail (3%+CI), so even a
+perfect control can reach only `nonmyopic_policy_with_partial_llm_mechanism`,
+never a full fresh causal replication. Preflight model0/files0/cost0. Full
+Aug7 claim/control/model suite81/81;paper compiles at 6 pages and the Aug7
+execution note now states this ceiling.
+
 2026-08-06: Closed the Aug11--14 Bongard development launch boundary. After
 the existing manifest,Aug10,and prior-block independent replays, every fresh
 block now requires a pristine target, live Luna image+structured endpoint and

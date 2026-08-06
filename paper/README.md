@@ -34,6 +34,12 @@ Pooling the two disjoint controls retrospectively gives a 12.0% second-stage
 MSE reduction, a 16.92-point coverage gain, and selective calibration at
 Spearman `.608` (`95% CI [.354,.791]`), while the pooled selected-root mean
 contrast remains null.
+The newest fully fresh source preserves depth three over myopic by 15.75%, but
+misses the dynamic-versus-fixed threshold and interval gates. A hash-bound
+pre-outcome classifier therefore fixes the maximum possible post-control tier
+at `nonmyopic_policy_with_partial_llm_mechanism`: a positive fresh
+history-blind control cannot relabel the failed source mechanism family as a
+full fresh causal replication.
 The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.

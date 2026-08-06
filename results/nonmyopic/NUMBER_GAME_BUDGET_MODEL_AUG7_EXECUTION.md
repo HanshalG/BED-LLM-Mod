@@ -69,3 +69,20 @@ launch. Resumption instead verifies banked components and never repeats them.
 Every successful or failed paid component checkpoints the larger of locally
 measured and posted account spend. No policy endpoint is used to choose the
 budget model or decide whether the stress gate runs.
+
+## Post-Control Claim Scope
+
+After the orchestrator completes, run the zero-call claim classifier:
+
+```bash
+/Users/hanshalgoyal/.conda/envs/20_questions_env/bin/python \
+  scripts/number_game_qwen_fully_fresh_claim_report.py \
+  --run-dir results/nonmyopic/number_game_qwen_fully_fresh_daily_stages/number-game-qwen-fully-fresh-daily-stages-20260806T000200Z
+```
+
+It independently replays the public control, requires exact equality with the
+banked verification, and freezes policy, dynamic-endpoint, and matched-control
+claim families separately. The source hash already fixes the full fresh tier
+as unreachable: a control pass can reach only
+`nonmyopic_policy_with_partial_llm_mechanism`. This report does not change the
+separately preregistered August 8--9 confirmation schedule.
