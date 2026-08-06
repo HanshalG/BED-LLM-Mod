@@ -66,12 +66,14 @@ IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
+    "scripts/bongard_openworld_luna_claim_report.py",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
 
 

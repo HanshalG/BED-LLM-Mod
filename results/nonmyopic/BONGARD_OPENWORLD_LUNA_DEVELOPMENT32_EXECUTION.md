@@ -57,3 +57,23 @@ bound directly in the execution wrapper.
 
 The driver can authorize only confirmation **preregistration**. It never
 authorizes or executes confirmation tasks.
+
+## Frozen Claim Report
+
+After block D has produced and independently replayed the combined result, run
+the zero-call claim classifier once:
+
+```bash
+python scripts/bongard_openworld_luna_claim_report.py \
+  --combined-result results/nonmyopic/bongard_openworld_luna_vlm_development32/COMBINED_RESULT.json \
+  --block-result results/nonmyopic/bongard_openworld_luna_vlm_development32/block-a-20260811/RESULT.json \
+  --block-result results/nonmyopic/bongard_openworld_luna_vlm_development32/block-b-20260812/RESULT.json \
+  --block-result results/nonmyopic/bongard_openworld_luna_vlm_development32/block-c-20260813/RESULT.json \
+  --block-result results/nonmyopic/bongard_openworld_luna_vlm_development32/block-d-20260814/RESULT.json \
+  --output results/nonmyopic/bongard_openworld_luna_vlm_development32/CLAIM_REPORT.json
+```
+
+The report can emit only the four pre-outcome tiers in
+`BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md`. Partial policy or mechanism
+evidence cannot authorize confirmation or be presented as a full LLM-native
+development signal.

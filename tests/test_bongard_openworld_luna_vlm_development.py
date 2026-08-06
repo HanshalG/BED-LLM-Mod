@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 from PIL import Image
 import pytest
 
+from scripts import bongard_openworld_luna_claim_report as claim_report
 from scripts import bongard_openworld_luna_development32_daily_execute as daily
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
@@ -294,6 +295,15 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
     assert verification["verified"]
     assert verification["status"] == result["status"]
     assert verification["authorizes_confirmation_preregistration"] is result[
+        "authorizes_confirmation_preregistration"
+    ]
+    claim = claim_report.build_claim_report(
+        result,
+        result_sha256=development.sha256_file(combined_path),
+        independent_verification=verification,
+    )
+    assert claim["status"] == "claim_scope_frozen"
+    assert claim["authorizes_confirmation_preregistration"] is result[
         "authorizes_confirmation_preregistration"
     ]
 

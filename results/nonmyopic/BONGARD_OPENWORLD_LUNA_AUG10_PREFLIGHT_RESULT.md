@@ -13,7 +13,7 @@ The read-only preflight made zero model calls and wrote zero files. It verified:
 - exactly four mechanics tasks, 56 images, and ten hidden-state-clean serving
   prompts (8,820,158 serialized message bytes);
 - strict belief-schema SHA-256 `23239262...9fd`;
-- interface-v4 development manifest SHA-256 `88b7fd54...d6bab5`;
+- interface-v4 development manifest SHA-256 `4754f599...e4fdb9`;
 - a four-root, 64 conditioned-branch, 64 paired history-blind-branch mechanics
   tree with 132 first-stage and at most 172 total requests;
 - absent wrapper, serving, mechanics, and August 10 ledger artifacts;
@@ -26,10 +26,13 @@ and `$1.75` mechanics cap. Mechanics remains conditional on the observed
 serving cost projection. The maximum component-cap sum is `$2.00`; unused
 allowance is not automatically spent.
 
-The implementation regression suite passes 69 Bongard tests. The paired
+The implementation regression suite passes 76 Bongard tests. The paired
 request audit checks exact same-seed, same-batch adjacent dynamic/blind pairs,
 initial-history-only blind prompts, and dynamic prompts that add exactly one
 simulated answer.
+The rebound development manifest also binds the pre-outcome four-tier claim
+classifier; policy-only or mechanism-only outcomes cannot authorize
+confirmation.
 
 Command:
 

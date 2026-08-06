@@ -68,4 +68,6 @@ provider-time confounding when requested seeds are not honored.
 The executable mechanics and development interfaces are now v4. Mechanics has
 132 first-stage requests and at most 172 total; each development block has 264
 first-stage requests and at most 344 total. The expanded zero-call suite passes
-69 tests. No Bongard response or endpoint has been opened.
+76 tests. No Bongard response or endpoint has been opened. A bound pre-outcome
+claim classifier now separates full policy-plus-mechanism, policy-only,
+mechanism-only, and null outcomes before any combined endpoint is observed.
