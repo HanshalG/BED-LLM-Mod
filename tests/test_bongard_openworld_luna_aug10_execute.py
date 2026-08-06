@@ -39,6 +39,40 @@ def _opening_ledger() -> dict:
     }
 
 
+def _live(*, balance: float = 20.0) -> dict[str, float]:
+    return {
+        "total_credits_usd": 100.0,
+        "total_usage_usd": 100.0 - balance,
+        "balance_usd": balance,
+    }
+
+
+def _catalog(*, modalities: tuple[str, ...] = ("text", "image")) -> dict:
+    return {
+        "data": [
+            {
+                "id": serving.MODEL_ID,
+                "context_length": 1_050_000,
+                "architecture": {"input_modalities": list(modalities)},
+                "supported_parameters": ["response_format"],
+                "top_provider": {"max_completion_tokens": 128_000},
+                "pricing": {"prompt": "0.0000001", "completion": "0.0000006"},
+            }
+        ]
+    }
+
+
+def _preflight(paths: dict, **overrides) -> dict:
+    kwargs = {
+        **paths,
+        "live_reader": _live,
+        "model_catalog_reader": _catalog,
+        "frozen_inputs_validator": lambda: {"verified": True},
+    }
+    kwargs.update(overrides)
+    return execute.preflight_aug10_sequence(**kwargs)
+
+
 def _serving_runner(calls: list[str], *, status: str = "passed"):
     def run(*, output_dir: Path, ledger_path: Path, **_):
         calls.append("serving")
@@ -266,3 +300,79 @@ def test_sequence_refuses_wrong_date_before_calls(tmp_path: Path) -> None:
             serving_validator=_serving_validator,
             mechanics_validator=_mechanics_validator,
         )
+
+
+def test_preflight_is_read_only_and_reports_exact_budget(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    paths["serving_dir"].mkdir(parents=True)
+    before = sorted(
+        (str(path.relative_to(tmp_path)), path.read_bytes() if path.is_file() else None)
+        for path in tmp_path.rglob("*")
+    )
+    result = _preflight(paths)
+    after = sorted(
+        (str(path.relative_to(tmp_path)), path.read_bytes() if path.is_file() else None)
+        for path in tmp_path.rglob("*")
+    )
+    assert after == before
+    assert result["status"] == "ready_without_paid_calls"
+    assert result["model_calls_made"] == 0
+    assert result["files_written"] == 0
+    assert result["execution_paths"]["serving"] == "empty"
+    assert result["model"]["input_modalities"] == ["image", "text"]
+    assert result["budget"] == {
+        "account_wide_daily_cap_usd": 5.0,
+        "minimum_starting_balance_usd": 5.0,
+        "serving_projected_cost_usd": 0.1,
+        "serving_maximum_cost_usd": 0.25,
+        "mechanics_maximum_cost_usd": 1.75,
+        "maximum_component_caps_usd": 2.0,
+        "unallocated_daily_allowance_usd": 3.0,
+        "mechanics_requires_observed_serving_projection": True,
+        "unspent_allowance_does_not_roll_over": True,
+    }
+
+
+def test_preflight_refuses_partial_artifact(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    _write(paths["mechanics_dir"] / "partial.json", {"partial": True})
+    with pytest.raises(RuntimeError, match="mechanics execution path is not pristine"):
+        _preflight(paths)
+
+
+def test_preflight_refuses_existing_daily_ledger(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    _write(paths["daily_ledger"], _opening_ledger())
+    with pytest.raises(RuntimeError, match="daily ledger already exists"):
+        _preflight(paths)
+
+
+def test_preflight_refuses_balance_below_daily_cap(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    with pytest.raises(RuntimeError, match=r"below the \$5 start gate"):
+        _preflight(paths, live_reader=lambda: _live(balance=4.999))
+
+
+@pytest.mark.parametrize(
+    ("catalog", "message"),
+    [
+        ({"data": []}, "does not expose exact model"),
+        (_catalog(modalities=("text",)), "no longer supports text and image"),
+    ],
+)
+def test_preflight_refuses_unavailable_or_text_only_model(
+    tmp_path: Path, catalog: dict, message: str
+) -> None:
+    paths = _paths(tmp_path)
+    with pytest.raises(RuntimeError, match=message):
+        _preflight(paths, model_catalog_reader=lambda: catalog)
+
+
+def test_preflight_propagates_frozen_input_failure(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+
+    def stale() -> dict:
+        raise RuntimeError("frozen source changed")
+
+    with pytest.raises(RuntimeError, match="frozen source changed"):
+        _preflight(paths, frozen_inputs_validator=stale)

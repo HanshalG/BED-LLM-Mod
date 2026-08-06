@@ -4,6 +4,27 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Made the new `$5/day` instruction executable and rechecked the
+reported `$30` top-up. Authenticated credits are still `$245.00` with
+`$217.297890263` used (`$27.702109737` balance), so the credit remains unposted
+and is excluded from authorization. The posted balance supports five full
+daily caps; it will support eleven after the `$30` appears. Froze the Aug7--14
+allocation (`$35.96` maximum component caps) with independent London-day
+ledgers, no rollover/reserve, and no automatic filler spend. Re-evaluated the
+budget frontier: Luna is the multimodal primary (`$.10/$.60` per M, AA 46 high
+/ 51 max) but needs the already-frozen reliability gate; DeepSeek V4 Flash
+0731 is the text challenger (`$.09/$.18`, exact 0731 AA still unavailable),
+not a Bongard option and not promoted past its zero-valid conditioned-support
+smoke failure. No paid calls.
+
+2026-08-06: Added and passed the read-only Aug10 Bongard execution preflight.
+It validates frozen source/image/development hashes, archive size, all 4
+mechanics tasks/56 images/10 exact prompts, strict schema, pristine execution
+paths, live Luna image+structured-output capability, finite pricing, and `$5`
+live balance before any date-specific ledger or adapter exists. Real preflight
+passed with 8,820,158 request bytes, component caps `$.25+$1.75=$2`, zero model
+calls, and zero files written. Wrapper tests pass 15/15.
+
 2026-08-06: Finished the no-call Aug11--14 Bongard development32 daily
 driver. Each exact-date command now revalidates the Aug10 authorization,
 frozen manifest, every prior block wrapper, raw replay, reconciled `$5` ledger,

@@ -5,11 +5,15 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime
+import hashlib
 import json
+import math
+import os
 from pathlib import Path
 import tempfile
 import sys
 from typing import Any, Callable, Mapping
+from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -18,8 +22,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
+from scripts import bongard_openworld_luna_vlm_development as development
+from scripts import bongard_openworld_image_integrity_audit as image_audit
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
+from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
@@ -43,6 +50,22 @@ DAILY_LEDGER = REPO_ROOT / (
 )
 SERVING_RUN_ID = "bongard-openworld-luna-vlm-serving-smoke-20260810"
 MECHANICS_RUN_ID = "bongard-openworld-luna-vlm-mechanics-tree-20260810"
+MODELS_URL = "https://openrouter.ai/api/v1/models"
+IMAGE_INTEGRITY_MANIFEST = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_image_integrity_audit/"
+    "bongard-openworld-image-integrity-audit-20260806/MANIFEST.json"
+)
+IMAGE_INTEGRITY_MANIFEST_SHA256 = (
+    "239943ae789ebdc2c0a03577a02b04890c6d00f50ce45639c5defc1624ccee96"
+)
+DEVELOPMENT_PROTOCOL_MANIFEST = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
+    "PROTOCOL_MANIFEST.json"
+)
+DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
+    "d5e8412f6e2f485a357ba255692f1c6d60a99b4900e588b05ad39b9f276b5b9c"
+)
+MINIMUM_STARTING_BALANCE_USD = 5.0
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -94,8 +117,226 @@ def _validate_ledger(path: Path, *, require_mechanics: bool) -> dict[str, Any]:
             or tree.get("model") != mechanics.MODEL_ID
             or tree.get("status") not in {"mechanics_pass", "gated_null"}
         ):
-            raise RuntimeError("ledger lacks the exact interface-v2 mechanics record")
+            raise RuntimeError("ledger lacks the exact frozen mechanics record")
     return ledger
+
+
+def read_openrouter_model_catalog() -> dict[str, Any]:
+    headers = {}
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    request = Request(MODELS_URL, headers=headers)
+    with urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
+    matches = [
+        model
+        for model in catalog.get("data", [])
+        if model.get("id") == serving.MODEL_ID
+    ]
+    if len(matches) != 1:
+        raise RuntimeError(f"OpenRouter does not expose exact model {serving.MODEL_ID}")
+    model = matches[0]
+    architecture = model.get("architecture") or {}
+    modalities = set(architecture.get("input_modalities") or [])
+    supported = set(model.get("supported_parameters") or [])
+    top_provider = model.get("top_provider") or {}
+    max_completion = int(top_provider.get("max_completion_tokens") or 0)
+    if not {"text", "image"}.issubset(modalities):
+        raise RuntimeError("frozen Luna endpoint no longer supports text and image input")
+    if not ({"response_format", "structured_outputs"} & supported):
+        raise RuntimeError("frozen Luna endpoint no longer supports structured output")
+    if max_completion < serving.MAX_TOKENS:
+        raise RuntimeError("frozen Luna endpoint completion limit is too small")
+    pricing = model.get("pricing") or {}
+    prompt_price = float(pricing.get("prompt", math.nan))
+    completion_price = float(pricing.get("completion", math.nan))
+    if not all(
+        math.isfinite(value) and value >= 0.0
+        for value in (prompt_price, completion_price)
+    ):
+        raise RuntimeError("frozen Luna endpoint pricing is missing or invalid")
+    return {
+        "id": model["id"],
+        "context_length": int(model.get("context_length") or 0),
+        "max_completion_tokens": max_completion,
+        "input_modalities": sorted(modalities),
+        "supports_structured_output": True,
+        "prompt_usd_per_million_tokens": round(prompt_price * 1_000_000, 12),
+        "completion_usd_per_million_tokens": round(
+            completion_price * 1_000_000, 12
+        ),
+    }
+
+
+def _validate_image_integrity_manifest(path: Path) -> dict[str, Any]:
+    manifest_sha256 = _sha256(path)
+    manifest = _load(path)
+    source = manifest.get("source") or {}
+    mechanics_record = manifest.get("mechanics") or {}
+    summary = mechanics_record.get("summary") or {}
+    if (
+        manifest_sha256 != IMAGE_INTEGRITY_MANIFEST_SHA256
+        or manifest.get("status") != "image_integrity_pass"
+        or manifest.get("all_gates_pass") is not True
+        or manifest.get("authorizes_paid_calls") is not False
+        or not manifest.get("gates")
+        or not all(manifest["gates"].values())
+        or source.get("archive_sha256") != image_audit.ARCHIVE_SHA256
+        or int(source.get("archive_size_bytes", 0)) != image_audit.ARCHIVE_SIZE
+        or int(summary.get("tasks", 0)) != image_audit.EXPECTED_MECHANICS_TASKS
+        or int(summary.get("images", 0)) != image_audit.EXPECTED_MECHANICS_IMAGES
+    ):
+        raise RuntimeError("image-integrity manifest is stale or invalid")
+    return {
+        "verified": True,
+        "manifest_sha256": manifest_sha256,
+        "archive_sha256": source["archive_sha256"],
+        "archive_size_bytes": int(source["archive_size_bytes"]),
+        "mechanics_tasks": int(summary["tasks"]),
+        "mechanics_images": int(summary["images"]),
+    }
+
+
+def _verify_frozen_inputs() -> dict[str, Any]:
+    source = image_audit.verify_bound_sources()
+    image_integrity = _validate_image_integrity_manifest(
+        IMAGE_INTEGRITY_MANIFEST
+    )
+    archive = image_audit.ARCHIVE_PATH
+    if not archive.is_file() or archive.stat().st_size != image_audit.ARCHIVE_SIZE:
+        raise RuntimeError("bound Bongard image archive is absent or changed in size")
+
+    tasks = bed.load_mechanics_tasks()
+    if (
+        len(tasks) != image_audit.EXPECTED_MECHANICS_TASKS
+        or sum(len(task.image_ids) for task in tasks)
+        != image_audit.EXPECTED_MECHANICS_IMAGES
+    ):
+        raise RuntimeError("mechanics task or image count changed")
+    cases = serving.build_smoke_cases(tasks)
+    messages = [
+        bed.build_belief_messages(case.task, case.history) for case in cases
+    ]
+    prompt_errors = [
+        bed.prompt_hidden_state_errors(case.task, case.history, message)
+        for case, message in zip(cases, messages, strict=True)
+    ]
+    if len(cases) != serving.EXPECTED_REQUESTS or any(prompt_errors):
+        raise RuntimeError("exact serving prompts are stale or expose hidden state")
+    response_format = bed.belief_response_format()
+    if (
+        response_format.get("type") != "json_schema"
+        or (response_format.get("json_schema") or {}).get("strict") is not True
+    ):
+        raise RuntimeError("strict belief response contract changed")
+
+    protocol = development.verify_protocol_manifest(
+        DEVELOPMENT_PROTOCOL_MANIFEST
+    )
+    if protocol["manifest_sha256"] != DEVELOPMENT_PROTOCOL_MANIFEST_SHA256:
+        raise RuntimeError("development protocol manifest hash changed")
+    return {
+        "source": source,
+        "image_integrity": image_integrity,
+        "archive_path": str(archive),
+        "mechanics_tasks": len(tasks),
+        "mechanics_images": sum(len(task.image_ids) for task in tasks),
+        "serving_cases": len(cases),
+        "serving_message_bytes": sum(
+            len(bed.canonical_json(message).encode("utf-8"))
+            for message in messages
+        ),
+        "belief_response_format_sha256": hashlib.sha256(
+            bed.canonical_json(response_format).encode("utf-8")
+        ).hexdigest(),
+        "development_protocol_manifest_sha256": protocol["manifest_sha256"],
+    }
+
+
+def _verify_pristine_paths(
+    *,
+    output_dir: Path,
+    serving_dir: Path,
+    mechanics_dir: Path,
+    daily_ledger: Path,
+) -> dict[str, str]:
+    if daily_ledger.exists():
+        raise RuntimeError("August 10 daily ledger already exists")
+    states = {}
+    for name, path in (
+        ("wrapper", output_dir),
+        ("serving", serving_dir),
+        ("mechanics", mechanics_dir),
+    ):
+        if path.exists() and (not path.is_dir() or any(path.iterdir())):
+            raise RuntimeError(f"{name} execution path is not pristine: {path}")
+        states[name] = "absent" if not path.exists() else "empty"
+    states["daily_ledger"] = "absent"
+    return states
+
+
+def preflight_aug10_sequence(
+    *,
+    output_dir: Path = OUTPUT_DIR,
+    serving_dir: Path = SERVING_DIR,
+    mechanics_dir: Path = MECHANICS_DIR,
+    daily_ledger: Path = DAILY_LEDGER,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    model_catalog_reader: Callable[[], dict[str, Any]] = (
+        read_openrouter_model_catalog
+    ),
+    frozen_inputs_validator: Callable[[], dict[str, Any]] = (
+        _verify_frozen_inputs
+    ),
+) -> dict[str, Any]:
+    """Validate the frozen sequence before its date without writes or model calls."""
+    paths = _verify_pristine_paths(
+        output_dir=output_dir,
+        serving_dir=serving_dir,
+        mechanics_dir=mechanics_dir,
+        daily_ledger=daily_ledger,
+    )
+    frozen_inputs = frozen_inputs_validator()
+    model = _validate_model_catalog(model_catalog_reader())
+    live = live_reader()
+    values = [
+        float(live[field])
+        for field in ("total_credits_usd", "total_usage_usd", "balance_usd")
+    ]
+    if not all(math.isfinite(value) for value in values):
+        raise RuntimeError("live OpenRouter credit values are non-finite")
+    if float(live["balance_usd"]) + 1e-12 < MINIMUM_STARTING_BALANCE_USD:
+        raise RuntimeError("live OpenRouter balance is below the $5 start gate")
+
+    component_cap = serving.RUN_BUDGET_USD + mechanics.RUN_BUDGET_USD
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "status": "ready_without_paid_calls",
+        "execution_date": EXPECTED_DATE,
+        "timezone": TIMEZONE,
+        "execution_paths": paths,
+        "frozen_inputs": frozen_inputs,
+        "model": model,
+        "live_credits": live,
+        "budget": {
+            "account_wide_daily_cap_usd": 5.0,
+            "minimum_starting_balance_usd": MINIMUM_STARTING_BALANCE_USD,
+            "serving_projected_cost_usd": serving.PROJECTED_COST_USD,
+            "serving_maximum_cost_usd": serving.RUN_BUDGET_USD,
+            "mechanics_maximum_cost_usd": mechanics.RUN_BUDGET_USD,
+            "maximum_component_caps_usd": component_cap,
+            "unallocated_daily_allowance_usd": 5.0 - component_cap,
+            "mechanics_requires_observed_serving_projection": True,
+            "unspent_allowance_does_not_roll_over": True,
+        },
+        "model_calls_made": 0,
+        "files_written": 0,
+    }
 
 
 def validate_serving_artifact(
@@ -376,12 +617,14 @@ def execute_aug10_sequence(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     parser.add_argument("--serving-dir", type=Path, default=SERVING_DIR)
     parser.add_argument("--mechanics-dir", type=Path, default=MECHANICS_DIR)
     parser.add_argument("--daily-ledger", type=Path, default=DAILY_LEDGER)
     args = parser.parse_args()
-    result = execute_aug10_sequence(
+    function = preflight_aug10_sequence if args.preflight else execute_aug10_sequence
+    result = function(
         output_dir=args.output_dir,
         serving_dir=args.serving_dir,
         mechanics_dir=args.mechanics_dir,
