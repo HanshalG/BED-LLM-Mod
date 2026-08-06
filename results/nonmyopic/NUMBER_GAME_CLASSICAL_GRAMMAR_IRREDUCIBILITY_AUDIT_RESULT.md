@@ -7,6 +7,10 @@ Date: 2026-07-29
 
 Model calls and cost: `0` / `$0`.
 
+Independent replay on 2026-08-06 regenerated `RESULT.json` byte-for-byte from
+the hash-bound source artifacts (`cmp` exit `0`); the dedicated audit suite
+passes `4/4`. No model response or prospective endpoint was opened.
+
 Preregistration:
 `NUMBER_GAME_CLASSICAL_GRAMMAR_IRREDUCIBILITY_PREREGISTRATION.md`.
 
