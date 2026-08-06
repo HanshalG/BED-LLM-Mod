@@ -413,16 +413,21 @@ def execute_failure_tail(
     stress_verification = None
     stress_result = None
     if len(reliability_verifications) == len(aug7.RELIABILITY_RUNS):
-        stress_result = stress_executor(
-            output_dir=stress_output_dir,
-            run_id=aug7.STRESS_RUN_ID,
-            ledger_path=ledger_path,
-            reliability_paths=_reliability_paths(reliability_root),
-            live_reader=live_reader,
-            now=local_now,
-        )
+        stress_result_path = stress_output_dir / "RESULT.json"
+        if stress_result_path.is_file():
+            stress_result = _load(stress_result_path)
+        else:
+            stress_result = stress_executor(
+                output_dir=stress_output_dir,
+                run_id=aug7.STRESS_RUN_ID,
+                ledger_path=ledger_path,
+                reliability_paths=_reliability_paths(reliability_root),
+                live_reader=live_reader,
+                now=local_now,
+            )
         stress_verification = stress.replay_stress_result(
-            result_path=stress_output_dir / "RESULT.json"
+            result_path=stress_result_path,
+            reliability_paths=_reliability_paths(reliability_root),
         )
     final_ledger = _load(ledger_path)
     result = {

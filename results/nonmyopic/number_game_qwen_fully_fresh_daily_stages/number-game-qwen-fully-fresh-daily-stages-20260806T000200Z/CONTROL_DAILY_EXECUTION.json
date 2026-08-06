@@ -1,0 +1,29 @@
+{
+  "additional_paid_blocks_authorized": false,
+  "authorized_tail_blocks": [],
+  "composite_result_sha256": "f1b232c433518a60df7037cfdb86ef9f36da87a7c3732aa19737c54964c315f0",
+  "daily_ledger": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/openrouter_daily_budget/2026-08-07.json",
+  "daily_ledger_sha256": "af3c6f3ed1b77281e82b22e1600983c363d90fd66cc4bfdfdd14fde024ec1045",
+  "decision": "stop_at_control_mechanics",
+  "interface_version": "number-game-qwen-fully-fresh-control-daily-execute-1",
+  "live_after": {
+    "balance_usd": 25.176219177000007,
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 219.823780823
+  },
+  "live_before": {
+    "balance_usd": 27.702109737,
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 217.297890263
+  },
+  "measured_control_cost_usd": 2.6901734400000024,
+  "measured_control_requests": 3072,
+  "recorded_actual_spend_usd": 2.6901734400000024,
+  "remaining_daily_allowance_usd": 2.3098265599999976,
+  "run_id": "number-game-qwen-fully-fresh-daily-stages-20260806T000200Z",
+  "schema_version": 1,
+  "scientific_status": "mechanics_failed",
+  "status": "control_incomplete_or_mechanics_failed",
+  "verification_sha256": null,
+  "verification_status": null
+}

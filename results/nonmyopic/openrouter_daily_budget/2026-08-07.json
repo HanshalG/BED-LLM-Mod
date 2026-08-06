@@ -1,23 +1,75 @@
 {
-  "schema_version": 1,
-  "date": "2026-08-07",
-  "timezone": "Europe/London",
+  "account_wide_usage_counts_against_cap": true,
+  "additional_paid_blocks_authorized": false,
+  "authorized_tail_blocks": [
+    {
+      "actual_cost_usd": 0.057383,
+      "authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
+      "authorization_stage": "post_control_failure_model_screen",
+      "efficacy_used_for_authorization": false,
+      "interface": "number-game-budget-model-reliability128-1",
+      "maximum_cost_usd": 0.1,
+      "model": "openai/gpt-5.6-luna",
+      "status": "gated_null"
+    },
+    {
+      "actual_cost_usd": 0.03447770099999999,
+      "authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
+      "authorization_stage": "post_control_failure_model_screen",
+      "efficacy_used_for_authorization": false,
+      "interface": "number-game-budget-model-reliability128-1",
+      "maximum_cost_usd": 0.1,
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "status": "gated_null"
+    },
+    {
+      "actual_cost_usd": 0.0,
+      "authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
+      "authorization_stage": "post_reliability_reconciled",
+      "efficacy_used_for_authorization": false,
+      "interface": "number-game-budget-model-stress3584-2",
+      "maximum_cost_usd": 1.55,
+      "model": null,
+      "selection_rule": "pass_then_conditioned_min_mean_then_failure_tail_then_cost",
+      "status": "not_authorized_no_model_passed"
+    }
+  ],
+  "budget_model_reliability128_deepseek_deepseek-v4-flash-0731": {
+    "actual_cost_usd": 0.03447770099999999,
+    "maximum_cost_usd": 0.1,
+    "status": "gated_null"
+  },
+  "budget_model_reliability128_openai_gpt-5_6-luna": {
+    "actual_cost_usd": 0.057383,
+    "maximum_cost_usd": 0.1,
+    "status": "gated_null"
+  },
+  "control_status_is_immutable": true,
   "daily_cap_usd": 5.0,
+  "date": "2026-08-07",
+  "failure_tail_authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
+  "first_authorized_block": {
+    "actual_cost_usd": 2.6901734400000024,
+    "description": "Fully fresh Qwen Number Game history-blind control: exactly 3072 accepted requests",
+    "expected_cost_usd": 3.21,
+    "maximum_cost_usd": 4.25,
+    "status": "complete"
+  },
+  "opening_balance_usd": 27.702109737,
+  "opening_baseline_frozen_at_london": "2026-08-06T01:13:04+01:00",
+  "opening_baseline_frozen_on_previous_closed_day": true,
   "opening_total_credits_usd": 245.0,
   "opening_total_usage_usd": 217.297890263,
-  "opening_balance_usd": 27.702109737,
-  "opening_baseline_frozen_on_previous_closed_day": true,
-  "opening_baseline_frozen_at_london": "2026-08-06T01:13:04+01:00",
-  "reported_top_up_not_yet_visible_usd": 30.0,
-  "unspent_allowance_does_not_roll_over": true,
-  "account_wide_usage_counts_against_cap": true,
-  "recorded_actual_spend_usd": 0.0,
-  "first_authorized_block": {
-    "description": "Fully fresh Qwen Number Game history-blind control: exactly 3072 accepted requests",
-    "maximum_cost_usd": 4.25,
-    "expected_cost_usd": 3.21,
-    "actual_cost_usd": null,
-    "status": "authorized_pending_later_day"
+  "reconciliation": {
+    "locally_measured_spend_usd": 2.7820341410000027,
+    "posted_spend_since_opening_usd": 2.7820341410000027,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 2.2179658589999973
   },
-  "additional_paid_blocks_authorized": false
+  "recorded_actual_spend_usd": 2.7820341410000027,
+  "reported_top_up_not_yet_visible_usd": 30.0,
+  "schema_version": 1,
+  "tail_authorization_reason": "independent_model_screen_after_clean_terminal_control_mechanics_stop",
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
 }

@@ -1,0 +1,38 @@
+{
+  "mechanics_gates": {
+    "accepted_request_count_exact": true,
+    "all_3072_draws_are_strict_json": true,
+    "every_draw_has_at_least_sixteen_valid": false,
+    "every_pool_has_at_least_twenty_four_valid": false,
+    "exactly_1536_control_branch_slots": true,
+    "exactly_thirty_two_source_trees": true,
+    "provider_error_retries_within_cap": true,
+    "retries_within_cap": true,
+    "transport_attempt_accounting_exact": true,
+    "within_run_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "controls_sha256": "513def73b8e75f31eca123e593c2e9b0deab715fbd52ed6d3833020564237672",
+    "endpoint_accessed": false,
+    "interface_version": "number-game-qwen-fully-fresh-source-control32-control-1",
+    "smoke_result_sha256": "0e4ba2e5bedd000d5b22c46e16a91404ec8913ba620ab54db286309fef9b8ef4",
+    "source_result_sha256": "13fd3361a8ef8f525f68733182a9bdb30151e37a4a5e14dfb35dde78540ab523",
+    "source_targets_sha256": "b799a5d6609f5e8088e2f0115ec1eaa3c4520cebcd187283daf679714cdc5e2b",
+    "source_trees_sha256": "f812e4a356f5129a6f2f22d5f0f995b76b4ac624a0f312154064ff8c51f2c7b0"
+  },
+  "schema_version": 1,
+  "status": "mechanics_failed",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 3072,
+    "completion_tokens": 1942722,
+    "forced_exits": 0,
+    "http_attempts": 3072,
+    "prompt_tokens": 635904,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 2.6901734400000024
+  }
+}

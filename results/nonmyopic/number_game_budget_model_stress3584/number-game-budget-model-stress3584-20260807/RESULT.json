@@ -1,0 +1,72 @@
+{
+  "decision": "no_eligible_model",
+  "protocol": {
+    "authorization_amendment_sha256": "259465d0555068bced5bd69151e98ae5f788ad85e53f26aa6ca7a2fb6c399fb7",
+    "interface_version": "number-game-budget-model-stress3584-2",
+    "model_calls": 0,
+    "preregistration_sha256": "9be58161b48d7a355d93bc26481cf446ba81d2ef4c7adc2b23e1a6f949d42e51",
+    "run_budget_usd": 1.55
+  },
+  "reliability_artifacts": {
+    "deepseek/deepseek-v4-flash-0731": "c5843bbedc1780200717705281dd2cdb6a6f927492acf5cf9b2b0b0937403a1b",
+    "openai/gpt-5.6-luna": "2949ab2faac0a2e4597cec95f2d70626a724ed753a8bb12c8f189aa149026915"
+  },
+  "schema_version": 1,
+  "selection": {
+    "models": [
+      {
+        "metrics": {
+          "conditioned_mean": 15.925,
+          "conditioned_minimum": 0,
+          "eligible": false,
+          "forced_exits": 4,
+          "format_retry_requests": 0,
+          "initial_parse_failures": 4,
+          "run_cost_usd": 0.057383,
+          "transport_retries": 0
+        },
+        "model": "openai/gpt-5.6-luna",
+        "selection_key": [
+          0,
+          15.925,
+          -4,
+          0,
+          -4,
+          0,
+          -0.057383,
+          0
+        ]
+      },
+      {
+        "metrics": {
+          "conditioned_mean": 12.108333333333333,
+          "conditioned_minimum": 0,
+          "eligible": false,
+          "forced_exits": 0,
+          "format_retry_requests": 0,
+          "initial_parse_failures": 0,
+          "run_cost_usd": 0.03447770099999999,
+          "transport_retries": 0
+        },
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "selection_key": [
+          0,
+          12.108333333333333,
+          0,
+          0,
+          0,
+          0,
+          -0.03447770099999999,
+          1
+        ]
+      }
+    ],
+    "selected_model": null,
+    "selection_rule": "pass_then_conditioned_min_mean_then_failure_tail_then_cost"
+  },
+  "status": "gated_null",
+  "usage": {
+    "adapter_requests": 0,
+    "run_cost_usd": 0.0
+  }
+}

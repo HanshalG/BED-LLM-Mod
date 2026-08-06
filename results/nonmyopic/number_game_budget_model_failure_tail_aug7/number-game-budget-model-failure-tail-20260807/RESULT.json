@@ -1,0 +1,54 @@
+{
+  "authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
+  "authorizes_aug8_diversity": false,
+  "control_failure_boundary": {
+    "accepted_requests": 3072,
+    "control_failure_sha256": "bf2a119f23e8241a7c2f694a3d3009104b0f3151073d37407cb6ddd7a917c244",
+    "control_wrapper_sha256": "21dd28010309b769bc094824d18c27f1c758a7768b6ffd31de9d6201aeb8f968",
+    "controls_sha256": "513def73b8e75f31eca123e593c2e9b0deab715fbd52ed6d3833020564237672",
+    "cost_usd": 2.6901734400000024,
+    "endpoint_accessed": false,
+    "failure_values_used_for_authorization": false,
+    "verified": true
+  },
+  "daily_ledger_sha256": "15022d299a9ba09c7e57ce7e1097347cdf47e4650866beffd25de6ebb6f66ea7",
+  "efficacy_used_for_model_selection": false,
+  "interface_version": "number-game-budget-model-failure-tail-aug7-1",
+  "qwen_control_status_changed": false,
+  "qwen_endpoint_accessed": false,
+  "recorded_actual_spend_usd": 2.7820341410000027,
+  "reliability_failures": {},
+  "reliability_verifications": {
+    "deepseek/deepseek-v4-flash-0731": {
+      "cost_usd": 0.03447770099999999,
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "raw_responses_sha256": "40b3995e7511b643d69e5a0a49fc22072c591c536fda2d772a6a39d015129143",
+      "request_count": 128,
+      "result_sha256": "c5843bbedc1780200717705281dd2cdb6a6f927492acf5cf9b2b0b0937403a1b",
+      "status": "gated_null",
+      "verified": true
+    },
+    "openai/gpt-5.6-luna": {
+      "cost_usd": 0.057383,
+      "model": "openai/gpt-5.6-luna",
+      "raw_responses_sha256": "88d2314a41ad06b01312eb71168338e2a189f1dcde4a37a5ab24f20f649183f0",
+      "request_count": 128,
+      "result_sha256": "2949ab2faac0a2e4597cec95f2d70626a724ed753a8bb12c8f189aa149026915",
+      "status": "gated_null",
+      "verified": true
+    }
+  },
+  "remaining_daily_allowance_usd": 2.2179658589999973,
+  "schema_version": 1,
+  "status": "complete",
+  "stress_status": "gated_null",
+  "stress_verification": {
+    "cost_usd": 0.0,
+    "raw_responses_sha256": null,
+    "request_count": 0,
+    "result_sha256": "62e26f11a1747f11411d2b366d07051e0257e1a9fdbd7e40b960af317579c5e3",
+    "selected_model": null,
+    "status": "gated_null",
+    "verified": true
+  }
+}

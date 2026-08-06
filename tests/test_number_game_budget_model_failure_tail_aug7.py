@@ -14,9 +14,21 @@ def _now() -> datetime:
     return datetime(2026, 8, 7, 12, tzinfo=ZoneInfo(tail.TIMEZONE))
 
 
-def _copy_ledger(tmp_path: Path) -> Path:
+def _copy_ledger(tmp_path: Path, monkeypatch) -> Path:
     path = tmp_path / "ledger.json"
-    path.write_bytes(tail.aug7.DAILY_LEDGER.read_bytes())
+    ledger = json.loads(tail.aug7.DAILY_LEDGER.read_text(encoding="utf-8"))
+    ledger["additional_paid_blocks_authorized"] = False
+    ledger.pop("authorized_tail_blocks", None)
+    ledger.pop("tail_authorization_reason", None)
+    ledger.pop("failure_tail_authorization_amendment_sha256", None)
+    ledger.pop("control_status_is_immutable", None)
+    for key in list(ledger):
+        if key.startswith("budget_model_reliability128_"):
+            ledger.pop(key)
+    ledger["recorded_actual_spend_usd"] = 2.6901734400000024
+    ledger["reconciliation"]["remaining_daily_allowance_usd"] = 2.30982656
+    path.write_text(json.dumps(ledger), encoding="utf-8")
+    monkeypatch.setattr(tail, "INITIAL_LEDGER_SHA256", tail._sha256(path))
     return path
 
 
@@ -28,8 +40,10 @@ def test_frozen_control_failure_boundary_is_transport_clean_and_endpoint_blind()
     assert result["failure_values_used_for_authorization"] is False
 
 
-def test_authorization_uses_only_fixed_tail_and_remaining_allowance(tmp_path) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+def test_authorization_uses_only_fixed_tail_and_remaining_allowance(
+    tmp_path, monkeypatch
+) -> None:
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     ledger = tail.authorize_ledger(
         ledger_path=ledger_path,
         reliability_root=tmp_path / "reliability",
@@ -49,7 +63,7 @@ def test_authorization_uses_only_fixed_tail_and_remaining_allowance(tmp_path) ->
 def test_authorization_refuses_insufficient_remaining_allowance(
     tmp_path, monkeypatch
 ) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     ledger["reconciliation"]["remaining_daily_allowance_usd"] = 1.74
     ledger_path.write_text(json.dumps(ledger), encoding="utf-8")
@@ -62,8 +76,10 @@ def test_authorization_refuses_insufficient_remaining_allowance(
         )
 
 
-def test_authorization_refuses_nonpristine_paid_path(tmp_path) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+def test_authorization_refuses_nonpristine_paid_path(
+    tmp_path, monkeypatch
+) -> None:
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     reliability_root = tmp_path / "reliability"
     first_run = next(iter(tail.aug7.RELIABILITY_RUNS.values()))
     dirty = reliability_root / first_run
@@ -102,8 +118,10 @@ def test_existing_wrapper_result_is_resumable_without_calls(tmp_path) -> None:
     ) == expected
 
 
-def test_preflight_is_read_only_and_reports_exact_slack(tmp_path) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+def test_preflight_is_read_only_and_reports_exact_slack(
+    tmp_path, monkeypatch
+) -> None:
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     before = ledger_path.read_bytes()
     result = tail.preflight_failure_tail(
         ledger_path=ledger_path,
@@ -150,7 +168,7 @@ def _model_catalog() -> dict:
 
 
 def test_end_to_end_runs_both_models_then_stress(tmp_path, monkeypatch) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     reliability_root = tmp_path / "reliability"
     stress_dir = tmp_path / "stress"
     calls = []
@@ -178,10 +196,14 @@ def test_end_to_end_runs_both_models_then_stress(tmp_path, monkeypatch) -> None:
         return {"status": "passed"}
 
     monkeypatch.setattr(tail, "execute_one_reliability", fake_one)
+
+    def fake_replay_stress(*, result_path, reliability_paths):
+        assert result_path == stress_dir / "RESULT.json"
+        assert reliability_paths == tail._reliability_paths(reliability_root)
+        return {"verified": True, "status": "passed"}
+
     monkeypatch.setattr(
-        tail.stress,
-        "replay_stress_result",
-        lambda **kwargs: {"verified": True, "status": "passed"},
+        tail.stress, "replay_stress_result", fake_replay_stress
     )
     result = tail.execute_failure_tail(
         output_dir=tmp_path / "wrapper",
@@ -200,7 +222,7 @@ def test_end_to_end_runs_both_models_then_stress(tmp_path, monkeypatch) -> None:
 def test_first_model_exception_still_runs_second_and_closes_stress(
     tmp_path, monkeypatch
 ) -> None:
-    ledger_path = _copy_ledger(tmp_path)
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
     calls = []
     first = next(iter(tail.aug7.RELIABILITY_RUNS))
 
@@ -226,3 +248,50 @@ def test_first_model_exception_still_runs_second_and_closes_stress(
     assert result["status"] == "failed_closed"
     assert first in result["reliability_failures"]
     assert result["stress_verification"] is None
+
+
+def test_post_call_resume_replays_existing_stress_without_execution(
+    tmp_path, monkeypatch
+) -> None:
+    ledger_path = _copy_ledger(tmp_path, monkeypatch)
+    reliability_root = tmp_path / "reliability"
+    stress_dir = tmp_path / "stress"
+    tail.authorize_ledger(
+        ledger_path=ledger_path,
+        reliability_root=reliability_root,
+        stress_output_dir=stress_dir,
+    )
+    stress_dir.mkdir()
+    stress_result = {"status": "gated_null", "decision": "no_eligible_model"}
+    (stress_dir / "RESULT.json").write_text(
+        json.dumps(stress_result), encoding="utf-8"
+    )
+
+    monkeypatch.setattr(
+        tail,
+        "execute_one_reliability",
+        lambda **kwargs: {
+            "verified": True,
+            "model": kwargs["model"],
+            "status": "gated_null",
+        },
+    )
+
+    def forbidden_stress(**kwargs):
+        raise AssertionError("existing stress bytes must only be replayed")
+
+    monkeypatch.setattr(
+        tail.stress,
+        "replay_stress_result",
+        lambda **kwargs: {"verified": True, "status": "gated_null"},
+    )
+    result = tail.execute_failure_tail(
+        output_dir=tmp_path / "wrapper",
+        ledger_path=ledger_path,
+        reliability_root=reliability_root,
+        stress_output_dir=stress_dir,
+        stress_executor=forbidden_stress,
+        now=_now(),
+    )
+    assert result["status"] == "complete"
+    assert result["stress_status"] == "gated_null"

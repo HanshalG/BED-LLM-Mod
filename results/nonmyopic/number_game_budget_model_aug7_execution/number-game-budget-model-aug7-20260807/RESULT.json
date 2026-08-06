@@ -1,0 +1,22 @@
+{
+  "components": {
+    "control": {
+      "artifact": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/number_game_qwen_fully_fresh_daily_stages/number-game-qwen-fully-fresh-daily-stages-20260806T000200Z/CONTROL_DAILY_EXECUTION.json",
+      "artifact_sha256": "21dd28010309b769bc094824d18c27f1c758a7768b6ffd31de9d6201aeb8f968",
+      "decision": "stop_at_control_mechanics",
+      "status": "control_incomplete_or_mechanics_failed",
+      "verification": {
+        "artifact_sha256": "21dd28010309b769bc094824d18c27f1c758a7768b6ffd31de9d6201aeb8f968",
+        "decision": "stop_at_control_mechanics",
+        "status": "control_incomplete_or_mechanics_failed",
+        "verified": false
+      }
+    }
+  },
+  "daily_ledger": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/openrouter_daily_budget/2026-08-07.json",
+  "date": "2026-08-07",
+  "interface_version": "number-game-budget-model-aug7-execute-2",
+  "recorded_actual_spend_usd": 2.6901734400000024,
+  "schema_version": 1,
+  "status": "stopped_after_control"
+}
