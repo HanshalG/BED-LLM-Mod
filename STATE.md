@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Closed the Aug11--14 Bongard development launch boundary. After
+the existing manifest,Aug10,and prior-block independent replays, every fresh
+block now requires a pristine target, live Luna image+structured endpoint and
+finite prices, and full$5 balance before any ledger/adapter; it freezes that
+exact snapshot and banked blocks still never repeat. All dated commands now pin
+`/opt/anaconda3`. Full Bongard suite81/81; real Block-A volatile preflight is
+ready with balance$27.702109737 and model0/files0/cost0 (scientific Aug10
+predecessor remains unopened).
+
 2026-08-06: Made the Aug10 Bongard paid command self-gating. An unopened
 sequence now runs the complete frozen-source/image/archive/development-manifest,
 Luna catalog, pristine-path, and live-balance preflight before any directory,

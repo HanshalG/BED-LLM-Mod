@@ -23,6 +23,24 @@ def _now(block_id: str) -> datetime:
     return datetime(year, month, day, 10, tzinfo=ZoneInfo(execute.TIMEZONE))
 
 
+def _catalog() -> dict:
+    return {
+        "data": [
+            {
+                "id": development.MODEL_ID,
+                "context_length": 1_050_000,
+                "architecture": {"input_modalities": ["text", "image"]},
+                "supported_parameters": ["structured_outputs"],
+                "top_provider": {"max_completion_tokens": 128_000},
+                "pricing": {
+                    "prompt": "0.0000001",
+                    "completion": "0.0000006",
+                },
+            }
+        ]
+    }
+
+
 class Harness:
     def __init__(self, root: Path):
         self.root = root
@@ -41,6 +59,7 @@ class Harness:
         self.protocol_manifest = root / "PROTOCOL_MANIFEST.json"
         self.combined_result = root / "COMBINED_RESULT.json"
         self.executor_calls: list[str] = []
+        self.preflight_calls: list[str] = []
         self.analyzer_calls = 0
         self.combined_validator_calls = 0
 
@@ -55,6 +74,13 @@ class Harness:
             "verified": True,
             "wrapper_result_sha256": "aug10-wrapper-sha",
             "mechanics_result_sha256": "mechanics-sha",
+        }
+
+    def fresh_preflight(self, *, block_id: str, live_reader, **_) -> dict:
+        self.preflight_calls.append(block_id)
+        return {
+            "status": "ready_without_paid_calls",
+            "live_credits": live_reader(),
         }
 
     def block_executor(
@@ -188,6 +214,12 @@ class Harness:
             block_validator=self.block_validator,
             analyzer=self.analyzer,
             combined_validator=self.combined_validator,
+            live_reader=lambda: {
+                "total_credits_usd": 100.0,
+                "total_usage_usd": 80.0,
+                "balance_usd": 20.0,
+            },
+            fresh_preflight=self.fresh_preflight,
         )
 
 
@@ -196,7 +228,58 @@ def test_wrong_date_refuses_before_any_component(tmp_path: Path) -> None:
     with pytest.raises(RuntimeError, match="can run only"):
         harness.run("a", now=_now("b"))
     assert harness.executor_calls == []
+    assert harness.preflight_calls == []
     assert not harness.block_dirs["a"].exists()
+
+
+def test_runtime_preflight_is_read_only_and_exact(tmp_path: Path) -> None:
+    block_dir = tmp_path / "block-a"
+    ledger = tmp_path / "ledger-a.json"
+    result = execute.preflight_fresh_block_runtime(
+        block_id="a",
+        block_dir=block_dir,
+        ledger_path=ledger,
+        live_reader=lambda: {
+            "total_credits_usd": 100.0,
+            "total_usage_usd": 80.0,
+            "balance_usd": 20.0,
+        },
+        model_catalog_reader=_catalog,
+    )
+    assert result["status"] == "ready_without_paid_calls"
+    assert result["budget"]["block_maximum_cost_usd"] == 4.75
+    assert result["model_calls_made"] == 0
+    assert result["files_written"] == 0
+    assert not block_dir.exists()
+    assert not ledger.exists()
+
+
+def test_runtime_preflight_refuses_low_balance_and_nonpristine_path(
+    tmp_path: Path,
+) -> None:
+    block_dir = tmp_path / "block-a"
+    ledger = tmp_path / "ledger-a.json"
+    with pytest.raises(RuntimeError, match=r"below the \$5 start gate"):
+        execute.preflight_fresh_block_runtime(
+            block_id="a",
+            block_dir=block_dir,
+            ledger_path=ledger,
+            live_reader=lambda: {
+                "total_credits_usd": 100.0,
+                "total_usage_usd": 95.01,
+                "balance_usd": 4.99,
+            },
+            model_catalog_reader=_catalog,
+        )
+    _write(block_dir / "partial.json", {})
+    with pytest.raises(RuntimeError, match="path is not pristine"):
+        execute.preflight_fresh_block_runtime(
+            block_id="a",
+            block_dir=block_dir,
+            ledger_path=ledger,
+            live_reader=lambda: pytest.fail("dirty path read live"),
+            model_catalog_reader=lambda: pytest.fail("dirty path read catalog"),
+        )
 
 
 def test_fresh_block_and_resume_do_not_repeat_model_execution(
@@ -207,9 +290,44 @@ def test_fresh_block_and_resume_do_not_repeat_model_execution(
     second = harness.run("a")
     assert first == second
     assert harness.executor_calls == ["a"]
+    assert harness.preflight_calls == ["a"]
     assert first["status"] == "block_complete_verified"
     assert first["combined_endpoint_accessed"] is False
     assert not harness.combined_result.exists()
+
+
+def test_failed_fresh_runtime_preflight_writes_nothing(tmp_path: Path) -> None:
+    harness = Harness(tmp_path)
+
+    def failed_preflight(**_):
+        raise RuntimeError("Luna endpoint changed")
+
+    with pytest.raises(
+        execute.PreExecutionGateError, match="Luna endpoint changed"
+    ):
+        execute.execute_daily_block(
+            block_id="a",
+            block_dir=harness.block_dirs["a"],
+            ledger_path=harness.ledger_paths["a"],
+            ledger_paths=harness.ledger_paths,
+            protocol_manifest=harness.protocol_manifest,
+            aug10_result=tmp_path / "aug10.json",
+            mechanics_result=tmp_path / "mechanics.json",
+            combined_result=harness.combined_result,
+            block_result_paths=harness.result_paths,
+            now=_now("a"),
+            manifest_validator=harness.manifest_validator,
+            aug10_validator=harness.aug10_validator,
+            block_executor=lambda **_: pytest.fail("development block opened"),
+            block_validator=harness.block_validator,
+            analyzer=harness.analyzer,
+            combined_validator=harness.combined_validator,
+            live_reader=lambda: pytest.fail("failed preflight read live"),
+            fresh_preflight=failed_preflight,
+        )
+
+    assert not harness.block_dirs["a"].exists()
+    assert not harness.ledger_paths["a"].exists()
 
 
 def test_later_block_requires_prior_verified_daily_wrapper(tmp_path: Path) -> None:

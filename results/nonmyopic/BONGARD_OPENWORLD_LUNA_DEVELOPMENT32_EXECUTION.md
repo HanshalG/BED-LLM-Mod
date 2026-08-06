@@ -6,19 +6,21 @@ Run from the repository root after loading `.env`. Each command is valid only
 on its listed Europe/London date:
 
 ```bash
-set -a; source .env; set +a
+set -a
+source .env
+set +a
 
 # 2026-08-11
-python scripts/bongard_openworld_luna_development32_daily_execute.py --block a
+/opt/anaconda3/bin/python scripts/bongard_openworld_luna_development32_daily_execute.py --block a
 
 # 2026-08-12
-python scripts/bongard_openworld_luna_development32_daily_execute.py --block b
+/opt/anaconda3/bin/python scripts/bongard_openworld_luna_development32_daily_execute.py --block b
 
 # 2026-08-13
-python scripts/bongard_openworld_luna_development32_daily_execute.py --block c
+/opt/anaconda3/bin/python scripts/bongard_openworld_luna_development32_daily_execute.py --block c
 
 # 2026-08-14
-python scripts/bongard_openworld_luna_development32_daily_execute.py --block d
+/opt/anaconda3/bin/python scripts/bongard_openworld_luna_development32_daily_execute.py --block d
 ```
 
 The driver uses the frozen protocol manifest at
@@ -36,6 +38,11 @@ bound directly in the execution wrapper.
 ## Execution Guarantees
 
 - Every block revalidates the passed August 10 wrapper and mechanics result.
+- Before a fresh block writes its ledger or opens the adapter, it verifies a
+  pristine target, the live Luna image/structured-output endpoint and pricing,
+  and at least the full `$5.00` daily balance. It requires
+  `ready_without_paid_calls` and freezes that exact live snapshot as the ledger
+  opening boundary.
 - Blocks B--D require every preceding block result, reconciled ledger, and
   `DAILY_EXECUTION.json` to replay and match their recorded hashes.
 - Blocks A--C fail if a combined endpoint result exists. Their daily records
@@ -54,6 +61,12 @@ bound directly in the execution wrapper.
   fails closed instead of being reconstructed silently.
 - Every block has its own account-wide `$5.00` Europe/London ledger and a
   `$4.75` run cap. Unspent allowance does not roll over.
+
+The complete Bongard regression suite passes `81` tests. A real Block-A
+runtime preflight on 2026-08-06 returned `ready_without_paid_calls` with Luna
+at `$0.10/$0.60` per million tokens, balance `$27.702109737`, and zero calls or
+files. The scientific predecessor gate remains closed until the banked August
+10 result exists.
 
 The driver can authorize only confirmation **preregistration**. It never
 authorizes or executes confirmation tasks.

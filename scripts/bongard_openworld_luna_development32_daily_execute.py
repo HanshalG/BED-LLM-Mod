@@ -21,6 +21,7 @@ from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
+from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
@@ -55,12 +56,61 @@ LEDGERS = {
 COMBINED_RESULT = ROOT / "COMBINED_RESULT.json"
 
 
+class PreExecutionGateError(RuntimeError):
+    """Raised when an unopened development block fails its runtime gate."""
+
+
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _sha256(path: Path) -> str:
     return development.sha256_file(path)
+
+
+def preflight_fresh_block_runtime(
+    *,
+    block_id: str,
+    block_dir: Path,
+    ledger_path: Path,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    model_catalog_reader: Callable[[], dict[str, Any]] = (
+        aug10.read_openrouter_model_catalog
+    ),
+) -> dict[str, Any]:
+    """Validate volatile launch conditions without writing or model calls."""
+    if block_id not in development.BLOCK_ORDER:
+        raise ValueError(f"unknown development block {block_id!r}")
+    if ledger_path.exists():
+        raise RuntimeError(f"development block {block_id} ledger already exists")
+    if block_dir.exists() and (not block_dir.is_dir() or any(block_dir.iterdir())):
+        raise RuntimeError(f"development block {block_id} path is not pristine")
+    model = aug10._validate_model_catalog(model_catalog_reader())
+    live = live_reader()
+    values = [
+        float(live[field])
+        for field in ("total_credits_usd", "total_usage_usd", "balance_usd")
+    ]
+    if not all(math.isfinite(value) for value in values):
+        raise RuntimeError("live OpenRouter credit values are non-finite")
+    if float(live["balance_usd"]) + 1e-12 < 5.0:
+        raise RuntimeError("live OpenRouter balance is below the $5 start gate")
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "status": "ready_without_paid_calls",
+        "block_id": block_id,
+        "date": development.BLOCK_EARLIEST_DATES[block_id],
+        "model": model,
+        "live_credits": live,
+        "budget": {
+            "account_wide_daily_cap_usd": 5.0,
+            "block_maximum_cost_usd": development.RUN_BUDGET_USD,
+            "unspent_allowance_does_not_roll_over": True,
+        },
+        "model_calls_made": 0,
+        "files_written": 0,
+    }
 
 
 def _validate_date(block_id: str, now: datetime | None = None) -> None:
@@ -303,6 +353,10 @@ def execute_daily_block(
     block_validator: Callable[..., dict[str, Any]] = validate_block_result,
     analyzer: Callable[..., dict[str, Any]] = development.analyze_combined,
     combined_validator: Callable[..., dict[str, Any]] = verify_combined_result,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    fresh_preflight: Callable[..., dict[str, Any]] = (
+        preflight_fresh_block_runtime
+    ),
 ) -> dict[str, Any]:
     _validate_date(block_id, now)
     block_dir = block_dir or BLOCK_DIRS[block_id]
@@ -379,6 +433,31 @@ def execute_daily_block(
         elif block_dir.exists() and any(block_dir.iterdir()):
             raise RuntimeError("partial development block exists without a result")
         else:
+            if not ledger_path.exists():
+                try:
+                    preflight = fresh_preflight(
+                        block_id=block_id,
+                        block_dir=block_dir,
+                        ledger_path=ledger_path,
+                        live_reader=live_reader,
+                    )
+                except Exception as exc:
+                    raise PreExecutionGateError(str(exc)) from exc
+                if preflight.get("status") != "ready_without_paid_calls":
+                    raise PreExecutionGateError(
+                        f"fresh development block {block_id} was not authorized"
+                    )
+                live_opening = preflight.get("live_credits")
+                if not isinstance(live_opening, dict):
+                    raise PreExecutionGateError(
+                        "fresh preflight omitted the live credit snapshot"
+                    )
+                development._initialize_daily_ledger(
+                    path=ledger_path,
+                    live=live_opening,
+                    block_id=block_id,
+                    now=now,
+                )
             block_executor(
                 output_dir=block_dir,
                 run_id=BLOCK_RUN_IDS[block_id],
@@ -388,6 +467,7 @@ def execute_daily_block(
                 previous_results=previous,
                 ledger_path=ledger_path,
                 now=now,
+                live_reader=live_reader,
             )
         verification = block_validator(
             path=result_path,
