@@ -33,6 +33,7 @@ EXPECTED_REQUESTS_TOTAL = 7_360
 DAILY_CAP_USD = 5.0
 MIN_STARTING_BALANCE_USD = 5.0
 COMBINED_BOOTSTRAP_SEED = 112_800
+DYNAMIC_FIXED_BOOTSTRAP_SEED = COMBINED_BOOTSTRAP_SEED + 6
 FORMAL_BLOCK_DATES = {"a": "2026-08-08", "b": "2026-08-09"}
 PREREGISTRATION = component.PREREGISTRATION
 PREREGISTRATION_SHA256 = (
@@ -275,6 +276,27 @@ def scientific_gates(summary: dict[str, Any]) -> dict[str, bool]:
     }
 
 
+def selector_independent_dynamic_fixed_summary(
+    rows: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    comparison = audit._comparison_rows(
+        rows,
+        candidate_key="original_root",
+        baseline_key="fixed_depth_three_root",
+    )
+    return audit.comparison_summary(comparison) | {
+        "tree_bootstrap_95pct": audit.bootstrap_comparison(
+            comparison,
+            seed=DYNAMIC_FIXED_BOOTSTRAP_SEED,
+            stratified=False,
+        ),
+        "candidate_policy": "unadjusted_dynamic_depth_three",
+        "baseline_policy": "fixed_support_depth_three",
+        "selector_independent_of_diversity_bonus": True,
+        "registered_scientific_gate": False,
+    }
+
+
 def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
     stages = {block: _load(block_stage_path(run_dir, block)) for block in BLOCKS}
     scored = {block: _scored_block(run_dir, block) for block in BLOCKS}
@@ -286,6 +308,9 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
         seed=COMBINED_BOOTSTRAP_SEED,
         include_coefficient_grid=False,
     )
+    summary["comparisons"][
+        "unadjusted_dynamic_vs_fixed_depth_three"
+    ] = selector_independent_dynamic_fixed_summary(rows)
     gates = scientific_gates(summary)
     required_descriptive_controls = {
         "positive_test_strategy",
@@ -353,6 +378,10 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
                 required_descriptive_controls
             ),
             "descriptive_controls_are_not_scientific_gates": True,
+            "selector_independent_dynamic_fixed_reported": True,
+            "selector_independent_dynamic_fixed_bootstrap_seed": (
+                DYNAMIC_FIXED_BOOTSTRAP_SEED
+            ),
         },
         "usage": usage,
         "block_stages": stages,

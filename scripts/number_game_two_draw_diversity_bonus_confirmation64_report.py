@@ -31,7 +31,7 @@ CLAIM_PLAN = REPO_ROOT / (
     "NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md"
 )
 CLAIM_PLAN_SHA256 = (
-    "27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3"
+    "68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916"
 )
 CLAIM_REPORT_NAME = "CLAIM_REPORT.json"
 SCHEMA_VERSION = 1
@@ -111,12 +111,16 @@ CLAIM_SCOPES = {
     },
 }
 COMPARISON_ORDER = (
-    ("crossfit_depth_two", "Cross-fitted dynamic depth two"),
-    ("original_depth_three", "Unadjusted dynamic depth three"),
-    ("myopic_eig", "Myopic EIG"),
-    ("fixed_support_depth_three", "Fixed-support depth three"),
-    ("positive_test_strategy", "Positive-test strategy"),
-    ("uniform_random_candidate_root", "Uniform random roots"),
+    ("crossfit_depth_two", "Bonus dynamic d3 vs cross-fitted dynamic d2"),
+    ("original_depth_three", "Bonus dynamic d3 vs unadjusted dynamic d3"),
+    ("myopic_eig", "Bonus dynamic d3 vs myopic EIG"),
+    ("fixed_support_depth_three", "Bonus dynamic d3 vs fixed-support d3"),
+    (
+        "unadjusted_dynamic_vs_fixed_depth_three",
+        "Unadjusted dynamic d3 vs fixed-support d3",
+    ),
+    ("positive_test_strategy", "Bonus dynamic d3 vs positive-test strategy"),
+    ("uniform_random_candidate_root", "Bonus dynamic d3 vs uniform random roots"),
 )
 
 
@@ -173,7 +177,7 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
     for name in (
         "crossfit_depth_two",
         "original_depth_three",
-        "fixed_support_depth_three",
+        "unadjusted_dynamic_vs_fixed_depth_three",
     ):
         if name not in comparisons or not _finite(comparisons[name]):
             raise ValueError(f"staged result has invalid comparison: {name}")
@@ -207,7 +211,14 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             int(original["wins"]) > int(original["losses"])
         ),
     }
-    fixed = comparisons["fixed_support_depth_three"]
+    fixed = comparisons["unadjusted_dynamic_vs_fixed_depth_three"]
+    if (
+        fixed.get("candidate_policy") != "unadjusted_dynamic_depth_three"
+        or fixed.get("baseline_policy") != "fixed_support_depth_three"
+        or fixed.get("selector_independent_of_diversity_bonus") is not True
+        or fixed.get("registered_scientific_gate") is not False
+    ):
+        raise ValueError("dynamic-support contrast is not selector-independent")
     dynamic_gates = {
         "dynamic_reduction_vs_fixed_at_least_three_percent": (
             float(fixed["relative_brier_reduction"]) >= 0.03
@@ -346,7 +357,7 @@ def render_report(
         "## Paired Brier Comparisons",
         "",
         (
-            "| Baseline | Bonus d3 mean (SD) | Baseline mean (SD) | "
+            "| Comparison | Candidate mean (SD) | Baseline mean (SD) | "
             "Relative reduction | Paired difference 95% CI | W/T/L | "
             "Changed roots |"
         ),

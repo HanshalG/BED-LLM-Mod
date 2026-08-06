@@ -236,6 +236,24 @@ def replay_combined(run_dir: Path) -> dict[str, Any]:
         seed=staged.COMBINED_BOOTSTRAP_SEED,
         include_coefficient_grid=False,
     )
+    dynamic_fixed_rows = audit._comparison_rows(
+        rows,
+        candidate_key="original_root",
+        baseline_key="fixed_depth_three_root",
+    )
+    summary["comparisons"][
+        "unadjusted_dynamic_vs_fixed_depth_three"
+    ] = audit.comparison_summary(dynamic_fixed_rows) | {
+        "tree_bootstrap_95pct": audit.bootstrap_comparison(
+            dynamic_fixed_rows,
+            seed=staged.DYNAMIC_FIXED_BOOTSTRAP_SEED,
+            stratified=False,
+        ),
+        "candidate_policy": "unadjusted_dynamic_depth_three",
+        "baseline_policy": "fixed_support_depth_three",
+        "selector_independent_of_diversity_bonus": True,
+        "registered_scientific_gate": False,
+    }
     return {
         "blocks": blocks,
         "rows": rows,
@@ -337,6 +355,24 @@ def verification_checks(
                 name in replay["comparisons"]
                 for name in protocol.get("descriptive_controls_reported", [])
             )
+        ),
+        "selector_independent_dynamic_fixed_contract_exact": (
+            protocol.get("selector_independent_dynamic_fixed_reported")
+            is True
+            and protocol.get(
+                "selector_independent_dynamic_fixed_bootstrap_seed"
+            )
+            == staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
+            and "unadjusted_dynamic_vs_fixed_depth_three"
+            in replay["comparisons"]
+            and replay["comparisons"][
+                "unadjusted_dynamic_vs_fixed_depth_three"
+            ].get("selector_independent_of_diversity_bonus")
+            is True
+            and replay["comparisons"][
+                "unadjusted_dynamic_vs_fixed_depth_three"
+            ].get("registered_scientific_gate")
+            is False
         ),
         "no_coefficient_grid_published": all(
             "coefficient_grid_roots" not in row

@@ -33,6 +33,14 @@ def _run(tmp_path: Path, *, status: str = "passed") -> Path:
         name: _comparison(0.09, 0.10 + index * 0.001)
         for index, (name, _) in enumerate(report.COMPARISON_ORDER)
     }
+    comparisons["unadjusted_dynamic_vs_fixed_depth_three"].update(
+        {
+            "candidate_policy": "unadjusted_dynamic_depth_three",
+            "baseline_policy": "fixed_support_depth_three",
+            "selector_independent_of_diversity_bonus": True,
+            "registered_scientific_gate": False,
+        }
+    )
     result = {
         "status": status,
         "comparisons": comparisons,
@@ -148,6 +156,37 @@ def test_depth_and_mechanism_families_are_not_allowed_to_rescue_each_other(
     assert classification["claim_tier"] == (
         "mechanism_only_without_nonmyopic_depth"
     )
+
+
+def test_confounded_bonus_vs_fixed_cannot_authorize_dynamic_claim(
+    tmp_path: Path,
+) -> None:
+    run_dir = _run(tmp_path)
+    result = json.loads((run_dir / "RESULT.json").read_text())
+    clean = result["comparisons"][
+        "unadjusted_dynamic_vs_fixed_depth_three"
+    ]
+    clean.update(
+        {
+            "candidate_mean_brier": 0.1,
+            "baseline_mean_brier": 0.1,
+            "mean_candidate_minus_baseline_brier": 0.0,
+            "relative_brier_reduction": 0.0,
+            "tree_bootstrap_95pct": [-0.002, 0.002],
+            "wins": 20,
+            "ties": 24,
+            "losses": 20,
+        }
+    )
+    assert result["comparisons"]["fixed_support_depth_three"][
+        "tree_bootstrap_95pct"
+    ][1] < 0.0
+    classification = report.classify_claim_scope(result)
+    assert not classification["dynamic_support_endpoint_family"]["pass"]
+    assert classification["claim_tier"] == (
+        "nonmyopic_with_diversity_selector_gain"
+    )
+    assert not classification["authorizes_full_llm_native_dynamic_claim"]
 
 
 def test_report_banks_json_and_markdown_idempotently(tmp_path: Path) -> None:

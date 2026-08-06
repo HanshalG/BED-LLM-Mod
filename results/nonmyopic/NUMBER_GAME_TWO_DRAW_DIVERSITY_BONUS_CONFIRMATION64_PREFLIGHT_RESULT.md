@@ -17,7 +17,7 @@ neither waiting state authorizes a model call.
 - prospective preregistration SHA-256:
   `49b1a8bd783f8cbf54ba561ec55567bc4143af3b4358397cab4840d7d778cc5d`;
 - pre-response claim-plan SHA-256:
-  `27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3`;
+  `68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916`;
 - canonical dates/seeds/models/request manifest SHA-256:
   `041994f4de92b573c511414a293c049655a6adec6321189f522246b0f1ea6eba`;
 - exact request boundary: `3,680` per block and `7,360` total;
@@ -58,5 +58,5 @@ set -a; source .env; set +a
   --block b --preflight
 ```
 
-Focused validation: `152 passed` across the diversity-bonus and Aug 7 execution
+Focused validation: `155 passed` across the diversity-bonus and Aug 7 execution
 tests.

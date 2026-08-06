@@ -92,6 +92,30 @@ def test_scientific_gates_use_primary_and_nonworsening_only() -> None:
     ]
 
 
+def test_selector_independent_dynamic_fixed_uses_unadjusted_root() -> None:
+    rows = [
+        {
+            "source": "a",
+            "tree_seed": 1,
+            "original_root": 0,
+            "bonus_root": 1,
+            "fixed_depth_three_root": 2,
+            "root_rows": [
+                {"root": 0, "realized_brier": 0.1},
+                {"root": 1, "realized_brier": 0.9},
+                {"root": 2, "realized_brier": 0.2},
+            ],
+        }
+    ]
+    summary = staged.selector_independent_dynamic_fixed_summary(rows)
+    assert summary["candidate_mean_brier"] == pytest.approx(0.1)
+    assert summary["baseline_mean_brier"] == pytest.approx(0.2)
+    assert summary["mean_candidate_minus_baseline_brier"] == pytest.approx(
+        -0.1
+    )
+    assert summary["selector_independent_of_diversity_bonus"]
+
+
 def test_block_b_authorization_uses_only_mechanics_and_later_date(
     tmp_path, monkeypatch
 ) -> None:
@@ -214,6 +238,11 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
         "source_summary",
         lambda rows, **kwargs: _summary(),
     )
+    monkeypatch.setattr(
+        staged,
+        "selector_independent_dynamic_fixed_summary",
+        lambda rows: {"selector_independent_of_diversity_bonus": True},
+    )
     monkeypatch.setattr(staged.component, "_mean_rank_metrics", lambda rows: {})
     result = staged.build_combined_result(run_dir=tmp_path, run_id="combined")
 
@@ -221,6 +250,10 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
     assert result["protocol"]["tree_count"] == 64
     assert result["usage"]["adapter_requests"] == 7_360
     assert len(result["rows"]) == 64
+    assert (
+        result["protocol"]["selector_independent_dynamic_fixed_bootstrap_seed"]
+        == staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
+    )
 
 
 def test_block_b_checkpoints_spend_before_scoring_and_verification(

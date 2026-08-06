@@ -103,6 +103,16 @@ def _fixtures():
             "changed_roots": 20,
             "mean_candidate_minus_baseline_brier": -0.001,
         },
+        "unadjusted_dynamic_vs_fixed_depth_three": {
+            "relative_brier_reduction": 0.04,
+            "tree_bootstrap_95pct": [-0.01, -0.001],
+            "wins": 30,
+            "losses": 18,
+            "candidate_policy": "unadjusted_dynamic_depth_three",
+            "baseline_policy": "fixed_support_depth_three",
+            "selector_independent_of_diversity_bonus": True,
+            "registered_scientific_gate": False,
+        },
         "positive_test_strategy": {
             "baseline_is_mean_of_two_roots_per_tree": True,
         },
@@ -199,6 +209,10 @@ def _fixtures():
                 "uniform_random_candidate_root",
             ],
             "descriptive_controls_are_not_scientific_gates": True,
+            "selector_independent_dynamic_fixed_reported": True,
+            "selector_independent_dynamic_fixed_bootstrap_seed": (
+                staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
+            ),
         },
         "usage": {
             "adapter_requests": staged.EXPECTED_REQUESTS_TOTAL,
@@ -290,6 +304,19 @@ def test_tampered_seed_manifest_is_detected() -> None:
         block_a_verification_sha256=authorization_sha,
     )
     assert not checks["outer_seed_manifest_exact"]
+
+
+def test_tampered_selector_independent_contract_is_detected() -> None:
+    result, stages, replay, authorization, authorization_sha = _fixtures()
+    result["protocol"]["selector_independent_dynamic_fixed_reported"] = False
+    checks = verify.verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
+    )
+    assert not checks["selector_independent_dynamic_fixed_contract_exact"]
 
 
 def test_tampered_stage_mechanics_and_cost_are_detected() -> None:

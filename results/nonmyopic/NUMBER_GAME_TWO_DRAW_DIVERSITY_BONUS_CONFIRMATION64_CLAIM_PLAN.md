@@ -47,15 +47,18 @@ boundary, not new gates that can alter the registered experiment status.
 
 ### Dynamic-support endpoint
 
-The paired bonus dynamic-depth-three versus compute-matched fixed-support
+The paired unadjusted dynamic-depth-three versus compute-matched fixed-support
 depth-three comparison must satisfy all of:
 
 - at least 3% Brier reduction;
 - its tree-bootstrap 95% interval is entirely below zero; and
 - tree wins exceed losses.
 
-This is an endpoint comparison, not a pure ablation of every difference
-between dynamic and fixed support.
+Because both selectors use their original frozen risk score and differ only in
+whether future support is regenerated or held fixed, this removes the
+diversity-bonus selection change from the dynamic-support endpoint. It remains
+an endpoint comparison rather than a claim that every internal support change
+is individually beneficial.
 
 ### Ranking mechanism
 

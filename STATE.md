@@ -4,16 +4,27 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Removed a causal confound from the unopened diversity64 claim
+path. The full LLM-native tier now uses a new zero-call paired contrast between
+the original unadjusted dynamic-d3 root and fixed-support-d3 root on each same
+tree, rather than bonus-selected dynamic d3 versus fixed. Bonus>unadjusted and
+unadjusted-dynamic>fixed must therefore pass separately; neither can rescue the
+other or the registered d3>d2 family. Independent replay binds the extra
+comparison/bootstrap/protocol metadata. Adversarial tests and a64-row
+full-shape historical mechanics replay pass; no prospective outcome opened and
+no model calls/cost. Combined Aug7--9 suite155/155; real A/B preflights accept
+claim hash68a38ad2...8916 with the original protocol digest unchanged,
+balance$27.702109737,model0/files0.
+
 2026-08-06: Froze a stricter pre-response claim boundary for the unopened
 Aug8--9 diversity64 result. The registered pass remains depth3>depth2 plus an
 active/nonworse bonus; it no longer silently implies causal diversity gain.
 New zero-call classification separately requires paired bonus>unadjusted
 superiority and dynamic>fixed support before the full LLM-native dynamic-belief
 claim is allowed, with ranking fidelity diagnostic-only. The claim-plan hash
-27f494f4...82e3 is now a paid-launch preflight input; Block B banks JSON+MD
-once and completed replay rejects altered reports. Full confirmation stack
-51/51; combined Aug7--9 suite152/152. Real A/B preflights bind the new hash and
-remain correctly waiting with balance$27.702109737,model0/files0/cost0.
+68a38ad2...8916 is now a paid-launch preflight input; Block B banks JSON+MD
+once and completed replay rejects altered reports. Real A/B preflights remain
+correctly waiting with balance$27.702109737,model0/files0/cost0.
 
 2026-08-06: Made the post-control claim classifier unavoidable in the
 authoritative Aug7 sequence. After independent control verification and before

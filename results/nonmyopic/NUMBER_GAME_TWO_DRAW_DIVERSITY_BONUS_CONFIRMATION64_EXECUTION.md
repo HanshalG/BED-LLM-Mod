@@ -102,9 +102,11 @@ The separately frozen claim plan keeps that registered status distinct from
 causal mechanism evidence. Selector superiority additionally requires the
 bonus-versus-unadjusted paired mean and 95% interval below zero plus wins
 exceeding losses. The strongest LLM-native tier also requires at least 3%
-dynamic-versus-fixed depth-three improvement, an interval below zero, and wins
-exceeding losses. These stricter interpretation families cannot rescue or
-alter the registered result status.
+unadjusted-dynamic-versus-fixed depth-three improvement, an interval below
+zero, and wins exceeding losses. That paired contrast uses the original
+depth-three root, not the diversity-selected root, so selector improvement
+cannot rescue the support-dynamics family. These stricter interpretation
+families cannot rescue or alter the registered result status.
 
 ## Verification
 
@@ -117,7 +119,7 @@ the combined bootstrap, every gate, and final status.
 
 Before either paid block, the read-only protocol preflight also binds
 `NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md` SHA-256
-`27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3`.
+`68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916`.
 After Block B, the report path independently replays the verifier, requires
 exact equality with `VERIFICATION.json`, and banks `CLAIM_REPORT.json` plus
 the public Markdown exactly once with zero model calls.
@@ -125,6 +127,11 @@ the public Markdown exactly once with zero model calls.
 `BLOCK_B_DAILY_EXECUTION.json` is written only after verification succeeds
 and posted usage is reconciled. A verifier failure leaves spend recorded and
 fails closed.
+
+A zero-call 64-row full-shape dry replay on a duplicated historical source
+confirmed that the added contrast reads the unadjusted dynamic and fixed roots
+and produces finite paired statistics. Its values are mechanics evidence only
+and are not used to interpret or authorize the prospective cohort.
 
 ## Dry Replay Evidence
 
