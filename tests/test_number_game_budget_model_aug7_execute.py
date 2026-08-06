@@ -20,7 +20,9 @@ def _write(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
-def _ledger(*, stress_authorized: bool = True) -> dict:
+def _ledger(
+    *, stress_authorized: bool = True, recorded: float = 3.2
+) -> dict:
     tails = [
         {
             "interface": reliability.INTERFACE_VERSION,
@@ -37,6 +39,8 @@ def _ledger(*, stress_authorized: bool = True) -> dict:
                 "model": None,
                 "maximum_cost_usd": stress.RUN_BUDGET_USD,
                 "status": "waiting_for_reliability_results",
+                "selection_rule": stress.SELECTION_RULE,
+                "authorization_stage": "post_control_guaranteed",
             }
         )
     return {
@@ -44,11 +48,14 @@ def _ledger(*, stress_authorized: bool = True) -> dict:
         "timezone": "Europe/London",
         "daily_cap_usd": 5.0,
         "opening_total_usage_usd": 100.0,
-        "recorded_actual_spend_usd": 3.2,
+        "recorded_actual_spend_usd": recorded,
         "account_wide_usage_counts_against_cap": True,
         "unspent_allowance_does_not_roll_over": True,
         "additional_paid_blocks_authorized": True,
         "authorized_tail_blocks": tails,
+        "reconciliation": {
+            "remaining_daily_allowance_usd": 5.0 - recorded,
+        },
     }
 
 
@@ -292,6 +299,13 @@ def _reliability_runner(calls: list[str], *, fail_model: str | None = None):
     def run(*, output_dir: Path, model_id: str, ledger_path: Path, **_):
         calls.append(model_id)
         ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+        cost = 0.04
+        ledger["recorded_actual_spend_usd"] += cost
+        ledger["reconciliation"] = {
+            "remaining_daily_allowance_usd": (
+                5.0 - ledger["recorded_actual_spend_usd"]
+            ),
+        }
         if model_id == fail_model:
             artifact = {
                 "interface_version": reliability.INTERFACE_VERSION,
@@ -303,6 +317,7 @@ def _reliability_runner(calls: list[str], *, fail_model: str | None = None):
             for item in ledger["authorized_tail_blocks"]:
                 if item.get("model") == model_id:
                     item["status"] = status
+                    item["actual_cost_usd"] = cost
             _write(ledger_path, ledger)
             raise RuntimeError("model failed")
         artifact = {
@@ -366,7 +381,12 @@ def _stress_runner(calls: list[str]):
         entry["model"] = result["selection"]["selected_model"]
         entry["actual_cost_usd"] = 0.3
         ledger["additional_paid_blocks_authorized"] = False
-        ledger["recorded_actual_spend_usd"] = 3.5
+        ledger["recorded_actual_spend_usd"] += 0.3
+        ledger["reconciliation"] = {
+            "remaining_daily_allowance_usd": (
+                5.0 - ledger["recorded_actual_spend_usd"]
+            ),
+        }
         _write(ledger_path, ledger)
         return result
 
@@ -461,7 +481,7 @@ def test_banked_failed_model_does_not_block_other_gate(tmp_path: Path) -> None:
     assert result["status"] == "complete"
 
 
-def test_stress_is_skipped_when_control_did_not_authorize_headroom(
+def test_stress_is_deferred_when_reliability_spend_leaves_headroom(
     tmp_path: Path,
 ) -> None:
     paths = _paths(tmp_path)
@@ -472,11 +492,90 @@ def test_stress_is_skipped_when_control_did_not_authorize_headroom(
         now=NOW,
         control_runner=_control_runner(calls),
         reliability_runner=_reliability_runner(calls),
+        stress_runner=_stress_runner(calls),
+    )
+
+    assert result["decision"] == "scale_reliable"
+    assert calls[-1] == "stress"
+    assert result["deferred_stress_authorization"]["status"] == (
+        "authorized_post_reliability"
+    )
+    assert result["deferred_stress_authorization"][
+        "scientific_values_accessed"
+    ] is False
+
+
+def test_stress_is_skipped_when_post_reliability_headroom_is_too_small(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    _write(
+        paths["daily_ledger"],
+        _ledger(stress_authorized=False, recorded=3.38),
+    )
+    calls = []
+    result = execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=_control_runner(calls),
+        reliability_runner=_reliability_runner(calls),
         stress_runner=lambda **_: pytest.fail("stress must not run"),
     )
 
-    assert result["decision"] == "stress_not_authorized_by_control_headroom"
+    assert result["decision"] == (
+        "stress_not_authorized_by_post_reliability_headroom"
+    )
     assert "stress" not in calls
+    assert result["deferred_stress_authorization"]["status"] == (
+        "not_authorized_insufficient_reconciled_allowance"
+    )
+
+
+def test_deferred_authorization_is_exact_at_stress_cap_boundary() -> None:
+    ledger = _ledger(stress_authorized=False, recorded=3.45)
+    for item in ledger["authorized_tail_blocks"]:
+        item["status"] = "passed"
+        item["actual_cost_usd"] = 0.05
+
+    updated = execute.authorize_deferred_stress_after_reliability(ledger)
+
+    assert updated["additional_paid_blocks_authorized"]
+    stress_entry = updated["authorized_tail_blocks"][-1]
+    assert stress_entry["authorization_stage"] == (
+        "post_reliability_reconciled"
+    )
+    assert updated["deferred_stress_authorization"][
+        "remaining_daily_allowance_usd"
+    ] == pytest.approx(1.55)
+
+
+def test_deferred_authorization_rejects_pending_or_unknown_tail() -> None:
+    pending = _ledger(stress_authorized=False)
+    with pytest.raises(RuntimeError, match="not terminal"):
+        execute.authorize_deferred_stress_after_reliability(pending)
+
+    terminal = _ledger(stress_authorized=False)
+    for item in terminal["authorized_tail_blocks"]:
+        item["status"] = "passed"
+        item["actual_cost_usd"] = 0.04
+    terminal["authorized_tail_blocks"].append(
+        {"interface": "unknown-tail", "status": "waiting"}
+    )
+    with pytest.raises(RuntimeError, match="unknown tail"):
+        execute.authorize_deferred_stress_after_reliability(terminal)
+
+
+def test_deferred_authorization_rejects_duplicate_stress_entry() -> None:
+    ledger = _ledger()
+    for item in ledger["authorized_tail_blocks"][:2]:
+        item["status"] = "passed"
+        item["actual_cost_usd"] = 0.04
+    ledger["authorized_tail_blocks"].append(
+        dict(ledger["authorized_tail_blocks"][-1])
+    )
+
+    with pytest.raises(RuntimeError, match="duplicate stress"):
+        execute.authorize_deferred_stress_after_reliability(ledger)
 
 
 def test_resume_never_repeats_banked_components(tmp_path: Path) -> None:

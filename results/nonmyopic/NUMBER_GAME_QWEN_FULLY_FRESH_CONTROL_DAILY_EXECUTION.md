@@ -52,7 +52,7 @@ blocks:
 - `deepseek/deepseek-v4-flash-0731`, reliability128 interface, maximum `$0.10`.
 
 When at least `$1.75` remains, it also creates one waiting
-`number-game-budget-model-stress3584-1` entry with a `$1.55` cap. That entry
+`number-game-budget-model-stress3584-2` entry with a `$1.55` cap. That entry
 receives no model until both reliability gates are banked. It selects only
 among passing models using the frozen ordering:
 conditioned-support minimum, conditioned-support mean, fewer parse/forced-exit
@@ -66,6 +66,13 @@ at least `$0.20` remains; the stress successor is omitted unless the full
 pending authorization and still checks live account-wide spend, so total
 account spend cannot exceed `$5.00`. No other paid tail is authorized by this
 amendment.
+
+The separate August 7 orchestrator is additionally bound to the frozen
+deferred-authorization amendment. If this control wrapper omits stress because
+the full worst-case tail did not fit, the orchestrator may reconsider once
+after both reliability gates are terminal. That reconsideration uses only
+reconciled ledger spend and requires the entire `$1.55` stress cap; it does not
+change this wrapper's original guarantee or inspect scientific outcomes.
 
 ## Command
 

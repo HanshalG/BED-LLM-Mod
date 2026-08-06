@@ -29,7 +29,7 @@ AUTHORIZED_RELIABILITY_TAILS = (
     "deepseek/deepseek-v4-flash-0731",
 )
 RELIABILITY_TAIL_CAP_USD = 0.10
-STRESS_INTERFACE_VERSION = "number-game-budget-model-stress3584-1"
+STRESS_INTERFACE_VERSION = "number-game-budget-model-stress3584-2"
 STRESS_TAIL_CAP_USD = 1.55
 RELIABILITY_GATE_TOTAL_CAP_USD = (
     len(AUTHORIZED_RELIABILITY_TAILS) * RELIABILITY_TAIL_CAP_USD
@@ -145,6 +145,7 @@ def authorize_reliability_tails(
                 "selection_rule": (
                     "pass_then_conditioned_min_mean_then_failure_tail_then_cost"
                 ),
+                "authorization_stage": "post_control_guaranteed",
             }
         ] if stress_authorized else [])
         if gates_authorized

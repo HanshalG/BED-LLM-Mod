@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "number-game-budget-model-stress3584-1"
+INTERFACE_VERSION = "number-game-budget-model-stress3584-2"
 CASE_SELECTION_SEED = 1_081_200
 CASE_MANIFEST_SHA256 = (
     "017ef5554906954e8514be487de4cb1924bbf19f295d9977953e486891bb71cd"
@@ -74,6 +74,13 @@ PREREGISTRATION = REPO_ROOT / (
 PREREGISTRATION_SHA256 = (
     "9be58161b48d7a355d93bc26481cf446ba81d2ef4c7adc2b23e1a6f949d42e51"
 )
+AUTHORIZATION_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "NUMBER_GAME_BUDGET_MODEL_DEFERRED_STRESS_AUTHORIZATION_AMENDMENT.md"
+)
+AUTHORIZATION_AMENDMENT_SHA256 = (
+    "259465d0555068bced5bd69151e98ae5f788ad85e53f26aa6ca7a2fb6c399fb7"
+)
 
 
 class StructuredModel(Protocol):
@@ -92,6 +99,16 @@ class StructuredModel(Protocol):
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_protocol_bindings() -> None:
+    if reliability.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
+        raise ValueError("stress preregistration hash changed")
+    if (
+        reliability.sha256_file(AUTHORIZATION_AMENDMENT)
+        != AUTHORIZATION_AMENDMENT_SHA256
+    ):
+        raise ValueError("stress authorization amendment hash changed")
 
 
 def _history_key(history: Sequence[tuple[int, bool]]) -> str:
@@ -357,6 +374,8 @@ def validate_tail_authorization(ledger: dict[str, Any]) -> dict[str, Any]:
         != "waiting_for_reliability_results"
         or authorization.get("model") is not None
         or authorization.get("selection_rule") != SELECTION_RULE
+        or authorization.get("authorization_stage")
+        not in {"post_control_guaranteed", "post_reliability_reconciled"}
         or float(authorization.get("maximum_cost_usd", -1.0))
         != RUN_BUDGET_USD
     ):
@@ -469,6 +488,7 @@ def _stress_protocol(selected_model: str) -> dict[str, Any]:
     return {
         "interface_version": INTERFACE_VERSION,
         "preregistration_sha256": PREREGISTRATION_SHA256,
+        "authorization_amendment_sha256": AUTHORIZATION_AMENDMENT_SHA256,
         "selected_model": selected_model,
         "model_seeds": list(MODEL_SEEDS[selected_model]),
         "case_selection_seed": CASE_SELECTION_SEED,
@@ -581,8 +601,7 @@ def replay_stress_result(
     reliability_paths: dict[str, Path],
     source_path: Path = SOURCE_TREES,
 ) -> dict[str, Any]:
-    if reliability.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
-        raise ValueError("stress preregistration hash changed")
+    validate_protocol_bindings()
     results, artifacts = _load_reliability_results(reliability_paths)
     selection = select_model(results)
     result = _load(result_path)
@@ -599,6 +618,9 @@ def replay_stress_result(
             "protocol": {
                 "interface_version": INTERFACE_VERSION,
                 "preregistration_sha256": PREREGISTRATION_SHA256,
+                "authorization_amendment_sha256": (
+                    AUTHORIZATION_AMENDMENT_SHA256
+                ),
                 "model_calls": 0,
                 "run_budget_usd": RUN_BUDGET_USD,
             },
@@ -938,8 +960,7 @@ def execute_stress(
 ) -> dict[str, Any]:
     if output_dir.exists() and any(output_dir.iterdir()):
         raise FileExistsError(f"output directory is not empty: {output_dir}")
-    if reliability.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
-        raise ValueError("stress preregistration hash changed")
+    validate_protocol_bindings()
     ledger = _load(ledger_path)
     validate_tail_authorization(ledger)
     results, artifacts = _load_reliability_results(reliability_paths)
@@ -970,6 +991,9 @@ def execute_stress(
             "protocol": {
                 "interface_version": INTERFACE_VERSION,
                 "preregistration_sha256": PREREGISTRATION_SHA256,
+                "authorization_amendment_sha256": (
+                    AUTHORIZATION_AMENDMENT_SHA256
+                ),
                 "model_calls": 0,
                 "run_budget_usd": RUN_BUDGET_USD,
             },

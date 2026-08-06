@@ -4,6 +4,8 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Make the account-wide $5/day plan use reconciled headroom without weakening science gates. Freeze a pre-response ledger-only amendment:if control omitted stress,after both exact reliability128 entries are terminal+verified,authorize unchanged stress3584 iff recorded spend<=3.45/full$1.55 remains;the decision is forbidden from reading model eligibility/support/parse/Brier/policy/target values. Stress interface advances to-2 and binds amendment SHA259465d0. Focused65/65 tests and real zero-call Aug7 preflight pass;expected$4.96,usage217.297890263/balance27.702109737 unchanged. Reported new$30 remains unposted. Luna(.10/.60/M,vision,AA51 max) and DS0731(.09/.18/M,text-only) remain matched budget frontier;direct reliability,not generic AA,chooses text scale. Model0/cost0.
+
 2026-08-06: Removed a causal confound from the unopened diversity64 claim
 path. The full LLM-native tier now uses a new zero-call paired contrast between
 the original unadjusted dynamic-d3 root and fixed-support-d3 root on each same

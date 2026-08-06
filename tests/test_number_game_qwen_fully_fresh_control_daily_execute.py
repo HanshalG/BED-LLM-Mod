@@ -130,6 +130,7 @@ def test_provider_lag_uses_local_measured_cost(tmp_path: Path) -> None:
     stress = ledger["authorized_tail_blocks"][-1]
     assert stress["interface"] == execute.STRESS_INTERFACE_VERSION
     assert stress["status"] == "waiting_for_reliability_results"
+    assert stress["authorization_stage"] == "post_control_guaranteed"
     assert len(stage_calls) == 1
     assert verifier_calls == [run_dir]
     assert (run_dir / "CONTROL_DAILY_EXECUTION.json").exists()

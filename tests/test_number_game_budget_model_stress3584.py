@@ -70,6 +70,7 @@ def _ledger(*, luna_status: str, deepseek_status: str) -> dict:
                 "maximum_cost_usd": stress.RUN_BUDGET_USD,
                 "status": "waiting_for_reliability_results",
                 "selection_rule": stress.SELECTION_RULE,
+                "authorization_stage": "post_control_guaranteed",
             },
         ],
     }
@@ -103,6 +104,10 @@ def test_preregistration_and_case_manifest_are_frozen() -> None:
     assert (
         reliability.sha256_file(stress.PREREGISTRATION)
         == stress.PREREGISTRATION_SHA256
+    )
+    assert (
+        reliability.sha256_file(stress.AUTHORIZATION_AMENDMENT)
+        == stress.AUTHORIZATION_AMENDMENT_SHA256
     )
     cases = stress.build_stress_cases()
     assert len(cases) == 3584

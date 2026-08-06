@@ -242,10 +242,7 @@ def _verify_source_readiness(run_dir: Path) -> dict[str, Any]:
 def _verify_frozen_case_inputs() -> dict[str, Any]:
     reliability_cases = reliability.build_cases()
     stress_cases = stress.build_stress_cases()
-    if reliability.sha256_file(stress.PREREGISTRATION) != (
-        stress.PREREGISTRATION_SHA256
-    ):
-        raise RuntimeError("stress preregistration hash changed")
+    stress.validate_protocol_bindings()
     if (
         len(reliability_cases) != reliability.EXPECTED_INITIAL_REQUESTS
         or len(stress_cases) != stress.EXPECTED_INITIAL_REQUESTS
@@ -258,6 +255,9 @@ def _verify_frozen_case_inputs() -> dict[str, Any]:
         "stress_case_count": len(stress_cases),
         "stress_case_manifest_sha256": stress.CASE_MANIFEST_SHA256,
         "stress_preregistration_sha256": stress.PREREGISTRATION_SHA256,
+        "stress_authorization_amendment_sha256": (
+            stress.AUTHORIZATION_AMENDMENT_SHA256
+        ),
         "source_trees_sha256": reliability.SOURCE_TREES_SHA256,
         "reliability_protocols": {
             model: reliability._protocol(model)
@@ -371,6 +371,13 @@ def preflight_aug7_sequence(
         "expected_full_sequence_slack_usd": 5.0 - expected_full_cost,
         "maximum_control_cost_for_reliability_usd": 5.0 - reliability_cap,
         "maximum_control_cost_for_full_stress_usd": 5.0 - full_tail_cap,
+        "maximum_control_cost_for_guaranteed_stress_preauthorization_usd": (
+            5.0 - full_tail_cap
+        ),
+        "maximum_post_reliability_recorded_spend_for_deferred_stress_usd": (
+            5.0 - stress.RUN_BUDGET_USD
+        ),
+        "deferred_stress_authorization_after_reliability": True,
         "full_stress_is_conditional_on_measured_control_cost": True,
         "expected_full_sequence_fits": expected_full_cost <= 5.0,
         "no_reserve_and_no_rollover": True,
@@ -543,11 +550,125 @@ def _validate_reliability_ledger(
 
 
 def _stress_authorized(ledger: dict[str, Any]) -> bool:
-    return any(
+    matches = [
+        item
+        for item in (ledger.get("authorized_tail_blocks") or [])
+        if item.get("interface") == stress.INTERFACE_VERSION
+    ]
+    if not matches:
+        return False
+    if len(matches) != 1:
+        raise RuntimeError("duplicate stress authorizations in August 7 ledger")
+    item = matches[0]
+    if not (
         item.get("interface") == stress.INTERFACE_VERSION
         and item.get("status") == "waiting_for_reliability_results"
-        for item in (ledger.get("authorized_tail_blocks") or [])
-    )
+        and item.get("model") is None
+        and item.get("selection_rule") == stress.SELECTION_RULE
+        and item.get("authorization_stage")
+        in {"post_control_guaranteed", "post_reliability_reconciled"}
+        and float(item.get("maximum_cost_usd", -1.0))
+        == stress.RUN_BUDGET_USD
+    ):
+        raise RuntimeError("August 7 stress authorization changed")
+    return True
+
+
+def authorize_deferred_stress_after_reliability(
+    ledger: dict[str, Any],
+) -> dict[str, Any]:
+    """Reconsider stress using only terminal ledger identities and spend."""
+    updated = json.loads(json.dumps(ledger))
+    _validate_ledger_boundary(updated)
+    tails = updated.get("authorized_tail_blocks") or []
+    reliability_entries = [
+        item
+        for item in tails
+        if item.get("interface") == reliability.INTERFACE_VERSION
+    ]
+    stress_entries = [
+        item
+        for item in tails
+        if item.get("interface") == stress.INTERFACE_VERSION
+    ]
+    if len(reliability_entries) != len(RELIABILITY_RUNS):
+        raise RuntimeError(
+            "deferred stress requires exactly two reliability entries"
+        )
+    if len(stress_entries) > 1:
+        raise RuntimeError("deferred stress found duplicate stress entries")
+    if len(tails) != len(reliability_entries) + len(stress_entries):
+        raise RuntimeError("deferred stress found an unknown tail entry")
+
+    terminal_statuses = {
+        "passed",
+        "gated_null",
+        "failed_closed",
+        "failed_closed_posted_spend_reconciled",
+    }
+    by_model = {item.get("model"): item for item in reliability_entries}
+    if set(by_model) != set(RELIABILITY_RUNS):
+        raise RuntimeError("deferred stress reliability identities changed")
+    for model, item in by_model.items():
+        cost = float(item.get("actual_cost_usd", 0.0))
+        if (
+            item.get("status") not in terminal_statuses
+            or float(item.get("maximum_cost_usd", -1.0))
+            != reliability.RUN_BUDGET_USD
+            or not math.isfinite(cost)
+            or not 0.0 <= cost <= reliability.RUN_BUDGET_USD
+        ):
+            raise RuntimeError(
+                f"deferred stress reliability entry is not terminal: {model}"
+            )
+
+    recorded = float(updated["recorded_actual_spend_usd"])
+    remaining = max(0.0, float(updated["daily_cap_usd"]) - recorded)
+    if stress_entries:
+        entry = stress_entries[0]
+        if not (
+            entry.get("status") == "waiting_for_reliability_results"
+            and entry.get("model") is None
+            and entry.get("selection_rule") == stress.SELECTION_RULE
+            and entry.get("authorization_stage")
+            in {"post_control_guaranteed", "post_reliability_reconciled"}
+            and float(entry.get("maximum_cost_usd", -1.0))
+            == stress.RUN_BUDGET_USD
+        ):
+            raise RuntimeError("existing stress authorization changed")
+        authorization_status = (
+            "already_authorized_post_control"
+            if entry["authorization_stage"] == "post_control_guaranteed"
+            else "authorized_post_reliability"
+        )
+    elif remaining + 1e-12 >= stress.RUN_BUDGET_USD:
+        tails.append(
+            {
+                "interface": stress.INTERFACE_VERSION,
+                "model": None,
+                "maximum_cost_usd": stress.RUN_BUDGET_USD,
+                "status": "waiting_for_reliability_results",
+                "selection_rule": stress.SELECTION_RULE,
+                "authorization_stage": "post_reliability_reconciled",
+            }
+        )
+        updated["authorized_tail_blocks"] = tails
+        authorization_status = "authorized_post_reliability"
+    else:
+        authorization_status = (
+            "not_authorized_insufficient_reconciled_allowance"
+        )
+
+    updated["additional_paid_blocks_authorized"] = _stress_authorized(updated)
+    updated["deferred_stress_authorization"] = {
+        "rule": "ledger_only_after_two_terminal_reliability_gates",
+        "status": authorization_status,
+        "recorded_spend_usd": recorded,
+        "remaining_daily_allowance_usd": remaining,
+        "required_allowance_usd": stress.RUN_BUDGET_USD,
+        "scientific_values_accessed": False,
+    }
+    return updated
 
 
 def _verify_stress_component(
@@ -732,9 +853,15 @@ def validate_completed_sequence(
         ):
             raise RuntimeError("completed wrapper stress summary changed")
     else:
+        deferred = ledger.get("deferred_stress_authorization")
+        if set(reliability_paths) == set(RELIABILITY_RUNS):
+            if state.get("deferred_stress_authorization") != deferred:
+                raise RuntimeError(
+                    "completed wrapper deferred stress authorization changed"
+                )
         if state["status"] != "complete" or state.get("decision") not in {
             "reliability_not_authorized_by_control_headroom",
-            "stress_not_authorized_by_control_headroom",
+            "stress_not_authorized_by_post_reliability_headroom",
         }:
             raise RuntimeError("completed wrapper stopping decision changed")
         expected_reliability_count = (
@@ -747,6 +874,13 @@ def validate_completed_sequence(
             raise RuntimeError("completed wrapper stopping point changed")
     if set(components) != expected_component_names:
         raise RuntimeError("completed wrapper component set changed")
+    if set(reliability_paths) == set(RELIABILITY_RUNS):
+        if state.get("deferred_stress_authorization") != ledger.get(
+            "deferred_stress_authorization"
+        ):
+            raise RuntimeError(
+                "completed wrapper deferred stress authorization changed"
+            )
     if float(state.get("recorded_actual_spend_usd", math.inf)) != float(
         ledger["recorded_actual_spend_usd"]
     ):
@@ -941,9 +1075,20 @@ def execute_aug7_sequence(
     ledger = _load(daily_ledger)
     _validate_ledger_boundary(ledger)
     stress_artifact = _artifact_path(stress_output_dir)
+    if stress_artifact is None:
+        ledger = authorize_deferred_stress_after_reliability(ledger)
+        checkpoint(daily_ledger, ledger)
+    elif not isinstance(ledger.get("deferred_stress_authorization"), dict):
+        raise RuntimeError("banked stress lacks deferred authorization audit")
+    state["deferred_stress_authorization"] = ledger[
+        "deferred_stress_authorization"
+    ]
+    checkpoint(output_dir / "EXECUTION_STATE.json", state)
     if stress_artifact is None and not _stress_authorized(ledger):
         state["status"] = "complete"
-        state["decision"] = "stress_not_authorized_by_control_headroom"
+        state["decision"] = (
+            "stress_not_authorized_by_post_reliability_headroom"
+        )
         state["recorded_actual_spend_usd"] = ledger.get(
             "recorded_actual_spend_usd"
         )

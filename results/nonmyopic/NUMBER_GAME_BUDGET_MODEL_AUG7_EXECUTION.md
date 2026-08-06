@@ -24,8 +24,9 @@ ledger:
 2. zero-call claim classification and immutable JSON/Markdown report;
 3. GPT-5.6 Luna reliability128;
 4. DeepSeek V4 Flash 0731 reliability128; and
-5. the selected model's stress3584 only when the verified control authorized
-   the full remaining allowance.
+5. the selected model's stress3584 when it was guaranteed after control or
+   when the ledger-only post-reliability reconsideration finds its full
+   `$1.55` cap still available.
 
 The executor checkpoints after each component. A banked `RESULT.json` or
 `FAILURE.json` is validated and never called again on resume. One model's
@@ -70,6 +71,16 @@ launch. Resumption instead verifies banked components and never repeats them.
 Every successful or failed paid component checkpoints the larger of locally
 measured and posted account spend. No policy endpoint is used to choose the
 budget model or decide whether the stress gate runs.
+
+The original post-control rule still guarantees stress when the control costs
+at most `$3.25`. If the control is slightly above that threshold, both fixed
+reliability gates run first. Once both are terminal and independently
+verified, the orchestrator may append the exact stress authorization when
+reconciled recorded spend is at most `$3.45`. This one-time decision reads
+only ledger identities, terminal statuses, and spend; it is forbidden from
+reading model eligibility, support, parse, Brier, policy, or target values.
+The amendment is frozen in
+`NUMBER_GAME_BUDGET_MODEL_DEFERRED_STRESS_AUTHORIZATION_AMENDMENT.md`.
 
 ## Post-Control Claim Scope
 

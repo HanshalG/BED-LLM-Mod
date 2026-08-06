@@ -4,9 +4,10 @@ Date checked: 2026-08-06 (Europe/London)
 
 ## Enforceable Balance
 
-The authenticated credits endpoint reports `$245.00` credited and
-`$217.297890263` used, leaving `$27.702109737`. The reported new `$30` credit
-is not visible yet and is excluded from every authorization calculation.
+The authenticated credits endpoint still reports `$245.00` credited and
+`$217.297890263` used, leaving `$27.702109737`. The newly reported `$30`
+credit is not visible yet and is excluded from every authorization
+calculation until it posts.
 
 - Posted balance: five complete `$5` daily authorizations plus `$2.702109737`.
 - Balance after the reported credit posts: `$57.702109737`, or eleven complete
@@ -23,8 +24,10 @@ authorized.
 
 The zero-call August 7 preflight passes against the authenticated account and
 frozen artifacts. Its full expected sequence is `$4.96`, leaving `$0.04` under
-the hard daily cap; the stress block remains conditional on the measured
-control cost being at most `$3.25`.
+the hard daily cap. Stress is guaranteed when the measured control cost is at
+most `$3.25`; if the control is slightly higher, a science-blind ledger-only
+reconsideration after both reliability gates can authorize stress when total
+recorded spend remains at most `$3.45`.
 
 ## Frozen Daily Sequence
 
@@ -89,8 +92,8 @@ After the mandatory Aug 7 Qwen control, run 128 matched reliability cases for
 Luna and 0731 (`$0.10` cap each). Select by strict parse completion, forced
 exits, conditioned support validity, and support diversity, not generic
 benchmark rank. Only the selected model may receive the conditional 3,584-case
-stress block (`$1.55` cap), and only if measured control spend leaves the full
-daily allowance.
+stress block (`$1.55` cap), and only if reconciled account-wide spend leaves
+its full cap. The authorization decision cannot inspect which model wins.
 
 Sources: [OpenRouter Luna](https://openrouter.ai/openai/gpt-5.6-luna),
 [OpenRouter DeepSeek 0731](https://openrouter.ai/deepseek/deepseek-v4-flash-0731),
