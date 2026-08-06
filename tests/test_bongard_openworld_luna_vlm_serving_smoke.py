@@ -171,6 +171,43 @@ def test_luna_payload_overrides_static_seed_with_bound_pair_seed(monkeypatch) ->
     assert payload["reasoning"] == {"enabled": False, "exclude": True}
 
 
+def test_seeded_dispatch_uses_fixed_ordered_concurrency_batches(monkeypatch) -> None:
+    batches = []
+
+    class RecordingExecutor:
+        def __init__(self, *, max_workers):
+            assert max_workers == 2
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            del args
+
+        def map(self, function, items):
+            batch = list(items)
+            batches.append([seed for _, seed in batch])
+            return [function(item) for item in batch]
+
+    monkeypatch.setattr(smoke, "ThreadPoolExecutor", RecordingExecutor)
+    adapter = object.__new__(smoke.LunaVisionAdapter)
+    import threading
+
+    adapter._per_request_seed = threading.local()
+    adapter.concurrency = 2
+    adapter._complete_request = lambda *args, **kwargs: [
+        str(adapter._per_request_seed.value)
+    ]
+    responses = adapter.chat_complete_seeded_messages_batched_structured(
+        [[{"role": "user", "content": []}]] * 5,
+        [101, 102, 103, 104, 105],
+        temperature=0.0,
+        response_format={"type": "json_schema"},
+    )
+    assert batches == [[101, 102], [103, 104], [105]]
+    assert responses == ["101", "102", "103", "104", "105"]
+
+
 def test_ledger_refuses_before_august_tenth() -> None:
     ledger = {
         "date": "2026-08-09",

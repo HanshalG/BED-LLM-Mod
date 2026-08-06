@@ -213,6 +213,12 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     assert result["protocol"]["first_stage_requests"] == 264
     assert result["protocol"]["conditioned_branch_requests"] == 128
     assert result["protocol"]["history_blind_branch_requests"] == 128
+    assert result["paired_request_diagnostics"]["gates"][
+        "each_pair_is_adjacent_dynamic_then_blind"
+    ]
+    assert result["paired_request_diagnostics"]["gates"][
+        "each_pair_shares_one_dispatch_batch"
+    ]
     assert "pooled_policy_metrics" not in result
     assert result["protocol"]["distinct_final_history_requests"] >= 8 * 4
     assert all(len(tree["all_first_action_paths"]) == 8 for tree in result["trees"])

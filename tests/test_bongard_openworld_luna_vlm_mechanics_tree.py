@@ -294,11 +294,17 @@ def test_history_blind_pairs_share_seed_and_hide_the_simulated_answer() -> None:
     assert diagnostics["gates"]["all_pass"]
     assert all(
         row["same_requested_seed"]
+        and row["adjacent_dynamic_then_blind"]
+        and row["same_dispatch_batch"]
         and row["blind_history_is_initial"]
         and row["blind_prompt_matches_root"]
         and row["prompts_differ_only_by_simulated_answer"]
         for row in diagnostics["pairs"]
     )
+    assert diagnostics["gates"][
+        "each_pair_is_adjacent_dynamic_then_blind"
+    ]
+    assert diagnostics["gates"]["each_pair_shares_one_dispatch_batch"]
 
     tampered = list(seeds)
     blind_index = next(
@@ -308,6 +314,27 @@ def test_history_blind_pairs_share_seed_and_hide_the_simulated_answer() -> None:
     assert not tree.paired_request_diagnostics(
         cases=cases, messages=messages, seeds=tampered
     )["gates"]["all_pass"]
+
+    reordered_cases = list(cases)
+    reordered_messages = list(messages)
+    reordered_seeds = list(seeds)
+    first_dynamic = next(
+        index for index, case in enumerate(cases) if case.kind == "branch"
+    )
+    for values in (reordered_cases, reordered_messages, reordered_seeds):
+        values[first_dynamic + 1], values[first_dynamic + 2] = (
+            values[first_dynamic + 2],
+            values[first_dynamic + 1],
+        )
+    reordered = tree.paired_request_diagnostics(
+        cases=reordered_cases,
+        messages=reordered_messages,
+        seeds=reordered_seeds,
+    )
+    assert not reordered["gates"][
+        "each_pair_is_adjacent_dynamic_then_blind"
+    ]
+    assert not reordered["gates"]["all_pass"]
 
 
 def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> None:

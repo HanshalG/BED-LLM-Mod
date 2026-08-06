@@ -141,8 +141,17 @@ class LunaVisionAdapter(SeededStructuredAdapter):
             finally:
                 del self._per_request_seed.value
 
+        responses = []
         with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
-            return list(executor.map(request, zip(batch_messages, seeds)))
+            for start in range(0, len(batch_messages), self.concurrency):
+                stop = start + self.concurrency
+                responses.extend(
+                    executor.map(
+                        request,
+                        zip(batch_messages[start:stop], seeds[start:stop]),
+                    )
+                )
+        return responses
 
 
 def sha256_file(path: Path) -> str:

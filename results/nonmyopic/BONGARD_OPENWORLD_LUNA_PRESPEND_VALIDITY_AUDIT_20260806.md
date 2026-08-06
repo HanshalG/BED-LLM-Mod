@@ -62,8 +62,10 @@ answer improves the VLM's regenerated support. The frozen history-blind
 amendment adds one same-seed blind draw for every conditioned branch, updates
 its initial-history weights analytically with the simulated answer, and deploys
 the real conditioned updater after selection.
+Pairs are adjacent inside the same fixed 24-request dispatch batch, reducing
+provider-time confounding when requested seeds are not honored.
 
 The executable mechanics and development interfaces are now v4. Mechanics has
 132 first-stage requests and at most 172 total; each development block has 264
 first-stage requests and at most 344 total. The expanded zero-call suite passes
-68 tests. No Bongard response or endpoint has been opened.
+69 tests. No Bongard response or endpoint has been opened.

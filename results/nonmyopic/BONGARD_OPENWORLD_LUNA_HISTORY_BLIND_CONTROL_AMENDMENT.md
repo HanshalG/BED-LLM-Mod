@@ -35,6 +35,10 @@ ordinary opaque image list already present in every request. Distinct branch
 pairs receive distinct deterministic seeds; the dynamic and history-blind
 member of one pair share a seed as a common-random-number control. Provider
 seed compliance is not assumed and is reported only as the requested design.
+To reduce residual provider-time and routing confounding, each conditioned
+request is immediately followed by its blind mate and both are dispatched in
+the same fixed 24-request batch. Pair adjacency and batch membership are
+manifested and replay-gated.
 
 Each history-blind response supplies a fresh ten-rule support, initial-history
 weights, and image likelihoods. For a simulated label, the evaluator applies
@@ -73,7 +77,8 @@ existing 1.5 safety multiplier before authorization.
 In addition to every existing gate, mechanics requires:
 
 - exactly 64 history-blind branch responses with the initial history only;
-- exact paired request-seed and prompt-difference accounting;
+- exact paired request-seed, dispatch-batch, adjacency, and prompt-difference
+  accounting;
 - finite history-blind scores and an exact branch map;
 - at least one non-tied dynamic-versus-history-blind first-action change across
   the four mechanics tasks.

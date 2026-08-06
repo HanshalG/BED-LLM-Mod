@@ -54,7 +54,8 @@ resumed or rerun in place.
 Independent mechanics replay reconstructs all root scores, six policy paths,
 all eight realized first-action continuations, endpoint metrics, ranking
 fidelity, paired conditioned/history-blind request seeds and prompt hashes,
-gates, usage, and raw-response hash. Equality is exact canonical JSON.
+same-batch adjacency, gates, usage, and raw-response hash. Equality is exact
+canonical JSON.
 
 The maximum authorized component caps remain `$0.25` for exact10 and `$1.75`
 for mechanics under one account-wide `$5.00` day. No additional paid tail is

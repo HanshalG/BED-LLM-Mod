@@ -298,39 +298,39 @@ def first_stage_cases(tasks: Sequence[bed.VisualTask]) -> list[mechanics.BeliefC
         )
         for task in ordered
     ]
-    branches = [
-        mechanics.BeliefCase(
-            case_id=(
-                f"{task.task_id}-{candidate_id}-"
-                f"{'positive' if label else 'negative'}"
-            ),
-            task=task,
-            history=tuple(sorted((*task.initial_history, (candidate_id, label)))),
-            kind="branch",
-            candidate_id=candidate_id,
-            simulated_label=label,
-        )
-        for task in ordered
-        for candidate_id in task.candidate_ids
-        for label in (False, True)
-    ]
-    history_blind = [
-        mechanics.BeliefCase(
-            case_id=(
-                f"{task.task_id}-history-blind-{candidate_id}-"
-                f"{'positive' if label else 'negative'}"
-            ),
-            task=task,
-            history=task.initial_history,
-            kind="history_blind",
-            candidate_id=candidate_id,
-            simulated_label=label,
-        )
-        for task in ordered
-        for candidate_id in task.candidate_ids
-        for label in (False, True)
-    ]
-    cases = roots + branches + history_blind
+    paired_branches = []
+    for task in ordered:
+        for candidate_id in task.candidate_ids:
+            for label in (False, True):
+                suffix = "positive" if label else "negative"
+                paired_branches.extend(
+                    [
+                        mechanics.BeliefCase(
+                            case_id=f"{task.task_id}-{candidate_id}-{suffix}",
+                            task=task,
+                            history=tuple(
+                                sorted(
+                                    (*task.initial_history, (candidate_id, label))
+                                )
+                            ),
+                            kind="branch",
+                            candidate_id=candidate_id,
+                            simulated_label=label,
+                        ),
+                        mechanics.BeliefCase(
+                            case_id=(
+                                f"{task.task_id}-history-blind-"
+                                f"{candidate_id}-{suffix}"
+                            ),
+                            task=task,
+                            history=task.initial_history,
+                            kind="history_blind",
+                            candidate_id=candidate_id,
+                            simulated_label=label,
+                        ),
+                    ]
+                )
+    cases = roots + paired_branches
     if len(cases) != len(tasks) * CASES_PER_TASK:
         raise AssertionError("development first-stage request count changed")
     return cases

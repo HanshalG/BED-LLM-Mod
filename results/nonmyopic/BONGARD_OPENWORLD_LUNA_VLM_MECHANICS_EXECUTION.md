@@ -90,6 +90,8 @@ that cap. The first stage is exactly 132 shared requests: four roots, 64
 answer-conditioned branches, and 64 paired history-blind branches. Final calls are
 deduplicated across all realized first-action continuations and policy paths,
 for 16--40 finals and at most 172 total requests.
+Each conditioned request is adjacent to its blind mate inside one fixed
+24-request dispatch batch, in addition to sharing its requested seed.
 
 A zero-call replay using all four real mechanics tasks produces 34 distinct
 final histories and 166 total requests under the corrected control, passes

@@ -42,7 +42,8 @@ bound directly in the execution wrapper.
   assert that endpoint, confirmation, and sealed-test data remain unopened.
 - Block D first replays all four endpoint-blind blocks. Only then may it run
   the combined endpoint analysis.
-- Every replay verifies paired request seeds, prompt hashes, and that blind
+- Every replay verifies paired request seeds, prompt hashes, adjacent
+  conditioned-then-blind dispatch in one 24-request batch, and that blind
   prompts contain only the initial four labels.
 - Confirmation authorization co-requires the frozen dynamic-versus-history-blind
   history-change, Brier, bootstrap, log-loss, and ranking-fidelity gates.

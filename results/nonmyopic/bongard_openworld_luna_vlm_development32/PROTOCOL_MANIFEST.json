@@ -47,13 +47,13 @@
   "implementation_sha256": {
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md": "6dc37f8b23cfe0309ec9dcf5e6b15818a661a93616106894b3602fc4fa9122eb",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md": "779ff0fba85b9ff4c756b13cefc5b2142ec30aa2e26a745164a5d2c82c4a25b6",
-    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md": "2a8ea71c8cfaff2382b95a1d7bf6903ba96d1c35d7b9a20ea2cfe28bf9363a11",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md": "9a96ceacc2a31143d9605553106d72744efa5416feffc3c4741d3be0313230db",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md": "46d03dcaf6eb745fc95c0dab164609b506924fc362ce59140d1596faa090e656",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md": "c047a98351aa51e5320cdcfa5bac5e9a4e4feb5f11d1758b29e31425617a8c6f",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md": "02e72785e3593e3aa69b67dfeaacf9d2dafca13f8cdf29d85609b6020f61cc14",
-    "scripts/bongard_openworld_luna_vlm_development.py": "6cb468fdf690ed31cb06c50d2ac9a4a82db44bdc32153eec7c75ed4bcf49c123",
-    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "77f38b4431a956de990d27dca981a08e427f86571178649ef85911a616f17159",
-    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "1c38c4ec930a68451212d940225cdc52b041a68723fd157d91b361baba981c69",
+    "scripts/bongard_openworld_luna_vlm_development.py": "9ca533912e66c58294f092d39282d40de669a0e584ed263ffd19414dff6a9dc9",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "e28cd32adbec847215000cd716b7ba1bff0af79a89e27fa6c5f8fe81ee0ebbb5",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "f325c4f3a534ec147fdaed4c5a899d60e5e681e8ea657335f083d1d4aee853e8",
     "scripts/bongard_openworld_vlm_bed.py": "d2f3f65a1586d30e629dad5c2b89a9f55008786275a1841574f24aefdbfd0d66"
   },
   "interface_version": "bongard-openworld-luna-vlm-development32-4",

@@ -161,41 +161,39 @@ def first_stage_cases(tasks: Sequence[bed.VisualTask]) -> list[BeliefCase]:
         )
         for task in ordered
     ]
-    branches = [
-        BeliefCase(
-            case_id=(
-                f"{task.task_id}-{candidate_id}-"
-                f"{'positive' if label else 'negative'}"
-            ),
-            task=task,
-            history=tuple(
-                sorted((*task.initial_history, (candidate_id, label)))
-            ),
-            kind="branch",
-            candidate_id=candidate_id,
-            simulated_label=label,
-        )
-        for task in ordered
-        for candidate_id in task.candidate_ids
-        for label in (False, True)
-    ]
-    history_blind = [
-        BeliefCase(
-            case_id=(
-                f"{task.task_id}-history-blind-{candidate_id}-"
-                f"{'positive' if label else 'negative'}"
-            ),
-            task=task,
-            history=task.initial_history,
-            kind="history_blind",
-            candidate_id=candidate_id,
-            simulated_label=label,
-        )
-        for task in ordered
-        for candidate_id in task.candidate_ids
-        for label in (False, True)
-    ]
-    cases = roots + branches + history_blind
+    paired_branches = []
+    for task in ordered:
+        for candidate_id in task.candidate_ids:
+            for label in (False, True):
+                suffix = "positive" if label else "negative"
+                paired_branches.extend(
+                    [
+                        BeliefCase(
+                            case_id=f"{task.task_id}-{candidate_id}-{suffix}",
+                            task=task,
+                            history=tuple(
+                                sorted(
+                                    (*task.initial_history, (candidate_id, label))
+                                )
+                            ),
+                            kind="branch",
+                            candidate_id=candidate_id,
+                            simulated_label=label,
+                        ),
+                        BeliefCase(
+                            case_id=(
+                                f"{task.task_id}-history-blind-"
+                                f"{candidate_id}-{suffix}"
+                            ),
+                            task=task,
+                            history=task.initial_history,
+                            kind="history_blind",
+                            candidate_id=candidate_id,
+                            simulated_label=label,
+                        ),
+                    ]
+                )
+    cases = roots + paired_branches
     if len(cases) != FIRST_STAGE_REQUESTS:
         raise AssertionError("first-stage request count changed")
     return cases
@@ -206,12 +204,18 @@ def paired_request_diagnostics(
     cases: Sequence[BeliefCase],
     messages: Sequence[Sequence[Mapping[str, Any]]],
     seeds: Sequence[int],
+    batch_size: int = CONCURRENCY,
 ) -> dict[str, Any]:
     if not (len(cases) == len(messages) == len(seeds)):
         raise ValueError("paired request manifest lengths differ")
+    if batch_size <= 0:
+        raise ValueError("paired request batch size must be positive")
+    root_cases = [case for case in cases if case.kind == "root"]
     roots = {
-        case.task.task_id: (case, message, seed)
-        for case, message, seed in zip(cases, messages, seeds, strict=True)
+        case.task.task_id: (case, message, seed, index)
+        for index, (case, message, seed) in enumerate(
+            zip(cases, messages, seeds, strict=True)
+        )
         if case.kind == "root"
     }
     dynamic = {
@@ -219,8 +223,11 @@ def paired_request_diagnostics(
             case,
             message,
             seed,
+            index,
         )
-        for case, message, seed in zip(cases, messages, seeds, strict=True)
+        for index, (case, message, seed) in enumerate(
+            zip(cases, messages, seeds, strict=True)
+        )
         if case.kind == "branch"
     }
     blind = {
@@ -228,8 +235,11 @@ def paired_request_diagnostics(
             case,
             message,
             seed,
+            index,
         )
-        for case, message, seed in zip(cases, messages, seeds, strict=True)
+        for index, (case, message, seed) in enumerate(
+            zip(cases, messages, seeds, strict=True)
+        )
         if case.kind == "history_blind"
     }
     expected_pairs = {
@@ -239,14 +249,23 @@ def paired_request_diagnostics(
         for candidate in case.task.candidate_ids
         for label in (False, True)
     }
-    exact_keys = set(dynamic) == set(blind) == expected_pairs
+    expected_task_ids = {task_id for task_id, _, _ in expected_pairs}
+    exact_keys = (
+        len(dynamic) == len(blind) == len(expected_pairs)
+        and set(dynamic) == set(blind) == expected_pairs
+    )
     pair_rows = []
     if exact_keys:
         for key in sorted(expected_pairs):
-            dynamic_case, dynamic_message, dynamic_seed = dynamic[key]
-            blind_case, blind_message, blind_seed = blind[key]
+            (
+                dynamic_case,
+                dynamic_message,
+                dynamic_seed,
+                dynamic_index,
+            ) = dynamic[key]
+            blind_case, blind_message, blind_seed, blind_index = blind[key]
             task_id, candidate_id, label = key
-            root_case, root_message, root_seed = roots[task_id]
+            root_case, root_message, root_seed, _ = roots[task_id]
             blind_payload = bed.request_payload(blind_message)
             dynamic_payload = bed.request_payload(dynamic_message)
             expected_payload = json.loads(json.dumps(blind_payload))
@@ -267,6 +286,12 @@ def paired_request_diagnostics(
                     "simulated_label": bed.LABELS[label],
                     "paired_seed": dynamic_seed,
                     "same_requested_seed": dynamic_seed == blind_seed,
+                    "adjacent_dynamic_then_blind": (
+                        blind_index == dynamic_index + 1
+                    ),
+                    "same_dispatch_batch": (
+                        dynamic_index // batch_size == blind_index // batch_size
+                    ),
                     "blind_history_is_initial": (
                         blind_case.history == blind_case.task.initial_history
                     ),
@@ -297,13 +322,21 @@ def paired_request_diagnostics(
             )
     pair_seeds = [row["paired_seed"] for row in pair_rows]
     gates = {
-        "exact_root_count": len(roots) == len({case.task.task_id for case in cases}),
+        "exact_root_count": (
+            len(root_cases) == len(roots) == len(expected_task_ids)
+        ),
         "exact_dynamic_and_blind_pair_maps": exact_keys,
         "all_pairs_share_requested_seed": all(
             row["same_requested_seed"] for row in pair_rows
         ),
         "distinct_pairs_use_distinct_seeds": (
             len(pair_seeds) == len(set(pair_seeds)) == len(expected_pairs)
+        ),
+        "each_pair_is_adjacent_dynamic_then_blind": all(
+            row["adjacent_dynamic_then_blind"] for row in pair_rows
+        ),
+        "each_pair_shares_one_dispatch_batch": all(
+            row["same_dispatch_batch"] for row in pair_rows
         ),
         "all_blind_histories_are_initial_only": all(
             row["blind_history_is_initial"] for row in pair_rows
