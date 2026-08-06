@@ -93,7 +93,7 @@ def _response(messages) -> str:
                     f"{request['task_id']} {branch_tag} {label_tag} "
                     f"semantic visual rule {hypothesis_index + 1}"
                 ),
-                "prior_weight": 20 - hypothesis_index,
+                "history_weight": 20 - hypothesis_index,
                 "positive_probabilities": probabilities,
             }
         )
@@ -181,6 +181,16 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         set(task_result["policies"]) == set(tree.POLICIES)
         for task_result in result["trees"]
     )
+    assert all(
+        len(task_result["all_first_action_paths"]) == 8
+        for task_result in result["trees"]
+    )
+    assert set(result["mean_ranking_fidelity"]) == {
+        "myopic_width",
+        "fixed_depth2",
+        "dynamic_depth2",
+        "shuffled_dynamic_depth2",
+    }
     raw = json.loads(
         (tmp_path / "tree/private/RAW_RESPONSES.json").read_text()
     )

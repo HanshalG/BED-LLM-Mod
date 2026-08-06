@@ -2,12 +2,21 @@
 
 Date frozen: 2026-08-06
 
+Before any model request, history weights, prompt image roles, and branch
+sensitivity were corrected by
+`BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md`; interface `-1`
+artifacts are invalid.
+
 This amendment fixes the full four-task mechanics execution details before any
 Luna image request. It does not change the exact-10 serving gate.
 
 ## Shared Call Tree
 
-After a passed exact-10 result, generate:
+The semantic-validity amendment expands the final stage below to all eight
+realized first-action continuations; its 16--40 final calls and `$1.75` cap
+supersede the original selected-policy-only counts in this section.
+
+After a passed exact-10 result, the original design generated:
 
 - four root supports;
 - 64 first-query supports: four tasks times eight candidates times two

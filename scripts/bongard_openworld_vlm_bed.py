@@ -41,7 +41,7 @@ LABELS = {True: "positive", False: "negative"}
 class SemanticHypothesis:
     hypothesis_id: str
     rule: str
-    prior_weight: float
+    history_weight: float
     positive_probabilities: tuple[float, ...]
 
 
@@ -50,8 +50,7 @@ class SemanticBelief:
     image_ids: tuple[str, ...]
     history: tuple[tuple[str, bool], ...]
     hypotheses: tuple[SemanticHypothesis, ...]
-    prior_weights: tuple[float, ...]
-    posterior_weights: tuple[float, ...]
+    history_weights: tuple[float, ...]
 
 
 @dataclass(frozen=True)
@@ -129,7 +128,7 @@ def normalize_log_weights(values: Sequence[float]) -> tuple[float, ...]:
     return normalize_weights([math.exp(value - maximum) for value in values])
 
 
-def posterior_weights(
+def conditioned_weights(
     hypotheses: Sequence[SemanticHypothesis],
     image_ids: Sequence[str],
     history: Sequence[tuple[str, bool]],
@@ -143,7 +142,7 @@ def posterior_weights(
     initial = normalize_weights(
         starting_weights
         if starting_weights is not None
-        else [hypothesis.prior_weight for hypothesis in hypotheses]
+        else [hypothesis.history_weight for hypothesis in hypotheses]
     )
     log_weights = [math.log(weight) for weight in initial]
     for hypothesis_index, hypothesis in enumerate(hypotheses):
@@ -179,7 +178,7 @@ def parse_belief_response(
             {
                 "hypothesis_id",
                 "rule",
-                "prior_weight",
+                "history_weight",
                 "positive_probabilities",
             },
             f"hypothesis {index + 1}",
@@ -200,13 +199,13 @@ def parse_belief_response(
             raise ValueError("hypothesis rules must be unique")
         canonical_rules.add(normalized_rule)
 
-        prior_weight = row["prior_weight"]
+        history_weight = row["history_weight"]
         if (
-            isinstance(prior_weight, bool)
-            or not isinstance(prior_weight, int)
-            or not 1 <= prior_weight <= 100
+            isinstance(history_weight, bool)
+            or not isinstance(history_weight, int)
+            or not 1 <= history_weight <= 100
         ):
-            raise ValueError("prior weight must be an integer in [1,100]")
+            raise ValueError("history weight must be an integer in [1,100]")
         raw_probabilities = row["positive_probabilities"]
         if not isinstance(raw_probabilities, list) or len(raw_probabilities) != NUM_IMAGES:
             raise ValueError("each hypothesis must contain fourteen probabilities")
@@ -221,7 +220,7 @@ def parse_belief_response(
             SemanticHypothesis(
                 hypothesis_id=expected_id,
                 rule=rule,
-                prior_weight=float(prior_weight),
+                history_weight=float(history_weight),
                 positive_probabilities=tuple(
                     probability / 100.0 for probability in raw_probabilities
                 ),
@@ -230,21 +229,14 @@ def parse_belief_response(
 
     hypotheses_tuple = tuple(hypotheses)
     checked_history = _validate_history(history, image_ids)
-    prior = normalize_weights(
-        [hypothesis.prior_weight for hypothesis in hypotheses_tuple]
-    )
-    posterior = posterior_weights(
-        hypotheses_tuple,
-        image_ids,
-        checked_history,
-        starting_weights=prior,
+    history_weights = normalize_weights(
+        [hypothesis.history_weight for hypothesis in hypotheses_tuple]
     )
     return SemanticBelief(
         image_ids=image_ids,
         history=checked_history,
         hypotheses=hypotheses_tuple,
-        prior_weights=prior,
-        posterior_weights=posterior,
+        history_weights=history_weights,
     )
 
 
@@ -263,7 +255,7 @@ def predictive_probability(
     except ValueError as exc:
         raise ValueError(f"unknown image ID {image_id}") from exc
     selected_weights = (
-        tuple(weights) if weights is not None else belief.posterior_weights
+        tuple(weights) if weights is not None else belief.history_weights
     )
     if len(selected_weights) != len(belief.hypotheses):
         raise ValueError("weight count does not match hypotheses")
@@ -283,7 +275,7 @@ def updated_weights_for_label(
     weights: Sequence[float] | None = None,
 ) -> tuple[float, ...]:
     image_index = belief.image_ids.index(image_id)
-    selected = tuple(weights) if weights is not None else belief.posterior_weights
+    selected = tuple(weights) if weights is not None else belief.history_weights
     likelihoods = [
         hypothesis.positive_probabilities[image_index]
         if label
@@ -301,7 +293,7 @@ def expected_information_gain(
     *,
     weights: Sequence[float] | None = None,
 ) -> float:
-    selected = tuple(weights) if weights is not None else belief.posterior_weights
+    selected = tuple(weights) if weights is not None else belief.history_weights
     probability = predictive_probability(belief, image_id, weights=selected)
     positive = updated_weights_for_label(
         belief, image_id, True, weights=selected
@@ -388,13 +380,13 @@ def select_best(scores: Mapping[str, float]) -> str:
     return min(scores, key=lambda key: (-scores[key], key))
 
 
-def prior_history_log_loss(belief: SemanticBelief) -> float:
+def observed_history_fit_log_loss(belief: SemanticBelief) -> float:
     if not belief.history:
         return 0.0
     losses = []
     for image_id, label in belief.history:
         probability = predictive_probability(
-            belief, image_id, weights=belief.prior_weights
+            belief, image_id, weights=belief.history_weights
         )
         truth_probability = probability if label else 1.0 - probability
         losses.append(-math.log(truth_probability))
@@ -453,7 +445,7 @@ def belief_response_format() -> dict[str, Any]:
                             "required": [
                                 "hypothesis_id",
                                 "rule",
-                                "prior_weight",
+                                "history_weight",
                                 "positive_probabilities",
                             ],
                             "properties": {
@@ -466,7 +458,7 @@ def belief_response_format() -> dict[str, Any]:
                                     "minLength": MIN_RULE_LENGTH,
                                     "maxLength": MAX_RULE_LENGTH,
                                 },
-                                "prior_weight": {
+                                "history_weight": {
                                     "type": "integer",
                                     "minimum": 1,
                                     "maximum": 100,
@@ -526,12 +518,11 @@ def build_belief_messages(
             {"image_id": image_id, "label": LABELS[label]}
             for image_id, label in checked_history
         ],
-        "selectable_image_ids": list(task.candidate_ids),
-        "endpoint_image_ids": list(task.endpoint_ids),
         "requirements": [
             "Use only the observed labels; every other label is unknown.",
             "Rules should jointly include broad, narrow, and compositional alternatives.",
             "Each rule must explain the labelled examples and remain visually testable.",
+            "Weights are your posterior plausibility for each generated rule after the observed labels; do not express a pre-label prior.",
             "Probabilities follow image_order and estimate P(positive | rule, image).",
             "Do not infer labels from image IDs, role, order, or dataset balance.",
             "Return only the strict schema with H01 through H10 in order.",
@@ -597,27 +588,24 @@ def prompt_hidden_state_errors(
         errors.append("observed_label_mismatch")
     if set(request.get("image_order") or []) != set(task.image_ids):
         errors.append("image_order_mismatch")
-    if set(request.get("selectable_image_ids") or []) != set(task.candidate_ids):
-        errors.append("candidate_mismatch")
-    if set(request.get("endpoint_image_ids") or []) != set(task.endpoint_ids):
-        errors.append("endpoint_mismatch")
+    if "selectable_image_ids" in request or "endpoint_image_ids" in request:
+        errors.append("image_role_marker")
     return sorted(set(errors))
 
 
-def load_mechanics_tasks() -> list[VisualTask]:
-    mechanics, _, _, _ = source_audit.split_validation_rows(
-        source_audit.load_rows("val")
-    )
+def _load_visual_tasks(
+    rows: Sequence[Mapping[str, Any]], *, include_endpoint_labels: bool = True
+) -> list[VisualTask]:
     tasks = []
     with ZipFile(source_audit.DATA_ROOT / "images.zip") as archive:
-        for row in mechanics:
+        for row in rows:
             layout = source_audit._task_layout(row)
             position_by_opaque = {
                 opaque: position
                 for position, opaque in layout["opaque_by_position"].items()
             }
             image_ids = tuple(sorted(position_by_opaque))
-            actual_labels = {
+            all_labels = {
                 image_id: position_by_opaque[image_id] < 7
                 for image_id in image_ids
             }
@@ -637,13 +625,18 @@ def load_mechanics_tasks() -> list[VisualTask]:
                     for position in layout["endpoint_positions"]
                 )
             )
+            actual_labels = {
+                image_id: label
+                for image_id, label in all_labels.items()
+                if include_endpoint_labels or image_id not in set(endpoint_ids)
+            }
             tasks.append(
                 VisualTask(
                     task_id=layout["task_id"],
                     image_ids=image_ids,
                     initial_history=tuple(
                         sorted(
-                            (image_id, actual_labels[image_id])
+                            (image_id, all_labels[image_id])
                             for image_id in initial_ids
                         )
                     ),
@@ -666,18 +659,33 @@ def load_mechanics_tasks() -> list[VisualTask]:
     return sorted(tasks, key=lambda task: task.task_id)
 
 
+def load_validation_partition_tasks(
+    partition: str, *, include_endpoint_labels: bool = True
+) -> list[VisualTask]:
+    names = ("mechanics", "development", "confirmation", "reserve")
+    if partition not in names:
+        raise ValueError(f"unknown validation partition {partition!r}")
+    partitions = source_audit.split_validation_rows(source_audit.load_rows("val"))
+    return _load_visual_tasks(
+        partitions[names.index(partition)],
+        include_endpoint_labels=include_endpoint_labels,
+    )
+
+
+def load_mechanics_tasks() -> list[VisualTask]:
+    return load_validation_partition_tasks("mechanics")
+
+
 def public_belief_summary(belief: SemanticBelief) -> dict[str, Any]:
     return {
         "history_size": len(belief.history),
-        "prior_history_log_loss": prior_history_log_loss(belief),
-        "prior_entropy": entropy(belief.prior_weights),
-        "posterior_entropy": entropy(belief.posterior_weights),
+        "observed_history_fit_log_loss": observed_history_fit_log_loss(belief),
+        "history_entropy": entropy(belief.history_weights),
         "hypotheses": [
             {
                 "hypothesis_id": hypothesis.hypothesis_id,
                 "rule": hypothesis.rule,
-                "prior_weight": belief.prior_weights[index],
-                "posterior_weight": belief.posterior_weights[index],
+                "history_weight": belief.history_weights[index],
                 "likelihood_sha256": hashlib.sha256(
                     canonical_json(hypothesis.positive_probabilities).encode()
                 ).hexdigest(),

@@ -1,6 +1,10 @@
 # Bongard-OpenWorld Luna VLM Mechanics Preregistration
 
 Date frozen: 2026-08-06
+
+Before any model request, the history-weight, image-role, and branch-sensitivity
+details below were superseded by
+`BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md`.
 Earliest execution date: 2026-08-10 (Europe/London)
 
 ## Objective

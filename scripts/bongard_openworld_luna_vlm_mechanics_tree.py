@@ -29,19 +29,19 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-1"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-2"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
 ROOT_REQUESTS = 4
 BRANCH_REQUESTS = 64
 FIRST_STAGE_REQUESTS = ROOT_REQUESTS + BRANCH_REQUESTS
-MAX_FINAL_REQUESTS = 20
+MAX_FINAL_REQUESTS = 40
 MAX_REQUESTS = FIRST_STAGE_REQUESTS + MAX_FINAL_REQUESTS
 CONCURRENCY = 24
 MAX_TOKENS = serving.MAX_TOKENS
 TEMPERATURE = 0.0
-RUN_BUDGET_USD = 1.50
+RUN_BUDGET_USD = 1.75
 MIN_MATERIAL_BRANCH_PAIRS = 24
 MIN_MYOPIC_BRIER = 0.03
 MIN_MYOPIC_LOG_LOSS = 0.15
@@ -274,6 +274,111 @@ def final_cases(
     return cases
 
 
+def all_first_action_paths(
+    *,
+    task: bed.VisualTask,
+    branches: Mapping[tuple[str, bool], bed.SemanticBelief],
+) -> dict[str, dict[str, Any]]:
+    paths = {}
+    for first in task.candidate_ids:
+        first_label = bool(task.actual_labels[first])
+        remaining = tuple(
+            candidate for candidate in task.candidate_ids if candidate != first
+        )
+        second_scores = bed.candidate_eigs(
+            branches[(first, first_label)], remaining
+        )
+        second = bed.select_best(second_scores)
+        second_label = bool(task.actual_labels[second])
+        final_history = tuple(
+            sorted(
+                (
+                    *task.initial_history,
+                    (first, first_label),
+                    (second, second_label),
+                )
+            )
+        )
+        paths[first] = {
+            "first_image_id": first,
+            "first_label": bed.LABELS[first_label],
+            "second_image_id": second,
+            "second_label": bed.LABELS[second_label],
+            "second_scores": second_scores,
+            "final_history": final_history,
+            "final_history_key": history_key(final_history),
+        }
+    return paths
+
+
+def all_action_final_cases(
+    *,
+    tasks: Sequence[bed.VisualTask],
+    plans: Mapping[str, Mapping[str, Any]],
+    action_paths: Mapping[str, Mapping[str, Mapping[str, Any]]],
+) -> list[BeliefCase]:
+    cases = []
+    for task in sorted(tasks, key=lambda item: item.task_id):
+        histories = [
+            path["final_history"]
+            for path in action_paths[task.task_id].values()
+        ] + [
+            plans[task.task_id]["policies"][policy]["final_history"]
+            for policy in POLICIES
+        ]
+        seen = set()
+        for history in histories:
+            key = history_key(history)
+            if key in seen:
+                continue
+            seen.add(key)
+            cases.append(
+                BeliefCase(
+                    case_id=(
+                        f"{task.task_id}-final-"
+                        f"{hashlib.sha256(key.encode()).hexdigest()[:12]}"
+                    ),
+                    task=task,
+                    history=history,
+                    kind="final",
+                )
+            )
+    if not len(tasks) * 4 <= len(cases) <= len(tasks) * 10:
+        raise ValueError("all-action final history count is outside bounds")
+    return cases
+
+
+def _average_ranks(values: Sequence[float]) -> list[float]:
+    order = sorted(range(len(values)), key=lambda index: (values[index], index))
+    ranks = [0.0] * len(values)
+    start = 0
+    while start < len(order):
+        end = start + 1
+        while end < len(order) and values[order[end]] == values[order[start]]:
+            end += 1
+        rank = (start + 1 + end) / 2.0
+        for position in range(start, end):
+            ranks[order[position]] = rank
+        start = end
+    return ranks
+
+
+def spearman_correlation(left: Sequence[float], right: Sequence[float]) -> float:
+    left_ranks = _average_ranks(left)
+    right_ranks = _average_ranks(right)
+    left_mean = sum(left_ranks) / len(left_ranks)
+    right_mean = sum(right_ranks) / len(right_ranks)
+    numerator = sum(
+        (a - left_mean) * (b - right_mean)
+        for a, b in zip(left_ranks, right_ranks, strict=True)
+    )
+    left_scale = math.sqrt(sum((value - left_mean) ** 2 for value in left_ranks))
+    right_scale = math.sqrt(sum((value - right_mean) ** 2 for value in right_ranks))
+    if left_scale == 0 or right_scale == 0:
+        return 0.0
+    return numerator / (left_scale * right_scale)
+
+
 def verify_serving_result(
     path: Path,
     *,
@@ -407,6 +512,17 @@ def mechanics_gates(
         math.isfinite(value)
         for values in pooled.values()
         for value in values.values()
+    ) and all(
+        math.isfinite(value)
+        for tree in trees
+        for path in tree["all_first_action_paths"].values()
+        for key, value in path["endpoint"].items()
+        if key != "rows"
+    )
+    finite_ranking = all(
+        math.isfinite(value)
+        for tree in trees
+        for value in tree["ranking_fidelity"].values()
     )
     gates = {
         "serving_result_independently_replays": serving_verification.get("verified") is True,
@@ -419,23 +535,33 @@ def mechanics_gates(
         "all_root_branch_and_final_responses_parse": (
             len(trees) == ROOT_REQUESTS
             and len(branch_diagnostics) == BRANCH_REQUESTS // 2
-            and 4 <= final_case_count <= MAX_FINAL_REQUESTS
+            and 16 <= final_case_count <= MAX_FINAL_REQUESTS
         ),
         "all_scores_are_finite_and_executable": finite_scores,
-        "at_least_24_of_32_branch_pairs_are_materially_label_sensitive": sum(
+        "at_least_24_of_32_branch_pairs_change_unobserved_beliefs": sum(
             row["material"] for row in branch_diagnostics
         )
         >= MIN_MATERIAL_BRANCH_PAIRS,
         "dynamic_depth2_changes_at_least_one_myopic_first_action": dynamic_changes >= 1,
         "at_least_two_controls_have_a_distinct_final_history": distinct_control_policies >= 2,
-        "all_distinct_final_supports_generated_once_and_mapped": 4 <= final_case_count <= 20,
+        "all_distinct_all_action_final_supports_generated_once_and_mapped": (
+            16 <= final_case_count <= MAX_FINAL_REQUESTS
+        ),
+        "all_eight_realized_first_action_continuations_are_scored": all(
+            len(tree["all_first_action_paths"]) == 8 for tree in trees
+        ),
+        "all_ranking_fidelity_diagnostics_are_finite": finite_ranking,
+        "root_candidate_brier_beats_constant_half": (
+            sum(tree["root_candidate_brier"] for tree in trees) / len(trees)
+            < 0.25
+        ),
         "myopic_endpoint_is_not_saturated": (
             pooled["myopic_width"]["mean_brier"] >= MIN_MYOPIC_BRIER
             or pooled["myopic_width"]["mean_log_loss"] >= MIN_MYOPIC_LOG_LOSS
         ),
         "all_endpoint_metrics_are_finite": finite_endpoints,
         "all_prompts_hide_bound_source_truth": not any(prompt_errors),
-        "cost_at_most_1_50": float(usage.get("run_cost_usd", math.inf)) <= RUN_BUDGET_USD,
+        "cost_at_most_1_75": float(usage.get("run_cost_usd", math.inf)) <= RUN_BUDGET_USD,
     }
     gates["all_pass"] = all(gates.values())
     return gates
@@ -524,8 +650,16 @@ def run_mechanics(
         )
         for task in tasks
     }
+    action_paths = {
+        task.task_id: all_first_action_paths(
+            task=task, branches=branches_by_task[task.task_id]
+        )
+        for task in tasks
+    }
     endpoint_accessed_after_selection = True
-    selected_final_cases = final_cases(tasks, plans)
+    selected_final_cases = all_action_final_cases(
+        tasks=tasks, plans=plans, action_paths=action_paths
+    )
     selected_final_messages = [
         bed.build_belief_messages(case.task, case.history)
         for case in selected_final_cases
@@ -591,6 +725,45 @@ def run_mechanics(
                 ),
                 "final_belief": bed.public_belief_summary(final_belief),
             }
+        action_rows = {}
+        for first, path in action_paths[task.task_id].items():
+            final_belief = final_by_task_history[
+                (task.task_id, path["final_history_key"])
+            ]
+            action_rows[first] = {
+                **{
+                    key: value
+                    for key, value in path.items()
+                    if key != "final_history"
+                },
+                "endpoint": bed.endpoint_metrics(final_belief, endpoint_labels),
+                "final_belief": bed.public_belief_summary(final_belief),
+            }
+        first_ids = tuple(sorted(action_rows))
+        endpoint_utility = [
+            -action_rows[first]["endpoint"]["mean_brier"]
+            for first in first_ids
+        ]
+        ranking_fidelity = {
+            score_name: spearman_correlation(
+                [task_plan["root_scores"][score_name][first] for first in first_ids],
+                endpoint_utility,
+            )
+            for score_name in (
+                "myopic_width",
+                "fixed_depth2",
+                "dynamic_depth2",
+                "shuffled_dynamic_depth2",
+            )
+        }
+        root_candidate_brier = sum(
+            (
+                bed.predictive_probability(roots[task.task_id], image_id)
+                - float(task.actual_labels[image_id])
+            )
+            ** 2
+            for image_id in task.candidate_ids
+        ) / len(task.candidate_ids)
         trees.append(
             {
                 "task_id": task.task_id,
@@ -603,6 +776,9 @@ def run_mechanics(
                 ),
                 "branch_diagnostics": diagnostics,
                 "policies": policy_rows,
+                "all_first_action_paths": action_rows,
+                "ranking_fidelity": ranking_fidelity,
+                "root_candidate_brier": root_candidate_brier,
             }
         )
 
@@ -633,6 +809,18 @@ def run_mechanics(
         },
     )
     pooled = _pooled_policy_metrics(trees)
+    ranking_fidelity = {
+        score_name: sum(
+            tree["ranking_fidelity"][score_name] for tree in trees
+        )
+        / len(trees)
+        for score_name in (
+            "myopic_width",
+            "fixed_depth2",
+            "dynamic_depth2",
+            "shuffled_dynamic_depth2",
+        )
+    }
     result = {
         "schema_version": SCHEMA_VERSION,
         "status": "mechanics_pass" if gates["all_pass"] else "gated_null",
@@ -647,6 +835,10 @@ def run_mechanics(
             "amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md"
+            ),
+            "semantic_validity_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
             ),
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,
@@ -665,6 +857,11 @@ def run_mechanics(
         "serving_verification": serving_verification,
         "usage": usage,
         "pooled_policy_metrics": pooled,
+        "mean_root_candidate_brier": sum(
+            tree["root_candidate_brier"] for tree in trees
+        )
+        / len(trees),
+        "mean_ranking_fidelity": ranking_fidelity,
         "comparisons_vs_myopic": {
             policy: {
                 "brier_difference": (

@@ -27,7 +27,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-1"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-2"
 MODEL_ID = "openai/gpt-5.6-luna"
 MODEL_SEED = 2_026_081_001
 EARLIEST_DATE = "2026-08-10"
@@ -38,9 +38,7 @@ MAX_TOKENS = 3_200
 TEMPERATURE = 0.0
 PROJECTED_COST_USD = 0.10
 RUN_BUDGET_USD = 0.25
-HISTORY_LOG_LOSS_BASELINE = math.log(2.0)
 MIN_BRANCH_PREDICTION_MAE = 0.05
-MIN_BRANCH_QUERY_SHIFT = 0.10
 
 
 class StructuredModel(Protocol):
@@ -137,32 +135,29 @@ def build_smoke_cases(tasks: Sequence[bed.VisualTask]) -> list[SmokeCase]:
     return cases
 
 
-def _posterior_prediction_vector(belief: bed.SemanticBelief) -> tuple[float, ...]:
-    return tuple(
-        bed.predictive_probability(belief, image_id)
-        for image_id in belief.image_ids
-    )
-
-
 def branch_sensitivity(
     negative: bed.SemanticBelief,
     positive: bed.SemanticBelief,
     *,
     candidate_id: str,
 ) -> dict[str, Any]:
-    negative_vector = _posterior_prediction_vector(negative)
-    positive_vector = _posterior_prediction_vector(positive)
+    observed_ids = {
+        image_id for image_id, _ in (*negative.history, *positive.history)
+    }
+    unobserved_ids = [
+        image_id
+        for image_id in negative.image_ids
+        if image_id not in observed_ids and image_id != candidate_id
+    ]
+    if not unobserved_ids:
+        raise ValueError("branch sensitivity has no still-unobserved images")
     prediction_mae = sum(
-        abs(a - b)
-        for a, b in zip(negative_vector, positive_vector, strict=True)
-    ) / len(negative_vector)
-    negative_query_prior = bed.predictive_probability(
-        negative, candidate_id, weights=negative.prior_weights
-    )
-    positive_query_prior = bed.predictive_probability(
-        positive, candidate_id, weights=positive.prior_weights
-    )
-    query_shift = positive_query_prior - negative_query_prior
+        abs(
+            bed.predictive_probability(negative, image_id)
+            - bed.predictive_probability(positive, image_id)
+        )
+        for image_id in unobserved_ids
+    ) / len(unobserved_ids)
     negative_rules = {
         bed.canonical_rule(item.rule) for item in negative.hypotheses
     }
@@ -173,13 +168,12 @@ def branch_sensitivity(
     rule_jaccard = len(negative_rules & positive_rules) / len(union)
     material = (
         prediction_mae >= MIN_BRANCH_PREDICTION_MAE
-        or query_shift >= MIN_BRANCH_QUERY_SHIFT
         or rule_jaccard <= 0.8
     )
     return {
         "candidate_id": candidate_id,
-        "prediction_mae": prediction_mae,
-        "positive_minus_negative_query_prior": query_shift,
+        "unobserved_image_count": len(unobserved_ids),
+        "unobserved_prediction_mae": prediction_mae,
         "rule_jaccard": rule_jaccard,
         "material": material,
     }
@@ -220,12 +214,12 @@ def serving_metrics(
             }
         )
     return {
-        "mean_prior_history_log_loss": sum(
-            bed.prior_history_log_loss(belief) for belief in beliefs
+        "mean_observed_history_fit_log_loss": sum(
+            bed.observed_history_fit_log_loss(belief) for belief in beliefs
         )
         / len(beliefs),
-        "max_prior_history_log_loss": max(
-            bed.prior_history_log_loss(belief) for belief in beliefs
+        "max_observed_history_fit_log_loss": max(
+            bed.observed_history_fit_log_loss(belief) for belief in beliefs
         ),
         "branch_sensitivities": sensitivities,
         "roots": root_rows,
@@ -246,9 +240,9 @@ def serving_gates(
         == bed.NUM_HYPOTHESES
         for belief in beliefs
     )
-    finite_posteriors = all(
-        all(math.isfinite(weight) and weight > 0 for weight in belief.posterior_weights)
-        and math.isfinite(bed.entropy(belief.posterior_weights))
+    finite_history_weights = all(
+        all(math.isfinite(weight) and weight > 0 for weight in belief.history_weights)
+        and math.isfinite(bed.entropy(belief.history_weights))
         for belief in beliefs
     )
     gates = {
@@ -260,11 +254,10 @@ def serving_gates(
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_10_strict_schemas_parse": len(beliefs) == len(cases) == EXPECTED_REQUESTS,
         "all_responses_have_exact_unique_hypothesis_support": exact_rules,
-        "all_posteriors_have_finite_positive_mass_and_entropy": finite_posteriors,
-        "mean_history_fit_beats_constant_half_predictor": (
-            metrics["mean_prior_history_log_loss"] < HISTORY_LOG_LOSS_BASELINE
+        "all_history_conditioned_weights_have_finite_positive_mass_and_entropy": (
+            finite_history_weights
         ),
-        "all_four_simulated_branch_pairs_are_materially_label_sensitive": all(
+        "all_four_simulated_branch_pairs_change_unobserved_beliefs": all(
             row["material"] for row in metrics["branch_sensitivities"]
         ),
         "both_roots_have_nonzero_nonidentical_candidate_eig": all(
@@ -360,6 +353,10 @@ def run_smoke(
             "preregistration": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md"
+            ),
+            "semantic_validity_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
             ),
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,

@@ -24,7 +24,7 @@ def _response(*, history: tuple[tuple[str, bool], ...] = ()) -> str:
             {
                 "hypothesis_id": hypothesis_id,
                 "rule": f"distinct visual rule number {hypothesis_index + 1}",
-                "prior_weight": 10 + hypothesis_index,
+                "history_weight": 10 + hypothesis_index,
                 "positive_probabilities": probabilities,
             }
         )
@@ -58,13 +58,13 @@ def _task() -> bed.VisualTask:
     )
 
 
-def test_parser_builds_finite_exact_posterior() -> None:
+def test_parser_uses_history_conditioned_weights_without_double_counting() -> None:
     belief = _belief((("image-00", True), ("image-01", False)))
     assert len(belief.hypotheses) == 10
-    assert math.isclose(sum(belief.prior_weights), 1.0)
-    assert math.isclose(sum(belief.posterior_weights), 1.0)
-    assert all(weight > 0 for weight in belief.posterior_weights)
-    assert bed.prior_history_log_loss(belief) < math.log(2)
+    expected = bed.normalize_weights(tuple(range(10, 20)))
+    assert belief.history_weights == expected
+    assert all(weight > 0 for weight in belief.history_weights)
+    assert bed.observed_history_fit_log_loss(belief) < math.log(2)
 
 
 def test_parser_rejects_duplicate_rules_and_probability_shape() -> None:
@@ -112,7 +112,7 @@ def test_eig_matches_binary_mutual_information_identity() -> None:
         bed.SemanticHypothesis(
             hypothesis_id=hypothesis_id,
             rule=f"rule {index} separates the image",
-            prior_weight=1.0,
+            history_weight=1.0,
             positive_probabilities=(
                 (0.9 if index < 5 else 0.1),
                 *([0.5] * 13),
@@ -125,8 +125,7 @@ def test_eig_matches_binary_mutual_information_identity() -> None:
         image_ids=image_ids,
         history=(),
         hypotheses=hypotheses,
-        prior_weights=uniform,
-        posterior_weights=uniform,
+        history_weights=uniform,
     )
     binary_entropy_09 = -0.9 * math.log(0.9) - 0.1 * math.log(0.1)
     expected = math.log(2.0) - binary_entropy_09
@@ -167,6 +166,8 @@ def test_multimodal_prompt_contains_only_opaque_interface() -> None:
     text = bed.request_text(messages)
     assert "secret concept" not in text
     assert "pos__" not in text
+    assert "selectable_image_ids" not in text
+    assert "endpoint_image_ids" not in text
     content = messages[0]["content"]
     images = [item for item in content if item["type"] == "image_url"]
     assert len(images) == 14

@@ -1,5 +1,11 @@
 # Bongard-OpenWorld Luna VLM Mechanics Execution
 
+Pre-call interface-2 note: the semantic-validity amendment removes history
+double-conditioning and role markers, makes branch sensitivity unobserved-only,
+and expands mechanics to at most 108 requests under a `$1.75` cap. The
+selected-policy-only 88-request details below document the earlier zero-call
+fixture and are not executable evidence.
+
 Prepared: 2026-08-06
 Earliest execution: 2026-08-10 Europe/London
 

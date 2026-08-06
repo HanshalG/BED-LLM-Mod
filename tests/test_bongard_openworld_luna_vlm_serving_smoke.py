@@ -52,7 +52,7 @@ def _response(case: smoke.SmokeCase) -> str:
                 "rule": (
                     f"history {case.case_id} semantic rule {hypothesis_index + 1}"
                 ),
-                "prior_weight": 20 - hypothesis_index,
+                "history_weight": 20 - hypothesis_index,
                 "positive_probabilities": probabilities,
             }
         )
@@ -98,6 +98,37 @@ def test_exact_ten_fixture_passes_without_endpoint_access(tmp_path: Path) -> Non
     assert result["protocol"]["endpoint_labels_accessed"] is False
     raw = json.loads((tmp_path / "run/private/RAW_RESPONSES.json").read_text())
     assert raw["endpoint_labels_accessed"] is False
+
+
+def test_branch_sensitivity_ignores_the_just_labelled_image() -> None:
+    task = _task(1)
+    candidate = task.candidate_ids[0]
+    beliefs = []
+    for label in (False, True):
+        case = smoke.SmokeCase(
+            case_id="shared-case",
+            task=task,
+            history=tuple(sorted((*task.initial_history, (candidate, label)))),
+            kind="branch",
+            branch_candidate_id=candidate,
+            branch_label=label,
+        )
+        value = json.loads(_response(case))
+        for index, row in enumerate(value["hypotheses"]):
+            row["rule"] = f"shared semantic rule {index + 1}"
+        beliefs.append(
+            bed.parse_belief_response(
+                json.dumps(value),
+                image_ids=task.image_ids,
+                history=case.history,
+            )
+        )
+    sensitivity = smoke.branch_sensitivity(
+        beliefs[0], beliefs[1], candidate_id=candidate
+    )
+    assert sensitivity["unobserved_prediction_mae"] == 0.0
+    assert sensitivity["rule_jaccard"] == 1.0
+    assert sensitivity["material"] is False
 
 
 def test_luna_payload_removes_unsupported_sampling_parameters(monkeypatch) -> None:

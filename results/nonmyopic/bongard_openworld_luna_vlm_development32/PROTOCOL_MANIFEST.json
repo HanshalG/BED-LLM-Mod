@@ -1,0 +1,224 @@
+{
+  "blocks": {
+    "a": {
+      "earliest_london_date": "2026-08-11",
+      "maximum_requests": 216,
+      "model_seed": 2026081101,
+      "offset": 0,
+      "size": 8
+    },
+    "b": {
+      "earliest_london_date": "2026-08-12",
+      "maximum_requests": 216,
+      "model_seed": 2026081201,
+      "offset": 8,
+      "size": 8
+    },
+    "c": {
+      "earliest_london_date": "2026-08-13",
+      "maximum_requests": 216,
+      "model_seed": 2026081301,
+      "offset": 16,
+      "size": 8
+    },
+    "d": {
+      "earliest_london_date": "2026-08-14",
+      "maximum_requests": 216,
+      "model_seed": 2026081401,
+      "offset": 24,
+      "size": 8
+    }
+  },
+  "bootstrap_replicates": 20000,
+  "bootstrap_seed": 2026081501,
+  "gates": {
+    "all_pass": true,
+    "confirmation_remains_unaccessed": true,
+    "endpoint_labels_remain_unaccessed": true,
+    "exact_32_unique_opaque_tasks": true,
+    "exact_frozen_block_sizes": true,
+    "full_image_archive_sha256_is_bound": true,
+    "manifest_contains_no_source_uid_concept_caption_or_path": true,
+    "model_calls_are_zero": true,
+    "sealed_test_remains_unaccessed": true,
+    "source_commit_and_tree_are_bound": true
+  },
+  "image_archive_sha256": "5ab838cffd8c1be6080e232b9fa4d9ca824d213371625abe59d984745f694d25",
+  "implementation_sha256": {
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md": "95fc10aef019212461fa16b191c7e56937c4199bb0782d6662eaef4abf2f54b6",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md": "46d03dcaf6eb745fc95c0dab164609b506924fc362ce59140d1596faa090e656",
+    "scripts/bongard_openworld_luna_vlm_development.py": "f8d45067fad7fcb2d902d6318acd7bec5a61a0e0c4ed0604425221fd0f27d041",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "9035cbc56437ecf3afd2d2116468a851933010a757bff580ec41e448e0ce4b6e",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "20a27ba5190a68ae7363f631a2975c0690353fb22f96e7901363111bca31142b",
+    "scripts/bongard_openworld_vlm_bed.py": "6fdb6bbc1efc73808a660665de7a722c065102d03fea1724f2a0cd4c45c33f0d"
+  },
+  "interface_version": "bongard-openworld-luna-vlm-development32-2",
+  "model": "openai/gpt-5.6-luna",
+  "reasoning": false,
+  "schema_version": 1,
+  "source_commit": "0462ba15f3be2f7f9a7e6cdd0d24314a1fabb5fe",
+  "source_tree": "b527dfa22222cab3beef5c4023a8b3837d8d7ee5",
+  "status": "frozen",
+  "tasks": [
+    {
+      "block_id": "a",
+      "source_row_sha256": "7c42cf95bb47c4cd4dae181835ee20f87e4995cbd6f8a0f6e06cee705cbd2eef",
+      "task_id": "task-04a5b29836e5"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "b9a109775d1e373b583b0f6acd70f98c4f2a3fdc9307c1f7ec0098b846a97fa1",
+      "task_id": "task-0de521078860"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "2052460048193f792980287d017e1abebeaa82c1d61906670934594898f28870",
+      "task_id": "task-16dab9c83ab0"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "261f9c5a70ed077fba6a9f62a1f8faae4636ee30e8cf4b532678028b0efcad92",
+      "task_id": "task-1be62240ab79"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "16c5b9f3c3f677871d664a1f383f70ec60e22c85bbc07ad98ce2b18db0598b95",
+      "task_id": "task-2db6d9597b53"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "4dd2ff6bc678c594378a8202aae74ed4dba48f6643b0e02dab41cf2ea97c6baa",
+      "task_id": "task-3287e060bcba"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "b8e6d6d56ba8e42e9af98a46b7dd49ec41243956d643d9f4af002656d388dc07",
+      "task_id": "task-4584cb5519a9"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "cd3b5e12324347d8870eedb6818baab58a702418b9d0c105d1af3f71b8b07c8b",
+      "task_id": "task-4c69e9a0b720"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "f9572f02251e5b229897333f14cea5b4c787d73e2f261fd7b9d8d706c3da9ebe",
+      "task_id": "task-508e54e4f1b5"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "a58ec23da2cd18693d6219601529610bf5c0bc07f9f2e133bc17ad994e7066e3",
+      "task_id": "task-5e421a16d5ea"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "3644f6201d41fd9376cd5ece6aa7381f1040f8d0755ab1c70171766eccd900e9",
+      "task_id": "task-636136790828"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "9890ff8180d9425f3771b5592d21d41d42294034e8afcbce0a963709f993ff19",
+      "task_id": "task-6483cfdd2ea0"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "a16d1ada8081b2514ff63adfd18b51cb15303c0604f69a5f8431d0196e9b9e34",
+      "task_id": "task-6b85e053d0c7"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "9f2ccb8f0fee7ce550cbfc905bff7b42f7dd605353c57a978b8af12df2d9ef34",
+      "task_id": "task-7ec67b0e6b67"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "88c5c9b642c1c4a3cfc54dc7639f945dd294d16dbefca91aa7dd5e4a84022666",
+      "task_id": "task-8445ce643554"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "693418630af9cd06ee2e1dc77bf60eb89b141f7d918d27032439f4f64e3803c3",
+      "task_id": "task-886e71f141aa"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "913fc7523d4ce49711db6b9e803f9c77f788e56135fdc2c073cb5e1c7f955300",
+      "task_id": "task-941a1b8eb2d4"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "5e82d9366d0313e971416fed3a0cad52a273d2cbf1c991eb4ba74cffb38e333c",
+      "task_id": "task-ac2600b3e2f8"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "105008823b123a7f5e06f0a9a30b7c7899c7e6e3b67f6544565a3cb2f88dd4b9",
+      "task_id": "task-b9ba6254c24f"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "117cc5fbe9f3508f4ea8caccda19e541200dec4709b182f3f8cb4452b2cff2f0",
+      "task_id": "task-bb26962e44a3"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "d93f412df285236c422aede95f37823172ee5b00e8a6a45e39ce8914d05b7132",
+      "task_id": "task-bce22b856825"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "debb98ad82c009bde58871ddf1385d0dad066eece4fec88d3c5cf653ee9309d6",
+      "task_id": "task-c2fc130fb232"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "32c401d390061b1510a7bec67f182c8cfcc3c9ed1c92a2f5b5bdb8eecf5b7689",
+      "task_id": "task-c7d03f31927d"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "5aab55513811545f6bd915be905d9b3601a5c235210b71e3db05e27e6acac8ca",
+      "task_id": "task-cc654f0287bb"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "7f2863ef9e92276ab9fcfb41a6e996ebb49d56a63f8155fe8e9c6cfd5d887994",
+      "task_id": "task-cdbc9941ad62"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "12398583ccbc1e679bbb6f6a55322aaea94db516d0bf6c2b41185ee2ac5dd3c0",
+      "task_id": "task-d8fb938fc6f1"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "f58f0cf6ebe19cb2afbcfa031273a813147a621dbcb469d8c098e946bb7f62ff",
+      "task_id": "task-dc0bb917d013"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "8d7dcfe7206a758fe67c96e06fdacf24a528091cc48f98a8bb5da6322258b95f",
+      "task_id": "task-e16c261f42b5"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "d4966c086a13c6dd4b6369be8cd1c9c5b8e7434344dfba514111af62a90e0677",
+      "task_id": "task-e49dcf89a105"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "0d5ea31142068c3175d889f4b56cdf97223eeff971e010e809d8aba7440688d0",
+      "task_id": "task-e98dc1694ab9"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "cfdc0d9400d42226dba310fe559e891897206ea9dc2be30e0f86eff7c3670ba8",
+      "task_id": "task-eb10ce2a3732"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "8adedb7921fb3f9fd76e161aa998330f59a80990f89575721cf5a9319534c820",
+      "task_id": "task-f1ec63efc13d"
+    }
+  ]
+}
