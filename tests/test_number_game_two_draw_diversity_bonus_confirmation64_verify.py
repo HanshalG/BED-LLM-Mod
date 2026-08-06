@@ -1,9 +1,64 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
+from pathlib import Path
+
+import pytest
 
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_staged as staged
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_verify as verify
+
+
+def _write_real_block_a_fixture(run_dir: Path) -> None:
+    source_dir = staged.block_directory(run_dir, "a") / "source"
+    private_dir = source_dir / "private"
+    private_dir.mkdir(parents=True)
+    (source_dir / "TREES.json").write_text("{}", encoding="utf-8")
+    (source_dir / "TARGETS.json").write_text("{}", encoding="utf-8")
+    (private_dir / "RAW_RESPONSES.json").write_text("[]", encoding="utf-8")
+    spec = staged.BLOCKS["a"]
+    result = {
+        "protocol": {
+            "interface_version": f"{staged.SOURCE_INTERFACE_PREFIX}-a-1",
+            "tree_seeds": list(spec["tree_seeds"]),
+            "target_seeds": list(spec["target_seeds"]),
+            "validation_seeds": verify._expected_validation_seeds(
+                spec["validation_seed_start"]
+            ),
+            "bootstrap_seed": spec["source_bootstrap_seed"],
+            "staged_64_confirmation": True,
+            "staged_block": "a",
+            "block_calendar_date": "2026-08-08",
+        },
+        "usage": {
+            "adapter_requests": staged.EXPECTED_REQUESTS_PER_BLOCK,
+            "run_cost_usd": 4.2,
+        },
+        "mechanics_gates": {"mechanics": True},
+    }
+    (source_dir / "RESULT.json").write_text(
+        json.dumps(result), encoding="utf-8"
+    )
+    stage = {
+        "interface_version": staged.INTERFACE_VERSION,
+        "status": "block_b_authorized",
+        "block": "a",
+        "calendar_date": "2026-08-08",
+        "authorization_inputs": (
+            "source mechanics gates and request count only"
+        ),
+        "source_science_was_not_an_authorization_input": True,
+        "mechanics_gates": {
+            "mechanics": True,
+            "accepted_request_count_exact": True,
+        },
+        "usage": deepcopy(result["usage"]),
+        "source_artifacts": verify._source_hashes(source_dir),
+    }
+    staged.block_stage_path(run_dir, "a").write_text(
+        json.dumps(stage), encoding="utf-8"
+    )
 
 
 def _fixtures():
@@ -93,6 +148,17 @@ def _fixtures():
         "rank_metrics": {"rho": 0.4},
         "scientific_gates": gates,
     }
+    block_a_verification_sha256 = "block-a-verification-sha256"
+    stages["b"]["block_a_authorization_verification_sha256"] = (
+        block_a_verification_sha256
+    )
+    block_a_verification = {
+        "interface_version": verify.BLOCK_A_INTERFACE_VERSION,
+        "status": "verified",
+        "authorization_reads_scientific_endpoints": False,
+        "checks": {"all": True},
+        "block_a_source_artifacts": deepcopy(stages["a"]["source_artifacts"]),
+    }
     result = {
         "interface_version": staged.INTERFACE_VERSION,
         "status": "passed",
@@ -138,44 +204,57 @@ def _fixtures():
         "rank_metrics": deepcopy(replay["rank_metrics"]),
         "scientific_gates": deepcopy(gates),
     }
-    return result, stages, replay
+    return (
+        result,
+        stages,
+        replay,
+        block_a_verification,
+        block_a_verification_sha256,
+    )
 
 
 def test_complete_staged_result_passes_all_checks() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     checks = verify.verification_checks(
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert all(checks.values())
 
 
 def test_same_day_block_b_is_detected() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     stages["b"]["calendar_date"] = stages["a"]["calendar_date"]
     result["block_stages"] = deepcopy(stages)
     checks = verify.verification_checks(
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert not checks["block_b_date_is_later"]
+    assert not checks["formal_block_dates_exact"]
 
 
 def test_reused_block_tree_seed_is_detected() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     replay["blocks"]["b"]["rows"][0]["tree_seed"] = 110_000
     checks = verify.verification_checks(
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert not checks["block_b_actual_tree_seeds_exact"]
 
 
 def test_tampered_combined_bootstrap_is_detected() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     result["comparisons"]["crossfit_depth_two"][
         "tree_bootstrap_95pct"
     ][1] = 0.1
@@ -183,23 +262,27 @@ def test_tampered_combined_bootstrap_is_detected() -> None:
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert not checks["all_comparisons_and_bootstraps_replay_exactly"]
 
 
 def test_tampered_seed_manifest_is_detected() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     result["protocol"]["target_seeds"]["b"][0] -= 1
     checks = verify.verification_checks(
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert not checks["outer_seed_manifest_exact"]
 
 
 def test_tampered_stage_mechanics_and_cost_are_detected() -> None:
-    result, stages, replay = _fixtures()
+    result, stages, replay, authorization, authorization_sha = _fixtures()
     stages["a"]["mechanics_gates"]["accepted_request_count_exact"] = False
     result["block_stages"] = deepcopy(stages)
     result["usage"]["block_cost_usd"]["a"] = 4.1
@@ -207,6 +290,37 @@ def test_tampered_stage_mechanics_and_cost_are_detected() -> None:
         result=result,
         stages=stages,
         replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
     )
     assert not checks["block_a_stage_mechanics_match_source"]
     assert not checks["combined_usage_costs_exact"]
+
+
+def test_real_block_a_authorization_verifier_binds_files(tmp_path: Path) -> None:
+    _write_real_block_a_fixture(tmp_path)
+
+    verification = verify.verify_block_a_authorization(run_dir=tmp_path)
+
+    assert verification["status"] == "verified"
+    assert all(verification["checks"].values())
+    assert staged.block_a_verification_path(tmp_path).exists()
+
+
+def test_real_block_a_authorization_verifier_rejects_tamper(
+    tmp_path: Path,
+) -> None:
+    _write_real_block_a_fixture(tmp_path)
+    stage_path = staged.block_stage_path(tmp_path, "a")
+    stage = json.loads(stage_path.read_text(encoding="utf-8"))
+    stage["mechanics_gates"]["accepted_request_count_exact"] = False
+    stage_path.write_text(json.dumps(stage), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="authorization verification failed"):
+        verify.verify_block_a_authorization(run_dir=tmp_path)
+
+    failure = json.loads(
+        staged.block_a_verification_path(tmp_path).read_text(encoding="utf-8")
+    )
+    assert failure["status"] == "verification_failed"
+    assert not failure["checks"]["stage_mechanics_match_source"]

@@ -33,6 +33,7 @@ EXPECTED_REQUESTS_TOTAL = 7_360
 DAILY_CAP_USD = 5.0
 MIN_STARTING_BALANCE_USD = 5.0
 COMBINED_BOOTSTRAP_SEED = 112_800
+FORMAL_BLOCK_DATES = {"a": "2026-08-08", "b": "2026-08-09"}
 PREREGISTRATION = component.PREREGISTRATION
 PREREGISTRATION_SHA256 = (
     "49b1a8bd783f8cbf54ba561ec55567bc4143af3b4358397cab4840d7d778cc5d"
@@ -60,6 +61,10 @@ def block_directory(run_dir: Path, block: str) -> Path:
 
 def block_stage_path(run_dir: Path, block: str) -> Path:
     return run_dir / f"BLOCK_{block.upper()}_STAGE.json"
+
+
+def block_a_verification_path(run_dir: Path) -> Path:
+    return run_dir / "BLOCK_A_AUTHORIZATION_VERIFICATION.json"
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -107,7 +112,24 @@ def _block_b_authorization(
     serialized = json.dumps(stage, sort_keys=True).lower()
     if any(term in serialized for term in forbidden):
         raise ValueError("Block A authorization contains scientific values")
-    return stage
+    verification = _verify_block_a_authorization(run_dir=run_dir)
+    if verification.get("status") != "verified":
+        raise RuntimeError("Block A authorization verification did not pass")
+    return {
+        "stage": stage,
+        "verification": verification,
+        "verification_sha256": audit.sha256_file(
+            block_a_verification_path(run_dir)
+        ),
+    }
+
+
+def _verify_block_a_authorization(*, run_dir: Path) -> dict[str, Any]:
+    from scripts.number_game_two_draw_diversity_bonus_confirmation64_verify import (
+        verify_block_a_authorization,
+    )
+
+    return verify_block_a_authorization(run_dir=run_dir)
 
 
 def _source_hashes(source_dir: Path) -> dict[str, str]:
@@ -134,6 +156,10 @@ def run_block(
 ) -> dict[str, Any]:
     if block not in BLOCKS:
         raise ValueError(f"unknown block: {block}")
+    if str(ledger.get("date")) != FORMAL_BLOCK_DATES[block]:
+        raise RuntimeError(
+            f"Block {block.upper()} requires {FORMAL_BLOCK_DATES[block]}"
+        )
     _validate_preregistration()
     base.validate_predecessors()
     _validate_daily_budget(
@@ -146,10 +172,11 @@ def run_block(
         if run_dir.exists() and any(run_dir.iterdir()):
             raise FileExistsError(f"run directory is not empty: {run_dir}")
         run_dir.mkdir(parents=True, exist_ok=True)
-    else:
+    block_a_authorization = None
+    if block == "b":
         if not run_dir.exists():
             raise FileNotFoundError("Block B requires an existing Block A run")
-        _block_b_authorization(
+        block_a_authorization = _block_b_authorization(
             run_dir=run_dir,
             block_b_date=str(ledger["date"]),
         )
@@ -203,6 +230,10 @@ def run_block(
         "usage": source_result["usage"],
         "source_artifacts": _source_hashes(source_dir),
     }
+    if block_a_authorization is not None:
+        stage["block_a_authorization_verification_sha256"] = (
+            block_a_authorization["verification_sha256"]
+        )
     checkpoint(block_stage_path(run_dir, block), stage)
     return stage
 
@@ -340,9 +371,13 @@ def reconcile_ledger(
     local = previous + measured_cost_usd
     recorded = max(posted, local)
     updated["recorded_actual_spend_usd"] = recorded
-    updated[f"diversity_bonus_confirmation64_block_{block}"] = {
+    block_key = f"diversity_bonus_confirmation64_block_{block}"
+    previous_block_cost = float(
+        (updated.get(block_key) or {}).get("actual_cost_usd", 0.0)
+    )
+    updated[block_key] = {
         "status": status,
-        "actual_cost_usd": measured_cost_usd,
+        "actual_cost_usd": max(previous_block_cost, measured_cost_usd),
         "maximum_cost_usd": DAILY_CAP_USD,
     }
     updated["reconciliation"] = {
@@ -369,6 +404,7 @@ def execute_daily_block(
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
     block_runner: Callable[..., dict[str, Any]] = run_block,
     verifier: Callable[..., dict[str, Any]] | None = None,
+    now: datetime | None = None,
 ) -> dict[str, Any]:
     ledger = _load(ledger_path)
     live_before = live_reader()
@@ -379,6 +415,7 @@ def execute_daily_block(
         ledger=ledger,
         total_usage_usd=float(live_before["total_usage_usd"]),
         balance_usd=float(live_before["balance_usd"]),
+        now=now,
     )
     measured_cost = float(stage["usage"]["run_cost_usd"])
     local = reconcile_ledger(
@@ -390,7 +427,11 @@ def execute_daily_block(
     checkpoint(ledger_path, local)
     scientific_status = None
     verification = None
-    if block == "b":
+    if block == "a" and stage.get("status") == "block_b_authorized":
+        if verifier is None:
+            verifier = _verify_block_a_authorization
+        verification = verifier(run_dir=run_dir)
+    elif block == "b":
         result = build_combined_result(run_dir=run_dir, run_id=run_id)
         checkpoint(run_dir / "RESULT.json", result)
         scientific_status = result["status"]

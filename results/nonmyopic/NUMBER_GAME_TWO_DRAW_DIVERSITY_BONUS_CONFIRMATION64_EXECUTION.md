@@ -2,6 +2,21 @@
 
 Date frozen: 2026-08-06
 
+The later execution amendment makes the exact formal path authoritative:
+
+```bash
+# 2026-08-08 Europe/London
+python scripts/number_game_two_draw_diversity_bonus_confirmation64_daily_execute.py --block a
+
+# 2026-08-09 Europe/London
+python scripts/number_game_two_draw_diversity_bonus_confirmation64_daily_execute.py --block b
+```
+
+It fixes the shared run ID and paths, initializes each account-wide ledger
+from live cumulative usage, independently verifies Block A before Block B, and
+refuses partial block reruns. The placeholder commands below describe the
+underlying component interface and must not be launched separately.
+
 ## Preconditions
 
 Run only after the sealed August 7 history-blind control is complete and

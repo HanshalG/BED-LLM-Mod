@@ -86,19 +86,54 @@ def test_scientific_gates_use_primary_and_nonworsening_only() -> None:
     ]
 
 
-def test_block_b_authorization_uses_only_mechanics_and_later_date(tmp_path) -> None:
+def test_block_b_authorization_uses_only_mechanics_and_later_date(
+    tmp_path, monkeypatch
+) -> None:
     stage = _stage("a", "2026-08-08")
     (tmp_path / "BLOCK_A_STAGE.json").write_text(
         json.dumps(stage), encoding="utf-8"
     )
-    assert staged._block_b_authorization(
+    verification = {"status": "verified"}
+    verification_path = staged.block_a_verification_path(tmp_path)
+    verification_path.write_text(json.dumps(verification), encoding="utf-8")
+    monkeypatch.setattr(
+        staged,
+        "_verify_block_a_authorization",
+        lambda **_: verification,
+    )
+    authorization = staged._block_b_authorization(
         run_dir=tmp_path,
         block_b_date="2026-08-09",
-    ) == stage
+    )
+    assert authorization["stage"] == stage
+    assert authorization["verification"] == verification
+    assert authorization["verification_sha256"] == staged.audit.sha256_file(
+        verification_path
+    )
     with pytest.raises(RuntimeError, match="later"):
         staged._block_b_authorization(
             run_dir=tmp_path,
             block_b_date="2026-08-08",
+        )
+
+
+def test_block_b_refuses_failed_independent_authorization(
+    tmp_path, monkeypatch
+) -> None:
+    stage = _stage("a", "2026-08-08")
+    staged.block_stage_path(tmp_path, "a").write_text(
+        json.dumps(stage), encoding="utf-8"
+    )
+    monkeypatch.setattr(
+        staged,
+        "_verify_block_a_authorization",
+        lambda **_: {"status": "verification_failed"},
+    )
+
+    with pytest.raises(RuntimeError, match="verification did not pass"):
+        staged._block_b_authorization(
+            run_dir=tmp_path,
+            block_b_date="2026-08-09",
         )
 
 
@@ -121,6 +156,27 @@ def test_block_refuses_partial_daily_allowance_before_source(tmp_path, monkeypat
             balance_usd=20.0,
             source_runner=forbidden,
             now=datetime(2026, 8, 8, 12, tzinfo=LONDON),
+        )
+    assert calls == []
+
+
+def test_lower_level_runner_refuses_nonformal_block_date(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(staged, "_validate_preregistration", lambda: None)
+    monkeypatch.setattr(staged.base, "validate_predecessors", lambda: {})
+    calls = []
+
+    with pytest.raises(RuntimeError, match="requires 2026-08-08"):
+        staged.run_block(
+            run_dir=tmp_path,
+            run_id="wrong-date",
+            block="a",
+            ledger=_ledger("2026-08-10"),
+            total_usage_usd=100.0,
+            balance_usd=20.0,
+            source_runner=lambda **kwargs: calls.append(kwargs),
+            now=datetime(2026, 8, 10, 12, tzinfo=LONDON),
         )
     assert calls == []
 
@@ -219,6 +275,52 @@ def test_block_b_checkpoints_spend_before_scoring_and_verification(
 
     assert execution["verification_status"] == "verified"
     assert execution["recorded_actual_spend_usd"] == pytest.approx(4.2)
+
+
+def test_block_a_checkpoints_spend_before_authorization_verification(
+    tmp_path,
+) -> None:
+    ledger_path = tmp_path / "ledger.json"
+    ledger_path.write_text(
+        json.dumps(_ledger("2026-08-08")), encoding="utf-8"
+    )
+    live_values = iter(
+        [
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 100.0,
+                "balance_usd": 30.0,
+            },
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 104.2,
+                "balance_usd": 25.8,
+            },
+        ]
+    )
+
+    def verifier(*, run_dir: Path):
+        del run_dir
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+        assert ledger["recorded_actual_spend_usd"] == 4.2
+        return {"status": "verified"}
+
+    execution = staged.execute_daily_block(
+        run_dir=tmp_path / "run",
+        run_id="daily-a",
+        block="a",
+        ledger_path=ledger_path,
+        live_reader=lambda: next(live_values),
+        block_runner=lambda **_: _stage("a", "2026-08-08"),
+        verifier=verifier,
+    )
+
+    assert execution["verification_status"] == "verified"
+    assert execution["recorded_actual_spend_usd"] == pytest.approx(4.2)
+    final_ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert final_ledger[
+        "diversity_bonus_confirmation64_block_a"
+    ]["actual_cost_usd"] == pytest.approx(4.2)
 
 
 def test_failed_block_reconciliation_records_posted_account_spend() -> None:

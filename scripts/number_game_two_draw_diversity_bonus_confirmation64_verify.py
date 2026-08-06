@@ -22,10 +22,123 @@ from scripts.number_game_ranking_fidelity_audit import spearman_correlation
 
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = "number-game-two-draw-diversity-bonus-confirmation64-verify-1"
+BLOCK_A_INTERFACE_VERSION = (
+    "number-game-two-draw-diversity-bonus-confirmation64-block-a-verify-1"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _source_hashes(source_dir: Path) -> dict[str, str]:
+    return {
+        "result_sha256": audit.sha256_file(source_dir / "RESULT.json"),
+        "trees_sha256": audit.sha256_file(source_dir / "TREES.json"),
+        "targets_sha256": audit.sha256_file(source_dir / "TARGETS.json"),
+        "raw_sha256": audit.sha256_file(
+            source_dir / "private" / "RAW_RESPONSES.json"
+        ),
+    }
+
+
+def block_a_authorization_checks(
+    *,
+    stage: dict[str, Any],
+    source_result: dict[str, Any],
+    source_artifacts: dict[str, str],
+) -> dict[str, bool]:
+    spec = staged.BLOCKS["a"]
+    protocol = source_result.get("protocol") or {}
+    expected_mechanics = dict(source_result.get("mechanics_gates") or {})
+    expected_mechanics["accepted_request_count_exact"] = (
+        source_result.get("usage", {}).get("adapter_requests")
+        == staged.EXPECTED_REQUESTS_PER_BLOCK
+    )
+    forbidden = ("brier", "comparison", "scientific", "selected_root")
+    return {
+        "preregistration_hash_exact": (
+            audit.sha256_file(staged.PREREGISTRATION)
+            == staged.PREREGISTRATION_SHA256
+        ),
+        "stage_interface_and_status_exact": (
+            stage.get("interface_version") == staged.INTERFACE_VERSION
+            and stage.get("block") == "a"
+            and stage.get("status") == "block_b_authorized"
+            and stage.get("calendar_date") == staged.FORMAL_BLOCK_DATES["a"]
+        ),
+        "authorization_is_mechanics_only": (
+            stage.get("authorization_inputs")
+            == "source mechanics gates and request count only"
+            and stage.get("source_science_was_not_an_authorization_input")
+            is True
+            and not any(
+                term in json.dumps(stage, sort_keys=True).lower()
+                for term in forbidden
+            )
+        ),
+        "source_protocol_seed_manifest_exact": (
+            protocol.get("interface_version")
+            == f"{staged.SOURCE_INTERFACE_PREFIX}-a-1"
+            and protocol.get("tree_seeds") == list(spec["tree_seeds"])
+            and protocol.get("target_seeds") == list(spec["target_seeds"])
+            and protocol.get("validation_seeds")
+            == _expected_validation_seeds(spec["validation_seed_start"])
+            and protocol.get("bootstrap_seed") == spec["source_bootstrap_seed"]
+            and protocol.get("staged_64_confirmation") is True
+            and protocol.get("staged_block") == "a"
+            and protocol.get("block_calendar_date") == stage.get("calendar_date")
+        ),
+        "source_requests_exact": (
+            source_result.get("usage", {}).get("adapter_requests")
+            == staged.EXPECTED_REQUESTS_PER_BLOCK
+            == stage.get("usage", {}).get("adapter_requests")
+        ),
+        "stage_mechanics_match_source": (
+            bool(expected_mechanics)
+            and all(expected_mechanics.values())
+            and stage.get("mechanics_gates") == expected_mechanics
+        ),
+        "stage_usage_matches_source": (
+            stage.get("usage") == source_result.get("usage")
+        ),
+        "stage_source_hashes_match_files": (
+            stage.get("source_artifacts") == source_artifacts
+        ),
+    }
+
+
+def verify_block_a_authorization(*, run_dir: Path) -> dict[str, Any]:
+    stage_path = staged.block_stage_path(run_dir, "a")
+    source_dir = staged.block_directory(run_dir, "a") / "source"
+    stage = _load(stage_path)
+    source_result = _load(source_dir / "RESULT.json")
+    source_artifacts = _source_hashes(source_dir)
+    checks = block_a_authorization_checks(
+        stage=stage,
+        source_result=source_result,
+        source_artifacts=source_artifacts,
+    )
+    failed = [name for name, passed in checks.items() if not passed]
+    verification = {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": BLOCK_A_INTERFACE_VERSION,
+        "status": "verified" if not failed else "verification_failed",
+        "authorization_reads_scientific_endpoints": False,
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "checks": checks,
+        "failed_checks": failed,
+        "block_a_stage_sha256": audit.sha256_file(stage_path),
+        "block_a_source_artifacts": source_artifacts,
+    }
+    checkpoint(staged.block_a_verification_path(run_dir), verification)
+    if failed:
+        raise ValueError(
+            "Block A authorization verification failed: "
+            + ", ".join(failed)
+        )
+    return verification
 
 
 def _rank_metrics(rows: Sequence[dict[str, Any]]) -> dict[str, float]:
@@ -144,6 +257,8 @@ def verification_checks(
     result: dict[str, Any],
     stages: dict[str, dict[str, Any]],
     replay: dict[str, Any],
+    block_a_verification: dict[str, Any],
+    block_a_verification_sha256: str,
 ) -> dict[str, bool]:
     protocol = result.get("protocol") or {}
     mechanics_pass = all(
@@ -233,6 +348,13 @@ def verification_checks(
             str(stages["b"]["calendar_date"])
             > str(stages["a"]["calendar_date"])
         ),
+        "formal_block_dates_exact": (
+            all(
+                stages[block].get("calendar_date")
+                == staged.FORMAL_BLOCK_DATES[block]
+                for block in staged.BLOCKS
+            )
+        ),
         "block_a_authorization_is_mechanics_only": (
             stages["a"].get("authorization_inputs")
             == "source mechanics gates and request count only"
@@ -242,6 +364,23 @@ def verification_checks(
                 term in json.dumps(stages["a"], sort_keys=True).lower()
                 for term in ("brier", "comparison", "selected_root")
             )
+        ),
+        "block_a_authorization_was_independently_verified_before_b": (
+            block_a_verification.get("interface_version")
+            == BLOCK_A_INTERFACE_VERSION
+            and block_a_verification.get("status") == "verified"
+            and block_a_verification.get(
+                "authorization_reads_scientific_endpoints"
+            )
+            is False
+            and bool(block_a_verification.get("checks"))
+            and all(block_a_verification["checks"].values())
+            and block_a_verification.get("block_a_source_artifacts")
+            == stages["a"].get("source_artifacts")
+            and stages["b"].get(
+                "block_a_authorization_verification_sha256"
+            )
+            == block_a_verification_sha256
         ),
         "all_fixed_selector_rows_replay_exactly": (
             result.get("rows") == replay["rows"]
@@ -319,13 +458,22 @@ def verification_checks(
 
 
 def verify_completed_confirmation(*, run_dir: Path) -> dict[str, Any]:
+    block_a_verification = verify_block_a_authorization(run_dir=run_dir)
     result = _load(run_dir / "RESULT.json")
     stages = {
         block: _load(staged.block_stage_path(run_dir, block))
         for block in staged.BLOCKS
     }
     replay = replay_combined(run_dir)
-    checks = verification_checks(result=result, stages=stages, replay=replay)
+    checks = verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=block_a_verification,
+        block_a_verification_sha256=audit.sha256_file(
+            staged.block_a_verification_path(run_dir)
+        ),
+    )
     failed = [name for name, passed in checks.items() if not passed]
     verification = {
         "schema_version": SCHEMA_VERSION,
