@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Closed the Aug8--9 diversity confirmation launch gap: the
+authoritative paid command now automatically runs the full read-only preflight
+on each pristine block before any ledger write or model adapter call, requires
+`ready_without_paid_calls`, and freezes that exact authenticated credit
+snapshot into the daily ledger. Wrong-day, waiting, catalog, manifest,
+predecessor, path, and balance failures leave no artifact; banked resumptions
+remain no-repeat. Expanded Number Game suite passes117/117. Real A/B preflights
+still wait for Aug7 control/Block A with balance$27.702109737 and
+model0/files0/cost0.
+
 2026-08-06: Harden tomorrow's unopened Aug7 Number Game orchestrator with a
 live OpenRouter catalog gate before formal seeds. Preflight now requires exact
 Qwen3.7+,Luna,and DeepSeek0731 endpoints,text input,structured output,>=4200

@@ -19,6 +19,14 @@ fixed-format public result note automatically. The placeholder commands below
 describe the underlying component interface and must not be launched
 separately.
 
+On a pristine block, the paid command automatically runs the complete
+read-only preflight before creating the daily ledger or invoking the model
+adapter. The command proceeds only from `ready_without_paid_calls` and freezes
+the same authenticated credit snapshot that passed the gate as the ledger's
+opening balance. Wrong-day, waiting-predecessor, catalog, protocol, path, and
+balance failures therefore leave no execution artifact. Completed and
+failed-closed blocks remain banked and are never submitted again.
+
 ## Preconditions
 
 Run only after the sealed August 7 history-blind control is complete and

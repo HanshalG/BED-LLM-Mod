@@ -62,6 +62,10 @@ PROTOCOL_INPUT_SHA256 = (
 )
 
 
+class PreExecutionGateError(RuntimeError):
+    """Raised when a pristine paid block fails its read-only launch gate."""
+
+
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -504,6 +508,7 @@ def execute_formal_block(
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
     block_executor: Callable[..., dict[str, Any]] = staged.execute_daily_block,
     reporter: Callable[..., dict[str, str]] = _write_verified_report,
+    fresh_preflight: Callable[..., dict[str, Any]] = preflight_formal_block,
 ) -> dict[str, Any]:
     if audit.sha256_file(EXECUTION_AMENDMENT) != EXECUTION_AMENDMENT_SHA256:
         raise ValueError("diversity execution amendment hash changed")
@@ -526,7 +531,28 @@ def execute_formal_block(
         raise RuntimeError(
             f"partial Block {block.upper()} artifacts exist; refusing rerun"
         )
-    live_opening = live_reader()
+    if ledger_path.exists():
+        live_opening = live_reader()
+    else:
+        try:
+            preflight = fresh_preflight(
+                block=block,
+                run_dir=run_dir,
+                ledger_path=ledger_path,
+                control_execution_path=control_execution_path,
+                live_reader=live_reader,
+            )
+        except Exception as exc:
+            raise PreExecutionGateError(str(exc)) from exc
+        if preflight.get("status") != "ready_without_paid_calls":
+            raise PreExecutionGateError(
+                f"fresh Block {block.upper()} preflight did not authorize execution"
+            )
+        live_opening = preflight.get("live_credits")
+        if not isinstance(live_opening, dict):
+            raise PreExecutionGateError(
+                "fresh preflight omitted the live credit snapshot"
+            )
     initialize_daily_ledger(
         path=ledger_path,
         block=block,

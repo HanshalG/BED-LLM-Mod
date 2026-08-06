@@ -61,6 +61,18 @@ def _catalog(*, include_target: bool = True) -> dict:
     }
 
 
+def _ready_fresh_preflight(**kwargs) -> dict:
+    return {
+        "status": "ready_without_paid_calls",
+        "live_credits": kwargs["live_reader"](),
+    }
+
+
+def _execute_formal_block(**kwargs) -> dict:
+    kwargs.setdefault("fresh_preflight", _ready_fresh_preflight)
+    return execute.execute_formal_block(**kwargs)
+
+
 def _preflight(*, block: str, run_dir: Path, ledger: Path, **overrides) -> dict:
     kwargs = {
         "block": block,
@@ -179,7 +191,7 @@ def test_block_a_initializes_exact_ledger_and_executes_once(
         _write(run_dir / "BLOCK_A_DAILY_EXECUTION.json", execution)
         return execution
 
-    result = execute.execute_formal_block(
+    result = _execute_formal_block(
         block="a",
         run_dir=run_dir,
         ledger_path=ledger,
@@ -200,7 +212,7 @@ def test_block_a_initializes_exact_ledger_and_executes_once(
     assert opened["first_authorized_block"]["actual_cost_usd"] == 4.2
     assert not opened["additional_paid_blocks_authorized"]
 
-    execute.execute_formal_block(
+    _execute_formal_block(
         block="a",
         run_dir=run_dir,
         ledger_path=ledger,
@@ -212,11 +224,76 @@ def test_block_a_initializes_exact_ledger_and_executes_once(
     assert len(calls) == 1
 
 
+def test_fresh_execution_requires_ready_preflight_before_any_write(
+    tmp_path: Path,
+) -> None:
+    control = tmp_path / "control.json"
+    ledger = tmp_path / "ledger.json"
+    run_dir = tmp_path / "run"
+    _control(control)
+    preflight_calls = []
+
+    def waiting_preflight(**kwargs):
+        preflight_calls.append(kwargs)
+        assert not ledger.exists()
+        assert not run_dir.exists()
+        return {
+            "status": "waiting_for_aug7_control",
+            "live_credits": _live(),
+        }
+
+    with pytest.raises(
+        execute.PreExecutionGateError,
+        match="preflight did not authorize execution",
+    ):
+        execute.execute_formal_block(
+            block="a",
+            run_dir=run_dir,
+            ledger_path=ledger,
+            control_execution_path=control,
+            now=datetime(2026, 8, 8, 0, 1, tzinfo=LONDON),
+            live_reader=lambda: pytest.fail("waiting preflight read live"),
+            block_executor=lambda **_: pytest.fail("waiting preflight executed"),
+            fresh_preflight=waiting_preflight,
+        )
+
+    assert len(preflight_calls) == 1
+    assert not ledger.exists()
+    assert not run_dir.exists()
+
+
+def test_fresh_preflight_failure_leaves_no_artifact_or_component_call(
+    tmp_path: Path,
+) -> None:
+    control = tmp_path / "control.json"
+    ledger = tmp_path / "ledger.json"
+    run_dir = tmp_path / "run"
+    _control(control)
+
+    def failed_preflight(**_):
+        raise RuntimeError("catalog changed")
+
+    with pytest.raises(execute.PreExecutionGateError, match="catalog changed"):
+        execute.execute_formal_block(
+            block="a",
+            run_dir=run_dir,
+            ledger_path=ledger,
+            control_execution_path=control,
+            now=datetime(2026, 8, 8, 0, 1, tzinfo=LONDON),
+            live_reader=lambda: pytest.fail("failed preflight read live"),
+            block_executor=lambda **_: pytest.fail("failed preflight executed"),
+            fresh_preflight=failed_preflight,
+        )
+
+    assert not ledger.exists()
+    assert not run_dir.exists()
+
+
 def test_wrong_day_refuses_before_live_or_ledger(tmp_path: Path) -> None:
     control = tmp_path / "control.json"
     _control(control)
     with pytest.raises(RuntimeError, match="only on 2026-08-08"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="a",
             run_dir=tmp_path / "run",
             ledger_path=tmp_path / "ledger.json",
@@ -233,7 +310,7 @@ def test_unverified_aug7_control_refuses_before_opening_day(
     control = tmp_path / "control.json"
     _control(control, verified=False)
     with pytest.raises(RuntimeError, match="not complete and verified"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="a",
             run_dir=tmp_path / "run",
             ledger_path=tmp_path / "ledger.json",
@@ -250,7 +327,7 @@ def test_partial_formal_block_is_never_retried(tmp_path: Path) -> None:
     _write(run_dir / "block_a" / "source" / "partial.json", {})
 
     with pytest.raises(RuntimeError, match="partial Block A"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="a",
             run_dir=run_dir,
             ledger_path=tmp_path / "ledger.json",
@@ -270,7 +347,7 @@ def test_failed_block_reconciles_posted_spend_and_banks_failure(
     live_values = iter([_live(100.0), _live(103.7)])
 
     with pytest.raises(RuntimeError, match="provider failed"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="a",
             run_dir=run_dir,
             ledger_path=ledger,
@@ -311,7 +388,7 @@ def test_started_ledger_is_never_reused_after_ambiguous_crash(
     _write(ledger_path, ledger)
 
     with pytest.raises(RuntimeError, match="authorization is not reusable"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="a",
             run_dir=tmp_path / "run",
             ledger_path=ledger_path,
@@ -346,7 +423,7 @@ def test_block_b_writes_verified_report_before_completion(
         calls.append(run_dir)
         return {"path": "report.md", "sha256": "report-hash"}
 
-    result = execute.execute_formal_block(
+    result = _execute_formal_block(
         block="b",
         run_dir=run_dir,
         ledger_path=ledger,
@@ -387,7 +464,7 @@ def test_report_failure_recovers_without_repeating_paid_block(
         return execution
 
     with pytest.raises(RuntimeError, match="report failed"):
-        execute.execute_formal_block(
+        _execute_formal_block(
             block="b",
             run_dir=run_dir,
             ledger_path=ledger,
@@ -409,7 +486,7 @@ def test_report_failure_recovers_without_repeating_paid_block(
     current_ledger = json.loads(ledger.read_text(encoding="utf-8"))
     assert current_ledger["first_authorized_block"]["status"] == "complete"
 
-    recovered = execute.execute_formal_block(
+    recovered = _execute_formal_block(
         block="b",
         run_dir=run_dir,
         ledger_path=ledger,

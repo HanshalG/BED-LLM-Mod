@@ -34,6 +34,13 @@ Block B, the stored Block-A source, mechanics-only authorization, request
 count, spend ledger, and verification artifact are independently recomputed in
 memory without rewriting the banked artifact.
 
+The authoritative paid command now invokes this same full preflight
+automatically on every pristine block before any ledger write or component
+call. It requires `ready_without_paid_calls` and reuses the preflight's live
+credit snapshot to initialize the ledger. Unit coverage confirms wrong-day,
+waiting, and failed preflights write nothing and make no component call, while
+completed-block resumptions skip fresh execution and preserve banked results.
+
 ## Commands
 
 ```bash
@@ -48,5 +55,5 @@ set -a; source .env; set +a
   --block b --preflight
 ```
 
-Focused validation: `61 passed` across the diversity-bonus and Aug 7 execution
+Focused validation: `117 passed` across the diversity-bonus and Aug 7 execution
 tests.
