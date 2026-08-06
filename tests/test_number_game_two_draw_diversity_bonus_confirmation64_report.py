@@ -56,6 +56,54 @@ def _coverage_comparison(
     }
 
 
+def _alignment(*, passes: bool) -> dict:
+    rho = 0.4 if passes else -0.1
+    interval = [0.1, 0.7] if passes else [-0.4, 0.2]
+    comparisons = {
+        name: {
+            "tree_count": 64,
+            "changed_root_count": 32,
+            "coverage_uplift_brier_benefit_spearman_changed_roots": rho,
+            "changed_root_bootstrap_95pct": interval,
+            "unchanged_structural_zero_pairs_excluded": True,
+            "positive_brier_benefit_means_candidate_improved": True,
+            "registered_scientific_gate": False,
+            "candidate_policy": candidate,
+            "baseline_policy": baseline,
+            "selector_independent_of_diversity_bonus": selector_independent,
+        }
+        for name, candidate, baseline, selector_independent in (
+            (
+                "bonus_vs_unadjusted_depth_three",
+                "bonus_root",
+                "original_root",
+                False,
+            ),
+            (
+                "bonus_depth_three_vs_crossfit_depth_two",
+                "bonus_root",
+                "depth_two_root",
+                False,
+            ),
+            (
+                "unadjusted_dynamic_vs_fixed_depth_three",
+                "original_root",
+                "fixed_depth_three_root",
+                True,
+            ),
+        )
+    }
+    return {
+        "comparisons": comparisons,
+        "mean_changed_root_spearman": rho,
+        "mean_changed_root_spearman_tree_bootstrap_95pct": interval,
+        "family_bootstrap_resamples_trees_jointly": True,
+        "association_is_noncausal": True,
+        "registered_scientific_gate": False,
+        "can_rescue_brier_status": False,
+    }
+
+
 def _run(
     tmp_path: Path,
     *,
@@ -110,6 +158,7 @@ def _run(
         "status": status,
         "comparisons": comparisons,
         "truth_coverage_comparisons": coverage,
+        "truth_coverage_brier_alignment": _alignment(passes=coverage_pass),
         "scientific_gates": {
             name: status == "passed"
             for name in report.DEPTH_GATES + report.VIABILITY_GATES
@@ -151,7 +200,9 @@ def test_report_emits_every_frozen_comparison_and_uncertainty(
     assert "full_llm_native_dynamic_nonmyopic_confirmation" in rendered
     assert "Diversity-selector superiority: **pass**" in rendered
     assert "Canonical Truth Coverage" in rendered
-    assert "Truth-coverage mediation: **fail**" in rendered
+    assert "Coverage-Brier Alignment" in rendered
+    assert "Truth-coverage/Brier alignment: **fail**" in rendered
+    assert "not mediation evidence" in rendered
 
 
 def test_gated_null_language_closes_route_without_tuning(
@@ -257,28 +308,47 @@ def test_confounded_bonus_vs_fixed_cannot_authorize_dynamic_claim(
     assert not classification["authorizes_full_llm_native_dynamic_claim"]
 
 
-def test_stronger_tier_requires_brier_and_truth_coverage(
+def test_stronger_tier_requires_brier_coverage_and_direct_alignment(
     tmp_path: Path,
 ) -> None:
     result = json.loads(
         (_run(tmp_path, coverage_pass=True) / "RESULT.json").read_text()
     )
     classification = report.classify_claim_scope(result)
-    assert classification["truth_coverage_mediation_family"]["pass"]
+    assert classification["truth_coverage_endpoint_family"]["pass"]
+    assert classification["truth_coverage_alignment_family"]["pass"]
     assert classification["claim_tier"] == (
-        "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
+        "truth_coverage_aligned_dynamic_nonmyopic_confirmation"
     )
-    assert classification["authorizes_truth_coverage_mediated_claim"]
+    assert classification["authorizes_truth_coverage_aligned_claim"]
+    assert not classification[
+        "authorizes_causal_truth_coverage_mediation_claim"
+    ]
 
     result["status"] = "gated_null"
     for name in report.DEPTH_GATES + report.VIABILITY_GATES:
         result["scientific_gates"][name] = False
     classification = report.classify_claim_scope(result)
-    assert classification["truth_coverage_mediation_family"]["pass"]
+    assert classification["truth_coverage_endpoint_family"]["pass"]
+    assert classification["truth_coverage_alignment_family"]["pass"]
     assert classification["claim_tier"] == (
         "mechanism_only_without_nonmyopic_depth"
     )
-    assert not classification["authorizes_truth_coverage_mediated_claim"]
+    assert not classification["authorizes_truth_coverage_aligned_claim"]
+
+
+def test_parallel_coverage_without_alignment_cannot_unlock_strongest_tier(
+    tmp_path: Path,
+) -> None:
+    run_dir = _run(tmp_path, coverage_pass=True)
+    result = json.loads((run_dir / "RESULT.json").read_text())
+    result["truth_coverage_brier_alignment"] = _alignment(passes=False)
+    classification = report.classify_claim_scope(result)
+    assert classification["truth_coverage_endpoint_family"]["pass"]
+    assert not classification["truth_coverage_alignment_family"]["pass"]
+    assert classification["claim_tier"] == (
+        "full_llm_native_dynamic_nonmyopic_confirmation"
+    )
 
 
 def test_report_banks_json_and_markdown_idempotently(tmp_path: Path) -> None:

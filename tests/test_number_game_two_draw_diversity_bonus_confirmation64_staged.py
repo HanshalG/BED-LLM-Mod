@@ -149,6 +149,49 @@ def test_truth_coverage_comparisons_use_external_endpoint_values() -> None:
     assert dynamic["registered_scientific_gate"] is False
 
 
+def test_truth_coverage_brier_alignment_uses_changed_roots_and_primary_brier(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(staged.audit, "BOOTSTRAP_SAMPLES", 100)
+    rows = []
+    for index in range(4):
+        rows.append(
+            {
+                "source": "a",
+                "tree_seed": index,
+                "bonus_root": 1,
+                "original_root": 0,
+                "depth_two_root": 2,
+                "fixed_depth_three_root": 2,
+                "root_rows": [
+                    {
+                        "root": 0,
+                        "realized_coverage": 0.5,
+                        "realized_brier": 0.5,
+                    },
+                    {
+                        "root": 1,
+                        "realized_coverage": 0.6 + index * 0.1,
+                        "realized_brier": 0.4 - index * 0.05,
+                    },
+                    {
+                        "root": 2,
+                        "realized_coverage": 0.4 - index * 0.05,
+                        "realized_brier": 0.6 + index * 0.05,
+                    },
+                ],
+            }
+        )
+    alignment = staged.truth_coverage_brier_alignment(rows)
+    item = alignment["comparisons"]["bonus_vs_unadjusted_depth_three"]
+    assert item["changed_root_count"] == 4
+    assert item[
+        "coverage_uplift_brier_benefit_spearman_changed_roots"
+    ] == pytest.approx(1.0)
+    assert alignment["mean_changed_root_spearman"] > 0.0
+    assert alignment["association_is_noncausal"] is True
+
+
 def test_block_b_authorization_uses_only_mechanics_and_later_date(
     tmp_path, monkeypatch
 ) -> None:
@@ -281,6 +324,11 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
         "truth_coverage_comparisons",
         lambda rows: {"coverage": True},
     )
+    monkeypatch.setattr(
+        staged,
+        "truth_coverage_brier_alignment",
+        lambda rows: {"alignment": True},
+    )
     monkeypatch.setattr(staged.component, "_mean_rank_metrics", lambda rows: {})
     result = staged.build_combined_result(run_dir=tmp_path, run_id="combined")
 
@@ -293,6 +341,7 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
         == staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
     )
     assert result["truth_coverage_comparisons"] == {"coverage": True}
+    assert result["truth_coverage_brier_alignment"] == {"alignment": True}
     assert result["protocol"]["truth_coverage_can_rescue_brier_status"] is False
 
 

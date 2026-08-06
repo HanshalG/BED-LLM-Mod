@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import random
 import statistics
 import sys
 from typing import Any, Sequence
@@ -296,6 +297,150 @@ def _truth_coverage_comparisons(
     return output
 
 
+def _quantile(values: Sequence[float], probability: float) -> float:
+    ordered = sorted(values)
+    position = probability * (len(ordered) - 1)
+    lower = int(position)
+    upper = min(lower + 1, len(ordered) - 1)
+    fraction = position - lower
+    return ordered[lower] * (1.0 - fraction) + ordered[upper] * fraction
+
+
+def _coverage_brier_alignment_rows(
+    rows: Sequence[dict[str, Any]],
+    *,
+    candidate_key: str,
+    baseline_key: str,
+) -> list[dict[str, Any]]:
+    output = []
+    for row in rows:
+        candidate_root = int(row[candidate_key])
+        baseline_root = int(row[baseline_key])
+        output.append(
+            {
+                "source": row["source"],
+                "tree_seed": int(row["tree_seed"]),
+                "candidate_root": candidate_root,
+                "baseline_root": baseline_root,
+                "coverage_uplift": (
+                    audit._root_value(
+                        row, candidate_root, "realized_coverage"
+                    )
+                    - audit._root_value(
+                        row, baseline_root, "realized_coverage"
+                    )
+                ),
+                "brier_benefit": (
+                    audit._root_value(row, baseline_root, "realized_brier")
+                    - audit._root_value(
+                        row, candidate_root, "realized_brier"
+                    )
+                ),
+                "changed_root": candidate_root != baseline_root,
+            }
+        )
+    return output
+
+
+def _changed_root_spearman(rows: Sequence[dict[str, Any]]) -> float:
+    changed = [row for row in rows if row["changed_root"]]
+    if len(changed) < 2:
+        return 0.0
+    return spearman_correlation(
+        [float(row["coverage_uplift"]) for row in changed],
+        [float(row["brier_benefit"]) for row in changed],
+    )
+
+
+def _alignment_summary(
+    rows: Sequence[dict[str, Any]],
+    *,
+    seed: int,
+) -> dict[str, Any]:
+    changed = [row for row in rows if row["changed_root"]]
+    rng = random.Random(seed)
+    values = []
+    for _ in range(audit.BOOTSTRAP_SAMPLES):
+        sample = [rng.choice(changed) for _ in changed] if changed else []
+        values.append(_changed_root_spearman(sample))
+    return {
+        "tree_count": len(rows),
+        "changed_root_count": len(changed),
+        "coverage_uplift_brier_benefit_spearman_changed_roots": (
+            _changed_root_spearman(rows)
+        ),
+        "changed_root_bootstrap_95pct": [
+            _quantile(values, 0.025),
+            _quantile(values, 0.975),
+        ],
+        "unchanged_structural_zero_pairs_excluded": True,
+        "positive_brier_benefit_means_candidate_improved": True,
+        "registered_scientific_gate": False,
+    }
+
+
+def _truth_coverage_brier_alignment(
+    rows: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    comparisons = {}
+    alignment_rows_by_name = {}
+    for name, (candidate_key, baseline_key) in (
+        staged.COVERAGE_COMPARISON_SPECS.items()
+    ):
+        alignment_rows = _coverage_brier_alignment_rows(
+            rows,
+            candidate_key=candidate_key,
+            baseline_key=baseline_key,
+        )
+        alignment_rows_by_name[name] = alignment_rows
+        comparisons[name] = _alignment_summary(
+            alignment_rows,
+            seed=staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_BOOTSTRAP_SEEDS[name],
+        ) | {
+            "candidate_policy": candidate_key,
+            "baseline_policy": baseline_key,
+            "selector_independent_of_diversity_bonus": (
+                name == "unadjusted_dynamic_vs_fixed_depth_three"
+            ),
+        }
+
+    rows = list(rows)
+    rng = random.Random(
+        staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_FAMILY_BOOTSTRAP_SEED
+    )
+    family_values = []
+    for _ in range(audit.BOOTSTRAP_SAMPLES):
+        sample_indices = [rng.randrange(len(rows)) for _ in rows]
+        family_values.append(
+            statistics.fmean(
+                _changed_root_spearman(
+                    [alignment_rows_by_name[name][index] for index in sample_indices]
+                )
+                for name in staged.COVERAGE_COMPARISON_SPECS
+            )
+        )
+    observed = [
+        float(
+            item[
+                "coverage_uplift_brier_benefit_spearman_changed_roots"
+            ]
+        )
+        for item in comparisons.values()
+    ]
+    return {
+        "comparisons": comparisons,
+        "mean_changed_root_spearman": statistics.fmean(observed),
+        "mean_changed_root_spearman_tree_bootstrap_95pct": [
+            _quantile(family_values, 0.025),
+            _quantile(family_values, 0.975),
+        ],
+        "family_bootstrap_resamples_trees_jointly": True,
+        "association_is_noncausal": True,
+        "registered_scientific_gate": False,
+        "can_rescue_brier_status": False,
+    }
+
+
 def replay_block(run_dir: Path, block: str) -> dict[str, Any]:
     source_dir = staged.block_directory(run_dir, block) / "source"
     spec = {
@@ -389,11 +534,13 @@ def replay_combined(run_dir: Path) -> dict[str, Any]:
         "registered_scientific_gate": False,
     }
     coverage = _truth_coverage_comparisons(rows)
+    coverage_brier_alignment = _truth_coverage_brier_alignment(rows)
     return {
         "blocks": blocks,
         "rows": rows,
         "comparisons": summary["comparisons"],
         "truth_coverage_comparisons": coverage,
+        "truth_coverage_brier_alignment": coverage_brier_alignment,
         "rank_metrics": _rank_metrics(rows),
         "scientific_gates": staged.scientific_gates(summary),
     }
@@ -521,6 +668,21 @@ def verification_checks(
             and protocol.get("truth_coverage_bootstrap_seeds")
             == staged.COVERAGE_BOOTSTRAP_SEEDS
         ),
+        "truth_coverage_brier_alignment_contract_exact": (
+            protocol.get("truth_coverage_brier_alignment_reported") is True
+            and protocol.get(
+                "truth_coverage_brier_alignment_is_noncausal"
+            )
+            is True
+            and protocol.get(
+                "truth_coverage_brier_alignment_bootstrap_seeds"
+            )
+            == staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_BOOTSTRAP_SEEDS
+            and protocol.get(
+                "truth_coverage_brier_alignment_family_bootstrap_seed"
+            )
+            == staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_FAMILY_BOOTSTRAP_SEED
+        ),
         "no_coefficient_grid_published": all(
             "coefficient_grid_roots" not in row
             for row in result.get("rows") or []
@@ -589,6 +751,10 @@ def verification_checks(
         "all_truth_coverage_comparisons_replay_exactly": (
             result.get("truth_coverage_comparisons")
             == replay["truth_coverage_comparisons"]
+        ),
+        "truth_coverage_brier_alignment_replays_exactly": (
+            result.get("truth_coverage_brier_alignment")
+            == replay["truth_coverage_brier_alignment"]
         ),
         "rank_metrics_replay_exactly": (
             result.get("rank_metrics") == replay["rank_metrics"]

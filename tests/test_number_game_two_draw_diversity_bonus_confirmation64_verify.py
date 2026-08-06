@@ -162,6 +162,49 @@ def _fixtures():
             ),
         )
     }
+    alignment_comparisons = {
+        name: {
+            "tree_count": staged.TREE_COUNT,
+            "changed_root_count": 32,
+            "coverage_uplift_brier_benefit_spearman_changed_roots": 0.4,
+            "changed_root_bootstrap_95pct": [0.1, 0.7],
+            "unchanged_structural_zero_pairs_excluded": True,
+            "positive_brier_benefit_means_candidate_improved": True,
+            "registered_scientific_gate": False,
+            "candidate_policy": candidate,
+            "baseline_policy": baseline,
+            "selector_independent_of_diversity_bonus": selector_independent,
+        }
+        for name, candidate, baseline, selector_independent in (
+            (
+                "bonus_vs_unadjusted_depth_three",
+                "bonus_root",
+                "original_root",
+                False,
+            ),
+            (
+                "bonus_depth_three_vs_crossfit_depth_two",
+                "bonus_root",
+                "depth_two_root",
+                False,
+            ),
+            (
+                "unadjusted_dynamic_vs_fixed_depth_three",
+                "original_root",
+                "fixed_depth_three_root",
+                True,
+            ),
+        )
+    }
+    alignment = {
+        "comparisons": alignment_comparisons,
+        "mean_changed_root_spearman": 0.4,
+        "mean_changed_root_spearman_tree_bootstrap_95pct": [0.1, 0.7],
+        "family_bootstrap_resamples_trees_jointly": True,
+        "association_is_noncausal": True,
+        "registered_scientific_gate": False,
+        "can_rescue_brier_status": False,
+    }
     gates = staged.scientific_gates({"comparisons": comparisons})
     blocks = {}
     rows = []
@@ -205,6 +248,7 @@ def _fixtures():
         "rows": rows,
         "comparisons": comparisons,
         "truth_coverage_comparisons": coverage_comparisons,
+        "truth_coverage_brier_alignment": deepcopy(alignment),
         "rank_metrics": {"rho": 0.4},
         "scientific_gates": gates,
     }
@@ -264,6 +308,14 @@ def _fixtures():
             "truth_coverage_bootstrap_seeds": (
                 staged.COVERAGE_BOOTSTRAP_SEEDS
             ),
+            "truth_coverage_brier_alignment_reported": True,
+            "truth_coverage_brier_alignment_is_noncausal": True,
+            "truth_coverage_brier_alignment_bootstrap_seeds": (
+                staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_BOOTSTRAP_SEEDS
+            ),
+            "truth_coverage_brier_alignment_family_bootstrap_seed": (
+                staged.TRUTH_COVERAGE_BRIER_ALIGNMENT_FAMILY_BOOTSTRAP_SEED
+            ),
         },
         "usage": {
             "adapter_requests": staged.EXPECTED_REQUESTS_TOTAL,
@@ -278,6 +330,7 @@ def _fixtures():
         "rows": deepcopy(rows),
         "comparisons": deepcopy(comparisons),
         "truth_coverage_comparisons": deepcopy(coverage_comparisons),
+        "truth_coverage_brier_alignment": deepcopy(alignment),
         "rank_metrics": deepcopy(replay["rank_metrics"]),
         "scientific_gates": deepcopy(gates),
     }
@@ -371,6 +424,72 @@ def test_tampered_truth_coverage_protocol_is_detected() -> None:
         block_a_verification_sha256=authorization_sha,
     )
     assert not checks["truth_coverage_contract_exact"]
+
+
+def test_tampered_coverage_brier_alignment_is_detected() -> None:
+    result, stages, replay, authorization, authorization_sha = _fixtures()
+    result["truth_coverage_brier_alignment"]["comparisons"][
+        "bonus_vs_unadjusted_depth_three"
+    ]["coverage_uplift_brier_benefit_spearman_changed_roots"] = 0.9
+    checks = verify.verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
+    )
+    assert not checks["truth_coverage_brier_alignment_replays_exactly"]
+
+
+def test_tampered_coverage_brier_alignment_protocol_is_detected() -> None:
+    result, stages, replay, authorization, authorization_sha = _fixtures()
+    result["protocol"][
+        "truth_coverage_brier_alignment_is_noncausal"
+    ] = False
+    checks = verify.verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
+    )
+    assert not checks["truth_coverage_brier_alignment_contract_exact"]
+
+
+def test_independent_alignment_replay_matches_production(monkeypatch) -> None:
+    monkeypatch.setattr(staged.audit, "BOOTSTRAP_SAMPLES", 100)
+    rows = []
+    for index in range(4):
+        rows.append(
+            {
+                "source": "a",
+                "tree_seed": index,
+                "bonus_root": 1,
+                "original_root": 0,
+                "depth_two_root": 2,
+                "fixed_depth_three_root": 2,
+                "root_rows": [
+                    {
+                        "root": 0,
+                        "realized_coverage": 0.5,
+                        "realized_brier": 0.5,
+                    },
+                    {
+                        "root": 1,
+                        "realized_coverage": 0.6 + index * 0.1,
+                        "realized_brier": 0.4 - index * 0.05,
+                    },
+                    {
+                        "root": 2,
+                        "realized_coverage": 0.4 - index * 0.05,
+                        "realized_brier": 0.6 + index * 0.05,
+                    },
+                ],
+            }
+        )
+    assert verify._truth_coverage_brier_alignment(rows) == (
+        staged.truth_coverage_brier_alignment(rows)
+    )
 
 
 def test_tampered_seed_manifest_is_detected() -> None:

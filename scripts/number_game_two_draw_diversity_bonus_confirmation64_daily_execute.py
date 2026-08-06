@@ -58,7 +58,7 @@ CLAIM_PLAN = REPO_ROOT / (
     "NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md"
 )
 CLAIM_PLAN_SHA256 = (
-    "7bc5aeb922edc7ce7ae3e2bc4b5ea4c15b6a7de7bfafc004001d3aab6e4888e5"
+    "c90ede19c9438917e2d8ac198211d2da6c5d0bae788bf77d5a9a7b283edf4b8a"
 )
 MODELS_URL = "https://openrouter.ai/api/v1/models"
 PLANNING_MODEL_ID = "qwen/qwen3.7-plus"

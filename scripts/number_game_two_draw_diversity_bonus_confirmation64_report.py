@@ -31,7 +31,7 @@ CLAIM_PLAN = REPO_ROOT / (
     "NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md"
 )
 CLAIM_PLAN_SHA256 = (
-    "7bc5aeb922edc7ce7ae3e2bc4b5ea4c15b6a7de7bfafc004001d3aab6e4888e5"
+    "c90ede19c9438917e2d8ac198211d2da6c5d0bae788bf77d5a9a7b283edf4b8a"
 )
 CLAIM_REPORT_NAME = "CLAIM_REPORT.json"
 SCHEMA_VERSION = 1
@@ -48,17 +48,19 @@ VIABILITY_GATES = (
     "bonus_mean_brier_not_worse_than_original",
 )
 CLAIM_SCOPES = {
-    "truth_coverage_mediated_dynamic_nonmyopic_confirmation": {
+    "truth_coverage_aligned_dynamic_nonmyopic_confirmation": {
         "allowed": [
             "Prospective depth-three benefit over dynamic depth two.",
             "Prospective diversity-selector superiority over unadjusted depth three.",
             "Prospective dynamic-support endpoint benefit over fixed-support depth three.",
-            "Prospective improvement in canonical truth coverage across all three frozen mediation contrasts.",
+            "Prospective improvement in canonical truth coverage across all three frozen contrasts.",
+            "Positive changed-root alignment between coverage uplift and primary Brier benefit, with a positive family bootstrap interval.",
         ],
         "forbidden": [
             "universal non-myopic benefit",
             "monotonicity beyond depth two versus three",
             "cross-model robustness from this cohort alone",
+            "causal truth-coverage mediation",
         ],
     },
     "full_llm_native_dynamic_nonmyopic_confirmation": {
@@ -68,7 +70,8 @@ CLAIM_SCOPES = {
             "Prospective dynamic-support endpoint benefit over fixed-support depth three.",
         ],
         "forbidden": [
-            "truth-coverage mediation without the separate coverage family",
+            "truth-coverage alignment without the separate coverage and association families",
+            "causal truth-coverage mediation",
             "universal non-myopic benefit",
             "monotonicity beyond depth two versus three",
             "cross-model robustness from this cohort alone",
@@ -105,7 +108,7 @@ CLAIM_SCOPES = {
     },
     "mechanism_only_without_nonmyopic_depth": {
         "allowed": [
-            "Only the exact selector, dynamic-support, or truth-coverage family that passes.",
+            "Only the exact selector, dynamic-support, coverage-endpoint, or coverage-alignment family that passes.",
         ],
         "forbidden": [
             "a prospective non-myopic planning win",
@@ -210,6 +213,7 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
         if name not in comparisons or not _finite(comparisons[name]):
             raise ValueError(f"staged result has invalid comparison: {name}")
     coverage = result.get("truth_coverage_comparisons") or {}
+    alignment = result.get("truth_coverage_brier_alignment") or {}
     coverage_policies = {
         "bonus_vs_unadjusted_depth_three": (
             "bonus_root",
@@ -245,6 +249,36 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             or item.get("registered_scientific_gate") is not False
         ):
             raise ValueError(f"coverage comparison contract changed: {name}")
+    alignment_comparisons = alignment.get("comparisons") or {}
+    if set(alignment_comparisons) != set(coverage_policies):
+        raise ValueError("staged result has an invalid coverage-Brier alignment family")
+    if (
+        not _finite(alignment)
+        or alignment.get("family_bootstrap_resamples_trees_jointly") is not True
+        or alignment.get("association_is_noncausal") is not True
+        or alignment.get("registered_scientific_gate") is not False
+        or alignment.get("can_rescue_brier_status") is not False
+    ):
+        raise ValueError("coverage-Brier alignment contract changed")
+    for name, (candidate, baseline, selector_independent) in (
+        coverage_policies.items()
+    ):
+        item = alignment_comparisons.get(name)
+        if (
+            not isinstance(item, Mapping)
+            or not _finite(item)
+            or item.get("candidate_policy") != candidate
+            or item.get("baseline_policy") != baseline
+            or item.get("selector_independent_of_diversity_bonus")
+            is not selector_independent
+            or item.get("unchanged_structural_zero_pairs_excluded") is not True
+            or item.get("positive_brier_benefit_means_candidate_improved")
+            is not True
+            or item.get("registered_scientific_gate") is not False
+        ):
+            raise ValueError(
+                f"coverage-Brier alignment comparison changed: {name}"
+            )
     rank = result.get("rank_metrics") or {}
     required_rank = {
         "original_mean_candidate_root_spearman",
@@ -321,7 +355,32 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
     selector_superiority = all(selector_gates.values())
     dynamic_endpoint = all(dynamic_gates.values())
     ranking_mechanism = all(ranking_gates.values())
-    truth_coverage_mediation = all(coverage_gates.values())
+    truth_coverage_endpoint = all(coverage_gates.values())
+    alignment_gates = {
+        (
+            name.replace("_depth_three", "_d3").replace(
+                "crossfit_depth_two", "d2"
+            )
+            + "_changed_root_spearman_positive"
+        ): float(
+            item[
+                "coverage_uplift_brier_benefit_spearman_changed_roots"
+            ]
+        )
+        > 0.0
+        for name, item in alignment_comparisons.items()
+    }
+    alignment_gates["family_mean_spearman_interval_above_zero"] = (
+        float(
+            alignment[
+                "mean_changed_root_spearman_tree_bootstrap_95pct"
+            ][0]
+        )
+        > 0.0
+    )
+    truth_coverage_alignment = (
+        truth_coverage_endpoint and all(alignment_gates.values())
+    )
 
     if status == "mechanics_failed":
         tier = "mechanics_failed"
@@ -330,9 +389,9 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
         and registered_viability
         and selector_superiority
         and dynamic_endpoint
-        and truth_coverage_mediation
+        and truth_coverage_alignment
     ):
-        tier = "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
+        tier = "truth_coverage_aligned_dynamic_nonmyopic_confirmation"
     elif (
         registered_depth
         and registered_viability
@@ -346,7 +405,7 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
         tier = "nonmyopic_with_viable_diversity_selector"
     elif registered_depth:
         tier = "nonmyopic_depth_only"
-    elif selector_superiority or dynamic_endpoint or truth_coverage_mediation:
+    elif selector_superiority or dynamic_endpoint or truth_coverage_endpoint:
         tier = "mechanism_only_without_nonmyopic_depth"
     else:
         tier = "prospective_null"
@@ -370,12 +429,20 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             "gates": dynamic_gates,
             "registered_scientific_gate": False,
         },
-        "truth_coverage_mediation_family": {
-            "pass": truth_coverage_mediation,
+        "truth_coverage_endpoint_family": {
+            "pass": truth_coverage_endpoint,
             "gates": coverage_gates,
             "registered_scientific_gate": False,
             "can_rescue_brier_status": False,
             "used_for_policy_selection": False,
+        },
+        "truth_coverage_alignment_family": {
+            "pass": truth_coverage_alignment,
+            "gates": alignment_gates,
+            "requires_truth_coverage_endpoint_family": True,
+            "registered_scientific_gate": False,
+            "association_is_noncausal": True,
+            "can_rescue_brier_status": False,
         },
         "ranking_mechanism_family": {
             "pass": ranking_mechanism,
@@ -387,13 +454,14 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             tier
             in {
                 "full_llm_native_dynamic_nonmyopic_confirmation",
-                "truth_coverage_mediated_dynamic_nonmyopic_confirmation",
+                "truth_coverage_aligned_dynamic_nonmyopic_confirmation",
             }
         ),
-        "authorizes_truth_coverage_mediated_claim": (
+        "authorizes_truth_coverage_aligned_claim": (
             tier
-            == "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
+            == "truth_coverage_aligned_dynamic_nonmyopic_confirmation"
         ),
+        "authorizes_causal_truth_coverage_mediation_claim": False,
     }
 
 
@@ -449,6 +517,7 @@ def render_report(
     if not gates:
         raise ValueError("verified result omitted scientific gates")
     coverage = result.get("truth_coverage_comparisons") or {}
+    alignment = result.get("truth_coverage_brier_alignment") or {}
     missing_coverage = [
         name for name, _ in COVERAGE_ORDER if name not in coverage
     ]
@@ -457,6 +526,10 @@ def render_report(
             "verified result omitted coverage comparisons: "
             + ", ".join(missing_coverage)
         )
+    if set(alignment.get("comparisons") or {}) != {
+        name for name, _ in COVERAGE_ORDER
+    }:
+        raise ValueError("verified result omitted coverage-Brier alignment")
 
     lines = [
         "# Number Game Diversity-Bonus Confirmation-64 Result",
@@ -540,6 +613,33 @@ def render_report(
             "selection. It is not a registered gate and cannot rescue a "
             "failed Brier family.",
             "",
+            "## Coverage-Brier Alignment",
+            "",
+            (
+                "| Comparison | Changed roots | Coverage-uplift/Brier-benefit "
+                "Spearman | Changed-root bootstrap 95% CI |"
+            ),
+            "| --- | ---: | ---: | ---: |",
+            *[
+                (
+                    f"| {label} | {alignment['comparisons'][name]['changed_root_count']} | "
+                    f"{_fmt(alignment['comparisons'][name]['coverage_uplift_brier_benefit_spearman_changed_roots'])} | "
+                    f"[{_fmt(alignment['comparisons'][name]['changed_root_bootstrap_95pct'][0])}, "
+                    f"{_fmt(alignment['comparisons'][name]['changed_root_bootstrap_95pct'][1])}] |"
+                )
+                for name, label in COVERAGE_ORDER
+            ],
+            "",
+            (
+                "The mean changed-root Spearman is "
+                f"`{_fmt(alignment['mean_changed_root_spearman'])}` with joint "
+                "tree-bootstrap 95% interval "
+                f"`[{_fmt(alignment['mean_changed_root_spearman_tree_bootstrap_95pct'][0])}, "
+                f"{_fmt(alignment['mean_changed_root_spearman_tree_bootstrap_95pct'][1])}]`. "
+                "Unchanged-root zero pairs are excluded. This is noncausal "
+                "alignment evidence, not mediation evidence."
+            ),
+            "",
             "## Frozen Gates",
             "",
         ]
@@ -566,8 +666,12 @@ def render_report(
             claim_report["dynamic_support_endpoint_family"],
         ),
         (
-            "Truth-coverage mediation",
-            claim_report["truth_coverage_mediation_family"],
+            "Truth-coverage endpoint",
+            claim_report["truth_coverage_endpoint_family"],
+        ),
+        (
+            "Truth-coverage/Brier alignment",
+            claim_report["truth_coverage_alignment_family"],
         ),
         ("Ranking mechanism", claim_report["ranking_mechanism_family"]),
     )

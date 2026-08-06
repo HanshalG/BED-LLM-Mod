@@ -60,13 +60,15 @@ diversity-bonus selection change from the dynamic-support endpoint. It remains
 an endpoint comparison rather than a claim that every internal support change
 is individually beneficial.
 
-### Truth-coverage mediation
+### Truth-coverage endpoint and Brier alignment
 
 Truth coverage is evaluated only after every root has been selected and scored.
 For each candidate root, it is the fraction of the external canonical target
-extensions represented in the answer-conditioned terminal support, averaged
-over the same endpoint draws used for Brier scoring. Canonical targets never
-enter support generation, root scoring, or policy selection.
+extensions represented in the answer-conditioned terminal support on the same
+frozen policy tree. The primary Brier endpoint remains the separately frozen
+held-out validation-support average; the direct association pairs these two
+distinct metrics tree by tree. Canonical targets never enter support
+generation, root scoring, or policy selection.
 
 The following three paired coverage comparisons are reported separately from
 the Brier comparisons:
@@ -78,13 +80,34 @@ the Brier comparisons:
 For each comparison, the candidate must have strictly higher mean coverage,
 the paired tree-bootstrap 95% interval for candidate-minus-baseline coverage
 must be entirely above zero, and tree wins must exceed losses. The
-truth-coverage mediation family passes only when all nine checks pass.
+truth-coverage endpoint family passes only when all nine checks pass.
+
+Parallel improvements in mean coverage and Brier do not show that coverage
+explains the Brier benefit. The result therefore reports a direct association
+for each of the same three policy contrasts. On each tree, coverage uplift is
+candidate-minus-baseline canonical coverage and Brier benefit is
+baseline-minus-candidate primary endpoint Brier, so positive values favor the
+same candidate. Spearman correlation is computed only over changed-root trees;
+unchanged roots create mechanical zero/zero pairs and are excluded.
+
+The stronger truth-coverage alignment family additionally requires:
+
+- a strictly positive changed-root Spearman correlation in each of the three
+  contrasts; and
+- a joint tree-bootstrap 95% interval entirely above zero for the mean of the
+  three changed-root Spearman correlations.
+
+The bootstrap resamples complete trees jointly across contrasts. Individual
+contrast intervals are reported but are not gates. Association seeds are
+`112810`, `112811`, and `112812`; the family seed is `112813`; all use 20,000
+samples. These are simple zero-effect boundaries, not thresholds selected for
+the prospective cohort.
 
 These criteria are a stronger interpretation boundary, not registered
 scientific gates. Coverage cannot change the prospective result status, rescue
 a failed Brier family, alter a selected root, or authorize Block B. Conversely,
 a Brier result may support the existing LLM-native dynamic claim without
-establishing truth-coverage mediation.
+establishing truth-coverage alignment.
 
 Before this amendment, a zero-call historical mechanics replay was inspected
 only to determine whether the endpoint had usable dynamic range. It was
@@ -93,6 +116,17 @@ positive, while depth three versus depth two and dynamic versus fixed were
 negative. No threshold or coefficient was selected from those values; the
 prospective criterion is the simple zero-effect boundary plus uncertainty and
 win-direction checks above.
+
+A second zero-call historical replay was inspected before either prospective
+block solely to determine whether the association was identifiable. On the
+12, 26, and 29 changed-root trees in the open fresh-32 cohort, the three
+Spearman correlations were `.380`, `.172`, and `.202`, with every individual
+95% interval crossing zero. Across all candidate roots, within-tree-centered
+coverage versus Brier benefit was effectively uncorrelated (`rho=-.017`). This
+gives a mean changed-root Spearman of `.251` with joint tree-bootstrap 95%
+interval `[-.085, .507]`, which fails the prospective family criterion. The
+audit motivated measuring the direct link but did not set a nonzero threshold
+or authorize a causal claim.
 
 ### Ranking mechanism
 
@@ -103,17 +137,18 @@ reported separately from outcome gates.
 
 ## Claim Tiers
 
-- `truth_coverage_mediated_dynamic_nonmyopic_confirmation`: every condition
+- `truth_coverage_aligned_dynamic_nonmyopic_confirmation`: every condition
   for `full_llm_native_dynamic_nonmyopic_confirmation` passes and the complete
-  truth-coverage mediation family passes. This is the only tier that permits
-  the sharper claim that non-myopic selection improved the truth coverage of
-  the LLM's regenerated, path-dependent future belief support.
+  truth-coverage endpoint and direct alignment families pass. This permits the
+  sharper claim that non-myopic selection improved truth coverage and that
+  coverage uplift was prospectively aligned with primary Brier benefit across
+  the frozen contrasts. It does not permit causal mediation language.
 - `full_llm_native_dynamic_nonmyopic_confirmation`: registered depth and
   selector viability pass, diversity-selector superiority passes, and the
   dynamic-support endpoint passes. This permits a prospective claim that
   non-myopic planning over LLM-generated, path-dependent belief dynamics wins
   in this Number Game protocol. It does not by itself establish that improved
-  truth coverage mediated the result. Ranking and coverage evidence are
+  truth coverage was aligned with the result. Ranking and coverage evidence are
   reported but not required.
 - `nonmyopic_with_diversity_selector_gain`: registered depth and viability
   pass and selector superiority passes, but the dynamic-support endpoint does
@@ -133,7 +168,8 @@ reported separately from outcome gates.
 
 No tier authorizes universal benefit, monotonicity beyond depth two versus
 three, coefficient tuning, retrospective relabeling, or cross-model
-robustness. The coverage family is endpoint-only and cannot rescue any Brier
+robustness. No tier authorizes the claim that truth coverage causally mediated
+the Brier result. The coverage and alignment families cannot rescue any Brier
 family. The report must independently replay the completed result, reject
 non-finite or inconsistent fields, bank JSON and Markdown exactly once, and
 make zero model calls.
