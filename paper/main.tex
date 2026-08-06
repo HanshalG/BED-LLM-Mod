@@ -103,12 +103,11 @@ Our contributions are:
   their total information gain \citep{kambhampati2024llmmodulo};
   \item preregistered paired evidence that both the LLM proposal prior and
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
-  \item a powered LLM-native result in which non-myopic BED plans over
-  branch-conditioned LLM support regeneration and beats myopic, fixed-support,
-  random, and PTS controls on independent cross-model target concepts;
-  \item cross-planner and canonical-target evidence separating a robust
-  non-myopic-over-myopic root value from a non-robust extra-depth effect, plus
-  matched audits that isolate the still-provisional value of dynamic support;
+  \item a powered LLM-native policy result: non-myopic BED over LLM-generated
+  belief trees beats myopic, fixed-support, random, and PTS controls;
+  \item cross-planner and canonical-target evidence separating robust gains
+  over myopic from non-robust extra depth, plus matched delayed-conditioning evidence
+  without a full fresh causal mechanism;
   \item a cross-environment audit, including fresh-generation retrieval
   instability, that yields a validation contract spanning target sufficiency,
   calibrated likelihoods, branch equivalence, a verified greedy gap, and ranking
@@ -251,7 +250,7 @@ exactly $.591$ and $.580$ on two fresh blocks. Task-aligned h1 still beat
 configuration EIG by $.219/.217$. Rich semantic actions can repair utility
 alignment without creating non-myopic value.
 
-\paragraph{Planning over LLM proposal dynamics works in the Number Game.}
+\paragraph{Non-myopic policy selection works in the Number Game.}
 We use the classic domain $\{0,\ldots,100\}$ and an open-ended space of
 executable predicates. Gemini 2.5 Flash proposes 24 safe rules initially and
 after both labels of eight candidate queries. Myopic EIG scores the initial
@@ -260,9 +259,10 @@ simulated truth, executes the corresponding regenerated branch, takes its
 greedy second query, and minimizes terminal posterior-predictive Brier loss.
 Thus the value of a root includes whether the LLM can regenerate a useful
 belief state after that answer. GPT-5.4 independently generates target rules;
-all models are nonreasoning and targets are hidden from planning. This extends
-the documented proposal-support trap in active concept learning
-\citep{chari2026wild} with a generator-aware acquisition rule.
+all models are nonreasoning and targets are hidden from planning. This is a
+generator-aware extension of the documented proposal-support trap
+\citep{chari2026wild}; policy efficacy alone does not identify regeneration as
+its cause.
 
 In a preregistered powered replication over 32 fresh planning trees and 32
 fresh target supports, predictive-risk BED chooses a different root from

@@ -19,7 +19,8 @@ and lower candidate-set oracle regret (`-.00368`,
 `95% CI [-.00639,-.00097]`), without higher raw novelty. A frozen
 support-quality audit is globally null, but its changed-root quality contrast
 tracks realized advantage (Spearman `.472`, `95% CI [.262,.645]`). A fresh
-matched history-blind control directly identifies the path-dependent effect:
+matched history-blind control directly identifies an answer-conditioning effect
+on support quality:
 after two answers, conditioned support lowers canonical predictive MSE by
 14.5% (`95% CI [-.00784,-.00311]`) and raises truth coverage by 16.58 points.
 Its dynamic-versus-fixed selected-root mean-benefit interval crosses zero,
