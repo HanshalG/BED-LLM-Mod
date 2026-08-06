@@ -4,6 +4,19 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Reconfirmed the model and spend policy after the reported `$30`
+top-up. The authenticated OpenRouter API still reports `$245.00` credited and
+`$217.297890263` used (`$27.702109737` available), so no unposted credit enters
+an authorization calculation. Every paid day has an independent, account-wide
+`$5.00` Europe/London hard cap; unused allowance never rolls over and the cap is
+not a spending target. On the exact Number Game smoke, Luna cost `$0.0035776`
+for 10 calls, used 5,485 completion tokens, and passed all mechanics, whereas
+DeepSeek V4 Flash 0731 cost `$0.003258592`, used 10,720 completion tokens, and
+failed conditioned-support diversity. Therefore Luna remains the primary
+semantic generator and the only Bongard candidate (0731 is text-only); 0731 is
+the text challenger and cheap thinking-baseline candidate pending the frozen
+Aug7 reliability128 result. No paid calls were made for this review.
+
 2026-08-06: Pre-froze the Aug7 `$5` ledger from today's closed cumulative
 usage `$217.297890263` and built the transactional control executor. The
 previous-day baseline makes any intervening account-wide usage consume Aug7
