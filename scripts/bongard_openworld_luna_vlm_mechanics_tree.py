@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-5"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-6"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -675,11 +675,75 @@ def all_action_final_cases(
     return cases
 
 
+def task_preserving_dispatch_batches(
+    cases: Sequence[BeliefCase], *, batch_size: int = CONCURRENCY
+) -> list[dict[str, Any]]:
+    """Pack contiguous final-task groups without crossing dispatch boundaries."""
+    if batch_size <= 0:
+        raise ValueError("terminal dispatch batch size must be positive")
+    if any(case.kind != "final" for case in cases):
+        raise ValueError("terminal dispatch accepts only final cases")
+    if not cases:
+        return []
+
+    task_groups: list[dict[str, Any]] = []
+    seen_task_ids: set[str] = set()
+    start = 0
+    while start < len(cases):
+        task_id = cases[start].task.task_id
+        if task_id in seen_task_ids:
+            raise ValueError("terminal task cases are not contiguous")
+        seen_task_ids.add(task_id)
+        stop = start + 1
+        while stop < len(cases) and cases[stop].task.task_id == task_id:
+            stop += 1
+        if stop - start > batch_size:
+            raise ValueError("one terminal task group exceeds dispatch batch size")
+        task_groups.append(
+            {"task_id": task_id, "start": start, "stop": stop}
+        )
+        start = stop
+
+    batches: list[dict[str, Any]] = []
+    batch_start = task_groups[0]["start"]
+    batch_stop = batch_start
+    batch_tasks: list[str] = []
+    for group in task_groups:
+        group_size = group["stop"] - group["start"]
+        if batch_tasks and group["stop"] - batch_start > batch_size:
+            batches.append(
+                {
+                    "batch_index": len(batches),
+                    "start": batch_start,
+                    "stop": batch_stop,
+                    "request_count": batch_stop - batch_start,
+                    "task_ids": batch_tasks,
+                }
+            )
+            batch_start = group["start"]
+            batch_tasks = []
+        batch_stop = group["stop"]
+        batch_tasks.append(group["task_id"])
+        if group_size <= 0:
+            raise AssertionError("empty terminal task group")
+    batches.append(
+        {
+            "batch_index": len(batches),
+            "start": batch_start,
+            "stop": batch_stop,
+            "request_count": batch_stop - batch_start,
+            "task_ids": batch_tasks,
+        }
+    )
+    return batches
+
+
 def final_request_diagnostics(
     *,
     cases: Sequence[BeliefCase],
     seeds: Sequence[int],
     plans: Mapping[str, Mapping[str, Any]],
+    dispatch_batches: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Audit task-level terminal common-random-number pairing."""
     if len(cases) != len(seeds):
@@ -692,6 +756,34 @@ def final_request_diagnostics(
         len(index_by_key) == len(cases)
         and all(case.kind == "final" for case in cases)
     )
+    batches = list(
+        task_preserving_dispatch_batches(cases)
+        if dispatch_batches is None
+        else dispatch_batches
+    )
+    batch_by_index: dict[int, int] = {}
+    valid_batches = bool(batches)
+    expected_start = 0
+    for batch_index, batch in enumerate(batches):
+        start = int(batch.get("start", -1))
+        stop = int(batch.get("stop", -1))
+        request_count = int(batch.get("request_count", -1))
+        valid_batches = valid_batches and (
+            batch.get("batch_index") == batch_index
+            and start == expected_start
+            and start < stop <= len(cases)
+            and request_count == stop - start
+            and request_count <= CONCURRENCY
+            and batch.get("task_ids")
+            == list(dict.fromkeys(case.task.task_id for case in cases[start:stop]))
+        )
+        for index in range(max(0, start), min(len(cases), stop)):
+            if index in batch_by_index:
+                valid_batches = False
+            batch_by_index[index] = batch_index
+        expected_start = stop
+    valid_batches = valid_batches and expected_start == len(cases)
+
     rows = []
     if exact_unique_cases and set(plans) == {
         case.task.task_id for case in cases
@@ -717,8 +809,13 @@ def final_request_diagnostics(
                     "shared_task_seed": len({seeds[index] for index in task_indices})
                     == 1,
                     "task_seed": seeds[task_indices[0]],
+                    "dispatch_batch_index": batch_by_index.get(task_indices[0]),
                     "task_cases_are_contiguous": task_indices
                     == list(range(min(task_indices), max(task_indices) + 1)),
+                    "task_cases_share_one_dispatch_batch": len(
+                        {batch_by_index.get(index) for index in task_indices}
+                    )
+                    == 1,
                     "dynamic_history_equals_history_blind": (
                         dynamic_key == blind_key
                     ),
@@ -729,12 +826,17 @@ def final_request_diagnostics(
                     "dynamic_and_history_blind_share_seed": (
                         seeds[dynamic_index] == seeds[blind_index]
                     ),
+                    "dynamic_and_history_blind_share_dispatch_batch": (
+                        batch_by_index.get(dynamic_index)
+                        == batch_by_index.get(blind_index)
+                    ),
                 }
             )
     task_seeds = [row["task_seed"] for row in rows]
     gates = {
         "exact_unique_final_case_map": exact_unique_cases,
         "exact_task_plan_coverage": len(rows) == len(plans) > 0,
+        "dispatch_batches_exactly_cover_cases_within_limit": valid_batches,
         "all_final_histories_within_task_share_one_seed": all(
             row["shared_task_seed"] for row in rows
         ),
@@ -744,6 +846,9 @@ def final_request_diagnostics(
         "all_task_final_case_groups_are_contiguous": all(
             row["task_cases_are_contiguous"] for row in rows
         ),
+        "all_task_final_case_groups_share_one_dispatch_batch": all(
+            row["task_cases_share_one_dispatch_batch"] for row in rows
+        ),
         "dynamic_and_history_blind_terminal_pairs_are_ordered": all(
             row["dynamic_then_history_blind_are_adjacent_when_distinct"]
             for row in rows
@@ -751,9 +856,18 @@ def final_request_diagnostics(
         "dynamic_and_history_blind_terminal_pairs_share_seed": all(
             row["dynamic_and_history_blind_share_seed"] for row in rows
         ),
+        "dynamic_and_history_blind_terminal_pairs_share_dispatch_batch": all(
+            row["dynamic_and_history_blind_share_dispatch_batch"] for row in rows
+        ),
     }
     gates["all_pass"] = all(gates.values())
-    return {"task_count": len(rows), "gates": gates, "tasks": rows}
+    return {
+        "task_count": len(rows),
+        "dispatch_batch_count": len(batches),
+        "dispatch_batches": batches,
+        "gates": gates,
+        "tasks": rows,
+    }
 
 
 def _average_ranks(values: Sequence[float]) -> list[float]:
@@ -1157,10 +1271,14 @@ def run_mechanics(
         base_seed=MODEL_SEED,
         final_stage=True,
     )
+    final_dispatch_batches = task_preserving_dispatch_batches(
+        selected_final_cases
+    )
     final_pairing = final_request_diagnostics(
         cases=selected_final_cases,
         seeds=final_seeds,
         plans=plans,
+        dispatch_batches=final_dispatch_batches,
     )
     if not final_pairing["gates"]["all_pass"]:
         raise ValueError("terminal common-random-number audit failed")
@@ -1172,13 +1290,20 @@ def run_mechanics(
     ]
     if any(final_prompt_errors):
         raise ValueError("final hidden-state prompt audit failed")
-    final_responses = model.chat_complete_seeded_messages_batched_structured(
-        selected_final_messages,
-        final_seeds,
-        temperature=TEMPERATURE,
-        response_format=bed.belief_response_format(),
-        max_new_tokens=MAX_TOKENS,
-    )
+    final_responses = []
+    for batch in final_dispatch_batches:
+        start = int(batch["start"])
+        stop = int(batch["stop"])
+        response_batch = model.chat_complete_seeded_messages_batched_structured(
+            selected_final_messages[start:stop],
+            final_seeds[start:stop],
+            temperature=TEMPERATURE,
+            response_format=bed.belief_response_format(),
+            max_new_tokens=MAX_TOKENS,
+        )
+        if len(response_batch) != stop - start:
+            raise ValueError("model returned the wrong terminal batch size")
+        final_responses.extend(response_batch)
     final_beliefs = [
         bed.parse_belief_response(
             response,

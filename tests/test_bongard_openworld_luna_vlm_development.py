@@ -119,6 +119,7 @@ def _response(messages, *, seed: int | None = None) -> str:
 class FixtureAdapter:
     def __init__(self):
         self.requests = 0
+        self.seeded_batch_sizes = []
 
     def chat_complete_messages_batched_structured(self, batch_messages, **kwargs):
         del kwargs
@@ -130,6 +131,7 @@ class FixtureAdapter:
     ):
         del kwargs
         assert len(batch_messages) == len(seeds)
+        self.seeded_batch_sizes.append(len(batch_messages))
         self.requests += len(batch_messages)
         return [
             _response(messages, seed=seed)

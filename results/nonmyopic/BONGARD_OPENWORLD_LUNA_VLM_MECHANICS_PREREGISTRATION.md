@@ -5,6 +5,10 @@ Date frozen: 2026-08-06
 Before any model request, the history-weight, image-role, and branch-sensitivity
 details below were superseded by
 `BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md`.
+Terminal common-seed and task-preserving dispatch details were subsequently
+frozen in `BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md` and
+`BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md`; the current mechanics
+interface is `-6`.
 Earliest execution date: 2026-08-10 (Europe/London)
 
 ## Objective

@@ -8,8 +8,9 @@ were corrected by
 `BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md`. Development interface
 `-2` is invalid; the matched history-blind control then advanced the interface
 to `-4`. Before any response, terminal common random numbers were frozen in
-`BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md`; the current interface is
-`-5`.
+`BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md`. The terminal task-batch
+rule in `BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md` advances the
+current interface to `-6`.
 
 ## Claim And Boundary
 
@@ -80,6 +81,12 @@ seed, while different tasks use different seeds. When dynamic and
 history-blind select different final histories, those requests are ordered
 adjacently with dynamic first. This reduces avoidable terminal model-seed
 variance without adding calls or changing the belief process.
+
+Complete task-level terminal groups are greedily packed into explicit
+dispatch batches of at most 24 requests, and no task may cross a batch
+boundary. The batch manifest is persisted and replay-gated. Thus a distinct
+dynamic/history-blind pair shares both its requested seed and its actual
+adapter dispatch invocation.
 
 The all-first-action continuations make ranking fidelity observable: within
 each task, compare the frozen dynamic, myopic, fixed, and shuffled root score

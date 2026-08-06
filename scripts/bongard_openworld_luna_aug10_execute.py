@@ -63,7 +63,7 @@ DEVELOPMENT_PROTOCOL_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
-    "8022618fa4b414c70f25689f05d886068c33de8090a9b34f49e9931bf138e1e6"
+    "9c8c380cc6c5fe248cc06401bd4a7b4f160620f4eec449e246e05a404473c6d0"
 )
 MINIMUM_STARTING_BALANCE_USD = 5.0
 
@@ -419,15 +419,29 @@ class _MechanicsReplayAdapter:
         self.raw = raw
         self.usage = usage
         self.call_index = 0
+        self.final_offset = 0
+        pairing = raw.get("final_request_pairing") or {}
+        self.final_batch_sizes = [
+            int(batch["request_count"])
+            for batch in pairing.get("dispatch_batches") or []
+        ]
 
     def chat_complete_messages_batched_structured(self, batch_messages, **kwargs):
         del kwargs
         if self.call_index == 0:
             responses = self.raw.get("first_stage_responses") or []
-        elif self.call_index == 1:
-            responses = self.raw.get("final_responses") or []
         else:
-            raise RuntimeError("mechanics replay requested an extra model batch")
+            final_index = self.call_index - 1
+            if final_index >= len(self.final_batch_sizes):
+                raise RuntimeError("mechanics replay requested an extra model batch")
+            expected_size = self.final_batch_sizes[final_index]
+            if len(batch_messages) != expected_size:
+                raise RuntimeError("mechanics replay terminal batch size changed")
+            all_final = self.raw.get("final_responses") or []
+            responses = all_final[
+                self.final_offset : self.final_offset + expected_size
+            ]
+            self.final_offset += expected_size
         self.call_index += 1
         if len(responses) != len(batch_messages):
             raise RuntimeError("mechanics replay batch size changed")
@@ -487,8 +501,12 @@ def validate_mechanics_artifact(
             tasks=tasks,
             adapter=adapter,
         )
-    if adapter.call_index != 2:
-        raise RuntimeError("mechanics replay did not consume exactly two batches")
+    expected_calls = 1 + len(adapter.final_batch_sizes)
+    if (
+        adapter.call_index != expected_calls
+        or adapter.final_offset != len(raw.get("final_responses") or [])
+    ):
+        raise RuntimeError("mechanics replay did not consume exact dispatch batches")
     if bed.canonical_json(replay) != bed.canonical_json(result):
         raise RuntimeError("mechanics result does not independently replay")
     return {

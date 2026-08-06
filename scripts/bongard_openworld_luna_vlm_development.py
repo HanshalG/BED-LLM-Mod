@@ -32,7 +32,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-5"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-6"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -73,6 +73,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -728,17 +729,42 @@ def _generate_checkpointed(
     messages: Sequence[list[dict[str, Any]]],
     seeds: Sequence[int],
     progress_path: Path,
+    dispatch_batches: Sequence[Mapping[str, Any]] | None = None,
 ) -> list[str]:
     if progress_path.exists():
         raise FileExistsError(f"response progress already exists: {progress_path}")
     if not (len(cases) == len(messages) == len(seeds)):
         raise ValueError("checkpoint request manifest lengths differ")
+    batches = list(dispatch_batches or [])
+    if not batches:
+        batches = [
+            {
+                "batch_index": batch_index,
+                "start": start,
+                "stop": min(start + CONCURRENCY, len(cases)),
+            }
+            for batch_index, start in enumerate(
+                range(0, len(cases), CONCURRENCY)
+            )
+        ]
     responses: list[str] = []
     request_hashes = [message_sha256(message) for message in messages]
-    for start in range(0, len(cases), CONCURRENCY):
-        case_chunk = cases[start : start + CONCURRENCY]
-        message_chunk = list(messages[start : start + CONCURRENCY])
-        seed_chunk = list(seeds[start : start + CONCURRENCY])
+    expected_start = 0
+    for batch_index, batch in enumerate(batches):
+        start = int(batch.get("start", -1))
+        stop = int(batch.get("stop", -1))
+        if (
+            batch.get("batch_index") != batch_index
+            or start != expected_start
+            or start < 0
+            or start >= stop
+            or stop > len(cases)
+            or stop - start > CONCURRENCY
+        ):
+            raise ValueError("checkpoint dispatch manifest is invalid")
+        case_chunk = cases[start:stop]
+        message_chunk = list(messages[start:stop])
+        seed_chunk = list(seeds[start:stop])
         response_chunk = model.chat_complete_seeded_messages_batched_structured(
             message_chunk,
             seed_chunk,
@@ -755,6 +781,7 @@ def _generate_checkpointed(
                 history=case.history,
             )
         responses.extend(response_chunk)
+        expected_start = stop
         checkpoint(
             progress_path,
             {
@@ -767,8 +794,12 @@ def _generate_checkpointed(
                 "accepted_count": len(responses),
                 "expected_count": len(cases),
                 "complete": len(responses) == len(cases),
+                "completed_dispatch_batches": batch_index + 1,
+                "expected_dispatch_batches": len(batches),
             },
         )
+    if expected_start != len(cases):
+        raise ValueError("checkpoint dispatch manifest does not cover all cases")
     return responses
 
 
@@ -860,10 +891,14 @@ def run_block(
         base_seed=BLOCK_MODEL_SEEDS[block_id],
         final_stage=True,
     )
+    final_dispatch_batches = mechanics.task_preserving_dispatch_batches(
+        selected_final_cases
+    )
     final_pairing = mechanics.final_request_diagnostics(
         cases=selected_final_cases,
         seeds=final_seeds,
         plans=plans,
+        dispatch_batches=final_dispatch_batches,
     )
     if not final_pairing["gates"]["all_pass"]:
         raise ValueError("development terminal common-random-number audit failed")
@@ -879,6 +914,7 @@ def run_block(
         messages=final_messages,
         seeds=final_seeds,
         progress_path=output_dir / "private/FINAL_STAGE_PROGRESS.json",
+        dispatch_batches=final_dispatch_batches,
     )
     artifacts = _build_artifacts(
         tasks=tasks,

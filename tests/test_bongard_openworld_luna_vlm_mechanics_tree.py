@@ -7,6 +7,7 @@ import json
 import math
 from pathlib import Path
 
+import pytest
 from PIL import Image
 
 from scripts import bongard_openworld_luna_aug10_execute as aug10
@@ -108,6 +109,7 @@ def _response(messages, *, seed: int | None = None) -> str:
 class FixtureAdapter:
     def __init__(self):
         self.requests = 0
+        self.seeded_batch_sizes = []
 
     def chat_complete_messages_batched_structured(self, batch_messages, **kwargs):
         del kwargs
@@ -119,6 +121,7 @@ class FixtureAdapter:
     ):
         del kwargs
         assert len(batch_messages) == len(seeds)
+        self.seeded_batch_sizes.append(len(batch_messages))
         self.requests += len(batch_messages)
         return [
             _response(messages, seed=seed)
@@ -225,6 +228,13 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         "distinct_final_history_requests"
     ]
     assert raw["development_accessed"] is False
+    final_batches = raw["final_request_pairing"]["dispatch_batches"]
+    assert adapter.seeded_batch_sizes[1:] == [
+        batch["request_count"] for batch in final_batches
+    ]
+    assert all(
+        size <= tree.CONCURRENCY for size in adapter.seeded_batch_sizes[1:]
+    )
     serving_verification = aug10.validate_serving_artifact(
         serving_result, tasks=tasks
     )
@@ -235,6 +245,20 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     )
     assert serving_verification["verified"]
     assert mechanics_verification["verified"]
+
+    raw["final_request_pairing"]["dispatch_batches"][0]["request_count"] -= 1
+    raw_path = tmp_path / "tree/private/RAW_RESPONSES.json"
+    raw_path.write_text(json.dumps(raw), encoding="utf-8")
+    result_path = tmp_path / "tree/RESULT.json"
+    tampered_result = json.loads(result_path.read_text())
+    tampered_result["raw_responses_sha256"] = tree.sha256_file(raw_path)
+    result_path.write_text(json.dumps(tampered_result), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="terminal batch size changed"):
+        aug10.validate_mechanics_artifact(
+            result_path,
+            serving_result=serving_result,
+            tasks=tasks,
+        )
 
 
 def test_shuffled_control_permutes_complete_continuation_values() -> None:
@@ -461,6 +485,8 @@ def test_terminal_requests_use_common_seed_and_primary_pair_order() -> None:
     assert seeds[0] != seeds[2]
     assert all(
         row["dynamic_then_history_blind_are_adjacent_when_distinct"]
+        and row["dynamic_and_history_blind_share_dispatch_batch"]
+        and row["task_cases_share_one_dispatch_batch"]
         for row in diagnostics["tasks"]
     )
 
@@ -469,6 +495,40 @@ def test_terminal_requests_use_common_seed_and_primary_pair_order() -> None:
     assert not tree.final_request_diagnostics(
         cases=cases, seeds=tampered, plans=plans
     )["gates"]["all_pass"]
+
+
+def test_terminal_dispatch_keeps_task_atomic_at_naive_batch_boundary() -> None:
+    counts = [10, 9, 4, 4]
+    cases = []
+    for task_index, count in enumerate(counts):
+        task = _task(task_index)
+        for history_index in range(count):
+            cases.append(
+                tree.BeliefCase(
+                    case_id=f"{task.task_id}-synthetic-{history_index}",
+                    task=task,
+                    history=((f"synthetic-{history_index}", True),),
+                    kind="final",
+                )
+            )
+
+    batches = tree.task_preserving_dispatch_batches(cases)
+
+    assert [(batch["start"], batch["stop"]) for batch in batches] == [
+        (0, 23),
+        (23, 27),
+    ]
+    assert cases[23].task.task_id == cases[24].task.task_id
+    for batch in batches:
+        assert batch["request_count"] <= tree.CONCURRENCY
+        for task_id in batch["task_ids"]:
+            task_indices = [
+                index
+                for index, case in enumerate(cases)
+                if case.task.task_id == task_id
+            ]
+            assert min(task_indices) >= batch["start"]
+            assert max(task_indices) < batch["stop"]
 
 
 def test_terminal_common_seed_cancels_adversarial_seed_only_policy_effect() -> None:
