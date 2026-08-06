@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Pre-froze the Aug7 `$5` ledger from today's closed cumulative
+usage `$217.297890263` and built the transactional control executor. The
+previous-day baseline makes any intervening account-wide usage consume Aug7
+allowance; exact4.25 reservation passes at the frozen baseline and refuses
+after$.80 external use. Executor chains registered control->immediate local
+cost checkpoint->live posted-usage reconciliation->independent verifier, with
+no second block. Provider lag, post-run credits outage, unrelated usage,
+prior spend, mechanics/request failure, and verifier failure all preserve the
+correct ledger behavior; future ledger refuses pre-midnight before control.
+Combined executor/verifier/stage/budget tests pass27/27. No calls/spend.
+
 2026-08-06: Built the zero-call independent verifier for tomorrow's mandatory
 fresh Qwen history-blind control. It binds authorization/source/control/root
 hashes and dates, exact 3680+3072=6752 request accounting, mechanics/cost,

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-07",
+  "timezone": "Europe/London",
+  "daily_cap_usd": 5.0,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 217.297890263,
+  "opening_balance_usd": 27.702109737,
+  "opening_baseline_frozen_on_previous_closed_day": true,
+  "opening_baseline_frozen_at_london": "2026-08-06T01:13:04+01:00",
+  "reported_top_up_not_yet_visible_usd": 30.0,
+  "unspent_allowance_does_not_roll_over": true,
+  "account_wide_usage_counts_against_cap": true,
+  "recorded_actual_spend_usd": 0.0,
+  "first_authorized_block": {
+    "description": "Fully fresh Qwen Number Game history-blind control: exactly 3072 accepted requests",
+    "maximum_cost_usd": 4.25,
+    "expected_cost_usd": 3.21,
+    "actual_cost_usd": null,
+    "status": "authorized_pending_later_day"
+  },
+  "additional_paid_blocks_authorized": false
+}
