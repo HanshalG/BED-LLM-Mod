@@ -3,8 +3,9 @@
 Date initially frozen: 2026-08-06
 
 Budget-utilization amendment frozen: 2026-08-06, before any control seed was
-opened. This amendment authorizes only the two named reliability tails below;
-it does not change the control calls, artifacts, verifier, or endpoint.
+opened. This amendment authorizes only the two named reliability tails and
+their pre-outcome stress successor below; it does not change the control calls,
+artifacts, verifier, or endpoint.
 
 ## Purpose
 
@@ -50,12 +51,21 @@ blocks:
 - `openai/gpt-5.6-luna`, reliability128 interface, maximum `$0.10`;
 - `deepseek/deepseek-v4-flash-0731`, reliability128 interface, maximum `$0.10`.
 
+When at least `$1.75` remains, it also creates one waiting
+`number-game-budget-model-stress3584-1` entry with a `$1.55` cap. That entry
+receives no model until both reliability gates are banked. It selects only
+among passing models using the frozen ordering:
+conditioned-support minimum, conditioned-support mean, fewer parse/forced-exit
+failures, then lower measured cost. If neither model passes, it makes zero
+calls and closes.
+
 The authorizations are absent after an incomplete, mechanics-failed, or
-unverified control, and absent if less than `$0.20` remains. Each reliability
-runner consumes its exact pending authorization and still checks live
-account-wide spend. The maximum authorized control-day total is therefore
-`$4.25 + $0.20 = $4.45`, below the `$5.00` cap. No other paid tail is
-authorized by this amendment.
+unverified control. The two small reliability gates remain authorized whenever
+at least `$0.20` remains; the stress successor is omitted unless the full
+`$0.20 + $1.55` fits after reconciliation. Each runner consumes its exact
+pending authorization and still checks live account-wide spend, so total
+account spend cannot exceed `$5.00`. No other paid tail is authorized by this
+amendment.
 
 ## Command
 

@@ -29,9 +29,12 @@ AUTHORIZED_RELIABILITY_TAILS = (
     "deepseek/deepseek-v4-flash-0731",
 )
 RELIABILITY_TAIL_CAP_USD = 0.10
-RELIABILITY_TAIL_TOTAL_CAP_USD = (
+STRESS_INTERFACE_VERSION = "number-game-budget-model-stress3584-1"
+STRESS_TAIL_CAP_USD = 1.55
+RELIABILITY_GATE_TOTAL_CAP_USD = (
     len(AUTHORIZED_RELIABILITY_TAILS) * RELIABILITY_TAIL_CAP_USD
 )
+FULL_TAIL_TOTAL_CAP_USD = RELIABILITY_GATE_TOTAL_CAP_USD + STRESS_TAIL_CAP_USD
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -116,8 +119,13 @@ def authorize_reliability_tails(
         and verification is not None
         and verification.get("status") == "verified"
     )
-    authorized = verified and remaining + 1e-12 >= RELIABILITY_TAIL_TOTAL_CAP_USD
-    updated["additional_paid_blocks_authorized"] = authorized
+    gates_authorized = (
+        verified and remaining + 1e-12 >= RELIABILITY_GATE_TOTAL_CAP_USD
+    )
+    stress_authorized = (
+        verified and remaining + 1e-12 >= FULL_TAIL_TOTAL_CAP_USD
+    )
+    updated["additional_paid_blocks_authorized"] = gates_authorized
     updated["authorized_tail_blocks"] = (
         [
             {
@@ -128,13 +136,26 @@ def authorize_reliability_tails(
             }
             for model in AUTHORIZED_RELIABILITY_TAILS
         ]
-        if authorized
+        + ([
+            {
+                "interface": STRESS_INTERFACE_VERSION,
+                "model": None,
+                "maximum_cost_usd": STRESS_TAIL_CAP_USD,
+                "status": "waiting_for_reliability_results",
+                "selection_rule": (
+                    "pass_then_conditioned_min_mean_then_failure_tail_then_cost"
+                ),
+            }
+        ] if stress_authorized else [])
+        if gates_authorized
         else []
     )
     updated["tail_authorization_reason"] = (
-        "verified_control_and_exact_remaining_allowance"
-        if authorized
-        else "control_not_verified_or_insufficient_remaining_allowance"
+        "verified_control_full_stress_allowance"
+        if stress_authorized
+        else "verified_control_reliability_gates_only"
+        if gates_authorized
+        else "control_not_verified_or_insufficient_gate_allowance"
     )
     return updated
 

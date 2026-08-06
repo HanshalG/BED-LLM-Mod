@@ -121,9 +121,15 @@ def test_provider_lag_uses_local_measured_cost(tmp_path: Path) -> None:
     assert ledger["first_authorized_block"]["actual_cost_usd"] == 3.2
     assert ledger["first_authorized_block"]["status"] == "complete"
     assert ledger["additional_paid_blocks_authorized"]
-    assert [item["model"] for item in ledger["authorized_tail_blocks"]] == list(
-        execute.AUTHORIZED_RELIABILITY_TAILS
-    )
+    assert [
+        item["model"]
+        for item in ledger["authorized_tail_blocks"]
+        if item["interface"]
+        == "number-game-budget-model-reliability128-1"
+    ] == list(execute.AUTHORIZED_RELIABILITY_TAILS)
+    stress = ledger["authorized_tail_blocks"][-1]
+    assert stress["interface"] == execute.STRESS_INTERFACE_VERSION
+    assert stress["status"] == "waiting_for_reliability_results"
     assert len(stage_calls) == 1
     assert verifier_calls == [run_dir]
     assert (run_dir / "CONTROL_DAILY_EXECUTION.json").exists()
@@ -194,7 +200,7 @@ def test_mechanics_failure_is_recorded_without_verifier(tmp_path: Path) -> None:
     assert verifier_calls == []
 
 
-def test_tail_is_not_authorized_when_account_spend_leaves_too_little(
+def test_stress_is_omitted_but_small_gates_remain_when_headroom_is_0_60(
     tmp_path: Path,
 ) -> None:
     ledger_path = tmp_path / "ledger.json"
@@ -204,6 +210,31 @@ def test_tail_is_not_authorized_when_account_spend_leaves_too_little(
     execution = execute.run_control_daily(
         run_dir=run_dir,
         run_id="no-tail",
+        ledger_path=ledger_path,
+        live_reader=_live_reader(_live(100.0), _live(104.4)),
+        stage_runner=_stage(_result(cost=3.2), []),
+        verifier=_verifier([]),
+    )
+
+    assert execution["remaining_daily_allowance_usd"] == pytest.approx(0.6)
+    assert execution["additional_paid_blocks_authorized"]
+    assert len(execution["authorized_tail_blocks"]) == 2
+    assert all(
+        item["interface"] == "number-game-budget-model-reliability128-1"
+        for item in execution["authorized_tail_blocks"]
+    )
+
+
+def test_no_tail_is_authorized_when_headroom_is_below_0_20(
+    tmp_path: Path,
+) -> None:
+    ledger_path = tmp_path / "ledger.json"
+    run_dir = tmp_path / "run"
+    _write_ledger(ledger_path)
+
+    execution = execute.run_control_daily(
+        run_dir=run_dir,
+        run_id="no-tail-at-all",
         ledger_path=ledger_path,
         live_reader=_live_reader(_live(100.0), _live(104.9)),
         stage_runner=_stage(_result(cost=3.2), []),

@@ -33,7 +33,7 @@ letting price drift or delayed accounting cross `$5.00`.
 | London date | Primary purchase | Expected / maximum | Decision rule |
 |---|---|---:|---|
 | Aug 6 | Fresh Qwen source-32 | `$4.2604` actual / `$5.00` | Complete; no more paid calls today |
-| Aug 7 | Sealed Qwen history-blind control, then both 128-case budget-model gates | about `$3.30`; hard component caps total `$4.45` | Control first; gates only after its exact mechanics pass; reconcile between components |
+| Aug 7 | Sealed Qwen control, both reliability128 gates, then selected-model stress3584 | about `$4.4--$4.8`; hard account cap `$5.00` | Stress runs only if its full `$1.55` cap fits after exact reconciliation |
 | Aug 8 | Diversity-bonus confirmation Block A, then a budget-model mechanics tail if actual headroom remains | about `$4.26`; hard primary cap `$5.00` | Block A owns priority; tail starts only after actual spend is known |
 | Aug 9 | Mandatory confirmation Block B, then the same bounded tail rule | about `$4.26`; hard primary cap `$5.00` | Run B after clean A mechanics regardless of A science; combined 64 is sole decision |
 | Aug 10 onward | Best mechanics-passing budget model on scaled LLM-native BED work | target `$4.75--$5.00` / hard `$5.00` | Fill with additional preregistered seed blocks, never post-hoc endpoint reruns |
@@ -90,7 +90,7 @@ conditioned-valid support first, then forced exits/parse retries, then cost.
 
 ## Concurrency
 
-- use aggregate concurrency `64` for the two 128-item budget-model gates;
+- use aggregate concurrency `64` for the two reliability gates and stress3584;
 - retain the validated Qwen concurrency for sealed paper runs;
 - raise toward `128` or `256` only after a mechanics-clean block shows that
   provider throttling and forced exits are not increasing.
@@ -108,11 +108,15 @@ that model. If both pass, choose by conditioned-support minimum, conditioned
 mean, failure/retry tail, then expected cost. If both fail, close them for
 paper work; do not relax parsers or support floors to manufacture a cheap pass.
 
-The first scale purchase is a disjoint-seed conditioned-support stress block,
-because the observed failure modes are long-tail failures. Only after that
-passes does the model receive a paired policy-efficacy block. This makes cost
-per usable belief update, rather than cost per token, the operative Pareto
-metric.
+The first scale purchase is the preregistered 3,584-case conditioned-support
+stress block. It contains all 690 histories unseen by reliability128 plus
+2,878 repeat draws under different seeds. This gives about 95% probability of
+observing a one-per-1,200 failure and directly exceeds Luna's prior failure
+horizon. Its `$1.55` cap is authorized only when both smaller gates plus the
+entire stress cap fit the exact remaining allowance; otherwise the smaller
+gates still run and stress is omitted. Only a passing stress result authorizes
+paired policy-efficacy work. This makes cost per usable belief update, rather
+than cost per token, the operative Pareto metric.
 
 ## Aug 10 Onward
 

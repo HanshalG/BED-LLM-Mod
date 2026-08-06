@@ -336,7 +336,8 @@ def reconcile_daily_ledger(
             item["status"] = status
             item["actual_cost_usd"] = measured_cost_usd
     updated["additional_paid_blocks_authorized"] = any(
-        item.get("status") == "authorized_pending"
+        item.get("status")
+        in {"authorized_pending", "waiting_for_reliability_results"}
         for item in (updated.get("authorized_tail_blocks") or [])
     )
     updated["reconciliation"] = {
@@ -358,8 +359,10 @@ def _call_seed_groups(
     adapters: Sequence[StructuredModel],
     grouped_cases: Sequence[Sequence[dict[str, Any]]],
 ) -> dict[int, str]:
+    if len(adapters) != len(grouped_cases):
+        raise ValueError("adapter and case-group counts do not match")
     responses: dict[int, str] = {}
-    with ThreadPoolExecutor(max_workers=SEED_GROUPS) as executor:
+    with ThreadPoolExecutor(max_workers=len(adapters)) as executor:
         futures = {
             executor.submit(
                 adapter.chat_complete_messages_batched_structured,
@@ -618,6 +621,7 @@ def main() -> int:
             args.output_dir / "FAILURE.json",
             {
                 "schema_version": SCHEMA_VERSION,
+                "interface_version": INTERFACE_VERSION,
                 "status": "failed_closed",
                 "model": args.model,
                 "error_type": type(exc).__name__,
