@@ -286,6 +286,41 @@ def aggregate_usage(adapters: Sequence[StructuredModel]) -> dict[str, Any]:
     }
 
 
+def reconcile_daily_ledger(
+    *,
+    ledger: dict[str, Any],
+    model_id: str,
+    measured_cost_usd: float,
+    live_after: dict[str, float],
+    status: str,
+) -> dict[str, Any]:
+    updated = json.loads(json.dumps(ledger))
+    opening = float(updated["opening_total_usage_usd"])
+    previous = float(updated.get("recorded_actual_spend_usd", 0.0))
+    posted = max(0.0, float(live_after["total_usage_usd"]) - opening)
+    local = previous + measured_cost_usd
+    recorded = max(posted, local)
+    updated["recorded_actual_spend_usd"] = recorded
+    model_key = model_id.replace("/", "_").replace(".", "_")
+    updated[f"budget_model_reliability128_{model_key}"] = {
+        "status": status,
+        "actual_cost_usd": measured_cost_usd,
+        "maximum_cost_usd": RUN_BUDGET_USD,
+    }
+    updated["reconciliation"] = {
+        "live_total_credits_usd": float(live_after["total_credits_usd"]),
+        "live_total_usage_usd": float(live_after["total_usage_usd"]),
+        "live_balance_usd": float(live_after["balance_usd"]),
+        "posted_spend_since_opening_usd": posted,
+        "locally_measured_spend_usd": local,
+        "recorded_spend_is_max_of_posted_and_local": True,
+        "remaining_daily_allowance_usd": max(
+            0.0, float(updated["daily_cap_usd"]) - recorded
+        ),
+    }
+    return updated
+
+
 def _call_seed_groups(
     *,
     adapters: Sequence[StructuredModel],
@@ -531,6 +566,21 @@ def main() -> int:
             model_id=args.model,
         )
     except Exception as exc:
+        reconciliation_error = None
+        try:
+            live_after = read_live_credits()
+            reconciled = reconcile_daily_ledger(
+                ledger=ledger,
+                model_id=args.model,
+                measured_cost_usd=0.0,
+                live_after=live_after,
+                status="failed_closed_posted_spend_reconciled",
+            )
+            checkpoint(args.daily_ledger, reconciled)
+        except Exception as reconcile_exc:
+            reconciliation_error = (
+                f"{type(reconcile_exc).__name__}: {reconcile_exc}"
+            )
         checkpoint(
             args.output_dir / "FAILURE.json",
             {
@@ -539,9 +589,19 @@ def main() -> int:
                 "model": args.model,
                 "error_type": type(exc).__name__,
                 "error": str(exc),
+                "ledger_reconciliation_error": reconciliation_error,
             },
         )
         raise
+    live_after = read_live_credits()
+    reconciled = reconcile_daily_ledger(
+        ledger=ledger,
+        model_id=args.model,
+        measured_cost_usd=float(result["usage"]["run_cost_usd"]),
+        live_after=live_after,
+        status=result["status"],
+    )
+    checkpoint(args.daily_ledger, reconciled)
     print(
         json.dumps(
             {

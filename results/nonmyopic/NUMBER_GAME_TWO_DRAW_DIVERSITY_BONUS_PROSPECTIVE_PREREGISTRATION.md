@@ -1,6 +1,11 @@
 # Number Game Two-Draw Diversity Bonus Prospective Preregistration
 
-Date frozen: 2026-08-06
+Date initially frozen: 2026-08-06
+
+Power amendment frozen: 2026-08-06, before any prospective seed was opened.
+The hash-bound retrospective power audit recommended 64 rather than 32 trees;
+its result SHA-256 is
+`3dfd1605deba87641c791718a8b50d81e971062fee85612fa94638fc674f156e`.
 
 ## Purpose
 
@@ -36,27 +41,44 @@ on the fresh cohort.
 
 ## Fresh Cohort
 
-- 32 entirely new tree seeds `110000..110031`;
-- target seeds `110100..110131`, validation seeds beginning at `110200`,
-  and bootstrap seed `110800`;
+Use 64 entirely new trees in two mandatory blocks:
+
+- Block A tree seeds `110000..110031`, target seeds `110100..110131`,
+  validation seeds beginning at `110200`, and source bootstrap seed `110800`;
+- Block B tree seeds `111000..111031`, target seeds `111100..111131`,
+  validation seeds beginning at `111200`, and source bootstrap seed `111800`;
+- combined analysis bootstrap seed `112800`;
 - `qwen/qwen3.7-plus`, nonreasoning, for two support draws per planning
   history;
 - the same strict item-isolated parser, retained-parent support, eight root
   candidates, cross-fitted depth-three risk, target bank, and exact-canonical
   endpoint used by the fully fresh source protocol;
 - exact request accounting and the existing source mechanics floors;
-- maximum paid cost `$5.00`, fitting one Europe/London daily allocation.
+- exactly `3,680` accepted requests per block, `7,360` total;
+- maximum paid cost `$5.00` per block on separate Europe/London days,
+  `$10.00` total.
 
 Seeds, hashes, and the concrete runner must be frozen before the first provider
 request. No response, tree, target, or endpoint from the 96-tree development
 cohort or August 6 fresh cohort may be reused.
 
 The concrete runner is
-`scripts/number_game_two_draw_diversity_bonus_confirmation32.py`. It requires
-a current Europe/London ledger with the full `$5.00` allowance remaining,
-checks the live account-wide usage and balance before constructing the source
-run, expects exactly `3,680` accepted requests, reconciles measured and posted
-spend, and authorizes no second paid block that day.
+`scripts/number_game_two_draw_diversity_bonus_confirmation64_staged.py`.
+Each block requires a current Europe/London ledger with the full `$5.00`
+allowance remaining, checks live account-wide usage and balance before source
+construction, and reconciles measured and posted spend. It authorizes no
+second confirmation block that day. After reconciliation, a separately frozen
+experiment unrelated to this confirmation may use only the exact remaining
+daily allowance. Such a tail block cannot use these confirmation seeds,
+artifacts, mechanics, or scientific values for selection, and cannot affect
+Block B authorization or the combined analysis.
+
+Block A produces a mechanics-only authorization record. Block B runs on a
+strictly later London date whenever all Block A mechanics pass, regardless of
+Block A policy comparisons, selected roots, or scientific values. There is no
+scientific stopping or human decision between blocks. If Block A mechanics
+fail, Block B is forbidden and the experiment is `mechanics_failed`. The
+combined 64-tree endpoint is the sole confirmatory decision.
 
 ## Primary Comparison
 
@@ -67,17 +89,16 @@ tests the missing monotonic planning-horizon link:
 1. exact-canonical endpoint Brier improves by at least 3%;
 2. the tree-bootstrap 95% interval for bonus depth three minus depth two is
    entirely below zero; and
-3. bonus depth three records at least 14 tree wins over depth two.
+3. bonus depth-three tree wins exceed losses against depth two.
 
-As a co-required mechanism check, the bonus must change at least 8 roots from
-unadjusted depth three, its mean Brier must not be higher than unadjusted
-depth three, and changed-root wins must exceed losses. The bonus-versus-
-unadjusted interval is reported but is not required to exclude zero because
-the retrospective paired effect is much smaller than the depth-three-versus-
-depth-two effect.
+As a co-required conservative check, the bonus must change at least 16 of 64
+roots from unadjusted depth three and its mean Brier must not be higher than
+unadjusted depth three. Bonus-versus-unadjusted wins/losses and interval are
+reported but are not additional gates because the paired mean already defines
+non-worsening and many trees tie.
 
-The bootstrap uses 20,000 tree resamples with a seed fixed in the concrete
-runner before execution.
+The combined bootstrap uses 20,000 resamples of the 64 paired tree rows with
+seed `112800`.
 
 ## Secondary Comparisons
 

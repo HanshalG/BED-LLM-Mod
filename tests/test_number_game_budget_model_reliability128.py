@@ -343,3 +343,55 @@ def test_unknown_model_is_rejected_before_calls(tmp_path: Path) -> None:
         )
 
     assert all(adapter.calls == 0 for adapter in adapters)
+
+
+def test_daily_ledger_reconciliation_accumulates_local_model_cost() -> None:
+    ledger = {
+        "date": "2026-08-07",
+        "timezone": "Europe/London",
+        "daily_cap_usd": 5.0,
+        "opening_total_usage_usd": 100.0,
+        "recorded_actual_spend_usd": 3.2,
+    }
+    reconciled = reliability.reconcile_daily_ledger(
+        ledger=ledger,
+        model_id="openai/gpt-5.6-luna",
+        measured_cost_usd=0.05,
+        live_after={
+            "total_credits_usd": 130.0,
+            "total_usage_usd": 103.1,
+            "balance_usd": 26.9,
+        },
+        status="passed",
+    )
+
+    assert reconciled["recorded_actual_spend_usd"] == pytest.approx(3.25)
+    assert reconciled["reconciliation"][
+        "remaining_daily_allowance_usd"
+    ] == pytest.approx(1.75)
+    assert reconciled[
+        "budget_model_reliability128_openai_gpt-5_6-luna"
+    ]["status"] == "passed"
+
+
+def test_daily_ledger_reconciliation_prefers_larger_posted_spend() -> None:
+    ledger = {
+        "date": "2026-08-07",
+        "timezone": "Europe/London",
+        "daily_cap_usd": 5.0,
+        "opening_total_usage_usd": 100.0,
+        "recorded_actual_spend_usd": 3.2,
+    }
+    reconciled = reliability.reconcile_daily_ledger(
+        ledger=ledger,
+        model_id="deepseek/deepseek-v4-flash-0731",
+        measured_cost_usd=0.0,
+        live_after={
+            "total_credits_usd": 130.0,
+            "total_usage_usd": 104.4,
+            "balance_usd": 25.6,
+        },
+        status="failed_closed_posted_spend_reconciled",
+    )
+
+    assert reconciled["recorded_actual_spend_usd"] == pytest.approx(4.4)
