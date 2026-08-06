@@ -4,6 +4,19 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Froze and implemented the post-control Luna/DeepSeek0731
+reliability128 gate with zero calls. It uses eight matched request-seed groups,
+each with 1 initial, 5 one-answer, and 10 two-answer histories SHA-ranked from
+the bound fresh source; strict existing schema/parser, 4,200 tokens,
+nonreasoning, aggregate concurrency64, and `$0.10/model`.
+At most three strict parse failures receive one measured same-prompt retry;
+semantic low-support responses are never retried. Passing requires all final
+parses, <=3 forced exits, initial/conditioned floors 16/4, conditioned mean>=8,
+exact request accounting, and clean transport. The CLI refuses before adapter
+construction until a mechanics-passing exact-3,072 Qwen control is supplied.
+Focused tests pass 25/25 and synthetic pass/semantic-null paths behave exactly;
+today's OpenRouter usage remains unchanged.
+
 2026-08-06: Rechecked the new budget-model frontier and imposed a six-day
 `$5/day` London allocation. Live credits still show `$245` purchased and
 `$217.297890263` used (`$27.702109737` balance), so the reported new `$30`
