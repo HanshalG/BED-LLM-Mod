@@ -37,7 +37,14 @@ The wrapper now exposes:
 The preflight is dependency-aware and read-only. It returns a waiting status
 for an absent legitimate predecessor and rejects partial, tampered, or
 out-of-order artifacts. All four real invocations bind protocol manifest
-`9c8c380cc6c5fe248cc06401bd4a7b4f160620f4eec449e246e05a404473c6d0`.
+`8659fb5fc6a02ddc59eb7147b6663d1fef3f96880e29f5e6de9bc0386f8e24aa`.
+
+A later transport audit found that the concurrent Luna adapters still relied
+on post-response run-budget checks. August 10--14 interface-v2 wrappers now
+bind precharge amendment `75acd7ae...bbbff4`, reserve `$0.004` before every
+attempt, and verify 20,800 prompt-token coverage after the maximum 3,200-token
+output at live prices. The rebound protocol manifest changes implementation
+hashes only; tasks, seeds, prompts, batches, endpoints, and gates are unchanged.
 
 Number Game commands use the project conda environment. Bongard commands use
 `/opt/anaconda3/bin/python`, which contains Pillow; the Number Game environment
@@ -46,7 +53,7 @@ does not and therefore cannot import the Bongard image pipeline.
 ## Verification
 
 - dedicated development daily-wrapper tests: `17/17`;
-- complete Bongard regression suite: `87/87`;
+- complete Bongard regression suite: `92/92`;
 - model calls: `0`;
 - files written by every preflight: `0`;
 - scientific endpoints opened: none.

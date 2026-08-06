@@ -1163,6 +1163,7 @@ def _adapter(*, output_dir: Path, run_id: str) -> serving.LunaVisionAdapter:
         openrouter_max_retries=4,
         openrouter_backoff_seconds=1.0,
         openrouter_request_timeout_seconds=300.0,
+        openrouter_max_request_cost_usd=serving.MAX_REQUEST_COST_USD,
         openrouter_max_output_tokens=MAX_TOKENS,
         openrouter_spend_path="results/path_e/openrouter_spend.json",
     )

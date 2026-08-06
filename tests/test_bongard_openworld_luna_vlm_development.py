@@ -17,6 +17,18 @@ from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_vlm_bed as bed
 
 
+def test_development_adapter_reserves_luna_attempt_cost(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    adapter = development._adapter(
+        output_dir=tmp_path,
+        run_id="precharge-test",
+        block_id="a",
+    )
+    assert adapter.max_request_cost_usd == development.serving.MAX_REQUEST_COST_USD
+
+
 _DEVELOPMENT_TASK_IDS = tuple(
     sorted(
         development.source_audit._task_layout(row)["task_id"]

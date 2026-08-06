@@ -37,6 +37,7 @@ TIMEZONE = "Europe/London"
 EXPECTED_REQUESTS = 10
 CONCURRENCY = 10
 MAX_TOKENS = 3_200
+MAX_REQUEST_COST_USD = 0.004
 TEMPERATURE = 0.0
 PROJECTED_COST_USD = 0.10
 RUN_BUDGET_USD = 0.25
@@ -344,6 +345,7 @@ def _adapter(*, output_dir: Path, run_id: str) -> LunaVisionAdapter:
         openrouter_max_retries=4,
         openrouter_backoff_seconds=1.0,
         openrouter_request_timeout_seconds=300.0,
+        openrouter_max_request_cost_usd=MAX_REQUEST_COST_USD,
         openrouter_max_output_tokens=MAX_TOKENS,
         openrouter_spend_path="results/path_e/openrouter_spend.json",
     )

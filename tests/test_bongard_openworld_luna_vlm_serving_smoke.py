@@ -82,6 +82,14 @@ class FixtureAdapter:
         }
 
 
+def test_serving_adapter_reserves_luna_attempt_cost(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    adapter = smoke._adapter(output_dir=tmp_path, run_id="precharge-test")
+    assert adapter.max_request_cost_usd == smoke.MAX_REQUEST_COST_USD == 0.004
+
+
 def test_exact_ten_fixture_passes_without_endpoint_access(tmp_path: Path) -> None:
     tasks = [_task(1), _task(2)]
     cases = smoke.build_smoke_cases(tasks)

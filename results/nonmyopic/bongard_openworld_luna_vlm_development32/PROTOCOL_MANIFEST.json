@@ -55,9 +55,9 @@
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md": "33dde15c1e197eb511b566fcfe00dd431cf122567beb5cc873e57b7acfafa114",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md": "c2ee1e9affcae6bf190ced2899d0736b099d2eb8fd1125c8a9eeb8d6dbae0793",
     "scripts/bongard_openworld_luna_claim_report.py": "f14ee94fb93f2f74653bd878c284ba51c488853b442001671ff6fcdddbbbd658",
-    "scripts/bongard_openworld_luna_vlm_development.py": "bc8dc9e3c654b665a67d5bad56450889ca25753daec26e845192479720c70bea",
-    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "16d6da5c170f8e6f28bc85e8e64bf67bbda2eed8739c1f9acb8615c114bfa69a",
-    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "f325c4f3a534ec147fdaed4c5a899d60e5e681e8ea657335f083d1d4aee853e8",
+    "scripts/bongard_openworld_luna_vlm_development.py": "e3c9124d2f172393c58f59d2149ec4145f09ce30e13e3adb5201209cef035584",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "cda5473c221b6cb13bbfa2e458de62dda602a3e37907e1602fae6925b1f2e13f",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "c8a150daf4d6680608ce13c00721045503e507e809d182f3ce8e3f13201d918a",
     "scripts/bongard_openworld_vlm_bed.py": "d2f3f65a1586d30e629dad5c2b89a9f55008786275a1841574f24aefdbfd0d66"
   },
   "interface_version": "bongard-openworld-luna-vlm-development32-6",

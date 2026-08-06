@@ -71,10 +71,14 @@ bound directly in the execution wrapper.
   fails closed instead of being reconstructed silently.
 - Every block has its own account-wide `$5.00` Europe/London ledger and a
   `$4.75` run cap. Unspent allowance does not roll over.
+- Every Luna HTTP attempt reserves `$0.004` before dispatch under the shared
+  ledger lock. The runtime preflight binds amendment `75acd7ae...bbbff4` and
+  rejects price drift unless the full 3,200-token output plus at least 8,000
+  prompt tokens remain covered.
 
-The complete Bongard regression suite passes `87` tests. Real dependency-aware
+The complete Bongard regression suite passes `92` tests. Real dependency-aware
 preflights for Blocks A--D on 2026-08-06 all returned `waiting_for_aug10`,
-bound manifest `9c8c380c...73c6d0`, saw Luna at `$0.10/$0.60` per million
+bound manifest `8659fb5f...8e24aa`, saw Luna at `$0.10/$0.60` per million
 tokens and balance `$27.702109737`, and made zero calls or files. The waiting
 status is the correct scientific predecessor gate until the banked August 10
 result exists.

@@ -381,6 +381,10 @@ def test_preflight_is_read_only_and_reports_exact_budget(tmp_path: Path) -> None
     assert result["files_written"] == 0
     assert result["execution_paths"]["serving"] == "empty"
     assert result["model"]["input_modalities"] == ["image", "text"]
+    assert result["model"]["maximum_request_cost_usd"] == pytest.approx(0.004)
+    assert result["model"]["covered_prompt_tokens_at_live_price"] == pytest.approx(
+        20_800
+    )
     assert result["budget"] == {
         "account_wide_daily_cap_usd": 5.0,
         "minimum_starting_balance_usd": 5.0,
@@ -427,6 +431,24 @@ def test_preflight_refuses_unavailable_or_text_only_model(
     paths = _paths(tmp_path)
     with pytest.raises(RuntimeError, match=message):
         _preflight(paths, model_catalog_reader=lambda: catalog)
+
+
+def test_preflight_refuses_price_above_luna_attempt_reservation(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    catalog = _catalog()
+    catalog["data"][0]["pricing"]["completion"] = "0.0000011"
+    with pytest.raises(RuntimeError, match="reservation no longer covers"):
+        _preflight(paths, model_catalog_reader=lambda: catalog)
+
+
+def test_precharge_amendment_is_hash_bound(monkeypatch) -> None:
+    result = execute._validate_precharge_amendment()
+    assert result["sha256"] == execute.PRECHARGE_AMENDMENT_SHA256
+    monkeypatch.setattr(execute, "PRECHARGE_AMENDMENT_SHA256", "0" * 64)
+    with pytest.raises(RuntimeError, match="precharge amendment hash changed"):
+        execute._validate_precharge_amendment()
 
 
 def test_preflight_propagates_frozen_input_failure(tmp_path: Path) -> None:

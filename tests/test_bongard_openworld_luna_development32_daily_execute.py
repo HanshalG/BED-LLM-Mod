@@ -248,6 +248,10 @@ def test_runtime_preflight_is_read_only_and_exact(tmp_path: Path) -> None:
     )
     assert result["status"] == "ready_without_paid_calls"
     assert result["budget"]["block_maximum_cost_usd"] == 4.75
+    assert result["precharge_amendment"]["sha256"] == (
+        execute.aug10.PRECHARGE_AMENDMENT_SHA256
+    )
+    assert result["model"]["maximum_request_cost_usd"] == pytest.approx(0.004)
     assert result["model_calls_made"] == 0
     assert result["files_written"] == 0
     assert not block_dir.exists()

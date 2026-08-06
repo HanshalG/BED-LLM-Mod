@@ -25,7 +25,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-development32-daily-execute-1"
+INTERFACE_VERSION = "bongard-openworld-luna-development32-daily-execute-2"
 TIMEZONE = "Europe/London"
 ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -77,6 +77,9 @@ def preflight_fresh_block_runtime(
     model_catalog_reader: Callable[[], dict[str, Any]] = (
         aug10.read_openrouter_model_catalog
     ),
+    precharge_validator: Callable[[], dict[str, Any]] = (
+        aug10._validate_precharge_amendment
+    ),
 ) -> dict[str, Any]:
     """Validate volatile launch conditions without writing or model calls."""
     if block_id not in development.BLOCK_ORDER:
@@ -85,6 +88,7 @@ def preflight_fresh_block_runtime(
         raise RuntimeError(f"development block {block_id} ledger already exists")
     if block_dir.exists() and (not block_dir.is_dir() or any(block_dir.iterdir())):
         raise RuntimeError(f"development block {block_id} path is not pristine")
+    precharge = precharge_validator()
     model = aug10._validate_model_catalog(model_catalog_reader())
     live = live_reader()
     values = [
@@ -101,6 +105,7 @@ def preflight_fresh_block_runtime(
         "status": "ready_without_paid_calls",
         "block_id": block_id,
         "date": development.BLOCK_EARLIEST_DATES[block_id],
+        "precharge_amendment": precharge,
         "model": model,
         "live_credits": live,
         "budget": {

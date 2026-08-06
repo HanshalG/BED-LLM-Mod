@@ -13,12 +13,14 @@ The read-only preflight made zero model calls and wrote zero files. It verified:
 - exactly four mechanics tasks, 56 images, and ten hidden-state-clean serving
   prompts (8,820,158 serialized message bytes);
 - strict belief-schema SHA-256 `23239262...9fd`;
-- interface-v6 development manifest SHA-256 `9c8c380c...73c6d0`;
+- precharge amendment SHA-256 `75acd7ae...bbbff4`;
+- interface-v6 development manifest SHA-256 `8659fb5f...8e24aa`;
 - a four-root, 64 conditioned-branch, 64 paired history-blind-branch mechanics
   tree with 132 first-stage and at most 172 total requests;
 - absent wrapper, serving, mechanics, and August 10 ledger artifacts;
 - live `openai/gpt-5.6-luna` image and structured-output support, 1.05M context,
-  and 128K maximum completion;
+  and 128K maximum completion; its `$0.004` attempt reservation covers the
+  3,200-token output maximum plus 20,800 prompt tokens at live prices;
 - live OpenRouter balance `$27.702109737`, above the `$5` start gate.
 
 Budget boundaries are a `$5.00` account-wide daily cap, `$0.25` serving cap,
@@ -33,7 +35,7 @@ ledger opening boundary. A failed gate makes no component call and leaves all
 target paths absent; a banked ledger or component remains on the existing
 no-repeat replay path.
 
-The implementation regression suite passes 84 Bongard tests. The paired
+The implementation regression suite passes 92 Bongard tests. The paired
 request audit checks exact same-seed, same-batch adjacent dynamic/blind pairs,
 initial-history-only blind prompts, and dynamic prompts that add exactly one
 simulated answer.

@@ -30,7 +30,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-aug10-execute-1"
+INTERFACE_VERSION = "bongard-openworld-luna-aug10-execute-2"
 EXPECTED_DATE = "2026-08-10"
 TIMEZONE = "Europe/London"
 OUTPUT_DIR = REPO_ROOT / (
@@ -63,9 +63,16 @@ DEVELOPMENT_PROTOCOL_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
-    "9c8c380cc6c5fe248cc06401bd4a7b4f160620f4eec449e246e05a404473c6d0"
+    "8659fb5fc6a02ddc59eb7147b6663d1fef3f96880e29f5e6de9bc0386f8e24aa"
 )
 MINIMUM_STARTING_BALANCE_USD = 5.0
+MINIMUM_RESERVED_PROMPT_TOKENS = 8_000
+PRECHARGE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_LUNA_PRECHARGE_AMENDMENT.md"
+)
+PRECHARGE_AMENDMENT_SHA256 = (
+    "75acd7ae3b51e287a08e81e202d0cfcd95d83dfd3ed308f678b7fe7854bbbff4"
+)
 
 
 class PreExecutionGateError(RuntimeError):
@@ -163,6 +170,19 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
         for value in (prompt_price, completion_price)
     ):
         raise RuntimeError("frozen Luna endpoint pricing is missing or invalid")
+    maximum_output_cost = completion_price * serving.MAX_TOKENS
+    residual = serving.MAX_REQUEST_COST_USD - maximum_output_cost
+    covered_prompt_tokens = (
+        math.inf if prompt_price == 0.0 else residual / prompt_price
+    )
+    if (
+        residual < 0.0
+        or covered_prompt_tokens + 1e-9 < MINIMUM_RESERVED_PROMPT_TOKENS
+    ):
+        raise RuntimeError(
+            "frozen Luna attempt-cost reservation no longer covers the "
+            "output and prompt ceilings"
+        )
     return {
         "id": model["id"],
         "context_length": int(model.get("context_length") or 0),
@@ -173,6 +193,22 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
         "completion_usd_per_million_tokens": round(
             completion_price * 1_000_000, 12
         ),
+        "maximum_request_cost_usd": serving.MAX_REQUEST_COST_USD,
+        "maximum_output_cost_usd": maximum_output_cost,
+        "covered_prompt_tokens_at_live_price": covered_prompt_tokens,
+    }
+
+
+def _validate_precharge_amendment(
+    path: Path = PRECHARGE_AMENDMENT,
+) -> dict[str, Any]:
+    digest = _sha256(path)
+    if digest != PRECHARGE_AMENDMENT_SHA256:
+        raise RuntimeError("Bongard precharge amendment hash changed")
+    return {
+        "path": str(path),
+        "sha256": digest,
+        "maximum_request_cost_usd": serving.MAX_REQUEST_COST_USD,
     }
 
 
@@ -206,6 +242,7 @@ def _validate_image_integrity_manifest(path: Path) -> dict[str, Any]:
 
 
 def _verify_frozen_inputs() -> dict[str, Any]:
+    precharge = _validate_precharge_amendment()
     source = image_audit.verify_bound_sources()
     image_integrity = _validate_image_integrity_manifest(
         IMAGE_INTEGRITY_MANIFEST
@@ -244,6 +281,7 @@ def _verify_frozen_inputs() -> dict[str, Any]:
     if protocol["manifest_sha256"] != DEVELOPMENT_PROTOCOL_MANIFEST_SHA256:
         raise RuntimeError("development protocol manifest hash changed")
     return {
+        "precharge_amendment": precharge,
         "source": source,
         "image_integrity": image_integrity,
         "archive_path": str(archive),

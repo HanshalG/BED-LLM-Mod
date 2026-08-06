@@ -27,6 +27,12 @@ manifest, endpoint, path, or balance failures leave every execution path
 untouched. Existing ledgers and banked components follow the no-repeat resume
 path.
 
+The preflight also binds `BONGARD_LUNA_PRECHARGE_AMENDMENT.md`. Every Luna
+HTTP attempt reserves `$0.004` before dispatch, and live pricing must keep the
+3,200-token output ceiling plus at least 8,000 prompt tokens inside that bound.
+Ambiguous retries retain separate reservations, so concurrency cannot consume
+the same uncommitted component allowance twice.
+
 The fixed outputs are:
 
 - exact10:

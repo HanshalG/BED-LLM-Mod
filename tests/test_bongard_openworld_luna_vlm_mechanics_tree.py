@@ -16,6 +16,14 @@ from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_vlm_bed as bed
 
 
+def test_mechanics_adapter_reserves_luna_attempt_cost(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    adapter = tree._adapter(output_dir=tmp_path, run_id="precharge-test")
+    assert adapter.max_request_cost_usd == serving.MAX_REQUEST_COST_USD
+
+
 def _image_bytes(index: int) -> bytes:
     output = BytesIO()
     Image.new("RGB", (36, 28), (50 + index, 100, 150)).save(
