@@ -41,8 +41,11 @@ def test_build_manifest_is_fail_closed_and_truth_free(tmp_path) -> None:
     assert result["status"] == "frozen"
     assert result["gates"]["all_pass"] is True
     assert result["development_precondition"]["required_claim_tier"] == (
-        "full_policy_and_matched_mechanism"
+        "full_llm_native_development_signal"
     )
+    assert result["development_precondition"][
+        "authorization_amendment_sha256"
+    ] == freeze.AUTHORIZATION_AMENDMENT_SHA256
     rendered = json.dumps(result["tasks"], sort_keys=True).casefold()
     for forbidden in ("concept", "caption", "imagefiles", "positive", "negative"):
         assert forbidden not in rendered

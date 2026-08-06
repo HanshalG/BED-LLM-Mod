@@ -10,8 +10,9 @@ non-myopic depth-two selection over answer-conditioned VLM-generated semantic
 hypotheses, including the matched history-blind regeneration control.
 
 The confirmation can execute only if the independent 32-task development result
-reaches the already frozen `full_policy_and_matched_mechanism` claim tier. A
-development null or partial tier forbids confirmation execution.
+reaches the already frozen `full_llm_native_development_signal` claim tier: the
+conjunction of the policy and matched-mechanism families. A development null or
+partial tier forbids confirmation execution.
 
 ## Data Boundary
 
@@ -77,9 +78,14 @@ at most `688` requests and `$2.752` exposure, fitting the `$5` day without using
 an optimistic average-cost assumption. This freeze makes zero model calls and
 costs `$0`.
 
-Frozen protocol manifest:
+The original interface-v1 manifest is preserved as superseded because it used a
+descriptive tier name that did not equal the claim classifier's literal output.
+The authorization correction is frozen in
+`BONGARD_OPENWORLD_LUNA_CONFIRMATION64_AUTHORIZATION_AMENDMENT.md`.
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST.json`
+Authoritative frozen protocol manifest:
+
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V2.json`
 
 SHA-256:
-`0c7b77e7f6c1eabffd1e287320b465871b566cc72b6f0b5c90cb2c718c055fc4`.
+`1613bd4f1978a0346ca4cc7fe7511ef99eab26fe8963465b2823fc1d6120f5e1`.

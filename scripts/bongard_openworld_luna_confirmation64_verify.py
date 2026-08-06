@@ -22,13 +22,13 @@ from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-1"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-2"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST.json"
+    "PROTOCOL_MANIFEST_V2.json"
 )
 MANIFEST_SHA256 = (
-    "0c7b77e7f6c1eabffd1e287320b465871b566cc72b6f0b5c90cb2c718c055fc4"
+    "1613bd4f1978a0346ca4cc7fe7511ef99eab26fe8963465b2823fc1d6120f5e1"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -38,6 +38,13 @@ DEVELOPMENT_MANIFEST_SHA256 = (
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
+)
+AUTHORIZATION_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_CONFIRMATION64_AUTHORIZATION_AMENDMENT.md"
+)
+AUTHORIZATION_AMENDMENT_SHA256 = (
+    "c6f01987774fe8434298a6171d8f07ab7df6f8132c1cd64f443a98e13aef2f0a"
 )
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
@@ -144,7 +151,15 @@ def verify_manifest(
             and precondition.get("required_claim_report_interface")
             == claim_report.INTERFACE_VERSION
             and precondition.get("required_claim_tier")
-            == "full_policy_and_matched_mechanism"
+            == "full_llm_native_development_signal"
+            and precondition.get("authorization_amendment_sha256")
+            == AUTHORIZATION_AMENDMENT_SHA256
+            and sha256_file(AUTHORIZATION_AMENDMENT)
+            == AUTHORIZATION_AMENDMENT_SHA256
+            and precondition.get(
+                "legacy_no_ad_hoc_execution_field_is_preserved"
+            )
+            is True
             and precondition.get(
                 "development_null_or_partial_tier_forbids_execution"
             )
@@ -195,6 +210,7 @@ def verify_manifest(
             == {
                 "source_manifest_hash_matches",
                 "development_manifest_hash_matches",
+                "authorization_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_source_confirmation_partition_is_bound",
                 "exact_64_unique_opaque_task_identities",

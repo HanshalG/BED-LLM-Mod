@@ -24,7 +24,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-1"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-2"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -70,6 +70,13 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
     "8659fb5fc6a02ddc59eb7147b6663d1fef3f96880e29f5e6de9bc0386f8e24aa"
+)
+AUTHORIZATION_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_CONFIRMATION64_AUTHORIZATION_AMENDMENT.md"
+)
+AUTHORIZATION_AMENDMENT_SHA256 = (
+    "c6f01987774fe8434298a6171d8f07ab7df6f8132c1cd64f443a98e13aef2f0a"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
@@ -168,6 +175,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "development_manifest_hash_matches": (
             sha256_file(DEVELOPMENT_MANIFEST) == DEVELOPMENT_MANIFEST_SHA256
         ),
+        "authorization_amendment_hash_matches": (
+            sha256_file(AUTHORIZATION_AMENDMENT)
+            == AUTHORIZATION_AMENDMENT_SHA256
+        ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
             and (development_manifest.get("gates") or {}).get("all_pass") is True
@@ -217,7 +228,11 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "development_precondition": {
             "manifest_sha256": DEVELOPMENT_MANIFEST_SHA256,
             "required_claim_report_interface": claim_report.INTERFACE_VERSION,
-            "required_claim_tier": "full_policy_and_matched_mechanism",
+            "required_claim_tier": "full_llm_native_development_signal",
+            "authorization_amendment_sha256": (
+                AUTHORIZATION_AMENDMENT_SHA256
+            ),
+            "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,
             "confirmation_design_is_frozen_before_development_responses": True,
         },
