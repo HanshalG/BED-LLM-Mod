@@ -1,0 +1,151 @@
+{
+  "decision": {
+    "execution": "two mandatory fresh 32-tree blocks on separate budget days",
+    "original_redundant_win_counts_removed": true,
+    "tree_count": 64,
+    "why_not_32": "pooled joint pass probability is below one half",
+    "why_not_96": "third Qwen day adds less than fifteen percentage points of pooled joint pass probability"
+  },
+  "decision_gates": {
+    "ninety_six_joint_gain_over_sixty_four_below_fifteen_points": true,
+    "sixty_four_joint_probability_at_least_sixty_five_percent": true,
+    "sixty_four_primary_probability_at_least_eighty_percent": true,
+    "thirty_two_primary_plus_nonworsening_below_half": true
+  },
+  "estimates": {
+    "development96": {
+      "32": {
+        "component_at_least_one_quarter_roots_change": 0.66606,
+        "component_bonus_mean_not_worse_than_original": 0.75816,
+        "component_depth_two_wins_exceed_losses": 0.97654,
+        "component_normal_approximation_interval_below_zero": 0.66516,
+        "component_original_changed_root_wins_exceed_losses": 0.61052,
+        "component_relative_reduction_at_least_three_percent": 0.82966,
+        "component_scaled_depth_two_win_floor": 0.51866,
+        "original_redundant_gate": 0.22314,
+        "primary_only": 0.65942,
+        "primary_plus_nonworsening": 0.36542
+      },
+      "64": {
+        "component_at_least_one_quarter_roots_change": 0.69282,
+        "component_bonus_mean_not_worse_than_original": 0.8543,
+        "component_depth_two_wins_exceed_losses": 0.998,
+        "component_normal_approximation_interval_below_zero": 0.93036,
+        "component_original_changed_root_wins_exceed_losses": 0.69846,
+        "component_relative_reduction_at_least_three_percent": 0.91526,
+        "component_scaled_depth_two_win_floor": 0.48028,
+        "original_redundant_gate": 0.26596,
+        "primary_only": 0.90282,
+        "primary_plus_nonworsening": 0.5581
+      },
+      "96": {
+        "component_at_least_one_quarter_roots_change": 0.71084,
+        "component_bonus_mean_not_worse_than_original": 0.90734,
+        "component_depth_two_wins_exceed_losses": 0.9998,
+        "component_normal_approximation_interval_below_zero": 0.98856,
+        "component_original_changed_root_wins_exceed_losses": 0.75384,
+        "component_relative_reduction_at_least_three_percent": 0.9532,
+        "component_scaled_depth_two_win_floor": 0.4538,
+        "original_redundant_gate": 0.2784,
+        "primary_only": 0.95314,
+        "primary_plus_nonworsening": 0.63078
+      }
+    },
+    "later_fresh32": {
+      "32": {
+        "component_at_least_one_quarter_roots_change": 0.95308,
+        "component_bonus_mean_not_worse_than_original": 0.9063,
+        "component_depth_two_wins_exceed_losses": 0.75596,
+        "component_normal_approximation_interval_below_zero": 0.60148,
+        "component_original_changed_root_wins_exceed_losses": 0.85148,
+        "component_relative_reduction_at_least_three_percent": 0.85818,
+        "component_scaled_depth_two_win_floor": 0.69982,
+        "original_redundant_gate": 0.46458,
+        "primary_only": 0.56712,
+        "primary_plus_nonworsening": 0.51508
+      },
+      "64": {
+        "component_at_least_one_quarter_roots_change": 0.98748,
+        "component_bonus_mean_not_worse_than_original": 0.96636,
+        "component_depth_two_wins_exceed_losses": 0.85264,
+        "component_normal_approximation_interval_below_zero": 0.90982,
+        "component_original_changed_root_wins_exceed_losses": 0.94134,
+        "component_relative_reduction_at_least_three_percent": 0.94062,
+        "component_scaled_depth_two_win_floor": 0.73444,
+        "original_redundant_gate": 0.6821,
+        "primary_only": 0.82396,
+        "primary_plus_nonworsening": 0.79636
+      },
+      "96": {
+        "component_at_least_one_quarter_roots_change": 0.9961,
+        "component_bonus_mean_not_worse_than_original": 0.98774,
+        "component_depth_two_wins_exceed_losses": 0.90572,
+        "component_normal_approximation_interval_below_zero": 0.9838,
+        "component_original_changed_root_wins_exceed_losses": 0.975,
+        "component_relative_reduction_at_least_three_percent": 0.97268,
+        "component_scaled_depth_two_win_floor": 0.7618,
+        "original_redundant_gate": 0.7445,
+        "primary_only": 0.89734,
+        "primary_plus_nonworsening": 0.88632
+      }
+    },
+    "pooled128": {
+      "32": {
+        "component_at_least_one_quarter_roots_change": 0.78086,
+        "component_bonus_mean_not_worse_than_original": 0.80348,
+        "component_depth_two_wins_exceed_losses": 0.94618,
+        "component_normal_approximation_interval_below_zero": 0.64774,
+        "component_original_changed_root_wins_exceed_losses": 0.68952,
+        "component_relative_reduction_at_least_three_percent": 0.8386,
+        "component_scaled_depth_two_win_floor": 0.5695,
+        "original_redundant_gate": 0.30408,
+        "primary_only": 0.6442,
+        "primary_plus_nonworsening": 0.43838
+      },
+      "64": {
+        "component_at_least_one_quarter_roots_change": 0.82968,
+        "component_bonus_mean_not_worse_than_original": 0.89442,
+        "component_depth_two_wins_exceed_losses": 0.98894,
+        "component_normal_approximation_interval_below_zero": 0.9242,
+        "component_original_changed_root_wins_exceed_losses": 0.79312,
+        "component_relative_reduction_at_least_three_percent": 0.9207,
+        "component_scaled_depth_two_win_floor": 0.54868,
+        "original_redundant_gate": 0.3964,
+        "primary_only": 0.90518,
+        "primary_plus_nonworsening": 0.69106
+      },
+      "96": {
+        "component_at_least_one_quarter_roots_change": 0.86604,
+        "component_bonus_mean_not_worse_than_original": 0.94048,
+        "component_depth_two_wins_exceed_losses": 0.99808,
+        "component_normal_approximation_interval_below_zero": 0.98628,
+        "component_original_changed_root_wins_exceed_losses": 0.852,
+        "component_relative_reduction_at_least_three_percent": 0.95792,
+        "component_scaled_depth_two_win_floor": 0.53786,
+        "original_redundant_gate": 0.43258,
+        "primary_only": 0.95758,
+        "primary_plus_nonworsening": 0.7891
+      }
+    }
+  },
+  "interface_version": "number-game-two-draw-diversity-bonus-power-audit-1",
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "coefficient_remains_frozen": -0.5,
+    "cost_usd": 0.0,
+    "interval_approximation": "mean plus 1.96 standard errors; final experiment retains the frozen 20000-sample paired tree bootstrap",
+    "model_calls": 0,
+    "no_future_seed_or_response_used": true,
+    "sample_sizes": [
+      32,
+      64,
+      96
+    ],
+    "sampling": "tree rows with replacement within each empirical pool",
+    "simulation_draws_per_pool_and_size": 50000,
+    "simulation_seed": 108700,
+    "source_result_sha256": "49ef14d369a7afe1e530b4cfcb377ee1b2cc280ef4af758fe8f59fd0ecb4caea"
+  },
+  "schema_version": 1,
+  "status": "retrospective_power_recommends_64"
+}
