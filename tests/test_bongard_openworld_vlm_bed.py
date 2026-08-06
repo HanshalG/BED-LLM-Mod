@@ -159,6 +159,28 @@ def test_dynamic_depth_two_uses_branch_specific_support() -> None:
         raise AssertionError("incomplete branch support should fail")
 
 
+def test_history_blind_depth_two_analytically_updates_fresh_root_support() -> None:
+    root = _belief()
+    candidates = tuple(f"image-{index:02d}" for index in range(2, 10))
+    blind = {
+        (candidate, label): root
+        for candidate in candidates
+        for label in (False, True)
+    }
+    scores = bed.history_blind_depth_two_scores(root, candidates, blind)
+    fixed = bed.fixed_support_depth_two_scores(root, candidates)
+    assert scores == fixed
+
+    invalid = dict(blind)
+    invalid[(candidates[0], True)] = _belief(((candidates[0], True),))
+    try:
+        bed.history_blind_depth_two_scores(root, candidates, invalid)
+    except ValueError as exc:
+        assert "root history" in str(exc)
+    else:
+        raise AssertionError("answer-conditioned support cannot enter blind scoring")
+
+
 def test_multimodal_prompt_contains_only_opaque_interface() -> None:
     task = _task()
     messages = bed.build_belief_messages(task, task.initial_history)

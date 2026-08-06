@@ -26,9 +26,12 @@ The driver uses the frozen protocol manifest at
 and the fixed block directories and daily ledgers. Command-line overrides are
 not exposed by the production CLI.
 
-The executable development interface is v3 and the corrected manifest SHA is
-`d5e8412f6e2f485a357ba255692f1c6d60a99b4900e588b05ad39b9f276b5b9c`.
-Interface-v2 artifacts are invalid.
+The executable development interface is v4. Each block has exactly 264
+first-stage requests: eight roots, 128 answer-conditioned branches, and 128
+paired history-blind branches. It then generates 32--80 distinct final
+histories, for 296--344 total requests. Interface-v2/v3 artifacts are invalid.
+The current manifest SHA is recorded by the August 10 preflight result and
+bound directly in the execution wrapper.
 
 ## Execution Guarantees
 
@@ -39,6 +42,10 @@ Interface-v2 artifacts are invalid.
   assert that endpoint, confirmation, and sealed-test data remain unopened.
 - Block D first replays all four endpoint-blind blocks. Only then may it run
   the combined endpoint analysis.
+- Every replay verifies paired request seeds, prompt hashes, and that blind
+  prompts contain only the initial four labels.
+- Confirmation authorization co-requires the frozen dynamic-versus-history-blind
+  history-change, Brier, bootstrap, log-loss, and ranking-fidelity gates.
 - The combined result is recomputed independently in a temporary directory and
   must match canonically before any confirmation preregistration is authorized.
 - Re-running a completed daily command revalidates banked artifacts and never

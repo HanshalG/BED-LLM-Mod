@@ -70,7 +70,7 @@ def _request(messages):
     )
 
 
-def _response(messages) -> str:
+def _response(messages, *, seed: int | None = None) -> str:
     request = _request(messages)
     image_ids = request["image_order"]
     observed = {
@@ -92,12 +92,14 @@ def _response(messages) -> str:
                     else 10 + hypothesis_index
                 )
             else:
-                amplitude = 12 + (image_index % 4) * 3
+                seed_scale = 0 if seed is None else seed % 7
+                amplitude = 8 + seed_scale * 3 + (image_index % 4) * 2
                 if first_extra == "image-05":
                     amplitude = 35 if image_id != first_extra else 8
                 elif first_extra is not None:
                     amplitude = 8
-                value = min(95, max(5, round(50 + amplitude * centered)))
+                base = 65 if image_index % 2 == 0 else 35
+                value = min(95, max(5, round(base + amplitude * centered)))
             probabilities.append(value)
         rows.append(
             {
@@ -121,6 +123,17 @@ class FixtureAdapter:
         del kwargs
         self.requests += len(batch_messages)
         return [_response(messages) for messages in batch_messages]
+
+    def chat_complete_seeded_messages_batched_structured(
+        self, batch_messages, seeds, **kwargs
+    ):
+        del kwargs
+        assert len(batch_messages) == len(seeds)
+        self.requests += len(batch_messages)
+        return [
+            _response(messages, seed=seed)
+            for messages, seed in zip(batch_messages, seeds, strict=True)
+        ]
 
     def usage_snapshot(self):
         return {
@@ -197,6 +210,9 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     assert result["status"] == "block_mechanics_pass"
     assert result["gates"]["endpoint_labels_remain_sealed"]
     assert result["protocol"]["endpoint_labels_accessed"] is False
+    assert result["protocol"]["first_stage_requests"] == 264
+    assert result["protocol"]["conditioned_branch_requests"] == 128
+    assert result["protocol"]["history_blind_branch_requests"] == 128
     assert "pooled_policy_metrics" not in result
     assert result["protocol"]["distinct_final_history_requests"] >= 8 * 4
     assert all(len(tree["all_first_action_paths"]) == 8 for tree in result["trees"])
@@ -250,6 +266,16 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
     assert result["protocol"]["confirmation_accessed"] is False
     assert set(result["pooled_policy_metrics"]) == set(mechanics.POLICIES)
     assert len(result["trees"]) == 32
+    assert set(result["dynamic_vs_history_blind"]) == {
+        "mean_brier",
+        "mean_log_loss",
+    }
+    assert "dynamic_vs_history_blind_relative_brier_improvement" in result
+    assert set(result["ranking_fidelity"]) == set(mechanics.SCORE_POLICIES)
+    assert all(
+        "dynamic_history_blind_changed_final_histories" in row
+        for row in result["blockwise_dynamic_vs_myopic"].values()
+    )
     assert all(
         math.isfinite(metrics["mean_brier"])
         for metrics in result["pooled_policy_metrics"].values()

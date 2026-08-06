@@ -374,6 +374,46 @@ def dynamic_support_depth_two_scores(
     return scores
 
 
+def history_blind_depth_two_scores(
+    root: SemanticBelief,
+    candidate_ids: Sequence[str],
+    blind_branches: Mapping[tuple[str, bool], SemanticBelief],
+) -> dict[str, float]:
+    """Score fresh branch supports that did not observe the simulated answer."""
+    candidates = tuple(candidate_ids)
+    expected_keys = {
+        (candidate, label) for candidate in candidates for label in (False, True)
+    }
+    if set(blind_branches) != expected_keys:
+        raise ValueError(
+            "history-blind branch map is incomplete or has extra branches"
+        )
+    scores = {}
+    for first in candidates:
+        first_eig = expected_information_gain(root, first)
+        probability = predictive_probability(root, first)
+        future = 0.0
+        for label, outcome_probability in (
+            (True, probability),
+            (False, 1.0 - probability),
+        ):
+            blind = blind_branches[(first, label)]
+            if blind.history != root.history:
+                raise ValueError(
+                    "history-blind branches must contain only the root history"
+                )
+            weights = updated_weights_for_label(blind, first, label)
+            remaining = [
+                candidate for candidate in candidates if candidate != first
+            ]
+            future += outcome_probability * max(
+                expected_information_gain(blind, second, weights=weights)
+                for second in remaining
+            )
+        scores[first] = first_eig + future
+    return scores
+
+
 def select_best(scores: Mapping[str, float]) -> str:
     if not scores or not all(math.isfinite(value) for value in scores.values()):
         raise ValueError("scores must be nonempty and finite")
@@ -556,6 +596,20 @@ def request_text(messages: Sequence[Mapping[str, Any]]) -> str:
     )
 
 
+def request_payload(
+    messages: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    try:
+        text = next(
+            item["text"]
+            for item in messages[0]["content"]
+            if item.get("type") == "text"
+        )
+    except (IndexError, KeyError, StopIteration, TypeError) as exc:
+        raise ValueError("belief request lacks its JSON instruction") from exc
+    return strict_json_object(str(text))
+
+
 def prompt_hidden_state_errors(
     task: VisualTask,
     history: Sequence[tuple[str, bool]],
@@ -570,13 +624,7 @@ def prompt_hidden_state_errors(
     if "pos__" in lowered or "neg__" in lowered or "images/" in lowered:
         errors.append("label_bearing_source_path")
     try:
-        request = json.loads(
-            next(
-                item["text"]
-                for item in messages[0]["content"]
-                if item.get("type") == "text"
-            )
-        )
+        request = request_payload(messages)
     except Exception:
         errors.append("invalid_request_json")
         return sorted(set(errors))

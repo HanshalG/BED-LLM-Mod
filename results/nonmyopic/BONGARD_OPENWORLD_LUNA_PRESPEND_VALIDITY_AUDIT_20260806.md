@@ -53,3 +53,17 @@ advantage clears `1e-6` nats, excluding numerical ties.
 
 No model request, scientific endpoint, confirmation task, or sealed-test task
 was opened by this audit.
+
+## Subsequent Matched-Control Hardening
+
+A later pre-response audit identified a distinct missing control: the shuffled
+arm breaks action coupling but does not isolate whether showing the simulated
+answer improves the VLM's regenerated support. The frozen history-blind
+amendment adds one same-seed blind draw for every conditioned branch, updates
+its initial-history weights analytically with the simulated answer, and deploys
+the real conditioned updater after selection.
+
+The executable mechanics and development interfaces are now v4. Mechanics has
+132 first-stage requests and at most 172 total; each development block has 264
+first-stage requests and at most 344 total. The expanded zero-call suite passes
+68 tests. No Bongard response or endpoint has been opened.

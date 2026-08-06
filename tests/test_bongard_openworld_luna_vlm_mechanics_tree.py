@@ -59,7 +59,7 @@ def _request(messages):
     )
 
 
-def _response(messages) -> str:
+def _response(messages, *, seed: int | None = None) -> str:
     request = _request(messages)
     image_ids = request["image_order"]
     observed = {
@@ -77,12 +77,14 @@ def _response(messages) -> str:
             if image_id in observed:
                 value = 90 - hypothesis_index if observed[image_id] else 10 + hypothesis_index
             else:
-                amplitude = 12 + (image_index % 4) * 3
+                seed_scale = 0 if seed is None else seed % 7
+                amplitude = 8 + seed_scale * 3 + (image_index % 4) * 2
                 if first_extra == "image-05":
                     amplitude = 35 if image_id != first_extra else 8
                 elif first_extra is not None:
                     amplitude = 8
-                value = round(50 + amplitude * centered)
+                base = 65 if image_index % 2 == 0 else 35
+                value = round(base + amplitude * centered)
                 value = min(95, max(5, value))
             probabilities.append(value)
         branch_tag = first_extra or "root"
@@ -111,6 +113,17 @@ class FixtureAdapter:
         del kwargs
         self.requests += len(batch_messages)
         return [_response(messages) for messages in batch_messages]
+
+    def chat_complete_seeded_messages_batched_structured(
+        self, batch_messages, seeds, **kwargs
+    ):
+        del kwargs
+        assert len(batch_messages) == len(seeds)
+        self.requests += len(batch_messages)
+        return [
+            _response(messages, seed=seed)
+            for messages, seed in zip(batch_messages, seeds, strict=True)
+        ]
 
     def usage_snapshot(self):
         return {
@@ -174,9 +187,11 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     )
     assert result["status"] == "mechanics_pass"
     assert result["gates"]["all_pass"]
-    assert result["protocol"]["first_stage_requests"] == 68
+    assert result["protocol"]["first_stage_requests"] == 132
+    assert result["protocol"]["conditioned_branch_requests"] == 64
+    assert result["protocol"]["history_blind_branch_requests"] == 64
     assert result["usage"]["adapter_requests"] == (
-        68 + result["protocol"]["distinct_final_history_requests"]
+        132 + result["protocol"]["distinct_final_history_requests"]
     )
     assert result["protocol"]["development_accessed"] is False
     assert set(result["pooled_policy_metrics"]) == set(tree.POLICIES)
@@ -188,12 +203,7 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         len(task_result["all_first_action_paths"]) == 8
         for task_result in result["trees"]
     )
-    assert set(result["mean_ranking_fidelity"]) == {
-        "myopic_width",
-        "fixed_depth2",
-        "dynamic_depth2",
-        "shuffled_dynamic_depth2",
-    }
+    assert set(result["mean_ranking_fidelity"]) == set(tree.SCORE_POLICIES)
     changed = [
         task_result
         for task_result in result["trees"]
@@ -210,6 +220,10 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         (tmp_path / "tree/private/RAW_RESPONSES.json").read_text()
     )
     assert raw["endpoint_labels_accessed_after_all_query_selection"] is True
+    assert len(raw["first_stage_request_seeds"]) == 132
+    assert len(raw["final_request_seeds"]) == result["protocol"][
+        "distinct_final_history_requests"
+    ]
     assert raw["development_accessed"] is False
     serving_verification = aug10.validate_serving_artifact(
         serving_result, tasks=tasks
@@ -265,6 +279,37 @@ def test_shuffled_control_never_reuses_a_mismatched_branch_support() -> None:
     ).parameters
 
 
+def test_history_blind_pairs_share_seed_and_hide_the_simulated_answer() -> None:
+    tasks = [_task(index) for index in range(4)]
+    cases = tree.first_stage_cases(tasks)
+    messages = [
+        bed.build_belief_messages(case.task, case.history) for case in cases
+    ]
+    seeds = tree.request_seeds_for_cases(cases, base_seed=123_000)
+    diagnostics = tree.paired_request_diagnostics(
+        cases=cases, messages=messages, seeds=seeds
+    )
+    assert diagnostics["pair_count"] == 64
+    assert diagnostics["unique_pair_seed_count"] == 64
+    assert diagnostics["gates"]["all_pass"]
+    assert all(
+        row["same_requested_seed"]
+        and row["blind_history_is_initial"]
+        and row["blind_prompt_matches_root"]
+        and row["prompts_differ_only_by_simulated_answer"]
+        for row in diagnostics["pairs"]
+    )
+
+    tampered = list(seeds)
+    blind_index = next(
+        index for index, case in enumerate(cases) if case.kind == "history_blind"
+    )
+    tampered[blind_index] += 99_000
+    assert not tree.paired_request_diagnostics(
+        cases=cases, messages=messages, seeds=tampered
+    )["gates"]["all_pass"]
+
+
 def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> None:
     task = _task(0)
     root = bed.parse_belief_response(
@@ -273,6 +318,7 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         history=task.initial_history,
     )
     branches = {}
+    history_blind = {}
     for candidate in task.candidate_ids:
         for label in (False, True):
             history = tuple(sorted((*task.initial_history, (candidate, label))))
@@ -281,6 +327,7 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
                 image_ids=task.image_ids,
                 history=history,
             )
+            history_blind[(candidate, label)] = root
     flipped = replace(
         task,
         actual_labels={
@@ -295,11 +342,13 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         task=task,
         root=root,
         branches=branches,
+        history_blind_branches=history_blind,
     )
     flipped_plan = tree.plan_task_policies(
         task=flipped,
         root=root,
         branches=branches,
+        history_blind_branches=history_blind,
     )
 
     assert original_plan["root_scores"] == flipped_plan["root_scores"]
@@ -313,6 +362,15 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         policy: row["first_image_id"]
         for policy, row in flipped_plan["policies"].items()
     }
+    blind_row = original_plan["policies"]["history_blind_depth2"]
+    blind_first = blind_row["first_image_id"]
+    realized_label = bool(task.actual_labels[blind_first])
+    remaining = tuple(
+        candidate for candidate in task.candidate_ids if candidate != blind_first
+    )
+    assert blind_row["second_scores"] == bed.candidate_eigs(
+        branches[(blind_first, realized_label)], remaining
+    )
 
 
 def test_final_cases_deduplicate_shared_policy_histories() -> None:

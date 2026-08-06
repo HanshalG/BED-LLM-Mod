@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime
 import hashlib
@@ -11,6 +12,7 @@ import json
 import math
 from pathlib import Path
 import sys
+import threading
 from typing import Any, Callable, Mapping, Protocol, Sequence
 from zoneinfo import ZoneInfo
 
@@ -68,6 +70,16 @@ class SmokeCase:
 class LunaVisionAdapter(SeededStructuredAdapter):
     """Remove unsupported sampling knobs while preserving strict JSON."""
 
+    def __init__(
+        self,
+        spec: ModelSpec,
+        config: Config,
+        *,
+        request_seed: int,
+    ) -> None:
+        super().__init__(spec, config, request_seed=request_seed)
+        self._per_request_seed = threading.local()
+
     def _payload(
         self,
         messages: list[dict[str, Any]],
@@ -88,10 +100,49 @@ class LunaVisionAdapter(SeededStructuredAdapter):
         )
         for key in ("temperature", "top_p", "top_k", "n"):
             payload.pop(key, None)
+        local_seed = getattr(self, "_per_request_seed", None)
+        request_seed = (
+            getattr(local_seed, "value", None)
+            if local_seed is not None
+            else None
+        )
+        if request_seed is not None:
+            payload["seed"] = int(request_seed)
         payload["reasoning"] = {"enabled": False, "exclude": True}
         if response_format is not None:
             payload["provider"] = {"require_parameters": False}
         return payload
+
+    def chat_complete_seeded_messages_batched_structured(
+        self,
+        batch_messages: Sequence[list[dict[str, Any]]],
+        seeds: Sequence[int],
+        *,
+        temperature: float,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]:
+        if len(batch_messages) != len(seeds):
+            raise ValueError("message and seed counts differ")
+
+        def request(
+            item: tuple[list[dict[str, Any]], int],
+        ) -> str:
+            messages, seed = item
+            self._per_request_seed.value = int(seed)
+            try:
+                return self._complete_request(
+                    messages,
+                    temperature,
+                    1,
+                    max_new_tokens,
+                    response_format=response_format,
+                )[0]
+            finally:
+                del self._per_request_seed.value
+
+        with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
+            return list(executor.map(request, zip(batch_messages, seeds)))
 
 
 def sha256_file(path: Path) -> str:

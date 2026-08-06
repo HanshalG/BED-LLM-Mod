@@ -155,6 +155,22 @@ def test_luna_payload_removes_unsupported_sampling_parameters(monkeypatch) -> No
     assert payload["provider"]["require_parameters"] is False
 
 
+def test_luna_payload_overrides_static_seed_with_bound_pair_seed(monkeypatch) -> None:
+    def base_payload(*args, **kwargs):
+        del args, kwargs
+        return {"seed": 7}
+
+    monkeypatch.setattr(smoke.SeededStructuredAdapter, "_payload", base_payload)
+    adapter = object.__new__(smoke.LunaVisionAdapter)
+    import threading
+
+    adapter._per_request_seed = threading.local()
+    adapter._per_request_seed.value = 12345
+    payload = adapter._payload([], 0.0, 1)
+    assert payload["seed"] == 12345
+    assert payload["reasoning"] == {"enabled": False, "exclude": True}
+
+
 def test_ledger_refuses_before_august_tenth() -> None:
     ledger = {
         "date": "2026-08-09",

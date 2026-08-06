@@ -32,7 +32,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-3"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-4"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -50,7 +50,7 @@ BLOCK_MODEL_SEEDS = {
 }
 BLOCK_ORDER = tuple(BLOCK_SIZES)
 TASKS = sum(BLOCK_SIZES.values())
-CASES_PER_TASK = 17
+CASES_PER_TASK = 33
 MAX_FINALS_PER_TASK = 10
 CONCURRENCY = 24
 MAX_TOKENS = serving.MAX_TOKENS
@@ -70,6 +70,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
 )
 
@@ -81,6 +82,16 @@ class StructuredModel(Protocol):
         *,
         temperature: float,
         block_size: int,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]: ...
+
+    def chat_complete_seeded_messages_batched_structured(
+        self,
+        batch_messages: Sequence[list[dict[str, Any]]],
+        seeds: Sequence[int],
+        *,
+        temperature: float,
         response_format: dict[str, Any],
         max_new_tokens: int | None = None,
     ) -> list[str]: ...
@@ -303,7 +314,23 @@ def first_stage_cases(tasks: Sequence[bed.VisualTask]) -> list[mechanics.BeliefC
         for candidate_id in task.candidate_ids
         for label in (False, True)
     ]
-    cases = roots + branches
+    history_blind = [
+        mechanics.BeliefCase(
+            case_id=(
+                f"{task.task_id}-history-blind-{candidate_id}-"
+                f"{'positive' if label else 'negative'}"
+            ),
+            task=task,
+            history=task.initial_history,
+            kind="history_blind",
+            candidate_id=candidate_id,
+            simulated_label=label,
+        )
+        for task in ordered
+        for candidate_id in task.candidate_ids
+        for label in (False, True)
+    ]
+    cases = roots + branches + history_blind
     if len(cases) != len(tasks) * CASES_PER_TASK:
         raise AssertionError("development first-stage request count changed")
     return cases
@@ -340,6 +367,7 @@ def _parse_stage(
 ) -> tuple[
     dict[str, bed.SemanticBelief],
     dict[str, dict[tuple[str, bool], bed.SemanticBelief]],
+    dict[str, dict[tuple[str, bool], bed.SemanticBelief]],
 ]:
     if len(responses) != len(cases):
         raise ValueError("first-stage response count changed")
@@ -359,12 +387,21 @@ def _parse_stage(
     branches: dict[str, dict[tuple[str, bool], bed.SemanticBelief]] = {
         case.task.task_id: {} for case in cases if case.kind == "root"
     }
+    history_blind: dict[
+        str, dict[tuple[str, bool], bed.SemanticBelief]
+    ] = {
+        case.task.task_id: {} for case in cases if case.kind == "root"
+    }
     for case, belief in zip(cases, beliefs, strict=True):
         if case.kind == "branch":
             branches[case.task.task_id][
                 (str(case.candidate_id), bool(case.simulated_label))
             ] = belief
-    return roots, branches
+        elif case.kind == "history_blind":
+            history_blind[case.task.task_id][
+                (str(case.candidate_id), bool(case.simulated_label))
+            ] = belief
+    return roots, branches, history_blind
 
 
 def _all_first_action_paths(
@@ -446,14 +483,30 @@ def _build_artifacts(
     tasks: Sequence[bed.VisualTask],
     stage_responses: Sequence[str],
     final_responses: Sequence[str],
+    base_seed: int,
 ) -> dict[str, Any]:
     stage_cases = first_stage_cases(tasks)
-    roots, branches = _parse_stage(stage_cases, stage_responses)
+    stage_messages = [
+        bed.build_belief_messages(case.task, case.history)
+        for case in stage_cases
+    ]
+    stage_seeds = mechanics.request_seeds_for_cases(
+        stage_cases, base_seed=base_seed
+    )
+    paired_requests = mechanics.paired_request_diagnostics(
+        cases=stage_cases,
+        messages=stage_messages,
+        seeds=stage_seeds,
+    )
+    roots, branches, history_blind = _parse_stage(
+        stage_cases, stage_responses
+    )
     plans = {
         task.task_id: mechanics.plan_task_policies(
             task=task,
             root=roots[task.task_id],
             branches=branches[task.task_id],
+            history_blind_branches=history_blind[task.task_id],
         )
         for task in tasks
     }
@@ -534,6 +587,9 @@ def _build_artifacts(
         )
     return {
         "stage_cases": stage_cases,
+        "stage_messages": stage_messages,
+        "stage_seeds": stage_seeds,
+        "paired_request_diagnostics": paired_requests,
         "roots": roots,
         "plans": plans,
         "action_paths": action_paths,
@@ -594,6 +650,11 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "exact_paired_seed_and_prompt_difference_accounting": (
+            artifacts["paired_request_diagnostics"]["pair_count"]
+            == task_count * ((CASES_PER_TASK - 1) // 2)
+            and artifacts["paired_request_diagnostics"]["gates"]["all_pass"]
+        ),
         "shuffled_control_exactly_permutes_complete_continuation_values": (
             shuffled_control_exact
         ),
@@ -642,19 +703,23 @@ def _generate_checkpointed(
     model: StructuredModel,
     cases: Sequence[mechanics.BeliefCase],
     messages: Sequence[list[dict[str, Any]]],
+    seeds: Sequence[int],
     progress_path: Path,
 ) -> list[str]:
     if progress_path.exists():
         raise FileExistsError(f"response progress already exists: {progress_path}")
+    if not (len(cases) == len(messages) == len(seeds)):
+        raise ValueError("checkpoint request manifest lengths differ")
     responses: list[str] = []
     request_hashes = [message_sha256(message) for message in messages]
     for start in range(0, len(cases), CONCURRENCY):
         case_chunk = cases[start : start + CONCURRENCY]
         message_chunk = list(messages[start : start + CONCURRENCY])
-        response_chunk = model.chat_complete_messages_batched_structured(
+        seed_chunk = list(seeds[start : start + CONCURRENCY])
+        response_chunk = model.chat_complete_seeded_messages_batched_structured(
             message_chunk,
+            seed_chunk,
             temperature=TEMPERATURE,
-            block_size=len(message_chunk),
             response_format=bed.belief_response_format(),
             max_new_tokens=MAX_TOKENS,
         )
@@ -674,6 +739,7 @@ def _generate_checkpointed(
                     case.case_id for case in cases[: len(responses)]
                 ],
                 "accepted_request_sha256": request_hashes[: len(responses)],
+                "accepted_request_seeds": list(seeds[: len(responses)]),
                 "accepted_responses": responses,
                 "accepted_count": len(responses),
                 "expected_count": len(cases),
@@ -718,6 +784,16 @@ def run_block(
     stage_messages = [
         bed.build_belief_messages(case.task, case.history) for case in stage_cases
     ]
+    stage_seeds = mechanics.request_seeds_for_cases(
+        stage_cases, base_seed=BLOCK_MODEL_SEEDS[block_id]
+    )
+    paired_requests = mechanics.paired_request_diagnostics(
+        cases=stage_cases,
+        messages=stage_messages,
+        seeds=stage_seeds,
+    )
+    if not paired_requests["gates"]["all_pass"]:
+        raise ValueError("development paired history-blind request audit failed")
     stage_prompt_errors = [
         bed.prompt_hidden_state_errors(case.task, case.history, messages)
         for case, messages in zip(stage_cases, stage_messages, strict=True)
@@ -728,14 +804,18 @@ def run_block(
         model=model,
         cases=stage_cases,
         messages=stage_messages,
+        seeds=stage_seeds,
         progress_path=output_dir / "private/FIRST_STAGE_PROGRESS.json",
     )
-    roots, branches = _parse_stage(stage_cases, stage_responses)
+    roots, branches, history_blind = _parse_stage(
+        stage_cases, stage_responses
+    )
     plans = {
         task.task_id: mechanics.plan_task_policies(
             task=task,
             root=roots[task.task_id],
             branches=branches[task.task_id],
+            history_blind_branches=history_blind[task.task_id],
         )
         for task in tasks
     }
@@ -752,6 +832,11 @@ def run_block(
         bed.build_belief_messages(case.task, case.history)
         for case in selected_final_cases
     ]
+    final_seeds = mechanics.request_seeds_for_cases(
+        selected_final_cases,
+        base_seed=BLOCK_MODEL_SEEDS[block_id],
+        final_stage=True,
+    )
     final_prompt_errors = [
         bed.prompt_hidden_state_errors(case.task, case.history, messages)
         for case, messages in zip(selected_final_cases, final_messages, strict=True)
@@ -762,12 +847,14 @@ def run_block(
         model=model,
         cases=selected_final_cases,
         messages=final_messages,
+        seeds=final_seeds,
         progress_path=output_dir / "private/FINAL_STAGE_PROGRESS.json",
     )
     artifacts = _build_artifacts(
         tasks=tasks,
         stage_responses=stage_responses,
         final_responses=final_responses,
+        base_seed=BLOCK_MODEL_SEEDS[block_id],
     )
     usage = summarize_usage(model.usage_snapshot())
     gates = _block_gates(
@@ -787,6 +874,7 @@ def run_block(
             "first_stage_request_sha256": [
                 message_sha256(messages) for messages in stage_messages
             ],
+            "first_stage_request_seeds": stage_seeds,
             "first_stage_responses": list(stage_responses),
             "final_case_ids": [
                 case.case_id for case in artifacts["final_cases"]
@@ -795,6 +883,7 @@ def run_block(
             "final_request_sha256": [
                 message_sha256(messages) for messages in final_messages
             ],
+            "final_request_seeds": final_seeds,
             "candidate_labels_accessed_after_root_selection": True,
             "endpoint_labels_accessed": False,
             "combined_science_accessed": False,
@@ -826,6 +915,10 @@ def run_block(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md"
             ),
+            "history_blind_control_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md"
+            ),
             "block_id": block_id,
             "block_size": BLOCK_SIZES[block_id],
             "block_offset": BLOCK_OFFSETS[block_id],
@@ -833,6 +926,9 @@ def run_block(
             "model_seed": BLOCK_MODEL_SEEDS[block_id],
             "reasoning": False,
             "first_stage_requests": _expected_first_stage_requests(block_id),
+            "root_requests": BLOCK_SIZES[block_id],
+            "conditioned_branch_requests": BLOCK_SIZES[block_id] * 16,
+            "history_blind_branch_requests": BLOCK_SIZES[block_id] * 16,
             "distinct_final_history_requests": len(artifacts["final_cases"]),
             "expected_total_requests": (
                 _expected_first_stage_requests(block_id)
@@ -850,6 +946,7 @@ def run_block(
         "branch_material_count": sum(
             row["material"] for row in artifacts["branch_diagnostics"]
         ),
+        "paired_request_diagnostics": paired_requests,
         "gates": gates,
         "trees": artifacts["trees"],
         "raw_responses_sha256": sha256_file(raw_path),
@@ -902,10 +999,16 @@ def replay_block(
         message_sha256(messages) for messages in stage_messages
     ]:
         raise ValueError("development first-stage request payload changed")
+    stage_seeds = mechanics.request_seeds_for_cases(
+        stage_cases, base_seed=BLOCK_MODEL_SEEDS[block_id]
+    )
+    if raw.get("first_stage_request_seeds") != stage_seeds:
+        raise ValueError("development first-stage request seeds changed")
     artifacts = _build_artifacts(
         tasks=tasks,
         stage_responses=raw.get("first_stage_responses") or [],
         final_responses=raw.get("final_responses") or [],
+        base_seed=BLOCK_MODEL_SEEDS[block_id],
     )
     if raw.get("final_case_ids") != [
         case.case_id for case in artifacts["final_cases"]
@@ -919,6 +1022,13 @@ def replay_block(
         message_sha256(messages) for messages in final_messages
     ]:
         raise ValueError("development final request payload changed")
+    final_seeds = mechanics.request_seeds_for_cases(
+        artifacts["final_cases"],
+        base_seed=BLOCK_MODEL_SEEDS[block_id],
+        final_stage=True,
+    )
+    if raw.get("final_request_seeds") != final_seeds:
+        raise ValueError("development final request seeds changed")
     if bed.canonical_json(artifacts["trees"]) != bed.canonical_json(result["trees"]):
         raise ValueError("development block tree does not replay")
     return {
@@ -1078,12 +1188,7 @@ def analyze_combined(
                     [tree["root_scores"][score_name][first] for first in first_ids],
                     endpoint_utility,
                 )
-                for score_name in (
-                    "myopic_width",
-                    "fixed_depth2",
-                    "dynamic_depth2",
-                    "shuffled_dynamic_depth2",
-                )
+                for score_name in mechanics.SCORE_POLICIES
             }
             root = replay["artifacts"]["roots"][task.task_id]
             candidate_brier = statistics.fmean(
@@ -1116,12 +1221,7 @@ def analyze_combined(
                 tree["ranking_fidelity"][score_name] for tree in trees
             ),
         }
-        for score_name in (
-            "myopic_width",
-            "fixed_depth2",
-            "dynamic_depth2",
-            "shuffled_dynamic_depth2",
-        )
+        for score_name in mechanics.SCORE_POLICIES
     }
     mean_root_candidate_brier = statistics.fmean(
         tree["root_candidate_brier"] for tree in trees
@@ -1141,6 +1241,17 @@ def analyze_combined(
                 values,
                 seed=BOOTSTRAP_SEED + policy_index * 10 + metric_index,
             )
+    dynamic_vs_history_blind = {}
+    for metric_index, metric in enumerate(("mean_brier", "mean_log_loss")):
+        values = [
+            tree["policies"]["dynamic_depth2"]["endpoint"][metric]
+            - tree["policies"]["history_blind_depth2"]["endpoint"][metric]
+            for tree in trees
+        ]
+        dynamic_vs_history_blind[metric] = paired_summary(
+            values,
+            seed=BOOTSTRAP_SEED + 1_000 + metric_index,
+        )
     changed = sum(
         tree["policies"]["dynamic_depth2"]["final_history_key"]
         != tree["policies"]["myopic_width"]["final_history_key"]
@@ -1159,6 +1270,20 @@ def analyze_combined(
         )
         and tree["root_scores"]["dynamic_depth2"][dynamic_first]
         - tree["root_scores"]["dynamic_depth2"][myopic_first]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        for tree in trees
+    )
+    dynamic_blind_changed = sum(
+        tree["policies"]["dynamic_depth2"]["final_history_key"]
+        != tree["policies"]["history_blind_depth2"]["final_history_key"]
+        for tree in trees
+    )
+    robust_dynamic_blind_changed = sum(
+        tree["policies"]["dynamic_depth2"]["first_image_id"]
+        != tree["policies"]["history_blind_depth2"]["first_image_id"]
+        and tree["policies"]["dynamic_depth2"]["first_score_margin"]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        and tree["policies"]["history_blind_depth2"]["first_score_margin"]
         >= mechanics.MIN_ACTION_MARGIN_NATS
         for tree in trees
     )
@@ -1192,6 +1317,21 @@ def analyze_combined(
                 != tree["policies"]["myopic_width"]["final_history_key"]
                 for tree in block_trees
             ),
+            "dynamic_history_blind_changed_final_histories": sum(
+                tree["policies"]["dynamic_depth2"]["final_history_key"]
+                != tree["policies"]["history_blind_depth2"]["final_history_key"]
+                for tree in block_trees
+            ),
+            "dynamic_minus_history_blind_mean_brier": statistics.fmean(
+                tree["policies"]["dynamic_depth2"]["endpoint"]["mean_brier"]
+                - tree["policies"]["history_blind_depth2"]["endpoint"]["mean_brier"]
+                for tree in block_trees
+            ),
+            "dynamic_minus_history_blind_mean_log_loss": statistics.fmean(
+                tree["policies"]["dynamic_depth2"]["endpoint"]["mean_log_loss"]
+                - tree["policies"]["history_blind_depth2"]["endpoint"]["mean_log_loss"]
+                for tree in block_trees
+            ),
             "dynamic_mean_spearman": statistics.fmean(
                 tree["ranking_fidelity"]["dynamic_depth2"]
                 for tree in block_trees
@@ -1203,10 +1343,20 @@ def analyze_combined(
         if myopic_brier > 0
         else -math.inf
     )
+    history_blind_brier = pooled["history_blind_depth2"]["mean_brier"]
+    dynamic_vs_history_blind_relative_brier_gain = (
+        (
+            history_blind_brier
+            - pooled["dynamic_depth2"]["mean_brier"]
+        )
+        / history_blind_brier
+        if history_blind_brier > 0
+        else -math.inf
+    )
     dynamic_brier = comparisons["dynamic_depth2"]["mean_brier"]
     dynamic_log = comparisons["dynamic_depth2"]["mean_log_loss"]
     science_gates = {
-        "all_three_endpoint_blind_blocks_independently_replay": all(
+        "all_four_endpoint_blind_blocks_independently_replay": all(
             replay["verified"] for replay in replays
         ),
         "exact_32_disjoint_development_tasks": len(trees) == TASKS,
@@ -1218,6 +1368,13 @@ def analyze_combined(
         ),
         "dynamic_and_myopic_differ_in_every_execution_block": all(
             row["dynamic_myopic_changed_final_histories"] >= 1
+            for row in blockwise.values()
+        ),
+        "at_least_12_dynamic_final_histories_differ_from_history_blind": (
+            dynamic_blind_changed >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "dynamic_and_history_blind_differ_in_every_execution_block": all(
+            row["dynamic_history_blind_changed_final_histories"] >= 1
             for row in blockwise.values()
         ),
         "root_candidate_brier_beats_constant_half": (
@@ -1239,6 +1396,23 @@ def analyze_combined(
         ),
         "dynamic_log_loss_is_not_worse_than_myopic": (
             dynamic_log["mean_difference"] <= 0
+        ),
+        "dynamic_brier_relative_improvement_vs_history_blind_at_least_3_percent": (
+            dynamic_vs_history_blind_relative_brier_gain
+            >= MIN_RELATIVE_BRIER_IMPROVEMENT
+        ),
+        "dynamic_brier_vs_history_blind_bootstrap_probability_at_least_0_80": (
+            dynamic_vs_history_blind["mean_brier"][
+                "bootstrap_probability_improvement"
+            ]
+            >= MIN_BOOTSTRAP_IMPROVEMENT_PROBABILITY
+        ),
+        "dynamic_log_loss_is_not_worse_than_history_blind": (
+            dynamic_vs_history_blind["mean_log_loss"]["mean_difference"] <= 0
+        ),
+        "dynamic_ranking_fidelity_is_not_worse_than_history_blind": (
+            ranking_fidelity["dynamic_depth2"]["mean_spearman"]
+            >= ranking_fidelity["history_blind_depth2"]["mean_spearman"]
         ),
         "dynamic_brier_is_not_worse_than_fixed_depth2": (
             pooled["dynamic_depth2"]["mean_brier"]
@@ -1277,6 +1451,10 @@ def analyze_combined(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md"
             ),
+            "history_blind_control_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md"
+            ),
             "model": MODEL_ID,
             "blocks": list(BLOCK_ORDER),
             "task_count": TASKS,
@@ -1306,10 +1484,34 @@ def analyze_combined(
         "mean_root_candidate_brier": mean_root_candidate_brier,
         "ranking_fidelity": ranking_fidelity,
         "blockwise_dynamic_vs_myopic": blockwise,
+        "blockwise_dynamic_vs_history_blind": {
+            block_id: {
+                key: value
+                for key, value in row.items()
+                if key
+                in {
+                    "tasks",
+                    "dynamic_history_blind_changed_final_histories",
+                    "dynamic_minus_history_blind_mean_brier",
+                    "dynamic_minus_history_blind_mean_log_loss",
+                }
+            }
+            for block_id, row in blockwise.items()
+        },
         "comparisons_vs_myopic": comparisons,
+        "dynamic_vs_history_blind": dynamic_vs_history_blind,
         "dynamic_vs_myopic_changed_final_histories": changed,
         "dynamic_vs_myopic_robust_action_changes": robust_changed,
         "dynamic_vs_myopic_relative_brier_improvement": relative_brier_gain,
+        "dynamic_vs_history_blind_changed_final_histories": (
+            dynamic_blind_changed
+        ),
+        "dynamic_vs_history_blind_robust_action_changes": (
+            robust_dynamic_blind_changed
+        ),
+        "dynamic_vs_history_blind_relative_brier_improvement": (
+            dynamic_vs_history_blind_relative_brier_gain
+        ),
         "gates": science_gates,
         "trees": trees,
     }

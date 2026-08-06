@@ -1,13 +1,14 @@
 # Bongard-OpenWorld Luna VLM Mechanics Execution
 
 Pre-call interface note: the semantic-validity amendment removes history
-double-conditioning and role markers, makes branch sensitivity unobserved-only,
-and expands mechanics to at most 108 requests under a `$1.75` cap. The
-selected-policy-only 88-request details below document the earlier zero-call
-fixture and are not executable evidence.
+double-conditioning and role markers and makes branch sensitivity
+unobserved-only. The later matched history-blind amendment expands mechanics
+to at most 172 requests under the unchanged `$1.75` cap. Earlier 88/108-request
+details are historical zero-call fixtures and are not executable evidence.
 
-The shuffled-control amendment corrects continuation-value permutation and
-bumps mechanics to interface v3. Serving remains interface v2. The executable
+The shuffled-control amendment corrects continuation-value permutation. The
+matched history-blind amendment adds paired seeded blind continuations and
+bumps mechanics to interface v4. Serving remains interface v2. The executable
 command is the one-command wrapper documented
 in `BONGARD_OPENWORLD_LUNA_AUG10_EXECUTION.md`; do not run the older component
 commands independently.
@@ -84,13 +85,14 @@ python scripts/bongard_openworld_luna_vlm_mechanics_tree.py \
 
 The full wrapper independently replays the exact-10 raw responses, metrics,
 and gates before spend. It then reserves the $1.75 cap against the account-wide
-ledger and also refuses if `1.5 * observed serving cost/request * 108` exceeds
-that cap. The first stage is exactly 68 shared requests. Final calls are
+ledger and also refuses if `1.5 * observed serving cost/request * 172` exceeds
+that cap. The first stage is exactly 132 shared requests: four roots, 64
+answer-conditioned branches, and 64 paired history-blind branches. Final calls are
 deduplicated across all realized first-action continuations and policy paths,
-for at most 108 total requests.
+for 16--40 finals and at most 172 total requests.
 
-A zero-call replay using all four real mechanics tasks produces 14 distinct
-final histories and 82 total requests under the corrected control, passes
+A zero-call replay using all four real mechanics tasks produces 34 distinct
+final histories and 166 total requests under the corrected control, passes
 every frozen mechanics gate, and keeps development, confirmation, and
 sealed-test access false. Its synthetic endpoint values are fixture behavior
 and carry no scientific evidence.

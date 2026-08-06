@@ -63,7 +63,7 @@ DEVELOPMENT_PROTOCOL_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
-    "d5e8412f6e2f485a357ba255692f1c6d60a99b4900e588b05ad39b9f276b5b9c"
+    "a012f1239dc0ac72bfa0f3fcb00008ccdf13dbf94f648d0561304dafb10b10ab"
 )
 MINIMUM_STARTING_BALANCE_USD = 5.0
 
@@ -428,6 +428,15 @@ class _MechanicsReplayAdapter:
         if len(responses) != len(batch_messages):
             raise RuntimeError("mechanics replay batch size changed")
         return list(responses)
+
+    def chat_complete_seeded_messages_batched_structured(
+        self, batch_messages, seeds, **kwargs
+    ):
+        if len(batch_messages) != len(seeds):
+            raise RuntimeError("mechanics replay seed count changed")
+        return self.chat_complete_messages_batched_structured(
+            batch_messages, **kwargs
+        )
 
     def usage_snapshot(self):
         return {

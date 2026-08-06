@@ -2,28 +2,28 @@
   "blocks": {
     "a": {
       "earliest_london_date": "2026-08-11",
-      "maximum_requests": 216,
+      "maximum_requests": 344,
       "model_seed": 2026081101,
       "offset": 0,
       "size": 8
     },
     "b": {
       "earliest_london_date": "2026-08-12",
-      "maximum_requests": 216,
+      "maximum_requests": 344,
       "model_seed": 2026081201,
       "offset": 8,
       "size": 8
     },
     "c": {
       "earliest_london_date": "2026-08-13",
-      "maximum_requests": 216,
+      "maximum_requests": 344,
       "model_seed": 2026081301,
       "offset": 16,
       "size": 8
     },
     "d": {
       "earliest_london_date": "2026-08-14",
-      "maximum_requests": 216,
+      "maximum_requests": 344,
       "model_seed": 2026081401,
       "offset": 24,
       "size": 8
@@ -47,15 +47,16 @@
   "implementation_sha256": {
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md": "6dc37f8b23cfe0309ec9dcf5e6b15818a661a93616106894b3602fc4fa9122eb",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md": "779ff0fba85b9ff4c756b13cefc5b2142ec30aa2e26a745164a5d2c82c4a25b6",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md": "2a8ea71c8cfaff2382b95a1d7bf6903ba96d1c35d7b9a20ea2cfe28bf9363a11",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md": "46d03dcaf6eb745fc95c0dab164609b506924fc362ce59140d1596faa090e656",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md": "c047a98351aa51e5320cdcfa5bac5e9a4e4feb5f11d1758b29e31425617a8c6f",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md": "02e72785e3593e3aa69b67dfeaacf9d2dafca13f8cdf29d85609b6020f61cc14",
-    "scripts/bongard_openworld_luna_vlm_development.py": "2d78133d798800d748593cb1901f682b2272c347da0146d52db66d1553f4d7b4",
-    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "de3bdedbf59724326d0ee36d5ed9266ecf55a7c137a2317a35e975f78e74b2bb",
-    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "20a27ba5190a68ae7363f631a2975c0690353fb22f96e7901363111bca31142b",
-    "scripts/bongard_openworld_vlm_bed.py": "6fdb6bbc1efc73808a660665de7a722c065102d03fea1724f2a0cd4c45c33f0d"
+    "scripts/bongard_openworld_luna_vlm_development.py": "6cb468fdf690ed31cb06c50d2ac9a4a82db44bdc32153eec7c75ed4bcf49c123",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "77f38b4431a956de990d27dca981a08e427f86571178649ef85911a616f17159",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "1c38c4ec930a68451212d940225cdc52b041a68723fd157d91b361baba981c69",
+    "scripts/bongard_openworld_vlm_bed.py": "d2f3f65a1586d30e629dad5c2b89a9f55008786275a1841574f24aefdbfd0d66"
   },
-  "interface_version": "bongard-openworld-luna-vlm-development32-3",
+  "interface_version": "bongard-openworld-luna-vlm-development32-4",
   "model": "openai/gpt-5.6-luna",
   "reasoning": false,
   "schema_version": 1,

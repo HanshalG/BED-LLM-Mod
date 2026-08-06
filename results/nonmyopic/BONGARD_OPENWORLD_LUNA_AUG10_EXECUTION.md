@@ -3,7 +3,7 @@
 Frozen: 2026-08-06, before any Bongard model request.
 
 This operational wrapper executes the interface-v2 exact10 serving gate and
-interface-v3 full four-task mechanics tree in the only authorized order. It does not change
+interface-v4 full four-task mechanics tree in the only authorized order. It does not change
 the scientific protocol, model, prompts, seeds, task set, request tree, gates,
 or budgets.
 
@@ -33,12 +33,12 @@ The fixed outputs are:
 2. Run or independently replay exact10 interface-v2.
 3. Reconcile and verify the exact `$5.00` account-wide ledger.
 4. Stop permanently before mechanics if exact10 is `gated_null`.
-5. Run or independently replay mechanics interface-v3 only after exact10
+5. Run or independently replay mechanics interface-v4 only after exact10
    passes.
 6. Reconcile and verify both ledger records and total daily spend.
 7. Authorize development only when mechanics status is `mechanics_pass`.
 
-The wrapper refuses stale serving interface-v1 or mechanics interface-v1/v2
+The wrapper refuses stale serving interface-v1 or mechanics interface-v1/v2/v3
 artifacts, dual RESULT/FAILURE files,
 partial directories without a banked artifact, changed raw hashes, changed
 component hashes, unreconciled ledgers, and any unrecognized status.
@@ -51,9 +51,10 @@ responses with zero model calls. A completed wrapper verifies component hashes
 before returning its result. A partial or failed-closed paid component is not
 resumed or rerun in place.
 
-Independent mechanics replay reconstructs all root scores, five policy paths,
+Independent mechanics replay reconstructs all root scores, six policy paths,
 all eight realized first-action continuations, endpoint metrics, ranking
-fidelity, gates, usage, and raw-response hash. Equality is exact canonical JSON.
+fidelity, paired conditioned/history-blind request seeds and prompt hashes,
+gates, usage, and raw-response hash. Equality is exact canonical JSON.
 
 The maximum authorized component caps remain `$0.25` for exact10 and `$1.75`
 for mechanics under one account-wide `$5.00` day. No additional paid tail is
