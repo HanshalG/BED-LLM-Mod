@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from datetime import datetime
 import json
 from pathlib import Path
 from typing import Any, Sequence
+from zoneinfo import ZoneInfo
 
 import pytest
 
@@ -412,6 +414,243 @@ def test_daily_ledger_reconciliation_prefers_larger_posted_spend() -> None:
     )
 
     assert reconciled["recorded_actual_spend_usd"] == pytest.approx(4.4)
+
+
+def test_execute_reliability_uses_shared_ledger_and_reconciles(
+    tmp_path: Path,
+) -> None:
+    control_result = tmp_path / "control.json"
+    control_result.write_text(
+        json.dumps(
+            {
+                "decision": "complete_composite_endpoint",
+                "control": {
+                    "usage": {"adapter_requests": 3072},
+                    "mechanics_gates": {"all": True},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    ledger_path = tmp_path / "ledger.json"
+    ledger_path.write_text(
+        json.dumps(
+            {
+                "date": "2026-08-07",
+                "timezone": "Europe/London",
+                "daily_cap_usd": 5.0,
+                "opening_total_usage_usd": 100.0,
+                "recorded_actual_spend_usd": 3.2,
+                "additional_paid_blocks_authorized": True,
+                "authorized_tail_blocks": [
+                    {
+                        "interface": reliability.INTERFACE_VERSION,
+                        "model": "openai/gpt-5.6-luna",
+                        "maximum_cost_usd": 0.1,
+                        "status": "authorized_pending",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    live_values = iter(
+        [
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 103.2,
+                "balance_usd": 26.8,
+            },
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 103.24,
+                "balance_usd": 26.76,
+            },
+        ]
+    )
+
+    def runner(**kwargs):
+        kwargs["output_dir"].mkdir(parents=True)
+        result = {
+            "status": "passed",
+            "usage": {"run_cost_usd": 0.04},
+        }
+        (kwargs["output_dir"] / "RESULT.json").write_text(
+            json.dumps(result), encoding="utf-8"
+        )
+        return result
+
+    result = reliability.execute_reliability(
+        output_dir=tmp_path / "reliability",
+        run_id="reliability",
+        model_id="openai/gpt-5.6-luna",
+        ledger_path=ledger_path,
+        qwen_control_result=control_result,
+        now=datetime(2026, 8, 7, 12, tzinfo=ZoneInfo("Europe/London")),
+        live_reader=lambda: next(live_values),
+        reliability_runner=runner,
+    )
+
+    assert result["status"] == "passed"
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert ledger["recorded_actual_spend_usd"] == pytest.approx(3.24)
+    assert ledger["authorized_tail_blocks"][0]["status"] == "passed"
+
+
+def test_execute_reliability_failure_is_banked_and_reconciled(
+    tmp_path: Path,
+) -> None:
+    control_result = tmp_path / "control.json"
+    control_result.write_text(
+        json.dumps(
+            {
+                "decision": "complete_composite_endpoint",
+                "control": {
+                    "usage": {"adapter_requests": 3072},
+                    "mechanics_gates": {"all": True},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    ledger_path = tmp_path / "ledger.json"
+    ledger_path.write_text(
+        json.dumps(
+            {
+                "date": "2026-08-07",
+                "timezone": "Europe/London",
+                "daily_cap_usd": 5.0,
+                "opening_total_usage_usd": 100.0,
+                "recorded_actual_spend_usd": 3.2,
+                "additional_paid_blocks_authorized": True,
+                "authorized_tail_blocks": [
+                    {
+                        "interface": reliability.INTERFACE_VERSION,
+                        "model": "deepseek/deepseek-v4-flash-0731",
+                        "maximum_cost_usd": 0.1,
+                        "status": "authorized_pending",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    live_values = iter(
+        [
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 103.2,
+                "balance_usd": 26.8,
+            },
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 103.23,
+                "balance_usd": 26.77,
+            },
+        ]
+    )
+
+    with pytest.raises(RuntimeError, match="serving failed"):
+        reliability.execute_reliability(
+            output_dir=tmp_path / "failed",
+            run_id="failed",
+            model_id="deepseek/deepseek-v4-flash-0731",
+            ledger_path=ledger_path,
+            qwen_control_result=control_result,
+            now=datetime(
+                2026, 8, 7, 12, tzinfo=ZoneInfo("Europe/London")
+            ),
+            live_reader=lambda: next(live_values),
+            reliability_runner=lambda **_: (_ for _ in ()).throw(
+                RuntimeError("serving failed")
+            ),
+        )
+
+    failure = json.loads(
+        (tmp_path / "failed" / "FAILURE.json").read_text(encoding="utf-8")
+    )
+    assert failure["status"] == "failed_closed"
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert ledger["recorded_actual_spend_usd"] == pytest.approx(3.23)
+
+
+def test_execute_reliability_checkpoints_local_cost_before_posted_read(
+    tmp_path: Path,
+) -> None:
+    control_result = tmp_path / "control.json"
+    control_result.write_text(
+        json.dumps(
+            {
+                "decision": "complete_composite_endpoint",
+                "control": {
+                    "usage": {"adapter_requests": 3072},
+                    "mechanics_gates": {"all": True},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    ledger_path = tmp_path / "ledger.json"
+    ledger_path.write_text(
+        json.dumps(
+            {
+                "date": "2026-08-07",
+                "timezone": "Europe/London",
+                "daily_cap_usd": 5.0,
+                "opening_total_usage_usd": 100.0,
+                "recorded_actual_spend_usd": 3.2,
+                "additional_paid_blocks_authorized": True,
+                "authorized_tail_blocks": [
+                    {
+                        "interface": reliability.INTERFACE_VERSION,
+                        "model": "openai/gpt-5.6-luna",
+                        "maximum_cost_usd": 0.1,
+                        "status": "authorized_pending",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    calls = 0
+
+    def live_reader():
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            return {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 103.2,
+                "balance_usd": 26.8,
+            }
+        raise RuntimeError("credits endpoint unavailable")
+
+    def runner(**kwargs):
+        kwargs["output_dir"].mkdir(parents=True)
+        result = {"status": "passed", "usage": {"run_cost_usd": 0.04}}
+        (kwargs["output_dir"] / "RESULT.json").write_text(
+            json.dumps(result), encoding="utf-8"
+        )
+        return result
+
+    with pytest.raises(RuntimeError, match="credits endpoint unavailable"):
+        reliability.execute_reliability(
+            output_dir=tmp_path / "reliability",
+            run_id="reliability",
+            model_id="openai/gpt-5.6-luna",
+            ledger_path=ledger_path,
+            qwen_control_result=control_result,
+            now=datetime(
+                2026, 8, 7, 12, tzinfo=ZoneInfo("Europe/London")
+            ),
+            live_reader=live_reader,
+            reliability_runner=runner,
+        )
+
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert ledger["recorded_actual_spend_usd"] == pytest.approx(3.24)
+    assert ledger["authorized_tail_blocks"][0]["actual_cost_usd"] == 0.04
+    assert ledger["authorized_tail_blocks"][0]["status"] == "passed"
 
 
 def test_tail_authorization_is_exact_and_pending() -> None:

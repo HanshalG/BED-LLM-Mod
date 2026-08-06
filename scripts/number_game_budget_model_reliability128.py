@@ -5,11 +5,12 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
 import hashlib
 import json
 from pathlib import Path
 import sys
-from typing import Any, Protocol, Sequence
+from typing import Any, Callable, Protocol, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -326,15 +327,23 @@ def reconcile_daily_ledger(
     recorded = max(posted, local)
     updated["recorded_actual_spend_usd"] = recorded
     model_key = model_id.replace("/", "_").replace(".", "_")
-    updated[f"budget_model_reliability128_{model_key}"] = {
+    model_record_key = f"budget_model_reliability128_{model_key}"
+    previous_model_cost = float(
+        (updated.get(model_record_key) or {}).get("actual_cost_usd", 0.0)
+    )
+    recorded_model_cost = max(previous_model_cost, measured_cost_usd)
+    updated[model_record_key] = {
         "status": status,
-        "actual_cost_usd": measured_cost_usd,
+        "actual_cost_usd": recorded_model_cost,
         "maximum_cost_usd": RUN_BUDGET_USD,
     }
     for item in updated.get("authorized_tail_blocks") or []:
         if item.get("model") == model_id:
             item["status"] = status
-            item["actual_cost_usd"] = measured_cost_usd
+            item["actual_cost_usd"] = max(
+                float(item.get("actual_cost_usd") or 0.0),
+                measured_cost_usd,
+            )
     updated["additional_paid_blocks_authorized"] = any(
         item.get("status")
         in {"authorized_pending", "waiting_for_reliability_results"}
@@ -574,6 +583,89 @@ def run_reliability(
     return result
 
 
+def execute_reliability(
+    *,
+    output_dir: Path,
+    run_id: str,
+    model_id: str,
+    ledger_path: Path,
+    qwen_control_result: Path,
+    now: datetime | None = None,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    reliability_runner: Callable[..., dict[str, Any]] = run_reliability,
+) -> dict[str, Any]:
+    """Run one authorized gate and always reconcile any posted spend."""
+    if output_dir.exists() and any(output_dir.iterdir()):
+        raise FileExistsError(f"output directory is not empty: {output_dir}")
+    validate_completed_qwen_control(qwen_control_result)
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    validate_tail_authorization(ledger, model_id=model_id)
+    live = live_reader()
+    require_budget(
+        ledger,
+        projected_cost_usd=PROJECTED_COST_USD,
+        total_usage_usd=live["total_usage_usd"],
+        now=now,
+    )
+    if live["balance_usd"] + 1e-12 < RUN_BUDGET_USD:
+        raise RuntimeError("OpenRouter balance is below the reliability gate")
+    try:
+        result = reliability_runner(
+            output_dir=output_dir,
+            run_id=run_id,
+            model_id=model_id,
+        )
+    except Exception as exc:
+        reconciliation_error = None
+        try:
+            live_after = live_reader()
+            reconciled = reconcile_daily_ledger(
+                ledger=ledger,
+                model_id=model_id,
+                measured_cost_usd=0.0,
+                live_after=live_after,
+                status="failed_closed_posted_spend_reconciled",
+            )
+            checkpoint(ledger_path, reconciled)
+        except Exception as reconcile_exc:
+            reconciliation_error = (
+                f"{type(reconcile_exc).__name__}: {reconcile_exc}"
+            )
+        output_dir.mkdir(parents=True, exist_ok=True)
+        checkpoint(
+            output_dir / "FAILURE.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "interface_version": INTERFACE_VERSION,
+                "status": "failed_closed",
+                "model": model_id,
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+                "ledger_reconciliation_error": reconciliation_error,
+            },
+        )
+        raise
+    measured_cost = float(result["usage"]["run_cost_usd"])
+    locally_reconciled = reconcile_daily_ledger(
+        ledger=ledger,
+        model_id=model_id,
+        measured_cost_usd=measured_cost,
+        live_after=live,
+        status=result["status"],
+    )
+    checkpoint(ledger_path, locally_reconciled)
+    live_after = live_reader()
+    reconciled = reconcile_daily_ledger(
+        ledger=locally_reconciled,
+        model_id=model_id,
+        measured_cost_usd=0.0,
+        live_after=live_after,
+        status=result["status"],
+    )
+    checkpoint(ledger_path, reconciled)
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", choices=tuple(MODELS), required=True)
@@ -582,63 +674,13 @@ def main() -> int:
     parser.add_argument("--daily-ledger", type=Path, required=True)
     parser.add_argument("--qwen-control-result", type=Path, required=True)
     args = parser.parse_args()
-    if args.output_dir.exists() and any(args.output_dir.iterdir()):
-        raise FileExistsError(f"output directory is not empty: {args.output_dir}")
-    validate_completed_qwen_control(args.qwen_control_result)
-    ledger = json.loads(args.daily_ledger.read_text(encoding="utf-8"))
-    validate_tail_authorization(ledger, model_id=args.model)
-    live = read_live_credits()
-    require_budget(
-        ledger,
-        projected_cost_usd=PROJECTED_COST_USD,
-        total_usage_usd=live["total_usage_usd"],
-    )
-    if live["balance_usd"] + 1e-12 < RUN_BUDGET_USD:
-        raise RuntimeError("OpenRouter balance is below the reliability gate")
-    try:
-        result = run_reliability(
-            output_dir=args.output_dir,
-            run_id=args.run_id,
-            model_id=args.model,
-        )
-    except Exception as exc:
-        reconciliation_error = None
-        try:
-            live_after = read_live_credits()
-            reconciled = reconcile_daily_ledger(
-                ledger=ledger,
-                model_id=args.model,
-                measured_cost_usd=0.0,
-                live_after=live_after,
-                status="failed_closed_posted_spend_reconciled",
-            )
-            checkpoint(args.daily_ledger, reconciled)
-        except Exception as reconcile_exc:
-            reconciliation_error = (
-                f"{type(reconcile_exc).__name__}: {reconcile_exc}"
-            )
-        checkpoint(
-            args.output_dir / "FAILURE.json",
-            {
-                "schema_version": SCHEMA_VERSION,
-                "interface_version": INTERFACE_VERSION,
-                "status": "failed_closed",
-                "model": args.model,
-                "error_type": type(exc).__name__,
-                "error": str(exc),
-                "ledger_reconciliation_error": reconciliation_error,
-            },
-        )
-        raise
-    live_after = read_live_credits()
-    reconciled = reconcile_daily_ledger(
-        ledger=ledger,
+    result = execute_reliability(
+        output_dir=args.output_dir,
+        run_id=args.run_id,
         model_id=args.model,
-        measured_cost_usd=float(result["usage"]["run_cost_usd"]),
-        live_after=live_after,
-        status=result["status"],
+        ledger_path=args.daily_ledger,
+        qwen_control_result=args.qwen_control_result,
     )
-    checkpoint(args.daily_ledger, reconciled)
     print(
         json.dumps(
             {
