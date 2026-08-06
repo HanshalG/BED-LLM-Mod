@@ -374,6 +374,36 @@ def bank_claim_report(
     return expected
 
 
+def write_claim_report(
+    *, run_dir: Path, output: Path | None = None
+) -> dict[str, Any]:
+    """Replay verification and idempotently freeze the run's claim scope."""
+    stored_path = run_dir / "CONTROL_VERIFICATION.json"
+    stored = json.loads(stored_path.read_text(encoding="utf-8"))
+    independent = verify.verify_completed_control(
+        run_dir=run_dir,
+        write_outputs=False,
+    )
+    if stored != independent:
+        raise ValueError("stored control verification does not replay exactly")
+    source = json.loads((run_dir / "source/RESULT.json").read_text())
+    control = json.loads((run_dir / "control/RESULT.json").read_text())
+    composite = json.loads((run_dir / "RESULT.json").read_text())
+    report = build_claim_report(
+        source=source,
+        control=control,
+        composite=composite,
+        verification=independent,
+        artifact_hashes=independent["artifacts"],
+    )
+    json_path = output or run_dir / "CLAIM_REPORT.json"
+    return bank_claim_report(
+        json_path=json_path,
+        markdown_path=json_path.with_suffix(".md"),
+        report=report,
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", type=Path)
@@ -385,31 +415,7 @@ def main() -> int:
         return 0
     if args.run_dir is None:
         parser.error("--run-dir is required unless --preflight is used")
-    stored_path = args.run_dir / "CONTROL_VERIFICATION.json"
-    stored = json.loads(stored_path.read_text(encoding="utf-8"))
-    independent = verify.verify_completed_control(
-        run_dir=args.run_dir,
-        write_outputs=False,
-    )
-    if stored != independent:
-        raise ValueError("stored control verification does not replay exactly")
-    source = json.loads((args.run_dir / "source/RESULT.json").read_text())
-    control = json.loads((args.run_dir / "control/RESULT.json").read_text())
-    composite = json.loads((args.run_dir / "RESULT.json").read_text())
-    report = build_claim_report(
-        source=source,
-        control=control,
-        composite=composite,
-        verification=independent,
-        artifact_hashes=independent["artifacts"],
-    )
-    json_path = args.output or args.run_dir / "CLAIM_REPORT.json"
-    markdown_path = json_path.with_suffix(".md")
-    report = bank_claim_report(
-        json_path=json_path,
-        markdown_path=markdown_path,
-        report=report,
-    )
+    report = write_claim_report(run_dir=args.run_dir, output=args.output)
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
 

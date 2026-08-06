@@ -22,6 +22,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts import number_game_budget_model_reliability128 as reliability
 from scripts import number_game_budget_model_stress3584 as stress
 from scripts import number_game_qwen_fully_fresh_control_daily_execute as control
+from scripts import number_game_qwen_fully_fresh_claim_report as claim
 from scripts.openrouter_daily_budget import read_live_credits
 
 
@@ -633,6 +634,7 @@ def validate_completed_sequence(
     reliability_root: Path,
     stress_output_dir: Path,
     control_validator: Callable[..., dict[str, Any]],
+    claim_reporter: Callable[..., dict[str, Any]],
     reliability_validator: Callable[..., dict[str, Any]],
     stress_validator: Callable[..., dict[str, Any]],
 ) -> dict[str, Any]:
@@ -678,6 +680,7 @@ def validate_completed_sequence(
     )
     if components.get("control") != expected_control:
         raise RuntimeError("completed wrapper control component changed")
+    claim_reporter(run_dir=control_run_dir)
 
     reliability_paths: dict[str, Path] = {}
     expected_component_names = {"control"}
@@ -767,6 +770,7 @@ def execute_aug7_sequence(
     control_validator: Callable[..., dict[str, Any]] = (
         _verify_control_component
     ),
+    claim_reporter: Callable[..., dict[str, Any]] = claim.write_claim_report,
     reliability_validator: Callable[..., dict[str, Any]] = (
         _verify_reliability_component
     ),
@@ -786,6 +790,7 @@ def execute_aug7_sequence(
             stress_output_dir=stress_output_dir,
             reliability_validator=reliability_validator,
             control_validator=control_validator,
+            claim_reporter=claim_reporter,
             stress_validator=stress_validator,
         )
     try:
@@ -875,6 +880,7 @@ def execute_aug7_sequence(
         control_execution,
         control_verification,
     )
+    claim_reporter(run_dir=control_run_dir)
     checkpoint(output_dir / "EXECUTION_STATE.json", state)
 
     ledger = _load(daily_ledger)

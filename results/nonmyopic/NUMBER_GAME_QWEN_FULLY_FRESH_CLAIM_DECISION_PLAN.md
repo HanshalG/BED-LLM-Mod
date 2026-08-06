@@ -51,7 +51,13 @@ dynamic-endpoint-family fail, and maximum reachable tier
 
 ## Execution
 
-After the paid control and independent verifier complete:
+The authoritative August 7 orchestrator invokes the classifier automatically
+after the paid control and independent verifier complete, before any paid model
+selection tail. A classifier failure preserves the banked control and stops the
+tail; resume retries only the zero-call classification. Completed-wrapper replay
+also validates the report again.
+
+For an explicit audit or recovery replay, run:
 
 ```bash
 /Users/hanshalgoyal/.conda/envs/20_questions_env/bin/python \

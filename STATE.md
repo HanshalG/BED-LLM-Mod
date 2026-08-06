@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Made the post-control claim classifier unavoidable in the
+authoritative Aug7 sequence. After independent control verification and before
+any Luna/DeepSeek/stress call, the executor now independently replays and banks
+the zero-call claim report; classifier failure preserves the paid control and
+resume retries only classification. Completed wrappers replay it, altered or
+missing reports fail closed, and incomplete controls never invoke it. Focused
+classifier/orchestrator suite34/34 and full Aug7 suite85/85. Real production
+preflights pass with live balance$27.702109737; model0/files0/cost0.
+
 2026-08-06: Froze the post-control claim boundary before any Aug7 control
 response. New zero-call classifier independently replays the completed public
 control,requires exact stored verification,separates nonmyopic-policy,

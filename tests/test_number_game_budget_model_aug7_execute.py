@@ -113,6 +113,10 @@ def _fresh_preflight(**_) -> dict:
     return {"status": "ready_without_paid_calls"}
 
 
+def _claim_reporter(**_) -> dict:
+    return {"status": "claim_scope_frozen", "model_calls": 0}
+
+
 def _paths(tmp_path: Path) -> dict:
     ledger = tmp_path / "ledger.json"
     _write(ledger, _ledger())
@@ -126,6 +130,7 @@ def _paths(tmp_path: Path) -> dict:
         "reliability_validator": _reliability_validator,
         "stress_validator": _stress_validator,
         "fresh_preflight": _fresh_preflight,
+        "claim_reporter": _claim_reporter,
     }
 
 
@@ -137,6 +142,7 @@ def _preflight_paths(tmp_path: Path) -> dict:
         "reliability_validator",
         "stress_validator",
         "fresh_preflight",
+        "claim_reporter",
     ):
         paths.pop(name)
     return paths
@@ -370,6 +376,9 @@ def _stress_runner(calls: list[str]):
 def test_sequence_runs_all_components_in_exact_order(tmp_path: Path) -> None:
     paths = _paths(tmp_path)
     calls = []
+    paths["claim_reporter"] = lambda **_: calls.append("claim") or {
+        "status": "claim_scope_frozen"
+    }
     result = execute.execute_aug7_sequence(
         **paths,
         now=NOW,
@@ -380,6 +389,7 @@ def test_sequence_runs_all_components_in_exact_order(tmp_path: Path) -> None:
 
     assert calls == [
         "control",
+        "claim",
         "openai/gpt-5.6-luna",
         "deepseek/deepseek-v4-flash-0731",
         "stress",
@@ -493,6 +503,98 @@ def test_resume_never_repeats_banked_components(tmp_path: Path) -> None:
     assert result["status"] == "complete"
 
 
+def test_claim_failure_banks_control_and_resume_retries_only_claim(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+
+    def report(**_):
+        calls.append("claim")
+        if calls.count("claim") == 1:
+            raise RuntimeError("claim report changed")
+        return {"status": "claim_scope_frozen"}
+
+    paths["claim_reporter"] = report
+    with pytest.raises(RuntimeError, match="claim report changed"):
+        execute.execute_aug7_sequence(
+            **paths,
+            now=NOW,
+            control_runner=_control_runner(calls),
+            reliability_runner=_reliability_runner(calls),
+            stress_runner=_stress_runner(calls),
+        )
+    assert calls == ["control", "claim"]
+    assert (
+        paths["control_run_dir"] / "CONTROL_DAILY_EXECUTION.json"
+    ).exists()
+
+    result = execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=lambda **_: pytest.fail("control repeated"),
+        reliability_runner=_reliability_runner(calls),
+        stress_runner=_stress_runner(calls),
+    )
+    assert calls == [
+        "control",
+        "claim",
+        "claim",
+        "openai/gpt-5.6-luna",
+        "deepseek/deepseek-v4-flash-0731",
+        "stress",
+    ]
+    assert result["status"] == "complete"
+
+
+def test_completed_wrapper_replays_claim_report_validation(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+    claim_calls = []
+    paths["claim_reporter"] = (
+        lambda **_: claim_calls.append("claim")
+        or {"status": "claim_scope_frozen"}
+    )
+    execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=_control_runner(calls),
+        reliability_runner=_reliability_runner(calls),
+        stress_runner=_stress_runner(calls),
+    )
+    execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=lambda **_: pytest.fail("control repeated"),
+        reliability_runner=lambda **_: pytest.fail("gate repeated"),
+        stress_runner=lambda **_: pytest.fail("stress repeated"),
+    )
+    assert claim_calls == ["claim", "claim"]
+
+
+def test_completed_wrapper_refuses_changed_claim_report(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+    execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=_control_runner(calls),
+        reliability_runner=_reliability_runner(calls),
+        stress_runner=_stress_runner(calls),
+    )
+    paths["claim_reporter"] = lambda **_: (_ for _ in ()).throw(
+        RuntimeError("banked Number Game claim report changed")
+    )
+    with pytest.raises(RuntimeError, match="claim report changed"):
+        execute.execute_aug7_sequence(
+            **paths,
+            now=NOW,
+            control_runner=lambda **_: pytest.fail("control repeated"),
+            reliability_runner=lambda **_: pytest.fail("gate repeated"),
+            stress_runner=lambda **_: pytest.fail("stress repeated"),
+        )
+
+
 def test_resume_after_banked_stress_does_not_misclassify_authorization(
     tmp_path: Path,
 ) -> None:
@@ -588,6 +690,7 @@ def test_incomplete_control_is_hash_bound_and_stops_before_model_calls(
     tmp_path: Path,
 ) -> None:
     paths = _paths(tmp_path)
+    paths["claim_reporter"] = lambda **_: pytest.fail("claim must not run")
     calls = []
 
     def incomplete_control(*, run_dir: Path, ledger_path: Path, **_):

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 import math
 
 import pytest
@@ -249,3 +250,34 @@ def test_claim_report_banks_json_and_markdown_once(tmp_path) -> None:
             markdown_path=markdown_path,
             report=report,
         )
+
+
+def test_write_claim_report_replays_and_banks_idempotently(
+    tmp_path, monkeypatch
+) -> None:
+    source, control, composite, verification = _fixture(dynamic=False)
+    run_dir = tmp_path / "run"
+    (run_dir / "source").mkdir(parents=True)
+    (run_dir / "control").mkdir()
+    for path, payload in (
+        (run_dir / "source/RESULT.json", source),
+        (run_dir / "control/RESULT.json", control),
+        (run_dir / "RESULT.json", composite),
+        (run_dir / "CONTROL_VERIFICATION.json", verification),
+    ):
+        path.write_text(json.dumps(payload), encoding="utf-8")
+    monkeypatch.setattr(
+        claim.verify,
+        "verify_completed_control",
+        lambda **_: deepcopy(verification),
+    )
+
+    first = claim.write_claim_report(run_dir=run_dir)
+    second = claim.write_claim_report(run_dir=run_dir)
+
+    assert second == first
+    assert first["claim_tier"] == (
+        "nonmyopic_policy_with_partial_llm_mechanism"
+    )
+    assert (run_dir / "CLAIM_REPORT.json").exists()
+    assert (run_dir / "CLAIM_REPORT.md").exists()

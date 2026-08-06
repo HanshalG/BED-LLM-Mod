@@ -21,9 +21,10 @@ execution path and runs components sequentially against the same account-wide
 ledger:
 
 1. sealed Qwen history-blind control and independent verification;
-2. GPT-5.6 Luna reliability128;
-3. DeepSeek V4 Flash 0731 reliability128; and
-4. the selected model's stress3584 only when the verified control authorized
+2. zero-call claim classification and immutable JSON/Markdown report;
+3. GPT-5.6 Luna reliability128;
+4. DeepSeek V4 Flash 0731 reliability128; and
+5. the selected model's stress3584 only when the verified control authorized
    the full remaining allowance.
 
 The executor checkpoints after each component. A banked `RESULT.json` or
@@ -72,7 +73,14 @@ budget model or decide whether the stress gate runs.
 
 ## Post-Control Claim Scope
 
-After the orchestrator completes, run the zero-call claim classifier:
+The orchestrator automatically runs the zero-call claim classifier immediately
+after independent control verification and before any reliability or stress
+call. Classification failure stops the paid tail while preserving the banked
+control; resume retries classification without repeating the control. A
+completed-wrapper replay also re-runs the classifier idempotently, so a missing
+or altered report fails closed.
+
+The standalone command is retained only for explicit audit or recovery:
 
 ```bash
 /Users/hanshalgoyal/.conda/envs/20_questions_env/bin/python \
