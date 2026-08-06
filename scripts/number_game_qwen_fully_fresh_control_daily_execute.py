@@ -24,6 +24,14 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = "number-game-qwen-fully-fresh-control-daily-execute-1"
+AUTHORIZED_RELIABILITY_TAILS = (
+    "openai/gpt-5.6-luna",
+    "deepseek/deepseek-v4-flash-0731",
+)
+RELIABILITY_TAIL_CAP_USD = 0.10
+RELIABILITY_TAIL_TOTAL_CAP_USD = (
+    len(AUTHORIZED_RELIABILITY_TAILS) * RELIABILITY_TAIL_CAP_USD
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -90,6 +98,47 @@ def reconcile_ledger(
     return updated
 
 
+def authorize_reliability_tails(
+    *,
+    ledger: dict[str, Any],
+    control_complete: bool,
+    verification: dict[str, Any] | None,
+) -> dict[str, Any]:
+    updated = json.loads(json.dumps(ledger))
+    remaining = float(
+        (updated.get("reconciliation") or {}).get(
+            "remaining_daily_allowance_usd",
+            0.0,
+        )
+    )
+    verified = (
+        control_complete
+        and verification is not None
+        and verification.get("status") == "verified"
+    )
+    authorized = verified and remaining + 1e-12 >= RELIABILITY_TAIL_TOTAL_CAP_USD
+    updated["additional_paid_blocks_authorized"] = authorized
+    updated["authorized_tail_blocks"] = (
+        [
+            {
+                "interface": "number-game-budget-model-reliability128-1",
+                "model": model,
+                "maximum_cost_usd": RELIABILITY_TAIL_CAP_USD,
+                "status": "authorized_pending",
+            }
+            for model in AUTHORIZED_RELIABILITY_TAILS
+        ]
+        if authorized
+        else []
+    )
+    updated["tail_authorization_reason"] = (
+        "verified_control_and_exact_remaining_allowance"
+        if authorized
+        else "control_not_verified_or_insufficient_remaining_allowance"
+    )
+    return updated
+
+
 def run_control_daily(
     *,
     run_dir: Path,
@@ -135,6 +184,12 @@ def run_control_daily(
     verification = None
     if complete:
         verification = verifier(run_dir=run_dir)
+    updated_ledger = authorize_reliability_tails(
+        ledger=updated_ledger,
+        control_complete=complete,
+        verification=verification,
+    )
+    checkpoint(ledger_path, updated_ledger)
 
     execution = {
         "schema_version": SCHEMA_VERSION,
@@ -159,7 +214,12 @@ def run_control_daily(
         "remaining_daily_allowance_usd": updated_ledger[
             "reconciliation"
         ]["remaining_daily_allowance_usd"],
-        "additional_paid_blocks_authorized": False,
+        "additional_paid_blocks_authorized": updated_ledger[
+            "additional_paid_blocks_authorized"
+        ],
+        "authorized_tail_blocks": updated_ledger[
+            "authorized_tail_blocks"
+        ],
         "verification_status": (
             verification["status"] if verification is not None else None
         ),

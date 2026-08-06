@@ -1,6 +1,10 @@
 # Fully Fresh Qwen Control Daily Execution
 
-Date frozen: 2026-08-06
+Date initially frozen: 2026-08-06
+
+Budget-utilization amendment frozen: 2026-08-06, before any control seed was
+opened. This amendment authorizes only the two named reliability tails below;
+it does not change the control calls, artifacts, verifier, or endpoint.
 
 ## Purpose
 
@@ -39,7 +43,19 @@ verification, so a verifier failure cannot lose the paid spend record.
 
 Only a complete, mechanics-passing control invokes the zero-call independent
 verifier. Mechanics failure is banked without attempting scientific replay.
-No second paid block is authorized on the control day.
+After a complete mechanics-passing control is independently verified and its
+spend reconciled, the executor may authorize exactly these two unrelated tail
+blocks:
+
+- `openai/gpt-5.6-luna`, reliability128 interface, maximum `$0.10`;
+- `deepseek/deepseek-v4-flash-0731`, reliability128 interface, maximum `$0.10`.
+
+The authorizations are absent after an incomplete, mechanics-failed, or
+unverified control, and absent if less than `$0.20` remains. Each reliability
+runner consumes its exact pending authorization and still checks live
+account-wide spend. The maximum authorized control-day total is therefore
+`$4.25 + $0.20 = $4.45`, below the `$5.00` cap. No other paid tail is
+authorized by this amendment.
 
 ## Command
 

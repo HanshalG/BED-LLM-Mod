@@ -352,6 +352,21 @@ def test_daily_ledger_reconciliation_accumulates_local_model_cost() -> None:
         "daily_cap_usd": 5.0,
         "opening_total_usage_usd": 100.0,
         "recorded_actual_spend_usd": 3.2,
+        "additional_paid_blocks_authorized": True,
+        "authorized_tail_blocks": [
+            {
+                "interface": reliability.INTERFACE_VERSION,
+                "model": "openai/gpt-5.6-luna",
+                "maximum_cost_usd": 0.1,
+                "status": "authorized_pending",
+            },
+            {
+                "interface": reliability.INTERFACE_VERSION,
+                "model": "deepseek/deepseek-v4-flash-0731",
+                "maximum_cost_usd": 0.1,
+                "status": "authorized_pending",
+            },
+        ],
     }
     reconciled = reliability.reconcile_daily_ledger(
         ledger=ledger,
@@ -372,6 +387,8 @@ def test_daily_ledger_reconciliation_accumulates_local_model_cost() -> None:
     assert reconciled[
         "budget_model_reliability128_openai_gpt-5_6-luna"
     ]["status"] == "passed"
+    assert reconciled["additional_paid_blocks_authorized"]
+    assert reconciled["authorized_tail_blocks"][0]["status"] == "passed"
 
 
 def test_daily_ledger_reconciliation_prefers_larger_posted_spend() -> None:
@@ -395,3 +412,29 @@ def test_daily_ledger_reconciliation_prefers_larger_posted_spend() -> None:
     )
 
     assert reconciled["recorded_actual_spend_usd"] == pytest.approx(4.4)
+
+
+def test_tail_authorization_is_exact_and_pending() -> None:
+    ledger = {
+        "additional_paid_blocks_authorized": True,
+        "authorized_tail_blocks": [
+            {
+                "interface": reliability.INTERFACE_VERSION,
+                "model": "openai/gpt-5.6-luna",
+                "maximum_cost_usd": reliability.RUN_BUDGET_USD,
+                "status": "authorized_pending",
+            }
+        ],
+    }
+    authorization = reliability.validate_tail_authorization(
+        ledger,
+        model_id="openai/gpt-5.6-luna",
+    )
+    assert authorization["status"] == "authorized_pending"
+
+    ledger["authorized_tail_blocks"][0]["status"] = "passed"
+    with pytest.raises(RuntimeError, match="pending authorization"):
+        reliability.validate_tail_authorization(
+            ledger,
+            model_id="openai/gpt-5.6-luna",
+        )

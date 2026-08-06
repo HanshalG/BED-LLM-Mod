@@ -94,6 +94,30 @@ def validate_completed_qwen_control(path: Path) -> dict[str, Any]:
     return payload
 
 
+def validate_tail_authorization(
+    ledger: dict[str, Any],
+    *,
+    model_id: str,
+) -> dict[str, Any]:
+    if ledger.get("additional_paid_blocks_authorized") is not True:
+        raise RuntimeError("daily ledger does not authorize paid tail blocks")
+    matches = [
+        item
+        for item in (ledger.get("authorized_tail_blocks") or [])
+        if item.get("model") == model_id
+        and item.get("interface") == INTERFACE_VERSION
+        and item.get("status") == "authorized_pending"
+    ]
+    if len(matches) != 1:
+        raise RuntimeError(
+            f"daily ledger does not contain one pending authorization for {model_id}"
+        )
+    authorization = matches[0]
+    if float(authorization.get("maximum_cost_usd", -1.0)) != RUN_BUDGET_USD:
+        raise RuntimeError("reliability tail cost cap does not match protocol")
+    return authorization
+
+
 def _history_key(history: Sequence[tuple[int, bool]]) -> str:
     encoded = ";".join(
         f"{number}:{int(label)}" for number, label in history
@@ -307,6 +331,14 @@ def reconcile_daily_ledger(
         "actual_cost_usd": measured_cost_usd,
         "maximum_cost_usd": RUN_BUDGET_USD,
     }
+    for item in updated.get("authorized_tail_blocks") or []:
+        if item.get("model") == model_id:
+            item["status"] = status
+            item["actual_cost_usd"] = measured_cost_usd
+    updated["additional_paid_blocks_authorized"] = any(
+        item.get("status") == "authorized_pending"
+        for item in (updated.get("authorized_tail_blocks") or [])
+    )
     updated["reconciliation"] = {
         "live_total_credits_usd": float(live_after["total_credits_usd"]),
         "live_total_usage_usd": float(live_after["total_usage_usd"]),
@@ -551,6 +583,7 @@ def main() -> int:
         raise FileExistsError(f"output directory is not empty: {args.output_dir}")
     validate_completed_qwen_control(args.qwen_control_result)
     ledger = json.loads(args.daily_ledger.read_text(encoding="utf-8"))
+    validate_tail_authorization(ledger, model_id=args.model)
     live = read_live_credits()
     require_budget(
         ledger,
