@@ -7,6 +7,7 @@ from pathlib import Path
 
 from PIL import Image
 
+from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as tree
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_vlm_bed as bed
@@ -196,6 +197,16 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     )
     assert raw["endpoint_labels_accessed_after_all_query_selection"] is True
     assert raw["development_accessed"] is False
+    serving_verification = aug10.validate_serving_artifact(
+        serving_result, tasks=tasks
+    )
+    mechanics_verification = aug10.validate_mechanics_artifact(
+        tmp_path / "tree/RESULT.json",
+        serving_result=serving_result,
+        tasks=tasks,
+    )
+    assert serving_verification["verified"]
+    assert mechanics_verification["verified"]
 
 
 def test_shuffled_mapping_is_rotation_without_fixed_points() -> None:

@@ -6,6 +6,10 @@ and expands mechanics to at most 108 requests under a `$1.75` cap. The
 selected-policy-only 88-request details below document the earlier zero-call
 fixture and are not executable evidence.
 
+The executable interface-v2 command is now the one-command wrapper documented
+in `BONGARD_OPENWORLD_LUNA_AUG10_EXECUTION.md`; do not run the older component
+commands independently.
+
 Prepared: 2026-08-06
 Earliest execution: 2026-08-10 Europe/London
 
