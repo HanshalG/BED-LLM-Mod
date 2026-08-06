@@ -99,6 +99,11 @@ The gate workload is too small for concurrency `256` to improve useful
 throughput, and changing serving pressure during a sealed replication adds no
 scientific value.
 
+The August 7 zero-call preflight is clean: the full expected sequence is
+`$4.96`, with `$0.04` expected slack. The stress tail is admitted only when the
+measured control cost is at most `$3.25`, so the expected utilization does not
+weaken the account-wide `$5.00` boundary.
+
 ## Budget-Model Branch
 
 The two 128-case gates now run immediately after the clean August 7 control,

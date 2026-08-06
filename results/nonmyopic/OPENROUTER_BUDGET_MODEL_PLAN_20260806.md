@@ -21,6 +21,11 @@ is not visible yet and is excluded from every authorization calculation.
 Today is closed at `$4.26043712`; no additional August 6 paid block is
 authorized.
 
+The zero-call August 7 preflight passes against the authenticated account and
+frozen artifacts. Its full expected sequence is `$4.96`, leaving `$0.04` under
+the hard daily cap; the stress block remains conditional on the measured
+control cost being at most `$3.25`.
+
 ## Frozen Daily Sequence
 
 | London date | Scientific block | Maximum / expected spend |
@@ -47,8 +52,9 @@ experiment.
 - Live OpenRouter price: `$0.10/M` input and `$0.60/M` output.
 - Input: text, images, and files; strict structured output is advertised.
 - Context: 1.05M; maximum completion: 128K.
-- Artificial Analysis: 46 at high reasoning and 51 at max; the reported max
-  cost is about `$0.21` per Intelligence Index task.
+- Artificial Analysis: 51 at max reasoning, with 130M output tokens across its
+  Intelligence Index evaluation. This is a strength signal, not a projection
+  of our non-reasoning semantic-support cost.
 - Direct project evidence: passed the exact ten-request Number Game semantic
   support smoke for `$0.0035776`, but a later scale attempt had 15 forced
   length exits in 1,200 responses and a fatal strict-JSON failure.
@@ -65,9 +71,9 @@ baseline.
 - Text-only; structured output and reasoning controls are advertised.
 - Context: 1,048,576; maximum completion: 65,536.
 - Architecture: 284B total / 13B active. It is a July 31 re-post-training of
-  V4 Flash. Independent AA results are not yet available for this exact 0731
-  checkpoint; preview-family scores (29 non-reasoning, 37 high, about 40 max)
-  are screening proxies, not 0731 measurements.
+  V4 Flash. Artificial Analysis now reports an exact-checkpoint score of 50 at
+  max reasoning, 103.3 output tokens/s, and 210M output tokens across the
+  Intelligence Index evaluation.
 - Direct project evidence: strict parsing and transport were clean in exact
   ten, but one conditioned response yielded zero valid executable hypotheses,
   so the frozen support gate failed. Cost was `$0.003258592`; high verbosity
