@@ -345,6 +345,14 @@ def load_source(
                 "depth_two_root": int(
                     scored_tree["selection"]["crossfit_depth_two_root"]
                 ),
+                "pts_roots": [
+                    int(root)
+                    for root in scored_tree["selection"]["pts_roots"]
+                ],
+                "random_roots": [
+                    int(root)
+                    for root in scored_tree["selection"]["random_roots"]
+                ],
                 "coefficient_grid_roots": selections,
                 "root_rows": root_rows,
                 "adjusted_scores": adjusted_scores[
@@ -389,21 +397,65 @@ def _comparison_rows(
     return output
 
 
+def _multi_root_comparison_rows(
+    rows: Sequence[dict[str, Any]],
+    *,
+    candidate_key: str,
+    baseline_key: str,
+) -> list[dict[str, Any]]:
+    output = []
+    for row in rows:
+        candidate_root = int(row[candidate_key])
+        baseline_roots = [int(root) for root in row[baseline_key]]
+        if not baseline_roots:
+            raise ValueError(f"empty multi-root baseline: {baseline_key}")
+        candidate = _root_value(row, candidate_root, "realized_brier")
+        baseline = _mean(
+            [
+                _root_value(row, root, "realized_brier")
+                for root in baseline_roots
+            ]
+        )
+        output.append(
+            {
+                "source": row["source"],
+                "tree_seed": row["tree_seed"],
+                "candidate_root": candidate_root,
+                "baseline_roots": baseline_roots,
+                "candidate_brier": candidate,
+                "baseline_brier": baseline,
+                "difference": candidate - baseline,
+            }
+        )
+    return output
+
+
 def comparison_summary(rows: Sequence[dict[str, Any]]) -> dict[str, Any]:
     differences = [float(row["difference"]) for row in rows]
     candidate = [float(row["candidate_brier"]) for row in rows]
     baseline = [float(row["baseline_brier"]) for row in rows]
     baseline_mean = _mean(baseline)
+    sample_sd = lambda values: (
+        statistics.stdev(values) if len(values) > 1 else 0.0
+    )
     return {
         "tree_count": len(rows),
         "candidate_mean_brier": _mean(candidate),
         "baseline_mean_brier": baseline_mean,
         "mean_candidate_minus_baseline_brier": _mean(differences),
+        "candidate_brier_sample_sd": sample_sd(candidate),
+        "baseline_brier_sample_sd": sample_sd(baseline),
+        "paired_difference_sample_sd": sample_sd(differences),
         "relative_brier_reduction": (
             (baseline_mean - _mean(candidate)) / baseline_mean
         ),
         "changed_roots": sum(
-            row["candidate_root"] != row["baseline_root"] for row in rows
+            (
+                row["candidate_root"] not in row["baseline_roots"]
+                if "baseline_roots" in row
+                else row["candidate_root"] != row["baseline_root"]
+            )
+            for row in rows
         ),
         "wins": sum(value < -1e-15 for value in differences),
         "ties": sum(abs(value) <= 1e-15 for value in differences),
@@ -475,6 +527,26 @@ def source_summary(
             "tree_bootstrap_95pct": bootstrap_comparison(
                 comparison, seed=seed + offset, stratified=False
             )
+        }
+    for offset, (name, key) in enumerate(
+        (
+            ("positive_test_strategy", "pts_roots"),
+            ("uniform_random_candidate_root", "random_roots"),
+        ),
+        start=4,
+    ):
+        if not all(key in row for row in rows):
+            continue
+        comparison = _multi_root_comparison_rows(
+            rows,
+            candidate_key="bonus_root",
+            baseline_key=key,
+        )
+        comparisons[name] = comparison_summary(comparison) | {
+            "baseline_is_mean_of_two_roots_per_tree": True,
+            "tree_bootstrap_95pct": bootstrap_comparison(
+                comparison, seed=seed + offset, stratified=False
+            ),
         }
 
     risk = _centered_values(rows, "predicted_brier")

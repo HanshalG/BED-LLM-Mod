@@ -47,7 +47,7 @@ EXECUTION_AMENDMENT = REPO_ROOT / (
     "EXECUTION_AMENDMENT.md"
 )
 EXECUTION_AMENDMENT_SHA256 = (
-    "97794463a97d70438e1c5e09bf693bb7901b2681b79c4e362ba9a59f0a3a3ee5"
+    "4c3e947bf9b68f71668c05593b4a224d609de19be52070aefc0ce989c426b39b"
 )
 
 
@@ -164,6 +164,16 @@ def _set_authorization_status(
     return ledger
 
 
+def _write_verified_report(*, run_dir: Path) -> dict[str, str]:
+    from scripts import number_game_two_draw_diversity_bonus_confirmation64_report as report
+
+    report.write_report(run_dir=run_dir, output_path=report.REPORT_PATH)
+    return {
+        "path": str(report.REPORT_PATH),
+        "sha256": audit.sha256_file(report.REPORT_PATH),
+    }
+
+
 def execute_formal_block(
     *,
     block: str,
@@ -173,6 +183,7 @@ def execute_formal_block(
     now: datetime | None = None,
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
     block_executor: Callable[..., dict[str, Any]] = staged.execute_daily_block,
+    reporter: Callable[..., dict[str, str]] = _write_verified_report,
 ) -> dict[str, Any]:
     if audit.sha256_file(EXECUTION_AMENDMENT) != EXECUTION_AMENDMENT_SHA256:
         raise ValueError("diversity execution amendment hash changed")
@@ -185,6 +196,9 @@ def execute_formal_block(
         execution = _load(execution_path)
         if execution.get("status") != "complete":
             raise RuntimeError("banked daily execution is not complete")
+        if block == "b" and "verified_report" not in execution:
+            execution["verified_report"] = reporter(run_dir=run_dir)
+            checkpoint(execution_path, execution)
         return execution
     if failure_path.exists():
         raise RuntimeError(f"Block {block.upper()} already failed closed")
@@ -249,6 +263,24 @@ def execute_formal_block(
         status="complete",
         actual_cost_usd=float(execution["measured_cost_usd"]),
     )
+    if block == "b":
+        try:
+            execution = dict(execution)
+            execution["verified_report"] = reporter(run_dir=run_dir)
+            checkpoint(execution_path, execution)
+        except Exception as exc:
+            checkpoint(
+                run_dir / "BLOCK_B_REPORT_FAILURE.json",
+                {
+                    "schema_version": SCHEMA_VERSION,
+                    "interface_version": INTERFACE_VERSION,
+                    "status": "zero_call_report_failed",
+                    "block_execution_remains_complete": True,
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                },
+            )
+            raise
     return execution
 
 

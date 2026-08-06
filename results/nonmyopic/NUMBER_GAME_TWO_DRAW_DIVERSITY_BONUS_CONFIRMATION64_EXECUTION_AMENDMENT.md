@@ -48,6 +48,26 @@ Block B remains mandatory after a verified mechanics-clean Block A regardless
 of Block A science. A failed Block A mechanics or authorization check forbids
 Block B. Neither day authorizes a confirmation-related paid tail.
 
+## Descriptive Control Contract
+
+The combined artifact additionally reports paired comparisons against the two
+pre-existing positive-test-strategy roots and the two pre-existing uniform
+random roots on every tree. Each baseline is the within-tree mean Brier of its
+two roots and receives its own 20,000-sample tree bootstrap. These controls
+use no additional generation, do not alter any selected root, and are not
+scientific gates. They complete the random-strategy reporting contract without
+changing the frozen primary or secondary decisions.
+
+Successful Block B completion automatically reruns the independent verifier
+and writes
+`NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_RESULT.md`. Its fixed
+table always reports depth two, unadjusted depth three, myopic EIG,
+fixed-support depth three, PTS, and uniform random in that order, including
+candidate and baseline sample SDs, paired bootstrap intervals, W/T/L, and root
+changes. Pass, gated-null, and mechanics-failure language is deterministic.
+A report-rendering failure occurs only after the paid block and ledger are
+complete; it is recoverable with zero calls and never authorizes a block rerun.
+
 ## Formal Commands
 
 ```bash
@@ -74,5 +94,6 @@ Before either formal directory existed, two temporary copies of the real
 32-tree source artifact were relabeled only to the frozen A/B seed manifests.
 The complete pipeline independently verified Block A, reconstructed all 64
 fixed-selector rows, ran the 20,000-sample combined bootstrap, serialized and
-reloaded the result, and passed all 37 final verification checks. This used
-zero model calls and is mechanics evidence only.
+reloaded the result, and passed all 38 final verification checks. The
+deterministic reporter emitted every fixed comparison and uncertainty field.
+This used zero model calls and is mechanics evidence only.

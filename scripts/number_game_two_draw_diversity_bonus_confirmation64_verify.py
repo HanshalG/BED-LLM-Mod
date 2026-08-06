@@ -323,6 +323,21 @@ def verification_checks(
             == audit.DIVERSITY_COEFFICIENT
             and protocol.get("no_coefficient_sweep_on_fresh_data") is True
         ),
+        "descriptive_control_contract_exact": (
+            protocol.get("descriptive_controls_reported")
+            == [
+                "positive_test_strategy",
+                "uniform_random_candidate_root",
+            ]
+            and protocol.get(
+                "descriptive_controls_are_not_scientific_gates"
+            )
+            is True
+            and all(
+                name in replay["comparisons"]
+                for name in protocol.get("descriptive_controls_reported", [])
+            )
+        ),
         "no_coefficient_grid_published": all(
             "coefficient_grid_roots" not in row
             for row in result.get("rows") or []

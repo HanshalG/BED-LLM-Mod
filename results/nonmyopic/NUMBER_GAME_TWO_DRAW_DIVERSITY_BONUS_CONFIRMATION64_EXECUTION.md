@@ -14,8 +14,10 @@ python scripts/number_game_two_draw_diversity_bonus_confirmation64_daily_execute
 
 It fixes the shared run ID and paths, initializes each account-wide ledger
 from live cumulative usage, independently verifies Block A before Block B, and
-refuses partial block reruns. The placeholder commands below describe the
-underlying component interface and must not be launched separately.
+refuses partial block reruns. Verified Block B completion also writes the
+fixed-format public result note automatically. The placeholder commands below
+describe the underlying component interface and must not be launched
+separately.
 
 ## Preconditions
 

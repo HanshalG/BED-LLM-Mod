@@ -199,3 +199,104 @@ def test_started_ledger_is_never_reused_after_ambiguous_crash(
             live_reader=lambda: _live(),
             block_executor=lambda **_: pytest.fail("ambiguous block rerun"),
         )
+
+
+def test_block_b_writes_verified_report_before_completion(
+    tmp_path: Path,
+) -> None:
+    control = tmp_path / "control.json"
+    ledger = tmp_path / "ledger.json"
+    run_dir = tmp_path / "run"
+    _control(control)
+    _write(run_dir / "BLOCK_A_STAGE.json", {"status": "banked"})
+    calls = []
+
+    def block_executor(**_):
+        execution = {
+            "status": "complete",
+            "block": "b",
+            "measured_requests": staged.EXPECTED_REQUESTS_PER_BLOCK,
+            "measured_cost_usd": 4.2,
+        }
+        _write(run_dir / "BLOCK_B_DAILY_EXECUTION.json", execution)
+        return execution
+
+    def reporter(*, run_dir: Path):
+        calls.append(run_dir)
+        return {"path": "report.md", "sha256": "report-hash"}
+
+    result = execute.execute_formal_block(
+        block="b",
+        run_dir=run_dir,
+        ledger_path=ledger,
+        control_execution_path=control,
+        now=datetime(2026, 8, 9, 0, 1, tzinfo=LONDON),
+        live_reader=lambda: _live(),
+        block_executor=block_executor,
+        reporter=reporter,
+    )
+
+    assert calls == [run_dir]
+    assert result["verified_report"]["sha256"] == "report-hash"
+    stored = json.loads(
+        (run_dir / "BLOCK_B_DAILY_EXECUTION.json").read_text(encoding="utf-8")
+    )
+    assert stored["verified_report"] == result["verified_report"]
+
+
+def test_report_failure_recovers_without_repeating_paid_block(
+    tmp_path: Path,
+) -> None:
+    control = tmp_path / "control.json"
+    ledger = tmp_path / "ledger.json"
+    run_dir = tmp_path / "run"
+    _control(control)
+    _write(run_dir / "BLOCK_A_STAGE.json", {"status": "banked"})
+    block_calls = []
+
+    def block_executor(**_):
+        block_calls.append("b")
+        execution = {
+            "status": "complete",
+            "block": "b",
+            "measured_requests": staged.EXPECTED_REQUESTS_PER_BLOCK,
+            "measured_cost_usd": 4.2,
+        }
+        _write(run_dir / "BLOCK_B_DAILY_EXECUTION.json", execution)
+        return execution
+
+    with pytest.raises(RuntimeError, match="report failed"):
+        execute.execute_formal_block(
+            block="b",
+            run_dir=run_dir,
+            ledger_path=ledger,
+            control_execution_path=control,
+            now=datetime(2026, 8, 9, 0, 1, tzinfo=LONDON),
+            live_reader=lambda: _live(),
+            block_executor=block_executor,
+            reporter=lambda **_: (_ for _ in ()).throw(
+                RuntimeError("report failed")
+            ),
+        )
+
+    assert block_calls == ["b"]
+    assert not (run_dir / "BLOCK_B_RUNNER_FAILURE.json").exists()
+    report_failure = json.loads(
+        (run_dir / "BLOCK_B_REPORT_FAILURE.json").read_text(encoding="utf-8")
+    )
+    assert report_failure["block_execution_remains_complete"]
+    current_ledger = json.loads(ledger.read_text(encoding="utf-8"))
+    assert current_ledger["first_authorized_block"]["status"] == "complete"
+
+    recovered = execute.execute_formal_block(
+        block="b",
+        run_dir=run_dir,
+        ledger_path=ledger,
+        control_execution_path=control,
+        now=datetime(2026, 8, 9, 0, 2, tzinfo=LONDON),
+        live_reader=lambda: pytest.fail("report recovery read live credits"),
+        block_executor=lambda **_: pytest.fail("paid block repeated"),
+        reporter=lambda **_: {"path": "report.md", "sha256": "recovered"},
+    )
+    assert recovered["verified_report"]["sha256"] == "recovered"
+    assert block_calls == ["b"]

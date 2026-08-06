@@ -4,6 +4,7 @@ import pytest
 
 from scripts.number_game_two_draw_diversity_bonus_audit import (
     DIVERSITY_COEFFICIENT,
+    _multi_root_comparison_rows,
     adjusted_root,
     comparison_summary,
     draw_disagreement,
@@ -87,3 +88,28 @@ def test_loader_requires_only_unique_original_and_bonus_coefficients(
             {"directory": tmp_path},
             coefficients=(0.0, DIVERSITY_COEFFICIENT, 0.0),
         )
+
+
+def test_two_root_control_uses_paired_within_tree_mean() -> None:
+    row = {
+        "source": "fresh",
+        "tree_seed": 1,
+        "bonus_root": 1,
+        "random_roots": [2, 3],
+        "root_rows": [
+            {"root": 1, "realized_brier": 0.08},
+            {"root": 2, "realized_brier": 0.10},
+            {"root": 3, "realized_brier": 0.12},
+        ],
+    }
+
+    comparison = _multi_root_comparison_rows(
+        [row],
+        candidate_key="bonus_root",
+        baseline_key="random_roots",
+    )
+    summary = comparison_summary(comparison)
+
+    assert comparison[0]["baseline_brier"] == pytest.approx(0.11)
+    assert comparison[0]["difference"] == pytest.approx(-0.03)
+    assert summary["changed_roots"] == 1

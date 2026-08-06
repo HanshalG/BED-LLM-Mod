@@ -287,6 +287,12 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
         include_coefficient_grid=False,
     )
     gates = scientific_gates(summary)
+    required_descriptive_controls = {
+        "positive_test_strategy",
+        "uniform_random_candidate_root",
+    }
+    if not required_descriptive_controls.issubset(summary["comparisons"]):
+        raise ValueError("combined result omitted frozen descriptive controls")
     mechanics_pass = all(
         all(stage["mechanics_gates"].values()) for stage in stages.values()
     )
@@ -343,6 +349,10 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
             "diversity_coefficient": audit.DIVERSITY_COEFFICIENT,
             "no_coefficient_sweep_on_fresh_data": True,
             "expected_requests_total": EXPECTED_REQUESTS_TOTAL,
+            "descriptive_controls_reported": sorted(
+                required_descriptive_controls
+            ),
+            "descriptive_controls_are_not_scientific_gates": True,
         },
         "usage": usage,
         "block_stages": stages,

@@ -62,6 +62,12 @@ def _summary() -> dict:
                 "changed_roots": 20,
                 "mean_candidate_minus_baseline_brier": -0.001,
             },
+            "positive_test_strategy": {
+                "baseline_is_mean_of_two_roots_per_tree": True,
+            },
+            "uniform_random_candidate_root": {
+                "baseline_is_mean_of_two_roots_per_tree": True,
+            },
         }
     }
 
