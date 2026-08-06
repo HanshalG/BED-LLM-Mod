@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Harden tomorrow's unopened Aug7 Number Game orchestrator with a
+live OpenRouter catalog gate before formal seeds. Preflight now requires exact
+Qwen3.7+,Luna,and DeepSeek0731 endpoints,text input,structured output,>=4200
+completion tokens,and finite prices. Real production-env preflight passes with
+Qwen $.32/$1.28/M,Luna $.10/$.60/M,DeepSeek $.09/$.18/M;all frozen hashes,
+6752 source+control accounting,128/model reliability cases,stress3584 manifest,
+pristine paths,and ledger d889a0dd remain exact. Expected packed spend$4.96
+under hard$5;live usage217.297890263/balance$27.702109737 unchanged. Focused
+control/verifier/reliability/stress/budget suite67/67;model0/files0/cost0.
+
 2026-08-06: Added read-only preflights for both `$5` Aug8--9 Number Game
 diversity-bonus confirmation blocks. They bind the amendment/preregistration
 and canonical date/seed/model/request manifest (`041994f4...eba`), validate

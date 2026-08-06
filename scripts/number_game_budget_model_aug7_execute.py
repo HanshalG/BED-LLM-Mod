@@ -7,9 +7,11 @@ import argparse
 from datetime import datetime
 import json
 import math
+import os
 from pathlib import Path
 import sys
-from typing import Any, Callable
+from typing import Any, Callable, Mapping
+from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -59,10 +61,70 @@ STRESS_OUTPUT_DIR = REPO_ROOT / (
 )
 EXPECTED_CONTROL_COST_USD = 3.21
 MINIMUM_STARTING_BALANCE_USD = 5.0
+MODELS_URL = "https://openrouter.ai/api/v1/models"
+QWEN_MODEL_ID = control.staged.base.control.MODEL_ID
+MODEL_MAX_OUTPUT_TOKENS = {
+    QWEN_MODEL_ID: control.staged.base.control.MAX_TOKENS,
+    **{model: reliability.MAX_TOKENS for model in RELIABILITY_RUNS},
+}
 
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def read_openrouter_model_catalog() -> dict[str, Any]:
+    headers = {}
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+    request = Request(MODELS_URL, headers=headers)
+    with urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
+    records = {model.get("id"): model for model in catalog.get("data", [])}
+    verified = {}
+    for model_id, required_tokens in MODEL_MAX_OUTPUT_TOKENS.items():
+        model = records.get(model_id)
+        if model is None:
+            raise RuntimeError(f"OpenRouter does not expose exact model {model_id}")
+        modalities = set(
+            (model.get("architecture") or {}).get("input_modalities") or []
+        )
+        supported = set(model.get("supported_parameters") or [])
+        max_completion = int(
+            (model.get("top_provider") or {}).get("max_completion_tokens") or 0
+        )
+        pricing = model.get("pricing") or {}
+        prompt_price = float(pricing.get("prompt", math.nan))
+        completion_price = float(pricing.get("completion", math.nan))
+        if "text" not in modalities:
+            raise RuntimeError(f"{model_id} no longer supports text input")
+        if not ({"response_format", "structured_outputs"} & supported):
+            raise RuntimeError(f"{model_id} no longer supports structured output")
+        if max_completion < required_tokens:
+            raise RuntimeError(f"{model_id} completion limit is too small")
+        if not all(
+            math.isfinite(value) and value >= 0.0
+            for value in (prompt_price, completion_price)
+        ):
+            raise RuntimeError(f"{model_id} pricing is missing or invalid")
+        verified[model_id] = {
+            "context_length": int(model.get("context_length") or 0),
+            "max_completion_tokens": max_completion,
+            "required_completion_tokens": required_tokens,
+            "input_modalities": sorted(modalities),
+            "supports_structured_output": True,
+            "prompt_usd_per_million_tokens": round(
+                prompt_price * 1_000_000, 12
+            ),
+            "completion_usd_per_million_tokens": round(
+                completion_price * 1_000_000, 12
+            ),
+        }
+    return verified
 
 
 def _validate_date(ledger: dict[str, Any], now: datetime | None) -> None:
@@ -256,6 +318,7 @@ def preflight_aug7_sequence(
         _verify_source_readiness
     ),
     case_validator: Callable[[], dict[str, Any]] = _verify_frozen_case_inputs,
+    catalog_reader: Callable[[], dict[str, Any]] = read_openrouter_model_catalog,
 ) -> dict[str, Any]:
     """Validate tomorrow's frozen sequence without writing or model calls."""
     ledger = _load(daily_ledger)
@@ -268,6 +331,7 @@ def preflight_aug7_sequence(
     )
     source = source_validator(control_run_dir)
     cases = case_validator()
+    models = _validate_model_catalog(catalog_reader())
     live = live_reader()
     live_usage = float(live["total_usage_usd"])
     live_balance = float(live["balance_usd"])
@@ -317,6 +381,7 @@ def preflight_aug7_sequence(
         "usage_headroom_to_frozen_opening_usd": opening_usage - live_usage,
         "source": source,
         "cases": cases,
+        "models": models,
         "execution_paths": paths,
         "budget": budget,
         "model_calls_made": 0,

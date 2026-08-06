@@ -147,6 +147,22 @@ def _case_validator() -> dict:
     }
 
 
+def _model_catalog() -> dict:
+    return {
+        "data": [
+            {
+                "id": model_id,
+                "context_length": 131_072,
+                "architecture": {"input_modalities": ["text"]},
+                "supported_parameters": ["structured_outputs"],
+                "top_provider": {"max_completion_tokens": 32_768},
+                "pricing": {"prompt": "0.0000001", "completion": "0.0000006"},
+            }
+            for model_id in execute.MODEL_MAX_OUTPUT_TOKENS
+        ]
+    }
+
+
 def _live_credits(*, usage: float = 217.25) -> dict[str, float]:
     return {
         "total_credits_usd": 275.0,
@@ -170,6 +186,7 @@ def test_preflight_is_read_only_and_reports_exact_budget_pack(
         live_reader=_live_credits,
         source_validator=_source_validator,
         case_validator=_case_validator,
+        catalog_reader=_model_catalog,
     )
 
     after = {
@@ -188,6 +205,7 @@ def test_preflight_is_read_only_and_reports_exact_budget_pack(
     assert result["budget"]["maximum_control_cost_for_full_stress_usd"] == (
         pytest.approx(3.25)
     )
+    assert set(result["models"]) == set(execute.MODEL_MAX_OUTPUT_TOKENS)
 
 
 def test_preflight_rejects_usage_after_frozen_opening(tmp_path: Path) -> None:
@@ -199,6 +217,7 @@ def test_preflight_rejects_usage_after_frozen_opening(tmp_path: Path) -> None:
             live_reader=lambda: _live_credits(usage=217.250001),
             source_validator=_source_validator,
             case_validator=_case_validator,
+            catalog_reader=_model_catalog,
         )
 
 
@@ -216,10 +235,27 @@ def test_preflight_rejects_partial_tail_without_writing(tmp_path: Path) -> None:
             live_reader=_live_credits,
             source_validator=_source_validator,
             case_validator=_case_validator,
+            catalog_reader=_model_catalog,
         )
 
     assert (partial / "RAW_RESPONSES.json").read_bytes() == before
     assert not paths["output_dir"].exists()
+
+
+def test_preflight_rejects_missing_structured_model_endpoint(
+    tmp_path: Path,
+) -> None:
+    paths = _preflight_paths(tmp_path)
+    catalog = _model_catalog()
+    catalog["data"][0]["supported_parameters"] = []
+    with pytest.raises(RuntimeError, match="structured output"):
+        execute.preflight_aug7_sequence(
+            **paths,
+            live_reader=_live_credits,
+            source_validator=_source_validator,
+            case_validator=_case_validator,
+            catalog_reader=lambda: catalog,
+        )
 
 
 def _control_runner(calls: list[str]):

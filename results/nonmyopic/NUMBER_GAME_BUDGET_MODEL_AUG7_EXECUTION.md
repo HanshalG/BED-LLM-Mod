@@ -38,6 +38,22 @@ The public sequence summary is written to
 It records component artifact hashes, final model selection, and reconciled
 account-wide spend without copying private responses.
 
+The read-only launch check is:
+
+```bash
+set -a
+source .env
+set +a
+
+/Users/hanshalgoyal/.conda/envs/20_questions_env/bin/python \
+  scripts/number_game_budget_model_aug7_execute.py --preflight
+```
+
+It makes no model calls and writes no files. In addition to all frozen hashes,
+paths, cases, and budget boundaries, it requires exact live Qwen, Luna, and
+DeepSeek endpoints with text input, structured output, at least 4,200
+completion tokens, and finite non-negative pricing.
+
 ## Budget Envelope
 
 - Qwen control: expected about `$3.21`, hard cap `$4.25`;
