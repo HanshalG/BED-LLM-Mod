@@ -1088,6 +1088,44 @@
       ]
     },
     {
+      "id": "number_game_history_conditioning_pooled64",
+      "paper_scope": "Retrospective cohort-stratified synthesis of two disjoint matched-prompt controls, preserving the replicated delayed belief effect, selective first-link calibration, and null selected-root mean contrast.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_history_conditioning_pooled64/number-game-history-conditioning-pooled64-20260806T070000Z/RESULT.json",
+        "sha256": "186f4a6b6152a4a2435e5eda60d45fd1ab696767361d4bfae8ae95fa9aaa6db4"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "retrospective_replication_synthesis"},
+        {"pointer": "/protocol/analysis_is_retrospective", "equals": true},
+        {"pointer": "/protocol/source_statuses_unchanged", "equals": true},
+        {"pointer": "/protocol/cannot_rescue_or_relabel_sources", "equals": true},
+        {"pointer": "/protocol/cohort_count", "equals": 2},
+        {"pointer": "/protocol/trees_per_cohort", "equals": 32},
+        {"pointer": "/protocol/tree_count", "equals": 64},
+        {"pointer": "/protocol/bootstrap_seed", "equals": 10700000},
+        {"pointer": "/protocol/bootstrap_samples", "equals": 20000},
+        {"pointer": "/protocol/model_calls", "equals": 0},
+        {"pointer": "/protocol/cost_usd", "equals": 0.0, "tolerance": 1e-12},
+        {"pointer": "/analysis/retrospective_findings/second_stage_conditioning_mse_ci_below_zero", "equals": true},
+        {"pointer": "/analysis/retrospective_findings/second_stage_conditioning_coverage_ci_above_zero", "equals": true},
+        {"pointer": "/analysis/retrospective_findings/root_specific_benefit_spearman_ci_above_zero", "equals": true},
+        {"pointer": "/analysis/retrospective_findings/selected_root_mean_benefit_ci_above_zero", "equals": false},
+        {"pointer": "/analysis/stages/first/differences/conditional_minus_history_blind_predictive_mse", "equals": 0.018723849598591143, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/conditional/posterior_predictive_mse", "equals": 0.03353224211636392, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/history_blind/posterior_predictive_mse", "equals": 0.03810587307587433, "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/differences/conditional_minus_history_blind_predictive_mse", "equals": -0.00457363095951041, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/second_conditional_minus_history_blind_predictive_mse_95pct", "equals": [-0.006153142283609505, -0.002925029497352414], "tolerance": 1e-12},
+        {"pointer": "/analysis/stages/second/differences/conditional_minus_history_blind_truth_coverage", "equals": 0.16915246212121213, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/second_conditional_minus_history_blind_truth_coverage_95pct", "equals": [0.16287878787878787, 0.17542613636363635], "tolerance": 1e-12},
+        {"pointer": "/analysis/selected_root_prompt_conditioning/changed_root_tree_count", "equals": 48},
+        {"pointer": "/analysis/selected_root_prompt_conditioning/changed_root_tree_count_by_cohort", "equals": [27, 21]},
+        {"pointer": "/analysis/selected_root_prompt_conditioning/mean_dynamic_minus_fixed_root_prompt_conditioning_benefit", "equals": 0.0018053308120970634, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/changed_root_prompt_benefit_contrast_95pct", "equals": [-0.0055944736314601385, 0.008899874433113492], "tolerance": 1e-12},
+        {"pointer": "/analysis/selected_root_prompt_conditioning/prompt_benefit_contrast_to_realized_advantage_spearman", "equals": 0.6082283977420756, "tolerance": 1e-12},
+        {"pointer": "/analysis/bootstrap/prompt_benefit_contrast_to_realized_spearman_95pct", "equals": [0.3536972986900984, 0.7912607880064778], "tolerance": 1e-12}
+      ]
+    },
+    {
       "id": "number_game_deepseek_v4_flash_paired_efficacy32",
       "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
       "artifact": {

@@ -351,13 +351,14 @@ imprecise. Hash-bound audits find better root ranking and a selective
 refresh-quality signal (Spearman $.472$, $[.262,.645]$), not uniformly better
 beliefs.
 
-Fresh matched no-observation generations isolate answer conditioning. After
-two answers, conditioning lowers MSE 14.5\% and raises coverage 16.58 points;
-benefit contrast predicts realized advantage at Spearman $.717$
-($[.393,.889]$), although its mean interval crosses zero. A disjoint 32-tree
-confirmation lowers MSE 9.51\%, raises coverage 17.25 points, and confirms the
-correlation at $.530$ ($[.058,.827]$), while again missing uniform selected-root
-uplift.
+Fresh matched no-observation generations isolate answer conditioning. Across
+two disjoint 32-tree cohorts, conditioning initially trades calibration for
+coverage, then lowers second-stage MSE from $.03811$ to $.03353$ (12.0\%;
+$[-.00615,-.00293]$) and raises coverage 16.92 points. Across 48 changed-root
+trees, root-specific benefit predicts realized dynamic-selection advantage at
+Spearman $.608$ ($[.354,.791]$). The second cohort preregistered this selective
+link after the first discovered it; the pooled mean selected-root contrast
+still crosses zero ($[-.00559,.00890]$).
 
 A fully fresh 32-tree source then preserves depth three over myopic by 15.75\%
 ($[-.0262,-.0117]$; 26/1/5), but dynamic versus fixed depth three is only
@@ -631,11 +632,11 @@ all scientific Brier gates at 3.44\% ($[-.0064,-.0010]$; 50/24/22), yet its
 conjunction remains null because three trees miss the support floor. It also
 worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
 unqualified all-metric, all-mechanics confirmation. Retrospective audits find
-better ranking and selective calibration. A fresh history-blind control finds
-second-stage MSE and coverage gains from answer conditioning, but misses its
-selected-root mean-contrast gate. A disjoint preregistered cohort confirms that
-root-specific conditioning benefit predicts realized advantage, while the mean
-contrast remains null; source-study status is unchanged.
+better ranking and selective calibration. Two disjoint fresh history-blind
+controls reproduce second-stage MSE and coverage gains from answer conditioning;
+the second preregisters and confirms that root-specific benefit predicts
+realized advantage. Their retrospective pooled synthesis retains a null
+selected-root mean contrast, and source-study statuses remain unchanged.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
 Its first tree gives 22.6\%

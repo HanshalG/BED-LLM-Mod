@@ -1,0 +1,170 @@
+{
+  "analysis": {
+    "bootstrap": {
+      "changed_root_prompt_benefit_contrast_95pct": [
+        -0.0055944736314601385,
+        0.008899874433113492
+      ],
+      "prompt_benefit_contrast_to_realized_spearman_95pct": [
+        0.3536972986900984,
+        0.7912607880064778
+      ],
+      "second_conditional_minus_history_blind_predictive_mse_95pct": [
+        -0.006153142283609505,
+        -0.002925029497352414
+      ],
+      "second_conditional_minus_history_blind_truth_coverage_95pct": [
+        0.16287878787878787,
+        0.17542613636363635
+      ]
+    },
+    "retrospective_findings": {
+      "root_specific_benefit_spearman_ci_above_zero": true,
+      "second_stage_conditioning_coverage_ci_above_zero": true,
+      "second_stage_conditioning_mse_ci_below_zero": true,
+      "selected_root_mean_benefit_ci_above_zero": false
+    },
+    "selected_root_prompt_conditioning": {
+      "changed_root_tree_count": 48,
+      "changed_root_tree_count_by_cohort": [
+        27,
+        21
+      ],
+      "mean_dynamic_minus_fixed_root_prompt_conditioning_benefit": 0.0018053308120970634,
+      "mean_dynamic_root_prompt_conditioning_benefit": 0.009006369268970275,
+      "mean_fixed_root_prompt_conditioning_benefit": 0.007201038456873212,
+      "prompt_benefit_contrast_to_realized_advantage_spearman": 0.6082283977420756
+    },
+    "stages": {
+      "first": {
+        "conditional": {
+          "posterior_predictive_mse": 0.03985117587595925,
+          "support_size": 37.26929450757576,
+          "truth_extension_coverage": 0.5428503787878788
+        },
+        "differences": {
+          "conditional_minus_history_blind_predictive_mse": 0.018723849598591143,
+          "conditional_minus_history_blind_support_size": 0.39062500000000033,
+          "conditional_minus_history_blind_truth_coverage": 0.10973011363636363
+        },
+        "history_blind": {
+          "posterior_predictive_mse": 0.02112732627736811,
+          "support_size": 36.87866950757576,
+          "truth_extension_coverage": 0.43312026515151514
+        }
+      },
+      "second": {
+        "conditional": {
+          "posterior_predictive_mse": 0.03353224211636392,
+          "support_size": 40.483723958333336,
+          "truth_extension_coverage": 0.6119199810606061
+        },
+        "differences": {
+          "conditional_minus_history_blind_predictive_mse": -0.00457363095951041,
+          "conditional_minus_history_blind_support_size": 1.4100378787878787,
+          "conditional_minus_history_blind_truth_coverage": 0.16915246212121213
+        },
+        "history_blind": {
+          "posterior_predictive_mse": 0.03810587307587433,
+          "support_size": 39.07368607954545,
+          "truth_extension_coverage": 0.4427675189393939
+        }
+      }
+    },
+    "tree_count": 64
+  },
+  "interface_version": "number-game-history-conditioning-pooled64-1",
+  "protocol": {
+    "analysis_is_retrospective": true,
+    "bootstrap_design": "cohort_stratified_tree_resampling",
+    "bootstrap_samples": 20000,
+    "bootstrap_seed": 10700000,
+    "cannot_rescue_or_relabel_sources": true,
+    "cohort_count": 2,
+    "cohort_tree_indices": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    ],
+    "cost_usd": 0.0,
+    "model_calls": 0,
+    "source_result_paths": [
+      "results/nonmyopic/number_game_qwen_history_blind_matched32_v3/number-game-qwen-history-blind-matched32-v3-20260730T173000Z/RESULT.json",
+      "results/nonmyopic/number_game_qwen_history_blind_first_link_confirmation32/number-game-qwen-history-blind-first-link-confirmation32-20260730T044135Z/RESULT.json"
+    ],
+    "source_result_sha256": [
+      "29bb76074dfb53a6efef352fde88fbca6c3a7dc591d0936d132c82050f1dc71d",
+      "c47a6aba6c1ac5d9028f234c4670d62418c4ce8d5e09162145c188e6a2d2b725"
+    ],
+    "source_statuses_unchanged": true,
+    "tree_count": 64,
+    "trees_per_cohort": 32
+  },
+  "schema_version": 1,
+  "status": "retrospective_replication_synthesis"
+}

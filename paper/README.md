@@ -30,6 +30,10 @@ second-stage MSE improves 9.51% (`95% CI [-.00580,-.00138]`), coverage rises
 17.25 points, and root-specific conditioning benefit predicts realized
 dynamic-selection advantage at Spearman `.530`
 (`95% CI [.058,.827]`). Its selected-root mean contrast still crosses zero.
+Pooling the two disjoint controls retrospectively gives a 12.0% second-stage
+MSE reduction, a 16.92-point coverage gain, and selective calibration at
+Spearman `.608` (`95% CI [.354,.791]`), while the pooled selected-root mean
+contrast remains null.
 The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
