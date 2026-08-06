@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 from PIL import Image
 import pytest
 
+from scripts import bongard_openworld_luna_development32_daily_execute as daily
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_vlm_bed as bed
@@ -237,9 +238,10 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
         return [development.seal_endpoint_labels(task) for task in tasks]
 
     monkeypatch.setattr(bed, "load_validation_partition_tasks", load_tasks)
+    combined_path = tmp_path / "combined.json"
     result = development.analyze_combined(
         block_results=paths,
-        output_path=tmp_path / "combined.json",
+        output_path=combined_path,
     )
     assert label_access == [False, True]
     assert result["protocol"][
@@ -252,6 +254,16 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
         math.isfinite(metrics["mean_brier"])
         for metrics in result["pooled_policy_metrics"].values()
     )
+    verification = daily.verify_combined_result(
+        result_path=combined_path,
+        block_results=paths,
+        all_development_tasks=tasks,
+    )
+    assert verification["verified"]
+    assert verification["status"] == result["status"]
+    assert verification["authorizes_confirmation_preregistration"] is result[
+        "authorizes_confirmation_preregistration"
+    ]
 
 
 def test_combined_analysis_refuses_missing_block(tmp_path: Path) -> None:
