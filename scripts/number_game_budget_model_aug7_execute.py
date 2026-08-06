@@ -69,6 +69,10 @@ MODEL_MAX_OUTPUT_TOKENS = {
 }
 
 
+class PreExecutionGateError(RuntimeError):
+    """A zero-call launch gate failed before any artifact should be written."""
+
+
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -767,6 +771,7 @@ def execute_aug7_sequence(
         _verify_reliability_component
     ),
     stress_validator: Callable[..., dict[str, Any]] = _verify_stress_component,
+    fresh_preflight: Callable[..., dict[str, Any]] = preflight_aug7_sequence,
 ) -> dict[str, Any]:
     """Run or resume components without repeating any banked model call."""
     final_path = output_dir / "RESULT.json"
@@ -783,8 +788,28 @@ def execute_aug7_sequence(
             control_validator=control_validator,
             stress_validator=stress_validator,
         )
+    try:
+        _validate_date(ledger, now)
+    except Exception as exc:
+        raise PreExecutionGateError(str(exc)) from exc
+    control_execution_path = control_run_dir / "CONTROL_DAILY_EXECUTION.json"
+    control_failure_path = control_run_dir / "CONTROL_DAILY_EXECUTION_FAILURE.json"
+    if not control_execution_path.exists() and not control_failure_path.exists():
+        try:
+            preflight = fresh_preflight(
+                output_dir=output_dir,
+                control_run_dir=control_run_dir,
+                daily_ledger=daily_ledger,
+                reliability_root=reliability_root,
+                stress_output_dir=stress_output_dir,
+            )
+        except Exception as exc:
+            raise PreExecutionGateError(str(exc)) from exc
+        if preflight.get("status") != "ready_without_paid_calls":
+            raise PreExecutionGateError(
+                "fresh August 7 preflight did not authorize execution"
+            )
     output_dir.mkdir(parents=True, exist_ok=True)
-    _validate_date(ledger, now)
     state: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -794,13 +819,12 @@ def execute_aug7_sequence(
         "components": {},
     }
 
-    control_execution_path = control_run_dir / "CONTROL_DAILY_EXECUTION.json"
     if control_execution_path.exists():
         control_execution = _load(control_execution_path)
         if control_execution.get("status") != "complete_verified":
             raise RuntimeError("banked control execution is not verified")
     else:
-        if (control_run_dir / "CONTROL_DAILY_EXECUTION_FAILURE.json").exists():
+        if control_failure_path.exists():
             raise RuntimeError("banked control execution already failed closed")
         if (control_run_dir / "control").exists() or (
             control_run_dir / "CONTROL_VERIFICATION.json"
@@ -993,6 +1017,8 @@ def main() -> int:
         return 0
     try:
         result = execute_aug7_sequence()
+    except PreExecutionGateError:
+        raise
     except Exception as exc:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         checkpoint(

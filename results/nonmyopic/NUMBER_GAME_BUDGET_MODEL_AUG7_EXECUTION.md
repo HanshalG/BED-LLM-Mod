@@ -53,6 +53,10 @@ It makes no model calls and writes no files. In addition to all frozen hashes,
 paths, cases, and budget boundaries, it requires exact live Qwen, Luna, and
 DeepSeek endpoints with text input, structured output, at least 4,200
 completion tokens, and finite non-negative pricing.
+The authoritative paid command automatically runs this complete check before
+creating its wrapper directory or constructing any model adapter. A wrong-day
+or failed fresh preflight leaves no artifact and cannot poison a later valid
+launch. Resumption instead verifies banked components and never repeats them.
 
 ## Budget Envelope
 

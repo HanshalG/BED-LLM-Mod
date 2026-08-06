@@ -10,9 +10,11 @@ Qwen3.7+,Luna,and DeepSeek0731 endpoints,text input,structured output,>=4200
 completion tokens,and finite prices. Real production-env preflight passes with
 Qwen $.32/$1.28/M,Luna $.10/$.60/M,DeepSeek $.09/$.18/M;all frozen hashes,
 6752 source+control accounting,128/model reliability cases,stress3584 manifest,
-pristine paths,and ledger d889a0dd remain exact. Expected packed spend$4.96
-under hard$5;live usage217.297890263/balance$27.702109737 unchanged. Focused
-control/verifier/reliability/stress/budget suite67/67;model0/files0/cost0.
+pristine paths,and ledger d889a0dd remain exact. The paid command now runs the
+same gate automatically before any write/adapter;wrong-day/preflight failures
+leave no artifact and resumes remain banked. Expected packed spend$4.96 under
+hard$5;live usage217.297890263/balance$27.702109737 unchanged. Focused
+control/verifier/reliability/stress/budget suite69/69;model0/files0/cost0.
 
 2026-08-06: Added read-only preflights for both `$5` Aug8--9 Number Game
 diversity-bonus confirmation blocks. They bind the amendment/preregistration

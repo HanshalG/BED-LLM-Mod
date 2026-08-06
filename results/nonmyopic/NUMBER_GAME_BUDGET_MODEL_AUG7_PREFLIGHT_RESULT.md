@@ -30,7 +30,8 @@ structured output, and at least the required 4,200 completion tokens:
 | `deepseek/deepseek-v4-flash-0731` | 1,048,576 | 65,536 | `$0.09 / $0.18` |
 
 The focused control, verifier, reliability, stress, daily-stage, and budget
-suite passes 67 tests. The preflight made zero model calls and wrote zero
+suite passes 69 tests. The preflight made zero model calls and wrote zero
 files. The authoritative paid command remains the single orchestrator command
-in `NUMBER_GAME_BUDGET_MODEL_AUG7_EXECUTION.md`; component CLIs must not be
-launched separately.
+in `NUMBER_GAME_BUDGET_MODEL_AUG7_EXECUTION.md`; it reruns this preflight
+automatically before any write or adapter. Component CLIs must not be launched
+separately.

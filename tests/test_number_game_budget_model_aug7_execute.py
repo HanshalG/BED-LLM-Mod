@@ -109,6 +109,10 @@ def _stress_validator(path: Path, _) -> dict:
     }
 
 
+def _fresh_preflight(**_) -> dict:
+    return {"status": "ready_without_paid_calls"}
+
+
 def _paths(tmp_path: Path) -> dict:
     ledger = tmp_path / "ledger.json"
     _write(ledger, _ledger())
@@ -121,6 +125,7 @@ def _paths(tmp_path: Path) -> dict:
         "control_validator": _control_validator,
         "reliability_validator": _reliability_validator,
         "stress_validator": _stress_validator,
+        "fresh_preflight": _fresh_preflight,
     }
 
 
@@ -131,6 +136,7 @@ def _preflight_paths(tmp_path: Path) -> dict:
         "control_validator",
         "reliability_validator",
         "stress_validator",
+        "fresh_preflight",
     ):
         paths.pop(name)
     return paths
@@ -383,6 +389,48 @@ def test_sequence_runs_all_components_in_exact_order(tmp_path: Path) -> None:
     assert (paths["output_dir"] / "RESULT.json").exists()
 
 
+def test_fresh_sequence_preflights_before_first_paid_component(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+
+    def preflight(**_):
+        calls.append("preflight")
+        assert not paths["output_dir"].exists()
+        return {"status": "ready_without_paid_calls"}
+
+    paths["fresh_preflight"] = preflight
+    execute.execute_aug7_sequence(
+        **paths,
+        now=NOW,
+        control_runner=_control_runner(calls),
+        reliability_runner=_reliability_runner(calls),
+        stress_runner=_stress_runner(calls),
+    )
+    assert calls[0:2] == ["preflight", "control"]
+
+
+def test_fresh_preflight_failure_writes_nothing_and_makes_no_component_call(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+
+    def failed_preflight(**_):
+        raise RuntimeError("catalog changed")
+
+    paths["fresh_preflight"] = failed_preflight
+    with pytest.raises(RuntimeError, match="catalog changed"):
+        execute.execute_aug7_sequence(
+            **paths,
+            now=NOW,
+            control_runner=_control_runner(calls),
+        )
+    assert calls == []
+    assert not paths["output_dir"].exists()
+
+
 def test_banked_failed_model_does_not_block_other_gate(tmp_path: Path) -> None:
     paths = _paths(tmp_path)
     calls = []
@@ -580,6 +628,7 @@ def test_wrong_calendar_day_refuses_before_components(tmp_path: Path) -> None:
             control_runner=_control_runner(calls),
         )
     assert calls == []
+    assert not paths["output_dir"].exists()
 
 
 def test_stress_failure_is_banked_without_reexecution(tmp_path: Path) -> None:
