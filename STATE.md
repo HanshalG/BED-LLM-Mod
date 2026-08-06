@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Built the zero-call independent verifier for tomorrow's mandatory
+fresh Qwen history-blind control. It binds authorization/source/control/root
+hashes and dates, exact 3680+3072=6752 request accounting, mechanics/cost,
+embedded component summaries, control novelty, and independent composite gate
+logic; then invokes the existing public-tree replay and requires exact tree and
+20k-bootstrap analysis equality. It emits CONTROL_VERIFICATION JSON+Markdown
+without raw responses. Source/hash, stage-hash, replay, novelty, and composite
+tamper paths all fail closed; synthetic execution passes all31 checks. Combined
+verifier+source/control tests pass26/26. No model calls or spend.
+
 2026-08-06: Froze and implemented the post-control Luna/DeepSeek0731
 reliability128 gate with zero calls. It uses eight matched request-seed groups,
 each with 1 initial, 5 one-answer, and 10 two-answer histories SHA-ranked from
