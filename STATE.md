@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Froze a stricter pre-response claim boundary for the unopened
+Aug8--9 diversity64 result. The registered pass remains depth3>depth2 plus an
+active/nonworse bonus; it no longer silently implies causal diversity gain.
+New zero-call classification separately requires paired bonus>unadjusted
+superiority and dynamic>fixed support before the full LLM-native dynamic-belief
+claim is allowed, with ranking fidelity diagnostic-only. The claim-plan hash
+27f494f4...82e3 is now a paid-launch preflight input; Block B banks JSON+MD
+once and completed replay rejects altered reports. Full confirmation stack
+51/51; combined Aug7--9 suite152/152. Real A/B preflights bind the new hash and
+remain correctly waiting with balance$27.702109737,model0/files0/cost0.
+
 2026-08-06: Made the post-control claim classifier unavoidable in the
 authoritative Aug7 sequence. After independent control verification and before
 any Luna/DeepSeek/stress call, the executor now independently replays and banks

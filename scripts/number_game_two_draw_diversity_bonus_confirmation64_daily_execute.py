@@ -53,6 +53,13 @@ EXECUTION_AMENDMENT = REPO_ROOT / (
 EXECUTION_AMENDMENT_SHA256 = (
     "4c3e947bf9b68f71668c05593b4a224d609de19be52070aefc0ce989c426b39b"
 )
+CLAIM_PLAN = REPO_ROOT / (
+    "results/nonmyopic/"
+    "NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md"
+)
+CLAIM_PLAN_SHA256 = (
+    "27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3"
+)
 MODELS_URL = "https://openrouter.ai/api/v1/models"
 PLANNING_MODEL_ID = "qwen/qwen3.7-plus"
 TARGET_MODEL_ID = "google/gemini-2.5-flash"
@@ -136,6 +143,8 @@ def _protocol_inputs() -> dict[str, Any]:
 def _verify_protocol_inputs() -> dict[str, Any]:
     if audit.sha256_file(EXECUTION_AMENDMENT) != EXECUTION_AMENDMENT_SHA256:
         raise ValueError("diversity execution amendment hash changed")
+    if audit.sha256_file(CLAIM_PLAN) != CLAIM_PLAN_SHA256:
+        raise ValueError("diversity claim plan hash changed")
     staged._validate_preregistration()
     staged.base.validate_predecessors()
     from scripts import number_game_qwen_planner_depth_three as qwen
@@ -157,6 +166,7 @@ def _verify_protocol_inputs() -> dict[str, Any]:
         "verified": True,
         "protocol_input_sha256": digest,
         "execution_amendment_sha256": EXECUTION_AMENDMENT_SHA256,
+        "claim_plan_sha256": CLAIM_PLAN_SHA256,
         "preregistration_sha256": staged.PREREGISTRATION_SHA256,
         "expected_requests_per_block": staged.EXPECTED_REQUESTS_PER_BLOCK,
         "expected_requests_total": staged.EXPECTED_REQUESTS_TOTAL,
@@ -491,10 +501,17 @@ def _set_authorization_status(
 def _write_verified_report(*, run_dir: Path) -> dict[str, str]:
     from scripts import number_game_two_draw_diversity_bonus_confirmation64_report as report
 
-    report.write_report(run_dir=run_dir, output_path=report.REPORT_PATH)
+    claim_path = run_dir / report.CLAIM_REPORT_NAME
+    report.write_report(
+        run_dir=run_dir,
+        output_path=report.REPORT_PATH,
+        claim_path=claim_path,
+    )
     return {
         "path": str(report.REPORT_PATH),
         "sha256": audit.sha256_file(report.REPORT_PATH),
+        "claim_path": str(claim_path),
+        "claim_sha256": audit.sha256_file(claim_path),
     }
 
 
@@ -512,7 +529,8 @@ def execute_formal_block(
 ) -> dict[str, Any]:
     if audit.sha256_file(EXECUTION_AMENDMENT) != EXECUTION_AMENDMENT_SHA256:
         raise ValueError("diversity execution amendment hash changed")
-    local_now = _validate_date(block=block, now=now)
+    if audit.sha256_file(CLAIM_PLAN) != CLAIM_PLAN_SHA256:
+        raise ValueError("diversity claim plan hash changed")
     _validate_control_predecessor(control_execution_path)
     ledger_path = ledger_path or LEDGER_PATHS[block]
     execution_path = run_dir / f"BLOCK_{block.upper()}_DAILY_EXECUTION.json"
@@ -521,10 +539,16 @@ def execute_formal_block(
         execution = _load(execution_path)
         if execution.get("status") != "complete":
             raise RuntimeError("banked daily execution is not complete")
-        if block == "b" and "verified_report" not in execution:
-            execution["verified_report"] = reporter(run_dir=run_dir)
-            checkpoint(execution_path, execution)
+        if block == "b":
+            verified_report = reporter(run_dir=run_dir)
+            if "verified_report" in execution:
+                if execution["verified_report"] != verified_report:
+                    raise RuntimeError("banked verified report record changed")
+            else:
+                execution["verified_report"] = verified_report
+                checkpoint(execution_path, execution)
         return execution
+    local_now = _validate_date(block=block, now=now)
     if failure_path.exists():
         raise RuntimeError(f"Block {block.upper()} already failed closed")
     if _partial_block_exists(run_dir=run_dir, block=block):

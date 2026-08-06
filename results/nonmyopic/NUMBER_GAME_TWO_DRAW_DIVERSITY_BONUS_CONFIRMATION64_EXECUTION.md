@@ -15,7 +15,9 @@ python scripts/number_game_two_draw_diversity_bonus_confirmation64_daily_execute
 It fixes the shared run ID and paths, initializes each account-wide ledger
 from live cumulative usage, independently verifies Block A before Block B, and
 refuses partial block reruns. Verified Block B completion also writes the
-fixed-format public result note automatically. The placeholder commands below
+fixed-format public result note and machine-readable claim report
+automatically. Completed replay independently regenerates both reports and
+refuses missing, altered, or hash-mismatched artifacts. The placeholder commands below
 describe the underlying component interface and must not be launched
 separately.
 
@@ -96,6 +98,14 @@ two, a paired 64-tree bootstrap interval below zero, and wins exceeding
 losses. Co-required checks are at least 16 roots changed from unadjusted depth
 three and mean bonus Brier not worse than unadjusted depth three.
 
+The separately frozen claim plan keeps that registered status distinct from
+causal mechanism evidence. Selector superiority additionally requires the
+bonus-versus-unadjusted paired mean and 95% interval below zero plus wins
+exceeding losses. The strongest LLM-native tier also requires at least 3%
+dynamic-versus-fixed depth-three improvement, an interval below zero, and wins
+exceeding losses. These stricter interpretation families cannot rescue or
+alter the registered result status.
+
 ## Verification
 
 After measured Block B spend is checkpointed, the runner executes
@@ -104,6 +114,13 @@ It independently binds actual and protocol seeds, both stage source hashes
 including target artifacts, later-day mechanics-only authorization, exact
 request counts, all 64 fixed-selector rows, all comparisons and rank metrics,
 the combined bootstrap, every gate, and final status.
+
+Before either paid block, the read-only protocol preflight also binds
+`NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md` SHA-256
+`27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3`.
+After Block B, the report path independently replays the verifier, requires
+exact equality with `VERIFICATION.json`, and banks `CLAIM_REPORT.json` plus
+the public Markdown exactly once with zero model calls.
 
 `BLOCK_B_DAILY_EXECUTION.json` is written only after verification succeeds
 and posted usage is reconciled. A verifier failure leaves spend recorded and

@@ -16,6 +16,8 @@ neither waiting state authorizes a model call.
   `4c3e947bf9b68f71668c05593b4a224d609de19be52070aefc0ce989c426b39b`;
 - prospective preregistration SHA-256:
   `49b1a8bd783f8cbf54ba561ec55567bc4143af3b4358397cab4840d7d778cc5d`;
+- pre-response claim-plan SHA-256:
+  `27f494f4fa85412a4f0b35c37d40215ea4287cd70aee273a90017d85cbf982e3`;
 - canonical dates/seeds/models/request manifest SHA-256:
   `041994f4de92b573c511414a293c049655a6adec6321189f522246b0f1ea6eba`;
 - exact request boundary: `3,680` per block and `7,360` total;
@@ -39,7 +41,8 @@ automatically on every pristine block before any ledger write or component
 call. It requires `ready_without_paid_calls` and reuses the preflight's live
 credit snapshot to initialize the ledger. Unit coverage confirms wrong-day,
 waiting, and failed preflights write nothing and make no component call, while
-completed-block resumptions skip fresh execution and preserve banked results.
+completed-block resumptions skip fresh execution and independently revalidate
+the immutable result and claim reports.
 
 ## Commands
 
@@ -55,5 +58,5 @@ set -a; source .env; set +a
   --block b --preflight
 ```
 
-Focused validation: `117 passed` across the diversity-bonus and Aug 7 execution
+Focused validation: `152 passed` across the diversity-bonus and Aug 7 execution
 tests.
