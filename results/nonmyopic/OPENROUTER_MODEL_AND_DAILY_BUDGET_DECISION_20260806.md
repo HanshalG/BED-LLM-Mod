@@ -31,6 +31,28 @@ strict repeated interface. The direct task evidence therefore outranks a one-poi
 difference. Luna's observed failure is scale/interface reliability; DeepSeek's is
 conditioned semantic support quality.
 
+### Task-Normalized Unit Economics
+
+The exact-ten smoke gives a more relevant efficiency denominator than token price:
+
+| Model | Prompt / completion tokens | Valid conditioned hypotheses | Total smoke cost | Cost per valid conditioned hypothesis |
+| --- | ---: | ---: | ---: | ---: |
+| GPT-5.6 Luna | `2,866 / 5,485` | `123` | `$0.003577600` | `$0.00002909` |
+| DeepSeek V4 Flash 0731 | `2,487 / 10,720` | `92` | `$0.003258592` | `$0.00003542` |
+
+DeepSeek's nominal output-token price is 30% of Luna's live quote, but it emitted
+1.95 times as many completion tokens, yielded 25% fewer valid conditioned
+hypotheses, and included the fatal zero-valid draw. Luna therefore cost about 18%
+less per usable conditioned hypothesis in this sample. This does not settle the
+long-tail reliability question, which is why the matched reliability128 gate remains
+necessary, but it makes Luna the current non-reasoning semantic-generator leader.
+
+The max-reasoning Artificial Analysis scores are relevant to a separately labelled
+naive-thinking baseline, not to the non-reasoning planner. For text-only thinking
+baselines, 0731 is the first cost screen; for semantic belief generation, direct
+support validity decides; for Bongard image inputs, Luna is the only candidate of the
+pair.
+
 ## Six Daily Blocks
 
 | London day | Maximum | Authorized use |
