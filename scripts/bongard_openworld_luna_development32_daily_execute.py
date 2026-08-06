@@ -333,6 +333,156 @@ def _validate_daily_record(
     return daily
 
 
+def preflight_daily_block(
+    *,
+    block_id: str,
+    block_dir: Path | None = None,
+    ledger_path: Path | None = None,
+    protocol_manifest: Path = PROTOCOL_MANIFEST,
+    aug10_result: Path = AUG10_RESULT,
+    mechanics_result: Path = MECHANICS_RESULT,
+    combined_result: Path = COMBINED_RESULT,
+    block_result_paths: Mapping[str, Path] | None = None,
+    ledger_paths: Mapping[str, Path] | None = None,
+    manifest_validator: Callable[..., dict[str, Any]] = (
+        development.verify_protocol_manifest
+    ),
+    aug10_validator: Callable[..., dict[str, Any]] = validate_aug10_authorization,
+    block_validator: Callable[..., dict[str, Any]] = validate_block_result,
+    daily_validator: Callable[..., dict[str, Any]] = _validate_daily_record,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    model_catalog_reader: Callable[[], dict[str, Any]] = (
+        aug10.read_openrouter_model_catalog
+    ),
+) -> dict[str, Any]:
+    """Report complete predecessor and runtime readiness without writes."""
+    if block_id not in development.BLOCK_ORDER:
+        raise ValueError(f"unknown development block {block_id!r}")
+    block_dir = block_dir or BLOCK_DIRS[block_id]
+    ledgers = dict(ledger_paths or LEDGERS)
+    if set(ledgers) != set(development.BLOCK_ORDER):
+        raise ValueError("development preflight requires all four ledger paths")
+    ledger_path = ledger_path or ledgers[block_id]
+    ledgers[block_id] = ledger_path
+    paths = dict(block_result_paths or _block_result_paths())
+    if set(paths) != set(development.BLOCK_ORDER):
+        raise ValueError("development preflight requires all four result paths")
+    if paths[block_id] != block_dir / "RESULT.json":
+        raise ValueError("block directory and result path do not agree")
+    if combined_result.exists():
+        raise RuntimeError("combined endpoint result exists before fresh block")
+
+    target_index = development.BLOCK_ORDER.index(block_id)
+    for future_id in development.BLOCK_ORDER[target_index + 1 :]:
+        future_result = paths[future_id]
+        future_dir = future_result.parent
+        if (
+            ledgers[future_id].exists()
+            or future_result.exists()
+            or (future_dir.exists() and any(future_dir.iterdir()))
+        ):
+            raise RuntimeError(
+                f"future development block {future_id} exists out of order"
+            )
+
+    manifest_verification = manifest_validator(protocol_manifest)
+    runtime = preflight_fresh_block_runtime(
+        block_id=block_id,
+        block_dir=block_dir,
+        ledger_path=ledger_path,
+        live_reader=live_reader,
+        model_catalog_reader=model_catalog_reader,
+    )
+
+    aug10_exists = aug10_result.is_file()
+    mechanics_exists = mechanics_result.is_file()
+    prior_blocks: dict[str, Any] = {}
+    if aug10_exists != mechanics_exists:
+        raise RuntimeError("August 10 development predecessor is partial")
+    if aug10_exists:
+        aug10_verification: dict[str, Any] = aug10_validator(
+            wrapper_result=aug10_result,
+            mechanics_result=mechanics_result,
+        )
+    else:
+        aug10_verification = {
+            "verified": False,
+            "status": "waiting_for_aug10",
+            "wrapper_result": str(aug10_result),
+            "mechanics_result": str(mechanics_result),
+        }
+
+    waiting_for = None if aug10_verification["verified"] else "aug10"
+    required = development.BLOCK_ORDER[:target_index]
+    for position, prior_id in enumerate(required):
+        result_path = paths[prior_id]
+        daily_path = result_path.parent / "DAILY_EXECUTION.json"
+        prior_ledger = ledgers[prior_id]
+        present = (
+            result_path.is_file(),
+            daily_path.is_file(),
+            prior_ledger.is_file(),
+        )
+        if any(present) and not all(present):
+            raise RuntimeError(
+                f"development predecessor block {prior_id} is partial"
+            )
+        if not any(present):
+            later_required = required[position + 1 :]
+            if any(
+                paths[item].exists()
+                or ledgers[item].exists()
+                or (
+                    paths[item].parent.exists()
+                    and any(paths[item].parent.iterdir())
+                )
+                for item in later_required
+            ):
+                raise RuntimeError("development predecessors exist out of order")
+            if waiting_for is None:
+                waiting_for = f"block_{prior_id}"
+            break
+        if not aug10_verification["verified"]:
+            raise RuntimeError("development block exists before August 10 approval")
+        verification = block_validator(
+            path=result_path,
+            block_id=prior_id,
+            ledger_path=prior_ledger,
+        )
+        daily_validator(
+            path=daily_path,
+            block_id=prior_id,
+            result_path=result_path,
+            ledger_path=prior_ledger,
+            manifest_verification=manifest_verification,
+            aug10_verification=aug10_verification,
+            block_verification=verification,
+        )
+        prior_blocks[prior_id] = verification
+
+    status = (
+        "ready_without_paid_calls"
+        if waiting_for is None
+        else f"waiting_for_{waiting_for}"
+    )
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "status": status,
+        "block_id": block_id,
+        "date": development.BLOCK_EARLIEST_DATES[block_id],
+        "protocol_manifest": manifest_verification,
+        "aug10_predecessor": aug10_verification,
+        "prior_blocks": prior_blocks,
+        "runtime": runtime,
+        "model": runtime["model"],
+        "live_credits": runtime["live_credits"],
+        "budget": runtime["budget"],
+        "model_calls_made": 0,
+        "files_written": 0,
+    }
+
+
 def execute_daily_block(
     *,
     block_id: str,
@@ -538,8 +688,10 @@ def execute_daily_block(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--block", choices=development.BLOCK_ORDER, required=True)
+    parser.add_argument("--preflight", action="store_true")
     args = parser.parse_args()
-    result = execute_daily_block(block_id=args.block)
+    function = preflight_daily_block if args.preflight else execute_daily_block
+    result = function(block_id=args.block)
     print(json.dumps(result, indent=2))
     return 0
 

@@ -282,6 +282,81 @@ def test_runtime_preflight_refuses_low_balance_and_nonpristine_path(
         )
 
 
+def _full_preflight(harness: Harness, block_id: str) -> dict:
+    return execute.preflight_daily_block(
+        block_id=block_id,
+        block_dir=harness.block_dirs[block_id],
+        ledger_path=harness.ledger_paths[block_id],
+        ledger_paths=harness.ledger_paths,
+        protocol_manifest=harness.protocol_manifest,
+        aug10_result=harness.root / "aug10.json",
+        mechanics_result=harness.root / "mechanics.json",
+        combined_result=harness.combined_result,
+        block_result_paths=harness.result_paths,
+        manifest_validator=harness.manifest_validator,
+        aug10_validator=harness.aug10_validator,
+        block_validator=harness.block_validator,
+        live_reader=lambda: {
+            "total_credits_usd": 100.0,
+            "total_usage_usd": 80.0,
+            "balance_usd": 20.0,
+        },
+        model_catalog_reader=_catalog,
+    )
+
+
+def _bank_aug10_predecessor(harness: Harness) -> None:
+    _write(harness.root / "aug10.json", {"banked": True})
+    _write(harness.root / "mechanics.json", {"banked": True})
+
+
+def test_full_preflight_reports_dependency_waits_without_writes(
+    tmp_path: Path,
+) -> None:
+    harness = Harness(tmp_path)
+
+    waiting_aug10 = _full_preflight(harness, "a")
+    assert waiting_aug10["status"] == "waiting_for_aug10"
+    assert waiting_aug10["model_calls_made"] == 0
+    assert waiting_aug10["files_written"] == 0
+    assert not harness.block_dirs["a"].exists()
+    assert not harness.ledger_paths["a"].exists()
+
+    _bank_aug10_predecessor(harness)
+    assert _full_preflight(harness, "a")["status"] == (
+        "ready_without_paid_calls"
+    )
+    waiting_a = _full_preflight(harness, "b")
+    assert waiting_a["status"] == "waiting_for_block_a"
+
+
+def test_full_preflight_replays_prior_block_before_ready(tmp_path: Path) -> None:
+    harness = Harness(tmp_path)
+    _bank_aug10_predecessor(harness)
+    harness.run("a")
+
+    result = _full_preflight(harness, "b")
+
+    assert result["status"] == "ready_without_paid_calls"
+    assert set(result["prior_blocks"]) == {"a"}
+    assert result["prior_blocks"]["a"]["verified"] is True
+
+
+def test_full_preflight_rejects_partial_or_out_of_order_predecessor(
+    tmp_path: Path,
+) -> None:
+    harness = Harness(tmp_path)
+    _write(harness.root / "aug10.json", {"partial": True})
+    with pytest.raises(RuntimeError, match="August 10.*partial"):
+        _full_preflight(harness, "a")
+
+    (harness.root / "aug10.json").unlink()
+    _bank_aug10_predecessor(harness)
+    _write(harness.block_dirs["c"] / "partial.json", {})
+    with pytest.raises(RuntimeError, match="future development block c"):
+        _full_preflight(harness, "b")
+
+
 def test_fresh_block_and_resume_do_not_repeat_model_execution(
     tmp_path: Path,
 ) -> None:
