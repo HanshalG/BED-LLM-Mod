@@ -85,6 +85,10 @@ practice every additional branch invokes the same uncertain model, changes the
 belief on which later calls condition, and maximizes over more noisy continuation
 scores. A larger tree can therefore make a confidently worse decision.
 
+ASIG instead amortizes a multi-turn policy, but gives EIG credit only to its
+first question \citep{hartmann2026asig}. We ask when inference-time lookahead
+can reliably value future semantic beliefs from an off-the-shelf LLM.
+
 We investigate this distinction using a validation-first sequence. Exact
 constrained location and Rock Diagnosis verify the recursion under exact
 models. The Number Game then makes the LLM the proposal distribution over an
@@ -559,7 +563,9 @@ BED-LLM succeeds myopically with concrete entities, small response spaces,
 prior--likelihood construction, and filtered hypotheses
 \citep{choudhury2025bedllm}. UoT plans over explicit disease sets
 \citep{hu2024uot}; CA-BED uses finite hypotheses and soft LLM likelihoods
-\citep{arnould2026cabed}. In our Detective audit, d2 tracked entropy reduction
+\citep{arnould2026cabed}, leaving dynamic candidate sets unevaluated. ASIG
+regenerates beliefs at observed turns but gives only myopic EIG credit
+\citep{hartmann2026asig}. In our Detective audit, d2 tracked entropy reduction
 ($\rho=.750$) but ranked truth-posterior gain backwards ($\rho=-.208$).
 Exact role-conditioned answers restored correlation to $.933$ but removed most
 action opportunity. Calibration and a non-myopic gap must coexist.
@@ -569,6 +575,9 @@ proposes semantic policies while an exact component checks grammar, legality,
 updates, and information gain. Number Game moves the irreducible semantic
 component into the transition itself: future LLM-generated rule support changes
 with the simulated answer, while executable predicates retain exact scoring.
+Number Game probes also expose a generation--evaluation gap: selecting stated
+rules need not recover those generated from the same evidence
+\citep{xiong2026hypothesis}.
 
 Path dependence alone is insufficient. Pi-Bench supports changed on 25/25 tasks
 and d2 changed 14/25 roots, yet its fallback equalized second-turn gains.
@@ -602,67 +611,47 @@ LLM-native component. In the Number Game, classical BED can evaluate a
 fixed rule set, but cannot enumerate the open-ended support or predict how that
 support changes after a counterfactual answer. The endpoint remains synthetic,
 uses deterministic labels and a restricted safe grammar, and measures two
-queries rather than full convergence. One earlier eight-tree replication
-failed its preregistered 5\% PTS magnitude gate despite directional gains; the
-separately preregistered 32-tree study establishes a powered 10.2\% gain rather
-than retroactively rescoring that null.
-For three-query planning, the first fresh one-support endpoint comparison also
-remains a null. Endpoint precision was selected after that result; the positive
-study fixes every root, excludes opened endpoints, and uses 512 fresh responses,
-and a wholly fresh planning-tree replication reproduces its primary depth gain.
-That replication misses two auxiliary conjunction gates, so broader model and
-task robustness remains warranted. A third-family endpoint audit passes, but
-planning-generator and task-domain robustness remain open.
-Indeed, a frozen low-cost DeepSeek V4 Flash planner comparison produced a
-significant 4.06\% depth-three gain over its own myopic policy
-($[-.0078,-.0009]$), but missed the registered 8\% and 20-win replacement
-thresholds and failed support and provider-error mechanics gates. Although its
-paired Brier was non-inferior to Qwen under a $+.005$ margin, it does not
-replace the paper-critical Qwen planner.
+queries. An earlier eight-tree replication failed its preregistered 5\% PTS
+magnitude gate; a separate 32-tree study establishes the powered 10.2\% gain.
+The first fresh three-query endpoint is also null. A later study, with precision
+selected afterward but fixed roots, unopened endpoints, and 512 fresh responses,
+passes; a fresh-tree replication reproduces its primary gain but misses two
+auxiliary gates. A third-family endpoint audit passes, but generator and task
+robustness remain open. DeepSeek V4 Flash gains 4.06\% over its myopic policy
+($[-.0078,-.0009]$), yet misses registered replacement and mechanics gates and
+does not replace the paper-critical Qwen planner.
 The two Qwen studies on all 33 canonical concepts
 \citep{tenenbaum2001generalization} remain registered transport nulls: one
-used two transparent provider retries under a zero-retry gate, and the other
-used nine against a cap of eight. The 128-tree cross-planner synthesis and its
-first-link audit are retrospective and cannot reclassify any source study.
-They establish robust non-myopic-over-myopic selection, not monotonic depth:
-depth three versus depth two remains null ($[-.0042,.0003]$), with
-model- and target-distribution dependence.
+used two retries under a zero-retry gate; the other used nine against a cap of
+eight. A retrospective 128-tree synthesis cannot reclassify them. It establishes
+non-myopic-over-myopic selection, not monotonic depth: d3--d2 remains null
+($[-.0042,.0003]$) and model- and target-dependent.
 
 The mechanism evidence is endpoint- and mechanics-qualified. Retrospective
 dynamic--fixed gains are 5.85\% cross-planner and 3.79\% pooled-Qwen, but
-Hamming and coverage are weaker; a preregistered second-refresh isolation and
-the first fresh dynamic--fixed study are null. The powered fresh study passes
-all scientific Brier gates at 3.44\% ($[-.0064,-.0010]$; 50/24/22), yet its
-conjunction remains null because three trees miss the support floor. It also
-worsens Hamming and leaves coverage imprecise: fresh Brier evidence, not an
-unqualified all-metric, all-mechanics confirmation. Retrospective audits find
-better ranking and selective calibration. Two disjoint fresh history-blind
-controls reproduce second-stage MSE and coverage gains from answer conditioning;
-the second preregisters and confirms that root-specific benefit predicts
-realized advantage. Their retrospective pooled synthesis retains a null
-selected-root mean contrast, and source-study statuses remain unchanged.
+Hamming and coverage are weaker; second-refresh isolation and the first fresh
+study are null. The powered fresh study passes Brier gates at 3.44\%
+($[-.0064,-.0010]$; 50/24/22), but its conjunction is null because three trees
+miss the support floor; Hamming worsens and coverage is imprecise. Two disjoint
+fresh history-blind controls reproduce answer-conditioning MSE and coverage
+gains; the second confirms that root-specific benefit predicts realized
+advantage. Their retrospective pooled selected-root mean remains null, without
+changing source-study status.
 
 DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
-Its first tree gives 22.6\%
-non-myopic and 2.41\% branch-support gains. A fresh structured tree retains the
-root gain but reverses the support effect. Thus support value does not replicate across generations,
-despite exact rather than learned likelihoods; fixing the
-initial tree puts fresh branch support at parity with fixed support.
-Rock Diagnosis uses an exact finite simulator and does not test robustness to learned likelihoods
-or open responses. Animals is only partially paired.
-Natural location uses one model family; Paprika policy counts are
-endpoint-invalid; MediQ stops before a calibrated policy comparison; and the
-iCRAFT profile-support gate fails before likelihood. Pi-Bench changed 56\% of
-roots, but its fallback equalized second-turn gains.
-OpenRouter nondeterminism remains a limitation, and depth cannot replace a
-coherent simulator or enabling gap. The positive result instead sharpens the
-condition: non-myopia helps when it accurately values the future inference
-process. Number Game establishes this against myopic selection and supplies a
-fresh Brier-positive dynamic-support primary; the causal claim remains
-mechanics- and endpoint-qualified rather than universal.
-Battleship further shows that a large, novel static experiment bank is not
-enough when one-step task-utility replanning can recover the same policy.
-We do not claim that non-myopic BED cannot work outside this setting.
+Its first tree gives 22.6\% non-myopic and 2.41\% branch-support gains; a
+fresh structured tree retains the former but reverses the support effect. Despite exact
+rather than learned likelihoods, support does not replicate across generations.
+Rock Diagnosis uses an exact finite simulator and
+does not test robustness to learned likelihoods or open responses. Animals is only partially paired. Natural
+location uses one model family; Paprika policy counts are endpoint-invalid;
+MediQ stops before a calibrated policy comparison; and the iCRAFT profile-support
+gate fails before likelihood. Pi-Bench's fallback erased its d2 opportunity.
+OpenRouter nondeterminism remains a limitation. Thus depth requires a coherent
+simulator and a real gap. Number Game supplies non-myopic-over-myopic and fresh
+Brier-positive dynamic-support evidence, but its causal claim remains mechanics-
+and endpoint-qualified. We do not claim that non-myopic BED cannot work outside
+this setting.
 
 {\fontsize{7}{7.2}\selectfont
 \setlength{\bibsep}{0pt}
