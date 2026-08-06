@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-06: Made the Aug10 Bongard paid command self-gating. An unopened
+sequence now runs the complete frozen-source/image/archive/development-manifest,
+Luna catalog, pristine-path, and live-balance preflight before any directory,
+ledger, or adapter; it requires `ready_without_paid_calls` and freezes that
+exact credit snapshot as the ledger opening. Banked ledgers/components retain
+no-repeat recovery. Pinned the operational command to `/opt/anaconda3` (the
+Number Game env lacks Pillow). Full Bongard suite78/78; real preflight passes
+with Luna$.10/$.60/M,balance$27.702109737,model0/files0/cost0.
+
 2026-08-06: Closed the Aug8--9 diversity confirmation launch gap: the
 authoritative paid command now automatically runs the full read-only preflight
 on each pristine block before any ledger write or model adapter call, requires

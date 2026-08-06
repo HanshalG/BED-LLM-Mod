@@ -171,6 +171,67 @@ def test_fresh_sequence_runs_serving_then_mechanics(tmp_path: Path) -> None:
     assert set(result["components"]) == {"serving", "mechanics"}
 
 
+def test_unopened_sequence_runs_preflight_before_ledger_or_component(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+
+    def fresh_preflight(**kwargs):
+        calls.append("preflight")
+        assert not paths["daily_ledger"].exists()
+        assert not paths["output_dir"].exists()
+        return {
+            "status": "ready_without_paid_calls",
+            "live_credits": kwargs["live_reader"](),
+        }
+
+    result = execute.execute_aug10_sequence(
+        **paths,
+        now=NOW,
+        live_reader=lambda: _live(balance=20.0),
+        fresh_preflight=fresh_preflight,
+        serving_runner=_serving_runner(calls),
+        mechanics_runner=_mechanics_runner(calls),
+        serving_validator=_serving_validator,
+        mechanics_validator=_mechanics_validator,
+    )
+
+    assert calls == ["preflight", "serving", "mechanics"]
+    assert result["status"] == "complete"
+    ledger = json.loads(paths["daily_ledger"].read_text())
+    assert ledger["opening_total_usage_usd"] == pytest.approx(80.0)
+    assert ledger["opening_balance_usd"] == pytest.approx(20.0)
+
+
+def test_failed_fresh_preflight_writes_nothing_and_makes_no_component_call(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+
+    def failed_preflight(**_):
+        raise RuntimeError("image manifest changed")
+
+    with pytest.raises(
+        execute.PreExecutionGateError, match="image manifest changed"
+    ):
+        execute.execute_aug10_sequence(
+            **paths,
+            now=NOW,
+            live_reader=lambda: pytest.fail("failed preflight read live"),
+            fresh_preflight=failed_preflight,
+            serving_runner=lambda **_: pytest.fail("serving opened"),
+            mechanics_runner=lambda **_: pytest.fail("mechanics opened"),
+            serving_validator=_serving_validator,
+            mechanics_validator=_mechanics_validator,
+        )
+
+    assert not paths["daily_ledger"].exists()
+    assert not paths["output_dir"].exists()
+    assert not paths["serving_dir"].exists()
+    assert not paths["mechanics_dir"].exists()
+
+
 def test_resume_does_not_repeat_banked_components(tmp_path: Path) -> None:
     paths = _paths(tmp_path)
     _write(paths["daily_ledger"], _opening_ledger())

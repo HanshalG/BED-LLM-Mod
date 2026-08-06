@@ -12,9 +12,20 @@ or budgets.
 Run no earlier or later than 2026-08-10 in Europe/London:
 
 ```bash
-set -a; source .env; set +a
-python scripts/bongard_openworld_luna_aug10_execute.py
+set -a
+source .env
+set +a
+/opt/anaconda3/bin/python scripts/bongard_openworld_luna_aug10_execute.py
 ```
+
+For an unopened sequence, this command automatically runs the complete
+read-only preflight before creating the wrapper directory, daily ledger, or
+model adapter. It proceeds only from `ready_without_paid_calls`, initializes
+the ledger from that exact authenticated credit snapshot, and then lets the
+serving gate reconcile subsequent account-wide usage. Date, source, image,
+manifest, endpoint, path, or balance failures leave every execution path
+untouched. Existing ledgers and banked components follow the no-repeat resume
+path.
 
 The fixed outputs are:
 
@@ -30,13 +41,14 @@ The fixed outputs are:
 ## Fail-Closed Sequence
 
 1. Refuse any non-August-10 London date.
-2. Run or independently replay exact10 interface-v2.
-3. Reconcile and verify the exact `$5.00` account-wide ledger.
-4. Stop permanently before mechanics if exact10 is `gated_null`.
-5. Run or independently replay mechanics interface-v4 only after exact10
+2. Require the full pristine preflight and freeze its live credit snapshot.
+3. Run or independently replay exact10 interface-v2.
+4. Reconcile and verify the exact `$5.00` account-wide ledger.
+5. Stop permanently before mechanics if exact10 is `gated_null`.
+6. Run or independently replay mechanics interface-v4 only after exact10
    passes.
-6. Reconcile and verify both ledger records and total daily spend.
-7. Authorize development only when mechanics status is `mechanics_pass`.
+7. Reconcile and verify both ledger records and total daily spend.
+8. Authorize development only when mechanics status is `mechanics_pass`.
 
 The wrapper refuses stale serving interface-v1 or mechanics interface-v1/v2/v3
 artifacts, dual RESULT/FAILURE files,

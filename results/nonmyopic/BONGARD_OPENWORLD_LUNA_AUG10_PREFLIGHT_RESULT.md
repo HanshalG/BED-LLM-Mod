@@ -26,7 +26,14 @@ and `$1.75` mechanics cap. Mechanics remains conditional on the observed
 serving cost projection. The maximum component-cap sum is `$2.00`; unused
 allowance is not automatically spent.
 
-The implementation regression suite passes 76 Bongard tests. The paired
+The authoritative August 10 command now invokes this same preflight
+automatically before any path or ledger write. It requires
+`ready_without_paid_calls` and uses the returned live-credit snapshot as the
+ledger opening boundary. A failed gate makes no component call and leaves all
+target paths absent; a banked ledger or component remains on the existing
+no-repeat replay path.
+
+The implementation regression suite passes 78 Bongard tests. The paired
 request audit checks exact same-seed, same-batch adjacent dynamic/blind pairs,
 initial-history-only blind prompts, and dynamic prompts that add exactly one
 simulated answer.
@@ -37,7 +44,9 @@ confirmation.
 Command:
 
 ```bash
-set -a; source .env; set +a
+set -a
+source .env
+set +a
 /opt/anaconda3/bin/python \
   scripts/bongard_openworld_luna_aug10_execute.py --preflight
 ```

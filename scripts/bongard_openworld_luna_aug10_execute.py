@@ -68,6 +68,10 @@ DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
 MINIMUM_STARTING_BALANCE_USD = 5.0
 
 
+class PreExecutionGateError(RuntimeError):
+    """Raised when the unopened paid sequence fails its read-only gate."""
+
+
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -525,6 +529,8 @@ def execute_aug10_sequence(
     mechanics_runner: Callable[..., dict[str, Any]] = mechanics.execute_mechanics,
     serving_validator: Callable[[Path], dict[str, Any]] = validate_serving_artifact,
     mechanics_validator: Callable[..., dict[str, Any]] = validate_mechanics_artifact,
+    live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    fresh_preflight: Callable[..., dict[str, Any]] = preflight_aug10_sequence,
 ) -> dict[str, Any]:
     final_path = output_dir / "RESULT.json"
     if final_path.exists():
@@ -555,6 +561,31 @@ def execute_aug10_sequence(
         return final
 
     _validate_date(now)
+    if not daily_ledger.exists():
+        try:
+            preflight = fresh_preflight(
+                output_dir=output_dir,
+                serving_dir=serving_dir,
+                mechanics_dir=mechanics_dir,
+                daily_ledger=daily_ledger,
+                live_reader=live_reader,
+            )
+        except Exception as exc:
+            raise PreExecutionGateError(str(exc)) from exc
+        if preflight.get("status") != "ready_without_paid_calls":
+            raise PreExecutionGateError(
+                "fresh August 10 preflight did not authorize execution"
+            )
+        live_opening = preflight.get("live_credits")
+        if not isinstance(live_opening, dict):
+            raise PreExecutionGateError(
+                "fresh preflight omitted the live credit snapshot"
+            )
+        serving.initialize_daily_ledger(
+            path=daily_ledger,
+            live=live_opening,
+            now=now,
+        )
     output_dir.mkdir(parents=True, exist_ok=True)
     state: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -574,6 +605,7 @@ def execute_aug10_sequence(
             run_id=SERVING_RUN_ID,
             ledger_path=daily_ledger,
             now=now,
+            live_reader=live_reader,
         )
         serving_artifact = _artifact_path(serving_dir)
     if serving_artifact is None or serving_artifact.name != "RESULT.json":
