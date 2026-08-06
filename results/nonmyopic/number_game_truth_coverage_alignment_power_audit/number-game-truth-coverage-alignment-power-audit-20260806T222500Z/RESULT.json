@@ -1,0 +1,222 @@
+{
+  "decision": "aug8_9_justified_for_dynamic_brier_confirmation_not_expected_truth_coverage_family",
+  "interface_version": "number-game-truth-coverage-alignment-power-audit-1",
+  "interpretation": {
+    "aug8_9_spend_remains_justified": true,
+    "future_capacity_selector_requires_fresh_preregistration": true,
+    "main_value": "prospective full LLM-native dynamic-support Brier and depth confirmation",
+    "truth_coverage_alignment_is_a_bonus_tier": true,
+    "truth_coverage_family_expected_to_pass": false
+  },
+  "observed_open32_alignment": {
+    "association_is_noncausal": true,
+    "can_rescue_brier_status": false,
+    "comparisons": {
+      "bonus_depth_three_vs_crossfit_depth_two": {
+        "baseline_policy": "depth_two_root",
+        "candidate_policy": "bonus_root",
+        "changed_root_bootstrap_95pct": [
+          -0.2125335441251204,
+          0.5378149927012774
+        ],
+        "changed_root_count": 26,
+        "coverage_uplift_brier_benefit_spearman_changed_roots": 0.17207809918629355,
+        "positive_brier_benefit_means_candidate_improved": true,
+        "registered_scientific_gate": false,
+        "selector_independent_of_diversity_bonus": false,
+        "tree_count": 32,
+        "unchanged_structural_zero_pairs_excluded": true
+      },
+      "bonus_vs_unadjusted_depth_three": {
+        "baseline_policy": "original_root",
+        "candidate_policy": "bonus_root",
+        "changed_root_bootstrap_95pct": [
+          -0.28109818194574243,
+          0.7777330780011356
+        ],
+        "changed_root_count": 12,
+        "coverage_uplift_brier_benefit_spearman_changed_roots": 0.38015514850743437,
+        "positive_brier_benefit_means_candidate_improved": true,
+        "registered_scientific_gate": false,
+        "selector_independent_of_diversity_bonus": false,
+        "tree_count": 32,
+        "unchanged_structural_zero_pairs_excluded": true
+      },
+      "unadjusted_dynamic_vs_fixed_depth_three": {
+        "baseline_policy": "fixed_depth_three_root",
+        "candidate_policy": "original_root",
+        "changed_root_bootstrap_95pct": [
+          -0.17744402399825226,
+          0.5396996719002298
+        ],
+        "changed_root_count": 29,
+        "coverage_uplift_brier_benefit_spearman_changed_roots": 0.20178534688922706,
+        "positive_brier_benefit_means_candidate_improved": true,
+        "registered_scientific_gate": false,
+        "selector_independent_of_diversity_bonus": true,
+        "tree_count": 32,
+        "unchanged_structural_zero_pairs_excluded": true
+      }
+    },
+    "family_bootstrap_resamples_trees_jointly": true,
+    "mean_changed_root_spearman": 0.25133953152765165,
+    "mean_changed_root_spearman_tree_bootstrap_95pct": [
+      -0.08545352188351871,
+      0.5072233328937761
+    ],
+    "registered_scientific_gate": false
+  },
+  "observed_open32_truth_coverage": {
+    "bonus_depth_three_vs_crossfit_depth_two": {
+      "baseline_coverage_sample_sd": 0.06273744846888712,
+      "baseline_mean_coverage": 0.6117424242424242,
+      "baseline_policy": "depth_two_root",
+      "candidate_coverage_sample_sd": 0.05909028247405685,
+      "candidate_mean_coverage": 0.5890151515151515,
+      "candidate_policy": "bonus_root",
+      "changed_roots": 26,
+      "external_canonical_targets_endpoint_only": true,
+      "losses": 13,
+      "mean_candidate_minus_baseline_coverage": -0.022727272727272728,
+      "paired_difference_sample_sd": 0.07179262571643615,
+      "registered_scientific_gate": false,
+      "selector_independent_of_diversity_bonus": false,
+      "ties": 9,
+      "tree_bootstrap_95pct": [
+        -0.04829545454545456,
+        0.0009469696969697031
+      ],
+      "tree_count": 32,
+      "used_for_policy_selection": false,
+      "wins": 10
+    },
+    "bonus_vs_unadjusted_depth_three": {
+      "baseline_coverage_sample_sd": 0.055093572196084344,
+      "baseline_mean_coverage": 0.584280303030303,
+      "baseline_policy": "original_root",
+      "candidate_coverage_sample_sd": 0.05909028247405685,
+      "candidate_mean_coverage": 0.5890151515151515,
+      "candidate_policy": "bonus_root",
+      "changed_roots": 12,
+      "external_canonical_targets_endpoint_only": true,
+      "losses": 4,
+      "mean_candidate_minus_baseline_coverage": 0.004734848484848484,
+      "paired_difference_sample_sd": 0.037793158344057554,
+      "registered_scientific_gate": false,
+      "selector_independent_of_diversity_bonus": false,
+      "ties": 20,
+      "tree_bootstrap_95pct": [
+        -0.008522727272727279,
+        0.017992424242424244
+      ],
+      "tree_count": 32,
+      "used_for_policy_selection": false,
+      "wins": 8
+    },
+    "unadjusted_dynamic_vs_fixed_depth_three": {
+      "baseline_coverage_sample_sd": 0.06505539751166867,
+      "baseline_mean_coverage": 0.615530303030303,
+      "baseline_policy": "fixed_depth_three_root",
+      "candidate_coverage_sample_sd": 0.055093572196084344,
+      "candidate_mean_coverage": 0.584280303030303,
+      "candidate_policy": "original_root",
+      "changed_roots": 29,
+      "external_canonical_targets_endpoint_only": true,
+      "losses": 17,
+      "mean_candidate_minus_baseline_coverage": -0.03125,
+      "paired_difference_sample_sd": 0.08163310409238649,
+      "registered_scientific_gate": false,
+      "selector_independent_of_diversity_bonus": true,
+      "ties": 8,
+      "tree_bootstrap_95pct": [
+        -0.05965909090909091,
+        -0.0037878787878787845
+      ],
+      "tree_count": 32,
+      "used_for_policy_selection": false,
+      "wins": 7
+    }
+  },
+  "plug_in_power": {
+    "32": {
+      "alignment_component_positive_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.8068,
+        "bonus_vs_unadjusted_depth_three": 0.8825,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.8547
+      },
+      "alignment_family_approximate_pass_probability": 0.3594,
+      "coverage_and_alignment_approximate_pass_probability": 0.0,
+      "coverage_component_normal_interval_pass_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.0004,
+        "bonus_vs_unadjusted_depth_three": 0.1245,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.0
+      },
+      "coverage_family_pass_probability": 0.0,
+      "draws": 10000,
+      "family_lower_positive_normal_threshold": 0.2907612090780724,
+      "family_mean_rho_sampling_sd": 0.14834755565207777
+    },
+    "64": {
+      "alignment_component_positive_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.9023,
+        "bonus_vs_unadjusted_depth_three": 0.951,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.9368
+      },
+      "alignment_family_approximate_pass_probability": 0.6429,
+      "coverage_and_alignment_approximate_pass_probability": 0.0,
+      "coverage_component_normal_interval_pass_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.0,
+        "bonus_vs_unadjusted_depth_three": 0.1805,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.0
+      },
+      "coverage_family_pass_probability": 0.0,
+      "draws": 10000,
+      "family_lower_positive_normal_threshold": 0.19963854815036441,
+      "family_mean_rho_sampling_sd": 0.10185640211753287
+    },
+    "96": {
+      "alignment_component_positive_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.9374,
+        "bonus_vs_unadjusted_depth_three": 0.98,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.971
+      },
+      "alignment_family_approximate_pass_probability": 0.8113,
+      "coverage_and_alignment_approximate_pass_probability": 0.0,
+      "coverage_component_normal_interval_pass_probability": {
+        "bonus_depth_three_vs_crossfit_depth_two": 0.0,
+        "bonus_vs_unadjusted_depth_three": 0.2508,
+        "unadjusted_dynamic_vs_fixed_depth_three": 0.0
+      },
+      "coverage_family_pass_probability": 0.0,
+      "draws": 10000,
+      "family_lower_positive_normal_threshold": 0.1624322223187333,
+      "family_mean_rho_sampling_sd": 0.08287358281568026
+    }
+  },
+  "protocol": {
+    "alignment_interval_approximation": "family mean rho exceeds 1.96 times its empirical sampling SD; final result retains the frozen joint tree bootstrap",
+    "analysis_is_retrospective": true,
+    "cost_usd": 0.0,
+    "coverage_interval_approximation": "mean minus 1.96 standard errors; final result retains the frozen 20000-sample paired tree bootstrap",
+    "future_responses_or_endpoints_opened": false,
+    "historical_source": "later_fresh32",
+    "historical_source_tree_count": 32,
+    "model_calls": 0,
+    "plug_in_power_is_not_a_scientific_gate": true,
+    "prior_brier_power_result_sha256": "3dfd1605deba87641c791718a8b50d81e971062fee85612fa94638fc674f156e",
+    "sample_sizes": [
+      32,
+      64,
+      96
+    ],
+    "sampling": "complete historical trees with replacement",
+    "simulation_draws_per_size": 10000,
+    "simulation_seed": 112900
+  },
+  "registered_brier_power_reference": {
+    "pooled_64_primary_plus_nonworsening_probability": 0.69106,
+    "pooled_64_primary_probability": 0.90518
+  },
+  "schema_version": 1,
+  "status": "retrospective_power_boundary"
+}
