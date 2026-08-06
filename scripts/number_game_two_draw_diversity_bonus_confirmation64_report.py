@@ -31,7 +31,7 @@ CLAIM_PLAN = REPO_ROOT / (
     "NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md"
 )
 CLAIM_PLAN_SHA256 = (
-    "68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916"
+    "7bc5aeb922edc7ce7ae3e2bc4b5ea4c15b6a7de7bfafc004001d3aab6e4888e5"
 )
 CLAIM_REPORT_NAME = "CLAIM_REPORT.json"
 SCHEMA_VERSION = 1
@@ -48,6 +48,19 @@ VIABILITY_GATES = (
     "bonus_mean_brier_not_worse_than_original",
 )
 CLAIM_SCOPES = {
+    "truth_coverage_mediated_dynamic_nonmyopic_confirmation": {
+        "allowed": [
+            "Prospective depth-three benefit over dynamic depth two.",
+            "Prospective diversity-selector superiority over unadjusted depth three.",
+            "Prospective dynamic-support endpoint benefit over fixed-support depth three.",
+            "Prospective improvement in canonical truth coverage across all three frozen mediation contrasts.",
+        ],
+        "forbidden": [
+            "universal non-myopic benefit",
+            "monotonicity beyond depth two versus three",
+            "cross-model robustness from this cohort alone",
+        ],
+    },
     "full_llm_native_dynamic_nonmyopic_confirmation": {
         "allowed": [
             "Prospective depth-three benefit over dynamic depth two.",
@@ -55,6 +68,7 @@ CLAIM_SCOPES = {
             "Prospective dynamic-support endpoint benefit over fixed-support depth three.",
         ],
         "forbidden": [
+            "truth-coverage mediation without the separate coverage family",
             "universal non-myopic benefit",
             "monotonicity beyond depth two versus three",
             "cross-model robustness from this cohort alone",
@@ -91,7 +105,7 @@ CLAIM_SCOPES = {
     },
     "mechanism_only_without_nonmyopic_depth": {
         "allowed": [
-            "Only the exact selector or dynamic-support family that passes.",
+            "Only the exact selector, dynamic-support, or truth-coverage family that passes.",
         ],
         "forbidden": [
             "a prospective non-myopic planning win",
@@ -121,6 +135,20 @@ COMPARISON_ORDER = (
     ),
     ("positive_test_strategy", "Bonus dynamic d3 vs positive-test strategy"),
     ("uniform_random_candidate_root", "Bonus dynamic d3 vs uniform random roots"),
+)
+COVERAGE_ORDER = (
+    (
+        "bonus_depth_three_vs_crossfit_depth_two",
+        "Bonus dynamic d3 vs cross-fitted dynamic d2",
+    ),
+    (
+        "bonus_vs_unadjusted_depth_three",
+        "Bonus dynamic d3 vs unadjusted dynamic d3",
+    ),
+    (
+        "unadjusted_dynamic_vs_fixed_depth_three",
+        "Unadjusted dynamic d3 vs fixed-support d3",
+    ),
 )
 
 
@@ -181,6 +209,42 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
     ):
         if name not in comparisons or not _finite(comparisons[name]):
             raise ValueError(f"staged result has invalid comparison: {name}")
+    coverage = result.get("truth_coverage_comparisons") or {}
+    coverage_policies = {
+        "bonus_vs_unadjusted_depth_three": (
+            "bonus_root",
+            "original_root",
+            False,
+        ),
+        "bonus_depth_three_vs_crossfit_depth_two": (
+            "bonus_root",
+            "depth_two_root",
+            False,
+        ),
+        "unadjusted_dynamic_vs_fixed_depth_three": (
+            "original_root",
+            "fixed_depth_three_root",
+            True,
+        ),
+    }
+    if set(coverage) != set(coverage_policies):
+        raise ValueError("staged result has an invalid coverage family")
+    for name, (candidate, baseline, selector_independent) in (
+        coverage_policies.items()
+    ):
+        item = coverage.get(name)
+        if not isinstance(item, Mapping) or not _finite(item):
+            raise ValueError(f"staged result has invalid coverage comparison: {name}")
+        if (
+            item.get("candidate_policy") != candidate
+            or item.get("baseline_policy") != baseline
+            or item.get("selector_independent_of_diversity_bonus")
+            is not selector_independent
+            or item.get("external_canonical_targets_endpoint_only") is not True
+            or item.get("used_for_policy_selection") is not False
+            or item.get("registered_scientific_gate") is not False
+        ):
+            raise ValueError(f"coverage comparison contract changed: {name}")
     rank = result.get("rank_metrics") or {}
     required_rank = {
         "original_mean_candidate_root_spearman",
@@ -240,12 +304,35 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             < float(rank["original_mean_candidate_set_oracle_regret"])
         ),
     }
+    coverage_gates = {}
+    for name, item in coverage.items():
+        prefix = name.replace("_depth_three", "_d3").replace(
+            "crossfit_depth_two", "d2"
+        )
+        coverage_gates[f"{prefix}_mean_positive"] = (
+            float(item["mean_candidate_minus_baseline_coverage"]) > 0.0
+        )
+        coverage_gates[f"{prefix}_interval_above_zero"] = (
+            float(item["tree_bootstrap_95pct"][0]) > 0.0
+        )
+        coverage_gates[f"{prefix}_wins_exceed_losses"] = (
+            int(item["wins"]) > int(item["losses"])
+        )
     selector_superiority = all(selector_gates.values())
     dynamic_endpoint = all(dynamic_gates.values())
     ranking_mechanism = all(ranking_gates.values())
+    truth_coverage_mediation = all(coverage_gates.values())
 
     if status == "mechanics_failed":
         tier = "mechanics_failed"
+    elif (
+        registered_depth
+        and registered_viability
+        and selector_superiority
+        and dynamic_endpoint
+        and truth_coverage_mediation
+    ):
+        tier = "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
     elif (
         registered_depth
         and registered_viability
@@ -259,7 +346,7 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
         tier = "nonmyopic_with_viable_diversity_selector"
     elif registered_depth:
         tier = "nonmyopic_depth_only"
-    elif selector_superiority or dynamic_endpoint:
+    elif selector_superiority or dynamic_endpoint or truth_coverage_mediation:
         tier = "mechanism_only_without_nonmyopic_depth"
     else:
         tier = "prospective_null"
@@ -283,6 +370,13 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
             "gates": dynamic_gates,
             "registered_scientific_gate": False,
         },
+        "truth_coverage_mediation_family": {
+            "pass": truth_coverage_mediation,
+            "gates": coverage_gates,
+            "registered_scientific_gate": False,
+            "can_rescue_brier_status": False,
+            "used_for_policy_selection": False,
+        },
         "ranking_mechanism_family": {
             "pass": ranking_mechanism,
             "gates": ranking_gates,
@@ -290,7 +384,15 @@ def classify_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
         },
         "claim_scope": CLAIM_SCOPES[tier],
         "authorizes_full_llm_native_dynamic_claim": (
-            tier == "full_llm_native_dynamic_nonmyopic_confirmation"
+            tier
+            in {
+                "full_llm_native_dynamic_nonmyopic_confirmation",
+                "truth_coverage_mediated_dynamic_nonmyopic_confirmation",
+            }
+        ),
+        "authorizes_truth_coverage_mediated_claim": (
+            tier
+            == "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
         ),
     }
 
@@ -346,6 +448,15 @@ def render_report(
     gates = result.get("scientific_gates") or {}
     if not gates:
         raise ValueError("verified result omitted scientific gates")
+    coverage = result.get("truth_coverage_comparisons") or {}
+    missing_coverage = [
+        name for name, _ in COVERAGE_ORDER if name not in coverage
+    ]
+    if missing_coverage:
+        raise ValueError(
+            "verified result omitted coverage comparisons: "
+            + ", ".join(missing_coverage)
+        )
 
     lines = [
         "# Number Game Diversity-Bonus Confirmation-64 Result",
@@ -393,6 +504,42 @@ def render_report(
             "average their two frozen roots before comparison. They are "
             "descriptive controls, not scientific gates.",
             "",
+            "## Canonical Truth Coverage",
+            "",
+            (
+                "| Comparison | Candidate mean (SD) | Baseline mean (SD) | "
+                "Paired difference 95% CI | W/T/L | Changed roots |"
+            ),
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for name, label in COVERAGE_ORDER:
+        item = coverage[name]
+        interval = item["tree_bootstrap_95pct"]
+        lines.append(
+            "| "
+            + label
+            + " | "
+            + f"{_fmt(item['candidate_mean_coverage'])} "
+            + f"({_fmt(item['candidate_coverage_sample_sd'])})"
+            + " | "
+            + f"{_fmt(item['baseline_mean_coverage'])} "
+            + f"({_fmt(item['baseline_coverage_sample_sd'])})"
+            + " | "
+            + f"[{_fmt(interval[0])}, {_fmt(interval[1])}]"
+            + " | "
+            + f"{item['wins']}/{item['ties']}/{item['losses']}"
+            + " | "
+            + str(item["changed_roots"])
+            + " |"
+        )
+    lines.extend(
+        [
+            "",
+            "Coverage uses the external canonical target bank only after "
+            "selection. It is not a registered gate and cannot rescue a "
+            "failed Brier family.",
+            "",
             "## Frozen Gates",
             "",
         ]
@@ -417,6 +564,10 @@ def render_report(
         (
             "Dynamic-support endpoint",
             claim_report["dynamic_support_endpoint_family"],
+        ),
+        (
+            "Truth-coverage mediation",
+            claim_report["truth_coverage_mediation_family"],
         ),
         ("Ranking mechanism", claim_report["ranking_mechanism_family"]),
     )

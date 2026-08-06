@@ -58,3 +58,10 @@ def test_fixed_tree_scoring_does_not_change_selected_roots() -> None:
     )
     assert scored["mechanics"]["endpoint_draw_count"] == 16
     assert "crossfit_depth_two" in scored["comparisons"]
+    assert set(scored["per_root_endpoint_coverage"]) == {
+        str(root) for root in source_trees[0]["roots"]
+    }
+    assert all(
+        0.0 <= value <= 1.0
+        for value in scored["per_root_endpoint_coverage"].values()
+    )

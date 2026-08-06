@@ -17,7 +17,7 @@ neither waiting state authorizes a model call.
 - prospective preregistration SHA-256:
   `49b1a8bd783f8cbf54ba561ec55567bc4143af3b4358397cab4840d7d778cc5d`;
 - pre-response claim-plan SHA-256:
-  `68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916`;
+  `7bc5aeb922edc7ce7ae3e2bc4b5ea4c15b6a7de7bfafc004001d3aab6e4888e5`;
 - canonical dates/seeds/models/request manifest SHA-256:
   `041994f4de92b573c511414a293c049655a6adec6321189f522246b0f1ea6eba`;
 - exact request boundary: `3,680` per block and `7,360` total;
@@ -44,6 +44,14 @@ waiting, and failed preflights write nothing and make no component call, while
 completed-block resumptions skip fresh execution and independently revalidate
 the immutable result and claim reports.
 
+The claim plan also freezes a stronger, non-rescuing truth-coverage family.
+Using the external canonical target bank only after selection, it requires a
+positive mean, a paired bootstrap interval above zero, and wins exceeding
+losses for bonus d3 versus unadjusted d3, bonus d3 versus dynamic d2, and
+unadjusted dynamic d3 versus fixed-support d3. The independent verifier
+recomputes every root's coverage from `TREES.json` and `TARGETS.json`; these
+values cannot alter selected roots, registered gates, or result status.
+
 ## Commands
 
 ```bash
@@ -58,5 +66,7 @@ set -a; source .env; set +a
   --block b --preflight
 ```
 
-Focused validation: `155 passed` across the diversity-bonus and Aug 7 execution
-tests.
+Focused validation: `166 passed` across the diversity-bonus, canonical endpoint,
+fully fresh, budget-model, and Aug 7 execution tests. Real Block A and Block B
+preflights remain `waiting_for_aug7_control` and `waiting_for_block_a`, with
+zero calls, zero writes, and unchanged usage `$217.297890263`.

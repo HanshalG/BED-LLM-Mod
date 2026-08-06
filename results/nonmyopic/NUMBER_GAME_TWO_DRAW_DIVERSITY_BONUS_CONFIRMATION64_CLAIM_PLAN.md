@@ -60,6 +60,40 @@ diversity-bonus selection change from the dynamic-support endpoint. It remains
 an endpoint comparison rather than a claim that every internal support change
 is individually beneficial.
 
+### Truth-coverage mediation
+
+Truth coverage is evaluated only after every root has been selected and scored.
+For each candidate root, it is the fraction of the external canonical target
+extensions represented in the answer-conditioned terminal support, averaged
+over the same endpoint draws used for Brier scoring. Canonical targets never
+enter support generation, root scoring, or policy selection.
+
+The following three paired coverage comparisons are reported separately from
+the Brier comparisons:
+
+- bonus depth three versus unadjusted dynamic depth three;
+- bonus depth three versus dynamic depth two; and
+- unadjusted dynamic depth three versus fixed-support depth three.
+
+For each comparison, the candidate must have strictly higher mean coverage,
+the paired tree-bootstrap 95% interval for candidate-minus-baseline coverage
+must be entirely above zero, and tree wins must exceed losses. The
+truth-coverage mediation family passes only when all nine checks pass.
+
+These criteria are a stronger interpretation boundary, not registered
+scientific gates. Coverage cannot change the prospective result status, rescue
+a failed Brier family, alter a selected root, or authorize Block B. Conversely,
+a Brier result may support the existing LLM-native dynamic claim without
+establishing truth-coverage mediation.
+
+Before this amendment, a zero-call historical mechanics replay was inspected
+only to determine whether the endpoint had usable dynamic range. It was
+unsaturated and directionally mixed: bonus versus unadjusted was slightly
+positive, while depth three versus depth two and dynamic versus fixed were
+negative. No threshold or coefficient was selected from those values; the
+prospective criterion is the simple zero-effect boundary plus uncertainty and
+win-direction checks above.
+
 ### Ranking mechanism
 
 The diversity-adjusted candidate ranking must have both higher mean Spearman
@@ -69,11 +103,18 @@ reported separately from outcome gates.
 
 ## Claim Tiers
 
+- `truth_coverage_mediated_dynamic_nonmyopic_confirmation`: every condition
+  for `full_llm_native_dynamic_nonmyopic_confirmation` passes and the complete
+  truth-coverage mediation family passes. This is the only tier that permits
+  the sharper claim that non-myopic selection improved the truth coverage of
+  the LLM's regenerated, path-dependent future belief support.
 - `full_llm_native_dynamic_nonmyopic_confirmation`: registered depth and
   selector viability pass, diversity-selector superiority passes, and the
   dynamic-support endpoint passes. This permits a prospective claim that
   non-myopic planning over LLM-generated, path-dependent belief dynamics wins
-  in this Number Game protocol. Ranking evidence is reported but not required.
+  in this Number Game protocol. It does not by itself establish that improved
+  truth coverage mediated the result. Ranking and coverage evidence are
+  reported but not required.
 - `nonmyopic_with_diversity_selector_gain`: registered depth and viability
   pass and selector superiority passes, but the dynamic-support endpoint does
   not. This permits a useful stochastic-diversity-feature claim, not a full
@@ -92,6 +133,7 @@ reported separately from outcome gates.
 
 No tier authorizes universal benefit, monotonicity beyond depth two versus
 three, coefficient tuning, retrospective relabeling, or cross-model
-robustness. The report must independently replay the completed result, reject
+robustness. The coverage family is endpoint-only and cannot rescue any Brier
+family. The report must independently replay the completed result, reject
 non-finite or inconsistent fields, bank JSON and Markdown exactly once, and
 make zero model calls.

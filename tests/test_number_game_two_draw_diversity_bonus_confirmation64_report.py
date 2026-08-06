@@ -26,7 +26,42 @@ def _comparison(candidate: float, baseline: float) -> dict:
     }
 
 
-def _run(tmp_path: Path, *, status: str = "passed") -> Path:
+def _coverage_comparison(
+    candidate: float,
+    baseline: float,
+    *,
+    candidate_policy: str,
+    baseline_policy: str,
+    selector_independent: bool,
+) -> dict:
+    difference = candidate - baseline
+    return {
+        "candidate_mean_coverage": candidate,
+        "baseline_mean_coverage": baseline,
+        "mean_candidate_minus_baseline_coverage": difference,
+        "candidate_coverage_sample_sd": 0.1,
+        "baseline_coverage_sample_sd": 0.1,
+        "paired_difference_sample_sd": 0.1,
+        "tree_bootstrap_95pct": [difference - 0.002, difference + 0.002],
+        "wins": 20 if difference <= 0.0 else 40,
+        "ties": 24 if difference <= 0.0 else 4,
+        "losses": 20,
+        "changed_roots": 32,
+        "candidate_policy": candidate_policy,
+        "baseline_policy": baseline_policy,
+        "selector_independent_of_diversity_bonus": selector_independent,
+        "external_canonical_targets_endpoint_only": True,
+        "used_for_policy_selection": False,
+        "registered_scientific_gate": False,
+    }
+
+
+def _run(
+    tmp_path: Path,
+    *,
+    status: str = "passed",
+    coverage_pass: bool = False,
+) -> Path:
     run_dir = tmp_path / "run"
     run_dir.mkdir()
     comparisons = {
@@ -41,9 +76,40 @@ def _run(tmp_path: Path, *, status: str = "passed") -> Path:
             "registered_scientific_gate": False,
         }
     )
+    coverage_candidate = 0.7 if coverage_pass else 0.6
+    coverage = {
+        name: _coverage_comparison(
+            coverage_candidate,
+            0.6,
+            candidate_policy=candidate,
+            baseline_policy=baseline,
+            selector_independent=selector_independent,
+        )
+        for name, candidate, baseline, selector_independent in (
+            (
+                "bonus_vs_unadjusted_depth_three",
+                "bonus_root",
+                "original_root",
+                False,
+            ),
+            (
+                "bonus_depth_three_vs_crossfit_depth_two",
+                "bonus_root",
+                "depth_two_root",
+                False,
+            ),
+            (
+                "unadjusted_dynamic_vs_fixed_depth_three",
+                "original_root",
+                "fixed_depth_three_root",
+                True,
+            ),
+        )
+    }
     result = {
         "status": status,
         "comparisons": comparisons,
+        "truth_coverage_comparisons": coverage,
         "scientific_gates": {
             name: status == "passed"
             for name in report.DEPTH_GATES + report.VIABILITY_GATES
@@ -84,6 +150,8 @@ def test_report_emits_every_frozen_comparison_and_uncertainty(
     assert "descriptive controls, not scientific gates" in rendered
     assert "full_llm_native_dynamic_nonmyopic_confirmation" in rendered
     assert "Diversity-selector superiority: **pass**" in rendered
+    assert "Canonical Truth Coverage" in rendered
+    assert "Truth-coverage mediation: **fail**" in rendered
 
 
 def test_gated_null_language_closes_route_without_tuning(
@@ -187,6 +255,30 @@ def test_confounded_bonus_vs_fixed_cannot_authorize_dynamic_claim(
         "nonmyopic_with_diversity_selector_gain"
     )
     assert not classification["authorizes_full_llm_native_dynamic_claim"]
+
+
+def test_stronger_tier_requires_brier_and_truth_coverage(
+    tmp_path: Path,
+) -> None:
+    result = json.loads(
+        (_run(tmp_path, coverage_pass=True) / "RESULT.json").read_text()
+    )
+    classification = report.classify_claim_scope(result)
+    assert classification["truth_coverage_mediation_family"]["pass"]
+    assert classification["claim_tier"] == (
+        "truth_coverage_mediated_dynamic_nonmyopic_confirmation"
+    )
+    assert classification["authorizes_truth_coverage_mediated_claim"]
+
+    result["status"] = "gated_null"
+    for name in report.DEPTH_GATES + report.VIABILITY_GATES:
+        result["scientific_gates"][name] = False
+    classification = report.classify_claim_scope(result)
+    assert classification["truth_coverage_mediation_family"]["pass"]
+    assert classification["claim_tier"] == (
+        "mechanism_only_without_nonmyopic_depth"
+    )
+    assert not classification["authorizes_truth_coverage_mediated_claim"]
 
 
 def test_report_banks_json_and_markdown_idempotently(tmp_path: Path) -> None:

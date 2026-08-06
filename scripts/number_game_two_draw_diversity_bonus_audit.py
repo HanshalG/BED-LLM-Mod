@@ -242,13 +242,24 @@ def _root_rows(
         int(root): float(value)
         for root, value in scored_tree["per_root_endpoint_brier"].items()
     }
+    coverage_payload = scored_tree.get("per_root_endpoint_coverage")
+    realized_coverage = (
+        {
+            int(root): float(value)
+            for root, value in coverage_payload.items()
+        }
+        if coverage_payload is not None
+        else None
+    )
     if set(predicted) != set(roots) or set(realized) != set(roots):
         raise ValueError("candidate roots changed")
+    if realized_coverage is not None and set(realized_coverage) != set(roots):
+        raise ValueError("candidate coverage roots changed")
     if any(len(metrics[root]) != 6 for root in roots):
         raise ValueError("each root must have six generated future branches")
 
-    return [
-        {
+    rows = [
+        ({
             "root": root,
             "predicted_brier": predicted[root],
             "realized_brier": realized[root],
@@ -266,9 +277,14 @@ def _root_rows(
                     for item in metrics[root]
                 ]
             ),
-        }
+        } | (
+            {"realized_coverage": realized_coverage[root]}
+            if realized_coverage is not None
+            else {}
+        ))
         for root in roots
     ]
+    return rows
 
 
 def load_source(

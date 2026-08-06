@@ -116,6 +116,39 @@ def test_selector_independent_dynamic_fixed_uses_unadjusted_root() -> None:
     assert summary["selector_independent_of_diversity_bonus"]
 
 
+def test_truth_coverage_comparisons_use_external_endpoint_values() -> None:
+    rows = [
+        {
+            "source": "a",
+            "tree_seed": 1,
+            "bonus_root": 1,
+            "original_root": 0,
+            "depth_two_root": 2,
+            "fixed_depth_three_root": 3,
+            "root_rows": [
+                {"root": 0, "realized_coverage": 0.5},
+                {"root": 1, "realized_coverage": 0.8},
+                {"root": 2, "realized_coverage": 0.6},
+                {"root": 3, "realized_coverage": 0.4},
+            ],
+        }
+    ]
+    coverage = staged.truth_coverage_comparisons(rows)
+    assert coverage["bonus_vs_unadjusted_depth_three"][
+        "mean_candidate_minus_baseline_coverage"
+    ] == pytest.approx(0.3)
+    assert coverage["bonus_depth_three_vs_crossfit_depth_two"][
+        "mean_candidate_minus_baseline_coverage"
+    ] == pytest.approx(0.2)
+    dynamic = coverage["unadjusted_dynamic_vs_fixed_depth_three"]
+    assert dynamic["mean_candidate_minus_baseline_coverage"] == pytest.approx(
+        0.1
+    )
+    assert dynamic["selector_independent_of_diversity_bonus"]
+    assert dynamic["used_for_policy_selection"] is False
+    assert dynamic["registered_scientific_gate"] is False
+
+
 def test_block_b_authorization_uses_only_mechanics_and_later_date(
     tmp_path, monkeypatch
 ) -> None:
@@ -243,6 +276,11 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
         "selector_independent_dynamic_fixed_summary",
         lambda rows: {"selector_independent_of_diversity_bonus": True},
     )
+    monkeypatch.setattr(
+        staged,
+        "truth_coverage_comparisons",
+        lambda rows: {"coverage": True},
+    )
     monkeypatch.setattr(staged.component, "_mean_rank_metrics", lambda rows: {})
     result = staged.build_combined_result(run_dir=tmp_path, run_id="combined")
 
@@ -254,6 +292,8 @@ def test_combined_result_is_the_only_scientific_decision(tmp_path, monkeypatch) 
         result["protocol"]["selector_independent_dynamic_fixed_bootstrap_seed"]
         == staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
     )
+    assert result["truth_coverage_comparisons"] == {"coverage": True}
+    assert result["protocol"]["truth_coverage_can_rescue_brier_status"] is False
 
 
 def test_block_b_checkpoints_spend_before_scoring_and_verification(

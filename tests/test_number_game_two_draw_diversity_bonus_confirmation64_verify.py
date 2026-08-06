@@ -120,6 +120,48 @@ def _fixtures():
             "baseline_is_mean_of_two_roots_per_tree": True,
         },
     }
+    coverage_comparisons = {
+        name: {
+            "tree_count": staged.TREE_COUNT,
+            "candidate_mean_coverage": 0.7,
+            "baseline_mean_coverage": 0.6,
+            "mean_candidate_minus_baseline_coverage": 0.1,
+            "candidate_coverage_sample_sd": 0.1,
+            "baseline_coverage_sample_sd": 0.1,
+            "paired_difference_sample_sd": 0.1,
+            "tree_bootstrap_95pct": [0.05, 0.15],
+            "changed_roots": 32,
+            "wins": 40,
+            "ties": 4,
+            "losses": 20,
+            "external_canonical_targets_endpoint_only": True,
+            "used_for_policy_selection": False,
+            "registered_scientific_gate": False,
+            "candidate_policy": candidate,
+            "baseline_policy": baseline,
+            "selector_independent_of_diversity_bonus": selector_independent,
+        }
+        for name, candidate, baseline, selector_independent in (
+            (
+                "bonus_vs_unadjusted_depth_three",
+                "bonus_root",
+                "original_root",
+                False,
+            ),
+            (
+                "bonus_depth_three_vs_crossfit_depth_two",
+                "bonus_root",
+                "depth_two_root",
+                False,
+            ),
+            (
+                "unadjusted_dynamic_vs_fixed_depth_three",
+                "original_root",
+                "fixed_depth_three_root",
+                True,
+            ),
+        )
+    }
     gates = staged.scientific_gates({"comparisons": comparisons})
     blocks = {}
     rows = []
@@ -147,6 +189,7 @@ def _fixtures():
         artifacts = {
             "result_sha256": f"{block}r",
             "trees_sha256": f"{block}t",
+            "targets_sha256": f"{block}g",
             "raw_sha256": f"{block}w",
         }
         blocks[block] = {
@@ -161,6 +204,7 @@ def _fixtures():
         "blocks": blocks,
         "rows": rows,
         "comparisons": comparisons,
+        "truth_coverage_comparisons": coverage_comparisons,
         "rank_metrics": {"rho": 0.4},
         "scientific_gates": gates,
     }
@@ -213,6 +257,13 @@ def _fixtures():
             "selector_independent_dynamic_fixed_bootstrap_seed": (
                 staged.DYNAMIC_FIXED_BOOTSTRAP_SEED
             ),
+            "truth_coverage_endpoint_reported": True,
+            "truth_coverage_used_for_policy_selection": False,
+            "truth_coverage_is_registered_scientific_gate": False,
+            "truth_coverage_can_rescue_brier_status": False,
+            "truth_coverage_bootstrap_seeds": (
+                staged.COVERAGE_BOOTSTRAP_SEEDS
+            ),
         },
         "usage": {
             "adapter_requests": staged.EXPECTED_REQUESTS_TOTAL,
@@ -226,6 +277,7 @@ def _fixtures():
         },
         "rows": deepcopy(rows),
         "comparisons": deepcopy(comparisons),
+        "truth_coverage_comparisons": deepcopy(coverage_comparisons),
         "rank_metrics": deepcopy(replay["rank_metrics"]),
         "scientific_gates": deepcopy(gates),
     }
@@ -291,6 +343,34 @@ def test_tampered_combined_bootstrap_is_detected() -> None:
         block_a_verification_sha256=authorization_sha,
     )
     assert not checks["all_comparisons_and_bootstraps_replay_exactly"]
+
+
+def test_tampered_truth_coverage_is_detected() -> None:
+    result, stages, replay, authorization, authorization_sha = _fixtures()
+    result["truth_coverage_comparisons"][
+        "bonus_vs_unadjusted_depth_three"
+    ]["candidate_mean_coverage"] = 0.9
+    checks = verify.verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
+    )
+    assert not checks["all_truth_coverage_comparisons_replay_exactly"]
+
+
+def test_tampered_truth_coverage_protocol_is_detected() -> None:
+    result, stages, replay, authorization, authorization_sha = _fixtures()
+    result["protocol"]["truth_coverage_can_rescue_brier_status"] = True
+    checks = verify.verification_checks(
+        result=result,
+        stages=stages,
+        replay=replay,
+        block_a_verification=authorization,
+        block_a_verification_sha256=authorization_sha,
+    )
+    assert not checks["truth_coverage_contract_exact"]
 
 
 def test_tampered_seed_manifest_is_detected() -> None:

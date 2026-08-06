@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime
 import json
 from pathlib import Path
+import statistics
 import sys
 from typing import Any, Callable, Sequence
 
@@ -34,6 +35,11 @@ DAILY_CAP_USD = 5.0
 MIN_STARTING_BALANCE_USD = 5.0
 COMBINED_BOOTSTRAP_SEED = 112_800
 DYNAMIC_FIXED_BOOTSTRAP_SEED = COMBINED_BOOTSTRAP_SEED + 6
+COVERAGE_BOOTSTRAP_SEEDS = {
+    "bonus_vs_unadjusted_depth_three": COMBINED_BOOTSTRAP_SEED + 7,
+    "bonus_depth_three_vs_crossfit_depth_two": COMBINED_BOOTSTRAP_SEED + 8,
+    "unadjusted_dynamic_vs_fixed_depth_three": COMBINED_BOOTSTRAP_SEED + 9,
+}
 FORMAL_BLOCK_DATES = {"a": "2026-08-08", "b": "2026-08-09"}
 PREREGISTRATION = component.PREREGISTRATION
 PREREGISTRATION_SHA256 = (
@@ -297,6 +303,112 @@ def selector_independent_dynamic_fixed_summary(
     }
 
 
+def _coverage_comparison_rows(
+    rows: Sequence[dict[str, Any]],
+    *,
+    candidate_key: str,
+    baseline_key: str,
+) -> list[dict[str, Any]]:
+    output = []
+    for row in rows:
+        candidate_root = int(row[candidate_key])
+        baseline_root = int(row[baseline_key])
+        candidate = audit._root_value(
+            row, candidate_root, "realized_coverage"
+        )
+        baseline = audit._root_value(
+            row, baseline_root, "realized_coverage"
+        )
+        output.append(
+            {
+                "source": row["source"],
+                "tree_seed": int(row["tree_seed"]),
+                "candidate_root": candidate_root,
+                "baseline_root": baseline_root,
+                "candidate_coverage": candidate,
+                "baseline_coverage": baseline,
+                "difference": candidate - baseline,
+            }
+        )
+    return output
+
+
+def _coverage_summary(
+    comparison: Sequence[dict[str, Any]],
+    *,
+    bootstrap_seed: int,
+) -> dict[str, Any]:
+    candidate = [float(row["candidate_coverage"]) for row in comparison]
+    baseline = [float(row["baseline_coverage"]) for row in comparison]
+    differences = [float(row["difference"]) for row in comparison]
+    sample_sd = lambda values: (
+        statistics.stdev(values) if len(values) > 1 else 0.0
+    )
+    return {
+        "tree_count": len(comparison),
+        "candidate_mean_coverage": statistics.fmean(candidate),
+        "baseline_mean_coverage": statistics.fmean(baseline),
+        "mean_candidate_minus_baseline_coverage": statistics.fmean(
+            differences
+        ),
+        "candidate_coverage_sample_sd": sample_sd(candidate),
+        "baseline_coverage_sample_sd": sample_sd(baseline),
+        "paired_difference_sample_sd": sample_sd(differences),
+        "tree_bootstrap_95pct": audit.bootstrap_comparison(
+            comparison,
+            seed=bootstrap_seed,
+            stratified=False,
+        ),
+        "changed_roots": sum(
+            row["candidate_root"] != row["baseline_root"]
+            for row in comparison
+        ),
+        "wins": sum(value > 1e-15 for value in differences),
+        "ties": sum(abs(value) <= 1e-15 for value in differences),
+        "losses": sum(value < -1e-15 for value in differences),
+        "external_canonical_targets_endpoint_only": True,
+        "used_for_policy_selection": False,
+        "registered_scientific_gate": False,
+    }
+
+
+def truth_coverage_comparisons(
+    rows: Sequence[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    specs = {
+        "bonus_vs_unadjusted_depth_three": (
+            "bonus_root",
+            "original_root",
+        ),
+        "bonus_depth_three_vs_crossfit_depth_two": (
+            "bonus_root",
+            "depth_two_root",
+        ),
+        "unadjusted_dynamic_vs_fixed_depth_three": (
+            "original_root",
+            "fixed_depth_three_root",
+        ),
+    }
+    output = {}
+    for name, (candidate_key, baseline_key) in specs.items():
+        comparison = _coverage_comparison_rows(
+            rows,
+            candidate_key=candidate_key,
+            baseline_key=baseline_key,
+        )
+        output[name] = _coverage_summary(
+            comparison,
+            bootstrap_seed=COVERAGE_BOOTSTRAP_SEEDS[name],
+        ) | {
+            "candidate_policy": candidate_key,
+            "baseline_policy": baseline_key,
+            "selector_independent_of_diversity_bonus": (
+                name == "unadjusted_dynamic_vs_fixed_depth_three"
+            ),
+        }
+    return output
+
+
 def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
     stages = {block: _load(block_stage_path(run_dir, block)) for block in BLOCKS}
     scored = {block: _scored_block(run_dir, block) for block in BLOCKS}
@@ -311,6 +423,7 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
     summary["comparisons"][
         "unadjusted_dynamic_vs_fixed_depth_three"
     ] = selector_independent_dynamic_fixed_summary(rows)
+    coverage = truth_coverage_comparisons(rows)
     gates = scientific_gates(summary)
     required_descriptive_controls = {
         "positive_test_strategy",
@@ -382,6 +495,11 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
             "selector_independent_dynamic_fixed_bootstrap_seed": (
                 DYNAMIC_FIXED_BOOTSTRAP_SEED
             ),
+            "truth_coverage_endpoint_reported": True,
+            "truth_coverage_used_for_policy_selection": False,
+            "truth_coverage_is_registered_scientific_gate": False,
+            "truth_coverage_can_rescue_brier_status": False,
+            "truth_coverage_bootstrap_seeds": COVERAGE_BOOTSTRAP_SEEDS,
         },
         "usage": usage,
         "block_stages": stages,
@@ -390,6 +508,7 @@ def build_combined_result(*, run_dir: Path, run_id: str) -> dict[str, Any]:
         },
         "scientific_gates": gates,
         "comparisons": summary["comparisons"],
+        "truth_coverage_comparisons": coverage,
         "rank_metrics": component._mean_rank_metrics(rows),
         "rows": rows,
     }

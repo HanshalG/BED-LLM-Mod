@@ -253,6 +253,7 @@ def score_fixed_tree(
     draw_endpoints = []
     draw_novel_endpoints = []
     per_root_brier_rows = {root: [] for root in roots}
+    per_root_coverage_rows = {root: [] for root in roots}
     valid_counts = []
     novel_counts = []
     for draw_index, public_support in enumerate(endpoint_supports):
@@ -293,6 +294,9 @@ def score_fixed_tree(
         for root in roots:
             per_root_brier_rows[root].append(
                 per_root[root]["mean_posterior_predictive_brier"]
+            )
+            per_root_coverage_rows[root].append(
+                per_root[root]["truth_extension_coverage_rate"]
             )
         endpoints = {
             policy: per_root[root] | {"policy": policy}
@@ -410,6 +414,9 @@ def score_fixed_tree(
         ),
         "per_root_endpoint_brier": {
             str(root): _mean(per_root_brier_rows[root]) for root in roots
+        },
+        "per_root_endpoint_coverage": {
+            str(root): _mean(per_root_coverage_rows[root]) for root in roots
         },
     }
 

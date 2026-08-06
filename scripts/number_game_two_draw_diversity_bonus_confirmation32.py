@@ -132,6 +132,7 @@ def score_source_directory(
         "raw_sha256": audit.sha256_file(
             source_dir / "private" / "RAW_RESPONSES.json"
         ),
+        "targets_sha256": audit.sha256_file(source_dir / "TARGETS.json"),
     }
     rows = audit.load_source(
         spec,
@@ -154,7 +155,12 @@ def score_source_directory(
     return {
         "source_artifacts": {
             key: spec[key]
-            for key in ("result_sha256", "trees_sha256", "raw_sha256")
+            for key in (
+                "result_sha256",
+                "trees_sha256",
+                "targets_sha256",
+                "raw_sha256",
+            )
         },
         "summary": summary,
         "rank_metrics": _mean_rank_metrics(rows),

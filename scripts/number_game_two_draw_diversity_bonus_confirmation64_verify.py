@@ -15,6 +15,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
+from scripts import number_game_crossfit_endpoint_precision as precision
 from scripts import number_game_two_draw_diversity_bonus_audit as audit
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_staged as staged
 from scripts.number_game_ranking_fidelity_audit import spearman_correlation
@@ -189,6 +190,112 @@ def _rank_metrics(rows: Sequence[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def _coverage_comparison_rows(
+    rows: Sequence[dict[str, Any]],
+    *,
+    candidate_key: str,
+    baseline_key: str,
+) -> list[dict[str, Any]]:
+    output = []
+    for row in rows:
+        candidate_root = int(row[candidate_key])
+        baseline_root = int(row[baseline_key])
+        candidate = audit._root_value(
+            row, candidate_root, "realized_coverage"
+        )
+        baseline = audit._root_value(
+            row, baseline_root, "realized_coverage"
+        )
+        output.append(
+            {
+                "source": row["source"],
+                "tree_seed": int(row["tree_seed"]),
+                "candidate_root": candidate_root,
+                "baseline_root": baseline_root,
+                "candidate_coverage": candidate,
+                "baseline_coverage": baseline,
+                "difference": candidate - baseline,
+            }
+        )
+    return output
+
+
+def _coverage_summary(
+    comparison: Sequence[dict[str, Any]],
+    *,
+    seed: int,
+) -> dict[str, Any]:
+    candidate = [float(row["candidate_coverage"]) for row in comparison]
+    baseline = [float(row["baseline_coverage"]) for row in comparison]
+    differences = [float(row["difference"]) for row in comparison]
+    sample_sd = lambda values: (
+        statistics.stdev(values) if len(values) > 1 else 0.0
+    )
+    return {
+        "tree_count": len(comparison),
+        "candidate_mean_coverage": statistics.fmean(candidate),
+        "baseline_mean_coverage": statistics.fmean(baseline),
+        "mean_candidate_minus_baseline_coverage": statistics.fmean(
+            differences
+        ),
+        "candidate_coverage_sample_sd": sample_sd(candidate),
+        "baseline_coverage_sample_sd": sample_sd(baseline),
+        "paired_difference_sample_sd": sample_sd(differences),
+        "tree_bootstrap_95pct": audit.bootstrap_comparison(
+            comparison,
+            seed=seed,
+            stratified=False,
+        ),
+        "changed_roots": sum(
+            row["candidate_root"] != row["baseline_root"]
+            for row in comparison
+        ),
+        "wins": sum(value > 1e-15 for value in differences),
+        "ties": sum(abs(value) <= 1e-15 for value in differences),
+        "losses": sum(value < -1e-15 for value in differences),
+        "external_canonical_targets_endpoint_only": True,
+        "used_for_policy_selection": False,
+        "registered_scientific_gate": False,
+    }
+
+
+def _truth_coverage_comparisons(
+    rows: Sequence[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    specs = {
+        "bonus_vs_unadjusted_depth_three": (
+            "bonus_root",
+            "original_root",
+        ),
+        "bonus_depth_three_vs_crossfit_depth_two": (
+            "bonus_root",
+            "depth_two_root",
+        ),
+        "unadjusted_dynamic_vs_fixed_depth_three": (
+            "original_root",
+            "fixed_depth_three_root",
+        ),
+    }
+    output = {}
+    for name, (candidate_key, baseline_key) in specs.items():
+        comparison = _coverage_comparison_rows(
+            rows,
+            candidate_key=candidate_key,
+            baseline_key=baseline_key,
+        )
+        output[name] = _coverage_summary(
+            comparison,
+            seed=staged.COVERAGE_BOOTSTRAP_SEEDS[name],
+        ) | {
+            "candidate_policy": candidate_key,
+            "baseline_policy": baseline_key,
+            "selector_independent_of_diversity_bonus": (
+                name == "unadjusted_dynamic_vs_fixed_depth_three"
+            ),
+        }
+    return output
+
+
 def replay_block(run_dir: Path, block: str) -> dict[str, Any]:
     source_dir = staged.block_directory(run_dir, block) / "source"
     spec = {
@@ -201,11 +308,32 @@ def replay_block(run_dir: Path, block: str) -> dict[str, Any]:
         "raw_sha256": audit.sha256_file(
             source_dir / "private" / "RAW_RESPONSES.json"
         ),
+        "targets_sha256": audit.sha256_file(source_dir / "TARGETS.json"),
     }
     rows = audit.load_source(
         spec,
         coefficients=(0.0, audit.DIVERSITY_COEFFICIENT),
     )
+    source_result = _load(source_dir / "RESULT.json")
+    source_trees = _load(source_dir / "TREES.json")
+    targets = _load(source_dir / "TARGETS.json").get("targets") or []
+    if not targets:
+        raise ValueError("prospective source has no canonical target bank")
+    recomputed_coverage = {}
+    for public_tree, scored_tree in zip(
+        source_trees.get("trees") or [],
+        source_result.get("trees") or [],
+        strict=True,
+    ):
+        replayed_tree = precision.score_fixed_tree(
+            public_tree,
+            scored_tree,
+            [targets],
+        )
+        expected = replayed_tree["per_root_endpoint_coverage"]
+        if scored_tree.get("per_root_endpoint_coverage") != expected:
+            raise ValueError("per-root canonical truth coverage changed")
+        recomputed_coverage[int(scored_tree["tree_seed"])] = expected
     public_rows = []
     for row in rows:
         item = dict(row)
@@ -218,12 +346,18 @@ def replay_block(run_dir: Path, block: str) -> dict[str, Any]:
         item["source"] = f"prospective_block_{block}"
         public_rows.append(item)
     return {
-        "source_result": _load(source_dir / "RESULT.json"),
+        "source_result": source_result,
         "stage_source_artifacts": staged._source_hashes(source_dir),
         "source_artifacts": {
             key: spec[key]
-            for key in ("result_sha256", "trees_sha256", "raw_sha256")
+            for key in (
+                "result_sha256",
+                "trees_sha256",
+                "targets_sha256",
+                "raw_sha256",
+            )
         },
+        "recomputed_per_root_endpoint_coverage": recomputed_coverage,
         "rows": public_rows,
     }
 
@@ -254,10 +388,12 @@ def replay_combined(run_dir: Path) -> dict[str, Any]:
         "selector_independent_of_diversity_bonus": True,
         "registered_scientific_gate": False,
     }
+    coverage = _truth_coverage_comparisons(rows)
     return {
         "blocks": blocks,
         "rows": rows,
         "comparisons": summary["comparisons"],
+        "truth_coverage_comparisons": coverage,
         "rank_metrics": _rank_metrics(rows),
         "scientific_gates": staged.scientific_gates(summary),
     }
@@ -374,6 +510,17 @@ def verification_checks(
             ].get("registered_scientific_gate")
             is False
         ),
+        "truth_coverage_contract_exact": (
+            protocol.get("truth_coverage_endpoint_reported") is True
+            and protocol.get("truth_coverage_used_for_policy_selection")
+            is False
+            and protocol.get("truth_coverage_is_registered_scientific_gate")
+            is False
+            and protocol.get("truth_coverage_can_rescue_brier_status")
+            is False
+            and protocol.get("truth_coverage_bootstrap_seeds")
+            == staged.COVERAGE_BOOTSTRAP_SEEDS
+        ),
         "no_coefficient_grid_published": all(
             "coefficient_grid_roots" not in row
             for row in result.get("rows") or []
@@ -438,6 +585,10 @@ def verification_checks(
         ),
         "all_comparisons_and_bootstraps_replay_exactly": (
             result.get("comparisons") == replay["comparisons"]
+        ),
+        "all_truth_coverage_comparisons_replay_exactly": (
+            result.get("truth_coverage_comparisons")
+            == replay["truth_coverage_comparisons"]
         ),
         "rank_metrics_replay_exactly": (
             result.get("rank_metrics") == replay["rank_metrics"]

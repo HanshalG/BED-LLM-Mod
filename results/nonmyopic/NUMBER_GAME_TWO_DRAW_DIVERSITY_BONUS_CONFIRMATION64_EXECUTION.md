@@ -108,6 +108,14 @@ depth-three root, not the diversity-selected root, so selector improvement
 cannot rescue the support-dynamics family. These stricter interpretation
 families cannot rescue or alter the registered result status.
 
+A still stronger truth-coverage-mediated tier is evaluated endpoint-only on
+the external canonical target bank. It requires positive paired mean
+coverage, a 95% interval entirely above zero, and wins exceeding losses for
+all three contrasts: bonus d3 versus unadjusted d3, bonus d3 versus dynamic
+d2, and unadjusted dynamic d3 versus fixed-support d3. Coverage is never used
+for generation, scoring, selection, block authorization, or registered status,
+and cannot rescue any failed Brier family.
+
 ## Verification
 
 After measured Block B spend is checkpointed, the runner executes
@@ -119,10 +127,15 @@ the combined bootstrap, every gate, and final status.
 
 Before either paid block, the read-only protocol preflight also binds
 `NUMBER_GAME_TWO_DRAW_DIVERSITY_BONUS_CONFIRMATION64_CLAIM_PLAN.md` SHA-256
-`68a38ad27173fcaaaa9efad4582736276af7b931a8f6e5c6639b7d286a718916`.
+`7bc5aeb922edc7ce7ae3e2bc4b5ea4c15b6a7de7bfafc004001d3aab6e4888e5`.
 After Block B, the report path independently replays the verifier, requires
 exact equality with `VERIFICATION.json`, and banks `CLAIM_REPORT.json` plus
 the public Markdown exactly once with zero model calls.
+
+The replay reloads `TREES.json` and `TARGETS.json`, recomputes every candidate
+root's canonical truth coverage from its answer-conditioned terminal support,
+and then independently reconstructs the three paired coverage summaries and
+their dedicated 20,000-sample bootstraps.
 
 `BLOCK_B_DAILY_EXECUTION.json` is written only after verification succeeds
 and posted usage is reconciled. A verifier failure leaves spend recorded and
