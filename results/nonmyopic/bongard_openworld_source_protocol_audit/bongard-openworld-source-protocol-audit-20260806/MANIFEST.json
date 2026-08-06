@@ -1,0 +1,102 @@
+{
+  "all_gates_pass": true,
+  "authorizes_paid_calls": false,
+  "data": {
+    "common_sense_code_counts": {
+      "0": 741,
+      "1": 27,
+      "2": 25,
+      "3": 58,
+      "4": 30,
+      "5": 15,
+      "6": 28,
+      "7": 20,
+      "8": 19,
+      "9": 47
+    },
+    "master_rows": 1010,
+    "row_error_counts": {},
+    "split_sizes": {
+      "test": 200,
+      "train": 610,
+      "val": 200
+    },
+    "unique_image_references": 14140
+  },
+  "gates": {
+    "all_image_references_are_unique": true,
+    "all_rows_have_exact_balanced_image_structure": true,
+    "audit_exposed_test_rows_are_excluded_from_sealed_test": true,
+    "exact_master_and_split_sizes": true,
+    "official_backup_is_range_accessible_zip64": true,
+    "official_query_images_are_excluded_from_selectable_support": true,
+    "official_splits_are_disjoint_and_exhaustive": true,
+    "planner_payload_hides_semantic_truth_paths_and_unrevealed_labels": true,
+    "source_hashes_match": true,
+    "structural_depth_two_branching_exceeds_myopic_action_count": true,
+    "validation_protocol_split_is_exact_and_disjoint": true
+  },
+  "interpretation": "A pass establishes a reproducible leakage-controlled sequential visual-semantic task source. It does not establish that depth-two planning beats myopic selection; that requires a later VLM mechanics/opportunity experiment.",
+  "protocol": {
+    "cost_usd": 0.0,
+    "endpoint_images": 2,
+    "initial_labelled_images": 4,
+    "interface_version": "bongard-openworld-sequential-bed-source-protocol-1",
+    "model_calls": 0,
+    "ordered_depth_two_action_sequences": 56,
+    "preregistration": "results/nonmyopic/BONGARD_OPENWORLD_SOURCE_PROTOCOL_AUDIT_PREREGISTRATION.md",
+    "query_budget": 2,
+    "seed": 20260806,
+    "selectable_images": 8
+  },
+  "schema_version": 1,
+  "scientific_opportunity_status": "untested",
+  "source": {
+    "backup_probe": {
+      "expected_size_matches": true,
+      "total_size_bytes": 5124375111,
+      "zip64_end_record_present": true,
+      "zip64_locator_present": true,
+      "zip_end_record_present": true,
+      "zip_local_header_present": true
+    },
+    "backup_url": "https://drive.usercontent.google.com/download?id=1aXr3ihVq0mtzbl6ZNJMogYEyEY-WALNr&export=download&confirm=t",
+    "commit": "0462ba15f3be2f7f9a7e6cdd0d24314a1fabb5fe",
+    "data_sha256": {
+      "all": "6498f879b33d4e20be692dfaa0d44daec50b57b1af7571b86f8044d1e925b82c",
+      "test": "df2a946b1b5d12c039c9e36ac46dc3a8420eee4c78a306418683f273ed22a35d",
+      "train": "12062804a2636c433e11b1eb0fdf1f56edfd98acbca500454c1383b2e7083aee",
+      "val": "aeecd23c1f7f40dd2db1cb59b3ecda22b1fc9656b18855c0928e6311a2764e0f"
+    },
+    "full_backup_sha256_verified": false,
+    "repository": "https://github.com/rujiewu/Bongard-OpenWorld",
+    "tree": "b527dfa22222cab3beef5c4023a8b3837d8d7ee5"
+  },
+  "status": "source_protocol_pass",
+  "test_boundary": {
+    "audit_exposed_uids": [
+      "0008"
+    ],
+    "concepts_captions_and_paths_emitted": false,
+    "official_test_count": 200,
+    "sealed_test_count": 199
+  },
+  "validation_partitions": {
+    "confirmation": {
+      "count": 64,
+      "uid_sha256": "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
+    },
+    "development": {
+      "count": 32,
+      "uid_sha256": "3a2bf6044f145983df061f548c44b694cdf09f3a31ed417a13fadcf72f538370"
+    },
+    "mechanics": {
+      "count": 4,
+      "uid_sha256": "69de5a5fc444f3d14e9c07f570f4fe1fa8a4e915dd15926466c7c677d68bd323"
+    },
+    "reserve": {
+      "count": 100,
+      "uid_sha256": "f870f67dc31440bb1edbedc428d3fdaa80e1690ee6b59d1127b45b835c2d09ae"
+    }
+  }
+}
