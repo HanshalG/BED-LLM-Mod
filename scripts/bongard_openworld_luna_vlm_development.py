@@ -32,7 +32,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-4"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-5"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -72,6 +72,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -452,11 +453,18 @@ def _development_final_cases(
     cases = []
     for task in sorted(tasks, key=lambda item: item.task_id):
         histories = [
-            path["final_history"]
-            for path in action_paths[task.task_id].values()
-        ] + [
             plans[task.task_id]["policies"][policy]["final_history"]
-            for policy in mechanics.POLICIES
+            for policy in (
+                "dynamic_depth2",
+                "history_blind_depth2",
+                "myopic_width",
+                "fixed_depth2",
+                "shuffled_dynamic_depth2",
+                "random",
+            )
+        ] + [
+            action_paths[task.task_id][first]["final_history"]
+            for first in sorted(action_paths[task.task_id])
         ]
         seen = set()
         for history in histories:
@@ -523,6 +531,14 @@ def _build_artifacts(
     )
     if len(final_responses) != len(final_cases):
         raise ValueError("final response count changed")
+    final_seeds = mechanics.request_seeds_for_cases(
+        final_cases, base_seed=base_seed, final_stage=True
+    )
+    final_pairing = mechanics.final_request_diagnostics(
+        cases=final_cases,
+        seeds=final_seeds,
+        plans=plans,
+    )
     final_beliefs = [
         bed.parse_belief_response(
             response,
@@ -596,6 +612,7 @@ def _build_artifacts(
         "plans": plans,
         "action_paths": action_paths,
         "final_cases": final_cases,
+        "final_request_pairing": final_pairing,
         "final_by_history": final_by_history,
         "branch_diagnostics": diagnostics,
         "trees": trees,
@@ -656,6 +673,10 @@ def _block_gates(
             artifacts["paired_request_diagnostics"]["pair_count"]
             == task_count * ((CASES_PER_TASK - 1) // 2)
             and artifacts["paired_request_diagnostics"]["gates"]["all_pass"]
+        ),
+        "terminal_histories_use_task_level_common_random_numbers": (
+            artifacts["final_request_pairing"]["task_count"] == task_count
+            and artifacts["final_request_pairing"]["gates"]["all_pass"]
         ),
         "shuffled_control_exactly_permutes_complete_continuation_values": (
             shuffled_control_exact
@@ -839,6 +860,13 @@ def run_block(
         base_seed=BLOCK_MODEL_SEEDS[block_id],
         final_stage=True,
     )
+    final_pairing = mechanics.final_request_diagnostics(
+        cases=selected_final_cases,
+        seeds=final_seeds,
+        plans=plans,
+    )
+    if not final_pairing["gates"]["all_pass"]:
+        raise ValueError("development terminal common-random-number audit failed")
     final_prompt_errors = [
         bed.prompt_hidden_state_errors(case.task, case.history, messages)
         for case, messages in zip(selected_final_cases, final_messages, strict=True)
@@ -886,6 +914,7 @@ def run_block(
                 message_sha256(messages) for messages in final_messages
             ],
             "final_request_seeds": final_seeds,
+            "final_request_pairing": final_pairing,
             "candidate_labels_accessed_after_root_selection": True,
             "endpoint_labels_accessed": False,
             "combined_science_accessed": False,
@@ -921,6 +950,10 @@ def run_block(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md"
             ),
+            "terminal_crn_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md"
+            ),
             "block_id": block_id,
             "block_size": BLOCK_SIZES[block_id],
             "block_offset": BLOCK_OFFSETS[block_id],
@@ -949,6 +982,7 @@ def run_block(
             row["material"] for row in artifacts["branch_diagnostics"]
         ),
         "paired_request_diagnostics": paired_requests,
+        "final_request_pairing": final_pairing,
         "gates": gates,
         "trees": artifacts["trees"],
         "raw_responses_sha256": sha256_file(raw_path),
@@ -1031,6 +1065,13 @@ def replay_block(
     )
     if raw.get("final_request_seeds") != final_seeds:
         raise ValueError("development final request seeds changed")
+    if (
+        raw.get("final_request_pairing")
+        != artifacts["final_request_pairing"]
+        or result.get("final_request_pairing")
+        != artifacts["final_request_pairing"]
+    ):
+        raise ValueError("development terminal pairing does not replay")
     if bed.canonical_json(artifacts["trees"]) != bed.canonical_json(result["trees"]):
         raise ValueError("development block tree does not replay")
     return {

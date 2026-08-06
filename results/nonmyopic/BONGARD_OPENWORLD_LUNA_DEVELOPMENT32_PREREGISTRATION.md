@@ -6,7 +6,10 @@ endpoint access.
 Before any model request, the shuffled control and action-margin diagnostic
 were corrected by
 `BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md`. Development interface
-`-2` is invalid; the corrected interface is `-3`.
+`-2` is invalid; the matched history-blind control then advanced the interface
+to `-4`. Before any response, terminal common random numbers were frozen in
+`BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md`; the current interface is
+`-5`.
 
 ## Claim And Boundary
 
@@ -63,13 +66,20 @@ opaque task IDs and source-row hashes, block assignment, dates, model seeds,
 request bounds, schemas, and implementation/document hashes. Any between-block
 code or protocol change invalidates later execution.
 
-For every task in a block, generate one root and all 16 candidate/outcome
-branches. This is 17 first-stage requests per task. For every one of the eight
+For every task in a block, generate one root, all 16 answer-conditioned
+candidate/outcome branches, and 16 paired history-blind branches. This is 33
+first-stage requests per task. For every one of the eight
 possible first actions, release its actual candidate label, select the best
 second action under that regenerated branch, and generate the distinct final
 support. Also include any distinct fixed-depth-two or random-policy final
 history. Reciprocal action orders may share one final history, so there are
-4--10 final calls per task and at most 216 total requests per block.
+4--10 final calls per task and at most 344 total requests per block.
+
+All distinct terminal histories within a task use one common requested model
+seed, while different tasks use different seeds. When dynamic and
+history-blind select different final histories, those requests are ordered
+adjacently with dynamic first. This reduces avoidable terminal model-seed
+variance without adding calls or changing the belief process.
 
 The all-first-action continuations make ranking fidelity observable: within
 each task, compare the frozen dynamic, myopic, fixed, and shuffled root score
@@ -107,9 +117,17 @@ calls for each task:
 - `shuffled_dynamic_depth2`: complete expected continuation values are rotated
   across first actions before scoring, exactly preserving compute and their
   quality distribution while breaking action-specific path coupling;
+- `history_blind_depth2`: every branch receives a matched fresh semantic draw
+  that omits the simulated answer, followed by an analytical update using that
+  answer; execution uses the same realized dynamic updater as the other
+  generated-support policies;
 - `random`: two deterministic seeded candidates without replacement.
 
-`dynamic_depth2` versus `myopic_width` is the primary paired comparison. It
+`dynamic_depth2` versus `myopic_width` is the original primary paired
+comparison. The co-required `dynamic_depth2` versus `history_blind_depth2`
+comparison directly tests whether answer-conditioned regeneration, rather than
+another semantic draw, provides the useful non-myopic signal. The original
+comparison
 isolates the non-myopic first-action objective: both policies use the same
 query budget and the same realized branch and final-regeneration machinery.
 `fixed_depth2` tests whether fixed-support lookahead is enough, while the
@@ -161,6 +179,12 @@ policy/metric offset implemented in the runner.
 6. dynamic mean log loss is no worse than myopic;
 7. dynamic mean Brier is no worse than fixed-depth-two or shuffled-dynamic;
 8. all endpoint metrics are finite, and confirmation/test remain unopened.
+
+The matched history-blind amendment additionally requires at least 12 changed
+final histories across all four blocks, at least 3% relative Brier improvement,
+at least 0.80 paired bootstrap probability of improvement, nonworse log loss,
+and nonworse ranking fidelity. These are conjunctive with the eight original
+conditions.
 
 A pass authorizes writing a fresh 64-task confirmation preregistration, not
 running it. A null returns development to the four mechanics tasks for one

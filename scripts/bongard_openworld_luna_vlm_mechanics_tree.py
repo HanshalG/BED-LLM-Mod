@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-4"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-5"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -135,7 +135,14 @@ def request_seeds_for_cases(
     base_seed: int,
     final_stage: bool = False,
 ) -> list[int]:
-    keys = [_request_seed_key(case) for case in cases]
+    if final_stage:
+        if any(case.kind != "final" for case in cases):
+            raise ValueError("final-stage seed control accepts only final cases")
+        # Common random numbers remove per-history seed luck from terminal
+        # policy comparisons while retaining independent seeds across tasks.
+        keys = [("final_task", case.task.task_id) for case in cases]
+    else:
+        keys = [_request_seed_key(case) for case in cases]
     unique_keys = sorted(set(keys))
     offset = FINAL_SEED_OFFSET if final_stage else 0
     seed_by_key = {
@@ -558,7 +565,14 @@ def final_cases(
     cases = []
     for task in sorted(tasks, key=lambda item: item.task_id):
         seen = set()
-        for policy in POLICIES:
+        for policy in (
+            "dynamic_depth2",
+            "history_blind_depth2",
+            "myopic_width",
+            "fixed_depth2",
+            "shuffled_dynamic_depth2",
+            "random",
+        ):
             policy_row = plans[task.task_id]["policies"][policy]
             key = policy_row["final_history_key"]
             if key in seen:
@@ -626,11 +640,18 @@ def all_action_final_cases(
     cases = []
     for task in sorted(tasks, key=lambda item: item.task_id):
         histories = [
-            path["final_history"]
-            for path in action_paths[task.task_id].values()
-        ] + [
             plans[task.task_id]["policies"][policy]["final_history"]
-            for policy in POLICIES
+            for policy in (
+                "dynamic_depth2",
+                "history_blind_depth2",
+                "myopic_width",
+                "fixed_depth2",
+                "shuffled_dynamic_depth2",
+                "random",
+            )
+        ] + [
+            action_paths[task.task_id][first]["final_history"]
+            for first in sorted(action_paths[task.task_id])
         ]
         seen = set()
         for history in histories:
@@ -652,6 +673,87 @@ def all_action_final_cases(
     if not len(tasks) * 4 <= len(cases) <= len(tasks) * 10:
         raise ValueError("all-action final history count is outside bounds")
     return cases
+
+
+def final_request_diagnostics(
+    *,
+    cases: Sequence[BeliefCase],
+    seeds: Sequence[int],
+    plans: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Audit task-level terminal common-random-number pairing."""
+    if len(cases) != len(seeds):
+        raise ValueError("final request manifest lengths differ")
+    index_by_key = {
+        (case.task.task_id, history_key(case.history)): index
+        for index, case in enumerate(cases)
+    }
+    exact_unique_cases = (
+        len(index_by_key) == len(cases)
+        and all(case.kind == "final" for case in cases)
+    )
+    rows = []
+    if exact_unique_cases and set(plans) == {
+        case.task.task_id for case in cases
+    }:
+        for task_id in sorted(plans):
+            task_indices = [
+                index
+                for index, case in enumerate(cases)
+                if case.task.task_id == task_id
+            ]
+            dynamic_key = plans[task_id]["policies"]["dynamic_depth2"][
+                "final_history_key"
+            ]
+            blind_key = plans[task_id]["policies"]["history_blind_depth2"][
+                "final_history_key"
+            ]
+            dynamic_index = index_by_key[(task_id, dynamic_key)]
+            blind_index = index_by_key[(task_id, blind_key)]
+            rows.append(
+                {
+                    "task_id": task_id,
+                    "final_request_count": len(task_indices),
+                    "shared_task_seed": len({seeds[index] for index in task_indices})
+                    == 1,
+                    "task_seed": seeds[task_indices[0]],
+                    "task_cases_are_contiguous": task_indices
+                    == list(range(min(task_indices), max(task_indices) + 1)),
+                    "dynamic_history_equals_history_blind": (
+                        dynamic_key == blind_key
+                    ),
+                    "dynamic_then_history_blind_are_adjacent_when_distinct": (
+                        dynamic_key == blind_key
+                        or blind_index == dynamic_index + 1
+                    ),
+                    "dynamic_and_history_blind_share_seed": (
+                        seeds[dynamic_index] == seeds[blind_index]
+                    ),
+                }
+            )
+    task_seeds = [row["task_seed"] for row in rows]
+    gates = {
+        "exact_unique_final_case_map": exact_unique_cases,
+        "exact_task_plan_coverage": len(rows) == len(plans) > 0,
+        "all_final_histories_within_task_share_one_seed": all(
+            row["shared_task_seed"] for row in rows
+        ),
+        "distinct_tasks_use_distinct_terminal_seeds": (
+            len(task_seeds) == len(set(task_seeds))
+        ),
+        "all_task_final_case_groups_are_contiguous": all(
+            row["task_cases_are_contiguous"] for row in rows
+        ),
+        "dynamic_and_history_blind_terminal_pairs_are_ordered": all(
+            row["dynamic_then_history_blind_are_adjacent_when_distinct"]
+            for row in rows
+        ),
+        "dynamic_and_history_blind_terminal_pairs_share_seed": all(
+            row["dynamic_and_history_blind_share_seed"] for row in rows
+        ),
+    }
+    gates["all_pass"] = all(gates.values())
+    return {"task_count": len(rows), "gates": gates, "tasks": rows}
 
 
 def _average_ranks(values: Sequence[float]) -> list[float]:
@@ -784,6 +886,7 @@ def mechanics_gates(
     branch_diagnostics: Sequence[dict[str, Any]],
     history_blind_branch_count: int,
     paired_requests: Mapping[str, Any],
+    final_pairing: Mapping[str, Any],
     final_case_count: int,
     usage: Mapping[str, Any],
     prompt_errors: Sequence[Sequence[str]],
@@ -890,6 +993,10 @@ def mechanics_gates(
         "exact_paired_seed_and_prompt_difference_accounting": (
             paired_requests.get("pair_count") == DYNAMIC_BRANCH_REQUESTS
             and (paired_requests.get("gates") or {}).get("all_pass") is True
+        ),
+        "terminal_histories_use_task_level_common_random_numbers": (
+            final_pairing.get("task_count") == ROOT_REQUESTS
+            and (final_pairing.get("gates") or {}).get("all_pass") is True
         ),
         "all_scores_are_finite_and_executable": finite_scores,
         "at_least_24_of_32_branch_pairs_change_unobserved_beliefs": sum(
@@ -1050,6 +1157,13 @@ def run_mechanics(
         base_seed=MODEL_SEED,
         final_stage=True,
     )
+    final_pairing = final_request_diagnostics(
+        cases=selected_final_cases,
+        seeds=final_seeds,
+        plans=plans,
+    )
+    if not final_pairing["gates"]["all_pass"]:
+        raise ValueError("terminal common-random-number audit failed")
     final_prompt_errors = [
         bed.prompt_hidden_state_errors(case.task, case.history, messages)
         for case, messages in zip(
@@ -1172,6 +1286,7 @@ def run_mechanics(
             len(branches) for branches in history_blind_by_task.values()
         ),
         paired_requests=paired_requests,
+        final_pairing=final_pairing,
         final_case_count=len(selected_final_cases),
         usage=usage,
         prompt_errors=[*stage_prompt_errors, *final_prompt_errors],
@@ -1192,6 +1307,7 @@ def run_mechanics(
                 message_sha256(messages) for messages in selected_final_messages
             ],
             "final_request_seeds": final_seeds,
+            "final_request_pairing": final_pairing,
             "final_responses": final_responses,
             "actual_candidate_labels_accessed_after_root_selection": True,
             "endpoint_labels_accessed_after_all_query_selection": (
@@ -1237,6 +1353,10 @@ def run_mechanics(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md"
             ),
+            "terminal_crn_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md"
+            ),
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,
             "random_seed": RANDOM_SEED,
@@ -1263,6 +1383,7 @@ def run_mechanics(
         / len(trees),
         "mean_ranking_fidelity": ranking_fidelity,
         "paired_request_diagnostics": paired_requests,
+        "final_request_pairing": final_pairing,
         "comparisons_vs_myopic": {
             policy: {
                 "brier_difference": (

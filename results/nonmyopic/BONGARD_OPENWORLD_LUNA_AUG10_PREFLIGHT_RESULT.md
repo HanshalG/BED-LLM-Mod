@@ -13,7 +13,7 @@ The read-only preflight made zero model calls and wrote zero files. It verified:
 - exactly four mechanics tasks, 56 images, and ten hidden-state-clean serving
   prompts (8,820,158 serialized message bytes);
 - strict belief-schema SHA-256 `23239262...9fd`;
-- interface-v4 development manifest SHA-256 `4754f599...e4fdb9`;
+- interface-v5 development manifest SHA-256 `8022618f...38e1e6`;
 - a four-root, 64 conditioned-branch, 64 paired history-blind-branch mechanics
   tree with 132 first-stage and at most 172 total requests;
 - absent wrapper, serving, mechanics, and August 10 ledger artifacts;
@@ -33,10 +33,14 @@ ledger opening boundary. A failed gate makes no component call and leaves all
 target paths absent; a banked ledger or component remains on the existing
 no-repeat replay path.
 
-The implementation regression suite passes 78 Bongard tests. The paired
+The implementation regression suite passes 83 Bongard tests. The paired
 request audit checks exact same-seed, same-batch adjacent dynamic/blind pairs,
 initial-history-only blind prompts, and dynamic prompts that add exactly one
 simulated answer.
+Terminal requests now additionally use one common requested seed per task and
+place distinct dynamic/history-blind histories adjacently, eliminating
+avoidable per-history seed luck from the primary endpoint contrast. The exact
+pairing is persisted and independently replay-gated.
 The rebound development manifest also binds the pre-outcome four-tier claim
 classifier; policy-only or mechanism-only outcomes cannot authorize
 confirmation.

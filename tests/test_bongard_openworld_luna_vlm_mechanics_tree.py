@@ -420,6 +420,100 @@ def test_final_cases_deduplicate_shared_policy_histories() -> None:
     assert len(cases) == 1
 
 
+def test_terminal_requests_use_common_seed_and_primary_pair_order() -> None:
+    tasks = [_task(0), _task(1)]
+    plans = {}
+    cases = []
+    for task_index, task in enumerate(tasks):
+        dynamic = tuple(
+            sorted(
+                (*task.initial_history, (task.candidate_ids[0], True), (task.candidate_ids[1], False))
+            )
+        )
+        blind = tuple(
+            sorted(
+                (*task.initial_history, (task.candidate_ids[2], False), (task.candidate_ids[3], True))
+            )
+        )
+        plans[task.task_id] = {
+            "policies": {
+                policy: {
+                    "final_history": dynamic if policy == "dynamic_depth2" else blind,
+                    "final_history_key": tree.history_key(
+                        dynamic if policy == "dynamic_depth2" else blind
+                    ),
+                }
+                for policy in tree.POLICIES
+            }
+        }
+        cases.extend(tree.final_cases([task], plans))
+
+    seeds = tree.request_seeds_for_cases(
+        cases, base_seed=900_000, final_stage=True
+    )
+    diagnostics = tree.final_request_diagnostics(
+        cases=cases, seeds=seeds, plans=plans
+    )
+
+    assert diagnostics["gates"]["all_pass"]
+    assert len(set(seeds[:2])) == 1
+    assert len(set(seeds[2:])) == 1
+    assert seeds[0] != seeds[2]
+    assert all(
+        row["dynamic_then_history_blind_are_adjacent_when_distinct"]
+        for row in diagnostics["tasks"]
+    )
+
+    tampered = list(seeds)
+    tampered[1] += 1
+    assert not tree.final_request_diagnostics(
+        cases=cases, seeds=tampered, plans=plans
+    )["gates"]["all_pass"]
+
+
+def test_terminal_common_seed_cancels_adversarial_seed_only_policy_effect() -> None:
+    task = _task(0)
+    dynamic = tuple(
+        sorted(
+            (*task.initial_history, (task.candidate_ids[0], True), (task.candidate_ids[1], False))
+        )
+    )
+    blind = tuple(
+        sorted(
+            (*task.initial_history, (task.candidate_ids[2], False), (task.candidate_ids[3], True))
+        )
+    )
+    plans = {
+        task.task_id: {
+            "policies": {
+                policy: {
+                    "final_history": dynamic if policy == "dynamic_depth2" else blind,
+                    "final_history_key": tree.history_key(
+                        dynamic if policy == "dynamic_depth2" else blind
+                    ),
+                }
+                for policy in tree.POLICIES
+            }
+        }
+    }
+    cases = tree.final_cases([task], plans)
+    unique_history_seeds = [101, 202]
+    common_task_seeds = tree.request_seeds_for_cases(
+        cases, base_seed=101, final_stage=True
+    )
+
+    def seed_only_brier(seed: int) -> float:
+        probability = 0.9 if seed % 2 else 0.1
+        return (probability - 1.0) ** 2
+
+    assert seed_only_brier(unique_history_seeds[0]) != seed_only_brier(
+        unique_history_seeds[1]
+    )
+    assert seed_only_brier(common_task_seeds[0]) == seed_only_brier(
+        common_task_seeds[1]
+    )
+
+
 def test_reconcile_full_tree_preserves_prior_smoke_spend() -> None:
     ledger = {
         "opening_total_usage_usd": 100.0,

@@ -220,6 +220,10 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     assert result["paired_request_diagnostics"]["gates"][
         "each_pair_shares_one_dispatch_batch"
     ]
+    assert result["final_request_pairing"]["gates"]["all_pass"]
+    assert result["gates"][
+        "terminal_histories_use_task_level_common_random_numbers"
+    ]
     assert "pooled_policy_metrics" not in result
     assert result["protocol"]["distinct_final_history_requests"] >= 8 * 4
     assert all(len(tree["all_first_action_paths"]) == 8 for tree in result["trees"])
