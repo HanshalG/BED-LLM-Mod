@@ -1,0 +1,17 @@
+{
+  "decision": "not_authorized_reliability_null",
+  "protocol": {
+    "interface_version": "number-game-deepseek-diversity-v2-aug7-1",
+    "model_calls": 0,
+    "preregistration_sha256": "3ccabbb81c13e37a0a0f48f39785ecc9535317f299f8ec7fdc70f5828e219cd0",
+    "run_budget_usd": 2.1,
+    "stage": "stress7168"
+  },
+  "reliability_result_sha256": "cd451acd04e2c98a6760267a4b6cb4f66fdb94b3a88f5f3fea10625b0d1ec788",
+  "schema_version": 1,
+  "status": "gated_null",
+  "usage": {
+    "adapter_requests": 0,
+    "run_cost_usd": 0.0
+  }
+}

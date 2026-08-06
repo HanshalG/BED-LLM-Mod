@@ -47,6 +47,27 @@
   "control_status_is_immutable": true,
   "daily_cap_usd": 5.0,
   "date": "2026-08-07",
+  "deepseek_diversity_v2_blocks": [
+    {
+      "actual_cost_usd": 0.033681749999999996,
+      "efficacy_used_for_authorization": false,
+      "maximum_cost_usd": 0.1,
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "preregistration_sha256": "3ccabbb81c13e37a0a0f48f39785ecc9535317f299f8ec7fdc70f5828e219cd0",
+      "stage": "reliability128",
+      "status": "gated_null"
+    },
+    {
+      "actual_cost_usd": 0.0,
+      "efficacy_used_for_authorization": false,
+      "maximum_cost_usd": 2.1,
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "preregistration_sha256": "3ccabbb81c13e37a0a0f48f39785ecc9535317f299f8ec7fdc70f5828e219cd0",
+      "stage": "stress7168",
+      "status": "not_authorized_reliability_null"
+    }
+  ],
+  "deepseek_diversity_v2_preregistration_sha256": "3ccabbb81c13e37a0a0f48f39785ecc9535317f299f8ec7fdc70f5828e219cd0",
   "failure_tail_authorization_amendment_sha256": "9c1ed384932cfe8bf3a907abbfe025b1fce4d99e6c7199b50dcc18823c2960fe",
   "first_authorized_block": {
     "actual_cost_usd": 2.6901734400000024,
@@ -61,12 +82,15 @@
   "opening_total_credits_usd": 245.0,
   "opening_total_usage_usd": 217.297890263,
   "reconciliation": {
-    "locally_measured_spend_usd": 2.7820341410000027,
-    "posted_spend_since_opening_usd": 2.7820341410000027,
+    "live_balance_usd": 24.88666600799999,
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.113333992,
+    "locally_measured_spend_usd": 2.8157158910000026,
+    "posted_spend_since_opening_usd": 2.815443729000009,
     "recorded_spend_is_max_of_posted_and_local": true,
-    "remaining_daily_allowance_usd": 2.2179658589999973
+    "remaining_daily_allowance_usd": 2.1842841089999974
   },
-  "recorded_actual_spend_usd": 2.7820341410000027,
+  "recorded_actual_spend_usd": 2.8157158910000026,
   "reported_top_up_not_yet_visible_usd": 30.0,
   "schema_version": 1,
   "tail_authorization_reason": "independent_model_screen_after_clean_terminal_control_mechanics_stop",

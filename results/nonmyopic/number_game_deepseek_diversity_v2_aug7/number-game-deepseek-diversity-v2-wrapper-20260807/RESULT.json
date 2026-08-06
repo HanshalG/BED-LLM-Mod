@@ -1,0 +1,27 @@
+{
+  "authorizes_aug8_diversity": false,
+  "efficacy_accessed": false,
+  "interface_version": "number-game-deepseek-diversity-v2-aug7-1",
+  "preregistration_sha256": "3ccabbb81c13e37a0a0f48f39785ecc9535317f299f8ec7fdc70f5828e219cd0",
+  "recorded_actual_spend_usd": 2.8157158910000026,
+  "reliability_verification": {
+    "cost_usd": 0.033681749999999996,
+    "raw_responses_sha256": "97685ad1140384c12bbb94470a67dd0487097631b44838d0d2313637b106d5ca",
+    "requests": 128,
+    "result_sha256": "cd451acd04e2c98a6760267a4b6cb4f66fdb94b3a88f5f3fea10625b0d1ec788",
+    "stage": "reliability128",
+    "status": "gated_null",
+    "verified": true
+  },
+  "remaining_daily_allowance_usd": 2.1842841089999974,
+  "schema_version": 1,
+  "status": "complete",
+  "stress_verification": {
+    "cost_usd": 0.0,
+    "requests": 0,
+    "result_sha256": "3350ff6ba1c215e37d3cd96ad8273b88135512115dc72d2a263467a7c69439f3",
+    "stage": "stress7168",
+    "status": "gated_null",
+    "verified": true
+  }
+}
