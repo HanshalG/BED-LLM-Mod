@@ -56,3 +56,27 @@ tasks also passes all 14 serving gates with zero model calls and zero cost.
 Do not run the full four-task tree unless `RESULT.json` is `passed`, every gate
 is true, and observed cost projects the full run below both its $1.50 cap and
 the ledger's remaining account-wide allowance.
+
+## Full Mechanics Command
+
+Run on the same London day only after the exact-10 command passes:
+
+```bash
+set -a; source .env; set +a
+python scripts/bongard_openworld_luna_vlm_mechanics_tree.py \
+  --output-dir results/nonmyopic/bongard_openworld_luna_vlm_mechanics_tree/bongard-openworld-luna-vlm-mechanics-tree-20260810 \
+  --run-id bongard-openworld-luna-vlm-mechanics-tree-20260810 \
+  --serving-result results/nonmyopic/bongard_openworld_luna_vlm_serving_smoke/bongard-openworld-luna-vlm-serving-smoke-20260810/RESULT.json \
+  --daily-ledger results/nonmyopic/openrouter_daily_budget/2026-08-10.json
+```
+
+The full wrapper independently replays the exact-10 raw responses, metrics,
+and gates before spend. It then reserves the $1.50 cap against the account-wide
+ledger and also refuses if `1.5 * observed serving cost/request * 88` exceeds
+that cap. The first stage is exactly 68 shared requests. Final calls are
+deduplicated across policies, for at most 88 total requests.
+
+A zero-call replay using all four real mechanics tasks produces 14 distinct
+final histories and 82 total requests, passes every frozen mechanics gate, and
+keeps development, confirmation, and sealed-test access false. Its synthetic
+endpoint values are fixture behavior and carry no scientific evidence.
