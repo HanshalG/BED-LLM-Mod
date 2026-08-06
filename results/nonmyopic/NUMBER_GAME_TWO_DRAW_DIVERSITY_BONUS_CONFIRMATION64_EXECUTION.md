@@ -29,6 +29,14 @@ opening balance. Wrong-day, waiting-predecessor, catalog, protocol, path, and
 balance failures therefore leave no execution artifact. Completed and
 failed-closed blocks remain banked and are never submitted again.
 
+Before every Qwen or Gemini HTTP attempt, the shared adapter reserves the
+model-specific worst-case cost under the spend-ledger lock. The authoritative
+preflight binds and verifies
+`NUMBER_GAME_DIVERSITY_CONFIRMATION_PRECHARGE_AMENDMENT.md`, including live
+price coverage for the frozen 4,200-token output maximum. This enforces the
+existing `$5.00` block cap during concurrent dispatch and retries; it changes
+no scientific input or gate.
+
 ## Preconditions
 
 Run only after the sealed August 7 history-blind control is complete and

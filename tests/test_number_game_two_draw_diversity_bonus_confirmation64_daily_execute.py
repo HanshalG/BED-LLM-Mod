@@ -51,10 +51,17 @@ def _catalog(*, include_target: bool = True) -> dict:
                 "architecture": {"input_modalities": ["text"]},
                 "supported_parameters": ["response_format"],
                 "top_provider": {"max_completion_tokens": 65_536},
-                "pricing": {
-                    "prompt": "0.0000003",
-                    "completion": "0.0000012",
-                },
+                "pricing": (
+                    {
+                        "prompt": "0.0000003",
+                        "completion": "0.0000025",
+                    }
+                    if model_id == execute.TARGET_MODEL_ID
+                    else {
+                        "prompt": "0.00000032",
+                        "completion": "0.00000128",
+                    }
+                ),
             }
             for model_id in model_ids
         ]
@@ -174,6 +181,10 @@ def _complete_block_a_predecessor(run_dir: Path, ledger: Path) -> None:
 def test_protocol_preflight_binds_pre_response_claim_plan(monkeypatch) -> None:
     protocol = execute._verify_protocol_inputs()
     assert protocol["claim_plan_sha256"] == execute.CLAIM_PLAN_SHA256
+    assert (
+        protocol["precharge_amendment_sha256"]
+        == execute.PRECHARGE_AMENDMENT_SHA256
+    )
     monkeypatch.setattr(execute, "CLAIM_PLAN_SHA256", "0" * 64)
     with pytest.raises(ValueError, match="claim plan hash changed"):
         execute._verify_protocol_inputs()
@@ -597,6 +608,17 @@ def test_block_a_preflight_becomes_ready_after_verified_control(
     )
     assert result["status"] == "ready_without_paid_calls"
     assert result["predecessor"]["kind"] == "verified_aug7_control"
+    assert result["models"][execute.PLANNING_MODEL_ID][
+        "maximum_request_cost_usd"
+    ] == pytest.approx(0.010)
+    assert result["models"][execute.TARGET_MODEL_ID][
+        "maximum_request_cost_usd"
+    ] == pytest.approx(0.015)
+    assert all(
+        model["covered_prompt_tokens_at_live_price"]
+        >= execute.MINIMUM_RESERVED_PROMPT_TOKENS
+        for model in result["models"].values()
+    )
 
 
 def test_block_b_preflight_waits_then_becomes_ready(tmp_path: Path) -> None:
@@ -643,6 +665,26 @@ def test_preflight_refuses_low_balance_or_missing_model(tmp_path: Path) -> None:
             run_dir=run_dir,
             ledger=ledger,
             model_catalog_reader=lambda: _catalog(include_target=False),
+        )
+
+
+def test_preflight_rejects_price_above_attempt_reservation(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    ledger = tmp_path / "ledger.json"
+    catalog = _catalog()
+    target = next(
+        item
+        for item in catalog["data"]
+        if item["id"] == execute.TARGET_MODEL_ID
+    )
+    target["pricing"]["completion"] = "0.000004"
+
+    with pytest.raises(RuntimeError, match="reservation no longer covers"):
+        _preflight(
+            block="a",
+            run_dir=run_dir,
+            ledger=ledger,
+            model_catalog_reader=lambda: catalog,
         )
 
 

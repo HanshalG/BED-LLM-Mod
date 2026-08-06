@@ -22,12 +22,13 @@ if str(REPO_ROOT) not in sys.path:
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts import number_game_two_draw_diversity_bonus_audit as audit
 from scripts import number_game_two_draw_diversity_bonus_confirmation64_staged as staged
+from scripts import number_game_predictive_risk_replication as replication
 from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = (
-    "number-game-two-draw-diversity-bonus-confirmation64-daily-execute-1"
+    "number-game-two-draw-diversity-bonus-confirmation64-daily-execute-2"
 )
 RUN_ID = "number-game-two-draw-diversity-bonus-confirmation64-20260808"
 RUN_DIR = REPO_ROOT / (
@@ -64,8 +65,16 @@ MODELS_URL = "https://openrouter.ai/api/v1/models"
 PLANNING_MODEL_ID = "qwen/qwen3.7-plus"
 TARGET_MODEL_ID = "google/gemini-2.5-flash"
 MAX_OUTPUT_TOKENS = 4_200
+MINIMUM_RESERVED_PROMPT_TOKENS = 8_000
+PRECHARGE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "NUMBER_GAME_DIVERSITY_CONFIRMATION_PRECHARGE_AMENDMENT.md"
+)
+PRECHARGE_AMENDMENT_SHA256 = (
+    "416b2479acd9f02bcba55beb08558ffa8452ff290f8084021a37d4bd4c8f0481"
+)
 PROTOCOL_INPUT_SHA256 = (
-    "041994f4de92b573c511414a293c049655a6adec6321189f522246b0f1ea6eba"
+    "baac1c609dcf1ae066c2163eb655d19316fccee745f2da70b507c01573915844"
 )
 
 
@@ -122,6 +131,11 @@ def _protocol_inputs() -> dict[str, Any]:
         "preregistration_sha256": staged.PREREGISTRATION_SHA256,
         "planning_model": PLANNING_MODEL_ID,
         "target_model": TARGET_MODEL_ID,
+        "precharge_amendment_sha256": PRECHARGE_AMENDMENT_SHA256,
+        "maximum_request_cost_usd_by_model": {
+            model_id: replication.MAX_REQUEST_COST_USD_BY_MODEL[model_id]
+            for model_id in (PLANNING_MODEL_ID, TARGET_MODEL_ID)
+        },
         "reasoning": False,
         "blocks": {
             block: {
@@ -141,6 +155,8 @@ def _protocol_inputs() -> dict[str, Any]:
 
 
 def _verify_protocol_inputs() -> dict[str, Any]:
+    if audit.sha256_file(PRECHARGE_AMENDMENT) != PRECHARGE_AMENDMENT_SHA256:
+        raise ValueError("diversity precharge amendment hash changed")
     if audit.sha256_file(EXECUTION_AMENDMENT) != EXECUTION_AMENDMENT_SHA256:
         raise ValueError("diversity execution amendment hash changed")
     if audit.sha256_file(CLAIM_PLAN) != CLAIM_PLAN_SHA256:
@@ -167,6 +183,7 @@ def _verify_protocol_inputs() -> dict[str, Any]:
         "protocol_input_sha256": digest,
         "execution_amendment_sha256": EXECUTION_AMENDMENT_SHA256,
         "claim_plan_sha256": CLAIM_PLAN_SHA256,
+        "precharge_amendment_sha256": PRECHARGE_AMENDMENT_SHA256,
         "preregistration_sha256": staged.PREREGISTRATION_SHA256,
         "expected_requests_per_block": staged.EXPECTED_REQUESTS_PER_BLOCK,
         "expected_requests_total": staged.EXPECTED_REQUESTS_TOTAL,
@@ -192,6 +209,9 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
         pricing = model.get("pricing") or {}
         prompt_price = float(pricing.get("prompt", math.nan))
         completion_price = float(pricing.get("completion", math.nan))
+        maximum_request_cost = (
+            replication.MAX_REQUEST_COST_USD_BY_MODEL.get(model_id)
+        )
         if "text" not in modalities:
             raise RuntimeError(f"{model_id} no longer supports text input")
         if not ({"response_format", "structured_outputs"} & supported):
@@ -203,6 +223,22 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
             for value in (prompt_price, completion_price)
         ):
             raise RuntimeError(f"{model_id} pricing is missing or invalid")
+        if maximum_request_cost is None:
+            raise RuntimeError(f"{model_id} attempt-cost reservation is missing")
+        maximum_output_cost = completion_price * MAX_OUTPUT_TOKENS
+        residual = maximum_request_cost - maximum_output_cost
+        covered_prompt_tokens = (
+            math.inf if prompt_price == 0.0 else residual / prompt_price
+        )
+        if (
+            residual < 0.0
+            or covered_prompt_tokens + 1e-9
+            < MINIMUM_RESERVED_PROMPT_TOKENS
+        ):
+            raise RuntimeError(
+                f"{model_id} attempt-cost reservation no longer covers the "
+                "frozen output and prompt ceilings"
+            )
         verified[model_id] = {
             "context_length": int(model.get("context_length") or 0),
             "max_completion_tokens": max_completion,
@@ -214,6 +250,9 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
             "completion_usd_per_million_tokens": round(
                 completion_price * 1_000_000, 12
             ),
+            "maximum_request_cost_usd": maximum_request_cost,
+            "maximum_output_cost_usd": maximum_output_cost,
+            "covered_prompt_tokens_at_live_price": covered_prompt_tokens,
         }
     return verified
 

@@ -298,7 +298,11 @@ def _verify_frozen_case_inputs() -> dict[str, Any]:
             BUDGET_RESERVATION_AMENDMENT_SHA256
         ),
         "maximum_request_cost_usd_by_model": dict(
-            replication.MAX_REQUEST_COST_USD_BY_MODEL
+            (
+                model_id,
+                replication.MAX_REQUEST_COST_USD_BY_MODEL[model_id],
+            )
+            for model_id in MODEL_MAX_OUTPUT_TOKENS
         ),
         "source_trees_sha256": reliability.SOURCE_TREES_SHA256,
         "reliability_protocols": {

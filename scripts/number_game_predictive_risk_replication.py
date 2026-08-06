@@ -132,6 +132,7 @@ class SeededStructuredAdapter(DefaultRoutingStructuredAdapter):
 
 MAX_REQUEST_COST_USD_BY_MODEL = {
     "qwen/qwen3.7-plus": 0.010,
+    "google/gemini-2.5-flash": 0.015,
     "openai/gpt-5.6-luna": 0.004,
     "deepseek/deepseek-v4-flash-0731": 0.0015,
 }

@@ -18,15 +18,19 @@ neither waiting state authorizes a model call.
   `49b1a8bd783f8cbf54ba561ec55567bc4143af3b4358397cab4840d7d778cc5d`;
 - pre-response claim-plan SHA-256:
   `c90ede19c9438917e2d8ac198211d2da6c5d0bae788bf77d5a9a7b283edf4b8a`;
+- precharge amendment SHA-256:
+  `416b2479acd9f02bcba55beb08558ffa8452ff290f8084021a37d4bd4c8f0481`;
 - canonical dates/seeds/models/request manifest SHA-256:
-  `041994f4de92b573c511414a293c049655a6adec6321189f522246b0f1ea6eba`;
+  `baac1c609dcf1ae066c2163eb655d19316fccee745f2da70b507c01573915844`;
 - exact request boundary: `3,680` per block and `7,360` total;
 - target block directories, daily ledgers, terminal artifacts, and failure
   artifacts are absent;
 - `qwen/qwen3.7-plus` is live with structured output, 1M context, and 131,072
-  maximum completion tokens;
+  maximum completion tokens; its `$0.010` attempt reservation covers the
+  4,200-token output ceiling plus 14,450 prompt tokens at live prices;
 - `google/gemini-2.5-flash` is live with structured output, 1,048,576 context,
-  and 65,535 maximum completion tokens;
+  and 65,535 maximum completion tokens; its `$0.015` attempt reservation
+  covers the output ceiling plus 15,000 prompt tokens at live prices;
 - authenticated balance is `$27.702109737`, above the exact `$5` start gate;
 - model calls made: `0`; files written: `0`.
 
@@ -71,7 +75,9 @@ set -a; source .env; set +a
   --block b --preflight
 ```
 
-Focused validation: `172 passed` across the diversity-bonus, canonical endpoint,
-fully fresh, budget-model, and Aug 7 execution tests. Real Block A and Block B
+The latest transport-focused validation passes `121/121` across the shared
+OpenRouter adapter, Aug 7 budget-model path, and all staged diversity-confirmation
+source, daily-execution, report, and verification tests. The prior broader
+diversity-bonus validation remains `172/172`. Real Block A and Block B
 preflights remain `waiting_for_aug7_control` and `waiting_for_block_a`, with
 zero calls, zero writes, and unchanged usage `$217.297890263`.
