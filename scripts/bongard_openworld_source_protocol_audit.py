@@ -205,7 +205,7 @@ def _task_rng(uid: str) -> random.Random:
     return random.Random(seed)
 
 
-def task_protocol(row: dict[str, Any]) -> dict[str, Any]:
+def _task_layout(row: dict[str, Any]) -> dict[str, Any]:
     if row_errors(row):
         raise ValueError(f"invalid Bongard row {row.get('uid')}")
     uid = row["uid"]
@@ -225,16 +225,32 @@ def task_protocol(row: dict[str, Any]) -> dict[str, Any]:
     opaque_names = [f"image-{index:02d}" for index in range(14)]
     rng.shuffle(opaque_names)
     opaque_by_position = dict(enumerate(opaque_names))
-    label_by_position = {
-        position: "positive" if position < 7 else "negative"
-        for position in range(14)
-    }
     task_id = "task-" + hashlib.sha256(
         f"{PROTOCOL_SEED}|opaque-task|{uid}".encode()
     ).hexdigest()[:12]
 
     return {
         "task_id": task_id,
+        "initial_positions": initial_positions,
+        "candidate_positions": candidate_positions,
+        "endpoint_positions": endpoint_positions,
+        "opaque_by_position": opaque_by_position,
+    }
+
+
+def task_protocol(row: dict[str, Any]) -> dict[str, Any]:
+    layout = _task_layout(row)
+    initial_positions = layout["initial_positions"]
+    candidate_positions = layout["candidate_positions"]
+    endpoint_positions = layout["endpoint_positions"]
+    opaque_by_position = layout["opaque_by_position"]
+    label_by_position = {
+        position: "positive" if position < 7 else "negative"
+        for position in range(14)
+    }
+
+    return {
+        "task_id": layout["task_id"],
         "initial": [
             {
                 "image_id": opaque_by_position[position],

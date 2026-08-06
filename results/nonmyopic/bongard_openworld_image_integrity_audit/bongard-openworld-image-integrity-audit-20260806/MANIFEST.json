@@ -1,0 +1,666 @@
+{
+  "all_gates_pass": true,
+  "archive": {
+    "bad_crc_member": null,
+    "compressed_bytes": 5117979827,
+    "directories": 1011,
+    "duplicate_entries": 0,
+    "entries": 15151,
+    "extension_counts": {
+      ".jpeg": 323,
+      ".jpg": 13445,
+      ".png": 372
+    },
+    "extra_file_members": 0,
+    "files": 14140,
+    "member_set_sha256": "c3d62d29e2ec3707f6ddc14c56b2c664982dc5f3504993383995164bb4139413",
+    "missing_expected_members": 0,
+    "uncompressed_bytes": 5181779641,
+    "zero_size_files": 0
+  },
+  "authorizes_paid_calls": false,
+  "gates": {
+    "all_expected_members_have_positive_sizes": true,
+    "all_mechanics_images_decode_with_positive_dimensions": true,
+    "all_mechanics_images_use_accepted_raster_formats": true,
+    "archive_file_set_exactly_matches_bound_metadata": true,
+    "archive_size_and_sha256_match_first_complete_binding": true,
+    "bound_source_and_protocol_manifest_match": true,
+    "exact_expected_member_and_directory_counts": true,
+    "full_archive_crc_scan_passes": true,
+    "mechanics_partition_has_exact_unique_task_and_image_counts": true,
+    "member_names_are_unique_and_path_safe": true,
+    "public_mechanics_payload_is_opaque_and_truth_free": true
+  },
+  "interpretation": "A pass binds and verifies the complete image source and the four opaque mechanics tasks. It does not test planning quality, open a confirmation endpoint, or authorize model calls.",
+  "mechanics": {
+    "public_payload_errors": [],
+    "summary": {
+      "format_counts": {
+        "JPEG": 52,
+        "PNG": 2,
+        "WEBP": 2
+      },
+      "images": 56,
+      "max_height": 3750,
+      "max_width": 2500,
+      "min_height": 250,
+      "min_width": 300,
+      "mode_counts": {
+        "RGB": 54,
+        "RGBA": 2
+      },
+      "role_counts": {
+        "candidate": 32,
+        "endpoint": 8,
+        "initial": 16
+      },
+      "tasks": 4,
+      "total_bytes": 17217220
+    },
+    "tasks": [
+      {
+        "images": [
+          {
+            "bytes": 921703,
+            "format": "JPEG",
+            "height": 2400,
+            "image_id": "image-00",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "65984e4ebc567d8228b6b77a2dfa4570bdb0d56d6e5ec09d805e7c6aebe90e15",
+            "width": 2400
+          },
+          {
+            "bytes": 16238,
+            "format": "JPEG",
+            "height": 300,
+            "image_id": "image-01",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "b112340a627e689f14731b7c4a3b850dc860ba23610030d7706e614b69925054",
+            "width": 300
+          },
+          {
+            "bytes": 61598,
+            "format": "JPEG",
+            "height": 500,
+            "image_id": "image-02",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "e7e2925c5063b85e3a472f61064e187c3aff8dcedc61e910de716f0b1440a8b2",
+            "width": 500
+          },
+          {
+            "bytes": 149171,
+            "format": "JPEG",
+            "height": 707,
+            "image_id": "image-03",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "18e32802b44383dc7e573e001af84a1477952b3e291ccc905c34fa3e80184c22",
+            "width": 900
+          },
+          {
+            "bytes": 59983,
+            "format": "JPEG",
+            "height": 745,
+            "image_id": "image-04",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "5371a31f6d74b9b556589133baeb50b19220d6fbf1d646bab27d2af68975cb69",
+            "width": 1000
+          },
+          {
+            "bytes": 1665839,
+            "format": "JPEG",
+            "height": 1600,
+            "image_id": "image-05",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "2e8c51848003de7d197a06986355ae8bffad6505403b6fca982f9d56be906aca",
+            "width": 1500
+          },
+          {
+            "bytes": 418032,
+            "format": "JPEG",
+            "height": 1414,
+            "image_id": "image-06",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "1a109c598893717c605870b77f545c5379db90a4e2d90936c47c65397767e616",
+            "width": 1000
+          },
+          {
+            "bytes": 72626,
+            "format": "JPEG",
+            "height": 1024,
+            "image_id": "image-07",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "9342c1a5a469065387975b4737c28c0d75f342ab88650daad741d2bfccdb16f6",
+            "width": 721
+          },
+          {
+            "bytes": 329951,
+            "format": "JPEG",
+            "height": 1721,
+            "image_id": "image-08",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "3149489c0dbd6d8be00a94186d50d2d159f83a1a202beeedcc4911da12a45df4",
+            "width": 1200
+          },
+          {
+            "bytes": 117980,
+            "format": "JPEG",
+            "height": 720,
+            "image_id": "image-09",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "5fea4fa01737fa78eb267276660df648ae9221941dcffd75ebd720601602a03d",
+            "width": 1280
+          },
+          {
+            "bytes": 42926,
+            "format": "JPEG",
+            "height": 360,
+            "image_id": "image-10",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "9b6d7e246bda16c19379836d116ced6050b9dc6cfce9dc89c7ee1d14213a1d6f",
+            "width": 480
+          },
+          {
+            "bytes": 93607,
+            "format": "JPEG",
+            "height": 720,
+            "image_id": "image-11",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "3e2967ffb5b8ec73633019cbb201572861bc4b76d37e97ba0a2f4a3e6e89bcb6",
+            "width": 1280
+          },
+          {
+            "bytes": 1409286,
+            "format": "JPEG",
+            "height": 2400,
+            "image_id": "image-12",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "041f162b06cd14d8fec01c7151fd5bdaa489bf2f58917729eaa55f0d58aaefa4",
+            "width": 1800
+          },
+          {
+            "bytes": 143100,
+            "format": "JPEG",
+            "height": 720,
+            "image_id": "image-13",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "06a1f270206029622368a8e346f36783e867ec65f4f781c44bcf7bde545e3aff",
+            "width": 1280
+          }
+        ],
+        "task_id": "task-126d30cad73b"
+      },
+      {
+        "images": [
+          {
+            "bytes": 26054,
+            "format": "WEBP",
+            "height": 270,
+            "image_id": "image-00",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "36adfedaf27dd08d2f043a384e0530150bc3bbf2c7fe8859721f669bf3db1338",
+            "width": 480
+          },
+          {
+            "bytes": 88467,
+            "format": "JPEG",
+            "height": 407,
+            "image_id": "image-01",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "f323eb710096d8c5cb3b4de00d257706e045add5fd64fb3a2fe72f10a890f2b0",
+            "width": 612
+          },
+          {
+            "bytes": 261158,
+            "format": "JPEG",
+            "height": 667,
+            "image_id": "image-02",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "3df82a61b71dfc40d0f7a304de0a82d2c9762f1a421ebec0af6647ad7762da7b",
+            "width": 1000
+          },
+          {
+            "bytes": 192484,
+            "format": "JPEG",
+            "height": 1390,
+            "image_id": "image-03",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "76d0243ed407f68ff544434b6d3bcf62a59d63106796a89dad2df41eb747816e",
+            "width": 1300
+          },
+          {
+            "bytes": 53844,
+            "format": "JPEG",
+            "height": 533,
+            "image_id": "image-04",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "fad9bf01f75ae05ecaa84afdab2bbc20e37c71d7a01669df5b35621f87b23ebf",
+            "width": 800
+          },
+          {
+            "bytes": 40312,
+            "format": "JPEG",
+            "height": 360,
+            "image_id": "image-05",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "79ecf799bb1b247e48fa29ff617f622b62fb11ed61e1f4cc1757f5c9621985b2",
+            "width": 480
+          },
+          {
+            "bytes": 81579,
+            "format": "JPEG",
+            "height": 533,
+            "image_id": "image-06",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "1285dfcf0c12b32c9e7ea104d199da379ff19b16f59ba1adcd330e96fb636e13",
+            "width": 800
+          },
+          {
+            "bytes": 186795,
+            "format": "JPEG",
+            "height": 1130,
+            "image_id": "image-07",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "79188e571ae5b0b093297817b8a572667f009bbad7d360d1e3680479fc5b2d97",
+            "width": 1695
+          },
+          {
+            "bytes": 73354,
+            "format": "JPEG",
+            "height": 533,
+            "image_id": "image-08",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "1c362e989644a0b1b659d45920679d7e14e2801be93bc466b5c2cfe009ec209d",
+            "width": 800
+          },
+          {
+            "bytes": 94201,
+            "format": "JPEG",
+            "height": 957,
+            "image_id": "image-09",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "8885ae589561fc603285d8d9cdf1b029d0e6748c8cea5bec9987afb7d212c715",
+            "width": 1300
+          },
+          {
+            "bytes": 25118,
+            "format": "JPEG",
+            "height": 600,
+            "image_id": "image-10",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "d4176739e73a55a1470cfa97f5a9c9ceea284ed84b3d5d78a98b7a746bffe5b9",
+            "width": 800
+          },
+          {
+            "bytes": 89744,
+            "format": "JPEG",
+            "height": 1155,
+            "image_id": "image-11",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "47bf835638a722833a4fc60c03387e8c188ebaf9f78c031d43625179abf619a3",
+            "width": 1600
+          },
+          {
+            "bytes": 144534,
+            "format": "JPEG",
+            "height": 675,
+            "image_id": "image-12",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "81600c05bab240fe58edcb405f3ed4ee0e48e437f58c875e21d365ba44ec4c27",
+            "width": 900
+          },
+          {
+            "bytes": 104065,
+            "format": "JPEG",
+            "height": 368,
+            "image_id": "image-13",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "3c699280fd7228ecad60e87dbb677bd62179027b5e09d13229210dbaf0fe2812",
+            "width": 469
+          }
+        ],
+        "task_id": "task-263200a0c8c3"
+      },
+      {
+        "images": [
+          {
+            "bytes": 171995,
+            "format": "JPEG",
+            "height": 734,
+            "image_id": "image-00",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "b3d9a8863ef59304cfd85e55236d65ce8516e2f91fd55bf3db71276f39a2b12c",
+            "width": 550
+          },
+          {
+            "bytes": 122846,
+            "format": "JPEG",
+            "height": 311,
+            "image_id": "image-01",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "05a2ccaac35b145c3719d863d71e6299912b71e03553ce5745e55ce32fdf22cc",
+            "width": 553
+          },
+          {
+            "bytes": 260555,
+            "format": "JPEG",
+            "height": 701,
+            "image_id": "image-02",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "c5d7cee639560c8fe0dcfc60136222184df3e8d0955b47b9f70f58f4378019d3",
+            "width": 935
+          },
+          {
+            "bytes": 158296,
+            "format": "JPEG",
+            "height": 667,
+            "image_id": "image-03",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "df345bc85636542126eacb57cd42123ebd29a56567f031e4590d631ae29227f4",
+            "width": 1000
+          },
+          {
+            "bytes": 124153,
+            "format": "JPEG",
+            "height": 1140,
+            "image_id": "image-04",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "667d585e938124488efe0ae5c0a2aaa61690593dbfeb8dc8ce120bff5498e6d8",
+            "width": 1140
+          },
+          {
+            "bytes": 257616,
+            "format": "JPEG",
+            "height": 1323,
+            "image_id": "image-05",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "bbce343d5567b443703ec2d7390435d37abe97017fb5ca8594b0797c3bff53bf",
+            "width": 1200
+          },
+          {
+            "bytes": 271205,
+            "format": "PNG",
+            "height": 250,
+            "image_id": "image-06",
+            "mode": "RGBA",
+            "role": "candidate",
+            "sha256": "4145d20be91d606abad592ca0881b5c091d1dbe36e5e5e3942f7eb7593990271",
+            "width": 500
+          },
+          {
+            "bytes": 490664,
+            "format": "JPEG",
+            "height": 3750,
+            "image_id": "image-07",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "0a5a2a19378c49cb1221455bc2763c5c79b553ce02d93239d382e8b9bf33a61e",
+            "width": 2500
+          },
+          {
+            "bytes": 26622,
+            "format": "JPEG",
+            "height": 452,
+            "image_id": "image-08",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "0535517a989963d04b12d19fb02099575650d0526d20cd66a735ce2483697bca",
+            "width": 375
+          },
+          {
+            "bytes": 176088,
+            "format": "JPEG",
+            "height": 485,
+            "image_id": "image-09",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "74e290127198efc7ae602282eb743575c16c99fa9e02d1624c991ba9d750e05d",
+            "width": 640
+          },
+          {
+            "bytes": 2382917,
+            "format": "JPEG",
+            "height": 1297,
+            "image_id": "image-10",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "48c321ff3265cf66de204ebba2be8929cbb879b59abbd115049c47d4c5ec07be",
+            "width": 2048
+          },
+          {
+            "bytes": 128485,
+            "format": "JPEG",
+            "height": 480,
+            "image_id": "image-11",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "2586f2dd7aa8740e22b8e50547467b3fc2a2e1472d8e65beb4f0275d7bec156c",
+            "width": 640
+          },
+          {
+            "bytes": 80167,
+            "format": "JPEG",
+            "height": 600,
+            "image_id": "image-12",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "7447cdac3e70578bf14f56d241e81ea447e4a5406d1aa4fa4e8290413fdd3278",
+            "width": 600
+          },
+          {
+            "bytes": 489873,
+            "format": "JPEG",
+            "height": 2000,
+            "image_id": "image-13",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "89a3ddcc7e7c9e9cf7500580f3cf70db0429dd87221d7c45ca5c35d6647744a0",
+            "width": 1500
+          }
+        ],
+        "task_id": "task-37a13c92f0b0"
+      },
+      {
+        "images": [
+          {
+            "bytes": 65693,
+            "format": "JPEG",
+            "height": 900,
+            "image_id": "image-00",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "5a4af6ec1615e739385a8909024e22aced3e36cf16c8c15bc9e54c1d2edf6478",
+            "width": 1200
+          },
+          {
+            "bytes": 76866,
+            "format": "WEBP",
+            "height": 768,
+            "image_id": "image-01",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "a543e607656be63ac5f3a6a6edbb3188a18dafe1872f932c2d46d5e417fb62fe",
+            "width": 768
+          },
+          {
+            "bytes": 52772,
+            "format": "JPEG",
+            "height": 360,
+            "image_id": "image-02",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "699382a423732880b91021fe4d04cbc6bb10ce9550ffd4e299f8b56a24c7e96e",
+            "width": 620
+          },
+          {
+            "bytes": 142330,
+            "format": "JPEG",
+            "height": 694,
+            "image_id": "image-03",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "77b33b8f2d8b48c0070c53c00486b1592a8d753671b55e032fb7efeedb7472c4",
+            "width": 1024
+          },
+          {
+            "bytes": 185349,
+            "format": "JPEG",
+            "height": 853,
+            "image_id": "image-04",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "309a499acbce23a08f8113d21985e89a969cda5e70869ce35d4ca701e9a09001",
+            "width": 1300
+          },
+          {
+            "bytes": 123480,
+            "format": "JPEG",
+            "height": 670,
+            "image_id": "image-05",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "49b153f958ee9be5a866b686ab20e3a0c788e872e4fd16eac46175e84227492d",
+            "width": 1280
+          },
+          {
+            "bytes": 114304,
+            "format": "JPEG",
+            "height": 738,
+            "image_id": "image-06",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "525416a97adf1acf2560d762fdba0f5958ffff9249bcb3a5b2191b4a7af8ea23",
+            "width": 1100
+          },
+          {
+            "bytes": 118210,
+            "format": "JPEG",
+            "height": 381,
+            "image_id": "image-07",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "383a1e535d6090164006a9f8c1c1d7a5f1e3216022bdc5d1e9a3e87dd9853026",
+            "width": 678
+          },
+          {
+            "bytes": 2521309,
+            "format": "JPEG",
+            "height": 1600,
+            "image_id": "image-08",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "ab881c8fe2c5568572b3cf27529646d04c26456d3e617f5b538815be94b39b8b",
+            "width": 2400
+          },
+          {
+            "bytes": 108665,
+            "format": "JPEG",
+            "height": 442,
+            "image_id": "image-09",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "63fee9062641fcf37056e4a1ee679f942095acc5fe2a053b3474404d05c59c68",
+            "width": 760
+          },
+          {
+            "bytes": 1233959,
+            "format": "PNG",
+            "height": 535,
+            "image_id": "image-10",
+            "mode": "RGBA",
+            "role": "initial",
+            "sha256": "865a41a1c1a40a89abeed3fa65934778dc8e7fe1b5287f09a8dd655f03059f05",
+            "width": 950
+          },
+          {
+            "bytes": 112430,
+            "format": "JPEG",
+            "height": 1000,
+            "image_id": "image-11",
+            "mode": "RGB",
+            "role": "initial",
+            "sha256": "9e0f1eb135e240a1f635acff37408e4bda78a5fdfae2c8f1e35b8302410c0d01",
+            "width": 874
+          },
+          {
+            "bytes": 158128,
+            "format": "JPEG",
+            "height": 1146,
+            "image_id": "image-12",
+            "mode": "RGB",
+            "role": "candidate",
+            "sha256": "ca90c9cb0bd4c19667f8f4b85c85d936af1c2803d81625803797fa074f525667",
+            "width": 1908
+          },
+          {
+            "bytes": 98494,
+            "format": "JPEG",
+            "height": 800,
+            "image_id": "image-13",
+            "mode": "RGB",
+            "role": "endpoint",
+            "sha256": "3f409473fbbbbda1a532cd58e590b305c65c0426bde8029c164077627ee51f42",
+            "width": 1200
+          }
+        ],
+        "task_id": "task-9ff861a9070d"
+      }
+    ]
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "interface_version": "bongard-openworld-image-integrity-audit-1",
+    "model_calls": 0,
+    "preregistration": "results/nonmyopic/BONGARD_OPENWORLD_IMAGE_INTEGRITY_AUDIT_PREREGISTRATION.md"
+  },
+  "schema_version": 1,
+  "scientific_opportunity_status": "untested",
+  "source": {
+    "archive_sha256": "5ab838cffd8c1be6080e232b9fa4d9ca824d213371625abe59d984745f694d25",
+    "archive_size_bytes": 5124375111,
+    "commit": "0462ba15f3be2f7f9a7e6cdd0d24314a1fabb5fe",
+    "metadata_sha256": {
+      "all": "6498f879b33d4e20be692dfaa0d44daec50b57b1af7571b86f8044d1e925b82c",
+      "test": "df2a946b1b5d12c039c9e36ac46dc3a8420eee4c78a306418683f273ed22a35d",
+      "train": "12062804a2636c433e11b1eb0fdf1f56edfd98acbca500454c1383b2e7083aee",
+      "val": "aeecd23c1f7f40dd2db1cb59b3ecda22b1fc9656b18855c0928e6311a2764e0f"
+    },
+    "source_protocol_manifest_sha256": "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763",
+    "tree": "b527dfa22222cab3beef5c4023a8b3837d8d7ee5"
+  },
+  "status": "image_integrity_pass"
+}
