@@ -26,6 +26,10 @@ The driver uses the frozen protocol manifest at
 and the fixed block directories and daily ledgers. Command-line overrides are
 not exposed by the production CLI.
 
+The executable development interface is v3 and the corrected manifest SHA is
+`d5e8412f6e2f485a357ba255692f1c6d60a99b4900e588b05ad39b9f276b5b9c`.
+Interface-v2 artifacts are invalid.
+
 ## Execution Guarantees
 
 - Every block revalidates the passed August 10 wrapper and mechanics result.

@@ -3,7 +3,7 @@
 Frozen: 2026-08-06, before any Bongard model request.
 
 This operational wrapper executes the interface-v2 exact10 serving gate and
-full four-task mechanics tree in the only authorized order. It does not change
+interface-v3 full four-task mechanics tree in the only authorized order. It does not change
 the scientific protocol, model, prompts, seeds, task set, request tree, gates,
 or budgets.
 
@@ -33,12 +33,13 @@ The fixed outputs are:
 2. Run or independently replay exact10 interface-v2.
 3. Reconcile and verify the exact `$5.00` account-wide ledger.
 4. Stop permanently before mechanics if exact10 is `gated_null`.
-5. Run or independently replay mechanics interface-v2 only after exact10
+5. Run or independently replay mechanics interface-v3 only after exact10
    passes.
 6. Reconcile and verify both ledger records and total daily spend.
 7. Authorize development only when mechanics status is `mechanics_pass`.
 
-The wrapper refuses stale interface-v1 artifacts, dual RESULT/FAILURE files,
+The wrapper refuses stale serving interface-v1 or mechanics interface-v1/v2
+artifacts, dual RESULT/FAILURE files,
 partial directories without a banked artifact, changed raw hashes, changed
 component hashes, unreconciled ledgers, and any unrecognized status.
 

@@ -7,6 +7,10 @@ sensitivity were corrected by
 `BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md`; interface `-1`
 artifacts are invalid.
 
+Before any model request, the shuffled control was further corrected by
+`BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md`. Mechanics interface
+`-2` is invalid; the corrected interface is `-3`.
+
 This amendment fixes the full four-task mechanics execution details before any
 Luna image request. It does not change the exact-10 serving gate.
 
@@ -38,10 +42,11 @@ private and hash-bound; no prompt is repeated to make one policy look better.
   the analytically updated root support.
 - `dynamic_depth2`: root EIG plus expected best second-step EIG under each
   regenerated branch; second query from the realized regenerated branch.
-- `shuffled_dynamic_depth2`: rotate complete branch pairs across first actions
-  before root scoring; execute the chosen action using its real regenerated
-  branch. This preserves branch quality/compute while breaking action-specific
-  path coupling.
+- `shuffled_dynamic_depth2`: rotate complete expected continuation values
+  across first actions before root scoring; execute the chosen action using
+  its real regenerated branch. This exactly preserves continuation-value
+  quality and compute while breaking action-specific path coupling, without
+  evaluating an observed image as a query candidate.
 - `random`: two deterministic seeded candidates without replacement.
 
 Ties are resolved by lexicographically smallest opaque image ID. The shuffled
@@ -78,6 +83,11 @@ All are conjunctive for `mechanics_pass`:
     or caption, or label-bearing filename;
 13. cost is at most $1.50 and the account-wide daily ledger remains at or below
     $5 after reconciliation.
+
+The semantic-validity amendment supersedes the stale `$1.50` text in item 13
+with `$1.75`. The shuffled-control amendment additionally requires the
+shuffled continuation values to be an exact permutation and requires at least
+one dynamic action change to clear a `1e-6`-nat numerical-tie margin.
 
 Endpoint Brier and log loss are descriptive mechanics outcomes. A failure or a
 dynamic loss does not authorize tuning on confirmation tasks. It localizes the

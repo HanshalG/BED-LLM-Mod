@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from io import BytesIO
+import inspect
 import json
 import math
 from pathlib import Path
@@ -192,6 +194,18 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         "dynamic_depth2",
         "shuffled_dynamic_depth2",
     }
+    changed = [
+        task_result
+        for task_result in result["trees"]
+        if task_result["policies"]["dynamic_depth2"]["first_image_id"]
+        != task_result["policies"]["myopic_width"]["first_image_id"]
+    ]
+    assert changed
+    assert all(
+        task_result["policies"]["dynamic_depth2"]["first_score_margin"]
+        >= tree.MIN_ACTION_MARGIN_NATS
+        for task_result in changed
+    )
     raw = json.loads(
         (tmp_path / "tree/private/RAW_RESPONSES.json").read_text()
     )
@@ -209,22 +223,96 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     assert mechanics_verification["verified"]
 
 
-def test_shuffled_mapping_is_rotation_without_fixed_points() -> None:
+def test_shuffled_control_permutes_complete_continuation_values() -> None:
     task = _task(0)
-    belief = bed.parse_belief_response(
+    myopic = {
+        candidate: 0.1 + index * 0.01
+        for index, candidate in enumerate(sorted(task.candidate_ids))
+    }
+    dynamic = {
+        candidate: myopic[candidate] + 0.2 + index * 0.03
+        for index, candidate in enumerate(sorted(task.candidate_ids))
+    }
+
+    shuffled, mapping, values = tree.shuffled_continuation_control(
+        task=task,
+        myopic_scores=myopic,
+        dynamic_scores=dynamic,
+    )
+
+    assert all(source != target for source, target in mapping.items())
+    assert len(set(mapping.values())) == len(mapping)
+    assert sorted(values["dynamic_expected_future_eig"].values()) == sorted(
+        values["shuffled_expected_future_eig"].values()
+    )
+    for target, source in mapping.items():
+        assert values["shuffled_expected_future_eig"][target] == (
+            values["dynamic_expected_future_eig"][source]
+        )
+        assert shuffled[target] == (
+            myopic[target]
+            + values["dynamic_expected_future_eig"][source]
+        )
+
+
+def test_shuffled_control_never_reuses_a_mismatched_branch_support() -> None:
+    task = _task(0)
+    mapping = tree.rotated_candidate_mapping(task)
+    assert set(mapping) == set(task.candidate_ids)
+    assert set(mapping.values()) == set(task.candidate_ids)
+    assert "branches" not in inspect.signature(
+        tree.shuffled_continuation_control
+    ).parameters
+
+
+def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> None:
+    task = _task(0)
+    root = bed.parse_belief_response(
         _response(bed.build_belief_messages(task, task.initial_history)),
         image_ids=task.image_ids,
         history=task.initial_history,
     )
-    branches = {
-        (candidate, label): belief
-        for candidate in task.candidate_ids
-        for label in (False, True)
+    branches = {}
+    for candidate in task.candidate_ids:
+        for label in (False, True):
+            history = tuple(sorted((*task.initial_history, (candidate, label))))
+            branches[(candidate, label)] = bed.parse_belief_response(
+                _response(bed.build_belief_messages(task, history)),
+                image_ids=task.image_ids,
+                history=history,
+            )
+    flipped = replace(
+        task,
+        actual_labels={
+            image_id: (
+                not label if image_id in task.candidate_ids else label
+            )
+            for image_id, label in task.actual_labels.items()
+        },
+    )
+
+    original_plan = tree.plan_task_policies(
+        task=task,
+        root=root,
+        branches=branches,
+    )
+    flipped_plan = tree.plan_task_policies(
+        task=flipped,
+        root=root,
+        branches=branches,
+    )
+
+    assert original_plan["root_scores"] == flipped_plan["root_scores"]
+    assert original_plan["continuation_values"] == flipped_plan[
+        "continuation_values"
+    ]
+    assert {
+        policy: row["first_image_id"]
+        for policy, row in original_plan["policies"].items()
+    } == {
+        policy: row["first_image_id"]
+        for policy, row in flipped_plan["policies"].items()
     }
-    shuffled, mapping = tree.rotate_branch_map(task, branches)
-    assert set(shuffled) == set(branches)
-    assert all(source != target for source, target in mapping.items())
-    assert len(set(mapping.values())) == len(mapping)
 
 
 def test_final_cases_deduplicate_shared_policy_histories() -> None:

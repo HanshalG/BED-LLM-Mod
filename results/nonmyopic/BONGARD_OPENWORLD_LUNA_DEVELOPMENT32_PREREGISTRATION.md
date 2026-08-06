@@ -3,6 +3,11 @@
 Date frozen: 2026-08-06, before any Bongard model request or development
 endpoint access.
 
+Before any model request, the shuffled control and action-margin diagnostic
+were corrected by
+`BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md`. Development interface
+`-2` is invalid; the corrected interface is `-3`.
+
 ## Claim And Boundary
 
 This is a prospective development experiment for the LLM-native claim:
@@ -99,9 +104,9 @@ calls for each task:
 - `fixed_depth2`: cumulative two-step EIG on the fixed root support;
 - `dynamic_depth2`: first-step EIG plus expected best future EIG under the
   LLM support regenerated separately for each possible first answer;
-- `shuffled_dynamic_depth2`: the complete regenerated branch pairs are rotated
-  across first actions before scoring, preserving compute and branch quality
-  while breaking action-specific path coupling;
+- `shuffled_dynamic_depth2`: complete expected continuation values are rotated
+  across first actions before scoring, exactly preserving compute and their
+  quality distribution while breaking action-specific path coupling;
 - `random`: two deterministic seeded candidates without replacement.
 
 `dynamic_depth2` versus `myopic_width` is the primary paired comparison. It
@@ -145,7 +150,9 @@ policy/metric offset implemented in the runner.
 1. all four endpoint-blind blocks independently replay and cover exactly 32
    unique development tasks;
 2. dynamic and myopic final histories differ on at least 12 tasks and in every
-   execution block;
+   execution block; at least 12 changes also give the dynamic-selected action
+   a `1e-6`-nat advantage over the myopic-selected action under the dynamic
+   score, excluding numerical ties;
 3. root candidate Brier beats 0.25, dynamic mean endpoint-ranking Spearman is
    positive, and is no worse than myopic score ranking;
 4. dynamic mean Brier improves on myopic by at least 3% relatively;

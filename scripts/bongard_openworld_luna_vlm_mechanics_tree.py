@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-2"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-3"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -45,6 +45,7 @@ RUN_BUDGET_USD = 1.75
 MIN_MATERIAL_BRANCH_PAIRS = 24
 MIN_MYOPIC_BRIER = 0.03
 MIN_MYOPIC_LOG_LOSS = 0.15
+MIN_ACTION_MARGIN_NATS = 1e-6
 POLICIES = (
     "myopic_width",
     "fixed_depth2",
@@ -125,28 +126,68 @@ def first_stage_cases(tasks: Sequence[bed.VisualTask]) -> list[BeliefCase]:
     return cases
 
 
-def rotate_branch_map(
-    task: bed.VisualTask,
-    branches: Mapping[tuple[str, bool], bed.SemanticBelief],
-) -> tuple[
-    dict[tuple[str, bool], bed.SemanticBelief],
-    dict[str, str],
-]:
+def rotated_candidate_mapping(task: bed.VisualTask) -> dict[str, str]:
     candidates = tuple(sorted(task.candidate_ids))
     mapping = {
         candidate: candidates[(index + 1) % len(candidates)]
         for index, candidate in enumerate(candidates)
     }
-    if any(source == target for source, target in mapping.items()):
+    if (
+        set(mapping) != set(candidates)
+        or set(mapping.values()) != set(candidates)
+        or any(source == target for source, target in mapping.items())
+    ):
         raise AssertionError("shuffled branch mapping has a fixed point")
+    return mapping
+
+
+def shuffled_continuation_control(
+    *,
+    task: bed.VisualTask,
+    myopic_scores: Mapping[str, float],
+    dynamic_scores: Mapping[str, float],
+) -> tuple[dict[str, float], dict[str, str], dict[str, dict[str, float]]]:
+    """Permute complete continuation values without mismatching query sets."""
+    candidates = tuple(sorted(task.candidate_ids))
+    if set(myopic_scores) != set(candidates) or set(dynamic_scores) != set(
+        candidates
+    ):
+        raise ValueError("shuffled control score maps do not match candidates")
+    mapping = rotated_candidate_mapping(task)
+    dynamic_future = {
+        candidate: dynamic_scores[candidate] - myopic_scores[candidate]
+        for candidate in candidates
+    }
+    if any(
+        not math.isfinite(value) or value < -1e-12
+        for value in dynamic_future.values()
+    ):
+        raise ValueError("dynamic continuation values must be finite and nonnegative")
+    shuffled_future = {
+        candidate: dynamic_future[mapping[candidate]]
+        for candidate in candidates
+    }
+    shuffled_scores = {
+        candidate: myopic_scores[candidate] + shuffled_future[candidate]
+        for candidate in candidates
+    }
+    if sorted(dynamic_future.values()) != sorted(shuffled_future.values()):
+        raise AssertionError("shuffled continuation values are not a permutation")
     return (
-        {
-            (candidate, label): branches[(mapping[candidate], label)]
-            for candidate in candidates
-            for label in (False, True)
-        },
+        shuffled_scores,
         mapping,
+        {
+            "dynamic_expected_future_eig": dynamic_future,
+            "shuffled_expected_future_eig": shuffled_future,
+        },
     )
+
+
+def selection_margin(scores: Mapping[str, float], selected: str) -> float:
+    alternatives = [value for key, value in scores.items() if key != selected]
+    if selected not in scores or not alternatives:
+        raise ValueError("selection margin requires a selected action and alternative")
+    return scores[selected] - max(alternatives)
 
 
 def _random_choices(task: bed.VisualTask) -> tuple[str, str]:
@@ -169,9 +210,14 @@ def plan_task_policies(
     dynamic_scores = bed.dynamic_support_depth_two_scores(
         root, candidates, branches
     )
-    shuffled_branches, shuffled_mapping = rotate_branch_map(task, branches)
-    shuffled_scores = bed.dynamic_support_depth_two_scores(
-        root, candidates, shuffled_branches
+    (
+        shuffled_scores,
+        shuffled_mapping,
+        continuation_values,
+    ) = shuffled_continuation_control(
+        task=task,
+        myopic_scores=myopic_scores,
+        dynamic_scores=dynamic_scores,
     )
     first_by_policy = {
         "myopic_width": bed.select_best(myopic_scores),
@@ -231,6 +277,19 @@ def plan_task_policies(
                     "shuffled_dynamic_depth2": shuffled_scores,
                 }[policy][first]
             ),
+            "first_score_margin": (
+                None
+                if policy == "random"
+                else selection_margin(
+                    {
+                        "myopic_width": myopic_scores,
+                        "fixed_depth2": fixed_scores,
+                        "dynamic_depth2": dynamic_scores,
+                        "shuffled_dynamic_depth2": shuffled_scores,
+                    }[policy],
+                    first,
+                )
+            ),
             "second_scores": second_scores,
         }
     return {
@@ -241,6 +300,7 @@ def plan_task_policies(
             "shuffled_dynamic_depth2": shuffled_scores,
         },
         "shuffled_branch_mapping": shuffled_mapping,
+        "continuation_values": continuation_values,
         "policies": policies,
     }
 
@@ -488,6 +548,22 @@ def mechanics_gates(
         != tree["policies"]["myopic_width"]["first_image_id"]
         for tree in trees
     )
+    robust_dynamic_changes = sum(
+        (
+            dynamic_first := tree["policies"]["dynamic_depth2"][
+                "first_image_id"
+            ]
+        )
+        != (
+            myopic_first := tree["policies"]["myopic_width"][
+                "first_image_id"
+            ]
+        )
+        and tree["root_scores"]["dynamic_depth2"][dynamic_first]
+        - tree["root_scores"]["dynamic_depth2"][myopic_first]
+        >= MIN_ACTION_MARGIN_NATS
+        for tree in trees
+    )
     distinct_control_policies = sum(
         any(
             tree["policies"][policy]["final_history_key"]
@@ -524,6 +600,22 @@ def mechanics_gates(
         for tree in trees
         for value in tree["ranking_fidelity"].values()
     )
+    shuffled_control_exact = all(
+        all(
+            math.isclose(
+                tree["continuation_values"]["shuffled_expected_future_eig"][
+                    target
+                ],
+                tree["continuation_values"]["dynamic_expected_future_eig"][
+                    source
+                ],
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            )
+            for target, source in tree["shuffled_branch_mapping"].items()
+        )
+        for tree in trees
+    )
     gates = {
         "serving_result_independently_replays": serving_verification.get("verified") is True,
         "exact_expected_accepted_requests": usage.get("adapter_requests") == expected_requests,
@@ -543,6 +635,12 @@ def mechanics_gates(
         )
         >= MIN_MATERIAL_BRANCH_PAIRS,
         "dynamic_depth2_changes_at_least_one_myopic_first_action": dynamic_changes >= 1,
+        "dynamic_action_change_clears_numerical_tie_margin": (
+            robust_dynamic_changes >= 1
+        ),
+        "shuffled_control_exactly_permutes_complete_continuation_values": (
+            shuffled_control_exact
+        ),
         "at_least_two_controls_have_a_distinct_final_history": distinct_control_policies >= 2,
         "all_distinct_all_action_final_supports_generated_once_and_mapped": (
             16 <= final_case_count <= MAX_FINAL_REQUESTS
@@ -771,6 +869,7 @@ def run_mechanics(
                 "shuffled_branch_mapping": task_plan[
                     "shuffled_branch_mapping"
                 ],
+                "continuation_values": task_plan["continuation_values"],
                 "root_belief": bed.public_belief_summary(
                     roots[task.task_id]
                 ),
@@ -839,6 +938,10 @@ def run_mechanics(
             "semantic_validity_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
+            ),
+            "shuffled_control_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md"
             ),
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,

@@ -32,7 +32,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-2"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-3"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -66,7 +66,10 @@ IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_FULL_MECHANICS_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
 )
 
@@ -506,6 +509,7 @@ def _build_artifacts(
                 "task_id": task.task_id,
                 "root_scores": plan["root_scores"],
                 "shuffled_branch_mapping": plan["shuffled_branch_mapping"],
+                "continuation_values": plan["continuation_values"],
                 "root_belief": bed.public_belief_summary(roots[task.task_id]),
                 "branch_diagnostics": mechanics._branch_diagnostics(
                     task=task, branches=branches[task.task_id]
@@ -562,6 +566,22 @@ def _block_gates(
         for tree in artifacts["trees"]
         for row in tree["policies"].values()
     )
+    shuffled_control_exact = all(
+        all(
+            math.isclose(
+                tree["continuation_values"]["shuffled_expected_future_eig"][
+                    target
+                ],
+                tree["continuation_values"]["dynamic_expected_future_eig"][
+                    source
+                ],
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            )
+            for target, source in tree["shuffled_branch_mapping"].items()
+        )
+        for tree in artifacts["trees"]
+    )
     gates = {
         "mechanics_result_is_hash_bound_clean_pass": (
             mechanics_verification.get("verified") is True
@@ -574,6 +594,9 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "shuffled_control_exactly_permutes_complete_continuation_values": (
+            shuffled_control_exact
+        ),
         "all_final_histories_generated_once_and_mapped": (
             task_count * 4 <= final_count <= task_count * MAX_FINALS_PER_TASK
         ),
@@ -798,6 +821,10 @@ def run_block(
             "semantic_validity_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
+            ),
+            "shuffled_control_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md"
             ),
             "block_id": block_id,
             "block_size": BLOCK_SIZES[block_id],
@@ -1119,6 +1146,22 @@ def analyze_combined(
         != tree["policies"]["myopic_width"]["final_history_key"]
         for tree in trees
     )
+    robust_changed = sum(
+        (
+            dynamic_first := tree["policies"]["dynamic_depth2"][
+                "first_image_id"
+            ]
+        )
+        != (
+            myopic_first := tree["policies"]["myopic_width"][
+                "first_image_id"
+            ]
+        )
+        and tree["root_scores"]["dynamic_depth2"][dynamic_first]
+        - tree["root_scores"]["dynamic_depth2"][myopic_first]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        for tree in trees
+    )
     task_ids_by_block = {
         block_id: {
             task.task_id for task in by_block[block_id]["tasks"]
@@ -1169,6 +1212,9 @@ def analyze_combined(
         "exact_32_disjoint_development_tasks": len(trees) == TASKS,
         "at_least_12_dynamic_final_histories_differ_from_myopic": (
             changed >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "at_least_12_dynamic_action_changes_clear_numerical_tie_margin": (
+            robust_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_myopic_differ_in_every_execution_block": all(
             row["dynamic_myopic_changed_final_histories"] >= 1
@@ -1227,6 +1273,10 @@ def analyze_combined(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
             ),
+            "shuffled_control_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_SHUFFLED_CONTROL_AMENDMENT.md"
+            ),
             "model": MODEL_ID,
             "blocks": list(BLOCK_ORDER),
             "task_count": TASKS,
@@ -1258,6 +1308,7 @@ def analyze_combined(
         "blockwise_dynamic_vs_myopic": blockwise,
         "comparisons_vs_myopic": comparisons,
         "dynamic_vs_myopic_changed_final_histories": changed,
+        "dynamic_vs_myopic_robust_action_changes": robust_changed,
         "dynamic_vs_myopic_relative_brier_improvement": relative_brier_gain,
         "gates": science_gates,
         "trees": trees,
