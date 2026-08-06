@@ -166,8 +166,24 @@ def score_source_directory(source_dir: Path) -> dict[str, Any]:
             source_dir / "private" / "RAW_RESPONSES.json"
         ),
     }
-    rows = audit.load_source(spec)
-    summary = audit.source_summary(rows, seed=BOOTSTRAP_SEED)
+    rows = audit.load_source(
+        spec,
+        coefficients=(0.0, audit.DIVERSITY_COEFFICIENT),
+    )
+    summary = audit.source_summary(
+        rows,
+        seed=BOOTSTRAP_SEED,
+        include_coefficient_grid=False,
+    )
+    public_rows = []
+    for row in rows:
+        public_row = dict(row)
+        public_row.pop("coefficient_grid_roots")
+        public_row["adjusted_scores"] = {
+            str(root): float(value)
+            for root, value in public_row["adjusted_scores"].items()
+        }
+        public_rows.append(public_row)
     return {
         "source_artifacts": {
             key: spec[key]
@@ -175,7 +191,7 @@ def score_source_directory(source_dir: Path) -> dict[str, Any]:
         },
         "summary": summary,
         "rank_metrics": _mean_rank_metrics(rows),
-        "rows": rows,
+        "rows": public_rows,
     }
 
 
@@ -316,6 +332,7 @@ def execute_daily(
     ledger_path: Path,
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
     runner: Callable[..., dict[str, Any]] = run_confirmation,
+    verifier: Callable[..., dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     live_before = live_reader()
@@ -333,6 +350,13 @@ def execute_daily(
         live_after=live_before,
     )
     checkpoint(ledger_path, local)
+    if verifier is None:
+        from scripts.number_game_two_draw_diversity_bonus_confirmation32_verify import (
+            verify_completed_confirmation,
+        )
+
+        verifier = verify_completed_confirmation
+    verification = verifier(run_dir=output_dir)
     live_after = live_reader()
     reconciled = reconcile_ledger(
         ledger=local,
@@ -355,6 +379,10 @@ def execute_daily(
             "remaining_daily_allowance_usd"
         ],
         "additional_paid_blocks_authorized": False,
+        "verification_status": verification["status"],
+        "verification_sha256": audit.sha256_file(
+            output_dir / "VERIFICATION.json"
+        ),
         "result_sha256": audit.sha256_file(output_dir / "RESULT.json"),
     }
     checkpoint(output_dir / "DAILY_EXECUTION.json", execution)

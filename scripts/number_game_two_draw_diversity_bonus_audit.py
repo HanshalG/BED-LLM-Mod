@@ -271,7 +271,17 @@ def _root_rows(
     ]
 
 
-def load_source(spec: dict[str, Any]) -> list[dict[str, Any]]:
+def load_source(
+    spec: dict[str, Any],
+    *,
+    coefficients: Sequence[float] = COEFFICIENT_GRID,
+) -> list[dict[str, Any]]:
+    if 0.0 not in coefficients:
+        raise ValueError("coefficient set must reproduce the original selector")
+    if DIVERSITY_COEFFICIENT not in coefficients:
+        raise ValueError("coefficient set must contain the diversity bonus")
+    if len(set(coefficients)) != len(coefficients):
+        raise ValueError("coefficient set contains duplicates")
     directory = Path(spec["directory"])
     paths = {
         "result": directory / "RESULT.json",
@@ -305,7 +315,7 @@ def load_source(spec: dict[str, Any]) -> list[dict[str, Any]]:
         }
         selections = {}
         adjusted_scores = {}
-        for coefficient in COEFFICIENT_GRID:
+        for coefficient in coefficients:
             selected, adjusted = adjusted_root(
                 predicted,
                 diversity,
@@ -435,7 +445,12 @@ def _centered_values(
     return values
 
 
-def source_summary(rows: Sequence[dict[str, Any]], *, seed: int) -> dict[str, Any]:
+def source_summary(
+    rows: Sequence[dict[str, Any]],
+    *,
+    seed: int,
+    include_coefficient_grid: bool = True,
+) -> dict[str, Any]:
     original = _comparison_rows(
         rows, candidate_key="bonus_root", baseline_key="original_root"
     )
@@ -466,7 +481,7 @@ def source_summary(rows: Sequence[dict[str, Any]], *, seed: int) -> dict[str, An
     realized = _centered_values(rows, "realized_brier")
     diversity = _centered_values(rows, "mean_jaccard_distance")
     absolute_error = _centered_values(rows, "absolute_prediction_error")
-    return {
+    summary = {
         "source": rows[0]["source"],
         "role": rows[0]["role"],
         "tree_count": len(rows),
@@ -489,7 +504,9 @@ def source_summary(rows: Sequence[dict[str, Any]], *, seed: int) -> dict[str, An
             ),
         },
         "comparisons": comparisons,
-        "coefficient_grid": {
+    }
+    if include_coefficient_grid:
+        summary["coefficient_grid"] = {
             str(coefficient): comparison_summary(
                 _comparison_rows(
                     [
@@ -506,8 +523,8 @@ def source_summary(rows: Sequence[dict[str, Any]], *, seed: int) -> dict[str, An
                 )
             )
             for coefficient in COEFFICIENT_GRID
-        },
-    }
+        }
+    return summary
 
 
 def run_analysis(output_dir: Path) -> dict[str, Any]:

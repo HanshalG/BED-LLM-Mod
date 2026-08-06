@@ -173,3 +173,103 @@ def test_reconcile_ledger_uses_larger_posted_account_spend() -> None:
     assert reconciled["recorded_actual_spend_usd"] == 4.5
     assert reconciled["reconciliation"]["remaining_daily_allowance_usd"] == 0.5
     assert not reconciled["additional_paid_blocks_authorized"]
+
+
+def test_source_scoring_uses_only_frozen_coefficients(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    source_dir = tmp_path / "source"
+    (source_dir / "private").mkdir(parents=True)
+    for path in (
+        source_dir / "RESULT.json",
+        source_dir / "TREES.json",
+        source_dir / "private/RAW_RESPONSES.json",
+    ):
+        path.write_text("{}", encoding="utf-8")
+    calls = {}
+    rows = [
+        {
+            "coefficient_grid_roots": {"0.0": 1, "-0.5": 2},
+            "adjusted_scores": {1: 0.0, 2: -1.0},
+        }
+    ]
+
+    def load_source(spec, *, coefficients):
+        calls["coefficients"] = coefficients
+        return deepcopy(rows)
+
+    def source_summary(value, *, seed, include_coefficient_grid):
+        calls["summary"] = (seed, include_coefficient_grid)
+        assert value == rows
+        return {"comparisons": {}}
+
+    monkeypatch.setattr(confirmation.audit, "sha256_file", lambda path: "h")
+    monkeypatch.setattr(confirmation.audit, "load_source", load_source)
+    monkeypatch.setattr(confirmation.audit, "source_summary", source_summary)
+    monkeypatch.setattr(confirmation, "_mean_rank_metrics", lambda value: {})
+
+    scored = confirmation.score_source_directory(source_dir)
+
+    assert calls["coefficients"] == (0.0, -0.5)
+    assert calls["summary"] == (confirmation.BOOTSTRAP_SEED, False)
+    assert "coefficient_grid_roots" not in scored["rows"][0]
+    assert scored["rows"][0]["adjusted_scores"] == {
+        "1": 0.0,
+        "2": -1.0,
+    }
+
+
+def test_daily_execution_checkpoints_spend_before_verification(
+    tmp_path,
+) -> None:
+    ledger_path = tmp_path / "ledger.json"
+    ledger_path.write_text(json.dumps(_ledger()), encoding="utf-8")
+    run_dir = tmp_path / "run"
+    live_values = iter(
+        [
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 100.0,
+                "balance_usd": 30.0,
+            },
+            {
+                "total_credits_usd": 130.0,
+                "total_usage_usd": 104.2,
+                "balance_usd": 25.8,
+            },
+        ]
+    )
+
+    def runner(**kwargs):
+        output_dir = kwargs["output_dir"]
+        output_dir.mkdir(parents=True)
+        (output_dir / "RESULT.json").write_text("{}", encoding="utf-8")
+        return {
+            "status": "passed",
+            "usage": {
+                "run_cost_usd": 4.2,
+                "adapter_requests": confirmation.EXPECTED_REQUESTS,
+            },
+        }
+
+    def verifier(*, run_dir: Path):
+        ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+        assert ledger["recorded_actual_spend_usd"] == 4.2
+        result = {"status": "verified"}
+        (run_dir / "VERIFICATION.json").write_text(
+            json.dumps(result), encoding="utf-8"
+        )
+        return result
+
+    execution = confirmation.execute_daily(
+        output_dir=run_dir,
+        run_id="daily",
+        ledger_path=ledger_path,
+        live_reader=lambda: next(live_values),
+        runner=runner,
+        verifier=verifier,
+    )
+
+    assert execution["verification_status"] == "verified"
+    assert execution["recorded_actual_spend_usd"] == pytest.approx(4.2)

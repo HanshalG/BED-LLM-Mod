@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from scripts.number_game_two_draw_diversity_bonus_audit import (
+    DIVERSITY_COEFFICIENT,
     adjusted_root,
     comparison_summary,
     draw_disagreement,
@@ -64,3 +65,25 @@ def test_comparison_summary_uses_lower_brier_as_a_win() -> None:
     assert summary["relative_brier_reduction"] == pytest.approx(0.01 / 0.105)
     assert summary["changed_roots"] == 1
     assert (summary["wins"], summary["ties"], summary["losses"]) == (1, 1, 0)
+
+
+def test_loader_requires_only_unique_original_and_bonus_coefficients(
+    tmp_path,
+) -> None:
+    from scripts import number_game_two_draw_diversity_bonus_audit as audit
+
+    with pytest.raises(ValueError, match="original selector"):
+        audit.load_source(
+            {"directory": tmp_path},
+            coefficients=(DIVERSITY_COEFFICIENT,),
+        )
+    with pytest.raises(ValueError, match="diversity bonus"):
+        audit.load_source(
+            {"directory": tmp_path},
+            coefficients=(0.0,),
+        )
+    with pytest.raises(ValueError, match="duplicates"):
+        audit.load_source(
+            {"directory": tmp_path},
+            coefficients=(0.0, DIVERSITY_COEFFICIENT, 0.0),
+        )
