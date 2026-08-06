@@ -311,6 +311,199 @@ def aggregate_usage(adapters: Sequence[StructuredModel]) -> dict[str, Any]:
     }
 
 
+def _protocol(model_id: str) -> dict[str, Any]:
+    return {
+        "interface_version": INTERFACE_VERSION,
+        "model": model_id,
+        "model_seeds": list(MODELS[model_id]),
+        "case_selection_seed": CASE_SELECTION_SEED,
+        "source_trees_sha256": SOURCE_TREES_SHA256,
+        "temperature": TEMPERATURE,
+        "reasoning": False,
+        "max_output_tokens": MAX_TOKENS,
+        "seed_groups": SEED_GROUPS,
+        "concurrency_per_seed_group": ADAPTER_CONCURRENCY,
+        "aggregate_concurrency": CONCURRENCY,
+        "initial_requests": EXPECTED_INITIAL_REQUESTS,
+        "case_mix": {
+            "initial": INITIAL_CASES,
+            "one_observation": ONE_OBSERVATION_CASES,
+            "two_observations": TWO_OBSERVATION_CASES,
+        },
+        "format_retry_policy": (
+            "one_same_prompt_same_temperature_retry_for_strict_parse_"
+            "failure_only_if_at_most_three_failures"
+        ),
+        "run_budget_usd": RUN_BUDGET_USD,
+        "efficacy_used_for_authorization": False,
+    }
+
+
+def _records_from_saved_responses(
+    *,
+    cases: Sequence[dict[str, Any]],
+    raw: dict[str, Any],
+) -> tuple[list[dict[str, Any]], int, int]:
+    if set(raw) != {"initial_responses", "retry_responses"}:
+        raise ValueError("reliability raw response fields changed")
+    initial = raw["initial_responses"]
+    retries = raw["retry_responses"]
+    if (
+        not isinstance(initial, list)
+        or len(initial) != EXPECTED_INITIAL_REQUESTS
+        or not all(isinstance(response, str) for response in initial)
+        or not isinstance(retries, list)
+    ):
+        raise ValueError("reliability raw response shape changed")
+    parsed = []
+    failed_indices = []
+    for case, response in zip(cases, initial, strict=True):
+        support, diagnostic, error = _safe_parse(
+            response,
+            observations=case["observations"],
+        )
+        parsed.append([support, diagnostic, error])
+        if error is not None:
+            failed_indices.append(case["case_index"])
+    expected_retry_indices = (
+        failed_indices if 0 < len(failed_indices) <= MAX_FORMAT_RETRIES else []
+    )
+    observed_retry_indices = []
+    for retry in retries:
+        if (
+            not isinstance(retry, dict)
+            or set(retry) != {"case_index", "response"}
+            or not isinstance(retry["case_index"], int)
+            or not isinstance(retry["response"], str)
+        ):
+            raise ValueError("reliability retry response shape changed")
+        index = retry["case_index"]
+        observed_retry_indices.append(index)
+        if index < 0 or index >= len(cases):
+            raise ValueError("reliability retry index is out of range")
+        parsed[index] = list(
+            _safe_parse(
+                retry["response"],
+                observations=cases[index]["observations"],
+            )
+        )
+    if observed_retry_indices != expected_retry_indices:
+        raise ValueError("reliability retry policy does not replay")
+    retry_index_set = set(observed_retry_indices)
+    records = []
+    for case, (support, diagnostic, final_error) in zip(
+        cases, parsed, strict=True
+    ):
+        records.append(
+            {
+                "case_index": case["case_index"],
+                "seed_group": case["seed_group"],
+                "observations": [
+                    [number, label] for number, label in case["observations"]
+                ],
+                "initial_parse_failed": (
+                    case["case_index"] in failed_indices
+                ),
+                "format_retried": case["case_index"] in retry_index_set,
+                "final_parse_error": final_error,
+                "valid_unique_count": len(support or []),
+                "diagnostics": diagnostic,
+                "extension_sha256s": [
+                    hypothesis.public_dict()["extension_sha256"]
+                    for hypothesis in (support or [])
+                ],
+            }
+        )
+    return records, len(failed_indices), len(retries)
+
+
+def replay_reliability_result(
+    *,
+    result_path: Path,
+    model_id: str,
+    source_path: Path = SOURCE_TREES,
+) -> dict[str, Any]:
+    if model_id not in MODELS:
+        raise ValueError(f"unsupported reliability model: {model_id}")
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    raw_path = result_path.parent / "private/RAW_RESPONSES.json"
+    if (
+        result.get("schema_version") != SCHEMA_VERSION
+        or result.get("protocol") != _protocol(model_id)
+        or not raw_path.is_file()
+        or result.get("raw_responses_sha256") != sha256_file(raw_path)
+    ):
+        raise ValueError("reliability result provenance changed")
+    cases = build_cases(source_path)
+    raw = json.loads(raw_path.read_text(encoding="utf-8"))
+    records, initial_failures, retry_count = _records_from_saved_responses(
+        cases=cases,
+        raw=raw,
+    )
+    usage = result.get("usage") or {}
+    required_usage = {
+        "adapter_requests",
+        "http_attempts",
+        "retry_count",
+        "provider_error_retries",
+        "adapter_reasoning_tokens",
+        "forced_exits",
+        "run_cost_usd",
+        "prompt_tokens",
+        "completion_tokens",
+    }
+    if set(usage) != required_usage or any(
+        not isinstance(usage[key], (int, float)) or usage[key] < 0
+        for key in required_usage
+    ):
+        raise ValueError("reliability usage shape changed")
+    gates = reliability_gates(
+        records=records,
+        usage=usage,
+        format_retry_requests=retry_count,
+        initial_parse_failures=initial_failures,
+    )
+    conditioned_counts = [
+        record["valid_unique_count"]
+        for record in records
+        if record["observations"]
+    ]
+    status = "passed" if gates["all_pass"] else "gated_null"
+    expected = {
+        "status": status,
+        "decision": (
+            "eligible_for_separately_frozen_paired_efficacy"
+            if gates["all_pass"]
+            else "close_unchanged_interface"
+        ),
+        "initial_parse_failures": initial_failures,
+        "format_retry_requests": retry_count,
+        "forced_exit_rate": (
+            usage["forced_exits"] / usage["adapter_requests"]
+            if usage["adapter_requests"]
+            else 0.0
+        ),
+        "conditioned_valid_summary": {
+            "minimum": min(conditioned_counts),
+            "mean": sum(conditioned_counts) / len(conditioned_counts),
+            "maximum": max(conditioned_counts),
+        },
+        "gates": gates,
+        "cases": records,
+    }
+    if any(result.get(key) != value for key, value in expected.items()):
+        raise ValueError("reliability result does not replay exactly")
+    return {
+        "verified": True,
+        "model": model_id,
+        "status": status,
+        "result_sha256": sha256_file(result_path),
+        "raw_responses_sha256": sha256_file(raw_path),
+        "request_count": int(usage["adapter_requests"]),
+        "cost_usd": float(usage["run_cost_usd"]),
+    }
+
+
 def reconcile_daily_ledger(
     *,
     ledger: dict[str, Any],
@@ -537,31 +730,7 @@ def run_reliability(
             if gates["all_pass"]
             else "close_unchanged_interface"
         ),
-        "protocol": {
-            "interface_version": INTERFACE_VERSION,
-            "model": model_id,
-            "model_seeds": list(MODELS[model_id]),
-            "case_selection_seed": CASE_SELECTION_SEED,
-            "source_trees_sha256": SOURCE_TREES_SHA256,
-            "temperature": TEMPERATURE,
-            "reasoning": False,
-            "max_output_tokens": MAX_TOKENS,
-            "seed_groups": SEED_GROUPS,
-            "concurrency_per_seed_group": ADAPTER_CONCURRENCY,
-            "aggregate_concurrency": CONCURRENCY,
-            "initial_requests": EXPECTED_INITIAL_REQUESTS,
-            "case_mix": {
-                "initial": INITIAL_CASES,
-                "one_observation": ONE_OBSERVATION_CASES,
-                "two_observations": TWO_OBSERVATION_CASES,
-            },
-            "format_retry_policy": (
-                "one_same_prompt_same_temperature_retry_for_strict_parse_"
-                "failure_only_if_at_most_three_failures"
-            ),
-            "run_budget_usd": RUN_BUDGET_USD,
-            "efficacy_used_for_authorization": False,
-        },
+        "protocol": _protocol(model_id),
         "usage": usage,
         "initial_parse_failures": len(failed_indices),
         "format_retry_requests": format_retry_requests,

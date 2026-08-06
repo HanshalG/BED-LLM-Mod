@@ -242,6 +242,22 @@ def test_clean_reliability_run_passes(tmp_path: Path) -> None:
     assert result["conditioned_valid_summary"]["minimum"] >= 4
     assert (tmp_path / "clean" / "RESULT.json").exists()
     assert (tmp_path / "clean" / "private" / "RAW_RESPONSES.json").exists()
+    verification = reliability.replay_reliability_result(
+        result_path=tmp_path / "clean" / "RESULT.json",
+        model_id="openai/gpt-5.6-luna",
+    )
+    assert verification["verified"]
+    assert verification["request_count"] == 128
+
+    result["cases"][0]["valid_unique_count"] -= 1
+    (tmp_path / "clean" / "RESULT.json").write_text(
+        json.dumps(result), encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="does not replay exactly"):
+        reliability.replay_reliability_result(
+            result_path=tmp_path / "clean" / "RESULT.json",
+            model_id="openai/gpt-5.6-luna",
+        )
 
 
 def test_single_strict_parse_failure_is_retried_once(tmp_path: Path) -> None:
@@ -269,6 +285,10 @@ def test_single_strict_parse_failure_is_retried_once(tmp_path: Path) -> None:
     assert result["cases"][failure_index]["initial_parse_failed"]
     assert result["cases"][failure_index]["format_retried"]
     assert result["cases"][failure_index]["final_parse_error"] is None
+    assert reliability.replay_reliability_result(
+        result_path=tmp_path / "retry" / "RESULT.json",
+        model_id="openai/gpt-5.6-luna",
+    )["verified"]
 
 
 def test_semantic_support_failure_is_not_retried(tmp_path: Path) -> None:

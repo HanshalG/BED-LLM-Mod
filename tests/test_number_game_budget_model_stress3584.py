@@ -291,6 +291,22 @@ def test_no_eligible_model_closes_without_live_or_model_calls(
     assert ledger["authorized_tail_blocks"][-1]["status"] == (
         "not_authorized_no_model_passed"
     )
+    verification = stress.replay_stress_result(
+        result_path=tmp_path / "stress" / "RESULT.json",
+        reliability_paths=paths,
+    )
+    assert verification["verified"]
+    assert verification["selected_model"] is None
+
+    result["decision"] = "tampered"
+    (tmp_path / "stress" / "RESULT.json").write_text(
+        json.dumps(result), encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="does not replay exactly"):
+        stress.replay_stress_result(
+            result_path=tmp_path / "stress" / "RESULT.json",
+            reliability_paths=paths,
+        )
 
 
 def test_second_reconciliation_preserves_measured_stress_cost() -> None:

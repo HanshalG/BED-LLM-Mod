@@ -465,6 +465,232 @@ def _repeat_descriptives(records: Sequence[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _stress_protocol(selected_model: str) -> dict[str, Any]:
+    return {
+        "interface_version": INTERFACE_VERSION,
+        "preregistration_sha256": PREREGISTRATION_SHA256,
+        "selected_model": selected_model,
+        "model_seeds": list(MODEL_SEEDS[selected_model]),
+        "case_selection_seed": CASE_SELECTION_SEED,
+        "case_manifest_sha256": CASE_MANIFEST_SHA256,
+        "source_trees_sha256": SOURCE_TREES_SHA256,
+        "temperature": TEMPERATURE,
+        "reasoning": False,
+        "max_output_tokens": MAX_TOKENS,
+        "seed_groups": SEED_GROUPS,
+        "concurrency_per_seed_group": ADAPTER_CONCURRENCY,
+        "aggregate_concurrency": CONCURRENCY,
+        "initial_requests": EXPECTED_INITIAL_REQUESTS,
+        "case_mix": {
+            "initial": INITIAL_CASES,
+            "unseen_one_observation": UNSEEN_ONE_CASES,
+            "unseen_two_observation": UNSEEN_TWO_CASES,
+            "repeated_conditioned": REPEATED_CONDITIONED_CASES,
+        },
+        "format_retry_policy": (
+            "one_same_prompt_same_temperature_retry_for_strict_parse_"
+            "failure_only_if_at_most_eight_failures"
+        ),
+        "run_budget_usd": RUN_BUDGET_USD,
+        "efficacy_used_for_authorization": False,
+    }
+
+
+def _records_from_saved_responses(
+    *, cases: Sequence[dict[str, Any]], raw: dict[str, Any]
+) -> tuple[list[dict[str, Any]], int, int]:
+    if set(raw) != {"initial_responses", "retry_responses"}:
+        raise ValueError("stress raw response fields changed")
+    initial = raw["initial_responses"]
+    retries = raw["retry_responses"]
+    if (
+        not isinstance(initial, list)
+        or len(initial) != EXPECTED_INITIAL_REQUESTS
+        or not all(isinstance(response, str) for response in initial)
+        or not isinstance(retries, list)
+    ):
+        raise ValueError("stress raw response shape changed")
+    parsed = []
+    failed_indices = []
+    for case, response in zip(cases, initial, strict=True):
+        support, diagnostic, error = reliability._safe_parse(
+            response,
+            observations=case["observations"],
+        )
+        parsed.append([support, diagnostic, error])
+        if error is not None:
+            failed_indices.append(case["case_index"])
+    expected_retry_indices = (
+        failed_indices if 0 < len(failed_indices) <= MAX_FORMAT_RETRIES else []
+    )
+    observed_retry_indices = []
+    for retry in retries:
+        if (
+            not isinstance(retry, dict)
+            or set(retry) != {"case_index", "response"}
+            or not isinstance(retry["case_index"], int)
+            or not isinstance(retry["response"], str)
+        ):
+            raise ValueError("stress retry response shape changed")
+        index = retry["case_index"]
+        observed_retry_indices.append(index)
+        if index < 0 or index >= len(cases):
+            raise ValueError("stress retry index is out of range")
+        parsed[index] = list(
+            reliability._safe_parse(
+                retry["response"],
+                observations=cases[index]["observations"],
+            )
+        )
+    if observed_retry_indices != expected_retry_indices:
+        raise ValueError("stress retry policy does not replay")
+    retry_index_set = set(observed_retry_indices)
+    records = []
+    for case, (support, diagnostic, final_error) in zip(
+        cases, parsed, strict=True
+    ):
+        records.append(
+            {
+                "case_index": case["case_index"],
+                "seed_group": case["seed_group"],
+                "observations": [
+                    [number, label] for number, label in case["observations"]
+                ],
+                "history_role": case["history_role"],
+                "history_index": case["history_index"],
+                "replicate": case["replicate"],
+                "initial_parse_failed": (
+                    case["case_index"] in failed_indices
+                ),
+                "format_retried": case["case_index"] in retry_index_set,
+                "final_parse_error": final_error,
+                "valid_unique_count": len(support or []),
+                "diagnostics": diagnostic,
+                "extension_sha256s": [
+                    hypothesis.public_dict()["extension_sha256"]
+                    for hypothesis in (support or [])
+                ],
+            }
+        )
+    return records, len(failed_indices), len(retries)
+
+
+def replay_stress_result(
+    *,
+    result_path: Path,
+    reliability_paths: dict[str, Path],
+    source_path: Path = SOURCE_TREES,
+) -> dict[str, Any]:
+    if reliability.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
+        raise ValueError("stress preregistration hash changed")
+    results, artifacts = _load_reliability_results(reliability_paths)
+    selection = select_model(results)
+    result = _load(result_path)
+    selected_model = selection["selected_model"]
+    if result.get("selection") != selection:
+        raise ValueError("stress model selection does not replay")
+    if result.get("reliability_artifacts") != artifacts:
+        raise ValueError("stress reliability artifact hashes changed")
+    if selected_model is None:
+        expected = {
+            "schema_version": SCHEMA_VERSION,
+            "status": "gated_null",
+            "decision": "no_eligible_model",
+            "protocol": {
+                "interface_version": INTERFACE_VERSION,
+                "preregistration_sha256": PREREGISTRATION_SHA256,
+                "model_calls": 0,
+                "run_budget_usd": RUN_BUDGET_USD,
+            },
+            "selection": selection,
+            "reliability_artifacts": artifacts,
+            "usage": {"adapter_requests": 0, "run_cost_usd": 0.0},
+        }
+        if result != expected:
+            raise ValueError("no-model stress result does not replay exactly")
+        return {
+            "verified": True,
+            "status": "gated_null",
+            "selected_model": None,
+            "result_sha256": reliability.sha256_file(result_path),
+            "raw_responses_sha256": None,
+            "request_count": 0,
+            "cost_usd": 0.0,
+        }
+    raw_path = result_path.parent / "private/RAW_RESPONSES.json"
+    if (
+        result.get("schema_version") != SCHEMA_VERSION
+        or result.get("protocol") != _stress_protocol(selected_model)
+        or not raw_path.is_file()
+        or result.get("raw_responses_sha256")
+        != reliability.sha256_file(raw_path)
+    ):
+        raise ValueError("stress result provenance changed")
+    cases = build_stress_cases(source_path)
+    records, initial_failures, retry_count = _records_from_saved_responses(
+        cases=cases,
+        raw=_load(raw_path),
+    )
+    usage = result.get("usage") or {}
+    required_usage = {
+        "adapter_requests",
+        "http_attempts",
+        "retry_count",
+        "provider_error_retries",
+        "adapter_reasoning_tokens",
+        "forced_exits",
+        "run_cost_usd",
+        "prompt_tokens",
+        "completion_tokens",
+    }
+    if set(usage) != required_usage or any(
+        not isinstance(usage[key], (int, float)) or usage[key] < 0
+        for key in required_usage
+    ):
+        raise ValueError("stress usage shape changed")
+    gates = stress_gates(
+        records=records,
+        usage=usage,
+        format_retry_requests=retry_count,
+        initial_parse_failures=initial_failures,
+    )
+    conditioned_counts = [
+        record["valid_unique_count"]
+        for record in records
+        if record["observations"]
+    ]
+    status = "passed" if gates["all_pass"] else "gated_null"
+    expected = {
+        "status": status,
+        "decision": (
+            "eligible_for_policy_scale_budget_model_work"
+            if gates["all_pass"]
+            else "close_selected_budget_model_at_scale"
+        ),
+        "initial_parse_failures": initial_failures,
+        "format_retry_requests": retry_count,
+        "conditioned_valid_summary": {
+            "minimum": min(conditioned_counts),
+            "mean": sum(conditioned_counts) / len(conditioned_counts),
+            "maximum": max(conditioned_counts),
+        },
+        "repeated_history_descriptives": _repeat_descriptives(records),
+        "gates": gates,
+        "cases": records,
+    }
+    if any(result.get(key) != value for key, value in expected.items()):
+        raise ValueError("stress result does not replay exactly")
+    return {
+        "verified": True,
+        "status": status,
+        "selected_model": selected_model,
+        "result_sha256": reliability.sha256_file(result_path),
+        "raw_responses_sha256": reliability.sha256_file(raw_path),
+        "request_count": int(usage["adapter_requests"]),
+        "cost_usd": float(usage["run_cost_usd"]),
+    }
+
+
 def run_stress(
     *,
     output_dir: Path,
@@ -608,34 +834,7 @@ def run_stress(
             if gates["all_pass"]
             else "close_selected_budget_model_at_scale"
         ),
-        "protocol": {
-            "interface_version": INTERFACE_VERSION,
-            "preregistration_sha256": PREREGISTRATION_SHA256,
-            "selected_model": selected_model,
-            "model_seeds": list(MODEL_SEEDS[selected_model]),
-            "case_selection_seed": CASE_SELECTION_SEED,
-            "case_manifest_sha256": CASE_MANIFEST_SHA256,
-            "source_trees_sha256": SOURCE_TREES_SHA256,
-            "temperature": TEMPERATURE,
-            "reasoning": False,
-            "max_output_tokens": MAX_TOKENS,
-            "seed_groups": SEED_GROUPS,
-            "concurrency_per_seed_group": ADAPTER_CONCURRENCY,
-            "aggregate_concurrency": CONCURRENCY,
-            "initial_requests": EXPECTED_INITIAL_REQUESTS,
-            "case_mix": {
-                "initial": INITIAL_CASES,
-                "unseen_one_observation": UNSEEN_ONE_CASES,
-                "unseen_two_observation": UNSEEN_TWO_CASES,
-                "repeated_conditioned": REPEATED_CONDITIONED_CASES,
-            },
-            "format_retry_policy": (
-                "one_same_prompt_same_temperature_retry_for_strict_parse_"
-                "failure_only_if_at_most_eight_failures"
-            ),
-            "run_budget_usd": RUN_BUDGET_USD,
-            "efficacy_used_for_authorization": False,
-        },
+        "protocol": _stress_protocol(selected_model),
         "selection": selection,
         "reliability_artifacts": reliability_artifacts,
         "usage": usage,
