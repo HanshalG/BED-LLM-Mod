@@ -67,6 +67,16 @@ pending authorization and still checks live account-wide spend, so total
 account spend cannot exceed `$5.00`. No other paid tail is authorized by this
 amendment.
 
+Before every HTTP attempt, the shared adapter now reserves a conservative
+maximum cost for Qwen, Luna, and DeepSeek under the spend-ledger file lock.
+Completed responses settle provider-reported cost against that reservation.
+Concurrency and retries therefore cannot reuse uncommitted run allowance.
+Unknown usage cost, transport ambiguity, or an unexpectedly expensive response
+remains reserved and fails closed until live account reconciliation.
+The exact reservation values and live-price coverage are bound by
+`NUMBER_GAME_AUG7_PRECHARGE_RESERVATION_AMENDMENT.md` and the orchestrator
+preflight.
+
 The separate August 7 orchestrator is additionally bound to the frozen
 deferred-authorization amendment. If this control wrapper omits stress because
 the full worst-case tail did not fit, the orchestrator may reconsider once

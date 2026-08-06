@@ -3,7 +3,9 @@ from __future__ import annotations
 import json
 import http.client
 import multiprocessing
+import time
 import urllib.error
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -68,6 +70,21 @@ def _concurrent_tracker_writer(path: str, run_id: str, count: int) -> None:
     }
     for _ in range(count):
         tracker.add(0.001, usage)
+
+
+def test_openrouter_max_request_cost_parses_and_validates(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text("openrouter_max_request_cost_usd: 0.012\n")
+    assert load_config(str(config_path)).openrouter_max_request_cost_usd == pytest.approx(
+        0.012
+    )
+
+    for value in (0.0, -0.01, float("nan"), float("inf")):
+        with pytest.raises(
+            ValueError,
+            match="openrouter_max_request_cost_usd must be positive or null",
+        ):
+            Config(openrouter_max_request_cost_usd=value)
 
 
 def test_openrouter_smoke_config_is_nonthinking_and_uses_verified_slug() -> None:
@@ -669,6 +686,168 @@ def test_openrouter_run_budget_is_enforced_under_the_ledger_lock(tmp_path: Path)
     snapshot = tracker.snapshot()
     assert snapshot["run_budget_usd"] == pytest.approx(0.02)
     assert snapshot["run_remaining_usd"] == pytest.approx(0.005)
+
+
+def test_request_reservations_prevent_concurrent_run_budget_oversubscription(
+    tmp_path: Path,
+) -> None:
+    tracker = OpenRouterBudgetTracker(
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.02,
+        ),
+        "test-model",
+    )
+    first = tracker.reserve_request(0.015, timeout_seconds=0.01)
+    with pytest.raises(OpenRouterBudgetError, match="run budget"):
+        tracker.reserve_request(0.01, timeout_seconds=0.01)
+
+    reserved = tracker.snapshot()
+    assert reserved["run_reserved_usd"] == pytest.approx(0.015)
+    tracker.add(0.005, _completion()["usage"], reservation_id=first)
+
+    second = tracker.reserve_request(0.01, timeout_seconds=0.01)
+    tracker.add(0.009, _completion()["usage"], reservation_id=second)
+    settled = tracker.snapshot()
+    assert settled["run_reserved_usd"] == pytest.approx(0.0)
+    assert settled["run_cost_usd"] == pytest.approx(0.014)
+
+
+def test_waiting_request_reserves_only_after_prior_request_settles(
+    tmp_path: Path,
+) -> None:
+    tracker = OpenRouterBudgetTracker(
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.02,
+        ),
+        "test-model",
+    )
+    first = tracker.reserve_request(0.015, timeout_seconds=0.5)
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        waiting = executor.submit(
+            tracker.reserve_request, 0.01, timeout_seconds=0.5
+        )
+        time.sleep(0.03)
+        assert not waiting.done()
+        tracker.add(0.005, _completion()["usage"], reservation_id=first)
+        second = waiting.result(timeout=0.5)
+
+    assert tracker.snapshot()["run_reserved_usd"] == pytest.approx(0.01)
+    tracker.release_request(second)
+
+
+def test_request_reservation_rejects_charge_above_bound_and_stays_fail_closed(
+    tmp_path: Path,
+) -> None:
+    tracker = OpenRouterBudgetTracker(
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.02,
+        ),
+        "test-model",
+    )
+    reservation = tracker.reserve_request(0.005, timeout_seconds=0.01)
+
+    with pytest.raises(OpenRouterBudgetError, match="exceeds reserved"):
+        tracker.add(0.006, _completion()["usage"], reservation_id=reservation)
+
+    snapshot = tracker.snapshot()
+    assert snapshot["run_cost_usd"] == pytest.approx(0.0)
+    assert snapshot["run_reserved_usd"] == pytest.approx(0.005)
+
+
+def test_adapter_settles_request_reservation_after_usage(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    monkeypatch.setattr(
+        "urllib.request.urlopen",
+        lambda request, timeout: _Response(_completion(cost=0.01)),
+    )
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="test/model", backend="openrouter"),
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.02,
+            openrouter_max_request_cost_usd=0.015,
+        ),
+    )
+
+    assert adapter.chat_complete([{"role": "user", "content": "x"}], 0.0) == [
+        "ok"
+    ]
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["run_cost_usd"] == pytest.approx(0.01)
+    assert snapshot["run_reserved_usd"] == pytest.approx(0.0)
+
+
+def test_ambiguous_retry_keeps_first_attempt_reserved(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    responses = [
+        urllib.error.URLError("response lost"),
+        _Response(_completion(cost=0.005)),
+    ]
+
+    def fake_urlopen(*args, **kwargs):
+        response = responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setattr("openrouter_model.time.sleep", lambda _delay: None)
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="test/model", backend="openrouter"),
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.03,
+            openrouter_max_request_cost_usd=0.01,
+        ),
+    )
+
+    assert adapter.chat_complete([{"role": "user", "content": "x"}], 0.0) == [
+        "ok"
+    ]
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["run_cost_usd"] == pytest.approx(0.005)
+    assert snapshot["run_reserved_usd"] == pytest.approx(0.01)
+
+
+def test_explicit_http_error_releases_attempt_before_retry(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    responses = [
+        urllib.error.HTTPError("url", 429, "rate", {}, None),
+        _Response(_completion(cost=0.005)),
+    ]
+
+    def fake_urlopen(*args, **kwargs):
+        response = responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setattr("openrouter_model.time.sleep", lambda _delay: None)
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="test/model", backend="openrouter"),
+        _config(
+            tmp_path,
+            openrouter_projected_cost_usd=0.0,
+            openrouter_run_budget_usd=0.015,
+            openrouter_max_request_cost_usd=0.01,
+        ),
+    )
+
+    assert adapter.chat_complete([{"role": "user", "content": "x"}], 0.0) == [
+        "ok"
+    ]
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["run_cost_usd"] == pytest.approx(0.005)
+    assert snapshot["run_reserved_usd"] == pytest.approx(0.0)
 
 
 def test_spend_tracker_serializes_concurrent_processes(tmp_path: Path) -> None:

@@ -21,13 +21,14 @@ if str(REPO_ROOT) not in sys.path:
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts import number_game_budget_model_reliability128 as reliability
 from scripts import number_game_budget_model_stress3584 as stress
+from scripts import number_game_predictive_risk_replication as replication
 from scripts import number_game_qwen_fully_fresh_control_daily_execute as control
 from scripts import number_game_qwen_fully_fresh_claim_report as claim
 from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "number-game-budget-model-aug7-execute-1"
+INTERFACE_VERSION = "number-game-budget-model-aug7-execute-2"
 EXPECTED_DATE = "2026-08-07"
 TIMEZONE = "Europe/London"
 CONTROL_RUN_ID = (
@@ -68,6 +69,14 @@ MODEL_MAX_OUTPUT_TOKENS = {
     QWEN_MODEL_ID: control.staged.base.control.MAX_TOKENS,
     **{model: reliability.MAX_TOKENS for model in RELIABILITY_RUNS},
 }
+MINIMUM_RESERVED_PROMPT_TOKENS = 8_000
+BUDGET_RESERVATION_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "NUMBER_GAME_AUG7_PRECHARGE_RESERVATION_AMENDMENT.md"
+)
+BUDGET_RESERVATION_AMENDMENT_SHA256 = (
+    "4b7316192ea37a39468d02cc50fc5c18dcb2f423e92652767d3de88e6bd30510"
+)
 
 
 class PreExecutionGateError(RuntimeError):
@@ -105,6 +114,9 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
         pricing = model.get("pricing") or {}
         prompt_price = float(pricing.get("prompt", math.nan))
         completion_price = float(pricing.get("completion", math.nan))
+        maximum_request_cost = (
+            replication.MAX_REQUEST_COST_USD_BY_MODEL.get(model_id)
+        )
         if "text" not in modalities:
             raise RuntimeError(f"{model_id} no longer supports text input")
         if not ({"response_format", "structured_outputs"} & supported):
@@ -116,6 +128,22 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
             for value in (prompt_price, completion_price)
         ):
             raise RuntimeError(f"{model_id} pricing is missing or invalid")
+        if maximum_request_cost is None:
+            raise RuntimeError(f"{model_id} request-cost reservation is missing")
+        maximum_output_cost = completion_price * required_tokens
+        residual = maximum_request_cost - maximum_output_cost
+        covered_prompt_tokens = (
+            math.inf if prompt_price == 0.0 else residual / prompt_price
+        )
+        if (
+            residual < 0.0
+            or covered_prompt_tokens + 1e-9
+            < MINIMUM_RESERVED_PROMPT_TOKENS
+        ):
+            raise RuntimeError(
+                f"{model_id} request-cost reservation no longer covers the "
+                "frozen output and prompt ceilings"
+            )
         verified[model_id] = {
             "context_length": int(model.get("context_length") or 0),
             "max_completion_tokens": max_completion,
@@ -128,6 +156,9 @@ def _validate_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
             "completion_usd_per_million_tokens": round(
                 completion_price * 1_000_000, 12
             ),
+            "maximum_request_cost_usd": maximum_request_cost,
+            "maximum_output_cost_usd": maximum_output_cost,
+            "covered_prompt_tokens_at_live_price": covered_prompt_tokens,
         }
     return verified
 
@@ -240,6 +271,11 @@ def _verify_source_readiness(run_dir: Path) -> dict[str, Any]:
 
 
 def _verify_frozen_case_inputs() -> dict[str, Any]:
+    if (
+        reliability.sha256_file(BUDGET_RESERVATION_AMENDMENT)
+        != BUDGET_RESERVATION_AMENDMENT_SHA256
+    ):
+        raise RuntimeError("precharge reservation amendment hash changed")
     reliability_cases = reliability.build_cases()
     stress_cases = stress.build_stress_cases()
     stress.validate_protocol_bindings()
@@ -257,6 +293,12 @@ def _verify_frozen_case_inputs() -> dict[str, Any]:
         "stress_preregistration_sha256": stress.PREREGISTRATION_SHA256,
         "stress_authorization_amendment_sha256": (
             stress.AUTHORIZATION_AMENDMENT_SHA256
+        ),
+        "budget_reservation_amendment_sha256": (
+            BUDGET_RESERVATION_AMENDMENT_SHA256
+        ),
+        "maximum_request_cost_usd_by_model": dict(
+            replication.MAX_REQUEST_COST_USD_BY_MODEL
         ),
         "source_trees_sha256": reliability.SOURCE_TREES_SHA256,
         "reliability_protocols": {

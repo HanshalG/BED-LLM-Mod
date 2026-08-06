@@ -113,6 +113,7 @@ class SeededStructuredAdapter(DefaultRoutingStructuredAdapter):
                 raise RuntimeError(
                     "provider-error response reported nonzero cost"
                 )
+            self._release_zero_cost_response_reservation(data)
             if attempt >= self.max_retries:
                 raise RuntimeError(
                     "provider-error response persisted after retries"
@@ -129,6 +130,13 @@ class SeededStructuredAdapter(DefaultRoutingStructuredAdapter):
         return snapshot
 
 
+MAX_REQUEST_COST_USD_BY_MODEL = {
+    "qwen/qwen3.7-plus": 0.010,
+    "openai/gpt-5.6-luna": 0.004,
+    "deepseek/deepseek-v4-flash-0731": 0.0015,
+}
+
+
 def _adapter(
     *,
     model: str,
@@ -139,6 +147,7 @@ def _adapter(
     projected_cost: float,
     run_budget_usd: float = RUN_BUDGET_USD,
 ) -> SeededStructuredAdapter:
+    maximum_request_cost_usd = MAX_REQUEST_COST_USD_BY_MODEL.get(model)
     config = Config(
         task="animals",
         run_id=run_id,
@@ -150,6 +159,7 @@ def _adapter(
         openrouter_max_retries=4,
         openrouter_backoff_seconds=1.0,
         openrouter_request_timeout_seconds=300.0,
+        openrouter_max_request_cost_usd=maximum_request_cost_usd,
         openrouter_max_output_tokens=MAX_TOKENS,
         openrouter_spend_path="results/path_e/openrouter_spend.json",
     )

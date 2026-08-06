@@ -167,6 +167,11 @@ def _case_validator() -> dict:
 
 
 def _model_catalog() -> dict:
+    prices = {
+        "qwen/qwen3.7-plus": (0.32, 1.28),
+        "openai/gpt-5.6-luna": (0.10, 0.60),
+        "deepseek/deepseek-v4-flash-0731": (0.09, 0.18),
+    }
     return {
         "data": [
             {
@@ -175,7 +180,10 @@ def _model_catalog() -> dict:
                 "architecture": {"input_modalities": ["text"]},
                 "supported_parameters": ["structured_outputs"],
                 "top_provider": {"max_completion_tokens": 32_768},
-                "pricing": {"prompt": "0.0000001", "completion": "0.0000006"},
+                "pricing": {
+                    "prompt": str(prices[model_id][0] / 1_000_000),
+                    "completion": str(prices[model_id][1] / 1_000_000),
+                },
             }
             for model_id in execute.MODEL_MAX_OUTPUT_TOKENS
         ]
@@ -225,6 +233,14 @@ def test_preflight_is_read_only_and_reports_exact_budget_pack(
         pytest.approx(3.25)
     )
     assert set(result["models"]) == set(execute.MODEL_MAX_OUTPUT_TOKENS)
+    assert result["models"]["openai/gpt-5.6-luna"][
+        "maximum_request_cost_usd"
+    ] == pytest.approx(0.004)
+    assert all(
+        model["covered_prompt_tokens_at_live_price"]
+        >= execute.MINIMUM_RESERVED_PROMPT_TOKENS
+        for model in result["models"].values()
+    )
 
 
 def test_preflight_rejects_usage_after_frozen_opening(tmp_path: Path) -> None:
@@ -268,6 +284,27 @@ def test_preflight_rejects_missing_structured_model_endpoint(
     catalog = _model_catalog()
     catalog["data"][0]["supported_parameters"] = []
     with pytest.raises(RuntimeError, match="structured output"):
+        execute.preflight_aug7_sequence(
+            **paths,
+            live_reader=_live_credits,
+            source_validator=_source_validator,
+            case_validator=_case_validator,
+            catalog_reader=lambda: catalog,
+        )
+
+
+def test_preflight_rejects_price_that_exceeds_request_reservation(
+    tmp_path: Path,
+) -> None:
+    paths = _preflight_paths(tmp_path)
+    catalog = _model_catalog()
+    deepseek = next(
+        item
+        for item in catalog["data"]
+        if item["id"] == "deepseek/deepseek-v4-flash-0731"
+    )
+    deepseek["pricing"]["completion"] = "0.000001"
+    with pytest.raises(RuntimeError, match="reservation no longer covers"):
         execute.preflight_aug7_sequence(
             **paths,
             live_reader=_live_credits,

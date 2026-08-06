@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from scripts.number_game_predictive_risk_replication import (
+    MAX_REQUEST_COST_USD_BY_MODEL,
     SeededStructuredAdapter,
     TARGET_SEEDS,
     TREE_SEEDS,
@@ -44,6 +45,14 @@ def test_v2_uses_entirely_fresh_seed_ranges():
     assert TARGET_SEEDS == tuple(range(26180, 26188))
     assert not set(TREE_SEEDS) & set(range(26070, 26078))
     assert not set(TARGET_SEEDS) & set(range(26170, 26178))
+
+
+def test_daily_number_game_models_have_precharge_request_reservations():
+    assert MAX_REQUEST_COST_USD_BY_MODEL == {
+        "qwen/qwen3.7-plus": 0.010,
+        "openai/gpt-5.6-luna": 0.004,
+        "deepseek/deepseek-v4-flash-0731": 0.0015,
+    }
 
 
 def test_zero_cost_provider_error_is_retried(monkeypatch):

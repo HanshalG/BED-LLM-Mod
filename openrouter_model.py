@@ -9,6 +9,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from pathlib import Path
@@ -26,6 +27,8 @@ WAFER_REASONING_TRUNCATION_PREFIX = (
 )
 OPENROUTER_GEMMA_4_26B_A4B = "google/gemma-4-26b-a4b-it"
 _SPEND_LOCK = threading.Lock()
+_RESERVATION_FIELD = "inflight_request_reservations"
+_RESERVATION_RESPONSE_FIELD = "_bed_openrouter_budget_reservation_id"
 
 
 class OpenRouterBudgetError(RuntimeError):
@@ -105,14 +108,130 @@ class OpenRouterBudgetTracker:
         """Keep an authorized top-up from being reverted by older live workers."""
         return max(self.budget, float(payload.get("budget_usd", self.budget)))
 
-    def add(self, cost: float, usage: dict[str, Any]) -> float:
+    @staticmethod
+    def _reservations(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+        reservations = payload.setdefault(_RESERVATION_FIELD, {})
+        if not isinstance(reservations, dict):
+            raise OpenRouterBudgetError("Invalid in-flight reservation ledger")
+        return reservations
+
+    @staticmethod
+    def _reserved_cost(
+        reservations: dict[str, dict[str, Any]], *, run_id: str | None = None
+    ) -> float:
+        return sum(
+            float(item.get("maximum_cost_usd", 0.0))
+            for item in reservations.values()
+            if run_id is None or item.get("run_id") == run_id
+        )
+
+    def reserve_request(
+        self,
+        maximum_cost_usd: float,
+        *,
+        timeout_seconds: float,
+    ) -> str:
+        """Reserve worst-case request cost before a concurrent HTTP call."""
+        maximum_cost_usd = float(maximum_cost_usd)
+        if not maximum_cost_usd > 0.0:
+            raise ValueError("maximum request cost must be positive")
+        deadline = time.monotonic() + float(timeout_seconds)
+        while True:
+            has_inflight = False
+            project_shortfall = False
+            run_shortfall = False
+            with self._locked_transaction():
+                payload = self._read()
+                budget = self._effective_budget(payload)
+                reservations = self._reservations(payload)
+                spent = float(payload.get("total_spent_usd", 0.0))
+                run_cost = float(
+                    ((payload.get("runs") or {}).get(self.run_id) or {}).get(
+                        "cost_usd", 0.0
+                    )
+                )
+                reserved = self._reserved_cost(reservations)
+                run_reserved = self._reserved_cost(
+                    reservations, run_id=self.run_id
+                )
+                project_shortfall = (
+                    spent + reserved + maximum_cost_usd > budget + 1e-12
+                )
+                run_shortfall = (
+                    self.run_budget is not None
+                    and run_cost + run_reserved + maximum_cost_usd
+                    > self.run_budget + 1e-12
+                )
+                if not project_shortfall and not run_shortfall:
+                    reservation_id = uuid.uuid4().hex
+                    reservations[reservation_id] = {
+                        "run_id": self.run_id,
+                        "model": self.model,
+                        "maximum_cost_usd": maximum_cost_usd,
+                        "created_at_unix": time.time(),
+                    }
+                    payload["budget_usd"] = budget
+                    self._atomic_write(payload)
+                    return reservation_id
+                has_inflight = bool(reservations)
+            if not has_inflight or time.monotonic() >= deadline:
+                scope = "run budget" if run_shortfall else "project budget"
+                raise OpenRouterBudgetError(
+                    f"OpenRouter request reservation ${maximum_cost_usd:.6f} "
+                    f"exceeds remaining {scope}"
+                )
+            time.sleep(0.01)
+
+    def release_request(self, reservation_id: str, *, missing_ok: bool = False) -> None:
+        with self._locked_transaction():
+            payload = self._read()
+            reservations = self._reservations(payload)
+            reservation = reservations.get(reservation_id)
+            if reservation is None:
+                if missing_ok:
+                    return
+                raise OpenRouterBudgetError("Unknown request-cost reservation")
+            if reservation.get("run_id") != self.run_id:
+                raise OpenRouterBudgetError("Request-cost reservation run changed")
+            reservations.pop(reservation_id)
+            self._atomic_write(payload)
+
+    def add(
+        self,
+        cost: float,
+        usage: dict[str, Any],
+        *,
+        reservation_id: str | None = None,
+    ) -> float:
         if cost < 0.0:
             raise OpenRouterBudgetError("OpenRouter reported negative cost")
         with self._locked_transaction():
             payload = self._read()
             budget = self._effective_budget(payload)
+            reservations = self._reservations(payload)
+            reserved_amount = 0.0
+            if reservation_id is not None:
+                reservation = reservations.get(reservation_id)
+                if reservation is None:
+                    raise OpenRouterBudgetError(
+                        "Missing request-cost reservation during settlement"
+                    )
+                if (
+                    reservation.get("run_id") != self.run_id
+                    or reservation.get("model") != self.model
+                ):
+                    raise OpenRouterBudgetError(
+                        "Request-cost reservation identity changed"
+                    )
+                reserved_amount = float(reservation["maximum_cost_usd"])
+                if cost > reserved_amount + 1e-12:
+                    raise OpenRouterBudgetError(
+                        f"OpenRouter charge ${cost:.6f} exceeds reserved request "
+                        f"maximum ${reserved_amount:.6f}"
+                    )
             total = float(payload.get("total_spent_usd", 0.0)) + cost
-            if total > budget + 1e-9:
+            other_reserved = self._reserved_cost(reservations) - reserved_amount
+            if total + other_reserved > budget + 1e-9:
                 raise OpenRouterBudgetError(
                     f"OpenRouter charge would exceed ${budget:.2f} budget: ${total:.6f}"
                 )
@@ -122,7 +241,14 @@ class OpenRouterBudgetTracker:
                 {"backend": "openrouter", "model": self.model, "cost_usd": 0.0, "requests": 0},
             )
             run_cost = float(run.get("cost_usd", 0.0)) + cost
-            if self.run_budget is not None and run_cost > self.run_budget + 1e-9:
+            other_run_reserved = (
+                self._reserved_cost(reservations, run_id=self.run_id)
+                - reserved_amount
+            )
+            if (
+                self.run_budget is not None
+                and run_cost + other_run_reserved > self.run_budget + 1e-9
+            ):
                 raise OpenRouterBudgetError(
                     f"OpenRouter charge would exceed ${self.run_budget:.2f} run budget: ${run_cost:.6f}"
                 )
@@ -156,6 +282,8 @@ class OpenRouterBudgetTracker:
             )
             payload["budget_usd"] = budget
             payload["total_spent_usd"] = total
+            if reservation_id is not None:
+                reservations.pop(reservation_id)
             self._atomic_write(payload)
             return total
 
@@ -164,6 +292,9 @@ class OpenRouterBudgetTracker:
             payload = self._read()
             budget = self._effective_budget(payload)
             run = (payload.get("runs") or {}).get(self.run_id, {})
+            reservations = self._reservations(payload)
+            reserved = self._reserved_cost(reservations)
+            run_reserved = self._reserved_cost(reservations, run_id=self.run_id)
             return {
                 "backend": "openrouter",
                 "model": self.model,
@@ -176,6 +307,8 @@ class OpenRouterBudgetTracker:
                 "total_spent_usd": float(payload.get("total_spent_usd", 0.0)),
                 "budget_usd": budget,
                 "remaining_usd": budget - float(payload.get("total_spent_usd", 0.0)),
+                "reserved_usd": reserved,
+                "run_reserved_usd": run_reserved,
                 "run_budget_usd": self.run_budget,
                 "run_remaining_usd": (
                     self.run_budget - float(run.get("cost_usd", 0.0))
@@ -213,6 +346,7 @@ class OpenRouterAdapter:
         self.max_retries = int(config.openrouter_max_retries)
         self.backoff_seconds = float(config.openrouter_backoff_seconds)
         self.request_timeout_seconds = float(config.openrouter_request_timeout_seconds)
+        self.max_request_cost_usd = config.openrouter_max_request_cost_usd
         task_seeds = {
             "paprika_customer_service": config.paprika_seed,
             "mediq": config.mediq_seed,
@@ -289,6 +423,18 @@ class OpenRouterAdapter:
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
         return self._post_endpoint("chat/completions", payload)
 
+    def _release_zero_cost_response_reservation(
+        self, data: dict[str, Any]
+    ) -> None:
+        cost = float((data.get("usage") or {}).get("cost", 0.0) or 0.0)
+        if cost > 1e-12:
+            raise OpenRouterBudgetError(
+                "Cannot release a reservation for a charged response"
+            )
+        reservation_id = data.pop(_RESERVATION_RESPONSE_FIELD, None)
+        if reservation_id is not None:
+            self.tracker.release_request(reservation_id)
+
     def _post_endpoint(
         self,
         endpoint: str,
@@ -307,12 +453,28 @@ class OpenRouterAdapter:
             method="POST",
         )
         for attempt in range(self.max_retries + 1):
+            reservation_id = (
+                self.tracker.reserve_request(
+                    self.max_request_cost_usd,
+                    timeout_seconds=self.request_timeout_seconds,
+                )
+                if self.max_request_cost_usd is not None
+                else None
+            )
             with self._usage_lock:
                 self.http_attempts += 1
             try:
                 with urllib.request.urlopen(request, timeout=self.request_timeout_seconds) as response:
-                    return json.loads(response.read())
+                    data = json.loads(response.read())
+                    if not isinstance(data, dict):
+                        raise RuntimeError("OpenRouter response is not an object")
+                    if reservation_id is not None:
+                        data[_RESERVATION_RESPONSE_FIELD] = reservation_id
+                    return data
             except urllib.error.HTTPError as exc:
+                # An explicit HTTP error did not return a billable completion.
+                if reservation_id is not None:
+                    self.tracker.release_request(reservation_id)
                 retryable = exc.code == 429 or 500 <= exc.code < 600
                 if not retryable or attempt >= self.max_retries:
                     detail = exc.read().decode("utf-8", errors="replace")[:500]
@@ -326,6 +488,9 @@ class OpenRouterAdapter:
                 ConnectionError,
                 json.JSONDecodeError,
             ) as exc:
+                # A transport failure can hide an accepted, billable attempt.
+                # Keep that attempt's reservation until account reconciliation;
+                # any retry must acquire separate headroom.
                 if attempt >= self.max_retries:
                     raise RuntimeError(f"OpenRouter request failed after retries: {exc}") from exc
                 delay = self.backoff_seconds * (2**attempt)
@@ -425,6 +590,7 @@ class OpenRouterAdapter:
                 response_format,
             ),
         )
+        reservation_id = data.pop(_RESERVATION_RESPONSE_FIELD, None)
         usage = data.get("usage")
         if not isinstance(usage, dict) or usage.get("cost") is None:
             raise RuntimeError(
@@ -453,7 +619,9 @@ class OpenRouterAdapter:
             "reasoning_tokens": reasoning_tokens
         }
         cost = float(usage["cost"])
-        cumulative = self.tracker.add(cost, normalized_usage)
+        cumulative = self.tracker.add(
+            cost, normalized_usage, reservation_id=reservation_id
+        )
         self.local_cost_usd += cost
         self.local_requests += 1
         self.local_prompt_tokens += input_tokens
@@ -532,14 +700,15 @@ class OpenRouterAdapter:
                 response_format=response_format,
             )
         )
+        reservation_id = data.pop(_RESERVATION_RESPONSE_FIELD, None)
         choices = data.get("choices")
         usage = data.get("usage")
-        if not isinstance(choices, list) or not choices:
-            raise RuntimeError("OpenRouter response has no choices")
         if not isinstance(usage, dict) or usage.get("cost") is None:
             raise RuntimeError("OpenRouter response is missing required usage.cost")
         cost = float(usage["cost"])
-        cumulative = self.tracker.add(cost, usage)
+        cumulative = self.tracker.add(cost, usage, reservation_id=reservation_id)
+        if not isinstance(choices, list) or not choices:
+            raise RuntimeError("OpenRouter response has no choices")
         self.local_cost_usd += cost
         self.local_requests += 1
         self.local_prompt_tokens += int(usage.get("prompt_tokens", 0) or 0)
