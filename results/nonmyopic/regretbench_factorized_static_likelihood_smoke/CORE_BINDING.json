@@ -11,11 +11,15 @@
   },
   "tests": {
     "path": "tests/test_regretbench_factorized_static_likelihood_smoke.py",
-    "sha256": "a436b4b8b296e175c1229ad8dc8a27a3a0942b29ef67e218b2c51ed550f61ad7"
+    "sha256": "dd6055350b3176bd3f9559c670415007f2b7f2eeb18a4e6a6fde163540c8e81a"
+  },
+  "independent_verifier": {
+    "path": "scripts/regretbench_factorized_static_likelihood_smoke_verify.py",
+    "sha256": "6888e16c1d3ee5ba8b5e2844f091b567dcf60ca1a06730c664103d974ac0aff7"
   },
   "expected_requests": 10,
   "paid_calls_authorized": 0,
-  "independent_verifier_implemented": false,
+  "independent_verifier_implemented": true,
   "dated_budget_wrapper_implemented": false,
   "current_regretbench_chain_changed": false,
   "development_opened": false,

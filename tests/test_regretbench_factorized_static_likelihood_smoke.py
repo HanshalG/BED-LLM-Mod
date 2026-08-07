@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 
 from scripts import regretbench_factorized_static_likelihood_smoke as smoke
+from scripts import regretbench_factorized_static_likelihood_smoke_verify as verify
 from tests.test_regretbench_deepseek_smc_dynamic_depth2_experiment import (
     _Adapter,
     _install_primary_stage,
@@ -107,6 +108,51 @@ def test_exact_ten_factorized_smoke(tmp_path, monkeypatch) -> None:
     )["audits"]
     assert len(privacy) == 10
     assert all(row["passed"] for row in privacy)
+    replay = verify.verify_smoke(
+        tmp_path / "factorized-smoke",
+        primary_dir=primary_dir,
+        expected_predecessor={
+            "support_smoke_sha256": "smoke",
+            "support_development_sha256": "development",
+        },
+    )
+    assert replay["status"] == "verified"
+    assert replay["model_calls"] == 0
+    assert all(replay["checks"].values())
+
+
+def test_independent_verifier_rejects_result_tamper(tmp_path, monkeypatch) -> None:
+    primary_dir = tmp_path / "primary-smoke"
+    info = _install_primary_stage(primary_dir, "smoke")
+    adapter = _FactorizedAdapter(info)
+    predecessor = {
+        "support_smoke_sha256": "smoke",
+        "support_development_sha256": "development",
+    }
+    monkeypatch.setattr(
+        smoke.transport,
+        "validate_support_predecessors",
+        lambda **kwargs: predecessor,
+    )
+    run_dir = tmp_path / "factorized-smoke"
+    smoke.run_smoke(
+        output_dir=run_dir,
+        adapter=adapter,
+        primary_smoke_dir=primary_dir,
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+    )
+    result_path = run_dir / "RESULT.json"
+    result = json.loads(result_path.read_text())
+    result["status"] = "mechanics_failed"
+    result_path.write_text(json.dumps(result))
+    replay = verify.verify_smoke(
+        run_dir,
+        primary_dir=primary_dir,
+        expected_predecessor=predecessor,
+    )
+    assert replay["status"] == "verification_failed"
+    assert "$.status" in replay["mismatches"]
 
 
 def test_protocol_rejects_hash_change(monkeypatch) -> None:
