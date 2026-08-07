@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 import math
 
 import pytest
 
 from scripts import bongard_openworld_luna_claim_report as claim
+from scripts import bongard_openworld_luna_confirmation64 as confirmation
+from scripts import bongard_openworld_luna_development_claim_finalize as finalize
 from scripts import bongard_openworld_luna_vlm_development as development
 
 
@@ -144,3 +147,74 @@ def test_claim_report_banks_once_and_rejects_tampering(tmp_path) -> None:
     path.write_text('{"claim_tier":"development_null","value":2}')
     with pytest.raises(RuntimeError, match="changed"):
         claim.bank_claim_report(path, report)
+
+
+def test_full_tier_finalizer_reaches_exact_confirmation_handoff(
+    tmp_path, monkeypatch
+) -> None:
+    result = _result()
+    combined_path = tmp_path / "COMBINED_RESULT.json"
+    combined_path.write_text(json.dumps(result), encoding="utf-8")
+    result_sha256 = development.sha256_file(combined_path)
+    verification = _verification(result, sha256=result_sha256)
+    report_path = tmp_path / "CLAIM_REPORT.json"
+    block_results = {}
+    ledgers = {}
+    for block_id in development.BLOCK_ORDER:
+        block_dir = tmp_path / f"block-{block_id}"
+        block_dir.mkdir()
+        block_results[block_id] = block_dir / "RESULT.json"
+        block_results[block_id].write_text("{}", encoding="utf-8")
+        (block_dir / "DAILY_EXECUTION.json").write_text("{}", encoding="utf-8")
+        ledgers[block_id] = tmp_path / f"ledger-{block_id}.json"
+        ledgers[block_id].write_text("{}", encoding="utf-8")
+
+    monkeypatch.setattr(confirmation, "DEVELOPMENT_CLAIM_REPORT", report_path)
+    monkeypatch.setattr(confirmation, "DEVELOPMENT_COMBINED", combined_path)
+    monkeypatch.setattr(
+        confirmation,
+        "DEVELOPMENT_BLOCK_RESULTS",
+        tuple(block_results[block_id] for block_id in development.BLOCK_ORDER),
+    )
+    monkeypatch.setattr(
+        confirmation.daily,
+        "BLOCK_DIRS",
+        {block_id: path.parent for block_id, path in block_results.items()},
+    )
+    monkeypatch.setattr(confirmation.daily, "LEDGERS", ledgers)
+    monkeypatch.setattr(
+        confirmation.daily,
+        "verify_combined_result",
+        lambda **kwargs: verification,
+    )
+    monkeypatch.setattr(
+        confirmation.daily,
+        "validate_block_result",
+        lambda *, path, block_id, ledger_path: {
+            "verified": True,
+            "result_sha256": development.sha256_file(path),
+        },
+    )
+
+    def validate_daily(*, block_id, **kwargs):
+        return {"combined_endpoint_accessed": block_id == "d"}
+
+    finalized = finalize.finalize_development_claim(
+        combined_result=combined_path,
+        claim_report_path=report_path,
+        block_results=block_results,
+        ledgers=ledgers,
+        manifest_validator=lambda path: {"manifest_sha256": "m" * 64},
+        aug10_validator=lambda **kwargs: {"verified": True},
+        block_validator=lambda *, path, block_id, ledger_path: {
+            "verified": True,
+            "result_sha256": development.sha256_file(path),
+        },
+        daily_validator=validate_daily,
+        combined_validator=lambda **kwargs: verification,
+        authorization_validator=confirmation.verify_development_authorization,
+    )
+    assert finalized["status"] == "confirmation_handoff_verified"
+    assert finalized["claim_tier"] == "full_llm_native_development_signal"
+    assert finalized["confirmation_authorization"]["verified"] is True
+    assert finalized["model_calls_made"] == 0
