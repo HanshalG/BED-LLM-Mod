@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-confirmation-execution-bindings-1",
+  "status": "components_frozen_before_responses",
+  "scientific_contract_changed": false,
+  "parent": {
+    "preregistration_sha256": "edbbe7cd9e7ef582fc74629737e6c9261cead4486800bfc8712b0c74e90dd8bc",
+    "protocol_manifest_sha256": "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498",
+    "protocol_verification_sha256": "20a47fd4cde521327a1ea1c3c183a6efad0cd0b580aed6773e49829fd841ab3c"
+  },
+  "amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_CONFIRMATION_EXECUTION_BINDING_AMENDMENT_20260807.md",
+    "sha256": "a5846e62f9be360bac7d11db6d26a62c29a8d15940c285bd54c6b42303d0aecb"
+  },
+  "shared_result_verifier": {
+    "path": "scripts/regretbench_deepseek_result_verify.py",
+    "superseded_sha256": "dd67501dd311cc5882c0274289aeab95b7d3bcb57af8bc7f0d5b79b450957e8f",
+    "sha256": "ad5f516b473cddd4b4957f4921752c85e56936e28517fff1a10a9620500eaa5d",
+    "only_change": "replace development initial-seed literal with a named constant retaining the same default"
+  },
+  "confirmation_producer": {
+    "path": "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py",
+    "sha256": "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
+  },
+  "confirmation_result_verifier": {
+    "path": "scripts/regretbench_deepseek_confirmation_result_verify.py",
+    "sha256": "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
+  },
+  "requirements": {
+    "literal_development_pass": true,
+    "independent_development_replay_verified": true,
+    "confirmation_replay_imports_confirmation_producer": false,
+    "exact_scale_zero_network_rehearsal_completed": true,
+    "confirmation_daily_executor_hash_bound_before_first_call": true,
+    "model_calls_before_freeze": 0,
+    "cost_usd_before_freeze": 0.0
+  }
+}

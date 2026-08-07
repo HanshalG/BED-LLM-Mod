@@ -89,3 +89,20 @@ def test_changed_implementation_binding_fails_protocol_replay(
     assert result["status"] == "failed"
     assert result["gates"]["all_implementation_bindings_match"] is False
     assert result["implementation_bindings"][key] is False
+
+
+def test_changed_daily_executor_binding_fails_protocol_replay(
+    tmp_path: Path, monkeypatch
+) -> None:
+    path = tmp_path / "daily-binding.json"
+    payload = _copy_json(verify.DAILY_EXECUTION_BINDING, path)
+    key = "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py"
+    payload["components"][key] = "0" * 64
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    monkeypatch.setattr(verify, "DAILY_EXECUTION_BINDING", path)
+
+    result = verify.verify_protocol()
+
+    assert result["status"] == "failed"
+    assert result["gates"]["daily_execution_binding_matches"] is False
+    assert result["daily_component_bindings"][key] is False

@@ -22,6 +22,20 @@ SOURCE_MANIFEST = REPO_ROOT / (
 SOURCE_RESULT = REPO_ROOT / (
     "results/nonmyopic/regretbench_llm_native_source_audit/RESULT.json"
 )
+EXECUTION_BINDINGS = REPO_ROOT / (
+    "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
+    "EXECUTION_BINDINGS.json"
+)
+EXECUTION_BINDINGS_SHA256 = (
+    "a2537a081c2137082a3814b2913446fbbad854ff4c59dcd004edfe2a750ed34e"
+)
+DAILY_EXECUTION_BINDING = REPO_ROOT / (
+    "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
+    "DAILY_EXECUTION_BINDING.json"
+)
+DAILY_EXECUTION_BINDING_SHA256 = (
+    "af27762970a4520ca05b5eac637c838690f3b67bc0c6a37cd517a632eb589449"
+)
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
 )
@@ -118,6 +132,8 @@ def verify_protocol(
 ) -> dict[str, Any]:
     protocol = _load(protocol_path)
     source = _load(source_manifest_path)
+    execution = _load(EXECUTION_BINDINGS)
+    daily_binding = _load(DAILY_EXECUTION_BINDING)
     split_ids = {
         name: list(source["splits"][name]["ids"])
         for name in ("mechanics", "development", "confirmation")
@@ -127,10 +143,38 @@ def verify_protocol(
     }
 
     bindings = protocol.get("implementation_bindings_at_freeze", {})
-    binding_matches = {
+    raw_binding_matches = {
         relative: (repo_root / relative).is_file()
         and sha256_file(repo_root / relative) == expected
         for relative, expected in bindings.items()
+    }
+    shared = execution.get("shared_result_verifier", {})
+    binding_matches = dict(raw_binding_matches)
+    shared_path = str(shared.get("path", ""))
+    if (
+        shared_path in bindings
+        and bindings[shared_path] == shared.get("superseded_sha256")
+        and (repo_root / shared_path).is_file()
+        and sha256_file(repo_root / shared_path) == shared.get("sha256")
+    ):
+        binding_matches[shared_path] = True
+    component_matches = {}
+    for name in ("confirmation_producer", "confirmation_result_verifier"):
+        component = execution.get(name, {})
+        relative = str(component.get("path", ""))
+        component_matches[name] = bool(
+            relative
+            and (repo_root / relative).is_file()
+            and sha256_file(repo_root / relative) == component.get("sha256")
+        )
+    amendment = execution.get("amendment", {})
+    amendment_path = repo_root / str(amendment.get("path", ""))
+    daily_amendment = daily_binding.get("amendment", {})
+    daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
+    daily_component_matches = {
+        relative: (repo_root / relative).is_file()
+        and sha256_file(repo_root / relative) == expected
+        for relative, expected in daily_binding.get("components", {}).items()
     }
 
     confirmation_seeds = _confirmation_seeds(protocol)
@@ -177,6 +221,33 @@ def verify_protocol(
         ),
         "all_implementation_bindings_match": bool(binding_matches)
         and all(binding_matches.values()),
+        "execution_binding_amendment_matches": (
+            sha256_file(EXECUTION_BINDINGS) == EXECUTION_BINDINGS_SHA256
+            and execution.get("status") == "components_frozen_before_responses"
+            and execution.get("scientific_contract_changed") is False
+            and amendment_path.is_file()
+            and sha256_file(amendment_path) == amendment.get("sha256")
+            and execution.get("parent", {}).get("protocol_manifest_sha256")
+            == PROTOCOL_SHA256
+            and all(component_matches.values())
+        ),
+        "daily_execution_binding_matches": (
+            sha256_file(DAILY_EXECUTION_BINDING)
+            == DAILY_EXECUTION_BINDING_SHA256
+            and daily_binding.get("status") == "frozen_before_responses"
+            and daily_binding.get("scientific_contract_changed") is False
+            and daily_binding.get("parent_protocol_manifest_sha256")
+            == PROTOCOL_SHA256
+            and daily_binding.get("execution_bindings_sha256")
+            == EXECUTION_BINDINGS_SHA256
+            and daily_binding.get("date") == "2026-08-09"
+            and daily_binding.get("timezone") == "Europe/London"
+            and daily_amendment_path.is_file()
+            and sha256_file(daily_amendment_path)
+            == daily_amendment.get("sha256")
+            and bool(daily_component_matches)
+            and all(daily_component_matches.values())
+        ),
         "exact_confirmation_seed_schedule": (
             len(flattened_confirmation) == expected_confirmation_seed_count
             and all(
@@ -266,6 +337,8 @@ def verify_protocol(
             flattened_confirmation & flattened_development
         ),
         "implementation_bindings": binding_matches,
+        "execution_component_bindings": component_matches,
+        "daily_component_bindings": daily_component_matches,
         "gates": gates,
         "model_calls_made": 0,
         "cost_usd": 0.0,

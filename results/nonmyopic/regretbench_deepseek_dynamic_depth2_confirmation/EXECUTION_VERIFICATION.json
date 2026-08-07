@@ -1,0 +1,59 @@
+{
+  "confirmation_ids_sha256": "780a0e4e172251be2781729eeb4e591592b996dc9e1cd668b26240e3076660c9",
+  "confirmation_seed_count": 1345,
+  "confirmation_task_count": 64,
+  "cost_usd": 0.0,
+  "daily_component_bindings": {
+    "scripts/regretbench_deepseek_confirmation_result_verify.py": true,
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py": true,
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": true,
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": true,
+    "scripts/regretbench_deepseek_result_verify.py": true,
+    "scripts/regretbench_deepseek_support_recovery_daily.py": true
+  },
+  "development_seed_overlap_count": 0,
+  "execution_component_bindings": {
+    "confirmation_producer": true,
+    "confirmation_result_verifier": true
+  },
+  "gates": {
+    "all_implementation_bindings_match": true,
+    "all_pass": true,
+    "budget_is_hard_capped": true,
+    "confirmation_seeds_disjoint_from_development": true,
+    "daily_execution_binding_matches": true,
+    "exact_confirmation_seed_schedule": true,
+    "exact_instrument": true,
+    "exact_mechanics_thresholds": true,
+    "exact_request_arithmetic": true,
+    "exact_source_split_hashes": true,
+    "exact_source_split_sizes": true,
+    "execution_binding_amendment_matches": true,
+    "freeze_made_zero_calls_and_cost": true,
+    "literal_verified_development_pass_required": true,
+    "manifest_confirmation_binding_matches": true,
+    "protocol_hash_matches": true,
+    "science_gates_unchanged": true,
+    "source_manifest_hash_matches": true,
+    "source_result_hash_matches": true,
+    "source_splits_pairwise_disjoint": true
+  },
+  "implementation_bindings": {
+    "results/nonmyopic/REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_CONFIRMATION_PREREGISTRATION.md": true,
+    "results/nonmyopic/REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION.md": true,
+    "results/nonmyopic/REGRETBENCH_DEEPSEEK_SUPPORT_RECOVERY_PREREGISTRATION.md": true,
+    "results/nonmyopic/REGRETBENCH_DISTINCT_ACTION_AMENDMENT_20260807.md": true,
+    "results/nonmyopic/REGRETBENCH_OUTCOME_CRN_AMENDMENT_20260807.md": true,
+    "results/nonmyopic/REGRETBENCH_VALID_TRAJECTORY_ENDPOINT_AMENDMENT_20260807.md": true,
+    "scripts/regretbench_deepseek_dynamic_depth2_policy.py": true,
+    "scripts/regretbench_deepseek_result_verify.py": true,
+    "scripts/regretbench_deepseek_support_recovery.py": true
+  },
+  "interface_version": "regretbench-confirmation-protocol-verification-1",
+  "model_calls_made": 0,
+  "protocol_sha256": "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498",
+  "schema_version": 1,
+  "source_manifest_sha256": "8a46b40395487aae0857d1a61d6f680beef579414c4580acf09d7e0b30b38e97",
+  "source_result_sha256": "d7a10f15ecf6779520fbb20712c8d43059d8b03168fa904fe72e82ffe87578de",
+  "status": "verified_frozen_protocol"
+}

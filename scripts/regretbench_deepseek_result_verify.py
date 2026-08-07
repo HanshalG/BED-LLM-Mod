@@ -75,6 +75,7 @@ PLANNING_REQUESTS = 8_256
 MAX_PRIMARY_REQUESTS = 8_768
 POLICY_BUDGET = 3.50
 BOOTSTRAP_SEED = 202608150000
+INITIAL_SEED_START = 202608089000
 BRANCH_SEED_START = 202608100000
 ACTUAL_FIRST_SEED_START = 202608110000
 ACTUAL_FINAL_SEED_START = 202608120000
@@ -991,7 +992,9 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
     controls = _load(run_dir / "private" / "CONTROLS.json")
     cigs = _stage_cigs("development")
     initial = [_parse_support(raw, enriched=True) for raw in initial_artifact["responses"]]
-    if len(initial) != 64 or initial_artifact["seeds"] != [202608089000 + index for index in range(64)]:
+    if len(initial) != 64 or initial_artifact["seeds"] != [
+        INITIAL_SEED_START + index for index in range(64)
+    ]:
         raise ValueError("initial policy schedule changed")
     manifests = branch_artifact["manifest"]
     paired_seeds = branch_artifact["paired_seeds"]
