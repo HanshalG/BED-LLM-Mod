@@ -819,6 +819,20 @@ def _public_science(science: Mapping[str, Any]) -> dict[str, Any]:
     return output
 
 
+def _smc_scientific_summary(
+    tasks: Sequence[Mapping[str, Any]], *, samples: int
+) -> dict[str, Any]:
+    # The shared scorer is hash-frozen for Aug 8. Bind its configurable module
+    # seed only for this isolated call so the SMC protocol uses its disjoint
+    # preregistered bootstrap range without changing the frozen source file.
+    prior = scorer.BOOTSTRAP_SEED
+    scorer.BOOTSTRAP_SEED = BOOTSTRAP_SEED
+    try:
+        return scorer.scientific_summary(tasks, samples=samples)
+    finally:
+        scorer.BOOTSTRAP_SEED = prior
+
+
 def run_realized_primary(
     *,
     output_dir: Path,
@@ -1106,9 +1120,7 @@ def run_realized_primary(
     scorer_tasks = [_scorer_task(task) for task in tasks]
     science = (
         _public_science(
-            scorer.scientific_summary(
-                scorer_tasks, samples=bootstrap_samples
-            )
+            _smc_scientific_summary(scorer_tasks, samples=bootstrap_samples)
         )
         if gates["all_pass"]
         else None
@@ -1369,6 +1381,12 @@ def run_naive_baseline(
     return {
         "status": "available",
         "rows": rows,
+        "selected_questions": [
+            {"first": first, "second": second}
+            for first, second in zip(
+                first_questions, second_questions, strict=True
+            )
+        ],
         "luna_usage": naive_usage,
         "endpoint_usage": endpoint_usage,
         "naive_privacy": naive_privacy,
@@ -1401,6 +1419,9 @@ def finalize_development_result(
     naive_error: Mapping[str, str] | None = None,
     naive_usage_on_error: Mapping[str, Any] | None = None,
     endpoint_usage_on_error: Mapping[str, Any] | None = None,
+    primary_privacy: Sequence[Mapping[str, Any]] = (),
+    naive_privacy: Sequence[Mapping[str, Any]] = (),
+    endpoint_privacy: Sequence[Mapping[str, Any]] = (),
     daily_budget_status: Mapping[str, Any] | None = None,
     bootstrap_samples: int = 20_000,
 ) -> dict[str, Any]:
@@ -1414,6 +1435,9 @@ def finalize_development_result(
             raise ValueError("naive baseline row count changed")
         for task, row in zip(tasks, rows, strict=True):
             task["policies"]["naive_thinking"] = row
+        selected_questions = list(naive_result["selected_questions"])
+        if len(selected_questions) != len(tasks):
+            raise ValueError("naive selected-question count changed")
         naive_usage = dict(naive_result["luna_usage"])
         endpoint_usage = dict(naive_result["endpoint_usage"])
         baseline = {
@@ -1472,9 +1496,7 @@ def finalize_development_result(
     scorer_tasks = [_scorer_task(task) for task in tasks]
     science = (
         _public_science(
-            scorer.scientific_summary(
-                scorer_tasks, samples=bootstrap_samples
-            )
+            _smc_scientific_summary(scorer_tasks, samples=bootstrap_samples)
         )
         if mechanics["all_pass"]
         else None
@@ -1552,4 +1574,25 @@ def finalize_development_result(
     }
     output_dir.mkdir(parents=True, exist_ok=True)
     checkpoint(output_dir / "RESULT.json", result)
+    private = output_dir / "private"
+    private.mkdir(parents=True, exist_ok=True)
+    controls_path = private / "CONTROLS_PRIMARY.json"
+    if naive_result is not None and naive_error is None and controls_path.is_file():
+        controls = _load_json(controls_path)
+        control_rows = controls.get("tasks") or []
+        if len(control_rows) != len(selected_questions):
+            raise ValueError("primary private-control count changed")
+        for row, questions in zip(
+            control_rows, selected_questions, strict=True
+        ):
+            row["selected_questions"]["naive_thinking"] = questions
+        checkpoint(controls_path, controls)
+    checkpoint(
+        private / "PRIVACY.json",
+        {
+            "primary": list(primary_privacy),
+            "naive": list(naive_privacy),
+            "naive_endpoint": list(endpoint_privacy),
+        },
+    )
     return result

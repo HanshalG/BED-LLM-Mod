@@ -7,6 +7,7 @@ import pytest
 
 from scripts import regretbench_deepseek_smc_dynamic_depth2_experiment as experiment
 from scripts import regretbench_deepseek_smc_dynamic_depth2_policy as core
+from scripts import regretbench_deepseek_smc_dynamic_depth2_verify as verifier
 
 
 def _question(text: str) -> str:
@@ -428,6 +429,11 @@ def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
 
     monkeypatch.setattr(experiment.primary, "sample_truth", fake_truth)
     monkeypatch.setattr(experiment.primary, "map_and_answer", fake_map)
+    # The synthetic fixture intentionally reuses its precomputed truth rather
+    # than the frozen SMC truth seed. Keep the independent verifier on that
+    # same test oracle without coupling it to the producer implementation.
+    monkeypatch.setattr(verifier.base, "_truth", fake_truth)
+    monkeypatch.setattr(verifier.base, "_map", fake_map)
 
     realized = experiment.run_realized_primary(
         output_dir=output_dir,
@@ -486,6 +492,9 @@ def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
         policy_smoke={"sha256": "policy-smoke"},
         naive_smoke={"sha256": "naive-smoke"},
         naive_result=naive,
+        primary_privacy=[*tree["privacy"], *realized["actual_privacy"]],
+        naive_privacy=naive["naive_privacy"],
+        endpoint_privacy=naive["endpoint_privacy"],
         daily_budget_status={"authorized": True},
         bootstrap_samples=100,
     )
@@ -494,9 +503,45 @@ def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
     assert final["usage"]["deepseek_naive_endpoint"]["adapter_requests"] == 128
     assert final["usage"]["naive_luna"]["adapter_requests"] == 128
     assert all("naive_thinking" in task["policies"] for task in final["tasks"])
+    assert final["science"]["comparisons"]["smc_myopic_refresh_brier"][
+        "brier_dynamic_minus_baseline"
+    ]["seed"] == 202608360200
     assert json.loads((output_dir / "RESULT.json").read_text())["status"] == final[
         "status"
     ]
+    privacy = json.loads((output_dir / "private/PRIVACY.json").read_text())
+    assert len(privacy["primary"]) == realized["expected_primary_requests"]
+    assert len(privacy["naive"]) == 128
+    assert len(privacy["naive_endpoint"]) == 128
+    verification = verifier.verify(output_dir, primary_dir=primary_dir)
+    assert verification["status"] == "verified"
+    assert verification["mismatches"] == []
+    assert verification["model_calls"] == 0
+
+    result_path = output_dir / "RESULT.json"
+    stored_result = result_path.read_text()
+    tampered_result = json.loads(stored_result)
+    first_policy = next(iter(tampered_result["tasks"][0]["policies"]))
+    tampered_result["tasks"][0]["policies"][first_policy]["brier"] += 0.1
+    result_path.write_text(json.dumps(tampered_result))
+    tampered_verification = verifier.verify(output_dir, primary_dir=primary_dir)
+    assert tampered_verification["status"] == "verification_failed"
+    assert any(
+        path.startswith("$.tasks")
+        for path in tampered_verification["mismatches"]
+    )
+    result_path.write_text(stored_result)
+
+    branches_path = output_dir / "private/RAW_BRANCHES.json"
+    stored_branches = branches_path.read_text()
+    tampered_branches = json.loads(stored_branches)
+    first_branch = json.loads(tampered_branches["responses"][0])
+    first_branch["retained_parent_indexes"] = [99]
+    tampered_branches["responses"][0] = json.dumps(first_branch)
+    branches_path.write_text(json.dumps(tampered_branches))
+    with pytest.raises(ValueError):
+        verifier.verify(output_dir, primary_dir=primary_dir)
+    branches_path.write_text(stored_branches)
 
     without_naive = experiment.finalize_development_result(
         output_dir=tmp_path / "without-naive",
