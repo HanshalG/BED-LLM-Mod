@@ -295,10 +295,19 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
         "mean_brier",
         "mean_log_loss",
     }
+    assert set(result["dynamic_vs_fixed_depth2"]) == {
+        "mean_brier",
+        "mean_log_loss",
+    }
     assert "dynamic_vs_history_blind_relative_brier_improvement" in result
+    assert "dynamic_vs_fixed_depth2_relative_brier_improvement" in result
     assert set(result["ranking_fidelity"]) == set(mechanics.SCORE_POLICIES)
     assert all(
         "dynamic_history_blind_changed_final_histories" in row
+        for row in result["blockwise_dynamic_vs_myopic"].values()
+    )
+    assert all(
+        "dynamic_fixed_changed_final_histories" in row
         for row in result["blockwise_dynamic_vs_myopic"].values()
     )
     assert all(

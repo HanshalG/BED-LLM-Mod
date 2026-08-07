@@ -15,6 +15,10 @@ The subsequently frozen
 `BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md` makes the benchmark's
 positive-present/negative-absent rule semantics explicit before any model
 response; all policies, tasks, endpoints, seeds, and gates remain unchanged.
+The later
+`BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md` advances the
+development result interface to `-7` and strengthens only the claim boundary:
+the strongest tier must also beat fixed-support depth two.
 
 ## Claim And Boundary
 
@@ -188,7 +192,7 @@ policy/metric offset implemented in the runner.
 5. the paired bootstrap probability that dynamic improves Brier is at least
    0.80;
 6. dynamic mean log loss is no worse than myopic;
-7. dynamic mean Brier is no worse than fixed-depth-two or shuffled-dynamic;
+7. dynamic mean Brier is no worse than shuffled-dynamic;
 8. all endpoint metrics are finite, and confirmation/test remain unopened.
 
 The matched history-blind amendment additionally requires at least 12 changed
@@ -196,6 +200,14 @@ final histories across all four blocks, at least 3% relative Brier improvement,
 at least 0.80 paired bootstrap probability of improvement, nonworse log loss,
 and nonworse ranking fidelity. These are conjunctive with the eight original
 conditions.
+
+The strongest path-dependent-support tier additionally requires at least 12
+dynamic/fixed final-history differences, at least 12 first-action differences
+that clear the existing `1e-6`-nat dynamic-score margin, a difference in every
+execution block, at least 3% relative Brier improvement over fixed depth two,
+paired bootstrap improvement probability at least 0.80, non-worse log loss,
+and non-worse ranking fidelity. Only the conjunction of the policy,
+history-blind, and path-dependent-support families authorizes confirmation.
 
 A pass authorizes writing a fresh 64-task confirmation preregistration, not
 running it. A null returns development to the four mechanics tasks for one

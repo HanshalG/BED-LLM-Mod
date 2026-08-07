@@ -203,6 +203,7 @@ def _scored_tree(task_id: str, index: int) -> dict:
             "dynamic_depth2": {
                 "dynamic-first": 1.0,
                 "myopic_width-first": 0.5,
+                "fixed_depth2-first": 0.4,
             }
         },
         "ranking_fidelity": {
@@ -254,6 +255,10 @@ def test_combined_analysis_uses_strict_confirmation_gates(
     assert result["status"] == "confirmation_pass"
     assert result["gates"]["all_pass"] is True
     assert result["comparisons_vs_myopic"]["dynamic_depth2"]["mean_brier"]["ci95"][1] < 0
+    assert result["dynamic_vs_fixed_depth2"]["mean_brier"]["ci95"][1] < 0
+    assert result["gates"][
+        "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero"
+    ]
     assert result["sealed_test_authorized"] is False
 
 

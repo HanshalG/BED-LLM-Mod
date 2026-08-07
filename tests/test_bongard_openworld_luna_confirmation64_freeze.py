@@ -24,14 +24,21 @@ def test_confirmation_rows_are_fixed_opaque_and_disjoint() -> None:
     assert all("uid" not in json.dumps(row).casefold() for row in rows)
 
 
-def test_science_gate_families_bind_policy_and_matched_mechanism() -> None:
+def test_science_gate_families_bind_path_dependent_support() -> None:
     gates = freeze._science_gates()
-    assert set(gates) == {"shared", "policy", "matched_mechanism"}
+    assert set(gates) == {
+        "shared",
+        "policy",
+        "matched_mechanism",
+        "path_dependent_support",
+    }
     assert any("myopic" in gate for gate in gates["policy"])
     assert any("history_blind" in gate for gate in gates["matched_mechanism"])
+    assert any("fixed_depth2" in gate for gate in gates["path_dependent_support"])
     assert all("bootstrap_95pct_upper_below_zero" in gate for gate in (
         gates["policy"][6],
         gates["matched_mechanism"][3],
+        gates["path_dependent_support"][4],
     ))
 
 
@@ -41,7 +48,7 @@ def test_build_manifest_is_fail_closed_and_truth_free(tmp_path) -> None:
     assert result["status"] == "frozen"
     assert result["gates"]["all_pass"] is True
     assert result["development_precondition"]["required_claim_tier"] == (
-        "full_llm_native_development_signal"
+        "full_path_dependent_llm_native_development_signal"
     )
     assert result["development_precondition"][
         "authorization_amendment_sha256"

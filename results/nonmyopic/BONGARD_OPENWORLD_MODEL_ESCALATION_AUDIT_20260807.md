@@ -50,7 +50,8 @@ model change. This audit made zero model calls and spent `$0`.
 
 The fresh August 10 preflight remains `ready_without_paid_calls`, with zero
 files written, exact development-manifest SHA-256
-`451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4`,
+`a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1`,
 Luna live in the required modalities, and a `$2.00` maximum component-cap sum.
-The rebound manifest adds the pre-response contrastive task clarification; it
-does not change the frozen model-escalation boundary.
+The current rebound manifest includes the pre-response contrastive task
+clarification and stronger path-dependent fixed-support claim family; neither
+changes the frozen model-escalation boundary.

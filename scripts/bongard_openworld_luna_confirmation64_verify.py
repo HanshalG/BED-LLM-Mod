@@ -22,29 +22,29 @@ from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-2"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-3"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V2.json"
+    "PROTOCOL_MANIFEST_V3.json"
 )
 MANIFEST_SHA256 = (
-    "34f2c992a1bb8f56d3f882b804caf1fa95c1017e22f9673a7584a0c2a610eee9"
+    "8a6dd0879ee63b38a016ca954285563ec1bd1964d018ae6af79e24547aa2d284"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4"
+    "a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
-    "BONGARD_OPENWORLD_LUNA_CONFIRMATION64_AUTHORIZATION_AMENDMENT.md"
+    "BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md"
 )
 AUTHORIZATION_AMENDMENT_SHA256 = (
-    "c6f01987774fe8434298a6171d8f07ab7df6f8132c1cd64f443a98e13aef2f0a"
+    "3dc22154312b93465e2b7d308a76f9de800d145d219189b77f3a0262f83f32a4"
 )
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
@@ -151,7 +151,7 @@ def verify_manifest(
             and precondition.get("required_claim_report_interface")
             == claim_report.INTERFACE_VERSION
             and precondition.get("required_claim_tier")
-            == "full_llm_native_development_signal"
+            == "full_path_dependent_llm_native_development_signal"
             and precondition.get("authorization_amendment_sha256")
             == AUTHORIZATION_AMENDMENT_SHA256
             and sha256_file(AUTHORIZATION_AMENDMENT)
@@ -227,10 +227,16 @@ def verify_manifest(
         ),
         "science_gate_families_are_complete": (
             set(manifest.get("science_gates") or {})
-            == {"shared", "policy", "matched_mechanism"}
+            == {
+                "shared",
+                "policy",
+                "matched_mechanism",
+                "path_dependent_support",
+            }
             and len(manifest["science_gates"]["shared"]) == 4
-            and len(manifest["science_gates"]["policy"]) == 10
+            and len(manifest["science_gates"]["policy"]) == 9
             and len(manifest["science_gates"]["matched_mechanism"]) == 6
+            and len(manifest["science_gates"]["path_dependent_support"]) == 7
         ),
     }
     if require_unopened_predecessors:

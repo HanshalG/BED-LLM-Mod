@@ -20,7 +20,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-1"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-2"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
@@ -38,7 +38,6 @@ POLICY_GATES = (
     "dynamic_brier_relative_improvement_at_least_3_percent",
     "dynamic_brier_bootstrap_improvement_probability_at_least_0_80",
     "dynamic_log_loss_is_not_worse_than_myopic",
-    "dynamic_brier_is_not_worse_than_fixed_depth2",
     "dynamic_brier_is_not_worse_than_shuffled_control",
 )
 MECHANISM_GATES = (
@@ -49,11 +48,25 @@ MECHANISM_GATES = (
     "dynamic_log_loss_is_not_worse_than_history_blind",
     "dynamic_ranking_fidelity_is_not_worse_than_history_blind",
 )
-EXPECTED_GATES = (*SHARED_GATES, *POLICY_GATES, *MECHANISM_GATES)
+PATH_DEPENDENT_GATES = (
+    "at_least_12_dynamic_final_histories_differ_from_fixed_depth2",
+    "at_least_12_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
+    "dynamic_and_fixed_depth2_differ_in_every_execution_block",
+    "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
+    "dynamic_brier_vs_fixed_depth2_bootstrap_probability_at_least_0_80",
+    "dynamic_log_loss_is_not_worse_than_fixed_depth2",
+    "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
+)
+EXPECTED_GATES = (
+    *SHARED_GATES,
+    *POLICY_GATES,
+    *MECHANISM_GATES,
+    *PATH_DEPENDENT_GATES,
+)
 
 
 CLAIM_SCOPES = {
-    "full_llm_native_development_signal": {
+    "full_path_dependent_llm_native_development_signal": {
         "allowed": [
             (
                 "Prospective development evidence that dynamic depth-two "
@@ -64,12 +77,35 @@ CLAIM_SCOPES = {
                 "belief regeneration improves over same-seed history-blind "
                 "regeneration."
             ),
+            (
+                "Prospective development evidence that answer-conditioned "
+                "dynamic support improves over classical fixed-support "
+                "depth-two planning."
+            ),
         ],
         "forbidden": [
             "held-out confirmation",
             "sealed-test evidence",
             "cross-model robustness",
             "universal non-myopic benefit",
+        ],
+    },
+    "policy_and_matched_regeneration_without_fixed_support_superiority": {
+        "allowed": [
+            (
+                "Prospective development evidence for dynamic depth-two "
+                "planning over myopic-width selection."
+            ),
+            (
+                "Matched-control development evidence for answer-conditioned "
+                "versus history-blind regeneration."
+            ),
+        ],
+        "forbidden": [
+            "superiority over fixed-support depth-two planning",
+            "confirmation authorization",
+            "held-out confirmation",
+            "sealed-test evidence",
         ],
     },
     "policy_signal_without_matched_mechanism": {
@@ -149,21 +185,30 @@ def classify_result(result: Mapping[str, Any]) -> dict[str, Any]:
     shared = _family(gates, SHARED_GATES)
     policy = _family(gates, (*SHARED_GATES, *POLICY_GATES))
     mechanism = _family(gates, (*SHARED_GATES, *MECHANISM_GATES))
-    if policy["pass"] and mechanism["pass"]:
-        tier = "full_llm_native_development_signal"
+    path_dependent = _family(gates, (*SHARED_GATES, *PATH_DEPENDENT_GATES))
+    if policy["pass"] and mechanism["pass"] and path_dependent["pass"]:
+        tier = "full_path_dependent_llm_native_development_signal"
+    elif policy["pass"] and mechanism["pass"]:
+        tier = (
+            "policy_and_matched_regeneration_without_"
+            "fixed_support_superiority"
+        )
     elif policy["pass"]:
         tier = "policy_signal_without_matched_mechanism"
     elif mechanism["pass"]:
         tier = "matched_mechanism_without_policy_signal"
     else:
         tier = "development_null"
-    if computed_all != (tier == "full_llm_native_development_signal"):
+    if computed_all != (
+        tier == "full_path_dependent_llm_native_development_signal"
+    ):
         raise AssertionError("claim tier and confirmation gate diverged")
     return {
         "claim_tier": tier,
         "shared_validity": shared,
         "policy_family": policy,
         "matched_mechanism_family": mechanism,
+        "path_dependent_support_family": path_dependent,
         "claim_scope": CLAIM_SCOPES[tier],
         "authorizes_confirmation_preregistration": computed_all,
     }
@@ -202,6 +247,7 @@ def build_claim_report(
         "pooled_policy_metrics": result["pooled_policy_metrics"],
         "comparisons_vs_myopic": result["comparisons_vs_myopic"],
         "dynamic_vs_history_blind": result["dynamic_vs_history_blind"],
+        "dynamic_vs_fixed_depth2": result["dynamic_vs_fixed_depth2"],
         "ranking_fidelity": result["ranking_fidelity"],
         "dynamic_vs_myopic_relative_brier_improvement": result[
             "dynamic_vs_myopic_relative_brier_improvement"
@@ -209,11 +255,17 @@ def build_claim_report(
         "dynamic_vs_history_blind_relative_brier_improvement": result[
             "dynamic_vs_history_blind_relative_brier_improvement"
         ],
+        "dynamic_vs_fixed_depth2_relative_brier_improvement": result[
+            "dynamic_vs_fixed_depth2_relative_brier_improvement"
+        ],
         "dynamic_vs_myopic_changed_final_histories": result[
             "dynamic_vs_myopic_changed_final_histories"
         ],
         "dynamic_vs_history_blind_changed_final_histories": result[
             "dynamic_vs_history_blind_changed_final_histories"
+        ],
+        "dynamic_vs_fixed_depth2_changed_final_histories": result[
+            "dynamic_vs_fixed_depth2_changed_final_histories"
         ],
     }
     if not _finite(metrics):

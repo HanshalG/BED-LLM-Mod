@@ -12,6 +12,9 @@ interface is `-6`.
 The pre-response task wording is clarified by
 `BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md` without changing this
 interface, its response schema, or any gate.
+The later path-dependent-support claim amendment strengthens only the
+development/confirmation interpretation: fixed-support depth two must be
+prospectively beaten for the strongest tier. Mechanics execution is unchanged.
 Earliest execution date: 2026-08-10 (Europe/London)
 
 ## Objective

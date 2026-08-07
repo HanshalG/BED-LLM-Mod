@@ -24,7 +24,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-2"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-3"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -69,14 +69,14 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4"
+    "a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
-    "BONGARD_OPENWORLD_LUNA_CONFIRMATION64_AUTHORIZATION_AMENDMENT.md"
+    "BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md"
 )
 AUTHORIZATION_AMENDMENT_SHA256 = (
-    "c6f01987774fe8434298a6171d8f07ab7df6f8132c1cd64f443a98e13aef2f0a"
+    "3dc22154312b93465e2b7d308a76f9de800d145d219189b77f3a0262f83f32a4"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
@@ -136,7 +136,6 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_relative_improvement_at_least_3_percent",
             "dynamic_brier_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_myopic",
-            "dynamic_brier_is_not_worse_than_fixed_depth2",
             "dynamic_brier_is_not_worse_than_shuffled_control",
         ],
         "matched_mechanism": [
@@ -146,6 +145,15 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_vs_history_blind_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_history_blind",
             "dynamic_ranking_fidelity_is_not_worse_than_history_blind",
+        ],
+        "path_dependent_support": [
+            "at_least_24_dynamic_final_histories_differ_from_fixed_depth2",
+            "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
+            "dynamic_and_fixed_depth2_differ_in_every_execution_block",
+            "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
+            "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero",
+            "dynamic_log_loss_is_not_worse_than_fixed_depth2",
+            "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
         ],
     }
 
@@ -228,7 +236,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "development_precondition": {
             "manifest_sha256": DEVELOPMENT_MANIFEST_SHA256,
             "required_claim_report_interface": claim_report.INTERFACE_VERSION,
-            "required_claim_tier": "full_llm_native_development_signal",
+            "required_claim_tier": (
+                "full_path_dependent_llm_native_development_signal"
+            ),
             "authorization_amendment_sha256": (
                 AUTHORIZATION_AMENDMENT_SHA256
             ),

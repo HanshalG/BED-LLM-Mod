@@ -47,3 +47,8 @@ not tightened before data.
 The next permitted action remains the frozen August 10 Luna serving and
 mechanics sequence. No model substitution or early development access is
 authorized.
+
+Later on the same pre-response date, the path-dependent-support claim audit
+superseded these execution bindings with development manifest `a649a769...`
+and confirmation V3 manifest `8a6dd087...`. The prompt clarification and all
+claims in this audit remain part of that rebound protocol.

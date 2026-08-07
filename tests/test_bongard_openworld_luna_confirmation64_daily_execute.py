@@ -99,7 +99,10 @@ def test_preflight_ready_checks_live_model_and_pristine_paths(
     monkeypatch.setattr(
         daily.confirmation,
         "verify_development_authorization",
-        lambda: {"verified": True, "claim_tier": "full_llm_native_development_signal"},
+        lambda: {
+            "verified": True,
+            "claim_tier": "full_path_dependent_llm_native_development_signal",
+        },
     )
     monkeypatch.setattr(
         daily.aug10,
@@ -132,7 +135,7 @@ def test_execute_block_a_reconciles_and_keeps_endpoint_sealed(
     manifest = {"verified": True, "manifest_sha256": "m" * 64}
     authorization = {
         "verified": True,
-        "claim_tier": "full_llm_native_development_signal",
+        "claim_tier": "full_path_dependent_llm_native_development_signal",
     }
     monkeypatch.setattr(
         daily.confirmation, "verify_protocol_manifest", lambda: manifest

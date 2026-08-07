@@ -51,6 +51,10 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
             "mean_brier": summary,
             "mean_log_loss": summary,
         },
+        "dynamic_vs_fixed_depth2": {
+            "mean_brier": summary,
+            "mean_log_loss": summary,
+        },
         "ranking_fidelity": {
             "dynamic_depth2": {"mean_spearman": 0.3, "sample_sd": 0.2},
             "myopic_width": {"mean_spearman": 0.2, "sample_sd": 0.2},
@@ -61,8 +65,10 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
         },
         "dynamic_vs_myopic_relative_brier_improvement": 0.1,
         "dynamic_vs_history_blind_relative_brier_improvement": 0.05,
+        "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
         "dynamic_vs_myopic_changed_final_histories": 16,
         "dynamic_vs_history_blind_changed_final_histories": 14,
+        "dynamic_vs_fixed_depth2_changed_final_histories": 15,
     }
 
 
@@ -80,7 +86,15 @@ def _verification(result: dict, sha256: str = "a" * 64) -> dict:
 @pytest.mark.parametrize(
     ("failed", "expected_tier", "authorized"),
     [
-        ((), "full_llm_native_development_signal", True),
+        ((), "full_path_dependent_llm_native_development_signal", True),
+        (
+            (claim.PATH_DEPENDENT_GATES[0],),
+            (
+                "policy_and_matched_regeneration_without_"
+                "fixed_support_superiority"
+            ),
+            False,
+        ),
         (
             (claim.MECHANISM_GATES[0],),
             "policy_signal_without_matched_mechanism",
@@ -215,6 +229,8 @@ def test_full_tier_finalizer_reaches_exact_confirmation_handoff(
         authorization_validator=confirmation.verify_development_authorization,
     )
     assert finalized["status"] == "confirmation_handoff_verified"
-    assert finalized["claim_tier"] == "full_llm_native_development_signal"
+    assert finalized["claim_tier"] == (
+        "full_path_dependent_llm_native_development_signal"
+    )
     assert finalized["confirmation_authorization"]["verified"] is True
     assert finalized["model_calls_made"] == 0

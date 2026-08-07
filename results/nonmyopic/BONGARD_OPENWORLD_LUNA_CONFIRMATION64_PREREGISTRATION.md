@@ -10,9 +10,10 @@ non-myopic depth-two selection over answer-conditioned VLM-generated semantic
 hypotheses, including the matched history-blind regeneration control.
 
 The confirmation can execute only if the independent 32-task development result
-reaches the already frozen `full_llm_native_development_signal` claim tier: the
-conjunction of the policy and matched-mechanism families. A development null or
-partial tier forbids confirmation execution.
+reaches the already frozen
+`full_path_dependent_llm_native_development_signal` claim tier: the conjunction
+of the policy, matched-mechanism, and path-dependent-support families. A
+development null or partial tier forbids confirmation execution.
 
 ## Data Boundary
 
@@ -56,7 +57,7 @@ The policy family requires:
 - at least 3% dynamic Brier improvement over myopic;
 - a paired complete-task 20,000-bootstrap 95% interval strictly below zero;
 - dynamic log loss no worse than myopic; and
-- dynamic Brier no worse than fixed-depth-two or shuffled-continuation controls.
+- dynamic Brier no worse than the shuffled-continuation control.
 
 The matched-mechanism family independently requires:
 
@@ -66,6 +67,15 @@ The matched-mechanism family independently requires:
 - a paired complete-task 20,000-bootstrap 95% interval strictly below zero;
 - dynamic log loss no worse than history blind; and
 - dynamic ranking fidelity no worse than history blind.
+
+The path-dependent-support family independently requires:
+
+- at least 24 dynamic/fixed final-history and margin-clearing first-action
+  changes, with at least one change in every block;
+- at least 3% dynamic Brier improvement over fixed-support depth two;
+- a paired complete-task 20,000-bootstrap 95% interval strictly below zero;
+- dynamic log loss no worse than fixed; and
+- dynamic ranking fidelity no worse than fixed.
 
 Only the conjunction supports the full confirmation claim. No result authorizes
 opening the official test, the reserve, an unregistered model swap, or a causal
@@ -85,12 +95,16 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V2.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V3.json`
 
 SHA-256:
-`34f2c992a1bb8f56d3f882b804caf1fa95c1017e22f9673a7584a0c2a610eee9`.
+`8a6dd0879ee63b38a016ca954285563ec1bd1964d018ae6af79e24547aa2d284`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
 UIDs, seeds, policies, endpoints, sample sizes, and statistical gates are
 unchanged; only the prompt and its transitive implementation bindings changed.
+V3 further strengthens the claim boundary before responses: dynamic support
+must beat fixed-support depth two on changed paths, relative Brier, paired
+uncertainty, log loss, and ranking fidelity. Tasks, calls, seeds, endpoints,
+budgets, and execution dates remain unchanged.

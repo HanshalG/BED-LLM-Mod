@@ -44,6 +44,11 @@ the contrastive prompt clarification rebound the development protocol to
 `451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4`;
 the frozen tasks, seeds, endpoints, and gates did not change.
 
+The later pre-response path-dependent claim audit supersedes that development
+binding again with `a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1`.
+It strengthens only the fixed-support claim/authorization family; the daily
+execution chain, calls, tasks, seeds, dates, and budgets remain unchanged.
+
 A later transport audit found that the concurrent Luna adapters still relied
 on post-response run-budget checks. August 10--14 interface-v2 wrappers now
 bind precharge amendment `75acd7ae...bbbff4`, reserve `$0.004` before every

@@ -107,7 +107,10 @@ def finalize_development_claim(
     report = claim_report.bank_claim_report(claim_report_path, report)
 
     authorization = None
-    if report["claim_tier"] == "full_llm_native_development_signal":
+    if (
+        report["claim_tier"]
+        == "full_path_dependent_llm_native_development_signal"
+    ):
         authorization = authorization_validator()
         if authorization.get("verified") is not True:
             raise RuntimeError("full development tier did not authorize confirmation")
