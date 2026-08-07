@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from datetime import datetime
 import json
+import math
 from pathlib import Path
 import sys
 from typing import Any, Callable, Mapping
@@ -18,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts import bongard_openworld_luna_naive_first_link as baseline
 from scripts import bongard_openworld_luna_naive_first_link_daily_execute as baseline_daily
+from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import regretbench_deepseek_support_recovery as recovery
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.openrouter_daily_budget import read_live_credits, require_budget
@@ -39,6 +41,8 @@ LEDGER = (
 RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
 )
+DEEPSEEK_MAX_REQUEST_COST_USD = 0.0015
+MIN_RESERVED_PROMPT_TOKENS = 4_096
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -59,6 +63,60 @@ def _day_spent(ledger: Mapping[str, Any], live: Mapping[str, float]) -> float:
         - float(ledger["opening_total_usage_usd"]),
     )
     return max(posted, float(ledger["recorded_actual_spend_usd"]))
+
+
+def validate_deepseek_model_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
+    matches = [
+        row for row in catalog.get("data", []) if row.get("id") == recovery.MODEL_ID
+    ]
+    if len(matches) != 1:
+        raise RuntimeError("exact DeepSeek 0731 endpoint is unavailable")
+    model = matches[0]
+    architecture = model.get("architecture") or {}
+    input_modalities = set(architecture.get("input_modalities") or [])
+    output_modalities = set(architecture.get("output_modalities") or [])
+    supported = set(model.get("supported_parameters") or [])
+    top = model.get("top_provider") or {}
+    if "text" not in input_modalities or "text" not in output_modalities:
+        raise RuntimeError("DeepSeek 0731 no longer supports text input/output")
+    if "seed" not in supported:
+        raise RuntimeError("DeepSeek 0731 no longer advertises seeded requests")
+    if not ({"response_format", "structured_outputs"} & supported):
+        raise RuntimeError("DeepSeek 0731 no longer advertises structured output")
+    if int(top.get("context_length") or 0) < 65_536:
+        raise RuntimeError("DeepSeek 0731 context limit is below the frozen protocol")
+    if int(top.get("max_completion_tokens") or 0) < recovery.MAX_TOKENS:
+        raise RuntimeError("DeepSeek 0731 completion limit is below the frozen protocol")
+    pricing = model.get("pricing") or {}
+    try:
+        prompt = float(pricing.get("prompt", math.nan))
+        completion = float(pricing.get("completion", math.nan))
+    except (TypeError, ValueError) as exc:
+        raise RuntimeError("DeepSeek 0731 live pricing is invalid") from exc
+    if not all(math.isfinite(value) and value >= 0 for value in (prompt, completion)):
+        raise RuntimeError("DeepSeek 0731 live pricing is invalid")
+    residual = (
+        DEEPSEEK_MAX_REQUEST_COST_USD - completion * recovery.MAX_TOKENS
+    )
+    covered_prompt = math.inf if prompt == 0 else residual / prompt
+    if residual < 0 or covered_prompt + 1e-9 < MIN_RESERVED_PROMPT_TOKENS:
+        raise RuntimeError(
+            "DeepSeek per-attempt reservation no longer covers prompt/output"
+        )
+    return {
+        "id": model["id"],
+        "input_modalities": sorted(input_modalities),
+        "output_modalities": sorted(output_modalities),
+        "seed_supported": True,
+        "structured_output_supported": True,
+        "context_length": int(top["context_length"]),
+        "max_completion_tokens": int(top["max_completion_tokens"]),
+        "prompt_usd_per_million_tokens": prompt * 1_000_000,
+        "completion_usd_per_million_tokens": completion * 1_000_000,
+        "maximum_request_cost_usd": DEEPSEEK_MAX_REQUEST_COST_USD,
+        "minimum_reserved_prompt_tokens": MIN_RESERVED_PROMPT_TOKENS,
+        "covered_prompt_tokens_at_live_price": covered_prompt,
+    }
 
 
 def validate_baseline_predecessor() -> dict[str, Any]:
@@ -94,6 +152,7 @@ def preflight(
     *,
     now: datetime | None = None,
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    catalog_reader: Callable[[], dict[str, Any]] = aug10.read_openrouter_model_catalog,
 ) -> dict[str, Any]:
     _validate_date(now)
     if (
@@ -108,6 +167,7 @@ def preflight(
             raise RuntimeError(f"RegretBench output path is not pristine: {path}")
     if LEDGER.exists():
         raise RuntimeError("RegretBench supplemental daily ledger already exists")
+    model = validate_deepseek_model_catalog(catalog_reader())
     live = live_reader()
     spent = _day_spent(predecessor["ledger"], live)
     maximum = (
@@ -123,6 +183,7 @@ def preflight(
         "interface_version": INTERFACE_VERSION,
         "status": "ready_without_paid_calls",
         "date": DATE,
+        "model": model,
         "predecessor": {
             key: value for key, value in predecessor.items() if key != "ledger"
         },

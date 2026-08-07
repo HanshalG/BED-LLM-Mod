@@ -25,6 +25,12 @@ spend as the maximum of posted and locally measured cost after each stage, and
 refuses the combined `$0.20 + $0.50` caps if they do not fit inside the same
 Europe/London `$5.00` day.
 
+Before any adapter construction, the daily preflight now also requires the
+exact live 0731 endpoint, seeded structured output, frozen context/completion
+limits, and enough price-adjusted request reservation for `2,200` output plus
+at least `4,096` prompt tokens. The frozen exhaustive serialized-request
+envelope is `3,354` bytes; live coverage at audit time is `12,266.67` tokens.
+
 ## Verification
 
 ```text
@@ -35,7 +41,7 @@ pytest -q \
   tests/test_openrouter_daily_budget.py \
   tests/test_validate_experiments_ledger.py
 
-20 passed in 1.87s
+25 passed in 1.89s
 ```
 
 The synthetic development fixture traverses the complete 64-task, 192-response
@@ -50,7 +56,7 @@ instrument test only and supplies no scientific evidence.
 - support-recovery runner:
   `7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2`
 - Aug 8 daily executor:
-  `0b4eb81fa755f50a008dfa43106e2b1b1c8313d6b7ba653ab456074317632e87`
+  `0ee8dbfb632b64ca5bb71fe23495e74f00b7fb46fef27559342af3fd47a08303`
 - source preregistration:
   `7d68263cb75e120bccf69a892ed08ec459343b44cf51ded61b240398e0fd0b5c`
 - support-recovery preregistration:

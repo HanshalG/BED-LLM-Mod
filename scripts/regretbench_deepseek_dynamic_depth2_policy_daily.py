@@ -19,6 +19,8 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import regretbench_deepseek_dynamic_depth2_policy as policy
 from scripts import regretbench_deepseek_support_recovery as recovery
 from scripts import regretbench_deepseek_support_recovery_daily as recovery_daily
+from scripts import bongard_openworld_luna_aug10_execute as aug10
+from scripts import bongard_openworld_luna_naive_first_link_daily_execute as baseline_daily
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
@@ -101,6 +103,7 @@ def preflight(
     *,
     now: datetime | None = None,
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
+    catalog_reader: Callable[[], dict[str, Any]] = aug10.read_openrouter_model_catalog,
 ) -> dict[str, Any]:
     _validate_date(now)
     policy.validate_protocol_binding()
@@ -110,6 +113,22 @@ def preflight(
             raise RuntimeError(f"policy output path is not pristine: {path}")
     if LEDGER.exists():
         raise RuntimeError("policy supplemental ledger already exists")
+    catalog = catalog_reader()
+    deepseek = recovery_daily.validate_deepseek_model_catalog(catalog)
+    deepseek["status"] = "available"
+    try:
+        luna = baseline_daily._validate_model_catalog(catalog)
+    except (RuntimeError, TypeError, ValueError) as exc:
+        luna = {
+            "id": policy.NAIVE_MODEL_ID,
+            "status": "unavailable",
+            "can_affect_primary_status": False,
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        }
+    else:
+        luna["status"] = "available"
+    models = {"deepseek": deepseek, "luna": luna}
     live = live_reader()
     spent = _spent(predecessor["ledger"], live)
     maximum = (
@@ -126,6 +145,7 @@ def preflight(
         "interface_version": INTERFACE_VERSION,
         "status": "ready_without_paid_calls",
         "date": DATE,
+        "models": models,
         "predecessor": {
             key: value for key, value in predecessor.items() if key != "ledger"
         },
@@ -283,62 +303,73 @@ def execute(
         checkpoint(ROOT / "DAILY_RESULT.json", result)
         return result
 
-    ledger["stages"]["naive_smoke"]["status"] = "authorized_pending"
-    checkpoint(LEDGER, ledger)
-    naive_smoke_adapter = policy.build_naive_adapter(
-        stage="smoke",
-        run_id="regretbench-luna-naive-policy-smoke-20260808",
-        output_dir=NAIVE_SMOKE_DIR,
+    luna_available = (
+        ready.get("models", {}).get("luna", {}).get("status") == "available"
     )
-    try:
-        live = live_reader()
-        naive_smoke = policy.run_naive_smoke(
-            output_dir=NAIVE_SMOKE_DIR,
-            run_id="regretbench-luna-naive-policy-smoke-20260808",
-            support_smoke_result=support_smoke,
-            support_development_result=support_development,
-            policy_smoke_result=SMOKE_DIR / "RESULT.json",
-            adapter=naive_smoke_adapter,
-            daily_budget_status=_budget_status(
-                ledger,
-                projected=policy.NAIVE_SMOKE_BUDGET_USD,
-                live=live,
-            ),
-        )
-    except Exception as exc:
-        ledger = _reconcile(
-            ledger,
-            stage="naive_smoke",
-            status="failed_closed",
-            measured_cost=summarize_adapter(naive_smoke_adapter),
-            live=live_reader(),
+    if not luna_available:
+        naive_smoke_status = "unavailable_preflight"
+        naive_smoke_path = ROOT / "NAIVE_SMOKE_STATUS.json"
+        ledger["stages"]["naive_smoke"].update(
+            {"status": naive_smoke_status, "actual_cost_usd": 0.0}
         )
         checkpoint(LEDGER, ledger)
-        naive_smoke_status = "failed_closed"
-        naive_smoke_path = NAIVE_SMOKE_DIR / "FAILURE.json"
-        checkpoint(
-            naive_smoke_path,
-            {
-                "schema_version": SCHEMA_VERSION,
-                "interface_version": policy.INTERFACE_VERSION,
-                "status": naive_smoke_status,
-                "authorizes": "nothing",
-                "can_affect_primary_status": False,
-                "error_type": type(exc).__name__,
-                "error": str(exc),
-            },
-        )
     else:
-        naive_smoke_status = naive_smoke["status"]
-        naive_smoke_path = NAIVE_SMOKE_DIR / "RESULT.json"
-        ledger = _reconcile(
-            ledger,
-            stage="naive_smoke",
-            status=naive_smoke_status,
-            measured_cost=float(naive_smoke["usage"]["run_cost_usd"]),
-            live=live_reader(),
-        )
+        ledger["stages"]["naive_smoke"]["status"] = "authorized_pending"
         checkpoint(LEDGER, ledger)
+        naive_smoke_adapter = policy.build_naive_adapter(
+            stage="smoke",
+            run_id="regretbench-luna-naive-policy-smoke-20260808",
+            output_dir=NAIVE_SMOKE_DIR,
+        )
+        try:
+            live = live_reader()
+            naive_smoke = policy.run_naive_smoke(
+                output_dir=NAIVE_SMOKE_DIR,
+                run_id="regretbench-luna-naive-policy-smoke-20260808",
+                support_smoke_result=support_smoke,
+                support_development_result=support_development,
+                policy_smoke_result=SMOKE_DIR / "RESULT.json",
+                adapter=naive_smoke_adapter,
+                daily_budget_status=_budget_status(
+                    ledger,
+                    projected=policy.NAIVE_SMOKE_BUDGET_USD,
+                    live=live,
+                ),
+            )
+        except Exception as exc:
+            ledger = _reconcile(
+                ledger,
+                stage="naive_smoke",
+                status="failed_closed",
+                measured_cost=summarize_adapter(naive_smoke_adapter),
+                live=live_reader(),
+            )
+            checkpoint(LEDGER, ledger)
+            naive_smoke_status = "failed_closed"
+            naive_smoke_path = NAIVE_SMOKE_DIR / "FAILURE.json"
+            checkpoint(
+                naive_smoke_path,
+                {
+                    "schema_version": SCHEMA_VERSION,
+                    "interface_version": policy.INTERFACE_VERSION,
+                    "status": naive_smoke_status,
+                    "authorizes": "nothing",
+                    "can_affect_primary_status": False,
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                },
+            )
+        else:
+            naive_smoke_status = naive_smoke["status"]
+            naive_smoke_path = NAIVE_SMOKE_DIR / "RESULT.json"
+            ledger = _reconcile(
+                ledger,
+                stage="naive_smoke",
+                status=naive_smoke_status,
+                measured_cost=float(naive_smoke["usage"]["run_cost_usd"]),
+                live=live_reader(),
+            )
+            checkpoint(LEDGER, ledger)
     naive_baseline_enabled = naive_smoke_status == "passed"
     if not naive_baseline_enabled:
         checkpoint(
@@ -351,6 +382,7 @@ def execute(
                 "naive_baseline_enabled": False,
                 "can_affect_primary_status": False,
                 "naive_smoke_artifact": str(naive_smoke_path),
+                "catalog_status": ready.get("models", {}).get("luna"),
             },
         )
 

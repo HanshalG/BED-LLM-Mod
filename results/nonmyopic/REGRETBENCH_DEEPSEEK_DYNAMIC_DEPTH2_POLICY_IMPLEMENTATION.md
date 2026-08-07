@@ -71,6 +71,14 @@ reserves every concurrent request against one combined `$3.50` cap. A formal
 baseline failure is banked without changing primary mechanics or science.
 Confirmation remains sealed regardless of a development null.
 
+The daily preflight now validates both live model records before adapter
+construction. DeepSeek must retain seeded structured output and sufficient
+price-adjusted `$0.0015` request coverage; Luna must retain multimodal,
+reasoning, structured-output, and `$0.008` request coverage. DeepSeek failure
+stops the primary protocol; Luna failure records `unavailable_preflight`, skips
+all naive calls, and continues primary execution. This is a fail-before-
+dispatch operational amendment only.
+
 ## Verification
 
 ```text
@@ -83,7 +91,7 @@ pytest -q \
   tests/test_bongard_openworld_luna_naive_first_link.py \
   tests/test_openrouter_model.py
 
-69 passed in 15.83s
+76 passed in 15.79s
 ```
 
 The synthetic full run materializes all `8,256` planning responses and every
@@ -106,9 +114,9 @@ fresh-endpoint reversal is reported but cannot change primary gates.
 - policy core:
   `ca75b5031d7d680975df894d905b605b9445436288f64a4f3cdfa15025e6da03`
 - policy daily executor:
-  `cf7089df7472881ad683a163ece55fb70d7b2fe716bc582425a7180bbd1ff243`
+  `ac6b8d58f8cc442ef1f5d3ed56c2cdb3caf5a46f919b3bfe372c7a415e62179c`
 - amended support-recovery daily executor:
-  `0b4eb81fa755f50a008dfa43106e2b1b1c8313d6b7ba653ab456074317632e87`
+  `0ee8dbfb632b64ca5bb71fe23495e74f00b7fb46fef27559342af3fd47a08303`
 
 ## Conditional Execution
 
