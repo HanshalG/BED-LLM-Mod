@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Final future-clock audit of the pushed Aug8 RegretBench chain is
+ready. Authenticated credits/usage/balance remain245/220.113606154/24.886393846;
+reported$30 top-up is still unposted and excluded,but existing balance covers
+the$4.80 chain. Exact preflight returns ready_without_paid_calls,next Luna naive
+baseline smoke,$.20 reservation,$4.80 remaining,0 calls/0 writes. Wrapper,
+binding,and three component hashes match;all10 dated outputs/ledgers pristine;
+combined executor tests24/24. Use registered /opt/anaconda3 Python. No protocol,
+model,seed,threshold,endpoint,or budget change.
+
 2026-08-07: Audit a cost-matched DeepSeek/Luna SMC transition ensemble before
 responses. Keep both frozen draws on dated DeepSeek0731. Existing exact10 and
 reliability128 evidence measures Number Game support/schema behavior,not
