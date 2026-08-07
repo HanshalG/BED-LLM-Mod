@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Audit a cost-matched DeepSeek/Luna SMC transition ensemble before
+responses. Keep both frozen draws on dated DeepSeek0731. Existing exact10 and
+reliability128 evidence measures Number Game support/schema behavior,not
+RegretBench transition-risk residuals or cross-model error covariance. Moving
+4096 calls to Luna adds about$.13--$.73 from observed request costs;the upper
+estimate moves projected development from$3.10 to$3.83,over the frozen$3.50
+cap. Preserve draw/root/conditioned-blind CRN and interpret live ranking-only
+failure as simulator fidelity. Mixed nonreasoning routing is a future interface
+only after residual-correlation evidence and a new exact cost/schema gate.
+Calls/cost0,endpoints unopened.
+
 2026-08-07: Make q1 endpoint validity visible and separate penalty-driven gains
 before responses. Reporting amendmenta6cc6c56 adds per-policy truth-consistent
 q1-match and likelihood-aligned path rates. It preregisters20k-bootstrap paired
