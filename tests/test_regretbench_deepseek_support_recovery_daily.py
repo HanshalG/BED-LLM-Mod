@@ -72,6 +72,16 @@ def test_preflight_inherits_account_wide_baseline_opening(tmp_path, monkeypatch)
     assert result["model_calls_made"] == 0
 
 
+def test_preflight_refuses_support_core_hash_change(monkeypatch) -> None:
+    monkeypatch.setattr(daily, "RECOVERY_CORE_SHA256", "0" * 64)
+
+    with pytest.raises(RuntimeError, match="core binding changed"):
+        daily.preflight(
+            now=datetime(2026, 8, 8, 12, tzinfo=ZoneInfo("Europe/London")),
+            live_reader=_live,
+        )
+
+
 def test_preflight_rejects_when_combined_caps_do_not_fit(tmp_path, monkeypatch) -> None:
     _install_baseline_files(tmp_path, monkeypatch, recorded=4.5)
     monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")

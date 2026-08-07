@@ -64,7 +64,7 @@ SOURCE_MANIFEST_SHA256 = (
     "8a46b40395487aae0857d1a61d6f680beef579414c4580acf09d7e0b30b38e97"
 )
 PREREGISTRATION_SHA256 = (
-    "32825b97d9c73bbe940d2f0dfff5cb5deebd80f2cfec16812f227659a88a6dfe"
+    "666dfde7a49d512a23c5cc8bd78a6e3caa5386f71ce41c07c4c5c123aaab96d2"
 )
 SPLIT_HASHES = {
     "mechanics": "707be5a1d1f86d6a0dc08ee61df77da1b9597093ac557d2e7706fcad8ef3b2f6",
@@ -389,8 +389,13 @@ def lexical_alias_match(generated: str, alias: str) -> bool:
         return False
     if generated_norm == alias_norm:
         return True
-    shorter = min((generated_norm, alias_norm), key=len)
-    longer = max((generated_norm, alias_norm), key=len)
+    if len(generated_norm) == len(alias_norm):
+        return False
+    shorter, longer = (
+        (generated_norm, alias_norm)
+        if len(generated_norm) < len(alias_norm)
+        else (alias_norm, generated_norm)
+    )
     return len(shorter) >= 8 and len(shorter.split()) >= 2 and shorter in longer
 
 

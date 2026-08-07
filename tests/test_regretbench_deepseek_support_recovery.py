@@ -139,6 +139,8 @@ def test_lexical_match_is_conservative() -> None:
     )
     assert not run.lexical_alias_match("Argentina", "in argentina")
     assert not run.lexical_alias_match("artist", "artist and explorer")
+    assert not run.lexical_alias_match("binary 1", "binary 0")
+    assert not run.lexical_alias_match("New York", "Newark X")
 
 
 def test_payload_contract_rejects_extra_hidden_fields() -> None:

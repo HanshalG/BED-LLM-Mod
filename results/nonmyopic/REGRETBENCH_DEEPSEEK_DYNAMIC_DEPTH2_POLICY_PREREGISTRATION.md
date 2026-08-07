@@ -9,8 +9,8 @@ regeneration improves two-question identification of a hidden semantic intent.
 The primary comparison is:
 
 - `dynamic_depth2`: choose the first question by expected terminal truth-mass
-  Brier after answer-conditioned support regeneration and an EIG-selected
-  second question;
+  Brier after answer-conditioned support regeneration, an EIG-selected second
+  question, and the generated reply-likelihood update for that question;
 - `myopic_width`: choose the first question by immediate EIG while consuming
   the exact same generated tree and executing the same dynamic continuation.
 
@@ -28,7 +28,9 @@ This protocol is frozen before any RegretBench model response. It is bound to:
 - source manifest
   `8a46b40395487aae0857d1a61d6f680beef579414c4580acf09d7e0b30b38e97`;
 - support-recovery preregistration
-  `32825b97d9c73bbe940d2f0dfff5cb5deebd80f2cfec16812f227659a88a6dfe`;
+  `666dfde7a49d512a23c5cc8bd78a6e3caa5386f71ce41c07c4c5c123aaab96d2`;
+- support-recovery core
+  `7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2`;
 - development split hash
   `29d33b2fda0be7cc4eea6f4d9d4fe74fe200b5c580632dcb7ba844c3b825af69`.
 
@@ -142,7 +144,7 @@ root is executed once and shared by every policy selecting it:
 4. its maximum-EIG second question is selected without hidden information;
 5. the official mapper and exact environment answer it; and
 6. a final enriched support is generated from the complete two-question
-   history.
+   history as a secondary robustness endpoint.
 
 Within a task, every distinct selected root uses the same requested seed for
 its first refresh and the same separate requested seed for its final refresh.
@@ -150,11 +152,21 @@ Different tasks retain distinct seeds. This realized common-random-number
 coupling makes paired policy differences depend on their histories rather than
 avoidable root-specific model-seed draws.
 
-The primary endpoint is final truth-mass Brier, where truth mass is the summed
-final-support probability of answers matching a hidden answer alias. Secondary
-endpoints are final truth log loss, lexical truth coverage, supported-action
-rates, and truth mass after question one. Continuous mass prevents a binary
-coverage ceiling from carrying the main claim.
+The primary endpoint exactly matches the rollout state transition. On the
+support regenerated after question one, hypotheses whose generated reply to
+the selected question two exactly matches the lowercase alphanumeric
+normalization of the environment reply receive likelihood one and all others
+likelihood zero. Primary terminal truth mass is
+the normalized probability of matching hidden answer aliases within that
+outcome group. If no generated reply matches the exact reply, mass is zero.
+Primary Brier and log loss use this aligned mass.
+
+The separately generated support after question two remains a secondary
+robustness endpoint: fresh-regeneration truth mass, Brier, log loss, and lexical
+coverage. This directly measures whether the terminal LLM redraw preserves the
+same conclusion without replacing the endpoint that the planner actually
+predicts. Supported-action rates and truth mass after question one are also
+secondary. Continuous mass prevents binary coverage from carrying the claim.
 
 All comparisons are paired by task and common hidden truth. Report means,
 sample standard deviations, wins/ties/losses, 20,000 paired task-bootstrap
@@ -164,13 +176,17 @@ predicted-to-realized Spearman diagnostics.
 For `naive_thinking`, the first question is generated before hidden truth
 access. After its exact first reply, one DeepSeek enriched support measures
 first-step truth mass, while Luna independently chooses question two from
-visible dialogue. A final DeepSeek support after the second exact reply supplies
-the identical terminal endpoint used for every BED policy.
+visible dialogue. Because Luna's free-form second question is not one of that
+support's four likelihood-aligned questions, its terminal metric is the shared
+fresh-regeneration endpoint only. Naive comparisons are explicitly descriptive
+and are never mixed into primary aligned-endpoint gates.
 
 ## Exact-10 Enriched Serving Smoke
 
 Use all four mechanics tasks: four initial enriched supports followed by one
-conditioned/blind pair for each of the first three tasks. Exact seeds:
+conditioned/blind pair for each of the first three tasks. The conditioned arm
+receives the exact official reply to its mapped first question, not a generated
+hypothesis reply. Exact seeds:
 
 - initial: `202608088000 + task_index`;
 - matched branch: `202608088100 + task_index`.
@@ -180,8 +196,10 @@ provider retries, reasoning, and forced exits; all strict enriched schemas with
 exactly eight unique hypotheses; four unique questions and aligned replies;
 at least two informative root questions per initial support; at least one
 informative follow-up per branch support; all three selected first questions
-officially supported; every privacy audit passing; and cost at most `$0.20`.
-No endpoint is opened and no smoke efficacy value may authorize passage.
+and all three branch-selected second questions officially supported; every
+exact second reply matching at least one aligned generated reply; every privacy
+audit passing; and cost at most `$0.20`. No answer-alias truth mass, Brier,
+policy comparison, or other efficacy endpoint is opened.
 
 ## Exact-10 Naive-Thinking Smoke
 
@@ -240,6 +258,8 @@ All must pass:
 - at least 90% of simulated branch supports have an informative follow-up;
 - every primary policy has at least 48 supported first actions and 40 supported
   second actions;
+- every primary policy has at least 40 exact second replies represented by its
+  generated likelihood partition;
 - every primary public artifact excludes raw questions, replies, aliases, facets,
   hidden intent indexes, and raw responses; and
 - conditioned/blind pairs share exact seeds, all four simulated roots share
@@ -261,13 +281,13 @@ All are conjunctive:
 3. dynamic and fixed roots differ on at least `12/64` tasks;
 4. conditioned dynamic predicted Brier improves over the myopic-selected root
    by at least `0.01` on average;
-5. dynamic minus myopic realized Brier is at most `-0.02`, bootstrap
+5. dynamic minus myopic aligned realized Brier is at most `-0.02`, bootstrap
    probability of improvement is at least `0.90`, and wins exceed losses;
-6. dynamic minus history-blind realized Brier is at most `-0.015`, bootstrap
+6. dynamic minus history-blind aligned realized Brier is at most `-0.015`, bootstrap
    probability of improvement is at least `0.80`, and wins exceed losses;
-7. dynamic minus fixed realized Brier is at most `-0.01`, bootstrap probability
+7. dynamic minus fixed aligned realized Brier is at most `-0.01`, bootstrap probability
    of improvement is at least `0.80`, and wins exceed losses;
-8. dynamic mean log loss is no worse than each of myopic, history-blind, and
+8. dynamic mean aligned log loss is no worse than each of myopic, history-blind, and
    fixed; and
 9. on dynamic/myopic changed-root tasks, predicted Brier advantage has Spearman
    correlation at least `0.15` with realized Brier advantage and bootstrap

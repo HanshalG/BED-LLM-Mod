@@ -47,6 +47,13 @@ def test_parser_and_question_eig_are_exact() -> None:
     assert sum(item["probability"] for item in support["hypotheses"]) == pytest.approx(1)
 
 
+def test_protocol_binding_refuses_support_core_change(monkeypatch) -> None:
+    monkeypatch.setattr(policy, "SUPPORT_RECOVERY_CORE_SHA256", "0" * 64)
+
+    with pytest.raises(ValueError, match="support-recovery core binding changed"):
+        policy.validate_protocol_binding()
+
+
 def test_duplicate_enriched_particle_fails_instead_of_changing_width() -> None:
     payload = _support()
     payload["hypotheses"][1] = dict(payload["hypotheses"][0])
@@ -72,6 +79,31 @@ def test_branch_truth_metric_rewards_recoverable_truth() -> None:
     assert recovered_metric["expected_brier"] == 0.0
     assert missing_metric["truth_mass"] == 0.0
     assert missing_metric["expected_brier"] == 1.0
+
+
+def test_realized_terminal_metric_conditions_generated_likelihoods() -> None:
+    support = policy.parse_enriched_support(json.dumps(_support()))
+
+    matched = policy.realized_terminal_metrics(
+        support,
+        question_index=0,
+        observed_reply="binary 0",
+        aliases="answer 0",
+    )
+    missing = policy.realized_terminal_metrics(
+        support,
+        question_index=0,
+        observed_reply="not represented",
+        aliases="answer 0",
+    )
+
+    assert matched["reply_matched"] is True
+    assert matched["matched_hypothesis_count"] == 4
+    assert matched["truth_mass"] == pytest.approx(0.25)
+    assert matched["brier"] == pytest.approx(0.75**2)
+    assert missing["reply_matched"] is False
+    assert missing["truth_mass"] == 0.0
+    assert missing["brier"] == 1.0
 
 
 def test_root_level_crn_removes_seed_only_candidate_advantage() -> None:
@@ -115,6 +147,20 @@ def _science_task(index: int) -> dict:
         "fixed_depth2": 3,
         "random": index % 4,
     }
+    policies = {
+        "dynamic_depth2": {"brier": dynamic_brier, "log_loss": 0.10},
+        "myopic_width": {
+            "brier": dynamic_brier + realized_gain,
+            "log_loss": 0.30,
+        },
+        "history_blind_depth2": {"brier": 0.20, "log_loss": 0.25},
+        "fixed_depth2": {"brier": 0.18, "log_loss": 0.22},
+        "random": {"brier": 0.25, "log_loss": 0.30},
+        "naive_thinking": {"brier": 0.16, "log_loss": 0.20},
+    }
+    for values in policies.values():
+        values["fresh_brier"] = values["brier"]
+        values["fresh_log_loss"] = values["log_loss"]
     return {
         "selected_roots": roots,
         "conditioned_root_risks": [
@@ -123,17 +169,7 @@ def _science_task(index: int) -> dict:
             {"brier": 0.20},
             {"brier": 0.22},
         ],
-        "policies": {
-            "dynamic_depth2": {"brier": dynamic_brier, "log_loss": 0.10},
-            "myopic_width": {
-                "brier": dynamic_brier + realized_gain,
-                "log_loss": 0.30,
-            },
-            "history_blind_depth2": {"brier": 0.20, "log_loss": 0.25},
-            "fixed_depth2": {"brier": 0.18, "log_loss": 0.22},
-            "random": {"brier": 0.25, "log_loss": 0.30},
-            "naive_thinking": {"brier": 0.16, "log_loss": 0.20},
-        },
+        "policies": policies,
     }
 
 
@@ -149,7 +185,35 @@ def test_scientific_summary_enforces_full_conjunctive_claim() -> None:
         "ties": 0,
         "losses": 0,
     }
+    assert "naive_thinking" not in summary["comparisons"]
+    assert (
+        "naive_thinking"
+        in summary["fresh_regeneration_comparisons_descriptive"]
+    )
     assert summary["predicted_to_realized_dynamic_myopic"]["spearman"] == pytest.approx(1)
+
+
+def test_fresh_regeneration_endpoint_is_descriptive_only() -> None:
+    tasks = [_science_task(index) for index in range(64)]
+    for task in tasks:
+        task["policies"]["dynamic_depth2"]["fresh_brier"] = 0.9
+        task["policies"]["dynamic_depth2"]["fresh_log_loss"] = 2.0
+        for baseline in (
+            "myopic_width",
+            "history_blind_depth2",
+            "fixed_depth2",
+            "random",
+            "naive_thinking",
+        ):
+            task["policies"][baseline]["fresh_brier"] = 0.1
+            task["policies"][baseline]["fresh_log_loss"] = 0.1
+
+    summary = policy.scientific_summary(tasks, samples=300)
+
+    assert summary["gates"]["all_pass"] is True
+    assert summary["fresh_regeneration_comparisons_descriptive"][
+        "myopic_width"
+    ]["brier_dynamic_minus_baseline"]["mean"] == pytest.approx(0.8)
 
 
 class _FixtureAdapter:
@@ -165,11 +229,24 @@ class _FixtureAdapter:
             cig.cig_id: cig.semantic_facets[0].replace("_", " ") for cig in all_cigs
         }
         self.truth_aliases = {}
+        self.truth_replies = {}
+        for index, cig in enumerate(recovery.load_stage_cigs("smoke")):
+            _, truth = recovery.sample_truth(
+                cig, recovery.STAGES["smoke"]["truth_seed_start"] + index
+            )
+            facet = cig.semantic_facets[0]
+            self.truth_replies[cig.cig_id] = str(
+                (truth.slots or {}).get(facet, "")
+            )
         for index, cig in enumerate(recovery.load_stage_cigs("development")):
             _, truth = recovery.sample_truth(cig, policy.TRUTH_SEED_START + index)
             self.truth_aliases[cig.cig_id] = str(
                 (truth.slots or {})["answer_aliases"]
             ).split("|")[0]
+            facet = cig.semantic_facets[0]
+            self.truth_replies[cig.cig_id] = str(
+                (truth.slots or {}).get(facet, "")
+            )
 
     def _root_from_question(self, text: str) -> int:
         for index, word in enumerate(self.WORDS):
@@ -212,17 +289,20 @@ class _FixtureAdapter:
         ]
         hypotheses = []
         for index in range(8):
+            predicted_replies = [
+                f"sim-q0-h{index % 2}",
+                f"sim-q1-h{index}",
+                f"sim-q2-h{index % 2}",
+                f"sim-q3-h{index % 3}",
+            ]
+            if index == 0:
+                predicted_replies = [self.truth_replies[task_id]] * 4
             hypotheses.append(
                 {
                     "interpretation": f"fixture interpretation {index}",
                     "final_answer": answers[index],
                     "prior_weight": weights[index],
-                    "predicted_replies": [
-                        f"sim-q0-h{index % 2}",
-                        f"sim-q1-h{index}",
-                        f"sim-q2-h{index % 2}",
-                        f"sim-q3-h{index % 3}",
-                    ],
+                    "predicted_replies": predicted_replies,
                 }
             )
         return json.dumps({"hypotheses": hypotheses, "questions": questions})
@@ -397,6 +477,18 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert all(result["mechanics_gates"].values())
     assert result["naive_baseline"]["status"] == "available"
     assert result["naive_baseline"]["all_transport_and_schema_gates_pass"] is True
+    assert all(
+        task["policies"]["dynamic_depth2"]["endpoint_mode"]
+        == "aligned_generated_likelihood"
+        for task in result["tasks"]
+    )
+    assert all(
+        "fresh_brier" in task["policies"]["dynamic_depth2"]
+        for task in result["tasks"]
+    )
+    assert result["protocol"]["fresh_regeneration_endpoint"] == (
+        "secondary_descriptive"
+    )
     assert result["status"] in {"passed", "gated_null"}
     assert len(result["tasks"]) == 64
     assert all("naive_thinking" in task["policies"] for task in result["tasks"])

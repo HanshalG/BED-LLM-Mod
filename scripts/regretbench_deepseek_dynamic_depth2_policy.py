@@ -97,9 +97,12 @@ PREREGISTRATION = (
     "REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION.md"
 )
 PREREGISTRATION_SHA256 = (
-    "bea7a0df9a8f22e93b66e73888dc6c3fa1b5ad79794896d9ce8ee2bd8b91c6fb"
+    "03c0f5bd48bd021d696e8641c29942644306b2fd3532157c52af3fc01b6d0f54"
 )
 PROBABILITY_FLOOR = 1e-12
+SUPPORT_RECOVERY_CORE_SHA256 = (
+    "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
+)
 
 
 class StructuredAdapter(Protocol):
@@ -118,6 +121,10 @@ class StructuredAdapter(Protocol):
 
 def validate_protocol_binding() -> None:
     recovery.validate_source_bindings()
+    if recovery.sha256_file(Path(recovery.__file__).resolve()) != (
+        SUPPORT_RECOVERY_CORE_SHA256
+    ):
+        raise ValueError("support-recovery core binding changed")
     if recovery.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
         raise ValueError("dynamic policy preregistration changed")
 
@@ -392,6 +399,22 @@ def select_question(
 
 def _answer_matches(left: str, right: str) -> bool:
     return recovery.lexical_alias_match(left, right)
+
+
+def matching_reply_indexes(
+    support: Mapping[str, Any], question_index: int, observed_reply: str
+) -> list[int]:
+    observed = recovery.normalize_text(observed_reply)
+    if not observed:
+        return []
+    return [
+        index
+        for index, hypothesis in enumerate(support["hypotheses"])
+        if recovery.normalize_text(
+            hypothesis["predicted_replies"][question_index]
+        )
+        == observed
+    ]
 
 
 def branch_truth_metrics(
@@ -801,12 +824,14 @@ def run_smoke(
     branch_messages = []
     branch_seeds = []
     mappings = []
+    truths = []
     for index, (cig, support) in enumerate(zip(cigs[:3], initial[:3], strict=True)):
         question = support["questions"][0]
-        answer = support["hypotheses"][0]["predicted_replies"][0]
         _, truth = recovery.sample_truth(cig, recovery.STAGES["smoke"]["truth_seed_start"] + index)
+        truths.append(truth)
         mapping = recovery.map_and_answer(cig, question, truth)
         mappings.append(mapping)
+        answer = mapping["answer"]
         conditioned, audit_conditioned = messages_for(
             cig,
             [
@@ -821,6 +846,19 @@ def run_smoke(
         privacy.extend([audit_conditioned, audit_blind])
     raw_branches = _call(adapter, branch_messages, branch_seeds)
     branches = [parse_enriched_support(raw) for raw in raw_branches]
+    second_mappings = []
+    second_reply_matches = []
+    for cig, truth, conditioned in zip(
+        cigs[:3], truths, branches[::2], strict=True
+    ):
+        second = select_question(conditioned)
+        mapping = recovery.map_and_answer(
+            cig, conditioned["questions"][second], truth
+        )
+        second_mappings.append(mapping)
+        second_reply_matches.append(
+            bool(matching_reply_indexes(conditioned, second, mapping["answer"]))
+        )
     checkpoint(
         private / "RAW_RESPONSES.json",
         {"initial": raw_initial, "branches": raw_branches},
@@ -850,6 +888,12 @@ def run_smoke(
         ),
         "all_three_first_questions_supported": all(
             item["supported"] for item in mappings
+        ),
+        "all_three_second_questions_supported": all(
+            item["supported"] for item in second_mappings
+        ),
+        "all_three_exact_second_replies_match_generated_likelihoods": all(
+            second_reply_matches
         ),
         "all_privacy_audits_pass": len(privacy) == 10
         and all(item["passed"] for item in privacy),
@@ -1031,6 +1075,42 @@ def truth_mass_for_aliases(support: Mapping[str, Any], aliases: str) -> float:
     )
 
 
+def realized_terminal_metrics(
+    support: Mapping[str, Any],
+    *,
+    question_index: int,
+    observed_reply: str,
+    aliases: str,
+) -> dict[str, Any]:
+    outcome_indexes = matching_reply_indexes(
+        support, question_index, observed_reply
+    )
+    denominator = sum(
+        support["hypotheses"][index]["probability"]
+        for index in outcome_indexes
+    )
+    alternatives = [item.strip() for item in aliases.split("|") if item.strip()]
+    numerator = sum(
+        support["hypotheses"][index]["probability"]
+        for index in outcome_indexes
+        if any(
+            _answer_matches(
+                support["hypotheses"][index]["final_answer"], alias
+            )
+            for alias in alternatives
+        )
+    )
+    truth_mass = numerator / denominator if denominator > 0.0 else 0.0
+    return {
+        "reply_matched": bool(outcome_indexes),
+        "matched_hypothesis_count": len(outcome_indexes),
+        "truth_mass": truth_mass,
+        "brier": (1.0 - truth_mass) ** 2,
+        "log_loss": -math.log(max(PROBABILITY_FLOOR, truth_mass)),
+        "covered": truth_mass > 0.0,
+    }
+
+
 def _rankdata(values: Sequence[float]) -> np.ndarray:
     array = np.asarray(values, dtype=float)
     order = np.argsort(array, kind="mergesort")
@@ -1086,15 +1166,17 @@ def comparison_summary(
     *,
     samples: int,
     seed: int,
+    brier_key: str = "brier",
+    log_loss_key: str = "log_loss",
 ) -> dict[str, Any]:
     brier = [
-        task["policies"]["dynamic_depth2"]["brier"]
-        - task["policies"][baseline]["brier"]
+        task["policies"]["dynamic_depth2"][brier_key]
+        - task["policies"][baseline][brier_key]
         for task in tasks
     ]
     log_loss = [
-        task["policies"]["dynamic_depth2"]["log_loss"]
-        - task["policies"][baseline]["log_loss"]
+        task["policies"]["dynamic_depth2"][log_loss_key]
+        - task["policies"][baseline][log_loss_key]
         for task in tasks
     ]
     return {
@@ -1170,8 +1252,6 @@ def scientific_summary(
         "fixed_depth2",
         "random",
     ]
-    if all("naive_thinking" in task["policies"] for task in tasks):
-        baselines.append("naive_thinking")
     comparisons = {
         baseline: comparison_summary(
             tasks,
@@ -1180,6 +1260,20 @@ def scientific_summary(
             seed=BOOTSTRAP_SEED + index * 10,
         )
         for index, baseline in enumerate(baselines)
+    }
+    fresh_baselines = list(baselines)
+    if all("naive_thinking" in task["policies"] for task in tasks):
+        fresh_baselines.append("naive_thinking")
+    fresh_comparisons = {
+        baseline: comparison_summary(
+            tasks,
+            baseline,
+            samples=samples,
+            seed=BOOTSTRAP_SEED + 500 + index * 10,
+            brier_key="fresh_brier",
+            log_loss_key="fresh_log_loss",
+        )
+        for index, baseline in enumerate(fresh_baselines)
     }
     disagreements = {
         baseline: sum(
@@ -1290,6 +1384,7 @@ def scientific_summary(
             np.mean(predicted_gain)
         ),
         "predicted_to_realized_dynamic_myopic": correlation,
+        "fresh_regeneration_comparisons_descriptive": fresh_comparisons,
         "gates": gates,
     }
 
@@ -1449,6 +1544,16 @@ def mechanics_gates(
         ),
         "every_policy_has_40_supported_second_actions": all(
             sum(task["policies"][policy]["second_supported"] for task in tasks)
+            >= 40
+            for policy in PRIMARY_POLICIES
+        ),
+        "every_policy_has_40_matchable_second_replies": all(
+            sum(
+                task["policies"][policy][
+                    "second_reply_likelihood_matched"
+                ]
+                for task in tasks
+            )
             >= 40
             for policy in PRIMARY_POLICIES
         ),
@@ -1979,6 +2084,7 @@ def run_development(
                 final_mass = truth_mass_for_aliases(naive_final, aliases)
                 naive_policy_rows.append(
                     {
+                        "endpoint_mode": "fresh_regeneration_descriptive",
                         "root_index": None,
                         "second_question_index": None,
                         "first_supported": naive_path["first_mapping"][
@@ -1994,6 +2100,12 @@ def run_development(
                             max(PROBABILITY_FLOOR, final_mass)
                         ),
                         "covered": final_mass > 0.0,
+                        "fresh_truth_mass_final": final_mass,
+                        "fresh_brier": (1.0 - final_mass) ** 2,
+                        "fresh_log_loss": -math.log(
+                            max(PROBABILITY_FLOOR, final_mass)
+                        ),
+                        "fresh_covered": final_mass > 0.0,
                     }
                 )
         except Exception as exc:
@@ -2016,17 +2128,34 @@ def run_development(
             first_path = first_paths[(task_index, root)]
             final = final_paths[(task_index, root)]
             first_mass = truth_mass_for_aliases(first_path["support"], aliases)
-            final_mass = truth_mass_for_aliases(final, aliases)
+            terminal = realized_terminal_metrics(
+                first_path["support"],
+                question_index=first_path["second_index"],
+                observed_reply=first_path["second_mapping"]["answer"],
+                aliases=aliases,
+            )
+            fresh_mass = truth_mass_for_aliases(final, aliases)
             policies[policy] = {
+                "endpoint_mode": "aligned_generated_likelihood",
                 "root_index": root,
                 "second_question_index": first_path["second_index"],
                 "first_supported": first_path["first_mapping"]["supported"],
                 "second_supported": first_path["second_mapping"]["supported"],
+                "second_reply_likelihood_matched": terminal["reply_matched"],
+                "second_reply_matched_hypotheses": terminal[
+                    "matched_hypothesis_count"
+                ],
                 "truth_mass_after_first": first_mass,
-                "truth_mass_final": final_mass,
-                "brier": (1.0 - final_mass) ** 2,
-                "log_loss": -math.log(max(PROBABILITY_FLOOR, final_mass)),
-                "covered": final_mass > 0.0,
+                "truth_mass_final": terminal["truth_mass"],
+                "brier": terminal["brier"],
+                "log_loss": terminal["log_loss"],
+                "covered": terminal["covered"],
+                "fresh_truth_mass_final": fresh_mass,
+                "fresh_brier": (1.0 - fresh_mass) ** 2,
+                "fresh_log_loss": -math.log(
+                    max(PROBABILITY_FLOOR, fresh_mass)
+                ),
+                "fresh_covered": fresh_mass > 0.0,
             }
         if naive_baseline_enabled and naive_error is None:
             policies["naive_thinking"] = naive_policy_rows[task_index]
@@ -2161,6 +2290,9 @@ def run_development(
             "naive_reasoning_effort": NAIVE_REASONING_EFFORT,
             "naive_is_descriptive_only": True,
             "naive_can_gate_or_abort_primary": False,
+            "primary_endpoint": "aligned_generated_likelihood_truth_mass",
+            "fresh_regeneration_endpoint": "secondary_descriptive",
+            "naive_endpoint": "fresh_regeneration_descriptive",
             "conditioned_blind_same_seed": True,
             "conditioned_blind_adjacent": True,
             "simulated_common_seed_across_roots": True,

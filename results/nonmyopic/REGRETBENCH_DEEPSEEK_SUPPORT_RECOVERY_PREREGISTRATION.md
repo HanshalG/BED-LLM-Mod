@@ -63,6 +63,7 @@ Truth coverage is a deliberately conservative lexical endpoint. A generated
 final answer matches a pipe-separated hidden alias only when their lowercase
 alphanumeric normalizations are equal, or when one normalized string contains
 the other and the shorter side has at least two tokens and eight characters.
+Different equal-length normalizations never match.
 The matcher is frozen before model calls and is applied identically to root,
 conditioned, and blind supports.
 

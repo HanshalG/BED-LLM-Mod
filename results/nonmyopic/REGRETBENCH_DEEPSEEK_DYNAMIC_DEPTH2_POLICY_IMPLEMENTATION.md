@@ -16,10 +16,10 @@ The implementation constructs a genuinely LLM-native sequential BED tree:
 - compute-matched myopic, fixed-support depth-two, matched history-blind, and
   random-root controls; and
 - a separate Luna medium-reasoning naive-thinking trajectory, measured with
-  the same DeepSeek truth-mass endpoint but unable to gate or abort primary
+  the shared fresh-regeneration endpoint but unable to gate or abort primary
   execution; and
-- exact official RegretBench execution followed by a continuous final
-  truth-mass Brier and log-loss endpoint.
+- exact official RegretBench execution followed by an aligned generated-
+  likelihood primary endpoint and fresh-regeneration secondary endpoint.
 
 Root selection is checkpointed before hidden truth access. Actual histories are
 cached by selected root, so policies choosing the same root share the exact
@@ -83,7 +83,7 @@ pytest -q \
   tests/test_bongard_openworld_luna_naive_first_link.py \
   tests/test_openrouter_model.py
 
-65 passed in 15.73s
+69 passed in 15.83s
 ```
 
 The synthetic full run materializes all `8,256` planning responses and every
@@ -95,18 +95,20 @@ that a formal Luna failure and a smoke-disabled baseline both leave primary
 mechanics and science computation intact. Their outcomes are instrument
 fixtures, not evidence. A seed-only adversary additionally proves that the old
 root-specific schedule could create a spurious `0.135796` candidate-risk
-spread, while the bound task-level CRN schedule makes it exactly zero.
+spread, while the bound task-level CRN schedule makes it exactly zero. A
+hand-built aligned endpoint gives exact mass `.25`/Brier `.5625`; an adversarial
+fresh-endpoint reversal is reported but cannot change primary gates.
 
 ## Bindings
 
 - preregistration:
-  `bea7a0df9a8f22e93b66e73888dc6c3fa1b5ad79794896d9ce8ee2bd8b91c6fb`
+  `03c0f5bd48bd021d696e8641c29942644306b2fd3532157c52af3fc01b6d0f54`
 - policy core:
-  `d4b3f49e820cfec845bc4d2af67c494bbd2aaee3e63ef957a20cbb2a53f7c848`
+  `ca75b5031d7d680975df894d905b605b9445436288f64a4f3cdfa15025e6da03`
 - policy daily executor:
   `cf7089df7472881ad683a163ece55fb70d7b2fe716bc582425a7180bbd1ff243`
 - amended support-recovery daily executor:
-  `ddd3ecbb9e8a559f6bd1dae2d6f85dc3835e8187ac0cb032e06a823925b529f4`
+  `0b4eb81fa755f50a008dfa43106e2b1b1c8313d6b7ba653ab456074317632e87`
 
 ## Conditional Execution
 

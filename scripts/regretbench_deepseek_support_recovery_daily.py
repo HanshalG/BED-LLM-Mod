@@ -36,6 +36,9 @@ LEDGER = (
     / "results/nonmyopic/openrouter_daily_budget/"
     "2026-08-08-regretbench-support-recovery.json"
 )
+RECOVERY_CORE_SHA256 = (
+    "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -93,6 +96,11 @@ def preflight(
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
 ) -> dict[str, Any]:
     _validate_date(now)
+    if (
+        recovery.sha256_file(Path(recovery.__file__).resolve())
+        != RECOVERY_CORE_SHA256
+    ):
+        raise RuntimeError("support-recovery core binding changed")
     recovery.validate_source_bindings()
     predecessor = validate_baseline_predecessor()
     for path in (SMOKE_DIR, DEVELOPMENT_DIR):
