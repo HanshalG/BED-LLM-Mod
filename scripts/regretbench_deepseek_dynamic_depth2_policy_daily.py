@@ -19,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import regretbench_deepseek_dynamic_depth2_policy as policy
 from scripts import regretbench_deepseek_support_recovery as recovery
 from scripts import regretbench_deepseek_support_recovery_daily as recovery_daily
+from scripts import regretbench_deepseek_result_verify as result_verify
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_luna_naive_first_link_daily_execute as baseline_daily
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
@@ -39,6 +40,7 @@ LEDGER = (
     / "results/nonmyopic/openrouter_daily_budget/"
     "2026-08-08-regretbench-dynamic-policy.json"
 )
+RESULT_VERIFIER_SHA256 = recovery_daily.RESULT_VERIFIER_SHA256
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -68,16 +70,29 @@ def validate_recovery_predecessor() -> dict[str, Any]:
         support_smoke_result=recovery_daily.SMOKE_DIR / "RESULT.json",
         support_development_result=recovery_daily.DEVELOPMENT_DIR / "RESULT.json",
     )
+    smoke_verification = _load(recovery_daily.SMOKE_DIR / "VERIFICATION.json")
+    development_verification = _load(
+        recovery_daily.DEVELOPMENT_DIR / "VERIFICATION.json"
+    )
     if (
         daily_result.get("status") != "complete_reconciled"
         or daily_result.get("development_status") != "passed"
         or daily_result.get("development_opened") is not True
         or daily_result.get("confirmation_opened") is not False
         or daily_result.get("policy_endpoint_opened") is not False
+        or daily_result.get("independent_replay_passed") is not True
         or daily_result.get("smoke_result_sha256")
         != support["support_smoke_sha256"]
         or daily_result.get("development_result_sha256")
         != support["support_development_sha256"]
+        or smoke_verification.get("status") != "verified"
+        or development_verification.get("status") != "verified"
+        or daily_result.get("smoke_verification_sha256")
+        != recovery.sha256_file(recovery_daily.SMOKE_DIR / "VERIFICATION.json")
+        or daily_result.get("development_verification_sha256")
+        != recovery.sha256_file(
+            recovery_daily.DEVELOPMENT_DIR / "VERIFICATION.json"
+        )
         or daily_result.get("ledger_sha256")
         != recovery.sha256_file(recovery_daily.LEDGER)
         or ledger.get("date") != DATE
@@ -107,6 +122,11 @@ def preflight(
 ) -> dict[str, Any]:
     _validate_date(now)
     policy.validate_protocol_binding()
+    if (
+        recovery.sha256_file(Path(result_verify.__file__).resolve())
+        != RESULT_VERIFIER_SHA256
+    ):
+        raise RuntimeError("RegretBench result-verifier binding changed")
     predecessor = validate_recovery_predecessor()
     for path in (SMOKE_DIR, NAIVE_SMOKE_DIR, DEVELOPMENT_DIR):
         if path.exists() and (not path.is_dir() or any(path.iterdir())):
@@ -430,6 +450,12 @@ def execute(
                 live=live,
             ),
         )
+        development_verification = result_verify.verify_policy(DEVELOPMENT_DIR)
+        checkpoint(
+            DEVELOPMENT_DIR / "VERIFICATION.json", development_verification
+        )
+        if development_verification["status"] != "verified":
+            raise RuntimeError("policy development independent replay failed")
     except Exception:
         usage = summarize_adapter(development_adapter)
         if development_naive_adapter is not None:
@@ -466,6 +492,10 @@ def execute(
         "development_result_sha256": recovery.sha256_file(
             DEVELOPMENT_DIR / "RESULT.json"
         ),
+        "development_verification_sha256": recovery.sha256_file(
+            DEVELOPMENT_DIR / "VERIFICATION.json"
+        ),
+        "independent_replay_passed": True,
         "development_status": development["status"],
         "development_opened": True,
         "confirmation_opened": False,

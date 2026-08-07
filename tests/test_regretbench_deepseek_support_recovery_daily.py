@@ -276,12 +276,18 @@ def test_execute_runs_development_only_after_passing_smoke(tmp_path, monkeypatch
         return result
 
     monkeypatch.setattr(daily.recovery, "run_stage", fake_run_stage)
+    monkeypatch.setattr(
+        daily.result_verify,
+        "verify_support",
+        lambda *args, **kwargs: {"status": "verified", "model_calls": 0},
+    )
 
     result = daily.execute(live_reader=_live)
 
     assert calls == ["smoke", "development"]
     assert result["status"] == "complete_reconciled"
     assert result["development_opened"] is True
+    assert result["independent_replay_passed"] is True
     ledger = json.loads(ledger_path.read_text())
     assert ledger["recorded_actual_spend_usd"] == pytest.approx(0.19)
     assert ledger["stages"]["smoke"]["status"] == "passed"

@@ -4,6 +4,11 @@ Date: 2026-08-07
 
 **Status: ready and unopened. Model calls: 0. Cost: $0.**
 
+The Aug 8 daily executor also requires a separate zero-call replay from
+`scripts/regretbench_deepseek_result_verify.py` for both smoke and development.
+Each replay is banked as `VERIFICATION.json`; a mismatch fails closed and cannot
+authorize the policy stage.
+
 ## Implemented Contract
 
 The implementation binds the official RegretBench source audit, frozen

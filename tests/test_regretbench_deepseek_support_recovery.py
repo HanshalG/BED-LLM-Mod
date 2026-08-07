@@ -5,6 +5,7 @@ import json
 import pytest
 
 from scripts import regretbench_deepseek_support_recovery as run
+from scripts import regretbench_deepseek_result_verify as verify
 
 
 class _FakeAdapter:
@@ -178,6 +179,19 @@ def test_exact_ten_smoke_full_path_has_no_efficacy_gate(tmp_path) -> None:
         assert blind[0]["dialogue"] == []
     serialized = (tmp_path / "smoke" / "RESULT.json").read_text()
     assert all(answer not in serialized for answer in answers.values())
+    replay = verify.verify_support(tmp_path / "smoke", stage="smoke")
+    assert replay["status"] == "verified"
+    assert replay["model_calls"] == 0
+
+    result_path = tmp_path / "smoke" / "RESULT.json"
+    tampered = json.loads(result_path.read_text())
+    tampered["tasks"][0]["root_covered"] = not tampered["tasks"][0][
+        "root_covered"
+    ]
+    result_path.write_text(json.dumps(tampered))
+    failed = verify.verify_support(tmp_path / "smoke", stage="smoke")
+    assert failed["status"] == "verification_failed"
+    assert "$.tasks[0].root_covered" in failed["mismatches"]
 
 
 def test_full_development_path_passes_matched_recovery_gate(tmp_path) -> None:
@@ -227,6 +241,8 @@ def test_full_development_path_passes_matched_recovery_gate(tmp_path) -> None:
         assert conditioned[0]["task_id"] == blind[0]["task_id"]
         assert conditioned[0]["dialogue"]
         assert blind[0]["dialogue"] == []
+    replay = verify.verify_support(tmp_path / "development", stage="development")
+    assert replay["status"] == "verified"
 
 
 def test_scientific_gate_fails_equal_matched_arms() -> None:

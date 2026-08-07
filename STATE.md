@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Add mandatory independent zero-call RegretBench result replay before
+the unopened Aug8 chain. A separate verifier imports neither producer and
+reconstructs support coverage plus the full dynamic policy path from raw JSON:
+official truths/mappings,strict beliefs,branch risks,frozen roots,exact q2
+likelihood endpoint,CRN,paired bootstrap,gates,and status. Support smoke/dev and
+policy dev now bank hash-bound VERIFICATION artifacts; disagreement reconciles
+spend then fails closed and cannot authorize downstream work. Tamper tests catch
+altered support coverage and policy Brier fields;focused tests pass. Calls/cost0.
+
 2026-08-06: Pre-executor boundary audit catches confirmation-v1's descriptive tier `full_policy_and_matched_mechanism` does not equal the frozen classifier output `full_llm_native_development_signal`,which would make execution impossible. Before any response,image,label,or endpoint,preserve v1 as superseded and freeze interface-v2 plus authorization amendment c6f01987. Legacy report still forbids ad hoc confirmation;exact preregistered confirmation executes only on full tier+independent replay+all runtime gates. V2 manifest1613bd4f byte-replays and independent12-check verifier passes;10/10 correction tests;model0/cost0.
 
 2026-08-06: Add an independent verifier for the unopened Bongard confirmation64 freeze before executor implementation. It recomputes all64 opaque task identities/source hashes,16x4 assignment,seeds/dates,688-request/$2.752 exposure,source/archive/development bindings,base implementation hashes,full-tier precondition,and science-gate family cardinalities. Official manifest0c7b77e7 passes12/12;model,request-count,claim-tier,task-block,and false-zero-call tampering all fail even with outer hash bypassed. Confirmation/mechanics/development/test/reserve remain unopened;6/6 tests;model0/cost0.

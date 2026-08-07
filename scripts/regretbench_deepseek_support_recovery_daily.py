@@ -21,6 +21,7 @@ from scripts import bongard_openworld_luna_naive_first_link as baseline
 from scripts import bongard_openworld_luna_naive_first_link_daily_execute as baseline_daily
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import regretbench_deepseek_support_recovery as recovery
+from scripts import regretbench_deepseek_result_verify as result_verify
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
@@ -40,6 +41,9 @@ LEDGER = (
 )
 RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
+)
+RESULT_VERIFIER_SHA256 = (
+    "f05bfdc83ca4867bded047411938998046948d3d009fd8ada15f1304be44cede"
 )
 DEEPSEEK_MAX_REQUEST_COST_USD = 0.0015
 MIN_RESERVED_PROMPT_TOKENS = 4_096
@@ -160,6 +164,11 @@ def preflight(
         != RECOVERY_CORE_SHA256
     ):
         raise RuntimeError("support-recovery core binding changed")
+    if (
+        recovery.sha256_file(Path(result_verify.__file__).resolve())
+        != RESULT_VERIFIER_SHA256
+    ):
+        raise RuntimeError("RegretBench result-verifier binding changed")
     recovery.validate_source_bindings()
     predecessor = validate_baseline_predecessor()
     for path in (SMOKE_DIR, DEVELOPMENT_DIR):
@@ -307,6 +316,12 @@ def execute(
                 live=smoke_live,
             ),
         )
+        smoke_verification = result_verify.verify_support(
+            SMOKE_DIR, stage="smoke"
+        )
+        checkpoint(SMOKE_DIR / "VERIFICATION.json", smoke_verification)
+        if smoke_verification["status"] != "verified":
+            raise RuntimeError("support smoke independent replay failed")
     except Exception:
         usage = recovery.summarize_usage(smoke_adapter.usage_snapshot())
         ledger = _reconcile(
@@ -359,6 +374,14 @@ def execute(
             ),
             smoke_result_path=SMOKE_DIR / "RESULT.json",
         )
+        development_verification = result_verify.verify_support(
+            DEVELOPMENT_DIR, stage="development"
+        )
+        checkpoint(
+            DEVELOPMENT_DIR / "VERIFICATION.json", development_verification
+        )
+        if development_verification["status"] != "verified":
+            raise RuntimeError("support development independent replay failed")
     except Exception:
         usage = recovery.summarize_usage(development_adapter.usage_snapshot())
         ledger = _reconcile(
@@ -386,6 +409,13 @@ def execute(
         "development_result_sha256": recovery.sha256_file(
             DEVELOPMENT_DIR / "RESULT.json"
         ),
+        "smoke_verification_sha256": recovery.sha256_file(
+            SMOKE_DIR / "VERIFICATION.json"
+        ),
+        "development_verification_sha256": recovery.sha256_file(
+            DEVELOPMENT_DIR / "VERIFICATION.json"
+        ),
+        "independent_replay_passed": True,
         "development_status": development["status"],
         "development_opened": True,
         "confirmation_opened": False,

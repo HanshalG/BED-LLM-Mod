@@ -4,6 +4,12 @@ Date: 2026-08-07
 
 **Status: ready and unopened. Model calls: 0. Cost: $0.**
 
+The formal development result is independently reconstructed from all raw
+belief, branch, selection, truth-control, and realized-history artifacts by
+`scripts/regretbench_deepseek_result_verify.py`. The daily executor accepts the
+producer result only when this zero-call replay matches its primary endpoint,
+statistics, mechanics gates, and status.
+
 ## What Is Ready
 
 The implementation constructs a genuinely LLM-native sequential BED tree:

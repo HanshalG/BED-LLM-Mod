@@ -6,6 +6,7 @@ import random
 import pytest
 
 from scripts import regretbench_deepseek_dynamic_depth2_policy as policy
+from scripts import regretbench_deepseek_result_verify as verify
 from scripts import regretbench_deepseek_support_recovery as recovery
 
 
@@ -497,6 +498,17 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert "aliases" not in public
     assert "selected_questions" not in public
     assert (tmp_path / "development" / "private" / "FROZEN_SELECTIONS.json").exists()
+    replay = verify.verify_policy(tmp_path / "development")
+    assert replay["status"] == "verified"
+    assert replay["model_calls"] == 0
+
+    result_path = tmp_path / "development" / "RESULT.json"
+    tampered = json.loads(result_path.read_text())
+    tampered["tasks"][0]["policies"]["dynamic_depth2"]["brier"] += 0.01
+    result_path.write_text(json.dumps(tampered))
+    failed = verify.verify_policy(tmp_path / "development")
+    assert failed["status"] == "verification_failed"
+    assert "$.tasks[0].policies.dynamic_depth2.brier" in failed["mismatches"]
 
 
 def test_formal_naive_failure_cannot_veto_primary_result(

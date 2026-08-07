@@ -163,6 +163,14 @@ class _Adapter:
         return {"adapter_cost_usd": 0.0}
 
 
+def _install_verifier(monkeypatch) -> None:
+    monkeypatch.setattr(
+        daily.result_verify,
+        "verify_policy",
+        lambda *args, **kwargs: {"status": "verified", "model_calls": 0},
+    )
+
+
 def test_execute_orders_enriched_smoke_before_policy_development(
     tmp_path, monkeypatch
 ) -> None:
@@ -235,12 +243,14 @@ def test_execute_orders_enriched_smoke_before_policy_development(
     monkeypatch.setattr(daily.policy, "run_smoke", fake_smoke)
     monkeypatch.setattr(daily.policy, "run_naive_smoke", fake_naive_smoke)
     monkeypatch.setattr(daily.policy, "run_development", fake_development)
+    _install_verifier(monkeypatch)
 
     result = daily.execute(live_reader=_live)
 
     assert calls == ["smoke", "naive_smoke", "development"]
     assert result["status"] == "complete_reconciled"
     assert result["development_status"] == "gated_null"
+    assert result["independent_replay_passed"] is True
     ledger = json.loads(ledger_path.read_text())
     assert ledger["recorded_actual_spend_usd"] == pytest.approx(0.95)
     assert ledger["stages"]["enriched_smoke"]["status"] == "passed"
@@ -321,6 +331,7 @@ def test_luna_catalog_unavailable_skips_baseline_and_runs_primary(
         lambda **kwargs: pytest.fail("naive smoke must not run"),
     )
     monkeypatch.setattr(daily.policy, "run_development", fake_development)
+    _install_verifier(monkeypatch)
 
     result = daily.execute(live_reader=_live)
 
@@ -390,6 +401,7 @@ def test_naive_smoke_failure_disables_baseline_but_still_runs_primary(
     monkeypatch.setattr(daily.policy, "run_smoke", fake_smoke)
     monkeypatch.setattr(daily.policy, "run_naive_smoke", fail_naive_smoke)
     monkeypatch.setattr(daily.policy, "run_development", fake_development)
+    _install_verifier(monkeypatch)
 
     result = daily.execute(live_reader=_live)
 
