@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Freeze a standalone branch-draw fidelity audit before RegretBench
+responses. Existing stability only compared argmin roots;new instrument uses
+the exact changed dynamic-vs-refresh roots,per-draw stored risks,and realized
+paired Brier advantage. It reports draw0/draw1/mean Spearman,bootstrap CI/P,
+sign accuracy,RMSE/MAE,draw gaps,and P(mean rho exceeds each/both draws),with
+20k paired resamples seed202608410000. It supports original+SMC development+
+confirmation,requires clean stored independent verification,and emits no
+metrics on mechanics failure. Non-gating/non-rescuing;0 calls/cost;RegretBench
+suite109/109. This will distinguish draw sensitivity from shared error well
+enough to choose more rollouts vs model/likelihood repair after the result.
+
 2026-08-07: Final future-clock audit of the pushed Aug8 RegretBench chain is
 ready. Authenticated credits/usage/balance remain245/220.113606154/24.886393846;
 reported$30 top-up is still unposted and excluded,but existing balance covers

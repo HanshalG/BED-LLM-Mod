@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_any_regretbench_policy_response",
+  "protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_BRANCH_DRAW_FIDELITY_PROTOCOL_20260807.md",
+    "sha256": "d4abe29f2cf73c475d35d58f9d27feaecbb9044778942acdeb71bbd12139154a"
+  },
+  "script": {
+    "path": "scripts/regretbench_branch_draw_fidelity.py",
+    "sha256": "00684454f98374602e0e015603dd2535ba5d197723664b7f9c83fd9b606bd85f"
+  },
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 202608410000,
+  "model_calls_authorized": 0,
+  "can_change_status_authorization_or_claim_tier": false
+}
