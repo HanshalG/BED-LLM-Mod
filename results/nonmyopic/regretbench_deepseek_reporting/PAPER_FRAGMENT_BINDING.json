@@ -10,15 +10,15 @@
   },
   "fragment": {
     "protocol_path": "results/nonmyopic/REGRETBENCH_PAPER_FRAGMENT_PROTOCOL_20260807.md",
-    "protocol_sha256": "d4bd393b3e9fdb7fd685451b5c277891b7e5ae66c8eaf5f913e4fb9858f51a55",
+    "protocol_sha256": "510ca51af21e40d36e7548eceed16085e44f4d1f8ed0a8d943476041b82fa823",
     "generator_path": "scripts/regretbench_deepseek_paper_fragment.py",
-    "generator_sha256": "7888bf4daacf94209a2cd313ccc7a8a7ed56f4e79e64856973294b910493187c",
+    "generator_sha256": "e8e95806e893cb8eecee7995cfa5e016a61310ef4554518991de763aeb5c3afc",
     "output_path": "paper/generated/regretbench_result.tex",
     "metadata_path": "paper/generated/regretbench_result.json"
   },
   "manuscript": {
     "path": "paper/main.tex",
-    "preresult_sha256": "6e0f107562fc5cbe5a25429c0e4c43fa1410b81781cde805d8c99a70fafca85f",
+    "preresult_sha256": "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf",
     "conditional_include_exact": true,
     "generated_fragment_absent_at_freeze": true,
     "page_count_at_freeze": 6,
@@ -32,6 +32,7 @@
     "development_may_only_render_provisional_or_null": true,
     "confirmation_may_replace_development_fragment": true,
     "secondary_optional_pooled_cannot_change_fragment": true,
+    "late_number_game_detail_replaced_only_when_fragment_exists": true,
     "paper_validation_required_after_generation": true,
     "model_calls_made_by_binding": 0,
     "cost_usd_by_binding": 0.0

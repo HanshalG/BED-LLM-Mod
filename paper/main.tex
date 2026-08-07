@@ -298,6 +298,9 @@ one static support per tree. Root-conditioned generation still reduced Brier
 from $.2045$ to $.1838$ (10.1\%; $[-.0299,-.0123]$; 22/32 wins) and Hamming
 by 17.7\% ($[-.0301,-.0101]$).
 
+\IfFileExists{generated/regretbench_result.tex}{%
+  % The frozen RegretBench fragment replaces the detailed late Number Game audit.
+}{%
 A zero-call post-hoc ranking audit further checks the simulator's first link.
 Across all 96 trees, current-particle terminal risk ranks independent-target
 root Brier at mean Spearman $.727$ ($[.675,.774]$) and pairwise concordance
@@ -374,6 +377,7 @@ clean responses, but one of 1,536 branch slots missed the frozen support floors;
 the policy endpoint stayed sealed. Thus no full fresh causal policy--mechanism
 replication is established, and the earlier disjoint matched controls remain
 the mechanism evidence.
+}
 
 \IfFileExists{generated/regretbench_result.tex}{%
   \input{generated/regretbench_result.tex}%

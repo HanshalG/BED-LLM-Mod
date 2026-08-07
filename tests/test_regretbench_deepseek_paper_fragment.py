@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import shutil
 
 import pytest
 
 from scripts import regretbench_deepseek_frozen_report as frozen_report
 from scripts import regretbench_deepseek_paper_fragment as fragment
+from scripts.validate_paper_draft import validate_paper_draft
 from tests.test_regretbench_deepseek_frozen_report import _result, _write_verified
 
 
@@ -102,16 +104,71 @@ def test_write_fragment_banks_tex_and_metadata_without_calls(tmp_path) -> None:
     )
 
 
-def test_main_has_only_conditional_preresult_include() -> None:
+def test_main_has_frozen_conditional_page_substitution() -> None:
     main = (fragment.REPO_ROOT / "paper/main.tex").read_text(encoding="utf-8")
     output = fragment.DEFAULT_OUTPUT
 
+    assert main.count("\\IfFileExists{generated/regretbench_result.tex}") == 2
+    assert (
+        "\\IfFileExists{generated/regretbench_result.tex}{%\n"
+        "  % The frozen RegretBench fragment replaces the detailed late Number Game audit.\n"
+        "}{%\n"
+        "A zero-call post-hoc ranking audit"
+    ) in main
+    assert "the mechanism evidence.\n}" in main
     assert (
         "\\IfFileExists{generated/regretbench_result.tex}{%\n"
         "  \\input{generated/regretbench_result.tex}%\n"
         "}{}"
     ) in main
     assert not output.exists()
+
+
+@pytest.mark.skipif(
+    shutil.which("pdflatex") is None or shutil.which("bibtex") is None,
+    reason="LaTeX toolchain is unavailable",
+)
+@pytest.mark.parametrize(
+    ("stage", "status"),
+    [
+        ("confirmation", "passed"),
+        ("development", "mechanics_failed"),
+    ],
+)
+def test_generated_fragment_compiles_within_page_budget(
+    tmp_path: Path, stage: str, status: str
+) -> None:
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    _prepare(run_dir, stage=stage, status=status)
+
+    paper_dir = tmp_path / "paper"
+    paper_dir.mkdir()
+    shutil.copy2(fragment.REPO_ROOT / "paper/main.tex", paper_dir / "main.tex")
+    shutil.copy2(
+        fragment.REPO_ROOT / "paper/references.bib",
+        paper_dir / "references.bib",
+    )
+    plot_dir = tmp_path / "plots/nonmyopic"
+    plot_dir.mkdir(parents=True)
+    shutil.copy2(
+        fragment.REPO_ROOT
+        / "plots/nonmyopic/rocksample_scale_confirmation_entropy.png",
+        plot_dir / "rocksample_scale_confirmation_entropy.png",
+    )
+    fragment.write_fragment(
+        run_dir,
+        stage=stage,
+        output=paper_dir / "generated/regretbench_result.tex",
+    )
+
+    checks = validate_paper_draft(paper_dir)
+
+    assert all(check.ok for check in checks), [
+        (check.name, check.detail) for check in checks if not check.ok
+    ]
+    page_check = next(check for check in checks if check.name == "paper_page_count")
+    assert page_check.detail in {"4 pages", "5 pages", "6 pages"}
 
 
 def test_paper_fragment_binding_matches_current_files() -> None:
@@ -134,3 +191,9 @@ def test_paper_fragment_binding_matches_current_files() -> None:
         fragment.REPO_ROOT / binding["manuscript"]["path"]
     ) == binding["manuscript"]["preresult_sha256"]
     assert binding["manuscript"]["generated_fragment_absent_at_freeze"] is True
+    assert (
+        binding["requirements"][
+            "late_number_game_detail_replaced_only_when_fragment_exists"
+        ]
+        is True
+    )

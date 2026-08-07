@@ -51,7 +51,19 @@ table and cannot alter the paragraph or claim tier.
 
 ## Manuscript Boundary
 
-`paper/main.tex` contains only:
+`paper/main.tex` contains two conditionals keyed to the same generated file.
+When the file is absent, the detailed late Number Game audit remains visible and
+no RegretBench content is added. When the file is present, the audit beginning
+with the post-hoc ranking analysis and ending with the fresh history-blind
+mechanism evidence is suppressed, then the frozen fragment is included.
+
+The core Number Game setup, primary powered replication, model-role swap, and
+support-rich control remain visible in both states. This is a fixed page-budget
+substitution independent of the RegretBench stage, result status, claim tier,
+effect direction, or effect size. It cannot select content after observing an
+outcome.
+
+The include itself is:
 
 ```tex
 \IfFileExists{generated/regretbench_result.tex}{%
@@ -59,9 +71,10 @@ table and cannot alter the paragraph or claim tier.
 }{}
 ```
 
-The generated file is absent before data, so this change adds no claim or page
-content. After generation, the paper must compile and pass the claim validator
-before commit.
+The generated file is absent before data, so the frozen manuscript still
+renders the same six-page content. Successful-result and mechanics-failure
+fragments must both compile within the four-to-six-page target and pass the
+claim validator before commit.
 
 This protocol changes no experiment or endpoint, makes zero model calls, and
 costs `$0`.

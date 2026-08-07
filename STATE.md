@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Exercise the frozen RegretBench paper fragment through the real
+compiler before responses. A confirmed synthetic result exposed a seven-page
+overflow. Freeze an outcome-independent substitution:when the generated
+fragment exists,hide only the verbose late Number Game audit while retaining
+its core setup,powered replication,role swap,and support-rich control;when
+absent,the original six-page paper is unchanged. Confirmed-pass and mechanics-
+failure fragments now both compile within4--6 pages,and the absent paper stays6.
+Protocol510ca51a;generator e8e95806;binding d3f78fe4;RegretBench81/81. Calls/cost0.
+
 2026-08-07: Upgrade RegretBench CRN from requested metadata to observed model
 behavior before responses. Freeze amendmentfd8533a1. For each of1,024 task/
 hypothesis/draw groups,the four history-blind requests have identical prompts+
