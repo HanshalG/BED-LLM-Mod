@@ -38,12 +38,13 @@ every prior block's result, ledger, and daily wrapper. Before a predecessor is
 available it returns `waiting_for_aug10` or `waiting_for_block_<id>` rather
 than creating files. Partial, tampered, or out-of-order predecessors fail.
 
-The executable development interface is v4. Each block has exactly 264
+The executable development interface is v10. Each block has exactly 264
 first-stage requests: eight roots, 128 answer-conditioned branches, and 128
 paired history-blind branches. It then generates 32--80 distinct final
 histories, for 296--344 total requests. Interface-v2/v3 artifacts are invalid.
-The current manifest SHA is recorded by the August 10 preflight result and
-bound directly in the execution wrapper.
+The current image-unique partition manifest SHA is
+`7b96e8c0...4f7973` and is bound directly in the execution wrapper. V10
+supersedes the earlier row-disjoint partition before any model response.
 
 ## Execution Guarantees
 
@@ -76,12 +77,12 @@ bound directly in the execution wrapper.
   rejects price drift unless the full 3,200-token output plus at least 8,000
   prompt tokens remain covered.
 
-The complete Bongard regression suite passes `92` tests. Real dependency-aware
-preflights for Blocks A--D on 2026-08-06 all returned `waiting_for_aug10`,
-bound manifest `4785d95e...e74ff`, saw Luna at `$0.10/$0.60` per million
+The earlier dependency-aware preflights for Blocks A--D on 2026-08-06 all
+returned `waiting_for_aug10`, bound the now-superseded row-disjoint manifest,
+saw Luna at `$0.10/$0.60` per million
 tokens and balance `$27.702109737`, and made zero calls or files. The waiting
-status is the correct scientific predecessor gate until the banked August 10
-result exists.
+status remains the correct scientific predecessor gate until the banked
+August 10 result exists; a fresh preflight must bind the repaired manifest.
 
 The driver can authorize only confirmation **preregistration**. It never
 authorizes or executes confirmation tasks.

@@ -40,6 +40,7 @@
     "full_image_archive_sha256_is_bound": true,
     "manifest_contains_no_source_uid_concept_caption_or_path": true,
     "model_calls_are_zero": true,
+    "partition_integrity_manifest_is_bound": true,
     "sealed_test_remains_unaccessed": true,
     "source_commit_and_tree_are_bound": true
   },
@@ -58,14 +59,17 @@
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md": "8c4b9d7bbc68331f5db0f9e5c41d63acfc85f2995d8104a0d6731bc6b50501ac",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md": "33dde15c1e197eb511b566fcfe00dd431cf122567beb5cc873e57b7acfafa114",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md": "b4f01610a34d6c41f019186788e0c91dea1d11089b5359f91729c9f8d6b214ab",
+    "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md": "a8ef81f005b5915c9e7dcec4c7e3928527baf1b67cf790a352f77f4689978ef1",
     "scripts/bongard_openworld_luna_claim_report.py": "e9c0012c673b469503526629c91d1f3eeacfe2cccbf6917165955be0f9b2172e",
-    "scripts/bongard_openworld_luna_vlm_development.py": "95d51258c41a9d8c29a494f78da24d181033b847904d4da8942ed9b717c0dec0",
+    "scripts/bongard_openworld_luna_vlm_development.py": "4d676f5389f22cc84b9f309bce9a2e7fdbcdf5ab84285e0257a1fa974c7d0284",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "05104bcbf5628192a2957d1ef81d389ca6c4ee4adf1a686c6610bf403462da4d",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "c9b80168dfea803c315981f55ba38ffb0678d1c9ba65d982ce8f65df4bebe125",
-    "scripts/bongard_openworld_vlm_bed.py": "07130e2fa274185328a3e25e2f76591a5fea137736caa85b8c663059051306f2"
+    "scripts/bongard_openworld_partition_integrity_audit.py": "995e16649e1676f2ab1236fde5e04d16a4989655715749ee1668612c372b3294",
+    "scripts/bongard_openworld_vlm_bed.py": "758599009ca4be48a840fc161c6dfc50bd753cc0e59f56102d67267d3a3afb75"
   },
-  "interface_version": "bongard-openworld-luna-vlm-development32-9",
+  "interface_version": "bongard-openworld-luna-vlm-development32-10",
   "model": "openai/gpt-5.6-luna",
+  "partition_integrity_manifest_sha256": "9d9dc695924e728a2653af0b05c575eb4c04a62be933e497afa1bc1ac2bbcbc9",
   "reasoning": false,
   "schema_version": 1,
   "source_commit": "0462ba15f3be2f7f9a7e6cdd0d24314a1fabb5fe",
@@ -99,26 +103,16 @@
     },
     {
       "block_id": "a",
-      "source_row_sha256": "4dd2ff6bc678c594378a8202aae74ed4dba48f6643b0e02dab41cf2ea97c6baa",
-      "task_id": "task-3287e060bcba"
-    },
-    {
-      "block_id": "a",
-      "source_row_sha256": "b8e6d6d56ba8e42e9af98a46b7dd49ec41243956d643d9f4af002656d388dc07",
-      "task_id": "task-4584cb5519a9"
-    },
-    {
-      "block_id": "a",
       "source_row_sha256": "cd3b5e12324347d8870eedb6818baab58a702418b9d0c105d1af3f71b8b07c8b",
       "task_id": "task-4c69e9a0b720"
     },
     {
-      "block_id": "b",
+      "block_id": "a",
       "source_row_sha256": "f9572f02251e5b229897333f14cea5b4c787d73e2f261fd7b9d8d706c3da9ebe",
       "task_id": "task-508e54e4f1b5"
     },
     {
-      "block_id": "b",
+      "block_id": "a",
       "source_row_sha256": "a58ec23da2cd18693d6219601529610bf5c0bc07f9f2e133bc17ad994e7066e3",
       "task_id": "task-5e421a16d5ea"
     },
@@ -153,9 +147,14 @@
       "task_id": "task-886e71f141aa"
     },
     {
-      "block_id": "c",
+      "block_id": "b",
       "source_row_sha256": "913fc7523d4ce49711db6b9e803f9c77f788e56135fdc2c073cb5e1c7f955300",
       "task_id": "task-941a1b8eb2d4"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "0d9650cfe9aab9071035a972d6d477b05531f76abf70c4b183b9cce8d36f26f2",
+      "task_id": "task-9b6f3ff23fb0"
     },
     {
       "block_id": "c",
@@ -166,6 +165,11 @@
       "block_id": "c",
       "source_row_sha256": "105008823b123a7f5e06f0a9a30b7c7899c7e6e3b67f6544565a3cb2f88dd4b9",
       "task_id": "task-b9ba6254c24f"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "ac912160bcefad79d8f098cbd200c5d26ffed6da27668ccf84fd18c11bf6be7b",
+      "task_id": "task-baff417af236"
     },
     {
       "block_id": "c",

@@ -22,6 +22,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_source_protocol_audit as source_audit
+from scripts import bongard_openworld_partition_integrity_audit as partition_audit
 
 
 NUM_HYPOTHESES = 10
@@ -714,7 +715,7 @@ def load_validation_partition_tasks(
     names = ("mechanics", "development", "confirmation", "reserve")
     if partition not in names:
         raise ValueError(f"unknown validation partition {partition!r}")
-    partitions = source_audit.split_validation_rows(source_audit.load_rows("val"))
+    partitions = partition_audit.clean_validation_rows()
     return _load_visual_tasks(
         partitions[names.index(partition)],
         include_endpoint_labels=include_endpoint_labels,

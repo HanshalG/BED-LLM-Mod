@@ -19,12 +19,13 @@ from scripts import bongard_openworld_luna_claim_report as claim_report
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
+from scripts import bongard_openworld_partition_integrity_audit as partition_audit
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-5"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-6"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -64,12 +65,16 @@ SOURCE_MANIFEST = REPO_ROOT / (
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
 )
+PARTITION_MANIFEST = partition_audit.PARTITION_INTEGRITY_MANIFEST
+PARTITION_MANIFEST_SHA256 = (
+    partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+)
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "4785d95e470285d380780dd0f1254c22994e81fb2d1cd0ec21285eee6c6e74ff"
+    "7b96e8c0b86e6ccadbdddb521e150d687218e959cd382c3cdb4f82fa8c4f7973"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -86,7 +91,7 @@ MATCHED_FIXED_SCORE_AMENDMENT_SHA256 = (
     "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2"
 )
 CONFIRMATION_UID_SHA256 = (
-    "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
+    "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -106,9 +111,7 @@ def _load(path: Path) -> dict[str, Any]:
 
 
 def _confirmation_rows() -> list[dict[str, str]]:
-    _, _, confirmation_rows, _ = source_audit.split_validation_rows(
-        source_audit.load_rows("val")
-    )
+    _, _, confirmation_rows, _ = partition_audit.clean_validation_rows()
     rows = []
     for source_row in confirmation_rows:
         layout = source_audit._task_layout(source_row)
@@ -175,8 +178,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
     if output_path.exists():
         raise FileExistsError(f"confirmation freeze already exists: {output_path}")
     source_manifest = _load(SOURCE_MANIFEST)
+    partition_manifest = _load(PARTITION_MANIFEST)
     development_manifest = _load(DEVELOPMENT_MANIFEST)
-    confirmation = source_manifest["validation_partitions"]["confirmation"]
+    confirmation = partition_manifest["repaired_partitions"]["confirmation"]
     rows = _confirmation_rows()
     counts = {
         block_id: sum(row["block_id"] == block_id for row in rows)
@@ -184,14 +188,22 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
     }
     implementation_paths = (
         "scripts/bongard_openworld_vlm_bed.py",
+        "scripts/bongard_openworld_partition_integrity_audit.py",
         "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
         "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
         "scripts/bongard_openworld_luna_vlm_development.py",
         "scripts/bongard_openworld_luna_claim_report.py",
+        "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     )
     gates = {
         "source_manifest_hash_matches": (
             sha256_file(SOURCE_MANIFEST) == SOURCE_MANIFEST_SHA256
+        ),
+        "partition_integrity_manifest_hash_and_status_match": (
+            sha256_file(PARTITION_MANIFEST) == PARTITION_MANIFEST_SHA256
+            and partition_manifest.get("status") == "partition_integrity_pass"
+            and partition_manifest.get("all_gates_pass") is True
+            and partition_manifest.get("authorizes_paid_calls") is False
         ),
         "development_manifest_hash_matches": (
             sha256_file(DEVELOPMENT_MANIFEST) == DEVELOPMENT_MANIFEST_SHA256
@@ -212,7 +224,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             )
             is True
         ),
-        "exact_source_confirmation_partition_is_bound": (
+        "exact_repaired_confirmation_partition_is_bound": (
             confirmation.get("count") == TASKS
             and confirmation.get("uid_sha256") == CONFIRMATION_UID_SHA256
         ),
@@ -244,6 +256,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "decision": "conditionally_execute_only_after_full_development_tier",
         "source": {
             "manifest_sha256": SOURCE_MANIFEST_SHA256,
+            "partition_integrity_manifest_sha256": PARTITION_MANIFEST_SHA256,
             "source_commit": source_manifest["source"]["commit"],
             "source_tree": source_manifest["source"]["tree"],
             "image_archive_sha256": image_audit.ARCHIVE_SHA256,

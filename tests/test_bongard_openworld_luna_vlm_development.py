@@ -32,9 +32,7 @@ def test_development_adapter_reserves_luna_attempt_cost(
 _DEVELOPMENT_TASK_IDS = tuple(
     sorted(
         development.source_audit._task_layout(row)["task_id"]
-        for row in development.source_audit.split_validation_rows(
-            development.source_audit.load_rows("val")
-        )[1]
+        for row in development.partition_audit.clean_validation_rows()[1]
     )
 )
 

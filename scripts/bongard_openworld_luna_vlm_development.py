@@ -24,6 +24,7 @@ from helpers import Config, ModelSpec
 from scripts import bongard_openworld_image_integrity_audit as image_audit
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
+from scripts import bongard_openworld_partition_integrity_audit as partition_audit
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
@@ -32,7 +33,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-9"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-10"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -63,6 +64,7 @@ MIN_RELATIVE_BRIER_IMPROVEMENT = 0.03
 MIN_BOOTSTRAP_IMPROVEMENT_PROBABILITY = 0.80
 IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_vlm_bed.py",
+    "scripts/bongard_openworld_partition_integrity_audit.py",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
@@ -78,6 +80,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_BRANCH_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -161,9 +164,7 @@ def load_block_tasks(block_id: str) -> list[bed.VisualTask]:
 
 
 def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
-    _, development_rows, _, _ = source_audit.split_validation_rows(
-        source_audit.load_rows("val")
-    )
+    _, development_rows, _, _ = partition_audit.clean_validation_rows()
     rows = []
     for source_row in development_rows:
         layout = source_audit._task_layout(source_row)
@@ -191,6 +192,10 @@ def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
             source_audit.SOURCE_COMMIT and source_audit.SOURCE_TREE
         ),
         "full_image_archive_sha256_is_bound": len(image_audit.ARCHIVE_SHA256) == 64,
+        "partition_integrity_manifest_is_bound": (
+            sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
+            == partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+        ),
         "manifest_contains_no_source_uid_concept_caption_or_path": all(
             set(row) == {"task_id", "source_row_sha256", "block_id"}
             for row in rows
@@ -208,6 +213,9 @@ def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
         "source_commit": source_audit.SOURCE_COMMIT,
         "source_tree": source_audit.SOURCE_TREE,
         "image_archive_sha256": image_audit.ARCHIVE_SHA256,
+        "partition_integrity_manifest_sha256": (
+            partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+        ),
         "model": MODEL_ID,
         "reasoning": False,
         "blocks": {
@@ -247,9 +255,7 @@ def verify_protocol_manifest(path: Path) -> dict[str, Any]:
         }
         for block_id in BLOCK_ORDER
     }
-    _, development_rows, _, _ = source_audit.split_validation_rows(
-        source_audit.load_rows("val")
-    )
+    _, development_rows, _, _ = partition_audit.clean_validation_rows()
     expected_tasks = sorted(
         (
             {
@@ -275,6 +281,10 @@ def verify_protocol_manifest(path: Path) -> dict[str, Any]:
         or manifest.get("source_commit") != source_audit.SOURCE_COMMIT
         or manifest.get("source_tree") != source_audit.SOURCE_TREE
         or manifest.get("image_archive_sha256") != image_audit.ARCHIVE_SHA256
+        or manifest.get("partition_integrity_manifest_sha256")
+        != partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+        or sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
+        != partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
         or manifest.get("tasks") != expected_tasks
         or not manifest.get("gates")
         or not all(manifest["gates"].values())

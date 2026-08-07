@@ -18,8 +18,11 @@ development null or partial tier forbids confirmation execution.
 ## Data Boundary
 
 - Official Bongard-OpenWorld validation confirmation partition: 64 tasks.
-- Source partition UID hash:
-  `27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0`.
+- Repaired partition UID hash:
+  `1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631`.
+- The byte-only repair is frozen in
+  `BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md` and binds manifest
+  `9d9dc695...2bbcbc9`.
 - Task order: deterministic sort of the existing opaque task IDs.
 - Four fixed 16-task blocks use offsets 0, 16, 32, and 48.
 - Public protocol rows contain only opaque task ID, source-row hash, and block.
@@ -105,10 +108,10 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V5.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V6.json`
 
 SHA-256:
-`d827a9fdd6694bfd69ba05550e5e1248f9750b5785be1f6be5e9e5a73e1d8b24`.
+`7c14a11e1d3d469697c8545abb58c41d01fd5275f6bfa3f5eb4a60783e6d3ed0`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
@@ -126,3 +129,8 @@ V5 adds the pre-response matched fixed-score/dynamic-update control. It makes
 the strongest tier isolate path-dependent first-query selection while adding
 no request because every matched terminal history was already frozen in the
 all-first-action cache.
+V6 applies the pre-response image-byte integrity repair. It preserves all
+models, prompts, policies, seeds, counts, dates, endpoints, thresholds, and
+claim gates while replacing seven confirmation rows under the frozen seeded
+ordering. The repaired development and confirmation partitions have no exact
+image-byte reuse and pass the supplementary strict perceptual screen.

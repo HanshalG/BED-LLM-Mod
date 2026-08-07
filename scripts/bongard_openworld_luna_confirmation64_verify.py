@@ -19,25 +19,29 @@ from scripts import bongard_openworld_luna_claim_report as claim_report
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
+from scripts import bongard_openworld_partition_integrity_audit as partition_audit
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-5"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-6"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V5.json"
+    "PROTOCOL_MANIFEST_V6.json"
 )
 MANIFEST_SHA256 = (
-    "d827a9fdd6694bfd69ba05550e5e1248f9750b5785be1f6be5e9e5a73e1d8b24"
+    "7c14a11e1d3d469697c8545abb58c41d01fd5275f6bfa3f5eb4a60783e6d3ed0"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
 )
+PARTITION_MANIFEST_SHA256 = (
+    partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+)
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "4785d95e470285d380780dd0f1254c22994e81fb2d1cd0ec21285eee6c6e74ff"
+    "7b96e8c0b86e6ccadbdddb521e150d687218e959cd382c3cdb4f82fa8c4f7973"
 )
 CONFIRMATION_UID_SHA256 = (
-    "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
+    "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -68,10 +72,12 @@ BLOCK_SEEDS = {
 }
 IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_vlm_bed.py",
+    "scripts/bongard_openworld_partition_integrity_audit.py",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
     "scripts/bongard_openworld_luna_claim_report.py",
+    "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -87,9 +93,7 @@ def sha256_file(path: Path) -> str:
 
 
 def _expected_tasks() -> list[dict[str, str]]:
-    _, _, confirmation_rows, _ = source_audit.split_validation_rows(
-        source_audit.load_rows("val")
-    )
+    _, _, confirmation_rows, _ = partition_audit.clean_validation_rows()
     rows = sorted(
         (
             {
@@ -145,6 +149,10 @@ def verify_manifest(
         ),
         "source_and_archive_are_exactly_bound": (
             source.get("manifest_sha256") == SOURCE_MANIFEST_SHA256
+            and source.get("partition_integrity_manifest_sha256")
+            == PARTITION_MANIFEST_SHA256
+            and sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
+            == PARTITION_MANIFEST_SHA256
             and source.get("source_commit") == source_audit.SOURCE_COMMIT
             and source.get("source_tree") == source_audit.SOURCE_TREE
             and source.get("image_archive_sha256") == image_audit.ARCHIVE_SHA256
@@ -220,11 +228,12 @@ def verify_manifest(
             and set(manifest["gates"])
             == {
                 "source_manifest_hash_matches",
+                "partition_integrity_manifest_hash_and_status_match",
                 "development_manifest_hash_matches",
-                    "authorization_amendment_hash_matches",
-                    "matched_fixed_score_amendment_hash_matches",
+                "authorization_amendment_hash_matches",
+                "matched_fixed_score_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
-                "exact_source_confirmation_partition_is_bound",
+                "exact_repaired_confirmation_partition_is_bound",
                 "exact_64_unique_opaque_task_identities",
                 "exact_four_16_task_blocks",
                 "manifest_rows_are_opaque_and_truth_free",

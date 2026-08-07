@@ -1,0 +1,104 @@
+{
+  "all_gates_pass": true,
+  "authorizes_paid_calls": false,
+  "bound_source": {
+    "archive_sha256": "5ab838cffd8c1be6080e232b9fa4d9ca824d213371625abe59d984745f694d25",
+    "manifest_sha256": "239943ae789ebdc2c0a03577a02b04890c6d00f50ce45639c5defc1624ccee96"
+  },
+  "gates": {
+    "bound_image_integrity_manifest_matches": true,
+    "development_and_confirmation_have_no_exact_semantic_duplicate": true,
+    "development_and_confirmation_have_no_strict_perceptual_near_duplicate": true,
+    "mechanics_partition_is_unchanged": true,
+    "rejection_counts_match_frozen_audit": true,
+    "repaired_partition_hashes_match_frozen_audit": true,
+    "seeded_order_and_partition_sizes_are_preserved": true,
+    "selected_experimental_tasks_share_no_exact_image_bytes": true,
+    "selected_tasks_have_no_internal_duplicate_images": true,
+    "selection_rule_does_not_use_semantic_truth_or_labels": true
+  },
+  "interpretation": "A pass repairs exact image reuse before any paid response while preserving seeded order, task counts, and the mechanics partition. The post-selection strict perceptual-hash screen is clean; this does not establish broad semantic independence or planning efficacy.",
+  "original_partition_duplicate_stats": {
+    "cross_partition_duplicate_groups": {
+      "confirmation|development": 4,
+      "confirmation|reserve": 5,
+      "development|reserve": 1
+    },
+    "within_partition_duplicate_groups": {
+      "confirmation": 2,
+      "reserve": 7
+    },
+    "within_task_duplicate_images": {
+      "confirmation": 0,
+      "development": 2,
+      "mechanics": 0,
+      "reserve": 0
+    }
+  },
+  "post_selection_perceptual_audit": {
+    "average_hash_max_distance": 2,
+    "development_confirmation_strict_near_pair_count": 0,
+    "difference_hash_max_distance": 2,
+    "used_for_selection": false
+  },
+  "post_selection_semantic_audit": {
+    "development_confirmation_exact_overlap_counts": {
+      "caption": 0,
+      "concept": 0
+    },
+    "semantic_values_emitted": false,
+    "used_for_selection": false
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "interface_version": "bongard-openworld-partition-integrity-audit-1",
+    "model_calls": 0,
+    "selection_rule": "seeded source order; reject rows with byte-identical images within the row or any earlier selected experimental row",
+    "selection_uses_semantic_truth_or_labels": false
+  },
+  "rejections": {
+    "counts_by_target_partition": {
+      "confirmation": 5,
+      "development": 2,
+      "mechanics": 0
+    },
+    "identities_emitted": false,
+    "internal_duplicate_rows": 2,
+    "prior_selected_overlap_rows": 5
+  },
+  "repaired_partition_duplicate_stats": {
+    "cross_partition_duplicate_groups": {
+      "confirmation|reserve": 8,
+      "development|reserve": 5
+    },
+    "within_partition_duplicate_groups": {
+      "reserve": 6
+    },
+    "within_task_duplicate_images": {
+      "confirmation": 0,
+      "development": 0,
+      "mechanics": 0,
+      "reserve": 2
+    }
+  },
+  "repaired_partitions": {
+    "confirmation": {
+      "count": 64,
+      "uid_sha256": "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
+    },
+    "development": {
+      "count": 32,
+      "uid_sha256": "356365ce90c964f6e99de5ca1585f9f582eebf8d4043afb55d1aee2a96c7c99b"
+    },
+    "mechanics": {
+      "count": 4,
+      "uid_sha256": "69de5a5fc444f3d14e9c07f570f4fe1fa8a4e915dd15926466c7c677d68bd323"
+    },
+    "reserve": {
+      "count": 100,
+      "uid_sha256": "ffc7549037b759df549147959e403c66715985b825bc0669c95f664fa5eff5d5"
+    }
+  },
+  "schema_version": 1,
+  "status": "partition_integrity_pass"
+}
