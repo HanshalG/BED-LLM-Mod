@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "dormant_zero_call_smoke_core_frozen_before_any_regretbench_policy_response",
+  "status": "conditional_aug9_exact10_smoke_frozen_before_any_regretbench_policy_response",
   "protocol": {
     "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_STATIC_LIKELIHOOD_SMOKE_PREREGISTRATION_20260807.md",
     "sha256": "bfd7257295615bc0e80f5205709d95599455e44bd944faacd4907c96f99aa4d3"
@@ -17,10 +17,25 @@
     "path": "scripts/regretbench_factorized_static_likelihood_smoke_verify.py",
     "sha256": "6888e16c1d3ee5ba8b5e2844f091b567dcf60ca1a06730c664103d974ac0aff7"
   },
+  "execution_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_STATIC_LIKELIHOOD_AUG9_EXECUTION_20260807.md",
+    "sha256": "108b0f6a0f6691dea32495c988185b570a1a299404ca54fd8e0a68cd79a53075"
+  },
+  "dated_budget_wrapper": {
+    "path": "scripts/regretbench_factorized_static_likelihood_aug9_execute.py",
+    "sha256": "ec4fac6c0f3b6b8450d33bc48be5efffb25e5dff179e5a367ae3a1941358c1f7"
+  },
+  "dated_budget_wrapper_tests": {
+    "path": "tests/test_regretbench_factorized_static_likelihood_aug9_execute.py",
+    "sha256": "c3e138bc2a2abff9860ef95d7fa2124688dea6d1641e769b4e0882a00c4bfdce"
+  },
   "expected_requests": 10,
-  "paid_calls_authorized": 0,
+  "paid_calls_authorized": 10,
   "independent_verifier_implemented": true,
-  "dated_budget_wrapper_implemented": false,
+  "dated_budget_wrapper_implemented": true,
+  "authorization_date": "2026-08-09",
+  "authorization_predecessor": "verified_aug8_dynamic_policy_gated_null_only",
+  "run_cap_usd": 0.2,
   "current_regretbench_chain_changed": false,
   "development_opened": false,
   "confirmation_opened": false
