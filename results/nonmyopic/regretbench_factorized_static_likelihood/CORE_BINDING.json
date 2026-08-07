@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "zero_call_core_frozen_before_any_regretbench_policy_response",
+  "opportunity_audit": {
+    "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_STATIC_LIKELIHOOD_OPPORTUNITY_20260807.md",
+    "sha256": "fa2524f72d96ffc498e6bab7f99f35188f588f3048b3c4cd273ce390ebddb895"
+  },
+  "core": {
+    "path": "scripts/regretbench_static_child_likelihood.py",
+    "sha256": "76ae01283df584d32bdb91331c5262f7f64cb588a8145e5b5a23428231db9ea4"
+  },
+  "tests": {
+    "path": "tests/test_regretbench_static_child_likelihood.py",
+    "sha256": "2e71730e51687635c5a11402e3acf25b73206464642bef09804117436998efe9"
+  },
+  "paid_calls_authorized": 0,
+  "current_regretbench_protocol_changed": false,
+  "confirmation_opened": false
+}

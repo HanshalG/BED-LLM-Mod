@@ -4,6 +4,19 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Current-literature and exact-prompt audit identifies likelihood
+factorization as the leading next method. RegretBench transition currently
+revises child particles and predicts their q2 replies in one history-conditioned
+call,which can double-condition and inflate horizon value. ICLR26 BED-LLM keeps
+p(reply|theta,q) static;its updated-likelihood ablation is worse in12/15
+model-dataset cells,with gaps up to14 points. Implement zero-call strict core:
+history-conditioned children survive,but annotation sees only original public
+prompt,8 interpretation/final-answer pairs,and4 questions;history,weights,
+lineage,old replies,truth all excluded. Parser replaces only8x4 replies and
+hashes preservation. Proposed untouched compute-match:2 transitions vs1
+transition+1 static annotation per branch/arm. No paid authorization/current
+protocol change;core7/7,integration43/43.
+
 2026-08-07: Freeze an outcome-independent interpreter for branch-draw fidelity
 before responses. Ordered regions: insufficient(n<16,<90% valid bootstrap,or
 missing correlation evidence);averaging-reduces-noise(rho/P+,Pmean>both,
