@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Re-audit the full Aug8 chain after the first-reply amendment.
+Authenticated credits245/usage220.113606154/balance24.886393846;the reported
+top-up remains unposted. Real future-clock Luna preflight is ready at live
+$.10/$.60/M with30,848 covered prompt tokens,$.20 cap,zero calls/files/usage
+delta,and pristine paths. Support and policy stop before live access on their
+intentionally absent predecessors. Current RegretBench84/84 and combined
+executor subset59/59 pass. Post-alignment audit records exact rebound hashes;
+keep$4.80 one-way Aug8 chain. Model0/cost0/endpoints unopened.
+
 2026-08-07: Pre-response RegretBench audit finds and closes a missing first-link
 likelihood gate. The planner simulated q1 replies but only checked exact q2
 reply representation,so a realized q1 history absent from every truth-consistent
