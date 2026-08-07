@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-2"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-3"
 MODEL_ID = "openai/gpt-5.6-luna"
 MODEL_SEED = 2_026_081_001
 EARLIEST_DATE = "2026-08-10"
@@ -42,6 +42,7 @@ TEMPERATURE = 0.0
 PROJECTED_COST_USD = 0.10
 RUN_BUDGET_USD = 0.25
 MIN_BRANCH_PREDICTION_MAE = 0.05
+MAX_BRANCH_LABEL_BRIER = 0.25
 
 
 class StructuredModel(Protocol):
@@ -240,6 +241,58 @@ def branch_sensitivity(
     }
 
 
+def branch_label_obedience(
+    rows: Sequence[tuple[str, bool, bed.SemanticBelief]],
+) -> dict[str, Any]:
+    if not rows:
+        raise ValueError("branch-label obedience requires branch beliefs")
+    details = []
+    for candidate_id, label, belief in rows:
+        history = dict(belief.history)
+        if history.get(candidate_id) is not label:
+            raise ValueError("branch belief does not contain its simulated label")
+        positive_probability = bed.predictive_probability(belief, candidate_id)
+        truth_probability = (
+            positive_probability if label else 1.0 - positive_probability
+        )
+        details.append(
+            {
+                "candidate_id": candidate_id,
+                "label": bed.LABELS[label],
+                "truth_probability": truth_probability,
+                "brier": (1.0 - truth_probability) ** 2,
+            }
+        )
+    by_label = {
+        label: [row for row in details if row["label"] == bed.LABELS[label]]
+        for label in (False, True)
+    }
+    if any(not values for values in by_label.values()):
+        raise ValueError("branch-label obedience requires both outcomes")
+    return {
+        "branch_count": len(details),
+        "negative_mean_brier": sum(
+            row["brier"] for row in by_label[False]
+        )
+        / len(by_label[False]),
+        "positive_mean_brier": sum(
+            row["brier"] for row in by_label[True]
+        )
+        / len(by_label[True]),
+        "rows": details,
+    }
+
+
+def branch_label_obedience_passes(metrics: Mapping[str, Any]) -> bool:
+    return (
+        int(metrics.get("branch_count", 0)) > 0
+        and float(metrics.get("negative_mean_brier", math.inf))
+        < MAX_BRANCH_LABEL_BRIER
+        and float(metrics.get("positive_mean_brier", math.inf))
+        < MAX_BRANCH_LABEL_BRIER
+    )
+
+
 def serving_metrics(
     cases: Sequence[SmokeCase],
     beliefs: Sequence[bed.SemanticBelief],
@@ -283,6 +336,17 @@ def serving_metrics(
             bed.observed_history_fit_log_loss(belief) for belief in beliefs
         ),
         "branch_sensitivities": sensitivities,
+        "branch_label_obedience": branch_label_obedience(
+            [
+                (
+                    str(case.branch_candidate_id),
+                    bool(case.branch_label),
+                    belief,
+                )
+                for case, belief in zip(cases, beliefs, strict=True)
+                if case.kind == "branch"
+            ]
+        ),
         "roots": root_rows,
     }
 
@@ -320,6 +384,9 @@ def serving_gates(
         ),
         "all_four_simulated_branch_pairs_change_unobserved_beliefs": all(
             row["material"] for row in metrics["branch_sensitivities"]
+        ),
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
+            branch_label_obedience_passes(metrics["branch_label_obedience"])
         ),
         "both_roots_have_nonzero_nonidentical_candidate_eig": all(
             row["max_candidate_eig"] > 1e-8

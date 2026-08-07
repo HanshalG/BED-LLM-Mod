@@ -139,6 +139,42 @@ def test_branch_sensitivity_ignores_the_just_labelled_image() -> None:
     assert sensitivity["material"] is False
 
 
+def test_branch_obedience_rejects_support_change_that_ignores_negative_label() -> None:
+    task = _task(1)
+    candidate = task.candidate_ids[0]
+    beliefs = []
+    rows = []
+    for label in (False, True):
+        case = smoke.SmokeCase(
+            case_id="obedience-adversary",
+            task=task,
+            history=tuple(sorted((*task.initial_history, (candidate, label)))),
+            kind="branch",
+            branch_candidate_id=candidate,
+            branch_label=label,
+        )
+        value = json.loads(_response(case))
+        candidate_index = task.image_ids.index(candidate)
+        for index, row in enumerate(value["hypotheses"]):
+            row["rule"] = (
+                f"{'positive' if label else 'negative'} branch rule {index + 1}"
+            )
+            row["positive_probabilities"][candidate_index] = 90
+        belief = bed.parse_belief_response(
+            json.dumps(value), image_ids=task.image_ids, history=case.history
+        )
+        beliefs.append(belief)
+        rows.append((candidate, label, belief))
+
+    assert smoke.branch_sensitivity(
+        beliefs[0], beliefs[1], candidate_id=candidate
+    )["material"]
+    obedience = smoke.branch_label_obedience(rows)
+    assert obedience["positive_mean_brier"] < 0.25
+    assert obedience["negative_mean_brier"] > 0.25
+    assert smoke.branch_label_obedience_passes(obedience) is False
+
+
 def test_luna_payload_removes_unsupported_sampling_parameters(monkeypatch) -> None:
     def base_payload(*args, **kwargs):
         del args, kwargs

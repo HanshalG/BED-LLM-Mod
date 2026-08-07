@@ -30,7 +30,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-2"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-3"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -200,6 +200,11 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
+            serving.branch_label_obedience_passes(
+                artifacts["branch_label_obedience"]
+            )
+        ),
         "exact_paired_seed_and_prompt_difference_accounting": (
             artifacts["paired_request_diagnostics"]["pair_count"]
             == task_count * ((CASES_PER_TASK - 1) // 2)
@@ -433,6 +438,7 @@ def run_block(
         "mechanics_verification": mechanics_verification,
         "protocol_manifest_verification": manifest,
         "usage": usage,
+        "branch_label_obedience": artifacts["branch_label_obedience"],
         "paired_request_diagnostics": paired,
         "final_request_pairing": final_pairing,
         "gates": gates,

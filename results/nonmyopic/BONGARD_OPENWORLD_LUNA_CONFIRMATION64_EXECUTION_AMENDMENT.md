@@ -5,16 +5,17 @@ confirmation model response.
 
 ## Purpose
 
-The interface-v3 confirmation manifest froze tasks, policies, prompts, controls,
+The interface-v4 confirmation manifest froze tasks, policies, prompts, controls,
 model, seeds, dates, budgets, and confirmatory gates before implementation. This
-amendment binds the completed execution surface. V3 adds the pre-response
-path-dependent fixed-support gate family without changing model calls or data.
+amendment binds the completed execution surface. V3 added the pre-response
+path-dependent fixed-support gate family; V4 adds the branch-obedience
+mechanics gate without changing model calls or data.
 
 ## Bound Implementation
 
 - confirmation-owned block replay and 64-task endpoint analysis:
   `scripts/bongard_openworld_luna_confirmation64.py`, SHA-256
-  `00995532e8a8e1e7bd4c27e4513c0332e5a9aa16834c79fc7973ee689a0a4a33`;
+  `d226ff26831cb1659c7e14fb68c1e7b45d228ef20ae6ac284fb2dbdcd398a39a`;
 - exact-date daily budget and predecessor driver:
   `scripts/bongard_openworld_luna_confirmation64_daily_execute.py`, SHA-256
   `0a6355e2239799f29e0fab2bdb0600285051b1217cbe7be97606c2dbdc4e77ee`.

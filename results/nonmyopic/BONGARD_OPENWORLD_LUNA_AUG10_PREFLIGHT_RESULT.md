@@ -14,7 +14,7 @@ The read-only preflight made zero model calls and wrote zero files. It verified:
   prompts (8,820,158 serialized message bytes);
 - strict belief-schema SHA-256 `23239262...9fd`;
 - precharge amendment SHA-256 `75acd7ae...bbbff4`;
-- interface-v7 development manifest SHA-256 `a649a769...5d9ce1`;
+- interface-v8 development manifest SHA-256 `64f80983...14ba46`;
 - a four-root, 64 conditioned-branch, 64 paired history-blind-branch mechanics
   tree with 132 first-stage and at most 172 total requests;
 - absent wrapper, serving, mechanics, and August 10 ledger artifacts;

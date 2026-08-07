@@ -32,7 +32,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-7"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-8"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -76,6 +76,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_BRANCH_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -514,6 +515,13 @@ def _build_artifacts(
     roots, branches, history_blind = _parse_stage(
         stage_cases, stage_responses
     )
+    branch_obedience = serving.branch_label_obedience(
+        [
+            (candidate_id, label, belief)
+            for task_branches in branches.values()
+            for (candidate_id, label), belief in task_branches.items()
+        ]
+    )
     plans = {
         task.task_id: mechanics.plan_task_policies(
             task=task,
@@ -618,6 +626,7 @@ def _build_artifacts(
         "final_request_pairing": final_pairing,
         "final_by_history": final_by_history,
         "branch_diagnostics": diagnostics,
+        "branch_label_obedience": branch_obedience,
         "trees": trees,
     }
 
@@ -672,6 +681,11 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
+            serving.branch_label_obedience_passes(
+                artifacts["branch_label_obedience"]
+            )
+        ),
         "exact_paired_seed_and_prompt_difference_accounting": (
             artifacts["paired_request_diagnostics"]["pair_count"]
             == task_count * ((CASES_PER_TASK - 1) // 2)
@@ -1020,6 +1034,7 @@ def run_block(
         "branch_material_count": sum(
             row["material"] for row in artifacts["branch_diagnostics"]
         ),
+        "branch_label_obedience": artifacts["branch_label_obedience"],
         "paired_request_diagnostics": paired_requests,
         "final_request_pairing": final_pairing,
         "gates": gates,

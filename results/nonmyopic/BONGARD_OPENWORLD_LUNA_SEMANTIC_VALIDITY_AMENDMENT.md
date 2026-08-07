@@ -57,6 +57,12 @@ parsing, finite positive history-conditioned weights, nontrivial unobserved
 branch changes, nondegenerate candidate EIG, hidden-state hygiene, clean
 transport, and bounded cost.
 
+The later simulated-branch obedience amendment does not reinstate aggregate
+observed-history fit as a predictive gate. It checks only the newly supplied
+counterfactual branch label and requires positive and negative branch calls
+separately to beat constant-half Brier, establishing that each regenerated
+state obeys the observation it is meant to condition on.
+
 ## All-First-Action Mechanics
 
 The full four-task mechanics tree now generates the realized branch-greedy

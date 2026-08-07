@@ -52,3 +52,7 @@ Later on the same pre-response date, the path-dependent-support claim audit
 superseded these execution bindings with development manifest `a649a769...`
 and confirmation V3 manifest `8a6dd087...`. The prompt clarification and all
 claims in this audit remain part of that rebound protocol.
+
+The still-later simulated-branch obedience audit superseded those operational
+bindings with development manifest `64f80983...` and confirmation V4 manifest
+`622ad102...`. It leaves this contrastive prompt clarification unchanged.

@@ -164,6 +164,9 @@ def test_confirmation_block_runs_and_replays_with_fixture(
         adapter=FixtureAdapter(),
     )
     assert result["status"] == "block_mechanics_pass"
+    assert result["gates"][
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
+    ]
     assert result["protocol"]["block_size"] == 16
     assert result["usage"]["adapter_requests"] <= 688
     replay = confirmation.replay_block(

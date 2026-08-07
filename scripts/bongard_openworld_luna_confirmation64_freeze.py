@@ -24,7 +24,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-3"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-4"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -69,7 +69,7 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1"
+    "64f80983b3922556c279982fdbf966a861046345f698f2196cf823077b14ba46"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"

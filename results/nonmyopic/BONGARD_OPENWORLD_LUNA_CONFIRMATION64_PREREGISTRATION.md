@@ -95,10 +95,10 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V3.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V4.json`
 
 SHA-256:
-`8a6dd0879ee63b38a016ca954285563ec1bd1964d018ae6af79e24547aa2d284`.
+`622ad102a2ed22a7e67722532902a4720012abf4852a60af1282f433d0f2317f`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
@@ -108,3 +108,7 @@ V3 further strengthens the claim boundary before responses: dynamic support
 must beat fixed-support depth two on changed paths, relative Brier, paired
 uncertainty, log loss, and ranking fidelity. Tasks, calls, seeds, endpoints,
 budgets, and execution dates remain unchanged.
+V4 adds the pre-response simulated-branch obedience mechanics gate. Positive
+and negative conditioned branches must separately beat constant-half Brier on
+the label supplied to the branch. This changes no confirmatory endpoint or
+request.

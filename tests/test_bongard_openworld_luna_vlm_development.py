@@ -224,6 +224,11 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     )
     assert result["status"] == "block_mechanics_pass"
     assert result["gates"]["endpoint_labels_remain_sealed"]
+    assert result["gates"][
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
+    ]
+    assert result["branch_label_obedience"]["negative_mean_brier"] < 0.25
+    assert result["branch_label_obedience"]["positive_mean_brier"] < 0.25
     assert result["protocol"]["endpoint_labels_accessed"] is False
     assert result["protocol"]["first_stage_requests"] == 264
     assert result["protocol"]["conditioned_branch_requests"] == 128

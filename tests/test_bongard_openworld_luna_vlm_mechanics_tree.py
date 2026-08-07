@@ -198,6 +198,11 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     )
     assert result["status"] == "mechanics_pass"
     assert result["gates"]["all_pass"]
+    assert result["gates"][
+        "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
+    ]
+    assert result["branch_label_obedience"]["negative_mean_brier"] < 0.25
+    assert result["branch_label_obedience"]["positive_mean_brier"] < 0.25
     assert result["protocol"]["first_stage_requests"] == 132
     assert result["protocol"]["conditioned_branch_requests"] == 64
     assert result["protocol"]["history_blind_branch_requests"] == 64

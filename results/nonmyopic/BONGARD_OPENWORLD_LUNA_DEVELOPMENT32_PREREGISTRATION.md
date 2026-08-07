@@ -19,6 +19,10 @@ The later
 `BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md` advances the
 development result interface to `-7` and strengthens only the claim boundary:
 the strongest tier must also beat fixed-support depth two.
+The later simulated-branch obedience amendment advances the interface to `-8`:
+each endpoint-blind block requires class-conditional Brier below `0.25` for the
+newly supplied positive and negative simulated branch labels. Calls, policies,
+and scientific gates are unchanged.
 
 ## Claim And Boundary
 

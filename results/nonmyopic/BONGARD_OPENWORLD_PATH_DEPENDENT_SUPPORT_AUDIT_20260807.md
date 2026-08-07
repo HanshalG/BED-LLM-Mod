@@ -66,3 +66,9 @@ existing myopic/history-blind threshold changed.
 The frozen paid path remains August 10 Luna serving plus mechanics. The stronger
 claim family affects only later development interpretation and conditional
 confirmation authorization.
+
+Later on the same pre-response date, the simulated-branch obedience audit
+superseded the operational bindings above with development interface `-8` and
+manifest `64f80983...`, plus confirmation V4 manifest `622ad102...`. The
+path-dependent fixed-support superiority gates and claim boundary remain
+unchanged and are included in the rebound protocol.

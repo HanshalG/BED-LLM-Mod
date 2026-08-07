@@ -22,19 +22,19 @@ from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-3"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-4"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V3.json"
+    "PROTOCOL_MANIFEST_V4.json"
 )
 MANIFEST_SHA256 = (
-    "8a6dd0879ee63b38a016ca954285563ec1bd1964d018ae6af79e24547aa2d284"
+    "622ad102a2ed22a7e67722532902a4720012abf4852a60af1282f433d0f2317f"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "a649a76926b84cebc2a6e4f5b782d451dddb8634207836cbb9901543415d9ce1"
+    "64f80983b3922556c279982fdbf966a861046345f698f2196cf823077b14ba46"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
