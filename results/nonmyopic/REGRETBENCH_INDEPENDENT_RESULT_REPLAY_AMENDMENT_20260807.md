@@ -21,6 +21,8 @@ raw artifacts it independently reconstructs:
 - support-recovery root, conditioned, and history-blind coverage;
 - strict enriched beliefs, information scores, dynamic/history-blind/fixed/
   myopic/random root selection, and frozen pre-truth choices;
+- enriched-smoke and formal distinct semantic-action checks using the official
+  mapper;
 - exact generated-likelihood conditioning on the realized second reply;
 - paired comparisons, correlations, bootstraps, scientific gates, and status;
 - request schedules, common-random-number groups, schema counts, privacy
@@ -29,8 +31,9 @@ raw artifacts it independently reconstructs:
 The verifier reports exact mismatch paths, makes zero provider calls, and
 cannot rescue a producer failure. The daily support executor requires verified
 smoke and development artifacts. The daily policy executor requires those
-hash-bound support verifications and a verified policy development artifact.
-Any replay disagreement fails closed after normal spend reconciliation.
+hash-bound support verifications, a verified enriched-policy smoke, and a
+verified policy development artifact. Any replay disagreement fails closed
+after normal spend reconciliation.
 
 ## Claim Boundary
 

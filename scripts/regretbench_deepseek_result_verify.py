@@ -82,6 +82,9 @@ TRUTH_SEED_START = 202608130000
 RANDOM_SEED_START = 202608140000
 PROBABILITY_FLOOR = 1e-12
 UNSUPPORTED_REPLY = "I cannot answer that clarification."
+ACTION_AMENDMENT_SHA256 = (
+    "8d375fca72f4da30265a9068df27aefceefb14c5474fff2661cbd1513f056160"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -148,6 +151,18 @@ def _map(cig: CIG, question: str, truth: Any) -> dict[str, Any]:
         "method": parsed.method,
         "answer": answer if supported else UNSUPPORTED_REPLY,
     }
+
+
+def _distinct_actions(
+    first: Mapping[str, Any], second: Mapping[str, Any]
+) -> bool:
+    return bool(
+        first["supported"]
+        and second["supported"]
+        and first["facet"] is not None
+        and second["facet"] is not None
+        and first["facet"] != second["facet"]
+    )
 
 
 def _payload_is_private(
@@ -753,6 +768,121 @@ def _parse_naive(raw: str) -> str:
     return question.strip()
 
 
+def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
+    result = _load(run_dir / "RESULT.json")
+    raw = _load(run_dir / "private" / "RAW_RESPONSES.json")
+    cigs = _stage_cigs("smoke")
+    initial_raw = raw.get("initial") or []
+    branch_raw = raw.get("branches") or []
+    if len(initial_raw) != 4 or len(branch_raw) != 6:
+        raise ValueError("policy smoke raw response schedule changed")
+    initial = [_parse_support(value, enriched=True) for value in initial_raw]
+    branches = [_parse_support(value, enriched=True) for value in branch_raw]
+    first_mappings = []
+    second_mappings = []
+    second_matches = []
+    privacy_checks = [_payload_is_private(cig, []) for cig in cigs]
+    for index in range(3):
+        cig = cigs[index]
+        _, truth = _truth(cig, SUPPORT_STAGES["smoke"]["truth_seed"] + index)
+        first_question = initial[index]["questions"][0]
+        first_mapping = _map(cig, first_question, truth)
+        conditioned = branches[2 * index]
+        second_index = _select_question(conditioned)
+        second_mapping = _map(
+            cig, conditioned["questions"][second_index], truth
+        )
+        first_mappings.append(first_mapping)
+        second_mappings.append(second_mapping)
+        second_matches.append(
+            bool(
+                [
+                    row
+                    for row in conditioned["hypotheses"]
+                    if normalize_text(
+                        row["predicted_replies"][second_index]
+                    )
+                    == normalize_text(second_mapping["answer"])
+                ]
+            )
+        )
+        privacy_checks.extend(
+            [
+                _payload_is_private(
+                    cig,
+                    [
+                        {"role": "assistant", "content": first_question},
+                        {
+                            "role": "user",
+                            "content": first_mapping["answer"],
+                        },
+                    ],
+                ),
+                _payload_is_private(cig, []),
+            ]
+        )
+    usage = result.get("usage") or {}
+    all_supports = [*initial, *branches]
+    gates = {
+        "exact_ten_responses": len(all_supports) == 10,
+        "exact_ten_requests": usage.get("adapter_requests") == 10,
+        "exact_ten_http_attempts": usage.get("http_attempts") == 10,
+        "zero_retries": usage.get("retry_count") == 0,
+        "zero_provider_error_retries": usage.get("provider_error_retries")
+        == 0,
+        "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
+        "zero_forced_exits": usage.get("forced_exits") == 0,
+        "all_strict_and_exactly_eight_unique": all(
+            support["diagnostic"]["valid_unique_count"] == 8
+            for support in all_supports
+        ),
+        "every_initial_has_two_informative_roots": all(
+            support["diagnostic"]["informative_question_count"] >= 2
+            for support in initial
+        ),
+        "every_branch_has_an_informative_followup": all(
+            support["diagnostic"]["informative_question_count"] >= 1
+            for support in branches
+        ),
+        "all_three_first_questions_supported": all(
+            row["supported"] for row in first_mappings
+        ),
+        "all_three_second_questions_supported": all(
+            row["supported"] for row in second_mappings
+        ),
+        "all_three_second_actions_are_novel": all(
+            _distinct_actions(first, second)
+            for first, second in zip(
+                first_mappings, second_mappings, strict=True
+            )
+        ),
+        "all_three_exact_second_replies_match_generated_likelihoods": all(
+            second_matches
+        ),
+        "all_privacy_audits_pass": len(privacy_checks) == 10
+        and all(privacy_checks),
+        "within_smoke_budget": float(
+            usage.get("run_cost_usd", math.inf)
+        )
+        <= 0.20,
+    }
+    gates["all_pass"] = all(gates.values())
+    expected_status = "passed" if gates["all_pass"] else "mechanics_failed"
+    mismatches = []
+    _close(
+        (result.get("protocol") or {}).get(
+            "distinct_action_amendment_sha256"
+        ),
+        ACTION_AMENDMENT_SHA256,
+        "$.protocol.distinct_action_amendment_sha256",
+        mismatches,
+    )
+    _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
+    _close(result.get("gates"), gates, "$.gates", mismatches)
+    _close(result.get("status"), expected_status, "$.status", mismatches)
+    return _verification(run_dir, "policy_smoke", mismatches)
+
+
 def verify_policy(run_dir: Path) -> dict[str, Any]:
     result = _load(run_dir / "RESULT.json")
     initial_artifact = _load(run_dir / "private" / "RAW_INITIAL.json")
@@ -894,6 +1024,9 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
                 "second_question_index": None,
                 "first_supported": first_mapping["supported"],
                 "second_supported": second_mapping["supported"],
+                "second_action_novel": _distinct_actions(
+                    first_mapping, second_mapping
+                ),
                 "truth_mass_after_first": first_mass,
                 "truth_mass_final": final_mass,
                 "brier": (1.0 - final_mass) ** 2,
@@ -921,6 +1054,9 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
                 "second_question_index": path["second"],
                 "first_supported": path["first_mapping"]["supported"],
                 "second_supported": path["second_mapping"]["supported"],
+                "second_action_novel": _distinct_actions(
+                    path["first_mapping"], path["second_mapping"]
+                ),
                 "second_reply_likelihood_matched": terminal["reply_matched"],
                 "second_reply_matched_hypotheses": terminal["matched_hypothesis_count"],
                 "truth_mass_after_first": _truth_mass(path["support"], aliases),
@@ -1003,6 +1139,7 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         and all(privacy_checks),
         "every_policy_has_48_supported_first_actions": all(sum(task["policies"][name]["first_supported"] for task in tasks) >= 48 for name in POLICY_NAMES),
         "every_policy_has_40_supported_second_actions": all(sum(task["policies"][name]["second_supported"] for task in tasks) >= 40 for name in POLICY_NAMES),
+        "every_policy_has_40_novel_second_actions": all(sum(task["policies"][name]["second_action_novel"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "every_policy_has_40_matchable_second_replies": all(sum(task["policies"][name]["second_reply_likelihood_matched"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "within_combined_policy_budget": float(result["usage"]["combined_cost_usd"]) <= POLICY_BUDGET,
         "conditioned_blind_pairs_share_exact_seed": seed_schedule_ok,
@@ -1020,6 +1157,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
     science = science_candidate if mechanics["all_pass"] else None
     expected_status = "mechanics_failed" if not mechanics["all_pass"] else ("passed" if science["gates"]["all_pass"] else "gated_null")
     mismatches = []
+    _close(
+        (result.get("protocol") or {}).get(
+            "distinct_action_amendment_sha256"
+        ),
+        ACTION_AMENDMENT_SHA256,
+        "$.protocol.distinct_action_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)
     _close(result.get("science"), science, "$.science", mismatches)
     _close(result.get("mechanics_gates"), mechanics, "$.mechanics_gates", mismatches)
@@ -1058,7 +1203,11 @@ def _verification(run_dir: Path, kind: str, mismatches: Sequence[str]) -> dict[s
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=("support", "policy"), required=True)
+    parser.add_argument(
+        "--kind",
+        choices=("support", "policy_smoke", "policy"),
+        required=True,
+    )
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--stage", choices=("smoke", "development"))
     args = parser.parse_args()
@@ -1067,6 +1216,10 @@ def main() -> int:
         if args.stage is None:
             parser.error("--stage is required for support verification")
         verification = verify_support(run_dir, stage=args.stage)
+    elif args.kind == "policy_smoke":
+        if args.stage is not None:
+            parser.error("--stage is not used for policy-smoke verification")
+        verification = verify_policy_smoke(run_dir)
     else:
         if args.stage is not None:
             parser.error("--stage is not used for policy verification")

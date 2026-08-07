@@ -55,6 +55,29 @@ def test_protocol_binding_refuses_support_core_change(monkeypatch) -> None:
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_distinct_action_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(policy, "ACTION_NOVELTY_AMENDMENT_SHA256", "0" * 64)
+
+    with pytest.raises(ValueError, match="distinct-action amendment changed"):
+        policy.validate_protocol_binding()
+
+
+def test_distinct_actions_use_official_facet_identity() -> None:
+    first = {"supported": True, "facet": "country"}
+
+    assert policy.distinct_supported_actions(
+        first, {"supported": True, "facet": "period"}
+    )
+    assert not policy.distinct_supported_actions(
+        first, {"supported": True, "facet": "country"}
+    )
+    assert not policy.distinct_supported_actions(
+        first, {"supported": False, "facet": None}
+    )
+
+
 def test_duplicate_enriched_particle_fails_instead_of_changing_width() -> None:
     payload = _support()
     payload["hypotheses"][1] = dict(payload["hypotheses"][0])
@@ -227,7 +250,8 @@ class _FixtureAdapter:
             *recovery.load_stage_cigs("development"),
         ]
         self.facets = {
-            cig.cig_id: cig.semantic_facets[0].replace("_", " ") for cig in all_cigs
+            cig.cig_id: [facet.replace("_", " ") for facet in cig.semantic_facets]
+            for cig in all_cigs
         }
         self.truth_aliases = {}
         self.truth_replies = {}
@@ -235,19 +259,23 @@ class _FixtureAdapter:
             _, truth = recovery.sample_truth(
                 cig, recovery.STAGES["smoke"]["truth_seed_start"] + index
             )
-            facet = cig.semantic_facets[0]
-            self.truth_replies[cig.cig_id] = str(
-                (truth.slots or {}).get(facet, "")
-            )
+            self.truth_replies[cig.cig_id] = {
+                facet.replace("_", " "): str(
+                    (truth.slots or {}).get(facet, "")
+                )
+                for facet in cig.semantic_facets
+            }
         for index, cig in enumerate(recovery.load_stage_cigs("development")):
             _, truth = recovery.sample_truth(cig, policy.TRUTH_SEED_START + index)
             self.truth_aliases[cig.cig_id] = str(
                 (truth.slots or {})["answer_aliases"]
             ).split("|")[0]
-            facet = cig.semantic_facets[0]
-            self.truth_replies[cig.cig_id] = str(
-                (truth.slots or {}).get(facet, "")
-            )
+            self.truth_replies[cig.cig_id] = {
+                facet.replace("_", " "): str(
+                    (truth.slots or {}).get(facet, "")
+                )
+                for facet in cig.semantic_facets
+            }
 
     def _root_from_question(self, text: str) -> int:
         for index, word in enumerate(self.WORDS):
@@ -284,9 +312,17 @@ class _FixtureAdapter:
         elif not dialogue:
             answers = [f"candidate answer {index}" for index in range(8)]
 
-        facet = self.facets[task_id]
+        facets = self.facets[task_id]
+        question_facets = [facets[index % len(facets)] for index in range(4)]
+        if root is not None:
+            first_facet = facets[root % len(facets)]
+            next_facet = facets[(root + 1) % len(facets)]
+            question_facets[1] = (
+                next_facet if next_facet != first_facet else facets[-1]
+            )
         questions = [
-            f"Which {facet} do you mean for option {word}?" for word in self.WORDS
+            f"Which {question_facets[index]} do you mean for option {word}?"
+            for index, word in enumerate(self.WORDS)
         ]
         hypotheses = []
         for index in range(8):
@@ -297,7 +333,10 @@ class _FixtureAdapter:
                 f"sim-q3-h{index % 3}",
             ]
             if index == 0:
-                predicted_replies = [self.truth_replies[task_id]] * 4
+                predicted_replies = [
+                    self.truth_replies[task_id][facet]
+                    for facet in question_facets
+                ]
             hypotheses.append(
                 {
                     "interpretation": f"fixture interpretation {index}",
@@ -382,6 +421,24 @@ class _FakeNaiveAdapter:
         }
 
 
+class _RepeatingFacetAdapter(_FixtureAdapter):
+    def _response(
+        self, payload: dict, seed: int, *, branch_root: int | None = None
+    ) -> str:
+        value = json.loads(
+            super()._response(payload, seed, branch_root=branch_root)
+        )
+        task_id = payload["task_id"]
+        facet = self.facets[task_id][0]
+        value["questions"] = [
+            f"Which {facet} do you mean for repeated option {word}?"
+            for word in self.WORDS
+        ]
+        truth_reply = self.truth_replies[task_id][facet]
+        value["hypotheses"][0]["predicted_replies"] = [truth_reply] * 4
+        return json.dumps(value)
+
+
 def test_exact_ten_enriched_smoke(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(
         policy,
@@ -402,6 +459,45 @@ def test_exact_ten_enriched_smoke(tmp_path, monkeypatch) -> None:
     assert all(result["gates"].values())
     assert adapter.requests == 10
     assert result["protocol"]["policy_endpoint_opened"] is False
+    replay = verify.verify_policy_smoke(tmp_path / "smoke")
+    assert replay["status"] == "verified"
+
+
+def test_enriched_smoke_rejects_repeated_semantic_action(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        policy,
+        "validate_support_predecessors",
+        lambda **kwargs: {"support": "fixture"},
+    )
+
+    result = policy.run_smoke(
+        output_dir=tmp_path / "repeated-smoke",
+        run_id="fixture-repeated-policy-smoke",
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+        adapter=_RepeatingFacetAdapter(),
+    )
+
+    assert result["status"] == "mechanics_failed"
+    assert result["gates"]["all_three_second_questions_supported"] is True
+    assert result["gates"][
+        "all_three_exact_second_replies_match_generated_likelihoods"
+    ] is True
+    assert result["gates"]["all_three_second_actions_are_novel"] is False
+    replay = verify.verify_policy_smoke(tmp_path / "repeated-smoke")
+    assert replay["status"] == "verified"
+
+    result_path = tmp_path / "repeated-smoke" / "RESULT.json"
+    tampered = json.loads(result_path.read_text())
+    tampered["gates"]["all_three_second_actions_are_novel"] = True
+    result_path.write_text(json.dumps(tampered))
+    failed = verify.verify_policy_smoke(tmp_path / "repeated-smoke")
+    assert failed["status"] == "verification_failed"
+    assert "$.gates.all_three_second_actions_are_novel" in failed[
+        "mismatches"
+    ]
 
 
 def test_exact_ten_naive_thinking_smoke(tmp_path, monkeypatch) -> None:
@@ -430,6 +526,7 @@ def test_exact_ten_naive_thinking_smoke(tmp_path, monkeypatch) -> None:
     assert all(result["gates"].values())
     assert adapter.requests == 10
     assert result["usage"]["adapter_reasoning_tokens"] == 10
+    assert result["gates"]["all_four_second_actions_are_novel"] is True
 
 
 def test_full_8256_planning_response_path_and_actual_cache(
@@ -476,6 +573,9 @@ def test_full_8256_planning_response_path_and_actual_cache(
         adapter.requests + naive_endpoint_adapter.requests + naive_adapter.requests
     )
     assert all(result["mechanics_gates"].values())
+    assert result["mechanics_gates"][
+        "every_policy_has_40_novel_second_actions"
+    ] is True
     assert result["naive_baseline"]["status"] == "available"
     assert result["naive_baseline"]["all_transport_and_schema_gates_pass"] is True
     assert all(

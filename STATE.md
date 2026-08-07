@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Close a pre-response RegretBench repeated-action loophole. The
+official environment returns one deterministic slot value per mapped facet,so
+asking the same facet twice has zero evidence but could spuriously move an LLM
+refresh. Freeze amendment8d375fca:enriched smoke requires3/3 distinct second
+facets,each primary policy>=40/64,and optional Luna smoke/formal use4/4 and
+40/64 as availability-only gates. Independent replay now verifies policy smoke
+and formal action novelty. Same-facet adversary remains supported,informative,
+and exact-reply-matchable but correctly fails only novelty. Calls/cost0.
+
 2026-08-07: Add mandatory independent zero-call RegretBench result replay before
 the unopened Aug8 chain. A separate verifier imports neither producer and
 reconstructs support coverage plus the full dynamic policy path from raw JSON:

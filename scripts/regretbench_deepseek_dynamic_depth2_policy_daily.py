@@ -41,6 +41,9 @@ LEDGER = (
     "2026-08-08-regretbench-dynamic-policy.json"
 )
 RESULT_VERIFIER_SHA256 = recovery_daily.RESULT_VERIFIER_SHA256
+POLICY_CORE_SHA256 = (
+    "f639869fc0fc907f4061d365898fc75a74b8f0f966bf385ddbba87ab20b785ad"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -122,6 +125,11 @@ def preflight(
 ) -> dict[str, Any]:
     _validate_date(now)
     policy.validate_protocol_binding()
+    if (
+        recovery.sha256_file(Path(policy.__file__).resolve())
+        != POLICY_CORE_SHA256
+    ):
+        raise RuntimeError("dynamic policy core binding changed")
     if (
         recovery.sha256_file(Path(result_verify.__file__).resolve())
         != RESULT_VERIFIER_SHA256
@@ -289,6 +297,10 @@ def execute(
                 live=live,
             ),
         )
+        smoke_verification = result_verify.verify_policy_smoke(SMOKE_DIR)
+        checkpoint(SMOKE_DIR / "VERIFICATION.json", smoke_verification)
+        if smoke_verification["status"] != "verified":
+            raise RuntimeError("policy smoke independent replay failed")
     except Exception:
         usage = summarize_adapter(smoke_adapter)
         ledger = _reconcile(
@@ -315,6 +327,9 @@ def execute(
             "status": "smoke_stopped",
             "enriched_smoke_result_sha256": recovery.sha256_file(
                 SMOKE_DIR / "RESULT.json"
+            ),
+            "enriched_smoke_verification_sha256": recovery.sha256_file(
+                SMOKE_DIR / "VERIFICATION.json"
             ),
             "development_opened": False,
             "confirmation_opened": False,
@@ -485,6 +500,9 @@ def execute(
         "status": "complete_reconciled",
         "enriched_smoke_result_sha256": recovery.sha256_file(
             SMOKE_DIR / "RESULT.json"
+        ),
+        "enriched_smoke_verification_sha256": recovery.sha256_file(
+            SMOKE_DIR / "VERIFICATION.json"
         ),
         "naive_smoke_status": naive_smoke_status,
         "naive_smoke_result_sha256": recovery.sha256_file(naive_smoke_path),

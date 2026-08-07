@@ -99,6 +99,13 @@ PREREGISTRATION = (
 PREREGISTRATION_SHA256 = (
     "03c0f5bd48bd021d696e8641c29942644306b2fd3532157c52af3fc01b6d0f54"
 )
+ACTION_NOVELTY_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/REGRETBENCH_DISTINCT_ACTION_AMENDMENT_20260807.md"
+)
+ACTION_NOVELTY_AMENDMENT_SHA256 = (
+    "8d375fca72f4da30265a9068df27aefceefb14c5474fff2661cbd1513f056160"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -127,6 +134,11 @@ def validate_protocol_binding() -> None:
         raise ValueError("support-recovery core binding changed")
     if recovery.sha256_file(PREREGISTRATION) != PREREGISTRATION_SHA256:
         raise ValueError("dynamic policy preregistration changed")
+    if (
+        recovery.sha256_file(ACTION_NOVELTY_AMENDMENT)
+        != ACTION_NOVELTY_AMENDMENT_SHA256
+    ):
+        raise ValueError("distinct-action amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -264,6 +276,18 @@ def parse_naive_question(raw: str) -> str:
     if not isinstance(question, str) or not question.strip().endswith("?"):
         raise ValueError("naive response is not an interrogative question")
     return question.strip()
+
+
+def distinct_supported_actions(
+    first: Mapping[str, Any], second: Mapping[str, Any]
+) -> bool:
+    return bool(
+        first["supported"]
+        and second["supported"]
+        and first["facet"] is not None
+        and second["facet"] is not None
+        and first["facet"] != second["facet"]
+    )
 
 
 def parse_enriched_support(raw: str) -> dict[str, Any]:
@@ -733,6 +757,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         or protocol.get("model") != MODEL_ID
         or protocol.get("expected_requests") != 10
         or protocol.get("preregistration_sha256") != PREREGISTRATION_SHA256
+        or protocol.get("distinct_action_amendment_sha256")
+        != ACTION_NOVELTY_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -786,6 +812,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         or protocol.get("reasoning_effort") != NAIVE_REASONING_EFFORT
         or protocol.get("expected_requests") != 10
         or protocol.get("preregistration_sha256") != PREREGISTRATION_SHA256
+        or protocol.get("distinct_action_amendment_sha256")
+        != ACTION_NOVELTY_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -892,6 +920,12 @@ def run_smoke(
         "all_three_second_questions_supported": all(
             item["supported"] for item in second_mappings
         ),
+        "all_three_second_actions_are_novel": all(
+            distinct_supported_actions(first, second)
+            for first, second in zip(
+                mappings, second_mappings, strict=True
+            )
+        ),
         "all_three_exact_second_replies_match_generated_likelihoods": all(
             second_reply_matches
         ),
@@ -911,6 +945,9 @@ def run_smoke(
             "reasoning": "disabled_excluded",
             "expected_requests": 10,
             "preregistration_sha256": PREREGISTRATION_SHA256,
+            "distinct_action_amendment_sha256": (
+                ACTION_NOVELTY_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1022,6 +1059,12 @@ def run_naive_smoke(
         "all_eight_executed_questions_supported": all(
             item["supported"] for item in [*first_mappings, *second_mappings]
         ),
+        "all_four_second_actions_are_novel": all(
+            distinct_supported_actions(first, second)
+            for first, second in zip(
+                first_mappings, second_mappings, strict=True
+            )
+        ),
         "all_privacy_audits_pass": len(privacy) == 10
         and all(item["passed"] for item in privacy),
         "within_naive_smoke_budget": usage["run_cost_usd"]
@@ -1041,6 +1084,9 @@ def run_naive_smoke(
             "reasoning_effort": NAIVE_REASONING_EFFORT,
             "expected_requests": 10,
             "preregistration_sha256": PREREGISTRATION_SHA256,
+            "distinct_action_amendment_sha256": (
+                ACTION_NOVELTY_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
             "efficacy_used_for_authorization": False,
@@ -1547,6 +1593,14 @@ def mechanics_gates(
             >= 40
             for policy in PRIMARY_POLICIES
         ),
+        "every_policy_has_40_novel_second_actions": all(
+            sum(
+                task["policies"][policy]["second_action_novel"]
+                for task in tasks
+            )
+            >= 40
+            for policy in PRIMARY_POLICIES
+        ),
         "every_policy_has_40_matchable_second_replies": all(
             sum(
                 task["policies"][policy][
@@ -1640,6 +1694,12 @@ def naive_baseline_diagnostics(
             for task in tasks
         )
         >= 40,
+        "at_least_40_novel_second_actions": available
+        and sum(
+            task["policies"]["naive_thinking"]["second_action_novel"]
+            for task in tasks
+        )
+        >= 40,
     }
     return {
         "status": (
@@ -1660,10 +1720,12 @@ def naive_baseline_diagnostics(
             not in {
                 "at_least_48_supported_first_actions",
                 "at_least_40_supported_second_actions",
+                "at_least_40_novel_second_actions",
             }
         ),
         "coverage_targets_met": gates["at_least_48_supported_first_actions"]
-        and gates["at_least_40_supported_second_actions"],
+        and gates["at_least_40_supported_second_actions"]
+        and gates["at_least_40_novel_second_actions"],
         "can_affect_primary_status": False,
     }
 
@@ -2093,6 +2155,10 @@ def run_development(
                         "second_supported": naive_path["second_mapping"][
                             "supported"
                         ],
+                        "second_action_novel": distinct_supported_actions(
+                            naive_path["first_mapping"],
+                            naive_path["second_mapping"],
+                        ),
                         "truth_mass_after_first": first_mass,
                         "truth_mass_final": final_mass,
                         "brier": (1.0 - final_mass) ** 2,
@@ -2141,6 +2207,10 @@ def run_development(
                 "second_question_index": first_path["second_index"],
                 "first_supported": first_path["first_mapping"]["supported"],
                 "second_supported": first_path["second_mapping"]["supported"],
+                "second_action_novel": distinct_supported_actions(
+                    first_path["first_mapping"],
+                    first_path["second_mapping"],
+                ),
                 "second_reply_likelihood_matched": terminal["reply_matched"],
                 "second_reply_matched_hypotheses": terminal[
                     "matched_hypothesis_count"
@@ -2283,6 +2353,9 @@ def run_development(
             "maximum_deepseek_requests": MAX_DEEPSEEK_REQUESTS,
             "maximum_requests": MAX_REQUESTS,
             "preregistration_sha256": PREREGISTRATION_SHA256,
+            "distinct_action_amendment_sha256": (
+                ACTION_NOVELTY_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,
             "naive_smoke": naive_smoke,

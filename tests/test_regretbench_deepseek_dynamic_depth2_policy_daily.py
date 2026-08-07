@@ -158,12 +158,28 @@ def test_preflight_refuses_when_full_policy_caps_do_not_fit(tmp_path, monkeypatc
         )
 
 
+def test_preflight_refuses_policy_core_hash_change(monkeypatch) -> None:
+    monkeypatch.setattr(daily, "POLICY_CORE_SHA256", "0" * 64)
+
+    with pytest.raises(RuntimeError, match="dynamic policy core binding changed"):
+        daily.preflight(
+            now=datetime(2026, 8, 8, 14, tzinfo=ZoneInfo("Europe/London")),
+            live_reader=_live,
+            catalog_reader=_catalog,
+        )
+
+
 class _Adapter:
     def usage_snapshot(self):
         return {"adapter_cost_usd": 0.0}
 
 
 def _install_verifier(monkeypatch) -> None:
+    monkeypatch.setattr(
+        daily.result_verify,
+        "verify_policy_smoke",
+        lambda *args, **kwargs: {"status": "verified", "model_calls": 0},
+    )
     monkeypatch.setattr(
         daily.result_verify,
         "verify_policy",

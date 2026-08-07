@@ -10,6 +10,13 @@ belief, branch, selection, truth-control, and realized-history artifacts by
 producer result only when this zero-call replay matches its primary endpoint,
 statistics, mechanics gates, and status.
 
+The distinct-action amendment additionally requires the second question to map
+to a different official semantic facet from the first. Rephrasing the same
+facet cannot create a valid two-step trajectory: all three enriched-smoke paths
+must be novel, and every primary policy must clear `40/64` novel second actions.
+The optional Luna baseline uses the same target only as an availability
+diagnostic and remains unable to affect primary status.
+
 ## What Is Ready
 
 The implementation constructs a genuinely LLM-native sequential BED tree:
