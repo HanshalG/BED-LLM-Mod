@@ -40,17 +40,17 @@ not measure the repeated task interface needed here: history-consistent,
 diverse, executable semantic hypotheses under strict output and support
 constraints. Direct project evidence therefore controls promotion.
 
-Artificial Analysis reports Luna at `27` nonreasoning, `46` high reasoning,
-and `51` max reasoning. The published April V4 Flash checkpoint scores about
-`29` nonreasoning, `37` high, and `40` max; these are only a proxy for the
-newer re-post-trained 0731 revision, which has no independent published row.
-At benchmark list prices, the max-reasoning evaluation cost is about `$870`
-for Luna versus `$74` for V4 Flash. OpenRouter's authenticated endpoint catalog
-is currently much cheaper than those direct-provider list prices: Luna
-`$0.10/$0.60` and the cheapest 0731 route `$0.09/$0.18` per million
-input/output tokens. DeepSeek is therefore the text-only throughput default,
-while Luna is reserved for images or the separately labelled stronger
-reasoning baseline. Direct interface gates still control every promotion.
+Artificial Analysis now reports independent max-reasoning rows for both
+current checkpoints: Luna scores `52.32` and DeepSeek V4 Flash 0731 scores
+`51.77`. Their weighted Intelligence Index costs are about `$0.0471` and
+`$0.0271` per task respectively, so 0731 is about 42% cheaper on that generic
+reasoning screen. The same dataset reports output speeds near `190.4` and
+`104.2` tokens/s. OpenRouter's authenticated catalog is cheaper still: Luna
+`$0.10/$0.60` and 0731 `$0.09/$0.18` per million input/output tokens.
+DeepSeek is therefore the text-only throughput default, while Luna is reserved
+for images or the separately labelled reasoning baseline. Direct interface
+gates still control every promotion because the generic max-reasoning screen
+does not measure nonreasoning support validity.
 
 ## Direct Task Evidence
 
