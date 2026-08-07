@@ -70,3 +70,8 @@ V4 is the only authoritative confirmation execution binding.
 The next permitted paid action remains the frozen August 10 Luna serving and
 mechanics sequence. This audit does not authorize early development,
 confirmation, model substitution, or endpoint access.
+
+Later on the same pre-response date, the matched fixed-score audit superseded
+these operational bindings with development interface `-9` and manifest
+`4785d95e...`, plus confirmation V5 manifest `d827a9fd...`. The branch-obedience
+gate remains unchanged in the rebound protocol.

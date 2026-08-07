@@ -180,6 +180,7 @@ def _scored_tree(task_id: str, index: int) -> dict:
     endpoint_values = {
         "myopic_width": (0.20, 0.40),
         "fixed_depth2": (0.12, 0.30),
+        "fixed_score_dynamic_update": (0.14, 0.32),
         "dynamic_depth2": (0.10, 0.25),
         "shuffled_dynamic_depth2": (0.13, 0.31),
         "history_blind_depth2": (0.18, 0.36),
@@ -188,9 +189,15 @@ def _scored_tree(task_id: str, index: int) -> dict:
     policies = {}
     for policy in mechanics.POLICIES:
         brier, log_loss = endpoint_values[policy]
-        first = "dynamic-first" if policy == "dynamic_depth2" else f"{policy}-first"
+        if policy == "dynamic_depth2":
+            first = "dynamic-first"
+        elif policy in {"fixed_depth2", "fixed_score_dynamic_update"}:
+            first = "fixed_depth2-first"
+        else:
+            first = f"{policy}-first"
         policies[policy] = {
             "first_image_id": first,
+            "first_score_margin": 0.1,
             "final_history_key": f"{policy}-{index}",
             "endpoint": {
                 "mean_brier": brier,
@@ -259,10 +266,84 @@ def test_combined_analysis_uses_strict_confirmation_gates(
     assert result["gates"]["all_pass"] is True
     assert result["comparisons_vs_myopic"]["dynamic_depth2"]["mean_brier"]["ci95"][1] < 0
     assert result["dynamic_vs_fixed_depth2"]["mean_brier"]["ci95"][1] < 0
+    assert result["dynamic_vs_fixed_score_dynamic_update"]["mean_brier"][
+        "ci95"
+    ][1] < 0
     assert result["gates"][
         "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero"
     ]
+    assert result["gates"][
+        "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero"
+    ]
     assert result["sealed_test_authorized"] is False
+
+
+def test_confirmation_rejects_gain_caused_only_by_unmatched_fixed_update(
+    tmp_path, monkeypatch
+) -> None:
+    tasks = _tasks()
+    replays = []
+    for block_id in confirmation.BLOCK_ORDER:
+        replays.append(
+            {
+                "verified": True,
+                "block_id": block_id,
+                "protocol_manifest_sha256": confirmation.PROTOCOL_MANIFEST_SHA256,
+                "result_sha256": block_id * 64,
+                "raw_responses_sha256": block_id.upper() * 64,
+                "tasks": confirmation.confirmation_tasks_for_block(
+                    tasks, block_id
+                ),
+                "artifacts": {"trees": []},
+            }
+        )
+    by_name = {
+        f"{block}.json": replay
+        for block, replay in zip(
+            confirmation.BLOCK_ORDER, replays, strict=True
+        )
+    }
+    monkeypatch.setattr(
+        confirmation,
+        "replay_block",
+        lambda result_path, **kwargs: by_name[result_path.name],
+    )
+    trees = [_scored_tree(task.task_id, index) for index, task in enumerate(tasks)]
+    for tree in trees:
+        tree["policies"]["fixed_score_dynamic_update"]["endpoint"][
+            "mean_brier"
+        ] = 0.08
+        tree["policies"]["fixed_score_dynamic_update"]["endpoint"][
+            "mean_log_loss"
+        ] = 0.20
+    monkeypatch.setattr(
+        confirmation, "_build_scored_trees", lambda **kwargs: trees
+    )
+
+    result = confirmation.analyze_combined(
+        block_results=[
+            tmp_path / f"{block}.json" for block in confirmation.BLOCK_ORDER
+        ],
+        output_path=tmp_path / "combined-unmatched-only.json",
+        all_confirmation_tasks=tasks,
+    )
+
+    assert result["status"] == "confirmation_null"
+    assert all(
+        result["gates"][name]
+        for name in (
+            "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
+            "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero",
+            "dynamic_log_loss_is_not_worse_than_fixed_depth2",
+        )
+    )
+    assert result["gates"][
+        "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent"
+    ] is False
+    assert result["gates"][
+        "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero"
+    ] is False
+    assert result["gates"]["all_pass"] is False
 
 
 def test_all_confirmation_blocks_and_combined_result_replay(

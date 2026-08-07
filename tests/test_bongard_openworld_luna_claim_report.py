@@ -55,6 +55,10 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
             "mean_brier": summary,
             "mean_log_loss": summary,
         },
+        "dynamic_vs_fixed_score_dynamic_update": {
+            "mean_brier": summary,
+            "mean_log_loss": summary,
+        },
         "ranking_fidelity": {
             "dynamic_depth2": {"mean_spearman": 0.3, "sample_sd": 0.2},
             "myopic_width": {"mean_spearman": 0.2, "sample_sd": 0.2},
@@ -66,9 +70,11 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
         "dynamic_vs_myopic_relative_brier_improvement": 0.1,
         "dynamic_vs_history_blind_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
+        "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": 0.05,
         "dynamic_vs_myopic_changed_final_histories": 16,
         "dynamic_vs_history_blind_changed_final_histories": 14,
         "dynamic_vs_fixed_depth2_changed_final_histories": 15,
+        "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": 15,
     }
 
 
@@ -124,6 +130,32 @@ def test_claim_tiers_are_fixed_by_complete_gate_families(
     assert report["claim_tier"] == expected_tier
     assert report["authorizes_confirmation_preregistration"] is authorized
     assert report["confirmation_execution_remains_unauthorized"]
+
+
+def test_unmatched_fixed_policy_win_cannot_authorize_first_action_claim() -> None:
+    matched_gate = (
+        "dynamic_brier_relative_improvement_vs_"
+        "fixed_score_dynamic_update_at_least_3_percent"
+    )
+    result = _result(failed=(matched_gate,))
+    result["dynamic_vs_fixed_depth2"]["mean_brier"][
+        "mean_difference"
+    ] = -0.02
+    result["dynamic_vs_fixed_score_dynamic_update"]["mean_brier"][
+        "mean_difference"
+    ] = 0.02
+
+    classification = claim.classify_result(result)
+
+    assert all(
+        result["gates"][gate]
+        for gate in claim.PATH_DEPENDENT_GATES
+        if "fixed_score_dynamic_update" not in gate
+    )
+    assert classification["claim_tier"] == (
+        "policy_and_matched_regeneration_without_fixed_support_superiority"
+    )
+    assert classification["authorizes_confirmation_preregistration"] is False
 
 
 def test_claim_report_rejects_gate_or_replay_inconsistency() -> None:

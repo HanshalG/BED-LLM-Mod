@@ -56,3 +56,7 @@ claims in this audit remain part of that rebound protocol.
 The still-later simulated-branch obedience audit superseded those operational
 bindings with development manifest `64f80983...` and confirmation V4 manifest
 `622ad102...`. It leaves this contrastive prompt clarification unchanged.
+
+The later matched fixed-score audit superseded those operational bindings with
+development manifest `4785d95e...` and confirmation V5 manifest `d827a9fd...`.
+The contrastive prompt remains unchanged.

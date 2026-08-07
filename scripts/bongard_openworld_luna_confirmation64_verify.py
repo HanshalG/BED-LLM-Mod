@@ -22,19 +22,19 @@ from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-4"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-5"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V4.json"
+    "PROTOCOL_MANIFEST_V5.json"
 )
 MANIFEST_SHA256 = (
-    "622ad102a2ed22a7e67722532902a4720012abf4852a60af1282f433d0f2317f"
+    "d827a9fdd6694bfd69ba05550e5e1248f9750b5785be1f6be5e9e5a73e1d8b24"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "64f80983b3922556c279982fdbf966a861046345f698f2196cf823077b14ba46"
+    "4785d95e470285d380780dd0f1254c22994e81fb2d1cd0ec21285eee6c6e74ff"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
@@ -45,6 +45,13 @@ AUTHORIZATION_AMENDMENT = REPO_ROOT / (
 )
 AUTHORIZATION_AMENDMENT_SHA256 = (
     "3dc22154312b93465e2b7d308a76f9de800d145d219189b77f3a0262f83f32a4"
+)
+MATCHED_FIXED_SCORE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md"
+)
+MATCHED_FIXED_SCORE_AMENDMENT_SHA256 = (
+    "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2"
 )
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
@@ -154,8 +161,12 @@ def verify_manifest(
             == "full_path_dependent_llm_native_development_signal"
             and precondition.get("authorization_amendment_sha256")
             == AUTHORIZATION_AMENDMENT_SHA256
-            and sha256_file(AUTHORIZATION_AMENDMENT)
-            == AUTHORIZATION_AMENDMENT_SHA256
+                and sha256_file(AUTHORIZATION_AMENDMENT)
+                == AUTHORIZATION_AMENDMENT_SHA256
+                and precondition.get("matched_fixed_score_amendment_sha256")
+                == MATCHED_FIXED_SCORE_AMENDMENT_SHA256
+                and sha256_file(MATCHED_FIXED_SCORE_AMENDMENT)
+                == MATCHED_FIXED_SCORE_AMENDMENT_SHA256
             and precondition.get(
                 "legacy_no_ad_hoc_execution_field_is_preserved"
             )
@@ -210,7 +221,8 @@ def verify_manifest(
             == {
                 "source_manifest_hash_matches",
                 "development_manifest_hash_matches",
-                "authorization_amendment_hash_matches",
+                    "authorization_amendment_hash_matches",
+                    "matched_fixed_score_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_source_confirmation_partition_is_bound",
                 "exact_64_unique_opaque_task_identities",
@@ -236,7 +248,7 @@ def verify_manifest(
             and len(manifest["science_gates"]["shared"]) == 4
             and len(manifest["science_gates"]["policy"]) == 9
             and len(manifest["science_gates"]["matched_mechanism"]) == 6
-            and len(manifest["science_gates"]["path_dependent_support"]) == 7
+                and len(manifest["science_gates"]["path_dependent_support"]) == 13
         ),
     }
     if require_unopened_predecessors:

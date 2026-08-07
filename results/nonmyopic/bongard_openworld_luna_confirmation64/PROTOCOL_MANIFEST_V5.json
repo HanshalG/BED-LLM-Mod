@@ -1,0 +1,470 @@
+{
+  "decision": "conditionally_execute_only_after_full_development_tier",
+  "development_precondition": {
+    "authorization_amendment_sha256": "3dc22154312b93465e2b7d308a76f9de800d145d219189b77f3a0262f83f32a4",
+    "confirmation_design_is_frozen_before_development_responses": true,
+    "development_null_or_partial_tier_forbids_execution": true,
+    "legacy_no_ad_hoc_execution_field_is_preserved": true,
+    "manifest_sha256": "4785d95e470285d380780dd0f1254c22994e81fb2d1cd0ec21285eee6c6e74ff",
+    "matched_fixed_score_amendment_sha256": "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2",
+    "required_claim_report_interface": "bongard-openworld-luna-claim-report-3",
+    "required_claim_tier": "full_path_dependent_llm_native_development_signal"
+  },
+  "gates": {
+    "all_pass": true,
+    "authorization_amendment_hash_matches": true,
+    "confirmation_images_labels_and_responses_remain_unopened": true,
+    "development_manifest_hash_matches": true,
+    "development_manifest_is_frozen_and_endpoint_blind": true,
+    "exact_64_unique_opaque_task_identities": true,
+    "exact_four_16_task_blocks": true,
+    "exact_source_confirmation_partition_is_bound": true,
+    "manifest_rows_are_opaque_and_truth_free": true,
+    "matched_fixed_score_amendment_hash_matches": true,
+    "mechanics_and_development_responses_do_not_exist": true,
+    "model_calls_are_zero": true,
+    "per_block_precharged_exposure_fits_daily_cap": true,
+    "sealed_test_and_reserve_remain_unopened": true,
+    "source_manifest_hash_matches": true
+  },
+  "implementation_bindings_at_freeze": {
+    "scripts/bongard_openworld_luna_claim_report.py": "e9c0012c673b469503526629c91d1f3eeacfe2cccbf6917165955be0f9b2172e",
+    "scripts/bongard_openworld_luna_vlm_development.py": "95d51258c41a9d8c29a494f78da24d181033b847904d4da8942ed9b717c0dec0",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "05104bcbf5628192a2957d1ef81d389ca6c4ee4adf1a686c6610bf403462da4d",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "c9b80168dfea803c315981f55ba38ffb0678d1c9ba65d982ce8f65df4bebe125",
+    "scripts/bongard_openworld_vlm_bed.py": "07130e2fa274185328a3e25e2f76591a5fea137736caa85b8c663059051306f2"
+  },
+  "interface_version": "bongard-openworld-luna-confirmation64-freeze-5",
+  "protocol": {
+    "all_blocks_mandatory_after_confirmation_starts": true,
+    "blocks": {
+      "a": {
+        "daily_cap_usd": 5.0,
+        "earliest_london_date": "2026-08-15",
+        "maximum_precharged_exposure_usd": 2.7520000000000002,
+        "maximum_requests": 688,
+        "model_seed": 2026081501,
+        "offset": 0,
+        "run_cap_usd": 4.75,
+        "size": 16
+      },
+      "b": {
+        "daily_cap_usd": 5.0,
+        "earliest_london_date": "2026-08-16",
+        "maximum_precharged_exposure_usd": 2.7520000000000002,
+        "maximum_requests": 688,
+        "model_seed": 2026081601,
+        "offset": 16,
+        "run_cap_usd": 4.75,
+        "size": 16
+      },
+      "c": {
+        "daily_cap_usd": 5.0,
+        "earliest_london_date": "2026-08-17",
+        "maximum_precharged_exposure_usd": 2.7520000000000002,
+        "maximum_requests": 688,
+        "model_seed": 2026081701,
+        "offset": 32,
+        "run_cap_usd": 4.75,
+        "size": 16
+      },
+      "d": {
+        "daily_cap_usd": 5.0,
+        "earliest_london_date": "2026-08-18",
+        "maximum_precharged_exposure_usd": 2.7520000000000002,
+        "maximum_requests": 688,
+        "model_seed": 2026081801,
+        "offset": 48,
+        "run_cap_usd": 4.75,
+        "size": 16
+      }
+    },
+    "bootstrap_replicates": 20000,
+    "bootstrap_seed": 2026081901,
+    "common_random_numbers_and_matched_history_blind_control_unchanged": true,
+    "confirmation_interval": "paired complete-task bootstrap 95pct upper below zero",
+    "endpoint_labels_load_only_after_all_blocks_replay": true,
+    "intermediate_scientific_endpoints_remain_sealed": true,
+    "mechanics_interface": "bongard-openworld-luna-vlm-mechanics-tree-8",
+    "minimum_changed_final_histories": 24,
+    "minimum_relative_brier_improvement": 0.03,
+    "model": "openai/gpt-5.6-luna",
+    "no_result_can_authorize_sealed_test_or_unregistered_model_swap": true,
+    "planning_interface": "bongard-openworld-luna-vlm-development32-9",
+    "reasoning": false
+  },
+  "schema_version": 1,
+  "science_gates": {
+    "matched_mechanism": [
+      "at_least_24_dynamic_final_histories_differ_from_history_blind",
+      "dynamic_and_history_blind_differ_in_every_execution_block",
+      "dynamic_brier_relative_improvement_vs_history_blind_at_least_3_percent",
+      "dynamic_brier_vs_history_blind_paired_tree_bootstrap_95pct_upper_below_zero",
+      "dynamic_log_loss_is_not_worse_than_history_blind",
+      "dynamic_ranking_fidelity_is_not_worse_than_history_blind"
+    ],
+    "path_dependent_support": [
+      "at_least_24_dynamic_final_histories_differ_from_fixed_depth2",
+      "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
+      "dynamic_and_fixed_depth2_differ_in_every_execution_block",
+      "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
+      "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero",
+      "dynamic_log_loss_is_not_worse_than_fixed_depth2",
+      "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
+      "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
+      "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
+      "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block",
+      "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
+      "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero",
+      "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update"
+    ],
+    "policy": [
+      "at_least_24_dynamic_final_histories_differ_from_myopic",
+      "at_least_24_dynamic_action_changes_clear_numerical_tie_margin",
+      "dynamic_and_myopic_differ_in_every_execution_block",
+      "dynamic_score_has_positive_mean_endpoint_ranking_fidelity",
+      "dynamic_score_ranking_fidelity_is_not_worse_than_myopic",
+      "dynamic_brier_relative_improvement_at_least_3_percent",
+      "dynamic_brier_paired_tree_bootstrap_95pct_upper_below_zero",
+      "dynamic_log_loss_is_not_worse_than_myopic",
+      "dynamic_brier_is_not_worse_than_shuffled_control"
+    ],
+    "shared": [
+      "all_four_endpoint_blind_blocks_independently_replay",
+      "exact_64_disjoint_confirmation_tasks",
+      "root_candidate_brier_beats_constant_half",
+      "all_endpoint_metrics_are_finite"
+    ]
+  },
+  "source": {
+    "confirmation_count": 64,
+    "confirmation_uid_sha256": "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0",
+    "image_archive_sha256": "5ab838cffd8c1be6080e232b9fa4d9ca824d213371625abe59d984745f694d25",
+    "manifest_sha256": "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763",
+    "source_commit": "0462ba15f3be2f7f9a7e6cdd0d24314a1fabb5fe",
+    "source_tree": "b527dfa22222cab3beef5c4023a8b3837d8d7ee5"
+  },
+  "status": "frozen",
+  "tasks": [
+    {
+      "block_id": "a",
+      "source_row_sha256": "ff3a0343e8efcc89a56898d01361911d24804a03dadf2482d582ad64a3fcf453",
+      "task_id": "task-00ee6e2c568b"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "552a461e411f3eb0400d06afea9967d4bbafe28e32a2fd148595b95fd13f3756",
+      "task_id": "task-09062a653ce3"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "840de963c9114628380426a80cddeb5f285b5d67ad430051a91d733877153e7c",
+      "task_id": "task-104b4378bd78"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "e081ec9106cdbcb59bccd5429f6f0cf77c9ec3d42eb514d63eb84afe8e9bc538",
+      "task_id": "task-107011356703"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "16906489d55e46cd15e4a4a431de15c0f1b716afd8f4dc9097f5df5a80c4c43b",
+      "task_id": "task-15e426c8fb01"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "b461b85c2844955b443af06f06cced84ef0fe7a30b33a3fc1ab138b104928a95",
+      "task_id": "task-260a338618d1"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "8681b1b7a9fd01cd62891be81a499da117c3ad300c6dffc43915455538080843",
+      "task_id": "task-34b7e21a6566"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "5f9a767f946034d278db753331d986ddbf10215cec57559ebe8c03b891cb110e",
+      "task_id": "task-34d2d354df90"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "10b8b6dbe2aab8acd942b8cf428f57c9e54c65f30040dc3c996a8520adee59b7",
+      "task_id": "task-38206e1d73af"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "dd962fc40449c10ee4ba22ffb5a7dc41370a914049a6fca648deaa1d2db34af8",
+      "task_id": "task-3a1d336037e6"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "32f3f6eacdf0dcd55f43b6b4d4ab357255739f99c70fc0240140e7ce0166aa31",
+      "task_id": "task-3cfcd9d26763"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "d85ee0155cb2d259a72e68a9c371abff2243f2f6ba8db2282b4ba4f586c91359",
+      "task_id": "task-3d864e13c450"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "9023e5c1772e20a4ccb66c6e759f42a978d64a5cacfb67be03284d334f12046b",
+      "task_id": "task-427a90cf9430"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "6f15934248cc71a7799be2a5c03f35062a9e1235cf2f2a0dddecc4d4e0bba409",
+      "task_id": "task-47b5edecc334"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "d6637f7faaa7d268476e848b6f04dfec4435bab6e767c273d07455ad8332305e",
+      "task_id": "task-493e00ecd14a"
+    },
+    {
+      "block_id": "a",
+      "source_row_sha256": "5b1ccbf74fe3b7e8e03faaf1120f1cda1d23aef009ca65b524b6ae44f1e84fab",
+      "task_id": "task-53531cadb4c1"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "ed9b93d883b203df01e385e76b1a75674a6c7b545609c77e73a6aaca887a8e1d",
+      "task_id": "task-5b3dcf541d7c"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "211540918fc61709d17b14f5286d0448550682449e38a77ac77f44a1016dd34b",
+      "task_id": "task-5bc6b0eab5ee"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "54fa300b5ba54a646d32e0cdcef5065a64ec17f00f0cf9cb971df0b4f8e52b1c",
+      "task_id": "task-5cbccf19be18"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "73b2c32cbcac68fba8a56d74f094610d566a643d31acfa63a487a013cdf5530b",
+      "task_id": "task-67b612f3354d"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "f12233dd6f36a0f41d795fb5192ebf5bb768feed8b3f18efaaebc004443cc716",
+      "task_id": "task-6aa7f0cd5e72"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "528f33fa45d715c8ad2c04b067f801399fcf0a2215d1d72823e345edbaa4d1ba",
+      "task_id": "task-6d0db1b5eb31"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "874a0ea3278a82bde57dead5e4a6c0a59188f95a888198eb11a7c0c136819b52",
+      "task_id": "task-6f221951cd16"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "00e8bed0e8585f6dd3d883824e97034563da33a06c575f63ef50b5339d5a9283",
+      "task_id": "task-6f75f1eb6931"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "01961cecb623d4a9f89a5aceae0e512bd7646d22a9ae3fe71ca819cd6595d390",
+      "task_id": "task-6facce6f9016"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "beaa91916fc6f170a900759bf3cec5982e07c6ef5b98666b7df1fb7c468e8f9c",
+      "task_id": "task-72403446c5b6"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "0c97b744b4f3a786402af9a2d5dbebe82eae47a8ead82eee557c6fb6ab2c4fb4",
+      "task_id": "task-739939b8fbf3"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "c069e85a9952a8355a23d28083e40a797780b726726aca000e45c63aa83a9745",
+      "task_id": "task-7bcd9a1dc6e3"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "102bb56a9ac785c1152025a856e01b3f2bbbe4830998e8604b6528a844a4170b",
+      "task_id": "task-7dbf2ee8278f"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "445755e34500c93f78f04e6be90079be416b05abc40ad131d67c1790345f44da",
+      "task_id": "task-7e06d3317d31"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "c29ea26b760ea7bd3570e2906a53cbcb56d35dd691672c119e27beee6da24e31",
+      "task_id": "task-85b851902bf9"
+    },
+    {
+      "block_id": "b",
+      "source_row_sha256": "3b029d428853604890cf8c09bda696d6e228a10583fa0951aa49e3c374e5dff5",
+      "task_id": "task-8706c22e5ce0"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "a5273287f20f1ea445a658a95116a9b4db76b7e96715d13cccc5372fe64ad41d",
+      "task_id": "task-877a4dae3dfb"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "c8b3f0b8501263988a5c79dc2c122c0fe605592e17566896686b0f2168303743",
+      "task_id": "task-897b5a740574"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "c4194d3180768c1de09cae6d2981f56ae297f9abe98fb4bbd79fa7b35af4531c",
+      "task_id": "task-8cc5d0a3d9ea"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "010475b1dceabf3015b5cd51b0b36ed2346ea7660bb63235a6f0f912f7ec41d5",
+      "task_id": "task-8d578fcc555e"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "d7588f33983c63b043e2e698c1b2f92da894892172b63f916f04f63a18eefab0",
+      "task_id": "task-8decb74cec39"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "0d50600fad61421f36a0c3e70d8ec46b2a2ed6a7500a16181ebf43d94ccef9d3",
+      "task_id": "task-8e01b45db18c"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "2a1940d669c308ac909e092266dbe28d00819bda32aad50edb45e6a97f026088",
+      "task_id": "task-94a0eb0c6620"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "3da8e566516f208b98d52ada227bc79d6cefca37ec43c8503315a60a65c4520f",
+      "task_id": "task-96509a757df8"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "36fa5e80fb33902cbdd84278f04ebd6b87a123ec461bb1fca166daad8e46a8c9",
+      "task_id": "task-96667b14f7ae"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "13f255ca5bfcfca2369aa35841a68cb7365dfedde3dd6f5cc300096bbaedaa3a",
+      "task_id": "task-99feabab241b"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "eecac32157b0d2ec4493ee64bf913d4051fac834df64411c06e43acf6221bd37",
+      "task_id": "task-9a174b62f7ef"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "0d9650cfe9aab9071035a972d6d477b05531f76abf70c4b183b9cce8d36f26f2",
+      "task_id": "task-9b6f3ff23fb0"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "dee49394297af4236b14f36ff8c3eafcffb6cb885ba70ff8ead622bf7d0a2bce",
+      "task_id": "task-a0dfb491389d"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "9c3fa06f3c8c926e1a05e5c7b21af4191b391c97fa0458d536a3e9f39b24edc0",
+      "task_id": "task-a3fa9f8c8f5c"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "dd950782a6157d9d7092fcdf16edc468d4f53dad37925e09033596b66fff9140",
+      "task_id": "task-a9c7920e6bdf"
+    },
+    {
+      "block_id": "c",
+      "source_row_sha256": "661b8202e9c6c2a2d1ff5a589196c19aaaf41ec5b97deac6b99b83c61a600cb8",
+      "task_id": "task-aeef78c80315"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "3c6c4ec89112b62462eb4c6a64470bfcbe36ba4f1db01dd0e017174c5bcc0bb7",
+      "task_id": "task-b96b8b299e73"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "ac912160bcefad79d8f098cbd200c5d26ffed6da27668ccf84fd18c11bf6be7b",
+      "task_id": "task-baff417af236"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "0d9290525bf712c246ad7aa712acc8595764831876a396055be72e5432f52e79",
+      "task_id": "task-bc5f156c6bff"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "9cba485943d1bd4f755584db2b5838955a6838a0c50e3fec1a520c0246e901ba",
+      "task_id": "task-c1622199eb75"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "4f21d7a3ff4ea8810bac48f8bb9b955cbd55cce249ca509c485c6134bcbd6ecb",
+      "task_id": "task-c3130fa609da"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "20c399932b764a04d85a5eda6701c3e21dd81739f1bd5068b5b25e862cc12b11",
+      "task_id": "task-c43ac082b205"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "b3a376e652f94bb910b3daed84841c5e8dc0a5a75a27aef0e1457965d1a6e4b7",
+      "task_id": "task-c5b2f70c67e6"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "481508bdd429547290da6e22c2b9bd53bf850a5d47e9be157aa011ee0d61dc72",
+      "task_id": "task-cdd3b15f514b"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "e7056483f66d564483adf7fe0ec28d763a5659ee6d3b568c154f7b4ef610cde9",
+      "task_id": "task-d272e8c7dc44"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "a16aded2572f93397c61de17266dc3dae805f47343279129470e89f4d4c21cf3",
+      "task_id": "task-d32b625457f1"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "2dee5314898a2d286bd968542562b0027b7d4762811eff7a2574022e8ed08a2a",
+      "task_id": "task-d47c42f7ef27"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "ee8c7b15e8701958cc96620ffdb5ffd767e47e1182bd2eddd45d84def09f28f7",
+      "task_id": "task-db7db8840c37"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "530755807731641ab6f9fd7e64e33cf64adc147d6c916fe8711041b3017d81de",
+      "task_id": "task-df1c7bf8f32b"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "8dae5cfbd7de9078e73367696c2ab62123efc12d77187945e16ea66403e12707",
+      "task_id": "task-e3459e72a5ac"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "a2e18959eb78d4fee2ec539eea4e942d6f5586ebea438a90bf34ae131b080f36",
+      "task_id": "task-f3e071cacaa4"
+    },
+    {
+      "block_id": "d",
+      "source_row_sha256": "7a0f2994d05e83fc9f3555afa51384086e83ae56b89d1d9401e8175c42a37427",
+      "task_id": "task-fcbc7a173144"
+    }
+  ]
+}

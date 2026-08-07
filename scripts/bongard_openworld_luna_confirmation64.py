@@ -30,7 +30,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-3"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-4"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -216,6 +216,10 @@ def _block_gates(
         ),
         "shuffled_control_exactly_permutes_complete_continuation_values": (
             shuffled_exact
+        ),
+        "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second": all(
+            mechanics.fixed_score_dynamic_update_is_exact(tree)
+            for tree in artifacts["trees"]
         ),
         "all_final_histories_generated_once_and_mapped": (
             task_count * 4 <= final_count <= task_count * MAX_FINALS_PER_TASK
@@ -792,6 +796,17 @@ def analyze_combined(
         )
         for metric_index, metric in enumerate(("mean_brier", "mean_log_loss"))
     }
+    dynamic_vs_matched_fixed = {
+        metric: paired_summary(
+            [
+                tree["policies"]["dynamic_depth2"]["endpoint"][metric]
+                - tree["policies"]["fixed_score_dynamic_update"]["endpoint"][metric]
+                for tree in trees
+            ],
+            seed=BOOTSTRAP_SEED + 3_000 + metric_index,
+        )
+        for metric_index, metric in enumerate(("mean_brier", "mean_log_loss"))
+    }
     task_ids_by_block = {
         block_id: {task.task_id for task in by_block[block_id]["tasks"]}
         for block_id in BLOCK_ORDER
@@ -816,6 +831,13 @@ def analyze_combined(
             "dynamic_fixed_changed_final_histories": sum(
                 tree["policies"]["dynamic_depth2"]["final_history_key"]
                 != tree["policies"]["fixed_depth2"]["final_history_key"]
+                for tree in block_trees
+            ),
+            "dynamic_matched_fixed_changed_final_histories": sum(
+                tree["policies"]["dynamic_depth2"]["final_history_key"]
+                != tree["policies"]["fixed_score_dynamic_update"][
+                    "final_history_key"
+                ]
                 for tree in block_trees
             ),
             "dynamic_minus_myopic_mean_brier": statistics.fmean(
@@ -870,10 +892,27 @@ def analyze_combined(
         >= mechanics.MIN_ACTION_MARGIN_NATS
         for tree in trees
     )
+    matched_fixed_changed = sum(
+        tree["policies"]["dynamic_depth2"]["final_history_key"]
+        != tree["policies"]["fixed_score_dynamic_update"]["final_history_key"]
+        for tree in trees
+    )
+    robust_matched_fixed_changed = sum(
+        tree["policies"]["dynamic_depth2"]["first_image_id"]
+        != tree["policies"]["fixed_score_dynamic_update"]["first_image_id"]
+        and tree["policies"]["dynamic_depth2"]["first_score_margin"]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        and tree["policies"]["fixed_score_dynamic_update"][
+            "first_score_margin"
+        ]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        for tree in trees
+    )
     myopic_brier = pooled["myopic_width"]["mean_brier"]
     blind_brier = pooled["history_blind_depth2"]["mean_brier"]
     dynamic_brier = pooled["dynamic_depth2"]["mean_brier"]
     fixed_brier = pooled["fixed_depth2"]["mean_brier"]
+    matched_fixed_brier = pooled["fixed_score_dynamic_update"]["mean_brier"]
     relative_gain = (
         (myopic_brier - dynamic_brier) / myopic_brier
         if myopic_brier > 0
@@ -887,6 +926,11 @@ def analyze_combined(
     fixed_relative_gain = (
         (fixed_brier - dynamic_brier) / fixed_brier
         if fixed_brier > 0
+        else -math.inf
+    )
+    matched_fixed_relative_gain = (
+        (matched_fixed_brier - dynamic_brier) / matched_fixed_brier
+        if matched_fixed_brier > 0
         else -math.inf
     )
     mean_root_candidate_brier = statistics.fmean(
@@ -954,6 +998,25 @@ def analyze_combined(
         "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2": (
             ranking["dynamic_depth2"]["mean_spearman"]
             >= ranking["fixed_depth2"]["mean_spearman"]
+        ),
+        "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update": (
+            matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin": (
+            robust_matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block": all(
+            row["dynamic_matched_fixed_changed_final_histories"] >= 1
+            for row in blockwise.values()
+        ),
+        "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent": (
+            matched_fixed_relative_gain >= MIN_RELATIVE_BRIER_IMPROVEMENT
+        ),
+        "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero": (
+            dynamic_vs_matched_fixed["mean_brier"]["ci95"][1] < 0
+        ),
+        "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update": (
+            dynamic_vs_matched_fixed["mean_log_loss"]["mean_difference"] <= 0
         ),
         "dynamic_brier_is_not_worse_than_shuffled_control": (
             dynamic_brier <= pooled["shuffled_dynamic_depth2"]["mean_brier"]
@@ -1026,6 +1089,7 @@ def analyze_combined(
         "comparisons_vs_myopic": comparisons,
         "dynamic_vs_history_blind": dynamic_vs_blind,
         "dynamic_vs_fixed_depth2": dynamic_vs_fixed,
+        "dynamic_vs_fixed_score_dynamic_update": dynamic_vs_matched_fixed,
         "dynamic_vs_myopic_changed_final_histories": changed,
         "dynamic_vs_myopic_robust_action_changes": robust_changed,
         "dynamic_vs_myopic_relative_brier_improvement": relative_gain,
@@ -1034,6 +1098,15 @@ def analyze_combined(
         "dynamic_vs_fixed_depth2_changed_final_histories": fixed_changed,
         "dynamic_vs_fixed_depth2_robust_action_changes": robust_fixed_changed,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": fixed_relative_gain,
+        "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": (
+            matched_fixed_changed
+        ),
+        "dynamic_vs_fixed_score_dynamic_update_robust_action_changes": (
+            robust_matched_fixed_changed
+        ),
+        "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": (
+            matched_fixed_relative_gain
+        ),
         "gates": gates,
         "sealed_test_authorized": False,
         "unregistered_model_swap_authorized": False,

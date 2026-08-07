@@ -77,6 +77,16 @@ The path-dependent-support family independently requires:
 - dynamic log loss no worse than fixed; and
 - dynamic ranking fidelity no worse than fixed.
 
+It additionally requires the matched first-action comparison against
+`fixed_score_dynamic_update`:
+
+- at least 24 different final histories and margin-clearing first actions,
+  with at least one change in every block;
+- at least 3% dynamic Brier improvement;
+- a paired complete-task 20,000-bootstrap 95% interval strictly below zero;
+  and
+- dynamic log loss no worse than the matched fixed-score control.
+
 Only the conjunction supports the full confirmation claim. No result authorizes
 opening the official test, the reserve, an unregistered model swap, or a causal
 claim stronger than the matched prompt-conditioning intervention.
@@ -95,10 +105,10 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V4.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V5.json`
 
 SHA-256:
-`622ad102a2ed22a7e67722532902a4720012abf4852a60af1282f433d0f2317f`.
+`d827a9fdd6694bfd69ba05550e5e1248f9750b5785be1f6be5e9e5a73e1d8b24`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
@@ -112,3 +122,7 @@ V4 adds the pre-response simulated-branch obedience mechanics gate. Positive
 and negative conditioned branches must separately beat constant-half Brier on
 the label supplied to the branch. This changes no confirmatory endpoint or
 request.
+V5 adds the pre-response matched fixed-score/dynamic-update control. It makes
+the strongest tier isolate path-dependent first-query selection while adding
+no request because every matched terminal history was already frozen in the
+all-first-action cache.

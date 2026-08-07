@@ -72,3 +72,8 @@ superseded the operational bindings above with development interface `-8` and
 manifest `64f80983...`, plus confirmation V4 manifest `622ad102...`. The
 path-dependent fixed-support superiority gates and claim boundary remain
 unchanged and are included in the rebound protocol.
+
+The later matched fixed-score audit further superseded the operational
+bindings with development manifest `4785d95e...` and confirmation V5 manifest
+`d827a9fd...`. It strengthens this claim boundary by requiring dynamic to beat
+fixed-support scoring under an identical realized dynamic continuation.

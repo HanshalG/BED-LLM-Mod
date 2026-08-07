@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-7"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-8"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -54,12 +54,19 @@ MIN_ACTION_MARGIN_NATS = 1e-6
 POLICIES = (
     "myopic_width",
     "fixed_depth2",
+    "fixed_score_dynamic_update",
     "dynamic_depth2",
     "shuffled_dynamic_depth2",
     "history_blind_depth2",
     "random",
 )
-SCORE_POLICIES = tuple(policy for policy in POLICIES if policy != "random")
+SCORE_POLICIES = (
+    "myopic_width",
+    "fixed_depth2",
+    "dynamic_depth2",
+    "shuffled_dynamic_depth2",
+    "history_blind_depth2",
+)
 
 
 class StructuredModel(Protocol):
@@ -471,6 +478,7 @@ def plan_task_policies(
     first_by_policy = {
         "myopic_width": bed.select_best(myopic_scores),
         "fixed_depth2": bed.select_best(fixed_scores),
+        "fixed_score_dynamic_update": bed.select_best(fixed_scores),
         "dynamic_depth2": bed.select_best(dynamic_scores),
         "shuffled_dynamic_depth2": bed.select_best(shuffled_scores),
         "history_blind_depth2": bed.select_best(history_blind_scores),
@@ -523,6 +531,7 @@ def plan_task_policies(
                 else {
                     "myopic_width": myopic_scores,
                     "fixed_depth2": fixed_scores,
+                    "fixed_score_dynamic_update": fixed_scores,
                     "dynamic_depth2": dynamic_scores,
                     "shuffled_dynamic_depth2": shuffled_scores,
                     "history_blind_depth2": history_blind_scores,
@@ -535,6 +544,7 @@ def plan_task_policies(
                     {
                         "myopic_width": myopic_scores,
                         "fixed_depth2": fixed_scores,
+                        "fixed_score_dynamic_update": fixed_scores,
                         "dynamic_depth2": dynamic_scores,
                         "shuffled_dynamic_depth2": shuffled_scores,
                         "history_blind_depth2": history_blind_scores,
@@ -548,6 +558,7 @@ def plan_task_policies(
         "root_scores": {
             "myopic_width": myopic_scores,
             "fixed_depth2": fixed_scores,
+            "fixed_score_dynamic_update": fixed_scores,
             "dynamic_depth2": dynamic_scores,
             "shuffled_dynamic_depth2": shuffled_scores,
             "history_blind_depth2": history_blind_scores,
@@ -570,6 +581,7 @@ def final_cases(
             "history_blind_depth2",
             "myopic_width",
             "fixed_depth2",
+            "fixed_score_dynamic_update",
             "shuffled_dynamic_depth2",
             "random",
         ):
@@ -631,6 +643,20 @@ def all_first_action_paths(
     return paths
 
 
+def fixed_score_dynamic_update_is_exact(tree: Mapping[str, Any]) -> bool:
+    matched = tree["policies"]["fixed_score_dynamic_update"]
+    fixed = tree["policies"]["fixed_depth2"]
+    return (
+        matched["first_image_id"] == fixed["first_image_id"]
+        and tree["root_scores"]["fixed_score_dynamic_update"]
+        == tree["root_scores"]["fixed_depth2"]
+        and matched["final_history_key"]
+        == tree["all_first_action_paths"][matched["first_image_id"]][
+            "final_history_key"
+        ]
+    )
+
+
 def all_action_final_cases(
     *,
     tasks: Sequence[bed.VisualTask],
@@ -646,6 +672,7 @@ def all_action_final_cases(
                 "history_blind_depth2",
                 "myopic_width",
                 "fixed_depth2",
+                "fixed_score_dynamic_update",
                 "shuffled_dynamic_depth2",
                 "random",
             )
@@ -1039,6 +1066,9 @@ def mechanics_gates(
         >= MIN_ACTION_MARGIN_NATS
         for tree in trees
     )
+    matched_fixed_control_exact = all(
+        fixed_score_dynamic_update_is_exact(tree) for tree in trees
+    )
     distinct_control_policies = sum(
         any(
             tree["policies"][policy]["final_history_key"]
@@ -1127,6 +1157,9 @@ def mechanics_gates(
         ),
         "dynamic_and_history_blind_change_a_nontied_first_action": (
             robust_dynamic_blind_changes >= 1
+        ),
+        "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second": (
+            matched_fixed_control_exact
         ),
         "shuffled_control_exactly_permutes_complete_continuation_values": (
             shuffled_control_exact

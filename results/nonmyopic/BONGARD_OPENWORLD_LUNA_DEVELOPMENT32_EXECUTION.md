@@ -78,7 +78,7 @@ bound directly in the execution wrapper.
 
 The complete Bongard regression suite passes `92` tests. Real dependency-aware
 preflights for Blocks A--D on 2026-08-06 all returned `waiting_for_aug10`,
-bound manifest `64f80983...14ba46`, saw Luna at `$0.10/$0.60` per million
+bound manifest `4785d95e...e74ff`, saw Luna at `$0.10/$0.60` per million
 tokens and balance `$27.702109737`, and made zero calls or files. The waiting
 status is the correct scientific predecessor gate until the banked August 10
 result exists.

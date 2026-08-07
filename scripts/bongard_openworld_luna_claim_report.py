@@ -20,7 +20,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-2"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-3"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
@@ -56,6 +56,12 @@ PATH_DEPENDENT_GATES = (
     "dynamic_brier_vs_fixed_depth2_bootstrap_probability_at_least_0_80",
     "dynamic_log_loss_is_not_worse_than_fixed_depth2",
     "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
+    "at_least_12_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
+    "at_least_12_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
+    "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block",
+    "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
+    "dynamic_brier_vs_fixed_score_dynamic_update_bootstrap_probability_at_least_0_80",
+    "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update",
 )
 EXPECTED_GATES = (
     *SHARED_GATES,
@@ -79,8 +85,9 @@ CLAIM_SCOPES = {
             ),
             (
                 "Prospective development evidence that answer-conditioned "
-                "dynamic support improves over classical fixed-support "
-                "depth-two planning."
+                "dynamic support improves first-query selection over "
+                "fixed-support depth-two scoring under a matched realized "
+                "dynamic continuation."
             ),
         ],
         "forbidden": [
@@ -248,6 +255,9 @@ def build_claim_report(
         "comparisons_vs_myopic": result["comparisons_vs_myopic"],
         "dynamic_vs_history_blind": result["dynamic_vs_history_blind"],
         "dynamic_vs_fixed_depth2": result["dynamic_vs_fixed_depth2"],
+        "dynamic_vs_fixed_score_dynamic_update": result[
+            "dynamic_vs_fixed_score_dynamic_update"
+        ],
         "ranking_fidelity": result["ranking_fidelity"],
         "dynamic_vs_myopic_relative_brier_improvement": result[
             "dynamic_vs_myopic_relative_brier_improvement"
@@ -258,6 +268,9 @@ def build_claim_report(
         "dynamic_vs_fixed_depth2_relative_brier_improvement": result[
             "dynamic_vs_fixed_depth2_relative_brier_improvement"
         ],
+        "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": result[
+            "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement"
+        ],
         "dynamic_vs_myopic_changed_final_histories": result[
             "dynamic_vs_myopic_changed_final_histories"
         ],
@@ -266,6 +279,9 @@ def build_claim_report(
         ],
         "dynamic_vs_fixed_depth2_changed_final_histories": result[
             "dynamic_vs_fixed_depth2_changed_final_histories"
+        ],
+        "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": result[
+            "dynamic_vs_fixed_score_dynamic_update_changed_final_histories"
         ],
     }
     if not _finite(metrics):

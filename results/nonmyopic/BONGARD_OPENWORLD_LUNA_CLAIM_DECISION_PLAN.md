@@ -5,6 +5,9 @@ Frozen: 2026-08-06, before any Bongard model response or scientific endpoint.
 Strengthened by the August 7 path-dependent-support amendment before any
 response. The strongest tier now also requires superiority over fixed-support
 depth-two planning.
+The later matched fixed-score amendment further requires superiority when the
+fixed score receives the same realized regenerated second-stage updater as the
+dynamic score, isolating the first-query planning link.
 
 The 32-task development result contains two distinct prospective questions:
 
@@ -70,6 +73,10 @@ every block, at least 3% Brier improvement with bootstrap probability at least
 0.80, non-worse log loss, and non-worse ranking fidelity. Policy plus matched
 mechanism without this family is explicitly reportable but cannot authorize
 confirmation or support fixed-support superiority.
+In addition, dynamic must beat `fixed_score_dynamic_update` under the same
+history/action, relative-Brier, paired-bootstrap, log-loss, and every-block
+requirements. Beating only the unmatched complete fixed policy cannot support
+the first-query path-dependent-lookahead claim or authorize confirmation.
 
 The generator rejects missing, extra, non-Boolean, or internally inconsistent
 gates; a mismatched independent replay; non-finite report metrics; or any

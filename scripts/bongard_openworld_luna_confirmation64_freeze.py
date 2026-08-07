@@ -24,7 +24,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-4"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-5"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -69,7 +69,7 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "64f80983b3922556c279982fdbf966a861046345f698f2196cf823077b14ba46"
+    "4785d95e470285d380780dd0f1254c22994e81fb2d1cd0ec21285eee6c6e74ff"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -77,6 +77,13 @@ AUTHORIZATION_AMENDMENT = REPO_ROOT / (
 )
 AUTHORIZATION_AMENDMENT_SHA256 = (
     "3dc22154312b93465e2b7d308a76f9de800d145d219189b77f3a0262f83f32a4"
+)
+MATCHED_FIXED_SCORE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md"
+)
+MATCHED_FIXED_SCORE_AMENDMENT_SHA256 = (
+    "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2"
 )
 CONFIRMATION_UID_SHA256 = (
     "27da2cc656add724bffbc43ea04ab28fa22bf8564ab9cba4d60e4e23df6facd0"
@@ -154,6 +161,12 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_fixed_depth2",
             "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
+            "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
+            "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
+            "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block",
+            "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
+            "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero",
+            "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update",
         ],
     }
 
@@ -186,6 +199,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "authorization_amendment_hash_matches": (
             sha256_file(AUTHORIZATION_AMENDMENT)
             == AUTHORIZATION_AMENDMENT_SHA256
+        ),
+        "matched_fixed_score_amendment_hash_matches": (
+            sha256_file(MATCHED_FIXED_SCORE_AMENDMENT)
+            == MATCHED_FIXED_SCORE_AMENDMENT_SHA256
         ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
@@ -241,6 +258,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             ),
             "authorization_amendment_sha256": (
                 AUTHORIZATION_AMENDMENT_SHA256
+            ),
+            "matched_fixed_score_amendment_sha256": (
+                MATCHED_FIXED_SCORE_AMENDMENT_SHA256
             ),
             "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,

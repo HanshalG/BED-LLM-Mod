@@ -7,8 +7,8 @@ details below were superseded by
 `BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md`.
 Terminal common-seed and task-preserving dispatch details were subsequently
 frozen in `BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md` and
-`BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md`; the current mechanics
-interface is `-6`.
+`BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md`; subsequent validity and
+matched-control amendments advance the current mechanics interface to `-8`.
 The pre-response task wording is clarified by
 `BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md` without changing this
 interface, its response schema, or any gate.
@@ -19,6 +19,9 @@ The simulated-branch obedience amendment adds a separate mechanics gate: the
 newly supplied positive and negative branch labels must each beat constant-half
 Brier under the regenerated belief. This does not replace the unobserved-image
 branch-sensitivity gate.
+The matched fixed-score amendment adds a zero-call policy that selects its
+first action with fixed-support depth-two but takes its second action from the
+same realized regenerated branch as path-dependent depth two.
 Earliest execution date: 2026-08-10 (Europe/London)
 
 ## Objective
@@ -98,6 +101,9 @@ Offline policy controls reuse this exact cache:
   EIG under the realized refreshed branch;
 - **fixed-support depth two:** maximize cumulative two-step EIG under the root
   support only;
+- **fixed-score/dynamic-update depth two:** use that same fixed-support score
+  for the first action, then use the realized regenerated branch for the
+  second action;
 - **path-dependent depth two:** root EIG plus expected best next-step EIG under
   each branch's regenerated support;
 - **shuffled-branch control:** permute regenerated branches across first
@@ -118,6 +124,10 @@ The path-dependent score is frozen as:
 Fixed-support depth two uses the same expression with an analytically updated
 root support. The myopic width control receives the same cached branch calls
 but ignores them when choosing the first action.
+The matched fixed-score control isolates the first-action objective: it and
+path-dependent depth two share realized continuation machinery and differ only
+in whether query one anticipates regenerated support. Its terminal history is
+already in the all-first-action cache, so it adds no request.
 
 ## Budget Boundary
 

@@ -220,6 +220,22 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
         for task_result in result["trees"]
     )
     assert set(result["mean_ranking_fidelity"]) == set(tree.SCORE_POLICIES)
+    assert result["gates"][
+        "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second"
+    ]
+    assert all(
+        task_result["policies"]["fixed_score_dynamic_update"][
+            "first_image_id"
+        ]
+        == task_result["policies"]["fixed_depth2"]["first_image_id"]
+        and task_result["policies"]["fixed_score_dynamic_update"][
+            "final_history_key"
+        ]
+        == task_result["all_first_action_paths"][
+            task_result["policies"]["fixed_depth2"]["first_image_id"]
+        ]["final_history_key"]
+        for task_result in result["trees"]
+    )
     changed = [
         task_result
         for task_result in result["trees"]
@@ -434,6 +450,18 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
     )
     assert blind_row["second_scores"] == bed.candidate_eigs(
         branches[(blind_first, realized_label)], remaining
+    )
+    fixed = original_plan["policies"]["fixed_depth2"]
+    matched = original_plan["policies"]["fixed_score_dynamic_update"]
+    assert matched["first_image_id"] == fixed["first_image_id"]
+    assert matched["first_score"] == fixed["first_score"]
+    assert matched["second_scores"] == bed.candidate_eigs(
+        branches[(matched["first_image_id"], bool(task.actual_labels[matched["first_image_id"]]))],
+        tuple(
+            candidate
+            for candidate in task.candidate_ids
+            if candidate != matched["first_image_id"]
+        ),
     )
 
 

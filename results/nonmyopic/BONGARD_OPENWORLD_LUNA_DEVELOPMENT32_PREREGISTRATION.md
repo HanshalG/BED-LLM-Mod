@@ -23,6 +23,10 @@ The later simulated-branch obedience amendment advances the interface to `-8`:
 each endpoint-blind block requires class-conditional Brier below `0.25` for the
 newly supplied positive and negative simulated branch labels. Calls, policies,
 and scientific gates are unchanged.
+The matched fixed-score amendment advances the interface to `-9`, adds one
+zero-call control policy, and adds a conjunctive first-action causal gate.
+Calls, prompts, tasks, seeds, endpoints, and budgets remain unchanged because
+its terminal history is already in the all-first-action cache.
 
 ## Claim And Boundary
 
@@ -131,6 +135,8 @@ calls for each task:
 - `myopic_width`: one-step root EIG, followed by one-step EIG in the realized
   regenerated branch;
 - `fixed_depth2`: cumulative two-step EIG on the fixed root support;
+- `fixed_score_dynamic_update`: the same fixed-support score for query one,
+  followed by greedy query-two selection in the realized regenerated branch;
 - `dynamic_depth2`: first-step EIG plus expected best future EIG under the
   LLM support regenerated separately for each possible first answer;
 - `shuffled_dynamic_depth2`: complete expected continuation values are rotated
@@ -151,6 +157,10 @@ isolates the non-myopic first-action objective: both policies use the same
 query budget and the same realized branch and final-regeneration machinery.
 `fixed_depth2` tests whether fixed-support lookahead is enough, while the
 shuffled control tests whether action-specific LLM belief dynamics matter.
+`fixed_score_dynamic_update` is the matched first-link control: unlike the
+complete fixed policy, it shares dynamic's realized second-stage updater, so
+their endpoint difference isolates the first query selected by path-dependent
+versus fixed-support lookahead.
 
 ## Endpoint Opening And Metrics
 
@@ -212,6 +222,12 @@ execution block, at least 3% relative Brier improvement over fixed depth two,
 paired bootstrap improvement probability at least 0.80, non-worse log loss,
 and non-worse ranking fidelity. Only the conjunction of the policy,
 history-blind, and path-dependent-support families authorizes confirmation.
+It also requires dynamic depth two to beat `fixed_score_dynamic_update`: at
+least 12 different final histories and non-tied first actions, a difference in
+every block, at least 3% relative Brier improvement, bootstrap improvement
+probability at least 0.80, and non-worse log loss. The existing fixed-score
+ranking comparison uses the same common dynamic continuation and remains
+conjunctive.
 
 A pass authorizes writing a fresh 64-task confirmation preregistration, not
 running it. A null returns development to the four mechanics tasks for one
