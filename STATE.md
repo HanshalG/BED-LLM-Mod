@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Fresh zero-call Aug8 execution audit passes. Authenticated OpenRouter
+still reports credits245,usage220.113606154,balance24.886393846;the reported
+top-up is unposted and excluded. Aug7 ledger exactly reconciles$2.815715891
+spent/$2.184284109 unspent. Live Aug8-clock Luna-naive preflight is ready at
+$.10/$.60/M,$.008 attempt coverage30,848 prompt tokens,$.20 cap,0 calls/files;
+all paid paths pristine. RegretBench correctly waits for that unopened verified
+smoke. All nine baseline/support/policy hashes match and state-machine25/25.
+Keep exact order and$4.80 worst-case day;no protocol change.
+
 2026-08-07: Exercise the frozen RegretBench paper fragment through the real
 compiler before responses. A confirmed synthetic result exposed a seven-page
 overflow. Freeze an outcome-independent substitution:when the generated
