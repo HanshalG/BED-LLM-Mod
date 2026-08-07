@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the Aug 8 RegretBench support-recovery smoke and development gate."""
+"""Execute the Aug 8 enriched smoke and dynamic depth-two policy gate."""
 
 from __future__ import annotations
 
@@ -16,25 +16,25 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts import bongard_openworld_luna_naive_first_link as baseline
-from scripts import bongard_openworld_luna_naive_first_link_daily_execute as baseline_daily
+from scripts import regretbench_deepseek_dynamic_depth2_policy as policy
 from scripts import regretbench_deepseek_support_recovery as recovery
+from scripts import regretbench_deepseek_support_recovery_daily as recovery_daily
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "regretbench-deepseek-support-recovery-daily-1"
+INTERFACE_VERSION = "regretbench-deepseek-dynamic-depth2-policy-daily-1"
 DATE = "2026-08-08"
 TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
-ROOT = REPO_ROOT / "results/nonmyopic/regretbench_deepseek_support_recovery"
+ROOT = REPO_ROOT / "results/nonmyopic/regretbench_deepseek_dynamic_depth2_policy"
 SMOKE_DIR = ROOT / "smoke-20260808"
 DEVELOPMENT_DIR = ROOT / "development-20260808"
 LEDGER = (
     REPO_ROOT
     / "results/nonmyopic/openrouter_daily_budget/"
-    "2026-08-08-regretbench-support-recovery.json"
+    "2026-08-08-regretbench-dynamic-policy.json"
 )
 
 
@@ -46,10 +46,10 @@ def _validate_date(now: datetime | None = None) -> None:
     timezone = ZoneInfo(TIMEZONE)
     local = now.astimezone(timezone) if now else datetime.now(timezone)
     if local.date().isoformat() != DATE:
-        raise RuntimeError(f"RegretBench daily gate can run only on {DATE}")
+        raise RuntimeError(f"RegretBench policy can run only on {DATE}")
 
 
-def _day_spent(ledger: Mapping[str, Any], live: Mapping[str, float]) -> float:
+def _spent(ledger: Mapping[str, Any], live: Mapping[str, float]) -> float:
     posted = max(
         0.0,
         float(live["total_usage_usd"])
@@ -58,32 +58,41 @@ def _day_spent(ledger: Mapping[str, Any], live: Mapping[str, float]) -> float:
     return max(posted, float(ledger["recorded_actual_spend_usd"]))
 
 
-def validate_baseline_predecessor() -> dict[str, Any]:
-    verification = baseline.verify_smoke_result(baseline_daily.SMOKE_RESULT)
-    ledger = _load(baseline_daily.SMOKE_LEDGER)
-    execution = _load(baseline_daily.SMOKE_DIR / "EXECUTION.json")
-    section = ledger.get("naive_first_link") or {}
+def validate_recovery_predecessor() -> dict[str, Any]:
+    daily_result = _load(recovery_daily.ROOT / "DAILY_RESULT.json")
+    ledger = _load(recovery_daily.LEDGER)
+    support = policy.validate_support_predecessors(
+        support_smoke_result=recovery_daily.SMOKE_DIR / "RESULT.json",
+        support_development_result=recovery_daily.DEVELOPMENT_DIR / "RESULT.json",
+    )
     if (
-        ledger.get("date") != DATE
+        daily_result.get("status") != "complete_reconciled"
+        or daily_result.get("development_status") != "passed"
+        or daily_result.get("development_opened") is not True
+        or daily_result.get("confirmation_opened") is not False
+        or daily_result.get("policy_endpoint_opened") is not False
+        or daily_result.get("smoke_result_sha256")
+        != support["support_smoke_sha256"]
+        or daily_result.get("development_result_sha256")
+        != support["support_development_sha256"]
+        or daily_result.get("ledger_sha256")
+        != recovery.sha256_file(recovery_daily.LEDGER)
+        or ledger.get("date") != DATE
         or ledger.get("timezone") != TIMEZONE
         or float(ledger.get("daily_cap_usd", 0.0)) != DAILY_CAP_USD
         or ledger.get("account_wide_usage_counts_against_cap") is not True
-        or section.get("status") != "passed"
-        or execution.get("status") != "complete_reconciled"
-        or execution.get("result_sha256")
-        != recovery.sha256_file(baseline_daily.SMOKE_RESULT)
-        or execution.get("ledger_sha256")
-        != recovery.sha256_file(baseline_daily.SMOKE_LEDGER)
+        or ledger.get("stages", {}).get("smoke", {}).get("status") != "passed"
+        or ledger.get("stages", {}).get("development", {}).get("status")
+        != "passed"
     ):
-        raise RuntimeError("Aug 8 baseline smoke predecessor is not a clean pass")
+        raise RuntimeError("support-recovery daily predecessor is not a clean pass")
     return {
-        "verification": verification,
-        "ledger": ledger,
-        "result_sha256": recovery.sha256_file(baseline_daily.SMOKE_RESULT),
-        "ledger_sha256": recovery.sha256_file(baseline_daily.SMOKE_LEDGER),
-        "execution_sha256": recovery.sha256_file(
-            baseline_daily.SMOKE_DIR / "EXECUTION.json"
+        "support": support,
+        "daily_result_sha256": recovery.sha256_file(
+            recovery_daily.ROOT / "DAILY_RESULT.json"
         ),
+        "ledger_sha256": recovery.sha256_file(recovery_daily.LEDGER),
+        "ledger": ledger,
     }
 
 
@@ -93,23 +102,20 @@ def preflight(
     live_reader: Callable[[], dict[str, float]] = read_live_credits,
 ) -> dict[str, Any]:
     _validate_date(now)
-    recovery.validate_source_bindings()
-    predecessor = validate_baseline_predecessor()
+    policy.validate_protocol_binding()
+    predecessor = validate_recovery_predecessor()
     for path in (SMOKE_DIR, DEVELOPMENT_DIR):
         if path.exists() and (not path.is_dir() or any(path.iterdir())):
-            raise RuntimeError(f"RegretBench output path is not pristine: {path}")
+            raise RuntimeError(f"policy output path is not pristine: {path}")
     if LEDGER.exists():
-        raise RuntimeError("RegretBench supplemental daily ledger already exists")
+        raise RuntimeError("policy supplemental ledger already exists")
     live = live_reader()
-    spent = _day_spent(predecessor["ledger"], live)
-    maximum = (
-        recovery.STAGES["smoke"]["run_budget_usd"]
-        + recovery.STAGES["development"]["run_budget_usd"]
-    )
+    spent = _spent(predecessor["ledger"], live)
+    maximum = policy.SMOKE_BUDGET_USD + policy.RUN_BUDGET_USD
     if spent + maximum > DAILY_CAP_USD + 1e-12:
-        raise RuntimeError("RegretBench stages exceed remaining account-wide day")
+        raise RuntimeError("policy stages exceed remaining account-wide day")
     if float(live["balance_usd"]) + 1e-12 < maximum:
-        raise RuntimeError("OpenRouter balance is below RegretBench stage caps")
+        raise RuntimeError("OpenRouter balance is below policy stage caps")
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -121,11 +127,9 @@ def preflight(
         "live_credits": live,
         "budget": {
             "daily_cap_usd": DAILY_CAP_USD,
-            "spent_before_regretbench_usd": spent,
-            "smoke_cap_usd": recovery.STAGES["smoke"]["run_budget_usd"],
-            "development_cap_usd": recovery.STAGES["development"][
-                "run_budget_usd"
-            ],
+            "spent_before_policy_usd": spent,
+            "enriched_smoke_cap_usd": policy.SMOKE_BUDGET_USD,
+            "policy_development_cap_usd": policy.RUN_BUDGET_USD,
             "remaining_after_full_caps_usd": DAILY_CAP_USD - spent - maximum,
         },
         "model_calls_made": 0,
@@ -133,35 +137,29 @@ def preflight(
     }
 
 
-def _initial_ledger(preflight_result: Mapping[str, Any]) -> dict[str, Any]:
-    baseline_ledger = _load(baseline_daily.SMOKE_LEDGER)
+def _initial_ledger(ready: Mapping[str, Any]) -> dict[str, Any]:
+    prior = _load(recovery_daily.LEDGER)
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
         "date": DATE,
         "timezone": TIMEZONE,
         "daily_cap_usd": DAILY_CAP_USD,
-        "opening_total_credits_usd": baseline_ledger[
-            "opening_total_credits_usd"
-        ],
-        "opening_total_usage_usd": baseline_ledger["opening_total_usage_usd"],
-        "opening_balance_usd": baseline_ledger["opening_balance_usd"],
-        "recorded_actual_spend_usd": preflight_result["budget"][
-            "spent_before_regretbench_usd"
-        ],
+        "opening_total_credits_usd": prior["opening_total_credits_usd"],
+        "opening_total_usage_usd": prior["opening_total_usage_usd"],
+        "opening_balance_usd": prior["opening_balance_usd"],
+        "recorded_actual_spend_usd": ready["budget"]["spent_before_policy_usd"],
         "account_wide_usage_counts_against_cap": True,
         "unspent_allowance_does_not_roll_over": True,
-        "baseline_predecessor": preflight_result["predecessor"],
+        "support_recovery_predecessor": ready["predecessor"],
         "stages": {
-            "smoke": {
+            "enriched_smoke": {
                 "status": "authorized_pending",
-                "maximum_cost_usd": recovery.STAGES["smoke"]["run_budget_usd"],
+                "maximum_cost_usd": policy.SMOKE_BUDGET_USD,
             },
-            "development": {
+            "policy_development": {
                 "status": "smoke_gated",
-                "maximum_cost_usd": recovery.STAGES["development"][
-                    "run_budget_usd"
-                ],
+                "maximum_cost_usd": policy.RUN_BUDGET_USD,
             },
         },
     }
@@ -181,7 +179,7 @@ def _reconcile(
     posted = max(0.0, float(live["total_usage_usd"]) - opening)
     recorded = max(posted, prior + measured_cost)
     if recorded > DAILY_CAP_USD + 1e-12:
-        raise RuntimeError("RegretBench reconciliation exceeds daily cap")
+        raise RuntimeError("policy reconciliation exceeds daily cap")
     updated["recorded_actual_spend_usd"] = recorded
     updated["stages"][stage].update(
         {"status": status, "actual_cost_usd": measured_cost}
@@ -200,12 +198,12 @@ def _reconcile(
 def _budget_status(
     ledger: Mapping[str, Any],
     *,
-    projected_cost: float,
+    projected: float,
     live: Mapping[str, float],
 ) -> dict[str, Any]:
     status = require_budget(
         dict(ledger),
-        projected_cost_usd=projected_cost,
+        projected_cost_usd=projected,
         total_usage_usd=float(live["total_usage_usd"]),
     )
     status.update(live)
@@ -220,38 +218,41 @@ def execute(
     ready = preflight(now=now, live_reader=live_reader)
     ledger = _initial_ledger(ready)
     checkpoint(LEDGER, ledger)
-    smoke_adapter = recovery.build_adapter(
+    support_smoke = recovery_daily.SMOKE_DIR / "RESULT.json"
+    support_development = recovery_daily.DEVELOPMENT_DIR / "RESULT.json"
+    smoke_adapter = policy.build_adapter(
         stage="smoke",
-        run_id="regretbench-deepseek-support-recovery-smoke-20260808",
+        run_id="regretbench-deepseek-dynamic-policy-smoke-20260808",
         output_dir=SMOKE_DIR,
     )
     try:
-        smoke_live = live_reader()
-        smoke = recovery.run_stage(
-            stage="smoke",
+        live = live_reader()
+        smoke = policy.run_smoke(
             output_dir=SMOKE_DIR,
-            run_id="regretbench-deepseek-support-recovery-smoke-20260808",
+            run_id="regretbench-deepseek-dynamic-policy-smoke-20260808",
+            support_smoke_result=support_smoke,
+            support_development_result=support_development,
             adapter=smoke_adapter,
             daily_budget_status=_budget_status(
                 ledger,
-                projected_cost=recovery.STAGES["smoke"]["run_budget_usd"],
-                live=smoke_live,
+                projected=policy.SMOKE_BUDGET_USD,
+                live=live,
             ),
         )
     except Exception:
-        usage = recovery.summarize_usage(smoke_adapter.usage_snapshot())
+        usage = summarize_adapter(smoke_adapter)
         ledger = _reconcile(
             ledger,
-            stage="smoke",
+            stage="enriched_smoke",
             status="failed_closed",
-            measured_cost=float(usage["run_cost_usd"]),
+            measured_cost=usage,
             live=live_reader(),
         )
         checkpoint(LEDGER, ledger)
         raise
     ledger = _reconcile(
         ledger,
-        stage="smoke",
+        stage="enriched_smoke",
         status=smoke["status"],
         measured_cost=float(smoke["usage"]["run_cost_usd"]),
         live=live_reader(),
@@ -262,48 +263,52 @@ def execute(
             "schema_version": SCHEMA_VERSION,
             "interface_version": INTERFACE_VERSION,
             "status": "smoke_stopped",
-            "smoke_result_sha256": recovery.sha256_file(SMOKE_DIR / "RESULT.json"),
+            "enriched_smoke_result_sha256": recovery.sha256_file(
+                SMOKE_DIR / "RESULT.json"
+            ),
             "development_opened": False,
+            "confirmation_opened": False,
             "ledger_sha256": recovery.sha256_file(LEDGER),
         }
         checkpoint(ROOT / "DAILY_RESULT.json", result)
         return result
 
-    ledger["stages"]["development"]["status"] = "authorized_pending"
+    ledger["stages"]["policy_development"]["status"] = "authorized_pending"
     checkpoint(LEDGER, ledger)
-    development_live = live_reader()
-    development_adapter = recovery.build_adapter(
+    development_adapter = policy.build_adapter(
         stage="development",
-        run_id="regretbench-deepseek-support-recovery-development-20260808",
+        run_id="regretbench-deepseek-dynamic-policy-development-20260808",
         output_dir=DEVELOPMENT_DIR,
     )
     try:
-        development = recovery.run_stage(
-            stage="development",
+        live = live_reader()
+        development = policy.run_development(
             output_dir=DEVELOPMENT_DIR,
-            run_id="regretbench-deepseek-support-recovery-development-20260808",
+            run_id="regretbench-deepseek-dynamic-policy-development-20260808",
+            support_smoke_result=support_smoke,
+            support_development_result=support_development,
+            policy_smoke_result=SMOKE_DIR / "RESULT.json",
             adapter=development_adapter,
             daily_budget_status=_budget_status(
                 ledger,
-                projected_cost=recovery.STAGES["development"]["run_budget_usd"],
-                live=development_live,
+                projected=policy.RUN_BUDGET_USD,
+                live=live,
             ),
-            smoke_result_path=SMOKE_DIR / "RESULT.json",
         )
     except Exception:
-        usage = recovery.summarize_usage(development_adapter.usage_snapshot())
+        usage = summarize_adapter(development_adapter)
         ledger = _reconcile(
             ledger,
-            stage="development",
+            stage="policy_development",
             status="failed_closed",
-            measured_cost=float(usage["run_cost_usd"]),
+            measured_cost=usage,
             live=live_reader(),
         )
         checkpoint(LEDGER, ledger)
         raise
     ledger = _reconcile(
         ledger,
-        stage="development",
+        stage="policy_development",
         status=development["status"],
         measured_cost=float(development["usage"]["run_cost_usd"]),
         live=live_reader(),
@@ -313,19 +318,25 @@ def execute(
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
         "status": "complete_reconciled",
-        "smoke_result_sha256": recovery.sha256_file(SMOKE_DIR / "RESULT.json"),
+        "enriched_smoke_result_sha256": recovery.sha256_file(
+            SMOKE_DIR / "RESULT.json"
+        ),
         "development_result_sha256": recovery.sha256_file(
             DEVELOPMENT_DIR / "RESULT.json"
         ),
         "development_status": development["status"],
         "development_opened": True,
         "confirmation_opened": False,
-        "policy_endpoint_opened": False,
         "ledger_sha256": recovery.sha256_file(LEDGER),
         "recorded_daily_spend_usd": ledger["recorded_actual_spend_usd"],
     }
     checkpoint(ROOT / "DAILY_RESULT.json", result)
     return result
+
+
+def summarize_adapter(adapter: Any) -> float:
+    snapshot = adapter.usage_snapshot()
+    return float(snapshot.get("adapter_cost_usd", 0.0))
 
 
 def main() -> int:
@@ -342,6 +353,7 @@ def main() -> int:
             "error_type": type(exc).__name__,
             "error": str(exc),
             "development_opened": False,
+            "confirmation_opened": False,
         }
         if not args.preflight:
             ROOT.mkdir(parents=True, exist_ok=True)

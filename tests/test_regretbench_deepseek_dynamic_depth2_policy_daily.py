@@ -1,0 +1,135 @@
+from __future__ import annotations
+
+from datetime import datetime
+import json
+from zoneinfo import ZoneInfo
+
+import pytest
+
+from scripts import regretbench_deepseek_dynamic_depth2_policy_daily as daily
+
+
+def _live(usage: float = 100.9) -> dict[str, float]:
+    return {
+        "total_credits_usd": 130.0,
+        "total_usage_usd": usage,
+        "balance_usd": 130.0 - usage,
+    }
+
+
+def _prior_ledger(recorded: float = 0.9) -> dict:
+    return {
+        "date": daily.DATE,
+        "timezone": daily.TIMEZONE,
+        "daily_cap_usd": 5.0,
+        "opening_total_credits_usd": 130.0,
+        "opening_total_usage_usd": 100.0,
+        "opening_balance_usd": 30.0,
+        "recorded_actual_spend_usd": recorded,
+        "account_wide_usage_counts_against_cap": True,
+    }
+
+
+def test_preflight_inherits_recovery_day_and_fits_480_total(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        daily,
+        "validate_recovery_predecessor",
+        lambda: {"support": {}, "ledger": _prior_ledger()},
+    )
+    monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")
+    monkeypatch.setattr(daily, "DEVELOPMENT_DIR", tmp_path / "development")
+    monkeypatch.setattr(daily, "LEDGER", tmp_path / "ledger.json")
+
+    result = daily.preflight(
+        now=datetime(2026, 8, 8, 14, tzinfo=ZoneInfo("Europe/London")),
+        live_reader=_live,
+    )
+
+    assert result["status"] == "ready_without_paid_calls"
+    assert result["budget"]["spent_before_policy_usd"] == pytest.approx(0.9)
+    assert result["budget"]["remaining_after_full_caps_usd"] == pytest.approx(0.2)
+    assert result["model_calls_made"] == 0
+
+
+def test_preflight_refuses_when_full_policy_caps_do_not_fit(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        daily,
+        "validate_recovery_predecessor",
+        lambda: {"support": {}, "ledger": _prior_ledger(1.2)},
+    )
+    monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")
+    monkeypatch.setattr(daily, "DEVELOPMENT_DIR", tmp_path / "development")
+    monkeypatch.setattr(daily, "LEDGER", tmp_path / "ledger.json")
+
+    with pytest.raises(RuntimeError, match="remaining account-wide day"):
+        daily.preflight(
+            now=datetime(2026, 8, 8, 14, tzinfo=ZoneInfo("Europe/London")),
+            live_reader=lambda: _live(101.2),
+        )
+
+
+class _Adapter:
+    def usage_snapshot(self):
+        return {"adapter_cost_usd": 0.0}
+
+
+def test_execute_orders_enriched_smoke_before_policy_development(
+    tmp_path, monkeypatch
+) -> None:
+    prior_path = tmp_path / "prior-ledger.json"
+    prior_path.write_text(json.dumps(_prior_ledger()))
+    smoke_dir = tmp_path / "smoke"
+    development_dir = tmp_path / "development"
+    ledger_path = tmp_path / "ledger.json"
+    root = tmp_path / "root"
+    support_smoke_dir = tmp_path / "support-smoke"
+    support_dev_dir = tmp_path / "support-development"
+    support_smoke_dir.mkdir()
+    support_dev_dir.mkdir()
+    (support_smoke_dir / "RESULT.json").write_text("{}")
+    (support_dev_dir / "RESULT.json").write_text("{}")
+    monkeypatch.setattr(daily, "SMOKE_DIR", smoke_dir)
+    monkeypatch.setattr(daily, "DEVELOPMENT_DIR", development_dir)
+    monkeypatch.setattr(daily, "LEDGER", ledger_path)
+    monkeypatch.setattr(daily, "ROOT", root)
+    monkeypatch.setattr(daily.recovery_daily, "LEDGER", prior_path)
+    monkeypatch.setattr(daily.recovery_daily, "SMOKE_DIR", support_smoke_dir)
+    monkeypatch.setattr(daily.recovery_daily, "DEVELOPMENT_DIR", support_dev_dir)
+    monkeypatch.setattr(
+        daily,
+        "preflight",
+        lambda **kwargs: {
+            "budget": {"spent_before_policy_usd": 0.9},
+            "predecessor": {},
+        },
+    )
+    monkeypatch.setattr(daily.policy, "build_adapter", lambda **kwargs: _Adapter())
+    monkeypatch.setattr(daily, "_budget_status", lambda *args, **kwargs: {"authorized": True})
+    calls = []
+
+    def fake_smoke(*, output_dir, **kwargs):
+        calls.append("smoke")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        result = {"status": "passed", "usage": {"run_cost_usd": 0.01}}
+        (output_dir / "RESULT.json").write_text(json.dumps(result))
+        return result
+
+    def fake_development(*, output_dir, **kwargs):
+        calls.append("development")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        result = {"status": "gated_null", "usage": {"run_cost_usd": 0.03}}
+        (output_dir / "RESULT.json").write_text(json.dumps(result))
+        return result
+
+    monkeypatch.setattr(daily.policy, "run_smoke", fake_smoke)
+    monkeypatch.setattr(daily.policy, "run_development", fake_development)
+
+    result = daily.execute(live_reader=_live)
+
+    assert calls == ["smoke", "development"]
+    assert result["status"] == "complete_reconciled"
+    assert result["development_status"] == "gated_null"
+    ledger = json.loads(ledger_path.read_text())
+    assert ledger["recorded_actual_spend_usd"] == pytest.approx(0.94)
+    assert ledger["stages"]["enriched_smoke"]["status"] == "passed"
+    assert ledger["stages"]["policy_development"]["status"] == "gated_null"

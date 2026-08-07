@@ -48,7 +48,7 @@ instrument test only and supplies no scientific evidence.
 - support-recovery runner:
   `7c6aec662b564085c6670a8ac3e9cec47fa63370e1c72ae68d5cee791bfac849`
 - Aug 8 daily executor:
-  `3c0c90e863160b35772aefea2afdb046edd4555ea009fff9041bc766514a48dc`
+  `ddd3ecbb9e8a559f6bd1dae2d6f85dc3835e8187ac0cb032e06a823925b529f4`
 - source preregistration:
   `7d68263cb75e120bccf69a892ed08ec459343b44cf51ded61b240398e0fd0b5c`
 - support-recovery preregistration:
