@@ -34,6 +34,7 @@
     "manifest_confirmation_binding_matches": true,
     "matched_utility_science_gates_frozen": true,
     "protocol_hash_matches": true,
+    "refresh_matched_science_gates_frozen": true,
     "science_gates_unchanged": true,
     "source_manifest_hash_matches": true,
     "source_result_hash_matches": true,

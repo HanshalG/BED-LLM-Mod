@@ -55,6 +55,7 @@ def _result(
 ) -> dict:
     briers = {
         "dynamic_depth2": 0.2,
+        "myopic_refresh_brier": 0.32,
         "myopic_brier": 0.31,
         "myopic_width": 0.3,
         "history_blind_depth2": 0.28,
@@ -100,6 +101,12 @@ def _result(
                 "ci95": [0.2, 0.6],
                 "probability_positive": 0.97,
                 "n": 22,
+            },
+            "predicted_to_realized_dynamic_myopic_refresh_brier": {
+                "spearman": 0.45,
+                "ci95": [0.25, 0.65],
+                "probability_positive": 0.98,
+                "n": 24,
             },
             "fresh_regeneration_comparisons_descriptive": comparisons,
             "gates": {
@@ -192,7 +199,12 @@ def test_reporting_binding_matches_protocol_and_generator() -> None:
     assert report.sha256_file(
         report.REPO_ROOT / binding["matched_utility_myopic_amendment"]["path"]
     ) == binding["matched_utility_myopic_amendment"]["sha256"]
-    assert binding["requirements"]["matched_brier_myopic_is_headline_control"]
+    assert report.sha256_file(
+        report.REPO_ROOT / binding["refresh_matched_myopic_amendment"]["path"]
+    ) == binding["refresh_matched_myopic_amendment"]["sha256"]
+    assert binding["requirements"][
+        "refresh_matched_myopic_is_headline_horizon_control"
+    ]
     assert binding["requirements"][
         "pooled_or_secondary_evidence_can_change_tier"
     ] is False
@@ -267,6 +279,9 @@ def test_primary_table_and_optional_naive_are_separated(tmp_path) -> None:
     assert naive["metrics"]["fresh_brier"]["mean"] == pytest.approx(0.32)
     diagnostic = value["alignment_complete_diagnostic"]
     assert diagnostic["can_change_result_status_or_claim_tier"] is False
+    assert diagnostic["controls"]["myopic_refresh_brier"][
+        "eligible_task_count"
+    ] == 64
     assert diagnostic["controls"]["myopic_brier"]["eligible_task_count"] == 64
     assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 64
     assert diagnostic["alignment_complete_corroboration"]["all_pass"] is True
@@ -286,6 +301,9 @@ def test_alignment_complete_diagnostic_excludes_penalized_first_paths(
     value = report.build_report(tmp_path, stage="development")
 
     diagnostic = value["alignment_complete_diagnostic"]
+    assert diagnostic["controls"]["myopic_refresh_brier"][
+        "eligible_task_count"
+    ] == 63
     assert diagnostic["controls"]["myopic_brier"]["eligible_task_count"] == 63
     assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 63
     assert diagnostic["controls"]["fixed_depth2"]["eligible_task_count"] == 63

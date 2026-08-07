@@ -65,6 +65,7 @@ def test_fragment_uses_exact_frozen_tier_and_table_boundary(
     assert "released RegretBench intents, aliases, facets, slots" in tex
     assert ("\\begin{table}" in tex) is has_table
     if has_table:
+        assert "Refresh-matched myopic" in tex
         assert "Matched-Brier myopic" in tex
         assert "Myopic EIG width" in tex
         assert "History-blind d2" in tex
@@ -197,11 +198,17 @@ def test_paper_fragment_binding_matches_current_files() -> None:
         binding["reporting"]["matched_utility_myopic_amendment_sha256"]
         == frozen_report.MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
     )
+    assert (
+        binding["reporting"]["refresh_matched_myopic_amendment_sha256"]
+        == frozen_report.REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+    )
     assert fragment.sha256_file(
         fragment.REPO_ROOT / binding["manuscript"]["path"]
     ) == binding["manuscript"]["preresult_sha256"]
     assert binding["manuscript"]["generated_fragment_absent_at_freeze"] is True
-    assert binding["requirements"]["matched_brier_myopic_is_headline_control"]
+    assert binding["requirements"][
+        "refresh_matched_myopic_is_headline_horizon_control"
+    ]
     assert (
         binding["requirements"][
             "late_number_game_detail_replaced_only_when_fragment_exists"

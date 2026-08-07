@@ -27,14 +27,14 @@ EXECUTION_BINDINGS = REPO_ROOT / (
     "EXECUTION_BINDINGS.json"
 )
 EXECUTION_BINDINGS_SHA256 = (
-    "fae341462af2f1ae9d7c327f68fb6615af8edf8033a5c432c7a82d9e3d57134c"
+    "34b03e7466007a81534a513234cf1ca9f83bdc04fa35977779874285fddf7816"
 )
 DAILY_EXECUTION_BINDING = REPO_ROOT / (
     "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
     "DAILY_EXECUTION_BINDING.json"
 )
 DAILY_EXECUTION_BINDING_SHA256 = (
-    "e48947f9f517b904a2353cdd3f1b60110bdf59dda36c0221cb3608fca24d0e67"
+    "dfde4ed0a6fbea6d6e4564694e11b9ff2a310ee96fc1a808e9edd43f0d34b81c"
 )
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
@@ -188,6 +188,8 @@ def verify_protocol(
     )
     matched_utility = execution.get("matched_utility_myopic_amendment", {})
     matched_utility_path = repo_root / str(matched_utility.get("path", ""))
+    refresh_matched = execution.get("refresh_matched_myopic_amendment", {})
+    refresh_matched_path = repo_root / str(refresh_matched.get("path", ""))
     daily_amendment = daily_binding.get("amendment", {})
     daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
     daily_alignment = daily_binding.get(
@@ -205,6 +207,12 @@ def verify_protocol(
     )
     daily_matched_utility_path = repo_root / str(
         daily_matched_utility.get("path", "")
+    )
+    daily_refresh_matched = daily_binding.get(
+        "refresh_matched_myopic_amendment", {}
+    )
+    daily_refresh_matched_path = repo_root / str(
+        daily_refresh_matched.get("path", "")
     )
     daily_component_matches = {
         relative: (repo_root / relative).is_file()
@@ -271,6 +279,9 @@ def verify_protocol(
             and matched_utility_path.is_file()
             and sha256_file(matched_utility_path)
             == matched_utility.get("sha256")
+            and refresh_matched_path.is_file()
+            and sha256_file(refresh_matched_path)
+            == refresh_matched.get("sha256")
             and execution.get("parent", {}).get("protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and all(component_matches.values())
@@ -299,6 +310,9 @@ def verify_protocol(
             and daily_matched_utility_path.is_file()
             and sha256_file(daily_matched_utility_path)
             == daily_matched_utility.get("sha256")
+            and daily_refresh_matched_path.is_file()
+            and sha256_file(daily_refresh_matched_path)
+            == daily_refresh_matched.get("sha256")
             and bool(daily_component_matches)
             and all(daily_component_matches.values())
         ),
@@ -359,6 +373,18 @@ def verify_protocol(
             == 4
             and execution.get("requirements", {}).get(
                 "matched_utility_additional_model_calls"
+            )
+            == 0
+            and execution.get("requirements", {}).get(
+                "refresh_matched_myopic_policy_required"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "refresh_matched_is_headline_horizon_control"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "refresh_matched_additional_model_calls"
             )
             == 0
         ),
@@ -436,6 +462,52 @@ def verify_protocol(
             == -0.02
             and daily_binding.get("requirements", {}).get(
                 "matched_changed_root_positive_spearman_bootstrap_probability_minimum"
+            )
+            == 0.8
+        ),
+        "refresh_matched_science_gates_frozen": (
+            execution.get("requirements", {}).get(
+                "minimum_dynamic_refresh_myopic_root_disagreements"
+            )
+            == 16
+            and execution.get("requirements", {}).get(
+                "minimum_predicted_brier_advantage_vs_refresh_myopic"
+            )
+            == 0.01
+            and execution.get("requirements", {}).get(
+                "dynamic_minus_refresh_myopic_brier_maximum"
+            )
+            == -0.02
+            and execution.get("requirements", {}).get(
+                "dynamic_vs_refresh_myopic_bootstrap_probability_minimum"
+            )
+            == 0.9
+            and execution.get("requirements", {}).get(
+                "dynamic_vs_refresh_myopic_wins_exceed_losses"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "dynamic_log_loss_no_worse_than_refresh_myopic"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "refresh_changed_root_spearman_minimum"
+            )
+            == 0.15
+            and execution.get("requirements", {}).get(
+                "refresh_changed_root_positive_spearman_bootstrap_probability_minimum"
+            )
+            == 0.8
+            and daily_binding.get("requirements", {}).get(
+                "minimum_dynamic_refresh_myopic_root_disagreements"
+            )
+            == 16
+            and daily_binding.get("requirements", {}).get(
+                "dynamic_minus_refresh_myopic_brier_maximum"
+            )
+            == -0.02
+            and daily_binding.get("requirements", {}).get(
+                "refresh_changed_root_positive_spearman_bootstrap_probability_minimum"
             )
             == 0.8
         ),

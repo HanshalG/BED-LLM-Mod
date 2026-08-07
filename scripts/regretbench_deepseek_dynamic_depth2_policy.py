@@ -45,6 +45,7 @@ MIN_UNIQUE = 8
 BRANCH_DRAWS = 2
 PRIMARY_POLICIES = (
     "dynamic_depth2",
+    "myopic_refresh_brier",
     "myopic_brier",
     "history_blind_depth2",
     "myopic_width",
@@ -146,6 +147,14 @@ MATCHED_UTILITY_MYOPIC_AMENDMENT = (
 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
     "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
 )
+REFRESH_MATCHED_MYOPIC_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_REFRESH_MATCHED_MYOPIC_AMENDMENT_20260807.md"
+)
+REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
+    "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -200,6 +209,10 @@ def validate_protocol_binding() -> None:
         MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
     ):
         raise ValueError("matched-utility myopic amendment changed")
+    if recovery.sha256_file(REFRESH_MATCHED_MYOPIC_AMENDMENT) != (
+        REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("refresh-matched myopic amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -645,6 +658,52 @@ def myopic_brier_root_risks(
     return risks
 
 
+def myopic_refresh_brier_root_risks(
+    initial: Mapping[str, Any],
+    branch_rows: Sequence[Mapping[str, Any]],
+) -> list[dict[str, float]]:
+    lookup = {
+        (row["root_index"], row["hypothesis_index"], row["draw"]): row[
+            "conditioned"
+        ]
+        for row in branch_rows
+    }
+    risks = []
+    for root in range(QUESTIONS):
+        brier = 0.0
+        log_loss = 0.0
+        coverage = 0.0
+        for hypothesis_index, truth in enumerate(initial["hypotheses"]):
+            masses = []
+            for draw in range(BRANCH_DRAWS):
+                support = lookup[(root, hypothesis_index, draw)]
+                mass = sum(
+                    item["probability"]
+                    for item in support["hypotheses"]
+                    if _answer_matches(
+                        item["final_answer"], truth["final_answer"]
+                    )
+                )
+                masses.append(mass)
+            weight = truth["probability"]
+            brier += weight * float(
+                np.mean([(1.0 - mass) ** 2 for mass in masses])
+            )
+            log_loss += weight * float(
+                np.mean(
+                    [
+                        -math.log(max(PROBABILITY_FLOOR, mass))
+                        for mass in masses
+                    ]
+                )
+            )
+            coverage += weight * float(np.mean([mass > 0 for mass in masses]))
+        risks.append(
+            {"brier": brier, "log_loss": log_loss, "coverage": coverage}
+        )
+    return risks
+
+
 def fixed_root_risks(initial: Mapping[str, Any]) -> list[dict[str, float]]:
     hypotheses = initial["hypotheses"]
     risks = []
@@ -696,6 +755,7 @@ def choose_roots(
     initial: Mapping[str, Any],
     conditioned: Sequence[Mapping[str, float]],
     blind: Sequence[Mapping[str, float]],
+    myopic_refresh_brier: Sequence[Mapping[str, float]],
     myopic_brier: Sequence[Mapping[str, float]],
     fixed: Sequence[Mapping[str, float]],
     *,
@@ -704,6 +764,13 @@ def choose_roots(
     return {
         "dynamic_depth2": min(
             range(QUESTIONS), key=lambda index: (conditioned[index]["brier"], index)
+        ),
+        "myopic_refresh_brier": min(
+            range(QUESTIONS),
+            key=lambda index: (
+                myopic_refresh_brier[index]["brier"],
+                index,
+            ),
         ),
         "myopic_brier": min(
             range(QUESTIONS),
@@ -891,6 +958,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or protocol.get("matched_utility_myopic_amendment_sha256")
         != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+        or protocol.get("refresh_matched_myopic_amendment_sha256")
+        != REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -956,6 +1025,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or protocol.get("matched_utility_myopic_amendment_sha256")
         != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+        or protocol.get("refresh_matched_myopic_amendment_sha256")
+        != REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -1116,6 +1187,9 @@ def run_smoke(
             "matched_utility_myopic_amendment_sha256": (
                 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
             ),
+            "refresh_matched_myopic_amendment_sha256": (
+                REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1267,6 +1341,9 @@ def run_naive_smoke(
             ),
             "matched_utility_myopic_amendment_sha256": (
                 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+            ),
+            "refresh_matched_myopic_amendment_sha256": (
+                REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
@@ -1542,6 +1619,7 @@ def scientific_summary(
     if len(tasks) != 64:
         raise ValueError("scientific summary requires all 64 tasks")
     baselines = [
+        "myopic_refresh_brier",
         "myopic_brier",
         "myopic_width",
         "history_blind_depth2",
@@ -1554,6 +1632,7 @@ def scientific_summary(
         "fixed_depth2": BOOTSTRAP_SEED + 20,
         "random": BOOTSTRAP_SEED + 30,
         "myopic_brier": BOOTSTRAP_SEED + 100,
+        "myopic_refresh_brier": BOOTSTRAP_SEED + 200,
     }
     comparisons = {
         baseline: comparison_summary(
@@ -1573,6 +1652,7 @@ def scientific_summary(
         "fixed_depth2": BOOTSTRAP_SEED + 520,
         "random": BOOTSTRAP_SEED + 530,
         "myopic_brier": BOOTSTRAP_SEED + 600,
+        "myopic_refresh_brier": BOOTSTRAP_SEED + 700,
         "naive_thinking": BOOTSTRAP_SEED + 610,
     }
     fresh_comparisons = {
@@ -1627,15 +1707,24 @@ def scientific_summary(
 
     predicted_gain = predicted_gain_for("myopic_width")
     predicted_brier_gain = predicted_gain_for("myopic_brier")
+    predicted_refresh_gain = predicted_gain_for("myopic_refresh_brier")
     correlation = correlation_for("myopic_width", BOOTSTRAP_SEED + 99)
     brier_correlation = correlation_for(
         "myopic_brier", BOOTSTRAP_SEED + 199
     )
+    refresh_correlation = correlation_for(
+        "myopic_refresh_brier", BOOTSTRAP_SEED + 299
+    )
+    refresh_myopic = comparisons["myopic_refresh_brier"]
     matched_myopic = comparisons["myopic_brier"]
     myopic = comparisons["myopic_width"]
     blind = comparisons["history_blind_depth2"]
     fixed = comparisons["fixed_depth2"]
     gates = {
+        "dynamic_refresh_myopic_differ_at_least_16": disagreements[
+            "myopic_refresh_brier"
+        ]
+        >= 16,
         "dynamic_matched_myopic_differ_at_least_16": disagreements[
             "myopic_brier"
         ]
@@ -1652,6 +1741,22 @@ def scientific_summary(
             np.mean(predicted_brier_gain)
         )
         >= 0.01,
+        "predicted_gain_over_refresh_myopic_at_least_001": float(
+            np.mean(predicted_refresh_gain)
+        )
+        >= 0.01,
+        "dynamic_refresh_myopic_brier_gain_at_least_002": refresh_myopic[
+            "brier_dynamic_minus_baseline"
+        ]["mean"]
+        <= -0.02,
+        "dynamic_refresh_myopic_probability_at_least_090": refresh_myopic[
+            "brier_dynamic_minus_baseline"
+        ]["probability_improvement"]
+        >= 0.90,
+        "dynamic_refresh_myopic_wins_exceed_losses": refresh_myopic[
+            "wins_ties_losses"
+        ]["wins"]
+        > refresh_myopic["wins_ties_losses"]["losses"],
         "dynamic_matched_myopic_brier_gain_at_least_002": matched_myopic[
             "brier_dynamic_minus_baseline"
         ]["mean"]
@@ -1702,6 +1807,10 @@ def scientific_summary(
             "log_loss_dynamic_minus_baseline"
         ]["mean"]
         <= 0.0,
+        "dynamic_log_loss_nonworse_refresh_myopic": refresh_myopic[
+            "log_loss_dynamic_minus_baseline"
+        ]["mean"]
+        <= 0.0,
         "dynamic_log_loss_nonworse_blind": blind[
             "log_loss_dynamic_minus_baseline"
         ]["mean"]
@@ -1728,6 +1837,16 @@ def scientific_summary(
         ]
         is not None
         and brier_correlation["probability_positive"] >= 0.80,
+        "refresh_myopic_predicted_realized_spearman_at_least_015": refresh_correlation[
+            "spearman"
+        ]
+        is not None
+        and refresh_correlation["spearman"] >= 0.15,
+        "refresh_myopic_spearman_probability_positive_at_least_080": refresh_correlation[
+            "probability_positive"
+        ]
+        is not None
+        and refresh_correlation["probability_positive"] >= 0.80,
     }
     gates["all_pass"] = all(gates.values())
     return {
@@ -1739,8 +1858,14 @@ def scientific_summary(
         "mean_conditioned_predicted_gain_over_myopic_brier": float(
             np.mean(predicted_brier_gain)
         ),
+        "mean_conditioned_predicted_gain_over_myopic_refresh_brier": float(
+            np.mean(predicted_refresh_gain)
+        ),
         "predicted_to_realized_dynamic_myopic": correlation,
         "predicted_to_realized_dynamic_myopic_brier": brier_correlation,
+        "predicted_to_realized_dynamic_myopic_refresh_brier": (
+            refresh_correlation
+        ),
         "fresh_regeneration_comparisons_descriptive": fresh_comparisons,
         "gates": gates,
     }
@@ -2214,12 +2339,16 @@ def run_development(
         blind = dynamic_root_risks(
             initial, branch_by_task[task_index], arm="blind"
         )
+        myopic_refresh_brier = myopic_refresh_brier_root_risks(
+            initial, branch_by_task[task_index]
+        )
         myopic_brier = myopic_brier_root_risks(initial)
         fixed = fixed_root_risks(initial)
         selected = choose_roots(
             initial,
             conditioned,
             blind,
+            myopic_refresh_brier,
             myopic_brier,
             fixed,
             random_seed=RANDOM_SEED_START + task_index,
@@ -2228,6 +2357,7 @@ def run_development(
             {
                 "conditioned": conditioned,
                 "blind": blind,
+                "myopic_refresh_brier": myopic_refresh_brier,
                 "myopic_brier": myopic_brier,
                 "fixed": fixed,
                 "root_eig": [question_eig(initial, index) for index in range(QUESTIONS)],
@@ -2604,6 +2734,9 @@ def run_development(
                 "root_eig": plan["root_eig"],
                 "conditioned_root_risks": plan["conditioned"],
                 "blind_root_risks": plan["blind"],
+                "myopic_refresh_brier_root_risks": plan[
+                    "myopic_refresh_brier"
+                ],
                 "myopic_brier_root_risks": plan["myopic_brier"],
                 "fixed_root_risks": plan["fixed"],
                 "policies": policies,
@@ -2741,6 +2874,9 @@ def run_development(
             ),
             "matched_utility_myopic_amendment_sha256": (
                 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+            ),
+            "refresh_matched_myopic_amendment_sha256": (
+                REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,

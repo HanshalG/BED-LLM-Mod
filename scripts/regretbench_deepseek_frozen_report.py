@@ -35,10 +35,18 @@ MATCHED_UTILITY_MYOPIC_AMENDMENT = REPO_ROOT / (
 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
     "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
 )
+REFRESH_MATCHED_MYOPIC_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_REFRESH_MATCHED_MYOPIC_AMENDMENT_20260807.md"
+)
+REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
+    "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
+)
 ALIGNMENT_BOOTSTRAP_SAMPLES = 20_000
 ALIGNMENT_BOOTSTRAP_SEED = 202608151000
 PRIMARY_POLICIES = (
     "dynamic_depth2",
+    "myopic_refresh_brier",
     "myopic_brier",
     "myopic_width",
     "history_blind_depth2",
@@ -46,6 +54,7 @@ PRIMARY_POLICIES = (
     "random",
 )
 BASELINES = (
+    "myopic_refresh_brier",
     "myopic_brier",
     "myopic_width",
     "history_blind_depth2",
@@ -206,7 +215,7 @@ def _alignment_complete_diagnostic(
                 "losses": sum(value > 1e-12 for value in brier),
             },
         }
-    primary = controls["myopic_brier"]
+    primary = controls["myopic_refresh_brier"]
     brier = primary["brier_dynamic_minus_control"]
     log_loss = primary["log_loss_dynamic_minus_control"]
     wtl = primary["wins_ties_losses"]
@@ -244,6 +253,10 @@ def _validate_verified_result(
         MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
     ):
         raise ValueError("RegretBench matched-utility amendment changed")
+    if sha256_file(REFRESH_MATCHED_MYOPIC_AMENDMENT) != (
+        REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("RegretBench refresh-matched amendment changed")
     result_path = run_dir / "RESULT.json"
     verification_path = run_dir / "VERIFICATION.json"
     result = _load(result_path)
@@ -387,6 +400,9 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         "matched_utility_myopic_amendment_sha256": (
             MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         ),
+        "refresh_matched_myopic_amendment_sha256": (
+            REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+        ),
         "result_sha256": result_sha,
         "verification_sha256": verification_sha,
         "independent_verification_interface": verification.get(
@@ -409,6 +425,11 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         "paired_primary_comparisons": paired,
         "root_disagreements": disagreements,
         "predicted_to_realized_dynamic_myopic_brier": matched_correlation,
+        "predicted_to_realized_dynamic_myopic_refresh_brier": (
+            science["predicted_to_realized_dynamic_myopic_refresh_brier"]
+            if science is not None
+            else None
+        ),
         "predicted_to_realized_dynamic_myopic": eig_correlation,
         "alignment_complete_diagnostic": alignment_complete,
         "science_gates": science_gates,
@@ -464,6 +485,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     ]
     labels = {
         "dynamic_depth2": "Dynamic d2",
+        "myopic_refresh_brier": "Refresh-matched myopic",
         "myopic_brier": "Matched-Brier myopic",
         "myopic_width": "Myopic EIG width",
         "history_blind_depth2": "History-blind d2",
@@ -520,9 +542,10 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 f"[{log_loss['ci95'][0]:.4f}, {log_loss['ci95'][1]:.4f}] | "
                 f"{report['root_disagreements'][name]} |"
             )
-        matched_correlation = report[
-            "predicted_to_realized_dynamic_myopic_brier"
+        refresh_correlation = report[
+            "predicted_to_realized_dynamic_myopic_refresh_brier"
         ]
+        matched_correlation = report["predicted_to_realized_dynamic_myopic_brier"]
         eig_correlation = report["predicted_to_realized_dynamic_myopic"]
         lines.extend(
             [
@@ -530,7 +553,14 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 "### Ranking Fidelity",
                 "",
                 (
-                    "Matched-Brier changed-root predicted-to-realized "
+                    "Refresh-matched changed-root predicted-to-realized "
+                    f"Spearman: `{refresh_correlation['spearman']}`; 95% CI "
+                    f"`{refresh_correlation['ci95']}`; P(positive) "
+                    f"`{refresh_correlation['probability_positive']}`; "
+                    f"n=`{refresh_correlation['n']}`."
+                ),
+                (
+                    "Secondary fixed-support matched-Brier changed-root "
                     f"Spearman: `{matched_correlation['spearman']}`; 95% CI "
                     f"`{matched_correlation['ci95']}`; P(positive) "
                     f"`{matched_correlation['probability_positive']}`; "

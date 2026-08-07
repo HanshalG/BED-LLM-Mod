@@ -63,6 +63,7 @@ SUPPORT_STAGES = {
 }
 POLICY_NAMES = (
     "dynamic_depth2",
+    "myopic_refresh_brier",
     "myopic_brier",
     "history_blind_depth2",
     "myopic_width",
@@ -101,6 +102,9 @@ FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256 = (
 )
 MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
     "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+)
+REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
+    "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
 )
 
 
@@ -642,9 +646,55 @@ def _myopic_brier_risks(
     return output
 
 
-def _choose_roots(initial: Mapping[str, Any], conditioned: Sequence[Mapping[str, float]], blind: Sequence[Mapping[str, float]], myopic_brier: Sequence[Mapping[str, float]], fixed: Sequence[Mapping[str, float]], task: int) -> dict[str, int]:
+def _myopic_refresh_brier_risks(
+    initial: Mapping[str, Any],
+    rows: Sequence[Mapping[str, Any]],
+) -> list[dict[str, float]]:
+    lookup = {
+        (row["root_index"], row["hypothesis_index"], row["draw"]): row[
+            "conditioned"
+        ]
+        for row in rows
+    }
+    output = []
+    for root in range(QUESTIONS):
+        brier = log_loss = coverage = 0.0
+        for hypothesis_index, truth in enumerate(initial["hypotheses"]):
+            masses = []
+            for draw in range(BRANCH_DRAWS):
+                support = lookup[(root, hypothesis_index, draw)]
+                masses.append(
+                    sum(
+                        row["probability"]
+                        for row in support["hypotheses"]
+                        if lexical_alias_match(
+                            row["final_answer"], truth["final_answer"]
+                        )
+                    )
+                )
+            weight = truth["probability"]
+            brier += weight * float(
+                np.mean([(1.0 - mass) ** 2 for mass in masses])
+            )
+            log_loss += weight * float(
+                np.mean(
+                    [
+                        -math.log(max(PROBABILITY_FLOOR, mass))
+                        for mass in masses
+                    ]
+                )
+            )
+            coverage += weight * float(np.mean([mass > 0 for mass in masses]))
+        output.append(
+            {"brier": brier, "log_loss": log_loss, "coverage": coverage}
+        )
+    return output
+
+
+def _choose_roots(initial: Mapping[str, Any], conditioned: Sequence[Mapping[str, float]], blind: Sequence[Mapping[str, float]], myopic_refresh_brier: Sequence[Mapping[str, float]], myopic_brier: Sequence[Mapping[str, float]], fixed: Sequence[Mapping[str, float]], task: int) -> dict[str, int]:
     return {
         "dynamic_depth2": min(range(QUESTIONS), key=lambda index: (conditioned[index]["brier"], index)),
+        "myopic_refresh_brier": min(range(QUESTIONS), key=lambda index: (myopic_refresh_brier[index]["brier"], index)),
         "myopic_brier": min(range(QUESTIONS), key=lambda index: (myopic_brier[index]["brier"], index)),
         "history_blind_depth2": min(range(QUESTIONS), key=lambda index: (blind[index]["brier"], index)),
         "myopic_width": min(range(QUESTIONS), key=lambda index: (-_question_eig(initial, index), index)),
@@ -843,13 +893,14 @@ def _correlation(predicted: Sequence[float], realized: Sequence[float], samples:
 
 
 def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[str, Any]:
-    baselines = ["myopic_brier", "myopic_width", "history_blind_depth2", "fixed_depth2", "random"]
+    baselines = ["myopic_refresh_brier", "myopic_brier", "myopic_width", "history_blind_depth2", "fixed_depth2", "random"]
     seeds = {
         "myopic_width": BOOTSTRAP_SEED,
         "history_blind_depth2": BOOTSTRAP_SEED + 10,
         "fixed_depth2": BOOTSTRAP_SEED + 20,
         "random": BOOTSTRAP_SEED + 30,
         "myopic_brier": BOOTSTRAP_SEED + 100,
+        "myopic_refresh_brier": BOOTSTRAP_SEED + 200,
     }
     comparisons = {name: _comparison(tasks, name, samples, seeds[name]) for name in baselines}
     fresh_names = [*baselines]
@@ -861,6 +912,7 @@ def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[st
         "fixed_depth2": BOOTSTRAP_SEED + 520,
         "random": BOOTSTRAP_SEED + 530,
         "myopic_brier": BOOTSTRAP_SEED + 600,
+        "myopic_refresh_brier": BOOTSTRAP_SEED + 700,
         "naive_thinking": BOOTSTRAP_SEED + 610,
     }
     fresh = {name: _comparison(tasks, name, samples, fresh_seeds[name], "fresh_") for name in fresh_names}
@@ -880,16 +932,23 @@ def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[st
 
     predicted = predicted_for("myopic_width")
     predicted_brier = predicted_for("myopic_brier")
+    predicted_refresh = predicted_for("myopic_refresh_brier")
     correlation = correlation_for("myopic_width", BOOTSTRAP_SEED + 99)
     brier_correlation = correlation_for("myopic_brier", BOOTSTRAP_SEED + 199)
-    matched, myopic, blind, fixed = (comparisons[name] for name in ("myopic_brier", "myopic_width", "history_blind_depth2", "fixed_depth2"))
+    refresh_correlation = correlation_for("myopic_refresh_brier", BOOTSTRAP_SEED + 299)
+    refresh, matched, myopic, blind, fixed = (comparisons[name] for name in ("myopic_refresh_brier", "myopic_brier", "myopic_width", "history_blind_depth2", "fixed_depth2"))
     gates = {
+        "dynamic_refresh_myopic_differ_at_least_16": disagreements["myopic_refresh_brier"] >= 16,
         "dynamic_matched_myopic_differ_at_least_16": disagreements["myopic_brier"] >= 16,
         "dynamic_myopic_differ_at_least_16": disagreements["myopic_width"] >= 16,
         "dynamic_blind_differ_at_least_12": disagreements["history_blind_depth2"] >= 12,
         "dynamic_fixed_differ_at_least_12": disagreements["fixed_depth2"] >= 12,
         "predicted_gain_over_myopic_at_least_001": float(np.mean(predicted)) >= 0.01,
         "predicted_gain_over_matched_myopic_at_least_001": float(np.mean(predicted_brier)) >= 0.01,
+        "predicted_gain_over_refresh_myopic_at_least_001": float(np.mean(predicted_refresh)) >= 0.01,
+        "dynamic_refresh_myopic_brier_gain_at_least_002": refresh["brier_dynamic_minus_baseline"]["mean"] <= -0.02,
+        "dynamic_refresh_myopic_probability_at_least_090": refresh["brier_dynamic_minus_baseline"]["probability_improvement"] >= 0.90,
+        "dynamic_refresh_myopic_wins_exceed_losses": refresh["wins_ties_losses"]["wins"] > refresh["wins_ties_losses"]["losses"],
         "dynamic_matched_myopic_brier_gain_at_least_002": matched["brier_dynamic_minus_baseline"]["mean"] <= -0.02,
         "dynamic_matched_myopic_probability_at_least_090": matched["brier_dynamic_minus_baseline"]["probability_improvement"] >= 0.90,
         "dynamic_matched_myopic_wins_exceed_losses": matched["wins_ties_losses"]["wins"] > matched["wins_ties_losses"]["losses"],
@@ -904,12 +963,15 @@ def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[st
         "dynamic_fixed_wins_exceed_losses": fixed["wins_ties_losses"]["wins"] > fixed["wins_ties_losses"]["losses"],
         "dynamic_log_loss_nonworse_myopic": myopic["log_loss_dynamic_minus_baseline"]["mean"] <= 0.0,
         "dynamic_log_loss_nonworse_matched_myopic": matched["log_loss_dynamic_minus_baseline"]["mean"] <= 0.0,
+        "dynamic_log_loss_nonworse_refresh_myopic": refresh["log_loss_dynamic_minus_baseline"]["mean"] <= 0.0,
         "dynamic_log_loss_nonworse_blind": blind["log_loss_dynamic_minus_baseline"]["mean"] <= 0.0,
         "dynamic_log_loss_nonworse_fixed": fixed["log_loss_dynamic_minus_baseline"]["mean"] <= 0.0,
         "predicted_realized_spearman_at_least_015": correlation["spearman"] is not None and correlation["spearman"] >= 0.15,
         "spearman_probability_positive_at_least_080": correlation["probability_positive"] is not None and correlation["probability_positive"] >= 0.80,
         "matched_myopic_predicted_realized_spearman_at_least_015": brier_correlation["spearman"] is not None and brier_correlation["spearman"] >= 0.15,
         "matched_myopic_spearman_probability_positive_at_least_080": brier_correlation["probability_positive"] is not None and brier_correlation["probability_positive"] >= 0.80,
+        "refresh_myopic_predicted_realized_spearman_at_least_015": refresh_correlation["spearman"] is not None and refresh_correlation["spearman"] >= 0.15,
+        "refresh_myopic_spearman_probability_positive_at_least_080": refresh_correlation["probability_positive"] is not None and refresh_correlation["probability_positive"] >= 0.80,
     }
     gates["all_pass"] = all(gates.values())
     return {
@@ -917,8 +979,10 @@ def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[st
         "root_disagreements": disagreements,
         "mean_conditioned_predicted_gain_over_myopic": float(np.mean(predicted)),
         "mean_conditioned_predicted_gain_over_myopic_brier": float(np.mean(predicted_brier)),
+        "mean_conditioned_predicted_gain_over_myopic_refresh_brier": float(np.mean(predicted_refresh)),
         "predicted_to_realized_dynamic_myopic": correlation,
         "predicted_to_realized_dynamic_myopic_brier": brier_correlation,
+        "predicted_to_realized_dynamic_myopic_refresh_brier": refresh_correlation,
         "fresh_regeneration_comparisons_descriptive": fresh,
         "gates": gates,
     }
@@ -1094,6 +1158,14 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         "$.protocol.matched_utility_myopic_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get(
+            "refresh_matched_myopic_amendment_sha256"
+        ),
+        REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256,
+        "$.protocol.refresh_matched_myopic_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
     _close(result.get("gates"), gates, "$.gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
@@ -1195,14 +1267,24 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
     for task, support in enumerate(initial):
         conditioned = _dynamic_risks(support, branches[task], "conditioned")
         blind = _dynamic_risks(support, branches[task], "blind")
+        myopic_refresh_brier = _myopic_refresh_brier_risks(
+            support, branches[task]
+        )
         myopic_brier = _myopic_brier_risks(support)
         fixed = _fixed_risks(support)
         selected = _choose_roots(
-            support, conditioned, blind, myopic_brier, fixed, task
+            support,
+            conditioned,
+            blind,
+            myopic_refresh_brier,
+            myopic_brier,
+            fixed,
+            task,
         )
         plans.append({
             "conditioned": conditioned,
             "blind": blind,
+            "myopic_refresh_brier": myopic_refresh_brier,
             "myopic_brier": myopic_brier,
             "fixed": fixed,
             "root_eig": [_question_eig(support, index) for index in range(QUESTIONS)],
@@ -1359,6 +1441,9 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
             "root_eig": plan["root_eig"],
             "conditioned_root_risks": plan["conditioned"],
             "blind_root_risks": plan["blind"],
+            "myopic_refresh_brier_root_risks": plan[
+                "myopic_refresh_brier"
+            ],
             "myopic_brier_root_risks": plan["myopic_brier"],
             "fixed_root_risks": plan["fixed"],
             "policies": policies,
@@ -1491,6 +1576,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         ),
         MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256,
         "$.protocol.matched_utility_myopic_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "refresh_matched_myopic_amendment_sha256"
+        ),
+        REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256,
+        "$.protocol.refresh_matched_myopic_amendment_sha256",
         mismatches,
     )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)

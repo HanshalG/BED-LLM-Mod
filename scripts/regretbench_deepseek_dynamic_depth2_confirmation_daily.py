@@ -44,7 +44,7 @@ LEDGER = REPO_ROOT / (
 )
 EXECUTION_BINDINGS = ROOT / "EXECUTION_BINDINGS.json"
 EXECUTION_BINDINGS_SHA256 = (
-    "fae341462af2f1ae9d7c327f68fb6615af8edf8033a5c432c7a82d9e3d57134c"
+    "34b03e7466007a81534a513234cf1ca9f83bdc04fa35977779874285fddf7816"
 )
 PRODUCER_SHA256 = (
     "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
@@ -53,16 +53,16 @@ CONFIRMATION_VERIFIER_SHA256 = (
     "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
 )
 SHARED_VERIFIER_SHA256 = (
-    "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf"
+    "a5b18ebc48f6df25da4df4827f39ae96f5efde02d2d8aeb347443f97ff6c0eca"
 )
 SUPPORT_DAILY_SHA256 = (
-    "46de3903fe8dc247cf9192a704d5542196773dd15fd8c50890eaca0583898d61"
+    "d183e5b2785741d8d410c90d0b3f983da31db1a5b698a75fbd4b52b234c49399"
 )
 POLICY_DAILY_SHA256 = (
-    "1ea99e5e0af2efdb292e22eb1b0db4a612f2945cda1b1d147f68063717a913a4"
+    "59fc575fb716b45ae76d0a1505b9293b5883c4cd99088f67e5e6159d64f0ebf7"
 )
 POLICY_CORE_SHA256 = (
-    "d0aaf34e0299ba0512a0da18aaa340b467e07458e429c881246261f021b01776"
+    "d6aeda8f6ea5de994bf33844fea0a08e35b4213e565bb2a0f955618008378ce0"
 )
 
 
@@ -127,6 +127,8 @@ def validate_execution_bindings() -> dict[str, Any]:
         != policy.FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or bindings.get("matched_utility_myopic_amendment", {}).get("sha256")
         != policy.MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+        or bindings.get("refresh_matched_myopic_amendment", {}).get("sha256")
+        != policy.REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
         or bindings.get("requirements", {}).get(
             "minimum_truth_consistent_first_reply_matches_per_policy"
         )
@@ -149,6 +151,18 @@ def validate_execution_bindings() -> dict[str, Any]:
         != 4
         or bindings.get("requirements", {}).get(
             "matched_utility_additional_model_calls"
+        )
+        != 0
+        or bindings.get("requirements", {}).get(
+            "refresh_matched_myopic_policy_required"
+        )
+        is not True
+        or bindings.get("requirements", {}).get(
+            "refresh_matched_is_headline_horizon_control"
+        )
+        is not True
+        or bindings.get("requirements", {}).get(
+            "refresh_matched_additional_model_calls"
         )
         != 0
     ):

@@ -24,20 +24,24 @@
     "path": "results/nonmyopic/REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md",
     "sha256": "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
   },
+  "refresh_matched_myopic_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_REFRESH_MATCHED_MYOPIC_AMENDMENT_20260807.md",
+    "sha256": "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
+  },
   "shared_result_verifier": {
     "path": "scripts/regretbench_deepseek_result_verify.py",
     "parent_sha256": "dd67501dd311cc5882c0274289aeab95b7d3bcb57af8bc7f0d5b79b450957e8f",
-    "superseded_sha256": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
+    "superseded_sha256": "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf",
     "intermediate_sha256": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
-    "sha256": "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf",
-    "only_change": "independently replay the prospective matched-utility myopic control and its gates"
+    "sha256": "a5b18ebc48f6df25da4df4827f39ae96f5efde02d2d8aeb347443f97ff6c0eca",
+    "only_change": "independently replay the prospective refresh-matched horizon control and its gates"
   },
   "policy_core": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_policy.py",
     "parent_sha256": "19970a2b1a488bc9c1b9b461b0de09d07e24c4a53dbd221d5c9809b0c8cbb390",
-    "superseded_sha256": "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1",
-    "sha256": "d0aaf34e0299ba0512a0da18aaa340b467e07458e429c881246261f021b01776",
-    "only_change": "add the no-extra-call matched-Brier myopic control and its prospective gates"
+    "superseded_sha256": "d0aaf34e0299ba0512a0da18aaa340b467e07458e429c881246261f021b01776",
+    "sha256": "d6aeda8f6ea5de994bf33844fea0a08e35b4213e565bb2a0f955618008378ce0",
+    "only_change": "add the zero-call immediate-refresh-Brier horizon control and its prospective gates"
   },
   "confirmation_producer": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py",
@@ -62,6 +66,9 @@
     "entropy_myopic_width_control_remains_required": true,
     "maximum_distinct_roots_per_task": 4,
     "matched_utility_additional_model_calls": 0,
+    "refresh_matched_myopic_policy_required": true,
+    "refresh_matched_is_headline_horizon_control": true,
+    "refresh_matched_additional_model_calls": 0,
     "minimum_dynamic_matched_myopic_root_disagreements": 16,
     "minimum_predicted_brier_advantage_vs_matched_myopic": 0.01,
     "dynamic_minus_matched_myopic_brier_maximum": -0.02,
@@ -70,6 +77,14 @@
     "dynamic_log_loss_no_worse_than_matched_myopic": true,
     "matched_changed_root_spearman_minimum": 0.15,
     "matched_changed_root_positive_spearman_bootstrap_probability_minimum": 0.8,
+    "minimum_dynamic_refresh_myopic_root_disagreements": 16,
+    "minimum_predicted_brier_advantage_vs_refresh_myopic": 0.01,
+    "dynamic_minus_refresh_myopic_brier_maximum": -0.02,
+    "dynamic_vs_refresh_myopic_bootstrap_probability_minimum": 0.9,
+    "dynamic_vs_refresh_myopic_wins_exceed_losses": true,
+    "dynamic_log_loss_no_worse_than_refresh_myopic": true,
+    "refresh_changed_root_spearman_minimum": 0.15,
+    "refresh_changed_root_positive_spearman_bootstrap_probability_minimum": 0.8,
     "model_calls_before_freeze": 0,
     "cost_usd_before_freeze": 0.0
   }
