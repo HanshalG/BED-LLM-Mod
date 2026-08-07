@@ -88,6 +88,9 @@ ACTION_AMENDMENT_SHA256 = (
 VALID_TRAJECTORY_AMENDMENT_SHA256 = (
     "57dacb5e671282b825f3fa375dfbd088dbd4d79f3387df59f5600f6e995edbf3"
 )
+OUTCOME_CRN_AMENDMENT_SHA256 = (
+    "fd8533a151ce538eca74a354cfe5b807bec700af2c9a72fadb3ba2fb7c8f23e3"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -927,10 +930,56 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         "$.protocol.valid_trajectory_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get("outcome_crn_amendment_sha256"),
+        OUTCOME_CRN_AMENDMENT_SHA256,
+        "$.protocol.outcome_crn_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
     _close(result.get("gates"), gates, "$.gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
     return _verification(run_dir, "policy_smoke", mismatches)
+
+
+def _blind_crn_diagnostics(
+    branches: Sequence[Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
+    groups: dict[tuple[int, int, int], list[Mapping[str, Any]]] = {}
+    for task_rows in branches:
+        for row in task_rows:
+            key = (
+                int(row["task_index"]),
+                int(row["hypothesis_index"]),
+                int(row["draw"]),
+            )
+            groups.setdefault(key, []).append(row)
+    exact = 0
+    for rows in groups.values():
+        hashes = {
+            hashlib.sha256(
+                json.dumps(
+                    row["blind"],
+                    ensure_ascii=True,
+                    separators=(",", ":"),
+                    sort_keys=True,
+                ).encode()
+            ).hexdigest()
+            for row in rows
+        }
+        if (
+            len(rows) == QUESTIONS
+            and {int(row["root_index"]) for row in rows}
+            == set(range(QUESTIONS))
+            and len(hashes) == 1
+        ):
+            exact += 1
+    return {
+        "expected_group_count": 64 * HYPOTHESES * BRANCH_DRAWS,
+        "observed_group_count": len(groups),
+        "exact_group_count": exact,
+        "exact_group_fraction": exact / len(groups) if groups else 0.0,
+    }
 
 
 def verify_policy(run_dir: Path) -> dict[str, Any]:
@@ -1151,6 +1200,7 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
     science_candidate = _policy_science(tasks, samples)
     usage = result["usage"]["deepseek_primary"]
     expected_requests = PLANNING_REQUESTS + len(first_manifest) + len(final_manifest)
+    crn_diagnostics = _blind_crn_diagnostics(branches)
     primary_supports = [*initial, *simulated, *[_parse_support(raw, enriched=True) for raw in first_responses], *[_parse_support(raw, enriched=True) for raw in final_responses]]
     branch_groups: dict[tuple[int, int, int], list[dict[str, Any]]] = {}
     for row in manifests:
@@ -1200,6 +1250,11 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         "every_policy_has_40_novel_second_actions": all(sum(task["policies"][name]["second_action_novel"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "every_policy_has_40_matchable_second_replies": all(sum(task["policies"][name]["second_reply_likelihood_matched"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "within_combined_policy_budget": float(result["usage"]["combined_cost_usd"]) <= POLICY_BUDGET,
+        "all_blind_crn_replays_exact": (
+            crn_diagnostics["observed_group_count"]
+            == crn_diagnostics["expected_group_count"]
+            == crn_diagnostics["exact_group_count"]
+        ),
         "conditioned_blind_pairs_share_exact_seed": seed_schedule_ok,
         "simulated_roots_use_task_hypothesis_draw_crn": simulated_grouping_ok,
         "simulated_crn_seed_formula_exact": seed_schedule_ok,
@@ -1231,7 +1286,19 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         "$.protocol.valid_trajectory_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get("outcome_crn_amendment_sha256"),
+        OUTCOME_CRN_AMENDMENT_SHA256,
+        "$.protocol.outcome_crn_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)
+    _close(
+        result.get("crn_diagnostics"),
+        crn_diagnostics,
+        "$.crn_diagnostics",
+        mismatches,
+    )
     _close(result.get("science"), science, "$.science", mismatches)
     _close(result.get("mechanics_gates"), mechanics, "$.mechanics_gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)

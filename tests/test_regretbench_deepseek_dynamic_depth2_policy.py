@@ -77,6 +77,15 @@ def test_protocol_binding_refuses_valid_trajectory_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_outcome_crn_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(policy, "OUTCOME_CRN_AMENDMENT_SHA256", "0" * 64)
+
+    with pytest.raises(ValueError, match="outcome-level CRN amendment changed"):
+        policy.validate_protocol_binding()
+
+
 def test_distinct_actions_use_official_facet_identity() -> None:
     first = {"supported": True, "facet": "country"}
 
@@ -196,6 +205,35 @@ def test_root_level_crn_removes_seed_only_candidate_advantage() -> None:
     assert len(set(crn_risks)) == 1
     assert policy.actual_first_seed(7) == policy.ACTUAL_FIRST_SEED_START + 7
     assert policy.actual_final_seed(7) == policy.ACTUAL_FINAL_SEED_START + 7
+
+
+def test_blind_crn_diagnostic_requires_identical_parsed_supports() -> None:
+    support = policy.parse_enriched_support(json.dumps(_support()))
+    rows = [
+        {
+            "task_index": 0,
+            "root_index": root,
+            "hypothesis_index": 0,
+            "draw": 0,
+            "blind": support,
+        }
+        for root in range(4)
+    ]
+
+    exact = policy.blind_crn_replay_diagnostics(rows)
+    assert exact["observed_group_count"] == 1
+    assert exact["exact_group_count"] == 1
+    assert exact["exact_group_fraction"] == 1.0
+
+    rows[-1] = {
+        **rows[-1],
+        "blind": policy.parse_enriched_support(
+            json.dumps(_support(truth_answer="different answer"))
+        ),
+    }
+    failed = policy.blind_crn_replay_diagnostics(rows)
+    assert failed["exact_group_count"] == 0
+    assert failed["exact_group_fraction"] == 0.0
 
 
 def _science_task(index: int) -> dict:
@@ -334,9 +372,7 @@ class _FixtureAdapter:
             local = seed - policy.BRANCH_SEED_START
             hypothesis = (local % 16) // 2
             conditioned = bool(dialogue)
-            if (conditioned and branch_root == 0) or (
-                not conditioned and branch_root == 2
-            ):
+            if conditioned and branch_root == 0:
                 answers[0] = f"candidate answer {hypothesis}"
                 weights[0] = 20
         elif seed >= policy.ACTUAL_FIRST_SEED_START and dialogue:
@@ -614,6 +650,13 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert result["mechanics_gates"][
         "every_policy_has_40_novel_second_actions"
     ] is True
+    assert result["mechanics_gates"]["all_blind_crn_replays_exact"] is True
+    assert result["crn_diagnostics"] == {
+        "expected_group_count": 1024,
+        "observed_group_count": 1024,
+        "exact_group_count": 1024,
+        "exact_group_fraction": 1.0,
+    }
     assert all(
         row["valid_two_action_trajectory"] is True
         and row["raw_truth_mass_final"] == pytest.approx(

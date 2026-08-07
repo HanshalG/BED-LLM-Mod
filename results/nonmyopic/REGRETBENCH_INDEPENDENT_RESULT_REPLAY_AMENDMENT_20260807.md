@@ -28,6 +28,8 @@ raw artifacts it independently reconstructs:
 - paired comparisons, correlations, bootstraps, scientific gates, and status;
 - request schedules, common-random-number groups, schema counts, privacy
   payload schedules, action/matchability floors, and cost gates.
+- exact parsed history-blind replay equality across all `1,024` observable CRN
+  groups.
 
 The verifier reports exact mismatch paths, makes zero provider calls, and
 cannot rescue a producer failure. The daily support executor requires verified

@@ -4,6 +4,14 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Upgrade RegretBench CRN from requested metadata to observed model
+behavior before responses. Freeze amendmentfd8533a1. For each of1,024 task/
+hypothesis/draw groups,the four history-blind requests have identical prompts+
+seeds and must yield one canonical parsed support hash. Publish exact counts/
+fraction and gate all1024/1024;conditioned prompts differ and remain seed-bound.
+Independent replay reconstructs from RAW_BRANCHES. Exact-scale fixture passes
+1024/1024;one altered root changes a group to nonexact. Calls/cost0.
+
 2026-08-07: Prevent invalid RegretBench dialogue from earning endpoint credit.
 Before responses,freeze valid-trajectory amendment57dacb5e:unsupported first/
 second actions or repeated second facets get scored terminal mass0,Brier1,and

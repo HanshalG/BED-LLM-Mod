@@ -114,6 +114,13 @@ VALID_TRAJECTORY_AMENDMENT = (
 VALID_TRAJECTORY_AMENDMENT_SHA256 = (
     "57dacb5e671282b825f3fa375dfbd088dbd4d79f3387df59f5600f6e995edbf3"
 )
+OUTCOME_CRN_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/REGRETBENCH_OUTCOME_CRN_AMENDMENT_20260807.md"
+)
+OUTCOME_CRN_AMENDMENT_SHA256 = (
+    "fd8533a151ce538eca74a354cfe5b807bec700af2c9a72fadb3ba2fb7c8f23e3"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -152,6 +159,10 @@ def validate_protocol_binding() -> None:
         != VALID_TRAJECTORY_AMENDMENT_SHA256
     ):
         raise ValueError("valid-trajectory endpoint amendment changed")
+    if recovery.sha256_file(OUTCOME_CRN_AMENDMENT) != (
+        OUTCOME_CRN_AMENDMENT_SHA256
+    ):
+        raise ValueError("outcome-level CRN amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -774,6 +785,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != ACTION_NOVELTY_AMENDMENT_SHA256
         or protocol.get("valid_trajectory_amendment_sha256")
         != VALID_TRAJECTORY_AMENDMENT_SHA256
+        or protocol.get("outcome_crn_amendment_sha256")
+        != OUTCOME_CRN_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -831,6 +844,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != ACTION_NOVELTY_AMENDMENT_SHA256
         or protocol.get("valid_trajectory_amendment_sha256")
         != VALID_TRAJECTORY_AMENDMENT_SHA256
+        or protocol.get("outcome_crn_amendment_sha256")
+        != OUTCOME_CRN_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -968,6 +983,7 @@ def run_smoke(
             "valid_trajectory_amendment_sha256": (
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
+            "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1110,6 +1126,7 @@ def run_naive_smoke(
             "valid_trajectory_amendment_sha256": (
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
+            "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
             "efficacy_used_for_authorization": False,
@@ -1589,6 +1606,40 @@ def seed_schedule_gates(
     }
 
 
+def blind_crn_replay_diagnostics(
+    branch_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    groups: dict[tuple[int, int, int], list[Mapping[str, Any]]] = {}
+    for row in branch_rows:
+        key = (
+            int(row["task_index"]),
+            int(row["hypothesis_index"]),
+            int(row["draw"]),
+        )
+        groups.setdefault(key, []).append(row)
+    exact = 0
+    for rows in groups.values():
+        hashes = {
+            hashlib.sha256(
+                recovery.canonical_json(row["blind"]).encode()
+            ).hexdigest()
+            for row in rows
+        }
+        if (
+            len(rows) == QUESTIONS
+            and {int(row["root_index"]) for row in rows}
+            == set(range(QUESTIONS))
+            and len(hashes) == 1
+        ):
+            exact += 1
+    return {
+        "expected_group_count": 64 * HYPOTHESES * BRANCH_DRAWS,
+        "observed_group_count": len(groups),
+        "exact_group_count": exact,
+        "exact_group_fraction": exact / len(groups) if groups else 0.0,
+    }
+
+
 def mechanics_gates(
     *,
     primary_deepseek_usage: Mapping[str, Any],
@@ -1603,7 +1654,9 @@ def mechanics_gates(
     paired_branch_seeds: Sequence[int],
     first_manifest: Sequence[Mapping[str, Any]],
     final_manifest: Sequence[Mapping[str, Any]],
+    branch_rows: Sequence[Mapping[str, Any]],
 ) -> dict[str, bool]:
+    blind_crn = blind_crn_replay_diagnostics(branch_rows)
     gates = {
         "exact_64_tasks": len(tasks) == 64,
         "expected_requests_within_frozen_maximum": PLANNING_REQUESTS
@@ -1679,6 +1732,11 @@ def mechanics_gates(
             for policy in PRIMARY_POLICIES
         ),
         "within_combined_policy_budget": combined_cost <= RUN_BUDGET_USD,
+        "all_blind_crn_replays_exact": (
+            blind_crn["observed_group_count"]
+            == blind_crn["expected_group_count"]
+            == blind_crn["exact_group_count"]
+        ),
         **seed_schedule_gates(
             branch_manifest=branch_manifest,
             paired_branch_seeds=paired_branch_seeds,
@@ -2378,6 +2436,10 @@ def run_development(
         paired_branch_seeds=branch_seeds,
         first_manifest=first_manifest,
         final_manifest=final_manifest,
+        branch_rows=[row for rows in branch_by_task for row in rows],
+    )
+    crn_diagnostics = blind_crn_replay_diagnostics(
+        [row for rows in branch_by_task for row in rows]
     )
     baseline = naive_baseline_diagnostics(
         enabled=naive_baseline_enabled,
@@ -2427,6 +2489,7 @@ def run_development(
             "valid_trajectory_amendment_sha256": (
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
+            "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,
             "naive_smoke": naive_smoke,
@@ -2448,6 +2511,7 @@ def run_development(
         "daily_budget_status": dict(daily_budget_status or {}),
         "usage": usage,
         "mechanics_gates": mechanics,
+        "crn_diagnostics": crn_diagnostics,
         "naive_baseline": baseline,
         "science": science,
         "tasks": tasks,

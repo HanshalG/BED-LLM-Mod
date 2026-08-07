@@ -68,6 +68,12 @@ final refresh seeds. Formal concurrency is `128`. Every enriched support must
 contain exactly eight distinct particles; duplicate particles fail instead of
 silently changing rollout width.
 
+The outcome-level CRN amendment additionally canonicalizes each history-blind
+support. All four identical-prompt, identical-seed root replicas must match in
+each of the `1,024` task/hypothesis/draw groups. This verifies that provider
+serving honored the seed on the actual run, rather than trusting request
+metadata alone.
+
 ## Budget Chain
 
 The Aug 8 executor validates the exact support-recovery result and inherits its
