@@ -86,6 +86,19 @@ def test_protocol_binding_refuses_outcome_crn_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_first_reply_alignment_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        policy, "FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256", "0" * 64
+    )
+
+    with pytest.raises(
+        ValueError, match="first-reply likelihood alignment amendment changed"
+    ):
+        policy.validate_protocol_binding()
+
+
 def test_distinct_actions_use_official_facet_identity() -> None:
     first = {"supported": True, "facet": "country"}
 
@@ -152,16 +165,30 @@ def test_realized_terminal_metric_conditions_generated_likelihoods() -> None:
     assert missing["brier"] == 1.0
 
 
+def test_first_reply_match_requires_truth_consistent_particle() -> None:
+    support = policy.parse_enriched_support(json.dumps(_support()))
+
+    assert policy.truth_consistent_reply_indexes(
+        support, 0, "binary 0", "answer 0"
+    ) == [0]
+    assert policy.truth_consistent_reply_indexes(
+        support, 0, "binary 1", "answer 0"
+    ) == []
+
+
 def test_invalid_trajectory_cannot_gain_from_regenerated_belief() -> None:
     support = policy.parse_enriched_support(json.dumps(_support()))
     mapping = {
         "supported": True,
         "facet": "country",
+        "answer": "binary 0",
     }
 
     metrics = policy.realized_path_metrics(
         support,
         support,
+        support,
+        first_question_index=0,
         question_index=0,
         observed_reply="binary 0",
         aliases="answer 0",
@@ -335,6 +362,9 @@ class _FixtureAdapter:
             _, truth = recovery.sample_truth(
                 cig, recovery.STAGES["smoke"]["truth_seed_start"] + index
             )
+            self.truth_aliases[cig.cig_id] = str(
+                (truth.slots or {})["answer_aliases"]
+            ).split("|")[0]
             self.truth_replies[cig.cig_id] = {
                 facet.replace("_", " "): str(
                     (truth.slots or {}).get(facet, "")
@@ -385,6 +415,7 @@ class _FixtureAdapter:
             weights[0] = 20
         elif not dialogue:
             answers = [f"candidate answer {index}" for index in range(8)]
+            answers[0] = self.truth_aliases[task_id]
 
         facets = self.facets[task_id]
         question_facets = [facets[index % len(facets)] for index in range(4)]
@@ -513,6 +544,24 @@ class _RepeatingFacetAdapter(_FixtureAdapter):
         return json.dumps(value)
 
 
+class _UnmodeledFirstReplyAdapter(_FixtureAdapter):
+    def _response(
+        self, payload: dict, seed: int, *, branch_root: int | None = None
+    ) -> str:
+        value = json.loads(
+            super()._response(payload, seed, branch_root=branch_root)
+        )
+        if not payload["dialogue"] and (
+            policy.SMOKE_INITIAL_SEED_START
+            <= seed
+            < policy.SMOKE_INITIAL_SEED_START + 4
+        ):
+            value["hypotheses"][0]["predicted_replies"][0] = (
+                "reply absent from the official environment"
+            )
+        return json.dumps(value)
+
+
 def test_exact_ten_enriched_smoke(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(
         policy,
@@ -572,6 +621,33 @@ def test_enriched_smoke_rejects_repeated_semantic_action(
     assert "$.gates.all_three_second_actions_are_novel" in failed[
         "mismatches"
     ]
+
+
+def test_enriched_smoke_rejects_unmodeled_first_reply(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        policy,
+        "validate_support_predecessors",
+        lambda **kwargs: {"support": "fixture"},
+    )
+    output = tmp_path / "unmodeled-first-reply-smoke"
+
+    result = policy.run_smoke(
+        output_dir=output,
+        run_id="fixture-unmodeled-first-reply-smoke",
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+        adapter=_UnmodeledFirstReplyAdapter(),
+    )
+
+    gate = (
+        "all_three_exact_first_replies_match_truth_consistent_likelihoods"
+    )
+    assert result["status"] == "mechanics_failed"
+    assert result["gates"]["all_three_first_questions_supported"] is True
+    assert result["gates"][gate] is False
+    assert verify.verify_policy_smoke(output)["status"] == "verified"
 
 
 def test_exact_ten_naive_thinking_smoke(tmp_path, monkeypatch) -> None:
@@ -650,6 +726,9 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert result["mechanics_gates"][
         "every_policy_has_40_novel_second_actions"
     ] is True
+    assert result["mechanics_gates"][
+        "every_policy_has_40_truth_consistent_matchable_first_replies"
+    ] is True
     assert result["mechanics_gates"]["all_blind_crn_replays_exact"] is True
     assert result["crn_diagnostics"] == {
         "expected_group_count": 1024,
@@ -659,6 +738,7 @@ def test_full_8256_planning_response_path_and_actual_cache(
     }
     assert all(
         row["valid_two_action_trajectory"] is True
+        and row["truth_consistent_first_reply_likelihood_matched"] is True
         and row["raw_truth_mass_final"] == pytest.approx(
             row["truth_mass_final"]
         )
@@ -693,12 +773,32 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert replay["model_calls"] == 0
 
     result_path = tmp_path / "development" / "RESULT.json"
+    original_result = result_path.read_text()
     tampered = json.loads(result_path.read_text())
     tampered["tasks"][0]["policies"]["dynamic_depth2"]["brier"] += 0.01
     result_path.write_text(json.dumps(tampered))
     failed = verify.verify_policy(tmp_path / "development")
     assert failed["status"] == "verification_failed"
     assert "$.tasks[0].policies.dynamic_depth2.brier" in failed["mismatches"]
+
+    result_path.write_text(original_result)
+    initial_path = tmp_path / "development" / "private" / "RAW_INITIAL.json"
+    initial_artifact = json.loads(initial_path.read_text())
+    for task_index in range(25):
+        support = json.loads(initial_artifact["responses"][task_index])
+        support["hypotheses"][0]["predicted_replies"] = [
+            "reply absent from the official environment"
+        ] * 4
+        initial_artifact["responses"][task_index] = json.dumps(support)
+    initial_path.write_text(json.dumps(initial_artifact))
+
+    unaligned = verify.verify_policy(tmp_path / "development")
+
+    assert unaligned["status"] == "verification_failed"
+    assert (
+        "$.mechanics_gates."
+        "every_policy_has_40_truth_consistent_matchable_first_replies"
+    ) in unaligned["mismatches"]
 
 
 def test_formal_naive_failure_cannot_veto_primary_result(

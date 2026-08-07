@@ -92,6 +92,9 @@ VALID_TRAJECTORY_AMENDMENT_SHA256 = (
 OUTCOME_CRN_AMENDMENT_SHA256 = (
     "fd8533a151ce538eca74a354cfe5b807bec700af2c9a72fadb3ba2fb7c8f23e3"
 )
+FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256 = (
+    "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -609,12 +612,34 @@ def _choose_roots(initial: Mapping[str, Any], conditioned: Sequence[Mapping[str,
     }
 
 
-def _terminal(support: Mapping[str, Any], question: int, observed: str, aliases: str) -> dict[str, Any]:
-    outcome = [
+def _reply_indexes(
+    support: Mapping[str, Any], question: int, observed: str
+) -> list[int]:
+    return [
         index
         for index, row in enumerate(support["hypotheses"])
         if normalize_text(row["predicted_replies"][question]) == normalize_text(observed)
     ]
+
+
+def _truth_consistent_reply_indexes(
+    support: Mapping[str, Any], question: int, observed: str, aliases: str
+) -> list[int]:
+    alternatives = [value.strip() for value in aliases.split("|") if value.strip()]
+    return [
+        index
+        for index in _reply_indexes(support, question, observed)
+        if any(
+            lexical_alias_match(
+                support["hypotheses"][index]["final_answer"], alias
+            )
+            for alias in alternatives
+        )
+    ]
+
+
+def _terminal(support: Mapping[str, Any], question: int, observed: str, aliases: str) -> dict[str, Any]:
+    outcome = _reply_indexes(support, question, observed)
     denominator = sum(support["hypotheses"][index]["probability"] for index in outcome)
     alternatives = [value.strip() for value in aliases.split("|") if value.strip()]
     numerator = sum(
@@ -634,9 +659,11 @@ def _terminal(support: Mapping[str, Any], question: int, observed: str, aliases:
 
 
 def _path_metrics(
+    initial_support: Mapping[str, Any],
     first_support: Mapping[str, Any],
     final_support: Mapping[str, Any],
     *,
+    first_question: int,
     question: int,
     observed: str,
     aliases: str,
@@ -644,6 +671,12 @@ def _path_metrics(
     second_mapping: Mapping[str, Any],
 ) -> dict[str, Any]:
     valid = _distinct_actions(first_mapping, second_mapping)
+    first_reply_indexes = _reply_indexes(
+        initial_support, first_question, first_mapping["answer"]
+    )
+    truth_first_reply_indexes = _truth_consistent_reply_indexes(
+        initial_support, first_question, first_mapping["answer"], aliases
+    )
     raw_first = _truth_mass(first_support, aliases)
     raw_terminal = _terminal(first_support, question, observed, aliases)
     raw_terminal_mass = float(raw_terminal["truth_mass"])
@@ -653,6 +686,16 @@ def _path_metrics(
     first_mass = raw_first if first_mapping["supported"] else 0.0
     return {
         "valid_two_action_trajectory": valid,
+        "first_reply_likelihood_matched": bool(first_reply_indexes)
+        and first_mapping["supported"],
+        "first_reply_matched_hypotheses": len(first_reply_indexes),
+        "truth_consistent_first_reply_likelihood_matched": bool(
+            truth_first_reply_indexes
+        )
+        and first_mapping["supported"],
+        "truth_consistent_first_reply_matched_hypotheses": len(
+            truth_first_reply_indexes
+        ),
         "raw_truth_mass_after_first": raw_first,
         "truth_mass_after_first": first_mass,
         "second_reply_likelihood_matched": raw_terminal["reply_matched"],
@@ -825,6 +868,7 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
     initial = [_parse_support(value, enriched=True) for value in initial_raw]
     branches = [_parse_support(value, enriched=True) for value in branch_raw]
     first_mappings = []
+    first_matches = []
     second_mappings = []
     second_matches = []
     privacy_checks = [_payload_is_private(cig, []) for cig in cigs]
@@ -833,6 +877,15 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         _, truth = _truth(cig, SUPPORT_STAGES["smoke"]["truth_seed"] + index)
         first_question = initial[index]["questions"][0]
         first_mapping = _map(cig, first_question, truth)
+        aliases = str((truth.slots or {})["answer_aliases"])
+        first_matches.append(
+            bool(
+                _truth_consistent_reply_indexes(
+                    initial[index], 0, first_mapping["answer"], aliases
+                )
+            )
+            and first_mapping["supported"]
+        )
         conditioned = branches[2 * index]
         second_index = _select_question(conditioned)
         second_mapping = _map(
@@ -893,6 +946,9 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         "all_three_first_questions_supported": all(
             row["supported"] for row in first_mappings
         ),
+        "all_three_exact_first_replies_match_truth_consistent_likelihoods": all(
+            first_matches
+        ),
         "all_three_second_questions_supported": all(
             row["supported"] for row in second_mappings
         ),
@@ -935,6 +991,14 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         (result.get("protocol") or {}).get("outcome_crn_amendment_sha256"),
         OUTCOME_CRN_AMENDMENT_SHA256,
         "$.protocol.outcome_crn_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "first_reply_alignment_amendment_sha256"
+        ),
+        FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256,
+        "$.protocol.first_reply_alignment_amendment_sha256",
         mismatches,
     )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
@@ -1160,8 +1224,10 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         for name, root in plan["selected"].items():
             path = first_paths[(task, root)]
             path_metrics = _path_metrics(
+                support,
                 path["support"],
                 final_paths[(task, root)],
+                first_question=root,
                 question=path["second"],
                 observed=path["second_mapping"]["answer"],
                 aliases=aliases,
@@ -1251,6 +1317,16 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         "every_policy_has_48_supported_first_actions": all(sum(task["policies"][name]["first_supported"] for task in tasks) >= 48 for name in POLICY_NAMES),
         "every_policy_has_40_supported_second_actions": all(sum(task["policies"][name]["second_supported"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "every_policy_has_40_novel_second_actions": all(sum(task["policies"][name]["second_action_novel"] for task in tasks) >= 40 for name in POLICY_NAMES),
+        "every_policy_has_40_truth_consistent_matchable_first_replies": all(
+            sum(
+                task["policies"][name][
+                    "truth_consistent_first_reply_likelihood_matched"
+                ]
+                for task in tasks
+            )
+            >= 40
+            for name in POLICY_NAMES
+        ),
         "every_policy_has_40_matchable_second_replies": all(sum(task["policies"][name]["second_reply_likelihood_matched"] for task in tasks) >= 40 for name in POLICY_NAMES),
         "within_combined_policy_budget": float(result["usage"]["combined_cost_usd"]) <= POLICY_BUDGET,
         "all_blind_crn_replays_exact": (
@@ -1293,6 +1369,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         (result.get("protocol") or {}).get("outcome_crn_amendment_sha256"),
         OUTCOME_CRN_AMENDMENT_SHA256,
         "$.protocol.outcome_crn_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "first_reply_alignment_amendment_sha256"
+        ),
+        FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256,
+        "$.protocol.first_reply_alignment_amendment_sha256",
         mismatches,
     )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)

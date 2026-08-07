@@ -27,14 +27,14 @@ EXECUTION_BINDINGS = REPO_ROOT / (
     "EXECUTION_BINDINGS.json"
 )
 EXECUTION_BINDINGS_SHA256 = (
-    "a2537a081c2137082a3814b2913446fbbad854ff4c59dcd004edfe2a750ed34e"
+    "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d"
 )
 DAILY_EXECUTION_BINDING = REPO_ROOT / (
     "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
     "DAILY_EXECUTION_BINDING.json"
 )
 DAILY_EXECUTION_BINDING_SHA256 = (
-    "af27762970a4520ca05b5eac637c838690f3b67bc0c6a37cd517a632eb589449"
+    "4c4d3798199e5f8e1c60ddee91c1ce2d2261050f8a0e91efe7574b617760aa69"
 )
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
@@ -158,6 +158,15 @@ def verify_protocol(
         and sha256_file(repo_root / shared_path) == shared.get("sha256")
     ):
         binding_matches[shared_path] = True
+    policy_core = execution.get("policy_core", {})
+    policy_path = str(policy_core.get("path", ""))
+    if (
+        policy_path in bindings
+        and bindings[policy_path] == policy_core.get("superseded_sha256")
+        and (repo_root / policy_path).is_file()
+        and sha256_file(repo_root / policy_path) == policy_core.get("sha256")
+    ):
+        binding_matches[policy_path] = True
     component_matches = {}
     for name in ("confirmation_producer", "confirmation_result_verifier"):
         component = execution.get(name, {})
@@ -169,8 +178,14 @@ def verify_protocol(
         )
     amendment = execution.get("amendment", {})
     amendment_path = repo_root / str(amendment.get("path", ""))
+    alignment = execution.get("first_reply_alignment_amendment", {})
+    alignment_path = repo_root / str(alignment.get("path", ""))
     daily_amendment = daily_binding.get("amendment", {})
     daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
+    daily_alignment = daily_binding.get(
+        "first_reply_alignment_amendment", {}
+    )
+    daily_alignment_path = repo_root / str(daily_alignment.get("path", ""))
     daily_component_matches = {
         relative: (repo_root / relative).is_file()
         and sha256_file(repo_root / relative) == expected
@@ -223,10 +238,13 @@ def verify_protocol(
         and all(binding_matches.values()),
         "execution_binding_amendment_matches": (
             sha256_file(EXECUTION_BINDINGS) == EXECUTION_BINDINGS_SHA256
-            and execution.get("status") == "components_frozen_before_responses"
-            and execution.get("scientific_contract_changed") is False
+            and execution.get("status")
+            == "prospectively_amended_before_responses"
+            and execution.get("scientific_contract_changed") is True
             and amendment_path.is_file()
             and sha256_file(amendment_path) == amendment.get("sha256")
+            and alignment_path.is_file()
+            and sha256_file(alignment_path) == alignment.get("sha256")
             and execution.get("parent", {}).get("protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and all(component_matches.values())
@@ -234,8 +252,9 @@ def verify_protocol(
         "daily_execution_binding_matches": (
             sha256_file(DAILY_EXECUTION_BINDING)
             == DAILY_EXECUTION_BINDING_SHA256
-            and daily_binding.get("status") == "frozen_before_responses"
-            and daily_binding.get("scientific_contract_changed") is False
+            and daily_binding.get("status")
+            == "prospectively_amended_before_responses"
+            and daily_binding.get("scientific_contract_changed") is True
             and daily_binding.get("parent_protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and daily_binding.get("execution_bindings_sha256")
@@ -245,6 +264,9 @@ def verify_protocol(
             and daily_amendment_path.is_file()
             and sha256_file(daily_amendment_path)
             == daily_amendment.get("sha256")
+            and daily_alignment_path.is_file()
+            and sha256_file(daily_alignment_path)
+            == daily_alignment.get("sha256")
             and bool(daily_component_matches)
             and all(daily_component_matches.values())
         ),
@@ -297,6 +319,18 @@ def verify_protocol(
             and mechanics.get("minimum_supported_second_actions_per_policy") == 40
             and mechanics.get("minimum_novel_second_actions_per_policy") == 40
             and mechanics.get("minimum_exact_reply_matches_per_policy") == 40
+            and execution.get("requirements", {}).get(
+                "minimum_truth_consistent_first_reply_matches_per_policy"
+            )
+            == 40
+            and execution.get("requirements", {}).get(
+                "enriched_smoke_requires_all_three_truth_consistent_first_reply_matches"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "alignment_gate_can_only_reject"
+            )
+            is True
             and mechanics.get("blind_crn_expected_groups") == 1024
             and mechanics.get("blind_crn_required_exact_groups") == 1024
             and mechanics.get("independent_result_replay_required") is True

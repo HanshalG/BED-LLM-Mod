@@ -121,6 +121,14 @@ OUTCOME_CRN_AMENDMENT = (
 OUTCOME_CRN_AMENDMENT_SHA256 = (
     "fd8533a151ce538eca74a354cfe5b807bec700af2c9a72fadb3ba2fb7c8f23e3"
 )
+FIRST_REPLY_ALIGNMENT_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_FIRST_REPLY_LIKELIHOOD_ALIGNMENT_AMENDMENT_20260807.md"
+)
+FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256 = (
+    "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -163,6 +171,10 @@ def validate_protocol_binding() -> None:
         OUTCOME_CRN_AMENDMENT_SHA256
     ):
         raise ValueError("outcome-level CRN amendment changed")
+    if recovery.sha256_file(FIRST_REPLY_ALIGNMENT_AMENDMENT) != (
+        FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+    ):
+        raise ValueError("first-reply likelihood alignment amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -462,6 +474,27 @@ def matching_reply_indexes(
             hypothesis["predicted_replies"][question_index]
         )
         == observed
+    ]
+
+
+def truth_consistent_reply_indexes(
+    support: Mapping[str, Any],
+    question_index: int,
+    observed_reply: str,
+    aliases: str,
+) -> list[int]:
+    alternatives = [item.strip() for item in aliases.split("|") if item.strip()]
+    return [
+        index
+        for index in matching_reply_indexes(
+            support, question_index, observed_reply
+        )
+        if any(
+            _answer_matches(
+                support["hypotheses"][index]["final_answer"], alias
+            )
+            for alias in alternatives
+        )
     ]
 
 
@@ -787,6 +820,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != VALID_TRAJECTORY_AMENDMENT_SHA256
         or protocol.get("outcome_crn_amendment_sha256")
         != OUTCOME_CRN_AMENDMENT_SHA256
+        or protocol.get("first_reply_alignment_amendment_sha256")
+        != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -846,6 +881,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != VALID_TRAJECTORY_AMENDMENT_SHA256
         or protocol.get("outcome_crn_amendment_sha256")
         != OUTCOME_CRN_AMENDMENT_SHA256
+        or protocol.get("first_reply_alignment_amendment_sha256")
+        != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -884,6 +921,7 @@ def run_smoke(
     branch_messages = []
     branch_seeds = []
     mappings = []
+    first_reply_matches = []
     truths = []
     for index, (cig, support) in enumerate(zip(cigs[:3], initial[:3], strict=True)):
         question = support["questions"][0]
@@ -891,6 +929,15 @@ def run_smoke(
         truths.append(truth)
         mapping = recovery.map_and_answer(cig, question, truth)
         mappings.append(mapping)
+        aliases = str((truth.slots or {})["answer_aliases"])
+        first_reply_matches.append(
+            bool(
+                truth_consistent_reply_indexes(
+                    support, 0, mapping["answer"], aliases
+                )
+            )
+            and mapping["supported"]
+        )
         answer = mapping["answer"]
         conditioned, audit_conditioned = messages_for(
             cig,
@@ -949,6 +996,9 @@ def run_smoke(
         "all_three_first_questions_supported": all(
             item["supported"] for item in mappings
         ),
+        "all_three_exact_first_replies_match_truth_consistent_likelihoods": all(
+            first_reply_matches
+        ),
         "all_three_second_questions_supported": all(
             item["supported"] for item in second_mappings
         ),
@@ -984,6 +1034,9 @@ def run_smoke(
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
             "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
+            "first_reply_alignment_amendment_sha256": (
+                FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1127,6 +1180,9 @@ def run_naive_smoke(
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
             "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
+            "first_reply_alignment_amendment_sha256": (
+                FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
             "efficacy_used_for_authorization": False,
@@ -1198,9 +1254,11 @@ def realized_terminal_metrics(
 
 
 def realized_path_metrics(
+    initial_support: Mapping[str, Any],
     first_support: Mapping[str, Any],
     final_support: Mapping[str, Any],
     *,
+    first_question_index: int,
     question_index: int,
     observed_reply: str,
     aliases: str,
@@ -1208,6 +1266,15 @@ def realized_path_metrics(
     second_mapping: Mapping[str, Any],
 ) -> dict[str, Any]:
     valid = distinct_supported_actions(first_mapping, second_mapping)
+    first_reply_indexes = matching_reply_indexes(
+        initial_support, first_question_index, first_mapping["answer"]
+    )
+    truth_first_reply_indexes = truth_consistent_reply_indexes(
+        initial_support,
+        first_question_index,
+        first_mapping["answer"],
+        aliases,
+    )
     raw_first_mass = truth_mass_for_aliases(first_support, aliases)
     raw_terminal = realized_terminal_metrics(
         first_support,
@@ -1222,6 +1289,16 @@ def realized_path_metrics(
     first_mass = raw_first_mass if first_mapping["supported"] else 0.0
     return {
         "valid_two_action_trajectory": valid,
+        "first_reply_likelihood_matched": bool(first_reply_indexes)
+        and first_mapping["supported"],
+        "first_reply_matched_hypotheses": len(first_reply_indexes),
+        "truth_consistent_first_reply_likelihood_matched": bool(
+            truth_first_reply_indexes
+        )
+        and first_mapping["supported"],
+        "truth_consistent_first_reply_matched_hypotheses": len(
+            truth_first_reply_indexes
+        ),
         "raw_truth_mass_after_first": raw_first_mass,
         "truth_mass_after_first": first_mass,
         "second_reply_likelihood_matched": raw_terminal["reply_matched"],
@@ -1716,6 +1793,16 @@ def mechanics_gates(
         "every_policy_has_40_novel_second_actions": all(
             sum(
                 task["policies"][policy]["second_action_novel"]
+                for task in tasks
+            )
+            >= 40
+            for policy in PRIMARY_POLICIES
+        ),
+        "every_policy_has_40_truth_consistent_matchable_first_replies": all(
+            sum(
+                task["policies"][policy][
+                    "truth_consistent_first_reply_likelihood_matched"
+                ]
                 for task in tasks
             )
             >= 40
@@ -2333,8 +2420,10 @@ def run_development(
             first_path = first_paths[(task_index, root)]
             final = final_paths[(task_index, root)]
             path_metrics = realized_path_metrics(
+                initial,
                 first_path["support"],
                 final,
+                first_question_index=root,
                 question_index=first_path["second_index"],
                 observed_reply=first_path["second_mapping"]["answer"],
                 aliases=aliases,
@@ -2490,6 +2579,9 @@ def run_development(
                 VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
             "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
+            "first_reply_alignment_amendment_sha256": (
+                FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,
             "naive_smoke": naive_smoke,

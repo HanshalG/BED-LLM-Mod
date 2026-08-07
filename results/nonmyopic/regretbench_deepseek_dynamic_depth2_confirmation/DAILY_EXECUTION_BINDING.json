@@ -1,25 +1,29 @@
 {
   "schema_version": 1,
   "interface_version": "regretbench-confirmation-daily-execution-binding-1",
-  "status": "frozen_before_responses",
-  "scientific_contract_changed": false,
+  "status": "prospectively_amended_before_responses",
+  "scientific_contract_changed": true,
   "date": "2026-08-09",
   "timezone": "Europe/London",
   "account_wide_daily_cap_usd": 5.0,
   "confirmation_run_cap_usd": 3.5,
   "parent_protocol_manifest_sha256": "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498",
-  "execution_bindings_sha256": "a2537a081c2137082a3814b2913446fbbad854ff4c59dcd004edfe2a750ed34e",
+  "execution_bindings_sha256": "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d",
   "amendment": {
     "path": "results/nonmyopic/REGRETBENCH_CONFIRMATION_DAILY_BINDING_AMENDMENT_20260807.md",
     "sha256": "d8452c9132df67f1166df2ed84b966232a20021252e64c05a0c5f87a23ea2e83"
   },
+  "first_reply_alignment_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_LIKELIHOOD_ALIGNMENT_AMENDMENT_20260807.md",
+    "sha256": "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
+  },
   "components": {
     "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py": "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0",
     "scripts/regretbench_deepseek_confirmation_result_verify.py": "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa",
-    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "f3b83377d4dda5571dddb1166b929d06d8fd6115607a566c67cf11233ba20eda",
-    "scripts/regretbench_deepseek_result_verify.py": "ad5f516b473cddd4b4957f4921752c85e56936e28517fff1a10a9620500eaa5d",
-    "scripts/regretbench_deepseek_support_recovery_daily.py": "eaf6274f6a048ca645bb3536296d46a87b4848e5c35efac998097747f525c9db",
-    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "9134f6166c13be936d27a88a214d7ffa84122054f855196c1a54e673a993b13e"
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "e10954fd322c681044d1d75692a94733f732429deb435a189b8d49a15dbd68e2",
+    "scripts/regretbench_deepseek_result_verify.py": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "b05387325ea8e8cac3852c7e9393e96662aa1bee2cfdc76cf7be1f22146a29d6",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "ef8874760b1183dbab33534b6c942474d2f0a5c570aac3266355d6d40d585f03"
   },
   "requirements": {
     "literal_development_pass": true,
@@ -30,6 +34,8 @@
     "independent_confirmation_replay_required": true,
     "verified_null_is_not_retried": true,
     "optional_luna_baseline": false,
+    "first_reply_alignment_gate_required": true,
+    "alignment_gate_can_only_reject": true,
     "model_calls_made_by_binding": 0,
     "cost_usd_by_binding": 0.0
   }

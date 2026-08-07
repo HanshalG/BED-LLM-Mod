@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Pre-response RegretBench audit finds and closes a missing first-link
+likelihood gate. The planner simulated q1 replies but only checked exact q2
+reply representation,so a realized q1 history absent from every truth-consistent
+particle could still earn endpoint credit after regeneration. Enriched smoke
+now requires3/3 exact truth-consistent q1 matches;every primary policy requires
+>=40/64. Public booleans/counts and independent raw replay are mechanics-only;
+selections,endpoints,science thresholds,calls,seeds,and budgets unchanged. Both
+64-task cohorts have0 inter-intent alias collisions. A25-task removal adversary
+fails the new gate;confirmation supplemental verification and RegretBench84/84
+pass. Amendment61020568;model0/cost0/endpoints unopened.
+
 2026-08-07: Fresh zero-call Aug8 execution audit passes. Authenticated OpenRouter
 still reports credits245,usage220.113606154,balance24.886393846;the reported
 top-up is unposted and excluded. Aug7 ledger exactly reconciles$2.815715891

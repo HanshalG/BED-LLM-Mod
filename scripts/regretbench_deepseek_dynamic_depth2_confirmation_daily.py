@@ -17,6 +17,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import regretbench_deepseek_confirmation_result_verify as result_verify
+from scripts import regretbench_deepseek_confirmation_protocol_verify as protocol_verify
 from scripts import regretbench_deepseek_dynamic_depth2_confirmation as confirmation
 from scripts import regretbench_deepseek_dynamic_depth2_policy as policy
 from scripts import regretbench_deepseek_dynamic_depth2_policy_daily as policy_daily
@@ -43,7 +44,7 @@ LEDGER = REPO_ROOT / (
 )
 EXECUTION_BINDINGS = ROOT / "EXECUTION_BINDINGS.json"
 EXECUTION_BINDINGS_SHA256 = (
-    "a2537a081c2137082a3814b2913446fbbad854ff4c59dcd004edfe2a750ed34e"
+    "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d"
 )
 PRODUCER_SHA256 = (
     "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
@@ -52,13 +53,16 @@ CONFIRMATION_VERIFIER_SHA256 = (
     "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
 )
 SHARED_VERIFIER_SHA256 = (
-    "ad5f516b473cddd4b4957f4921752c85e56936e28517fff1a10a9620500eaa5d"
+    "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a"
 )
 SUPPORT_DAILY_SHA256 = (
-    "eaf6274f6a048ca645bb3536296d46a87b4848e5c35efac998097747f525c9db"
+    "b05387325ea8e8cac3852c7e9393e96662aa1bee2cfdc76cf7be1f22146a29d6"
 )
 POLICY_DAILY_SHA256 = (
-    "9134f6166c13be936d27a88a214d7ffa84122054f855196c1a54e673a993b13e"
+    "ef8874760b1183dbab33534b6c942474d2f0a5c570aac3266355d6d40d585f03"
+)
+POLICY_CORE_SHA256 = (
+    "903d3afab63a48aa133d81e7af9defcff10e065e1297930be2cea9096d4ebb33"
 )
 
 
@@ -79,6 +83,9 @@ def _validate_date(now: datetime | None = None) -> datetime:
 
 def validate_execution_bindings() -> dict[str, Any]:
     confirmation.validate_protocol_binding()
+    protocol_verification = protocol_verify.verify_protocol()
+    if protocol_verification.get("status") != "verified_frozen_protocol":
+        raise RuntimeError("confirmation supplemental protocol verification failed")
     if recovery.sha256_file(EXECUTION_BINDINGS) != EXECUTION_BINDINGS_SHA256:
         raise RuntimeError("confirmation execution bindings changed")
     if recovery.sha256_file(Path(confirmation.__file__).resolve()) != PRODUCER_SHA256:
@@ -100,16 +107,26 @@ def validate_execution_bindings() -> dict[str, Any]:
         POLICY_DAILY_SHA256
     ):
         raise RuntimeError("policy daily binding changed")
+    if recovery.sha256_file(Path(policy.__file__).resolve()) != POLICY_CORE_SHA256:
+        raise RuntimeError("policy core binding changed")
     bindings = _load(EXECUTION_BINDINGS)
     if (
-        bindings.get("status") != "components_frozen_before_responses"
-        or bindings.get("scientific_contract_changed") is not False
+        bindings.get("status") != "prospectively_amended_before_responses"
+        or bindings.get("scientific_contract_changed") is not True
         or bindings.get("confirmation_producer", {}).get("sha256")
         != PRODUCER_SHA256
         or bindings.get("confirmation_result_verifier", {}).get("sha256")
         != CONFIRMATION_VERIFIER_SHA256
         or bindings.get("shared_result_verifier", {}).get("sha256")
         != SHARED_VERIFIER_SHA256
+        or bindings.get("policy_core", {}).get("sha256")
+        != POLICY_CORE_SHA256
+        or bindings.get("first_reply_alignment_amendment", {}).get("sha256")
+        != policy.FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+        or bindings.get("requirements", {}).get(
+            "minimum_truth_consistent_first_reply_matches_per_policy"
+        )
+        != 40
     ):
         raise RuntimeError("confirmation execution-binding manifest is invalid")
     return bindings
