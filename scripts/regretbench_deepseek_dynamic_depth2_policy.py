@@ -106,6 +106,14 @@ ACTION_NOVELTY_AMENDMENT = (
 ACTION_NOVELTY_AMENDMENT_SHA256 = (
     "8d375fca72f4da30265a9068df27aefceefb14c5474fff2661cbd1513f056160"
 )
+VALID_TRAJECTORY_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_VALID_TRAJECTORY_ENDPOINT_AMENDMENT_20260807.md"
+)
+VALID_TRAJECTORY_AMENDMENT_SHA256 = (
+    "57dacb5e671282b825f3fa375dfbd088dbd4d79f3387df59f5600f6e995edbf3"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -139,6 +147,11 @@ def validate_protocol_binding() -> None:
         != ACTION_NOVELTY_AMENDMENT_SHA256
     ):
         raise ValueError("distinct-action amendment changed")
+    if (
+        recovery.sha256_file(VALID_TRAJECTORY_AMENDMENT)
+        != VALID_TRAJECTORY_AMENDMENT_SHA256
+    ):
+        raise ValueError("valid-trajectory endpoint amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -759,6 +772,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         or protocol.get("preregistration_sha256") != PREREGISTRATION_SHA256
         or protocol.get("distinct_action_amendment_sha256")
         != ACTION_NOVELTY_AMENDMENT_SHA256
+        or protocol.get("valid_trajectory_amendment_sha256")
+        != VALID_TRAJECTORY_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -814,6 +829,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         or protocol.get("preregistration_sha256") != PREREGISTRATION_SHA256
         or protocol.get("distinct_action_amendment_sha256")
         != ACTION_NOVELTY_AMENDMENT_SHA256
+        or protocol.get("valid_trajectory_amendment_sha256")
+        != VALID_TRAJECTORY_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -947,6 +964,9 @@ def run_smoke(
             "preregistration_sha256": PREREGISTRATION_SHA256,
             "distinct_action_amendment_sha256": (
                 ACTION_NOVELTY_AMENDMENT_SHA256
+            ),
+            "valid_trajectory_amendment_sha256": (
+                VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
@@ -1087,6 +1107,9 @@ def run_naive_smoke(
             "distinct_action_amendment_sha256": (
                 ACTION_NOVELTY_AMENDMENT_SHA256
             ),
+            "valid_trajectory_amendment_sha256": (
+                VALID_TRAJECTORY_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
             "efficacy_used_for_authorization": False,
@@ -1154,6 +1177,50 @@ def realized_terminal_metrics(
         "brier": (1.0 - truth_mass) ** 2,
         "log_loss": -math.log(max(PROBABILITY_FLOOR, truth_mass)),
         "covered": truth_mass > 0.0,
+    }
+
+
+def realized_path_metrics(
+    first_support: Mapping[str, Any],
+    final_support: Mapping[str, Any],
+    *,
+    question_index: int,
+    observed_reply: str,
+    aliases: str,
+    first_mapping: Mapping[str, Any],
+    second_mapping: Mapping[str, Any],
+) -> dict[str, Any]:
+    valid = distinct_supported_actions(first_mapping, second_mapping)
+    raw_first_mass = truth_mass_for_aliases(first_support, aliases)
+    raw_terminal = realized_terminal_metrics(
+        first_support,
+        question_index=question_index,
+        observed_reply=observed_reply,
+        aliases=aliases,
+    )
+    raw_terminal_mass = float(raw_terminal["truth_mass"])
+    terminal_mass = raw_terminal_mass if valid else 0.0
+    raw_fresh_mass = truth_mass_for_aliases(final_support, aliases)
+    fresh_mass = raw_fresh_mass if valid else 0.0
+    first_mass = raw_first_mass if first_mapping["supported"] else 0.0
+    return {
+        "valid_two_action_trajectory": valid,
+        "raw_truth_mass_after_first": raw_first_mass,
+        "truth_mass_after_first": first_mass,
+        "second_reply_likelihood_matched": raw_terminal["reply_matched"],
+        "second_reply_matched_hypotheses": raw_terminal[
+            "matched_hypothesis_count"
+        ],
+        "raw_truth_mass_final": raw_terminal_mass,
+        "truth_mass_final": terminal_mass,
+        "brier": (1.0 - terminal_mass) ** 2,
+        "log_loss": -math.log(max(PROBABILITY_FLOOR, terminal_mass)),
+        "covered": terminal_mass > 0.0,
+        "raw_fresh_truth_mass_final": raw_fresh_mass,
+        "fresh_truth_mass_final": fresh_mass,
+        "fresh_brier": (1.0 - fresh_mass) ** 2,
+        "fresh_log_loss": -math.log(max(PROBABILITY_FLOOR, fresh_mass)),
+        "fresh_covered": fresh_mass > 0.0,
     }
 
 
@@ -2140,10 +2207,20 @@ def run_development(
                 aliases = str(
                     (truths[task_index][1].slots or {})["answer_aliases"]
                 )
-                first_mass = truth_mass_for_aliases(
+                raw_first_mass = truth_mass_for_aliases(
                     naive_path["first_support"], aliases
                 )
-                final_mass = truth_mass_for_aliases(naive_final, aliases)
+                raw_final_mass = truth_mass_for_aliases(naive_final, aliases)
+                valid = distinct_supported_actions(
+                    naive_path["first_mapping"],
+                    naive_path["second_mapping"],
+                )
+                first_mass = (
+                    raw_first_mass
+                    if naive_path["first_mapping"]["supported"]
+                    else 0.0
+                )
+                final_mass = raw_final_mass if valid else 0.0
                 naive_policy_rows.append(
                     {
                         "endpoint_mode": "fresh_regeneration_descriptive",
@@ -2159,13 +2236,17 @@ def run_development(
                             naive_path["first_mapping"],
                             naive_path["second_mapping"],
                         ),
+                        "valid_two_action_trajectory": valid,
+                        "raw_truth_mass_after_first": raw_first_mass,
                         "truth_mass_after_first": first_mass,
+                        "raw_truth_mass_final": raw_final_mass,
                         "truth_mass_final": final_mass,
                         "brier": (1.0 - final_mass) ** 2,
                         "log_loss": -math.log(
                             max(PROBABILITY_FLOOR, final_mass)
                         ),
                         "covered": final_mass > 0.0,
+                        "raw_fresh_truth_mass_final": raw_final_mass,
                         "fresh_truth_mass_final": final_mass,
                         "fresh_brier": (1.0 - final_mass) ** 2,
                         "fresh_log_loss": -math.log(
@@ -2193,14 +2274,15 @@ def run_development(
         for policy, root in plan["selected"].items():
             first_path = first_paths[(task_index, root)]
             final = final_paths[(task_index, root)]
-            first_mass = truth_mass_for_aliases(first_path["support"], aliases)
-            terminal = realized_terminal_metrics(
+            path_metrics = realized_path_metrics(
                 first_path["support"],
+                final,
                 question_index=first_path["second_index"],
                 observed_reply=first_path["second_mapping"]["answer"],
                 aliases=aliases,
+                first_mapping=first_path["first_mapping"],
+                second_mapping=first_path["second_mapping"],
             )
-            fresh_mass = truth_mass_for_aliases(final, aliases)
             policies[policy] = {
                 "endpoint_mode": "aligned_generated_likelihood",
                 "root_index": root,
@@ -2211,21 +2293,7 @@ def run_development(
                     first_path["first_mapping"],
                     first_path["second_mapping"],
                 ),
-                "second_reply_likelihood_matched": terminal["reply_matched"],
-                "second_reply_matched_hypotheses": terminal[
-                    "matched_hypothesis_count"
-                ],
-                "truth_mass_after_first": first_mass,
-                "truth_mass_final": terminal["truth_mass"],
-                "brier": terminal["brier"],
-                "log_loss": terminal["log_loss"],
-                "covered": terminal["covered"],
-                "fresh_truth_mass_final": fresh_mass,
-                "fresh_brier": (1.0 - fresh_mass) ** 2,
-                "fresh_log_loss": -math.log(
-                    max(PROBABILITY_FLOOR, fresh_mass)
-                ),
-                "fresh_covered": fresh_mass > 0.0,
+                **path_metrics,
             }
         if naive_baseline_enabled and naive_error is None:
             policies["naive_thinking"] = naive_policy_rows[task_index]
@@ -2355,6 +2423,9 @@ def run_development(
             "preregistration_sha256": PREREGISTRATION_SHA256,
             "distinct_action_amendment_sha256": (
                 ACTION_NOVELTY_AMENDMENT_SHA256
+            ),
+            "valid_trajectory_amendment_sha256": (
+                VALID_TRAJECTORY_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,

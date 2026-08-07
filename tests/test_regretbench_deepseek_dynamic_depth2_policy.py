@@ -64,6 +64,19 @@ def test_protocol_binding_refuses_distinct_action_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_valid_trajectory_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        policy, "VALID_TRAJECTORY_AMENDMENT_SHA256", "0" * 64
+    )
+
+    with pytest.raises(
+        ValueError, match="valid-trajectory endpoint amendment changed"
+    ):
+        policy.validate_protocol_binding()
+
+
 def test_distinct_actions_use_official_facet_identity() -> None:
     first = {"supported": True, "facet": "country"}
 
@@ -128,6 +141,31 @@ def test_realized_terminal_metric_conditions_generated_likelihoods() -> None:
     assert missing["reply_matched"] is False
     assert missing["truth_mass"] == 0.0
     assert missing["brier"] == 1.0
+
+
+def test_invalid_trajectory_cannot_gain_from_regenerated_belief() -> None:
+    support = policy.parse_enriched_support(json.dumps(_support()))
+    mapping = {
+        "supported": True,
+        "facet": "country",
+    }
+
+    metrics = policy.realized_path_metrics(
+        support,
+        support,
+        question_index=0,
+        observed_reply="binary 0",
+        aliases="answer 0",
+        first_mapping=mapping,
+        second_mapping=mapping,
+    )
+
+    assert metrics["valid_two_action_trajectory"] is False
+    assert metrics["raw_truth_mass_final"] == pytest.approx(0.25)
+    assert metrics["truth_mass_final"] == 0.0
+    assert metrics["brier"] == 1.0
+    assert metrics["raw_fresh_truth_mass_final"] == pytest.approx(0.125)
+    assert metrics["fresh_truth_mass_final"] == 0.0
 
 
 def test_root_level_crn_removes_seed_only_candidate_advantage() -> None:
@@ -576,6 +614,15 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert result["mechanics_gates"][
         "every_policy_has_40_novel_second_actions"
     ] is True
+    assert all(
+        row["valid_two_action_trajectory"] is True
+        and row["raw_truth_mass_final"] == pytest.approx(
+            row["truth_mass_final"]
+        )
+        for task in result["tasks"]
+        for name, row in task["policies"].items()
+        if name != "naive_thinking"
+    )
     assert result["naive_baseline"]["status"] == "available"
     assert result["naive_baseline"]["all_transport_and_schema_gates_pass"] is True
     assert all(

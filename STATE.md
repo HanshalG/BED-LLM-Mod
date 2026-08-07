@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Prevent invalid RegretBench dialogue from earning endpoint credit.
+Before responses,freeze valid-trajectory amendment57dacb5e:unsupported first/
+second actions or repeated second facets get scored terminal mass0,Brier1,and
+floor log loss;fresh scored mass also0. Raw first/aligned/fresh masses remain
+descriptive for diagnosis. Valid paths are numerically unchanged. Apply same
+rule to optional Luna without allowing it to gate primary. Independent replay
+reconstructs all raw/scored fields;hand adversary has raw aligned mass.25 and
+fresh.125 but scored0/0. Calls/cost0.
+
 2026-08-07: Close a pre-response RegretBench repeated-action loophole. The
 official environment returns one deterministic slot value per mapped facet,so
 asking the same facet twice has zero evidence but could spuriously move an LLM

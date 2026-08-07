@@ -85,6 +85,9 @@ UNSUPPORTED_REPLY = "I cannot answer that clarification."
 ACTION_AMENDMENT_SHA256 = (
     "8d375fca72f4da30265a9068df27aefceefb14c5474fff2661cbd1513f056160"
 )
+VALID_TRAJECTORY_AMENDMENT_SHA256 = (
+    "57dacb5e671282b825f3fa375dfbd088dbd4d79f3387df59f5600f6e995edbf3"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -626,6 +629,45 @@ def _terminal(support: Mapping[str, Any], question: int, observed: str, aliases:
     }
 
 
+def _path_metrics(
+    first_support: Mapping[str, Any],
+    final_support: Mapping[str, Any],
+    *,
+    question: int,
+    observed: str,
+    aliases: str,
+    first_mapping: Mapping[str, Any],
+    second_mapping: Mapping[str, Any],
+) -> dict[str, Any]:
+    valid = _distinct_actions(first_mapping, second_mapping)
+    raw_first = _truth_mass(first_support, aliases)
+    raw_terminal = _terminal(first_support, question, observed, aliases)
+    raw_terminal_mass = float(raw_terminal["truth_mass"])
+    terminal_mass = raw_terminal_mass if valid else 0.0
+    raw_fresh = _truth_mass(final_support, aliases)
+    fresh_mass = raw_fresh if valid else 0.0
+    first_mass = raw_first if first_mapping["supported"] else 0.0
+    return {
+        "valid_two_action_trajectory": valid,
+        "raw_truth_mass_after_first": raw_first,
+        "truth_mass_after_first": first_mass,
+        "second_reply_likelihood_matched": raw_terminal["reply_matched"],
+        "second_reply_matched_hypotheses": raw_terminal[
+            "matched_hypothesis_count"
+        ],
+        "raw_truth_mass_final": raw_terminal_mass,
+        "truth_mass_final": terminal_mass,
+        "brier": (1.0 - terminal_mass) ** 2,
+        "log_loss": -math.log(max(PROBABILITY_FLOOR, terminal_mass)),
+        "covered": terminal_mass > 0.0,
+        "raw_fresh_truth_mass_final": raw_fresh,
+        "fresh_truth_mass_final": fresh_mass,
+        "fresh_brier": (1.0 - fresh_mass) ** 2,
+        "fresh_log_loss": -math.log(max(PROBABILITY_FLOOR, fresh_mass)),
+        "fresh_covered": fresh_mass > 0.0,
+    }
+
+
 def _rankdata(values: Sequence[float]) -> np.ndarray:
     values = np.asarray(values, dtype=float)
     order = np.argsort(values, kind="mergesort")
@@ -877,6 +919,14 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         "$.protocol.distinct_action_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get(
+            "valid_trajectory_amendment_sha256"
+        ),
+        VALID_TRAJECTORY_AMENDMENT_SHA256,
+        "$.protocol.valid_trajectory_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
     _close(result.get("gates"), gates, "$.gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
@@ -1016,8 +1066,15 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         for task in range(64):
             first_mapping = _map(cigs[task], first_questions[task], truths[task][1])
             second_mapping = _map(cigs[task], second_questions[task], truths[task][1])
-            first_mass = _truth_mass(first_supports[task], truths[task][2])
-            final_mass = _truth_mass(final_supports[task], truths[task][2])
+            raw_first_mass = _truth_mass(
+                first_supports[task], truths[task][2]
+            )
+            raw_final_mass = _truth_mass(
+                final_supports[task], truths[task][2]
+            )
+            valid = _distinct_actions(first_mapping, second_mapping)
+            first_mass = raw_first_mass if first_mapping["supported"] else 0.0
+            final_mass = raw_final_mass if valid else 0.0
             naive_rows.append({
                 "endpoint_mode": "fresh_regeneration_descriptive",
                 "root_index": None,
@@ -1027,11 +1084,15 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
                 "second_action_novel": _distinct_actions(
                     first_mapping, second_mapping
                 ),
+                "valid_two_action_trajectory": valid,
+                "raw_truth_mass_after_first": raw_first_mass,
                 "truth_mass_after_first": first_mass,
+                "raw_truth_mass_final": raw_final_mass,
                 "truth_mass_final": final_mass,
                 "brier": (1.0 - final_mass) ** 2,
                 "log_loss": -math.log(max(PROBABILITY_FLOOR, final_mass)),
                 "covered": final_mass > 0.0,
+                "raw_fresh_truth_mass_final": raw_final_mass,
                 "fresh_truth_mass_final": final_mass,
                 "fresh_brier": (1.0 - final_mass) ** 2,
                 "fresh_log_loss": -math.log(max(PROBABILITY_FLOOR, final_mass)),
@@ -1046,8 +1107,15 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         selected_questions = {}
         for name, root in plan["selected"].items():
             path = first_paths[(task, root)]
-            terminal = _terminal(path["support"], path["second"], path["second_mapping"]["answer"], aliases)
-            fresh_mass = _truth_mass(final_paths[(task, root)], aliases)
+            path_metrics = _path_metrics(
+                path["support"],
+                final_paths[(task, root)],
+                question=path["second"],
+                observed=path["second_mapping"]["answer"],
+                aliases=aliases,
+                first_mapping=path["first_mapping"],
+                second_mapping=path["second_mapping"],
+            )
             policies[name] = {
                 "endpoint_mode": "aligned_generated_likelihood",
                 "root_index": root,
@@ -1057,17 +1125,7 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
                 "second_action_novel": _distinct_actions(
                     path["first_mapping"], path["second_mapping"]
                 ),
-                "second_reply_likelihood_matched": terminal["reply_matched"],
-                "second_reply_matched_hypotheses": terminal["matched_hypothesis_count"],
-                "truth_mass_after_first": _truth_mass(path["support"], aliases),
-                "truth_mass_final": terminal["truth_mass"],
-                "brier": terminal["brier"],
-                "log_loss": terminal["log_loss"],
-                "covered": terminal["covered"],
-                "fresh_truth_mass_final": fresh_mass,
-                "fresh_brier": (1.0 - fresh_mass) ** 2,
-                "fresh_log_loss": -math.log(max(PROBABILITY_FLOOR, fresh_mass)),
-                "fresh_covered": fresh_mass > 0.0,
+                **path_metrics,
             }
             selected_questions[name] = {
                 "first": support["questions"][root],
@@ -1163,6 +1221,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         ),
         ACTION_AMENDMENT_SHA256,
         "$.protocol.distinct_action_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "valid_trajectory_amendment_sha256"
+        ),
+        VALID_TRAJECTORY_AMENDMENT_SHA256,
+        "$.protocol.valid_trajectory_amendment_sha256",
         mismatches,
     )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)

@@ -24,6 +24,7 @@ raw artifacts it independently reconstructs:
 - enriched-smoke and formal distinct semantic-action checks using the official
   mapper;
 - exact generated-likelihood conditioning on the realized second reply;
+- raw-versus-scored truth masses and the zero-credit invalid-trajectory rule;
 - paired comparisons, correlations, bootstraps, scientific gates, and status;
 - request schedules, common-random-number groups, schema counts, privacy
   payload schedules, action/matchability floors, and cost gates.

@@ -17,6 +17,12 @@ must be novel, and every primary policy must clear `40/64` novel second actions.
 The optional Luna baseline uses the same target only as an availability
 diagnostic and remains unable to affect primary status.
 
+The valid-trajectory endpoint amendment prevents invalid dialogue from earning
+scientific credit. Unsupported first/second actions or repeated second facets
+receive zero scored truth mass, Brier `1`, and floor log loss. Their raw
+regenerated masses remain explicitly descriptive, while every valid trajectory
+retains the original aligned likelihood endpoint unchanged.
+
 ## What Is Ready
 
 The implementation constructs a genuinely LLM-native sequential BED tree:
