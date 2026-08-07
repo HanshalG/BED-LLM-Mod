@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_any_regretbench_policy_response",
+  "protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_HORIZON_VALUE_DECOMPOSITION_PROTOCOL_20260807.md",
+    "sha256": "2ff70036188dc45ccb82bff9a1570e796e6f1bce5d1c12bc9f081f70bbbb4028"
+  },
+  "script": {
+    "path": "scripts/regretbench_horizon_value_decomposition.py",
+    "sha256": "5057b5da4df599d8972ce6e9761f96cd7ba89a8e0fd2bfdd44bb656eecad46a8"
+  },
+  "tests": {
+    "path": "tests/test_regretbench_horizon_value_decomposition.py",
+    "sha256": "3b0b319c1136c194119e25706477bb8841bee3ae94722aedefcc74662b00e468"
+  },
+  "source_verifier_binding": {
+    "path": "results/nonmyopic/regretbench_branch_draw_fidelity/EXECUTION_BINDING.json",
+    "sha256": "879e21b28f3f0aee32b28cd80790a21b431512b79fadc58b793de7b5687dbbd7"
+  },
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 202608430000,
+  "model_calls_authorized": 0,
+  "can_change_status_authorization_or_claim_tier": false
+}
