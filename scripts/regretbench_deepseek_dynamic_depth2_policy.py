@@ -155,6 +155,14 @@ REFRESH_MATCHED_MYOPIC_AMENDMENT = (
 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
     "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
 )
+DRAW_STABILITY_DIAGNOSTIC_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_20260807.md"
+)
+DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256 = (
+    "3b4d66d10c31b1e66dc237abaf251273fa0e24338bbc70eb99602913e8b057cc"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -213,6 +221,10 @@ def validate_protocol_binding() -> None:
         REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
     ):
         raise ValueError("refresh-matched myopic amendment changed")
+    if recovery.sha256_file(DRAW_STABILITY_DIAGNOSTIC_AMENDMENT) != (
+        DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("draw-stability diagnostic amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -623,6 +635,67 @@ def dynamic_root_risks(
     return risks
 
 
+def dynamic_root_risks_for_draw(
+    initial: Mapping[str, Any],
+    branch_rows: Sequence[Mapping[str, Any]],
+    *,
+    arm: str,
+    draw: int,
+) -> list[dict[str, float]]:
+    if draw not in range(BRANCH_DRAWS):
+        raise ValueError("invalid branch draw")
+    lookup = {
+        (row["root_index"], row["hypothesis_index"]): row[arm]
+        for row in branch_rows
+        if row["draw"] == draw
+    }
+    risks = []
+    for root in range(QUESTIONS):
+        brier = log_loss = coverage = 0.0
+        for hypothesis_index, hypothesis in enumerate(initial["hypotheses"]):
+            metrics = branch_truth_metrics(
+                lookup[(root, hypothesis_index)], hypothesis["final_answer"]
+            )
+            weight = hypothesis["probability"]
+            brier += weight * metrics["expected_brier"]
+            log_loss += weight * metrics["expected_log_loss"]
+            coverage += weight * float(metrics["truth_mass"] > 0)
+        risks.append(
+            {"brier": brier, "log_loss": log_loss, "coverage": coverage}
+        )
+    return risks
+
+
+def dynamic_selection_stability(
+    averaged_risks: Sequence[Mapping[str, float]],
+    draw_risks: Sequence[Sequence[Mapping[str, float]]],
+) -> dict[str, Any]:
+    averaged_order = sorted(
+        range(QUESTIONS),
+        key=lambda index: (averaged_risks[index]["brier"], index),
+    )
+    averaged_root = averaged_order[0]
+    draw_roots = [
+        min(
+            range(QUESTIONS),
+            key=lambda index: (risks[index]["brier"], index),
+        )
+        for risks in draw_risks
+    ]
+    return {
+        "draw_selected_roots": draw_roots,
+        "draws_agree": len(set(draw_roots)) == 1,
+        "all_draws_match_averaged_selection": all(
+            root == averaged_root for root in draw_roots
+        ),
+        "averaged_selected_root": averaged_root,
+        "averaged_winner_brier_margin": (
+            averaged_risks[averaged_order[1]]["brier"]
+            - averaged_risks[averaged_root]["brier"]
+        ),
+    }
+
+
 def myopic_brier_root_risks(
     initial: Mapping[str, Any],
 ) -> list[dict[str, float]]:
@@ -960,6 +1033,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or protocol.get("refresh_matched_myopic_amendment_sha256")
         != REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+        or protocol.get("draw_stability_diagnostic_amendment_sha256")
+        != DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -1027,6 +1102,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or protocol.get("refresh_matched_myopic_amendment_sha256")
         != REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+        or protocol.get("draw_stability_diagnostic_amendment_sha256")
+        != DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -1190,6 +1267,9 @@ def run_smoke(
             "refresh_matched_myopic_amendment_sha256": (
                 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
             ),
+            "draw_stability_diagnostic_amendment_sha256": (
+                DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1344,6 +1424,9 @@ def run_naive_smoke(
             ),
             "refresh_matched_myopic_amendment_sha256": (
                 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+            ),
+            "draw_stability_diagnostic_amendment_sha256": (
+                DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
@@ -1871,6 +1954,58 @@ def scientific_summary(
     }
 
 
+def draw_stability_summary(
+    tasks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    if len(tasks) != 64:
+        raise ValueError("draw stability requires all 64 tasks")
+    stability = [task["dynamic_selection_stability"] for task in tasks]
+    stable = [index for index, row in enumerate(stability) if row["draws_agree"]]
+    unstable = [
+        index for index, row in enumerate(stability) if not row["draws_agree"]
+    ]
+    margins = np.asarray(
+        [row["averaged_winner_brier_margin"] for row in stability],
+        dtype=float,
+    )
+
+    def descriptive(indexes: Sequence[int]) -> dict[str, Any]:
+        differences = [
+            tasks[index]["policies"]["dynamic_depth2"]["brier"]
+            - tasks[index]["policies"]["myopic_refresh_brier"]["brier"]
+            for index in indexes
+        ]
+        return {
+            "task_count": len(indexes),
+            "mean_dynamic_minus_refresh_myopic_brier": (
+                float(np.mean(differences)) if differences else None
+            ),
+        }
+
+    agreement_count = len(stable)
+    averaged_match_count = sum(
+        row["all_draws_match_averaged_selection"] for row in stability
+    )
+    return {
+        "label": "non_gating_non_rescuing_draw_stability_diagnostic",
+        "draw_agreement_count": agreement_count,
+        "draw_agreement_fraction": agreement_count / len(tasks),
+        "all_draws_match_averaged_selection_count": averaged_match_count,
+        "all_draws_match_averaged_selection_fraction": (
+            averaged_match_count / len(tasks)
+        ),
+        "averaged_winner_brier_margin": {
+            "mean": float(np.mean(margins)),
+            "median": float(np.median(margins)),
+            "minimum": float(np.min(margins)),
+            "maximum": float(np.max(margins)),
+        },
+        "stable_tasks_descriptive": descriptive(stable),
+        "unstable_tasks_descriptive": descriptive(unstable),
+        "can_change_status_authorization_or_claim_tier": False,
+    }
+
+
 def seed_schedule_gates(
     *,
     branch_manifest: Sequence[Mapping[str, Any]],
@@ -2336,6 +2471,18 @@ def run_development(
         conditioned = dynamic_root_risks(
             initial, branch_by_task[task_index], arm="conditioned"
         )
+        conditioned_by_draw = [
+            dynamic_root_risks_for_draw(
+                initial,
+                branch_by_task[task_index],
+                arm="conditioned",
+                draw=draw,
+            )
+            for draw in range(BRANCH_DRAWS)
+        ]
+        selection_stability = dynamic_selection_stability(
+            conditioned, conditioned_by_draw
+        )
         blind = dynamic_root_risks(
             initial, branch_by_task[task_index], arm="blind"
         )
@@ -2356,6 +2503,8 @@ def run_development(
         planning.append(
             {
                 "conditioned": conditioned,
+                "conditioned_by_draw": conditioned_by_draw,
+                "selection_stability": selection_stability,
                 "blind": blind,
                 "myopic_refresh_brier": myopic_refresh_brier,
                 "myopic_brier": myopic_brier,
@@ -2733,6 +2882,10 @@ def run_development(
                 "selected_roots": dict(plan["selected"]),
                 "root_eig": plan["root_eig"],
                 "conditioned_root_risks": plan["conditioned"],
+                "conditioned_draw_root_risks": plan["conditioned_by_draw"],
+                "dynamic_selection_stability": plan[
+                    "selection_stability"
+                ],
                 "blind_root_risks": plan["blind"],
                 "myopic_refresh_brier_root_risks": plan[
                     "myopic_refresh_brier"
@@ -2832,6 +2985,7 @@ def run_development(
         if mechanics["all_pass"]
         else None
     )
+    stability_diagnostic = draw_stability_summary(tasks)
     status = "mechanics_failed"
     if mechanics["all_pass"]:
         status = "passed" if science and science["gates"]["all_pass"] else "gated_null"
@@ -2878,6 +3032,9 @@ def run_development(
             "refresh_matched_myopic_amendment_sha256": (
                 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
             ),
+            "draw_stability_diagnostic_amendment_sha256": (
+                DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,
             "naive_smoke": naive_smoke,
@@ -2902,6 +3059,7 @@ def run_development(
         "crn_diagnostics": crn_diagnostics,
         "naive_baseline": baseline,
         "science": science,
+        "draw_stability_diagnostic": stability_diagnostic,
         "tasks": tasks,
     }
     checkpoint(output_dir / "RESULT.json", result)

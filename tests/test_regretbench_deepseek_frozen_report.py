@@ -125,6 +125,9 @@ def _result(
         "task_count": 64,
         "primary_endpoint": "aligned_generated_likelihood_truth_mass",
         "fresh_regeneration_endpoint": "secondary_descriptive",
+        "draw_stability_diagnostic_amendment_sha256": (
+            report.DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+        ),
     }
     if stage == "confirmation":
         protocol["source_split"] = "confirmation"
@@ -137,6 +140,28 @@ def _result(
         "mechanics_gates": mechanics,
         "crn_diagnostics": {"exact_group_count": 1024},
         "science": science,
+        "draw_stability_diagnostic": {
+            "label": "non_gating_non_rescuing_draw_stability_diagnostic",
+            "draw_agreement_count": 48,
+            "draw_agreement_fraction": 0.75,
+            "all_draws_match_averaged_selection_count": 44,
+            "all_draws_match_averaged_selection_fraction": 0.6875,
+            "averaged_winner_brier_margin": {
+                "mean": 0.03,
+                "median": 0.02,
+                "minimum": 0.001,
+                "maximum": 0.12,
+            },
+            "stable_tasks_descriptive": {
+                "task_count": 48,
+                "mean_dynamic_minus_refresh_myopic_brier": -0.04,
+            },
+            "unstable_tasks_descriptive": {
+                "task_count": 16,
+                "mean_dynamic_minus_refresh_myopic_brier": 0.01,
+            },
+            "can_change_status_authorization_or_claim_tier": False,
+        },
         "naive_baseline": {
             "status": "available" if include_naive else "disabled_by_smoke"
         },
@@ -202,6 +227,9 @@ def test_reporting_binding_matches_protocol_and_generator() -> None:
     assert report.sha256_file(
         report.REPO_ROOT / binding["refresh_matched_myopic_amendment"]["path"]
     ) == binding["refresh_matched_myopic_amendment"]["sha256"]
+    assert report.sha256_file(
+        report.REPO_ROOT / binding["draw_stability_diagnostic_amendment"]["path"]
+    ) == binding["draw_stability_diagnostic_amendment"]["sha256"]
     assert binding["requirements"][
         "refresh_matched_myopic_is_headline_horizon_control"
     ]
@@ -248,6 +276,9 @@ def test_frozen_claim_tiers(stage, status, tier, tmp_path) -> None:
     assert value["claim_tier"] == tier
     assert value["claim_tier_is_frozen_and_nonadaptive"] is True
     assert value["pooled_or_secondary_evidence_can_change_tier"] is False
+    assert value["draw_stability_diagnostic"][
+        "can_change_status_authorization_or_claim_tier"
+    ] is False
     if status == "mechanics_failed":
         assert value["paired_primary_comparisons"] is None
         assert "no RegretBench policy-efficacy result" in value["interpretation"]
@@ -333,6 +364,8 @@ def test_write_report_emits_json_and_markdown_without_calls(tmp_path) -> None:
     assert "Primary Aligned Endpoint" in markdown
     assert "Ranking Fidelity" in markdown
     assert "Alignment-Complete Diagnostic" in markdown
+    assert "Draw Stability Diagnostic" in markdown
+    assert "48/64" in markdown
     assert "Science Gates" in markdown
     assert "Secondary Fresh Regeneration" in markdown
     assert "Optional Naive-Thinking Baseline" in markdown

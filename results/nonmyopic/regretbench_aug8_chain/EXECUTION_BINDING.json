@@ -7,12 +7,12 @@
   "account_wide_daily_cap_usd": 5.0,
   "orchestrator": {
     "path": "scripts/regretbench_aug8_execute.py",
-    "sha256": "6b5b5960ca7deace1c4678976a9ae864ba5270989d0ba7751629b70bc1d6f421"
+    "sha256": "6e09bccdacc6da538b97eea86c90f77e6d054eaea382b12400ddb95187a949f8"
   },
   "components": {
     "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "db8d13229444abbf3f549967af4e70271103b6f5abd917fcce88573ec44b95c9",
-    "scripts/regretbench_deepseek_support_recovery_daily.py": "d183e5b2785741d8d410c90d0b3f983da31db1a5b698a75fbd4b52b234c49399",
-    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "59fc575fb716b45ae76d0a1505b9293b5883c4cd99088f67e5e6159d64f0ebf7"
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "ad8c3f0ad907ea1042c08607976cca4bf900dc533347421806d7385616bf6eb7",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "67d22c89385765bd0651a056c74d2960f70e13960f9bbf225dbc8e6ad0cb868c"
   },
   "requirements": {
     "single_resumable_command": true,
@@ -24,6 +24,8 @@
     "terminal_null_or_failure_opens_no_descendant": true,
     "banked_stage_is_never_repeated": true,
     "existing_stage_ledgers_and_independent_replays_unchanged": true,
+    "draw_stability_diagnostic_uses_existing_branch_draws_only": true,
+    "draw_stability_diagnostic_can_gate_or_rescue": false,
     "maximum_combined_exposure_usd": 4.8,
     "model_calls_made_by_binding": 0,
     "cost_usd_by_binding": 0.0

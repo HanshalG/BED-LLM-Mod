@@ -42,6 +42,13 @@ REFRESH_MATCHED_MYOPIC_AMENDMENT = REPO_ROOT / (
 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
     "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
 )
+DRAW_STABILITY_DIAGNOSTIC_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_20260807.md"
+)
+DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256 = (
+    "3b4d66d10c31b1e66dc237abaf251273fa0e24338bbc70eb99602913e8b057cc"
+)
 ALIGNMENT_BOOTSTRAP_SAMPLES = 20_000
 ALIGNMENT_BOOTSTRAP_SEED = 202608151000
 PRIMARY_POLICIES = (
@@ -257,6 +264,10 @@ def _validate_verified_result(
         REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
     ):
         raise ValueError("RegretBench refresh-matched amendment changed")
+    if sha256_file(DRAW_STABILITY_DIAGNOSTIC_AMENDMENT) != (
+        DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("RegretBench draw-stability amendment changed")
     result_path = run_dir / "RESULT.json"
     verification_path = run_dir / "VERIFICATION.json"
     result = _load(result_path)
@@ -383,6 +394,21 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         if science_gates.get("all_pass") is not expected_pass:
             raise ValueError("result status and frozen science conjunction disagree")
     protocol = result.get("protocol") or {}
+    if protocol.get("draw_stability_diagnostic_amendment_sha256") != (
+        DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("result lacks the frozen draw-stability amendment")
+    draw_stability = result.get("draw_stability_diagnostic")
+    if (
+        not isinstance(draw_stability, Mapping)
+        or draw_stability.get("label")
+        != "non_gating_non_rescuing_draw_stability_diagnostic"
+        or draw_stability.get(
+            "can_change_status_authorization_or_claim_tier"
+        )
+        is not False
+    ):
+        raise ValueError("result lacks the frozen non-rescuing diagnostic")
     usage = result.get("usage") or {}
     report = {
         "schema_version": 1,
@@ -402,6 +428,9 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         ),
         "refresh_matched_myopic_amendment_sha256": (
             REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+        ),
+        "draw_stability_diagnostic_amendment_sha256": (
+            DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
         ),
         "result_sha256": result_sha,
         "verification_sha256": verification_sha,
@@ -432,6 +461,7 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         ),
         "predicted_to_realized_dynamic_myopic": eig_correlation,
         "alignment_complete_diagnostic": alignment_complete,
+        "draw_stability_diagnostic": draw_stability,
         "science_gates": science_gates,
         "secondary_fresh_regeneration": fresh,
         "optional_naive_thinking": _optional_naive(
@@ -633,6 +663,38 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 f"{brier['probability_improvement']:.3f} | "
                 f"{wtl['wins']}/{wtl['ties']}/{wtl['losses']} |"
             )
+
+    stability = report["draw_stability_diagnostic"]
+    margin = stability["averaged_winner_brier_margin"]
+    stable = stability["stable_tasks_descriptive"]
+    unstable = stability["unstable_tasks_descriptive"]
+    lines.extend(
+        [
+            "",
+            "## Draw Stability Diagnostic",
+            "",
+            "This preregistered diagnostic replays the two existing conditioned branch draws separately. It is non-gating and non-rescuing: it cannot change status, authorization, or claim tier.",
+            "",
+            (
+                f"Draw-selected roots agreed on `{stability['draw_agreement_count']}/64` "
+                f"tasks (`{stability['draw_agreement_fraction']:.3f}`); both draws matched "
+                f"the averaged selection on `{stability['all_draws_match_averaged_selection_count']}/64` "
+                f"tasks (`{stability['all_draws_match_averaged_selection_fraction']:.3f}`)."
+            ),
+            (
+                "Averaged winner Brier margin: "
+                f"mean `{margin['mean']:.4f}`, median `{margin['median']:.4f}`, "
+                f"min `{margin['minimum']:.4f}`, max `{margin['maximum']:.4f}`."
+            ),
+            (
+                "Descriptive dynamic-minus-refresh-myopic realized Brier: "
+                f"stable tasks n=`{stable['task_count']}`, mean="
+                f"`{_fmt_optional(stable['mean_dynamic_minus_refresh_myopic_brier'])}`; "
+                f"unstable tasks n=`{unstable['task_count']}`, mean="
+                f"`{_fmt_optional(unstable['mean_dynamic_minus_refresh_myopic_brier'])}`."
+            ),
+        ]
+    )
 
     naive = report["optional_naive_thinking"]
     lines.extend(["", "## Optional Naive-Thinking Baseline", ""])

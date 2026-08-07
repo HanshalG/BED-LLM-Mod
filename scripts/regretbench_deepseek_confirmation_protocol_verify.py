@@ -27,14 +27,14 @@ EXECUTION_BINDINGS = REPO_ROOT / (
     "EXECUTION_BINDINGS.json"
 )
 EXECUTION_BINDINGS_SHA256 = (
-    "34b03e7466007a81534a513234cf1ca9f83bdc04fa35977779874285fddf7816"
+    "151182a5bd4955342d403b0f05b902844c31ecd6a3aedd22c572502f31e6607e"
 )
 DAILY_EXECUTION_BINDING = REPO_ROOT / (
     "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
     "DAILY_EXECUTION_BINDING.json"
 )
 DAILY_EXECUTION_BINDING_SHA256 = (
-    "dfde4ed0a6fbea6d6e4564694e11b9ff2a310ee96fc1a808e9edd43f0d34b81c"
+    "76b2c15c10439cfa8110f229055f8d3daacdf10b15488e6e3eb1c8cd7a01ec7b"
 )
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
@@ -190,6 +190,10 @@ def verify_protocol(
     matched_utility_path = repo_root / str(matched_utility.get("path", ""))
     refresh_matched = execution.get("refresh_matched_myopic_amendment", {})
     refresh_matched_path = repo_root / str(refresh_matched.get("path", ""))
+    draw_stability = execution.get(
+        "draw_stability_diagnostic_amendment", {}
+    )
+    draw_stability_path = repo_root / str(draw_stability.get("path", ""))
     daily_amendment = daily_binding.get("amendment", {})
     daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
     daily_alignment = daily_binding.get(
@@ -213,6 +217,12 @@ def verify_protocol(
     )
     daily_refresh_matched_path = repo_root / str(
         daily_refresh_matched.get("path", "")
+    )
+    daily_draw_stability = daily_binding.get(
+        "draw_stability_diagnostic_amendment", {}
+    )
+    daily_draw_stability_path = repo_root / str(
+        daily_draw_stability.get("path", "")
     )
     daily_component_matches = {
         relative: (repo_root / relative).is_file()
@@ -282,6 +292,9 @@ def verify_protocol(
             and refresh_matched_path.is_file()
             and sha256_file(refresh_matched_path)
             == refresh_matched.get("sha256")
+            and draw_stability_path.is_file()
+            and sha256_file(draw_stability_path)
+            == draw_stability.get("sha256")
             and execution.get("parent", {}).get("protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and all(component_matches.values())
@@ -313,6 +326,9 @@ def verify_protocol(
             and daily_refresh_matched_path.is_file()
             and sha256_file(daily_refresh_matched_path)
             == daily_refresh_matched.get("sha256")
+            and daily_draw_stability_path.is_file()
+            and sha256_file(daily_draw_stability_path)
+            == daily_draw_stability.get("sha256")
             and bool(daily_component_matches)
             and all(daily_component_matches.values())
         ),
@@ -510,6 +526,40 @@ def verify_protocol(
                 "refresh_changed_root_positive_spearman_bootstrap_probability_minimum"
             )
             == 0.8
+        ),
+        "draw_stability_diagnostic_is_non_gating_non_rescuing": (
+            execution.get("requirements", {}).get(
+                "draw_stability_diagnostic_required"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "draw_stability_can_change_status_authorization_or_claim_tier"
+            )
+            is False
+            and execution.get("requirements", {}).get(
+                "stable_or_unstable_subsets_can_rescue"
+            )
+            is False
+            and execution.get("requirements", {}).get(
+                "draw_stability_additional_model_calls"
+            )
+            == 0
+            and daily_binding.get("requirements", {}).get(
+                "draw_stability_diagnostic_required"
+            )
+            is True
+            and daily_binding.get("requirements", {}).get(
+                "draw_stability_can_change_status_authorization_or_claim_tier"
+            )
+            is False
+            and daily_binding.get("requirements", {}).get(
+                "stable_or_unstable_subsets_can_rescue"
+            )
+            is False
+            and daily_binding.get("requirements", {}).get(
+                "draw_stability_additional_model_calls"
+            )
+            == 0
         ),
         "literal_verified_development_pass_required": (
             predecessor.get("required_primary_status") == "passed"

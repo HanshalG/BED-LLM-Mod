@@ -138,6 +138,52 @@ def test_protocol_binding_refuses_refresh_matched_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_draw_stability_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        policy, "DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256", "0" * 64
+    )
+
+    with pytest.raises(
+        ValueError, match="draw-stability diagnostic amendment changed"
+    ):
+        policy.validate_protocol_binding()
+
+
+def test_draw_stability_replays_each_existing_draw_without_rescoring() -> None:
+    averaged = [
+        {"brier": 0.20},
+        {"brier": 0.30},
+        {"brier": 0.40},
+        {"brier": 0.50},
+    ]
+    draw_risks = [
+        [
+            {"brier": 0.10},
+            {"brier": 0.25},
+            {"brier": 0.40},
+            {"brier": 0.50},
+        ],
+        [
+            {"brier": 0.35},
+            {"brier": 0.15},
+            {"brier": 0.40},
+            {"brier": 0.50},
+        ],
+    ]
+
+    stability = policy.dynamic_selection_stability(averaged, draw_risks)
+
+    assert stability == {
+        "draw_selected_roots": [0, 1],
+        "draws_agree": False,
+        "all_draws_match_averaged_selection": False,
+        "averaged_selected_root": 0,
+        "averaged_winner_brier_margin": pytest.approx(0.10),
+    }
+
+
 def test_refresh_matched_myopic_uses_conditioned_branch_truth_mass() -> None:
     initial = policy.parse_enriched_support(json.dumps(_support()))
     branches = []
@@ -434,6 +480,13 @@ def _science_task(index: int) -> dict:
         values["fresh_log_loss"] = values["log_loss"]
     return {
         "selected_roots": roots,
+        "dynamic_selection_stability": {
+            "draw_selected_roots": [0, 0] if index < 48 else [0, 1],
+            "draws_agree": index < 48,
+            "all_draws_match_averaged_selection": index < 48,
+            "averaged_selected_root": 0,
+            "averaged_winner_brier_margin": 0.01 + index / 10_000,
+        },
         "conditioned_root_risks": [
             {"brier": 0.10},
             {"brier": 0.10 + max(predicted_gain, matched_predicted_gain)},
@@ -478,6 +531,18 @@ def test_scientific_summary_enforces_full_conjunctive_claim() -> None:
     assert summary["predicted_to_realized_dynamic_myopic_refresh_brier"][
         "spearman"
     ] == pytest.approx(1)
+
+
+def test_draw_stability_summary_is_non_gating_and_non_rescuing() -> None:
+    summary = policy.draw_stability_summary(
+        [_science_task(index) for index in range(64)]
+    )
+
+    assert summary["draw_agreement_count"] == 48
+    assert summary["draw_agreement_fraction"] == pytest.approx(0.75)
+    assert summary["stable_tasks_descriptive"]["task_count"] == 48
+    assert summary["unstable_tasks_descriptive"]["task_count"] == 16
+    assert summary["can_change_status_authorization_or_claim_tier"] is False
 
 
 def test_fresh_regeneration_endpoint_is_descriptive_only() -> None:
@@ -881,6 +946,11 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert "myopic_refresh_brier" in result["tasks"][0]["policies"]
     assert "myopic_refresh_brier_root_risks" in result["tasks"][0]
     assert "myopic_brier_root_risks" in result["tasks"][0]
+    assert len(result["tasks"][0]["conditioned_draw_root_risks"]) == 2
+    assert "dynamic_selection_stability" in result["tasks"][0]
+    assert result["draw_stability_diagnostic"][
+        "can_change_status_authorization_or_claim_tier"
+    ] is False
     assert result["protocol"]["expected_primary_deepseek_requests"] == adapter.requests
     assert 8_256 < adapter.requests <= 8_768
     assert naive_endpoint_adapter.requests == 128
@@ -946,6 +1016,17 @@ def test_full_8256_planning_response_path_and_actual_cache(
     failed = verify.verify_policy(tmp_path / "development")
     assert failed["status"] == "verification_failed"
     assert "$.tasks[0].policies.dynamic_depth2.brier" in failed["mismatches"]
+
+    result_path.write_text(original_result)
+    tampered = json.loads(result_path.read_text())
+    tampered["draw_stability_diagnostic"]["draw_agreement_count"] += 1
+    result_path.write_text(json.dumps(tampered))
+    failed = verify.verify_policy(tmp_path / "development")
+    assert failed["status"] == "verification_failed"
+    assert (
+        "$.draw_stability_diagnostic.draw_agreement_count"
+        in failed["mismatches"]
+    )
 
     result_path.write_text(original_result)
     initial_path = tmp_path / "development" / "private" / "RAW_INITIAL.json"

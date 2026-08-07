@@ -180,6 +180,28 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
                 "contract failed.",
             ]
         )
+    stability = saved["draw_stability_diagnostic"]
+    stable = stability["stable_tasks_descriptive"]
+    unstable = stability["unstable_tasks_descriptive"]
+    lines.extend(
+        [
+            "",
+            "The preregistered non-gating draw-stability diagnostic found "
+            + str(stability["draw_agreement_count"])
+            + "/64 tasks with identical roots under the two existing conditioned "
+            "branch draws. Dynamic-minus-refresh-matched-myopic realized Brier "
+            "was $"
+            + _number(stable["mean_dynamic_minus_refresh_myopic_brier"])
+            + "$ on stable tasks ($n="
+            + str(stable["task_count"])
+            + "$) and $"
+            + _number(unstable["mean_dynamic_minus_refresh_myopic_brier"])
+            + "$ on unstable tasks ($n="
+            + str(unstable["task_count"])
+            + "$). This diagnostic is non-rescuing and cannot change status, "
+            "authorization, or the frozen tier.",
+        ]
+    )
     lines.extend(
         [
             "",

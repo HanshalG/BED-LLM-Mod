@@ -8,14 +8,15 @@
     "endpoint_amendment_sha256": "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79",
     "matched_utility_myopic_amendment_sha256": "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e",
     "refresh_matched_myopic_amendment_sha256": "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f",
-    "binding_sha256": "7aa2bd3c878f59569c38be0c1a8d803e40790440542da79345f6bd9b9dc2d857",
-    "generator_sha256": "f5e02f208933dd8f773ca649046c9f8e614699bab2bf9bca31b4ae72ef27c9ea"
+    "draw_stability_diagnostic_amendment_sha256": "3b4d66d10c31b1e66dc237abaf251273fa0e24338bbc70eb99602913e8b057cc",
+    "binding_sha256": "c2a58729f7cd1f0a860bbe6ed8eb90718d845d6c787936bc214950932a63e84d",
+    "generator_sha256": "3420f5a535d3946023119eb24fd4fcc3a23381e9ec15efd8b660daa0629ec916"
   },
   "fragment": {
     "protocol_path": "results/nonmyopic/REGRETBENCH_PAPER_FRAGMENT_PROTOCOL_20260807.md",
     "protocol_sha256": "510ca51af21e40d36e7548eceed16085e44f4d1f8ed0a8d943476041b82fa823",
     "generator_path": "scripts/regretbench_deepseek_paper_fragment.py",
-    "generator_sha256": "1b65e5c32eca6290d18a7b7b325b4e483958f78271f52f81f58e2617a3556ff7",
+    "generator_sha256": "da34e23884be794cb470256708d893f20c86363cc77c3e2e5e0f5eff31d75a5f",
     "output_path": "paper/generated/regretbench_result.tex",
     "metadata_path": "paper/generated/regretbench_result.json"
   },
@@ -32,6 +33,9 @@
     "exact_claim_tier_interpretation_used": true,
     "all_six_primary_controls_rendered_when_mechanics_pass": true,
     "refresh_matched_myopic_is_headline_horizon_control": true,
+    "draw_stability_diagnostic_rendered": true,
+    "draw_stability_diagnostic_can_change_tier": false,
+    "stable_or_unstable_subsets_can_rescue": false,
     "matched_brier_myopic_remains_required": true,
     "myopic_eig_width_remains_visible_and_required": true,
     "first_reply_likelihood_penalty_visible": true,

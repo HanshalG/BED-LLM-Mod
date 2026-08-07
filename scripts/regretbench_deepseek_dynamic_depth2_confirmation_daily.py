@@ -44,7 +44,7 @@ LEDGER = REPO_ROOT / (
 )
 EXECUTION_BINDINGS = ROOT / "EXECUTION_BINDINGS.json"
 EXECUTION_BINDINGS_SHA256 = (
-    "34b03e7466007a81534a513234cf1ca9f83bdc04fa35977779874285fddf7816"
+    "151182a5bd4955342d403b0f05b902844c31ecd6a3aedd22c572502f31e6607e"
 )
 PRODUCER_SHA256 = (
     "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
@@ -53,16 +53,16 @@ CONFIRMATION_VERIFIER_SHA256 = (
     "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
 )
 SHARED_VERIFIER_SHA256 = (
-    "a5b18ebc48f6df25da4df4827f39ae96f5efde02d2d8aeb347443f97ff6c0eca"
+    "5a0e208e3c7da14886c69fc72cddb064a16dd9d89f0c98c66e7f4203d7ca6991"
 )
 SUPPORT_DAILY_SHA256 = (
-    "d183e5b2785741d8d410c90d0b3f983da31db1a5b698a75fbd4b52b234c49399"
+    "ad8c3f0ad907ea1042c08607976cca4bf900dc533347421806d7385616bf6eb7"
 )
 POLICY_DAILY_SHA256 = (
-    "59fc575fb716b45ae76d0a1505b9293b5883c4cd99088f67e5e6159d64f0ebf7"
+    "67d22c89385765bd0651a056c74d2960f70e13960f9bbf225dbc8e6ad0cb868c"
 )
 POLICY_CORE_SHA256 = (
-    "d6aeda8f6ea5de994bf33844fea0a08e35b4213e565bb2a0f955618008378ce0"
+    "c097468b24acf9ff33743b4f8798c5d1915e142e2bf39aa998b2186812fba2f3"
 )
 
 
@@ -129,6 +129,10 @@ def validate_execution_bindings() -> dict[str, Any]:
         != policy.MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or bindings.get("refresh_matched_myopic_amendment", {}).get("sha256")
         != policy.REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+        or bindings.get("draw_stability_diagnostic_amendment", {}).get(
+            "sha256"
+        )
+        != policy.DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
         or bindings.get("requirements", {}).get(
             "minimum_truth_consistent_first_reply_matches_per_policy"
         )
@@ -163,6 +167,22 @@ def validate_execution_bindings() -> dict[str, Any]:
         is not True
         or bindings.get("requirements", {}).get(
             "refresh_matched_additional_model_calls"
+        )
+        != 0
+        or bindings.get("requirements", {}).get(
+            "draw_stability_diagnostic_required"
+        )
+        is not True
+        or bindings.get("requirements", {}).get(
+            "draw_stability_can_change_status_authorization_or_claim_tier"
+        )
+        is not False
+        or bindings.get("requirements", {}).get(
+            "stable_or_unstable_subsets_can_rescue"
+        )
+        is not False
+        or bindings.get("requirements", {}).get(
+            "draw_stability_additional_model_calls"
         )
         != 0
     ):

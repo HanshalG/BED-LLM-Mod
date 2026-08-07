@@ -106,6 +106,9 @@ MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
 REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
     "5e5f0d4fae09c8f878431f70e0231bb14a9d4a37525d4e15a504ffa2d62fe42f"
 )
+DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256 = (
+    "3b4d66d10c31b1e66dc237abaf251273fa0e24338bbc70eb99602913e8b057cc"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -586,6 +589,66 @@ def _dynamic_risks(initial: Mapping[str, Any], branches: Sequence[Mapping[str, A
     return output
 
 
+def _dynamic_risks_for_draw(
+    initial: Mapping[str, Any],
+    branches: Sequence[Mapping[str, Any]],
+    arm: str,
+    draw: int,
+) -> list[dict[str, float]]:
+    if draw not in range(BRANCH_DRAWS):
+        raise ValueError("invalid branch draw")
+    lookup = {
+        (row["root_index"], row["hypothesis_index"]): row[arm]
+        for row in branches
+        if row["draw"] == draw
+    }
+    output = []
+    for root in range(QUESTIONS):
+        brier = log_loss = coverage = 0.0
+        for hypothesis, row in enumerate(initial["hypotheses"]):
+            metrics = _branch_truth(
+                lookup[(root, hypothesis)], row["final_answer"]
+            )
+            weight = row["probability"]
+            brier += weight * metrics["expected_brier"]
+            log_loss += weight * metrics["expected_log_loss"]
+            coverage += weight * float(metrics["truth_mass"] > 0)
+        output.append(
+            {"brier": brier, "log_loss": log_loss, "coverage": coverage}
+        )
+    return output
+
+
+def _selection_stability(
+    averaged_risks: Sequence[Mapping[str, float]],
+    draw_risks: Sequence[Sequence[Mapping[str, float]]],
+) -> dict[str, Any]:
+    averaged_order = sorted(
+        range(QUESTIONS),
+        key=lambda index: (averaged_risks[index]["brier"], index),
+    )
+    averaged_root = averaged_order[0]
+    draw_roots = [
+        min(
+            range(QUESTIONS),
+            key=lambda index: (risks[index]["brier"], index),
+        )
+        for risks in draw_risks
+    ]
+    return {
+        "draw_selected_roots": draw_roots,
+        "draws_agree": len(set(draw_roots)) == 1,
+        "all_draws_match_averaged_selection": all(
+            root == averaged_root for root in draw_roots
+        ),
+        "averaged_selected_root": averaged_root,
+        "averaged_winner_brier_margin": (
+            averaged_risks[averaged_order[1]]["brier"]
+            - averaged_risks[averaged_root]["brier"]
+        ),
+    }
+
+
 def _fixed_risks(initial: Mapping[str, Any]) -> list[dict[str, float]]:
     hypotheses = initial["hypotheses"]
     output = []
@@ -988,6 +1051,60 @@ def _policy_science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[st
     }
 
 
+def _draw_stability_summary(
+    tasks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    if len(tasks) != 64:
+        raise ValueError("draw stability requires all 64 tasks")
+    stability = [task["dynamic_selection_stability"] for task in tasks]
+    stable = [
+        index for index, row in enumerate(stability) if row["draws_agree"]
+    ]
+    unstable = [
+        index for index, row in enumerate(stability) if not row["draws_agree"]
+    ]
+    margins = np.asarray(
+        [row["averaged_winner_brier_margin"] for row in stability],
+        dtype=float,
+    )
+
+    def descriptive(indexes: Sequence[int]) -> dict[str, Any]:
+        differences = [
+            tasks[index]["policies"]["dynamic_depth2"]["brier"]
+            - tasks[index]["policies"]["myopic_refresh_brier"]["brier"]
+            for index in indexes
+        ]
+        return {
+            "task_count": len(indexes),
+            "mean_dynamic_minus_refresh_myopic_brier": (
+                float(np.mean(differences)) if differences else None
+            ),
+        }
+
+    agreement_count = len(stable)
+    averaged_match_count = sum(
+        row["all_draws_match_averaged_selection"] for row in stability
+    )
+    return {
+        "label": "non_gating_non_rescuing_draw_stability_diagnostic",
+        "draw_agreement_count": agreement_count,
+        "draw_agreement_fraction": agreement_count / len(tasks),
+        "all_draws_match_averaged_selection_count": averaged_match_count,
+        "all_draws_match_averaged_selection_fraction": (
+            averaged_match_count / len(tasks)
+        ),
+        "averaged_winner_brier_margin": {
+            "mean": float(np.mean(margins)),
+            "median": float(np.median(margins)),
+            "minimum": float(np.min(margins)),
+            "maximum": float(np.max(margins)),
+        },
+        "stable_tasks_descriptive": descriptive(stable),
+        "unstable_tasks_descriptive": descriptive(unstable),
+        "can_change_status_authorization_or_claim_tier": False,
+    }
+
+
 def _parse_naive(raw: str) -> str:
     value = json.loads(raw)
     if not isinstance(value, dict) or set(value) != {"question"}:
@@ -1166,6 +1283,14 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         "$.protocol.refresh_matched_myopic_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get(
+            "draw_stability_diagnostic_amendment_sha256"
+        ),
+        DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256,
+        "$.protocol.draw_stability_diagnostic_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
     _close(result.get("gates"), gates, "$.gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
@@ -1266,6 +1391,15 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
     plans = []
     for task, support in enumerate(initial):
         conditioned = _dynamic_risks(support, branches[task], "conditioned")
+        conditioned_by_draw = [
+            _dynamic_risks_for_draw(
+                support, branches[task], "conditioned", draw
+            )
+            for draw in range(BRANCH_DRAWS)
+        ]
+        selection_stability = _selection_stability(
+            conditioned, conditioned_by_draw
+        )
         blind = _dynamic_risks(support, branches[task], "blind")
         myopic_refresh_brier = _myopic_refresh_brier_risks(
             support, branches[task]
@@ -1283,6 +1417,8 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         )
         plans.append({
             "conditioned": conditioned,
+            "conditioned_by_draw": conditioned_by_draw,
+            "selection_stability": selection_stability,
             "blind": blind,
             "myopic_refresh_brier": myopic_refresh_brier,
             "myopic_brier": myopic_brier,
@@ -1440,6 +1576,8 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
             "selected_roots": plan["selected"],
             "root_eig": plan["root_eig"],
             "conditioned_root_risks": plan["conditioned"],
+            "conditioned_draw_root_risks": plan["conditioned_by_draw"],
+            "dynamic_selection_stability": plan["selection_stability"],
             "blind_root_risks": plan["blind"],
             "myopic_refresh_brier_root_risks": plan[
                 "myopic_refresh_brier"
@@ -1450,6 +1588,7 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         })
     samples = int(next(iter((result.get("science") or {}).get("comparisons", {}).values()))["brier_dynamic_minus_baseline"].get("samples", 20_000)) if result.get("science") else 20_000
     science_candidate = _policy_science(tasks, samples)
+    stability_diagnostic = _draw_stability_summary(tasks)
     usage = result["usage"]["deepseek_primary"]
     expected_requests = PLANNING_REQUESTS + len(first_manifest) + len(final_manifest)
     crn_diagnostics = _blind_crn_diagnostics(branches)
@@ -1586,6 +1725,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         "$.protocol.refresh_matched_myopic_amendment_sha256",
         mismatches,
     )
+    _close(
+        (result.get("protocol") or {}).get(
+            "draw_stability_diagnostic_amendment_sha256"
+        ),
+        DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256,
+        "$.protocol.draw_stability_diagnostic_amendment_sha256",
+        mismatches,
+    )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)
     _close(
         result.get("crn_diagnostics"),
@@ -1594,6 +1741,12 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         mismatches,
     )
     _close(result.get("science"), science, "$.science", mismatches)
+    _close(
+        result.get("draw_stability_diagnostic"),
+        stability_diagnostic,
+        "$.draw_stability_diagnostic",
+        mismatches,
+    )
     _close(result.get("mechanics_gates"), mechanics, "$.mechanics_gates", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
     if not selected_questions_ok:

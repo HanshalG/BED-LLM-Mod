@@ -64,6 +64,8 @@ def test_fragment_uses_exact_frozen_tier_and_table_boundary(
     assert report["interpretation"] in tex
     assert "released RegretBench intents, aliases, facets, slots" in tex
     assert ("\\begin{table}" in tex) is has_table
+    assert "non-gating draw-stability diagnostic" in tex
+    assert "48/64" in tex
     if has_table:
         assert "Refresh-matched myopic" in tex
         assert "Matched-Brier myopic" in tex
@@ -201,6 +203,10 @@ def test_paper_fragment_binding_matches_current_files() -> None:
     assert (
         binding["reporting"]["refresh_matched_myopic_amendment_sha256"]
         == frozen_report.REFRESH_MATCHED_MYOPIC_AMENDMENT_SHA256
+    )
+    assert (
+        binding["reporting"]["draw_stability_diagnostic_amendment_sha256"]
+        == frozen_report.DRAW_STABILITY_DIAGNOSTIC_AMENDMENT_SHA256
     )
     assert fragment.sha256_file(
         fragment.REPO_ROOT / binding["manuscript"]["path"]
