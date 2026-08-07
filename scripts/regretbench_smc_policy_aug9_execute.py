@@ -15,6 +15,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import regretbench_deepseek_smc_dynamic_depth2_daily as daily
+from scripts import regretbench_deepseek_smc_frozen_report as frozen_report
+from scripts import regretbench_deepseek_smc_paper_fragment as paper_fragment
 from scripts import regretbench_deepseek_support_recovery as primary
 from scripts.openrouter_daily_budget import read_live_credits
 
@@ -25,6 +27,32 @@ BINDINGS = daily.ROOT / "EXECUTION_BINDINGS.json"
 BINDINGS_SHA256 = (
     "8ae81b68ec666c3f64f583fd5dae4c95d4ef14a3e59933542a0850ccb2de973c"
 )
+REPORTING_BINDING = daily.ROOT / "REPORTING_BINDING.json"
+REPORTING_BINDING_SHA256 = (
+    "8ef67181f49149e39637036100b3713960a26ebf606152f1d0bbfa554fbf69bb"
+)
+PAPER_FRAGMENT_BINDING = daily.ROOT / "PAPER_FRAGMENT_BINDING.json"
+PAPER_FRAGMENT_BINDING_SHA256 = (
+    "df8a035f40d686609bd452bfdc5756625fcd910a76e9b663060c990788cda17a"
+)
+
+
+def _validate_derived_binding(path: Path, digest: str) -> int:
+    if primary.sha256_file(path) != digest:
+        raise RuntimeError(f"SMC derived binding changed: {path.name}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("status") != "prospectively_frozen_before_any_smc_policy_response":
+        raise RuntimeError(f"SMC derived binding status changed: {path.name}")
+    count = 0
+    for row in payload.values():
+        if not isinstance(row, dict) or "path" not in row:
+            continue
+        expected = row.get("sha256", row.get("preresult_sha256"))
+        bound = REPO_ROOT / row["path"]
+        if not bound.is_file() or primary.sha256_file(bound) != expected:
+            raise RuntimeError(f"SMC derived bound file changed: {row['path']}")
+        count += 1
+    return count
 
 
 def validate_bindings() -> dict[str, Any]:
@@ -50,10 +78,17 @@ def validate_bindings() -> dict[str, Any]:
         path = REPO_ROOT / relative
         if not path.is_file() or primary.sha256_file(path) != digest:
             raise RuntimeError(f"SMC policy bound file changed: {relative}")
+    derived = _validate_derived_binding(
+        REPORTING_BINDING, REPORTING_BINDING_SHA256
+    ) + _validate_derived_binding(
+        PAPER_FRAGMENT_BINDING, PAPER_FRAGMENT_BINDING_SHA256
+    )
     return {
         "status": "verified_frozen_execution",
         "bindings_sha256": BINDINGS_SHA256,
         "bound_files": len(expected),
+        "derived_bound_files": derived,
+        "reporting_bindings_verified": True,
         "model_calls_made": 0,
         "cost_usd": 0.0,
     }
@@ -90,12 +125,27 @@ def execute(
 ) -> dict[str, Any]:
     validate_bindings()
     result = daily.execute(now=now, live_reader=live_reader)
+    reporting = None
+    if result.get("status") == "complete_reconciled":
+        report = frozen_report.write_report(
+            daily.DEVELOPMENT_DIR,
+            primary_dir=daily.PRIMARY_DEVELOPMENT_DIR,
+        )
+        fragment = paper_fragment.write_fragment(
+            daily.DEVELOPMENT_DIR,
+            primary_dir=daily.PRIMARY_DEVELOPMENT_DIR,
+        )
+        reporting = {
+            "frozen_report": report,
+            "paper_fragment": fragment,
+        }
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
         "status": "complete",
         "next_stage": None,
         "stage_result": result,
+        "reporting": reporting,
     }
 
 

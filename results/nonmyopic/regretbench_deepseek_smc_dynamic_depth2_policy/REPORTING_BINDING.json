@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-smc-reporting-binding-1",
+  "status": "prospectively_frozen_before_any_smc_policy_response",
+  "stage": "development",
+  "reporting_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_REPORTING_PROTOCOL_20260807.md",
+    "sha256": "ecdaf0db59e658ce55f9d3d95aef38319c2ac3a07d81654b37ae836ce48a82bc"
+  },
+  "generator": {
+    "path": "scripts/regretbench_deepseek_smc_frozen_report.py",
+    "sha256": "2996d0cfd18e2ade3a7947492e0f07f13b1e452ee7d57a5cfbda27659bb11d43"
+  },
+  "independent_verifier": {
+    "path": "scripts/regretbench_deepseek_smc_dynamic_depth2_verify.py",
+    "sha256": "a9583aacb3aab231372a0c6d5294c087ef019a0af8c3160f2f25de435055dfbf"
+  },
+  "execution_binding": {
+    "path": "results/nonmyopic/regretbench_deepseek_smc_dynamic_depth2_policy/EXECUTION_BINDINGS.json",
+    "sha256": "8ae81b68ec666c3f64f583fd5dae4c95d4ef14a3e59933542a0850ccb2de973c"
+  },
+  "claim_tiers": [
+    "smc_mechanics_failure_no_scientific_result",
+    "smc_development_policy_null_confirmation_forbidden",
+    "smc_provisional_development_signal_confirmation_required"
+  ],
+  "headline_control": "smc_myopic_refresh_brier",
+  "development_can_be_called_confirmed": false,
+  "secondary_or_subgroup_evidence_can_change_tier": false,
+  "model_calls_made_while_freezing": 0,
+  "cost_usd_while_freezing": 0.0
+}

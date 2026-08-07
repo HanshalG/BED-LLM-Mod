@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-smc-paper-fragment-binding-1",
+  "status": "prospectively_frozen_before_any_smc_policy_response",
+  "reporting_binding": {
+    "path": "results/nonmyopic/regretbench_deepseek_smc_dynamic_depth2_policy/REPORTING_BINDING.json",
+    "sha256": "8ef67181f49149e39637036100b3713960a26ebf606152f1d0bbfa554fbf69bb"
+  },
+  "fragment_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_PAPER_FRAGMENT_PROTOCOL_20260807.md",
+    "sha256": "f13cd93f4674e211ce33e51825da6f28123256128c7ebb9e192a7aac84ddc7da"
+  },
+  "report_generator": {
+    "path": "scripts/regretbench_deepseek_smc_frozen_report.py",
+    "sha256": "2996d0cfd18e2ade3a7947492e0f07f13b1e452ee7d57a5cfbda27659bb11d43"
+  },
+  "fragment_generator": {
+    "path": "scripts/regretbench_deepseek_smc_paper_fragment.py",
+    "sha256": "1ea6cb7324b4daddcb17ebf0814a6325e52d06a20b41a6d9a6bd74c04b277056"
+  },
+  "manuscript": {
+    "path": "paper/main.tex",
+    "preresult_sha256": "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf",
+    "generated_fragment_path": "paper/generated/regretbench_result.tex",
+    "generated_fragment_absent_at_freeze": true,
+    "existing_conditional_include_reused": true
+  },
+  "requirements": {
+    "development_can_be_called_confirmed": false,
+    "refresh_matched_myopic_is_headline_horizon_control": true,
+    "mechanics_failure_has_no_efficacy_table": true,
+    "secondary_or_subgroup_evidence_can_change_tier": false,
+    "current_manuscript_claim_changed_while_fragment_absent": false
+  },
+  "model_calls_made_while_freezing": 0,
+  "cost_usd_while_freezing": 0.0
+}

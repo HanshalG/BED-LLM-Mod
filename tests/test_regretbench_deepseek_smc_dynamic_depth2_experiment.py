@@ -6,6 +6,8 @@ from pathlib import Path
 import pytest
 
 from scripts import regretbench_deepseek_smc_dynamic_depth2_experiment as experiment
+from scripts import regretbench_deepseek_smc_frozen_report as smc_report
+from scripts import regretbench_deepseek_smc_paper_fragment as smc_fragment
 from scripts import regretbench_deepseek_smc_dynamic_depth2_policy as core
 from scripts import regretbench_deepseek_smc_dynamic_depth2_verify as verifier
 
@@ -536,6 +538,21 @@ def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
     assert verification["status"] == "verified"
     assert verification["mismatches"] == []
     assert verification["model_calls"] == 0
+    (output_dir / "VERIFICATION.json").write_text(json.dumps(verification))
+    report_written = smc_report.write_report(
+        output_dir, primary_dir=primary_dir
+    )
+    frozen_report = smc_report.build_report(output_dir, primary_dir=primary_dir)
+    assert frozen_report["claim_tier"] == smc_report.CLAIMS[final["status"]][0]
+    assert frozen_report["pooled_or_secondary_evidence_can_change_tier"] is False
+    assert report_written["model_calls"] == 0
+    fragment_written = smc_fragment.write_fragment(
+        output_dir,
+        primary_dir=primary_dir,
+        output=tmp_path / "smc-result.tex",
+    )
+    assert fragment_written["claim_tier"] == frozen_report["claim_tier"]
+    assert fragment_written["model_calls"] == 0
 
     result_path = output_dir / "RESULT.json"
     stored_result = result_path.read_text()
@@ -549,6 +566,8 @@ def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
         path.startswith("$.tasks")
         for path in tampered_verification["mismatches"]
     )
+    with pytest.raises(ValueError, match="independently verified"):
+        smc_report.build_report(output_dir, primary_dir=primary_dir)
     result_path.write_text(stored_result)
 
     branches_path = output_dir / "private/RAW_BRANCHES.json"

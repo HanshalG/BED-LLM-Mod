@@ -14,6 +14,8 @@ def test_frozen_execution_bindings_are_exact() -> None:
 
     assert result["status"] == "verified_frozen_execution"
     assert result["bound_files"] == 14
+    assert result["derived_bound_files"] == 9
+    assert result["reporting_bindings_verified"] is True
     assert result["model_calls_made"] == 0
     assert result["cost_usd"] == 0.0
 
@@ -61,3 +63,34 @@ def test_binding_tamper_refuses_before_daily_execution(tmp_path, monkeypatch) ->
     with pytest.raises(RuntimeError, match="binding artifact changed"):
         execute.execute(live_reader=lambda: {})
     assert called == []
+
+
+@pytest.mark.parametrize(
+    ("stage_status", "expected_reporting"),
+    [("complete_reconciled", True), ("smoke_stopped", False)],
+)
+def test_reporting_runs_only_after_complete_development(
+    monkeypatch, stage_status, expected_reporting
+) -> None:
+    calls = []
+    monkeypatch.setattr(execute, "validate_bindings", lambda: {"status": "verified"})
+    monkeypatch.setattr(
+        execute.daily,
+        "execute",
+        lambda **kwargs: {"status": stage_status},
+    )
+    monkeypatch.setattr(
+        execute.frozen_report,
+        "write_report",
+        lambda *args, **kwargs: calls.append("report") or {"status": "written"},
+    )
+    monkeypatch.setattr(
+        execute.paper_fragment,
+        "write_fragment",
+        lambda *args, **kwargs: calls.append("fragment") or {"status": "written"},
+    )
+
+    result = execute.execute(live_reader=lambda: {})
+
+    assert (result["reporting"] is not None) is expected_reporting
+    assert calls == (["report", "fragment"] if expected_reporting else [])
