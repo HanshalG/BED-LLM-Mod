@@ -167,6 +167,11 @@ def test_confirmation_block_runs_and_replays_with_fixture(
     assert result["gates"][
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
     ]
+    assert result["gates"][
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half"
+    ]
+    assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
+    assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
     assert result["protocol"]["block_size"] == 16
     assert result["usage"]["adapter_requests"] <= 688
     replay = confirmation.replay_block(

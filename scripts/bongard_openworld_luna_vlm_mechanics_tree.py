@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-8"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-9"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -1026,6 +1026,7 @@ def mechanics_gates(
     trees: Sequence[dict[str, Any]],
     branch_diagnostics: Sequence[dict[str, Any]],
     branch_label_obedience: Mapping[str, Any],
+    terminal_label_obedience: Mapping[str, Any],
     history_blind_branch_count: int,
     paired_requests: Mapping[str, Any],
     final_pairing: Mapping[str, Any],
@@ -1150,6 +1151,11 @@ def mechanics_gates(
         >= MIN_MATERIAL_BRANCH_PAIRS,
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
             serving.branch_label_obedience_passes(branch_label_obedience)
+        ),
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half": (
+            serving.terminal_label_obedience_passes(
+                terminal_label_obedience
+            )
         ),
         "dynamic_depth2_changes_at_least_one_myopic_first_action": dynamic_changes >= 1,
         "dynamic_action_change_clears_numerical_tie_margin": (
@@ -1360,6 +1366,14 @@ def run_mechanics(
             selected_final_cases, final_responses, strict=True
         )
     ]
+    terminal_obedience = serving.terminal_label_obedience(
+        [
+            (case.task.initial_history, belief)
+            for case, belief in zip(
+                selected_final_cases, final_beliefs, strict=True
+            )
+        ]
+    )
     final_by_task_history = {
         (case.task.task_id, history_key(case.history)): belief
         for case, belief in zip(
@@ -1454,6 +1468,7 @@ def run_mechanics(
         trees=trees,
         branch_diagnostics=all_branch_diagnostics,
         branch_label_obedience=branch_obedience,
+        terminal_label_obedience=terminal_obedience,
         history_blind_branch_count=sum(
             len(branches) for branches in history_blind_by_task.values()
         ),
@@ -1529,6 +1544,10 @@ def run_mechanics(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md"
             ),
+            "terminal_obedience_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+            ),
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,
             "random_seed": RANDOM_SEED,
@@ -1555,6 +1574,7 @@ def run_mechanics(
         / len(trees),
         "mean_ranking_fidelity": ranking_fidelity,
         "branch_label_obedience": branch_obedience,
+        "terminal_label_obedience": terminal_obedience,
         "paired_request_diagnostics": paired_requests,
         "final_request_pairing": final_pairing,
         "comparisons_vs_myopic": {

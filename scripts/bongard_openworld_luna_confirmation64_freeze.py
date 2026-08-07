@@ -25,7 +25,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-6"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-7"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -74,7 +74,7 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7b96e8c0b86e6ccadbdddb521e150d687218e959cd382c3cdb4f82fa8c4f7973"
+    "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -194,6 +194,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "scripts/bongard_openworld_luna_vlm_development.py",
         "scripts/bongard_openworld_luna_claim_report.py",
         "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     )
     gates = {
         "source_manifest_hash_matches": (
@@ -303,6 +304,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             "intermediate_scientific_endpoints_remain_sealed": True,
             "endpoint_labels_load_only_after_all_blocks_replay": True,
             "common_random_numbers_and_matched_history_blind_control_unchanged": True,
+            "terminal_belief_label_obedience_is_a_mandatory_block_gate": True,
             "bootstrap_replicates": BOOTSTRAP_REPLICATES,
             "bootstrap_seed": BOOTSTRAP_SEED,
             "minimum_changed_final_histories": MIN_CHANGED_FINAL_HISTORIES,

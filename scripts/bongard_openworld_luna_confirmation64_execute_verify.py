@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_confirmation64_verify as protocol_verify
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-execute-verify-1"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-execute-verify-2"
 CORE = REPO_ROOT / "scripts/bongard_openworld_luna_confirmation64.py"
 DAILY = REPO_ROOT / (
     "scripts/bongard_openworld_luna_confirmation64_daily_execute.py"
@@ -25,10 +25,17 @@ AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_LUNA_CONFIRMATION64_EXECUTION_AMENDMENT.md"
 )
-CORE_SHA256 = "81da7cce28220b29b7f029d85c9793d8374fb26d6ec77bb42b6811bbd28ae6d5"
+TERMINAL_OBEDIENCE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+)
+CORE_SHA256 = "0235ceb2d7b41e84c9258f5d34723de41e092df3300231e164facb860230a05e"
 DAILY_SHA256 = "0a6355e2239799f29e0fab2bdb0600285051b1217cbe7be97606c2dbdc4e77ee"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
+)
+TERMINAL_OBEDIENCE_AMENDMENT_SHA256 = (
+    "0706ff63310ee3b2c7ca603cadf43308d0e427868a11ae99959d81d126219daf"
 )
 
 
@@ -41,6 +48,7 @@ def verify_execution_bindings() -> dict[str, Any]:
         CORE: CORE_SHA256,
         DAILY: DAILY_SHA256,
         AMENDMENT: AMENDMENT_SHA256,
+        TERMINAL_OBEDIENCE_AMENDMENT: TERMINAL_OBEDIENCE_AMENDMENT_SHA256,
     }
     changed = [
         str(path)
@@ -58,6 +66,9 @@ def verify_execution_bindings() -> dict[str, Any]:
         "core_sha256": CORE_SHA256,
         "daily_sha256": DAILY_SHA256,
         "execution_amendment_sha256": AMENDMENT_SHA256,
+        "terminal_obedience_amendment_sha256": (
+            TERMINAL_OBEDIENCE_AMENDMENT_SHA256
+        ),
         "protocol_manifest_sha256": protocol["manifest_sha256"],
     }
 

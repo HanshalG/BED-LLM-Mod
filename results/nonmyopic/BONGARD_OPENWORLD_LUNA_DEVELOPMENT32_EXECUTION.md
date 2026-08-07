@@ -38,13 +38,14 @@ every prior block's result, ledger, and daily wrapper. Before a predecessor is
 available it returns `waiting_for_aug10` or `waiting_for_block_<id>` rather
 than creating files. Partial, tampered, or out-of-order predecessors fail.
 
-The executable development interface is v10. Each block has exactly 264
+The executable development interface is v11. Each block has exactly 264
 first-stage requests: eight roots, 128 answer-conditioned branches, and 128
 paired history-blind branches. It then generates 32--80 distinct final
 histories, for 296--344 total requests. Interface-v2/v3 artifacts are invalid.
-The current image-unique partition manifest SHA is
-`7b96e8c0...4f7973` and is bound directly in the execution wrapper. V10
-supersedes the earlier row-disjoint partition before any model response.
+The current image-unique, terminal-obedience manifest SHA is
+`a0b70ff8...15a7708` and is bound directly in the execution wrapper. V11
+supersedes the earlier row-disjoint and terminal-unchecked interfaces before
+any model response.
 
 ## Execution Guarantees
 

@@ -175,6 +175,71 @@ def test_branch_obedience_rejects_support_change_that_ignores_negative_label() -
     assert smoke.branch_label_obedience_passes(obedience) is False
 
 
+def test_terminal_obedience_requires_both_new_query_labels() -> None:
+    task = _task(1)
+    histories = [
+        tuple(
+            sorted(
+                (
+                    *task.initial_history,
+                    (task.candidate_ids[0], True),
+                    (task.candidate_ids[1], False),
+                )
+            )
+        ),
+        tuple(
+            sorted(
+                (
+                    *task.initial_history,
+                    (task.candidate_ids[2], False),
+                    (task.candidate_ids[3], True),
+                )
+            )
+        ),
+    ]
+    beliefs = []
+    for index, history in enumerate(histories):
+        case = smoke.SmokeCase(
+            case_id=f"terminal-{index}",
+            task=task,
+            history=history,
+            kind="final",
+        )
+        beliefs.append(
+            bed.parse_belief_response(
+                _response(case), image_ids=task.image_ids, history=history
+            )
+        )
+    obedience = smoke.terminal_label_obedience(
+        [(task.initial_history, belief) for belief in beliefs]
+    )
+    assert obedience["queried_label_count"] == 4
+    assert obedience["negative_label_count"] == 2
+    assert obedience["positive_label_count"] == 2
+    assert smoke.terminal_label_obedience_passes(obedience)
+
+    value = json.loads(_response(
+        smoke.SmokeCase(
+            case_id="terminal-adversary",
+            task=task,
+            history=histories[0],
+            kind="final",
+        )
+    ))
+    negative_id = task.candidate_ids[1]
+    negative_index = task.image_ids.index(negative_id)
+    for row in value["hypotheses"]:
+        row["positive_probabilities"][negative_index] = 90
+    adversary = bed.parse_belief_response(
+        json.dumps(value), image_ids=task.image_ids, history=histories[0]
+    )
+    failed = smoke.terminal_label_obedience(
+        [(task.initial_history, adversary), (task.initial_history, beliefs[1])]
+    )
+    assert failed["negative_mean_brier"] > 0.25
+    assert smoke.terminal_label_obedience_passes(failed) is False
+
+
 def test_luna_payload_removes_unsupported_sampling_parameters(monkeypatch) -> None:
     def base_payload(*args, **kwargs):
         del args, kwargs

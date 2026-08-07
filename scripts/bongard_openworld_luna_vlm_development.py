@@ -33,7 +33,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-10"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-11"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -81,6 +81,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_BRANCH_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -569,6 +570,12 @@ def _build_artifacts(
         )
         for case, response in zip(final_cases, final_responses, strict=True)
     ]
+    terminal_obedience = serving.terminal_label_obedience(
+        [
+            (case.task.initial_history, belief)
+            for case, belief in zip(final_cases, final_beliefs, strict=True)
+        ]
+    )
     final_by_history = {
         (case.task.task_id, mechanics.history_key(case.history)): belief
         for case, belief in zip(final_cases, final_beliefs, strict=True)
@@ -638,6 +645,7 @@ def _build_artifacts(
         "final_by_history": final_by_history,
         "branch_diagnostics": diagnostics,
         "branch_label_obedience": branch_obedience,
+        "terminal_label_obedience": terminal_obedience,
         "trees": trees,
     }
 
@@ -695,6 +703,11 @@ def _block_gates(
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
             serving.branch_label_obedience_passes(
                 artifacts["branch_label_obedience"]
+            )
+        ),
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half": (
+            serving.terminal_label_obedience_passes(
+                artifacts["terminal_label_obedience"]
             )
         ),
         "exact_paired_seed_and_prompt_difference_accounting": (
@@ -1022,6 +1035,10 @@ def run_block(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md"
             ),
+            "terminal_obedience_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+            ),
             "block_id": block_id,
             "block_size": BLOCK_SIZES[block_id],
             "block_offset": BLOCK_OFFSETS[block_id],
@@ -1050,6 +1067,7 @@ def run_block(
             row["material"] for row in artifacts["branch_diagnostics"]
         ),
         "branch_label_obedience": artifacts["branch_label_obedience"],
+        "terminal_label_obedience": artifacts["terminal_label_obedience"],
         "paired_request_diagnostics": paired_requests,
         "final_request_pairing": final_pairing,
         "gates": gates,

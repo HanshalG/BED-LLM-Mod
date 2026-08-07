@@ -227,6 +227,11 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     ]
     assert result["branch_label_obedience"]["negative_mean_brier"] < 0.25
     assert result["branch_label_obedience"]["positive_mean_brier"] < 0.25
+    assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
+    assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
+    assert result["gates"][
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half"
+    ]
     assert result["protocol"]["endpoint_labels_accessed"] is False
     assert result["protocol"]["first_stage_requests"] == 264
     assert result["protocol"]["conditioned_branch_requests"] == 128

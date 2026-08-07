@@ -27,6 +27,12 @@ The matched fixed-score amendment advances the interface to `-9`, adds one
 zero-call control policy, and adds a conjunctive first-action causal gate.
 Calls, prompts, tasks, seeds, endpoints, and budgets remain unchanged because
 its terminal history is already in the all-first-action cache.
+The image-byte partition-integrity repair advances the interface to `-10`
+while preserving the 32-task size. The terminal label-obedience amendment
+advances the current interface to `-11`: every terminal belief must predict
+both newly queried label classes better than constant half before a block can
+pass mechanics. Neither amendment changes calls, policies, endpoints, or
+scientific thresholds.
 
 ## Claim And Boundary
 
@@ -116,6 +122,12 @@ second label; each policy receives only labels on its executed path. A block is
 represented in memory with endpoint labels removed from the task mapping. The
 block result contains no endpoint metrics and has scientific status
 `sealed_until_all_blocks_complete`.
+
+As a block-level validity gate, every distinct terminal belief must preserve
+the four initial labels, contain exactly the two labels queried on its path,
+and achieve class-conditional queried-label Brier below `0.25` for both
+positive and negative observations. This uses no endpoint label and can only
+fail a block; it cannot create a favorable scientific endpoint.
 
 Requests are issued in deterministic chunks of at most 24. Every returned
 chunk is strict-parsed and checkpointed with its exact case IDs before the next

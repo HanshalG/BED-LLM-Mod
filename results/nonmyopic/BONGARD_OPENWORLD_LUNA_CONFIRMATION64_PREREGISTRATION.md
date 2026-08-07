@@ -108,10 +108,10 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V6.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V7.json`
 
 SHA-256:
-`7c14a11e1d3d469697c8545abb58c41d01fd5275f6bfa3f5eb4a60783e6d3ed0`.
+`02c38bf7e27d7b825fe608a171b975fa43a8bb7015eb9bb1b2089b61881969d6`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
@@ -134,3 +134,7 @@ models, prompts, policies, seeds, counts, dates, endpoints, thresholds, and
 claim gates while replacing seven confirmation rows under the frozen seeded
 ordering. The repaired development and confirmation partitions have no exact
 image-byte reuse and pass the supplementary strict perceptual screen.
+V7 adds the pre-response terminal label-obedience validity gate. Every
+terminal belief must retain both newly queried label classes with
+class-conditional Brier below constant half. It adds no request and changes no
+scientific endpoint or threshold.

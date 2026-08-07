@@ -293,6 +293,83 @@ def branch_label_obedience_passes(metrics: Mapping[str, Any]) -> bool:
     )
 
 
+def terminal_label_obedience(
+    rows: Sequence[
+        tuple[Sequence[tuple[str, bool]], bed.SemanticBelief]
+    ],
+) -> dict[str, Any]:
+    """Measure whether terminal beliefs retain both newly queried labels."""
+    if not rows:
+        raise ValueError("terminal-label obedience requires terminal beliefs")
+    details = []
+    for initial_history, belief in rows:
+        initial = dict(initial_history)
+        history = dict(belief.history)
+        if any(history.get(image_id) is not label for image_id, label in initial.items()):
+            raise ValueError("terminal belief changed an initial observed label")
+        newly_observed = [
+            (image_id, label)
+            for image_id, label in belief.history
+            if image_id not in initial
+        ]
+        if len(newly_observed) != 2:
+            raise ValueError("terminal belief must contain exactly two queried labels")
+        for image_id, label in newly_observed:
+            positive_probability = bed.predictive_probability(belief, image_id)
+            truth_probability = (
+                positive_probability if label else 1.0 - positive_probability
+            )
+            details.append(
+                {
+                    "image_id": image_id,
+                    "label": bed.LABELS[label],
+                    "truth_probability": truth_probability,
+                    "brier": (1.0 - truth_probability) ** 2,
+                }
+            )
+    by_label = {
+        label: [row for row in details if row["label"] == bed.LABELS[label]]
+        for label in (False, True)
+    }
+    return {
+        "terminal_history_count": len(rows),
+        "queried_label_count": len(details),
+        "negative_label_count": len(by_label[False]),
+        "positive_label_count": len(by_label[True]),
+        "negative_mean_brier": (
+            sum(row["brier"] for row in by_label[False]) / len(by_label[False])
+            if by_label[False]
+            else None
+        ),
+        "positive_mean_brier": (
+            sum(row["brier"] for row in by_label[True]) / len(by_label[True])
+            if by_label[True]
+            else None
+        ),
+        "rows": details,
+    }
+
+
+def terminal_label_obedience_passes(metrics: Mapping[str, Any]) -> bool:
+    negative = metrics.get("negative_mean_brier")
+    positive = metrics.get("positive_mean_brier")
+    return (
+        int(metrics.get("terminal_history_count", 0)) > 0
+        and int(metrics.get("queried_label_count", 0))
+        == 2 * int(metrics.get("terminal_history_count", 0))
+        and int(metrics.get("negative_label_count", 0)) > 0
+        and int(metrics.get("positive_label_count", 0)) > 0
+        and isinstance(negative, (int, float))
+        and not isinstance(negative, bool)
+        and isinstance(positive, (int, float))
+        and not isinstance(positive, bool)
+        and math.isfinite(float(negative))
+        and math.isfinite(float(positive))
+        and float(negative) < MAX_BRANCH_LABEL_BRIER
+        and float(positive) < MAX_BRANCH_LABEL_BRIER
+    )
+
+
 def serving_metrics(
     cases: Sequence[SmokeCase],
     beliefs: Sequence[bed.SemanticBelief],

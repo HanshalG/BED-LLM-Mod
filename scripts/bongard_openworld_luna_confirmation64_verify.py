@@ -23,13 +23,13 @@ from scripts import bongard_openworld_partition_integrity_audit as partition_aud
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-6"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-7"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V6.json"
+    "PROTOCOL_MANIFEST_V7.json"
 )
 MANIFEST_SHA256 = (
-    "7c14a11e1d3d469697c8545abb58c41d01fd5275f6bfa3f5eb4a60783e6d3ed0"
+    "02c38bf7e27d7b825fe608a171b975fa43a8bb7015eb9bb1b2089b61881969d6"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -38,7 +38,7 @@ PARTITION_MANIFEST_SHA256 = (
     partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7b96e8c0b86e6ccadbdddb521e150d687218e959cd382c3cdb4f82fa8c4f7973"
+    "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
 )
 CONFIRMATION_UID_SHA256 = (
     "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
@@ -78,6 +78,7 @@ IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_luna_vlm_development.py",
     "scripts/bongard_openworld_luna_claim_report.py",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -211,6 +212,10 @@ def verify_manifest(
             is True
             and protocol.get(
                 "common_random_numbers_and_matched_history_blind_control_unchanged"
+            )
+            is True
+            and protocol.get(
+                "terminal_belief_label_obedience_is_a_mandatory_block_gate"
             )
             is True
             and protocol.get(

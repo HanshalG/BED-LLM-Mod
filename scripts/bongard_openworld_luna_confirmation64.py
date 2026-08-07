@@ -30,7 +30,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-4"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-5"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -203,6 +203,11 @@ def _block_gates(
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
             serving.branch_label_obedience_passes(
                 artifacts["branch_label_obedience"]
+            )
+        ),
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half": (
+            serving.terminal_label_obedience_passes(
+                artifacts["terminal_label_obedience"]
             )
         ),
         "exact_paired_seed_and_prompt_difference_accounting": (
@@ -434,6 +439,10 @@ def run_block(
             + len(artifacts["final_cases"]),
             "maximum_requests": MAX_REQUESTS_PER_BLOCK,
             "run_budget_usd": RUN_BUDGET_USD,
+            "terminal_obedience_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+            ),
             "endpoint_labels_accessed": False,
             "intermediate_science_accessed": False,
             "sealed_test_accessed": False,
@@ -443,6 +452,7 @@ def run_block(
         "protocol_manifest_verification": manifest,
         "usage": usage,
         "branch_label_obedience": artifacts["branch_label_obedience"],
+        "terminal_label_obedience": artifacts["terminal_label_obedience"],
         "paired_request_diagnostics": paired,
         "final_request_pairing": final_pairing,
         "gates": gates,
@@ -501,8 +511,12 @@ def replay_block(
         ),
         "expected_total_requests": protocol.get("expected_total_requests"),
         "maximum_requests": MAX_REQUESTS_PER_BLOCK,
-        "run_budget_usd": RUN_BUDGET_USD,
-        "endpoint_labels_accessed": False,
+            "run_budget_usd": RUN_BUDGET_USD,
+            "terminal_obedience_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+            ),
+            "endpoint_labels_accessed": False,
         "intermediate_science_accessed": False,
         "sealed_test_accessed": False,
     }

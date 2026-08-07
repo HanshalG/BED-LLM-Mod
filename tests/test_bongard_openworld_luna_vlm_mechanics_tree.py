@@ -203,6 +203,11 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     ]
     assert result["branch_label_obedience"]["negative_mean_brier"] < 0.25
     assert result["branch_label_obedience"]["positive_mean_brier"] < 0.25
+    assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
+    assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
+    assert result["gates"][
+        "terminal_beliefs_retain_both_queried_labels_better_than_constant_half"
+    ]
     assert result["protocol"]["first_stage_requests"] == 132
     assert result["protocol"]["conditioned_branch_requests"] == 64
     assert result["protocol"]["history_blind_branch_requests"] == 64
