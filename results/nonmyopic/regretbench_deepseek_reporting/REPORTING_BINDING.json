@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-frozen-report-binding-1",
+  "status": "frozen_before_responses",
+  "scientific_contract_changed": false,
+  "protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_REPORTING_PROTOCOL_20260807.md",
+    "sha256": "6594c91f2ceb5897ec0b2a0d1f6e58a5e4690325503414d9655aa45332be63f2"
+  },
+  "generator": {
+    "path": "scripts/regretbench_deepseek_frozen_report.py",
+    "sha256": "c88deac8e90f040fcd91f9f752cf6c84c4cb1e8c8f81c4e4a9c09d05abbde28f"
+  },
+  "inputs": {
+    "result": "RESULT.json",
+    "independent_verification": "VERIFICATION.json",
+    "verification_must_hash_bind_result": true
+  },
+  "outputs": {
+    "json": "FROZEN_REPORT.json",
+    "markdown": "FROZEN_REPORT.md",
+    "manuscript_auto_edit": false
+  },
+  "claim_tiers": [
+    "mechanics_failure_no_scientific_result",
+    "development_policy_null_confirmation_forbidden",
+    "provisional_development_signal_confirmation_required",
+    "confirmation_null_development_not_confirmed",
+    "confirmed_llm_native_nonmyopic_signal"
+  ],
+  "requirements": {
+    "development_and_confirmation_reported_separately": true,
+    "aligned_endpoint_is_primary": true,
+    "invalid_path_penalty_visible": true,
+    "all_primary_policies_visible": true,
+    "all_paired_controls_visible": true,
+    "ranking_fidelity_visible": true,
+    "all_science_and_mechanics_gates_visible": true,
+    "fresh_regeneration_is_secondary": true,
+    "naive_thinking_is_optional_unmatched_compute": true,
+    "null_and_mechanics_states_are_mandatory": true,
+    "pooled_or_secondary_evidence_can_change_tier": false,
+    "model_calls_made_by_binding": 0,
+    "cost_usd_by_binding": 0.0
+  }
+}
