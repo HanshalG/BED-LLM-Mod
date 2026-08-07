@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-deepseek-smc-execution-bindings-1",
+  "date": "2026-08-09",
+  "status": "prospectively_frozen_before_primary_responses",
+  "authorization": "verified_primary_gated_null_only",
+  "files": {
+    "results/nonmyopic/REGRETBENCH_SMC_SUPPORT_RECOVERY_CONTINGENCY_20260807.md": "b8eafe438c21e4793a59bd24a0991d20ecf4f53efa5a19fe21dc4eed7c22f807",
+    "scripts/regretbench_deepseek_smc_support_recovery.py": "91be9699391aa67070174ca3be2fdb7b6cd9e1ae210fcbb0f5c7e35ba601f280",
+    "scripts/regretbench_deepseek_smc_support_recovery_verify.py": "fab0b932c1c00ccb2a7333f63394e16b930cd238c3d5f1da73c8692992fa1e2a",
+    "scripts/regretbench_deepseek_smc_support_recovery_daily.py": "18805dbd9f79e002fd6eaa6df9aa2c8da1afdc76cd360b0f9f26e7b2f64d7c84"
+  },
+  "paid_calls_made_while_freezing": 0,
+  "cost_usd_while_freezing": 0.0
+}
