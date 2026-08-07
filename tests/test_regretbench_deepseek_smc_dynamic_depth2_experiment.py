@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts import regretbench_deepseek_smc_dynamic_depth2_experiment as experiment
 from scripts import regretbench_deepseek_smc_dynamic_depth2_policy as core
 
@@ -73,11 +75,15 @@ def _install_primary_stage(path: Path, stage: str) -> dict[str, dict]:
             }
         )
         info[cig.cig_id] = {
+            "truth_index": truth_index,
+            "truth": truth,
             "first_question": first_question,
             "first_reply": first_mapping["answer"],
             "second_question": second_question,
+            "transition_question": second_question,
             "second_reply": second_mapping["answer"],
             "truth_answer": truth_answer,
+            "questions": questions,
         }
     private = path / "private"
     private.mkdir(parents=True)
@@ -192,7 +198,7 @@ class _Adapter:
                 }
             )
         questions = [
-            task["second_question"],
+            task["transition_question"],
             "Which period is intended?",
             "Which category is intended?",
             "Which comparison is intended?",
@@ -242,7 +248,46 @@ class _Adapter:
         }
 
 
-def test_exact_ten_smc_enriched_smoke(tmp_path) -> None:
+class _NaiveAdapter:
+    def __init__(self) -> None:
+        self.requests = 0
+
+    def chat_complete_seeded_messages_batched_structured(
+        self,
+        messages,
+        seeds,
+        *,
+        temperature,
+        response_format,
+        max_new_tokens,
+    ):
+        self.requests += len(messages)
+        responses = []
+        for request in messages:
+            payload = json.loads(request[1]["content"])
+            label = "second" if payload["dialogue"] else "first"
+            responses.append(
+                json.dumps(
+                    {"question": f"Naive {label} question for {payload['task_id']}?"}
+                )
+            )
+        return responses
+
+    def usage_snapshot(self):
+        return {
+            "adapter_requests": self.requests,
+            "http_attempts": self.requests,
+            "retry_count": 0,
+            "provider_error_retries": 0,
+            "adapter_reasoning_tokens": self.requests * 5,
+            "forced_exits": 0,
+            "adapter_cost_usd": 0.0,
+            "adapter_prompt_tokens": self.requests * 10,
+            "adapter_completion_tokens": self.requests * 10,
+        }
+
+
+def test_exact_ten_smc_enriched_smoke(tmp_path, monkeypatch) -> None:
     primary_dir = tmp_path / "primary-smoke"
     info = _install_primary_stage(primary_dir, "smoke")
     predecessor = _install_smc_pass(tmp_path / "smc-pass")
@@ -264,6 +309,27 @@ def test_exact_ten_smc_enriched_smoke(tmp_path) -> None:
     assert adapter.requests == 10
     assert adapter.schema_names.count("regretbench_smc_parent_annotation") == 4
     assert adapter.schema_names.count("regretbench_smc_enriched_transition") == 6
+
+    def fake_naive_map(cig, question, truth):
+        label = "first" if "first" in question else "second"
+        return {
+            "supported": True,
+            "facet": f"naive-{label}",
+            "confidence": 1.0,
+            "method": "test",
+            "answer": info[cig.cig_id][f"{label}_reply"],
+        }
+
+    monkeypatch.setattr(experiment.primary, "map_and_answer", fake_naive_map)
+    naive = experiment.run_naive_smoke(
+        output_dir=tmp_path / "naive-smoke-output",
+        adapter=_NaiveAdapter(),
+        policy_smoke_result=tmp_path / "smoke-output/RESULT.json",
+        daily_budget_status={"authorized": True},
+    )
+    assert naive["status"] == "passed"
+    assert naive["gates"]["all_pass"] is True
+    assert naive["usage"]["adapter_requests"] == 10
 
 
 def test_full_8256_planning_schedule_freezes_before_truth(tmp_path) -> None:
@@ -298,3 +364,182 @@ def test_full_8256_planning_schedule_freezes_before_truth(tmp_path) -> None:
     )
     assert frozen["hidden_truth_accessed"] is False
     assert frozen["planning_requests"] == 8_256
+
+
+def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
+    tmp_path, monkeypatch
+) -> None:
+    primary_dir = tmp_path / "primary-development"
+    info = _install_primary_stage(primary_dir, "development")
+    for task_id, row in info.items():
+        row["transition_question"] = f"Which new follow-up applies to {task_id}?"
+    adapter = _Adapter(info)
+    output_dir = tmp_path / "planning-output"
+    tree = experiment.build_development_planning_tree(
+        output_dir=output_dir,
+        adapter=adapter,
+        primary_development_dir=primary_dir,
+    )
+
+    def fake_truth(cig, seed):
+        row = info[cig.cig_id]
+        return row["truth_index"], row["truth"]
+
+    def fake_map(cig, question, truth):
+        row = info[cig.cig_id]
+        if question.startswith("Naive first"):
+            return {
+                "supported": True,
+                "facet": "naive-first",
+                "confidence": 1.0,
+                "method": "test",
+                "answer": row["first_reply"],
+            }
+        if question.startswith("Naive second"):
+            return {
+                "supported": True,
+                "facet": "naive-second",
+                "confidence": 1.0,
+                "method": "test",
+                "answer": row["second_reply"],
+            }
+        if question == row["transition_question"]:
+            return {
+                "supported": True,
+                "facet": "followup",
+                "confidence": 1.0,
+                "method": "test",
+                "answer": row["second_reply"],
+            }
+        root = row["questions"].index(question)
+        answers = [
+            row["first_reply"],
+            row["second_reply"],
+            "category 0",
+            "constant comparison",
+        ]
+        return {
+            "supported": True,
+            "facet": f"root-{root}",
+            "confidence": 1.0,
+            "method": "test",
+            "answer": answers[root],
+        }
+
+    monkeypatch.setattr(experiment.primary, "sample_truth", fake_truth)
+    monkeypatch.setattr(experiment.primary, "map_and_answer", fake_map)
+
+    realized = experiment.run_realized_primary(
+        output_dir=output_dir,
+        adapter=adapter,
+        tree=tree,
+        bootstrap_samples=100,
+    )
+
+    assert realized["mechanics_gates"]["all_pass"] is True
+    assert realized["expected_primary_requests"] <= 8_768
+    assert realized["usage"]["adapter_requests"] == realized[
+        "expected_primary_requests"
+    ]
+    assert len(realized["tasks"]) == 64
+    assert all(
+        metrics["posterior_parent_update_applied"] is True
+        for task in realized["tasks"]
+        for metrics in task["policies"].values()
+    )
+    assert all(
+        metrics["valid_two_action_trajectory"] is True
+        and metrics["second_reply_likelihood_matched"] is True
+        for task in realized["tasks"]
+        for metrics in task["policies"].values()
+    )
+    raw = json.loads(
+        (output_dir / "private/RAW_ACTUAL_PRIMARY.json").read_text()
+    )
+    assert len(raw["first_responses"]) == len(raw["final_responses"])
+    assert all(
+        row["seed"] == 202608340000 + row["task_index"]
+        for row in raw["first_manifest"]
+    )
+    assert all(
+        row["seed"] == 202608350000 + row["task_index"]
+        for row in raw["final_manifest"]
+    )
+
+    naive = experiment.run_naive_baseline(
+        output_dir=output_dir,
+        contexts=tree["contexts"],
+        initial_supports=tree["initial_supports"],
+        naive_adapter=_NaiveAdapter(),
+        endpoint_adapter=_Adapter(info),
+    )
+    assert naive["status"] == "available"
+    assert len(naive["rows"]) == 64
+    assert naive["luna_usage"]["adapter_requests"] == 128
+    assert naive["endpoint_usage"]["adapter_requests"] == 128
+    assert naive["diagnostics"]["all_descriptive_diagnostics_pass"] is True
+    assert all(row["valid_two_action_trajectory"] for row in naive["rows"])
+
+    final = experiment.finalize_development_result(
+        output_dir=output_dir,
+        primary_result=realized,
+        policy_smoke={"sha256": "policy-smoke"},
+        naive_smoke={"sha256": "naive-smoke"},
+        naive_result=naive,
+        daily_budget_status={"authorized": True},
+        bootstrap_samples=100,
+    )
+    assert final["mechanics_gates"]["all_pass"] is True
+    assert final["usage"]["combined_requests"] <= 9_024
+    assert final["usage"]["deepseek_naive_endpoint"]["adapter_requests"] == 128
+    assert final["usage"]["naive_luna"]["adapter_requests"] == 128
+    assert all("naive_thinking" in task["policies"] for task in final["tasks"])
+    assert json.loads((output_dir / "RESULT.json").read_text())["status"] == final[
+        "status"
+    ]
+
+    without_naive = experiment.finalize_development_result(
+        output_dir=tmp_path / "without-naive",
+        primary_result=realized,
+        policy_smoke={"sha256": "policy-smoke"},
+        naive_smoke={"status": "failed"},
+        naive_result=None,
+        naive_error={"error": "baseline unavailable"},
+        naive_usage_on_error={
+            **experiment._empty_usage(),
+            "adapter_requests": 3,
+            "http_attempts": 3,
+            "run_cost_usd": 0.01,
+        },
+        endpoint_usage_on_error={
+            **experiment._empty_usage(),
+            "adapter_requests": 2,
+            "http_attempts": 2,
+            "run_cost_usd": 0.01,
+        },
+        bootstrap_samples=100,
+    )
+    assert without_naive["mechanics_gates"]["all_pass"] is True
+    assert without_naive["status"] == final["status"]
+    assert without_naive["naive_baseline"]["status"] == "unavailable"
+    assert without_naive["usage"]["combined_requests"] == (
+        realized["usage"]["adapter_requests"] + 5
+    )
+    assert all(
+        "naive_thinking" not in task["policies"]
+        for task in without_naive["tasks"]
+    )
+
+    frozen_path = output_dir / "private/FROZEN_SELECTIONS.json"
+    frozen = json.loads(frozen_path.read_text())
+    frozen["hidden_truth_accessed"] = True
+    frozen_path.write_text(json.dumps(frozen))
+    requests_before_refusal = adapter.requests
+    with pytest.raises(ValueError, match="not frozen before truth"):
+        experiment.run_realized_primary(
+            output_dir=output_dir,
+            adapter=adapter,
+            tree=tree,
+            bootstrap_samples=100,
+        )
+    assert adapter.requests == requests_before_refusal
