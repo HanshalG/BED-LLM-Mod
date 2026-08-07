@@ -13,8 +13,8 @@ def test_frozen_execution_bindings_are_exact() -> None:
     result = execute.validate_bindings()
 
     assert result["status"] == "verified_frozen_execution"
-    assert result["bound_files"] == 14
-    assert result["derived_bound_files"] == 9
+    assert result["bound_files"] == 15
+    assert result["derived_bound_files"] == 11
     assert result["reporting_bindings_verified"] is True
     assert result["model_calls_made"] == 0
     assert result["cost_usd"] == 0.0

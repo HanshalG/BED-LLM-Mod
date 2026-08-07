@@ -34,7 +34,7 @@ PROTOCOL_SHA256 = (
     "97e9e7a582d38ae989042352755ee500ae4a42726dd6a431309a8e66102dd3cd"
 )
 PRODUCER_SHA256 = (
-    "dd0bf57bcbf598721883add6900957ab4f7203765dd13d8be7b8a5c832bc16bd"
+    "6525ce70ca1f14553e2de3e2e1f79ac43c6647a95c61d1b7fed88a051c91949a"
 )
 PARTICLES = 8
 QUESTIONS = 4
@@ -57,6 +57,28 @@ SMOKE_ANNOTATION_SEED_START = 202608290000
 SMOKE_BRANCH_SEED_START = 202608291000
 PRIMARY_SMOKE_TRUTH_SEED_START = 202608081100
 PROBABILITY_FLOOR = 1e-12
+CLAIM_GATE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md"
+)
+CLAIM_GATE_AMENDMENT_SHA256 = (
+    "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
+)
+PRIMARY_CLAIM_GATE_NAMES = (
+    "dynamic_refresh_myopic_differ_at_least_16",
+    "predicted_gain_over_refresh_myopic_at_least_001",
+    "dynamic_refresh_myopic_brier_gain_at_least_002",
+    "dynamic_refresh_myopic_probability_at_least_090",
+    "dynamic_refresh_myopic_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_refresh_myopic",
+    "refresh_myopic_predicted_realized_spearman_at_least_015",
+    "refresh_myopic_spearman_probability_positive_at_least_080",
+    "dynamic_blind_differ_at_least_12",
+    "dynamic_blind_brier_gain_at_least_0015",
+    "dynamic_blind_probability_at_least_080",
+    "dynamic_blind_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_blind",
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -381,6 +403,8 @@ def _scorer_tasks(tasks: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[str, Any]:
+    if sha256_file(CLAIM_GATE_AMENDMENT) != CLAIM_GATE_AMENDMENT_SHA256:
+        raise ValueError("SMC primary claim-gate amendment changed")
     prior = base.BOOTSTRAP_SEED
     base.BOOTSTRAP_SEED = BOOTSTRAP_SEED
     try:
@@ -392,6 +416,22 @@ def _science(tasks: Sequence[Mapping[str, Any]], samples: int) -> dict[str, Any]
             (name if name == "random" else f"smc_{name}"): row
             for name, row in value[field].items()
         }
+    original_gates = dict(value["gates"])
+    diagnostic_gates = {
+        key: row for key, row in original_gates.items() if key != "all_pass"
+    }
+    if len(diagnostic_gates) != 34:
+        raise ValueError("shared RegretBench diagnostic gate set changed")
+    primary_gates = {
+        key: diagnostic_gates[key] for key in PRIMARY_CLAIM_GATE_NAMES
+    }
+    primary_pass = all(primary_gates.values())
+    value["gates"] = {**diagnostic_gates, "all_pass": primary_pass}
+    value["primary_claim_gate_names"] = list(PRIMARY_CLAIM_GATE_NAMES)
+    value["primary_claim_gates"] = primary_gates
+    value["primary_claim_all_pass"] = primary_pass
+    value["all_34_diagnostic_gates_pass"] = all(diagnostic_gates.values())
+    value["claim_gate_amendment_sha256"] = CLAIM_GATE_AMENDMENT_SHA256
     return value
 
 
@@ -1014,6 +1054,7 @@ def verify(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
     _close(result.get("draw_stability_diagnostic"), stability, "$.draw_stability_diagnostic", mismatches)
     _close(result.get("status"), expected_status, "$.status", mismatches)
     _close((result.get("protocol") or {}).get("protocol_sha256"), PROTOCOL_SHA256, "$.protocol.protocol_sha256", mismatches)
+    _close((result.get("protocol") or {}).get("claim_gate_amendment_sha256"), CLAIM_GATE_AMENDMENT_SHA256, "$.protocol.claim_gate_amendment_sha256", mismatches)
     _close((result.get("protocol") or {}).get("producer_core_sha256"), PRODUCER_SHA256, "$.protocol.producer_core_sha256", mismatches)
     if not selected_questions_ok:
         mismatches.append("$.private.CONTROLS_PRIMARY.selected_questions")

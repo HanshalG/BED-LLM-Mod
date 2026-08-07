@@ -60,6 +60,9 @@ def test_fragment_uses_exact_smc_tier_and_table_boundary(
         assert "Refresh-matched myopic" in tex
         assert "History-blind SMC d2" in tex
         assert "Spearman" in tex
+        assert "amended 13-gate conjunction" in tex
+        assert metadata["primary_claim_all_pass"] is (status == "passed")
+        assert metadata["all_34_diagnostic_gates_pass"] is False
     else:
         assert "No policy-efficacy table is shown" in tex
 
@@ -93,6 +96,9 @@ def test_write_fragment_banks_tex_and_metadata_without_calls(
         "smc_development_policy_null_confirmation_forbidden"
     )
     assert metadata["tex_sha256"] == fragment.sha256_file(output)
+    assert metadata["claim_gate_amendment_sha256"] == (
+        report.CLAIM_GATE_AMENDMENT_SHA256
+    )
 
 
 def test_current_manuscript_remains_unchanged_and_fragment_absent() -> None:

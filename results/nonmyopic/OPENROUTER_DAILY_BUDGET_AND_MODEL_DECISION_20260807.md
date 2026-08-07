@@ -14,6 +14,12 @@ The user-reported additional `$30` is not yet present in the authenticated
 credit total and is therefore not spendable in the project ledger. It will be
 counted automatically only after the provider reports it.
 
+Once posted, that increment supplies exactly six additional `$5.00` daily
+ceilings. The account is fungible, so it is not tracked as a separate balance,
+but the daily ledger records which six paid days consume it. A stage may use
+less than `$5.00` when a gate closes its descendants; unused allowance is not
+carried into the next day and never raises a later ceiling.
+
 The account-wide cap remains exactly `$5.00` per Europe/London calendar day.
 Each paid day starts from authenticated cumulative usage. Posted spend,
 locally measured accepted-request spend, and precharged in-flight exposure are
@@ -34,6 +40,11 @@ The live OpenRouter catalog reports:
 |---|---:|---|---|
 | GPT-5.6 Luna (`openai/gpt-5.6-luna`) | `$0.10 / $0.60` | text, image, file | Multimodal belief model and medium-reasoning naive baseline |
 | DeepSeek V4 Flash 0731 (`deepseek/deepseek-v4-flash-0731`) | `$0.09 / $0.18` | text only | High-volume nonreasoning text support and planning |
+
+The dated checkpoint is `0731`; there is no live `7031` model ID in the
+authenticated catalog. The `~deepseek/deepseek-v4-flash-latest` alias currently
+has the same price, but frozen experiments use the dated ID so routing cannot
+change silently.
 
 Generic intelligence-per-dollar screens make both models attractive. They do
 not measure the repeated task interface needed here: history-consistent,

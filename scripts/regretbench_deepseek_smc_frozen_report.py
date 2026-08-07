@@ -17,13 +17,20 @@ REPORTING_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/REGRETBENCH_SMC_REPORTING_PROTOCOL_20260807.md"
 )
 REPORTING_PROTOCOL_SHA256 = (
-    "ecdaf0db59e658ce55f9d3d95aef38319c2ac3a07d81654b37ae836ce48a82bc"
+    "09239a432e825e0e1e3132243eabb75308b98fb5f5f09a1d603932101242b9c5"
 )
 SMC_POLICY_PROTOCOL_SHA256 = (
     "97e9e7a582d38ae989042352755ee500ae4a42726dd6a431309a8e66102dd3cd"
 )
 VERIFIER_SHA256 = (
-    "a9583aacb3aab231372a0c6d5294c087ef019a0af8c3160f2f25de435055dfbf"
+    "a76e61149f1537a048d6338d19f0a51b2aa6d396df06c5c45928763616a70afa"
+)
+CLAIM_GATE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md"
+)
+CLAIM_GATE_AMENDMENT_SHA256 = (
+    "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
 )
 PRIMARY_POLICIES = (
     "smc_dynamic_depth2",
@@ -106,6 +113,8 @@ def _validate_verified_result(
 
     if sha256_file(REPORTING_PROTOCOL) != REPORTING_PROTOCOL_SHA256:
         raise ValueError("RegretBench SMC reporting protocol changed")
+    if sha256_file(CLAIM_GATE_AMENDMENT) != CLAIM_GATE_AMENDMENT_SHA256:
+        raise ValueError("RegretBench SMC claim-gate amendment changed")
     if sha256_file(Path(verifier.__file__).resolve()) != VERIFIER_SHA256:
         raise ValueError("RegretBench SMC independent verifier changed")
     result_path = run_dir / "RESULT.json"
@@ -243,6 +252,7 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
         if science is not None:
             raise ValueError("mechanics-failed SMC result cannot expose science")
         paired = disagreements = science_gates = correlations = fresh = None
+        primary_claim_gates = primary_claim_all_pass = all_diagnostics_pass = None
     else:
         if not isinstance(science, Mapping):
             raise ValueError("mechanically valid SMC result lacks science")
@@ -267,6 +277,9 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
             "comparisons": science.get("fresh_regeneration_comparisons_descriptive"),
             "can_change_claim_tier": False,
         }
+        primary_claim_gates = science["primary_claim_gates"]
+        primary_claim_all_pass = science["primary_claim_all_pass"]
+        all_diagnostics_pass = science["all_34_diagnostic_gates_pass"]
     stability = result.get("draw_stability_diagnostic")
     if (
         not isinstance(stability, Mapping)
@@ -276,6 +289,8 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
     ):
         raise ValueError("SMC result lacks its non-rescuing draw diagnostic")
     protocol = result["protocol"]
+    if protocol.get("claim_gate_amendment_sha256") != CLAIM_GATE_AMENDMENT_SHA256:
+        raise ValueError("SMC result lacks the frozen claim-gate amendment")
     usage = result.get("usage") or {}
     return {
         "schema_version": 1,
@@ -288,6 +303,7 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
         "claim_tier_is_frozen_and_nonadaptive": True,
         "reporting_protocol_sha256": REPORTING_PROTOCOL_SHA256,
         "smc_policy_protocol_sha256": SMC_POLICY_PROTOCOL_SHA256,
+        "claim_gate_amendment_sha256": CLAIM_GATE_AMENDMENT_SHA256,
         "result_sha256": result_sha,
         "verification_sha256": verification_sha,
         "independent_verification_interface": verification.get("interface_version"),
@@ -301,6 +317,9 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
             "llm_owns_reply_likelihoods": True,
             "llm_owns_retain_revise_transitions": True,
             "selection_frozen_before_truth_access": True,
+            "claim_gate_amendment_sha256": protocol.get(
+                "claim_gate_amendment_sha256"
+            ),
         },
         "primary_policy_table": {
             "label": "aligned_generated_likelihood_with_action_and_reply_penalty",
@@ -310,6 +329,9 @@ def build_report(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
         "root_disagreements": disagreements,
         "predicted_to_realized": correlations,
         "science_gates": science_gates,
+        "primary_claim_gates": primary_claim_gates,
+        "primary_claim_all_pass": primary_claim_all_pass,
+        "all_34_diagnostic_gates_pass": all_diagnostics_pass,
         "mechanics_gates": result.get("mechanics_gates"),
         "alignment_complete_diagnostic": _alignment_complete(tasks),
         "draw_stability_diagnostic": stability,
@@ -404,6 +426,12 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             )
         for name, passed in report["science_gates"].items():
             lines.append(f"- `{name}`: `{passed}`")
+        lines.extend(
+            [
+                f"- Frozen 13-gate primary conjunction: `{report['primary_claim_all_pass']}`",
+                f"- Legacy all-34 diagnostic conjunction: `{report['all_34_diagnostic_gates_pass']}`",
+            ]
+        )
     lines.extend(
         [
             "",

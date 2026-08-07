@@ -9,7 +9,7 @@ from scripts import regretbench_smc_confirmation_aug10_execute as execute
 def test_frozen_bindings_verify_without_model_calls() -> None:
     result = execute.validate_bindings()
     assert result["status"] == "verified_frozen_execution"
-    assert result["bound_files"] == 18
+    assert result["bound_files"] == 19
     assert result["model_calls_made"] == 0
 
 

@@ -388,6 +388,80 @@ def test_full_8256_planning_schedule_freezes_before_truth(tmp_path) -> None:
     assert frozen["planning_requests"] == 8_256
 
 
+def test_smc_status_uses_primary_claim_and_path_dependence_gates_only(
+    monkeypatch,
+) -> None:
+    gates = {
+        **{name: True for name in experiment.PRIMARY_CLAIM_GATE_NAMES},
+        **{f"secondary_diagnostic_{index}": True for index in range(21)},
+        "all_pass": True,
+    }
+    gates["secondary_diagnostic_0"] = False
+    monkeypatch.setattr(
+        experiment.scorer,
+        "scientific_summary",
+        lambda tasks, samples: {"gates": gates},
+    )
+
+    result = experiment._smc_scientific_summary([], samples=10)
+
+    assert result["primary_claim_all_pass"] is True
+    assert result["gates"]["all_pass"] is True
+    assert result["all_34_diagnostic_gates_pass"] is False
+    assert result["primary_claim_gate_names"] == list(
+        experiment.PRIMARY_CLAIM_GATE_NAMES
+    )
+
+
+def test_smc_status_fails_when_one_headline_gate_fails(monkeypatch) -> None:
+    gates = {
+        **{name: True for name in experiment.PRIMARY_CLAIM_GATE_NAMES},
+        **{f"secondary_diagnostic_{index}": True for index in range(21)},
+        "all_pass": True,
+    }
+    gates["dynamic_refresh_myopic_brier_gain_at_least_002"] = False
+    monkeypatch.setattr(
+        experiment.scorer,
+        "scientific_summary",
+        lambda tasks, samples: {"gates": gates},
+    )
+
+    result = experiment._smc_scientific_summary([], samples=10)
+
+    assert result["primary_claim_all_pass"] is False
+    assert result["gates"]["all_pass"] is False
+    assert result["all_34_diagnostic_gates_pass"] is False
+
+
+def test_independent_verifier_reimplements_same_primary_gate_boundary(
+    monkeypatch,
+) -> None:
+    assert verifier.PRIMARY_CLAIM_GATE_NAMES == (
+        experiment.PRIMARY_CLAIM_GATE_NAMES
+    )
+    gates = {
+        **{name: True for name in verifier.PRIMARY_CLAIM_GATE_NAMES},
+        **{f"secondary_diagnostic_{index}": True for index in range(21)},
+        "all_pass": True,
+    }
+    gates["secondary_diagnostic_0"] = False
+    monkeypatch.setattr(
+        verifier.base,
+        "_policy_science",
+        lambda tasks, samples: {
+            "gates": gates,
+            "comparisons": {"random": {}},
+            "root_disagreements": {"random": 0},
+        },
+    )
+
+    result = verifier._science([], 10)
+
+    assert result["primary_claim_all_pass"] is True
+    assert result["gates"]["all_pass"] is True
+    assert result["all_34_diagnostic_gates_pass"] is False
+
+
 def test_realized_primary_execution_uses_frozen_roots_and_updated_parents(
     tmp_path, monkeypatch
 ) -> None:

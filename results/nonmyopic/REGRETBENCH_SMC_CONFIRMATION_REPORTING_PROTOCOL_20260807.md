@@ -23,6 +23,13 @@ retain/revise transitions outperformed the matched refresh-myopic control on
 both the frozen development and untouched confirmation cohorts. Development
 and confirmation are reported separately and are never pooled for a gate.
 
+Classification follows the prospectively frozen primary claim-gate amendment
+`7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62`:
+eight transition-matched refresh-myopic gates and five history-blind
+path-dependence gates. The report must also show the legacy conjunction and
+every one of the 34 original diagnostic booleans. Secondary controls cannot
+veto or rescue the 13-gate primary conjunction.
+
 The report must include all seven primary policies, paired Brier and log-loss
 comparisons, root disagreements, predicted-to-realized diagnostics, every
 mechanics/science gate, request/cost accounting, and the non-rescuing draw,

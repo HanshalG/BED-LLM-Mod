@@ -25,7 +25,7 @@ SCHEMA_VERSION = 1
 INTERFACE_VERSION = "regretbench-smc-confirmation-aug10-execute-1"
 BINDINGS = daily.ROOT / "EXECUTION_BINDINGS.json"
 BINDINGS_SHA256 = (
-    "f0316190a9562c87ecd47616fe4e906c67b8eb4fee26653dc7ecb2b0a226834d"
+    "f46b7e31ab419bd42c2fbc0f3c0994e242e7dbf974eff538b01e0b608350a805"
 )
 
 

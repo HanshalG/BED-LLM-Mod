@@ -18,7 +18,14 @@ REPORTING_PROTOCOL = confirmation.primary.REPO_ROOT / (
     "REGRETBENCH_SMC_CONFIRMATION_REPORTING_PROTOCOL_20260807.md"
 )
 REPORTING_PROTOCOL_SHA256 = (
-    "696ebd9550af07d9fd77956e1ae8d39acdaabcfa03f37543545e3fe46b998489"
+    "0c12eca98f4b788bf5346f1e130c8ff511e17741c87d6eb4fe91846d42051566"
+)
+CLAIM_GATE_AMENDMENT = confirmation.primary.REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md"
+)
+CLAIM_GATE_AMENDMENT_SHA256 = (
+    "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
 )
 CLAIMS = {
     "mechanics_failed": (
@@ -48,6 +55,8 @@ def _validated(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     if shared.sha256_file(REPORTING_PROTOCOL) != REPORTING_PROTOCOL_SHA256:
         raise ValueError("SMC confirmation reporting protocol changed")
+    if shared.sha256_file(CLAIM_GATE_AMENDMENT) != CLAIM_GATE_AMENDMENT_SHA256:
+        raise ValueError("SMC confirmation claim-gate amendment changed")
     result = _load(run_dir / "RESULT.json")
     stored = _load(run_dir / "VERIFICATION.json")
     replay = verifier.verify(run_dir, parent_dir=parent_dir)
@@ -75,6 +84,7 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
         if science is not None:
             raise ValueError("mechanics failure cannot expose confirmation science")
         paired = disagreements = correlations = science_gates = fresh = None
+        primary_claim_gates = primary_claim_all_pass = all_diagnostics_pass = None
     else:
         if not isinstance(science, Mapping):
             raise ValueError("mechanically valid confirmation lacks science")
@@ -104,6 +114,9 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
             ),
             "can_change_claim_tier": False,
         }
+        primary_claim_gates = science["primary_claim_gates"]
+        primary_claim_all_pass = science["primary_claim_all_pass"]
+        all_diagnostics_pass = science["all_34_diagnostic_gates_pass"]
     stability = result.get("draw_stability_diagnostic")
     if (
         not isinstance(stability, Mapping)
@@ -111,6 +124,11 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
         is not False
     ):
         raise ValueError("confirmation lacks non-rescuing draw stability")
+    if (
+        result["protocol"].get("claim_gate_amendment_sha256")
+        != CLAIM_GATE_AMENDMENT_SHA256
+    ):
+        raise ValueError("confirmation lacks the frozen claim-gate amendment")
     usage = result.get("usage") or {}
     return {
         "schema_version": 1,
@@ -123,6 +141,7 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
         "claim_tier_is_frozen_and_nonadaptive": True,
         "reporting_protocol_sha256": REPORTING_PROTOCOL_SHA256,
         "confirmation_protocol_sha256": confirmation.PROTOCOL_SHA256,
+        "claim_gate_amendment_sha256": CLAIM_GATE_AMENDMENT_SHA256,
         "result_sha256": shared.sha256_file(run_dir / "RESULT.json"),
         "verification_sha256": shared.sha256_file(
             run_dir / "VERIFICATION.json"
@@ -139,6 +158,9 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
             "llm_owns_reply_likelihoods": True,
             "llm_owns_retain_revise_transitions": True,
             "selection_frozen_before_truth_access": True,
+            "claim_gate_amendment_sha256": result["protocol"].get(
+                "claim_gate_amendment_sha256"
+            ),
         },
         "primary_policy_table": {
             "label": "aligned_generated_likelihood_with_action_and_reply_penalty",
@@ -148,6 +170,9 @@ def build_report(run_dir: Path, *, parent_dir: Path) -> dict[str, Any]:
         "root_disagreements": disagreements,
         "predicted_to_realized": correlations,
         "science_gates": science_gates,
+        "primary_claim_gates": primary_claim_gates,
+        "primary_claim_all_pass": primary_claim_all_pass,
+        "all_34_diagnostic_gates_pass": all_diagnostics_pass,
         "mechanics_gates": result.get("mechanics_gates"),
         "alignment_complete_diagnostic": shared._alignment_complete(tasks),
         "draw_stability_diagnostic": stability,

@@ -58,6 +58,9 @@ def _report(status: str) -> dict:
         "draw_stability_diagnostic": {"draw_agreement_count": 48},
         "result_sha256": "result-sha",
         "verification_sha256": "verification-sha",
+        "claim_gate_amendment_sha256": "claim-amendment-sha",
+        "primary_claim_all_pass": status == "passed",
+        "all_34_diagnostic_gates_pass": False,
     }
 
 
@@ -99,6 +102,9 @@ def test_confirmation_fragment_obeys_frozen_tiers(
         assert "Refresh-matched myopic" in tex
         assert "History-blind SMC d2" in tex
         assert "Spearman" in tex
+        assert "amended 13-gate conjunction" in tex
+        assert metadata["primary_claim_all_pass"] is confirmed
+        assert metadata["all_34_diagnostic_gates_pass"] is False
     else:
         assert "development signal remains provisional" in tex
 
@@ -128,6 +134,7 @@ def test_confirmation_fragment_writes_tex_and_metadata_without_calls(
     metadata = json.loads(output.with_suffix(".json").read_text())
     assert metadata["claim_tier"] == TIERS["gated_null"]
     assert metadata["tex_sha256"] == fragment.sha256_file(output)
+    assert metadata["claim_gate_amendment_sha256"] == "claim-amendment-sha"
 
 
 def test_confirmation_fragment_binding_matches_current_files() -> None:

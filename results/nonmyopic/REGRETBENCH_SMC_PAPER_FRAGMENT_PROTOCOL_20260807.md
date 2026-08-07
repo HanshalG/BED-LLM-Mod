@@ -9,7 +9,7 @@ manuscript claim while the generated fragment is absent.
 
 The fragment generator must recompute the SMC frozen report with generator
 SHA-256
-`2996d0cfd18e2ade3a7947492e0f07f13b1e452ee7d57a5cfbda27659bb11d43`
+`222528451960602bd1029b3265ed9bb13f148f9568e5b4628d41bc73d28392e3`
 from the raw run and independently replayed verification. It must then require
 the saved `FROZEN_REPORT.json` to match that recomputation exactly. Hand-edited,
 partial, stale, or unverified reports produce no fragment.
@@ -30,7 +30,11 @@ The fragment must:
 6. report paired Brier difference, sample standard deviation, 95% interval,
    improvement probability, wins/ties/losses, and root disagreement;
 7. report refresh-matched predicted-to-realized Spearman fidelity; and
-8. label alignment-complete subsets, branch-draw stability, fresh final SMC
+8. state that the frozen claim tier uses the prospectively amended 13-gate
+   conjunction for the refresh-matched and history-blind primary claims,
+   while all 34 original diagnostics remain visible and secondary gates can
+   neither veto nor rescue the tier; and
+9. label alignment-complete subsets, branch-draw stability, fresh final SMC
    regeneration, and optional Luna thinking as non-rescuing descriptive
    diagnostics that cannot alter the tier.
 

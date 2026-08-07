@@ -4,19 +4,23 @@
   "status": "prospectively_frozen_before_any_smc_policy_response",
   "reporting_protocol": {
     "path": "results/nonmyopic/REGRETBENCH_SMC_CONFIRMATION_REPORTING_PROTOCOL_20260807.md",
-    "sha256": "696ebd9550af07d9fd77956e1ae8d39acdaabcfa03f37543545e3fe46b998489"
+    "sha256": "0c12eca98f4b788bf5346f1e130c8ff511e17741c87d6eb4fe91846d42051566"
+  },
+  "claim_gate_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md",
+    "sha256": "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
   },
   "report_generator": {
     "path": "scripts/regretbench_deepseek_smc_confirmation_report.py",
-    "sha256": "eb8d70e9f58714eab1c38bec094af5a792837e297da518b31cee649b2feff05e"
+    "sha256": "5f030ed57360e9876de473d0037ffd103bf10efdd9d8d891320a85ba34d5e338"
   },
   "fragment_protocol": {
     "path": "results/nonmyopic/REGRETBENCH_SMC_CONFIRMATION_PAPER_FRAGMENT_PROTOCOL_20260807.md",
-    "sha256": "16e1ccf4eb427a6065e352c88a9a411d4296ba081527851a0bdf9ecbff70cf9b"
+    "sha256": "ea43e839a079aba6ab60bf2c850d62b9de9fc43437eda210230e4c015ad5dc4c"
   },
   "fragment_generator": {
     "path": "scripts/regretbench_deepseek_smc_confirmation_paper_fragment.py",
-    "sha256": "0b179c5b05d8f325abddb87eeafcc5dca5bccd8b48185f44efa7940b69413ce2"
+    "sha256": "b9a0fa381c825edccb160fedd82431c69ec4a87aeb4090807f791db21ad43e5a"
   },
   "manuscript": {
     "path": "paper/main.tex",

@@ -34,7 +34,10 @@ When mechanics pass, show all six paired controls with root disagreement,
 Brier difference and sample standard deviation, 95% interval, improvement
 probability, and wins/ties/losses. Identify `smc_myopic_refresh_brier` as the
 headline horizon-isolating control and report its predicted-to-realized
-Spearman diagnostic. State that the hidden CIG never enters the planner, the
+Spearman diagnostic. State that the frozen tier uses the prospectively amended
+13-gate conjunction for the refresh-matched and history-blind primary claims,
+while all 34 original diagnostics remain visible and secondary gates can
+neither veto nor rescue the tier. State that the hidden CIG never enters the planner, the
 LLM owns semantic reply likelihoods and path-dependent two-through-six
 retain/revise transitions, and alignment-complete subsets, draw stability,
 fresh regeneration, optional baselines, pooling, and subgroups cannot alter

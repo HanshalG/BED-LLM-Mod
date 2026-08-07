@@ -94,6 +94,12 @@ def _result(*, status: str, include_naive: bool = False) -> dict:
             },
             "fresh_regeneration_comparisons_descriptive": comparisons,
             "gates": {"headline_gate": True, "all_pass": status == "passed"},
+            "primary_claim_gates": {
+                "headline_gate": status == "passed",
+                "history_blind_gate": status == "passed",
+            },
+            "primary_claim_all_pass": status == "passed",
+            "all_34_diagnostic_gates_pass": False,
         }
     return {
         "interface_version": "regretbench-deepseek-smc-dynamic-depth2-experiment-1",
@@ -104,6 +110,7 @@ def _result(*, status: str, include_naive: bool = False) -> dict:
             "reasoning": "disabled_excluded",
             "task_count": 64,
             "protocol_sha256": report.SMC_POLICY_PROTOCOL_SHA256,
+            "claim_gate_amendment_sha256": report.CLAIM_GATE_AMENDMENT_SHA256,
             "primary_endpoint": "aligned_generated_likelihood_truth_mass",
             "fresh_smc_regeneration_endpoint": "secondary_descriptive",
             "selection_frozen_before_truth_access": True,
@@ -202,6 +209,9 @@ def test_frozen_smc_claim_tiers(
     assert value["draw_stability_diagnostic"][
         "can_change_status_authorization_or_claim_tier"
     ] is False
+    if status != "mechanics_failed":
+        assert value["primary_claim_all_pass"] is (status == "passed")
+        assert value["all_34_diagnostic_gates_pass"] is False
 
 
 def test_report_centers_llm_owned_smc_mechanism_and_matched_control(

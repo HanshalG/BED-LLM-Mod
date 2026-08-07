@@ -36,6 +36,15 @@ No development result may be called confirmed. No pooled, subgroup, filtered,
 alignment-complete, stable-draw, fresh-redraw, or optional-baseline analysis can
 change these tiers.
 
+The later prospectively frozen primary claim-gate amendment
+`7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62`
+controls `passed` versus `gated_null`. The report must show its 13 headline and
+path-dependence gates, their conjunction, and the legacy conjunction of all 34
+diagnostic booleans. All 34 values and all controls remain mandatory to report,
+but only the 13 registered gates classify the SMC claim. A failed secondary
+diagnostic cannot veto a passed primary conjunction, and no secondary result
+can rescue a failed one.
+
 ## Mandatory Primary Report
 
 The report contains all 64 tasks and all primary policies:

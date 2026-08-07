@@ -19,10 +19,10 @@ FRAGMENT_PROTOCOL = REPO_ROOT / (
     "REGRETBENCH_SMC_CONFIRMATION_PAPER_FRAGMENT_PROTOCOL_20260807.md"
 )
 FRAGMENT_PROTOCOL_SHA256 = (
-    "16e1ccf4eb427a6065e352c88a9a411d4296ba081527851a0bdf9ecbff70cf9b"
+    "ea43e839a079aba6ab60bf2c850d62b9de9fc43437eda210230e4c015ad5dc4c"
 )
 REPORT_GENERATOR_SHA256 = (
-    "eb8d70e9f58714eab1c38bec094af5a792837e297da518b31cee649b2feff05e"
+    "5f030ed57360e9876de473d0037ffd103bf10efdd9d8d891320a85ba34d5e338"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
     "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf"
@@ -151,6 +151,7 @@ def build_fragment(
                 + "]$, $n="
                 + str(correlation.get("n"))
                 + "$).",
+                "The frozen confirmation tier uses the same prospectively amended 13-gate conjunction for the refresh-matched and history-blind primary claims. All 34 original diagnostics remain reported, but the 21 secondary fixed-support, EIG, and calibration gates cannot veto or rescue that tier.",
             ]
         )
     stability = saved["draw_stability_diagnostic"]
@@ -177,6 +178,9 @@ def build_fragment(
         "report_sha256": sha256_file(saved_path),
         "result_sha256": saved["result_sha256"],
         "verification_sha256": saved["verification_sha256"],
+        "claim_gate_amendment_sha256": saved["claim_gate_amendment_sha256"],
+        "primary_claim_all_pass": saved["primary_claim_all_pass"],
+        "all_34_diagnostic_gates_pass": saved["all_34_diagnostic_gates_pass"],
         "confirmed_claim_authorized": tier
         == "smc_confirmed_nonmyopic_semantic_particle_result",
         "development_and_confirmation_are_not_pooled": True,

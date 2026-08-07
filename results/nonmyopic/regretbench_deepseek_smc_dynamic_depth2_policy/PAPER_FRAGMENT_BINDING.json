@@ -4,19 +4,23 @@
   "status": "prospectively_frozen_before_any_smc_policy_response",
   "reporting_binding": {
     "path": "results/nonmyopic/regretbench_deepseek_smc_dynamic_depth2_policy/REPORTING_BINDING.json",
-    "sha256": "8ef67181f49149e39637036100b3713960a26ebf606152f1d0bbfa554fbf69bb"
+    "sha256": "be10902ce1a703c295145808f7dfa26db8d399eaf90358f23c988e696d667574"
+  },
+  "claim_gate_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md",
+    "sha256": "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
   },
   "fragment_protocol": {
     "path": "results/nonmyopic/REGRETBENCH_SMC_PAPER_FRAGMENT_PROTOCOL_20260807.md",
-    "sha256": "f13cd93f4674e211ce33e51825da6f28123256128c7ebb9e192a7aac84ddc7da"
+    "sha256": "709c2be04d24a0f1d097899f84a00c44419d7fefd7676e855ce58c13dd6a45ff"
   },
   "report_generator": {
     "path": "scripts/regretbench_deepseek_smc_frozen_report.py",
-    "sha256": "2996d0cfd18e2ade3a7947492e0f07f13b1e452ee7d57a5cfbda27659bb11d43"
+    "sha256": "222528451960602bd1029b3265ed9bb13f148f9568e5b4628d41bc73d28392e3"
   },
   "fragment_generator": {
     "path": "scripts/regretbench_deepseek_smc_paper_fragment.py",
-    "sha256": "1ea6cb7324b4daddcb17ebf0814a6325e52d06a20b41a6d9a6bd74c04b277056"
+    "sha256": "0b3e403d5fd619926a2bc6e96d5f26ac7939493875ef97dcdf8bacf51b09fbd1"
   },
   "manuscript": {
     "path": "paper/main.tex",

@@ -42,6 +42,28 @@ NAIVE_SMOKE_REDRAW_SEED_START = 202608294000
 PLANNING_REQUESTS = 8_256
 SMOKE_BUDGET_USD = 0.20
 DEVELOPMENT_BUDGET_USD = 3.50
+CLAIM_GATE_AMENDMENT = primary.REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_SMC_PRIMARY_CLAIM_GATE_AMENDMENT_20260807.md"
+)
+CLAIM_GATE_AMENDMENT_SHA256 = (
+    "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62"
+)
+PRIMARY_CLAIM_GATE_NAMES = (
+    "dynamic_refresh_myopic_differ_at_least_16",
+    "predicted_gain_over_refresh_myopic_at_least_001",
+    "dynamic_refresh_myopic_brier_gain_at_least_002",
+    "dynamic_refresh_myopic_probability_at_least_090",
+    "dynamic_refresh_myopic_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_refresh_myopic",
+    "refresh_myopic_predicted_realized_spearman_at_least_015",
+    "refresh_myopic_spearman_probability_positive_at_least_080",
+    "dynamic_blind_differ_at_least_12",
+    "dynamic_blind_brier_gain_at_least_0015",
+    "dynamic_blind_probability_at_least_080",
+    "dynamic_blind_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_blind",
+)
 
 
 class StructuredAdapter(Protocol):
@@ -827,10 +849,29 @@ def _smc_scientific_summary(
     # preregistered bootstrap range without changing the frozen source file.
     prior = scorer.BOOTSTRAP_SEED
     scorer.BOOTSTRAP_SEED = BOOTSTRAP_SEED
+    if primary.sha256_file(CLAIM_GATE_AMENDMENT) != CLAIM_GATE_AMENDMENT_SHA256:
+        raise ValueError("SMC primary claim-gate amendment changed")
     try:
-        return scorer.scientific_summary(tasks, samples=samples)
+        summary = scorer.scientific_summary(tasks, samples=samples)
     finally:
         scorer.BOOTSTRAP_SEED = prior
+    original_gates = dict(summary["gates"])
+    diagnostic_gates = {
+        key: value for key, value in original_gates.items() if key != "all_pass"
+    }
+    if len(diagnostic_gates) != 34:
+        raise ValueError("shared RegretBench diagnostic gate set changed")
+    primary_gates = {
+        key: diagnostic_gates[key] for key in PRIMARY_CLAIM_GATE_NAMES
+    }
+    primary_pass = all(primary_gates.values())
+    summary["gates"] = {**diagnostic_gates, "all_pass": primary_pass}
+    summary["primary_claim_gate_names"] = list(PRIMARY_CLAIM_GATE_NAMES)
+    summary["primary_claim_gates"] = primary_gates
+    summary["primary_claim_all_pass"] = primary_pass
+    summary["all_34_diagnostic_gates_pass"] = all(diagnostic_gates.values())
+    summary["claim_gate_amendment_sha256"] = CLAIM_GATE_AMENDMENT_SHA256
+    return summary
 
 
 def run_realized_primary(
@@ -1534,6 +1575,7 @@ def finalize_development_result(
             "maximum_deepseek_requests": 8_896,
             "maximum_requests": 9_024,
             "protocol_sha256": core.PROTOCOL_SHA256,
+            "claim_gate_amendment_sha256": CLAIM_GATE_AMENDMENT_SHA256,
             "producer_core_sha256": primary.sha256_file(
                 Path(__file__).resolve()
             ),
