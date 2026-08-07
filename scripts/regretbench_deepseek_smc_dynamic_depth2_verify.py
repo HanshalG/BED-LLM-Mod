@@ -53,6 +53,9 @@ NAIVE_FIRST_SEED_START = 202608370000
 NAIVE_SECOND_SEED_START = 202608380000
 NAIVE_FIRST_SUPPORT_SEED_START = 202608390000
 NAIVE_FINAL_SUPPORT_SEED_START = 202608400000
+SMOKE_ANNOTATION_SEED_START = 202608290000
+SMOKE_BRANCH_SEED_START = 202608291000
+PRIMARY_SMOKE_TRUTH_SEED_START = 202608081100
 PROBABILITY_FLOOR = 1e-12
 
 
@@ -436,6 +439,230 @@ def _naive_audit(cig: Any, dialogue: Sequence[Mapping[str, str]]) -> dict[str, A
         "passed": True,
         "payload_keys": sorted(payload),
         "payload_sha256": hashlib.sha256(canonical_json(payload).encode()).hexdigest(),
+    }
+
+
+def _truth_covered(support: Mapping[str, Any], aliases: str) -> bool:
+    alternatives = [value.strip() for value in aliases.split("|") if value.strip()]
+    return any(
+        base.lexical_alias_match(row["final_answer"], alias)
+        for row in support["hypotheses"]
+        for alias in alternatives
+    )
+
+
+def verify_smoke(run_dir: Path, *, primary_dir: Path) -> dict[str, Any]:
+    """Independently replay the exact-10 enriched SMC serving smoke."""
+
+    result = _load(run_dir / "RESULT.json")
+    raw = _load(run_dir / "private/RAW_RESPONSES.json")
+    privacy = _load(run_dir / "private/PRIVACY.json")
+    parent_raw = _load(primary_dir / "private/RAW_RESPONSES.json")
+    parent_controls = _load(primary_dir / "private/CONTROLS.json")
+    cigs = base._stage_cigs("smoke")
+    raw_parents = parent_raw.get("root") or []
+    raw_annotations = raw.get("annotations") or []
+    raw_branches = raw.get("branches") or []
+    if not (
+        len(cigs) == len(raw_parents) == len(raw_annotations) == 4
+        and len(raw_branches) == 6
+    ):
+        raise ValueError("SMC smoke response schedule changed")
+    if raw.get("annotation_seeds") != [
+        SMOKE_ANNOTATION_SEED_START + index for index in range(4)
+    ]:
+        raise ValueError("SMC smoke annotation seeds changed")
+    expected_branch_seeds = [
+        seed
+        for index in range(3)
+        for seed in (SMOKE_BRANCH_SEED_START + index,) * 2
+    ]
+    if raw.get("branch_seeds") != expected_branch_seeds:
+        raise ValueError("SMC smoke branch seeds changed")
+
+    parents = [_parse_parent(value) for value in raw_parents]
+    annotations = [
+        _parse_annotation(value, parent)
+        for value, parent in zip(raw_annotations, parents, strict=True)
+    ]
+    branches = [
+        _parse_transition(raw_branches[2 * task + arm], annotations[task])
+        for task in range(3)
+        for arm in range(2)
+    ]
+    control_by_id = {
+        row["task_id"]: row for row in parent_controls.get("roots", [])
+    }
+    audits = [
+        _annotation_audit(cig, parent)
+        for cig, parent in zip(cigs, parents, strict=True)
+    ]
+    first_mappings = []
+    first_reply_matches = []
+    second_mappings = []
+    second_reply_matches = []
+    for task in range(3):
+        cig = cigs[task]
+        control = control_by_id.get(cig.cig_id)
+        if control is None:
+            raise ValueError("SMC smoke parent control is missing")
+        truth_index, truth = base._truth(
+            cig, PRIMARY_SMOKE_TRUTH_SEED_START + task
+        )
+        aliases = str((truth.slots or {})["answer_aliases"])
+        question = annotations[task]["questions"][0]
+        mapping = base._map(cig, question, truth)
+        if (
+            control.get("truth_index") != truth_index
+            or control.get("question") != question
+            or base._close(control.get("mapping"), mapping)
+            or control.get("aliases") != aliases
+        ):
+            raise ValueError("SMC smoke parent control changed")
+        first_mappings.append(mapping)
+        first_reply_matches.append(
+            bool(
+                base._truth_consistent_reply_indexes(
+                    annotations[task], 0, mapping["answer"], aliases
+                )
+            )
+            and mapping["supported"]
+        )
+        dialogue = [
+            {"role": "assistant", "content": question},
+            {"role": "user", "content": mapping["answer"]},
+        ]
+        audits.extend(
+            [
+                _transition_audit(cig, dialogue, annotations[task]),
+                _transition_audit(cig, [], annotations[task]),
+            ]
+        )
+        conditioned = branches[2 * task]
+        second_index = base._select_question(conditioned)
+        second = base._map(
+            cig, conditioned["questions"][second_index], truth
+        )
+        second_mappings.append(second)
+        second_reply_matches.append(
+            bool(base._reply_indexes(conditioned, second_index, second["answer"]))
+        )
+
+    usage = result.get("usage") or {}
+    gates = {
+        "exact_ten_responses": len(annotations) + len(branches) == 10,
+        "exact_ten_requests": usage.get("adapter_requests") == 10,
+        "exact_ten_http_attempts": usage.get("http_attempts") == 10,
+        "zero_retries": usage.get("retry_count") == 0,
+        "zero_provider_error_retries": usage.get("provider_error_retries") == 0,
+        "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
+        "zero_forced_exits": usage.get("forced_exits") == 0,
+        "all_annotations_exact_without_regeneration": all(
+            row["diagnostic"]["parent_index_permutation_exact"] is True
+            and row["diagnostic"]["initial_hypotheses_regenerated"] is False
+            and row["diagnostic"]["initial_questions_regenerated"] is False
+            for row in annotations
+        ),
+        "all_transitions_have_exact_lineage_and_retention": all(
+            row["diagnostic"]["parent_index_permutation_exact"] is True
+            and MIN_RETAINED
+            <= row["diagnostic"]["retained_count"]
+            <= MAX_RETAINED
+            for row in branches
+        ),
+        "every_initial_has_two_informative_roots": all(
+            sum(base._question_eig(row, question) > 1e-12 for question in range(4))
+            >= 2
+            for row in annotations
+        ),
+        "every_branch_has_an_informative_followup": all(
+            any(base._question_eig(row, question) > 1e-12 for question in range(4))
+            for row in branches
+        ),
+        "all_three_first_questions_supported": all(
+            row["supported"] for row in first_mappings
+        ),
+        "all_three_exact_first_replies_match_truth_consistent_likelihoods": all(
+            first_reply_matches
+        ),
+        "all_three_second_questions_supported": all(
+            row["supported"] for row in second_mappings
+        ),
+        "all_three_second_actions_are_novel": all(
+            first["supported"]
+            and second["supported"]
+            and first["facet"] is not None
+            and second["facet"] is not None
+            and first["facet"] != second["facet"]
+            for first, second in zip(
+                first_mappings, second_mappings, strict=True
+            )
+        ),
+        "all_three_exact_second_replies_match_generated_likelihoods": all(
+            second_reply_matches
+        ),
+        "all_privacy_and_parent_provenance_audits_pass": (
+            privacy.get("audits") == audits
+        ),
+        "within_smoke_budget": float(usage.get("run_cost_usd", math.inf))
+        <= 0.20 + 1e-12,
+    }
+    gates["all_pass"] = all(gates.values())
+    expected_status = "passed" if gates["all_pass"] else "mechanics_failed"
+    expected_authorizes = (
+        "smc_policy_development_only"
+        if expected_status == "passed"
+        else "nothing"
+    )
+    diagnostics = {
+        "annotations": [row["diagnostic"] for row in annotations],
+        "transitions": [row["diagnostic"] for row in branches],
+    }
+    mismatches: list[str] = []
+    _close(result.get("status"), expected_status, "$.status", mismatches)
+    _close(
+        result.get("authorizes"),
+        expected_authorizes,
+        "$.authorizes",
+        mismatches,
+    )
+    _close(result.get("gates"), gates, "$.gates", mismatches)
+    _close(result.get("supports"), diagnostics, "$.supports", mismatches)
+    protocol = result.get("protocol") or {}
+    for key, expected in {
+        "stage": "smoke",
+        "model": MODEL_ID,
+        "reasoning": "disabled_excluded",
+        "expected_requests": 10,
+        "protocol_sha256": PROTOCOL_SHA256,
+        "efficacy_used_for_authorization": False,
+        "policy_endpoint_opened": False,
+        "confirmation_opened": False,
+    }.items():
+        _close(protocol.get(key), expected, f"$.protocol.{key}", mismatches)
+    artifacts = {
+        str(path.relative_to(run_dir)): sha256_file(path)
+        for path in sorted(run_dir.rglob("*.json"))
+        if path.name != "VERIFICATION.json"
+    }
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "status": "verified" if not mismatches else "verification_failed",
+        "kind": "smc_dynamic_depth2_policy_smoke",
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "result_status": result.get("status"),
+        "checks": {
+            "banked_parents_reparsed": True,
+            "annotations_reparsed": True,
+            "all_smc_lineages_reconstructed": True,
+            "truth_controls_replayed": True,
+            "privacy_and_provenance_recomputed": True,
+            "reported_result_matches_replay": not mismatches,
+        },
+        "mismatches": mismatches,
+        "artifact_sha256": artifacts,
     }
 
 

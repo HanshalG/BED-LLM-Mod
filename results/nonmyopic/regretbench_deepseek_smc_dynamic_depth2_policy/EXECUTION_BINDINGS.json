@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-deepseek-smc-dynamic-policy-execution-bindings-1",
+  "date": "2026-08-09",
+  "status": "prospectively_frozen_before_any_smc_policy_response",
+  "authorization": "literal_verified_smc_support_pass_only",
+  "files": {
+    "results/nonmyopic/REGRETBENCH_SMC_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION_20260807.md": "97e9e7a582d38ae989042352755ee500ae4a42726dd6a431309a8e66102dd3cd",
+    "scripts/regretbench_deepseek_smc_dynamic_depth2_policy.py": "71f79258184bfa2f00e06f8c82836b1d5fbd1d3895ebc4105cb3256360c843fa",
+    "scripts/regretbench_deepseek_smc_dynamic_depth2_experiment.py": "dd0bf57bcbf598721883add6900957ab4f7203765dd13d8be7b8a5c832bc16bd",
+    "scripts/regretbench_deepseek_smc_dynamic_depth2_verify.py": "a9583aacb3aab231372a0c6d5294c087ef019a0af8c3160f2f25de435055dfbf",
+    "scripts/regretbench_deepseek_smc_dynamic_depth2_daily.py": "7903b7d637cffa5b4fe286d11d3b412866dca256b9b4ba0ea5803f5c8ebf5a9a",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy.py": "c097468b24acf9ff33743b4f8798c5d1915e142e2bf39aa998b2186812fba2f3",
+    "scripts/regretbench_deepseek_smc_support_recovery.py": "91be9699391aa67070174ca3be2fdb7b6cd9e1ae210fcbb0f5c7e35ba601f280",
+    "scripts/regretbench_deepseek_smc_support_recovery_verify.py": "fab0b932c1c00ccb2a7333f63394e16b930cd238c3d5f1da73c8692992fa1e2a",
+    "scripts/regretbench_deepseek_smc_support_recovery_daily.py": "18805dbd9f79e002fd6eaa6df9aa2c8da1afdc76cd360b0f9f26e7b2f64d7c84",
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "ad8c3f0ad907ea1042c08607976cca4bf900dc533347421806d7385616bf6eb7",
+    "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "db8d13229444abbf3f549967af4e70271103b6f5abd917fcce88573ec44b95c9",
+    "scripts/bongard_openworld_luna_aug10_execute.py": "5e4d2322f776bae63978073d64047190916fe8b2589f034db606f9bffdaa03c5",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "67d22c89385765bd0651a056c74d2960f70e13960f9bbf225dbc8e6ad0cb868c",
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "b58e4fd6d4da6d3df465e359d9251098c3aebc19c8645d4cddc1b57da8d8aad4"
+  },
+  "maximum_same_day_predecessor_spend_usd": 0.5,
+  "maximum_policy_spend_usd": 3.9,
+  "maximum_combined_aug9_spend_usd": 4.4,
+  "daily_cap_usd": 5.0,
+  "paid_calls_made_while_freezing": 0,
+  "cost_usd_while_freezing": 0.0
+}

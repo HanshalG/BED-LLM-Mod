@@ -310,6 +310,25 @@ def test_exact_ten_smc_enriched_smoke(tmp_path, monkeypatch) -> None:
     assert adapter.requests == 10
     assert adapter.schema_names.count("regretbench_smc_parent_annotation") == 4
     assert adapter.schema_names.count("regretbench_smc_enriched_transition") == 6
+    verification = verifier.verify_smoke(
+        tmp_path / "smoke-output", primary_dir=primary_dir
+    )
+    assert verification["status"] == "verified"
+    assert verification["mismatches"] == []
+    assert verification["model_calls"] == 0
+    smoke_result_path = tmp_path / "smoke-output/RESULT.json"
+    stored_smoke_result = smoke_result_path.read_text()
+    tampered_smoke_result = json.loads(stored_smoke_result)
+    tampered_smoke_result["gates"]["exact_ten_requests"] = False
+    smoke_result_path.write_text(json.dumps(tampered_smoke_result))
+    tampered_smoke_verification = verifier.verify_smoke(
+        tmp_path / "smoke-output", primary_dir=primary_dir
+    )
+    assert tampered_smoke_verification["status"] == "verification_failed"
+    assert "$.gates.exact_ten_requests" in tampered_smoke_verification[
+        "mismatches"
+    ]
+    smoke_result_path.write_text(stored_smoke_result)
 
     def fake_naive_map(cig, question, truth):
         label = "first" if "first" in question else "second"
