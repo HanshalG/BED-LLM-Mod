@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-paper-fragment-binding-1",
+  "status": "frozen_before_responses",
+  "scientific_contract_changed": false,
+  "reporting": {
+    "protocol_sha256": "6594c91f2ceb5897ec0b2a0d1f6e58a5e4690325503414d9655aa45332be63f2",
+    "binding_sha256": "28f116cea8443a491552e50e81989c5cccade3b2ec6c7201f05e438ef5304d5b",
+    "generator_sha256": "c88deac8e90f040fcd91f9f752cf6c84c4cb1e8c8f81c4e4a9c09d05abbde28f"
+  },
+  "fragment": {
+    "protocol_path": "results/nonmyopic/REGRETBENCH_PAPER_FRAGMENT_PROTOCOL_20260807.md",
+    "protocol_sha256": "d4bd393b3e9fdb7fd685451b5c277891b7e5ae66c8eaf5f913e4fb9858f51a55",
+    "generator_path": "scripts/regretbench_deepseek_paper_fragment.py",
+    "generator_sha256": "7888bf4daacf94209a2cd313ccc7a8a7ed56f4e79e64856973294b910493187c",
+    "output_path": "paper/generated/regretbench_result.tex",
+    "metadata_path": "paper/generated/regretbench_result.json"
+  },
+  "manuscript": {
+    "path": "paper/main.tex",
+    "preresult_sha256": "6e0f107562fc5cbe5a25429c0e4c43fa1410b81781cde805d8c99a70fafca85f",
+    "conditional_include_exact": true,
+    "generated_fragment_absent_at_freeze": true,
+    "page_count_at_freeze": 6,
+    "validation_passed_at_freeze": true
+  },
+  "requirements": {
+    "saved_report_recomputed_before_render": true,
+    "exact_claim_tier_interpretation_used": true,
+    "all_four_primary_controls_rendered_when_mechanics_pass": true,
+    "no_efficacy_table_on_mechanics_failure": true,
+    "development_may_only_render_provisional_or_null": true,
+    "confirmation_may_replace_development_fragment": true,
+    "secondary_optional_pooled_cannot_change_fragment": true,
+    "paper_validation_required_after_generation": true,
+    "model_calls_made_by_binding": 0,
+    "cost_usd_by_binding": 0.0
+  }
+}
