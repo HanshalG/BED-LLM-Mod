@@ -77,7 +77,11 @@ history. Two independent enriched supports are generated from that conditioned
 history.
 
 Each conditioned draw is immediately paired with a same-seed history-blind
-draw that sees the initial prompt only. Thus every task has:
+draw that sees the initial prompt only. The same requested seed is also reused
+across all four roots for a fixed `(task, simulated truth, draw)` tuple. This
+task-level common-random-number schedule prevents root-specific generator seed
+luck from entering the estimated root ranking while leaving each root's prompt
+and simulated reply distinct. Thus every task has:
 
 ```text
 4 roots * 8 simulated truths * 2 draws * 2 arms = 128 branch calls
@@ -140,6 +144,12 @@ root is executed once and shared by every policy selecting it:
 6. a final enriched support is generated from the complete two-question
    history.
 
+Within a task, every distinct selected root uses the same requested seed for
+its first refresh and the same separate requested seed for its final refresh.
+Different tasks retain distinct seeds. This realized common-random-number
+coupling makes paired policy differences depend on their histories rather than
+avoidable root-specific model-seed draws.
+
 The primary endpoint is final truth-mass Brier, where truth mass is the summed
 final-support probability of answers matching a hidden answer alias. Secondary
 endpoints are final truth log loss, lexical truth coverage, supported-action
@@ -197,11 +207,11 @@ primary policy development run.
 
 - initial seeds: `202608089000 + task_index`;
 - matched branch seed:
-  `202608100000 + task_index*64 + root*16 + hypothesis*2 + draw`;
+  `202608100000 + task_index*16 + hypothesis*2 + draw`, reused across roots;
 - hidden truth: `202608130000 + task_index`;
 - random root: `202608140000 + task_index`;
-- realized first-history seed: `202608110000 + task_index*4 + root`;
-- realized final-history seed: `202608120000 + task_index*4 + root`;
+- realized first-history seed: `202608110000 + task_index`, reused across roots;
+- realized final-history seed: `202608120000 + task_index`, reused across roots;
 - bootstrap: `202608150000`.
 - naive first question: `202608160000 + task_index`;
 - naive second question: `202608170000 + task_index`;
@@ -232,6 +242,9 @@ All must pass:
   second actions;
 - every primary public artifact excludes raw questions, replies, aliases, facets,
   hidden intent indexes, and raw responses; and
+- conditioned/blind pairs share exact seeds, all four simulated roots share
+  each task/truth/draw seed, realized roots share task-level first/final seeds,
+  and seeds remain distinct across task/truth/draw groups; and
 - combined spend, including any attempted baseline calls, is at most `$3.50`.
 
 The result separately reports Luna transport/reasoning, baseline DeepSeek

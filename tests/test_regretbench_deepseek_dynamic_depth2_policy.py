@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import random
 
 import pytest
 
@@ -71,6 +72,36 @@ def test_branch_truth_metric_rewards_recoverable_truth() -> None:
     assert recovered_metric["expected_brier"] == 0.0
     assert missing_metric["truth_mass"] == 0.0
     assert missing_metric["expected_brier"] == 1.0
+
+
+def test_root_level_crn_removes_seed_only_candidate_advantage() -> None:
+    legacy_risks = []
+    crn_risks = []
+    for root in range(policy.QUESTIONS):
+        legacy = [
+            random.Random(
+                policy.BRANCH_SEED_START
+                + root * 16
+                + hypothesis * 2
+                + draw
+            ).random()
+            for hypothesis in range(policy.HYPOTHESES)
+            for draw in range(policy.BRANCH_DRAWS)
+        ]
+        shared = [
+            random.Random(
+                policy.branch_seed(0, hypothesis, draw)
+            ).random()
+            for hypothesis in range(policy.HYPOTHESES)
+            for draw in range(policy.BRANCH_DRAWS)
+        ]
+        legacy_risks.append(sum(legacy) / len(legacy))
+        crn_risks.append(sum(shared) / len(shared))
+
+    assert max(legacy_risks) - min(legacy_risks) > 0.10
+    assert len(set(crn_risks)) == 1
+    assert policy.actual_first_seed(7) == policy.ACTUAL_FIRST_SEED_START + 7
+    assert policy.actual_final_seed(7) == policy.ACTUAL_FINAL_SEED_START + 7
 
 
 def _science_task(index: int) -> dict:
@@ -146,7 +177,9 @@ class _FixtureAdapter:
                 return index
         return 0
 
-    def _response(self, payload: dict, seed: int) -> str:
+    def _response(
+        self, payload: dict, seed: int, *, branch_root: int | None = None
+    ) -> str:
         task_id = payload["task_id"]
         dialogue = payload["dialogue"]
         root = self._root_from_question(dialogue[0]["content"]) if dialogue else None
@@ -155,11 +188,10 @@ class _FixtureAdapter:
         weights = [1] * 8
         if branch_formal:
             local = seed - policy.BRANCH_SEED_START
-            seed_root = (local % 64) // 16
             hypothesis = (local % 16) // 2
             conditioned = bool(dialogue)
-            if (conditioned and seed_root == 0) or (
-                not conditioned and seed_root == 2
+            if (conditioned and branch_root == 0) or (
+                not conditioned and branch_root == 2
             ):
                 answers[0] = f"candidate answer {hypothesis}"
                 weights[0] = 20
@@ -200,9 +232,17 @@ class _FixtureAdapter:
     ):
         assert kwargs["response_format"] == policy.enriched_response_format()
         responses = []
-        for messages, seed in zip(batch_messages, seeds, strict=True):
+        branch_batch = len(batch_messages) == policy.PLANNING_REQUESTS - 64
+        for batch_index, (messages, seed) in enumerate(
+            zip(batch_messages, seeds, strict=True)
+        ):
             payload = json.loads(messages[-1]["content"])
-            responses.append(self._response(payload, seed))
+            branch_root = (
+                ((batch_index // 2) % 64) // 16 if branch_batch else None
+            )
+            responses.append(
+                self._response(payload, seed, branch_root=branch_root)
+            )
             self.requests += 1
         return responses
 

@@ -43,9 +43,11 @@ maximum combined requests                            9,024
 ```
 
 Every conditioned response is immediately followed by its prompt-only mate in
-the same batch with the same requested seed. Formal concurrency is `128`.
-Every enriched support must contain exactly eight distinct particles; duplicate
-particles fail instead of silently changing rollout width.
+the same batch with the same requested seed. All four simulated roots also
+share each task/hypothesis/draw seed. Realized roots share task-level first and
+final refresh seeds. Formal concurrency is `128`. Every enriched support must
+contain exactly eight distinct particles; duplicate particles fail instead of
+silently changing rollout width.
 
 ## Budget Chain
 
@@ -81,7 +83,7 @@ pytest -q \
   tests/test_bongard_openworld_luna_naive_first_link.py \
   tests/test_openrouter_model.py
 
-64 passed in 15.74s
+65 passed in 15.73s
 ```
 
 The synthetic full run materializes all `8,256` planning responses and every
@@ -91,14 +93,16 @@ mapping, endpoint computation, bootstrap, privacy, request accounting, and
 public/private serialization. Separate exact-scale adversarial rehearsals prove
 that a formal Luna failure and a smoke-disabled baseline both leave primary
 mechanics and science computation intact. Their outcomes are instrument
-fixtures, not evidence.
+fixtures, not evidence. A seed-only adversary additionally proves that the old
+root-specific schedule could create a spurious `0.135796` candidate-risk
+spread, while the bound task-level CRN schedule makes it exactly zero.
 
 ## Bindings
 
 - preregistration:
-  `4e0faa595a401497f82b02d38482536f597e48eb17072e8185bc8ebc20199643`
+  `bea7a0df9a8f22e93b66e73888dc6c3fa1b5ad79794896d9ce8ee2bd8b91c6fb`
 - policy core:
-  `4876faa7788cc50feb94d26a1cb4c973c5402c1e8bf10eb4daa17bdd4e197ea3`
+  `d4b3f49e820cfec845bc4d2af67c494bbd2aaee3e63ef957a20cbb2a53f7c848`
 - policy daily executor:
   `cf7089df7472881ad683a163ece55fb70d7b2fe716bc582425a7180bbd1ff243`
 - amended support-recovery daily executor:

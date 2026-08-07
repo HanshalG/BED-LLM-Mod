@@ -97,7 +97,7 @@ PREREGISTRATION = (
     "REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION.md"
 )
 PREREGISTRATION_SHA256 = (
-    "4e0faa595a401497f82b02d38482536f597e48eb17072e8185bc8ebc20199643"
+    "bea7a0df9a8f22e93b66e73888dc6c3fa1b5ad79794896d9ce8ee2bd8b91c6fb"
 )
 PROBABILITY_FLOOR = 1e-12
 
@@ -554,8 +554,16 @@ def choose_roots(
     }
 
 
-def branch_seed(task_index: int, root: int, hypothesis: int, draw: int) -> int:
-    return BRANCH_SEED_START + task_index * 64 + root * 16 + hypothesis * 2 + draw
+def branch_seed(task_index: int, hypothesis: int, draw: int) -> int:
+    return BRANCH_SEED_START + task_index * 16 + hypothesis * 2 + draw
+
+
+def actual_first_seed(task_index: int) -> int:
+    return ACTUAL_FIRST_SEED_START + task_index
+
+
+def actual_final_seed(task_index: int) -> int:
+    return ACTUAL_FINAL_SEED_START + task_index
 
 
 def build_adapter(
@@ -1286,6 +1294,93 @@ def scientific_summary(
     }
 
 
+def seed_schedule_gates(
+    *,
+    branch_manifest: Sequence[Mapping[str, Any]],
+    paired_branch_seeds: Sequence[int],
+    first_manifest: Sequence[Mapping[str, Any]],
+    final_manifest: Sequence[Mapping[str, Any]],
+) -> dict[str, bool]:
+    branch_groups: dict[tuple[int, int, int], list[Mapping[str, Any]]] = {}
+    for row in branch_manifest:
+        key = (row["task_index"], row["hypothesis_index"], row["draw"])
+        branch_groups.setdefault(key, []).append(row)
+    branch_group_seeds = [
+        {int(row["seed"]) for row in rows} for rows in branch_groups.values()
+    ]
+
+    def realized_groups(
+        rows: Sequence[Mapping[str, Any]],
+    ) -> dict[int, list[Mapping[str, Any]]]:
+        grouped: dict[int, list[Mapping[str, Any]]] = {}
+        for row in rows:
+            grouped.setdefault(int(row["task_index"]), []).append(row)
+        return grouped
+
+    first_groups = realized_groups(first_manifest)
+    final_groups = realized_groups(final_manifest)
+    return {
+        "conditioned_blind_pairs_share_exact_seed": len(paired_branch_seeds)
+        == 2 * len(branch_manifest)
+        and all(
+            paired_branch_seeds[2 * index]
+            == paired_branch_seeds[2 * index + 1]
+            == row["seed"]
+            for index, row in enumerate(branch_manifest)
+        ),
+        "simulated_roots_use_task_hypothesis_draw_crn": len(branch_groups)
+        == 64 * HYPOTHESES * BRANCH_DRAWS
+        and all(
+            len(rows) == QUESTIONS
+            and {int(row["root_index"]) for row in rows}
+            == set(range(QUESTIONS))
+            and len(seeds) == 1
+            for rows, seeds in zip(
+                branch_groups.values(), branch_group_seeds, strict=True
+            )
+        ),
+        "simulated_crn_seed_formula_exact": all(
+            int(row["seed"])
+            == branch_seed(
+                int(row["task_index"]),
+                int(row["hypothesis_index"]),
+                int(row["draw"]),
+            )
+            for row in branch_manifest
+        ),
+        "simulated_crn_seeds_distinct_across_groups": len(
+            {next(iter(seeds)) for seeds in branch_group_seeds}
+        )
+        == len(branch_groups),
+        "realized_first_refresh_uses_task_crn": len(first_groups) == 64
+        and all(
+            len({int(row["seed"]) for row in rows}) == 1
+            for rows in first_groups.values()
+        ),
+        "realized_first_seed_formula_exact": all(
+            int(row["seed"]) == actual_first_seed(int(row["task_index"]))
+            for row in first_manifest
+        ),
+        "realized_first_seeds_distinct_across_tasks": len(
+            {int(rows[0]["seed"]) for rows in first_groups.values()}
+        )
+        == len(first_groups),
+        "realized_final_refresh_uses_task_crn": len(final_groups) == 64
+        and all(
+            len({int(row["seed"]) for row in rows}) == 1
+            for rows in final_groups.values()
+        ),
+        "realized_final_seed_formula_exact": all(
+            int(row["seed"]) == actual_final_seed(int(row["task_index"]))
+            for row in final_manifest
+        ),
+        "realized_final_seeds_distinct_across_tasks": len(
+            {int(rows[0]["seed"]) for rows in final_groups.values()}
+        )
+        == len(final_groups),
+    }
+
+
 def mechanics_gates(
     *,
     primary_deepseek_usage: Mapping[str, Any],
@@ -1296,6 +1391,10 @@ def mechanics_gates(
     primary_privacy: Sequence[Mapping[str, Any]],
     tasks: Sequence[Mapping[str, Any]],
     combined_cost: float,
+    branch_manifest: Sequence[Mapping[str, Any]],
+    paired_branch_seeds: Sequence[int],
+    first_manifest: Sequence[Mapping[str, Any]],
+    final_manifest: Sequence[Mapping[str, Any]],
 ) -> dict[str, bool]:
     gates = {
         "exact_64_tasks": len(tasks) == 64,
@@ -1354,6 +1453,12 @@ def mechanics_gates(
             for policy in PRIMARY_POLICIES
         ),
         "within_combined_policy_budget": combined_cost <= RUN_BUDGET_USD,
+        **seed_schedule_gates(
+            branch_manifest=branch_manifest,
+            paired_branch_seeds=paired_branch_seeds,
+            first_manifest=first_manifest,
+            final_manifest=final_manifest,
+        ),
     }
     gates["all_pass"] = all(gates.values())
     return gates
@@ -1532,7 +1637,7 @@ def run_development(
                     {"role": "user", "content": answer},
                 ]
                 for draw in range(BRANCH_DRAWS):
-                    seed = branch_seed(task_index, root, hypothesis_index, draw)
+                    seed = branch_seed(task_index, hypothesis_index, draw)
                     conditioned, conditioned_audit = messages_for(cig, dialogue)
                     blind, blind_audit = messages_for(cig, [])
                     branch_messages.extend([conditioned, blind])
@@ -1702,7 +1807,7 @@ def run_development(
                 {"role": "user", "content": mapping["answer"]},
             ]
             messages, audit = messages_for(cig, dialogue)
-            seed = ACTUAL_FIRST_SEED_START + task_index * QUESTIONS + root
+            seed = actual_first_seed(task_index)
             first_messages.append(messages)
             first_seeds.append(seed)
             primary_privacy.append(audit)
@@ -1763,7 +1868,7 @@ def run_development(
             {"role": "user", "content": second_mapping["answer"]},
         ]
         messages, audit = messages_for(cig, dialogue)
-        seed = ACTUAL_FINAL_SEED_START + task_index * QUESTIONS + root
+        seed = actual_final_seed(task_index)
         final_messages.append(messages)
         final_seeds.append(seed)
         primary_privacy.append(audit)
@@ -2002,6 +2107,10 @@ def run_development(
         primary_privacy=primary_privacy,
         tasks=tasks,
         combined_cost=combined_cost,
+        branch_manifest=branch_manifest,
+        paired_branch_seeds=branch_seeds,
+        first_manifest=first_manifest,
+        final_manifest=final_manifest,
     )
     baseline = naive_baseline_diagnostics(
         enabled=naive_baseline_enabled,
@@ -2054,6 +2163,8 @@ def run_development(
             "naive_can_gate_or_abort_primary": False,
             "conditioned_blind_same_seed": True,
             "conditioned_blind_adjacent": True,
+            "simulated_common_seed_across_roots": True,
+            "realized_common_seed_across_roots": True,
             "hidden_cig_exposed_to_model": False,
             "selection_frozen_before_truth_access": True,
             "confirmation_opened": False,
