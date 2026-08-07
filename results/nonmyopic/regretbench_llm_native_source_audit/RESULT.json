@@ -1,0 +1,46 @@
+{
+  "all_selection_hash": "86fa30ee244f568ea274966087a068a848bb33e98d5be1896ac8a3a2f9a41eba",
+  "answer_alias_prompt_leaks": [],
+  "authorizes": "exact_support_recovery_smoke_only",
+  "checksum_failures": [],
+  "confirmation_opened": false,
+  "cost_usd": 0.0,
+  "counts": {
+    "all_available_strict_positive_fixed_support_depth_gains": 0,
+    "available_test_files": 6286,
+    "eligible_cigs": 2419,
+    "missing_manifest_train_files": 21252,
+    "published_checksum_entries": 27538,
+    "selected_cigs": 132,
+    "selected_strict_positive_fixed_support_depth_gains": 0
+  },
+  "gates": {
+    "all_available_test_checksums_match": true,
+    "all_pass": true,
+    "all_selection_hash_matches": true,
+    "dataset_version_matches": true,
+    "exact_2419_eligible_cigs": true,
+    "exact_6286_test_files": true,
+    "exact_frozen_split_sizes": true,
+    "manifest_git_tree_train_gap_detected": true,
+    "model_payload_fields_are_minimal": true,
+    "no_selected_prompt_contains_answer_alias": true,
+    "official_commit_matches": true,
+    "selected_fixed_support_depth_gain_is_zero": true,
+    "selected_prompts_are_unique": true,
+    "split_hashes_match": true,
+    "splits_are_disjoint": true
+  },
+  "interface_version": "regretbench-llm-native-source-audit-1",
+  "model_calls_made": 0,
+  "policy_endpoint_opened": false,
+  "schema_version": 1,
+  "source_commit": "b2978e1c2e31b7a7c4e1508ee3e1fa1cb98f4aa7",
+  "source_protocol_manifest_sha256": "8a46b40395487aae0857d1a61d6f680beef579414c4580acf09d7e0b30b38e97",
+  "split_hashes": {
+    "confirmation": "780a0e4e172251be2781729eeb4e591592b996dc9e1cd668b26240e3076660c9",
+    "development": "29d33b2fda0be7cc4eea6f4d9d4fe74fe200b5c580632dcb7ba844c3b825af69",
+    "mechanics": "707be5a1d1f86d6a0dc08ee61df77da1b9597093ac557d2e7706fcad8ef3b2f6"
+  },
+  "status": "source_protocol_pass"
+}
