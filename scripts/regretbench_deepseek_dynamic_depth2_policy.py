@@ -43,21 +43,23 @@ HYPOTHESES = 8
 QUESTIONS = 4
 MIN_UNIQUE = 8
 BRANCH_DRAWS = 2
-POLICIES = (
+PRIMARY_POLICIES = (
     "dynamic_depth2",
     "history_blind_depth2",
     "myopic_width",
     "fixed_depth2",
     "random",
+)
+POLICIES = (
+    *PRIMARY_POLICIES,
     "naive_thinking",
 )
 PLANNING_REQUESTS = 64 + 64 * QUESTIONS * HYPOTHESES * BRANCH_DRAWS * 2
 MAX_ACTUAL_REQUESTS = 64 * QUESTIONS * 2
 NAIVE_FORMAL_REQUESTS = 128
 NAIVE_ENDPOINT_REQUESTS = 128
-MAX_DEEPSEEK_REQUESTS = (
-    PLANNING_REQUESTS + MAX_ACTUAL_REQUESTS + NAIVE_ENDPOINT_REQUESTS
-)
+MAX_PRIMARY_DEEPSEEK_REQUESTS = PLANNING_REQUESTS + MAX_ACTUAL_REQUESTS
+MAX_DEEPSEEK_REQUESTS = MAX_PRIMARY_DEEPSEEK_REQUESTS + NAIVE_ENDPOINT_REQUESTS
 MAX_REQUESTS = MAX_DEEPSEEK_REQUESTS + NAIVE_FORMAL_REQUESTS
 RUN_BUDGET_USD = 3.50
 PROJECTED_COST_USD = 3.10
@@ -95,7 +97,7 @@ PREREGISTRATION = (
     "REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION.md"
 )
 PREREGISTRATION_SHA256 = (
-    "c1a19408c6cea5bb32023a7f9f003afac3a210d19fae0842a47a873f29b86b97"
+    "4e0faa595a401497f82b02d38482536f597e48eb17072e8185bc8ebc20199643"
 )
 PROBABILITY_FLOOR = 1e-12
 
@@ -719,6 +721,29 @@ def _usage(adapter: StructuredAdapter) -> dict[str, Any]:
     return usage
 
 
+def _empty_usage() -> dict[str, Any]:
+    return {
+        "adapter_requests": 0,
+        "http_attempts": 0,
+        "retry_count": 0,
+        "provider_error_retries": 0,
+        "adapter_reasoning_tokens": 0,
+        "forced_exits": 0,
+        "run_cost_usd": 0.0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+    }
+
+
+def _combined_usage(*rows: Mapping[str, Any]) -> dict[str, Any]:
+    combined = _empty_usage()
+    for key in combined:
+        combined[key] = sum(row.get(key, 0) for row in rows)
+    return combined
+
+
 def validate_naive_smoke(path: Path) -> dict[str, Any]:
     result = json.loads(path.read_text(encoding="utf-8"))
     protocol = result.get("protocol") or {}
@@ -1131,6 +1156,14 @@ def scientific_summary(
 ) -> dict[str, Any]:
     if len(tasks) != 64:
         raise ValueError("scientific summary requires all 64 tasks")
+    baselines = [
+        "myopic_width",
+        "history_blind_depth2",
+        "fixed_depth2",
+        "random",
+    ]
+    if all("naive_thinking" in task["policies"] for task in tasks):
+        baselines.append("naive_thinking")
     comparisons = {
         baseline: comparison_summary(
             tasks,
@@ -1138,15 +1171,7 @@ def scientific_summary(
             samples=samples,
             seed=BOOTSTRAP_SEED + index * 10,
         )
-        for index, baseline in enumerate(
-            (
-                "myopic_width",
-                "history_blind_depth2",
-                "fixed_depth2",
-                "random",
-                "naive_thinking",
-            )
-        )
+        for index, baseline in enumerate(baselines)
     }
     disagreements = {
         baseline: sum(
@@ -1263,63 +1288,44 @@ def scientific_summary(
 
 def mechanics_gates(
     *,
-    deepseek_usage: Mapping[str, Any],
-    naive_usage: Mapping[str, Any],
-    expected_deepseek_requests: int,
-    all_supports: Sequence[Mapping[str, Any]],
+    primary_deepseek_usage: Mapping[str, Any],
+    expected_primary_deepseek_requests: int,
+    primary_supports: Sequence[Mapping[str, Any]],
     initial_supports: Sequence[Mapping[str, Any]],
     simulated_supports: Sequence[Mapping[str, Any]],
-    privacy: Sequence[Mapping[str, Any]],
+    primary_privacy: Sequence[Mapping[str, Any]],
     tasks: Sequence[Mapping[str, Any]],
+    combined_cost: float,
 ) -> dict[str, bool]:
-    combined_cost = float(deepseek_usage["run_cost_usd"]) + float(
-        naive_usage["run_cost_usd"]
-    )
     gates = {
         "exact_64_tasks": len(tasks) == 64,
         "expected_requests_within_frozen_maximum": PLANNING_REQUESTS
-        + NAIVE_ENDPOINT_REQUESTS
-        <= expected_deepseek_requests
-        <= MAX_DEEPSEEK_REQUESTS,
-        "exact_deepseek_response_count": len(all_supports)
-        == expected_deepseek_requests,
-        "exact_deepseek_accepted_requests": deepseek_usage["adapter_requests"]
-        == expected_deepseek_requests,
-        "exact_deepseek_http_attempts": deepseek_usage["http_attempts"]
-        == expected_deepseek_requests,
-        "deepseek_zero_retries": deepseek_usage["retry_count"] == 0,
-        "deepseek_zero_provider_error_retries": deepseek_usage[
+        <= expected_primary_deepseek_requests
+        <= MAX_PRIMARY_DEEPSEEK_REQUESTS,
+        "exact_deepseek_response_count": len(primary_supports)
+        == expected_primary_deepseek_requests,
+        "exact_deepseek_accepted_requests": primary_deepseek_usage[
+            "adapter_requests"
+        ]
+        == expected_primary_deepseek_requests,
+        "exact_deepseek_http_attempts": primary_deepseek_usage["http_attempts"]
+        == expected_primary_deepseek_requests,
+        "deepseek_zero_retries": primary_deepseek_usage["retry_count"] == 0,
+        "deepseek_zero_provider_error_retries": primary_deepseek_usage[
             "provider_error_retries"
         ]
         == 0,
-        "deepseek_zero_reasoning_tokens": deepseek_usage[
+        "deepseek_zero_reasoning_tokens": primary_deepseek_usage[
             "adapter_reasoning_tokens"
         ]
         == 0,
-        "deepseek_zero_forced_exits": deepseek_usage["forced_exits"] == 0,
-        "exact_naive_accepted_requests": naive_usage["adapter_requests"]
-        == NAIVE_FORMAL_REQUESTS,
-        "exact_naive_http_attempts": naive_usage["http_attempts"]
-        == NAIVE_FORMAL_REQUESTS,
-        "naive_zero_retries": naive_usage["retry_count"] == 0,
-        "naive_zero_provider_error_retries": naive_usage[
-            "provider_error_retries"
-        ]
-        == 0,
-        "naive_positive_reasoning_tokens": naive_usage[
-            "adapter_reasoning_tokens"
-        ]
-        > 0,
-        "naive_zero_forced_exits": naive_usage["forced_exits"] == 0,
-        "naive_zero_forced_final_requests": naive_usage[
-            "forced_final_requests"
-        ]
+        "deepseek_zero_forced_exits": primary_deepseek_usage["forced_exits"]
         == 0,
         "all_supports_strict_and_exactly_eight_unique": all(
             support["diagnostic"]["codec_mode"] == "strict_json"
             and support["diagnostic"]["valid_unique_count"] == MIN_UNIQUE
             and support["diagnostic"]["question_count"] == QUESTIONS
-            for support in all_supports
+            for support in primary_supports
         ),
         "every_initial_has_two_informative_roots": all(
             support["diagnostic"]["informative_question_count"] >= 2
@@ -1334,23 +1340,122 @@ def mechanics_gates(
             )
             >= 0.90
         ),
-        "all_privacy_audits_pass": len(privacy)
-        == expected_deepseek_requests + NAIVE_FORMAL_REQUESTS
-        and all(item["passed"] for item in privacy),
+        "all_privacy_audits_pass": len(primary_privacy)
+        == expected_primary_deepseek_requests
+        and all(item["passed"] for item in primary_privacy),
         "every_policy_has_48_supported_first_actions": all(
             sum(task["policies"][policy]["first_supported"] for task in tasks)
             >= 48
-            for policy in POLICIES
+            for policy in PRIMARY_POLICIES
         ),
         "every_policy_has_40_supported_second_actions": all(
             sum(task["policies"][policy]["second_supported"] for task in tasks)
             >= 40
-            for policy in POLICIES
+            for policy in PRIMARY_POLICIES
         ),
         "within_combined_policy_budget": combined_cost <= RUN_BUDGET_USD,
     }
     gates["all_pass"] = all(gates.values())
     return gates
+
+
+def naive_baseline_diagnostics(
+    *,
+    enabled: bool,
+    attempted: bool,
+    error: Mapping[str, str] | None,
+    luna_usage: Mapping[str, Any],
+    endpoint_usage: Mapping[str, Any],
+    supports: Sequence[Mapping[str, Any]],
+    privacy: Sequence[Mapping[str, Any]],
+    tasks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    available = (
+        enabled
+        and attempted
+        and error is None
+        and len(tasks) == 64
+        and all("naive_thinking" in task["policies"] for task in tasks)
+    )
+    gates = {
+        "formal_baseline_available": available,
+        "exact_luna_accepted_requests": luna_usage["adapter_requests"]
+        == NAIVE_FORMAL_REQUESTS,
+        "exact_luna_http_attempts": luna_usage["http_attempts"]
+        == NAIVE_FORMAL_REQUESTS,
+        "luna_zero_retries": luna_usage["retry_count"] == 0,
+        "luna_zero_provider_error_retries": luna_usage[
+            "provider_error_retries"
+        ]
+        == 0,
+        "luna_positive_reasoning_tokens": luna_usage["adapter_reasoning_tokens"]
+        > 0,
+        "luna_zero_forced_exits": luna_usage["forced_exits"] == 0,
+        "luna_zero_forced_final_requests": luna_usage["forced_final_requests"]
+        == 0,
+        "exact_endpoint_accepted_requests": endpoint_usage["adapter_requests"]
+        == NAIVE_ENDPOINT_REQUESTS,
+        "exact_endpoint_http_attempts": endpoint_usage["http_attempts"]
+        == NAIVE_ENDPOINT_REQUESTS,
+        "endpoint_zero_retries": endpoint_usage["retry_count"] == 0,
+        "endpoint_zero_provider_error_retries": endpoint_usage[
+            "provider_error_retries"
+        ]
+        == 0,
+        "endpoint_zero_reasoning_tokens": endpoint_usage[
+            "adapter_reasoning_tokens"
+        ]
+        == 0,
+        "endpoint_zero_forced_exits": endpoint_usage["forced_exits"] == 0,
+        "all_endpoint_supports_strict_and_exactly_eight_unique": len(supports)
+        == NAIVE_ENDPOINT_REQUESTS
+        and all(
+            support["diagnostic"]["codec_mode"] == "strict_json"
+            and support["diagnostic"]["valid_unique_count"] == MIN_UNIQUE
+            and support["diagnostic"]["question_count"] == QUESTIONS
+            for support in supports
+        ),
+        "all_privacy_audits_pass": len(privacy)
+        == NAIVE_FORMAL_REQUESTS + NAIVE_ENDPOINT_REQUESTS
+        and all(item["passed"] for item in privacy),
+        "at_least_48_supported_first_actions": available
+        and sum(
+            task["policies"]["naive_thinking"]["first_supported"]
+            for task in tasks
+        )
+        >= 48,
+        "at_least_40_supported_second_actions": available
+        and sum(
+            task["policies"]["naive_thinking"]["second_supported"]
+            for task in tasks
+        )
+        >= 40,
+    }
+    return {
+        "status": (
+            "available"
+            if available
+            else "failed_closed"
+            if attempted
+            else "disabled_by_smoke"
+        ),
+        "enabled": enabled,
+        "attempted": attempted,
+        "error": dict(error) if error is not None else None,
+        "gates": gates,
+        "all_transport_and_schema_gates_pass": all(
+            value
+            for key, value in gates.items()
+            if key
+            not in {
+                "at_least_48_supported_first_actions",
+                "at_least_40_supported_second_actions",
+            }
+        ),
+        "coverage_targets_met": gates["at_least_48_supported_first_actions"]
+        and gates["at_least_40_supported_second_actions"],
+        "can_affect_primary_status": False,
+    }
 
 
 def run_development(
@@ -1363,6 +1468,8 @@ def run_development(
     naive_smoke_result: Path,
     adapter: StructuredAdapter | None = None,
     naive_adapter: StructuredAdapter | None = None,
+    naive_endpoint_adapter: StructuredAdapter | None = None,
+    naive_baseline_enabled: bool = True,
     daily_budget_status: Mapping[str, Any] | None = None,
     bootstrap_samples: int = BOOTSTRAP_SAMPLES,
 ) -> dict[str, Any]:
@@ -1372,7 +1479,14 @@ def run_development(
         support_development_result=support_development_result,
     )
     policy_smoke = validate_policy_smoke(policy_smoke_result)
-    naive_smoke = validate_naive_smoke(naive_smoke_result)
+    naive_smoke = (
+        validate_naive_smoke(naive_smoke_result)
+        if naive_baseline_enabled
+        else {
+            "path": str(naive_smoke_result),
+            "status": "disabled_after_smoke_failure",
+        }
+    )
     output_dir.mkdir(parents=True, exist_ok=True)
     private = output_dir / "private"
     private.mkdir(parents=True, exist_ok=True)
@@ -1380,16 +1494,21 @@ def run_development(
     adapter = adapter or build_adapter(
         stage="development", run_id=run_id, output_dir=output_dir
     )
-    naive_adapter = naive_adapter or build_naive_adapter(
-        stage="development", run_id=run_id, output_dir=output_dir
-    )
-    privacy: list[dict[str, Any]] = []
+    if naive_baseline_enabled:
+        naive_adapter = naive_adapter or build_naive_adapter(
+            stage="development", run_id=run_id, output_dir=output_dir
+        )
+        naive_endpoint_adapter = naive_endpoint_adapter or build_adapter(
+            stage="development", run_id=run_id, output_dir=output_dir
+        )
+    primary_privacy: list[dict[str, Any]] = []
+    naive_privacy: list[dict[str, Any]] = []
 
     initial_messages = []
     for cig in cigs:
         messages, audit = messages_for(cig, [])
         initial_messages.append(messages)
-        privacy.append(audit)
+        primary_privacy.append(audit)
     initial_seeds = [INITIAL_SEED_START + index for index in range(64)]
     raw_initial = _call(adapter, initial_messages, initial_seeds)
     initial_supports = [parse_enriched_support(raw) for raw in raw_initial]
@@ -1418,7 +1537,7 @@ def run_development(
                     blind, blind_audit = messages_for(cig, [])
                     branch_messages.extend([conditioned, blind])
                     branch_seeds.extend([seed, seed])
-                    privacy.extend([conditioned_audit, blind_audit])
+                    primary_privacy.extend([conditioned_audit, blind_audit])
                     branch_manifest.append(
                         {
                             "task_index": task_index,
@@ -1478,18 +1597,34 @@ def run_development(
                 "selected": selected,
             }
         )
-    naive_first_messages = []
-    for cig in cigs:
-        messages, audit = naive_messages_for(cig, [])
-        naive_first_messages.append(messages)
-        privacy.append(audit)
+    naive_attempted = False
+    naive_error: dict[str, str] | None = None
     naive_first_seeds = [NAIVE_FIRST_SEED_START + index for index in range(64)]
-    raw_naive_first = _call_naive(
-        naive_adapter, naive_first_messages, naive_first_seeds
-    )
-    naive_first_questions = [
-        parse_naive_question(raw) for raw in raw_naive_first
-    ]
+    raw_naive_first: list[str] = []
+    naive_first_questions: list[str] = []
+    if naive_baseline_enabled:
+        naive_attempted = True
+        try:
+            naive_first_messages = []
+            for cig in cigs:
+                messages, audit = naive_messages_for(cig, [])
+                naive_first_messages.append(messages)
+                naive_privacy.append(audit)
+            if naive_adapter is None:
+                raise RuntimeError("naive adapter is unavailable")
+            raw_naive_first = _call_naive(
+                naive_adapter, naive_first_messages, naive_first_seeds
+            )
+            naive_first_questions = [
+                parse_naive_question(raw) for raw in raw_naive_first
+            ]
+        except Exception as exc:
+            naive_error = {
+                "stage": "first_question",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
+            naive_first_questions = []
     checkpoint(
         private / "FROZEN_SELECTIONS.json",
         {
@@ -1499,6 +1634,13 @@ def run_development(
                 hashlib.sha256(question.encode()).hexdigest()
                 for question in naive_first_questions
             ],
+            "naive_baseline_enabled": naive_baseline_enabled,
+            "naive_first_status": (
+                "passed"
+                if naive_error is None and naive_baseline_enabled
+                else "unavailable"
+            ),
+            "naive_error": naive_error,
             "hidden_truth_accessed": False,
         },
     )
@@ -1517,29 +1659,41 @@ def run_development(
     ):
         truth_index, truth = recovery.sample_truth(cig, TRUTH_SEED_START + task_index)
         truths.append((truth_index, truth))
-        naive_question = naive_first_questions[task_index]
-        naive_mapping = recovery.map_and_answer(cig, naive_question, truth)
-        naive_dialogue = [
-            {"role": "assistant", "content": naive_question},
-            {"role": "user", "content": naive_mapping["answer"]},
-        ]
-        support_messages, support_audit = messages_for(cig, naive_dialogue)
-        naive_first_support_messages.append(support_messages)
-        naive_first_support_seeds.append(
-            NAIVE_FIRST_SUPPORT_SEED_START + task_index
-        )
-        privacy.append(support_audit)
-        second_messages, second_audit = naive_messages_for(cig, naive_dialogue)
-        naive_second_messages.append(second_messages)
-        naive_second_seeds.append(NAIVE_SECOND_SEED_START + task_index)
-        privacy.append(second_audit)
-        naive_first_manifest.append(
-            {
-                "task_index": task_index,
-                "first_mapping": naive_mapping,
-                "dialogue": naive_dialogue,
-            }
-        )
+        if naive_baseline_enabled and naive_error is None:
+            try:
+                naive_question = naive_first_questions[task_index]
+                naive_mapping = recovery.map_and_answer(cig, naive_question, truth)
+                naive_dialogue = [
+                    {"role": "assistant", "content": naive_question},
+                    {"role": "user", "content": naive_mapping["answer"]},
+                ]
+                support_messages, support_audit = messages_for(
+                    cig, naive_dialogue
+                )
+                naive_first_support_messages.append(support_messages)
+                naive_first_support_seeds.append(
+                    NAIVE_FIRST_SUPPORT_SEED_START + task_index
+                )
+                naive_privacy.append(support_audit)
+                second_messages, second_audit = naive_messages_for(
+                    cig, naive_dialogue
+                )
+                naive_second_messages.append(second_messages)
+                naive_second_seeds.append(NAIVE_SECOND_SEED_START + task_index)
+                naive_privacy.append(second_audit)
+                naive_first_manifest.append(
+                    {
+                        "task_index": task_index,
+                        "first_mapping": naive_mapping,
+                        "dialogue": naive_dialogue,
+                    }
+                )
+            except Exception as exc:
+                naive_error = {
+                    "stage": "first_environment_mapping",
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                }
         for root in sorted(set(plan["selected"].values())):
             question = initial["questions"][root]
             mapping = recovery.map_and_answer(cig, question, truth)
@@ -1551,7 +1705,7 @@ def run_development(
             seed = ACTUAL_FIRST_SEED_START + task_index * QUESTIONS + root
             first_messages.append(messages)
             first_seeds.append(seed)
-            privacy.append(audit)
+            primary_privacy.append(audit)
             first_manifest.append(
                 {
                     "task_index": task_index,
@@ -1562,18 +1716,34 @@ def run_development(
                 }
             )
     raw_first = _call(adapter, first_messages, first_seeds)
-    raw_naive_first_support = _call(
-        adapter, naive_first_support_messages, naive_first_support_seeds
-    )
-    naive_first_supports = [
-        parse_enriched_support(raw) for raw in raw_naive_first_support
-    ]
-    raw_naive_second = _call_naive(
-        naive_adapter, naive_second_messages, naive_second_seeds
-    )
-    naive_second_questions = [
-        parse_naive_question(raw) for raw in raw_naive_second
-    ]
+    raw_naive_first_support: list[str] = []
+    naive_first_supports: list[dict[str, Any]] = []
+    raw_naive_second: list[str] = []
+    naive_second_questions: list[str] = []
+    if naive_baseline_enabled and naive_error is None:
+        try:
+            if naive_endpoint_adapter is None or naive_adapter is None:
+                raise RuntimeError("naive baseline adapters are unavailable")
+            raw_naive_first_support = _call(
+                naive_endpoint_adapter,
+                naive_first_support_messages,
+                naive_first_support_seeds,
+            )
+            naive_first_supports = [
+                parse_enriched_support(raw) for raw in raw_naive_first_support
+            ]
+            raw_naive_second = _call_naive(
+                naive_adapter, naive_second_messages, naive_second_seeds
+            )
+            naive_second_questions = [
+                parse_naive_question(raw) for raw in raw_naive_second
+            ]
+        except Exception as exc:
+            naive_error = {
+                "stage": "first_endpoint_or_second_question",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
     first_paths = {}
     final_messages = []
     final_seeds = []
@@ -1596,7 +1766,7 @@ def run_development(
         seed = ACTUAL_FINAL_SEED_START + task_index * QUESTIONS + root
         final_messages.append(messages)
         final_seeds.append(seed)
-        privacy.append(audit)
+        primary_privacy.append(audit)
         first_paths[(task_index, root)] = {
             "support": support,
             "first_mapping": manifest["first_mapping"],
@@ -1610,42 +1780,68 @@ def run_development(
     naive_final_messages = []
     naive_final_seeds = []
     naive_paths = []
-    for manifest, first_support, second_question in zip(
-        naive_first_manifest,
-        naive_first_supports,
-        naive_second_questions,
-        strict=True,
-    ):
-        task_index = manifest["task_index"]
-        cig = cigs[task_index]
-        truth = truths[task_index][1]
-        second_mapping = recovery.map_and_answer(cig, second_question, truth)
-        dialogue = [
-            *manifest["dialogue"],
-            {"role": "assistant", "content": second_question},
-            {"role": "user", "content": second_mapping["answer"]},
-        ]
-        messages, audit = messages_for(cig, dialogue)
-        naive_final_messages.append(messages)
-        naive_final_seeds.append(NAIVE_FINAL_SUPPORT_SEED_START + task_index)
-        privacy.append(audit)
-        naive_paths.append(
-            {
-                "first_support": first_support,
-                "first_mapping": manifest["first_mapping"],
-                "second_mapping": second_mapping,
-                "dialogue": dialogue,
+    if naive_baseline_enabled and naive_error is None:
+        try:
+            for manifest, first_support, second_question in zip(
+                naive_first_manifest,
+                naive_first_supports,
+                naive_second_questions,
+                strict=True,
+            ):
+                task_index = manifest["task_index"]
+                cig = cigs[task_index]
+                truth = truths[task_index][1]
+                second_mapping = recovery.map_and_answer(
+                    cig, second_question, truth
+                )
+                dialogue = [
+                    *manifest["dialogue"],
+                    {"role": "assistant", "content": second_question},
+                    {"role": "user", "content": second_mapping["answer"]},
+                ]
+                messages, audit = messages_for(cig, dialogue)
+                naive_final_messages.append(messages)
+                naive_final_seeds.append(
+                    NAIVE_FINAL_SUPPORT_SEED_START + task_index
+                )
+                naive_privacy.append(audit)
+                naive_paths.append(
+                    {
+                        "first_support": first_support,
+                        "first_mapping": manifest["first_mapping"],
+                        "second_mapping": second_mapping,
+                        "dialogue": dialogue,
+                    }
+                )
+        except Exception as exc:
+            naive_error = {
+                "stage": "second_environment_mapping",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
             }
-        )
     raw_final = _call(adapter, final_messages, final_seeds)
     final_paths = {
         (manifest["task_index"], manifest["root_index"]): parse_enriched_support(raw)
         for manifest, raw in zip(final_manifest, raw_final, strict=True)
     }
-    raw_naive_final = _call(adapter, naive_final_messages, naive_final_seeds)
-    naive_final_supports = [
-        parse_enriched_support(raw) for raw in raw_naive_final
-    ]
+    raw_naive_final: list[str] = []
+    naive_final_supports: list[dict[str, Any]] = []
+    if naive_baseline_enabled and naive_error is None:
+        try:
+            if naive_endpoint_adapter is None:
+                raise RuntimeError("naive endpoint adapter is unavailable")
+            raw_naive_final = _call(
+                naive_endpoint_adapter, naive_final_messages, naive_final_seeds
+            )
+            naive_final_supports = [
+                parse_enriched_support(raw) for raw in raw_naive_final
+            ]
+        except Exception as exc:
+            naive_error = {
+                "stage": "final_endpoint",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
     checkpoint(
         private / "RAW_ACTUAL.json",
         {
@@ -1659,8 +1855,49 @@ def run_development(
             "naive_second_questions": raw_naive_second,
             "naive_final_support_seeds": naive_final_seeds,
             "naive_final_support_responses": raw_naive_final,
+            "naive_baseline_error": naive_error,
         },
     )
+
+    naive_policy_rows: list[dict[str, Any]] = []
+    if naive_baseline_enabled and naive_error is None:
+        try:
+            for task_index, (naive_path, naive_final) in enumerate(
+                zip(naive_paths, naive_final_supports, strict=True)
+            ):
+                aliases = str(
+                    (truths[task_index][1].slots or {})["answer_aliases"]
+                )
+                first_mass = truth_mass_for_aliases(
+                    naive_path["first_support"], aliases
+                )
+                final_mass = truth_mass_for_aliases(naive_final, aliases)
+                naive_policy_rows.append(
+                    {
+                        "root_index": None,
+                        "second_question_index": None,
+                        "first_supported": naive_path["first_mapping"][
+                            "supported"
+                        ],
+                        "second_supported": naive_path["second_mapping"][
+                            "supported"
+                        ],
+                        "truth_mass_after_first": first_mass,
+                        "truth_mass_final": final_mass,
+                        "brier": (1.0 - final_mass) ** 2,
+                        "log_loss": -math.log(
+                            max(PROBABILITY_FLOOR, final_mass)
+                        ),
+                        "covered": final_mass > 0.0,
+                    }
+                )
+        except Exception as exc:
+            naive_error = {
+                "stage": "endpoint_scoring",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
+            naive_policy_rows = []
 
     tasks = []
     private_controls = []
@@ -1686,23 +1923,8 @@ def run_development(
                 "log_loss": -math.log(max(PROBABILITY_FLOOR, final_mass)),
                 "covered": final_mass > 0.0,
             }
-        naive_path = naive_paths[task_index]
-        naive_final = naive_final_supports[task_index]
-        naive_first_mass = truth_mass_for_aliases(
-            naive_path["first_support"], aliases
-        )
-        naive_final_mass = truth_mass_for_aliases(naive_final, aliases)
-        policies["naive_thinking"] = {
-            "root_index": None,
-            "second_question_index": None,
-            "first_supported": naive_path["first_mapping"]["supported"],
-            "second_supported": naive_path["second_mapping"]["supported"],
-            "truth_mass_after_first": naive_first_mass,
-            "truth_mass_final": naive_final_mass,
-            "brier": (1.0 - naive_final_mass) ** 2,
-            "log_loss": -math.log(max(PROBABILITY_FLOOR, naive_final_mass)),
-            "covered": naive_final_mass > 0.0,
-        }
+        if naive_baseline_enabled and naive_error is None:
+            policies["naive_thinking"] = naive_policy_rows[task_index]
         tasks.append(
             {
                 "task_id": cig.cig_id,
@@ -1714,42 +1936,50 @@ def run_development(
                 "policies": policies,
             }
         )
+        selected_questions = {
+            policy: {
+                "first": initial["questions"][root],
+                "second": first_paths[(task_index, root)]["support"]["questions"]
+                [first_paths[(task_index, root)]["second_index"]],
+            }
+            for policy, root in plan["selected"].items()
+        }
+        if naive_baseline_enabled and naive_error is None:
+            selected_questions["naive_thinking"] = {
+                "first": naive_first_questions[task_index],
+                "second": naive_second_questions[task_index],
+            }
         private_controls.append(
             {
                 "task_id": cig.cig_id,
                 "truth_index": truth_index,
                 "aliases": aliases,
-                "selected_questions": {
-                    **{
-                        policy: {
-                            "first": initial["questions"][root],
-                            "second": first_paths[(task_index, root)]["support"][
-                                "questions"
-                            ][first_paths[(task_index, root)]["second_index"]],
-                        }
-                        for policy, root in plan["selected"].items()
-                    },
-                    "naive_thinking": {
-                        "first": naive_first_questions[task_index],
-                        "second": naive_second_questions[task_index],
-                    },
-                },
+                "selected_questions": selected_questions,
             }
         )
 
-    deepseek_usage = summarize_usage(adapter.usage_snapshot())
-    naive_usage = _usage(naive_adapter)
-    expected_deepseek_requests = (
-        PLANNING_REQUESTS
-        + len(first_manifest)
-        + len(final_manifest)
-        + NAIVE_ENDPOINT_REQUESTS
+    primary_deepseek_usage = summarize_usage(adapter.usage_snapshot())
+    endpoint_usage = (
+        summarize_usage(naive_endpoint_adapter.usage_snapshot())
+        if naive_endpoint_adapter is not None
+        else _empty_usage()
     )
-    combined_cost = float(deepseek_usage["run_cost_usd"]) + float(
-        naive_usage["run_cost_usd"]
+    naive_usage = (
+        _usage(naive_adapter) if naive_adapter is not None else _empty_usage()
+    )
+    deepseek_usage = _combined_usage(primary_deepseek_usage, endpoint_usage)
+    expected_primary_deepseek_requests = (
+        PLANNING_REQUESTS + len(first_manifest) + len(final_manifest)
+    )
+    combined_cost = (
+        float(primary_deepseek_usage["run_cost_usd"])
+        + float(endpoint_usage["run_cost_usd"])
+        + float(naive_usage["run_cost_usd"])
     )
     usage = {
         "deepseek": deepseek_usage,
+        "deepseek_primary": primary_deepseek_usage,
+        "deepseek_naive_endpoint": endpoint_usage,
         "naive_luna": naive_usage,
         "combined_cost_usd": combined_cost,
         "combined_requests": deepseek_usage["adapter_requests"]
@@ -1757,25 +1987,37 @@ def run_development(
         "combined_http_attempts": deepseek_usage["http_attempts"]
         + naive_usage["http_attempts"],
     }
-    all_supports = [
+    primary_supports = [
         *initial_supports,
         *simulated_supports,
         *[first_paths[key]["support"] for key in sorted(first_paths)],
         *[final_paths[key] for key in sorted(final_paths)],
-        *naive_first_supports,
-        *naive_final_supports,
     ]
     mechanics = mechanics_gates(
-        deepseek_usage=deepseek_usage,
-        naive_usage=naive_usage,
-        expected_deepseek_requests=expected_deepseek_requests,
-        all_supports=all_supports,
+        primary_deepseek_usage=primary_deepseek_usage,
+        expected_primary_deepseek_requests=expected_primary_deepseek_requests,
+        primary_supports=primary_supports,
         initial_supports=initial_supports,
         simulated_supports=simulated_supports,
-        privacy=privacy,
+        primary_privacy=primary_privacy,
+        tasks=tasks,
+        combined_cost=combined_cost,
+    )
+    baseline = naive_baseline_diagnostics(
+        enabled=naive_baseline_enabled,
+        attempted=naive_attempted,
+        error=naive_error,
+        luna_usage=naive_usage,
+        endpoint_usage=endpoint_usage,
+        supports=[*naive_first_supports, *naive_final_supports],
+        privacy=naive_privacy,
         tasks=tasks,
     )
-    science = scientific_summary(tasks, samples=bootstrap_samples) if mechanics["all_pass"] else None
+    science = (
+        scientific_summary(tasks, samples=bootstrap_samples)
+        if mechanics["all_pass"]
+        else None
+    )
     status = "mechanics_failed"
     if mechanics["all_pass"]:
         status = "passed" if science and science["gates"]["all_pass"] else "gated_null"
@@ -1791,10 +2033,15 @@ def run_development(
             "task_count": 64,
             "branch_draws": BRANCH_DRAWS,
             "planning_requests": PLANNING_REQUESTS,
-            "expected_deepseek_requests": expected_deepseek_requests,
-            "expected_naive_requests": NAIVE_FORMAL_REQUESTS,
-            "expected_combined_requests": expected_deepseek_requests
-            + NAIVE_FORMAL_REQUESTS,
+            "expected_primary_deepseek_requests": expected_primary_deepseek_requests,
+            "actual_naive_endpoint_requests": endpoint_usage[
+                "adapter_requests"
+            ],
+            "actual_naive_requests": naive_usage["adapter_requests"],
+            "actual_combined_requests": usage["combined_requests"],
+            "maximum_naive_endpoint_requests": NAIVE_ENDPOINT_REQUESTS,
+            "maximum_naive_requests": NAIVE_FORMAL_REQUESTS,
+            "maximum_primary_deepseek_requests": MAX_PRIMARY_DEEPSEEK_REQUESTS,
             "maximum_deepseek_requests": MAX_DEEPSEEK_REQUESTS,
             "maximum_requests": MAX_REQUESTS,
             "preregistration_sha256": PREREGISTRATION_SHA256,
@@ -1804,6 +2051,7 @@ def run_development(
             "naive_model": NAIVE_MODEL_ID,
             "naive_reasoning_effort": NAIVE_REASONING_EFFORT,
             "naive_is_descriptive_only": True,
+            "naive_can_gate_or_abort_primary": False,
             "conditioned_blind_same_seed": True,
             "conditioned_blind_adjacent": True,
             "hidden_cig_exposed_to_model": False,
@@ -1813,6 +2061,7 @@ def run_development(
         "daily_budget_status": dict(daily_budget_status or {}),
         "usage": usage,
         "mechanics_gates": mechanics,
+        "naive_baseline": baseline,
         "science": science,
         "tasks": tasks,
     }
@@ -1832,12 +2081,14 @@ def main() -> int:
     parser.add_argument("--support-development-result", type=Path, required=True)
     parser.add_argument("--policy-smoke-result", type=Path)
     parser.add_argument("--naive-smoke-result", type=Path)
+    parser.add_argument("--disable-naive-baseline", action="store_true")
     parser.add_argument("--daily-ledger", type=Path, required=True)
     args = parser.parse_args()
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     adapter: PerRequestSeedStructuredAdapter | None = None
     naive_adapter: LunaReasoningAdapter | None = None
+    naive_endpoint_adapter: PerRequestSeedStructuredAdapter | None = None
     try:
         live = read_live_credits()
         ledger = json.loads(args.daily_ledger.read_text(encoding="utf-8"))
@@ -1882,23 +2133,33 @@ def main() -> int:
                 daily_budget_status=daily,
             )
         else:
-            if args.policy_smoke_result is None or args.naive_smoke_result is None:
-                raise ValueError("development requires both policy smokes")
+            if args.policy_smoke_result is None:
+                raise ValueError("development requires the enriched policy smoke")
+            if args.naive_smoke_result is None and not args.disable_naive_baseline:
+                raise ValueError(
+                    "enabled naive baseline requires its smoke result"
+                )
             adapter = build_adapter(
                 stage="development", run_id=args.run_id, output_dir=output_dir
             )
-            naive_adapter = build_naive_adapter(
-                stage="development", run_id=args.run_id, output_dir=output_dir
-            )
+            if not args.disable_naive_baseline:
+                naive_adapter = build_naive_adapter(
+                    stage="development", run_id=args.run_id, output_dir=output_dir
+                )
+                naive_endpoint_adapter = build_adapter(
+                    stage="development", run_id=args.run_id, output_dir=output_dir
+                )
             result = run_development(
                 output_dir=output_dir,
                 run_id=args.run_id,
                 support_smoke_result=args.support_smoke_result,
                 support_development_result=args.support_development_result,
                 policy_smoke_result=args.policy_smoke_result,
-                naive_smoke_result=args.naive_smoke_result,
+                naive_smoke_result=args.naive_smoke_result or Path("disabled"),
                 adapter=adapter,
                 naive_adapter=naive_adapter,
+                naive_endpoint_adapter=naive_endpoint_adapter,
+                naive_baseline_enabled=not args.disable_naive_baseline,
                 daily_budget_status=daily,
             )
     except Exception as exc:
@@ -1916,6 +2177,10 @@ def main() -> int:
             failure["deepseek_usage"] = summarize_usage(adapter.usage_snapshot())
         if naive_adapter is not None:
             failure["naive_usage"] = _usage(naive_adapter)
+        if naive_endpoint_adapter is not None:
+            failure["naive_endpoint_usage"] = summarize_usage(
+                naive_endpoint_adapter.usage_snapshot()
+            )
         checkpoint(output_dir / "FAILURE.json", failure)
         print(json.dumps(failure, indent=2, sort_keys=True))
         return 1

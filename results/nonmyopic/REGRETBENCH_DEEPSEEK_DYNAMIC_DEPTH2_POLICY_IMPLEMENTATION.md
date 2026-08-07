@@ -16,7 +16,8 @@ The implementation constructs a genuinely LLM-native sequential BED tree:
 - compute-matched myopic, fixed-support depth-two, matched history-blind, and
   random-root controls; and
 - a separate Luna medium-reasoning naive-thinking trajectory, measured with
-  the same DeepSeek truth-mass endpoint but excluded from scientific gates; and
+  the same DeepSeek truth-mass endpoint but unable to gate or abort primary
+  execution; and
 - exact official RegretBench execution followed by a continuous final
   truth-mass Brier and log-loss endpoint.
 
@@ -34,6 +35,7 @@ conditioned/blind branches     64*4*8*2*2           8,192
 planning total                                      8,256
 realized first histories                      at most 256
 realized final histories                      at most 256
+maximum primary DeepSeek requests                    8,768
 naive first/final endpoint supports                    128
 maximum DeepSeek requests                            8,896
 naive Luna questions                                   128
@@ -59,9 +61,12 @@ The full chain's maximum exposure is `$4.80`:
 - naive-thinking smoke: `$0.20`;
 - mixed DeepSeek/Luna policy development: `$3.50`.
 
-The dynamic policy makes zero calls after any predecessor null/failure or a
-smoke failure. Both formal adapters share one run ID, so the hard OpenRouter
-tracker reserves every concurrent request against one combined `$3.50` cap.
+The dynamic policy makes zero calls after any scientific predecessor null or
+enriched-policy smoke failure. A naive smoke failure disables only the
+descriptive baseline. The primary DeepSeek, optional Luna, and optional naive
+endpoint DeepSeek adapters share one run ID, so the hard OpenRouter tracker
+reserves every concurrent request against one combined `$3.50` cap. A formal
+baseline failure is banked without changing primary mechanics or science.
 Confirmation remains sealed regardless of a development null.
 
 ## Verification
@@ -76,24 +81,26 @@ pytest -q \
   tests/test_bongard_openworld_luna_naive_first_link.py \
   tests/test_openrouter_model.py
 
-61 passed in 7.85s
+64 passed in 15.74s
 ```
 
 The synthetic full run materializes all `8,256` planning responses and every
 selected realized path, all `128` Luna questions, and all `128` DeepSeek
 naive-path endpoint supports, then traverses parsing, scoring, official
 mapping, endpoint computation, bootstrap, privacy, request accounting, and
-public/private serialization. Its outcomes are instrument fixtures, not
-evidence.
+public/private serialization. Separate exact-scale adversarial rehearsals prove
+that a formal Luna failure and a smoke-disabled baseline both leave primary
+mechanics and science computation intact. Their outcomes are instrument
+fixtures, not evidence.
 
 ## Bindings
 
 - preregistration:
-  `c1a19408c6cea5bb32023a7f9f003afac3a210d19fae0842a47a873f29b86b97`
+  `4e0faa595a401497f82b02d38482536f597e48eb17072e8185bc8ebc20199643`
 - policy core:
-  `fe611671fdf668733037b000d2574bec458b7ae6ee9f2d0a062f2c31d2fc3a55`
+  `4876faa7788cc50feb94d26a1cb4c973c5402c1e8bf10eb4daa17bdd4e197ea3`
 - policy daily executor:
-  `05e76d125ae3d23c104b39338e39536f9d788fcdf310bc91757c446925965977`
+  `cf7089df7472881ad683a163ece55fb70d7b2fe716bc582425a7180bbd1ff243`
 - amended support-recovery daily executor:
   `ddd3ecbb9e8a559f6bd1dae2d6f85dc3835e8187ac0cb032e06a823925b529f4`
 

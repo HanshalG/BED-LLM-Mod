@@ -160,5 +160,73 @@ def test_execute_orders_enriched_smoke_before_policy_development(
     development_builds = [
         kwargs for _, kwargs in adapter_builds if kwargs["stage"] == "development"
     ]
-    assert len(development_builds) == 2
-    assert development_builds[0]["run_id"] == development_builds[1]["run_id"]
+    assert len(development_builds) == 3
+    assert len({kwargs["run_id"] for kwargs in development_builds}) == 1
+
+
+def test_naive_smoke_failure_disables_baseline_but_still_runs_primary(
+    tmp_path, monkeypatch
+) -> None:
+    prior_path = tmp_path / "prior-ledger.json"
+    prior_path.write_text(json.dumps(_prior_ledger()))
+    support_smoke_dir = tmp_path / "support-smoke"
+    support_dev_dir = tmp_path / "support-development"
+    support_smoke_dir.mkdir()
+    support_dev_dir.mkdir()
+    (support_smoke_dir / "RESULT.json").write_text("{}")
+    (support_dev_dir / "RESULT.json").write_text("{}")
+    monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")
+    monkeypatch.setattr(daily, "NAIVE_SMOKE_DIR", tmp_path / "naive-smoke")
+    monkeypatch.setattr(daily, "DEVELOPMENT_DIR", tmp_path / "development")
+    monkeypatch.setattr(daily, "LEDGER", tmp_path / "ledger.json")
+    monkeypatch.setattr(daily, "ROOT", tmp_path / "root")
+    monkeypatch.setattr(daily.recovery_daily, "LEDGER", prior_path)
+    monkeypatch.setattr(daily.recovery_daily, "SMOKE_DIR", support_smoke_dir)
+    monkeypatch.setattr(daily.recovery_daily, "DEVELOPMENT_DIR", support_dev_dir)
+    monkeypatch.setattr(
+        daily,
+        "preflight",
+        lambda **kwargs: {
+            "budget": {"spent_before_policy_usd": 0.9},
+            "predecessor": {},
+        },
+    )
+    monkeypatch.setattr(daily.policy, "build_adapter", lambda **kwargs: _Adapter())
+    monkeypatch.setattr(
+        daily.policy, "build_naive_adapter", lambda **kwargs: _Adapter()
+    )
+    monkeypatch.setattr(
+        daily, "_budget_status", lambda *args, **kwargs: {"authorized": True}
+    )
+
+    def fake_smoke(*, output_dir, **kwargs):
+        output_dir.mkdir(parents=True, exist_ok=True)
+        result = {"status": "passed", "usage": {"run_cost_usd": 0.01}}
+        (output_dir / "RESULT.json").write_text(json.dumps(result))
+        return result
+
+    def fail_naive_smoke(*args, **kwargs):
+        raise ValueError("descriptive baseline smoke failed")
+
+    seen = {}
+
+    def fake_development(*, output_dir, **kwargs):
+        seen.update(kwargs)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        result = {"status": "gated_null", "usage": {"combined_cost_usd": 0.02}}
+        (output_dir / "RESULT.json").write_text(json.dumps(result))
+        return result
+
+    monkeypatch.setattr(daily.policy, "run_smoke", fake_smoke)
+    monkeypatch.setattr(daily.policy, "run_naive_smoke", fail_naive_smoke)
+    monkeypatch.setattr(daily.policy, "run_development", fake_development)
+
+    result = daily.execute(live_reader=_live)
+
+    assert result["status"] == "complete_reconciled"
+    assert result["naive_smoke_status"] == "failed_closed"
+    assert result["naive_baseline_enabled"] is False
+    assert seen["naive_baseline_enabled"] is False
+    assert seen["naive_adapter"] is None
+    assert seen["naive_endpoint_adapter"] is None
+    assert result["development_status"] == "gated_null"

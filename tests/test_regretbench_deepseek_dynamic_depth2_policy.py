@@ -330,6 +330,7 @@ def test_full_8256_planning_response_path_and_actual_cache(
         lambda path: {"path": str(path), "sha256": "fixture"},
     )
     adapter = _FixtureAdapter()
+    naive_endpoint_adapter = _FixtureAdapter()
     naive_adapter = _FakeNaiveAdapter()
 
     result = policy.run_development(
@@ -341,17 +342,21 @@ def test_full_8256_planning_response_path_and_actual_cache(
         naive_smoke_result=tmp_path / "naive-smoke.json",
         adapter=adapter,
         naive_adapter=naive_adapter,
+        naive_endpoint_adapter=naive_endpoint_adapter,
         bootstrap_samples=50,
     )
 
     assert result["protocol"]["planning_requests"] == 8_256
-    assert result["protocol"]["expected_deepseek_requests"] == adapter.requests
-    assert 8_384 < adapter.requests <= 8_896
-    assert result["protocol"]["expected_naive_requests"] == naive_adapter.requests == 128
-    assert result["protocol"]["expected_combined_requests"] == (
-        adapter.requests + naive_adapter.requests
+    assert result["protocol"]["expected_primary_deepseek_requests"] == adapter.requests
+    assert 8_256 < adapter.requests <= 8_768
+    assert naive_endpoint_adapter.requests == 128
+    assert result["protocol"]["actual_naive_requests"] == naive_adapter.requests == 128
+    assert result["protocol"]["actual_combined_requests"] == (
+        adapter.requests + naive_endpoint_adapter.requests + naive_adapter.requests
     )
     assert all(result["mechanics_gates"].values())
+    assert result["naive_baseline"]["status"] == "available"
+    assert result["naive_baseline"]["all_transport_and_schema_gates_pass"] is True
     assert result["status"] in {"passed", "gated_null"}
     assert len(result["tasks"]) == 64
     assert all("naive_thinking" in task["policies"] for task in result["tasks"])
@@ -360,3 +365,87 @@ def test_full_8256_planning_response_path_and_actual_cache(
     assert "aliases" not in public
     assert "selected_questions" not in public
     assert (tmp_path / "development" / "private" / "FROZEN_SELECTIONS.json").exists()
+
+
+def test_formal_naive_failure_cannot_veto_primary_result(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        policy,
+        "validate_support_predecessors",
+        lambda **kwargs: {"support": "fixture"},
+    )
+    monkeypatch.setattr(
+        policy,
+        "validate_policy_smoke",
+        lambda path: {"path": str(path), "sha256": "fixture"},
+    )
+    monkeypatch.setattr(
+        policy,
+        "validate_naive_smoke",
+        lambda path: {"path": str(path), "sha256": "fixture"},
+    )
+    primary_adapter = _FixtureAdapter()
+    endpoint_adapter = _FixtureAdapter()
+    naive_adapter = _FakeNaiveAdapter()
+
+    def fail_naive(*args, **kwargs):
+        raise ValueError("deliberate descriptive baseline failure")
+
+    monkeypatch.setattr(policy, "_call_naive", fail_naive)
+    result = policy.run_development(
+        output_dir=tmp_path / "development-naive-failure",
+        run_id="fixture-policy-naive-failure",
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+        policy_smoke_result=tmp_path / "policy-smoke.json",
+        naive_smoke_result=tmp_path / "naive-smoke.json",
+        adapter=primary_adapter,
+        naive_adapter=naive_adapter,
+        naive_endpoint_adapter=endpoint_adapter,
+        bootstrap_samples=50,
+    )
+
+    assert result["status"] != "mechanics_failed"
+    assert result["science"] is not None
+    assert all(result["mechanics_gates"].values())
+    assert result["naive_baseline"]["status"] == "failed_closed"
+    assert result["naive_baseline"]["can_affect_primary_status"] is False
+    assert all("naive_thinking" not in task["policies"] for task in result["tasks"])
+    assert endpoint_adapter.requests == 0
+
+
+def test_disabled_naive_baseline_keeps_primary_exact_path(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        policy,
+        "validate_support_predecessors",
+        lambda **kwargs: {"support": "fixture"},
+    )
+    monkeypatch.setattr(
+        policy,
+        "validate_policy_smoke",
+        lambda path: {"path": str(path), "sha256": "fixture"},
+    )
+    primary_adapter = _FixtureAdapter()
+
+    result = policy.run_development(
+        output_dir=tmp_path / "development-naive-disabled",
+        run_id="fixture-policy-naive-disabled",
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+        policy_smoke_result=tmp_path / "policy-smoke.json",
+        naive_smoke_result=tmp_path / "naive-smoke-failure.json",
+        adapter=primary_adapter,
+        naive_baseline_enabled=False,
+        bootstrap_samples=50,
+    )
+
+    assert result["status"] != "mechanics_failed"
+    assert result["science"] is not None
+    assert all(result["mechanics_gates"].values())
+    assert result["naive_baseline"]["status"] == "disabled_by_smoke"
+    assert result["usage"]["naive_luna"]["adapter_requests"] == 0
+    assert result["usage"]["deepseek_naive_endpoint"]["adapter_requests"] == 0
+    assert result["protocol"]["naive_can_gate_or_abort_primary"] is False

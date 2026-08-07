@@ -118,7 +118,12 @@ compute-matched control. `fixed_depth2` tests whether generic finite-support
 lookahead, rather than path-dependent regeneration, explains any gain.
 `history_blind_depth2` tests whether branch sampling noise alone explains it.
 `naive_thinking` is a stronger-model, unmatched-compute descriptive baseline;
-it cannot pass, rescue, or veto any scientific gate.
+it cannot pass, rescue, veto, or abort the primary experiment. Its serving
+smoke is attempted before development, but a smoke failure disables only the
+baseline. Formal Luna calls and the DeepSeek endpoint measurements run through
+separate adapters sharing the same hard run budget. Any baseline transport,
+schema, reasoning, support, or action-coverage failure is banked as an
+unavailable baseline while the primary DeepSeek pass/null decision continues.
 
 ## Realized Execution And Endpoint
 
@@ -171,7 +176,7 @@ No endpoint is opened and no smoke efficacy value may authorize passage.
 ## Exact-10 Naive-Thinking Smoke
 
 After the enriched smoke passes, Luna runs a separate exact-10 medium-reasoning
-transport and semantics gate on the four mechanics tasks:
+transport and semantics diagnostic on the four mechanics tasks:
 
 - four first-question calls, seeds `202608088200..202608088203`;
 - four second-question calls after exact environment replies, seeds
@@ -185,6 +190,8 @@ exits/forced finalization, positive reasoning tokens, all ten questions
 nonempty and syntactically interrogative, all eight executed questions mapped
 to supported official facets, every prompt privacy audit passing, and cost at
 most `$0.20`. No answer, coverage, or policy efficacy value enters passage.
+Failure disables only the descriptive baseline and does not prevent the
+primary policy development run.
 
 ## Development Request Schedule
 
@@ -201,12 +208,14 @@ most `$0.20`. No answer, coverage, or policy efficacy value enters passage.
 - naive first-history support: `202608180000 + task_index`;
 - naive final-history support: `202608190000 + task_index`.
 
-The planning block is exact `64 + 8,192 = 8,256` calls. Realized calls are one
+The primary planning block is exact `64 + 8,192 = 8,256` calls. Primary
+realized calls are one
 first-history and one final-history call per distinct selected root, at most
-`512`. Naive thinking adds `128` Luna calls and its endpoint adds `128`
-DeepSeek calls. The result records separate precomputed exact counts for both
-models and requires accepted requests and HTTP attempts to equal them. Maximum
-combined total is `9,024`: at most `8,896` DeepSeek and exactly `128` Luna.
+`512`. An available naive baseline adds `128` Luna calls and its endpoint adds
+`128` calls through a separate DeepSeek adapter. The result records primary,
+baseline-endpoint, Luna, and combined counts separately. Missing or partial
+baseline counts cannot invalidate exact primary accounting. Maximum combined
+total remains `9,024`: at most `8,896` DeepSeek and `128` Luna.
 
 ## Mechanics Gates
 
@@ -214,17 +223,21 @@ All must pass:
 
 - every predecessor, source, split, seed, prompt, privacy, and response binding;
 - exact request/attempt accounting and zero retries/provider retries/reasoning/
-  forced exits for DeepSeek, plus exact positive-reasoning Luna accounting with
-  zero retries/provider retries/forced exits/forced finalization;
-- every initial, simulated-branch, and realized support is strict with exactly
+  forced exits for the primary DeepSeek adapter;
+- every primary initial, simulated-branch, and realized support is strict with exactly
   eight unique hypotheses and aligned four-reply vectors;
 - every task has at least two informative initial roots;
 - at least 90% of simulated branch supports have an informative follow-up;
-- every policy, including naive thinking, has at least 48 supported first
-  actions and 40 supported second actions;
-- every public artifact excludes raw questions, replies, aliases, facets,
+- every primary policy has at least 48 supported first actions and 40 supported
+  second actions;
+- every primary public artifact excludes raw questions, replies, aliases, facets,
   hidden intent indexes, and raw responses; and
-- combined DeepSeek and Luna policy cost is at most `$3.50`.
+- combined spend, including any attempted baseline calls, is at most `$3.50`.
+
+The result separately reports Luna transport/reasoning, baseline DeepSeek
+endpoint-support validity, prompt privacy, and the same `48/40` action-coverage
+targets as descriptive diagnostics. None enters primary mechanics, science,
+status, or confirmation authorization.
 
 ## Scientific Gates
 
@@ -268,6 +281,10 @@ dynamic policy dev        $3.50
                          ------
 total                     $4.80
 ```
+
+Within this chain, the enriched policy smoke is the only policy smoke that can
+gate primary development. The RegretBench naive-thinking smoke is attempted
+and banked first, but its failure only removes the descriptive baseline.
 
 Unspent allowance does not roll over. Calls are never added merely to approach
 the cap.
