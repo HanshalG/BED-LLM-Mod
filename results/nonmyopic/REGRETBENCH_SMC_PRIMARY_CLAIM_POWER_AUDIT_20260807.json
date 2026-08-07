@@ -1,0 +1,175 @@
+{
+  "audit_script_sha256": "0fedaba8bd62bf77829cefd3c23fac1c573c2a1a6447e95f3a6d74dd56820872",
+  "claim_gate_amendment_sha256": "7f7140418bd08e207bf1f52e9838c93234acf66d5eec48cf9c9879302426df62",
+  "cost_usd": 0.0,
+  "experiment_sha256": "6525ce70ca1f14553e2de3e2e1f79ac43c6647a95c61d1b7fed88a051c91949a",
+  "interface_version": "regretbench-smc-primary-claim-power-audit-1",
+  "method": {
+    "changed_root_counts_fixed_per_scenario": true,
+    "engineering_calibration_disclosure": "A 100-replicate implementation calibration using these same three scenarios was inspected before the 1,000-replicate artifact; no scenario, parameter, scorer, or gate changed afterward.",
+    "exact_frozen_scorer_used": true,
+    "limitations": "Stylized operating-characteristic audit, not a forecast of live model behavior; it isolates the frozen primary conjunction.",
+    "log_loss_safeguards_held_nonworse": true,
+    "paired_task_level_simulation": true,
+    "secondary_controls_forced_nonbinding": true,
+    "task_count": 64
+  },
+  "model_calls": 0,
+  "primary_claim_gate_names": [
+    "dynamic_refresh_myopic_differ_at_least_16",
+    "predicted_gain_over_refresh_myopic_at_least_001",
+    "dynamic_refresh_myopic_brier_gain_at_least_002",
+    "dynamic_refresh_myopic_probability_at_least_090",
+    "dynamic_refresh_myopic_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_refresh_myopic",
+    "refresh_myopic_predicted_realized_spearman_at_least_015",
+    "refresh_myopic_spearman_probability_positive_at_least_080",
+    "dynamic_blind_differ_at_least_12",
+    "dynamic_blind_brier_gain_at_least_0015",
+    "dynamic_blind_probability_at_least_080",
+    "dynamic_blind_wins_exceed_losses",
+    "dynamic_log_loss_nonworse_blind"
+  ],
+  "results": [
+    {
+      "bootstrap_samples_per_replicate": 1000,
+      "gate_pass_rates": {
+        "dynamic_blind_brier_gain_at_least_0015": 0.514,
+        "dynamic_blind_differ_at_least_12": 1.0,
+        "dynamic_blind_probability_at_least_080": 0.993,
+        "dynamic_blind_wins_exceed_losses": 0.995,
+        "dynamic_log_loss_nonworse_blind": 1.0,
+        "dynamic_log_loss_nonworse_refresh_myopic": 1.0,
+        "dynamic_refresh_myopic_brier_gain_at_least_002": 0.53,
+        "dynamic_refresh_myopic_differ_at_least_16": 1.0,
+        "dynamic_refresh_myopic_probability_at_least_090": 0.995,
+        "dynamic_refresh_myopic_wins_exceed_losses": 1.0,
+        "predicted_gain_over_refresh_myopic_at_least_001": 0.691,
+        "refresh_myopic_predicted_realized_spearman_at_least_015": 0.503,
+        "refresh_myopic_spearman_probability_positive_at_least_080": 0.374
+      },
+      "observed_metric_means": {
+        "blind_brier_difference": -0.015097185563239392,
+        "predicted_gain": 0.010000000000000002,
+        "refresh_brier_difference": -0.020324200455035944,
+        "refresh_spearman": 0.1423323529411765,
+        "refresh_spearman_probability_positive": 0.650293
+      },
+      "primary_conjunction": {
+        "nominal_two_cohort_rate_if_independent": 0.006561,
+        "passes": 81,
+        "rate": 0.081,
+        "wilson95": [
+          0.0656496215412003,
+          0.0995572020696949
+        ]
+      },
+      "replicates": 1000,
+      "scenario": {
+        "blind_changed_roots": 12,
+        "blind_overall_brier_gain": 0.015,
+        "changed_task_gain_sd": 0.08,
+        "name": "threshold_surface",
+        "predicted_overall_gain": 0.01,
+        "predicted_realized_rho": 0.15,
+        "refresh_changed_roots": 16,
+        "refresh_overall_brier_gain": 0.02
+      },
+      "seed": 202608370000
+    },
+    {
+      "bootstrap_samples_per_replicate": 1000,
+      "gate_pass_rates": {
+        "dynamic_blind_brier_gain_at_least_0015": 0.961,
+        "dynamic_blind_differ_at_least_12": 1.0,
+        "dynamic_blind_probability_at_least_080": 1.0,
+        "dynamic_blind_wins_exceed_losses": 1.0,
+        "dynamic_log_loss_nonworse_blind": 1.0,
+        "dynamic_log_loss_nonworse_refresh_myopic": 1.0,
+        "dynamic_refresh_myopic_brier_gain_at_least_002": 0.994,
+        "dynamic_refresh_myopic_differ_at_least_16": 1.0,
+        "dynamic_refresh_myopic_probability_at_least_090": 1.0,
+        "dynamic_refresh_myopic_wins_exceed_losses": 1.0,
+        "predicted_gain_over_refresh_myopic_at_least_001": 1.0,
+        "refresh_myopic_predicted_realized_spearman_at_least_015": 0.836,
+        "refresh_myopic_spearman_probability_positive_at_least_080": 0.805
+      },
+      "observed_metric_means": {
+        "blind_brier_difference": -0.025208683878995206,
+        "predicted_gain": 0.018,
+        "refresh_brier_difference": -0.03539519447238197,
+        "refresh_spearman": 0.324679802955665,
+        "refresh_spearman_probability_positive": 0.8882680000000001
+      },
+      "primary_conjunction": {
+        "nominal_two_cohort_rate_if_independent": 0.586756,
+        "passes": 766,
+        "rate": 0.766,
+        "wilson95": [
+          0.7387721670475355,
+          0.7911919974381493
+        ]
+      },
+      "replicates": 1000,
+      "scenario": {
+        "blind_changed_roots": 22,
+        "blind_overall_brier_gain": 0.025,
+        "changed_task_gain_sd": 0.08,
+        "name": "design_target",
+        "predicted_overall_gain": 0.018,
+        "predicted_realized_rho": 0.35,
+        "refresh_changed_roots": 28,
+        "refresh_overall_brier_gain": 0.035
+      },
+      "seed": 202609370000
+    },
+    {
+      "bootstrap_samples_per_replicate": 1000,
+      "gate_pass_rates": {
+        "dynamic_blind_brier_gain_at_least_0015": 0.999,
+        "dynamic_blind_differ_at_least_12": 1.0,
+        "dynamic_blind_probability_at_least_080": 1.0,
+        "dynamic_blind_wins_exceed_losses": 1.0,
+        "dynamic_log_loss_nonworse_blind": 1.0,
+        "dynamic_log_loss_nonworse_refresh_myopic": 1.0,
+        "dynamic_refresh_myopic_brier_gain_at_least_002": 1.0,
+        "dynamic_refresh_myopic_differ_at_least_16": 1.0,
+        "dynamic_refresh_myopic_probability_at_least_090": 1.0,
+        "dynamic_refresh_myopic_wins_exceed_losses": 1.0,
+        "predicted_gain_over_refresh_myopic_at_least_001": 1.0,
+        "refresh_myopic_predicted_realized_spearman_at_least_015": 0.979,
+        "refresh_myopic_spearman_probability_positive_at_least_080": 0.979
+      },
+      "observed_metric_means": {
+        "blind_brier_difference": -0.03531530808682613,
+        "predicted_gain": 0.02500000000000001,
+        "refresh_brier_difference": -0.049998622250175005,
+        "refresh_spearman": 0.4686525096525097,
+        "refresh_spearman_probability_positive": 0.977905
+      },
+      "primary_conjunction": {
+        "nominal_two_cohort_rate_if_independent": 0.954529,
+        "passes": 977,
+        "rate": 0.977,
+        "wilson95": [
+          0.9657235493377733,
+          0.9846257230670071
+        ]
+      },
+      "replicates": 1000,
+      "scenario": {
+        "blind_changed_roots": 28,
+        "blind_overall_brier_gain": 0.035,
+        "changed_task_gain_sd": 0.08,
+        "name": "strong_signal",
+        "predicted_overall_gain": 0.025,
+        "predicted_realized_rho": 0.5,
+        "refresh_changed_roots": 36,
+        "refresh_overall_brier_gain": 0.05
+      },
+      "seed": 202610370000
+    }
+  ],
+  "schema_version": 1,
+  "status": "complete"
+}
