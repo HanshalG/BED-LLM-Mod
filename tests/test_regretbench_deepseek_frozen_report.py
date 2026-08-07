@@ -55,6 +55,7 @@ def _result(
 ) -> dict:
     briers = {
         "dynamic_depth2": 0.2,
+        "myopic_brier": 0.31,
         "myopic_width": 0.3,
         "history_blind_depth2": 0.28,
         "fixed_depth2": 0.26,
@@ -93,6 +94,12 @@ def _result(
                 "ci95": [0.1, 0.5],
                 "probability_positive": 0.95,
                 "n": 20,
+            },
+            "predicted_to_realized_dynamic_myopic_brier": {
+                "spearman": 0.4,
+                "ci95": [0.2, 0.6],
+                "probability_positive": 0.97,
+                "n": 22,
             },
             "fresh_regeneration_comparisons_descriptive": comparisons,
             "gates": {
@@ -182,6 +189,10 @@ def test_reporting_binding_matches_protocol_and_generator() -> None:
     assert report.sha256_file(
         report.REPO_ROOT / binding["endpoint_amendment"]["path"]
     ) == binding["endpoint_amendment"]["sha256"]
+    assert report.sha256_file(
+        report.REPO_ROOT / binding["matched_utility_myopic_amendment"]["path"]
+    ) == binding["matched_utility_myopic_amendment"]["sha256"]
+    assert binding["requirements"]["matched_brier_myopic_is_headline_control"]
     assert binding["requirements"][
         "pooled_or_secondary_evidence_can_change_tier"
     ] is False
@@ -256,6 +267,7 @@ def test_primary_table_and_optional_naive_are_separated(tmp_path) -> None:
     assert naive["metrics"]["fresh_brier"]["mean"] == pytest.approx(0.32)
     diagnostic = value["alignment_complete_diagnostic"]
     assert diagnostic["can_change_result_status_or_claim_tier"] is False
+    assert diagnostic["controls"]["myopic_brier"]["eligible_task_count"] == 64
     assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 64
     assert diagnostic["alignment_complete_corroboration"]["all_pass"] is True
 
@@ -274,6 +286,7 @@ def test_alignment_complete_diagnostic_excludes_penalized_first_paths(
     value = report.build_report(tmp_path, stage="development")
 
     diagnostic = value["alignment_complete_diagnostic"]
+    assert diagnostic["controls"]["myopic_brier"]["eligible_task_count"] == 63
     assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 63
     assert diagnostic["controls"]["fixed_depth2"]["eligible_task_count"] == 63
     assert value["paired_primary_comparisons"] == payload["science"]["comparisons"]

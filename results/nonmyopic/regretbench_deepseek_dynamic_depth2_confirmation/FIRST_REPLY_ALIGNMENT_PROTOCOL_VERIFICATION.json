@@ -32,6 +32,7 @@
     "freeze_made_zero_calls_and_cost": true,
     "literal_verified_development_pass_required": true,
     "manifest_confirmation_binding_matches": true,
+    "matched_utility_science_gates_frozen": true,
     "protocol_hash_matches": true,
     "science_gates_unchanged": true,
     "source_manifest_hash_matches": true,

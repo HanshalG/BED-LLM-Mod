@@ -23,7 +23,8 @@ FRAGMENT_PROTOCOL_SHA256 = (
 )
 DEFAULT_OUTPUT = REPO_ROOT / "paper/generated/regretbench_result.tex"
 CONTROL_LABELS = {
-    "myopic_width": "Myopic width",
+    "myopic_brier": "Matched-Brier myopic",
+    "myopic_width": "Myopic EIG width",
     "history_blind_depth2": "History-blind d2",
     "fixed_depth2": "Fixed-support d2",
     "random": "Random",
@@ -121,12 +122,15 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
                 "\\end{table}",
             ]
         )
-        correlation = saved["predicted_to_realized_dynamic_myopic"]
+        correlation = saved[
+            "predicted_to_realized_dynamic_myopic_brier"
+        ]
+        eig_correlation = saved["predicted_to_realized_dynamic_myopic"]
         lines.extend(
             [
                 "",
-                "On changed dynamic/myopic roots, predicted advantage versus "
-                "realized Brier advantage has Spearman $"
+                "On changed dynamic/matched-Brier-myopic roots, predicted "
+                "advantage versus realized Brier advantage has Spearman $"
                 + _number(correlation.get("spearman"), 3)
                 + "$ (95\\% CI $["
                 + _number(correlation.get("ci95", [None, None])[0], 3)
@@ -134,17 +138,20 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
                 + _number(correlation.get("ci95", [None, None])[1], 3)
                 + "]$, $n="
                 + str(correlation.get("n"))
-                + "$).",
+                + "$. The secondary dynamic/myopic-EIG-width correlation was $"
+                + _number(eig_correlation.get("spearman"), 3)
+                + "$.",
             ]
         )
         alignment = saved["alignment_complete_diagnostic"]
-        myopic_alignment = alignment["controls"]["myopic_width"]
+        myopic_alignment = alignment["controls"]["myopic_brier"]
         aligned_brier = myopic_alignment["brier_dynamic_minus_control"]
         aligned_ci = aligned_brier["ci95"]
         lines.extend(
             [
                 "",
-                "On the preregistered subset where dynamic and myopic both had "
+                "On the preregistered subset where dynamic and matched-Brier "
+                "myopic both had "
                 "action-valid, truth-consistent first-reply paths ($n="
                 + str(myopic_alignment["eligible_task_count"])
                 + "$), dynamic-minus-myopic Brier was $"

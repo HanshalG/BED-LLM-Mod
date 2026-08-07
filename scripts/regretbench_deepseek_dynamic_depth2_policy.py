@@ -45,6 +45,7 @@ MIN_UNIQUE = 8
 BRANCH_DRAWS = 2
 PRIMARY_POLICIES = (
     "dynamic_depth2",
+    "myopic_brier",
     "history_blind_depth2",
     "myopic_width",
     "fixed_depth2",
@@ -137,6 +138,14 @@ FIRST_REPLY_ENDPOINT_AMENDMENT = (
 FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256 = (
     "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
 )
+MATCHED_UTILITY_MYOPIC_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md"
+)
+MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
+    "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -187,6 +196,10 @@ def validate_protocol_binding() -> None:
         FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
     ):
         raise ValueError("first-reply endpoint alignment amendment changed")
+    if recovery.sha256_file(MATCHED_UTILITY_MYOPIC_AMENDMENT) != (
+        MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("matched-utility myopic amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -597,6 +610,41 @@ def dynamic_root_risks(
     return risks
 
 
+def myopic_brier_root_risks(
+    initial: Mapping[str, Any],
+) -> list[dict[str, float]]:
+    hypotheses = initial["hypotheses"]
+    risks = []
+    for root in range(QUESTIONS):
+        mean_brier = 0.0
+        mean_log = 0.0
+        for truth in hypotheses:
+            reply = recovery.normalize_text(truth["predicted_replies"][root])
+            posterior = [
+                index
+                for index, item in enumerate(hypotheses)
+                if recovery.normalize_text(item["predicted_replies"][root])
+                == reply
+            ]
+            denominator = sum(
+                hypotheses[index]["probability"] for index in posterior
+            )
+            numerator = sum(
+                hypotheses[index]["probability"]
+                for index in posterior
+                if _answer_matches(
+                    hypotheses[index]["final_answer"], truth["final_answer"]
+                )
+            )
+            truth_mass = numerator / denominator if denominator > 0 else 0.0
+            mean_brier += truth["probability"] * (1.0 - truth_mass) ** 2
+            mean_log += truth["probability"] * -math.log(
+                max(PROBABILITY_FLOOR, truth_mass)
+            )
+        risks.append({"brier": mean_brier, "log_loss": mean_log})
+    return risks
+
+
 def fixed_root_risks(initial: Mapping[str, Any]) -> list[dict[str, float]]:
     hypotheses = initial["hypotheses"]
     risks = []
@@ -648,6 +696,7 @@ def choose_roots(
     initial: Mapping[str, Any],
     conditioned: Sequence[Mapping[str, float]],
     blind: Sequence[Mapping[str, float]],
+    myopic_brier: Sequence[Mapping[str, float]],
     fixed: Sequence[Mapping[str, float]],
     *,
     random_seed: int,
@@ -655,6 +704,10 @@ def choose_roots(
     return {
         "dynamic_depth2": min(
             range(QUESTIONS), key=lambda index: (conditioned[index]["brier"], index)
+        ),
+        "myopic_brier": min(
+            range(QUESTIONS),
+            key=lambda index: (myopic_brier[index]["brier"], index),
         ),
         "history_blind_depth2": min(
             range(QUESTIONS), key=lambda index: (blind[index]["brier"], index)
@@ -836,6 +889,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
         or protocol.get("first_reply_endpoint_amendment_sha256")
         != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+        or protocol.get("matched_utility_myopic_amendment_sha256")
+        != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -899,6 +954,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
         or protocol.get("first_reply_endpoint_amendment_sha256")
         != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+        or protocol.get("matched_utility_myopic_amendment_sha256")
+        != MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -1056,6 +1113,9 @@ def run_smoke(
             "first_reply_endpoint_amendment_sha256": (
                 FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
             ),
+            "matched_utility_myopic_amendment_sha256": (
+                MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1204,6 +1264,9 @@ def run_naive_smoke(
             ),
             "first_reply_endpoint_amendment_sha256": (
                 FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+            ),
+            "matched_utility_myopic_amendment_sha256": (
+                MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
@@ -1431,6 +1494,7 @@ def correlation_summary(
     realized: Sequence[float],
     *,
     samples: int,
+    seed: int,
 ) -> dict[str, Any]:
     point = spearman(predicted, realized)
     if point is None:
@@ -1440,7 +1504,7 @@ def correlation_summary(
             "probability_positive": None,
             "n": len(predicted),
         }
-    rng = np.random.default_rng(BOOTSTRAP_SEED + 99)
+    rng = np.random.default_rng(seed)
     correlations = []
     for _ in range(samples):
         indexes = rng.integers(0, len(predicted), size=len(predicted))
@@ -1468,7 +1532,7 @@ def correlation_summary(
         ),
         "n": len(predicted),
         "samples": samples,
-        "seed": BOOTSTRAP_SEED + 99,
+        "seed": seed,
     }
 
 
@@ -1478,33 +1542,49 @@ def scientific_summary(
     if len(tasks) != 64:
         raise ValueError("scientific summary requires all 64 tasks")
     baselines = [
+        "myopic_brier",
         "myopic_width",
         "history_blind_depth2",
         "fixed_depth2",
         "random",
     ]
+    comparison_seeds = {
+        "myopic_width": BOOTSTRAP_SEED,
+        "history_blind_depth2": BOOTSTRAP_SEED + 10,
+        "fixed_depth2": BOOTSTRAP_SEED + 20,
+        "random": BOOTSTRAP_SEED + 30,
+        "myopic_brier": BOOTSTRAP_SEED + 100,
+    }
     comparisons = {
         baseline: comparison_summary(
             tasks,
             baseline,
             samples=samples,
-            seed=BOOTSTRAP_SEED + index * 10,
+            seed=comparison_seeds[baseline],
         )
-        for index, baseline in enumerate(baselines)
+        for baseline in baselines
     }
     fresh_baselines = list(baselines)
     if all("naive_thinking" in task["policies"] for task in tasks):
         fresh_baselines.append("naive_thinking")
+    fresh_seeds = {
+        "myopic_width": BOOTSTRAP_SEED + 500,
+        "history_blind_depth2": BOOTSTRAP_SEED + 510,
+        "fixed_depth2": BOOTSTRAP_SEED + 520,
+        "random": BOOTSTRAP_SEED + 530,
+        "myopic_brier": BOOTSTRAP_SEED + 600,
+        "naive_thinking": BOOTSTRAP_SEED + 610,
+    }
     fresh_comparisons = {
         baseline: comparison_summary(
             tasks,
             baseline,
             samples=samples,
-            seed=BOOTSTRAP_SEED + 500 + index * 10,
+            seed=fresh_seeds[baseline],
             brier_key="fresh_brier",
             log_loss_key="fresh_log_loss",
         )
-        for index, baseline in enumerate(fresh_baselines)
+        for baseline in fresh_baselines
     }
     disagreements = {
         baseline: sum(
@@ -1512,42 +1592,54 @@ def scientific_summary(
             != task["selected_roots"][baseline]
             for task in tasks
         )
-        for baseline in (
-            "myopic_width",
-            "history_blind_depth2",
-            "fixed_depth2",
-            "random",
-        )
+        for baseline in baselines
     }
-    predicted_gain = [
-        task["conditioned_root_risks"][task["selected_roots"]["myopic_width"]][
-            "brier"
+    def predicted_gain_for(baseline: str) -> list[float]:
+        return [
+            task["conditioned_root_risks"][task["selected_roots"][baseline]][
+                "brier"
+            ]
+            - task["conditioned_root_risks"][
+                task["selected_roots"]["dynamic_depth2"]
+            ]["brier"]
+            for task in tasks
         ]
-        - task["conditioned_root_risks"][
-            task["selected_roots"]["dynamic_depth2"]
-        ]["brier"]
-        for task in tasks
-    ]
-    changed = [
-        index
-        for index, task in enumerate(tasks)
-        if task["selected_roots"]["dynamic_depth2"]
-        != task["selected_roots"]["myopic_width"]
-    ]
-    realized_gain = [
-        tasks[index]["policies"]["myopic_width"]["brier"]
-        - tasks[index]["policies"]["dynamic_depth2"]["brier"]
-        for index in changed
-    ]
-    correlation = correlation_summary(
-        [predicted_gain[index] for index in changed],
-        realized_gain,
-        samples=samples,
+
+    def correlation_for(baseline: str, seed: int) -> dict[str, Any]:
+        predicted = predicted_gain_for(baseline)
+        changed = [
+            index
+            for index, task in enumerate(tasks)
+            if task["selected_roots"]["dynamic_depth2"]
+            != task["selected_roots"][baseline]
+        ]
+        realized = [
+            tasks[index]["policies"][baseline]["brier"]
+            - tasks[index]["policies"]["dynamic_depth2"]["brier"]
+            for index in changed
+        ]
+        return correlation_summary(
+            [predicted[index] for index in changed],
+            realized,
+            samples=samples,
+            seed=seed,
+        )
+
+    predicted_gain = predicted_gain_for("myopic_width")
+    predicted_brier_gain = predicted_gain_for("myopic_brier")
+    correlation = correlation_for("myopic_width", BOOTSTRAP_SEED + 99)
+    brier_correlation = correlation_for(
+        "myopic_brier", BOOTSTRAP_SEED + 199
     )
+    matched_myopic = comparisons["myopic_brier"]
     myopic = comparisons["myopic_width"]
     blind = comparisons["history_blind_depth2"]
     fixed = comparisons["fixed_depth2"]
     gates = {
+        "dynamic_matched_myopic_differ_at_least_16": disagreements[
+            "myopic_brier"
+        ]
+        >= 16,
         "dynamic_myopic_differ_at_least_16": disagreements["myopic_width"] >= 16,
         "dynamic_blind_differ_at_least_12": disagreements[
             "history_blind_depth2"
@@ -1556,6 +1648,22 @@ def scientific_summary(
         "dynamic_fixed_differ_at_least_12": disagreements["fixed_depth2"] >= 12,
         "predicted_gain_over_myopic_at_least_001": float(np.mean(predicted_gain))
         >= 0.01,
+        "predicted_gain_over_matched_myopic_at_least_001": float(
+            np.mean(predicted_brier_gain)
+        )
+        >= 0.01,
+        "dynamic_matched_myopic_brier_gain_at_least_002": matched_myopic[
+            "brier_dynamic_minus_baseline"
+        ]["mean"]
+        <= -0.02,
+        "dynamic_matched_myopic_probability_at_least_090": matched_myopic[
+            "brier_dynamic_minus_baseline"
+        ]["probability_improvement"]
+        >= 0.90,
+        "dynamic_matched_myopic_wins_exceed_losses": matched_myopic[
+            "wins_ties_losses"
+        ]["wins"]
+        > matched_myopic["wins_ties_losses"]["losses"],
         "dynamic_myopic_brier_gain_at_least_002": myopic[
             "brier_dynamic_minus_baseline"
         ]["mean"]
@@ -1590,6 +1698,10 @@ def scientific_summary(
             "log_loss_dynamic_minus_baseline"
         ]["mean"]
         <= 0.0,
+        "dynamic_log_loss_nonworse_matched_myopic": matched_myopic[
+            "log_loss_dynamic_minus_baseline"
+        ]["mean"]
+        <= 0.0,
         "dynamic_log_loss_nonworse_blind": blind[
             "log_loss_dynamic_minus_baseline"
         ]["mean"]
@@ -1606,6 +1718,16 @@ def scientific_summary(
         ]
         is not None
         and correlation["probability_positive"] >= 0.80,
+        "matched_myopic_predicted_realized_spearman_at_least_015": brier_correlation[
+            "spearman"
+        ]
+        is not None
+        and brier_correlation["spearman"] >= 0.15,
+        "matched_myopic_spearman_probability_positive_at_least_080": brier_correlation[
+            "probability_positive"
+        ]
+        is not None
+        and brier_correlation["probability_positive"] >= 0.80,
     }
     gates["all_pass"] = all(gates.values())
     return {
@@ -1614,7 +1736,11 @@ def scientific_summary(
         "mean_conditioned_predicted_gain_over_myopic": float(
             np.mean(predicted_gain)
         ),
+        "mean_conditioned_predicted_gain_over_myopic_brier": float(
+            np.mean(predicted_brier_gain)
+        ),
         "predicted_to_realized_dynamic_myopic": correlation,
+        "predicted_to_realized_dynamic_myopic_brier": brier_correlation,
         "fresh_regeneration_comparisons_descriptive": fresh_comparisons,
         "gates": gates,
     }
@@ -2088,11 +2214,13 @@ def run_development(
         blind = dynamic_root_risks(
             initial, branch_by_task[task_index], arm="blind"
         )
+        myopic_brier = myopic_brier_root_risks(initial)
         fixed = fixed_root_risks(initial)
         selected = choose_roots(
             initial,
             conditioned,
             blind,
+            myopic_brier,
             fixed,
             random_seed=RANDOM_SEED_START + task_index,
         )
@@ -2100,6 +2228,7 @@ def run_development(
             {
                 "conditioned": conditioned,
                 "blind": blind,
+                "myopic_brier": myopic_brier,
                 "fixed": fixed,
                 "root_eig": [question_eig(initial, index) for index in range(QUESTIONS)],
                 "selected": selected,
@@ -2475,6 +2604,7 @@ def run_development(
                 "root_eig": plan["root_eig"],
                 "conditioned_root_risks": plan["conditioned"],
                 "blind_root_risks": plan["blind"],
+                "myopic_brier_root_risks": plan["myopic_brier"],
                 "fixed_root_risks": plan["fixed"],
                 "policies": policies,
             }
@@ -2608,6 +2738,9 @@ def run_development(
             ),
             "first_reply_endpoint_amendment_sha256": (
                 FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+            ),
+            "matched_utility_myopic_amendment_sha256": (
+                MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,

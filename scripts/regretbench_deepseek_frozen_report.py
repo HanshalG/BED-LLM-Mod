@@ -28,16 +28,25 @@ REPORTING_ENDPOINT_AMENDMENT = REPO_ROOT / (
 REPORTING_ENDPOINT_AMENDMENT_SHA256 = (
     "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79"
 )
+MATCHED_UTILITY_MYOPIC_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md"
+)
+MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256 = (
+    "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+)
 ALIGNMENT_BOOTSTRAP_SAMPLES = 20_000
 ALIGNMENT_BOOTSTRAP_SEED = 202608151000
 PRIMARY_POLICIES = (
     "dynamic_depth2",
+    "myopic_brier",
     "myopic_width",
     "history_blind_depth2",
     "fixed_depth2",
     "random",
 )
 BASELINES = (
+    "myopic_brier",
     "myopic_width",
     "history_blind_depth2",
     "fixed_depth2",
@@ -197,7 +206,7 @@ def _alignment_complete_diagnostic(
                 "losses": sum(value > 1e-12 for value in brier),
             },
         }
-    primary = controls["myopic_width"]
+    primary = controls["myopic_brier"]
     brier = primary["brier_dynamic_minus_control"]
     log_loss = primary["log_loss_dynamic_minus_control"]
     wtl = primary["wins_ties_losses"]
@@ -231,6 +240,10 @@ def _validate_verified_result(
         REPORTING_ENDPOINT_AMENDMENT_SHA256
     ):
         raise ValueError("RegretBench reporting endpoint amendment changed")
+    if sha256_file(MATCHED_UTILITY_MYOPIC_AMENDMENT) != (
+        MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+    ):
+        raise ValueError("RegretBench matched-utility amendment changed")
     result_path = run_dir / "RESULT.json"
     verification_path = run_dir / "VERIFICATION.json"
     result = _load(result_path)
@@ -328,7 +341,8 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
             raise ValueError("mechanics-failed result cannot expose science")
         paired = None
         disagreements = None
-        correlation = None
+        matched_correlation = None
+        eig_correlation = None
         fresh = None
         science_gates = None
         alignment_complete = None
@@ -341,7 +355,10 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         disagreements = {
             name: science["root_disagreements"][name] for name in BASELINES
         }
-        correlation = science["predicted_to_realized_dynamic_myopic"]
+        matched_correlation = science[
+            "predicted_to_realized_dynamic_myopic_brier"
+        ]
+        eig_correlation = science["predicted_to_realized_dynamic_myopic"]
         fresh = {
             "label": "secondary_descriptive",
             "comparisons": science["fresh_regeneration_comparisons_descriptive"],
@@ -367,6 +384,9 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         "reporting_endpoint_amendment_sha256": (
             REPORTING_ENDPOINT_AMENDMENT_SHA256
         ),
+        "matched_utility_myopic_amendment_sha256": (
+            MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
+        ),
         "result_sha256": result_sha,
         "verification_sha256": verification_sha,
         "independent_verification_interface": verification.get(
@@ -388,7 +408,8 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         },
         "paired_primary_comparisons": paired,
         "root_disagreements": disagreements,
-        "predicted_to_realized_dynamic_myopic": correlation,
+        "predicted_to_realized_dynamic_myopic_brier": matched_correlation,
+        "predicted_to_realized_dynamic_myopic": eig_correlation,
         "alignment_complete_diagnostic": alignment_complete,
         "science_gates": science_gates,
         "secondary_fresh_regeneration": fresh,
@@ -443,7 +464,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     ]
     labels = {
         "dynamic_depth2": "Dynamic d2",
-        "myopic_width": "Myopic width",
+        "myopic_brier": "Matched-Brier myopic",
+        "myopic_width": "Myopic EIG width",
         "history_blind_depth2": "History-blind d2",
         "fixed_depth2": "Fixed-support d2",
         "random": "Random",
@@ -498,18 +520,28 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 f"[{log_loss['ci95'][0]:.4f}, {log_loss['ci95'][1]:.4f}] | "
                 f"{report['root_disagreements'][name]} |"
             )
-        correlation = report["predicted_to_realized_dynamic_myopic"]
+        matched_correlation = report[
+            "predicted_to_realized_dynamic_myopic_brier"
+        ]
+        eig_correlation = report["predicted_to_realized_dynamic_myopic"]
         lines.extend(
             [
                 "",
                 "### Ranking Fidelity",
                 "",
                 (
-                    "Changed-root predicted-to-realized Spearman: "
-                    f"`{correlation['spearman']}`; 95% CI "
-                    f"`{correlation['ci95']}`; P(positive) "
-                    f"`{correlation['probability_positive']}`; "
-                    f"n=`{correlation['n']}`."
+                    "Matched-Brier changed-root predicted-to-realized "
+                    f"Spearman: `{matched_correlation['spearman']}`; 95% CI "
+                    f"`{matched_correlation['ci95']}`; P(positive) "
+                    f"`{matched_correlation['probability_positive']}`; "
+                    f"n=`{matched_correlation['n']}`."
+                ),
+                (
+                    "Secondary myopic-EIG changed-root Spearman: "
+                    f"`{eig_correlation['spearman']}`; 95% CI "
+                    f"`{eig_correlation['ci95']}`; P(positive) "
+                    f"`{eig_correlation['probability_positive']}`; "
+                    f"n=`{eig_correlation['n']}`."
                 ),
                 "",
                 "### Science Gates",

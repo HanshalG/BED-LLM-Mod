@@ -11,9 +11,13 @@
     "path": "results/nonmyopic/REGRETBENCH_REPORTING_FIRST_REPLY_ENDPOINT_AMENDMENT_20260807.md",
     "sha256": "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79"
   },
+  "matched_utility_myopic_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md",
+    "sha256": "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+  },
   "generator": {
     "path": "scripts/regretbench_deepseek_frozen_report.py",
-    "sha256": "5388515f4319ab9a87b1d4bad0a588bcf6eee108f2e872ec78fed313b5c8f68a"
+    "sha256": "4a6581ea53fdb9d144529656d00bb96be05807b96b9b8c326637891fac1bf8cd"
   },
   "inputs": {
     "result": "RESULT.json",
@@ -41,6 +45,8 @@
     "alignment_complete_diagnostic_can_change_tier": false,
     "all_primary_policies_visible": true,
     "all_paired_controls_visible": true,
+    "matched_brier_myopic_is_headline_control": true,
+    "myopic_eig_width_remains_visible_and_required": true,
     "ranking_fidelity_visible": true,
     "all_science_and_mechanics_gates_visible": true,
     "fresh_regeneration_is_secondary": true,

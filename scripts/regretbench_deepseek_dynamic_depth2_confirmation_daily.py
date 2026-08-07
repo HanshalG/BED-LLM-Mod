@@ -44,7 +44,7 @@ LEDGER = REPO_ROOT / (
 )
 EXECUTION_BINDINGS = ROOT / "EXECUTION_BINDINGS.json"
 EXECUTION_BINDINGS_SHA256 = (
-    "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f"
+    "fae341462af2f1ae9d7c327f68fb6615af8edf8033a5c432c7a82d9e3d57134c"
 )
 PRODUCER_SHA256 = (
     "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
@@ -53,16 +53,16 @@ CONFIRMATION_VERIFIER_SHA256 = (
     "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
 )
 SHARED_VERIFIER_SHA256 = (
-    "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5"
+    "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf"
 )
 SUPPORT_DAILY_SHA256 = (
-    "692b5f5911639df1e95a9fc5e63593adca335662ee9bba9faee9cd3a1624a6e9"
+    "46de3903fe8dc247cf9192a704d5542196773dd15fd8c50890eaca0583898d61"
 )
 POLICY_DAILY_SHA256 = (
-    "2b336052bf2fbd7b1c90472b18b2ea0e8fe4cbcd4f30426460b6c112611dd066"
+    "1ea99e5e0af2efdb292e22eb1b0db4a612f2945cda1b1d147f68063717a913a4"
 )
 POLICY_CORE_SHA256 = (
-    "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1"
+    "d0aaf34e0299ba0512a0da18aaa340b467e07458e429c881246261f021b01776"
 )
 
 
@@ -125,6 +125,8 @@ def validate_execution_bindings() -> dict[str, Any]:
         != policy.FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
         or bindings.get("first_reply_endpoint_amendment", {}).get("sha256")
         != policy.FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+        or bindings.get("matched_utility_myopic_amendment", {}).get("sha256")
+        != policy.MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256
         or bindings.get("requirements", {}).get(
             "minimum_truth_consistent_first_reply_matches_per_policy"
         )
@@ -133,6 +135,22 @@ def validate_execution_bindings() -> dict[str, Any]:
             "unmodelled_truth_consistent_first_reply_scored_mass"
         )
         != 0.0
+        or bindings.get("requirements", {}).get(
+            "matched_utility_myopic_policy_required"
+        )
+        is not True
+        or bindings.get("requirements", {}).get(
+            "entropy_myopic_width_control_remains_required"
+        )
+        is not True
+        or bindings.get("requirements", {}).get(
+            "maximum_distinct_roots_per_task"
+        )
+        != 4
+        or bindings.get("requirements", {}).get(
+            "matched_utility_additional_model_calls"
+        )
+        != 0
     ):
         raise RuntimeError("confirmation execution-binding manifest is invalid")
     return bindings

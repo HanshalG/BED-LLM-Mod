@@ -8,7 +8,7 @@
   "account_wide_daily_cap_usd": 5.0,
   "confirmation_run_cap_usd": 3.5,
   "parent_protocol_manifest_sha256": "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498",
-  "execution_bindings_sha256": "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f",
+  "execution_bindings_sha256": "fae341462af2f1ae9d7c327f68fb6615af8edf8033a5c432c7a82d9e3d57134c",
   "amendment": {
     "path": "results/nonmyopic/REGRETBENCH_CONFIRMATION_DAILY_BINDING_AMENDMENT_20260807.md",
     "sha256": "d8452c9132df67f1166df2ed84b966232a20021252e64c05a0c5f87a23ea2e83"
@@ -21,13 +21,17 @@
     "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_ENDPOINT_ALIGNMENT_AMENDMENT_20260807.md",
     "sha256": "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
   },
+  "matched_utility_myopic_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md",
+    "sha256": "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+  },
   "components": {
     "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py": "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0",
     "scripts/regretbench_deepseek_confirmation_result_verify.py": "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa",
-    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "fa218a14a3af3bf4628713c9f6b41e206626202677140b44cfd9dae205abd8cc",
-    "scripts/regretbench_deepseek_result_verify.py": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
-    "scripts/regretbench_deepseek_support_recovery_daily.py": "692b5f5911639df1e95a9fc5e63593adca335662ee9bba9faee9cd3a1624a6e9",
-    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "2b336052bf2fbd7b1c90472b18b2ea0e8fe4cbcd4f30426460b6c112611dd066"
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "64e958d256cb9f2745042def0cdbcbd9e8617dd6fe6410c8a65d230a7a27fa34",
+    "scripts/regretbench_deepseek_result_verify.py": "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf",
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "46de3903fe8dc247cf9192a704d5542196773dd15fd8c50890eaca0583898d61",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "1ea99e5e0af2efdb292e22eb1b0db4a612f2945cda1b1d147f68063717a913a4"
   },
   "requirements": {
     "literal_development_pass": true,
@@ -42,6 +46,18 @@
     "alignment_gate_can_only_reject": true,
     "unmodelled_truth_consistent_first_reply_scored_mass": 0.0,
     "raw_first_reply_path_masses_retained_descriptively": true,
+    "matched_utility_myopic_policy_required": true,
+    "entropy_myopic_width_control_remains_required": true,
+    "maximum_distinct_roots_per_task": 4,
+    "matched_utility_additional_model_calls": 0,
+    "minimum_dynamic_matched_myopic_root_disagreements": 16,
+    "minimum_predicted_brier_advantage_vs_matched_myopic": 0.01,
+    "dynamic_minus_matched_myopic_brier_maximum": -0.02,
+    "dynamic_vs_matched_myopic_bootstrap_probability_minimum": 0.9,
+    "dynamic_vs_matched_myopic_wins_exceed_losses": true,
+    "dynamic_log_loss_no_worse_than_matched_myopic": true,
+    "matched_changed_root_spearman_minimum": 0.15,
+    "matched_changed_root_positive_spearman_bootstrap_probability_minimum": 0.8,
     "model_calls_made_by_binding": 0,
     "cost_usd_by_binding": 0.0
   }

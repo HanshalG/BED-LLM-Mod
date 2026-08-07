@@ -20,19 +20,24 @@
     "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_ENDPOINT_ALIGNMENT_AMENDMENT_20260807.md",
     "sha256": "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
   },
+  "matched_utility_myopic_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_MATCHED_UTILITY_MYOPIC_AMENDMENT_20260807.md",
+    "sha256": "988157f6dfe719ee5ced1e16f8992d32474c6f283056832f3373a67b42c6269e"
+  },
   "shared_result_verifier": {
     "path": "scripts/regretbench_deepseek_result_verify.py",
-    "superseded_sha256": "dd67501dd311cc5882c0274289aeab95b7d3bcb57af8bc7f0d5b79b450957e8f",
+    "parent_sha256": "dd67501dd311cc5882c0274289aeab95b7d3bcb57af8bc7f0d5b79b450957e8f",
+    "superseded_sha256": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
     "intermediate_sha256": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
-    "sha256": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
-    "only_change": "independently replay the prospective first-reply endpoint-alignment penalty"
+    "sha256": "60cbecafbd16e94dfecb0acff1997936f77df6fc48692e50f8a7e2c40e15c6cf",
+    "only_change": "independently replay the prospective matched-utility myopic control and its gates"
   },
   "policy_core": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_policy.py",
     "parent_sha256": "19970a2b1a488bc9c1b9b461b0de09d07e24c4a53dbd221d5c9809b0c8cbb390",
-    "superseded_sha256": "903d3afab63a48aa133d81e7af9defcff10e065e1297930be2cea9096d4ebb33",
-    "sha256": "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1",
-    "only_change": "apply the prospective worst-case endpoint penalty to unmodelled truth-consistent first replies without changing selections"
+    "superseded_sha256": "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1",
+    "sha256": "d0aaf34e0299ba0512a0da18aaa340b467e07458e429c881246261f021b01776",
+    "only_change": "add the no-extra-call matched-Brier myopic control and its prospective gates"
   },
   "confirmation_producer": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py",
@@ -53,6 +58,18 @@
     "alignment_gate_can_only_reject": true,
     "unmodelled_truth_consistent_first_reply_scored_mass": 0.0,
     "raw_first_reply_path_masses_retained_descriptively": true,
+    "matched_utility_myopic_policy_required": true,
+    "entropy_myopic_width_control_remains_required": true,
+    "maximum_distinct_roots_per_task": 4,
+    "matched_utility_additional_model_calls": 0,
+    "minimum_dynamic_matched_myopic_root_disagreements": 16,
+    "minimum_predicted_brier_advantage_vs_matched_myopic": 0.01,
+    "dynamic_minus_matched_myopic_brier_maximum": -0.02,
+    "dynamic_vs_matched_myopic_bootstrap_probability_minimum": 0.9,
+    "dynamic_vs_matched_myopic_wins_exceed_losses": true,
+    "dynamic_log_loss_no_worse_than_matched_myopic": true,
+    "matched_changed_root_spearman_minimum": 0.15,
+    "matched_changed_root_positive_spearman_bootstrap_probability_minimum": 0.8,
     "model_calls_before_freeze": 0,
     "cost_usd_before_freeze": 0.0
   }

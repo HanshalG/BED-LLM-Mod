@@ -27,14 +27,14 @@ EXECUTION_BINDINGS = REPO_ROOT / (
     "EXECUTION_BINDINGS.json"
 )
 EXECUTION_BINDINGS_SHA256 = (
-    "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f"
+    "fae341462af2f1ae9d7c327f68fb6615af8edf8033a5c432c7a82d9e3d57134c"
 )
 DAILY_EXECUTION_BINDING = REPO_ROOT / (
     "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
     "DAILY_EXECUTION_BINDING.json"
 )
 DAILY_EXECUTION_BINDING_SHA256 = (
-    "ade9ae511f9a9450227d618753f076cd2015ada7a2929354a3a286367e288c62"
+    "e48947f9f517b904a2353cdd3f1b60110bdf59dda36c0221cb3608fca24d0e67"
 )
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
@@ -153,7 +153,8 @@ def verify_protocol(
     shared_path = str(shared.get("path", ""))
     if (
         shared_path in bindings
-        and bindings[shared_path] == shared.get("superseded_sha256")
+        and bindings[shared_path]
+        == shared.get("parent_sha256", shared.get("superseded_sha256"))
         and (repo_root / shared_path).is_file()
         and sha256_file(repo_root / shared_path) == shared.get("sha256")
     ):
@@ -185,6 +186,8 @@ def verify_protocol(
     endpoint_alignment_path = repo_root / str(
         endpoint_alignment.get("path", "")
     )
+    matched_utility = execution.get("matched_utility_myopic_amendment", {})
+    matched_utility_path = repo_root / str(matched_utility.get("path", ""))
     daily_amendment = daily_binding.get("amendment", {})
     daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
     daily_alignment = daily_binding.get(
@@ -196,6 +199,12 @@ def verify_protocol(
     )
     daily_endpoint_alignment_path = repo_root / str(
         daily_endpoint_alignment.get("path", "")
+    )
+    daily_matched_utility = daily_binding.get(
+        "matched_utility_myopic_amendment", {}
+    )
+    daily_matched_utility_path = repo_root / str(
+        daily_matched_utility.get("path", "")
     )
     daily_component_matches = {
         relative: (repo_root / relative).is_file()
@@ -259,6 +268,9 @@ def verify_protocol(
             and endpoint_alignment_path.is_file()
             and sha256_file(endpoint_alignment_path)
             == endpoint_alignment.get("sha256")
+            and matched_utility_path.is_file()
+            and sha256_file(matched_utility_path)
+            == matched_utility.get("sha256")
             and execution.get("parent", {}).get("protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and all(component_matches.values())
@@ -284,6 +296,9 @@ def verify_protocol(
             and daily_endpoint_alignment_path.is_file()
             and sha256_file(daily_endpoint_alignment_path)
             == daily_endpoint_alignment.get("sha256")
+            and daily_matched_utility_path.is_file()
+            and sha256_file(daily_matched_utility_path)
+            == daily_matched_utility.get("sha256")
             and bool(daily_component_matches)
             and all(daily_component_matches.values())
         ),
@@ -330,6 +345,22 @@ def verify_protocol(
             and instrument.get("optional_baselines") == []
             and instrument.get("primary_endpoint")
             == "aligned_generated_likelihood_truth_mass"
+            and execution.get("requirements", {}).get(
+                "matched_utility_myopic_policy_required"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "entropy_myopic_width_control_remains_required"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "maximum_distinct_roots_per_task"
+            )
+            == 4
+            and execution.get("requirements", {}).get(
+                "matched_utility_additional_model_calls"
+            )
+            == 0
         ),
         "exact_mechanics_thresholds": (
             mechanics.get("minimum_supported_first_actions_per_policy") == 48
@@ -362,6 +393,52 @@ def verify_protocol(
         ),
         "science_gates_unchanged": protocol.get("science_gates")
         == EXPECTED_SCIENCE_GATES,
+        "matched_utility_science_gates_frozen": (
+            execution.get("requirements", {}).get(
+                "minimum_dynamic_matched_myopic_root_disagreements"
+            )
+            == 16
+            and execution.get("requirements", {}).get(
+                "minimum_predicted_brier_advantage_vs_matched_myopic"
+            )
+            == 0.01
+            and execution.get("requirements", {}).get(
+                "dynamic_minus_matched_myopic_brier_maximum"
+            )
+            == -0.02
+            and execution.get("requirements", {}).get(
+                "dynamic_vs_matched_myopic_bootstrap_probability_minimum"
+            )
+            == 0.9
+            and execution.get("requirements", {}).get(
+                "dynamic_vs_matched_myopic_wins_exceed_losses"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "dynamic_log_loss_no_worse_than_matched_myopic"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "matched_changed_root_spearman_minimum"
+            )
+            == 0.15
+            and execution.get("requirements", {}).get(
+                "matched_changed_root_positive_spearman_bootstrap_probability_minimum"
+            )
+            == 0.8
+            and daily_binding.get("requirements", {}).get(
+                "minimum_dynamic_matched_myopic_root_disagreements"
+            )
+            == 16
+            and daily_binding.get("requirements", {}).get(
+                "dynamic_minus_matched_myopic_brier_maximum"
+            )
+            == -0.02
+            and daily_binding.get("requirements", {}).get(
+                "matched_changed_root_positive_spearman_bootstrap_probability_minimum"
+            )
+            == 0.8
+        ),
         "literal_verified_development_pass_required": (
             predecessor.get("required_primary_status") == "passed"
             and predecessor.get("required_mechanics_all_pass") is True

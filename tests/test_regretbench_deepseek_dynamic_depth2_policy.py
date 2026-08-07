@@ -112,6 +112,44 @@ def test_protocol_binding_refuses_first_reply_endpoint_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_matched_utility_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        policy, "MATCHED_UTILITY_MYOPIC_AMENDMENT_SHA256", "0" * 64
+    )
+
+    with pytest.raises(
+        ValueError, match="matched-utility myopic amendment changed"
+    ):
+        policy.validate_protocol_binding()
+
+
+def test_entropy_and_matched_brier_myopic_can_rank_roots_differently() -> None:
+    weights = [0.188, 0.068, 0.187, 0.168, 0.113, 0.052, 0.104, 0.120]
+    root_zero = [2, 2, 1, 0, 2, 0, 0, 2]
+    root_one = [0, 1, 2, 2, 1, 1, 1, 2]
+    payload = _support()
+    for index, hypothesis in enumerate(payload["hypotheses"]):
+        hypothesis["prior_weight"] = weights[index]
+        hypothesis["predicted_replies"] = [
+            f"q0 reply {root_zero[index]}",
+            f"q1 reply {root_one[index]}",
+            f"q2 reply {root_zero[index]}",
+            f"q3 reply {root_zero[index]}",
+        ]
+    support = policy.parse_enriched_support(json.dumps(payload))
+    brier_risks = policy.myopic_brier_root_risks(support)
+
+    assert policy.select_question(support) == 1
+    assert min(
+        range(policy.QUESTIONS),
+        key=lambda index: (brier_risks[index]["brier"], index),
+    ) == 0
+    assert policy.question_eig(support, 1) > policy.question_eig(support, 0)
+    assert brier_risks[0]["brier"] < brier_risks[1]["brier"]
+
+
 def test_distinct_actions_use_official_facet_identity() -> None:
     first = {"supported": True, "facet": "country"}
 
@@ -317,9 +355,12 @@ def test_blind_crn_diagnostic_requires_identical_parsed_supports() -> None:
 def _science_task(index: int) -> dict:
     predicted_gain = 0.02 + index / 10_000
     realized_gain = 0.08 + index / 5_000
+    matched_predicted_gain = 0.025 + index / 9_000
+    matched_realized_gain = 0.07 + index / 4_500
     dynamic_brier = 0.10
     roots = {
         "dynamic_depth2": 0,
+        "myopic_brier": 1,
         "myopic_width": 1,
         "history_blind_depth2": 2,
         "fixed_depth2": 3,
@@ -327,6 +368,10 @@ def _science_task(index: int) -> dict:
     }
     policies = {
         "dynamic_depth2": {"brier": dynamic_brier, "log_loss": 0.10},
+        "myopic_brier": {
+            "brier": dynamic_brier + matched_realized_gain,
+            "log_loss": 0.28,
+        },
         "myopic_width": {
             "brier": dynamic_brier + realized_gain,
             "log_loss": 0.30,
@@ -343,7 +388,7 @@ def _science_task(index: int) -> dict:
         "selected_roots": roots,
         "conditioned_root_risks": [
             {"brier": 0.10},
-            {"brier": 0.10 + predicted_gain},
+            {"brier": 0.10 + max(predicted_gain, matched_predicted_gain)},
             {"brier": 0.20},
             {"brier": 0.22},
         ],
@@ -357,7 +402,13 @@ def test_scientific_summary_enforces_full_conjunctive_claim() -> None:
     )
 
     assert summary["gates"]["all_pass"] is True
+    assert summary["root_disagreements"]["myopic_brier"] == 64
     assert summary["root_disagreements"]["myopic_width"] == 64
+    assert summary["comparisons"]["myopic_brier"]["wins_ties_losses"] == {
+        "wins": 64,
+        "ties": 0,
+        "losses": 0,
+    }
     assert summary["comparisons"]["myopic_width"]["wins_ties_losses"] == {
         "wins": 64,
         "ties": 0,
@@ -369,6 +420,9 @@ def test_scientific_summary_enforces_full_conjunctive_claim() -> None:
         in summary["fresh_regeneration_comparisons_descriptive"]
     )
     assert summary["predicted_to_realized_dynamic_myopic"]["spearman"] == pytest.approx(1)
+    assert summary["predicted_to_realized_dynamic_myopic_brier"][
+        "spearman"
+    ] == pytest.approx(1)
 
 
 def test_fresh_regeneration_endpoint_is_descriptive_only() -> None:
@@ -377,6 +431,7 @@ def test_fresh_regeneration_endpoint_is_descriptive_only() -> None:
         task["policies"]["dynamic_depth2"]["fresh_brier"] = 0.9
         task["policies"]["dynamic_depth2"]["fresh_log_loss"] = 2.0
         for baseline in (
+            "myopic_brier",
             "myopic_width",
             "history_blind_depth2",
             "fixed_depth2",
@@ -766,6 +821,8 @@ def test_full_8256_planning_response_path_and_actual_cache(
     )
 
     assert result["protocol"]["planning_requests"] == 8_256
+    assert "myopic_brier" in result["tasks"][0]["policies"]
+    assert "myopic_brier_root_risks" in result["tasks"][0]
     assert result["protocol"]["expected_primary_deepseek_requests"] == adapter.requests
     assert 8_256 < adapter.requests <= 8_768
     assert naive_endpoint_adapter.requests == 128
