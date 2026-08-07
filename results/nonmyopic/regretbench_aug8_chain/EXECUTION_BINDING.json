@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-aug8-chain-execution-binding-1",
+  "status": "frozen_before_aug8_calls",
+  "date": "2026-08-08",
+  "timezone": "Europe/London",
+  "account_wide_daily_cap_usd": 5.0,
+  "orchestrator": {
+    "path": "scripts/regretbench_aug8_execute.py",
+    "sha256": "6b5b5960ca7deace1c4678976a9ae864ba5270989d0ba7751629b70bc1d6f421"
+  },
+  "components": {
+    "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "db8d13229444abbf3f549967af4e70271103b6f5abd917fcce88573ec44b95c9",
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "d183e5b2785741d8d410c90d0b3f983da31db1a5b698a75fbd4b52b234c49399",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "59fc575fb716b45ae76d0a1505b9293b5883c4cd99088f67e5e6159d64f0ebf7"
+  },
+  "requirements": {
+    "single_resumable_command": true,
+    "preflight_writes_files": false,
+    "preflight_makes_model_calls": false,
+    "baseline_smoke_runs_first": true,
+    "support_recovery_requires_literal_baseline_pass": true,
+    "policy_requires_literal_support_development_pass": true,
+    "terminal_null_or_failure_opens_no_descendant": true,
+    "banked_stage_is_never_repeated": true,
+    "existing_stage_ledgers_and_independent_replays_unchanged": true,
+    "maximum_combined_exposure_usd": 4.8,
+    "model_calls_made_by_binding": 0,
+    "cost_usd_by_binding": 0.0
+  }
+}
