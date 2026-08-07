@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "dormant_zero_call_smoke_core_frozen_before_any_regretbench_policy_response",
+  "protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_STATIC_LIKELIHOOD_SMOKE_PREREGISTRATION_20260807.md",
+    "sha256": "bfd7257295615bc0e80f5205709d95599455e44bd944faacd4907c96f99aa4d3"
+  },
+  "producer": {
+    "path": "scripts/regretbench_factorized_static_likelihood_smoke.py",
+    "sha256": "015c07089021b476001f4af537e2d87a3f3e8b74130ef2cf3129500fce4675e2"
+  },
+  "tests": {
+    "path": "tests/test_regretbench_factorized_static_likelihood_smoke.py",
+    "sha256": "a436b4b8b296e175c1229ad8dc8a27a3a0942b29ef67e218b2c51ed550f61ad7"
+  },
+  "expected_requests": 10,
+  "paid_calls_authorized": 0,
+  "independent_verifier_implemented": false,
+  "dated_budget_wrapper_implemented": false,
+  "current_regretbench_chain_changed": false,
+  "development_opened": false,
+  "confirmation_opened": false
+}
