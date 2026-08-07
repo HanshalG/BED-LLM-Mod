@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Freeze an outcome-independent interpreter for branch-draw fidelity
+before responses. Ordered regions: insufficient(n<16,<90% valid bootstrap,or
+missing correlation evidence);averaging-reduces-noise(rho/P+,Pmean>both,
+>=10% RMSE gain,draw gap>=.02);shared-error(draw Pearson>=.8,gap<=.02,all
+rho<.15);draw-sensitive(|Delta rho|>=.3,strong P>=.8,weak P<=.5);adequate;
+otherwise inconclusive. Regions map respectively to bank/new powered cohort,
+same-model four-draw untouched-cohort test,no-more-draw prompt/support/model
+repair,clean four-draw smoke,no escalation,or no adaptive repair. Mechanics
+failure unavailable. JSON+Markdown,all literal gates,non-gating/non-rescuing;
+0 calls/cost;relevant suite120/120.
+
 2026-08-07: Freeze a standalone branch-draw fidelity audit before RegretBench
 responses. Existing stability only compared argmin roots;new instrument uses
 the exact changed dynamic-vs-refresh roots,per-draw stored risks,and realized

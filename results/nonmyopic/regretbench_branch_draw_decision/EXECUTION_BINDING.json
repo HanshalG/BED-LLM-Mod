@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_any_regretbench_policy_response",
+  "protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_BRANCH_DRAW_DECISION_PROTOCOL_20260807.md",
+    "sha256": "4398d2e726b8ef29d092740470d910c21a359cefad3cba2afdba986a190330ca"
+  },
+  "script": {
+    "path": "scripts/regretbench_branch_draw_decision.py",
+    "sha256": "b0e026a246f883984165b6d80ab11f89018120532151bb9d63f2689c09a3300f"
+  },
+  "fidelity_binding": {
+    "path": "results/nonmyopic/regretbench_branch_draw_fidelity/EXECUTION_BINDING.json",
+    "sha256": "879e21b28f3f0aee32b28cd80790a21b431512b79fadc58b793de7b5687dbbd7"
+  },
+  "model_calls_authorized": 0,
+  "can_change_status_authorization_or_claim_tier": false
+}
