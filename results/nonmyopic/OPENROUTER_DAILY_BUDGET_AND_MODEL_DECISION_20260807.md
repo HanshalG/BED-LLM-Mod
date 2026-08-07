@@ -40,6 +40,15 @@ not measure the repeated task interface needed here: history-consistent,
 diverse, executable semantic hypotheses under strict output and support
 constraints. Direct project evidence therefore controls promotion.
 
+The August 7 Artificial Analysis index reports Luna max at 52 and DeepSeek V4
+Flash 0731 max at 50. Luna supports images; DeepSeek's scored endpoint remains
+text-only. OpenRouter endpoint discovery currently exposes Luna at
+`$0.10/$0.60` per million input/output tokens and DeepSeek 0731 through 22
+providers, with the cheapest endpoint at `$0.09/$0.18`. Thus DeepSeek is the
+text-only intelligence-per-dollar default, while Luna is the multimodal
+default. These roles do not override direct interface gates or previously
+banked nulls.
+
 ## Direct Task Evidence
 
 | Model / interface | Cost | Strict mechanics | Conditioned support | Decision |
@@ -65,15 +74,20 @@ nonreasoning planner or environment model.
 
 - August 8--9: only a newly preregistered, fresh, dependency-valid LLM-native
   gate may use the daily allowance. Failed Number Game descendants stay
-  closed. Prepare the gate at zero cost first, then reserve its complete
-  worst-case exposure before the first request.
+  closed. Run the exact Luna naive-first-link mechanics smoke first on August
+  8 with a `$0.20` cap. Any later fresh gate must inherit that day's opening
+  usage and local spend, leaving at most `$4.80` worst-case exposure. Prepare
+  every gate at zero cost first, then reserve its complete worst-case exposure
+  before the first request.
 - August 10: run only the frozen Luna Bongard serving and mechanics wrapper
   first. Its component cap is `$2.00`; any remaining allowance may be used
   only after that result is banked and only by an independent preregistered
   block that cannot alter or rescue it.
 - August 11--14: reserve up to `$4.75` for the exact frozen Bongard
   development blocks A--D, one block per day, conditional on every predecessor
-  and read-only preflight passing.
+  and read-only preflight passing. After each clean main block, run the bound
+  eight-request Luna reasoning baseline with a `$0.20` cap. Total daily
+  worst-case exposure is `$4.95`.
 
 The target is useful spend near `$5` on an active paid day, not nominal spend.
 A day closes below the cap when no scientifically admissible block is ready.
