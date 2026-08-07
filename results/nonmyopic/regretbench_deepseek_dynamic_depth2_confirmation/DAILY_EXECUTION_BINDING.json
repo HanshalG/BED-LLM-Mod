@@ -8,7 +8,7 @@
   "account_wide_daily_cap_usd": 5.0,
   "confirmation_run_cap_usd": 3.5,
   "parent_protocol_manifest_sha256": "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498",
-  "execution_bindings_sha256": "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d",
+  "execution_bindings_sha256": "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f",
   "amendment": {
     "path": "results/nonmyopic/REGRETBENCH_CONFIRMATION_DAILY_BINDING_AMENDMENT_20260807.md",
     "sha256": "d8452c9132df67f1166df2ed84b966232a20021252e64c05a0c5f87a23ea2e83"
@@ -17,13 +17,17 @@
     "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_LIKELIHOOD_ALIGNMENT_AMENDMENT_20260807.md",
     "sha256": "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
   },
+  "first_reply_endpoint_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_ENDPOINT_ALIGNMENT_AMENDMENT_20260807.md",
+    "sha256": "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
+  },
   "components": {
     "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py": "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0",
     "scripts/regretbench_deepseek_confirmation_result_verify.py": "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa",
-    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "e10954fd322c681044d1d75692a94733f732429deb435a189b8d49a15dbd68e2",
-    "scripts/regretbench_deepseek_result_verify.py": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
-    "scripts/regretbench_deepseek_support_recovery_daily.py": "b05387325ea8e8cac3852c7e9393e96662aa1bee2cfdc76cf7be1f22146a29d6",
-    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "ef8874760b1183dbab33534b6c942474d2f0a5c570aac3266355d6d40d585f03"
+    "scripts/regretbench_deepseek_dynamic_depth2_confirmation_daily.py": "fa218a14a3af3bf4628713c9f6b41e206626202677140b44cfd9dae205abd8cc",
+    "scripts/regretbench_deepseek_result_verify.py": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
+    "scripts/regretbench_deepseek_support_recovery_daily.py": "692b5f5911639df1e95a9fc5e63593adca335662ee9bba9faee9cd3a1624a6e9",
+    "scripts/regretbench_deepseek_dynamic_depth2_policy_daily.py": "2b336052bf2fbd7b1c90472b18b2ea0e8fe4cbcd4f30426460b6c112611dd066"
   },
   "requirements": {
     "literal_development_pass": true,
@@ -36,6 +40,8 @@
     "optional_luna_baseline": false,
     "first_reply_alignment_gate_required": true,
     "alignment_gate_can_only_reject": true,
+    "unmodelled_truth_consistent_first_reply_scored_mass": 0.0,
+    "raw_first_reply_path_masses_retained_descriptively": true,
     "model_calls_made_by_binding": 0,
     "cost_usd_by_binding": 0.0
   }

@@ -129,6 +129,14 @@ FIRST_REPLY_ALIGNMENT_AMENDMENT = (
 FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256 = (
     "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
 )
+FIRST_REPLY_ENDPOINT_AMENDMENT = (
+    REPO_ROOT
+    / "results/nonmyopic/"
+    "REGRETBENCH_FIRST_REPLY_ENDPOINT_ALIGNMENT_AMENDMENT_20260807.md"
+)
+FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256 = (
+    "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
+)
 PROBABILITY_FLOOR = 1e-12
 SUPPORT_RECOVERY_CORE_SHA256 = (
     "7e227e4d3a125b817dd45c31ce6b1fc94c24bae6ee982ce59f2a9082065752c2"
@@ -175,6 +183,10 @@ def validate_protocol_binding() -> None:
         FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
     ):
         raise ValueError("first-reply likelihood alignment amendment changed")
+    if recovery.sha256_file(FIRST_REPLY_ENDPOINT_AMENDMENT) != (
+        FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+    ):
+        raise ValueError("first-reply endpoint alignment amendment changed")
 
 
 def enriched_response_format() -> dict[str, Any]:
@@ -822,6 +834,8 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         != OUTCOME_CRN_AMENDMENT_SHA256
         or protocol.get("first_reply_alignment_amendment_sha256")
         != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+        or protocol.get("first_reply_endpoint_amendment_sha256")
+        != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -883,6 +897,8 @@ def validate_naive_smoke(path: Path) -> dict[str, Any]:
         != OUTCOME_CRN_AMENDMENT_SHA256
         or protocol.get("first_reply_alignment_amendment_sha256")
         != FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+        or protocol.get("first_reply_endpoint_amendment_sha256")
+        != FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or protocol.get("efficacy_used_for_authorization") is not False
         or not (result.get("gates") or {}).get("all_pass")
     ):
@@ -1037,6 +1053,9 @@ def run_smoke(
             "first_reply_alignment_amendment_sha256": (
                 FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
             ),
+            "first_reply_endpoint_amendment_sha256": (
+                FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+            ),
             "predecessors": predecessors,
             "efficacy_used_for_authorization": False,
             "policy_endpoint_opened": False,
@@ -1183,6 +1202,9 @@ def run_naive_smoke(
             "first_reply_alignment_amendment_sha256": (
                 FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
             ),
+            "first_reply_endpoint_amendment_sha256": (
+                FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
+            ),
             "support_predecessors": predecessors,
             "enriched_smoke": enriched_smoke,
             "efficacy_used_for_authorization": False,
@@ -1265,7 +1287,7 @@ def realized_path_metrics(
     first_mapping: Mapping[str, Any],
     second_mapping: Mapping[str, Any],
 ) -> dict[str, Any]:
-    valid = distinct_supported_actions(first_mapping, second_mapping)
+    action_valid = distinct_supported_actions(first_mapping, second_mapping)
     first_reply_indexes = matching_reply_indexes(
         initial_support, first_question_index, first_mapping["answer"]
     )
@@ -1275,6 +1297,10 @@ def realized_path_metrics(
         first_mapping["answer"],
         aliases,
     )
+    first_reply_aligned = (
+        bool(truth_first_reply_indexes) and first_mapping["supported"]
+    )
+    likelihood_aligned = action_valid and first_reply_aligned
     raw_first_mass = truth_mass_for_aliases(first_support, aliases)
     raw_terminal = realized_terminal_metrics(
         first_support,
@@ -1283,19 +1309,17 @@ def realized_path_metrics(
         aliases=aliases,
     )
     raw_terminal_mass = float(raw_terminal["truth_mass"])
-    terminal_mass = raw_terminal_mass if valid else 0.0
+    terminal_mass = raw_terminal_mass if likelihood_aligned else 0.0
     raw_fresh_mass = truth_mass_for_aliases(final_support, aliases)
-    fresh_mass = raw_fresh_mass if valid else 0.0
-    first_mass = raw_first_mass if first_mapping["supported"] else 0.0
+    fresh_mass = raw_fresh_mass if likelihood_aligned else 0.0
+    first_mass = raw_first_mass if first_reply_aligned else 0.0
     return {
-        "valid_two_action_trajectory": valid,
+        "valid_two_action_trajectory": action_valid,
+        "likelihood_aligned_two_action_trajectory": likelihood_aligned,
         "first_reply_likelihood_matched": bool(first_reply_indexes)
         and first_mapping["supported"],
         "first_reply_matched_hypotheses": len(first_reply_indexes),
-        "truth_consistent_first_reply_likelihood_matched": bool(
-            truth_first_reply_indexes
-        )
-        and first_mapping["supported"],
+        "truth_consistent_first_reply_likelihood_matched": first_reply_aligned,
         "truth_consistent_first_reply_matched_hypotheses": len(
             truth_first_reply_indexes
         ),
@@ -2581,6 +2605,9 @@ def run_development(
             "outcome_crn_amendment_sha256": OUTCOME_CRN_AMENDMENT_SHA256,
             "first_reply_alignment_amendment_sha256": (
                 FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+            ),
+            "first_reply_endpoint_amendment_sha256": (
+                FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
             ),
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,

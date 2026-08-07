@@ -95,6 +95,9 @@ OUTCOME_CRN_AMENDMENT_SHA256 = (
 FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256 = (
     "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
 )
+FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256 = (
+    "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -670,29 +673,31 @@ def _path_metrics(
     first_mapping: Mapping[str, Any],
     second_mapping: Mapping[str, Any],
 ) -> dict[str, Any]:
-    valid = _distinct_actions(first_mapping, second_mapping)
+    action_valid = _distinct_actions(first_mapping, second_mapping)
     first_reply_indexes = _reply_indexes(
         initial_support, first_question, first_mapping["answer"]
     )
     truth_first_reply_indexes = _truth_consistent_reply_indexes(
         initial_support, first_question, first_mapping["answer"], aliases
     )
+    first_reply_aligned = (
+        bool(truth_first_reply_indexes) and first_mapping["supported"]
+    )
+    likelihood_aligned = action_valid and first_reply_aligned
     raw_first = _truth_mass(first_support, aliases)
     raw_terminal = _terminal(first_support, question, observed, aliases)
     raw_terminal_mass = float(raw_terminal["truth_mass"])
-    terminal_mass = raw_terminal_mass if valid else 0.0
+    terminal_mass = raw_terminal_mass if likelihood_aligned else 0.0
     raw_fresh = _truth_mass(final_support, aliases)
-    fresh_mass = raw_fresh if valid else 0.0
-    first_mass = raw_first if first_mapping["supported"] else 0.0
+    fresh_mass = raw_fresh if likelihood_aligned else 0.0
+    first_mass = raw_first if first_reply_aligned else 0.0
     return {
-        "valid_two_action_trajectory": valid,
+        "valid_two_action_trajectory": action_valid,
+        "likelihood_aligned_two_action_trajectory": likelihood_aligned,
         "first_reply_likelihood_matched": bool(first_reply_indexes)
         and first_mapping["supported"],
         "first_reply_matched_hypotheses": len(first_reply_indexes),
-        "truth_consistent_first_reply_likelihood_matched": bool(
-            truth_first_reply_indexes
-        )
-        and first_mapping["supported"],
+        "truth_consistent_first_reply_likelihood_matched": first_reply_aligned,
         "truth_consistent_first_reply_matched_hypotheses": len(
             truth_first_reply_indexes
         ),
@@ -999,6 +1004,14 @@ def verify_policy_smoke(run_dir: Path) -> dict[str, Any]:
         ),
         FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256,
         "$.protocol.first_reply_alignment_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "first_reply_endpoint_amendment_sha256"
+        ),
+        FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256,
+        "$.protocol.first_reply_endpoint_amendment_sha256",
         mismatches,
     )
     _close(result.get("supports"), [row["diagnostic"] for row in all_supports], "$.supports", mismatches)
@@ -1377,6 +1390,14 @@ def verify_policy(run_dir: Path) -> dict[str, Any]:
         ),
         FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256,
         "$.protocol.first_reply_alignment_amendment_sha256",
+        mismatches,
+    )
+    _close(
+        (result.get("protocol") or {}).get(
+            "first_reply_endpoint_amendment_sha256"
+        ),
+        FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256,
+        "$.protocol.first_reply_endpoint_amendment_sha256",
         mismatches,
     )
     _close(result.get("tasks"), tasks, "$.tasks", mismatches)

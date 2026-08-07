@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Close the remaining q1 endpoint-credit asymmetry before responses.
+The prior>=40/64 mechanics gate could still let an individual realized first
+reply absent under every truth-consistent initial particle earn favorable mass
+after regeneration,while q2 absence already scored zero. Amendmentcf5ae9d0
+now keeps raw first/aligned/fresh masses but scores all three zero,Brier1,and
+floor log loss on that unmodelled q1 path. Hand adversary stays action-valid
+with raw.125/.25/.125 and scored0/0/0. Producer+independent replay agree;
+confirmation supplemental protocol and RegretBench86/86 pass. Calls/cost0,
+selections/science/calls/budget unchanged,endpoints unopened.
+
 2026-08-07: Re-audit the full Aug8 chain after the first-reply amendment.
 Authenticated credits245/usage220.113606154/balance24.886393846;the reported
 top-up remains unposted. Real future-clock Luna preflight is ready at live

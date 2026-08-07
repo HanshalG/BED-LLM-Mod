@@ -44,7 +44,7 @@ LEDGER = REPO_ROOT / (
 )
 EXECUTION_BINDINGS = ROOT / "EXECUTION_BINDINGS.json"
 EXECUTION_BINDINGS_SHA256 = (
-    "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d"
+    "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f"
 )
 PRODUCER_SHA256 = (
     "7cbe10ec1dde5406d21dfb2ee02431ca5771e5e760c8bcb939f2cea94ae129d0"
@@ -53,16 +53,16 @@ CONFIRMATION_VERIFIER_SHA256 = (
     "f8a88ba92a079f2993838ea50cac5fb78546ba66f1428a173927b57c72eaa6aa"
 )
 SHARED_VERIFIER_SHA256 = (
-    "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a"
+    "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5"
 )
 SUPPORT_DAILY_SHA256 = (
-    "b05387325ea8e8cac3852c7e9393e96662aa1bee2cfdc76cf7be1f22146a29d6"
+    "692b5f5911639df1e95a9fc5e63593adca335662ee9bba9faee9cd3a1624a6e9"
 )
 POLICY_DAILY_SHA256 = (
-    "ef8874760b1183dbab33534b6c942474d2f0a5c570aac3266355d6d40d585f03"
+    "2b336052bf2fbd7b1c90472b18b2ea0e8fe4cbcd4f30426460b6c112611dd066"
 )
 POLICY_CORE_SHA256 = (
-    "903d3afab63a48aa133d81e7af9defcff10e065e1297930be2cea9096d4ebb33"
+    "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1"
 )
 
 
@@ -123,10 +123,16 @@ def validate_execution_bindings() -> dict[str, Any]:
         != POLICY_CORE_SHA256
         or bindings.get("first_reply_alignment_amendment", {}).get("sha256")
         != policy.FIRST_REPLY_ALIGNMENT_AMENDMENT_SHA256
+        or bindings.get("first_reply_endpoint_amendment", {}).get("sha256")
+        != policy.FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256
         or bindings.get("requirements", {}).get(
             "minimum_truth_consistent_first_reply_matches_per_policy"
         )
         != 40
+        or bindings.get("requirements", {}).get(
+            "unmodelled_truth_consistent_first_reply_scored_mass"
+        )
+        != 0.0
     ):
         raise RuntimeError("confirmation execution-binding manifest is invalid")
     return bindings

@@ -27,14 +27,14 @@ EXECUTION_BINDINGS = REPO_ROOT / (
     "EXECUTION_BINDINGS.json"
 )
 EXECUTION_BINDINGS_SHA256 = (
-    "16c5410ea4828748aab3e65540994de80f00c2112a666297da2e7f85f01cc85d"
+    "25a5535b228558274fbec399fb6a0932a08a14b425e2b19ffe45bee6bafce77f"
 )
 DAILY_EXECUTION_BINDING = REPO_ROOT / (
     "results/nonmyopic/regretbench_deepseek_dynamic_depth2_confirmation/"
     "DAILY_EXECUTION_BINDING.json"
 )
 DAILY_EXECUTION_BINDING_SHA256 = (
-    "4c4d3798199e5f8e1c60ddee91c1ce2d2261050f8a0e91efe7574b617760aa69"
+    "ade9ae511f9a9450227d618753f076cd2015ada7a2929354a3a286367e288c62"
 )
 PROTOCOL_SHA256 = (
     "7a782f02eb8c3b16d5b229cca309d02bce64df6432c5090c977d3e26d1f46498"
@@ -162,7 +162,8 @@ def verify_protocol(
     policy_path = str(policy_core.get("path", ""))
     if (
         policy_path in bindings
-        and bindings[policy_path] == policy_core.get("superseded_sha256")
+        and bindings[policy_path]
+        == policy_core.get("parent_sha256", policy_core.get("superseded_sha256"))
         and (repo_root / policy_path).is_file()
         and sha256_file(repo_root / policy_path) == policy_core.get("sha256")
     ):
@@ -180,12 +181,22 @@ def verify_protocol(
     amendment_path = repo_root / str(amendment.get("path", ""))
     alignment = execution.get("first_reply_alignment_amendment", {})
     alignment_path = repo_root / str(alignment.get("path", ""))
+    endpoint_alignment = execution.get("first_reply_endpoint_amendment", {})
+    endpoint_alignment_path = repo_root / str(
+        endpoint_alignment.get("path", "")
+    )
     daily_amendment = daily_binding.get("amendment", {})
     daily_amendment_path = repo_root / str(daily_amendment.get("path", ""))
     daily_alignment = daily_binding.get(
         "first_reply_alignment_amendment", {}
     )
     daily_alignment_path = repo_root / str(daily_alignment.get("path", ""))
+    daily_endpoint_alignment = daily_binding.get(
+        "first_reply_endpoint_amendment", {}
+    )
+    daily_endpoint_alignment_path = repo_root / str(
+        daily_endpoint_alignment.get("path", "")
+    )
     daily_component_matches = {
         relative: (repo_root / relative).is_file()
         and sha256_file(repo_root / relative) == expected
@@ -245,6 +256,9 @@ def verify_protocol(
             and sha256_file(amendment_path) == amendment.get("sha256")
             and alignment_path.is_file()
             and sha256_file(alignment_path) == alignment.get("sha256")
+            and endpoint_alignment_path.is_file()
+            and sha256_file(endpoint_alignment_path)
+            == endpoint_alignment.get("sha256")
             and execution.get("parent", {}).get("protocol_manifest_sha256")
             == PROTOCOL_SHA256
             and all(component_matches.values())
@@ -267,6 +281,9 @@ def verify_protocol(
             and daily_alignment_path.is_file()
             and sha256_file(daily_alignment_path)
             == daily_alignment.get("sha256")
+            and daily_endpoint_alignment_path.is_file()
+            and sha256_file(daily_endpoint_alignment_path)
+            == daily_endpoint_alignment.get("sha256")
             and bool(daily_component_matches)
             and all(daily_component_matches.values())
         ),
@@ -329,6 +346,14 @@ def verify_protocol(
             is True
             and execution.get("requirements", {}).get(
                 "alignment_gate_can_only_reject"
+            )
+            is True
+            and execution.get("requirements", {}).get(
+                "unmodelled_truth_consistent_first_reply_scored_mass"
+            )
+            == 0.0
+            and execution.get("requirements", {}).get(
+                "raw_first_reply_path_masses_retained_descriptively"
             )
             is True
             and mechanics.get("blind_crn_expected_groups") == 1024

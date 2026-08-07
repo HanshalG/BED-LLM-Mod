@@ -99,6 +99,19 @@ def test_protocol_binding_refuses_first_reply_alignment_amendment_change(
         policy.validate_protocol_binding()
 
 
+def test_protocol_binding_refuses_first_reply_endpoint_amendment_change(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        policy, "FIRST_REPLY_ENDPOINT_AMENDMENT_SHA256", "0" * 64
+    )
+
+    with pytest.raises(
+        ValueError, match="first-reply endpoint alignment amendment changed"
+    ):
+        policy.validate_protocol_binding()
+
+
 def test_distinct_actions_use_official_facet_identity() -> None:
     first = {"supported": True, "facet": "country"}
 
@@ -197,6 +210,44 @@ def test_invalid_trajectory_cannot_gain_from_regenerated_belief() -> None:
     )
 
     assert metrics["valid_two_action_trajectory"] is False
+    assert metrics["likelihood_aligned_two_action_trajectory"] is False
+    assert metrics["raw_truth_mass_final"] == pytest.approx(0.25)
+    assert metrics["truth_mass_final"] == 0.0
+    assert metrics["brier"] == 1.0
+    assert metrics["raw_fresh_truth_mass_final"] == pytest.approx(0.125)
+    assert metrics["fresh_truth_mass_final"] == 0.0
+
+
+def test_unmodelled_truth_consistent_first_reply_cannot_gain_endpoint_credit() -> None:
+    support = policy.parse_enriched_support(json.dumps(_support()))
+    first_mapping = {
+        "supported": True,
+        "facet": "country",
+        "answer": "binary 1",
+    }
+    second_mapping = {
+        "supported": True,
+        "facet": "period",
+        "answer": "binary 0",
+    }
+
+    metrics = policy.realized_path_metrics(
+        support,
+        support,
+        support,
+        first_question_index=0,
+        question_index=0,
+        observed_reply="binary 0",
+        aliases="answer 0",
+        first_mapping=first_mapping,
+        second_mapping=second_mapping,
+    )
+
+    assert metrics["valid_two_action_trajectory"] is True
+    assert metrics["truth_consistent_first_reply_likelihood_matched"] is False
+    assert metrics["likelihood_aligned_two_action_trajectory"] is False
+    assert metrics["raw_truth_mass_after_first"] == pytest.approx(0.125)
+    assert metrics["truth_mass_after_first"] == 0.0
     assert metrics["raw_truth_mass_final"] == pytest.approx(0.25)
     assert metrics["truth_mass_final"] == 0.0
     assert metrics["brier"] == 1.0

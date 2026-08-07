@@ -16,18 +16,23 @@
     "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_LIKELIHOOD_ALIGNMENT_AMENDMENT_20260807.md",
     "sha256": "6102056866f7e0fc8b5cf6d95de6080ea699505a294f7a2a540d303499d78c44"
   },
+  "first_reply_endpoint_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_FIRST_REPLY_ENDPOINT_ALIGNMENT_AMENDMENT_20260807.md",
+    "sha256": "cf5ae9d08ecfc4372611c58fcc1c1b32b67fd6830881c11ad0a352ba514df726"
+  },
   "shared_result_verifier": {
     "path": "scripts/regretbench_deepseek_result_verify.py",
     "superseded_sha256": "dd67501dd311cc5882c0274289aeab95b7d3bcb57af8bc7f0d5b79b450957e8f",
-    "intermediate_sha256": "ad5f516b473cddd4b4957f4921752c85e56936e28517fff1a10a9620500eaa5d",
-    "sha256": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
-    "only_change": "independently replay the prospective first-reply likelihood-alignment mechanics gate"
+    "intermediate_sha256": "0cff99b50701930e608cafde47de465548777af1862426238bfaf7584727c14a",
+    "sha256": "64f691a6b4a1d20ae08e51348c30acc13a3f79bfe2029dcb00ff665c66985de5",
+    "only_change": "independently replay the prospective first-reply endpoint-alignment penalty"
   },
   "policy_core": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_policy.py",
-    "superseded_sha256": "19970a2b1a488bc9c1b9b461b0de09d07e24c4a53dbd221d5c9809b0c8cbb390",
-    "sha256": "903d3afab63a48aa133d81e7af9defcff10e065e1297930be2cea9096d4ebb33",
-    "only_change": "add the prospective first-reply likelihood-alignment mechanics gate without changing selections or endpoints"
+    "parent_sha256": "19970a2b1a488bc9c1b9b461b0de09d07e24c4a53dbd221d5c9809b0c8cbb390",
+    "superseded_sha256": "903d3afab63a48aa133d81e7af9defcff10e065e1297930be2cea9096d4ebb33",
+    "sha256": "80ee23d7034bf80ec5c66537a99bf5c73f32ee52d03028fd0ccac92bfca3b2f1",
+    "only_change": "apply the prospective worst-case endpoint penalty to unmodelled truth-consistent first replies without changing selections"
   },
   "confirmation_producer": {
     "path": "scripts/regretbench_deepseek_dynamic_depth2_confirmation.py",
@@ -46,6 +51,8 @@
     "minimum_truth_consistent_first_reply_matches_per_policy": 40,
     "enriched_smoke_requires_all_three_truth_consistent_first_reply_matches": true,
     "alignment_gate_can_only_reject": true,
+    "unmodelled_truth_consistent_first_reply_scored_mass": 0.0,
+    "raw_first_reply_path_masses_retained_descriptively": true,
     "model_calls_before_freeze": 0,
     "cost_usd_before_freeze": 0.0
   }
