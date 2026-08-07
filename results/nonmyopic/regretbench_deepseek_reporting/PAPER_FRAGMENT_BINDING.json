@@ -1,18 +1,19 @@
 {
   "schema_version": 1,
   "interface_version": "regretbench-paper-fragment-binding-1",
-  "status": "frozen_before_responses",
-  "scientific_contract_changed": false,
+  "status": "prospectively_amended_before_responses",
+  "scientific_contract_changed": true,
   "reporting": {
     "protocol_sha256": "6594c91f2ceb5897ec0b2a0d1f6e58a5e4690325503414d9655aa45332be63f2",
-    "binding_sha256": "28f116cea8443a491552e50e81989c5cccade3b2ec6c7201f05e438ef5304d5b",
-    "generator_sha256": "c88deac8e90f040fcd91f9f752cf6c84c4cb1e8c8f81c4e4a9c09d05abbde28f"
+    "endpoint_amendment_sha256": "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79",
+    "binding_sha256": "56c890d10a27879f0445e0d3f42fb498b1907f5dcf84b623154b852cc8824048",
+    "generator_sha256": "5388515f4319ab9a87b1d4bad0a588bcf6eee108f2e872ec78fed313b5c8f68a"
   },
   "fragment": {
     "protocol_path": "results/nonmyopic/REGRETBENCH_PAPER_FRAGMENT_PROTOCOL_20260807.md",
     "protocol_sha256": "510ca51af21e40d36e7548eceed16085e44f4d1f8ed0a8d943476041b82fa823",
     "generator_path": "scripts/regretbench_deepseek_paper_fragment.py",
-    "generator_sha256": "e8e95806e893cb8eecee7995cfa5e016a61310ef4554518991de763aeb5c3afc",
+    "generator_sha256": "fcf2540831a21620f9f7952ffe241cdabfde0f6d8ce185ec36cc7c176078a70a",
     "output_path": "paper/generated/regretbench_result.tex",
     "metadata_path": "paper/generated/regretbench_result.json"
   },
@@ -28,6 +29,9 @@
     "saved_report_recomputed_before_render": true,
     "exact_claim_tier_interpretation_used": true,
     "all_four_primary_controls_rendered_when_mechanics_pass": true,
+    "first_reply_likelihood_penalty_visible": true,
+    "alignment_complete_diagnostic_rendered_when_mechanics_pass": true,
+    "alignment_complete_diagnostic_can_change_tier": false,
     "no_efficacy_table_on_mechanics_failure": true,
     "development_may_only_render_provisional_or_null": true,
     "confirmation_may_replace_development_fragment": true,

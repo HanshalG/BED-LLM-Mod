@@ -15,6 +15,8 @@ def _policy_row(brier: float) -> dict:
         "log_loss": -__import__("math").log(max(1e-12, truth)),
         "truth_mass_after_first": 0.25,
         "valid_two_action_trajectory": True,
+        "truth_consistent_first_reply_likelihood_matched": True,
+        "likelihood_aligned_two_action_trajectory": True,
         "first_supported": True,
         "second_supported": True,
         "second_action_novel": True,
@@ -169,14 +171,17 @@ def test_reporting_binding_matches_protocol_and_generator() -> None:
     )
     binding = json.loads(binding_path.read_text())
 
-    assert binding["status"] == "frozen_before_responses"
-    assert binding["scientific_contract_changed"] is False
+    assert binding["status"] == "prospectively_amended_before_responses"
+    assert binding["scientific_contract_changed"] is True
     assert report.sha256_file(
         report.REPO_ROOT / binding["protocol"]["path"]
     ) == binding["protocol"]["sha256"]
     assert report.sha256_file(
         report.REPO_ROOT / binding["generator"]["path"]
     ) == binding["generator"]["sha256"]
+    assert report.sha256_file(
+        report.REPO_ROOT / binding["endpoint_amendment"]["path"]
+    ) == binding["endpoint_amendment"]["sha256"]
     assert binding["requirements"][
         "pooled_or_secondary_evidence_can_change_tier"
     ] is False
@@ -237,7 +242,7 @@ def test_primary_table_and_optional_naive_are_separated(tmp_path) -> None:
 
     table = value["primary_policy_table"]
     assert table["label"] == (
-        "aligned_generated_likelihood_with_invalid_path_penalty"
+        "aligned_generated_likelihood_with_action_and_first_reply_penalty"
     )
     assert set(table["policies"]) == set(report.PRIMARY_POLICIES)
     assert table["policies"]["dynamic_depth2"]["brier"] == {
@@ -249,6 +254,29 @@ def test_primary_table_and_optional_naive_are_separated(tmp_path) -> None:
     assert naive["available"] is True
     assert naive["can_change_claim_tier"] is False
     assert naive["metrics"]["fresh_brier"]["mean"] == pytest.approx(0.32)
+    diagnostic = value["alignment_complete_diagnostic"]
+    assert diagnostic["can_change_result_status_or_claim_tier"] is False
+    assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 64
+    assert diagnostic["alignment_complete_corroboration"]["all_pass"] is True
+
+
+def test_alignment_complete_diagnostic_excludes_penalized_first_paths(
+    tmp_path,
+) -> None:
+    payload = _result(stage="development", status="passed")
+    dynamic = payload["tasks"][0]["policies"]["dynamic_depth2"]
+    dynamic["truth_consistent_first_reply_likelihood_matched"] = False
+    dynamic["likelihood_aligned_two_action_trajectory"] = False
+    dynamic["brier"] = 1.0
+    dynamic["log_loss"] = -__import__("math").log(1e-12)
+    _write_verified(tmp_path, payload)
+
+    value = report.build_report(tmp_path, stage="development")
+
+    diagnostic = value["alignment_complete_diagnostic"]
+    assert diagnostic["controls"]["myopic_width"]["eligible_task_count"] == 63
+    assert diagnostic["controls"]["fixed_depth2"]["eligible_task_count"] == 63
+    assert value["paired_primary_comparisons"] == payload["science"]["comparisons"]
 
 
 def test_result_tamper_after_verification_refuses_report(tmp_path) -> None:
@@ -273,6 +301,7 @@ def test_write_report_emits_json_and_markdown_without_calls(tmp_path) -> None:
     assert "confirmed_llm_native_nonmyopic_signal" in markdown
     assert "Primary Aligned Endpoint" in markdown
     assert "Ranking Fidelity" in markdown
+    assert "Alignment-Complete Diagnostic" in markdown
     assert "Science Gates" in markdown
     assert "Secondary Fresh Regeneration" in markdown
     assert "Optional Naive-Thinking Baseline" in markdown

@@ -11,6 +11,8 @@ from pathlib import Path
 import statistics
 from typing import Any, Mapping, Sequence
 
+import numpy as np
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 REPORTING_PROTOCOL = REPO_ROOT / (
@@ -19,6 +21,15 @@ REPORTING_PROTOCOL = REPO_ROOT / (
 REPORTING_PROTOCOL_SHA256 = (
     "6594c91f2ceb5897ec0b2a0d1f6e58a5e4690325503414d9655aa45332be63f2"
 )
+REPORTING_ENDPOINT_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "REGRETBENCH_REPORTING_FIRST_REPLY_ENDPOINT_AMENDMENT_20260807.md"
+)
+REPORTING_ENDPOINT_AMENDMENT_SHA256 = (
+    "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79"
+)
+ALIGNMENT_BOOTSTRAP_SAMPLES = 20_000
+ALIGNMENT_BOOTSTRAP_SEED = 202608151000
 PRIMARY_POLICIES = (
     "dynamic_depth2",
     "myopic_width",
@@ -38,6 +49,8 @@ PRIMARY_METRICS = (
     "log_loss",
     "truth_mass_after_first",
     "valid_two_action_trajectory",
+    "truth_consistent_first_reply_likelihood_matched",
+    "likelihood_aligned_two_action_trajectory",
     "first_supported",
     "second_supported",
     "second_action_novel",
@@ -101,11 +114,123 @@ def _stats(values: Sequence[Any], label: str) -> dict[str, float | int]:
     }
 
 
+def _paired_subset_stats(
+    values: Sequence[float], *, seed: int
+) -> dict[str, Any]:
+    array = np.asarray(values, dtype=float)
+    if array.size == 0:
+        return {
+            "mean": None,
+            "sample_sd": None,
+            "ci95": [None, None],
+            "probability_improvement": None,
+            "n": 0,
+            "samples": ALIGNMENT_BOOTSTRAP_SAMPLES,
+            "seed": seed,
+        }
+    rng = np.random.default_rng(seed)
+    indexes = rng.integers(
+        0,
+        array.size,
+        size=(ALIGNMENT_BOOTSTRAP_SAMPLES, array.size),
+    )
+    means = array[indexes].mean(axis=1)
+    return {
+        "mean": float(array.mean()),
+        "sample_sd": float(array.std(ddof=1)) if array.size > 1 else 0.0,
+        "ci95": [float(value) for value in np.quantile(means, [0.025, 0.975])],
+        "probability_improvement": float(np.mean(means < 0.0)),
+        "n": int(array.size),
+        "samples": ALIGNMENT_BOOTSTRAP_SAMPLES,
+        "seed": seed,
+    }
+
+
+def _alignment_complete_diagnostic(
+    tasks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    controls = {}
+    for index, baseline in enumerate(BASELINES):
+        eligible = [
+            task
+            for task in tasks
+            if task["policies"]["dynamic_depth2"][
+                "likelihood_aligned_two_action_trajectory"
+            ]
+            and task["policies"][baseline][
+                "likelihood_aligned_two_action_trajectory"
+            ]
+        ]
+        brier = [
+            task["policies"]["dynamic_depth2"]["brier"]
+            - task["policies"][baseline]["brier"]
+            for task in eligible
+        ]
+        log_loss = [
+            task["policies"]["dynamic_depth2"]["log_loss"]
+            - task["policies"][baseline]["log_loss"]
+            for task in eligible
+        ]
+        controls[baseline] = {
+            "eligible_task_count": len(eligible),
+            "dynamic_all_task_alignment_rate": statistics.fmean(
+                task["policies"]["dynamic_depth2"][
+                    "likelihood_aligned_two_action_trajectory"
+                ]
+                for task in tasks
+            ),
+            "control_all_task_alignment_rate": statistics.fmean(
+                task["policies"][baseline][
+                    "likelihood_aligned_two_action_trajectory"
+                ]
+                for task in tasks
+            ),
+            "brier_dynamic_minus_control": _paired_subset_stats(
+                brier, seed=ALIGNMENT_BOOTSTRAP_SEED + index * 10
+            ),
+            "log_loss_dynamic_minus_control": _paired_subset_stats(
+                log_loss, seed=ALIGNMENT_BOOTSTRAP_SEED + index * 10 + 1
+            ),
+            "wins_ties_losses": {
+                "wins": sum(value < -1e-12 for value in brier),
+                "ties": sum(abs(value) <= 1e-12 for value in brier),
+                "losses": sum(value > 1e-12 for value in brier),
+            },
+        }
+    primary = controls["myopic_width"]
+    brier = primary["brier_dynamic_minus_control"]
+    log_loss = primary["log_loss_dynamic_minus_control"]
+    wtl = primary["wins_ties_losses"]
+    conditions = {
+        "at_least_24_paired_tasks": primary["eligible_task_count"] >= 24,
+        "mean_brier_gain_at_least_001": brier["mean"] is not None
+        and brier["mean"] <= -0.01,
+        "brier_probability_at_least_080": (
+            brier["probability_improvement"] is not None
+            and brier["probability_improvement"] >= 0.80
+        ),
+        "brier_wins_exceed_losses": wtl["wins"] > wtl["losses"],
+        "mean_log_loss_nonworse": log_loss["mean"] is not None
+        and log_loss["mean"] <= 0.0,
+    }
+    conditions["all_pass"] = all(conditions.values())
+    return {
+        "label": "alignment_complete_non_rescuing_diagnostic",
+        "controls": controls,
+        "alignment_complete_corroboration": conditions,
+        "can_change_result_status_or_claim_tier": False,
+    }
+
+
 def _validate_verified_result(
     run_dir: Path, *, stage: str
 ) -> tuple[dict[str, Any], dict[str, Any], str, str]:
     if sha256_file(REPORTING_PROTOCOL) != REPORTING_PROTOCOL_SHA256:
         raise ValueError("RegretBench reporting protocol changed")
+    if sha256_file(REPORTING_ENDPOINT_AMENDMENT) != (
+        REPORTING_ENDPOINT_AMENDMENT_SHA256
+    ):
+        raise ValueError("RegretBench reporting endpoint amendment changed")
     result_path = run_dir / "RESULT.json"
     verification_path = run_dir / "VERIFICATION.json"
     result = _load(result_path)
@@ -206,6 +331,7 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         correlation = None
         fresh = None
         science_gates = None
+        alignment_complete = None
     else:
         if not isinstance(science, Mapping):
             raise ValueError("mechanically valid result lacks science summary")
@@ -222,6 +348,7 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
             "can_change_claim_tier": False,
         }
         science_gates = science["gates"]
+        alignment_complete = _alignment_complete_diagnostic(tasks)
         expected_pass = result["status"] == "passed"
         if science_gates.get("all_pass") is not expected_pass:
             raise ValueError("result status and frozen science conjunction disagree")
@@ -237,6 +364,9 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
         "interpretation": interpretation,
         "claim_tier_is_frozen_and_nonadaptive": True,
         "reporting_protocol_sha256": REPORTING_PROTOCOL_SHA256,
+        "reporting_endpoint_amendment_sha256": (
+            REPORTING_ENDPOINT_AMENDMENT_SHA256
+        ),
         "result_sha256": result_sha,
         "verification_sha256": verification_sha,
         "independent_verification_interface": verification.get(
@@ -250,14 +380,16 @@ def build_report(run_dir: Path, *, stage: str) -> dict[str, Any]:
             "primary_endpoint": protocol.get("primary_endpoint"),
             "fresh_endpoint": protocol.get("fresh_regeneration_endpoint"),
             "invalid_trajectories_are_penalized": True,
+            "unmodelled_truth_consistent_first_replies_are_penalized": True,
         },
         "primary_policy_table": {
-            "label": "aligned_generated_likelihood_with_invalid_path_penalty",
+            "label": "aligned_generated_likelihood_with_action_and_first_reply_penalty",
             "policies": _policy_table(tasks),
         },
         "paired_primary_comparisons": paired,
         "root_disagreements": disagreements,
         "predicted_to_realized_dynamic_myopic": correlation,
+        "alignment_complete_diagnostic": alignment_complete,
         "science_gates": science_gates,
         "secondary_fresh_regeneration": fresh,
         "optional_naive_thinking": _optional_naive(
@@ -284,6 +416,12 @@ def _fmt_stat(value: Mapping[str, Any]) -> str:
     return f"{float(value['mean']):.4f} ({float(value['sample_sd']):.4f})"
 
 
+def _fmt_optional(value: Any, digits: int = 4) -> str:
+    if value is None:
+        return "n/a"
+    return f"{float(value):.{digits}f}"
+
+
 def render_markdown(report: Mapping[str, Any]) -> str:
     lines = [
         "# RegretBench Frozen Result Report",
@@ -298,10 +436,10 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "",
         "## Primary Aligned Endpoint",
         "",
-        "Brier and log loss use the aligned generated-likelihood endpoint; invalid trajectories receive the frozen penalty.",
+        "Brier and log loss use the aligned generated-likelihood endpoint; action-invalid or first-reply-unmodelled trajectories receive the frozen penalty.",
         "",
-        "| Policy | Truth mass | Brier | Log loss | First mass | Valid path | Q1 supported | Q2 supported | Novel Q2 | Reply match |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Policy | Truth mass | Brier | Log loss | First mass | Action-valid | Q1 truth-match | Likelihood-aligned | Q1 supported | Q2 supported | Novel Q2 | Q2 reply match |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     labels = {
         "dynamic_depth2": "Dynamic d2",
@@ -323,6 +461,10 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                     _fmt_stat(row["log_loss"]),
                     _fmt_stat(row["truth_mass_after_first"]),
                     _fmt_stat(row["valid_two_action_trajectory"]),
+                    _fmt_stat(
+                        row["truth_consistent_first_reply_likelihood_matched"]
+                    ),
+                    _fmt_stat(row["likelihood_aligned_two_action_trajectory"]),
                     _fmt_stat(row["first_supported"]),
                     _fmt_stat(row["second_supported"]),
                     _fmt_stat(row["second_action_novel"]),
@@ -376,6 +518,36 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         )
         for name, passed in report["science_gates"].items():
             lines.append(f"- `{name}`: `{passed}`")
+
+        lines.extend(
+            [
+                "",
+                "## Alignment-Complete Diagnostic",
+                "",
+                "This paired diagnostic includes only tasks where dynamic and the control both have action-valid, truth-consistent first-reply paths. It cannot change the result status or claim tier.",
+                "",
+                "| Control | n | Brier diff | 95% CI | P(improve) | W/T/L | Log-loss diff |",
+                "|---|---:|---:|---:|---:|---:|---:|",
+            ]
+        )
+        diagnostic = report["alignment_complete_diagnostic"]
+        for name in BASELINES:
+            row = diagnostic["controls"][name]
+            brier = row["brier_dynamic_minus_control"]
+            log_loss = row["log_loss_dynamic_minus_control"]
+            wtl = row["wins_ties_losses"]
+            lines.append(
+                f"| {labels[name]} | {row['eligible_task_count']} | "
+                f"{_fmt_optional(brier['mean'])} ({_fmt_optional(brier['sample_sd'])}) | "
+                f"[{_fmt_optional(brier['ci95'][0])}, {_fmt_optional(brier['ci95'][1])}] | "
+                f"{_fmt_optional(brier['probability_improvement'], 3)} | "
+                f"{wtl['wins']}/{wtl['ties']}/{wtl['losses']} | "
+                f"{_fmt_optional(log_loss['mean'])} ({_fmt_optional(log_loss['sample_sd'])}) |"
+            )
+        lines.append(
+            "Alignment-complete dynamic-versus-myopic corroboration: "
+            f"`{diagnostic['alignment_complete_corroboration']['all_pass']}`."
+        )
 
         lines.extend(
             [

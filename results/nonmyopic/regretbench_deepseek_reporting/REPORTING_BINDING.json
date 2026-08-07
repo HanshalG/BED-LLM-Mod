@@ -1,15 +1,19 @@
 {
   "schema_version": 1,
   "interface_version": "regretbench-frozen-report-binding-1",
-  "status": "frozen_before_responses",
-  "scientific_contract_changed": false,
+  "status": "prospectively_amended_before_responses",
+  "scientific_contract_changed": true,
   "protocol": {
     "path": "results/nonmyopic/REGRETBENCH_REPORTING_PROTOCOL_20260807.md",
     "sha256": "6594c91f2ceb5897ec0b2a0d1f6e58a5e4690325503414d9655aa45332be63f2"
   },
+  "endpoint_amendment": {
+    "path": "results/nonmyopic/REGRETBENCH_REPORTING_FIRST_REPLY_ENDPOINT_AMENDMENT_20260807.md",
+    "sha256": "a6cc6c56890a53a86c9bcc597e95751d0161fa27e22bacf6b916eb39fcfd6c79"
+  },
   "generator": {
     "path": "scripts/regretbench_deepseek_frozen_report.py",
-    "sha256": "c88deac8e90f040fcd91f9f752cf6c84c4cb1e8c8f81c4e4a9c09d05abbde28f"
+    "sha256": "5388515f4319ab9a87b1d4bad0a588bcf6eee108f2e872ec78fed313b5c8f68a"
   },
   "inputs": {
     "result": "RESULT.json",
@@ -32,6 +36,9 @@
     "development_and_confirmation_reported_separately": true,
     "aligned_endpoint_is_primary": true,
     "invalid_path_penalty_visible": true,
+    "first_reply_likelihood_penalty_visible": true,
+    "alignment_complete_diagnostic_preregistered": true,
+    "alignment_complete_diagnostic_can_change_tier": false,
     "all_primary_policies_visible": true,
     "all_paired_controls_visible": true,
     "ranking_fidelity_visible": true,

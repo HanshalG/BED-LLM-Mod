@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-07: Make q1 endpoint validity visible and separate penalty-driven gains
+before responses. Reporting amendmenta6cc6c56 adds per-policy truth-consistent
+q1-match and likelihood-aligned path rates. It preregisters20k-bootstrap paired
+comparisons restricted to tasks where dynamic+control both have valid,modelled
+q1 paths;myopic corroboration requires n>=24,DeltaBrier<=-.01,P>=.80,W>L,and
+log nonworse. This diagnostic cannot alter status/tier. Frozen report+paper
+fragment render it deterministically;pass and mechanics-failure TeX remain
+within4--6 pages;focused21/21. Calls/cost0,endpoints unopened.
+
 2026-08-07: Close the remaining q1 endpoint-credit asymmetry before responses.
 The prior>=40/64 mechanics gate could still let an individual realized first
 reply absent under every truth-consistent initial particle earn favorable mass

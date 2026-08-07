@@ -70,6 +70,7 @@ def test_fragment_uses_exact_frozen_tier_and_table_boundary(
         assert "Fixed-support d2" in tex
         assert "Random" in tex
         assert "Spearman" in tex
+        assert "alignment-complete corroboration" in tex
     else:
         assert "No policy-efficacy table is shown" in tex
 
@@ -179,14 +180,18 @@ def test_paper_fragment_binding_matches_current_files() -> None:
     )
     binding = json.loads(path.read_text())
 
-    assert binding["status"] == "frozen_before_responses"
-    assert binding["scientific_contract_changed"] is False
+    assert binding["status"] == "prospectively_amended_before_responses"
+    assert binding["scientific_contract_changed"] is True
     assert fragment.sha256_file(
         fragment.REPO_ROOT / binding["fragment"]["protocol_path"]
     ) == binding["fragment"]["protocol_sha256"]
     assert fragment.sha256_file(
         fragment.REPO_ROOT / binding["fragment"]["generator_path"]
     ) == binding["fragment"]["generator_sha256"]
+    assert (
+        binding["reporting"]["endpoint_amendment_sha256"]
+        == frozen_report.REPORTING_ENDPOINT_AMENDMENT_SHA256
+    )
     assert fragment.sha256_file(
         fragment.REPO_ROOT / binding["manuscript"]["path"]
     ) == binding["manuscript"]["preresult_sha256"]

@@ -114,8 +114,9 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
                 "\\caption{Frozen RegretBench "
                 + stage
                 + " comparisons on aligned generated-likelihood terminal Brier. "
-                "Differences are dynamic depth two minus control; invalid "
-                "trajectories receive the preregistered penalty.}",
+                "Differences are dynamic depth two minus control; action-invalid "
+                "or first-reply-unmodelled trajectories receive the "
+                "preregistered penalty.}",
                 "\\label{tab:regretbench-dynamic}",
                 "\\end{table}",
             ]
@@ -136,6 +137,29 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
                 + "$).",
             ]
         )
+        alignment = saved["alignment_complete_diagnostic"]
+        myopic_alignment = alignment["controls"]["myopic_width"]
+        aligned_brier = myopic_alignment["brier_dynamic_minus_control"]
+        aligned_ci = aligned_brier["ci95"]
+        lines.extend(
+            [
+                "",
+                "On the preregistered subset where dynamic and myopic both had "
+                "action-valid, truth-consistent first-reply paths ($n="
+                + str(myopic_alignment["eligible_task_count"])
+                + "$), dynamic-minus-myopic Brier was $"
+                + _number(aligned_brier["mean"])
+                + "$ (95\\% CI $["
+                + _number(aligned_ci[0])
+                + ","
+                + _number(aligned_ci[1])
+                + "]$); the alignment-complete corroboration flag was "
+                + str(
+                    alignment["alignment_complete_corroboration"]["all_pass"]
+                ).lower()
+                + ". This non-rescuing diagnostic cannot change the frozen tier.",
+            ]
+        )
     else:
         lines.extend(
             [
@@ -147,8 +171,9 @@ def build_fragment(run_dir: Path, *, stage: str) -> tuple[str, dict[str, Any]]:
     lines.extend(
         [
             "",
-            "Fresh regeneration, the optional Luna baseline, pooled analyses, and "
-            "subgroups are descriptive and cannot change this tier.",
+            "Fresh regeneration, the optional Luna baseline, pooled analyses, "
+            "subgroups, and the alignment-complete diagnostic cannot change this "
+            "tier.",
             "",
         ]
     )
