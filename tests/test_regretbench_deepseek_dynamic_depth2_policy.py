@@ -101,6 +101,7 @@ def _science_task(index: int) -> dict:
             "history_blind_depth2": {"brier": 0.20, "log_loss": 0.25},
             "fixed_depth2": {"brier": 0.18, "log_loss": 0.22},
             "random": {"brier": 0.25, "log_loss": 0.30},
+            "naive_thinking": {"brier": 0.16, "log_loss": 0.20},
         },
     }
 
@@ -219,6 +220,47 @@ class _FixtureAdapter:
         }
 
 
+class _FakeNaiveAdapter:
+    def __init__(self) -> None:
+        self.requests = 0
+        self.facets = {
+            cig.cig_id: [facet.replace("_", " ") for facet in cig.semantic_facets]
+            for cig in [
+                *recovery.load_stage_cigs("smoke"),
+                *recovery.load_stage_cigs("development"),
+            ]
+        }
+
+    def chat_complete_seeded_messages_batched_structured(
+        self, batch_messages, seeds, **kwargs
+    ):
+        assert kwargs["response_format"] == policy.naive_response_format()
+        responses = []
+        for messages, _seed in zip(batch_messages, seeds, strict=True):
+            payload = json.loads(messages[-1]["content"])
+            facet_index = 0 if not payload["dialogue"] else 1
+            facets = self.facets[payload["task_id"]]
+            facet = facets[min(facet_index, len(facets) - 1)]
+            responses.append(json.dumps({"question": f"Which {facet} do you mean?"}))
+            self.requests += 1
+        return responses
+
+    def usage_snapshot(self):
+        return {
+            "adapter_requests": self.requests,
+            "http_attempts": self.requests,
+            "retry_count": 0,
+            "provider_error_retries": 0,
+            "adapter_reasoning_tokens": self.requests,
+            "forced_exits": 0,
+            "forced_final_requests": 0,
+            "forced_final_successes": 0,
+            "adapter_cost_usd": 0.0,
+            "adapter_prompt_tokens": 0,
+            "adapter_completion_tokens": 0,
+        }
+
+
 def test_exact_ten_enriched_smoke(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(
         policy,
@@ -241,6 +283,34 @@ def test_exact_ten_enriched_smoke(tmp_path, monkeypatch) -> None:
     assert result["protocol"]["policy_endpoint_opened"] is False
 
 
+def test_exact_ten_naive_thinking_smoke(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        policy,
+        "validate_support_predecessors",
+        lambda **kwargs: {"support": "fixture"},
+    )
+    monkeypatch.setattr(
+        policy,
+        "validate_policy_smoke",
+        lambda path: {"path": str(path), "sha256": "fixture"},
+    )
+    adapter = _FakeNaiveAdapter()
+
+    result = policy.run_naive_smoke(
+        output_dir=tmp_path / "naive-smoke",
+        run_id="fixture-naive-smoke",
+        support_smoke_result=tmp_path / "support-smoke.json",
+        support_development_result=tmp_path / "support-development.json",
+        policy_smoke_result=tmp_path / "policy-smoke.json",
+        adapter=adapter,
+    )
+
+    assert result["status"] == "passed"
+    assert all(result["gates"].values())
+    assert adapter.requests == 10
+    assert result["usage"]["adapter_reasoning_tokens"] == 10
+
+
 def test_full_8256_planning_response_path_and_actual_cache(
     tmp_path, monkeypatch
 ) -> None:
@@ -254,7 +324,13 @@ def test_full_8256_planning_response_path_and_actual_cache(
         "validate_policy_smoke",
         lambda path: {"path": str(path), "sha256": "fixture"},
     )
+    monkeypatch.setattr(
+        policy,
+        "validate_naive_smoke",
+        lambda path: {"path": str(path), "sha256": "fixture"},
+    )
     adapter = _FixtureAdapter()
+    naive_adapter = _FakeNaiveAdapter()
 
     result = policy.run_development(
         output_dir=tmp_path / "development",
@@ -262,16 +338,23 @@ def test_full_8256_planning_response_path_and_actual_cache(
         support_smoke_result=tmp_path / "support-smoke.json",
         support_development_result=tmp_path / "support-development.json",
         policy_smoke_result=tmp_path / "policy-smoke.json",
+        naive_smoke_result=tmp_path / "naive-smoke.json",
         adapter=adapter,
+        naive_adapter=naive_adapter,
         bootstrap_samples=50,
     )
 
     assert result["protocol"]["planning_requests"] == 8_256
-    assert result["protocol"]["expected_requests"] == adapter.requests
-    assert 8_256 < adapter.requests <= 8_768
+    assert result["protocol"]["expected_deepseek_requests"] == adapter.requests
+    assert 8_384 < adapter.requests <= 8_896
+    assert result["protocol"]["expected_naive_requests"] == naive_adapter.requests == 128
+    assert result["protocol"]["expected_combined_requests"] == (
+        adapter.requests + naive_adapter.requests
+    )
     assert all(result["mechanics_gates"].values())
     assert result["status"] in {"passed", "gated_null"}
     assert len(result["tasks"]) == 64
+    assert all("naive_thinking" in task["policies"] for task in result["tasks"])
     assert result["protocol"]["selection_frozen_before_truth_access"] is True
     public = (tmp_path / "development" / "RESULT.json").read_text()
     assert "aliases" not in public

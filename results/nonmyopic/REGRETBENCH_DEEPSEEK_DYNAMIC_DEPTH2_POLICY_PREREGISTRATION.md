@@ -50,6 +50,12 @@ questions, metadata, true intent, benchmark belief, policy labels, scores, or
 endpoints. Generated questions and supports are visible to later model calls
 only when they occur in that simulated or realized dialogue.
 
+A separately labelled `naive_thinking` baseline uses
+`openai/gpt-5.6-luna` with medium reasoning and reasoning text excluded. It
+generates clarification questions directly from visible dialogue and never
+sees particles, branch scores, candidates, hidden CIG fields, or endpoints.
+Reasoning is not used by any BED policy.
+
 Each strict enriched support contains exactly:
 
 - eight hypotheses, each with an interpretation, concise final answer,
@@ -104,11 +110,15 @@ and blind trees, and actual-history calls.
 - `fixed_depth2`: exact two-question terminal truth-group Brier on the initial
   support without regeneration.
 - `random`: uniform root from a frozen per-task seed.
+- `naive_thinking`: Luna medium reasoning directly asks one question, observes
+  the exact environment reply, then directly asks a second question.
 
 Ties use the lowest original question index. `myopic_width` is the primary
 compute-matched control. `fixed_depth2` tests whether generic finite-support
 lookahead, rather than path-dependent regeneration, explains any gain.
 `history_blind_depth2` tests whether branch sampling noise alone explains it.
+`naive_thinking` is a stronger-model, unmatched-compute descriptive baseline;
+it cannot pass, rescue, or veto any scientific gate.
 
 ## Realized Execution And Endpoint
 
@@ -136,6 +146,12 @@ sample standard deviations, wins/ties/losses, 20,000 paired task-bootstrap
 intervals and probability of improvement, plus selection disagreement and
 predicted-to-realized Spearman diagnostics.
 
+For `naive_thinking`, the first question is generated before hidden truth
+access. After its exact first reply, one DeepSeek enriched support measures
+first-step truth mass, while Luna independently chooses question two from
+visible dialogue. A final DeepSeek support after the second exact reply supplies
+the identical terminal endpoint used for every BED policy.
+
 ## Exact-10 Enriched Serving Smoke
 
 Use all four mechanics tasks: four initial enriched supports followed by one
@@ -152,6 +168,24 @@ informative follow-up per branch support; all three selected first questions
 officially supported; every privacy audit passing; and cost at most `$0.20`.
 No endpoint is opened and no smoke efficacy value may authorize passage.
 
+## Exact-10 Naive-Thinking Smoke
+
+After the enriched smoke passes, Luna runs a separate exact-10 medium-reasoning
+transport and semantics gate on the four mechanics tasks:
+
+- four first-question calls, seeds `202608088200..202608088203`;
+- four second-question calls after exact environment replies, seeds
+  `202608088300..202608088303`; and
+- two independent first-question redraws on the first two tasks, seeds
+  `202608088400..202608088401`.
+
+Every response is a strict one-question object. Passage requires exact ten
+accepted requests and HTTP attempts, zero retries/provider retries/forced
+exits/forced finalization, positive reasoning tokens, all ten questions
+nonempty and syntactically interrogative, all eight executed questions mapped
+to supported official facets, every prompt privacy audit passing, and cost at
+most `$0.20`. No answer, coverage, or policy efficacy value enters passage.
+
 ## Development Request Schedule
 
 - initial seeds: `202608089000 + task_index`;
@@ -162,11 +196,17 @@ No endpoint is opened and no smoke efficacy value may authorize passage.
 - realized first-history seed: `202608110000 + task_index*4 + root`;
 - realized final-history seed: `202608120000 + task_index*4 + root`;
 - bootstrap: `202608150000`.
+- naive first question: `202608160000 + task_index`;
+- naive second question: `202608170000 + task_index`;
+- naive first-history support: `202608180000 + task_index`;
+- naive final-history support: `202608190000 + task_index`.
 
 The planning block is exact `64 + 8,192 = 8,256` calls. Realized calls are one
 first-history and one final-history call per distinct selected root, at most
-`512`. The result records its precomputed exact expected count and requires
-accepted requests and HTTP attempts to equal it. Maximum total is `8,768`.
+`512`. Naive thinking adds `128` Luna calls and its endpoint adds `128`
+DeepSeek calls. The result records separate precomputed exact counts for both
+models and requires accepted requests and HTTP attempts to equal them. Maximum
+combined total is `9,024`: at most `8,896` DeepSeek and exactly `128` Luna.
 
 ## Mechanics Gates
 
@@ -174,16 +214,17 @@ All must pass:
 
 - every predecessor, source, split, seed, prompt, privacy, and response binding;
 - exact request/attempt accounting and zero retries/provider retries/reasoning/
-  forced exits;
+  forced exits for DeepSeek, plus exact positive-reasoning Luna accounting with
+  zero retries/provider retries/forced exits/forced finalization;
 - every initial, simulated-branch, and realized support is strict with exactly
   eight unique hypotheses and aligned four-reply vectors;
 - every task has at least two informative initial roots;
 - at least 90% of simulated branch supports have an informative follow-up;
-- every policy has at least 48 supported first actions and 40 supported second
-  actions;
+- every policy, including naive thinking, has at least 48 supported first
+  actions and 40 supported second actions;
 - every public artifact excludes raw questions, replies, aliases, facets,
   hidden intent indexes, and raw responses; and
-- total policy cost is at most `$3.70`.
+- combined DeepSeek and Luna policy cost is at most `$3.50`.
 
 ## Scientific Gates
 
@@ -212,7 +253,8 @@ draw count, matcher, seed, policy, endpoint, or favorable subset may change.
 
 ## Daily Budget
 
-The enriched smoke cap is `$0.20`; policy development cap is `$3.70`. On Aug 8
+The enriched smoke cap is `$0.20`, naive smoke cap is `$0.20`, and combined
+policy development cap is `$3.50`. On Aug 8
 they run only after the Luna naive smoke and RegretBench support-recovery stages,
 using the same account-wide opening usage. Combined worst-case daily caps are:
 
@@ -221,7 +263,8 @@ Luna naive smoke          $0.20
 support-recovery smoke    $0.20
 support-recovery dev      $0.50
 enriched policy smoke     $0.20
-dynamic policy dev        $3.70
+naive-thinking smoke      $0.20
+dynamic policy dev        $3.50
                          ------
 total                     $4.80
 ```

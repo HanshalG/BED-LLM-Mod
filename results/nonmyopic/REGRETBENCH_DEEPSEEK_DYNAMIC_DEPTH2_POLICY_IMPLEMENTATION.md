@@ -15,6 +15,8 @@ The implementation constructs a genuinely LLM-native sequential BED tree:
 - dynamic terminal truth-group Brier after an EIG-selected follow-up;
 - compute-matched myopic, fixed-support depth-two, matched history-blind, and
   random-root controls; and
+- a separate Luna medium-reasoning naive-thinking trajectory, measured with
+  the same DeepSeek truth-mass endpoint but excluded from scientific gates; and
 - exact official RegretBench execution followed by a continuous final
   truth-mass Brier and log-loss endpoint.
 
@@ -32,7 +34,10 @@ conditioned/blind branches     64*4*8*2*2           8,192
 planning total                                      8,256
 realized first histories                      at most 256
 realized final histories                      at most 256
-maximum total requests                              8,768
+naive first/final endpoint supports                    128
+maximum DeepSeek requests                            8,896
+naive Luna questions                                   128
+maximum combined requests                            9,024
 ```
 
 Every conditioned response is immediately followed by its prompt-only mate in
@@ -44,17 +49,20 @@ particles fail instead of silently changing rollout width.
 
 The Aug 8 executor validates the exact support-recovery result and inherits its
 original account-wide day opening and recorded spend. It rechecks the full
-remaining stage cap immediately before both enriched smoke and development.
+remaining stage cap immediately before enriched smoke, naive-thinking smoke,
+and development.
 The full chain's maximum exposure is `$4.80`:
 
 - Luna naive smoke: `$0.20`;
 - support-recovery smoke and development: `$0.70`;
 - enriched policy smoke: `$0.20`;
-- dynamic policy development: `$3.70`.
+- naive-thinking smoke: `$0.20`;
+- mixed DeepSeek/Luna policy development: `$3.50`.
 
-The dynamic policy makes zero calls after any predecessor null/failure or an
-enriched smoke failure. Confirmation remains sealed regardless of a
-development null.
+The dynamic policy makes zero calls after any predecessor null/failure or a
+smoke failure. Both formal adapters share one run ID, so the hard OpenRouter
+tracker reserves every concurrent request against one combined `$3.50` cap.
+Confirmation remains sealed regardless of a development null.
 
 ## Verification
 
@@ -65,25 +73,27 @@ pytest -q \
   tests/test_regretbench_deepseek_support_recovery.py \
   tests/test_regretbench_deepseek_support_recovery_daily.py \
   tests/test_regretbench_llm_native_source_audit.py \
-  tests/test_openrouter_daily_budget.py \
-  tests/test_validate_experiments_ledger.py
+  tests/test_bongard_openworld_luna_naive_first_link.py \
+  tests/test_openrouter_model.py
 
-29 passed in 6.20s
+61 passed in 7.85s
 ```
 
 The synthetic full run materializes all `8,256` planning responses and every
-selected realized path, then traverses parsing, scoring, official mapping,
-endpoint computation, bootstrap, privacy, request accounting, and public/
-private serialization. Its outcomes are instrument fixtures, not evidence.
+selected realized path, all `128` Luna questions, and all `128` DeepSeek
+naive-path endpoint supports, then traverses parsing, scoring, official
+mapping, endpoint computation, bootstrap, privacy, request accounting, and
+public/private serialization. Its outcomes are instrument fixtures, not
+evidence.
 
 ## Bindings
 
 - preregistration:
-  `12895164ad10a530b3dbae34b608f7ed5129cb989a5e91e25fa7800a66bbe147`
+  `c1a19408c6cea5bb32023a7f9f003afac3a210d19fae0842a47a873f29b86b97`
 - policy core:
-  `8115170b4cbd1f3e77b626d934610c69c11a418823486df30c1f59476978005d`
+  `fe611671fdf668733037b000d2574bec458b7ae6ee9f2d0a062f2c31d2fc3a55`
 - policy daily executor:
-  `f3e83e51e61de42019436592f0354c13793a49f00f27e91056fbd06fb8426d29`
+  `05e76d125ae3d23c104b39338e39536f9d788fcdf310bc91757c446925965977`
 - amended support-recovery daily executor:
   `ddd3ecbb9e8a559f6bd1dae2d6f85dc3835e8187ac0cb032e06a823925b529f4`
 

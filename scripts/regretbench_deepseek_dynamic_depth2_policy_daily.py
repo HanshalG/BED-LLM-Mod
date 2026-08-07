@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the Aug 8 enriched smoke and dynamic depth-two policy gate."""
+"""Execute the Aug 8 enriched, naive, and dynamic depth-two policy gates."""
 
 from __future__ import annotations
 
@@ -30,6 +30,7 @@ TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
 ROOT = REPO_ROOT / "results/nonmyopic/regretbench_deepseek_dynamic_depth2_policy"
 SMOKE_DIR = ROOT / "smoke-20260808"
+NAIVE_SMOKE_DIR = ROOT / "naive-smoke-20260808"
 DEVELOPMENT_DIR = ROOT / "development-20260808"
 LEDGER = (
     REPO_ROOT
@@ -104,14 +105,18 @@ def preflight(
     _validate_date(now)
     policy.validate_protocol_binding()
     predecessor = validate_recovery_predecessor()
-    for path in (SMOKE_DIR, DEVELOPMENT_DIR):
+    for path in (SMOKE_DIR, NAIVE_SMOKE_DIR, DEVELOPMENT_DIR):
         if path.exists() and (not path.is_dir() or any(path.iterdir())):
             raise RuntimeError(f"policy output path is not pristine: {path}")
     if LEDGER.exists():
         raise RuntimeError("policy supplemental ledger already exists")
     live = live_reader()
     spent = _spent(predecessor["ledger"], live)
-    maximum = policy.SMOKE_BUDGET_USD + policy.RUN_BUDGET_USD
+    maximum = (
+        policy.SMOKE_BUDGET_USD
+        + policy.NAIVE_SMOKE_BUDGET_USD
+        + policy.RUN_BUDGET_USD
+    )
     if spent + maximum > DAILY_CAP_USD + 1e-12:
         raise RuntimeError("policy stages exceed remaining account-wide day")
     if float(live["balance_usd"]) + 1e-12 < maximum:
@@ -129,6 +134,7 @@ def preflight(
             "daily_cap_usd": DAILY_CAP_USD,
             "spent_before_policy_usd": spent,
             "enriched_smoke_cap_usd": policy.SMOKE_BUDGET_USD,
+            "naive_smoke_cap_usd": policy.NAIVE_SMOKE_BUDGET_USD,
             "policy_development_cap_usd": policy.RUN_BUDGET_USD,
             "remaining_after_full_caps_usd": DAILY_CAP_USD - spent - maximum,
         },
@@ -158,8 +164,12 @@ def _initial_ledger(ready: Mapping[str, Any]) -> dict[str, Any]:
                 "maximum_cost_usd": policy.SMOKE_BUDGET_USD,
             },
             "policy_development": {
-                "status": "smoke_gated",
+                "status": "smokes_gated",
                 "maximum_cost_usd": policy.RUN_BUDGET_USD,
+            },
+            "naive_smoke": {
+                "status": "enriched_smoke_gated",
+                "maximum_cost_usd": policy.NAIVE_SMOKE_BUDGET_USD,
             },
         },
     }
@@ -273,9 +283,72 @@ def execute(
         checkpoint(ROOT / "DAILY_RESULT.json", result)
         return result
 
+    ledger["stages"]["naive_smoke"]["status"] = "authorized_pending"
+    checkpoint(LEDGER, ledger)
+    naive_smoke_adapter = policy.build_naive_adapter(
+        stage="smoke",
+        run_id="regretbench-luna-naive-policy-smoke-20260808",
+        output_dir=NAIVE_SMOKE_DIR,
+    )
+    try:
+        live = live_reader()
+        naive_smoke = policy.run_naive_smoke(
+            output_dir=NAIVE_SMOKE_DIR,
+            run_id="regretbench-luna-naive-policy-smoke-20260808",
+            support_smoke_result=support_smoke,
+            support_development_result=support_development,
+            policy_smoke_result=SMOKE_DIR / "RESULT.json",
+            adapter=naive_smoke_adapter,
+            daily_budget_status=_budget_status(
+                ledger,
+                projected=policy.NAIVE_SMOKE_BUDGET_USD,
+                live=live,
+            ),
+        )
+    except Exception:
+        ledger = _reconcile(
+            ledger,
+            stage="naive_smoke",
+            status="failed_closed",
+            measured_cost=summarize_adapter(naive_smoke_adapter),
+            live=live_reader(),
+        )
+        checkpoint(LEDGER, ledger)
+        raise
+    ledger = _reconcile(
+        ledger,
+        stage="naive_smoke",
+        status=naive_smoke["status"],
+        measured_cost=float(naive_smoke["usage"]["run_cost_usd"]),
+        live=live_reader(),
+    )
+    checkpoint(LEDGER, ledger)
+    if naive_smoke["status"] != "passed":
+        result = {
+            "schema_version": SCHEMA_VERSION,
+            "interface_version": INTERFACE_VERSION,
+            "status": "naive_smoke_stopped",
+            "enriched_smoke_result_sha256": recovery.sha256_file(
+                SMOKE_DIR / "RESULT.json"
+            ),
+            "naive_smoke_result_sha256": recovery.sha256_file(
+                NAIVE_SMOKE_DIR / "RESULT.json"
+            ),
+            "development_opened": False,
+            "confirmation_opened": False,
+            "ledger_sha256": recovery.sha256_file(LEDGER),
+        }
+        checkpoint(ROOT / "DAILY_RESULT.json", result)
+        return result
+
     ledger["stages"]["policy_development"]["status"] = "authorized_pending"
     checkpoint(LEDGER, ledger)
     development_adapter = policy.build_adapter(
+        stage="development",
+        run_id="regretbench-deepseek-dynamic-policy-development-20260808",
+        output_dir=DEVELOPMENT_DIR,
+    )
+    development_naive_adapter = policy.build_naive_adapter(
         stage="development",
         run_id="regretbench-deepseek-dynamic-policy-development-20260808",
         output_dir=DEVELOPMENT_DIR,
@@ -288,7 +361,9 @@ def execute(
             support_smoke_result=support_smoke,
             support_development_result=support_development,
             policy_smoke_result=SMOKE_DIR / "RESULT.json",
+            naive_smoke_result=NAIVE_SMOKE_DIR / "RESULT.json",
             adapter=development_adapter,
+            naive_adapter=development_naive_adapter,
             daily_budget_status=_budget_status(
                 ledger,
                 projected=policy.RUN_BUDGET_USD,
@@ -296,7 +371,9 @@ def execute(
             ),
         )
     except Exception:
-        usage = summarize_adapter(development_adapter)
+        usage = summarize_adapter(development_adapter) + summarize_adapter(
+            development_naive_adapter
+        )
         ledger = _reconcile(
             ledger,
             stage="policy_development",
@@ -310,7 +387,7 @@ def execute(
         ledger,
         stage="policy_development",
         status=development["status"],
-        measured_cost=float(development["usage"]["run_cost_usd"]),
+        measured_cost=float(development["usage"]["combined_cost_usd"]),
         live=live_reader(),
     )
     checkpoint(LEDGER, ledger)
@@ -320,6 +397,9 @@ def execute(
         "status": "complete_reconciled",
         "enriched_smoke_result_sha256": recovery.sha256_file(
             SMOKE_DIR / "RESULT.json"
+        ),
+        "naive_smoke_result_sha256": recovery.sha256_file(
+            NAIVE_SMOKE_DIR / "RESULT.json"
         ),
         "development_result_sha256": recovery.sha256_file(
             DEVELOPMENT_DIR / "RESULT.json"

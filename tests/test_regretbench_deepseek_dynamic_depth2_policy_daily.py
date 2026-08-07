@@ -37,6 +37,7 @@ def test_preflight_inherits_recovery_day_and_fits_480_total(tmp_path, monkeypatc
         lambda: {"support": {}, "ledger": _prior_ledger()},
     )
     monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")
+    monkeypatch.setattr(daily, "NAIVE_SMOKE_DIR", tmp_path / "naive-smoke")
     monkeypatch.setattr(daily, "DEVELOPMENT_DIR", tmp_path / "development")
     monkeypatch.setattr(daily, "LEDGER", tmp_path / "ledger.json")
 
@@ -58,6 +59,7 @@ def test_preflight_refuses_when_full_policy_caps_do_not_fit(tmp_path, monkeypatc
         lambda: {"support": {}, "ledger": _prior_ledger(1.2)},
     )
     monkeypatch.setattr(daily, "SMOKE_DIR", tmp_path / "smoke")
+    monkeypatch.setattr(daily, "NAIVE_SMOKE_DIR", tmp_path / "naive-smoke")
     monkeypatch.setattr(daily, "DEVELOPMENT_DIR", tmp_path / "development")
     monkeypatch.setattr(daily, "LEDGER", tmp_path / "ledger.json")
 
@@ -79,6 +81,7 @@ def test_execute_orders_enriched_smoke_before_policy_development(
     prior_path = tmp_path / "prior-ledger.json"
     prior_path.write_text(json.dumps(_prior_ledger()))
     smoke_dir = tmp_path / "smoke"
+    naive_smoke_dir = tmp_path / "naive-smoke"
     development_dir = tmp_path / "development"
     ledger_path = tmp_path / "ledger.json"
     root = tmp_path / "root"
@@ -89,6 +92,7 @@ def test_execute_orders_enriched_smoke_before_policy_development(
     (support_smoke_dir / "RESULT.json").write_text("{}")
     (support_dev_dir / "RESULT.json").write_text("{}")
     monkeypatch.setattr(daily, "SMOKE_DIR", smoke_dir)
+    monkeypatch.setattr(daily, "NAIVE_SMOKE_DIR", naive_smoke_dir)
     monkeypatch.setattr(daily, "DEVELOPMENT_DIR", development_dir)
     monkeypatch.setattr(daily, "LEDGER", ledger_path)
     monkeypatch.setattr(daily, "ROOT", root)
@@ -103,7 +107,18 @@ def test_execute_orders_enriched_smoke_before_policy_development(
             "predecessor": {},
         },
     )
-    monkeypatch.setattr(daily.policy, "build_adapter", lambda **kwargs: _Adapter())
+    adapter_builds = []
+
+    def fake_build_adapter(**kwargs):
+        adapter_builds.append(("deepseek", kwargs))
+        return _Adapter()
+
+    def fake_build_naive_adapter(**kwargs):
+        adapter_builds.append(("luna", kwargs))
+        return _Adapter()
+
+    monkeypatch.setattr(daily.policy, "build_adapter", fake_build_adapter)
+    monkeypatch.setattr(daily.policy, "build_naive_adapter", fake_build_naive_adapter)
     monkeypatch.setattr(daily, "_budget_status", lambda *args, **kwargs: {"authorized": True})
     calls = []
 
@@ -117,19 +132,33 @@ def test_execute_orders_enriched_smoke_before_policy_development(
     def fake_development(*, output_dir, **kwargs):
         calls.append("development")
         output_dir.mkdir(parents=True, exist_ok=True)
-        result = {"status": "gated_null", "usage": {"run_cost_usd": 0.03}}
+        result = {"status": "gated_null", "usage": {"combined_cost_usd": 0.03}}
+        (output_dir / "RESULT.json").write_text(json.dumps(result))
+        return result
+
+    def fake_naive_smoke(*, output_dir, **kwargs):
+        calls.append("naive_smoke")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        result = {"status": "passed", "usage": {"run_cost_usd": 0.01}}
         (output_dir / "RESULT.json").write_text(json.dumps(result))
         return result
 
     monkeypatch.setattr(daily.policy, "run_smoke", fake_smoke)
+    monkeypatch.setattr(daily.policy, "run_naive_smoke", fake_naive_smoke)
     monkeypatch.setattr(daily.policy, "run_development", fake_development)
 
     result = daily.execute(live_reader=_live)
 
-    assert calls == ["smoke", "development"]
+    assert calls == ["smoke", "naive_smoke", "development"]
     assert result["status"] == "complete_reconciled"
     assert result["development_status"] == "gated_null"
     ledger = json.loads(ledger_path.read_text())
-    assert ledger["recorded_actual_spend_usd"] == pytest.approx(0.94)
+    assert ledger["recorded_actual_spend_usd"] == pytest.approx(0.95)
     assert ledger["stages"]["enriched_smoke"]["status"] == "passed"
+    assert ledger["stages"]["naive_smoke"]["status"] == "passed"
     assert ledger["stages"]["policy_development"]["status"] == "gated_null"
+    development_builds = [
+        kwargs for _, kwargs in adapter_builds if kwargs["stage"] == "development"
+    ]
+    assert len(development_builds) == 2
+    assert development_builds[0]["run_id"] == development_builds[1]["run_id"]

@@ -25,6 +25,7 @@ from helpers import Config, ModelSpec
 from regretbench.mapping.semantic_action_mapper import SemanticActionMapper
 from regretbench.schemas.cig import CIG
 from scripts import regretbench_deepseek_support_recovery as recovery
+from scripts.bongard_openworld_luna_naive_first_link import LunaReasoningAdapter
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 from scripts.number_game_qwen_history_blind_serving_smoke import (
@@ -48,16 +49,29 @@ POLICIES = (
     "myopic_width",
     "fixed_depth2",
     "random",
+    "naive_thinking",
 )
 PLANNING_REQUESTS = 64 + 64 * QUESTIONS * HYPOTHESES * BRANCH_DRAWS * 2
 MAX_ACTUAL_REQUESTS = 64 * QUESTIONS * 2
-MAX_REQUESTS = PLANNING_REQUESTS + MAX_ACTUAL_REQUESTS
-RUN_BUDGET_USD = 3.70
-PROJECTED_COST_USD = 3.20
+NAIVE_FORMAL_REQUESTS = 128
+NAIVE_ENDPOINT_REQUESTS = 128
+MAX_DEEPSEEK_REQUESTS = (
+    PLANNING_REQUESTS + MAX_ACTUAL_REQUESTS + NAIVE_ENDPOINT_REQUESTS
+)
+MAX_REQUESTS = MAX_DEEPSEEK_REQUESTS + NAIVE_FORMAL_REQUESTS
+RUN_BUDGET_USD = 3.50
+PROJECTED_COST_USD = 3.10
 SMOKE_BUDGET_USD = 0.20
 SMOKE_PROJECTED_COST_USD = 0.02
+NAIVE_SMOKE_BUDGET_USD = 0.20
+NAIVE_SMOKE_PROJECTED_COST_USD = 0.10
 CONCURRENCY = 128
 MAX_REQUEST_COST_USD = 0.0015
+NAIVE_MODEL_ID = "openai/gpt-5.6-luna"
+NAIVE_REASONING_EFFORT = "medium"
+NAIVE_MAX_TOKENS = 8_192
+NAIVE_MAX_REQUEST_COST_USD = 0.008
+NAIVE_TEMPERATURE = 0.0
 BOOTSTRAP_SAMPLES = 20_000
 BOOTSTRAP_SEED = 202608150000
 INITIAL_SEED_START = 202608089000
@@ -68,13 +82,20 @@ TRUTH_SEED_START = 202608130000
 RANDOM_SEED_START = 202608140000
 SMOKE_INITIAL_SEED_START = 202608088000
 SMOKE_BRANCH_SEED_START = 202608088100
+NAIVE_SMOKE_FIRST_SEED_START = 202608088200
+NAIVE_SMOKE_SECOND_SEED_START = 202608088300
+NAIVE_SMOKE_REDRAW_SEED_START = 202608088400
+NAIVE_FIRST_SEED_START = 202608160000
+NAIVE_SECOND_SEED_START = 202608170000
+NAIVE_FIRST_SUPPORT_SEED_START = 202608180000
+NAIVE_FINAL_SUPPORT_SEED_START = 202608190000
 PREREGISTRATION = (
     REPO_ROOT
     / "results/nonmyopic/"
     "REGRETBENCH_DEEPSEEK_DYNAMIC_DEPTH2_POLICY_PREREGISTRATION.md"
 )
 PREREGISTRATION_SHA256 = (
-    "12895164ad10a530b3dbae34b608f7ed5129cb989a5e91e25fa7800a66bbe147"
+    "c1a19408c6cea5bb32023a7f9f003afac3a210d19fae0842a47a873f29b86b97"
 )
 PROBABILITY_FLOOR = 1e-12
 
@@ -181,6 +202,59 @@ def messages_for(
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": recovery.canonical_json(payload)},
     ], audit
+
+
+def naive_response_format() -> dict[str, Any]:
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "regretbench_naive_question",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["question"],
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "minLength": 2,
+                        "maxLength": 240,
+                    }
+                },
+            },
+        },
+    }
+
+
+def naive_messages_for(
+    cig: CIG, dialogue: Sequence[Mapping[str, str]]
+) -> tuple[list[dict[str, str]], dict[str, Any]]:
+    payload = recovery.public_payload(cig, dialogue)
+    audit = recovery.privacy_audit(cig, payload)
+    turn = "first" if not dialogue else "second and final"
+    system = (
+        "Choose the "
+        + turn
+        + " single-dimension clarification question that will best identify "
+        "which interpretation of the ambiguous factual question the user means. "
+        "Reason carefully using only the supplied prompt and dialogue. Do not ask "
+        "for the entity name, the final factual answer, or an omnibus list. Do not "
+        "repeat an answered question. Return only the strict JSON object."
+    )
+    return [
+        {"role": "system", "content": system},
+        {"role": "user", "content": recovery.canonical_json(payload)},
+    ], audit
+
+
+def parse_naive_question(raw: str) -> str:
+    value = json.loads(raw)
+    if not isinstance(value, dict) or set(value) != {"question"}:
+        raise ValueError("naive response has wrong fields")
+    question = value["question"]
+    if not isinstance(question, str) or not question.strip().endswith("?"):
+        raise ValueError("naive response is not an interrogative question")
+    return question.strip()
 
 
 def parse_enriched_support(raw: str) -> dict[str, Any]:
@@ -513,6 +587,46 @@ def build_adapter(
     )
 
 
+def build_naive_adapter(
+    *, stage: str, run_id: str, output_dir: Path
+) -> LunaReasoningAdapter:
+    if stage not in {"smoke", "development"}:
+        raise ValueError("invalid naive adapter stage")
+    run_budget = (
+        NAIVE_SMOKE_BUDGET_USD if stage == "smoke" else RUN_BUDGET_USD
+    )
+    projected = (
+        NAIVE_SMOKE_PROJECTED_COST_USD
+        if stage == "smoke"
+        else PROJECTED_COST_USD
+    )
+    config = Config(
+        task="animals",
+        run_id=run_id,
+        log_path=output_dir / "run.log",
+        openrouter_budget_usd=275.0,
+        openrouter_run_budget_usd=run_budget,
+        openrouter_projected_cost_usd=projected,
+        openrouter_concurrency=10 if stage == "smoke" else 64,
+        openrouter_max_retries=0,
+        openrouter_backoff_seconds=1.0,
+        openrouter_request_timeout_seconds=300.0,
+        openrouter_max_request_cost_usd=NAIVE_MAX_REQUEST_COST_USD,
+        openrouter_max_output_tokens=NAIVE_MAX_TOKENS,
+        openrouter_spend_path="results/path_e/openrouter_spend.json",
+    )
+    return LunaReasoningAdapter(
+        ModelSpec(
+            model=NAIVE_MODEL_ID,
+            backend="openrouter",
+            max_model_len=1_000_000,
+            reasoning_effort=NAIVE_REASONING_EFFORT,
+        ),
+        config,
+        request_seed=NAIVE_SMOKE_FIRST_SEED_START,
+    )
+
+
 def _call(
     adapter: StructuredAdapter,
     messages: Sequence[list[dict[str, str]]],
@@ -527,6 +641,23 @@ def _call(
     )
     if len(responses) != len(messages):
         raise ValueError("adapter returned the wrong response count")
+    return list(responses)
+
+
+def _call_naive(
+    adapter: StructuredAdapter,
+    messages: Sequence[list[dict[str, str]]],
+    seeds: Sequence[int],
+) -> list[str]:
+    responses = adapter.chat_complete_seeded_messages_batched_structured(
+        messages,
+        seeds,
+        temperature=NAIVE_TEMPERATURE,
+        response_format=naive_response_format(),
+        max_new_tokens=NAIVE_MAX_TOKENS,
+    )
+    if len(responses) != len(messages):
+        raise ValueError("naive adapter returned the wrong response count")
     return list(responses)
 
 
@@ -573,6 +704,36 @@ def validate_policy_smoke(path: Path) -> dict[str, Any]:
         or not (result.get("gates") or {}).get("all_pass")
     ):
         raise ValueError("enriched policy smoke does not authorize development")
+    return {"path": str(path), "sha256": recovery.sha256_file(path)}
+
+
+def _usage(adapter: StructuredAdapter) -> dict[str, Any]:
+    snapshot = adapter.usage_snapshot()
+    usage = summarize_usage(snapshot)
+    usage["forced_final_requests"] = int(
+        snapshot.get("forced_final_requests", 0)
+    )
+    usage["forced_final_successes"] = int(
+        snapshot.get("forced_final_successes", 0)
+    )
+    return usage
+
+
+def validate_naive_smoke(path: Path) -> dict[str, Any]:
+    result = json.loads(path.read_text(encoding="utf-8"))
+    protocol = result.get("protocol") or {}
+    if (
+        result.get("status") != "passed"
+        or result.get("interface_version") != INTERFACE_VERSION
+        or protocol.get("stage") != "naive_smoke"
+        or protocol.get("model") != NAIVE_MODEL_ID
+        or protocol.get("reasoning_effort") != NAIVE_REASONING_EFFORT
+        or protocol.get("expected_requests") != 10
+        or protocol.get("preregistration_sha256") != PREREGISTRATION_SHA256
+        or protocol.get("efficacy_used_for_authorization") is not False
+        or not (result.get("gates") or {}).get("all_pass")
+    ):
+        raise ValueError("naive-thinking smoke does not authorize development")
     return {"path": str(path), "sha256": recovery.sha256_file(path)}
 
 
@@ -682,6 +843,144 @@ def run_smoke(
         "usage": usage,
         "gates": gates,
         "supports": [support["diagnostic"] for support in all_supports],
+    }
+    checkpoint(output_dir / "RESULT.json", result)
+    return result
+
+
+def run_naive_smoke(
+    *,
+    output_dir: Path,
+    run_id: str,
+    support_smoke_result: Path,
+    support_development_result: Path,
+    policy_smoke_result: Path,
+    adapter: StructuredAdapter | None = None,
+    daily_budget_status: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    validate_protocol_binding()
+    predecessors = validate_support_predecessors(
+        support_smoke_result=support_smoke_result,
+        support_development_result=support_development_result,
+    )
+    enriched_smoke = validate_policy_smoke(policy_smoke_result)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    private = output_dir / "private"
+    private.mkdir(parents=True, exist_ok=True)
+    cigs = recovery.load_stage_cigs("smoke")
+    adapter = adapter or build_naive_adapter(
+        stage="smoke", run_id=run_id, output_dir=output_dir
+    )
+    privacy = []
+    first_messages = []
+    for cig in cigs:
+        messages, audit = naive_messages_for(cig, [])
+        first_messages.append(messages)
+        privacy.append(audit)
+    first_seeds = [NAIVE_SMOKE_FIRST_SEED_START + index for index in range(4)]
+    raw_first = _call_naive(adapter, first_messages, first_seeds)
+    first_questions = [parse_naive_question(raw) for raw in raw_first]
+    second_messages = []
+    first_mappings = []
+    second_truths = []
+    for index, (cig, question) in enumerate(
+        zip(cigs, first_questions, strict=True)
+    ):
+        _, truth = recovery.sample_truth(
+            cig, recovery.STAGES["smoke"]["truth_seed_start"] + index
+        )
+        second_truths.append(truth)
+        mapping = recovery.map_and_answer(cig, question, truth)
+        first_mappings.append(mapping)
+        messages, audit = naive_messages_for(
+            cig,
+            [
+                {"role": "assistant", "content": question},
+                {"role": "user", "content": mapping["answer"]},
+            ],
+        )
+        second_messages.append(messages)
+        privacy.append(audit)
+    second_seeds = [NAIVE_SMOKE_SECOND_SEED_START + index for index in range(4)]
+    raw_second = _call_naive(adapter, second_messages, second_seeds)
+    second_questions = [parse_naive_question(raw) for raw in raw_second]
+    second_mappings = [
+        recovery.map_and_answer(cig, question, truth)
+        for cig, question, truth in zip(
+            cigs, second_questions, second_truths, strict=True
+        )
+    ]
+    redraw_messages = []
+    for cig in cigs[:2]:
+        messages, audit = naive_messages_for(cig, [])
+        redraw_messages.append(messages)
+        privacy.append(audit)
+    redraw_seeds = [NAIVE_SMOKE_REDRAW_SEED_START + index for index in range(2)]
+    raw_redraw = _call_naive(adapter, redraw_messages, redraw_seeds)
+    redraw_questions = [parse_naive_question(raw) for raw in raw_redraw]
+    checkpoint(
+        private / "RAW_RESPONSES.json",
+        {
+            "first": raw_first,
+            "second": raw_second,
+            "redraw": raw_redraw,
+            "first_seeds": first_seeds,
+            "second_seeds": second_seeds,
+            "redraw_seeds": redraw_seeds,
+        },
+    )
+    usage = _usage(adapter)
+    gates = {
+        "exact_ten_questions": len(first_questions)
+        + len(second_questions)
+        + len(redraw_questions)
+        == 10,
+        "exact_ten_requests": usage["adapter_requests"] == 10,
+        "exact_ten_http_attempts": usage["http_attempts"] == 10,
+        "zero_retries": usage["retry_count"] == 0,
+        "zero_provider_error_retries": usage["provider_error_retries"] == 0,
+        "positive_reasoning_tokens": usage["adapter_reasoning_tokens"] > 0,
+        "zero_forced_exits": usage["forced_exits"] == 0,
+        "zero_forced_final_requests": usage["forced_final_requests"] == 0,
+        "all_eight_executed_questions_supported": all(
+            item["supported"] for item in [*first_mappings, *second_mappings]
+        ),
+        "all_privacy_audits_pass": len(privacy) == 10
+        and all(item["passed"] for item in privacy),
+        "within_naive_smoke_budget": usage["run_cost_usd"]
+        <= NAIVE_SMOKE_BUDGET_USD,
+    }
+    gates["all_pass"] = all(gates.values())
+    result = {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "status": "passed" if gates["all_pass"] else "mechanics_failed",
+        "authorizes": "dynamic_policy_development_only"
+        if gates["all_pass"]
+        else "nothing",
+        "protocol": {
+            "stage": "naive_smoke",
+            "model": NAIVE_MODEL_ID,
+            "reasoning_effort": NAIVE_REASONING_EFFORT,
+            "expected_requests": 10,
+            "preregistration_sha256": PREREGISTRATION_SHA256,
+            "support_predecessors": predecessors,
+            "enriched_smoke": enriched_smoke,
+            "efficacy_used_for_authorization": False,
+            "policy_endpoint_opened": False,
+            "confirmation_opened": False,
+        },
+        "daily_budget_status": dict(daily_budget_status or {}),
+        "usage": usage,
+        "gates": gates,
+        "question_sha256": [
+            hashlib.sha256(question.encode()).hexdigest()
+            for question in [
+                *first_questions,
+                *second_questions,
+                *redraw_questions,
+            ]
+        ],
     }
     checkpoint(output_dir / "RESULT.json", result)
     return result
@@ -840,7 +1139,13 @@ def scientific_summary(
             seed=BOOTSTRAP_SEED + index * 10,
         )
         for index, baseline in enumerate(
-            ("myopic_width", "history_blind_depth2", "fixed_depth2", "random")
+            (
+                "myopic_width",
+                "history_blind_depth2",
+                "fixed_depth2",
+                "random",
+                "naive_thinking",
+            )
         )
     }
     disagreements = {
@@ -958,26 +1263,58 @@ def scientific_summary(
 
 def mechanics_gates(
     *,
-    usage: Mapping[str, Any],
-    expected_requests: int,
+    deepseek_usage: Mapping[str, Any],
+    naive_usage: Mapping[str, Any],
+    expected_deepseek_requests: int,
     all_supports: Sequence[Mapping[str, Any]],
     initial_supports: Sequence[Mapping[str, Any]],
     simulated_supports: Sequence[Mapping[str, Any]],
     privacy: Sequence[Mapping[str, Any]],
     tasks: Sequence[Mapping[str, Any]],
 ) -> dict[str, bool]:
+    combined_cost = float(deepseek_usage["run_cost_usd"]) + float(
+        naive_usage["run_cost_usd"]
+    )
     gates = {
         "exact_64_tasks": len(tasks) == 64,
         "expected_requests_within_frozen_maximum": PLANNING_REQUESTS
-        <= expected_requests
-        <= MAX_REQUESTS,
-        "exact_response_count": len(all_supports) == expected_requests,
-        "exact_accepted_requests": usage["adapter_requests"] == expected_requests,
-        "exact_http_attempts": usage["http_attempts"] == expected_requests,
-        "zero_retries": usage["retry_count"] == 0,
-        "zero_provider_error_retries": usage["provider_error_retries"] == 0,
-        "zero_reasoning_tokens": usage["adapter_reasoning_tokens"] == 0,
-        "zero_forced_exits": usage["forced_exits"] == 0,
+        + NAIVE_ENDPOINT_REQUESTS
+        <= expected_deepseek_requests
+        <= MAX_DEEPSEEK_REQUESTS,
+        "exact_deepseek_response_count": len(all_supports)
+        == expected_deepseek_requests,
+        "exact_deepseek_accepted_requests": deepseek_usage["adapter_requests"]
+        == expected_deepseek_requests,
+        "exact_deepseek_http_attempts": deepseek_usage["http_attempts"]
+        == expected_deepseek_requests,
+        "deepseek_zero_retries": deepseek_usage["retry_count"] == 0,
+        "deepseek_zero_provider_error_retries": deepseek_usage[
+            "provider_error_retries"
+        ]
+        == 0,
+        "deepseek_zero_reasoning_tokens": deepseek_usage[
+            "adapter_reasoning_tokens"
+        ]
+        == 0,
+        "deepseek_zero_forced_exits": deepseek_usage["forced_exits"] == 0,
+        "exact_naive_accepted_requests": naive_usage["adapter_requests"]
+        == NAIVE_FORMAL_REQUESTS,
+        "exact_naive_http_attempts": naive_usage["http_attempts"]
+        == NAIVE_FORMAL_REQUESTS,
+        "naive_zero_retries": naive_usage["retry_count"] == 0,
+        "naive_zero_provider_error_retries": naive_usage[
+            "provider_error_retries"
+        ]
+        == 0,
+        "naive_positive_reasoning_tokens": naive_usage[
+            "adapter_reasoning_tokens"
+        ]
+        > 0,
+        "naive_zero_forced_exits": naive_usage["forced_exits"] == 0,
+        "naive_zero_forced_final_requests": naive_usage[
+            "forced_final_requests"
+        ]
+        == 0,
         "all_supports_strict_and_exactly_eight_unique": all(
             support["diagnostic"]["codec_mode"] == "strict_json"
             and support["diagnostic"]["valid_unique_count"] == MIN_UNIQUE
@@ -997,7 +1334,8 @@ def mechanics_gates(
             )
             >= 0.90
         ),
-        "all_privacy_audits_pass": len(privacy) == expected_requests
+        "all_privacy_audits_pass": len(privacy)
+        == expected_deepseek_requests + NAIVE_FORMAL_REQUESTS
         and all(item["passed"] for item in privacy),
         "every_policy_has_48_supported_first_actions": all(
             sum(task["policies"][policy]["first_supported"] for task in tasks)
@@ -1009,7 +1347,7 @@ def mechanics_gates(
             >= 40
             for policy in POLICIES
         ),
-        "within_policy_budget": usage["run_cost_usd"] <= RUN_BUDGET_USD,
+        "within_combined_policy_budget": combined_cost <= RUN_BUDGET_USD,
     }
     gates["all_pass"] = all(gates.values())
     return gates
@@ -1022,7 +1360,9 @@ def run_development(
     support_smoke_result: Path,
     support_development_result: Path,
     policy_smoke_result: Path,
+    naive_smoke_result: Path,
     adapter: StructuredAdapter | None = None,
+    naive_adapter: StructuredAdapter | None = None,
     daily_budget_status: Mapping[str, Any] | None = None,
     bootstrap_samples: int = BOOTSTRAP_SAMPLES,
 ) -> dict[str, Any]:
@@ -1032,11 +1372,15 @@ def run_development(
         support_development_result=support_development_result,
     )
     policy_smoke = validate_policy_smoke(policy_smoke_result)
+    naive_smoke = validate_naive_smoke(naive_smoke_result)
     output_dir.mkdir(parents=True, exist_ok=True)
     private = output_dir / "private"
     private.mkdir(parents=True, exist_ok=True)
     cigs = recovery.load_stage_cigs("development")
     adapter = adapter or build_adapter(
+        stage="development", run_id=run_id, output_dir=output_dir
+    )
+    naive_adapter = naive_adapter or build_naive_adapter(
         stage="development", run_id=run_id, output_dir=output_dir
     )
     privacy: list[dict[str, Any]] = []
@@ -1134,10 +1478,27 @@ def run_development(
                 "selected": selected,
             }
         )
+    naive_first_messages = []
+    for cig in cigs:
+        messages, audit = naive_messages_for(cig, [])
+        naive_first_messages.append(messages)
+        privacy.append(audit)
+    naive_first_seeds = [NAIVE_FIRST_SEED_START + index for index in range(64)]
+    raw_naive_first = _call_naive(
+        naive_adapter, naive_first_messages, naive_first_seeds
+    )
+    naive_first_questions = [
+        parse_naive_question(raw) for raw in raw_naive_first
+    ]
     checkpoint(
         private / "FROZEN_SELECTIONS.json",
         {
             "selected_roots": [row["selected"] for row in planning],
+            "naive_first_seeds": naive_first_seeds,
+            "naive_first_question_sha256": [
+                hashlib.sha256(question.encode()).hexdigest()
+                for question in naive_first_questions
+            ],
             "hidden_truth_accessed": False,
         },
     )
@@ -1146,11 +1507,39 @@ def run_development(
     first_messages = []
     first_seeds = []
     first_manifest = []
+    naive_first_support_messages = []
+    naive_first_support_seeds = []
+    naive_first_manifest = []
+    naive_second_messages = []
+    naive_second_seeds = []
     for task_index, (cig, initial, plan) in enumerate(
         zip(cigs, initial_supports, planning, strict=True)
     ):
         truth_index, truth = recovery.sample_truth(cig, TRUTH_SEED_START + task_index)
         truths.append((truth_index, truth))
+        naive_question = naive_first_questions[task_index]
+        naive_mapping = recovery.map_and_answer(cig, naive_question, truth)
+        naive_dialogue = [
+            {"role": "assistant", "content": naive_question},
+            {"role": "user", "content": naive_mapping["answer"]},
+        ]
+        support_messages, support_audit = messages_for(cig, naive_dialogue)
+        naive_first_support_messages.append(support_messages)
+        naive_first_support_seeds.append(
+            NAIVE_FIRST_SUPPORT_SEED_START + task_index
+        )
+        privacy.append(support_audit)
+        second_messages, second_audit = naive_messages_for(cig, naive_dialogue)
+        naive_second_messages.append(second_messages)
+        naive_second_seeds.append(NAIVE_SECOND_SEED_START + task_index)
+        privacy.append(second_audit)
+        naive_first_manifest.append(
+            {
+                "task_index": task_index,
+                "first_mapping": naive_mapping,
+                "dialogue": naive_dialogue,
+            }
+        )
         for root in sorted(set(plan["selected"].values())):
             question = initial["questions"][root]
             mapping = recovery.map_and_answer(cig, question, truth)
@@ -1173,6 +1562,18 @@ def run_development(
                 }
             )
     raw_first = _call(adapter, first_messages, first_seeds)
+    raw_naive_first_support = _call(
+        adapter, naive_first_support_messages, naive_first_support_seeds
+    )
+    naive_first_supports = [
+        parse_enriched_support(raw) for raw in raw_naive_first_support
+    ]
+    raw_naive_second = _call_naive(
+        naive_adapter, naive_second_messages, naive_second_seeds
+    )
+    naive_second_questions = [
+        parse_naive_question(raw) for raw in raw_naive_second
+    ]
     first_paths = {}
     final_messages = []
     final_seeds = []
@@ -1206,11 +1607,45 @@ def run_development(
         final_manifest.append(
             {"task_index": task_index, "root_index": root, "seed": seed}
         )
+    naive_final_messages = []
+    naive_final_seeds = []
+    naive_paths = []
+    for manifest, first_support, second_question in zip(
+        naive_first_manifest,
+        naive_first_supports,
+        naive_second_questions,
+        strict=True,
+    ):
+        task_index = manifest["task_index"]
+        cig = cigs[task_index]
+        truth = truths[task_index][1]
+        second_mapping = recovery.map_and_answer(cig, second_question, truth)
+        dialogue = [
+            *manifest["dialogue"],
+            {"role": "assistant", "content": second_question},
+            {"role": "user", "content": second_mapping["answer"]},
+        ]
+        messages, audit = messages_for(cig, dialogue)
+        naive_final_messages.append(messages)
+        naive_final_seeds.append(NAIVE_FINAL_SUPPORT_SEED_START + task_index)
+        privacy.append(audit)
+        naive_paths.append(
+            {
+                "first_support": first_support,
+                "first_mapping": manifest["first_mapping"],
+                "second_mapping": second_mapping,
+                "dialogue": dialogue,
+            }
+        )
     raw_final = _call(adapter, final_messages, final_seeds)
     final_paths = {
         (manifest["task_index"], manifest["root_index"]): parse_enriched_support(raw)
         for manifest, raw in zip(final_manifest, raw_final, strict=True)
     }
+    raw_naive_final = _call(adapter, naive_final_messages, naive_final_seeds)
+    naive_final_supports = [
+        parse_enriched_support(raw) for raw in raw_naive_final
+    ]
     checkpoint(
         private / "RAW_ACTUAL.json",
         {
@@ -1218,6 +1653,12 @@ def run_development(
             "first_responses": raw_first,
             "final_manifest": final_manifest,
             "final_responses": raw_final,
+            "naive_first_questions": raw_naive_first,
+            "naive_first_support_seeds": naive_first_support_seeds,
+            "naive_first_support_responses": raw_naive_first_support,
+            "naive_second_questions": raw_naive_second,
+            "naive_final_support_seeds": naive_final_seeds,
+            "naive_final_support_responses": raw_naive_final,
         },
     )
 
@@ -1245,6 +1686,23 @@ def run_development(
                 "log_loss": -math.log(max(PROBABILITY_FLOOR, final_mass)),
                 "covered": final_mass > 0.0,
             }
+        naive_path = naive_paths[task_index]
+        naive_final = naive_final_supports[task_index]
+        naive_first_mass = truth_mass_for_aliases(
+            naive_path["first_support"], aliases
+        )
+        naive_final_mass = truth_mass_for_aliases(naive_final, aliases)
+        policies["naive_thinking"] = {
+            "root_index": None,
+            "second_question_index": None,
+            "first_supported": naive_path["first_mapping"]["supported"],
+            "second_supported": naive_path["second_mapping"]["supported"],
+            "truth_mass_after_first": naive_first_mass,
+            "truth_mass_final": naive_final_mass,
+            "brier": (1.0 - naive_final_mass) ** 2,
+            "log_loss": -math.log(max(PROBABILITY_FLOOR, naive_final_mass)),
+            "covered": naive_final_mass > 0.0,
+        }
         tasks.append(
             {
                 "task_id": cig.cig_id,
@@ -1262,28 +1720,55 @@ def run_development(
                 "truth_index": truth_index,
                 "aliases": aliases,
                 "selected_questions": {
-                    policy: {
-                        "first": initial["questions"][root],
-                        "second": first_paths[(task_index, root)]["support"][
-                            "questions"
-                        ][first_paths[(task_index, root)]["second_index"]],
-                    }
-                    for policy, root in plan["selected"].items()
+                    **{
+                        policy: {
+                            "first": initial["questions"][root],
+                            "second": first_paths[(task_index, root)]["support"][
+                                "questions"
+                            ][first_paths[(task_index, root)]["second_index"]],
+                        }
+                        for policy, root in plan["selected"].items()
+                    },
+                    "naive_thinking": {
+                        "first": naive_first_questions[task_index],
+                        "second": naive_second_questions[task_index],
+                    },
                 },
             }
         )
 
-    usage = summarize_usage(adapter.usage_snapshot())
-    expected_requests = PLANNING_REQUESTS + len(first_manifest) + len(final_manifest)
+    deepseek_usage = summarize_usage(adapter.usage_snapshot())
+    naive_usage = _usage(naive_adapter)
+    expected_deepseek_requests = (
+        PLANNING_REQUESTS
+        + len(first_manifest)
+        + len(final_manifest)
+        + NAIVE_ENDPOINT_REQUESTS
+    )
+    combined_cost = float(deepseek_usage["run_cost_usd"]) + float(
+        naive_usage["run_cost_usd"]
+    )
+    usage = {
+        "deepseek": deepseek_usage,
+        "naive_luna": naive_usage,
+        "combined_cost_usd": combined_cost,
+        "combined_requests": deepseek_usage["adapter_requests"]
+        + naive_usage["adapter_requests"],
+        "combined_http_attempts": deepseek_usage["http_attempts"]
+        + naive_usage["http_attempts"],
+    }
     all_supports = [
         *initial_supports,
         *simulated_supports,
         *[first_paths[key]["support"] for key in sorted(first_paths)],
         *[final_paths[key] for key in sorted(final_paths)],
+        *naive_first_supports,
+        *naive_final_supports,
     ]
     mechanics = mechanics_gates(
-        usage=usage,
-        expected_requests=expected_requests,
+        deepseek_usage=deepseek_usage,
+        naive_usage=naive_usage,
+        expected_deepseek_requests=expected_deepseek_requests,
         all_supports=all_supports,
         initial_supports=initial_supports,
         simulated_supports=simulated_supports,
@@ -1306,11 +1791,19 @@ def run_development(
             "task_count": 64,
             "branch_draws": BRANCH_DRAWS,
             "planning_requests": PLANNING_REQUESTS,
-            "expected_requests": expected_requests,
+            "expected_deepseek_requests": expected_deepseek_requests,
+            "expected_naive_requests": NAIVE_FORMAL_REQUESTS,
+            "expected_combined_requests": expected_deepseek_requests
+            + NAIVE_FORMAL_REQUESTS,
+            "maximum_deepseek_requests": MAX_DEEPSEEK_REQUESTS,
             "maximum_requests": MAX_REQUESTS,
             "preregistration_sha256": PREREGISTRATION_SHA256,
             "support_predecessors": predecessors,
             "policy_smoke": policy_smoke,
+            "naive_smoke": naive_smoke,
+            "naive_model": NAIVE_MODEL_ID,
+            "naive_reasoning_effort": NAIVE_REASONING_EFFORT,
+            "naive_is_descriptive_only": True,
             "conditioned_blind_same_seed": True,
             "conditioned_blind_adjacent": True,
             "hidden_cig_exposed_to_model": False,
@@ -1330,23 +1823,29 @@ def run_development(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", choices=("smoke", "development"), required=True)
+    parser.add_argument(
+        "--stage", choices=("smoke", "naive_smoke", "development"), required=True
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--support-smoke-result", type=Path, required=True)
     parser.add_argument("--support-development-result", type=Path, required=True)
     parser.add_argument("--policy-smoke-result", type=Path)
+    parser.add_argument("--naive-smoke-result", type=Path)
     parser.add_argument("--daily-ledger", type=Path, required=True)
     args = parser.parse_args()
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     adapter: PerRequestSeedStructuredAdapter | None = None
+    naive_adapter: LunaReasoningAdapter | None = None
     try:
         live = read_live_credits()
         ledger = json.loads(args.daily_ledger.read_text(encoding="utf-8"))
-        stage_cap = (
-            SMOKE_BUDGET_USD if args.stage == "smoke" else RUN_BUDGET_USD
-        )
+        stage_cap = {
+            "smoke": SMOKE_BUDGET_USD,
+            "naive_smoke": NAIVE_SMOKE_BUDGET_USD,
+            "development": RUN_BUDGET_USD,
+        }[args.stage]
         daily = require_budget(
             ledger,
             projected_cost_usd=stage_cap,
@@ -1355,10 +1854,10 @@ def main() -> int:
         if live["balance_usd"] + 1e-12 < stage_cap:
             raise RuntimeError("live balance is below the full policy stage cap")
         daily.update(live)
-        adapter = build_adapter(
-            stage=args.stage, run_id=args.run_id, output_dir=output_dir
-        )
         if args.stage == "smoke":
+            adapter = build_adapter(
+                stage="smoke", run_id=args.run_id, output_dir=output_dir
+            )
             result = run_smoke(
                 output_dir=output_dir,
                 run_id=args.run_id,
@@ -1367,16 +1866,39 @@ def main() -> int:
                 adapter=adapter,
                 daily_budget_status=daily,
             )
-        else:
+        elif args.stage == "naive_smoke":
             if args.policy_smoke_result is None:
-                raise ValueError("development requires the enriched policy smoke")
+                raise ValueError("naive smoke requires the enriched policy smoke")
+            naive_adapter = build_naive_adapter(
+                stage="smoke", run_id=args.run_id, output_dir=output_dir
+            )
+            result = run_naive_smoke(
+                output_dir=output_dir,
+                run_id=args.run_id,
+                support_smoke_result=args.support_smoke_result,
+                support_development_result=args.support_development_result,
+                policy_smoke_result=args.policy_smoke_result,
+                adapter=naive_adapter,
+                daily_budget_status=daily,
+            )
+        else:
+            if args.policy_smoke_result is None or args.naive_smoke_result is None:
+                raise ValueError("development requires both policy smokes")
+            adapter = build_adapter(
+                stage="development", run_id=args.run_id, output_dir=output_dir
+            )
+            naive_adapter = build_naive_adapter(
+                stage="development", run_id=args.run_id, output_dir=output_dir
+            )
             result = run_development(
                 output_dir=output_dir,
                 run_id=args.run_id,
                 support_smoke_result=args.support_smoke_result,
                 support_development_result=args.support_development_result,
                 policy_smoke_result=args.policy_smoke_result,
+                naive_smoke_result=args.naive_smoke_result,
                 adapter=adapter,
+                naive_adapter=naive_adapter,
                 daily_budget_status=daily,
             )
     except Exception as exc:
@@ -1391,7 +1913,9 @@ def main() -> int:
             "confirmation_opened": False,
         }
         if adapter is not None:
-            failure["usage"] = summarize_usage(adapter.usage_snapshot())
+            failure["deepseek_usage"] = summarize_usage(adapter.usage_snapshot())
+        if naive_adapter is not None:
+            failure["naive_usage"] = _usage(naive_adapter)
         checkpoint(output_dir / "FAILURE.json", failure)
         print(json.dumps(failure, indent=2, sort_keys=True))
         return 1

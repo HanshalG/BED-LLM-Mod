@@ -32,22 +32,25 @@ The live OpenRouter catalog reports:
 
 | Model | Input / output per 1M | Modalities | Role |
 |---|---:|---|---|
-| GPT-5.6 Luna (`openai/gpt-5.6-luna`) | `$0.10 / $0.60` | text, image, file | Primary budget multimodal semantic-belief generator |
-| DeepSeek V4 Flash 0731 (`deepseek/deepseek-v4-flash-0731`) | `$0.09 / $0.18` | text only | Cheap text development and naive-thinking candidate |
+| GPT-5.6 Luna (`openai/gpt-5.6-luna`) | `$0.10 / $0.60` | text, image, file | Multimodal belief model and medium-reasoning naive baseline |
+| DeepSeek V4 Flash 0731 (`deepseek/deepseek-v4-flash-0731`) | `$0.09 / $0.18` | text only | High-volume nonreasoning text support and planning |
 
 Generic intelligence-per-dollar screens make both models attractive. They do
 not measure the repeated task interface needed here: history-consistent,
 diverse, executable semantic hypotheses under strict output and support
 constraints. Direct project evidence therefore controls promotion.
 
-The August 7 Artificial Analysis index reports Luna max at 52 and DeepSeek V4
-Flash 0731 max at 50. Luna supports images; DeepSeek's scored endpoint remains
-text-only. OpenRouter endpoint discovery currently exposes Luna at
-`$0.10/$0.60` per million input/output tokens and DeepSeek 0731 through 22
-providers, with the cheapest endpoint at `$0.09/$0.18`. Thus DeepSeek is the
-text-only intelligence-per-dollar default, while Luna is the multimodal
-default. These roles do not override direct interface gates or previously
-banked nulls.
+Artificial Analysis reports Luna at `27` nonreasoning, `46` high reasoning,
+and `51` max reasoning. The published April V4 Flash checkpoint scores about
+`29` nonreasoning, `37` high, and `40` max; these are only a proxy for the
+newer re-post-trained 0731 revision, which has no independent published row.
+At benchmark list prices, the max-reasoning evaluation cost is about `$870`
+for Luna versus `$74` for V4 Flash. OpenRouter's authenticated endpoint catalog
+is currently much cheaper than those direct-provider list prices: Luna
+`$0.10/$0.60` and the cheapest 0731 route `$0.09/$0.18` per million
+input/output tokens. DeepSeek is therefore the text-only throughput default,
+while Luna is reserved for images or the separately labelled stronger
+reasoning baseline. Direct interface gates still control every promotion.
 
 ## Direct Task Evidence
 
@@ -66,19 +69,21 @@ gates, not by silent retries or substitution.
 
 DeepSeek 0731 is not promoted as the nonreasoning Number Game support model:
 both fresh conditioned-support screens failed. It remains the first cheap
-candidate for text-only prompt development and for an explicitly labelled
-naive-thinking baseline. Reasoning scores must not be used to choose the
-nonreasoning planner or environment model.
+candidate for a substantively new text-only interface and is the frozen
+RegretBench support/planning model. Luna medium reasoning is the explicitly
+labelled naive-thinking baseline. Reasoning scores must not be used to choose
+the nonreasoning planner or environment model.
 
 ## Daily Allocation Rule
 
-- August 8--9: only a newly preregistered, fresh, dependency-valid LLM-native
-  gate may use the daily allowance. Failed Number Game descendants stay
-  closed. Run the exact Luna naive-first-link mechanics smoke first on August
-  8 with a `$0.20` cap. Any later fresh gate must inherit that day's opening
-  usage and local spend, leaving at most `$4.80` worst-case exposure. Prepare
-  every gate at zero cost first, then reserve its complete worst-case exposure
-  before the first request.
+- August 8: run the exact dependency chain with one account opening: Bongard
+  Luna naive smoke `$0.20`; RegretBench DeepSeek support smoke/development
+  `$0.20/$0.50`; enriched policy smoke `$0.20`; Luna naive-thinking smoke
+  `$0.20`; and mixed-model policy development `$3.50`. Maximum is `$4.80`,
+  leaving `$0.20` safety headroom. Every descendant remains pass-gated and no
+  block may be added merely to consume the headroom.
+- August 9: use only a separately preregistered dependency-valid block. Failed
+  Number Game descendants stay closed.
 - August 10: run only the frozen Luna Bongard serving and mechanics wrapper
   first. Its component cap is `$2.00`; any remaining allowance may be used
   only after that result is banked and only by an independent preregistered
