@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "interface_version": "regretbench-smc-confirmation-paper-fragment-binding-1",
+  "status": "prospectively_frozen_before_any_smc_policy_response",
+  "reporting_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_CONFIRMATION_REPORTING_PROTOCOL_20260807.md",
+    "sha256": "696ebd9550af07d9fd77956e1ae8d39acdaabcfa03f37543545e3fe46b998489"
+  },
+  "report_generator": {
+    "path": "scripts/regretbench_deepseek_smc_confirmation_report.py",
+    "sha256": "eb8d70e9f58714eab1c38bec094af5a792837e297da518b31cee649b2feff05e"
+  },
+  "fragment_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_SMC_CONFIRMATION_PAPER_FRAGMENT_PROTOCOL_20260807.md",
+    "sha256": "16e1ccf4eb427a6065e352c88a9a411d4296ba081527851a0bdf9ecbff70cf9b"
+  },
+  "fragment_generator": {
+    "path": "scripts/regretbench_deepseek_smc_confirmation_paper_fragment.py",
+    "sha256": "0b179c5b05d8f325abddb87eeafcc5dca5bccd8b48185f44efa7940b69413ce2"
+  },
+  "manuscript": {
+    "path": "paper/main.tex",
+    "preresult_sha256": "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf",
+    "generated_fragment_path": "paper/generated/regretbench_result.tex",
+    "generated_fragment_absent_at_freeze": true,
+    "existing_conditional_include_reused": true
+  },
+  "requirements": {
+    "confirmed_tier_requires_confirmation_pass": true,
+    "confirmation_null_removes_headline_claim": true,
+    "mechanics_failure_preserves_only_provisional_development": true,
+    "development_and_confirmation_can_be_pooled": false,
+    "secondary_or_subgroup_evidence_can_change_tier": false
+  },
+  "model_calls_made_while_freezing": 0,
+  "cost_usd_while_freezing": 0.0
+}

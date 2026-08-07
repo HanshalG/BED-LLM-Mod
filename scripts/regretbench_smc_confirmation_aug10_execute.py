@@ -15,6 +15,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import regretbench_deepseek_smc_confirmation_daily as daily
+from scripts import regretbench_deepseek_smc_confirmation_paper_fragment as paper_fragment
+from scripts import regretbench_deepseek_smc_confirmation_report as frozen_report
 from scripts import regretbench_deepseek_support_recovery as primary
 from scripts.openrouter_daily_budget import read_live_credits
 
@@ -23,7 +25,7 @@ SCHEMA_VERSION = 1
 INTERFACE_VERSION = "regretbench-smc-confirmation-aug10-execute-1"
 BINDINGS = daily.ROOT / "EXECUTION_BINDINGS.json"
 BINDINGS_SHA256 = (
-    "b4cf45ba2285e17e7087940b6523929cd60bb9a2623b0ef7fca116ef8ef40d3f"
+    "f0316190a9562c87ecd47616fe4e906c67b8eb4fee26653dc7ecb2b0a226834d"
 )
 
 
@@ -93,12 +95,25 @@ def execute(
 ) -> dict[str, Any]:
     bindings = validate_bindings()
     result = daily.execute(now=now, live_reader=live_reader)
+    reporting = None
+    if result.get("status") == "complete_reconciled":
+        report = frozen_report.write_report(
+            daily.RUN_DIR, parent_dir=daily.PARENT_DIR
+        )
+        fragment = paper_fragment.write_fragment(
+            daily.RUN_DIR, parent_dir=daily.PARENT_DIR
+        )
+        reporting = {
+            "frozen_report": report,
+            "paper_fragment": fragment,
+        }
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
         "status": "complete",
         "bindings": bindings,
         "daily_result": result,
+        "reporting": reporting,
     }
 
 

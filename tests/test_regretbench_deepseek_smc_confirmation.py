@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from scripts import regretbench_deepseek_smc_confirmation as confirmation
+from scripts import regretbench_deepseek_smc_confirmation_paper_fragment as paper_fragment
 from scripts import regretbench_deepseek_smc_confirmation_report as report
 from scripts import regretbench_deepseek_smc_confirmation_verify as verifier
 
@@ -255,3 +256,10 @@ def test_exact_scale_confirmation_replays_on_untouched_scope(
     assert frozen["claim_tier"] == report.CLAIMS[result["status"]][0]
     assert frozen["development_and_confirmation_are_not_pooled"] is True
     assert written["model_calls"] == 0
+    fragment = paper_fragment.write_fragment(
+        output,
+        parent_dir=parent_dir,
+        output=tmp_path / "paper/generated/regretbench_result.tex",
+    )
+    assert fragment["claim_tier"] == frozen["claim_tier"]
+    assert fragment["model_calls"] == 0

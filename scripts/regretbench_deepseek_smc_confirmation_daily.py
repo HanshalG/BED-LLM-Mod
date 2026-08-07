@@ -19,7 +19,6 @@ if str(REPO_ROOT) not in sys.path:
 from helpers import Config, ModelSpec
 from scripts import bongard_openworld_luna_aug10_execute as bongard
 from scripts import regretbench_deepseek_smc_confirmation as confirmation
-from scripts import regretbench_deepseek_smc_confirmation_report as confirmation_report
 from scripts import regretbench_deepseek_smc_confirmation_verify as verifier
 from scripts import regretbench_deepseek_smc_dynamic_depth2_daily as development_daily
 from scripts import regretbench_deepseek_smc_dynamic_depth2_experiment as experiment
@@ -411,9 +410,6 @@ def execute(
         checkpoint(RUN_DIR / "VERIFICATION.json", replay)
         if replay["status"] != "verified":
             raise RuntimeError("SMC confirmation independent replay failed")
-        report = confirmation_report.write_report(
-            RUN_DIR, parent_dir=PARENT_DIR
-        )
     except Exception:
         ledger = _reconcile(
             ledger,
@@ -443,8 +439,6 @@ def execute(
         "bongard_aug10_opened": False,
         "result_sha256": primary.sha256_file(RUN_DIR / "RESULT.json"),
         "verification_sha256": primary.sha256_file(RUN_DIR / "VERIFICATION.json"),
-        "report_tier": report["claim_tier"],
-        "report_sha256": primary.sha256_file(RUN_DIR / "FROZEN_REPORT.json"),
         "parent_result_sha256": primary.sha256_file(PARENT_DIR / "RESULT.json"),
         "parent_verification_sha256": primary.sha256_file(
             PARENT_DIR / "VERIFICATION.json"
