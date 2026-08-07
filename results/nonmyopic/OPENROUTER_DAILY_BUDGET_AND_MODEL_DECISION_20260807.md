@@ -84,10 +84,12 @@ the nonreasoning planner or environment model.
   block may be added merely to consume the headroom.
 - August 9: use only a separately preregistered dependency-valid block. Failed
   Number Game descendants stay closed.
-- August 10: run only the frozen Luna Bongard serving and mechanics wrapper
-  first. Its component cap is `$2.00`; any remaining allowance may be used
-  only after that result is banked and only by an independent preregistered
-  block that cannot alter or rescue it.
+- August 10 has one mutually exclusive branch. If the Aug 9 SMC policy banks a
+  literal independently verified pass and its frozen report requires
+  confirmation, run only the hash-bound RegretBench SMC confirmation: `$0.20`
+  parent bank plus `$3.50` policy, maximum `$3.70`. Otherwise run only the
+  frozen Luna Bongard serving and mechanics wrapper, component cap `$2.00`.
+  Opening either branch forbids the other for that day.
 - August 11--14: reserve up to `$4.75` for the exact frozen Bongard
   development blocks A--D, one block per day, conditional on every predecessor
   and read-only preflight passing. After each clean main block, run the bound
