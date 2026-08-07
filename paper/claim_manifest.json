@@ -1126,6 +1126,31 @@
       ]
     },
     {
+      "id": "number_game_fully_fresh_history_blind_control_aug7",
+      "paper_scope": "The mandatory fully fresh matched control completed transport but failed its preregistered support mechanics, leaving the policy endpoint sealed and the full fresh causal replication unestablished.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_qwen_fully_fresh_daily_stages/number-game-qwen-fully-fresh-daily-stages-20260806T000200Z/control/FAILURE.json",
+        "sha256": "bf2a119f23e8241a7c2f694a3d3009104b0f3151073d37407cb6ddd7a917c244"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "mechanics_failed"},
+        {"pointer": "/protocol/endpoint_accessed", "equals": false},
+        {"pointer": "/protocol/source_result_sha256", "equals": "13fd3361a8ef8f525f68733182a9bdb30151e37a4a5e14dfb35dde78540ab523"},
+        {"pointer": "/usage/adapter_requests", "equals": 3072},
+        {"pointer": "/usage/http_attempts", "equals": 3072},
+        {"pointer": "/usage/retry_count", "equals": 0},
+        {"pointer": "/usage/provider_error_retries", "equals": 0},
+        {"pointer": "/usage/adapter_reasoning_tokens", "equals": 0},
+        {"pointer": "/usage/forced_exits", "equals": 0},
+        {"pointer": "/usage/run_cost_usd", "equals": 2.6901734400000024, "tolerance": 1e-12},
+        {"pointer": "/mechanics_gates/all_3072_draws_are_strict_json", "equals": true},
+        {"pointer": "/mechanics_gates/every_draw_has_at_least_sixteen_valid", "equals": false},
+        {"pointer": "/mechanics_gates/every_pool_has_at_least_twenty_four_valid", "equals": false},
+        {"pointer": "/mechanics_gates/exactly_1536_control_branch_slots", "equals": true},
+        {"pointer": "/mechanics_gates/zero_reasoning_tokens", "equals": true}
+      ]
+    },
+    {
       "id": "number_game_deepseek_v4_flash_paired_efficacy32",
       "paper_scope": "Frozen low-cost planner comparison, including directional own-myopic efficacy, failed replacement thresholds, paired Qwen non-inferiority, and mechanics failures.",
       "artifact": {
