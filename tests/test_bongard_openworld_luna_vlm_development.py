@@ -364,9 +364,8 @@ def test_block_date_gate_is_frozen() -> None:
 
 
 def test_protocol_manifest_is_opaque_and_exact(tmp_path: Path) -> None:
-    result = development.build_protocol_manifest(
-        output_path=tmp_path / "MANIFEST.json"
-    )
+    manifest_path = tmp_path / "MANIFEST.json"
+    result = development.build_protocol_manifest(output_path=manifest_path)
     assert result["status"] == "frozen"
     assert result["gates"]["all_pass"]
     assert len(result["tasks"]) == 32
@@ -378,3 +377,11 @@ def test_protocol_manifest_is_opaque_and_exact(tmp_path: Path) -> None:
     assert "concept" not in public_text
     assert "caption" not in public_text
     assert "images/" not in public_text
+    amendment = (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md"
+    )
+    assert result["implementation_sha256"][amendment] == (
+        development.sha256_file(development.REPO_ROOT / amendment)
+    )
+    assert development.verify_protocol_manifest(manifest_path)["verified"]

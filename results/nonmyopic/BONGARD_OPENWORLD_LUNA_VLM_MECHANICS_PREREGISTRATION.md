@@ -9,6 +9,9 @@ Terminal common-seed and task-preserving dispatch details were subsequently
 frozen in `BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md` and
 `BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md`; the current mechanics
 interface is `-6`.
+The pre-response task wording is clarified by
+`BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md` without changing this
+interface, its response schema, or any gate.
 Earliest execution date: 2026-08-10 (Europe/London)
 
 ## Objective

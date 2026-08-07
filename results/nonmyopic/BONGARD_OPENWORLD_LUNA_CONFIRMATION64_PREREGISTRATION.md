@@ -88,4 +88,9 @@ Authoritative frozen protocol manifest:
 `results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V2.json`
 
 SHA-256:
-`1613bd4f1978a0346ca4cc7fe7511ef99eab26fe8963465b2823fc1d6120f5e1`.
+`34f2c992a1bb8f56d3f882b804caf1fa95c1017e22f9673a7584a0c2a610eee9`.
+
+This manifest supersedes the earlier pre-response freeze after the
+positive-present/negative-absent contrastive prompt clarification. The task
+UIDs, seeds, policies, endpoints, sample sizes, and statistical gates are
+unchanged; only the prompt and its transitive implementation bindings changed.

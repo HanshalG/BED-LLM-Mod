@@ -185,6 +185,11 @@ def test_multimodal_prompt_contains_only_opaque_interface() -> None:
     task = _task()
     messages = bed.build_belief_messages(task, task.initial_history)
     assert bed.prompt_hidden_state_errors(task, task.initial_history, messages) == []
+    request = bed.request_payload(messages)
+    assert any(
+        "present in positive examples and absent from negative examples" in item
+        for item in request["requirements"]
+    )
     text = bed.request_text(messages)
     assert "secret concept" not in text
     assert "pos__" not in text

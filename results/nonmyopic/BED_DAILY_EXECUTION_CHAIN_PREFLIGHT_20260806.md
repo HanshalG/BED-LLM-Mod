@@ -39,6 +39,11 @@ for an absent legitimate predecessor and rejects partial, tampered, or
 out-of-order artifacts. All four real invocations bind protocol manifest
 `8659fb5fc6a02ddc59eb7147b6663d1fef3f96880e29f5e6de9bc0386f8e24aa`.
 
+This is the historical August 6 preflight binding. Before any model response,
+the contrastive prompt clarification rebound the development protocol to
+`451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4`;
+the frozen tasks, seeds, endpoints, and gates did not change.
+
 A later transport audit found that the concurrent Luna adapters still relied
 on post-response run-budget checks. August 10--14 interface-v2 wrappers now
 bind precharge amendment `75acd7ae...bbbff4`, reserve `$0.004` before every

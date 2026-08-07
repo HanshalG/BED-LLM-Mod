@@ -5,7 +5,7 @@
     "confirmation_design_is_frozen_before_development_responses": true,
     "development_null_or_partial_tier_forbids_execution": true,
     "legacy_no_ad_hoc_execution_field_is_preserved": true,
-    "manifest_sha256": "8659fb5fc6a02ddc59eb7147b6663d1fef3f96880e29f5e6de9bc0386f8e24aa",
+    "manifest_sha256": "451177a86b8ffbff128c4d8f94d7e6903873ce43050521119721f43882ecc9a4",
     "required_claim_report_interface": "bongard-openworld-luna-claim-report-1",
     "required_claim_tier": "full_llm_native_development_signal"
   },
@@ -27,10 +27,10 @@
   },
   "implementation_bindings_at_freeze": {
     "scripts/bongard_openworld_luna_claim_report.py": "f14ee94fb93f2f74653bd878c284ba51c488853b442001671ff6fcdddbbbd658",
-    "scripts/bongard_openworld_luna_vlm_development.py": "e3c9124d2f172393c58f59d2149ec4145f09ce30e13e3adb5201209cef035584",
+    "scripts/bongard_openworld_luna_vlm_development.py": "3fff70b66128322bc3958d3b4448cb5286e08cbb6a80846a7ca587f7525cfcc0",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "cda5473c221b6cb13bbfa2e458de62dda602a3e37907e1602fae6925b1f2e13f",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "c8a150daf4d6680608ce13c00721045503e507e809d182f3ce8e3f13201d918a",
-    "scripts/bongard_openworld_vlm_bed.py": "d2f3f65a1586d30e629dad5c2b89a9f55008786275a1841574f24aefdbfd0d66"
+    "scripts/bongard_openworld_vlm_bed.py": "07130e2fa274185328a3e25e2f76591a5fea137736caa85b8c663059051306f2"
   },
   "interface_version": "bongard-openworld-luna-confirmation64-freeze-2",
   "protocol": {

@@ -11,6 +11,10 @@ to `-4`. Before any response, terminal common random numbers were frozen in
 `BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md`. The terminal task-batch
 rule in `BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md` advances the
 current interface to `-6`.
+The subsequently frozen
+`BONGARD_OPENWORLD_LUNA_CONTRASTIVE_PROMPT_AMENDMENT.md` makes the benchmark's
+positive-present/negative-absent rule semantics explicit before any model
+response; all policies, tasks, endpoints, seeds, and gates remain unchanged.
 
 ## Claim And Boundary
 

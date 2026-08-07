@@ -560,6 +560,7 @@ def build_belief_messages(
         ],
         "requirements": [
             "Use only the observed labels; every other label is unknown.",
+            "A valid rule describes a visually testable property that is present in positive examples and absent from negative examples; use both classes contrastively.",
             "Rules should jointly include broad, narrow, and compositional alternatives.",
             "Each rule must explain the labelled examples and remain visually testable.",
             "Weights are your posterior plausibility for each generated rule after the observed labels; do not express a pre-label prior.",
