@@ -16,20 +16,20 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_naive_smoke_migration as migration
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-5"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-6"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V5.json"
+    "PROTOCOL_MANIFEST_V6.json"
 )
 MANIFEST_SHA256 = (
-    "a2623954f4a93b76ad0f7dea71e985c09892751947b567c4941ea8c78d8714c8"
+    "65d4b497fee8f00cd9e1794054dc191dfaced2d5aa1fd172fb0717a40023eca9"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V14.json"
+    "PROTOCOL_MANIFEST_V15.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
 )
 TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"
@@ -59,6 +59,13 @@ SMOKE_REPLAY_AMENDMENT_SHA256 = (
 )
 SMOKE_REPLAY_CERTIFICATE_SHA256 = (
     "725bb7827508b6b20bf34037cc33feb17b78e1c31c4da9a21d9c3b9ea474d1da"
+)
+ESTIMAND_CLARIFICATION = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md"
+)
+ESTIMAND_CLARIFICATION_SHA256 = (
+    "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
 )
 
 
@@ -138,6 +145,10 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         != SMOKE_REPLAY_AMENDMENT_SHA256
         or sha256_file(SMOKE_REPLAY_AMENDMENT)
         != SMOKE_REPLAY_AMENDMENT_SHA256
+        or manifest.get("history_blind_estimand_clarification_sha256")
+        != ESTIMAND_CLARIFICATION_SHA256
+        or sha256_file(ESTIMAND_CLARIFICATION)
+        != ESTIMAND_CLARIFICATION_SHA256
         or manifest.get("main_development_result_must_independently_replay")
         is not True
     ):

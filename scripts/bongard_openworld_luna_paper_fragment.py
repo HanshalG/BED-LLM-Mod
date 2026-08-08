@@ -22,7 +22,7 @@ FRAGMENT_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md"
 )
 FRAGMENT_PROTOCOL_SHA256 = (
-    "9b73878b4c5ab3fee3fe6aebc685d9e09e9b793d44d1ea3dd44d2191d395b1de"
+    "fb54ceb1c18a5b6f6b00ec2eb76ab8325f9fbb4cae059b5d7b56e372d6a59342"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
     "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf"
@@ -31,31 +31,35 @@ DEFAULT_OUTPUT = REPO_ROOT / "paper/generated/bongard_openworld_result.tex"
 BOUND_FILES = {
     "claim_decision_plan": (
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
-        "4288be316da2e1e9ff376733da57ee9f2f48ae08930ee78265054da2f4153d0e",
+        "29cfbcef40c367b600e7b4769b82757760ef8b3ef400d4592753c0a1898c95a6",
     ),
     "endpoint_utility_amendment": (
         "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
         "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8",
     ),
+    "history_blind_estimand_clarification": (
+        "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
+        "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10",
+    ),
     "development_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V14.json",
-        "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011",
+        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V15.json",
+        "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835",
     ),
     "confirmation_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V11.json",
-        "42e965d6ee66d36f2a0eac38b5cfc8b18567e16684f2dce7c5fd7e8daff797f1",
+        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V12.json",
+        "1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078",
     ),
     "development_claim_generator": (
         "scripts/bongard_openworld_luna_claim_report.py",
-        "28216198e57eef3ea5c77cfd96455a136ddaa814a2d151948879dbccef1b2693",
+        "923bcbf9c347a73708ce9fdedfb60926b78a776ca15a15fa597150121e49e85e",
     ),
     "development_analyzer": (
         "scripts/bongard_openworld_luna_vlm_development.py",
-        "842be5245de4b4df4f3d329a03a87ffa0ff35b296ff8f8c4e0287e8a26a95b3f",
+        "2b29ea7ec2ca69d4c0c257e48e4e8a4476bd21207a765b3b4d35f899d70fd62e",
     ),
     "development_daily_replay": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "8aeca473752ad0251dc51924adc06dca029471e5b6632e99a8efc92f5c979fdb",
+        "4dd6199f6e0374df55b6ceb121a89c85a45e5b213938df9867f6fbda7a749ec2",
     ),
     "confirmation_analyzer": (
         "scripts/bongard_openworld_luna_confirmation64.py",
@@ -63,7 +67,7 @@ BOUND_FILES = {
     ),
     "confirmation_freeze_verifier": (
         "scripts/bongard_openworld_luna_confirmation64_verify.py",
-        "1d6eb7f293f1c5edc115b680b26d73b4550d853cde576656220577272fb764ff",
+        "4131a72dbd8cdf1e0f367913d0a3c0d36507f0f7c9c71bf6b3cef8d62e494b6e",
     ),
     "confirmation_daily_executor": (
         "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",
@@ -74,31 +78,34 @@ BOUND_FILES = {
 DEVELOPMENT_TIERS = {
     "full_path_dependent_llm_native_development_signal": (
         "The prospective 64-task development cohort supports dynamic depth-two "
-        "planning over myopic selection, matched answer-conditioned over "
-        "history-blind regeneration, and path-dependent dynamic support over "
-        "both fixed-support and matched fixed-score controls. Confirmation is "
-        "pending; this development result is not a confirmed claim."
+        "planning over myopic selection, answer-conditioned simulated support "
+        "over same-seed history-blind simulation for first-query planning "
+        "under a common realized updater, and path-dependent dynamic support "
+        "over both fixed-support and matched fixed-score controls. Confirmation "
+        "is pending; this development result is not a confirmed claim."
     ),
     "policy_and_matched_regeneration_without_fixed_support_superiority": (
         "The prospective development cohort supports the dynamic-depth-two "
-        "policy comparison and matched answer-conditioned regeneration, but "
+        "policy comparison and matched answer-conditioned simulation in the "
+        "first-query planning model under a common realized updater, but "
         "does not establish superiority over the fixed-support controls. "
         "Confirmation is unauthorized."
     ),
     "policy_signal_without_matched_mechanism": (
         "The prospective development cohort supports only dynamic depth two "
-        "over myopic selection. It does not support causal attribution to "
-        "answer-conditioned regeneration, and confirmation is unauthorized."
+        "over myopic selection. It does not support causal attribution to the "
+        "realized answer-conditioned updater, and confirmation is unauthorized."
     ),
     "matched_mechanism_without_policy_signal": (
         "The prospective development cohort supports only matched "
-        "answer-conditioned over history-blind regeneration. This is not a "
-        "non-myopic policy win, and confirmation is unauthorized."
+        "answer-conditioned over history-blind simulation in first-query "
+        "planning under a common realized updater. This is not a non-myopic "
+        "policy win, and confirmation is unauthorized."
     ),
     "development_null": (
         "The prospective development cohort is null under the frozen gate "
         "families. It supports neither a positive policy claim nor a matched "
-        "regeneration-mechanism claim, and confirmation is unauthorized."
+        "first-query planning-mechanism claim, and confirmation is unauthorized."
     ),
 }
 
@@ -168,7 +175,7 @@ def _percent(value: Any) -> str:
 def _methods_lines(task_count: int) -> list[str]:
     return [
         "\\paragraph{Bongard-OpenWorld: multimodal LLM-native sequential BED.}",
-        f"On {task_count} 14-image tasks, Luna generated ten free-form semantic rules with weights and 14 calibrated likelihoods at root and counterfactual branches; candidate and endpoint roles were hidden. The planner saw endpoint IDs but no labels and minimized sealed endpoint-label predictive entropy. Controls were one-step PIG, fixed-support d2, same-seed history-blind regeneration, matched fixed-score/dynamic-update, shuffled continuation, and random selection.",
+        f"On {task_count} 14-image tasks, Luna generated ten free-form semantic rules with weights and 14 calibrated likelihoods at root and counterfactual branches; candidate and endpoint roles were hidden. The planner saw endpoint IDs but no labels and minimized sealed endpoint-label predictive entropy. Controls were one-step PIG, fixed-support d2, same-seed history-blind planning simulation with the common realized updater, matched fixed-score/dynamic-update, shuffled continuation, and random selection.",
     ]
 
 

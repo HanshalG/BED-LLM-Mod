@@ -14,23 +14,26 @@ untouched Bongard confirmation passes its complete frozen conjunction.
 The renderer is bound to these pre-result artifacts:
 
 - `BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md`, SHA-256
-  `4288be316da2e1e9ff376733da57ee9f2f48ae08930ee78265054da2f4153d0e`;
+  `29cfbcef40c367b600e7b4769b82757760ef8b3ef400d4592753c0a1898c95a6`;
 - `BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md`, SHA-256
   `2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8`;
-- development manifest V14, SHA-256
-  `377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011`;
-- confirmation manifest V11, SHA-256
-  `42e965d6ee66d36f2a0eac38b5cfc8b18567e16684f2dce7c5fd7e8daff797f1`;
+- `BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md`,
+  SHA-256
+  `65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10`;
+- development manifest V15, SHA-256
+  `2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835`;
+- confirmation manifest V12, SHA-256
+  `1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078`;
 - development claim generator, SHA-256
-  `28216198e57eef3ea5c77cfd96455a136ddaa814a2d151948879dbccef1b2693`;
+  `923bcbf9c347a73708ce9fdedfb60926b78a776ca15a15fa597150121e49e85e`;
 - development combined analyzer, SHA-256
-  `842be5245de4b4df4f3d329a03a87ffa0ff35b296ff8f8c4e0287e8a26a95b3f`;
+  `2b29ea7ec2ca69d4c0c257e48e4e8a4476bd21207a765b3b4d35f899d70fd62e`;
 - development daily replay wrapper, SHA-256
-  `8aeca473752ad0251dc51924adc06dca029471e5b6632e99a8efc92f5c979fdb`;
+  `4dd6199f6e0374df55b6ceb121a89c85a45e5b213938df9867f6fbda7a749ec2`;
 - confirmation analyzer, SHA-256
   `80dda8508e1378e48593190968086f3b7db451732f5091606c5fa0a75e30b18e`;
 - confirmation freeze verifier, SHA-256
-  `1d6eb7f293f1c5edc115b680b26d73b4550d853cde576656220577272fb764ff`;
+  `4131a72dbd8cdf1e0f367913d0a3c0d36507f0f7c9c71bf6b3cef8d62e494b6e`;
 - confirmation failed-closed daily executor, SHA-256
   `627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d`;
 - pre-result manuscript, SHA-256
@@ -53,8 +56,9 @@ likelihoods for all 14 images at the root and counterfactual branches. Candidate
 and endpoint roles are hidden from the VLM. The planner sees opaque endpoint
 image IDs but not endpoint labels and scores sealed endpoint-label predictive
 uncertainty. The registered controls are one-step endpoint PIG, fixed-support
-depth two, same-seed history-blind regeneration, matched fixed-score dynamic
-updating, shuffled continuation, and random selection.
+depth two, same-seed history-blind planning simulation under the same realized
+answer-conditioned updater, matched fixed-score dynamic updating, shuffled
+continuation, and random selection.
 
 ## Development Mapping
 
@@ -62,18 +66,22 @@ The saved claim report must equal a report rebuilt from the four block results
 and independently replayed combined result.
 
 1. `full_path_dependent_llm_native_development_signal`: report a prospective
-   64-task multimodal LLM-native development signal over myopic, history-blind,
-   fixed-support, and matched fixed-score controls. State that confirmation is
-   pending and that the result is not confirmed.
+   64-task multimodal LLM-native development signal over myopic, history-blind
+   first-query simulation, fixed-support, and matched fixed-score controls.
+   State that both history-blind arms share the realized answer-conditioned
+   updater, confirmation is pending, and the result is not confirmed.
 2. `policy_and_matched_regeneration_without_fixed_support_superiority`: report
-   only the prospective policy and matched answer-conditioning signals. State
-   that fixed-support superiority is absent and confirmation is unauthorized.
+   only the prospective policy and matched answer-conditioned simulation signal
+   for first-query planning under a common realized updater. State that
+   fixed-support superiority is absent and confirmation is unauthorized.
 3. `policy_signal_without_matched_mechanism`: report only the prospective
-   dynamic-depth-two versus myopic policy signal. Make no causal regeneration
-   claim and state that confirmation is unauthorized.
+   dynamic-depth-two versus myopic policy signal. Make no causal claim about
+   the realized answer-conditioned updater and state that confirmation is
+   unauthorized.
 4. `matched_mechanism_without_policy_signal`: report only the matched
-   answer-conditioned versus history-blind regeneration signal. State that it
-   is not a non-myopic policy win and confirmation is unauthorized.
+   answer-conditioned versus history-blind simulated-support signal for
+   first-query planning under a common realized updater. State that it is not
+   a non-myopic policy win and confirmation is unauthorized.
 5. `development_null`: report a prospective development null and make no
    positive policy or mechanism claim.
 

@@ -5,31 +5,35 @@
   "bound_files": {
     "claim_decision_plan": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
-      "sha256": "4288be316da2e1e9ff376733da57ee9f2f48ae08930ee78265054da2f4153d0e"
+      "sha256": "29cfbcef40c367b600e7b4769b82757760ef8b3ef400d4592753c0a1898c95a6"
     },
     "endpoint_utility_amendment": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
       "sha256": "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
     },
+    "history_blind_estimand_clarification": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
+      "sha256": "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
+    },
     "development_manifest": {
-      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V14.json",
-      "sha256": "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V15.json",
+      "sha256": "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
     },
     "confirmation_manifest": {
-      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V11.json",
-      "sha256": "42e965d6ee66d36f2a0eac38b5cfc8b18567e16684f2dce7c5fd7e8daff797f1"
+      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V12.json",
+      "sha256": "1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078"
     },
     "development_claim_generator": {
       "path": "scripts/bongard_openworld_luna_claim_report.py",
-      "sha256": "28216198e57eef3ea5c77cfd96455a136ddaa814a2d151948879dbccef1b2693"
+      "sha256": "923bcbf9c347a73708ce9fdedfb60926b78a776ca15a15fa597150121e49e85e"
     },
     "development_analyzer": {
       "path": "scripts/bongard_openworld_luna_vlm_development.py",
-      "sha256": "842be5245de4b4df4f3d329a03a87ffa0ff35b296ff8f8c4e0287e8a26a95b3f"
+      "sha256": "2b29ea7ec2ca69d4c0c257e48e4e8a4476bd21207a765b3b4d35f899d70fd62e"
     },
     "development_daily_replay": {
       "path": "scripts/bongard_openworld_luna_development32_daily_execute.py",
-      "sha256": "8aeca473752ad0251dc51924adc06dca029471e5b6632e99a8efc92f5c979fdb"
+      "sha256": "4dd6199f6e0374df55b6ceb121a89c85a45e5b213938df9867f6fbda7a749ec2"
     },
     "confirmation_analyzer": {
       "path": "scripts/bongard_openworld_luna_confirmation64.py",
@@ -37,7 +41,7 @@
     },
     "confirmation_freeze_verifier": {
       "path": "scripts/bongard_openworld_luna_confirmation64_verify.py",
-      "sha256": "1d6eb7f293f1c5edc115b680b26d73b4550d853cde576656220577272fb764ff"
+      "sha256": "4131a72dbd8cdf1e0f367913d0a3c0d36507f0f7c9c71bf6b3cef8d62e494b6e"
     },
     "confirmation_daily_executor": {
       "path": "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",
@@ -45,11 +49,11 @@
     },
     "fragment_protocol": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md",
-      "sha256": "9b73878b4c5ab3fee3fe6aebc685d9e09e9b793d44d1ea3dd44d2191d395b1de"
+      "sha256": "fb54ceb1c18a5b6f6b00ec2eb76ab8325f9fbb4cae059b5d7b56e372d6a59342"
     },
     "fragment_generator": {
       "path": "scripts/bongard_openworld_luna_paper_fragment.py",
-      "sha256": "b24cab445a9a2d58bd6f946946f58c3747fb8c260266f78968342f1049f12966"
+      "sha256": "389fb8670ec686c463fbea3c7a1036a3a51a1f4e3c169d400195c9a364b6516b"
     }
   },
   "manuscript": {

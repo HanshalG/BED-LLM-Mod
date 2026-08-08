@@ -174,6 +174,8 @@ def test_development_fragment_obeys_every_frozen_tier(
     assert "fixed-support" in tex
     assert "history-blind" in tex
     assert "matched fixed-score" in tex
+    assert "common realized updater" in tex
+    assert "belief regeneration improves over" not in tex
 
 
 def test_development_shared_validity_failure_suppresses_efficacy(

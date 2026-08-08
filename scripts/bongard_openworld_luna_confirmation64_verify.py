@@ -24,13 +24,13 @@ from scripts import bongard_openworld_sample_size_expansion_audit as expansion_a
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-11"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-12"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V11.json"
+    "PROTOCOL_MANIFEST_V12.json"
 )
 MANIFEST_SHA256 = (
-    "42e965d6ee66d36f2a0eac38b5cfc8b18567e16684f2dce7c5fd7e8daff797f1"
+    "1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -52,7 +52,7 @@ POWER_AMENDMENT_SHA256 = (
     "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -86,6 +86,13 @@ ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
 ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
     "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
 )
+ESTIMAND_CLARIFICATION = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md"
+)
+ESTIMAND_CLARIFICATION_SHA256 = (
+    "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
+)
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
     "a": "2026-08-15",
@@ -114,6 +121,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
     "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -235,6 +243,12 @@ def verify_manifest(
                 == ENDPOINT_UTILITY_AMENDMENT_SHA256
                 and sha256_file(ENDPOINT_UTILITY_AMENDMENT)
                 == ENDPOINT_UTILITY_AMENDMENT_SHA256
+                and precondition.get(
+                    "history_blind_estimand_clarification_sha256"
+                )
+                == ESTIMAND_CLARIFICATION_SHA256
+                and sha256_file(ESTIMAND_CLARIFICATION)
+                == ESTIMAND_CLARIFICATION_SHA256
             and precondition.get(
                 "legacy_no_ad_hoc_execution_field_is_preserved"
             )
@@ -301,6 +315,7 @@ def verify_manifest(
                 "authorization_amendment_hash_matches",
                 "matched_fixed_score_amendment_hash_matches",
                 "endpoint_predictive_utility_amendment_hash_matches",
+                "history_blind_estimand_clarification_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_expanded_experimental_partitions_are_bound",
                 "exact_96_unique_opaque_task_identities",

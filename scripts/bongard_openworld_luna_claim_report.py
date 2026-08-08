@@ -20,7 +20,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-4"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-5"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
@@ -79,9 +79,10 @@ CLAIM_SCOPES = {
                 "planning improves endpoint Brier over myopic-width selection."
             ),
             (
-                "Matched-control development evidence that answer-conditioned "
-                "belief regeneration improves over same-seed history-blind "
-                "regeneration."
+                "Matched-control development evidence that, under a common "
+                "realized answer-conditioned updater, first-query planning "
+                "with answer-conditioned simulated support regeneration "
+                "improves over same-seed history-blind simulation."
             ),
             (
                 "Prospective development evidence that answer-conditioned "
@@ -105,7 +106,8 @@ CLAIM_SCOPES = {
             ),
             (
                 "Matched-control development evidence for answer-conditioned "
-                "versus history-blind regeneration."
+                "versus history-blind simulated support in first-query "
+                "planning under a common realized updater."
             ),
         ],
         "forbidden": [
@@ -123,7 +125,7 @@ CLAIM_SCOPES = {
             )
         ],
         "forbidden": [
-            "causal attribution to answer-conditioned regeneration",
+            "causal attribution to the realized answer-conditioned updater",
             "held-out confirmation",
             "sealed-test evidence",
             "cross-model robustness",
@@ -133,7 +135,8 @@ CLAIM_SCOPES = {
         "allowed": [
             (
                 "Prospective development evidence for answer-conditioned "
-                "belief regeneration under the matched control only."
+                "simulated support in first-query planning over the matched "
+                "history-blind simulation under a common realized updater."
             )
         ],
         "forbidden": [
@@ -149,7 +152,7 @@ CLAIM_SCOPES = {
         ],
         "forbidden": [
             "a non-myopic policy win",
-            "a matched regeneration-mechanism win",
+            "a matched first-query planning-mechanism win",
             "confirmation authorization",
             "sealed-test evidence",
         ],

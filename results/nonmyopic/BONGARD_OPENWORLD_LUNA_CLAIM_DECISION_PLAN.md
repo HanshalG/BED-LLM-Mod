@@ -8,13 +8,17 @@ depth-two planning.
 The later matched fixed-score amendment further requires superiority when the
 fixed score receives the same realized regenerated second-stage updater as the
 dynamic score, isolating the first-query planning link.
+The August 8 history-blind estimand clarification likewise fixes the matched
+history-blind family as a first-query planning-model contrast: both policies
+deploy the same answer-conditioned updater after the real first answer.
 
 The 64-task development result contains two distinct prospective questions:
 
 1. Does dynamic depth-two planning improve endpoint Brier over the frozen
    myopic-width policy and its existing controls?
-2. Does answer-conditioned VLM regeneration improve over the matched
-   same-seed, same-batch history-blind generation control?
+2. Under the same realized answer-conditioned updater, does first-query
+   planning with answer-conditioned simulated VLM regeneration improve over
+   the matched same-seed, same-batch history-blind simulation?
 
 These questions must not be substituted for one another after the endpoint is
 opened. `scripts/bongard_openworld_luna_claim_report.py` independently replays
@@ -30,24 +34,25 @@ permits both prospective development claims and authorizes only a separately
 preregistered confirmation. It does not authorize confirmation execution or a
 held-out, sealed-test, cross-model, or universal claim.
 
-### Policy signal without matched mechanism
+### Policy signal without matched planning mechanism
 
 Every shared-validity and policy-family gate passes, but at least one matched
 history-blind gate fails. The result may support the prospective dynamic versus
 myopic policy comparison. It may not attribute that difference causally to
-answer-conditioned belief regeneration and authorizes no confirmation.
+answer-conditioned simulated regeneration in the first-query planning model
+and authorizes no confirmation.
 
-### Matched mechanism without policy signal
+### Matched planning mechanism without policy signal
 
 Every shared-validity and matched history-blind gate passes, but at least one
 policy-family gate fails. The result may support a prospective belief-quality
-mechanism claim. It is not a non-myopic policy win and authorizes no
-confirmation.
+first-query planning-model claim under the common realized updater. It is not
+a non-myopic policy win and authorizes no confirmation.
 
 ### Development null
 
 Neither complete family passes. Report every frozen metric and failed gate,
-but make no positive policy or matched-mechanism claim and authorize no
+but make no positive policy or matched planning-mechanism claim and authorize no
 confirmation.
 
 ## Gate Families
@@ -62,16 +67,18 @@ that is no worse than myopic, at least 3% Brier improvement with bootstrap
 probability at least 0.80, non-worse log loss, and non-worse Brier than shuffled
 continuation.
 
-The matched mechanism family additionally requires at least 24 changed final
-histories and one in every block, at least 3% Brier improvement with bootstrap
-probability at least 0.80, non-worse log loss, and non-worse ranking fidelity
-than history-blind depth two.
+The matched planning-mechanism family additionally requires at least 24
+changed final histories and one in every block, at least 3% Brier improvement
+with bootstrap probability at least 0.80, non-worse log loss, and non-worse
+ranking fidelity than history-blind depth two. It isolates the simulated
+support used to choose the first query; both arms execute with the same real
+answer-conditioned updater.
 
 The path-dependent-support family requires at least 24 changed final histories
 and margin-clearing first actions versus fixed-support depth two, changes in
 every block, at least 3% Brier improvement with bootstrap probability at least
 0.80, non-worse log loss, and non-worse ranking fidelity. Policy plus matched
-mechanism without this family is explicitly reportable but cannot authorize
+planning mechanism without this family is explicitly reportable but cannot authorize
 confirmation or support fixed-support superiority.
 In addition, dynamic must beat `fixed_score_dynamic_update` under the same
 history/action, relative-Brier, paired-bootstrap, log-loss, and every-block

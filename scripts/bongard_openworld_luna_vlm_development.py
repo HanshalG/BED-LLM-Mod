@@ -99,6 +99,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
     "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
 )
 
 

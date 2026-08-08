@@ -490,6 +490,18 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
     assert blind_row["second_scores"] == bed.candidate_endpoint_eigs(
         branches[(blind_first, realized_label)], remaining, task.endpoint_ids
     )
+    dynamic_row = original_plan["policies"]["dynamic_depth2"]
+    dynamic_first = dynamic_row["first_image_id"]
+    dynamic_label = bool(task.actual_labels[dynamic_first])
+    assert dynamic_row["second_scores"] == bed.candidate_endpoint_eigs(
+        branches[(dynamic_first, dynamic_label)],
+        tuple(
+            candidate
+            for candidate in task.candidate_ids
+            if candidate != dynamic_first
+        ),
+        task.endpoint_ids,
+    )
     fixed = original_plan["policies"]["fixed_depth2"]
     matched = original_plan["policies"]["fixed_score_dynamic_update"]
     assert matched["first_image_id"] == fixed["first_image_id"]

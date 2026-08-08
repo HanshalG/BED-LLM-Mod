@@ -130,6 +130,15 @@ def test_claim_tiers_are_fixed_by_complete_gate_families(
     assert report["claim_tier"] == expected_tier
     assert report["authorizes_confirmation_preregistration"] is authorized
     assert report["confirmation_execution_remains_unauthorized"]
+    scope = " ".join(report["claim_scope"]["allowed"])
+    assert "belief regeneration improves over" not in scope
+    if expected_tier in {
+        "full_path_dependent_llm_native_development_signal",
+        "policy_and_matched_regeneration_without_fixed_support_superiority",
+        "matched_mechanism_without_policy_signal",
+    }:
+        assert "first-query planning" in scope
+        assert "common realized" in scope
 
 
 def test_unmatched_fixed_policy_win_cannot_authorize_first_action_claim() -> None:

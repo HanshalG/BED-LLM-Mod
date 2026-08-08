@@ -1,0 +1,68 @@
+{
+  "banked_serving_smoke_precedes_amendment": true,
+  "banked_serving_smoke_result_sha256": "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70",
+  "banked_smoke_current_request_replay_required": true,
+  "banked_smoke_replay_certificate_sha256": "725bb7827508b6b20bf34037cc33feb17b78e1c31c4da9a21d9c3b9ea474d1da",
+  "budget": {
+    "account_wide_daily_cap_usd": 5.0,
+    "block_run_cap_usd": 0.2,
+    "maximum_request_cost_usd": 0.008,
+    "projected_block_cost_usd": 0.1
+  },
+  "endpoint_predictive_utility_amendment_sha256": "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8",
+  "files_sha256": {
+    "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md": "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8",
+    "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md": "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_NAIVE_FIRST_LINK_PREREGISTRATION.md": "2c240a996380bc79d9a2c5d5ebd4d09fb17677c57251aa44bba6ffaf7a480efd",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_NAIVE_SMOKE_REPLAY_AMENDMENT_20260808.md": "6b6b2b5f189a3b016f51d94e048d30c9f7d8e99ba46da1793cbfb656d568a464",
+    "results/nonmyopic/bongard_openworld_luna_naive_first_link/SMOKE_V1_REPLAY_PAYLOAD.json": "281b9159ca3cd9e86f9d972e3da4fbaef0af4ecc0c1a3977f9723eef33e2c747",
+    "results/nonmyopic/bongard_openworld_luna_naive_first_link/SMOKE_V2_REPLAY_CERTIFICATE.json": "725bb7827508b6b20bf34037cc33feb17b78e1c31c4da9a21d9c3b9ea474d1da",
+    "scripts/bongard_openworld_luna_naive_first_link.py": "962ff308df85fddea9ababb0ed0f10dc56855b3e6e095028e356df4b39469bf4",
+    "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "38f817234967f333c23cfcf5b1e83db44a3e0cd80da2bcbdc06bb3aab75e1d74",
+    "scripts/bongard_openworld_luna_naive_smoke_migration.py": "1a0b961021f4ac3e50317d8bcd002a027e9aaecce5195ad6f70dde82d337816c"
+  },
+  "frozen_before_development_responses": true,
+  "frozen_date": "2026-08-08",
+  "history_blind_estimand_clarification_sha256": "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10",
+  "interface_version": "bongard-openworld-luna-naive-first-link-manifest-6",
+  "main_development_manifest_sha256": "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835",
+  "main_development_result_must_independently_replay": true,
+  "model": {
+    "concurrency": 10,
+    "id": "openai/gpt-5.6-luna",
+    "max_tokens": 8192,
+    "reasoning_effort": "medium",
+    "reasoning_trace_excluded": true,
+    "requests_per_development_block": 16,
+    "smoke_requests": 10,
+    "temperature": 0.0
+  },
+  "privacy": {
+    "candidate_labels_materialized": false,
+    "endpoint_images_exposed": false,
+    "endpoint_labels_materialized": false,
+    "source_metadata_exposed": false
+  },
+  "schedule": {
+    "development_blocks": {
+      "a": "2026-08-11",
+      "b": "2026-08-12",
+      "c": "2026-08-13",
+      "d": "2026-08-14"
+    },
+    "main_block_precedes_same_day_naive_block": true,
+    "smoke_date": "2026-08-08"
+  },
+  "schema_version": 1,
+  "scoring": {
+    "bootstrap_replicates": 20000,
+    "bootstrap_seed": 2026080751,
+    "continuation": "main_dynamic_branch_endpoint_predictive_second_step",
+    "main_all_first_action_cache_only": true,
+    "one_choice_per_task": true,
+    "score_objective": "endpoint_predictive_information_gain_nats",
+    "task_count": 64
+  },
+  "smoke_replay_amendment_sha256": "6b6b2b5f189a3b016f51d94e048d30c9f7d8e99ba46da1793cbfb656d568a464",
+  "transport_retry_amendment_sha256": "0f6ffc66f9b7d0f45d8913cf4f790d6f0c891e135cf5b9102575bd0a51ef7dd9"
+}

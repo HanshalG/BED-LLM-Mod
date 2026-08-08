@@ -37,6 +37,9 @@ OLD_INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-1"
 OLD_MAIN_MANIFEST_SHA256 = (
     "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
 )
+CERTIFIED_CURRENT_MAIN_MANIFEST_SHA256 = (
+    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+)
 AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_LUNA_NAIVE_SMOKE_REPLAY_AMENDMENT_20260808.md"
@@ -157,7 +160,7 @@ def build_certificate(
         "old_interface_version": OLD_INTERFACE_VERSION,
         "current_interface_version": naive.INTERFACE_VERSION,
         "old_main_manifest_sha256": OLD_MAIN_MANIFEST_SHA256,
-        "current_main_manifest_sha256": naive.MAIN_MANIFEST_SHA256,
+        "current_main_manifest_sha256": CERTIFIED_CURRENT_MAIN_MANIFEST_SHA256,
         "request_count": naive.SMOKE_REQUESTS,
         "checks": checks,
         "candidate_labels_accessed": False,

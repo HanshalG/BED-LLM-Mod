@@ -26,7 +26,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-11"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-12"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -89,10 +89,10 @@ POWER_AMENDMENT_SHA256 = (
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V14.json"
+    "PROTOCOL_MANIFEST_V15.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -119,6 +119,13 @@ ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
 )
 ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
     "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
+)
+ESTIMAND_CLARIFICATION = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md"
+)
+ESTIMAND_CLARIFICATION_SHA256 = (
+    "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
 )
 CONFIRMATION_UID_SHA256 = (
     "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
@@ -234,6 +241,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
         "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
         "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -276,6 +284,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "endpoint_predictive_utility_amendment_hash_matches": (
             sha256_file(ENDPOINT_UTILITY_AMENDMENT)
             == ENDPOINT_UTILITY_AMENDMENT_SHA256
+        ),
+        "history_blind_estimand_clarification_hash_matches": (
+            sha256_file(ESTIMAND_CLARIFICATION)
+            == ESTIMAND_CLARIFICATION_SHA256
         ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
@@ -366,6 +378,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             ),
             "endpoint_predictive_utility_amendment_sha256": (
                 ENDPOINT_UTILITY_AMENDMENT_SHA256
+            ),
+            "history_blind_estimand_clarification_sha256": (
+                ESTIMAND_CLARIFICATION_SHA256
             ),
             "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,
