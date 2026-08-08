@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from dataclasses import replace
 from io import BytesIO
 import inspect
@@ -237,6 +238,23 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     assert result["gates"][
         "dynamic_and_matched_history_blind_update_change_at_least_one_second_action"
     ]
+    matched_tree = result["trees"][0]
+    assert tree.history_blind_update_matched_first_is_exact(matched_tree)
+    for field, replacement in (
+        ("second_image_id", "not-a-candidate"),
+        ("second_score_margin", -1.0),
+    ):
+        tampered = copy.deepcopy(matched_tree)
+        tampered["policies"]["history_blind_update_matched_first"][field] = (
+            replacement
+        )
+        assert not tree.history_blind_update_matched_first_is_exact(tampered)
+    tampered = copy.deepcopy(matched_tree)
+    tampered_scores = tampered["policies"][
+        "history_blind_update_matched_first"
+    ]["second_scores"]
+    tampered_scores.pop(next(iter(tampered_scores)))
+    assert not tree.history_blind_update_matched_first_is_exact(tampered)
     assert all(
         task_result["policies"]["history_blind_update_matched_first"][
             "first_image_id"

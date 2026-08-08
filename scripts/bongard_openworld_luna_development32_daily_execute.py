@@ -30,7 +30,7 @@ TIMEZONE = "Europe/London"
 ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64"
 )
-PROTOCOL_MANIFEST = ROOT / "PROTOCOL_MANIFEST_V16.json"
+PROTOCOL_MANIFEST = ROOT / "PROTOCOL_MANIFEST_V17.json"
 AUG10_RESULT = aug10.OUTPUT_DIR / "RESULT.json"
 MECHANICS_RESULT = aug10.MECHANICS_DIR / "RESULT.json"
 BLOCK_DIRS = {

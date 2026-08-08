@@ -22,7 +22,7 @@ FRAGMENT_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md"
 )
 FRAGMENT_PROTOCOL_SHA256 = (
-    "d5697c384f101b8a6d63f30fb9074280328814e5de31c35db411bfdd9b0e976e"
+    "8353e43646d77b5255474ff23a7a0eae7230fd26c00912a866183764075318d9"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
     "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf"
@@ -45,13 +45,18 @@ BOUND_FILES = {
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
         "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b",
     ),
+    "matched_updater_integrity_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
+        "1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9",
+    ),
     "development_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V16.json",
-        "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7",
+        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
+        "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676",
     ),
     "confirmation_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V13.json",
-        "2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7",
+        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V14.json",
+        "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a",
     ),
     "development_claim_generator": (
         "scripts/bongard_openworld_luna_claim_report.py",
@@ -59,19 +64,19 @@ BOUND_FILES = {
     ),
     "development_analyzer": (
         "scripts/bongard_openworld_luna_vlm_development.py",
-        "595ae3590ac67c07ad7f6551bf36720d8f903d681ed7b0a07707b311bb2ee4b1",
+        "03f06f89bc675897bf44ee82b69567f5217d7ab3d4bcd208996fe6fb623afc7a",
     ),
     "development_daily_replay": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "b8ff9931fb353827571b774c27b4570c88573be522f5fe68d61951e86debfd64",
+        "3e2addb43523c4ec639d33f1d30f67149249462277ca6b5fcf678262a5637106",
     ),
     "confirmation_analyzer": (
         "scripts/bongard_openworld_luna_confirmation64.py",
-        "418df164b36cdeb6c199e87c566603ad66e34f7648480e4f99110cc5ab0d927e",
+        "d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794",
     ),
     "confirmation_freeze_verifier": (
         "scripts/bongard_openworld_luna_confirmation64_verify.py",
-        "7a4ac9838d6759320108367fdcefcc07330b74741e93aadff74395c787c967c1",
+        "1f905dcff4c2f251b45e07641c5ed7822d6a3676b8a0bcca797e1527a7c396f8",
     ),
     "confirmation_daily_executor": (
         "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",

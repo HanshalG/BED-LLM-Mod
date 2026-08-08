@@ -35,7 +35,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development64-15"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development64-16"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 16, "b": 16, "c": 16, "d": 16}
 BLOCK_OFFSETS = {"a": 0, "b": 16, "c": 32, "d": 48}
@@ -101,6 +101,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
     "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
 )
 
 

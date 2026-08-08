@@ -16,20 +16,20 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_naive_smoke_migration as migration
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-7"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-8"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V7.json"
+    "PROTOCOL_MANIFEST_V8.json"
 )
 MANIFEST_SHA256 = (
-    "3b4be9ed0bb2f5eea35573a8d25438672677ce46dd58db14a55de9324efe40be"
+    "25db6fd3241d8ffaa4989ffaadfe6bb2bec111d7f1e3d6936dd9e39fd333d454"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V16.json"
+    "PROTOCOL_MANIFEST_V17.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
+    "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
 )
 TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"

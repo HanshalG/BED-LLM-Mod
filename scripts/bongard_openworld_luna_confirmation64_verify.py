@@ -24,13 +24,13 @@ from scripts import bongard_openworld_sample_size_expansion_audit as expansion_a
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-13"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-14"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V13.json"
+    "PROTOCOL_MANIFEST_V14.json"
 )
 MANIFEST_SHA256 = (
-    "2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7"
+    "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -52,7 +52,7 @@ POWER_AMENDMENT_SHA256 = (
     "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
+    "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -130,6 +130,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
     "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",

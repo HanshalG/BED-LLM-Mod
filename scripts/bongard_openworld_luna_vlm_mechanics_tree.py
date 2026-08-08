@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-12"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-13"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -694,14 +694,27 @@ def history_blind_update_matched_first_is_exact(
 ) -> bool:
     matched = tree["policies"]["history_blind_update_matched_first"]
     dynamic = tree["policies"]["dynamic_depth2"]
+    second_scores = matched.get("second_scores")
+    first = matched.get("first_image_id")
+    if (
+        not isinstance(second_scores, Mapping)
+        or first not in tree["root_scores"]["dynamic_depth2"]
+        or set(second_scores)
+        != set(tree["root_scores"]["dynamic_depth2"]) - {first}
+    ):
+        return False
+    second = matched.get("second_image_id")
+    if second != bed.select_best(second_scores):
+        return False
     return (
-        matched["first_image_id"] == dynamic["first_image_id"]
+        first == dynamic["first_image_id"]
         and matched["first_label"] == dynamic["first_label"]
         and matched["first_score"] == dynamic["first_score"]
         and matched["first_score_margin"] == dynamic["first_score_margin"]
         and tree["root_scores"]["history_blind_update_matched_first"]
         == tree["root_scores"]["dynamic_depth2"]
-        and matched["second_scores"] is not None
+        and matched.get("second_score_margin")
+        == selection_margin(second_scores, second)
     )
 
 
@@ -1642,6 +1655,10 @@ def run_mechanics(
             "matched_realized_updater_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
+            ),
+            "matched_updater_integrity_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md"
             ),
             "terminal_crn_amendment": (
                 "results/nonmyopic/"

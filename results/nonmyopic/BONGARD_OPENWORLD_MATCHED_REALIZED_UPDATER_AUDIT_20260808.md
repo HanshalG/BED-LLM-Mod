@@ -35,12 +35,13 @@ or endpoint response. Those response paths remain unopened.
 ## Frozen Chain
 
 - Amendment SHA-256: `dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b`
-- Development V16 SHA-256: `7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7`
-- Confirmation V13 SHA-256: `2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7`
-- Naive V7 SHA-256: `3b4be9ed0bb2f5eea35573a8d25438672677ce46dd58db14a55de9324efe40be`
-- Mechanics implementation SHA-256: `40d40f6850910467e6299a26c0ca98e4c81eb5e8091c642a8f59f1cb1efc01c9`
-- Development analyzer SHA-256: `595ae3590ac67c07ad7f6551bf36720d8f903d681ed7b0a07707b311bb2ee4b1`
-- Confirmation analyzer SHA-256: `418df164b36cdeb6c199e87c566603ad66e34f7648480e4f99110cc5ab0d927e`
+- Integrity amendment SHA-256: `1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9`
+- Development V17 SHA-256: `7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676`
+- Confirmation V14 SHA-256: `0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a`
+- Naive V8 SHA-256: `25db6fd3241d8ffaa4989ffaadfe6bb2bec111d7f1e3d6936dd9e39fd333d454`
+- Mechanics implementation SHA-256: `453dfca0294265b1c997d871e41ec8f5e28fc1fbe378a2179381a65cbaae89d0`
+- Development analyzer SHA-256: `03f06f89bc675897bf44ee82b69567f5217d7ab3d4bcd208996fe6fb623afc7a`
+- Confirmation analyzer SHA-256: `d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794`
 
 The task identities, partitions, model seeds, root/branch requests, and scientific
 endpoints are unchanged. The control adds at most one distinct terminal request
@@ -60,6 +61,14 @@ the maximum to `$3.004`. Confirmation is bounded by 1,056 accepted responses,
   paths were absent, model calls and files written were zero.
 - Live OpenRouter snapshot remained credits `$245.00`, usage `$220.121013787`,
   balance `$24.878986213`; the reported additional `$30` was not yet posted.
+
+An adversarial follow-up found that confirmation replay reconstructed the
+matched policy but its block-level validity conjunction did not explicitly name
+the shared-first exactness gate. Before any response, the integrity amendment
+added that gate and strengthened the shared verifier to reject altered
+second-score support, argmax, or selection margin. Development and mechanics
+already carried the shared-first gate. The repair changes no scientific design,
+request, seed, action, endpoint, threshold, or budget ceiling.
 
 No scientific result is implied by this audit. It only makes the prospective
 test executable and fixes the interpretation before responses are observed.

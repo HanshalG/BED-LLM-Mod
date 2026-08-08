@@ -170,6 +170,9 @@ def test_confirmation_block_runs_and_replays_with_fixture(
     assert result["gates"][
         "terminal_beliefs_retain_both_queried_labels_better_than_constant_half"
     ]
+    assert result["gates"][
+        "history_blind_update_matched_first_exactly_matches_dynamic_first"
+    ]
     assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
     assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
     assert result["protocol"]["block_size"] == 24
@@ -179,6 +182,22 @@ def test_confirmation_block_runs_and_replays_with_fixture(
     )
     assert replay["verified"] is True
     assert replay["block_id"] == "a"
+    monkeypatch.setattr(
+        confirmation.mechanics,
+        "history_blind_update_matched_first_is_exact",
+        lambda tree: False,
+    )
+    tampered_gates = confirmation._block_gates(
+        task_count=24,
+        artifacts=replay["artifacts"],
+        usage=result["usage"],
+        prompt_errors=[],
+        mechanics_verification={"verified": True},
+    )
+    assert not tampered_gates[
+        "history_blind_update_matched_first_exactly_matches_dynamic_first"
+    ]
+    assert not tampered_gates["all_pass"]
 
 
 def _scored_tree(task_id: str, index: int) -> dict:

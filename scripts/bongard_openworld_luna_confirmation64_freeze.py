@@ -26,7 +26,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-13"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-14"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -89,10 +89,10 @@ POWER_AMENDMENT_SHA256 = (
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V16.json"
+    "PROTOCOL_MANIFEST_V17.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
+    "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -256,6 +256,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
         "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
         "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",

@@ -31,7 +31,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-10"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-11"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -235,6 +235,10 @@ def _block_gates(
         ),
         "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second": all(
             mechanics.fixed_score_dynamic_update_is_exact(tree)
+            for tree in artifacts["trees"]
+        ),
+        "history_blind_update_matched_first_exactly_matches_dynamic_first": all(
+            mechanics.history_blind_update_matched_first_is_exact(tree)
             for tree in artifacts["trees"]
         ),
         "all_final_histories_generated_once_and_mapped": (

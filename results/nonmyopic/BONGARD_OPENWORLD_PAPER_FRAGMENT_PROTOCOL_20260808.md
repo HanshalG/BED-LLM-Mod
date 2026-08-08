@@ -14,7 +14,7 @@ untouched Bongard confirmation passes its complete frozen conjunction.
 The renderer is bound to these pre-result artifacts:
 
 - `BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md`, SHA-256
-  `29cfbcef40c367b600e7b4769b82757760ef8b3ef400d4592753c0a1898c95a6`;
+  `5f19bd69ce37ab99799fa4ce34e06502d380b6cf72d0a80dcaa3afa97651545f`;
 - `BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md`, SHA-256
   `2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8`;
 - `BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md`,
@@ -23,20 +23,23 @@ The renderer is bound to these pre-result artifacts:
 - `BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md`,
   SHA-256
   `dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b`;
-- development manifest V16, SHA-256
-  `7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7`;
-- confirmation manifest V13, SHA-256
-  `2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7`;
+- `BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md`,
+  SHA-256
+  `1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9`;
+- development manifest V17, SHA-256
+  `7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676`;
+- confirmation manifest V14, SHA-256
+  `0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a`;
 - development claim generator, SHA-256
   `f9b828bb5dc85b2fd0ef2757c0708674f8e7489c518d3bc0fabd6536546888e3`;
 - development combined analyzer, SHA-256
-  `595ae3590ac67c07ad7f6551bf36720d8f903d681ed7b0a07707b311bb2ee4b1`;
+  `03f06f89bc675897bf44ee82b69567f5217d7ab3d4bcd208996fe6fb623afc7a`;
 - development daily replay wrapper, SHA-256
-  `b8ff9931fb353827571b774c27b4570c88573be522f5fe68d61951e86debfd64`;
+  `3e2addb43523c4ec639d33f1d30f67149249462277ca6b5fcf678262a5637106`;
 - confirmation analyzer, SHA-256
-  `418df164b36cdeb6c199e87c566603ad66e34f7648480e4f99110cc5ab0d927e`;
+  `d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794`;
 - confirmation freeze verifier, SHA-256
-  `7a4ac9838d6759320108367fdcefcc07330b74741e93aadff74395c787c967c1`;
+  `1f905dcff4c2f251b45e07641c5ed7822d6a3676b8a0bcca797e1527a7c396f8`;
 - confirmation failed-closed daily executor, SHA-256
   `627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d`;
 - pre-result manuscript, SHA-256
