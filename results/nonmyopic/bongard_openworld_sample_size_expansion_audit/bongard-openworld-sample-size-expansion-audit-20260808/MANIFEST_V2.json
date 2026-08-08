@@ -1,0 +1,336 @@
+{
+  "authorizes_paid_calls": false,
+  "bound_partition_manifest_sha256": "9d9dc695924e728a2653af0b05c575eb4c04a62be933e497afa1bc1ac2bbcbc9",
+  "confirmation_additions": [
+    {
+      "source_row_sha256": "90dae8ae704fe6e395a97a178da3ffbb2476c050fdaf6ed076ebc9c6117be8e2",
+      "task_id": "task-6f44dbd51dd4"
+    },
+    {
+      "source_row_sha256": "b2b70bbe60f6e47eb5e01deae54e9e8771962792ea8ce71b2b76b36348dc9c7e",
+      "task_id": "task-1056d9995048"
+    },
+    {
+      "source_row_sha256": "f596c6edbd3277ba3357f7ed46e0bbbe28ef52d3837a00739407d19b4d2f4ba0",
+      "task_id": "task-0515df947dac"
+    },
+    {
+      "source_row_sha256": "a535bcf20f2c3390b3c5d693a5c43fc6eeb4b0233a682c88e8d360d76f86a2a3",
+      "task_id": "task-8a1d92d09825"
+    },
+    {
+      "source_row_sha256": "b04def0ff46d8764ef5276fa72b9fefde6c2156ac851c65c3b5dd7373e3398f3",
+      "task_id": "task-14a0a11b65d5"
+    },
+    {
+      "source_row_sha256": "187f1391798f8c88750d2bc84099709b4a6a4009b88dd18bb7724c04d0a9d54c",
+      "task_id": "task-f489ca2ea0cf"
+    },
+    {
+      "source_row_sha256": "d17a4d260992125133a0848094f59d2ed422be2430e6fdc8075b8e683980e703",
+      "task_id": "task-45568785cb6f"
+    },
+    {
+      "source_row_sha256": "d847341d8527d5217a1959b7bf85711adf8f3c84c431a04fa880887e3f6d39ff",
+      "task_id": "task-a4b7f7066b40"
+    },
+    {
+      "source_row_sha256": "2aa7e2095cc826f5f50852c6840cd4f62795e13140492f9d09dea8f06a5fbbe5",
+      "task_id": "task-03b0266bd76a"
+    },
+    {
+      "source_row_sha256": "530bddb18cc6118bb3e616bfcf02a31e039efa58a11c97d111b427a3970af328",
+      "task_id": "task-dceac4589309"
+    },
+    {
+      "source_row_sha256": "e6281def55f769932836505d8885f4eb65707ba05c85902e9abaa3b04505d9c3",
+      "task_id": "task-c083432cf3ee"
+    },
+    {
+      "source_row_sha256": "db631435b318f56a15edf696e3a1bcaca8eaab9e897ddf0430bd37aed861a572",
+      "task_id": "task-108777900645"
+    },
+    {
+      "source_row_sha256": "7f369bea7fc74daeee0e673ef19e5541800d05c546c565050a690ffd0450a1c8",
+      "task_id": "task-90adab8b601c"
+    },
+    {
+      "source_row_sha256": "4bd5e2d03a7af98f221cd49c4dc84d93d311f248244a3ea56faa82539aaea34c",
+      "task_id": "task-18cebc946305"
+    },
+    {
+      "source_row_sha256": "fb41a6be266a749826bd43c2bd6c33058117b747c382ea486f3fd428d1002362",
+      "task_id": "task-1e5258c052af"
+    },
+    {
+      "source_row_sha256": "aa94a22580a1eb347beedb4f5e3e4a4298e834a76242a55c52f68b0cb51f8b81",
+      "task_id": "task-e2a12fa8d184"
+    },
+    {
+      "source_row_sha256": "f4707b3b6b08c28a40f8ac6b98e962ca25fad064637171c7635e18c23a5f50e0",
+      "task_id": "task-591e619bc79c"
+    },
+    {
+      "source_row_sha256": "56b1bc7046ec88c10fffee122b419013d61f875123466eb553828275b4d1c48f",
+      "task_id": "task-2d67c5c90cbe"
+    },
+    {
+      "source_row_sha256": "c752197df2c711931e8528382074f66c41e08f8fcc7589d53bd7118eac058be3",
+      "task_id": "task-5969b1ca01c3"
+    },
+    {
+      "source_row_sha256": "44ecabb7c43973e5ec81dc333dcc81fe9e6c3054007b0d59bc43921b3b5dbb41",
+      "task_id": "task-8b6016871a03"
+    },
+    {
+      "source_row_sha256": "08ec4941ad86df6d8a6ce71b48a2a39f258a053cedc5832a42b185651f456935",
+      "task_id": "task-02066dc686a4"
+    },
+    {
+      "source_row_sha256": "0f4dc59e90f1c9bddfd40f1774a8c0247aac55d290a653d98074055296daf717",
+      "task_id": "task-30b6589895f9"
+    },
+    {
+      "source_row_sha256": "eca700940f8b933b039fd8ad6ac49e233a074ac0e9f190392fc7e514ccfad98f",
+      "task_id": "task-b8ac49c97c56"
+    },
+    {
+      "source_row_sha256": "57715872a03cbf8ce658540532fd2adb6632226cff7e974b55b6ca1b72fcc34a",
+      "task_id": "task-70e3464c0025"
+    },
+    {
+      "source_row_sha256": "0ac1a670c8004732d36b55fed6a22a947ce36266d1d4a4bc790e0babfd2c369b",
+      "task_id": "task-8a85a280ba52"
+    },
+    {
+      "source_row_sha256": "334a7eceb6982733608f91ed3edecfad404a98277262742b360718febe31c700",
+      "task_id": "task-07857cb90e82"
+    },
+    {
+      "source_row_sha256": "9c3e2087e9e877116db6c924d51b0377a063d4dbe20c27c2d22e81a89d5af113",
+      "task_id": "task-d5f044deee57"
+    },
+    {
+      "source_row_sha256": "f1e10130127456399aac468efd71d32495ddd8877839c81ca818fd5b32b28e98",
+      "task_id": "task-413bb5ee10a5"
+    },
+    {
+      "source_row_sha256": "ed3513a67641a653ebc28ae91b97a9b1a50c2f47365a5a979db615b8c69360ef",
+      "task_id": "task-440af7b6203b"
+    },
+    {
+      "source_row_sha256": "737ebbb5ff99cf89dbeeecc2088f6ed46131115d0b4a48ac3d758f60f9791b30",
+      "task_id": "task-12f87effcf0a"
+    },
+    {
+      "source_row_sha256": "a6fb19cda6f06b1fbb2be06ef103316f63b5ee7cad371a1e30a659537142a5d3",
+      "task_id": "task-4717f2e3e057"
+    },
+    {
+      "source_row_sha256": "3cc5816798738da539fe708187cbba7f624f991bebd8f5bb7d2beca558bdaa49",
+      "task_id": "task-fd2a7a149470"
+    }
+  ],
+  "development_additions": [
+    {
+      "source_row_sha256": "c40fce9c1179c18295432105bf3aa5683f09c815ee0560260851cede112895e3",
+      "task_id": "task-c0cf547f4c45"
+    },
+    {
+      "source_row_sha256": "330b07a8ca7105fb6791fde82a7058ccf65b8eea40dbed638b9b9edec3fec7fa",
+      "task_id": "task-39b4b8990795"
+    },
+    {
+      "source_row_sha256": "12bc071e70999862d32cf8cfa71e75407862c2fc921f4633d51f4b0a4865ca5c",
+      "task_id": "task-f268588051d3"
+    },
+    {
+      "source_row_sha256": "2cace0ebdc1e9a7d7c6a6deda8655ccf35175547478beebfaf858e4b2085a9df",
+      "task_id": "task-9a9462d2ba7c"
+    },
+    {
+      "source_row_sha256": "06719f757c65538eda5d55f0166696953d2a57c54b2e1d07f6dc44fff56ed6af",
+      "task_id": "task-15ef229f53cd"
+    },
+    {
+      "source_row_sha256": "d210a3fcadd7e5de0726a745faa2af625f34800514dc5174f59d672814f8fc70",
+      "task_id": "task-de66208ae2ef"
+    },
+    {
+      "source_row_sha256": "5179f403585184d5e9059c0002cb3be8ff45fd71c6f0f299b65b155ab3fad78c",
+      "task_id": "task-fedaf84bfda6"
+    },
+    {
+      "source_row_sha256": "a955cd3d2e9b801f0f75ff3dd78c83bcfef4c04af50010efde8d5368cf6e1890",
+      "task_id": "task-308a5aea6c82"
+    },
+    {
+      "source_row_sha256": "d5a3b8bec20148b1d6fe8f409a314fcd61dacb2646eb5c799c89c87096a7abc7",
+      "task_id": "task-191ad68ad98b"
+    },
+    {
+      "source_row_sha256": "259ec334e170d323b89acf35b6525f7dfeaaa693660d8ba49c9a427f513813a8",
+      "task_id": "task-17d6ccc3df88"
+    },
+    {
+      "source_row_sha256": "7feeaf620692e85615d6d7034ca4147aa11163008ab58811c47864aa344320cf",
+      "task_id": "task-889f655713fc"
+    },
+    {
+      "source_row_sha256": "60deaf7c8e4da83e26fa80ecc109eaa2664878025a3c2fd1cafda85ccd7946b2",
+      "task_id": "task-76d90797a598"
+    },
+    {
+      "source_row_sha256": "f744a3db6c2366993442f40016945dd3964e53ec9181ee544240e98234c92f73",
+      "task_id": "task-66206228234f"
+    },
+    {
+      "source_row_sha256": "fe3dc267e30b0fd4113b7da7c785b9734f51b56c5c949903f95f3ce03fc6f852",
+      "task_id": "task-122638c1178c"
+    },
+    {
+      "source_row_sha256": "3fdbd8872b10b97e09d6adf47b6b4585e9f75f86df629638f72aebd0cdad0aae",
+      "task_id": "task-a287c66193c7"
+    },
+    {
+      "source_row_sha256": "2ec1bfe35314eb1493f04dd93543bd14d5ac56347031eb974b2e2a71dab5718f",
+      "task_id": "task-37a03a5ea6fb"
+    },
+    {
+      "source_row_sha256": "8f2d74b4d217770704a1002ad34f595b401f2d2df4369da8154f674198da9da8",
+      "task_id": "task-ab1e41ae83a0"
+    },
+    {
+      "source_row_sha256": "6c06394ef4f3893a3c8fb069f68a941cbe7a379db3855c67dc39a9a44a8862bf",
+      "task_id": "task-de3f24017f77"
+    },
+    {
+      "source_row_sha256": "6e07b156f21bc37b8bc628dfd0fe232f65478a99806c67a46bdf9bcdb2189639",
+      "task_id": "task-f0605254b98d"
+    },
+    {
+      "source_row_sha256": "3ecc7cf8e487e5e08f431c3af90b8fd9914ca9b72e71f1dce03299cc2aa283b7",
+      "task_id": "task-4788e9dfbc1b"
+    },
+    {
+      "source_row_sha256": "8ef4fae5beffd4a9e1f73321819035c98c1ca8e25dace012bd42206ab937bad1",
+      "task_id": "task-3d50d5e027c6"
+    },
+    {
+      "source_row_sha256": "71a6ae748e587b6f5ea6410806639e27a1ffafaf1a5ce7cd325303d3339f1c19",
+      "task_id": "task-50948b1ecc57"
+    },
+    {
+      "source_row_sha256": "2f84e6d18ee01abdf143353f998de20d2beda302f807651f539af422c789d637",
+      "task_id": "task-2d69b47b9046"
+    },
+    {
+      "source_row_sha256": "b4f7b5fa9481a107b51eff96385e4b9d6ddae1b3811141159d3b388c8edb13a8",
+      "task_id": "task-831fa9a7f345"
+    },
+    {
+      "source_row_sha256": "fede608df458ec2bb70df740018bcad175d67306b255dd82ffb7d0323e56c562",
+      "task_id": "task-d6873682c353"
+    },
+    {
+      "source_row_sha256": "8a9e5d0850046ac4ef096ac7f495a607664e408606ee8b3ad15b6297db6f6c04",
+      "task_id": "task-1cfee2814b2a"
+    },
+    {
+      "source_row_sha256": "798876a18d902761317c56180e3e19267dff1e3bde936fab552fd987ba26ec96",
+      "task_id": "task-62561c64737d"
+    },
+    {
+      "source_row_sha256": "e690f13095077f38e7e99fd69858282e955d37bb0f1867f24072c5a31b56a768",
+      "task_id": "task-a3c24411488b"
+    },
+    {
+      "source_row_sha256": "499b802910fc8ec3b2b033e1dade6559950acbd71613c0fcb1758c7146cbabaa",
+      "task_id": "task-71fdcb17fb49"
+    },
+    {
+      "source_row_sha256": "6d07e8be115f5eb05e710e1f54395499d272222c785a7bda76dd11b9ff66f6a3",
+      "task_id": "task-8debedd9e4f1"
+    },
+    {
+      "source_row_sha256": "422e88367c74345a50ba40e2369d3a81d472df4f1d1fef1627de9f66d350d931",
+      "task_id": "task-4f1b3268f4c1"
+    },
+    {
+      "source_row_sha256": "97b57154ad03ecc114911e421acae1ae38e57c1d998830a099aa67c1610d3e8f",
+      "task_id": "task-1115241711d0"
+    }
+  ],
+  "development_semantic_duplicate_count": {
+    "caption": 0,
+    "concept": 0
+  },
+  "development_strict_perceptual_overlap": 0,
+  "duplicate_stats": {
+    "cross_partition_duplicate_groups": {},
+    "within_partition_duplicate_groups": {},
+    "within_task_duplicate_images": {
+      "confirmation": 0,
+      "development": 0,
+      "mechanics": 0
+    }
+  },
+  "endpoint_data_accessed": false,
+  "gates": {
+    "all_original_confirmation_tasks_are_retained": true,
+    "all_original_development_tasks_are_retained": true,
+    "all_pass": true,
+    "bound_4_32_64_partition_manifest_matches": true,
+    "development_and_confirmation_have_no_exact_semantic_duplicate": true,
+    "development_and_confirmation_have_no_strict_perceptual_near_duplicate": true,
+    "development_extension_rejection_count_matches": true,
+    "development_has_no_exact_semantic_duplicate": true,
+    "development_has_no_strict_perceptual_near_duplicate": true,
+    "endpoint_data_remain_unaccessed": true,
+    "exact_32_frozen_confirmation_additions": true,
+    "exact_32_frozen_development_additions": true,
+    "exact_4_64_96_36_partition_sizes": true,
+    "expanded_partition_uid_hashes_match": true,
+    "extension_rejection_count_matches": true,
+    "mechanics_partition_is_byte_identical": true,
+    "model_calls_are_zero": true,
+    "selected_experimental_tasks_share_no_exact_image_bytes": true,
+    "selected_tasks_have_no_internal_duplicate_images": true,
+    "selection_uses_no_semantic_truth_labels_or_model_outputs": true
+  },
+  "interface_version": "bongard-openworld-sample-size-expansion-audit-2",
+  "model_calls_made": 0,
+  "partition_uid_sha256": {
+    "confirmation": "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26",
+    "development": "bf3183ca1705b7048e4a4a20008881205c91a21b4554560f749cf7d5bd4e4610",
+    "mechanics": "69de5a5fc444f3d14e9c07f570f4fe1fa8a4e915dd15926466c7c677d68bd323"
+  },
+  "post_selection_semantic_overlap": {
+    "caption": 0,
+    "concept": 0
+  },
+  "post_selection_strict_perceptual_overlap": 0,
+  "schema_version": 1,
+  "selection": {
+    "confirmation_additions": 32,
+    "confirmation_extension_rejection_types": {
+      "internal": 2,
+      "prior_selected": 9
+    },
+    "confirmation_extension_rejections": 11,
+    "development_additions": 32,
+    "development_extension_rejection_types": {
+      "internal": 2,
+      "prior_selected": 11
+    },
+    "development_extension_rejections": 13,
+    "expanded_confirmation_tasks": 96,
+    "expanded_development_tasks": 64,
+    "expanded_reserve_tasks": 36,
+    "original_confirmation_tasks": 64,
+    "original_development_tasks": 32,
+    "rule": "retain exact current mechanics/development/confirmation; scan the current reserve in frozen order to append 32 byte-clean confirmation rows, then scan the remainder in frozen order to append 32 byte-clean development rows",
+    "uses_semantic_truth_labels_or_model_outputs": false
+  },
+  "status": "development64_confirmation96_partition_integrity_pass"
+}

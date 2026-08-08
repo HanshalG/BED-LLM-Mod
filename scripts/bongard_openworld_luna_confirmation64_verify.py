@@ -24,13 +24,13 @@ from scripts import bongard_openworld_sample_size_expansion_audit as expansion_a
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-9"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-10"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V9.json"
+    "PROTOCOL_MANIFEST_V10.json"
 )
 MANIFEST_SHA256 = (
-    "ad1ddefffb8340dd2ba2b86c86f4d48a1fed05595e5b395ed328a86ba41d05d4"
+    "dce0a42e77447ebe289a9a13495058869ccee978380dd407a3460b72e2316c4c"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -40,10 +40,10 @@ PARTITION_MANIFEST_SHA256 = (
 )
 EXPANSION_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
-    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST.json"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json"
 )
 EXPANSION_MANIFEST_SHA256 = (
-    "809621dd848741848d25c2ddc8603751d43b24486ef1e666260248f9195cea37"
+    "eb4d8284db118eb3326eb3ee5c854bdb4eb42fb7ea5a786070f8608cf2f0f335"
 )
 POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md"
@@ -52,10 +52,19 @@ POWER_AMENDMENT_SHA256 = (
     "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
+    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
+)
+DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
+)
+DEVELOPMENT_POWER_AMENDMENT_SHA256 = (
+    "e334c809c8b78b693fe6b90e5cdb5140bee2a65ae28807e37efce20ef3f75a7c"
 )
 CONFIRMATION_UID_SHA256 = (
     "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
+)
+DEVELOPMENT_UID_SHA256 = (
+    "bf3183ca1705b7048e4a4a20008881205c91a21b4554560f749cf7d5bd4e4610"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -97,10 +106,13 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
+    "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
-    "results/nonmyopic/bongard_openworld_luna_vlm_development32"
+    "results/nonmyopic/bongard_openworld_luna_vlm_development64"
 )
 MECHANICS_RESULT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_mechanics_tree/"
@@ -174,7 +186,7 @@ def verify_manifest(
             == PARTITION_MANIFEST_SHA256
             and sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
             == PARTITION_MANIFEST_SHA256
-            and source.get("confirmation96_expansion_manifest_sha256")
+            and source.get("sample_size_expansion_manifest_sha256")
             == EXPANSION_MANIFEST_SHA256
             and sha256_file(EXPANSION_MANIFEST) == EXPANSION_MANIFEST_SHA256
             and source.get("confirmation96_power_amendment_sha256")
@@ -186,11 +198,18 @@ def verify_manifest(
             and source.get("confirmation_count") == 96
             and source.get("confirmation_uid_sha256")
             == CONFIRMATION_UID_SHA256
-            and source.get("reserve_count_after_expansion") == 68
+            and source.get("development_count") == 64
+            and source.get("development_uid_sha256")
+            == DEVELOPMENT_UID_SHA256
+            and source.get("reserve_count_after_expansion") == 36
         ),
         "development_precondition_is_exact": (
             precondition.get("manifest_sha256")
             == DEVELOPMENT_MANIFEST_SHA256
+            and precondition.get("development64_power_amendment_sha256")
+            == DEVELOPMENT_POWER_AMENDMENT_SHA256
+            and sha256_file(DEVELOPMENT_POWER_AMENDMENT)
+            == DEVELOPMENT_POWER_AMENDMENT_SHA256
             and precondition.get("required_claim_report_interface")
             == claim_report.INTERFACE_VERSION
             and precondition.get("required_claim_tier")
@@ -261,13 +280,14 @@ def verify_manifest(
             == {
                 "source_manifest_hash_matches",
                 "partition_integrity_manifest_hash_and_status_match",
-                "confirmation96_expansion_manifest_hash_and_status_match",
+                "sample_size_expansion_manifest_hash_and_status_match",
                 "confirmation96_power_amendment_hash_matches",
                 "development_manifest_hash_matches",
+                "development64_power_amendment_hash_matches",
                 "authorization_amendment_hash_matches",
                 "matched_fixed_score_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
-                "exact_repaired_confirmation_partition_is_bound",
+                "exact_expanded_experimental_partitions_are_bound",
                 "exact_96_unique_opaque_task_identities",
                 "exact_four_24_task_blocks",
                 "manifest_rows_are_opaque_and_truth_free",

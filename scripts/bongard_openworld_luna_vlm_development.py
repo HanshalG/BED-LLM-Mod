@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import replace
 from datetime import datetime
+from functools import lru_cache
 import hashlib
 import json
 import math
@@ -25,6 +26,7 @@ from scripts import bongard_openworld_image_integrity_audit as image_audit
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_partition_integrity_audit as partition_audit
+from scripts import bongard_openworld_sample_size_expansion_audit as expansion
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
@@ -33,10 +35,10 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-12"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development64-13"
 MODEL_ID = serving.MODEL_ID
-BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
-BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
+BLOCK_SIZES = {"a": 16, "b": 16, "c": 16, "d": 16}
+BLOCK_OFFSETS = {"a": 0, "b": 16, "c": 32, "d": 48}
 BLOCK_EARLIEST_DATES = {
     "a": "2026-08-11",
     "b": "2026-08-12",
@@ -59,12 +61,20 @@ TEMPERATURE = 0.0
 RUN_BUDGET_USD = 4.75
 BOOTSTRAP_REPLICATES = 20_000
 BOOTSTRAP_SEED = 2_026_081_501
-MIN_CHANGED_FINAL_HISTORIES = 12
+MIN_CHANGED_FINAL_HISTORIES = 24
 MIN_RELATIVE_BRIER_IMPROVEMENT = 0.03
 MIN_BOOTSTRAP_IMPROVEMENT_PROBABILITY = 0.80
+EXPANSION_MANIFEST = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json"
+)
+EXPANSION_MANIFEST_SHA256 = (
+    "eb4d8284db118eb3326eb3ee5c854bdb4eb42fb7ea5a786070f8608cf2f0f335"
+)
 IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_vlm_bed.py",
     "scripts/bongard_openworld_partition_integrity_audit.py",
+    "scripts/bongard_openworld_sample_size_expansion_audit.py",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
@@ -84,6 +94,9 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
+    "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
 
@@ -140,11 +153,49 @@ def development_tasks_for_block(
 ) -> list[bed.VisualTask]:
     if block_id not in BLOCK_SIZES:
         raise ValueError(f"unknown development block {block_id!r}")
-    ordered = sorted(tasks, key=lambda task: task.task_id)
-    if len(ordered) != TASKS:
+    by_id = {task.task_id: task for task in tasks}
+    if len(by_id) != len(tasks) or len(by_id) != TASKS:
         raise ValueError(f"development requires exactly {TASKS} tasks")
-    start = BLOCK_OFFSETS[block_id]
-    return ordered[start : start + BLOCK_SIZES[block_id]]
+    expected = development_task_ids_by_block()[block_id]
+    if set(by_id) != {
+        task_id
+        for ids in development_task_ids_by_block().values()
+        for task_id in ids
+    }:
+        raise ValueError("development task identities changed")
+    return [by_id[task_id] for task_id in expected]
+
+
+@lru_cache(maxsize=1)
+def development_rows_by_block() -> dict[str, list[Mapping[str, Any]]]:
+    _, rows, _, _ = expansion.expanded_validation_rows()
+    original = sorted(
+        rows[: expansion.ORIGINAL_DEVELOPMENT_TASKS],
+        key=lambda row: source_audit._task_layout(row)["task_id"],
+    )
+    additions = sorted(
+        rows[expansion.ORIGINAL_DEVELOPMENT_TASKS :],
+        key=lambda row: source_audit._task_layout(row)["task_id"],
+    )
+    if len(original) != 32 or len(additions) != 32:
+        raise ValueError("expanded development rows changed")
+    return {
+        block_id: [
+            *original[index * 8 : (index + 1) * 8],
+            *additions[index * 8 : (index + 1) * 8],
+        ]
+        for index, block_id in enumerate(BLOCK_ORDER)
+    }
+
+
+@lru_cache(maxsize=1)
+def development_task_ids_by_block() -> dict[str, tuple[str, ...]]:
+    return {
+        block_id: tuple(
+            source_audit._task_layout(row)["task_id"] for row in rows
+        )
+        for block_id, rows in development_rows_by_block().items()
+    }
 
 
 def seal_endpoint_labels(task: bed.VisualTask) -> bed.VisualTask:
@@ -171,27 +222,27 @@ def load_block_tasks(block_id: str) -> list[bed.VisualTask]:
 
 
 def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
-    _, development_rows, _, _ = partition_audit.clean_validation_rows()
-    rows = []
+    expansion_manifest = json.loads(EXPANSION_MANIFEST.read_text(encoding="utf-8"))
+    _, development_rows, _, _ = expansion.expanded_validation_rows()
+    rows_by_task_id = {}
     for source_row in development_rows:
         layout = source_audit._task_layout(source_row)
-        rows.append(
-            {
-                "task_id": layout["task_id"],
-                "source_row_sha256": source_audit.row_sha256(source_row),
-            }
-        )
-    rows.sort(key=lambda row: row["task_id"])
-    for block_id in BLOCK_ORDER:
-        start = BLOCK_OFFSETS[block_id]
-        for row in rows[start : start + BLOCK_SIZES[block_id]]:
-            row["block_id"] = block_id
+        task_id = layout["task_id"]
+        rows_by_task_id[task_id] = {
+            "task_id": task_id,
+            "source_row_sha256": source_audit.row_sha256(source_row),
+        }
+    rows = [
+        {**rows_by_task_id[task_id], "block_id": block_id}
+        for block_id in BLOCK_ORDER
+        for task_id in development_task_ids_by_block()[block_id]
+    ]
     counts = {
         block_id: sum(row["block_id"] == block_id for row in rows)
         for block_id in BLOCK_ORDER
     }
     gates = {
-        "exact_32_unique_opaque_tasks": (
+        "exact_64_unique_opaque_tasks": (
             len(rows) == len({row["task_id"] for row in rows}) == TASKS
         ),
         "exact_frozen_block_sizes": counts == BLOCK_SIZES,
@@ -202,6 +253,12 @@ def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
         "partition_integrity_manifest_is_bound": (
             sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
             == partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+        ),
+        "sample_size_expansion_manifest_is_bound": (
+            sha256_file(EXPANSION_MANIFEST) == EXPANSION_MANIFEST_SHA256
+            and expansion_manifest.get("status")
+            == "development64_confirmation96_partition_integrity_pass"
+            and expansion_manifest.get("gates", {}).get("all_pass") is True
         ),
         "manifest_contains_no_source_uid_concept_caption_or_path": all(
             set(row) == {"task_id", "source_row_sha256", "block_id"}
@@ -223,6 +280,7 @@ def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
         "partition_integrity_manifest_sha256": (
             partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
         ),
+        "sample_size_expansion_manifest_sha256": EXPANSION_MANIFEST_SHA256,
         "model": MODEL_ID,
         "reasoning": False,
         "blocks": {
@@ -270,21 +328,19 @@ def verify_protocol_manifest(path: Path) -> dict[str, Any]:
         }
         for block_id in BLOCK_ORDER
     }
-    _, development_rows, _, _ = partition_audit.clean_validation_rows()
-    expected_tasks = sorted(
-        (
-            {
-                "task_id": source_audit._task_layout(row)["task_id"],
-                "source_row_sha256": source_audit.row_sha256(row),
-            }
-            for row in development_rows
-        ),
-        key=lambda row: row["task_id"],
-    )
-    for block_id in BLOCK_ORDER:
-        start = BLOCK_OFFSETS[block_id]
-        for row in expected_tasks[start : start + BLOCK_SIZES[block_id]]:
-            row["block_id"] = block_id
+    _, development_rows, _, _ = expansion.expanded_validation_rows()
+    rows_by_task_id = {
+        source_audit._task_layout(row)["task_id"]: {
+            "task_id": source_audit._task_layout(row)["task_id"],
+            "source_row_sha256": source_audit.row_sha256(row),
+        }
+        for row in development_rows
+    }
+    expected_tasks = [
+        {**rows_by_task_id[task_id], "block_id": block_id}
+        for block_id in BLOCK_ORDER
+        for task_id in development_task_ids_by_block()[block_id]
+    ]
     if (
         manifest.get("status") != "frozen"
         or manifest.get("interface_version") != INTERFACE_VERSION
@@ -298,6 +354,11 @@ def verify_protocol_manifest(path: Path) -> dict[str, Any]:
         or manifest.get("image_archive_sha256") != image_audit.ARCHIVE_SHA256
         or manifest.get("partition_integrity_manifest_sha256")
         != partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+        or manifest.get("sample_size_expansion_manifest_sha256")
+        != EXPANSION_MANIFEST_SHA256
+        or sha256_file(EXPANSION_MANIFEST) != EXPANSION_MANIFEST_SHA256
+        or json.loads(EXPANSION_MANIFEST.read_text(encoding="utf-8")).get("status")
+        != "development64_confirmation96_partition_integrity_pass"
         or sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
         != partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
         or manifest.get("tasks") != expected_tasks
@@ -1030,6 +1091,10 @@ def run_block(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md"
             ),
+            "sample_size_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
+            ),
             "semantic_validity_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
@@ -1589,18 +1654,18 @@ def analyze_combined(
         "all_four_endpoint_blind_blocks_independently_replay": all(
             replay["verified"] for replay in replays
         ),
-        "exact_32_disjoint_development_tasks": len(trees) == TASKS,
-        "at_least_12_dynamic_final_histories_differ_from_myopic": (
+        "exact_64_disjoint_development_tasks": len(trees) == TASKS,
+        "at_least_24_dynamic_final_histories_differ_from_myopic": (
             changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_12_dynamic_action_changes_clear_numerical_tie_margin": (
+        "at_least_24_dynamic_action_changes_clear_numerical_tie_margin": (
             robust_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_myopic_differ_in_every_execution_block": all(
             row["dynamic_myopic_changed_final_histories"] >= 1
             for row in blockwise.values()
         ),
-        "at_least_12_dynamic_final_histories_differ_from_history_blind": (
+        "at_least_24_dynamic_final_histories_differ_from_history_blind": (
             dynamic_blind_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_history_blind_differ_in_every_execution_block": all(
@@ -1644,10 +1709,10 @@ def analyze_combined(
             ranking_fidelity["dynamic_depth2"]["mean_spearman"]
             >= ranking_fidelity["history_blind_depth2"]["mean_spearman"]
         ),
-        "at_least_12_dynamic_final_histories_differ_from_fixed_depth2": (
+        "at_least_24_dynamic_final_histories_differ_from_fixed_depth2": (
             dynamic_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_12_dynamic_action_changes_from_fixed_clear_numerical_tie_margin": (
+        "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin": (
             robust_dynamic_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_fixed_depth2_differ_in_every_execution_block": all(
@@ -1669,10 +1734,10 @@ def analyze_combined(
             ranking_fidelity["dynamic_depth2"]["mean_spearman"]
             >= ranking_fidelity["fixed_depth2"]["mean_spearman"]
         ),
-        "at_least_12_dynamic_final_histories_differ_from_fixed_score_dynamic_update": (
+        "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update": (
             dynamic_matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_12_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin": (
+        "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin": (
             robust_dynamic_matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block": all(
@@ -1716,6 +1781,10 @@ def analyze_combined(
             "preregistration": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md"
+            ),
+            "sample_size_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
             ),
             "semantic_validity_amendment": (
                 "results/nonmyopic/"

@@ -31,7 +31,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-7"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-8"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}

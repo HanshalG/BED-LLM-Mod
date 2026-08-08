@@ -103,7 +103,7 @@ def _mechanics_tasks() -> list[bed.VisualTask]:
 
 
 def _development_tasks() -> list[bed.VisualTask]:
-    return [_task(index) for index in range(32)]
+    return [_task(index) for index in range(development.TASKS)]
 
 
 def _smoke(tmp_path: Path, monkeypatch) -> Path:
@@ -196,14 +196,14 @@ def test_development_choices_are_endpoint_blind_and_replay(
     assert result["status"] == "passed"
     assert result["protocol"]["candidate_labels_accessed"] is False
     assert result["protocol"]["endpoint_labels_accessed"] is False
-    assert len(result["choices"]) == 8
+    assert len(result["choices"]) == development.BLOCK_SIZES["a"]
     replay = naive.verify_block_result(
         tmp_path / "block-a/RESULT.json",
         smoke_result=smoke,
         tasks=tasks,
     )
     assert replay["verified"]
-    assert len(replay["choices"]) == 8
+    assert len(replay["choices"]) == development.BLOCK_SIZES["a"]
 
 
 def test_prior_naive_block_requires_replayable_privacy_and_ledger_chain(
@@ -343,7 +343,7 @@ def test_analysis_joins_choices_to_main_all_action_cache(
         "status": "development_signal",
         "protocol": {
             "interface_version": development.INTERFACE_VERSION,
-            "task_count": 32,
+            "task_count": development.TASKS,
             "endpoint_labels_accessed_only_after_all_blocks_replayed": True,
         },
         "trees": trees,
@@ -365,7 +365,7 @@ def test_analysis_joins_choices_to_main_all_action_cache(
     assert result["status"] == "dynamic_beats_naive_thinking"
     assert result["gates"]["all_pass"]
     assert result["dynamic_minus_naive"]["mean_brier"]["mean_difference"] < 0
-    assert result["dynamic_vs_naive_changed_final_histories"] == 32
+    assert result["dynamic_vs_naive_changed_final_histories"] == development.TASKS
     assert result["authorizes_main_confirmation"] is False
 
 

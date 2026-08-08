@@ -3,6 +3,12 @@
 Date frozen: 2026-08-07, before any naive-baseline model response and before
 any Bongard scientific endpoint is opened.
 
+The prospective development-64 power amendment frozen on 2026-08-08, before
+any Bongard planner response or endpoint access, doubles only the development
+choice cohort and scales the count gates proportionally. The already passed
+ten-call mechanics smoke, model, prompt, policies, effect thresholds, dates,
+and endpoint boundary remain unchanged.
+
 ## Question
 
 Does formal non-myopic BED choose a better first query than a direct
@@ -38,12 +44,13 @@ of the eight candidates.
 - Maximum completion: 8,192 tokens.
 - Temperature: provider default after unsupported sampling fields are removed.
 - Maximum reserved cost per attempt: `$0.008`.
-- No semantic or transport retries and no forced-final continuation may pass.
+- Only the frozen bounded same-payload transport retries may pass; semantic
+  reissues and forced-final continuations remain forbidden.
 
 An exact ten-call mechanics-only serving smoke must pass before development.
 The smoke uses only the four permanently open mechanics tasks and accesses no
-candidate or endpoint label. Development uses one call for each of the 32
-frozen tasks, eight per block on August 11--14, after that day's main block has
+candidate or endpoint label. Development uses one call for each of the 64
+frozen tasks, 16 per block on August 11--14, after that day's main block has
 completed. Each baseline block has a `$0.20` cap, so the main `$4.75` cap plus
 the baseline cap fits the account-wide `$5.00` daily ceiling.
 
@@ -63,8 +70,8 @@ terminal mean Brier and log loss, with 20,000 task bootstraps using seed
 A separately labelled `dynamic_beats_naive_thinking` development signal
 requires all of:
 
-1. exact 32 unique task choices and clean replay;
-2. at least eight dynamic-versus-naive final-history differences;
+1. exact 64 unique task choices and clean replay;
+2. at least 16 dynamic-versus-naive final-history differences;
 3. at least 3% lower mean Brier for dynamic than naive;
 4. bootstrap probability at least 0.80 that dynamic Brier is lower; and
 5. dynamic mean log loss no worse than naive.

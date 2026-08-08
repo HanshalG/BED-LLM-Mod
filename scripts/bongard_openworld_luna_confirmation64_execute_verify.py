@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_confirmation64_verify as protocol_verify
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-4"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-5"
 CORE = REPO_ROOT / "scripts/bongard_openworld_luna_confirmation64.py"
 DAILY = REPO_ROOT / (
     "scripts/bongard_openworld_luna_confirmation64_daily_execute.py"
@@ -29,8 +29,8 @@ TERMINAL_OBEDIENCE_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
 )
-CORE_SHA256 = "d69167b5f745c6aa55410c9f871fc6112581ff7efc65a470f086bd49b0628924"
-DAILY_SHA256 = "6cb0b5b3d0c8ab8d353fc901ea71c6422c37e276d6a1bce9cb8fa8f935fe5eea"
+CORE_SHA256 = "206407e49be599408304ac65b6b536e9e66e130c57e8d40212fd4d07b83c0002"
+DAILY_SHA256 = "527991a67ea4328c473d3789198e56a9d89fcfc216b85c41ed546410a0960af2"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
 )

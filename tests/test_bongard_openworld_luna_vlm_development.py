@@ -30,10 +30,9 @@ def test_development_adapter_reserves_luna_attempt_cost(
 
 
 _DEVELOPMENT_TASK_IDS = tuple(
-    sorted(
-        development.source_audit._task_layout(row)["task_id"]
-        for row in development.partition_audit.clean_validation_rows()[1]
-    )
+    task_id
+    for block_id in development.BLOCK_ORDER
+    for task_id in development.development_task_ids_by_block()[block_id]
 )
 
 
@@ -193,7 +192,7 @@ def _protocol_manifest(tmp_path: Path) -> Path:
 
 
 def test_development_blocks_are_exact_disjoint_and_endpoint_sealed() -> None:
-    tasks = [_task(index) for index in range(32)]
+    tasks = [_task(index) for index in range(development.TASKS)]
     observed = []
     for block_id, expected_size in development.BLOCK_SIZES.items():
         block = development.development_tasks_for_block(tasks, block_id)
@@ -204,11 +203,11 @@ def test_development_blocks_are_exact_disjoint_and_endpoint_sealed() -> None:
             not (set(task.endpoint_ids) & set(task.actual_labels))
             for task in sealed
         )
-    assert len(observed) == len(set(observed)) == 32
+    assert len(observed) == len(set(observed)) == development.TASKS
 
 
 def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
-    tasks = [_task(index) for index in range(32)]
+    tasks = [_task(index) for index in range(development.TASKS)]
     mechanics_result = _mechanics_result(tmp_path)
     protocol_manifest = _protocol_manifest(tmp_path)
     result = development.run_block(
@@ -233,9 +232,9 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
         "terminal_beliefs_retain_both_queried_labels_better_than_constant_half"
     ]
     assert result["protocol"]["endpoint_labels_accessed"] is False
-    assert result["protocol"]["first_stage_requests"] == 264
-    assert result["protocol"]["conditioned_branch_requests"] == 128
-    assert result["protocol"]["history_blind_branch_requests"] == 128
+    assert result["protocol"]["first_stage_requests"] == 528
+    assert result["protocol"]["conditioned_branch_requests"] == 256
+    assert result["protocol"]["history_blind_branch_requests"] == 256
     assert result["paired_request_diagnostics"]["gates"][
         "each_pair_is_adjacent_dynamic_then_blind"
     ]
@@ -247,7 +246,7 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
         "terminal_histories_use_task_level_common_random_numbers"
     ]
     assert "pooled_policy_metrics" not in result
-    assert result["protocol"]["distinct_final_history_requests"] >= 8 * 4
+    assert result["protocol"]["distinct_final_history_requests"] >= 16 * 4
     assert all(len(tree["all_first_action_paths"]) == 8 for tree in result["trees"])
     replay = development.replay_block(
         result_path=tmp_path / "block-a/RESULT.json",
@@ -261,7 +260,7 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    tasks = [_task(index) for index in range(32)]
+    tasks = [_task(index) for index in range(development.TASKS)]
     mechanics_result = _mechanics_result(tmp_path)
     protocol_manifest = _protocol_manifest(tmp_path)
     paths = []
@@ -298,7 +297,7 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
     ]
     assert result["protocol"]["confirmation_accessed"] is False
     assert set(result["pooled_policy_metrics"]) == set(mechanics.POLICIES)
-    assert len(result["trees"]) == 32
+    assert len(result["trees"]) == development.TASKS
     assert set(result["dynamic_vs_history_blind"]) == {
         "mean_brier",
         "mean_log_loss",
@@ -360,7 +359,9 @@ def test_combined_analysis_refuses_missing_block(tmp_path: Path) -> None:
         development.analyze_combined(
             block_results=[],
             output_path=tmp_path / "combined.json",
-            all_development_tasks=[_task(index) for index in range(32)],
+            all_development_tasks=[
+                _task(index) for index in range(development.TASKS)
+            ],
         )
 
 
@@ -397,7 +398,7 @@ def test_protocol_manifest_is_opaque_and_exact(tmp_path: Path) -> None:
     result = development.build_protocol_manifest(output_path=manifest_path)
     assert result["status"] == "frozen"
     assert result["gates"]["all_pass"]
-    assert len(result["tasks"]) == 32
+    assert len(result["tasks"]) == development.TASKS
     assert {
         block_id: sum(row["block_id"] == block_id for row in result["tasks"])
         for block_id in development.BLOCK_ORDER

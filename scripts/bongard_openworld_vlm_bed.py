@@ -715,7 +715,12 @@ def load_validation_partition_tasks(
     names = ("mechanics", "development", "confirmation", "reserve")
     if partition not in names:
         raise ValueError(f"unknown validation partition {partition!r}")
-    partitions = partition_audit.clean_validation_rows()
+    if partition in {"development", "confirmation", "reserve"}:
+        from scripts import bongard_openworld_sample_size_expansion_audit as expansion
+
+        partitions = expansion.expanded_validation_rows()
+    else:
+        partitions = partition_audit.clean_validation_rows()
     return _load_visual_tasks(
         partitions[names.index(partition)],
         include_endpoint_labels=include_endpoint_labels,

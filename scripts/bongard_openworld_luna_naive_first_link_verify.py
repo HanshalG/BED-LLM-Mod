@@ -14,26 +14,33 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-2"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-3"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V2.json"
+    "PROTOCOL_MANIFEST_V3.json"
 )
 MANIFEST_SHA256 = (
-    "2c6f3de36be214d5eab9f84519d0a86be4780bdffa839eedd6cc0ff4a3e3ab9f"
+    "ebacf625d352897fea328b11a8a2c78d40f31b6dd43903f482d8115c72a06ec7"
 )
 MAIN_MANIFEST = REPO_ROOT / (
-    "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
-    "PROTOCOL_MANIFEST.json"
+    "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
+    "PROTOCOL_MANIFEST_V13.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
+    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
 )
 TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"
 )
 TRANSPORT_RETRY_AMENDMENT_SHA256 = (
     "0f6ffc66f9b7d0f45d8913cf4f790d6f0c891e135cf5b9102575bd0a51ef7dd9"
+)
+SMOKE_RESULT = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
+    "smoke-20260808/RESULT.json"
+)
+SMOKE_RESULT_SHA256 = (
+    "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70"
 )
 
 
@@ -51,7 +58,7 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         "max_tokens": 8192,
         "reasoning_effort": "medium",
         "reasoning_trace_excluded": True,
-        "requests_per_development_block": 8,
+        "requests_per_development_block": 16,
         "smoke_requests": 10,
         "temperature": 0.0,
     }
@@ -74,7 +81,11 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
     if (
         manifest.get("schema_version") != 1
         or manifest.get("interface_version") != INTERFACE_VERSION
-        or manifest.get("frozen_before_model_responses") is not True
+        or manifest.get("frozen_before_development_responses") is not True
+        or manifest.get("banked_serving_smoke_precedes_amendment") is not True
+        or manifest.get("banked_serving_smoke_result_sha256")
+        != SMOKE_RESULT_SHA256
+        or sha256_file(SMOKE_RESULT) != SMOKE_RESULT_SHA256
         or manifest.get("model") != expected_model
         or manifest.get("schedule") != expected_schedule
         or manifest.get("privacy") != expected_privacy

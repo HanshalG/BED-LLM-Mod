@@ -29,7 +29,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-1"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-2"
 MODEL_ID = serving.MODEL_ID
 REASONING_EFFORT = "medium"
 MAX_TOKENS = 8_192
@@ -47,7 +47,7 @@ BLOCK_BASE_SEEDS = {
     "d": 2_026_081_411,
 }
 BOOTSTRAP_SEED = 2_026_080_751
-MIN_CHANGED_FINAL_HISTORIES = 8
+MIN_CHANGED_FINAL_HISTORIES = 16
 MIN_RELATIVE_BRIER_IMPROVEMENT = 0.03
 MIN_BOOTSTRAP_IMPROVEMENT_PROBABILITY = 0.80
 PREREGISTRATION = (
@@ -55,11 +55,11 @@ PREREGISTRATION = (
     "BONGARD_OPENWORLD_LUNA_NAIVE_FIRST_LINK_PREREGISTRATION.md"
 )
 MAIN_MANIFEST = REPO_ROOT / (
-    "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
-    "PROTOCOL_MANIFEST.json"
+    "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
+    "PROTOCOL_MANIFEST_V13.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
+    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
 )
 
 
@@ -619,7 +619,7 @@ def analyze(
         for task_id, first in by_block[block_id]["choices"].items()
     }
     if len(choice_by_task) != development.TASKS:
-        raise ValueError("naive choices do not cover exactly 32 tasks")
+        raise ValueError("naive choices do not cover exactly 64 tasks")
     if main_verification is None:
         from scripts import (
             bongard_openworld_luna_development32_daily_execute as main_daily,
@@ -715,8 +715,8 @@ def analyze(
         "all_four_endpoint_blind_choice_blocks_replay": all(
             row["verified"] for row in verifications
         ),
-        "exact_32_unique_task_choices": len(rows) == development.TASKS,
-        "at_least_8_dynamic_naive_final_histories_differ": changed
+        "exact_64_unique_task_choices": len(rows) == development.TASKS,
+        "at_least_16_dynamic_naive_final_histories_differ": changed
         >= MIN_CHANGED_FINAL_HISTORIES,
         "dynamic_brier_relative_improvement_vs_naive_at_least_3_percent": (
             relative_gain >= MIN_RELATIVE_BRIER_IMPROVEMENT

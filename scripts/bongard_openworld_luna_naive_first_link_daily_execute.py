@@ -26,7 +26,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-daily-execute-1"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-daily-execute-2"
 TIMEZONE = "Europe/London"
 SMOKE_DATE = "2026-08-08"
 ROOT = REPO_ROOT / "results/nonmyopic/bongard_openworld_luna_naive_first_link"

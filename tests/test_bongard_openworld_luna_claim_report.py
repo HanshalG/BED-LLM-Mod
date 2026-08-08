@@ -17,14 +17,14 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
     gates["all_pass"] = all(gates.values())
     signal = gates["all_pass"]
     summary = {
-        "n": 32,
+        "n": development.TASKS,
         "mean_difference": -0.01,
         "sample_sd": 0.02,
         "ci95": [-0.02, -0.001],
         "bootstrap_probability_improvement": 0.9,
-        "wins": 20,
-        "ties": 2,
-        "losses": 10,
+        "wins": 40,
+        "ties": 4,
+        "losses": 20,
     }
     return {
         "status": "development_signal" if signal else "development_null",
@@ -71,10 +71,10 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
         "dynamic_vs_history_blind_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": 0.05,
-        "dynamic_vs_myopic_changed_final_histories": 16,
-        "dynamic_vs_history_blind_changed_final_histories": 14,
-        "dynamic_vs_fixed_depth2_changed_final_histories": 15,
-        "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": 15,
+        "dynamic_vs_myopic_changed_final_histories": 32,
+        "dynamic_vs_history_blind_changed_final_histories": 28,
+        "dynamic_vs_fixed_depth2_changed_final_histories": 30,
+        "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": 30,
     }
 
 

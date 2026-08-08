@@ -14,12 +14,18 @@ def test_expanded_partition_preserves_existing_tasks_and_is_clean(tmp_path) -> N
     assert result["gates"]["all_pass"] is True
     assert (len(mechanics), len(development), len(confirmation), len(reserve)) == (
         4,
-        32,
+        64,
         96,
-        68,
+        36,
     )
     assert result["partition_uid_sha256"] == expansion.EXPECTED_UID_SHA256
+    assert len(result["development_additions"]) == 32
     assert len(result["confirmation_additions"]) == 32
+    assert result["development_semantic_duplicate_count"] == {
+        "concept": 0,
+        "caption": 0,
+    }
+    assert result["development_strict_perceptual_overlap"] == 0
     assert result["post_selection_semantic_overlap"] == {
         "concept": 0,
         "caption": 0,

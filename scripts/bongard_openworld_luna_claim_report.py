@@ -20,18 +20,18 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-3"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-4"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
-    "exact_32_disjoint_development_tasks",
+    "exact_64_disjoint_development_tasks",
     "root_candidate_brier_beats_constant_half",
     "all_endpoint_metrics_are_finite",
     "confirmation_and_sealed_test_remain_unopened",
 )
 POLICY_GATES = (
-    "at_least_12_dynamic_final_histories_differ_from_myopic",
-    "at_least_12_dynamic_action_changes_clear_numerical_tie_margin",
+    "at_least_24_dynamic_final_histories_differ_from_myopic",
+    "at_least_24_dynamic_action_changes_clear_numerical_tie_margin",
     "dynamic_and_myopic_differ_in_every_execution_block",
     "dynamic_score_has_positive_mean_endpoint_ranking_fidelity",
     "dynamic_score_ranking_fidelity_is_not_worse_than_myopic",
@@ -41,7 +41,7 @@ POLICY_GATES = (
     "dynamic_brier_is_not_worse_than_shuffled_control",
 )
 MECHANISM_GATES = (
-    "at_least_12_dynamic_final_histories_differ_from_history_blind",
+    "at_least_24_dynamic_final_histories_differ_from_history_blind",
     "dynamic_and_history_blind_differ_in_every_execution_block",
     "dynamic_brier_relative_improvement_vs_history_blind_at_least_3_percent",
     "dynamic_brier_vs_history_blind_bootstrap_probability_at_least_0_80",
@@ -49,15 +49,15 @@ MECHANISM_GATES = (
     "dynamic_ranking_fidelity_is_not_worse_than_history_blind",
 )
 PATH_DEPENDENT_GATES = (
-    "at_least_12_dynamic_final_histories_differ_from_fixed_depth2",
-    "at_least_12_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
+    "at_least_24_dynamic_final_histories_differ_from_fixed_depth2",
+    "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
     "dynamic_and_fixed_depth2_differ_in_every_execution_block",
     "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
     "dynamic_brier_vs_fixed_depth2_bootstrap_probability_at_least_0_80",
     "dynamic_log_loss_is_not_worse_than_fixed_depth2",
     "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
-    "at_least_12_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
-    "at_least_12_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
+    "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
+    "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
     "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block",
     "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
     "dynamic_brier_vs_fixed_score_dynamic_update_bootstrap_probability_at_least_0_80",

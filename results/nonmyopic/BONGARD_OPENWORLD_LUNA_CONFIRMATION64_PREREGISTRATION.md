@@ -9,7 +9,7 @@ Luna mechanics or development response exists. It confirms the headline object:
 non-myopic depth-two selection over answer-conditioned VLM-generated semantic
 hypotheses, including the matched history-blind regeneration control.
 
-The confirmation can execute only if the independent 32-task development result
+The confirmation can execute only if the independent 64-task development result
 reaches the already frozen
 `full_path_dependent_llm_native_development_signal` claim tier: the conjunction
 of the policy, matched-mechanism, and path-dependent-support families. A
@@ -26,11 +26,15 @@ development null or partial tier forbids confirmation execution.
 - The confirmation-only power expansion is frozen in
   `BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md`; it retains the exact
   original 64 confirmation tasks and appends 32 byte-clean reserve tasks.
+- The subsequent zero-endpoint development power amendment is frozen in
+  `BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md`; it retains all original
+  32 development tasks and appends 32 byte-clean reserve tasks while preserving
+  this exact confirmation partition.
 - Task order: deterministic sort of the expanded opaque task IDs.
 - Four fixed 24-task blocks use offsets 0, 24, 48, and 72.
 - Public protocol rows contain only opaque task ID, source-row hash, and block.
 - Confirmation images, labels, responses, and endpoints remain unopened.
-- The official test and remaining 68-task reserve remain unopened.
+- The official test and remaining 36-task reserve remain unopened.
 
 ## Execution
 
@@ -112,10 +116,10 @@ The authorization correction is frozen in
 
 Authoritative frozen protocol manifest:
 
-`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V9.json`
+`results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V10.json`
 
 SHA-256:
-`ad1ddefffb8340dd2ba2b86c86f4d48a1fed05595e5b395ed328a86ba41d05d4`.
+`dce0a42e77447ebe289a9a13495058869ccee978380dd407a3460b72e2316c4c`.
 
 This manifest supersedes the earlier pre-response freeze after the
 positive-present/negative-absent contrastive prompt clarification. The task
@@ -149,3 +153,7 @@ V9 applies the zero-endpoint confirmation-only power amendment. It preserves
 development exactly, retains all original confirmation tasks, expands to 96
 tasks in four 24-task blocks, and scales changed-path counts from 24/64 to
 36/96 while leaving every efficacy threshold and control unchanged.
+V10 applies the subsequent zero-endpoint development power amendment. It
+expands the unopened development partition from 32 to 64 tasks, preserves all
+96 confirmation tasks, and leaves confirmation dates, seeds, requests,
+thresholds, controls, and endpoint handling unchanged.

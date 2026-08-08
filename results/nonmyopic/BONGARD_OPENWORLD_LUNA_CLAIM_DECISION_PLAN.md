@@ -9,7 +9,7 @@ The later matched fixed-score amendment further requires superiority when the
 fixed score receives the same realized regenerated second-stage updater as the
 dynamic score, isolating the first-query planning link.
 
-The 32-task development result contains two distinct prospective questions:
+The 64-task development result contains two distinct prospective questions:
 
 1. Does dynamic depth-two planning improve endpoint Brier over the frozen
    myopic-width policy and its existing controls?
@@ -53,7 +53,7 @@ confirmation.
 ## Gate Families
 
 Shared validity requires exact independent replay of four endpoint-blind
-blocks and 32 disjoint tasks, root candidate Brier below the constant-half
+blocks and 64 disjoint tasks, root candidate Brier below the constant-half
 baseline, finite endpoint metrics, and unopened confirmation/test data.
 
 The policy family additionally requires the frozen myopic history-change and
@@ -62,12 +62,12 @@ that is no worse than myopic, at least 3% Brier improvement with bootstrap
 probability at least 0.80, non-worse log loss, and non-worse Brier than shuffled
 continuation.
 
-The matched mechanism family additionally requires at least 12 changed final
+The matched mechanism family additionally requires at least 24 changed final
 histories and one in every block, at least 3% Brier improvement with bootstrap
 probability at least 0.80, non-worse log loss, and non-worse ranking fidelity
 than history-blind depth two.
 
-The path-dependent-support family requires at least 12 changed final histories
+The path-dependent-support family requires at least 24 changed final histories
 and margin-clearing first actions versus fixed-support depth two, changes in
 every block, at least 3% Brier improvement with bootstrap probability at least
 0.80, non-worse log loss, and non-worse ranking fidelity. Policy plus matched
