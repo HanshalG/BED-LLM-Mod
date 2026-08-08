@@ -3474,3 +3474,14 @@ detailed late Number Game audit while preserving its core result;temporary
 pass/null compiles remain6 pages and live `paper/main.tex` stays byte-identical.
 Binding protocol`9b73878b`,renderer`b24cab44`;full Bongard160/160 and live paper
 validation pass. Paid endpoint/manifest hashes unchanged;model0/cost0.
+2026-08-08: Pre-development handoff audit finds Naive V4's banked Aug8 smoke
+was rejected by current `verify_smoke_result`:the endpoint-utility amendment
+advanced interface1->2/manifest a0b70f->V14 although the naive request itself
+did not change. Exact zero-call replay proves all10 case/task IDs,seeds,display
+orders,multimodal message hashes,privacy checks,responses,and parsed choices are
+identical under V2. Preserve old RESULT f1070b30/raw281b9159 byte-for-byte;
+publish the same opaque/label-free payload and certificate725bb782. Only that
+exact path+hash receives the legacy-header exception;arbitrary V1/tamper fails.
+Naive V5 manifest a2623954,core3392a031,verifierbf7be457;daily executor stays
+38f81723. Injected Aug11 preflight is ready with0 calls/writes;full Bongard
+165/165. Aug10/V14/ConfirmationV11/paper unchanged;model0/cost0.

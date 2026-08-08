@@ -13,14 +13,16 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from scripts import bongard_openworld_luna_naive_smoke_migration as migration
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-4"
+
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-5"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V4.json"
+    "PROTOCOL_MANIFEST_V5.json"
 )
 MANIFEST_SHA256 = (
-    "223f6c75cb6db0f75d5557bb146c8e88a5a3d2756c7c6211b21c8a7b88df04ec"
+    "a2623954f4a93b76ad0f7dea71e985c09892751947b567c4941ea8c78d8714c8"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
@@ -48,6 +50,16 @@ SMOKE_RESULT = REPO_ROOT / (
 SMOKE_RESULT_SHA256 = (
     "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70"
 )
+SMOKE_REPLAY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_NAIVE_SMOKE_REPLAY_AMENDMENT_20260808.md"
+)
+SMOKE_REPLAY_AMENDMENT_SHA256 = (
+    "6b6b2b5f189a3b016f51d94e048d30c9f7d8e99ba46da1793cbfb656d568a464"
+)
+SMOKE_REPLAY_CERTIFICATE_SHA256 = (
+    "725bb7827508b6b20bf34037cc33feb17b78e1c31c4da9a21d9c3b9ea474d1da"
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -58,6 +70,7 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
     if sha256_file(path) != MANIFEST_SHA256:
         raise RuntimeError("naive first-link protocol manifest changed")
     manifest = json.loads(path.read_text(encoding="utf-8"))
+    smoke_replay = migration.verify_certificate()
     expected_model = {
         "concurrency": 10,
         "id": "openai/gpt-5.6-luna",
@@ -101,6 +114,12 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         or manifest.get("banked_serving_smoke_result_sha256")
         != SMOKE_RESULT_SHA256
         or sha256_file(SMOKE_RESULT) != SMOKE_RESULT_SHA256
+        or manifest.get("banked_smoke_current_request_replay_required")
+        is not True
+        or manifest.get("banked_smoke_replay_certificate_sha256")
+        != SMOKE_REPLAY_CERTIFICATE_SHA256
+        or smoke_replay.get("certificate_sha256")
+        != SMOKE_REPLAY_CERTIFICATE_SHA256
         or manifest.get("model") != expected_model
         or manifest.get("schedule") != expected_schedule
         or manifest.get("privacy") != expected_privacy
@@ -115,6 +134,10 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         != ENDPOINT_UTILITY_AMENDMENT_SHA256
         or sha256_file(ENDPOINT_UTILITY_AMENDMENT)
         != ENDPOINT_UTILITY_AMENDMENT_SHA256
+        or manifest.get("smoke_replay_amendment_sha256")
+        != SMOKE_REPLAY_AMENDMENT_SHA256
+        or sha256_file(SMOKE_REPLAY_AMENDMENT)
+        != SMOKE_REPLAY_AMENDMENT_SHA256
         or manifest.get("main_development_result_must_independently_replay")
         is not True
     ):
@@ -131,6 +154,8 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         "verified": True,
         "manifest_sha256": MANIFEST_SHA256,
         "main_development_manifest_sha256": MAIN_MANIFEST_SHA256,
+        "smoke_replay_certificate_sha256": SMOKE_REPLAY_CERTIFICATE_SHA256,
+        "banked_smoke_replayed_under_current_requests": True,
         "bound_file_count": len(file_hashes),
     }
 

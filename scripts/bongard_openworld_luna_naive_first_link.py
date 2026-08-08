@@ -449,9 +449,21 @@ def verify_smoke_result(path: Path) -> dict[str, Any]:
     result = json.loads(path.read_text(encoding="utf-8"))
     protocol = result.get("protocol") or {}
     raw_path = path.parent / "private/RAW_RESPONSES.json"
+    native_v2 = protocol.get("interface_version") == INTERFACE_VERSION
+    legacy_replay = None
+    if not native_v2:
+        from scripts import bongard_openworld_luna_naive_smoke_migration as migration
+
+        if (
+            path.resolve() == migration.BANKED_SMOKE_RESULT.resolve()
+            and sha256_file(path) == migration.BANKED_RESULT_SHA256
+            and protocol.get("interface_version") == migration.OLD_INTERFACE_VERSION
+        ):
+            legacy_replay = migration.verify_certificate()
+            raw_path = migration.PUBLIC_REPLAY_PAYLOAD
     if (
         result.get("status") != "passed"
-        or protocol.get("interface_version") != INTERFACE_VERSION
+        or (not native_v2 and legacy_replay is None)
         or protocol.get("stage") != "smoke"
         or protocol.get("model") != MODEL_ID
         or protocol.get("reasoning_effort") != REASONING_EFFORT
@@ -485,6 +497,12 @@ def verify_smoke_result(path: Path) -> dict[str, Any]:
         "verified": True,
         "result_sha256": sha256_file(path),
         "raw_responses_sha256": sha256_file(raw_path),
+        "legacy_v1_replayed_under_v2": legacy_replay is not None,
+        "migration_certificate_sha256": (
+            legacy_replay["certificate_sha256"]
+            if legacy_replay is not None
+            else None
+        ),
     }
 
 
