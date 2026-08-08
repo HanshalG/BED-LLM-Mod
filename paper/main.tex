@@ -29,6 +29,12 @@
   {0.4ex}{0.5em}{\normalfont\normalsize\bfseries}}
 \makeatother
 
+\providecommand{\BongardAbstractResult}{}
+\providecommand{\BongardContributionResult}{}
+\IfFileExists{generated/bongard_openworld_headline.tex}{%
+  \input{generated/bongard_openworld_headline.tex}%
+}{}
+
 \title{When Does Non-Myopic Bayesian Experimental Design Work with Language Models?}
 \author{Hanshal Goyal}
 \date{}
@@ -58,7 +64,7 @@ is a gated null because three trees miss a support-size floor. A fresh matched
 prompt confirmation passes all four gates: answer-conditioned support improves
 second-stage MSE by 9.51\%, and root-specific benefit predicts realized
 advantage at Spearman $.530$ ($[.058,.827]$); its selected-root mean remains
-null. Finite Rock Diagnosis separately
+null. \BongardAbstractResult Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
@@ -85,9 +91,10 @@ practice every additional branch invokes the same uncertain model, changes the
 belief on which later calls condition, and maximizes over more noisy continuation
 scores. A larger tree can therefore make a confidently worse decision.
 
-ASIG instead amortizes a multi-turn policy, but gives EIG credit only to its
-first question \citep{hartmann2026asig}. We ask when inference-time lookahead
-can reliably value future semantic beliefs from an off-the-shelf LLM.
+ASIG amortizes a multi-turn policy but credits EIG only to its first question;
+zero-shot active feature acquisition plans non-myopically over an LLM-elicited
+but fixed MRF \citep{hartmann2026asig,perets2026afa}. We ask when inference-time
+lookahead can value answer-conditioned future semantic beliefs.
 
 We investigate this distinction using a validation-first sequence. Exact
 constrained location and Rock Diagnosis verify the recursion under exact
@@ -112,6 +119,7 @@ Our contributions are:
   \item cross-planner and canonical-target evidence separating robust gains
   over myopic from non-robust extra depth, plus matched delayed-conditioning evidence
   without a full fresh causal mechanism;
+  \BongardContributionResult
   \item a cross-environment audit, including fresh-generation retrieval
   instability, that yields a validation contract spanning target sufficiency,
   calibrated likelihoods, branch equivalence, a verified greedy gap, and ranking
@@ -298,6 +306,9 @@ one static support per tree. Root-conditioned generation still reduced Brier
 from $.2045$ to $.1838$ (10.1\%; $[-.0299,-.0123]$; 22/32 wins) and Hamming
 by 17.7\% ($[-.0301,-.0101]$).
 
+\IfFileExists{generated/bongard_openworld_result.tex}{%
+  \input{generated/bongard_openworld_result.tex}%
+}{%
 \IfFileExists{generated/regretbench_result.tex}{%
   % The frozen RegretBench fragment replaces the detailed late Number Game audit.
 }{%
@@ -382,6 +393,7 @@ the mechanism evidence.
 \IfFileExists{generated/regretbench_result.tex}{%
   \input{generated/regretbench_result.tex}%
 }{}
+}
 
 \paragraph{LLM-native generated support is not generation-robust.}
 In DiscoverPhysics, GPT-5.4 generated eight executable dark-matter maps and
@@ -658,7 +670,7 @@ Brier-positive dynamic-support evidence, but its causal claim remains mechanics-
 and endpoint-qualified. We do not claim that non-myopic BED cannot work outside
 this setting.
 
-{\fontsize{7}{7.2}\selectfont
+{\fontsize{6.8}{7.0}\selectfont
 \setlength{\bibsep}{0pt}
 \begin{multicols}{2}
 \bibliographystyle{plainnat}

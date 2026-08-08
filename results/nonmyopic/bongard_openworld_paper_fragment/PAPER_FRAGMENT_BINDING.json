@@ -27,6 +27,14 @@
       "path": "results/nonmyopic/BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md",
       "sha256": "e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf"
     },
+    "novelty_and_headline_binding_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_NOVELTY_AND_HEADLINE_BINDING_AMENDMENT_20260808.md",
+      "sha256": "bd98e80722d68e2702778cc2fcb6be2652b9cb9c518594009c9f67b6a3451c7d"
+    },
+    "preresult_references": {
+      "path": "paper/references.bib",
+      "sha256": "ac38d0acb02c3328d6020c127a68dc362d6c4d193dbc8e189bed8d0b0c861d4a"
+    },
     "development_manifest": {
       "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
       "sha256": "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
@@ -61,22 +69,26 @@
     },
     "fragment_protocol": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md",
-      "sha256": "167d52107dc8500ebcdcb9cf70eabe50dcad8ab9c76d1184352cfd249ccb4850"
+      "sha256": "975f4097d88743cf6455d91dcc558b9219084200ca7153ea3bcc77b3f38c525c"
     },
     "fragment_generator": {
       "path": "scripts/bongard_openworld_luna_paper_fragment.py",
-      "sha256": "cab308748f72a3fdf1f52004569bea4f4c11cf4918c0412156ffe962f3a78482"
+      "sha256": "2083e7f93de8a8acd939f4842ac6f5dbeef95d5219fe3ad7b866d3bc4f507a74"
     }
   },
   "manuscript": {
     "path": "paper/main.tex",
-    "preresult_sha256": "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf",
+    "preresult_sha256": "67be70e211ad015f3bfe127843c76d9ca7fd61016c07bdbe9ed1ef64a4b1f3c5",
+    "references_path": "paper/references.bib",
+    "references_sha256": "ac38d0acb02c3328d6020c127a68dc362d6c4d193dbc8e189bed8d0b0c861d4a",
     "generated_fragment_path": "paper/generated/bongard_openworld_result.tex",
+    "generated_headline_path": "paper/generated/bongard_openworld_headline.tex",
     "generated_fragment_absent_at_freeze": true,
-    "live_hook_absent_at_freeze": true,
+    "generated_headline_absent_at_freeze": true,
+    "live_hook_absent_at_freeze": false,
     "detailed_late_number_game_audit_replaced_after_verified_result": true,
-    "conditional_include_to_be_added_after_verified_result": true,
-    "insertion_anchor": "immediately before the paragraph headed LLM-native generated support is not generation-robust"
+    "conditional_include_to_be_added_after_verified_result": false,
+    "insertion_anchor": "prewired body hook before the paragraph headed LLM-native generated support is not generation-robust"
   },
   "requirements": {
     "development_and_confirmation_can_be_pooled": false,
@@ -84,6 +96,7 @@
     "shared_validity_failure_can_show_efficacy_metrics": false,
     "mechanics_failure_can_show_efficacy_metrics": false,
     "number_game_headline_is_replaced_by_development_only": false,
+    "nonempty_abstract_and_contribution_require_full_confirmation": true,
     "unknown_or_tampered_outcome_fails_closed": true,
     "model_calls": 0,
     "cost_usd": 0.0

@@ -297,6 +297,14 @@ def test_confirmation_fragment_obeys_pass_and_null(
     assert phrase in tex
     assert "Relative reductions" in tex
     assert "not pooled" in tex
+    assert metadata["headline"]["authorized"] is passed
+    assert bool(metadata["headline"]["abstract_tex"]) is passed
+    assert bool(metadata["headline"]["contribution_tex"]) is passed
+    if passed:
+        assert "untouched 96-task visual confirmation" in metadata["headline"][
+            "abstract_tex"
+        ]
+        assert "paired 95\\% CI" in metadata["headline"]["abstract_tex"]
 
 
 def test_confirmation_fragment_refuses_replay_mismatch(
@@ -379,6 +387,10 @@ def test_fragment_writes_tex_and_metadata_without_calls(
     assert written["cost_usd"] == 0.0
     metadata = json.loads(output.with_suffix(".json").read_text())
     assert metadata["tex_sha256"] == fragment.sha256_file(output)
+    headline = output.with_name(fragment.HEADLINE_FILENAME)
+    assert written["headline_sha256"] == fragment.sha256_file(headline)
+    assert metadata["headline_tex_sha256"] == fragment.sha256_file(headline)
+    assert "BongardAbstractResult" in headline.read_text()
     assert metadata["fragment_protocol_sha256"] == (
         fragment.FRAGMENT_PROTOCOL_SHA256
     )
@@ -405,12 +417,20 @@ def test_fragment_binding_matches_current_files() -> None:
         manuscript["preresult_sha256"]
     )
     assert manuscript["generated_fragment_absent_at_freeze"] is True
-    assert manuscript["live_hook_absent_at_freeze"] is True
+    assert manuscript["generated_headline_absent_at_freeze"] is True
+    assert manuscript["live_hook_absent_at_freeze"] is False
+    assert manuscript["conditional_include_to_be_added_after_verified_result"] is False
+    assert fragment.sha256_file(
+        fragment.REPO_ROOT / manuscript["references_path"]
+    ) == manuscript["references_sha256"]
     assert manuscript[
         "detailed_late_number_game_audit_replaced_after_verified_result"
     ] is True
     assert binding["requirements"]["development_and_confirmation_can_be_pooled"] is False
     assert binding["requirements"]["confirmed_tier_requires_confirmation_pass"] is True
+    assert binding["requirements"][
+        "nonempty_abstract_and_contribution_require_full_confirmation"
+    ] is True
 
 
 @pytest.mark.skipif(
@@ -429,27 +449,7 @@ def test_confirmation_fragment_compiles_within_page_budget(
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()
     original = (fragment.REPO_ROOT / "paper/main.tex").read_text(encoding="utf-8")
-    detailed_start = (
-        "\\IfFileExists{generated/regretbench_result.tex}{%\n"
-        "  % The frozen RegretBench fragment replaces the detailed late Number Game audit."
-    )
-    regretbench_input = (
-        "\\IfFileExists{generated/regretbench_result.tex}{%\n"
-        "  \\input{generated/regretbench_result.tex}%"
-    )
-    start = original.index(detailed_start)
-    end = original.index(regretbench_input, start + len(detailed_start))
-    original = original[:start] + original[end:]
-    anchor = "\\paragraph{LLM-native generated support is not generation-robust.}"
-    include = (
-        "\\IfFileExists{generated/bongard_openworld_result.tex}{%\n"
-        "  \\input{generated/bongard_openworld_result.tex}%\n"
-        "}{}\n\n"
-    )
-    assert original.count(anchor) == 1
-    (paper_dir / "main.tex").write_text(
-        original.replace(anchor, include + anchor), encoding="utf-8"
-    )
+    (paper_dir / "main.tex").write_text(original, encoding="utf-8")
     shutil.copy2(
         fragment.REPO_ROOT / "paper/references.bib",
         paper_dir / "references.bib",
@@ -473,3 +473,5 @@ def test_confirmation_fragment_compiles_within_page_budget(
     assert all(check.ok for check in checks), [
         (check.name, check.detail) for check in checks if not check.ok
     ]
+    rendered = (paper_dir / "generated" / fragment.HEADLINE_FILENAME).read_text()
+    assert ("untouched 96-task visual confirmation" in rendered) is passed

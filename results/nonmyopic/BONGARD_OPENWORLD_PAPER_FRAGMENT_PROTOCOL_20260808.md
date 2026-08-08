@@ -29,6 +29,9 @@ The renderer is bound to these pre-result artifacts:
 - `BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md`,
   SHA-256
   `e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf`;
+- `BONGARD_OPENWORLD_NOVELTY_AND_HEADLINE_BINDING_AMENDMENT_20260808.md`,
+  SHA-256
+  `bd98e80722d68e2702778cc2fcb6be2652b9cb9c518594009c9f67b6a3451c7d`;
 - development manifest V17, SHA-256
   `7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676`;
 - confirmation manifest V14, SHA-256
@@ -46,16 +49,18 @@ The renderer is bound to these pre-result artifacts:
 - confirmation failed-closed daily executor, SHA-256
   `627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d`;
 - pre-result manuscript, SHA-256
-  `6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf`.
+  `67be70e211ad015f3bfe127843c76d9ca7fd61016c07bdbe9ed1ef64a4b1f3c5`;
+- pre-result bibliography, SHA-256
+  `ac38d0acb02c3328d6020c127a68dc362d6c4d193dbc8e189bed8d0b0c861d4a`.
 
-The output path is `paper/generated/bongard_openworld_result.tex`. The live
-manuscript remains byte-identical at freeze time. After any verified Bongard
+The body output path is `paper/generated/bongard_openworld_result.tex`; the
+headline-macro output is `paper/generated/bongard_openworld_headline.tex`.
+After any verified Bongard
 outcome, the fragment deterministically replaces the detailed late Number Game
 audit currently enclosed by the first RegretBench file conditional; the core
-Number Game result remains. The fragment is then conditionally input
-immediately after the existing RegretBench generated-fragment input and before
-the paragraph headed `LLM-native generated support is not
-generation-robust.` No other result-contingent manuscript edit is permitted.
+Number Game result remains. The second artifact defines inert abstract and
+contribution macros. They are nonempty only for a verified full confirmation
+pass. No other result-contingent manuscript edit is permitted.
 
 ## Mandatory Methods Text
 
@@ -117,10 +122,12 @@ Confirmation rendering requires the independently replayed 96-task combined
 result and the exact full development authorization.
 
 1. `full_llm_native_confirmation`: state that the untouched 96-task cohort
-   confirms the registered multimodal LLM-native non-myopic conjunction.
+   confirms the registered multimodal LLM-native non-myopic conjunction. Fill
+   the frozen abstract and contribution macros with the registered primary
+   comparison and qualitative control scope.
 2. `confirmation_null`: state that the untouched cohort did not meet the full
-   conjunction. The development result remains provisional and no Bongard
-   headline claim is authorized.
+   conjunction. The development result remains provisional, no Bongard
+   headline claim is authorized, and both headline macros remain empty.
 3. A frozen daily executor `failed_closed` record with no combined result:
    state that confirmation was mechanics-inconclusive. Print no efficacy
    estimate and do not upgrade the development result.
@@ -136,7 +143,7 @@ cannot be rescued by development, subgroups, or retrospective pooling.
   inconsistent status/tier fields, or a mechanics-failure record coexisting
   with a combined result fail closed.
 - Metadata records every source hash, stage, tier, confirmation authorization,
-  no-pooling rule, output hash, zero calls, and zero cost.
+  no-pooling rule, both output hashes, zero calls, and zero cost.
 - The renderer may format and round registered values but may not choose which
   outcome class, comparison family, or interpretation to report after seeing
   endpoints.

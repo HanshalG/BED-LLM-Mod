@@ -22,12 +22,13 @@ FRAGMENT_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md"
 )
 FRAGMENT_PROTOCOL_SHA256 = (
-    "167d52107dc8500ebcdcb9cf70eabe50dcad8ab9c76d1184352cfd249ccb4850"
+    "975f4097d88743cf6455d91dcc558b9219084200ca7153ea3bcc77b3f38c525c"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
-    "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf"
+    "67be70e211ad015f3bfe127843c76d9ca7fd61016c07bdbe9ed1ef64a4b1f3c5"
 )
 DEFAULT_OUTPUT = REPO_ROOT / "paper/generated/bongard_openworld_result.tex"
+HEADLINE_FILENAME = "bongard_openworld_headline.tex"
 BOUND_FILES = {
     "claim_decision_plan": (
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
@@ -54,6 +55,15 @@ BOUND_FILES = {
         "results/nonmyopic/"
         "BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md",
         "e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf",
+    ),
+    "novelty_and_headline_binding_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_NOVELTY_AND_HEADLINE_BINDING_AMENDMENT_20260808.md",
+        "bd98e80722d68e2702778cc2fcb6be2652b9cb9c518594009c9f67b6a3451c7d",
+    ),
+    "preresult_references": (
+        "paper/references.bib",
+        "ac38d0acb02c3328d6020c127a68dc362d6c4d193dbc8e189bed8d0b0c861d4a",
     ),
     "development_manifest": (
         "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
@@ -295,7 +305,7 @@ def _base_metadata(
 ) -> dict[str, Any]:
     return {
         "schema_version": 1,
-        "interface_version": "bongard-openworld-luna-paper-fragment-2",
+        "interface_version": "bongard-openworld-luna-paper-fragment-3",
         "status": "rendered",
         "stage": stage,
         "claim_tier": tier,
@@ -306,6 +316,11 @@ def _base_metadata(
         "manuscript_claim_is_deterministic": True,
         "model_calls": 0,
         "cost_usd": 0.0,
+        "headline": {
+            "authorized": False,
+            "abstract_tex": "",
+            "contribution_tex": "",
+        },
         "llm_native_computational_role": {
             "llm_supplies_history_conditioned_particle_weights": True,
             "llm_supplies_history_conditioned_probability_matrix": True,
@@ -469,6 +484,26 @@ def build_confirmation_fragment(
             "confirmation_authorized": tier == "full_llm_native_confirmation",
         }
     )
+    if tier == "full_llm_native_confirmation":
+        primary = _comparison_summary(result, "myopic")
+        relative = result["dynamic_vs_myopic_relative_brier_improvement"]
+        metadata["headline"] = {
+            "authorized": True,
+            "abstract_tex": (
+                f"An untouched {confirmation.TASKS}-task visual confirmation "
+                "passes the complete registered conjunction: planning over "
+                "answer-conditioned VLM predictive beliefs reduces endpoint "
+                f"Brier by {_percent(relative)} versus one-step PIG "
+                f"(paired 95\\% CI $[{_number(primary['ci95'][0])},"
+                f"{_number(primary['ci95'][1])}]$) and also beats fixed-support, "
+                "history-blind, and matched-updater controls."
+            ),
+            "contribution_tex": (
+                "\\item untouched multimodal confirmation that two-step BED over "
+                "answer-conditioned VLM predictive-belief transitions outperforms "
+                "one-step, fixed-support, history-blind, and matched-updater controls;"
+            ),
+        }
     return "\n".join(lines), metadata
 
 
@@ -551,10 +586,39 @@ def write_fragment(
         )
     else:
         raise ValueError(f"unknown Bongard fragment stage: {stage}")
+    headline = metadata.get("headline")
+    if not isinstance(headline, Mapping):
+        raise ValueError("Bongard headline metadata is missing")
+    authorized = headline.get("authorized") is True
+    abstract_tex = headline.get("abstract_tex")
+    contribution_tex = headline.get("contribution_tex")
+    if not isinstance(abstract_tex, str) or not isinstance(contribution_tex, str):
+        raise ValueError("Bongard headline copy is malformed")
+    if authorized is not bool(abstract_tex and contribution_tex):
+        raise ValueError("Bongard headline authorization is inconsistent")
+    if authorized is not (
+        metadata["stage"] == "confirmation"
+        and metadata["claim_tier"] == "full_llm_native_confirmation"
+    ):
+        raise ValueError("Bongard headline is not authorized by full confirmation")
+    headline_tex = "\n".join(
+        [
+            "\\renewcommand{\\BongardAbstractResult}{%",
+            abstract_tex,
+            "}",
+            "\\renewcommand{\\BongardContributionResult}{%",
+            contribution_tex,
+            "}",
+            "",
+        ]
+    )
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(tex, encoding="utf-8")
+    headline_path = output.with_name(HEADLINE_FILENAME)
+    headline_path.write_text(headline_tex, encoding="utf-8")
     metadata_path = output.with_suffix(".json")
     metadata["tex_sha256"] = sha256_file(output)
+    metadata["headline_tex_sha256"] = sha256_file(headline_path)
     metadata_path.write_text(
         json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
@@ -564,6 +628,8 @@ def write_fragment(
         "claim_tier": metadata["claim_tier"],
         "tex_path": str(output),
         "tex_sha256": metadata["tex_sha256"],
+        "headline_path": str(headline_path),
+        "headline_sha256": metadata["headline_tex_sha256"],
         "metadata_path": str(metadata_path),
         "metadata_sha256": sha256_file(metadata_path),
         "model_calls": 0,
