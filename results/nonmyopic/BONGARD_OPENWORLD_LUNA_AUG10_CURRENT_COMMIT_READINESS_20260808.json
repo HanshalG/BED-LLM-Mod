@@ -1,0 +1,80 @@
+{
+  "all_checks_pass": true,
+  "audit_date": "2026-08-08",
+  "budget": {
+    "account_wide_daily_cap_usd": 5.0,
+    "maximum_component_caps_usd": 2.0,
+    "mechanics_maximum_cost_usd": 1.75,
+    "serving_maximum_cost_usd": 0.25,
+    "unallocated_daily_allowance_usd": 3.0
+  },
+  "execution_date": "2026-08-10",
+  "execution_paths": {
+    "daily_ledger": "absent",
+    "mechanics": "absent",
+    "serving": "absent",
+    "wrapper": "absent"
+  },
+  "frozen_bindings": {
+    "confirmation96_manifest_sha256": "dce0a42e77447ebe289a9a13495058869ccee978380dd407a3460b72e2316c4c",
+    "development64_manifest_sha256": "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb",
+    "naive_first_link_manifest_sha256": "ebacf625d352897fea328b11a8a2c78d40f31b6dd43903f482d8115c72a06ec7",
+    "sample_size_expansion_manifest_sha256": "eb4d8284db118eb3326eb3ee5c854bdb4eb42fb7ea5a786070f8608cf2f0f335",
+    "wrapper_sha256": "b17fcd89252fdbef7edff7cb26aedaf2370dd69d8e81f1fc2697bc6b94e4ac53"
+  },
+  "frozen_inputs": {
+    "archive_sha256": "5ab838cffd8c1be6080e232b9fa4d9ca824d213371625abe59d984745f694d25",
+    "archive_size_bytes": 5124375111,
+    "belief_response_format_sha256": "23239262c9236ead2787bf18bf3c19e0950bb0a5e5f34e776006973bbe7b19fd",
+    "image_integrity_manifest_sha256": "239943ae789ebdc2c0a03577a02b04890c6d00f50ce45639c5defc1624ccee96",
+    "mechanics_images": 56,
+    "mechanics_tasks": 4,
+    "precharge_amendment_sha256": "75acd7ae3b51e287a08e81e202d0cfcd95d83dfd3ed308f678b7fe7854bbbff4",
+    "serving_cases": 10,
+    "serving_message_bytes": 8821758,
+    "source_protocol_manifest_sha256": "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
+  },
+  "live_credits_after": {
+    "balance_usd": 24.878986213,
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787
+  },
+  "live_credits_before": {
+    "balance_usd": 24.878986213,
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787
+  },
+  "live_credits_byte_identical_before_after": true,
+  "model": {
+    "completion_usd_per_million_tokens": 0.6,
+    "context_length": 1050000,
+    "covered_prompt_tokens_at_live_price": 20800.0,
+    "id": "openai/gpt-5.6-luna",
+    "input_modalities": [
+      "file",
+      "image",
+      "text"
+    ],
+    "max_completion_tokens": 128000,
+    "maximum_request_cost_usd": 0.004,
+    "prompt_usd_per_million_tokens": 0.1,
+    "supports_structured_output": true
+  },
+  "model_calls_made": 0,
+  "paid_execution_files_written": 0,
+  "preflight_interface": "bongard-openworld-luna-aug10-execute-3",
+  "preflight_output_sha256": "27aa02594974060a58f4d5bafffbefa4a09b25badbd90a0758f96034eac19600",
+  "preflight_status": "ready_without_paid_calls",
+  "repository": {
+    "branch": "codex/location-finding-llmstrategy",
+    "commit": "a06b538ad4233de0c08d8cb5fac462881344ff19",
+    "tree": "0b9cda1655cb62e0bfbdd8b50c06540b4558b04e"
+  },
+  "schema_version": 1,
+  "scientific_endpoints_accessed": false,
+  "test_evidence": {
+    "command": "/opt/anaconda3/bin/python -m pytest -q tests/test_bongard_openworld_*.py",
+    "passed": 142
+  },
+  "total_cost_usd": 0.0
+}
