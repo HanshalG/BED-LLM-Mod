@@ -1,0 +1,30 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-08",
+  "interface_version": "bongard-openworld-luna-naive-first-link-daily-execute-1",
+  "main_predecessor": null,
+  "naive_first_link": {
+    "actual_cost_usd": 0.0,
+    "maximum_cost_usd": 0.2,
+    "maximum_request_cost_usd": 0.008,
+    "model": "openai/gpt-5.6-luna",
+    "reasoning_effort": "medium",
+    "status": "passed"
+  },
+  "opening_balance_usd": 24.886393846000004,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.113606154,
+  "reconciliation": {
+    "live_balance_usd": 24.886393846000004,
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.113606154,
+    "posted_spend_since_day_opening_usd": 0.0,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 4.9933246
+  },
+  "recorded_actual_spend_usd": 0.006675399999999999,
+  "schema_version": 1,
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}

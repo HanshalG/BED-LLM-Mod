@@ -1,0 +1,53 @@
+{
+  "account_state": {
+    "available_balance_usd": 24.87898621299999,
+    "posted_day_spend_usd": 0.007407633000013902,
+    "reported_top_up_posted": false,
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787
+  },
+  "baseline_smoke": {
+    "accepted_requests": 10,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "ledger_sha256": "46ee3e80f020005c0e0cb0d8f4651d8534856a7d6eaf712811fd37c970429d32",
+    "model": "openai/gpt-5.6-luna",
+    "reasoning_effort": "medium",
+    "result_sha256": "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70",
+    "run_cost_usd": 0.006675399999999999,
+    "status": "passed"
+  },
+  "chain": {
+    "commit": "5e3bdbf2e0d4e65780a622b59d5af47761d70984",
+    "execution_binding_sha256": "8c64bc2a538a72a7be71c47d2a495cb168a725c4ced62c5f46412ded150798fb",
+    "launcher_environment_repair": "PYTHONPATH was set to the repository root after the direct CLI preflight failed before writes or calls with ModuleNotFoundError: scripts",
+    "orchestrator_sha256": "6e09bccdacc6da538b97eea86c90f77e6d054eaea382b12400ddb95187a949f8",
+    "status": "failed_closed"
+  },
+  "date": "2026-08-08",
+  "downstream": {
+    "confirmation_opened": false,
+    "policy_development_opened": false,
+    "policy_endpoint_opened": false,
+    "policy_smoke_opened": false,
+    "support_development_opened": false,
+    "support_result_exists": false
+  },
+  "inference": {
+    "scientific_result_available": false,
+    "support_recovery_status": null,
+    "transport_failure_is_not_a_semantic_null": true
+  },
+  "schema_version": 1,
+  "support_smoke": {
+    "accepted_responses_logged": 3,
+    "error": "OpenRouter request failed after retries: IncompleteRead(2288 bytes read)",
+    "error_type": "RuntimeError",
+    "ledger_sha256": "771d164b957ec7119dfd773528c29d114d6756211d922e7375c386fba628ad74",
+    "local_successful_response_cost_usd": 0.0005363820000000001,
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "reasoning_enabled": false,
+    "status": "failed_closed"
+  },
+  "timezone": "Europe/London"
+}

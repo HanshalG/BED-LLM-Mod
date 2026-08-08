@@ -1,0 +1,115 @@
+{
+  "choices": [
+    {
+      "case_id": "task-126d30cad73b-smoke-00",
+      "first_image_id": "image-12",
+      "request_sha256": "ba1c6ab292e708880c9f4bbff7440a68e2671d1cc33f0bc6035dc8d770491b59",
+      "seed": 2026080801,
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "case_id": "task-263200a0c8c3-smoke-01",
+      "first_image_id": "image-07",
+      "request_sha256": "1b7b7c15d961a252ad7ee5b39e0a9068c0a7ea5852ed333ea0ae2e1981b8c90d",
+      "seed": 2026080802,
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "case_id": "task-37a13c92f0b0-smoke-02",
+      "first_image_id": "image-02",
+      "request_sha256": "afb442389ffecb96e7272b281724eb1458a54b942b549cbe146c3705168bed41",
+      "seed": 2026080803,
+      "task_id": "task-37a13c92f0b0"
+    },
+    {
+      "case_id": "task-9ff861a9070d-smoke-03",
+      "first_image_id": "image-08",
+      "request_sha256": "5093a8fa8e1fd9034ce57b7a170881b084df44e78e39ef0d2c23079552c1f7e4",
+      "seed": 2026080804,
+      "task_id": "task-9ff861a9070d"
+    },
+    {
+      "case_id": "task-126d30cad73b-smoke-04",
+      "first_image_id": "image-10",
+      "request_sha256": "fe0450b30f42ec9a678a9ba10fb5f3c4933f6e7be99c4ab9c542f6fa1409d738",
+      "seed": 2026080805,
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "case_id": "task-263200a0c8c3-smoke-05",
+      "first_image_id": "image-07",
+      "request_sha256": "3eae1335648e9ae61918cd51977dd700a27c09a470e91e40095746c51e4d37ca",
+      "seed": 2026080806,
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "case_id": "task-37a13c92f0b0-smoke-06",
+      "first_image_id": "image-04",
+      "request_sha256": "944187a15704696b9fad751a04c0e12b1b3013cce5b5315a41dbbff2bc98c2e7",
+      "seed": 2026080807,
+      "task_id": "task-37a13c92f0b0"
+    },
+    {
+      "case_id": "task-9ff861a9070d-smoke-07",
+      "first_image_id": "image-04",
+      "request_sha256": "3c079c7123193184068fbdea2fa82f6539bf7d7ddeb14283a421e4bc0c5ba4a8",
+      "seed": 2026080808,
+      "task_id": "task-9ff861a9070d"
+    },
+    {
+      "case_id": "task-126d30cad73b-smoke-08",
+      "first_image_id": "image-12",
+      "request_sha256": "d4037f32b8d51efd5bc34d816e95559c59f6d7a69580820d494cbec144c1e23c",
+      "seed": 2026080809,
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "case_id": "task-263200a0c8c3-smoke-09",
+      "first_image_id": "image-10",
+      "request_sha256": "afa8e2f088867ea22670fac3138107284779aa4e52a028db10ebee9cc79377b3",
+      "seed": 2026080810,
+      "task_id": "task-263200a0c8c3"
+    }
+  ],
+  "gates": {
+    "all_pass": true,
+    "all_prompts_hide_source_and_endpoint": true,
+    "all_strict_choices_are_selectable": true,
+    "candidate_and_endpoint_labels_remain_unaccessed": true,
+    "cost_at_most_0_20": true,
+    "exact_expected_accepted_requests": true,
+    "exact_expected_http_attempts": true,
+    "positive_reasoning_tokens": true,
+    "zero_forced_exits": true,
+    "zero_forced_final_requests": true,
+    "zero_provider_error_retries": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "candidate_labels_accessed": false,
+    "endpoint_labels_accessed": false,
+    "expected_requests": 10,
+    "interface_version": "bongard-openworld-luna-naive-first-link-1",
+    "main_development_manifest_sha256": "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708",
+    "max_tokens": 8192,
+    "model": "openai/gpt-5.6-luna",
+    "preregistration": "results/nonmyopic/BONGARD_OPENWORLD_LUNA_NAIVE_FIRST_LINK_PREREGISTRATION.md",
+    "reasoning_effort": "medium",
+    "run_budget_usd": 0.2,
+    "stage": "smoke"
+  },
+  "raw_responses_sha256": "281b9159ca3cd9e86f9d972e3da4fbaef0af4ecc0c1a3977f9723eef33e2c747",
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_reasoning_tokens": 4604,
+    "adapter_requests": 10,
+    "completion_tokens": 4844,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 30158,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.006675399999999999
+  }
+}

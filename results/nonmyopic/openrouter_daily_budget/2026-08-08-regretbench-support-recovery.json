@@ -1,0 +1,42 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "baseline_predecessor": {
+    "execution_sha256": "5658998982afee434e2b7fab4d19c0c6a9d2fe2fd13c080c8f021195ec1b974a",
+    "ledger_sha256": "46ee3e80f020005c0e0cb0d8f4651d8534856a7d6eaf712811fd37c970429d32",
+    "result_sha256": "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70",
+    "verification": {
+      "raw_responses_sha256": "281b9159ca3cd9e86f9d972e3da4fbaef0af4ecc0c1a3977f9723eef33e2c747",
+      "result_sha256": "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70",
+      "verified": true
+    }
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-08",
+  "interface_version": "regretbench-deepseek-support-recovery-daily-1",
+  "opening_balance_usd": 24.886393846000004,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.113606154,
+  "reconciliation": {
+    "live_balance_usd": 24.87898621299999,
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.121013787,
+    "posted_spend_since_day_opening_usd": 0.007407633000013902,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 4.992592366999986
+  },
+  "recorded_actual_spend_usd": 0.007407633000013902,
+  "schema_version": 1,
+  "stages": {
+    "development": {
+      "maximum_cost_usd": 0.5,
+      "status": "smoke_gated"
+    },
+    "smoke": {
+      "actual_cost_usd": 0.0005363820000000001,
+      "maximum_cost_usd": 0.2,
+      "status": "failed_closed"
+    }
+  },
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}

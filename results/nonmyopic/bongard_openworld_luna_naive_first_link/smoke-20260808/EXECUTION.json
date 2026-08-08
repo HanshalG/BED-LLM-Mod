@@ -1,0 +1,9 @@
+{
+  "interface_version": "bongard-openworld-luna-naive-first-link-daily-execute-1",
+  "ledger_sha256": "46ee3e80f020005c0e0cb0d8f4651d8534856a7d6eaf712811fd37c970429d32",
+  "recorded_daily_spend_usd": 0.006675399999999999,
+  "remaining_daily_allowance_usd": 4.9933246,
+  "result_sha256": "f1070b30ea63f571ffac2e23f7b9cfb5fc97ad42dd95e0e6babefbc7ca387a70",
+  "schema_version": 1,
+  "status": "complete_reconciled"
+}
