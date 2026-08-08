@@ -118,6 +118,23 @@ def _response(messages, *, seed: int | None = None) -> str:
     return json.dumps({"hypotheses": rows})
 
 
+def _complement_belief(belief: bed.SemanticBelief) -> bed.SemanticBelief:
+    return replace(
+        belief,
+        history=tuple((image_id, not label) for image_id, label in belief.history),
+        hypotheses=tuple(
+            replace(
+                hypothesis,
+                positive_probabilities=tuple(
+                    1.0 - probability
+                    for probability in hypothesis.positive_probabilities
+                ),
+            )
+            for hypothesis in belief.hypotheses
+        ),
+    )
+
+
 class FixtureAdapter:
     def __init__(self):
         self.requests = 0
@@ -573,6 +590,88 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         ),
         task.endpoint_ids,
     )
+
+
+def test_complete_policy_plans_are_symmetric_under_label_complement() -> None:
+    task = _task(0)
+    root = bed.parse_belief_response(
+        _response(bed.build_belief_messages(task, task.initial_history)),
+        image_ids=task.image_ids,
+        history=task.initial_history,
+    )
+    branches = {}
+    blind = {}
+    for candidate in task.candidate_ids:
+        for label in (False, True):
+            history = tuple(sorted((*task.initial_history, (candidate, label))))
+            branches[(candidate, label)] = bed.parse_belief_response(
+                _response(bed.build_belief_messages(task, history)),
+                image_ids=task.image_ids,
+                history=history,
+            )
+            blind[(candidate, label)] = root
+
+    complemented_task = replace(
+        task,
+        initial_history=tuple(
+            (image_id, not label) for image_id, label in task.initial_history
+        ),
+        actual_labels={
+            image_id: not label for image_id, label in task.actual_labels.items()
+        },
+    )
+    complemented_root = _complement_belief(root)
+    complemented_branches = {
+        (candidate, not label): _complement_belief(belief)
+        for (candidate, label), belief in branches.items()
+    }
+    complemented_blind = {
+        (candidate, not label): complemented_root
+        for candidate, label in blind
+    }
+
+    original = tree.plan_task_policies(
+        task=task,
+        root=root,
+        branches=branches,
+        history_blind_branches=blind,
+    )
+    complemented = tree.plan_task_policies(
+        task=complemented_task,
+        root=complemented_root,
+        branches=complemented_branches,
+        history_blind_branches=complemented_blind,
+    )
+
+    assert original["score_objective"] == complemented["score_objective"]
+    for score_name in tree.SCORE_POLICIES:
+        assert original["root_scores"][score_name] == pytest.approx(
+            complemented["root_scores"][score_name], abs=1e-12
+        )
+    assert original["shuffled_branch_mapping"] == complemented[
+        "shuffled_branch_mapping"
+    ]
+    for policy in tree.POLICIES:
+        original_row = original["policies"][policy]
+        complemented_row = complemented["policies"][policy]
+        assert original_row["first_image_id"] == complemented_row[
+            "first_image_id"
+        ]
+        assert original_row["second_image_id"] == complemented_row[
+            "second_image_id"
+        ]
+        assert original_row["first_label"] != complemented_row["first_label"]
+        assert original_row["second_label"] != complemented_row["second_label"]
+        assert complemented_row["final_history"] == tuple(
+            (image_id, not label)
+            for image_id, label in original_row["final_history"]
+        )
+        if original_row["second_scores"] is None:
+            assert complemented_row["second_scores"] is None
+        else:
+            assert original_row["second_scores"] == pytest.approx(
+                complemented_row["second_scores"], abs=1e-12
+            )
 
 
 def test_final_cases_deduplicate_shared_policy_histories() -> None:

@@ -39,6 +39,33 @@ def _belief(history: tuple[tuple[str, bool], ...] = ()) -> bed.SemanticBelief:
     )
 
 
+def _complement_belief(belief: bed.SemanticBelief) -> bed.SemanticBelief:
+    return replace(
+        belief,
+        history=tuple((image_id, not label) for image_id, label in belief.history),
+        hypotheses=tuple(
+            replace(
+                hypothesis,
+                positive_probabilities=tuple(
+                    1.0 - probability
+                    for probability in hypothesis.positive_probabilities
+                ),
+            )
+            for hypothesis in belief.hypotheses
+        ),
+    )
+
+
+def _assert_score_maps_close(
+    left: dict[str, float], right: dict[str, float]
+) -> None:
+    assert set(left) == set(right)
+    assert all(
+        math.isclose(left[key], right[key], rel_tol=0.0, abs_tol=1e-12)
+        for key in left
+    )
+
+
 def _image_bytes() -> bytes:
     output = BytesIO()
     Image.new("RGB", (40, 30), (100, 120, 140)).save(output, format="PNG")
@@ -214,6 +241,106 @@ def test_endpoint_depth_two_matches_manual_terminal_entropy() -> None:
     assert math.isclose(
         scores[first], root_entropy - expected_terminal, abs_tol=1e-12
     )
+
+
+def test_endpoint_planners_are_symmetric_under_label_complement() -> None:
+    root = _belief()
+    candidates = tuple(f"image-{index:02d}" for index in range(2, 10))
+    endpoints = ("image-12", "image-13")
+    branches = {
+        (candidate, label): _belief(((candidate, label),))
+        for candidate in candidates
+        for label in (False, True)
+    }
+    blind = {
+        (candidate, label): root
+        for candidate in candidates
+        for label in (False, True)
+    }
+    complemented_root = _complement_belief(root)
+    complemented_branches = {
+        (candidate, not label): _complement_belief(branch)
+        for (candidate, label), branch in branches.items()
+    }
+    complemented_blind = {
+        (candidate, not label): complemented_root
+        for candidate, label in blind
+    }
+
+    _assert_score_maps_close(
+        bed.candidate_endpoint_eigs(root, candidates, endpoints),
+        bed.candidate_endpoint_eigs(
+            complemented_root, candidates, endpoints
+        ),
+    )
+    _assert_score_maps_close(
+        bed.fixed_support_endpoint_depth_two_scores(
+            root, candidates, endpoints
+        ),
+        bed.fixed_support_endpoint_depth_two_scores(
+            complemented_root, candidates, endpoints
+        ),
+    )
+    _assert_score_maps_close(
+        bed.dynamic_support_endpoint_depth_two_scores(
+            root, candidates, endpoints, branches
+        ),
+        bed.dynamic_support_endpoint_depth_two_scores(
+            complemented_root,
+            candidates,
+            endpoints,
+            complemented_branches,
+        ),
+    )
+    _assert_score_maps_close(
+        bed.history_blind_endpoint_depth_two_scores(
+            root, candidates, endpoints, blind
+        ),
+        bed.history_blind_endpoint_depth_two_scores(
+            complemented_root,
+            candidates,
+            endpoints,
+            complemented_blind,
+        ),
+    )
+
+    labels = {"image-12": True, "image-13": False}
+    original_metrics = bed.endpoint_metrics(root, labels)
+    complemented_metrics = bed.endpoint_metrics(
+        complemented_root,
+        {image_id: not label for image_id, label in labels.items()},
+    )
+    for metric in (
+        "mean_brier",
+        "mean_log_loss",
+        "accuracy",
+        "mean_truth_probability",
+    ):
+        assert math.isclose(
+            original_metrics[metric],
+            complemented_metrics[metric],
+            rel_tol=0.0,
+            abs_tol=1e-12,
+        )
+    for original, complemented in zip(
+        original_metrics["rows"],
+        complemented_metrics["rows"],
+        strict=True,
+    ):
+        assert original["image_id"] == complemented["image_id"]
+        assert math.isclose(
+            original["positive_probability"],
+            1.0 - complemented["positive_probability"],
+            rel_tol=0.0,
+            abs_tol=1e-12,
+        )
+        for metric in ("truth_probability", "brier", "log_loss"):
+            assert math.isclose(
+                original[metric],
+                complemented[metric],
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            )
 
 
 def test_numeric_planner_is_invariant_to_semantic_rule_text() -> None:
