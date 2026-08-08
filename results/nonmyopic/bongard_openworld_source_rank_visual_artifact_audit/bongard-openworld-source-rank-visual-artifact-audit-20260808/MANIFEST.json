@@ -1,0 +1,154 @@
+{
+  "all_gates_pass": true,
+  "authorizes_paid_calls": false,
+  "bound_prompt_role_blindness_manifest_sha256": "40077db8f1caccdd9eafd0f6b0d714b32bebf8319d43dd773b3b08e188bc6857",
+  "confirmation": {
+    "auc": 0.5409884982638888,
+    "brier": 0.1594339768036807,
+    "brier_regret": -0.0005660231963193485,
+    "constant_base_rate_brier": 0.16000000000000006,
+    "constant_base_rate_log_loss": 0.500402423538188,
+    "endpoint_base_rate": 0.2,
+    "endpoint_rows": 192,
+    "largest_standardized_coefficients": [
+      {
+        "coefficient": 0.020668552974916744,
+        "feature": "raw_red_std"
+      },
+      {
+        "coefficient": 0.016314358855979778,
+        "feature": "relative_red_std"
+      },
+      {
+        "coefficient": 0.009416726077601748,
+        "feature": "relative_edge_mean"
+      },
+      {
+        "coefficient": -0.009074924107700399,
+        "feature": "relative_log_bytes"
+      },
+      {
+        "coefficient": 0.008564996980370165,
+        "feature": "relative_gray_q90"
+      },
+      {
+        "coefficient": -0.00825043808681834,
+        "feature": "relative_log_width"
+      },
+      {
+        "coefficient": 0.0067856029737684365,
+        "feature": "relative_edge_std"
+      },
+      {
+        "coefficient": -0.0066114658672807945,
+        "feature": "raw_log_bytes"
+      },
+      {
+        "coefficient": -0.006520557496265019,
+        "feature": "relative_log_height"
+      },
+      {
+        "coefficient": 0.006473301609521075,
+        "feature": "raw_edge_std"
+      }
+    ],
+    "log_loss": 0.4986079161392383,
+    "maximum_probability": 0.2494560037131179,
+    "minimum_probability": 0.15870464898769285,
+    "rows": 960,
+    "top2_precision": 0.24479166666666666,
+    "top2_recall": 0.24479166666666666,
+    "top2_true_positives": 47
+  },
+  "cost_usd": 0.0,
+  "feature_protocol": {
+    "cross_validation_log_loss": {
+      "0.01": 0.5393286189090104,
+      "0.1": 0.5351841099788077,
+      "1.0": 0.5220062908409875,
+      "10.0": 0.5108269593195771,
+      "100.0": 0.5044575042841016,
+      "1000.0": 0.5014784187145003
+    },
+    "evaluation_partition": "confirmation",
+    "folds": 5,
+    "l2_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0
+    ],
+    "raw_features": [
+      "log_bytes",
+      "log_width",
+      "log_height",
+      "log_aspect_ratio",
+      "gray_mean",
+      "gray_std",
+      "gray_q10",
+      "gray_q50",
+      "gray_q90",
+      "red_mean",
+      "green_mean",
+      "blue_mean",
+      "red_std",
+      "green_std",
+      "blue_std",
+      "saturation_mean",
+      "saturation_std",
+      "edge_mean",
+      "edge_std",
+      "edge_q90",
+      "gray_histogram_entropy"
+    ],
+    "selected_l2": 1000.0,
+    "task_relative_features": [
+      "log_bytes",
+      "log_width",
+      "log_height",
+      "log_aspect_ratio",
+      "gray_mean",
+      "gray_std",
+      "gray_q10",
+      "gray_q50",
+      "gray_q90",
+      "red_mean",
+      "green_mean",
+      "blue_mean",
+      "red_std",
+      "green_std",
+      "blue_std",
+      "saturation_mean",
+      "saturation_std",
+      "edge_mean",
+      "edge_std",
+      "edge_q90",
+      "gray_histogram_entropy"
+    ],
+    "total_features": 42,
+    "training_partitions": [
+      "mechanics",
+      "development"
+    ]
+  },
+  "gates": {
+    "bound_prompt_role_blindness_audit_matches": true,
+    "held_out_visual_feature_auc_is_below_0_60": true,
+    "held_out_visual_feature_brier_regret_is_negligible": true,
+    "held_out_visual_feature_predictions_remain_below_0_40": true,
+    "held_out_visual_feature_top2_precision_is_below_0_30": true,
+    "partition_row_counts_match_endpoint_sealed_protocol": true,
+    "regularization_selected_without_confirmation_labels": true
+  },
+  "interface_version": "bongard-openworld-source-rank-visual-artifact-audit-1",
+  "limitations": [
+    "This audit tests handcrafted low-level image and compression features, not semantic image understanding.",
+    "It cannot rule out memorization of public Bongard-OpenWorld images or concepts by a pretrained VLM.",
+    "Passing does not test belief quality, calibration, planning efficacy, or scientific endpoints."
+  ],
+  "model_calls": 0,
+  "schema_version": 1,
+  "status": "source_rank_visual_artifact_pass"
+}
