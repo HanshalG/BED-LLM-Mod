@@ -8,15 +8,15 @@ from scripts import bongard_openworld_luna_confirmation64_freeze as freeze
 
 
 def test_confirmation_block_economics_fit_daily_cap() -> None:
-    assert freeze.MAX_REQUESTS_PER_BLOCK == 688
-    assert freeze.MAX_HTTP_ATTEMPTS_PER_BLOCK == 702
-    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(2.808)
+    assert freeze.MAX_REQUESTS_PER_BLOCK == 1_032
+    assert freeze.MAX_HTTP_ATTEMPTS_PER_BLOCK == 1_053
+    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(4.212)
     assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD < freeze.DAILY_CAP_USD
 
 
 def test_confirmation_rows_are_fixed_opaque_and_disjoint() -> None:
     rows = freeze._confirmation_rows()
-    assert len(rows) == len({row["task_id"] for row in rows}) == 64
+    assert len(rows) == len({row["task_id"] for row in rows}) == 96
     assert {row["block_id"] for row in rows} == set(freeze.BLOCK_ORDER)
     assert all(
         set(row) == {"task_id", "source_row_sha256", "block_id"}

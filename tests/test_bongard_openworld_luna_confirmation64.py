@@ -129,12 +129,12 @@ class FixtureAdapter:
 def test_manifest_and_task_slices_are_exact() -> None:
     manifest = confirmation.verify_protocol_manifest()
     tasks = confirmation.load_planning_tasks()
-    assert manifest["task_count"] == 64
-    assert len(tasks) == 64
+    assert manifest["task_count"] == 96
+    assert len(tasks) == 96
     assert [
         len(confirmation.confirmation_tasks_for_block(tasks, block_id))
         for block_id in confirmation.BLOCK_ORDER
-    ] == [16, 16, 16, 16]
+    ] == [24, 24, 24, 24]
 
 
 def test_confirmation_block_runs_and_replays_with_fixture(
@@ -172,8 +172,8 @@ def test_confirmation_block_runs_and_replays_with_fixture(
     ]
     assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
     assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
-    assert result["protocol"]["block_size"] == 16
-    assert result["usage"]["adapter_requests"] <= 688
+    assert result["protocol"]["block_size"] == 24
+    assert result["usage"]["adapter_requests"] <= 1_032
     replay = confirmation.replay_block(
         result_path=output / "RESULT.json", all_confirmation_tasks=tasks
     )

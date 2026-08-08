@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the frozen Bongard confirmation64 execution implementation."""
+"""Verify the frozen Bongard confirmation96 execution implementation."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_confirmation64_verify as protocol_verify
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-execute-verify-3"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-4"
 CORE = REPO_ROOT / "scripts/bongard_openworld_luna_confirmation64.py"
 DAILY = REPO_ROOT / (
     "scripts/bongard_openworld_luna_confirmation64_daily_execute.py"
@@ -29,8 +29,8 @@ TERMINAL_OBEDIENCE_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
 )
-CORE_SHA256 = "ae0d15118b2e0adcce8cbac0372649a39a7b036e737d7380cc759104e646af49"
-DAILY_SHA256 = "cfae151f8a54f6bc007d077546e675be3e09d101371eeb7a0cf5353c372809a8"
+CORE_SHA256 = "d69167b5f745c6aa55410c9f871fc6112581ff7efc65a470f086bd49b0628924"
+DAILY_SHA256 = "6cb0b5b3d0c8ab8d353fc901ea71c6422c37e276d6a1bce9cb8fa8f935fe5eea"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
 )

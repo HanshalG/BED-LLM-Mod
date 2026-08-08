@@ -10,12 +10,12 @@ from scripts import bongard_openworld_luna_confirmation64_verify as verify
 def test_official_confirmation_freeze_independently_verifies() -> None:
     result = verify.verify_manifest()
     assert result["verified"] is True
-    assert result["task_count"] == 64
-    assert result["block_sizes"] == {"a": 16, "b": 16, "c": 16, "d": 16}
-    assert result["maximum_requests_per_block"] == 688
-    assert result["maximum_http_attempts_per_block"] == 702
+    assert result["task_count"] == 96
+    assert result["block_sizes"] == {"a": 24, "b": 24, "c": 24, "d": 24}
+    assert result["maximum_requests_per_block"] == 1_032
+    assert result["maximum_http_attempts_per_block"] == 1_053
     assert result["maximum_precharged_exposure_per_block_usd"] == pytest.approx(
-        2.808
+        4.212
     )
 
 
@@ -23,8 +23,8 @@ def test_official_confirmation_freeze_independently_verifies() -> None:
     ("path", "value"),
     [
         (("protocol", "model"), "wrong/model"),
-        (("protocol", "blocks", "a", "maximum_requests"), 687),
-        (("protocol", "blocks", "a", "maximum_http_attempts"), 701),
+        (("protocol", "blocks", "a", "maximum_requests"), 1_031),
+        (("protocol", "blocks", "a", "maximum_http_attempts"), 1_052),
         (("development_precondition", "required_claim_tier"), "policy_only"),
         (("tasks", 0, "block_id"), "d"),
         (("gates", "model_calls_are_zero"), False),

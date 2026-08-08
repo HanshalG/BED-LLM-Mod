@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independently verify the unopened Bongard confirmation64 freeze."""
+"""Independently verify the unopened Bongard confirmation96 freeze."""
 
 from __future__ import annotations
 
@@ -20,16 +20,17 @@ from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_partition_integrity_audit as partition_audit
+from scripts import bongard_openworld_sample_size_expansion_audit as expansion_audit
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-8"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-9"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V8.json"
+    "PROTOCOL_MANIFEST_V9.json"
 )
 MANIFEST_SHA256 = (
-    "94c81d778f7cf939912ce0253883527f1494431dcf1fb7908514adb775d7b229"
+    "ad1ddefffb8340dd2ba2b86c86f4d48a1fed05595e5b395ed328a86ba41d05d4"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -37,11 +38,24 @@ SOURCE_MANIFEST_SHA256 = (
 PARTITION_MANIFEST_SHA256 = (
     partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
 )
+EXPANSION_MANIFEST = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST.json"
+)
+EXPANSION_MANIFEST_SHA256 = (
+    "809621dd848741848d25c2ddc8603751d43b24486ef1e666260248f9195cea37"
+)
+POWER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md"
+)
+POWER_AMENDMENT_SHA256 = (
+    "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
+)
 DEVELOPMENT_MANIFEST_SHA256 = (
     "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
 )
 CONFIRMATION_UID_SHA256 = (
-    "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
+    "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -73,6 +87,8 @@ BLOCK_SEEDS = {
 IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_vlm_bed.py",
     "scripts/bongard_openworld_partition_integrity_audit.py",
+    "scripts/bongard_openworld_power_audit.py",
+    "scripts/bongard_openworld_sample_size_expansion_audit.py",
     "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
     "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
     "scripts/bongard_openworld_luna_vlm_development.py",
@@ -80,6 +96,8 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -95,7 +113,7 @@ def sha256_file(path: Path) -> str:
 
 
 def _expected_tasks() -> list[dict[str, str]]:
-    _, _, confirmation_rows, _ = partition_audit.clean_validation_rows()
+    _, _, confirmation_rows, _ = expansion_audit.expanded_validation_rows()
     rows = sorted(
         (
             {
@@ -107,7 +125,7 @@ def _expected_tasks() -> list[dict[str, str]]:
         key=lambda row: row["task_id"],
     )
     for index, row in enumerate(rows):
-        row["block_id"] = BLOCK_ORDER[index // 16]
+        row["block_id"] = BLOCK_ORDER[index // 24]
     return rows
 
 
@@ -131,13 +149,13 @@ def verify_manifest(
     }
     expected_blocks = {
         block_id: {
-            "size": 16,
-            "offset": index * 16,
+            "size": 24,
+            "offset": index * 24,
             "earliest_london_date": BLOCK_DATES[block_id],
             "model_seed": BLOCK_SEEDS[block_id],
-            "maximum_requests": 688,
-            "maximum_http_attempts": 702,
-            "maximum_precharged_exposure_usd": 2.8080000000000003,
+            "maximum_requests": 1_032,
+            "maximum_http_attempts": 1_053,
+            "maximum_precharged_exposure_usd": 4.212,
             "daily_cap_usd": 5.0,
             "run_cap_usd": 4.75,
         }
@@ -156,12 +174,19 @@ def verify_manifest(
             == PARTITION_MANIFEST_SHA256
             and sha256_file(partition_audit.PARTITION_INTEGRITY_MANIFEST)
             == PARTITION_MANIFEST_SHA256
+            and source.get("confirmation96_expansion_manifest_sha256")
+            == EXPANSION_MANIFEST_SHA256
+            and sha256_file(EXPANSION_MANIFEST) == EXPANSION_MANIFEST_SHA256
+            and source.get("confirmation96_power_amendment_sha256")
+            == POWER_AMENDMENT_SHA256
+            and sha256_file(POWER_AMENDMENT) == POWER_AMENDMENT_SHA256
             and source.get("source_commit") == source_audit.SOURCE_COMMIT
             and source.get("source_tree") == source_audit.SOURCE_TREE
             and source.get("image_archive_sha256") == image_audit.ARCHIVE_SHA256
-            and source.get("confirmation_count") == 64
+            and source.get("confirmation_count") == 96
             and source.get("confirmation_uid_sha256")
             == CONFIRMATION_UID_SHA256
+            and source.get("reserve_count_after_expansion") == 68
         ),
         "development_precondition_is_exact": (
             precondition.get("manifest_sha256")
@@ -201,7 +226,7 @@ def verify_manifest(
         "analysis_thresholds_are_exact": (
             protocol.get("bootstrap_replicates") == 20_000
             and protocol.get("bootstrap_seed") == 2_026_081_901
-            and protocol.get("minimum_changed_final_histories") == 24
+            and protocol.get("minimum_changed_final_histories") == 36
             and protocol.get("minimum_relative_brier_improvement") == 0.03
             and protocol.get("confirmation_interval")
             == "paired complete-task bootstrap 95pct upper below zero"
@@ -236,13 +261,15 @@ def verify_manifest(
             == {
                 "source_manifest_hash_matches",
                 "partition_integrity_manifest_hash_and_status_match",
+                "confirmation96_expansion_manifest_hash_and_status_match",
+                "confirmation96_power_amendment_hash_matches",
                 "development_manifest_hash_matches",
                 "authorization_amendment_hash_matches",
                 "matched_fixed_score_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_repaired_confirmation_partition_is_bound",
-                "exact_64_unique_opaque_task_identities",
-                "exact_four_16_task_blocks",
+                "exact_96_unique_opaque_task_identities",
+                "exact_four_24_task_blocks",
                 "manifest_rows_are_opaque_and_truth_free",
                 "per_block_precharged_exposure_fits_daily_cap",
                 "mechanics_and_development_responses_do_not_exist",
@@ -284,9 +311,9 @@ def verify_manifest(
             block_id: sum(row["block_id"] == block_id for row in expected_tasks)
             for block_id in BLOCK_ORDER
         },
-        "maximum_requests_per_block": 688,
-        "maximum_http_attempts_per_block": 702,
-        "maximum_precharged_exposure_per_block_usd": 2.8080000000000003,
+        "maximum_requests_per_block": 1_032,
+        "maximum_http_attempts_per_block": 1_053,
+        "maximum_precharged_exposure_per_block_usd": 4.212,
         "checks": checks,
     }
 

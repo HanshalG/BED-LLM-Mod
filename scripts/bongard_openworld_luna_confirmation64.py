@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run and replay the frozen Bongard-OpenWorld confirmation64 blocks."""
+"""Run and replay the frozen Bongard-OpenWorld confirmation96 blocks."""
 
 from __future__ import annotations
 
@@ -24,25 +24,26 @@ from scripts import bongard_openworld_luna_development32_daily_execute as daily
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
+from scripts import bongard_openworld_sample_size_expansion_audit as expansion_audit
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-6"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-7"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
-BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
+BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
 BLOCK_OFFSETS = {
-    block_id: index * 16 for index, block_id in enumerate(BLOCK_ORDER)
+    block_id: index * 24 for index, block_id in enumerate(BLOCK_ORDER)
 }
 BLOCK_DATES = dict(freeze_verify.BLOCK_DATES)
 BLOCK_MODEL_SEEDS = dict(freeze_verify.BLOCK_SEEDS)
-TASKS = 64
+TASKS = 96
 CASES_PER_TASK = development.CASES_PER_TASK
 MAX_FINALS_PER_TASK = development.MAX_FINALS_PER_TASK
-MAX_REQUESTS_PER_BLOCK = 688
+MAX_REQUESTS_PER_BLOCK = 1_032
 MAX_HTTP_ATTEMPTS_PER_BLOCK = (
     MAX_REQUESTS_PER_BLOCK
     + serving.transport_retry_allowance(MAX_REQUESTS_PER_BLOCK)
@@ -51,7 +52,7 @@ CONCURRENCY = development.CONCURRENCY
 RUN_BUDGET_USD = development.RUN_BUDGET_USD
 BOOTSTRAP_REPLICATES = 20_000
 BOOTSTRAP_SEED = 2_026_081_901
-MIN_CHANGED_FINAL_HISTORIES = 24
+MIN_CHANGED_FINAL_HISTORIES = 36
 MIN_RELATIVE_BRIER_IMPROVEMENT = 0.03
 PROTOCOL_MANIFEST = freeze_verify.MANIFEST
 PROTOCOL_MANIFEST_SHA256 = freeze_verify.MANIFEST_SHA256
@@ -82,7 +83,7 @@ def verify_protocol_manifest(path: Path = PROTOCOL_MANIFEST) -> dict[str, Any]:
         ]
         for block_id in BLOCK_ORDER
     }
-    if any(len(task_ids_by_block[block_id]) != 16 for block_id in BLOCK_ORDER):
+    if any(len(task_ids_by_block[block_id]) != 24 for block_id in BLOCK_ORDER):
         raise ValueError("confirmation manifest block task counts changed")
     return {**verification, "task_ids_by_block": task_ids_by_block}
 
@@ -145,16 +146,17 @@ def confirmation_tasks_for_block(
         raise ValueError(f"unknown confirmation block {block_id!r}")
     ordered = sorted(tasks, key=lambda task: task.task_id)
     if len(ordered) != TASKS:
-        raise ValueError("confirmation requires exactly 64 tasks")
+        raise ValueError("confirmation requires exactly 96 tasks")
     start = BLOCK_OFFSETS[block_id]
     return ordered[start : start + BLOCK_SIZES[block_id]]
 
 
 def load_planning_tasks() -> list[bed.VisualTask]:
+    _, _, confirmation_rows, _ = expansion_audit.expanded_validation_rows()
     return [
         development.seal_endpoint_labels(task)
-        for task in bed.load_validation_partition_tasks(
-            "confirmation", include_endpoint_labels=False
+        for task in bed._load_visual_tasks(
+            confirmation_rows, include_endpoint_labels=False
         )
     ]
 
@@ -196,7 +198,7 @@ def _block_gates(
         "mechanics_result_is_hash_bound_clean_pass": (
             mechanics_verification.get("verified") is True
         ),
-        "exact_frozen_task_count": task_count == 16,
+        "exact_frozen_task_count": task_count == 24,
         **serving.transport_retry_gates(usage, expected_requests=expected),
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
@@ -429,14 +431,14 @@ def run_block(
                 freeze_verify.AUTHORIZATION_AMENDMENT_SHA256
             ),
             "block_id": block_id,
-            "block_size": 16,
+            "block_size": 24,
             "block_offset": BLOCK_OFFSETS[block_id],
             "model": MODEL_ID,
             "model_seed": BLOCK_MODEL_SEEDS[block_id],
             "reasoning": False,
-            "first_stage_requests": 16 * CASES_PER_TASK,
+            "first_stage_requests": 24 * CASES_PER_TASK,
             "distinct_final_history_requests": len(artifacts["final_cases"]),
-            "expected_total_requests": 16 * CASES_PER_TASK
+            "expected_total_requests": 24 * CASES_PER_TASK
             + len(artifacts["final_cases"]),
             "maximum_requests": MAX_REQUESTS_PER_BLOCK,
             "maximum_http_attempts": MAX_HTTP_ATTEMPTS_PER_BLOCK,
@@ -502,12 +504,12 @@ def replay_block(
             freeze_verify.AUTHORIZATION_AMENDMENT_SHA256
         ),
         "block_id": block_id,
-        "block_size": 16,
+        "block_size": 24,
         "block_offset": BLOCK_OFFSETS[block_id],
         "model": MODEL_ID,
         "model_seed": BLOCK_MODEL_SEEDS[block_id],
         "reasoning": False,
-        "first_stage_requests": 16 * CASES_PER_TASK,
+        "first_stage_requests": 24 * CASES_PER_TASK,
         "distinct_final_history_requests": protocol.get(
             "distinct_final_history_requests"
         ),
@@ -611,7 +613,7 @@ def replay_block(
     final_count = len(final_cases)
     if (
         protocol["distinct_final_history_requests"] != final_count
-        or protocol["expected_total_requests"] != 16 * CASES_PER_TASK + final_count
+        or protocol["expected_total_requests"] != 24 * CASES_PER_TASK + final_count
     ):
         raise ValueError("confirmation request accounting changed")
     return {
@@ -739,7 +741,7 @@ def analyze_combined(
         key=lambda task: task.task_id,
     )
     if len(planning_tasks) != TASKS:
-        raise ValueError("combined confirmation requires exactly 64 tasks")
+        raise ValueError("combined confirmation requires exactly 96 tasks")
     replays = [
         replay_block(result_path=path, all_confirmation_tasks=planning_tasks)
         for path in block_results
@@ -754,8 +756,9 @@ def analyze_combined(
     endpoint_tasks = sorted(
         list(all_confirmation_tasks)
         if all_confirmation_tasks is not None
-        else bed.load_validation_partition_tasks(
-            "confirmation", include_endpoint_labels=True
+        else bed._load_visual_tasks(
+            expansion_audit.expanded_validation_rows()[2],
+            include_endpoint_labels=True,
         ),
         key=lambda task: task.task_id,
     )
@@ -958,7 +961,7 @@ def analyze_combined(
         "all_four_endpoint_blind_blocks_independently_replay": all(
             replay["verified"] for replay in replays
         ),
-        "exact_64_disjoint_confirmation_tasks": len(trees) == TASKS,
+        "exact_96_disjoint_confirmation_tasks": len(trees) == TASKS,
         "root_candidate_brier_beats_constant_half": (
             mean_root_candidate_brier < 0.25
         ),
@@ -967,10 +970,10 @@ def analyze_combined(
             for metrics in pooled.values()
             for value in metrics.values()
         ),
-        "at_least_24_dynamic_final_histories_differ_from_myopic": (
+        "at_least_36_dynamic_final_histories_differ_from_myopic": (
             changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_24_dynamic_action_changes_clear_numerical_tie_margin": (
+        "at_least_36_dynamic_action_changes_clear_numerical_tie_margin": (
             robust_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_myopic_differ_in_every_execution_block": all(
@@ -993,10 +996,10 @@ def analyze_combined(
         "dynamic_log_loss_is_not_worse_than_myopic": (
             dynamic_comparison["mean_log_loss"]["mean_difference"] <= 0
         ),
-        "at_least_24_dynamic_final_histories_differ_from_fixed_depth2": (
+        "at_least_36_dynamic_final_histories_differ_from_fixed_depth2": (
             fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin": (
+        "at_least_36_dynamic_action_changes_from_fixed_clear_numerical_tie_margin": (
             robust_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_fixed_depth2_differ_in_every_execution_block": all(
@@ -1016,10 +1019,10 @@ def analyze_combined(
             ranking["dynamic_depth2"]["mean_spearman"]
             >= ranking["fixed_depth2"]["mean_spearman"]
         ),
-        "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update": (
+        "at_least_36_dynamic_final_histories_differ_from_fixed_score_dynamic_update": (
             matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
-        "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin": (
+        "at_least_36_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin": (
             robust_matched_fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block": all(
@@ -1038,7 +1041,7 @@ def analyze_combined(
         "dynamic_brier_is_not_worse_than_shuffled_control": (
             dynamic_brier <= pooled["shuffled_dynamic_depth2"]["mean_brier"]
         ),
-        "at_least_24_dynamic_final_histories_differ_from_history_blind": (
+        "at_least_36_dynamic_final_histories_differ_from_history_blind": (
             blind_changed >= MIN_CHANGED_FINAL_HISTORIES
         ),
         "dynamic_and_history_blind_differ_in_every_execution_block": all(

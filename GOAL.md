@@ -53,12 +53,16 @@ that don't saturate (entropy-AUC, truth-log-posterior), criteria fixed before lo
 That's not bureaucracy, it's the whole value.
 
 Common sense: OpenRouter, key from `OPENROUTER_API_KEY` (never commit/log), backoff and
-fail-closed. The full authenticated balance is available for research by expected
-scientific value: there is no reserve, no artificial spend ceiling, and no requirement
-to be cost-conservative. Check the live balance before every paid stage and use
-source/mechanics gates to avoid experiments that cannot answer the research question,
-not to preserve a fixed dollar remainder. Ledger spends in `EXPERIMENTS.md`; use a
-small serving smoke when interface risk is material and swap models freely. Do not
-pursue the OatML cluster until Hanshal explicitly re-enables it; use OpenRouter or
-zero-call local work meanwhile. Commit and push code + results, keep tests green, and
-add a few `STATE.md` lines each session.
+fail-closed. Enforce a hard account-wide `$5.00` cap per Europe/London calendar day.
+Open each paid day from authenticated cumulative credits and usage, count unrelated
+account use, reserve worst-case in-flight exposure before dispatch, and reconcile the
+larger of posted and locally measured spend. Aim to put the allowance into the most
+useful dependency-valid experiment available that day; do not borrow, roll over unused
+allowance, count an unposted top-up, or invent an invalid experiment merely to fill the
+cap. Check the live balance before every paid stage and use source/mechanics gates to
+avoid experiments that cannot answer the research question. Ledger spends in
+`EXPERIMENTS.md`; use a small serving smoke when interface risk is material and swap
+models when a direct task gate supports it. Do not pursue the OatML cluster until
+Hanshal explicitly re-enables it; use OpenRouter or zero-call local work meanwhile.
+Commit and push code + results, keep tests green, and add a few `STATE.md` lines each
+session.

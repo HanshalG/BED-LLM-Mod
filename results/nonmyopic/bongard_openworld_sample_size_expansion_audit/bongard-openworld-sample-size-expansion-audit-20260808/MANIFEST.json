@@ -1,0 +1,189 @@
+{
+  "authorizes_paid_calls": false,
+  "bound_partition_manifest_sha256": "9d9dc695924e728a2653af0b05c575eb4c04a62be933e497afa1bc1ac2bbcbc9",
+  "confirmation_additions": [
+    {
+      "source_row_sha256": "90dae8ae704fe6e395a97a178da3ffbb2476c050fdaf6ed076ebc9c6117be8e2",
+      "task_id": "task-6f44dbd51dd4"
+    },
+    {
+      "source_row_sha256": "b2b70bbe60f6e47eb5e01deae54e9e8771962792ea8ce71b2b76b36348dc9c7e",
+      "task_id": "task-1056d9995048"
+    },
+    {
+      "source_row_sha256": "f596c6edbd3277ba3357f7ed46e0bbbe28ef52d3837a00739407d19b4d2f4ba0",
+      "task_id": "task-0515df947dac"
+    },
+    {
+      "source_row_sha256": "a535bcf20f2c3390b3c5d693a5c43fc6eeb4b0233a682c88e8d360d76f86a2a3",
+      "task_id": "task-8a1d92d09825"
+    },
+    {
+      "source_row_sha256": "b04def0ff46d8764ef5276fa72b9fefde6c2156ac851c65c3b5dd7373e3398f3",
+      "task_id": "task-14a0a11b65d5"
+    },
+    {
+      "source_row_sha256": "187f1391798f8c88750d2bc84099709b4a6a4009b88dd18bb7724c04d0a9d54c",
+      "task_id": "task-f489ca2ea0cf"
+    },
+    {
+      "source_row_sha256": "d17a4d260992125133a0848094f59d2ed422be2430e6fdc8075b8e683980e703",
+      "task_id": "task-45568785cb6f"
+    },
+    {
+      "source_row_sha256": "d847341d8527d5217a1959b7bf85711adf8f3c84c431a04fa880887e3f6d39ff",
+      "task_id": "task-a4b7f7066b40"
+    },
+    {
+      "source_row_sha256": "2aa7e2095cc826f5f50852c6840cd4f62795e13140492f9d09dea8f06a5fbbe5",
+      "task_id": "task-03b0266bd76a"
+    },
+    {
+      "source_row_sha256": "530bddb18cc6118bb3e616bfcf02a31e039efa58a11c97d111b427a3970af328",
+      "task_id": "task-dceac4589309"
+    },
+    {
+      "source_row_sha256": "e6281def55f769932836505d8885f4eb65707ba05c85902e9abaa3b04505d9c3",
+      "task_id": "task-c083432cf3ee"
+    },
+    {
+      "source_row_sha256": "db631435b318f56a15edf696e3a1bcaca8eaab9e897ddf0430bd37aed861a572",
+      "task_id": "task-108777900645"
+    },
+    {
+      "source_row_sha256": "7f369bea7fc74daeee0e673ef19e5541800d05c546c565050a690ffd0450a1c8",
+      "task_id": "task-90adab8b601c"
+    },
+    {
+      "source_row_sha256": "4bd5e2d03a7af98f221cd49c4dc84d93d311f248244a3ea56faa82539aaea34c",
+      "task_id": "task-18cebc946305"
+    },
+    {
+      "source_row_sha256": "fb41a6be266a749826bd43c2bd6c33058117b747c382ea486f3fd428d1002362",
+      "task_id": "task-1e5258c052af"
+    },
+    {
+      "source_row_sha256": "aa94a22580a1eb347beedb4f5e3e4a4298e834a76242a55c52f68b0cb51f8b81",
+      "task_id": "task-e2a12fa8d184"
+    },
+    {
+      "source_row_sha256": "f4707b3b6b08c28a40f8ac6b98e962ca25fad064637171c7635e18c23a5f50e0",
+      "task_id": "task-591e619bc79c"
+    },
+    {
+      "source_row_sha256": "56b1bc7046ec88c10fffee122b419013d61f875123466eb553828275b4d1c48f",
+      "task_id": "task-2d67c5c90cbe"
+    },
+    {
+      "source_row_sha256": "c752197df2c711931e8528382074f66c41e08f8fcc7589d53bd7118eac058be3",
+      "task_id": "task-5969b1ca01c3"
+    },
+    {
+      "source_row_sha256": "44ecabb7c43973e5ec81dc333dcc81fe9e6c3054007b0d59bc43921b3b5dbb41",
+      "task_id": "task-8b6016871a03"
+    },
+    {
+      "source_row_sha256": "08ec4941ad86df6d8a6ce71b48a2a39f258a053cedc5832a42b185651f456935",
+      "task_id": "task-02066dc686a4"
+    },
+    {
+      "source_row_sha256": "0f4dc59e90f1c9bddfd40f1774a8c0247aac55d290a653d98074055296daf717",
+      "task_id": "task-30b6589895f9"
+    },
+    {
+      "source_row_sha256": "eca700940f8b933b039fd8ad6ac49e233a074ac0e9f190392fc7e514ccfad98f",
+      "task_id": "task-b8ac49c97c56"
+    },
+    {
+      "source_row_sha256": "57715872a03cbf8ce658540532fd2adb6632226cff7e974b55b6ca1b72fcc34a",
+      "task_id": "task-70e3464c0025"
+    },
+    {
+      "source_row_sha256": "0ac1a670c8004732d36b55fed6a22a947ce36266d1d4a4bc790e0babfd2c369b",
+      "task_id": "task-8a85a280ba52"
+    },
+    {
+      "source_row_sha256": "334a7eceb6982733608f91ed3edecfad404a98277262742b360718febe31c700",
+      "task_id": "task-07857cb90e82"
+    },
+    {
+      "source_row_sha256": "9c3e2087e9e877116db6c924d51b0377a063d4dbe20c27c2d22e81a89d5af113",
+      "task_id": "task-d5f044deee57"
+    },
+    {
+      "source_row_sha256": "f1e10130127456399aac468efd71d32495ddd8877839c81ca818fd5b32b28e98",
+      "task_id": "task-413bb5ee10a5"
+    },
+    {
+      "source_row_sha256": "ed3513a67641a653ebc28ae91b97a9b1a50c2f47365a5a979db615b8c69360ef",
+      "task_id": "task-440af7b6203b"
+    },
+    {
+      "source_row_sha256": "737ebbb5ff99cf89dbeeecc2088f6ed46131115d0b4a48ac3d758f60f9791b30",
+      "task_id": "task-12f87effcf0a"
+    },
+    {
+      "source_row_sha256": "a6fb19cda6f06b1fbb2be06ef103316f63b5ee7cad371a1e30a659537142a5d3",
+      "task_id": "task-4717f2e3e057"
+    },
+    {
+      "source_row_sha256": "3cc5816798738da539fe708187cbba7f624f991bebd8f5bb7d2beca558bdaa49",
+      "task_id": "task-fd2a7a149470"
+    }
+  ],
+  "duplicate_stats": {
+    "cross_partition_duplicate_groups": {},
+    "within_partition_duplicate_groups": {},
+    "within_task_duplicate_images": {
+      "confirmation": 0,
+      "development": 0,
+      "mechanics": 0
+    }
+  },
+  "endpoint_data_accessed": false,
+  "gates": {
+    "all_original_confirmation_tasks_are_retained": true,
+    "all_pass": true,
+    "bound_4_32_64_partition_manifest_matches": true,
+    "development_and_confirmation_have_no_exact_semantic_duplicate": true,
+    "development_and_confirmation_have_no_strict_perceptual_near_duplicate": true,
+    "development_partition_is_byte_identical": true,
+    "endpoint_data_remain_unaccessed": true,
+    "exact_32_frozen_confirmation_additions": true,
+    "exact_4_32_96_68_partition_sizes": true,
+    "expanded_partition_uid_hashes_match": true,
+    "extension_rejection_count_matches": true,
+    "mechanics_partition_is_byte_identical": true,
+    "model_calls_are_zero": true,
+    "selected_experimental_tasks_share_no_exact_image_bytes": true,
+    "selected_tasks_have_no_internal_duplicate_images": true,
+    "selection_uses_no_semantic_truth_labels_or_model_outputs": true
+  },
+  "interface_version": "bongard-openworld-sample-size-expansion-audit-1",
+  "model_calls_made": 0,
+  "partition_uid_sha256": {
+    "confirmation": "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26",
+    "development": "356365ce90c964f6e99de5ca1585f9f582eebf8d4043afb55d1aee2a96c7c99b",
+    "mechanics": "69de5a5fc444f3d14e9c07f570f4fe1fa8a4e915dd15926466c7c677d68bd323"
+  },
+  "post_selection_semantic_overlap": {
+    "caption": 0,
+    "concept": 0
+  },
+  "post_selection_strict_perceptual_overlap": 0,
+  "schema_version": 1,
+  "selection": {
+    "confirmation_additions": 32,
+    "expanded_confirmation_tasks": 96,
+    "expanded_reserve_tasks": 68,
+    "extension_rejection_types": {
+      "internal": 2,
+      "prior_selected": 9
+    },
+    "extension_rejections": 11,
+    "original_confirmation_tasks": 64,
+    "rule": "retain exact current mechanics/development/confirmation; scan the current reserve in frozen order and append the first 32 rows with no internal or prior-selected byte duplicate",
+    "uses_semantic_truth_labels_or_model_outputs": false
+  },
+  "status": "confirmation96_partition_integrity_pass"
+}

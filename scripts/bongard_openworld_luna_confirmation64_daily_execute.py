@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute one frozen Bongard confirmation64 daily block."""
+"""Execute one frozen Bongard confirmation96 daily block."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-daily-execute-2"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-daily-execute-3"
 TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
 MAX_ACCEPTED_RESPONSES = confirmation.MAX_REQUESTS_PER_BLOCK

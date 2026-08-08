@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze the independent Bongard confirmation64 protocol before responses."""
+"""Freeze the independent Bongard confirmation96 protocol before responses."""
 
 from __future__ import annotations
 
@@ -20,16 +20,17 @@ from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
 from scripts import bongard_openworld_partition_integrity_audit as partition_audit
+from scripts import bongard_openworld_sample_size_expansion_audit as expansion_audit
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-8"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-9"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
-BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
-BLOCK_OFFSETS = {block_id: index * 16 for index, block_id in enumerate(BLOCK_ORDER)}
+BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
+BLOCK_OFFSETS = {block_id: index * 24 for index, block_id in enumerate(BLOCK_ORDER)}
 BLOCK_EARLIEST_DATES = {
     "a": "2026-08-15",
     "b": "2026-08-16",
@@ -42,11 +43,11 @@ BLOCK_MODEL_SEEDS = {
     "c": 2_026_081_701,
     "d": 2_026_081_801,
 }
-TASKS = 64
+TASKS = 96
 CASES_PER_TASK = 33
 MAX_FINALS_PER_TASK = 10
 MAX_REQUESTS_PER_TASK = CASES_PER_TASK + MAX_FINALS_PER_TASK
-MAX_REQUESTS_PER_BLOCK = 16 * MAX_REQUESTS_PER_TASK
+MAX_REQUESTS_PER_BLOCK = 24 * MAX_REQUESTS_PER_TASK
 MAX_HTTP_ATTEMPTS_PER_BLOCK = (
     MAX_REQUESTS_PER_BLOCK
     + serving.transport_retry_allowance(MAX_REQUESTS_PER_BLOCK)
@@ -59,7 +60,7 @@ DAILY_CAP_USD = 5.0
 BLOCK_RUN_CAP_USD = 4.75
 BOOTSTRAP_REPLICATES = 20_000
 BOOTSTRAP_SEED = 2_026_081_901
-MIN_CHANGED_FINAL_HISTORIES = 24
+MIN_CHANGED_FINAL_HISTORIES = 36
 MIN_RELATIVE_BRIER_IMPROVEMENT = 0.03
 
 SOURCE_MANIFEST = REPO_ROOT / (
@@ -72,6 +73,19 @@ SOURCE_MANIFEST_SHA256 = (
 PARTITION_MANIFEST = partition_audit.PARTITION_INTEGRITY_MANIFEST
 PARTITION_MANIFEST_SHA256 = (
     partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
+)
+EXPANSION_MANIFEST = REPO_ROOT / (
+    "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
+    "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST.json"
+)
+EXPANSION_MANIFEST_SHA256 = (
+    "809621dd848741848d25c2ddc8603751d43b24486ef1e666260248f9195cea37"
+)
+POWER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md"
+)
+POWER_AMENDMENT_SHA256 = (
+    "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
@@ -95,7 +109,7 @@ MATCHED_FIXED_SCORE_AMENDMENT_SHA256 = (
     "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2"
 )
 CONFIRMATION_UID_SHA256 = (
-    "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
+    "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -115,7 +129,7 @@ def _load(path: Path) -> dict[str, Any]:
 
 
 def _confirmation_rows() -> list[dict[str, str]]:
-    _, _, confirmation_rows, _ = partition_audit.clean_validation_rows()
+    _, _, confirmation_rows, _ = expansion_audit.expanded_validation_rows()
     rows = []
     for source_row in confirmation_rows:
         layout = source_audit._task_layout(source_row)
@@ -137,13 +151,13 @@ def _science_gates() -> dict[str, Any]:
     return {
         "shared": [
             "all_four_endpoint_blind_blocks_independently_replay",
-            "exact_64_disjoint_confirmation_tasks",
+            "exact_96_disjoint_confirmation_tasks",
             "root_candidate_brier_beats_constant_half",
             "all_endpoint_metrics_are_finite",
         ],
         "policy": [
-            "at_least_24_dynamic_final_histories_differ_from_myopic",
-            "at_least_24_dynamic_action_changes_clear_numerical_tie_margin",
+            "at_least_36_dynamic_final_histories_differ_from_myopic",
+            "at_least_36_dynamic_action_changes_clear_numerical_tie_margin",
             "dynamic_and_myopic_differ_in_every_execution_block",
             "dynamic_score_has_positive_mean_endpoint_ranking_fidelity",
             "dynamic_score_ranking_fidelity_is_not_worse_than_myopic",
@@ -153,7 +167,7 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_is_not_worse_than_shuffled_control",
         ],
         "matched_mechanism": [
-            "at_least_24_dynamic_final_histories_differ_from_history_blind",
+            "at_least_36_dynamic_final_histories_differ_from_history_blind",
             "dynamic_and_history_blind_differ_in_every_execution_block",
             "dynamic_brier_relative_improvement_vs_history_blind_at_least_3_percent",
             "dynamic_brier_vs_history_blind_paired_tree_bootstrap_95pct_upper_below_zero",
@@ -161,15 +175,15 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_ranking_fidelity_is_not_worse_than_history_blind",
         ],
         "path_dependent_support": [
-            "at_least_24_dynamic_final_histories_differ_from_fixed_depth2",
-            "at_least_24_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
+            "at_least_36_dynamic_final_histories_differ_from_fixed_depth2",
+            "at_least_36_dynamic_action_changes_from_fixed_clear_numerical_tie_margin",
             "dynamic_and_fixed_depth2_differ_in_every_execution_block",
             "dynamic_brier_relative_improvement_vs_fixed_depth2_at_least_3_percent",
             "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_fixed_depth2",
             "dynamic_ranking_fidelity_is_not_worse_than_fixed_depth2",
-            "at_least_24_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
-            "at_least_24_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
+            "at_least_36_dynamic_final_histories_differ_from_fixed_score_dynamic_update",
+            "at_least_36_dynamic_action_changes_from_fixed_score_dynamic_update_clear_numerical_tie_margin",
             "dynamic_and_fixed_score_dynamic_update_differ_in_every_execution_block",
             "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
             "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero",
@@ -183,8 +197,8 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         raise FileExistsError(f"confirmation freeze already exists: {output_path}")
     source_manifest = _load(SOURCE_MANIFEST)
     partition_manifest = _load(PARTITION_MANIFEST)
+    expansion_manifest = _load(EXPANSION_MANIFEST)
     development_manifest = _load(DEVELOPMENT_MANIFEST)
-    confirmation = partition_manifest["repaired_partitions"]["confirmation"]
     rows = _confirmation_rows()
     counts = {
         block_id: sum(row["block_id"] == block_id for row in rows)
@@ -193,6 +207,8 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
     implementation_paths = (
         "scripts/bongard_openworld_vlm_bed.py",
         "scripts/bongard_openworld_partition_integrity_audit.py",
+        "scripts/bongard_openworld_power_audit.py",
+        "scripts/bongard_openworld_sample_size_expansion_audit.py",
         "scripts/bongard_openworld_luna_vlm_serving_smoke.py",
         "scripts/bongard_openworld_luna_vlm_mechanics_tree.py",
         "scripts/bongard_openworld_luna_vlm_development.py",
@@ -200,6 +216,8 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
     )
     gates = {
         "source_manifest_hash_matches": (
@@ -210,6 +228,16 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             and partition_manifest.get("status") == "partition_integrity_pass"
             and partition_manifest.get("all_gates_pass") is True
             and partition_manifest.get("authorizes_paid_calls") is False
+        ),
+        "confirmation96_expansion_manifest_hash_and_status_match": (
+            sha256_file(EXPANSION_MANIFEST) == EXPANSION_MANIFEST_SHA256
+            and expansion_manifest.get("status")
+            == "confirmation96_partition_integrity_pass"
+            and (expansion_manifest.get("gates") or {}).get("all_pass") is True
+            and expansion_manifest.get("authorizes_paid_calls") is False
+        ),
+        "confirmation96_power_amendment_hash_matches": (
+            sha256_file(POWER_AMENDMENT) == POWER_AMENDMENT_SHA256
         ),
         "development_manifest_hash_matches": (
             sha256_file(DEVELOPMENT_MANIFEST) == DEVELOPMENT_MANIFEST_SHA256
@@ -231,13 +259,19 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             is True
         ),
         "exact_repaired_confirmation_partition_is_bound": (
-            confirmation.get("count") == TASKS
-            and confirmation.get("uid_sha256") == CONFIRMATION_UID_SHA256
+            (expansion_manifest.get("selection") or {}).get(
+                "expanded_confirmation_tasks"
+            )
+            == TASKS
+            and (expansion_manifest.get("partition_uid_sha256") or {}).get(
+                "confirmation"
+            )
+            == CONFIRMATION_UID_SHA256
         ),
-        "exact_64_unique_opaque_task_identities": (
+        "exact_96_unique_opaque_task_identities": (
             len(rows) == len({row["task_id"] for row in rows}) == TASKS
         ),
-        "exact_four_16_task_blocks": counts == BLOCK_SIZES,
+        "exact_four_24_task_blocks": counts == BLOCK_SIZES,
         "manifest_rows_are_opaque_and_truth_free": all(
             set(row) == {"task_id", "source_row_sha256", "block_id"}
             for row in rows
@@ -263,11 +297,16 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "source": {
             "manifest_sha256": SOURCE_MANIFEST_SHA256,
             "partition_integrity_manifest_sha256": PARTITION_MANIFEST_SHA256,
+            "confirmation96_expansion_manifest_sha256": (
+                EXPANSION_MANIFEST_SHA256
+            ),
+            "confirmation96_power_amendment_sha256": POWER_AMENDMENT_SHA256,
             "source_commit": source_manifest["source"]["commit"],
             "source_tree": source_manifest["source"]["tree"],
             "image_archive_sha256": image_audit.ARCHIVE_SHA256,
             "confirmation_count": TASKS,
             "confirmation_uid_sha256": CONFIRMATION_UID_SHA256,
+            "reserve_count_after_expansion": 68,
         },
         "development_precondition": {
             "manifest_sha256": DEVELOPMENT_MANIFEST_SHA256,
