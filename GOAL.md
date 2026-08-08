@@ -20,14 +20,15 @@ noise. A wash is the likely outcome. But a small, honestly-controlled positive h
 worth more than a large one on a toy, because it is the only version where the LLM is
 necessary. Chase it; keep going; the goal does not "complete."
 
-**Near-term benchmark note (2026-07-24):** Try CA-BED's Detective Cases environment.
-Its fixed five-suspect support can provide a cleaner semantic test of question
-generation, LLM likelihood estimation, and depth-two planning than open-world support
-regeneration. Treat it as valuable only if the main result is genuinely LLM-native:
-the LLM must supply indispensable semantic inference that a classical enumerative
-planner cannot replace, and non-myopia must beat paired myopic and matched-compute
-controls. Do not let a larger result on an LLM-ornamental exact environment displace
-this objective.
+**Resolved benchmark note (2026-07-24):** CA-BED Detective Cases was tried and
+closed. Matched response-function likelihoods repaired depth-two truth-gain ranking
+from negative to strongly positive, but only 23 of 241 questions (9.5%) distinguished
+the murderer and innocent roles, only 4 of 12 cases were rankable, and depth two
+changed/won on only 2 of 12. The released cases provide one canonical private story
+per suspect rather than coherent counterfactual worlds, so richer prompting or a new
+budget model cannot create the missing experimental opportunity. Do not reopen this
+formulation unless the benchmark releases world-conditioned stories or response
+models. Keep the headline on genuinely LLM-native path-dependent belief dynamics.
 
 You have full autonomy. Decide, log a line in STATE.md, run it. Read whatever
 literature helps. Pick whatever environments, models, and methods you think will
