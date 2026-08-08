@@ -173,7 +173,7 @@ def test_confirmation_block_runs_and_replays_with_fixture(
     assert result["terminal_label_obedience"]["negative_mean_brier"] < 0.25
     assert result["terminal_label_obedience"]["positive_mean_brier"] < 0.25
     assert result["protocol"]["block_size"] == 24
-    assert result["usage"]["adapter_requests"] <= 1_032
+    assert result["usage"]["adapter_requests"] <= 1_056
     replay = confirmation.replay_block(
         result_path=output / "RESULT.json", all_confirmation_tasks=tasks
     )
@@ -189,12 +189,16 @@ def _scored_tree(task_id: str, index: int) -> dict:
         "dynamic_depth2": (0.10, 0.25),
         "shuffled_dynamic_depth2": (0.13, 0.31),
         "history_blind_depth2": (0.18, 0.36),
+        "history_blind_update_matched_first": (0.16, 0.34),
         "random": (0.24, 0.48),
     }
     policies = {}
     for policy in mechanics.POLICIES:
         brier, log_loss = endpoint_values[policy]
-        if policy == "dynamic_depth2":
+        if policy in {
+            "dynamic_depth2",
+            "history_blind_update_matched_first",
+        }:
             first = "dynamic-first"
         elif policy in {"fixed_depth2", "fixed_score_dynamic_update"}:
             first = "fixed_depth2-first"
@@ -203,6 +207,12 @@ def _scored_tree(task_id: str, index: int) -> dict:
         policies[policy] = {
             "first_image_id": first,
             "first_score_margin": 0.1,
+            "second_image_id": (
+                "blind-second"
+                if policy == "history_blind_update_matched_first"
+                else f"{policy}-second"
+            ),
+            "second_score_margin": 0.1,
             "final_history_key": f"{policy}-{index}",
             "endpoint": {
                 "mean_brier": brier,
@@ -274,11 +284,35 @@ def test_combined_analysis_uses_strict_confirmation_gates(
     assert result["dynamic_vs_fixed_score_dynamic_update"]["mean_brier"][
         "ci95"
     ][1] < 0
+    assert result["dynamic_vs_history_blind_update_matched_first"][
+        "mean_brier"
+    ]["ci95"][1] < 0
+    assert (
+        result[
+            "dynamic_vs_history_blind_update_matched_first_changed_final_histories"
+        ]
+        == 96
+    )
+    assert (
+        result[
+            "dynamic_vs_history_blind_update_matched_first_robust_second_action_changes"
+        ]
+        == 96
+    )
     assert result["gates"][
         "dynamic_brier_vs_fixed_depth2_paired_tree_bootstrap_95pct_upper_below_zero"
     ]
     assert result["gates"][
         "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero"
+    ]
+    assert result["gates"][
+        "dynamic_brier_vs_history_blind_update_matched_first_paired_tree_bootstrap_95pct_upper_below_zero"
+    ]
+    assert result["gates"][
+        "dynamic_brier_relative_improvement_vs_history_blind_update_matched_first_at_least_3_percent"
+    ]
+    assert result["gates"][
+        "dynamic_log_loss_is_not_worse_than_history_blind_update_matched_first"
     ]
     assert result["sealed_test_authorized"] is False
 

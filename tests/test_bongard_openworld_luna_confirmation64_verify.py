@@ -12,10 +12,10 @@ def test_official_confirmation_freeze_independently_verifies() -> None:
     assert result["verified"] is True
     assert result["task_count"] == 96
     assert result["block_sizes"] == {"a": 24, "b": 24, "c": 24, "d": 24}
-    assert result["maximum_requests_per_block"] == 1_032
-    assert result["maximum_http_attempts_per_block"] == 1_053
+    assert result["maximum_requests_per_block"] == 1_056
+    assert result["maximum_http_attempts_per_block"] == 1_078
     assert result["maximum_precharged_exposure_per_block_usd"] == pytest.approx(
-        4.212
+        4.312
     )
 
 
@@ -23,8 +23,8 @@ def test_official_confirmation_freeze_independently_verifies() -> None:
     ("path", "value"),
     [
         (("protocol", "model"), "wrong/model"),
-        (("protocol", "blocks", "a", "maximum_requests"), 1_031),
-        (("protocol", "blocks", "a", "maximum_http_attempts"), 1_052),
+        (("protocol", "blocks", "a", "maximum_requests"), 1_055),
+        (("protocol", "blocks", "a", "maximum_http_attempts"), 1_077),
         (("development_precondition", "required_claim_tier"), "policy_only"),
         (("tasks", 0, "block_id"), "d"),
         (("gates", "model_calls_are_zero"), False),

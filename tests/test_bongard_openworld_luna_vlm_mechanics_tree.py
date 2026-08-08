@@ -88,6 +88,9 @@ def _response(messages, *, seed: int | None = None) -> str:
             else:
                 seed_scale = 0 if seed is None else seed % 7
                 amplitude = 8 + seed_scale * 3 + (image_index % 4) * 2
+                if first_extra is None and seed is not None:
+                    preferred_candidate = 4 + (seed % 8)
+                    amplitude = 40 if image_index == preferred_candidate else 6
                 if first_extra == "image-05":
                     amplitude = 35 if image_id != first_extra else 8
                 elif first_extra is not None:
@@ -228,6 +231,19 @@ def test_full_fixture_tree_is_shared_executable_and_endpoint_scored(
     assert result["gates"][
         "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second"
     ]
+    assert result["gates"][
+        "history_blind_update_matched_first_exactly_matches_dynamic_first"
+    ]
+    assert result["gates"][
+        "dynamic_and_matched_history_blind_update_change_at_least_one_second_action"
+    ]
+    assert all(
+        task_result["policies"]["history_blind_update_matched_first"][
+            "first_image_id"
+        ]
+        == task_result["policies"]["dynamic_depth2"]["first_image_id"]
+        for task_result in result["trees"]
+    )
     assert all(
         task_result["policies"]["fixed_score_dynamic_update"][
             "first_image_id"
@@ -502,6 +518,30 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         ),
         task.endpoint_ids,
     )
+    matched_update = original_plan["policies"][
+        "history_blind_update_matched_first"
+    ]
+    assert matched_update["first_image_id"] == dynamic_first
+    blind = history_blind[(dynamic_first, dynamic_label)]
+    blind_weights = bed.updated_weights_for_label(
+        blind, dynamic_first, dynamic_label
+    )
+    remaining = tuple(
+        candidate
+        for candidate in task.candidate_ids
+        if candidate != dynamic_first
+    )
+    expected_blind_second_scores = bed.candidate_endpoint_eigs(
+        blind,
+        remaining,
+        task.endpoint_ids,
+        weights=blind_weights,
+    )
+    assert matched_update["second_scores"] == expected_blind_second_scores
+    assert matched_update["second_image_id"] == bed.select_best(
+        expected_blind_second_scores
+    )
+    assert tree.history_blind_update_matched_first_is_exact(original_plan)
     fixed = original_plan["policies"]["fixed_depth2"]
     matched = original_plan["policies"]["fixed_score_dynamic_update"]
     assert matched["first_image_id"] == fixed["first_image_id"]

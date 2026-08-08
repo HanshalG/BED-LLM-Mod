@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-11"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-12"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -40,7 +40,7 @@ BRANCH_REQUESTS = DYNAMIC_BRANCH_REQUESTS
 FIRST_STAGE_REQUESTS = (
     ROOT_REQUESTS + DYNAMIC_BRANCH_REQUESTS + HISTORY_BLIND_BRANCH_REQUESTS
 )
-MAX_FINAL_REQUESTS = 40
+MAX_FINAL_REQUESTS = 44
 MAX_REQUESTS = FIRST_STAGE_REQUESTS + MAX_FINAL_REQUESTS
 FINAL_SEED_OFFSET = 1_000_000
 CONCURRENCY = 24
@@ -57,6 +57,7 @@ POLICIES = (
     "fixed_depth2",
     "fixed_score_dynamic_update",
     "dynamic_depth2",
+    "history_blind_update_matched_first",
     "shuffled_dynamic_depth2",
     "history_blind_depth2",
     "random",
@@ -484,6 +485,7 @@ def plan_task_policies(
         "fixed_depth2": bed.select_best(fixed_scores),
         "fixed_score_dynamic_update": bed.select_best(fixed_scores),
         "dynamic_depth2": bed.select_best(dynamic_scores),
+        "history_blind_update_matched_first": bed.select_best(dynamic_scores),
         "shuffled_dynamic_depth2": bed.select_best(shuffled_scores),
         "history_blind_depth2": bed.select_best(history_blind_scores),
     }
@@ -506,6 +508,19 @@ def plan_task_policies(
             )
             second_scores = bed.candidate_endpoint_eigs(
                 root, remaining, endpoint_ids, weights=fixed_weights
+            )
+            second = bed.select_best(second_scores)
+        elif policy == "history_blind_update_matched_first":
+            blind = history_blind_branches[(first, first_label)]
+            if blind.history != root.history:
+                raise ValueError(
+                    "matched history-blind updater must contain only root history"
+                )
+            blind_weights = bed.updated_weights_for_label(
+                blind, first, first_label
+            )
+            second_scores = bed.candidate_endpoint_eigs(
+                blind, remaining, endpoint_ids, weights=blind_weights
             )
             second = bed.select_best(second_scores)
         else:
@@ -539,6 +554,7 @@ def plan_task_policies(
                     "fixed_depth2": fixed_scores,
                     "fixed_score_dynamic_update": fixed_scores,
                     "dynamic_depth2": dynamic_scores,
+                    "history_blind_update_matched_first": dynamic_scores,
                     "shuffled_dynamic_depth2": shuffled_scores,
                     "history_blind_depth2": history_blind_scores,
                 }[policy][first]
@@ -552,6 +568,7 @@ def plan_task_policies(
                         "fixed_depth2": fixed_scores,
                         "fixed_score_dynamic_update": fixed_scores,
                         "dynamic_depth2": dynamic_scores,
+                        "history_blind_update_matched_first": dynamic_scores,
                         "shuffled_dynamic_depth2": shuffled_scores,
                         "history_blind_depth2": history_blind_scores,
                     }[policy],
@@ -559,6 +576,11 @@ def plan_task_policies(
                 )
             ),
             "second_scores": second_scores,
+            "second_score_margin": (
+                None
+                if second_scores is None
+                else selection_margin(second_scores, second)
+            ),
         }
     return {
         "score_objective": SCORE_OBJECTIVE,
@@ -568,6 +590,7 @@ def plan_task_policies(
             "fixed_depth2": fixed_scores,
             "fixed_score_dynamic_update": fixed_scores,
             "dynamic_depth2": dynamic_scores,
+            "history_blind_update_matched_first": dynamic_scores,
             "shuffled_dynamic_depth2": shuffled_scores,
             "history_blind_depth2": history_blind_scores,
         },
@@ -587,6 +610,7 @@ def final_cases(
         for policy in (
             "dynamic_depth2",
             "history_blind_depth2",
+            "history_blind_update_matched_first",
             "myopic_width",
             "fixed_depth2",
             "fixed_score_dynamic_update",
@@ -665,6 +689,22 @@ def fixed_score_dynamic_update_is_exact(tree: Mapping[str, Any]) -> bool:
     )
 
 
+def history_blind_update_matched_first_is_exact(
+    tree: Mapping[str, Any],
+) -> bool:
+    matched = tree["policies"]["history_blind_update_matched_first"]
+    dynamic = tree["policies"]["dynamic_depth2"]
+    return (
+        matched["first_image_id"] == dynamic["first_image_id"]
+        and matched["first_label"] == dynamic["first_label"]
+        and matched["first_score"] == dynamic["first_score"]
+        and matched["first_score_margin"] == dynamic["first_score_margin"]
+        and tree["root_scores"]["history_blind_update_matched_first"]
+        == tree["root_scores"]["dynamic_depth2"]
+        and matched["second_scores"] is not None
+    )
+
+
 def all_action_final_cases(
     *,
     tasks: Sequence[bed.VisualTask],
@@ -678,6 +718,7 @@ def all_action_final_cases(
             for policy in (
                 "dynamic_depth2",
                 "history_blind_depth2",
+                "history_blind_update_matched_first",
                 "myopic_width",
                 "fixed_depth2",
                 "fixed_score_dynamic_update",
@@ -705,7 +746,7 @@ def all_action_final_cases(
                     kind="final",
                 )
             )
-    if not len(tasks) * 4 <= len(cases) <= len(tasks) * 10:
+    if not len(tasks) * 4 <= len(cases) <= len(tasks) * 11:
         raise ValueError("all-action final history count is outside bounds")
     return cases
 
@@ -835,8 +876,12 @@ def final_request_diagnostics(
             blind_key = plans[task_id]["policies"]["history_blind_depth2"][
                 "final_history_key"
             ]
+            matched_update_key = plans[task_id]["policies"][
+                "history_blind_update_matched_first"
+            ]["final_history_key"]
             dynamic_index = index_by_key[(task_id, dynamic_key)]
             blind_index = index_by_key[(task_id, blind_key)]
+            matched_update_index = index_by_key[(task_id, matched_update_key)]
             rows.append(
                 {
                     "task_id": task_id,
@@ -864,6 +909,16 @@ def final_request_diagnostics(
                     "dynamic_and_history_blind_share_dispatch_batch": (
                         batch_by_index.get(dynamic_index)
                         == batch_by_index.get(blind_index)
+                    ),
+                    "dynamic_history_equals_matched_history_blind_update": (
+                        dynamic_key == matched_update_key
+                    ),
+                    "dynamic_and_matched_history_blind_update_share_seed": (
+                        seeds[dynamic_index] == seeds[matched_update_index]
+                    ),
+                    "dynamic_and_matched_history_blind_update_share_dispatch_batch": (
+                        batch_by_index.get(dynamic_index)
+                        == batch_by_index.get(matched_update_index)
                     ),
                 }
             )
@@ -893,6 +948,16 @@ def final_request_diagnostics(
         ),
         "dynamic_and_history_blind_terminal_pairs_share_dispatch_batch": all(
             row["dynamic_and_history_blind_share_dispatch_batch"] for row in rows
+        ),
+        "dynamic_and_matched_history_blind_update_terminal_pairs_share_seed": all(
+            row["dynamic_and_matched_history_blind_update_share_seed"]
+            for row in rows
+        ),
+        "dynamic_and_matched_history_blind_update_terminal_pairs_share_dispatch_batch": all(
+            row[
+                "dynamic_and_matched_history_blind_update_share_dispatch_batch"
+            ]
+            for row in rows
         ),
     }
     gates["all_pass"] = all(gates.values())
@@ -1078,6 +1143,16 @@ def mechanics_gates(
     matched_fixed_control_exact = all(
         fixed_score_dynamic_update_is_exact(tree) for tree in trees
     )
+    matched_history_blind_update_exact = all(
+        history_blind_update_matched_first_is_exact(tree) for tree in trees
+    )
+    matched_history_blind_update_changes = sum(
+        tree["policies"]["dynamic_depth2"]["second_image_id"]
+        != tree["policies"]["history_blind_update_matched_first"][
+            "second_image_id"
+        ]
+        for tree in trees
+    )
     distinct_control_policies = sum(
         any(
             tree["policies"][policy]["final_history_key"]
@@ -1180,6 +1255,12 @@ def mechanics_gates(
         ),
         "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second": (
             matched_fixed_control_exact
+        ),
+        "history_blind_update_matched_first_exactly_matches_dynamic_first": (
+            matched_history_blind_update_exact
+        ),
+        "dynamic_and_matched_history_blind_update_change_at_least_one_second_action": (
+            matched_history_blind_update_changes >= 1
         ),
         "shuffled_control_exactly_permutes_complete_continuation_values": (
             shuffled_control_exact
@@ -1557,6 +1638,10 @@ def run_mechanics(
             "history_blind_control_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_HISTORY_BLIND_CONTROL_AMENDMENT.md"
+            ),
+            "matched_realized_updater_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
             ),
             "terminal_crn_amendment": (
                 "results/nonmyopic/"

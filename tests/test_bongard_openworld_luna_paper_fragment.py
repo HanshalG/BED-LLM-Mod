@@ -51,6 +51,10 @@ def _metrics(n: int) -> dict:
             "mean_brier": summary,
             "mean_log_loss": summary,
         },
+        "dynamic_vs_history_blind_update_matched_first": {
+            "mean_brier": summary,
+            "mean_log_loss": summary,
+        },
         "ranking_fidelity": {
             "dynamic_depth2": {"mean_spearman": 0.30, "sample_sd": 0.20},
             "myopic_width": {"mean_spearman": 0.20, "sample_sd": 0.20},
@@ -63,10 +67,13 @@ def _metrics(n: int) -> dict:
         "dynamic_vs_history_blind_relative_brier_improvement": 0.06,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": 0.04,
+        "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement": 0.04,
         "dynamic_vs_myopic_changed_final_histories": n // 2,
         "dynamic_vs_history_blind_changed_final_histories": n // 2 - 1,
         "dynamic_vs_fixed_depth2_changed_final_histories": n // 2 - 2,
         "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": n // 2 - 3,
+        "dynamic_vs_history_blind_update_matched_first_changed_final_histories": n // 2 - 4,
+        "dynamic_vs_history_blind_update_matched_first_robust_second_action_changes": n // 2 - 4,
     }
 
 
@@ -131,7 +138,7 @@ def _prepare_development(
         (
             (claim.PATH_DEPENDENT_GATES[0],),
             "policy_and_matched_regeneration_without_fixed_support_superiority",
-            "does not establish superiority over the fixed-support controls",
+            "does not establish complete superiority",
         ),
         (
             (claim.MECHANISM_GATES[0],),
@@ -174,6 +181,7 @@ def test_development_fragment_obeys_every_frozen_tier(
     assert "fixed-support" in tex
     assert "history-blind" in tex
     assert "matched fixed-score" in tex
+    assert "matched realized updater" in tex
     assert "common realized updater" in tex
     assert "belief regeneration improves over" not in tex
 

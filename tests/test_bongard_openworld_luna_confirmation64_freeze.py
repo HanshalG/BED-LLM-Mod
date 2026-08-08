@@ -8,9 +8,9 @@ from scripts import bongard_openworld_luna_confirmation64_freeze as freeze
 
 
 def test_confirmation_block_economics_fit_daily_cap() -> None:
-    assert freeze.MAX_REQUESTS_PER_BLOCK == 1_032
-    assert freeze.MAX_HTTP_ATTEMPTS_PER_BLOCK == 1_053
-    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(4.212)
+    assert freeze.MAX_REQUESTS_PER_BLOCK == 1_056
+    assert freeze.MAX_HTTP_ATTEMPTS_PER_BLOCK == 1_078
+    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(4.312)
     assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD < freeze.DAILY_CAP_USD
 
 
@@ -36,6 +36,10 @@ def test_science_gate_families_bind_path_dependent_support() -> None:
     assert any("myopic" in gate for gate in gates["policy"])
     assert any("history_blind" in gate for gate in gates["matched_mechanism"])
     assert any("fixed_depth2" in gate for gate in gates["path_dependent_support"])
+    assert any(
+        "history_blind_update_matched_first" in gate
+        for gate in gates["path_dependent_support"]
+    )
     assert all("bootstrap_95pct_upper_below_zero" in gate for gate in (
         gates["policy"][6],
         gates["matched_mechanism"][3],

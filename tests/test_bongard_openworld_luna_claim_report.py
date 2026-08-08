@@ -59,6 +59,10 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
             "mean_brier": summary,
             "mean_log_loss": summary,
         },
+        "dynamic_vs_history_blind_update_matched_first": {
+            "mean_brier": summary,
+            "mean_log_loss": summary,
+        },
         "ranking_fidelity": {
             "dynamic_depth2": {"mean_spearman": 0.3, "sample_sd": 0.2},
             "myopic_width": {"mean_spearman": 0.2, "sample_sd": 0.2},
@@ -71,10 +75,13 @@ def _result(*, failed: tuple[str, ...] = ()) -> dict:
         "dynamic_vs_history_blind_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": 0.05,
+        "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement": 0.05,
         "dynamic_vs_myopic_changed_final_histories": 32,
         "dynamic_vs_history_blind_changed_final_histories": 28,
         "dynamic_vs_fixed_depth2_changed_final_histories": 30,
         "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": 30,
+        "dynamic_vs_history_blind_update_matched_first_changed_final_histories": 30,
+        "dynamic_vs_history_blind_update_matched_first_robust_second_action_changes": 30,
     }
 
 
@@ -95,6 +102,14 @@ def _verification(result: dict, sha256: str = "a" * 64) -> dict:
         ((), "full_path_dependent_llm_native_development_signal", True),
         (
             (claim.PATH_DEPENDENT_GATES[0],),
+            (
+                "policy_and_matched_regeneration_without_"
+                "fixed_support_superiority"
+            ),
+            False,
+        ),
+        (
+            (claim.PATH_DEPENDENT_GATES[-1],),
             (
                 "policy_and_matched_regeneration_without_"
                 "fixed_support_superiority"
@@ -139,6 +154,9 @@ def test_claim_tiers_are_fixed_by_complete_gate_families(
     }:
         assert "first-query planning" in scope
         assert "common realized" in scope
+    if expected_tier == "full_path_dependent_llm_native_development_signal":
+        assert "second query" in scope
+        assert "history-blind intermediate" in scope
 
 
 def test_unmatched_fixed_policy_win_cannot_authorize_first_action_claim() -> None:

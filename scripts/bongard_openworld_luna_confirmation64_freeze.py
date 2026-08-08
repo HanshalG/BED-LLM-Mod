@@ -26,7 +26,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-12"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-13"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -45,7 +45,7 @@ BLOCK_MODEL_SEEDS = {
 }
 TASKS = 96
 CASES_PER_TASK = 33
-MAX_FINALS_PER_TASK = 10
+MAX_FINALS_PER_TASK = 11
 MAX_REQUESTS_PER_TASK = CASES_PER_TASK + MAX_FINALS_PER_TASK
 MAX_REQUESTS_PER_BLOCK = 24 * MAX_REQUESTS_PER_TASK
 MAX_HTTP_ATTEMPTS_PER_BLOCK = (
@@ -89,10 +89,10 @@ POWER_AMENDMENT_SHA256 = (
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V15.json"
+    "PROTOCOL_MANIFEST_V16.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
+    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -126,6 +126,13 @@ ESTIMAND_CLARIFICATION = REPO_ROOT / (
 )
 ESTIMAND_CLARIFICATION_SHA256 = (
     "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
+    "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
 )
 CONFIRMATION_UID_SHA256 = (
     "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
@@ -210,6 +217,12 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
             "dynamic_brier_vs_fixed_score_dynamic_update_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update",
+            "at_least_36_dynamic_final_histories_differ_from_history_blind_update_matched_first",
+            "at_least_36_dynamic_second_action_changes_from_history_blind_update_matched_first_clear_numerical_tie_margin",
+            "dynamic_and_history_blind_update_matched_first_differ_in_every_execution_block",
+            "dynamic_brier_relative_improvement_vs_history_blind_update_matched_first_at_least_3_percent",
+            "dynamic_brier_vs_history_blind_update_matched_first_paired_tree_bootstrap_95pct_upper_below_zero",
+            "dynamic_log_loss_is_not_worse_than_history_blind_update_matched_first",
         ],
     }
 
@@ -242,6 +255,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
         "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
         "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -288,6 +302,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "history_blind_estimand_clarification_hash_matches": (
             sha256_file(ESTIMAND_CLARIFICATION)
             == ESTIMAND_CLARIFICATION_SHA256
+        ),
+        "matched_realized_updater_amendment_hash_matches": (
+            sha256_file(MATCHED_REALIZED_UPDATER_AMENDMENT)
+            == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
         ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
@@ -381,6 +399,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             ),
             "history_blind_estimand_clarification_sha256": (
                 ESTIMAND_CLARIFICATION_SHA256
+            ),
+            "matched_realized_updater_amendment_sha256": (
+                MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
             ),
             "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,

@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_confirmation64_verify as protocol_verify
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-6"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-7"
 CORE = REPO_ROOT / "scripts/bongard_openworld_luna_confirmation64.py"
 DAILY = REPO_ROOT / (
     "scripts/bongard_openworld_luna_confirmation64_daily_execute.py"
@@ -32,7 +32,11 @@ TERMINAL_OBEDIENCE_AMENDMENT = REPO_ROOT / (
 ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
 )
-CORE_SHA256 = "80dda8508e1378e48593190968086f3b7db451732f5091606c5fa0a75e30b18e"
+MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
+)
+CORE_SHA256 = "418df164b36cdeb6c199e87c566603ad66e34f7648480e4f99110cc5ab0d927e"
 DAILY_SHA256 = "627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
@@ -42,6 +46,9 @@ TERMINAL_OBEDIENCE_AMENDMENT_SHA256 = (
 )
 ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
     "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
+    "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
 )
 
 
@@ -56,6 +63,9 @@ def verify_execution_bindings() -> dict[str, Any]:
         AMENDMENT: AMENDMENT_SHA256,
         TERMINAL_OBEDIENCE_AMENDMENT: TERMINAL_OBEDIENCE_AMENDMENT_SHA256,
         ENDPOINT_UTILITY_AMENDMENT: ENDPOINT_UTILITY_AMENDMENT_SHA256,
+        MATCHED_REALIZED_UPDATER_AMENDMENT: (
+            MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+        ),
     }
     changed = [
         str(path)
@@ -78,6 +88,9 @@ def verify_execution_bindings() -> dict[str, Any]:
         ),
         "endpoint_predictive_utility_amendment_sha256": (
             ENDPOINT_UTILITY_AMENDMENT_SHA256
+        ),
+        "matched_realized_updater_amendment_sha256": (
+            MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
         ),
         "protocol_manifest_sha256": protocol["manifest_sha256"],
     }

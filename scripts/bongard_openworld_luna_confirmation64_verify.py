@@ -24,13 +24,13 @@ from scripts import bongard_openworld_sample_size_expansion_audit as expansion_a
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-12"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-13"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V12.json"
+    "PROTOCOL_MANIFEST_V13.json"
 )
 MANIFEST_SHA256 = (
-    "1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078"
+    "2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -52,7 +52,7 @@ POWER_AMENDMENT_SHA256 = (
     "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
+    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -93,6 +93,13 @@ ESTIMAND_CLARIFICATION = REPO_ROOT / (
 ESTIMAND_CLARIFICATION_SHA256 = (
     "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
 )
+MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
+    "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
+)
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
     "a": "2026-08-15",
@@ -122,6 +129,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
     "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -180,9 +188,9 @@ def verify_manifest(
             "offset": index * 24,
             "earliest_london_date": BLOCK_DATES[block_id],
             "model_seed": BLOCK_SEEDS[block_id],
-            "maximum_requests": 1_032,
-            "maximum_http_attempts": 1_053,
-            "maximum_precharged_exposure_usd": 4.212,
+                "maximum_requests": 1_056,
+                "maximum_http_attempts": 1_078,
+                "maximum_precharged_exposure_usd": 4.312,
             "daily_cap_usd": 5.0,
             "run_cap_usd": 4.75,
         }
@@ -249,6 +257,12 @@ def verify_manifest(
                 == ESTIMAND_CLARIFICATION_SHA256
                 and sha256_file(ESTIMAND_CLARIFICATION)
                 == ESTIMAND_CLARIFICATION_SHA256
+                and precondition.get(
+                    "matched_realized_updater_amendment_sha256"
+                )
+                == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+                and sha256_file(MATCHED_REALIZED_UPDATER_AMENDMENT)
+                == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
             and precondition.get(
                 "legacy_no_ad_hoc_execution_field_is_preserved"
             )
@@ -316,6 +330,7 @@ def verify_manifest(
                 "matched_fixed_score_amendment_hash_matches",
                 "endpoint_predictive_utility_amendment_hash_matches",
                 "history_blind_estimand_clarification_hash_matches",
+                "matched_realized_updater_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_expanded_experimental_partitions_are_bound",
                 "exact_96_unique_opaque_task_identities",
@@ -341,7 +356,7 @@ def verify_manifest(
             and len(manifest["science_gates"]["shared"]) == 4
             and len(manifest["science_gates"]["policy"]) == 9
             and len(manifest["science_gates"]["matched_mechanism"]) == 6
-                and len(manifest["science_gates"]["path_dependent_support"]) == 13
+                and len(manifest["science_gates"]["path_dependent_support"]) == 19
         ),
     }
     if require_unopened_predecessors:
@@ -361,9 +376,9 @@ def verify_manifest(
             block_id: sum(row["block_id"] == block_id for row in expected_tasks)
             for block_id in BLOCK_ORDER
         },
-        "maximum_requests_per_block": 1_032,
-        "maximum_http_attempts_per_block": 1_053,
-        "maximum_precharged_exposure_per_block_usd": 4.212,
+        "maximum_requests_per_block": 1_056,
+        "maximum_http_attempts_per_block": 1_078,
+        "maximum_precharged_exposure_per_block_usd": 4.312,
         "checks": checks,
     }
 

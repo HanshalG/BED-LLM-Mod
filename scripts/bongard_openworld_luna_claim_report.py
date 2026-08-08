@@ -20,7 +20,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-5"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-6"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
@@ -62,6 +62,12 @@ PATH_DEPENDENT_GATES = (
     "dynamic_brier_relative_improvement_vs_fixed_score_dynamic_update_at_least_3_percent",
     "dynamic_brier_vs_fixed_score_dynamic_update_bootstrap_probability_at_least_0_80",
     "dynamic_log_loss_is_not_worse_than_fixed_score_dynamic_update",
+    "at_least_24_dynamic_final_histories_differ_from_history_blind_update_matched_first",
+    "at_least_24_dynamic_second_action_changes_from_history_blind_update_matched_first_clear_numerical_tie_margin",
+    "dynamic_and_history_blind_update_matched_first_differ_in_every_execution_block",
+    "dynamic_brier_relative_improvement_vs_history_blind_update_matched_first_at_least_3_percent",
+    "dynamic_brier_vs_history_blind_update_matched_first_bootstrap_probability_at_least_0_80",
+    "dynamic_log_loss_is_not_worse_than_history_blind_update_matched_first",
 )
 EXPECTED_GATES = (
     *SHARED_GATES,
@@ -90,6 +96,13 @@ CLAIM_SCOPES = {
                 "fixed-support depth-two scoring under a matched realized "
                 "dynamic continuation."
             ),
+            (
+                "Matched-control development evidence that, after the same "
+                "dynamic-selected first query and realized answer, the "
+                "answer-conditioned intermediate belief selects a better "
+                "second query than the same-seed history-blind intermediate "
+                "belief under a common terminal updater."
+            ),
         ],
         "forbidden": [
             "held-out confirmation",
@@ -111,7 +124,7 @@ CLAIM_SCOPES = {
             ),
         ],
         "forbidden": [
-            "superiority over fixed-support depth-two planning",
+            "superiority over every fixed-support and matched realized-updater control",
             "confirmation authorization",
             "held-out confirmation",
             "sealed-test evidence",
@@ -261,6 +274,9 @@ def build_claim_report(
         "dynamic_vs_fixed_score_dynamic_update": result[
             "dynamic_vs_fixed_score_dynamic_update"
         ],
+        "dynamic_vs_history_blind_update_matched_first": result[
+            "dynamic_vs_history_blind_update_matched_first"
+        ],
         "ranking_fidelity": result["ranking_fidelity"],
         "dynamic_vs_myopic_relative_brier_improvement": result[
             "dynamic_vs_myopic_relative_brier_improvement"
@@ -274,6 +290,9 @@ def build_claim_report(
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": result[
             "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement"
         ],
+        "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement": result[
+            "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement"
+        ],
         "dynamic_vs_myopic_changed_final_histories": result[
             "dynamic_vs_myopic_changed_final_histories"
         ],
@@ -285,6 +304,12 @@ def build_claim_report(
         ],
         "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": result[
             "dynamic_vs_fixed_score_dynamic_update_changed_final_histories"
+        ],
+        "dynamic_vs_history_blind_update_matched_first_changed_final_histories": result[
+            "dynamic_vs_history_blind_update_matched_first_changed_final_histories"
+        ],
+        "dynamic_vs_history_blind_update_matched_first_robust_second_action_changes": result[
+            "dynamic_vs_history_blind_update_matched_first_robust_second_action_changes"
         ],
     }
     if not _finite(metrics):

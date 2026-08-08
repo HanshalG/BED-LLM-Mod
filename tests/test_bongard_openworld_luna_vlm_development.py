@@ -247,6 +247,10 @@ def test_block_run_is_endpoint_blind_and_replays(tmp_path: Path) -> None:
     ]
     assert "pooled_policy_metrics" not in result
     assert result["protocol"]["distinct_final_history_requests"] >= 16 * 4
+    assert result["protocol"]["distinct_final_history_requests"] <= 16 * 11
+    assert result["gates"][
+        "history_blind_update_matched_first_exactly_matches_dynamic_first"
+    ]
     assert all(len(tree["all_first_action_paths"]) == 8 for tree in result["trees"])
     replay = development.replay_block(
         result_path=tmp_path / "block-a/RESULT.json",
@@ -310,10 +314,18 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
         "mean_brier",
         "mean_log_loss",
     }
+    assert set(result["dynamic_vs_history_blind_update_matched_first"]) == {
+        "mean_brier",
+        "mean_log_loss",
+    }
     assert "dynamic_vs_history_blind_relative_brier_improvement" in result
     assert "dynamic_vs_fixed_depth2_relative_brier_improvement" in result
     assert (
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement"
+        in result
+    )
+    assert (
+        "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement"
         in result
     )
     assert set(result["ranking_fidelity"]) == set(mechanics.SCORE_POLICIES)
@@ -327,6 +339,10 @@ def test_combined_analysis_opens_endpoints_only_after_all_blocks(
     )
     assert all(
         "dynamic_matched_fixed_changed_final_histories" in row
+        for row in result["blockwise_dynamic_vs_myopic"].values()
+    )
+    assert all(
+        "dynamic_matched_history_blind_update_changed_final_histories" in row
         for row in result["blockwise_dynamic_vs_myopic"].values()
     )
     assert all(

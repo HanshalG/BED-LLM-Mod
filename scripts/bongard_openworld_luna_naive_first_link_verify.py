@@ -16,20 +16,20 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_naive_smoke_migration as migration
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-6"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-7"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V6.json"
+    "PROTOCOL_MANIFEST_V7.json"
 )
 MANIFEST_SHA256 = (
-    "65d4b497fee8f00cd9e1794054dc191dfaced2d5aa1fd172fb0717a40023eca9"
+    "3b4be9ed0bb2f5eea35573a8d25438672677ce46dd58db14a55de9324efe40be"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V15.json"
+    "PROTOCOL_MANIFEST_V16.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835"
+    "7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7"
 )
 TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"
@@ -66,6 +66,13 @@ ESTIMAND_CLARIFICATION = REPO_ROOT / (
 )
 ESTIMAND_CLARIFICATION_SHA256 = (
     "65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md"
+)
+MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
+    "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
 )
 
 
@@ -149,6 +156,10 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         != ESTIMAND_CLARIFICATION_SHA256
         or sha256_file(ESTIMAND_CLARIFICATION)
         != ESTIMAND_CLARIFICATION_SHA256
+        or manifest.get("matched_realized_updater_amendment_sha256")
+        != MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+        or sha256_file(MATCHED_REALIZED_UPDATER_AMENDMENT)
+        != MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
         or manifest.get("main_development_result_must_independently_replay")
         is not True
     ):

@@ -11,14 +11,20 @@ dynamic score, isolating the first-query planning link.
 The August 8 history-blind estimand clarification likewise fixes the matched
 history-blind family as a first-query planning-model contrast: both policies
 deploy the same answer-conditioned updater after the real first answer.
+The August 8 matched realized-updater amendment adds a separate control that
+holds the dynamic first query fixed, deploys the paired history-blind
+intermediate belief to choose query two, and shares the terminal updater.
 
-The 64-task development result contains two distinct prospective questions:
+The 64-task development result contains three distinct prospective questions:
 
 1. Does dynamic depth-two planning improve endpoint Brier over the frozen
    myopic-width policy and its existing controls?
 2. Under the same realized answer-conditioned updater, does first-query
    planning with answer-conditioned simulated VLM regeneration improve over
    the matched same-seed, same-batch history-blind simulation?
+3. After the same first query and realized answer, does the answer-conditioned
+   intermediate VLM belief select a better second query than the paired
+   history-blind intermediate belief under a common terminal updater?
 
 These questions must not be substituted for one another after the endpoint is
 opened. `scripts/bongard_openworld_luna_claim_report.py` independently replays
@@ -29,8 +35,8 @@ the four combined blocks and assigns exactly one claim tier.
 ### Full path-dependent LLM-native development signal
 
 Every shared-validity, policy-family, matched-mechanism, and path-dependent
-support gate passes. This
-permits both prospective development claims and authorizes only a separately
+support gate passes. This permits all three prospective development claims and
+authorizes only a separately
 preregistered confirmation. It does not authorize confirmation execution or a
 held-out, sealed-test, cross-model, or universal claim.
 
@@ -84,6 +90,14 @@ In addition, dynamic must beat `fixed_score_dynamic_update` under the same
 history/action, relative-Brier, paired-bootstrap, log-loss, and every-block
 requirements. Beating only the unmatched complete fixed policy cannot support
 the first-query path-dependent-lookahead claim or authorize confirmation.
+It also requires dynamic to beat `history_blind_update_matched_first`: the two
+arms share dynamic's first query and realized answer, while answer-conditioned
+versus same-seed history-blind intermediate beliefs choose query two before a
+common terminal updater. At least 24 robust second-action changes, every-block
+coverage, 3% relative Brier improvement, bootstrap probability at least 0.80,
+and non-worse log loss are mandatory. This is the direct realized
+belief-state-to-next-action mechanism gate; failure prevents the full tier even
+if the planning-only history-blind comparison passes.
 
 The generator rejects missing, extra, non-Boolean, or internally inconsistent
 gates; a mismatched independent replay; non-finite report metrics; or any

@@ -20,20 +20,23 @@ The renderer is bound to these pre-result artifacts:
 - `BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md`,
   SHA-256
   `65a6e901dc815d1603611e180b0abdf728e07d1a452e0c442f48fbb1812aea10`;
-- development manifest V15, SHA-256
-  `2c0be4cc4aaaa66bab715386ceeb9bb9fb2e9c06545ee283be9b9e7a47d27835`;
-- confirmation manifest V12, SHA-256
-  `1c52dac31b82281d1ad057729bb462353f18cf323900c87d7747419681246078`;
+- `BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md`,
+  SHA-256
+  `dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b`;
+- development manifest V16, SHA-256
+  `7ed91de5698e2d0e9a5a2dbbeb83c70362c4567719b7a02f2266912eacbdd5b7`;
+- confirmation manifest V13, SHA-256
+  `2debe466a051b11581dfc5a9f7840a549be506862f692407ce4b5111fa9348f7`;
 - development claim generator, SHA-256
-  `923bcbf9c347a73708ce9fdedfb60926b78a776ca15a15fa597150121e49e85e`;
+  `f9b828bb5dc85b2fd0ef2757c0708674f8e7489c518d3bc0fabd6536546888e3`;
 - development combined analyzer, SHA-256
-  `2b29ea7ec2ca69d4c0c257e48e4e8a4476bd21207a765b3b4d35f899d70fd62e`;
+  `595ae3590ac67c07ad7f6551bf36720d8f903d681ed7b0a07707b311bb2ee4b1`;
 - development daily replay wrapper, SHA-256
-  `4dd6199f6e0374df55b6ceb121a89c85a45e5b213938df9867f6fbda7a749ec2`;
+  `b8ff9931fb353827571b774c27b4570c88573be522f5fe68d61951e86debfd64`;
 - confirmation analyzer, SHA-256
-  `80dda8508e1378e48593190968086f3b7db451732f5091606c5fa0a75e30b18e`;
+  `418df164b36cdeb6c199e87c566603ad66e34f7648480e4f99110cc5ab0d927e`;
 - confirmation freeze verifier, SHA-256
-  `4131a72dbd8cdf1e0f367913d0a3c0d36507f0f7c9c71bf6b3cef8d62e494b6e`;
+  `7a4ac9838d6759320108367fdcefcc07330b74741e93aadff74395c787c967c1`;
 - confirmation failed-closed daily executor, SHA-256
   `627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d`;
 - pre-result manuscript, SHA-256
@@ -57,7 +60,8 @@ and endpoint roles are hidden from the VLM. The planner sees opaque endpoint
 image IDs but not endpoint labels and scores sealed endpoint-label predictive
 uncertainty. The registered controls are one-step endpoint PIG, fixed-support
 depth two, same-seed history-blind planning simulation under the same realized
-answer-conditioned updater, matched fixed-score dynamic updating, shuffled
+answer-conditioned updater, matched fixed-score dynamic updating, a
+dynamic-first matched history-blind realized intermediate updater, shuffled
 continuation, and random selection.
 
 ## Development Mapping
@@ -67,13 +71,15 @@ and independently replayed combined result.
 
 1. `full_path_dependent_llm_native_development_signal`: report a prospective
    64-task multimodal LLM-native development signal over myopic, history-blind
-   first-query simulation, fixed-support, and matched fixed-score controls.
-   State that both history-blind arms share the realized answer-conditioned
-   updater, confirmation is pending, and the result is not confirmed.
+   first-query simulation, fixed-support, matched fixed-score, and matched
+   realized intermediate-updater controls. State that the realized-updater arm
+   holds the dynamic first query fixed and shares the terminal updater,
+   confirmation is pending, and the result is not confirmed.
 2. `policy_and_matched_regeneration_without_fixed_support_superiority`: report
    only the prospective policy and matched answer-conditioned simulation signal
    for first-query planning under a common realized updater. State that
-   fixed-support superiority is absent and confirmation is unauthorized.
+   complete path-dependent superiority over the fixed and realized-updater
+   controls is absent and confirmation is unauthorized.
 3. `policy_signal_without_matched_mechanism`: report only the prospective
    dynamic-depth-two versus myopic policy signal. Make no causal claim about
    the realized answer-conditioned updater and state that confirmation is
@@ -88,8 +94,9 @@ and independently replayed combined result.
 If shared validity fails, the renderer labels development inconclusive and
 prints no efficacy estimates. Otherwise it prints only compact descriptive
 summaries of the frozen dynamic-versus-myopic, history-blind, fixed-support,
-and matched fixed-score comparisons and ranking fidelity. The complete JSON,
-not the paper fragment, remains the exhaustive metric report.
+matched fixed-score, and matched realized-updater comparisons and ranking
+fidelity. The complete JSON, not the paper fragment, remains the exhaustive
+metric report.
 
 ## Confirmation Mapping
 
