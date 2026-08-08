@@ -22,7 +22,7 @@ FRAGMENT_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md"
 )
 FRAGMENT_PROTOCOL_SHA256 = (
-    "8353e43646d77b5255474ff23a7a0eae7230fd26c00912a866183764075318d9"
+    "167d52107dc8500ebcdcb9cf70eabe50dcad8ab9c76d1184352cfd249ccb4850"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
     "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf"
@@ -49,6 +49,11 @@ BOUND_FILES = {
         "results/nonmyopic/"
         "BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
         "1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9",
+    ),
+    "llm_native_computational_role_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md",
+        "e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf",
     ),
     "development_manifest": (
         "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
@@ -186,7 +191,7 @@ def _percent(value: Any) -> str:
 def _methods_lines(task_count: int) -> list[str]:
     return [
         "\\paragraph{Bongard-OpenWorld: multimodal LLM-native sequential BED.}",
-        f"On {task_count} 14-image tasks, Luna generated ten free-form semantic rules with weights and 14 calibrated likelihoods at root and counterfactual branches; candidate and endpoint roles were hidden. The planner saw endpoint IDs but no labels and minimized sealed endpoint-label predictive entropy. Controls were one-step PIG, fixed-support d2, same-seed history-blind planning simulation with a common realized updater, matched fixed-score/dynamic-update, dynamic-first matched history-blind intermediate updating with a common terminal updater, shuffled continuation, and random selection.",
+        f"On {task_count} 14-image tasks, Luna generated ten history-conditioned predictive particles at root and counterfactual branches. Each particle contained a free-form semantic rule, a history-conditioned weight, and a predictive positive-label probability for all 14 images. The deterministic planner consumed only the weights and probability matrix; rule strings were interpretive descriptions and uniqueness checks, not numerical planner inputs. Candidate and endpoint roles were hidden. The planner saw endpoint IDs but no labels and minimized sealed endpoint-label predictive entropy. Controls were one-step PIG, fixed-support d2, same-seed history-blind planning simulation with a common realized updater, matched fixed-score/dynamic-update, dynamic-first matched history-blind intermediate updating with a common terminal updater, shuffled continuation, and random selection.",
     ]
 
 
@@ -301,6 +306,13 @@ def _base_metadata(
         "manuscript_claim_is_deterministic": True,
         "model_calls": 0,
         "cost_usd": 0.0,
+        "llm_native_computational_role": {
+            "llm_supplies_history_conditioned_particle_weights": True,
+            "llm_supplies_history_conditioned_probability_matrix": True,
+            "rule_strings_used_numerically": False,
+            "bayesian_scoring_after_particle_generation_is_deterministic": True,
+            "universal_classical_impossibility_claim": False,
+        },
     }
 
 

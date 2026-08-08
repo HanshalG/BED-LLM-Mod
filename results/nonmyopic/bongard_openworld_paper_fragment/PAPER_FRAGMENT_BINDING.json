@@ -23,6 +23,10 @@
       "path": "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
       "sha256": "1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9"
     },
+    "llm_native_computational_role_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md",
+      "sha256": "e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf"
+    },
     "development_manifest": {
       "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
       "sha256": "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
@@ -57,11 +61,11 @@
     },
     "fragment_protocol": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md",
-      "sha256": "8353e43646d77b5255474ff23a7a0eae7230fd26c00912a866183764075318d9"
+      "sha256": "167d52107dc8500ebcdcb9cf70eabe50dcad8ab9c76d1184352cfd249ccb4850"
     },
     "fragment_generator": {
       "path": "scripts/bongard_openworld_luna_paper_fragment.py",
-      "sha256": "336e7db4b5ccf034a718af370f1cce54cdd0c48a78cbafd2856a82dac5f280e4"
+      "sha256": "cab308748f72a3fdf1f52004569bea4f4c11cf4918c0412156ffe962f3a78482"
     }
   },
   "manuscript": {

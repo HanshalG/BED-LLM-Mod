@@ -26,6 +26,9 @@ The renderer is bound to these pre-result artifacts:
 - `BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md`,
   SHA-256
   `1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9`;
+- `BONGARD_OPENWORLD_LLM_NATIVE_COMPUTATIONAL_ROLE_AMENDMENT_20260808.md`,
+  SHA-256
+  `e9752b0df729933579f23ec6656ca3779f70ee3d93b656c16f3901665e3e1baf`;
 - development manifest V17, SHA-256
   `7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676`;
 - confirmation manifest V14, SHA-256
@@ -57,15 +60,22 @@ generation-robust.` No other result-contingent manuscript edit is permitted.
 ## Mandatory Methods Text
 
 Every rendered outcome states that each task contains 14 images and that the
-VLM generates ten free-form semantic rules, their weights, and calibrated
-likelihoods for all 14 images at the root and counterfactual branches. Candidate
-and endpoint roles are hidden from the VLM. The planner sees opaque endpoint
-image IDs but not endpoint labels and scores sealed endpoint-label predictive
-uncertainty. The registered controls are one-step endpoint PIG, fixed-support
-depth two, same-seed history-blind planning simulation under the same realized
+VLM generates ten history-conditioned predictive particles at the root and
+counterfactual branches. Each particle has a free-form semantic rule, a
+history-conditioned weight, and a predictive positive-label probability for
+all 14 images. The deterministic planner consumes only the weights and
+probability matrix; rule strings are interpretive descriptions and strict
+uniqueness checks, not numerical planner inputs. Candidate and endpoint roles
+are hidden from the VLM. The planner sees opaque endpoint image IDs but not
+endpoint labels and scores sealed endpoint-label predictive uncertainty. The
+registered controls are one-step endpoint PIG, fixed-support depth two,
+same-seed history-blind planning simulation under the same realized
 answer-conditioned updater, matched fixed-score dynamic updating, a
 dynamic-first matched history-blind realized intermediate updater, shuffled
-continuation, and random selection.
+continuation, and random selection. The fragment does not call model-emitted
+probabilities calibrated unless the registered empirical gates support that
+description, and it makes no universal claim against every possible classical
+vision or learned-likelihood alternative.
 
 ## Development Mapping
 

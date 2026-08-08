@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from io import BytesIO
 import json
 import math
@@ -212,6 +213,51 @@ def test_endpoint_depth_two_matches_manual_terminal_entropy() -> None:
         expected_terminal += outcome_probability * best_terminal
     assert math.isclose(
         scores[first], root_entropy - expected_terminal, abs_tol=1e-12
+    )
+
+
+def test_numeric_planner_is_invariant_to_semantic_rule_text() -> None:
+    root = _belief()
+    candidates = tuple(f"image-{index:02d}" for index in range(2, 10))
+    endpoints = ("image-12", "image-13")
+    branches = {
+        (candidate, label): _belief(((candidate, label),))
+        for candidate in candidates
+        for label in (False, True)
+    }
+
+    def rename(
+        belief: bed.SemanticBelief, prefix: str
+    ) -> bed.SemanticBelief:
+        return replace(
+            belief,
+            hypotheses=tuple(
+                replace(
+                    hypothesis,
+                    rule=f"{prefix} alternative description {index + 1}",
+                )
+                for index, hypothesis in enumerate(belief.hypotheses)
+            ),
+        )
+
+    renamed_root = rename(root, "root")
+    renamed_branches = {
+        key: rename(belief, f"branch {index}")
+        for index, (key, belief) in enumerate(branches.items())
+    }
+
+    assert bed.candidate_endpoint_eigs(root, candidates, endpoints) == (
+        bed.candidate_endpoint_eigs(renamed_root, candidates, endpoints)
+    )
+    assert bed.fixed_support_endpoint_depth_two_scores(
+        root, candidates, endpoints
+    ) == bed.fixed_support_endpoint_depth_two_scores(
+        renamed_root, candidates, endpoints
+    )
+    assert bed.dynamic_support_endpoint_depth_two_scores(
+        root, candidates, endpoints, branches
+    ) == bed.dynamic_support_endpoint_depth_two_scores(
+        renamed_root, candidates, endpoints, renamed_branches
     )
 
 

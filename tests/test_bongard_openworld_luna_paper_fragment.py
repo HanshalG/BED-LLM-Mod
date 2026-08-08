@@ -175,7 +175,10 @@ def test_development_fragment_obeys_every_frozen_tier(
     assert metadata["development_and_confirmation_are_not_pooled"] is True
     assert expected_phrase in tex
     assert "14-image tasks" in tex
-    assert "ten free-form semantic rules" in tex
+    assert "ten history-conditioned predictive particles" in tex
+    assert "predictive positive-label probability" in tex
+    assert "rule strings were interpretive descriptions" in tex
+    assert "calibrated likelihoods" not in tex
     assert "endpoint IDs but no labels" in tex
     assert "Relative reductions" in tex
     assert "fixed-support" in tex
@@ -379,6 +382,10 @@ def test_fragment_writes_tex_and_metadata_without_calls(
     assert metadata["fragment_protocol_sha256"] == (
         fragment.FRAGMENT_PROTOCOL_SHA256
     )
+    role = metadata["llm_native_computational_role"]
+    assert role["llm_supplies_history_conditioned_probability_matrix"] is True
+    assert role["rule_strings_used_numerically"] is False
+    assert role["universal_classical_impossibility_claim"] is False
 
 
 def test_fragment_binding_matches_current_files() -> None:
