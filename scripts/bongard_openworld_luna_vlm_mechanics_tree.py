@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-10"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-11"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -51,6 +51,7 @@ MIN_MATERIAL_BRANCH_PAIRS = 24
 MIN_MYOPIC_BRIER = 0.03
 MIN_MYOPIC_LOG_LOSS = 0.15
 MIN_ACTION_MARGIN_NATS = 1e-6
+SCORE_OBJECTIVE = "endpoint_predictive_information_gain_nats"
 POLICIES = (
     "myopic_width",
     "fixed_depth2",
@@ -408,11 +409,8 @@ def shuffled_continuation_control(
         candidate: dynamic_scores[candidate] - myopic_scores[candidate]
         for candidate in candidates
     }
-    if any(
-        not math.isfinite(value) or value < -1e-12
-        for value in dynamic_future.values()
-    ):
-        raise ValueError("dynamic continuation values must be finite and nonnegative")
+    if any(not math.isfinite(value) for value in dynamic_future.values()):
+        raise ValueError("dynamic continuation values must be finite")
     shuffled_future = {
         candidate: dynamic_future[mapping[candidate]]
         for candidate in candidates
@@ -427,8 +425,8 @@ def shuffled_continuation_control(
         shuffled_scores,
         mapping,
         {
-            "dynamic_expected_future_eig": dynamic_future,
-            "shuffled_expected_future_eig": shuffled_future,
+            "dynamic_expected_continuation_utility": dynamic_future,
+            "shuffled_expected_continuation_utility": shuffled_future,
         },
     )
 
@@ -458,14 +456,20 @@ def plan_task_policies(
     ],
 ) -> dict[str, Any]:
     candidates = tuple(task.candidate_ids)
-    myopic_scores = bed.candidate_eigs(root, candidates)
-    fixed_scores = bed.fixed_support_depth_two_scores(root, candidates)
-    dynamic_scores = bed.dynamic_support_depth_two_scores(
-        root, candidates, branches
+    endpoint_ids = tuple(task.endpoint_ids)
+    myopic_scores = bed.candidate_endpoint_eigs(
+        root, candidates, endpoint_ids
     )
-    history_blind_scores = bed.history_blind_depth_two_scores(
-        root, candidates, history_blind_branches
+    fixed_scores = bed.fixed_support_endpoint_depth_two_scores(
+        root, candidates, endpoint_ids
     )
+    dynamic_scores = bed.dynamic_support_endpoint_depth_two_scores(
+        root, candidates, endpoint_ids, branches
+    )
+    history_blind_scores = bed.history_blind_endpoint_depth_two_scores(
+        root, candidates, endpoint_ids, history_blind_branches
+    )
+    hypothesis_eig_diagnostics = bed.candidate_eigs(root, candidates)
     (
         shuffled_scores,
         shuffled_mapping,
@@ -500,13 +504,15 @@ def plan_task_policies(
             fixed_weights = bed.updated_weights_for_label(
                 root, first, first_label
             )
-            second_scores = bed.candidate_eigs(
-                root, remaining, weights=fixed_weights
+            second_scores = bed.candidate_endpoint_eigs(
+                root, remaining, endpoint_ids, weights=fixed_weights
             )
             second = bed.select_best(second_scores)
         else:
             realized_branch = branches[(first, first_label)]
-            second_scores = bed.candidate_eigs(realized_branch, remaining)
+            second_scores = bed.candidate_endpoint_eigs(
+                realized_branch, remaining, endpoint_ids
+            )
             second = bed.select_best(second_scores)
         second_label = bool(task.actual_labels[second])
         final_history = tuple(
@@ -555,6 +561,8 @@ def plan_task_policies(
             "second_scores": second_scores,
         }
     return {
+        "score_objective": SCORE_OBJECTIVE,
+        "root_hypothesis_eig_diagnostics": hypothesis_eig_diagnostics,
         "root_scores": {
             "myopic_width": myopic_scores,
             "fixed_depth2": fixed_scores,
@@ -617,8 +625,8 @@ def all_first_action_paths(
         remaining = tuple(
             candidate for candidate in task.candidate_ids if candidate != first
         )
-        second_scores = bed.candidate_eigs(
-            branches[(first, first_label)], remaining
+        second_scores = bed.candidate_endpoint_eigs(
+            branches[(first, first_label)], remaining, task.endpoint_ids
         )
         second = bed.select_best(second_scores)
         second_label = bool(task.actual_labels[second])
@@ -1089,6 +1097,10 @@ def mechanics_gates(
         or all(math.isfinite(value) for value in row["second_scores"].values())
         for tree in trees
         for row in tree["policies"].values()
+    ) and all(
+        math.isfinite(value)
+        for tree in trees
+        for value in tree["root_hypothesis_eig_diagnostics"].values()
     )
     finite_endpoints = all(
         math.isfinite(value)
@@ -1109,10 +1121,10 @@ def mechanics_gates(
     shuffled_control_exact = all(
         all(
             math.isclose(
-                tree["continuation_values"]["shuffled_expected_future_eig"][
+                tree["continuation_values"]["shuffled_expected_continuation_utility"][
                     target
                 ],
-                tree["continuation_values"]["dynamic_expected_future_eig"][
+                tree["continuation_values"]["dynamic_expected_continuation_utility"][
                     source
                 ],
                 rel_tol=0.0,
@@ -1144,6 +1156,9 @@ def mechanics_gates(
             and (final_pairing.get("gates") or {}).get("all_pass") is True
         ),
         "all_scores_are_finite_and_executable": finite_scores,
+        "all_policies_use_endpoint_predictive_information_gain": all(
+            tree.get("score_objective") == SCORE_OBJECTIVE for tree in trees
+        ),
         "at_least_24_of_32_branch_pairs_change_unobserved_beliefs": sum(
             row["material"] for row in branch_diagnostics
         )
@@ -1446,6 +1461,10 @@ def run_mechanics(
         trees.append(
             {
                 "task_id": task.task_id,
+                "score_objective": task_plan["score_objective"],
+                "root_hypothesis_eig_diagnostics": task_plan[
+                    "root_hypothesis_eig_diagnostics"
+                ],
                 "root_scores": task_plan["root_scores"],
                 "shuffled_branch_mapping": task_plan[
                     "shuffled_branch_mapping"
@@ -1547,6 +1566,11 @@ def run_mechanics(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
             ),
+            "endpoint_predictive_utility_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+            ),
+            "score_objective": SCORE_OBJECTIVE,
             "model": MODEL_ID,
             "model_seed": MODEL_SEED,
             "random_seed": RANDOM_SEED,

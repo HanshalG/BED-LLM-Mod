@@ -4,11 +4,11 @@ The active protocol is the prospective 64-task amendment. The executable file
 retains its historical `development32` name for import and CLI compatibility,
 but it now binds only:
 
-`results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V13.json`
+`results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V14.json`
 
 Manifest SHA-256:
 
-`1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb`
+`377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011`
 
 Run from the repository root after exporting `.env`. Each block is valid only
 on its listed Europe/London date and only after the August 10 mechanics wrapper

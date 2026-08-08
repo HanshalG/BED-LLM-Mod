@@ -31,7 +31,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-8"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-9"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -181,12 +181,16 @@ def _block_gates(
         or all(math.isfinite(value) for value in row["second_scores"].values())
         for tree in artifacts["trees"]
         for row in tree["policies"].values()
+    ) and all(
+        math.isfinite(value)
+        for tree in artifacts["trees"]
+        for value in tree["root_hypothesis_eig_diagnostics"].values()
     )
     shuffled_exact = all(
         all(
             math.isclose(
-                tree["continuation_values"]["shuffled_expected_future_eig"][target],
-                tree["continuation_values"]["dynamic_expected_future_eig"][source],
+                tree["continuation_values"]["shuffled_expected_continuation_utility"][target],
+                tree["continuation_values"]["dynamic_expected_continuation_utility"][source],
                 rel_tol=0.0,
                 abs_tol=1e-12,
             )
@@ -203,6 +207,10 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "all_policies_use_endpoint_predictive_information_gain": all(
+            tree.get("score_objective") == mechanics.SCORE_OBJECTIVE
+            for tree in artifacts["trees"]
+        ),
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
             serving.branch_label_obedience_passes(
                 artifacts["branch_label_obedience"]

@@ -25,12 +25,12 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-3"
+INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-4"
 TIMEZONE = "Europe/London"
 ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64"
 )
-PROTOCOL_MANIFEST = ROOT / "PROTOCOL_MANIFEST_V13.json"
+PROTOCOL_MANIFEST = ROOT / "PROTOCOL_MANIFEST_V14.json"
 AUG10_RESULT = aug10.OUTPUT_DIR / "RESULT.json"
 MECHANICS_RESULT = aug10.MECHANICS_DIR / "RESULT.json"
 BLOCK_DIRS = {

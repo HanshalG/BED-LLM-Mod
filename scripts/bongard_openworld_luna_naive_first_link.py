@@ -56,10 +56,10 @@ PREREGISTRATION = (
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V13.json"
+    "PROTOCOL_MANIFEST_V14.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
+    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
 )
 
 

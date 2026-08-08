@@ -137,6 +137,84 @@ def test_eig_matches_binary_mutual_information_identity() -> None:
     )
 
 
+def test_hypothesis_eig_can_disagree_with_endpoint_predictive_value() -> None:
+    image_ids = tuple(f"image-{index:02d}" for index in range(14))
+    query_a = (0.01, 0.99, 0.01, 0.99)
+    query_b = (0.25, 0.25, 0.75, 0.75)
+    endpoint = (0.10, 0.10, 0.90, 0.90)
+    hypotheses = tuple(
+        bed.SemanticHypothesis(
+            hypothesis_id=f"H{index + 1:02d}",
+            rule=f"counterexample rule {index + 1}",
+            history_weight=1.0,
+            positive_probabilities=(
+                query_a[index],
+                query_b[index],
+                endpoint[index],
+                *([0.5] * 11),
+            ),
+        )
+        for index in range(4)
+    )
+    belief = bed.SemanticBelief(
+        image_ids=image_ids,
+        history=(),
+        hypotheses=hypotheses,
+        history_weights=(0.25, 0.25, 0.25, 0.25),
+    )
+
+    hypothesis_scores = bed.candidate_eigs(
+        belief, ("image-00", "image-01")
+    )
+    endpoint_scores = bed.candidate_endpoint_eigs(
+        belief, ("image-00", "image-01"), ("image-02",)
+    )
+
+    assert hypothesis_scores["image-00"] > hypothesis_scores["image-01"]
+    assert math.isclose(endpoint_scores["image-00"], 0.0, abs_tol=1e-12)
+    assert endpoint_scores["image-01"] > 0.08
+    assert bed.select_best(endpoint_scores) == "image-01"
+
+
+def test_endpoint_depth_two_matches_manual_terminal_entropy() -> None:
+    belief = _belief()
+    candidates = ("image-02", "image-03", "image-04")
+    endpoints = ("image-12", "image-13")
+    scores = bed.fixed_support_endpoint_depth_two_scores(
+        belief, candidates, endpoints
+    )
+    root_entropy = bed.endpoint_predictive_entropy(belief, endpoints)
+    first = candidates[0]
+    probability = bed.predictive_probability(belief, first)
+    expected_terminal = 0.0
+    for label, outcome_probability in (
+        (True, probability),
+        (False, 1.0 - probability),
+    ):
+        weights = bed.updated_weights_for_label(belief, first, label)
+        best_terminal = math.inf
+        for second in candidates[1:]:
+            second_probability = bed.predictive_probability(
+                belief, second, weights=weights
+            )
+            terminal = 0.0
+            for second_label, second_outcome_probability in (
+                (True, second_probability),
+                (False, 1.0 - second_probability),
+            ):
+                terminal_weights = bed.updated_weights_for_label(
+                    belief, second, second_label, weights=weights
+                )
+                terminal += second_outcome_probability * bed.endpoint_predictive_entropy(
+                    belief, endpoints, weights=terminal_weights
+                )
+            best_terminal = min(best_terminal, terminal)
+        expected_terminal += outcome_probability * best_terminal
+    assert math.isclose(
+        scores[first], root_entropy - expected_terminal, abs_tol=1e-12
+    )
+
+
 def test_dynamic_depth_two_uses_branch_specific_support() -> None:
     root = _belief()
     candidates = tuple(f"image-{index:02d}" for index in range(2, 10))
@@ -158,6 +236,12 @@ def test_dynamic_depth_two_uses_branch_specific_support() -> None:
     else:
         raise AssertionError("incomplete branch support should fail")
 
+    endpoint_dynamic = bed.dynamic_support_endpoint_depth_two_scores(
+        root, candidates, ("image-12", "image-13"), branches
+    )
+    assert set(endpoint_dynamic) == set(candidates)
+    assert all(math.isfinite(value) for value in endpoint_dynamic.values())
+
 
 def test_history_blind_depth_two_analytically_updates_fresh_root_support() -> None:
     root = _belief()
@@ -170,6 +254,13 @@ def test_history_blind_depth_two_analytically_updates_fresh_root_support() -> No
     scores = bed.history_blind_depth_two_scores(root, candidates, blind)
     fixed = bed.fixed_support_depth_two_scores(root, candidates)
     assert scores == fixed
+    endpoint_scores = bed.history_blind_endpoint_depth_two_scores(
+        root, candidates, ("image-12", "image-13"), blind
+    )
+    endpoint_fixed = bed.fixed_support_endpoint_depth_two_scores(
+        root, candidates, ("image-12", "image-13")
+    )
+    assert endpoint_scores == endpoint_fixed
 
     invalid = dict(blind)
     invalid[(candidates[0], True)] = _belief(((candidates[0], True),))

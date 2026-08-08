@@ -30,7 +30,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-aug10-execute-3"
+INTERFACE_VERSION = "bongard-openworld-luna-aug10-execute-4"
 EXPECTED_DATE = "2026-08-10"
 TIMEZONE = "Europe/London"
 OUTPUT_DIR = REPO_ROOT / (
@@ -60,10 +60,10 @@ IMAGE_INTEGRITY_MANIFEST_SHA256 = (
 )
 DEVELOPMENT_PROTOCOL_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V13.json"
+    "PROTOCOL_MANIFEST_V14.json"
 )
 DEVELOPMENT_PROTOCOL_MANIFEST_SHA256 = (
-    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
+    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
 )
 MINIMUM_STARTING_BALANCE_USD = 5.0
 MINIMUM_RESERVED_PROMPT_TOKENS = 8_000

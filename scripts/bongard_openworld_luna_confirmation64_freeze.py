@@ -26,7 +26,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-10"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-11"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -89,10 +89,10 @@ POWER_AMENDMENT_SHA256 = (
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V13.json"
+    "PROTOCOL_MANIFEST_V14.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
+    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -113,6 +113,12 @@ MATCHED_FIXED_SCORE_AMENDMENT = REPO_ROOT / (
 )
 MATCHED_FIXED_SCORE_AMENDMENT_SHA256 = (
     "1f860d135663bd370fb140c7fe402bdef37c25b998955d4a7fef947d6b8099a2"
+)
+ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+)
+ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
+    "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
 )
 CONFIRMATION_UID_SHA256 = (
     "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
@@ -227,6 +233,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_CONFIRMATION96_POWER_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
         "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
         "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -265,6 +272,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "matched_fixed_score_amendment_hash_matches": (
             sha256_file(MATCHED_FIXED_SCORE_AMENDMENT)
             == MATCHED_FIXED_SCORE_AMENDMENT_SHA256
+        ),
+        "endpoint_predictive_utility_amendment_hash_matches": (
+            sha256_file(ENDPOINT_UTILITY_AMENDMENT)
+            == ENDPOINT_UTILITY_AMENDMENT_SHA256
         ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
@@ -353,6 +364,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             "matched_fixed_score_amendment_sha256": (
                 MATCHED_FIXED_SCORE_AMENDMENT_SHA256
             ),
+            "endpoint_predictive_utility_amendment_sha256": (
+                ENDPOINT_UTILITY_AMENDMENT_SHA256
+            ),
             "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,
             "confirmation_design_is_frozen_before_development_responses": True,
@@ -362,6 +376,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             "reasoning": False,
             "planning_interface": development.INTERFACE_VERSION,
             "mechanics_interface": mechanics.INTERFACE_VERSION,
+            "score_objective": mechanics.SCORE_OBJECTIVE,
             "blocks": {
                 block_id: {
                     "size": BLOCK_SIZES[block_id],

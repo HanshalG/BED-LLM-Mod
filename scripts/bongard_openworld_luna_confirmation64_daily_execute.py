@@ -26,7 +26,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-daily-execute-4"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-daily-execute-5"
 TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
 MAX_ACCEPTED_RESPONSES = confirmation.MAX_REQUESTS_PER_BLOCK

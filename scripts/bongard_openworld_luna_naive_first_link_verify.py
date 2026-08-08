@@ -14,26 +14,32 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-3"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-4"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST_V3.json"
+    "PROTOCOL_MANIFEST_V4.json"
 )
 MANIFEST_SHA256 = (
-    "ebacf625d352897fea328b11a8a2c78d40f31b6dd43903f482d8115c72a06ec7"
+    "223f6c75cb6db0f75d5557bb146c8e88a5a3d2756c7c6211b21c8a7b88df04ec"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V13.json"
+    "PROTOCOL_MANIFEST_V14.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "1120eef68dff301b275b4e2c1e75138b965774189c1440bfdc3a751bebe44ddb"
+    "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
 )
 TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"
 )
 TRANSPORT_RETRY_AMENDMENT_SHA256 = (
     "0f6ffc66f9b7d0f45d8913cf4f790d6f0c891e135cf5b9102575bd0a51ef7dd9"
+)
+ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+)
+ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
+    "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
 )
 SMOKE_RESULT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
@@ -78,6 +84,15 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         "endpoint_labels_materialized": False,
         "source_metadata_exposed": False,
     }
+    expected_scoring = {
+        "bootstrap_replicates": 20_000,
+        "bootstrap_seed": 2_026_080_751,
+        "continuation": "main_dynamic_branch_endpoint_predictive_second_step",
+        "main_all_first_action_cache_only": True,
+        "one_choice_per_task": True,
+        "score_objective": "endpoint_predictive_information_gain_nats",
+        "task_count": 64,
+    }
     if (
         manifest.get("schema_version") != 1
         or manifest.get("interface_version") != INTERFACE_VERSION
@@ -89,12 +104,17 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         or manifest.get("model") != expected_model
         or manifest.get("schedule") != expected_schedule
         or manifest.get("privacy") != expected_privacy
+        or manifest.get("scoring") != expected_scoring
         or manifest.get("main_development_manifest_sha256")
         != MAIN_MANIFEST_SHA256
         or manifest.get("transport_retry_amendment_sha256")
         != TRANSPORT_RETRY_AMENDMENT_SHA256
         or sha256_file(TRANSPORT_RETRY_AMENDMENT)
         != TRANSPORT_RETRY_AMENDMENT_SHA256
+        or manifest.get("endpoint_predictive_utility_amendment_sha256")
+        != ENDPOINT_UTILITY_AMENDMENT_SHA256
+        or sha256_file(ENDPOINT_UTILITY_AMENDMENT)
+        != ENDPOINT_UTILITY_AMENDMENT_SHA256
         or manifest.get("main_development_result_must_independently_replay")
         is not True
     ):

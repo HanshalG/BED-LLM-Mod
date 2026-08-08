@@ -314,17 +314,34 @@ def test_shuffled_control_permutes_complete_continuation_values() -> None:
 
     assert all(source != target for source, target in mapping.items())
     assert len(set(mapping.values())) == len(mapping)
-    assert sorted(values["dynamic_expected_future_eig"].values()) == sorted(
-        values["shuffled_expected_future_eig"].values()
+    assert sorted(values["dynamic_expected_continuation_utility"].values()) == sorted(
+        values["shuffled_expected_continuation_utility"].values()
     )
     for target, source in mapping.items():
-        assert values["shuffled_expected_future_eig"][target] == (
-            values["dynamic_expected_future_eig"][source]
+        assert values["shuffled_expected_continuation_utility"][target] == (
+            values["dynamic_expected_continuation_utility"][source]
         )
         assert shuffled[target] == (
             myopic[target]
-            + values["dynamic_expected_future_eig"][source]
+            + values["dynamic_expected_continuation_utility"][source]
         )
+
+
+def test_shuffled_control_accepts_signed_support_regeneration_values() -> None:
+    task = _task(0)
+    myopic = {candidate: 0.2 for candidate in task.candidate_ids}
+    dynamic = {
+        candidate: 0.1 - index * 0.01
+        for index, candidate in enumerate(sorted(task.candidate_ids))
+    }
+    shuffled, _, values = tree.shuffled_continuation_control(
+        task=task, myopic_scores=myopic, dynamic_scores=dynamic
+    )
+    assert all(math.isfinite(value) for value in shuffled.values())
+    assert all(
+        value < 0.0
+        for value in values["dynamic_expected_continuation_utility"].values()
+    )
 
 
 def test_shuffled_control_never_reuses_a_mismatched_branch_support() -> None:
@@ -435,8 +452,25 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         branches=branches,
         history_blind_branches=history_blind,
     )
+    endpoint_flipped = replace(
+        task,
+        actual_labels={
+            image_id: (
+                not label if image_id in task.endpoint_ids else label
+            )
+            for image_id, label in task.actual_labels.items()
+        },
+    )
+    endpoint_flipped_plan = tree.plan_task_policies(
+        task=endpoint_flipped,
+        root=root,
+        branches=branches,
+        history_blind_branches=history_blind,
+    )
 
     assert original_plan["root_scores"] == flipped_plan["root_scores"]
+    assert original_plan["root_scores"] == endpoint_flipped_plan["root_scores"]
+    assert original_plan["score_objective"] == tree.SCORE_OBJECTIVE
     assert original_plan["continuation_values"] == flipped_plan[
         "continuation_values"
     ]
@@ -453,20 +487,21 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
     remaining = tuple(
         candidate for candidate in task.candidate_ids if candidate != blind_first
     )
-    assert blind_row["second_scores"] == bed.candidate_eigs(
-        branches[(blind_first, realized_label)], remaining
+    assert blind_row["second_scores"] == bed.candidate_endpoint_eigs(
+        branches[(blind_first, realized_label)], remaining, task.endpoint_ids
     )
     fixed = original_plan["policies"]["fixed_depth2"]
     matched = original_plan["policies"]["fixed_score_dynamic_update"]
     assert matched["first_image_id"] == fixed["first_image_id"]
     assert matched["first_score"] == fixed["first_score"]
-    assert matched["second_scores"] == bed.candidate_eigs(
+    assert matched["second_scores"] == bed.candidate_endpoint_eigs(
         branches[(matched["first_image_id"], bool(task.actual_labels[matched["first_image_id"]]))],
         tuple(
             candidate
             for candidate in task.candidate_ids
             if candidate != matched["first_image_id"]
         ),
+        task.endpoint_ids,
     )
 
 

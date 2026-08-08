@@ -321,6 +321,207 @@ def candidate_eigs(
     }
 
 
+def binary_entropy(probability: float) -> float:
+    if not math.isfinite(probability) or not 0.0 <= probability <= 1.0:
+        raise ValueError("probability must be finite and in [0,1]")
+    return -sum(
+        value * math.log(value)
+        for value in (probability, 1.0 - probability)
+        if value > 0.0
+    )
+
+
+def endpoint_predictive_entropy(
+    belief: SemanticBelief,
+    endpoint_ids: Sequence[str],
+    *,
+    weights: Sequence[float] | None = None,
+) -> float:
+    """Sum marginal label entropy for the sealed prediction endpoints."""
+    endpoints = tuple(endpoint_ids)
+    if not endpoints or len(set(endpoints)) != len(endpoints):
+        raise ValueError("endpoint IDs must be nonempty and unique")
+    return sum(
+        binary_entropy(predictive_probability(belief, image_id, weights=weights))
+        for image_id in endpoints
+    )
+
+
+def expected_endpoint_information_gain(
+    belief: SemanticBelief,
+    image_id: str,
+    endpoint_ids: Sequence[str],
+    *,
+    weights: Sequence[float] | None = None,
+) -> float:
+    """Expected reduction in marginal endpoint-label entropy, in nats."""
+    selected = tuple(weights) if weights is not None else belief.history_weights
+    probability = predictive_probability(belief, image_id, weights=selected)
+    positive = updated_weights_for_label(
+        belief, image_id, True, weights=selected
+    )
+    negative = updated_weights_for_label(
+        belief, image_id, False, weights=selected
+    )
+    value = endpoint_predictive_entropy(
+        belief, endpoint_ids, weights=selected
+    ) - (
+        probability
+        * endpoint_predictive_entropy(belief, endpoint_ids, weights=positive)
+        + (1.0 - probability)
+        * endpoint_predictive_entropy(belief, endpoint_ids, weights=negative)
+    )
+    return max(0.0, value)
+
+
+def candidate_endpoint_eigs(
+    belief: SemanticBelief,
+    candidate_ids: Sequence[str],
+    endpoint_ids: Sequence[str],
+    *,
+    weights: Sequence[float] | None = None,
+) -> dict[str, float]:
+    return {
+        image_id: expected_endpoint_information_gain(
+            belief, image_id, endpoint_ids, weights=weights
+        )
+        for image_id in candidate_ids
+    }
+
+
+def _expected_endpoint_entropy_after_query(
+    belief: SemanticBelief,
+    image_id: str,
+    endpoint_ids: Sequence[str],
+    *,
+    weights: Sequence[float] | None = None,
+) -> float:
+    selected = tuple(weights) if weights is not None else belief.history_weights
+    probability = predictive_probability(belief, image_id, weights=selected)
+    positive = updated_weights_for_label(
+        belief, image_id, True, weights=selected
+    )
+    negative = updated_weights_for_label(
+        belief, image_id, False, weights=selected
+    )
+    return (
+        probability
+        * endpoint_predictive_entropy(belief, endpoint_ids, weights=positive)
+        + (1.0 - probability)
+        * endpoint_predictive_entropy(belief, endpoint_ids, weights=negative)
+    )
+
+
+def fixed_support_endpoint_depth_two_scores(
+    root: SemanticBelief,
+    candidate_ids: Sequence[str],
+    endpoint_ids: Sequence[str],
+) -> dict[str, float]:
+    """Two-step endpoint information gain on the unchanged root support."""
+    candidates = tuple(candidate_ids)
+    if len(candidates) < 2:
+        raise ValueError("depth-two scoring requires at least two candidates")
+    root_entropy = endpoint_predictive_entropy(root, endpoint_ids)
+    scores = {}
+    for first in candidates:
+        probability = predictive_probability(root, first)
+        terminal_entropy = 0.0
+        for label, outcome_probability in (
+            (True, probability),
+            (False, 1.0 - probability),
+        ):
+            weights = updated_weights_for_label(root, first, label)
+            remaining = [candidate for candidate in candidates if candidate != first]
+            terminal_entropy += outcome_probability * min(
+                _expected_endpoint_entropy_after_query(
+                    root, second, endpoint_ids, weights=weights
+                )
+                for second in remaining
+            )
+        scores[first] = max(0.0, root_entropy - terminal_entropy)
+    return scores
+
+
+def dynamic_support_endpoint_depth_two_scores(
+    root: SemanticBelief,
+    candidate_ids: Sequence[str],
+    endpoint_ids: Sequence[str],
+    branches: Mapping[tuple[str, bool], SemanticBelief],
+) -> dict[str, float]:
+    """Two-step endpoint utility under answer-conditioned regenerated support."""
+    candidates = tuple(candidate_ids)
+    if len(candidates) < 2:
+        raise ValueError("depth-two scoring requires at least two candidates")
+    expected_keys = {
+        (candidate, label) for candidate in candidates for label in (False, True)
+    }
+    if set(branches) != expected_keys:
+        raise ValueError("dynamic branch map is incomplete or has extra branches")
+    root_entropy = endpoint_predictive_entropy(root, endpoint_ids)
+    scores = {}
+    for first in candidates:
+        probability = predictive_probability(root, first)
+        terminal_entropy = 0.0
+        for label, outcome_probability in (
+            (True, probability),
+            (False, 1.0 - probability),
+        ):
+            branch = branches[(first, label)]
+            remaining = [candidate for candidate in candidates if candidate != first]
+            terminal_entropy += outcome_probability * min(
+                _expected_endpoint_entropy_after_query(
+                    branch, second, endpoint_ids
+                )
+                for second in remaining
+            )
+        # Regenerated support can increase predictive uncertainty, so this is signed.
+        scores[first] = root_entropy - terminal_entropy
+    return scores
+
+
+def history_blind_endpoint_depth_two_scores(
+    root: SemanticBelief,
+    candidate_ids: Sequence[str],
+    endpoint_ids: Sequence[str],
+    blind_branches: Mapping[tuple[str, bool], SemanticBelief],
+) -> dict[str, float]:
+    """Endpoint utility when regenerated support cannot see the first answer."""
+    candidates = tuple(candidate_ids)
+    if len(candidates) < 2:
+        raise ValueError("depth-two scoring requires at least two candidates")
+    expected_keys = {
+        (candidate, label) for candidate in candidates for label in (False, True)
+    }
+    if set(blind_branches) != expected_keys:
+        raise ValueError(
+            "history-blind branch map is incomplete or has extra branches"
+        )
+    root_entropy = endpoint_predictive_entropy(root, endpoint_ids)
+    scores = {}
+    for first in candidates:
+        probability = predictive_probability(root, first)
+        terminal_entropy = 0.0
+        for label, outcome_probability in (
+            (True, probability),
+            (False, 1.0 - probability),
+        ):
+            blind = blind_branches[(first, label)]
+            if blind.history != root.history:
+                raise ValueError(
+                    "history-blind branches must contain only the root history"
+                )
+            weights = updated_weights_for_label(blind, first, label)
+            remaining = [candidate for candidate in candidates if candidate != first]
+            terminal_entropy += outcome_probability * min(
+                _expected_endpoint_entropy_after_query(
+                    blind, second, endpoint_ids, weights=weights
+                )
+                for second in remaining
+            )
+        scores[first] = root_entropy - terminal_entropy
+    return scores
+
+
 def fixed_support_depth_two_scores(
     root: SemanticBelief,
     candidate_ids: Sequence[str],

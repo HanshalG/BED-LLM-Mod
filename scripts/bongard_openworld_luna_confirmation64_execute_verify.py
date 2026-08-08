@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_confirmation64_verify as protocol_verify
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-5"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-execute-verify-6"
 CORE = REPO_ROOT / "scripts/bongard_openworld_luna_confirmation64.py"
 DAILY = REPO_ROOT / (
     "scripts/bongard_openworld_luna_confirmation64_daily_execute.py"
@@ -29,13 +29,19 @@ TERMINAL_OBEDIENCE_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
 )
-CORE_SHA256 = "206407e49be599408304ac65b6b536e9e66e130c57e8d40212fd4d07b83c0002"
-DAILY_SHA256 = "527991a67ea4328c473d3789198e56a9d89fcfc216b85c41ed546410a0960af2"
+ENDPOINT_UTILITY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+)
+CORE_SHA256 = "80dda8508e1378e48593190968086f3b7db451732f5091606c5fa0a75e30b18e"
+DAILY_SHA256 = "627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
 )
 TERMINAL_OBEDIENCE_AMENDMENT_SHA256 = (
     "0706ff63310ee3b2c7ca603cadf43308d0e427868a11ae99959d81d126219daf"
+)
+ENDPOINT_UTILITY_AMENDMENT_SHA256 = (
+    "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
 )
 
 
@@ -49,6 +55,7 @@ def verify_execution_bindings() -> dict[str, Any]:
         DAILY: DAILY_SHA256,
         AMENDMENT: AMENDMENT_SHA256,
         TERMINAL_OBEDIENCE_AMENDMENT: TERMINAL_OBEDIENCE_AMENDMENT_SHA256,
+        ENDPOINT_UTILITY_AMENDMENT: ENDPOINT_UTILITY_AMENDMENT_SHA256,
     }
     changed = [
         str(path)
@@ -68,6 +75,9 @@ def verify_execution_bindings() -> dict[str, Any]:
         "execution_amendment_sha256": AMENDMENT_SHA256,
         "terminal_obedience_amendment_sha256": (
             TERMINAL_OBEDIENCE_AMENDMENT_SHA256
+        ),
+        "endpoint_predictive_utility_amendment_sha256": (
+            ENDPOINT_UTILITY_AMENDMENT_SHA256
         ),
         "protocol_manifest_sha256": protocol["manifest_sha256"],
     }

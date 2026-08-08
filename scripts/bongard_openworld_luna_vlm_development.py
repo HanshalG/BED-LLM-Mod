@@ -35,7 +35,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development64-13"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development64-14"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 16, "b": 16, "c": 16, "d": 16}
 BLOCK_OFFSETS = {"a": 0, "b": 16, "c": 32, "d": 48}
@@ -90,6 +90,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_PATH_DEPENDENT_CLAIM_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_BRANCH_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
@@ -509,8 +510,8 @@ def _all_first_action_paths(
         remaining = tuple(
             candidate for candidate in task.candidate_ids if candidate != first
         )
-        second_scores = bed.candidate_eigs(
-            branches[(first, first_label)], remaining
+        second_scores = bed.candidate_endpoint_eigs(
+            branches[(first, first_label)], remaining, task.endpoint_ids
         )
         second = bed.select_best(second_scores)
         second_label = bool(task.actual_labels[second])
@@ -682,6 +683,10 @@ def _build_artifacts(
         trees.append(
             {
                 "task_id": task.task_id,
+                "score_objective": plan["score_objective"],
+                "root_hypothesis_eig_diagnostics": plan[
+                    "root_hypothesis_eig_diagnostics"
+                ],
                 "root_scores": plan["root_scores"],
                 "shuffled_branch_mapping": plan["shuffled_branch_mapping"],
                 "continuation_values": plan["continuation_values"],
@@ -746,14 +751,18 @@ def _block_gates(
         or all(math.isfinite(value) for value in row["second_scores"].values())
         for tree in artifacts["trees"]
         for row in tree["policies"].values()
+    ) and all(
+        math.isfinite(value)
+        for tree in artifacts["trees"]
+        for value in tree["root_hypothesis_eig_diagnostics"].values()
     )
     shuffled_control_exact = all(
         all(
             math.isclose(
-                tree["continuation_values"]["shuffled_expected_future_eig"][
+                tree["continuation_values"]["shuffled_expected_continuation_utility"][
                     target
                 ],
-                tree["continuation_values"]["dynamic_expected_future_eig"][
+                tree["continuation_values"]["dynamic_expected_continuation_utility"][
                     source
                 ],
                 rel_tol=0.0,
@@ -772,6 +781,10 @@ def _block_gates(
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
+        "all_policies_use_endpoint_predictive_information_gain": all(
+            tree.get("score_objective") == mechanics.SCORE_OBJECTIVE
+            for tree in artifacts["trees"]
+        ),
         "simulated_branch_labels_beat_constant_half_brier_in_both_classes": (
             serving.branch_label_obedience_passes(
                 artifacts["branch_label_obedience"]
@@ -1095,6 +1108,11 @@ def run_block(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
             ),
+            "endpoint_predictive_utility_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+            ),
+            "score_objective": mechanics.SCORE_OBJECTIVE,
             "semantic_validity_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
@@ -1786,6 +1804,11 @@ def analyze_combined(
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
             ),
+            "endpoint_predictive_utility_amendment": (
+                "results/nonmyopic/"
+                "BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md"
+            ),
+            "score_objective": mechanics.SCORE_OBJECTIVE,
             "semantic_validity_amendment": (
                 "results/nonmyopic/"
                 "BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
