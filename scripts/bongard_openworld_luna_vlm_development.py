@@ -33,7 +33,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-11"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-development32-12"
 MODEL_ID = serving.MODEL_ID
 BLOCK_SIZES = {"a": 8, "b": 8, "c": 8, "d": 8}
 BLOCK_OFFSETS = {"a": 0, "b": 8, "c": 16, "d": 24}
@@ -82,6 +82,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_FIXED_SCORE_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_DEVELOPMENT32_PREREGISTRATION.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
 )
@@ -127,6 +128,11 @@ def _max_requests(block_id: str) -> int:
     return _expected_first_stage_requests(block_id) + (
         BLOCK_SIZES[block_id] * MAX_FINALS_PER_TASK
     )
+
+
+def _max_http_attempts(block_id: str) -> int:
+    accepted = _max_requests(block_id)
+    return accepted + serving.transport_retry_allowance(accepted)
 
 
 def development_tasks_for_block(
@@ -226,6 +232,10 @@ def build_protocol_manifest(*, output_path: Path) -> dict[str, Any]:
                 "earliest_london_date": BLOCK_EARLIEST_DATES[block_id],
                 "model_seed": BLOCK_MODEL_SEEDS[block_id],
                 "maximum_requests": _max_requests(block_id),
+                "maximum_http_attempts": _max_http_attempts(block_id),
+                "maximum_precharged_exposure_usd": (
+                    _max_http_attempts(block_id) * serving.MAX_REQUEST_COST_USD
+                ),
             }
             for block_id in BLOCK_ORDER
         },
@@ -253,6 +263,10 @@ def verify_protocol_manifest(path: Path) -> dict[str, Any]:
             "earliest_london_date": BLOCK_EARLIEST_DATES[block_id],
             "model_seed": BLOCK_MODEL_SEEDS[block_id],
             "maximum_requests": _max_requests(block_id),
+            "maximum_http_attempts": _max_http_attempts(block_id),
+            "maximum_precharged_exposure_usd": (
+                _max_http_attempts(block_id) * serving.MAX_REQUEST_COST_USD
+            ),
         }
         for block_id in BLOCK_ORDER
     }
@@ -693,10 +707,7 @@ def _block_gates(
             mechanics_verification.get("verified") is True
         ),
         "exact_frozen_task_count": task_count == BLOCK_SIZES[block_id],
-        "exact_expected_accepted_requests": usage.get("adapter_requests") == expected,
-        "exact_expected_http_attempts": usage.get("http_attempts") == expected,
-        "zero_retries": usage.get("retry_count") == 0,
-        "zero_provider_error_retries": usage.get("provider_error_retries", 0) == 0,
+        **serving.transport_retry_gates(usage, expected_requests=expected),
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,

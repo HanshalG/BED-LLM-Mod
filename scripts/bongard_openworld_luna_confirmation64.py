@@ -30,7 +30,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-5"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-6"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -43,6 +43,10 @@ TASKS = 64
 CASES_PER_TASK = development.CASES_PER_TASK
 MAX_FINALS_PER_TASK = development.MAX_FINALS_PER_TASK
 MAX_REQUESTS_PER_BLOCK = 688
+MAX_HTTP_ATTEMPTS_PER_BLOCK = (
+    MAX_REQUESTS_PER_BLOCK
+    + serving.transport_retry_allowance(MAX_REQUESTS_PER_BLOCK)
+)
 CONCURRENCY = development.CONCURRENCY
 RUN_BUDGET_USD = development.RUN_BUDGET_USD
 BOOTSTRAP_REPLICATES = 20_000
@@ -193,10 +197,7 @@ def _block_gates(
             mechanics_verification.get("verified") is True
         ),
         "exact_frozen_task_count": task_count == 16,
-        "exact_expected_accepted_requests": usage.get("adapter_requests") == expected,
-        "exact_expected_http_attempts": usage.get("http_attempts") == expected,
-        "zero_retries": usage.get("retry_count") == 0,
-        "zero_provider_error_retries": usage.get("provider_error_retries", 0) == 0,
+        **serving.transport_retry_gates(usage, expected_requests=expected),
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_responses_parse_and_scores_are_finite": finite,
@@ -438,6 +439,7 @@ def run_block(
             "expected_total_requests": 16 * CASES_PER_TASK
             + len(artifacts["final_cases"]),
             "maximum_requests": MAX_REQUESTS_PER_BLOCK,
+            "maximum_http_attempts": MAX_HTTP_ATTEMPTS_PER_BLOCK,
             "run_budget_usd": RUN_BUDGET_USD,
             "terminal_obedience_amendment": (
                 "results/nonmyopic/"
@@ -511,12 +513,13 @@ def replay_block(
         ),
         "expected_total_requests": protocol.get("expected_total_requests"),
         "maximum_requests": MAX_REQUESTS_PER_BLOCK,
-            "run_budget_usd": RUN_BUDGET_USD,
-            "terminal_obedience_amendment": (
-                "results/nonmyopic/"
-                "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
-            ),
-            "endpoint_labels_accessed": False,
+        "maximum_http_attempts": MAX_HTTP_ATTEMPTS_PER_BLOCK,
+        "run_budget_usd": RUN_BUDGET_USD,
+        "terminal_obedience_amendment": (
+            "results/nonmyopic/"
+            "BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md"
+        ),
+        "endpoint_labels_accessed": False,
         "intermediate_science_accessed": False,
         "sealed_test_accessed": False,
     }

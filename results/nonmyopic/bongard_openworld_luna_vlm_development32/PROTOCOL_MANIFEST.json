@@ -2,6 +2,8 @@
   "blocks": {
     "a": {
       "earliest_london_date": "2026-08-11",
+      "maximum_http_attempts": 351,
+      "maximum_precharged_exposure_usd": 1.4040000000000001,
       "maximum_requests": 344,
       "model_seed": 2026081101,
       "offset": 0,
@@ -9,6 +11,8 @@
     },
     "b": {
       "earliest_london_date": "2026-08-12",
+      "maximum_http_attempts": 351,
+      "maximum_precharged_exposure_usd": 1.4040000000000001,
       "maximum_requests": 344,
       "model_seed": 2026081201,
       "offset": 8,
@@ -16,6 +20,8 @@
     },
     "c": {
       "earliest_london_date": "2026-08-13",
+      "maximum_http_attempts": 351,
+      "maximum_precharged_exposure_usd": 1.4040000000000001,
       "maximum_requests": 344,
       "model_seed": 2026081301,
       "offset": 16,
@@ -23,6 +29,8 @@
     },
     "d": {
       "earliest_london_date": "2026-08-14",
+      "maximum_http_attempts": 351,
+      "maximum_precharged_exposure_usd": 1.4040000000000001,
       "maximum_requests": 344,
       "model_seed": 2026081401,
       "offset": 24,
@@ -59,16 +67,17 @@
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_BATCH_AMENDMENT.md": "8c4b9d7bbc68331f5db0f9e5c41d63acfc85f2995d8104a0d6731bc6b50501ac",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_CRN_AMENDMENT.md": "33dde15c1e197eb511b566fcfe00dd431cf122567beb5cc873e57b7acfafa114",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md": "0706ff63310ee3b2c7ca603cadf43308d0e427868a11ae99959d81d126219daf",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md": "0f6ffc66f9b7d0f45d8913cf4f790d6f0c891e135cf5b9102575bd0a51ef7dd9",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md": "b4f01610a34d6c41f019186788e0c91dea1d11089b5359f91729c9f8d6b214ab",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md": "a8ef81f005b5915c9e7dcec4c7e3928527baf1b67cf790a352f77f4689978ef1",
     "scripts/bongard_openworld_luna_claim_report.py": "e9c0012c673b469503526629c91d1f3eeacfe2cccbf6917165955be0f9b2172e",
-    "scripts/bongard_openworld_luna_vlm_development.py": "cd9f8af55407f8c8baf5b1e52f413630ef3c888408cfd71510728c8e8914cdde",
-    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "07c55fd3ca2a7b4b68857a4aa6888bd7cfc6348f74d7542180dee412585213ef",
-    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "f3fc85bd9006a94805c236b9b068ab272e6afdc4b78aa44484d5e6ac256a36c4",
+    "scripts/bongard_openworld_luna_vlm_development.py": "5f4a88a967dd2b336e17a3d66ba8ead1a09cb9156cddbf857a6ca4f89c54604d",
+    "scripts/bongard_openworld_luna_vlm_mechanics_tree.py": "a499fe8fa11888064288bde1ce92d5f376424ff5e15bdd0a3c8d4b02118f7d29",
+    "scripts/bongard_openworld_luna_vlm_serving_smoke.py": "84642d65895e2593b7cb7a63fbe818d9f0695dbab1fa767d90b14cddf388a610",
     "scripts/bongard_openworld_partition_integrity_audit.py": "995e16649e1676f2ab1236fde5e04d16a4989655715749ee1668612c372b3294",
     "scripts/bongard_openworld_vlm_bed.py": "758599009ca4be48a840fc161c6dfc50bd753cc0e59f56102d67267d3a3afb75"
   },
-  "interface_version": "bongard-openworld-luna-vlm-development32-11",
+  "interface_version": "bongard-openworld-luna-vlm-development32-12",
   "model": "openai/gpt-5.6-luna",
   "partition_integrity_manifest_sha256": "9d9dc695924e728a2653af0b05c575eb4c04a62be933e497afa1bc1ac2bbcbc9",
   "reasoning": false,

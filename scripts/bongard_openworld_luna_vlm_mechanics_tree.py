@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-9"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-10"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -1124,10 +1124,9 @@ def mechanics_gates(
     )
     gates = {
         "serving_result_independently_replays": serving_verification.get("verified") is True,
-        "exact_expected_accepted_requests": usage.get("adapter_requests") == expected_requests,
-        "exact_expected_http_attempts": usage.get("http_attempts") == expected_requests,
-        "zero_retries": usage.get("retry_count") == 0,
-        "zero_provider_error_retries": usage.get("provider_error_retries", 0) == 0,
+        **serving.transport_retry_gates(
+            usage, expected_requests=expected_requests
+        ),
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_root_branch_and_final_responses_parse": (

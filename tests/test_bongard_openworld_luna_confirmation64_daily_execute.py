@@ -115,7 +115,11 @@ def test_preflight_ready_checks_live_model_and_pristine_paths(
         model_catalog_reader=lambda: {"data": []},
     )
     assert result["status"] == "ready_without_paid_calls"
-    assert result["budget"]["maximum_precharged_exposure_usd"] == 2.752
+    assert result["budget"]["maximum_accepted_responses"] == 688
+    assert result["budget"]["maximum_http_attempts"] == 702
+    assert result["budget"]["maximum_precharged_exposure_usd"] == pytest.approx(
+        2.808
+    )
 
 
 def test_wrong_date_refuses_before_development_or_live(tmp_path, monkeypatch) -> None:

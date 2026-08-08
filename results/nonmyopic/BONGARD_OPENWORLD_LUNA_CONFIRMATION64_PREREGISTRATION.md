@@ -31,12 +31,12 @@ development null or partial tier forbids confirmation execution.
 
 ## Execution
 
-| Block | Earliest London date | Model seed | Max requests | Max precharged exposure |
-|---|---|---:|---:|---:|
-| A | 2026-08-15 | 2026081501 | 688 | $2.752 |
-| B | 2026-08-16 | 2026081601 | 688 | $2.752 |
-| C | 2026-08-17 | 2026081701 | 688 | $2.752 |
-| D | 2026-08-18 | 2026081801 | 688 | $2.752 |
+| Block | Earliest London date | Model seed | Max accepted | Max HTTP attempts | Max precharged exposure |
+|---|---|---:|---:|---:|---:|
+| A | 2026-08-15 | 2026081501 | 688 | 702 | $2.808 |
+| B | 2026-08-16 | 2026081601 | 688 | 702 | $2.808 |
+| C | 2026-08-17 | 2026081701 | 688 | 702 | $2.808 |
+| D | 2026-08-18 | 2026081801 | 688 | 702 | $2.808 |
 
 The model remains `openai/gpt-5.6-luna`, nonreasoning, with the unchanged
 interface-v6 task-atomic CRN transport and matched history-blind control. Every
@@ -96,10 +96,11 @@ claim stronger than the matched prompt-conditioning intervention.
 
 ## Budget and Status
 
-At the frozen `$0.004` per-attempt precharge ceiling, a full 16-task block has
-at most `688` requests and `$2.752` exposure, fitting the `$5` day without using
-an optimistic average-cost assumption. This freeze makes zero model calls and
-costs `$0`.
+Under the prospective transport-retry amendment, a full 16-task block has at
+most `688` accepted responses and `702` HTTP attempts. At the frozen `$0.004`
+per-attempt precharge ceiling, its maximum exposure is `$2.808`, fitting the
+`$5` day without using an optimistic average-cost assumption. This freeze makes
+zero model calls and costs `$0`.
 
 The original interface-v1 manifest is preserved as superseded because it used a
 descriptive tier name that did not equal the claim classifier's literal output.

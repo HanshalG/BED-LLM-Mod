@@ -23,13 +23,13 @@ from scripts import bongard_openworld_partition_integrity_audit as partition_aud
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-7"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-8"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V7.json"
+    "PROTOCOL_MANIFEST_V8.json"
 )
 MANIFEST_SHA256 = (
-    "02c38bf7e27d7b825fe608a171b975fa43a8bb7015eb9bb1b2089b61881969d6"
+    "94c81d778f7cf939912ce0253883527f1494431dcf1fb7908514adb775d7b229"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -38,7 +38,7 @@ PARTITION_MANIFEST_SHA256 = (
     partition_audit.PARTITION_INTEGRITY_MANIFEST_SHA256
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
+    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
 )
 CONFIRMATION_UID_SHA256 = (
     "1537b43d37e03287520bd1c8bd583e7a7d4680c09ba2203e8238c8831205c631"
@@ -79,6 +79,7 @@ IMPLEMENTATION_PATHS = (
     "scripts/bongard_openworld_luna_claim_report.py",
     "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
 )
 DEVELOPMENT_ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32"
@@ -135,7 +136,8 @@ def verify_manifest(
             "earliest_london_date": BLOCK_DATES[block_id],
             "model_seed": BLOCK_SEEDS[block_id],
             "maximum_requests": 688,
-            "maximum_precharged_exposure_usd": 2.7520000000000002,
+            "maximum_http_attempts": 702,
+            "maximum_precharged_exposure_usd": 2.8080000000000003,
             "daily_cap_usd": 5.0,
             "run_cap_usd": 4.75,
         }
@@ -283,7 +285,8 @@ def verify_manifest(
             for block_id in BLOCK_ORDER
         },
         "maximum_requests_per_block": 688,
-        "maximum_precharged_exposure_per_block_usd": 2.752,
+        "maximum_http_attempts_per_block": 702,
+        "maximum_precharged_exposure_per_block_usd": 2.8080000000000003,
         "checks": checks,
     }
 

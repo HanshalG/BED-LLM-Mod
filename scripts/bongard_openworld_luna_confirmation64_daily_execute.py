@@ -26,10 +26,14 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-daily-execute-1"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-daily-execute-2"
 TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
-MAX_PRECHARGED_EXPOSURE_USD = 2.752
+MAX_ACCEPTED_RESPONSES = confirmation.MAX_REQUESTS_PER_BLOCK
+MAX_HTTP_ATTEMPTS = confirmation.MAX_HTTP_ATTEMPTS_PER_BLOCK
+MAX_PRECHARGED_EXPOSURE_USD = (
+    MAX_HTTP_ATTEMPTS * confirmation.serving.MAX_REQUEST_COST_USD
+)
 ROOT = REPO_ROOT / "results/nonmyopic/bongard_openworld_luna_confirmation64"
 BLOCK_DIRS = {
     block_id: ROOT
@@ -101,6 +105,8 @@ def _initialize_ledger(
             "block_id": block_id,
             "model": confirmation.MODEL_ID,
             "maximum_cost_usd": confirmation.RUN_BUDGET_USD,
+            "maximum_accepted_responses": MAX_ACCEPTED_RESPONSES,
+            "maximum_http_attempts": MAX_HTTP_ATTEMPTS,
             "maximum_precharged_exposure_usd": MAX_PRECHARGED_EXPOSURE_USD,
             "status": "authorized_pending",
         },
@@ -178,6 +184,9 @@ def validate_ledger(*, path: Path, block_id: str) -> dict[str, Any]:
         or authorization.get("model") != confirmation.MODEL_ID
         or float(authorization.get("maximum_cost_usd", math.inf))
         != confirmation.RUN_BUDGET_USD
+        or authorization.get("maximum_accepted_responses")
+        != MAX_ACCEPTED_RESPONSES
+        or authorization.get("maximum_http_attempts") != MAX_HTTP_ATTEMPTS
         or float(
             authorization.get("maximum_precharged_exposure_usd", math.inf)
         )
@@ -329,6 +338,8 @@ def preflight_daily_block(
         "budget": {
             "daily_cap_usd": DAILY_CAP_USD,
             "run_cap_usd": confirmation.RUN_BUDGET_USD,
+            "maximum_accepted_responses": MAX_ACCEPTED_RESPONSES,
+            "maximum_http_attempts": MAX_HTTP_ATTEMPTS,
             "maximum_precharged_exposure_usd": MAX_PRECHARGED_EXPOSURE_USD,
         },
         "model_calls_made": 0,

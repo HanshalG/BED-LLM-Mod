@@ -9,7 +9,8 @@ from scripts import bongard_openworld_luna_confirmation64_freeze as freeze
 
 def test_confirmation_block_economics_fit_daily_cap() -> None:
     assert freeze.MAX_REQUESTS_PER_BLOCK == 688
-    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(2.752)
+    assert freeze.MAX_HTTP_ATTEMPTS_PER_BLOCK == 702
+    assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD == pytest.approx(2.808)
     assert freeze.MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD < freeze.DAILY_CAP_USD
 
 

@@ -29,7 +29,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-3"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-serving-smoke-4"
 MODEL_ID = "openai/gpt-5.6-luna"
 MODEL_SEED = 2_026_081_001
 EARLIEST_DATE = "2026-08-10"
@@ -43,6 +43,8 @@ PROJECTED_COST_USD = 0.10
 RUN_BUDGET_USD = 0.25
 MIN_BRANCH_PREDICTION_MAE = 0.05
 MAX_BRANCH_LABEL_BRIER = 0.25
+MIN_TRANSPORT_RETRY_ALLOWANCE = 4
+MAX_TRANSPORT_RETRY_FRACTION = 0.02
 
 
 class StructuredModel(Protocol):
@@ -448,10 +450,7 @@ def serving_gates(
         for belief in beliefs
     )
     gates = {
-        "exact_10_accepted_requests": usage.get("adapter_requests") == EXPECTED_REQUESTS,
-        "exact_10_http_attempts": usage.get("http_attempts") == EXPECTED_REQUESTS,
-        "zero_retries": usage.get("retry_count") == 0,
-        "zero_provider_error_retries": usage.get("provider_error_retries", 0) == 0,
+        **transport_retry_gates(usage, expected_requests=EXPECTED_REQUESTS),
         "zero_reasoning_tokens": usage.get("adapter_reasoning_tokens") == 0,
         "zero_forced_exits": usage.get("forced_exits") == 0,
         "all_10_strict_schemas_parse": len(beliefs) == len(cases) == EXPECTED_REQUESTS,
@@ -475,6 +474,59 @@ def serving_gates(
     }
     gates["all_pass"] = all(gates.values())
     return gates
+
+
+def transport_retry_gates(
+    usage: Mapping[str, Any], *, expected_requests: int
+) -> dict[str, bool]:
+    """Validate bounded same-payload retries without making zero retries scientific."""
+
+    names = (
+        "adapter_requests",
+        "http_attempts",
+        "retry_count",
+        "provider_error_retries",
+    )
+    values = {name: usage.get(name, 0) for name in names}
+    valid_counts = all(
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(float(value))
+        and float(value).is_integer()
+        and value >= 0
+        for value in values.values()
+    )
+    counts = {
+        name: int(value) if valid_counts else -1
+        for name, value in values.items()
+    }
+    allowance = transport_retry_allowance(expected_requests)
+    accepted = counts["adapter_requests"]
+    attempts = counts["http_attempts"]
+    retries = counts["retry_count"]
+    provider_retries = counts["provider_error_retries"]
+    return {
+        "transport_usage_counts_are_nonnegative_integers": valid_counts,
+        "exact_expected_accepted_requests": accepted == expected_requests,
+        "http_attempts_equal_accepted_plus_retries": (
+            attempts == accepted + retries
+        ),
+        "total_retries_within_preregistered_bound": retries <= allowance,
+        "provider_error_retries_are_bounded_subset": (
+            0 <= provider_retries <= retries
+        ),
+    }
+
+
+def transport_retry_allowance(expected_requests: int) -> int:
+    if not isinstance(expected_requests, int) or isinstance(expected_requests, bool):
+        raise TypeError("expected request count must be an integer")
+    if expected_requests <= 0:
+        raise ValueError("expected request count must be positive")
+    return max(
+        MIN_TRANSPORT_RETRY_ALLOWANCE,
+        math.ceil(MAX_TRANSPORT_RETRY_FRACTION * expected_requests),
+    )
 
 
 def _adapter(*, output_dir: Path, run_id: str) -> LunaVisionAdapter:

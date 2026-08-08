@@ -82,6 +82,19 @@ class FixtureAdapter:
         }
 
 
+class RetriedFixtureAdapter(FixtureAdapter):
+    def usage_snapshot(self):
+        usage = super().usage_snapshot()
+        usage.update(
+            {
+                "http_attempts": 11,
+                "retry_count": 1,
+                "provider_error_retries": 0,
+            }
+        )
+        return usage
+
+
 def test_serving_adapter_reserves_luna_attempt_cost(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -106,6 +119,72 @@ def test_exact_ten_fixture_passes_without_endpoint_access(tmp_path: Path) -> Non
     assert result["protocol"]["endpoint_labels_accessed"] is False
     raw = json.loads((tmp_path / "run/private/RAW_RESPONSES.json").read_text())
     assert raw["endpoint_labels_accessed"] is False
+
+
+def test_exact_ten_fixture_allows_one_bounded_transport_retry(
+    tmp_path: Path,
+) -> None:
+    tasks = [_task(1), _task(2)]
+    cases = smoke.build_smoke_cases(tasks)
+    result = smoke.run_smoke(
+        output_dir=tmp_path / "run",
+        run_id="retried-fixture",
+        tasks=tasks,
+        adapter=RetriedFixtureAdapter(cases),
+    )
+    assert result["status"] == "passed"
+    assert result["gates"]["all_pass"]
+    assert result["gates"]["total_retries_within_preregistered_bound"]
+    assert result["usage"]["retry_count"] == 1
+
+
+def test_transport_retry_gates_enforce_frozen_bound_and_accounting() -> None:
+    base = {
+        "adapter_requests": 10,
+        "http_attempts": 14,
+        "retry_count": 4,
+        "provider_error_retries": 2,
+    }
+    assert all(
+        smoke.transport_retry_gates(base, expected_requests=10).values()
+    )
+
+    too_many = base | {"http_attempts": 15, "retry_count": 5}
+    assert not smoke.transport_retry_gates(
+        too_many, expected_requests=10
+    )["total_retries_within_preregistered_bound"]
+
+    mismatched = base | {"http_attempts": 13}
+    assert not smoke.transport_retry_gates(
+        mismatched, expected_requests=10
+    )["http_attempts_equal_accepted_plus_retries"]
+
+    excess_provider = base | {"provider_error_retries": 5}
+    assert not smoke.transport_retry_gates(
+        excess_provider, expected_requests=10
+    )["provider_error_retries_are_bounded_subset"]
+
+    noninteger = base | {"retry_count": 1.5, "http_attempts": 11.5}
+    assert not smoke.transport_retry_gates(
+        noninteger, expected_requests=10
+    )["transport_usage_counts_are_nonnegative_integers"]
+
+
+def test_transport_retry_allowance_scales_at_two_percent() -> None:
+    usage = {
+        "adapter_requests": 344,
+        "http_attempts": 351,
+        "retry_count": 7,
+        "provider_error_retries": 0,
+    }
+    assert all(
+        smoke.transport_retry_gates(usage, expected_requests=344).values()
+    )
+    usage["http_attempts"] = 352
+    usage["retry_count"] = 8
+    assert not smoke.transport_retry_gates(
+        usage, expected_requests=344
+    )["total_retries_within_preregistered_bound"]
 
 
 def test_branch_sensitivity_ignores_the_just_labelled_image() -> None:

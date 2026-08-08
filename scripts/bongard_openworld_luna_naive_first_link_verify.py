@@ -14,20 +14,26 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-1"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-manifest-2"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/"
-    "PROTOCOL_MANIFEST.json"
+    "PROTOCOL_MANIFEST_V2.json"
 )
 MANIFEST_SHA256 = (
-    "dfd55b7ed3577fc69431e1dd514d69d158cd7eb01376fbde447064bc0bfdcc7f"
+    "2c6f3de36be214d5eab9f84519d0a86be4780bdffa839eedd6cc0ff4a3e3ab9f"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development32/"
     "PROTOCOL_MANIFEST.json"
 )
 MAIN_MANIFEST_SHA256 = (
-    "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
+    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
+)
+TRANSPORT_RETRY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md"
+)
+TRANSPORT_RETRY_AMENDMENT_SHA256 = (
+    "0f6ffc66f9b7d0f45d8913cf4f790d6f0c891e135cf5b9102575bd0a51ef7dd9"
 )
 
 
@@ -74,6 +80,10 @@ def verify_protocol_manifest(path: Path = MANIFEST) -> dict[str, Any]:
         or manifest.get("privacy") != expected_privacy
         or manifest.get("main_development_manifest_sha256")
         != MAIN_MANIFEST_SHA256
+        or manifest.get("transport_retry_amendment_sha256")
+        != TRANSPORT_RETRY_AMENDMENT_SHA256
+        or sha256_file(TRANSPORT_RETRY_AMENDMENT)
+        != TRANSPORT_RETRY_AMENDMENT_SHA256
         or manifest.get("main_development_result_must_independently_replay")
         is not True
     ):

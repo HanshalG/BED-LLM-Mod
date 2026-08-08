@@ -25,7 +25,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-7"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation64-freeze-8"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 16 for block_id in BLOCK_ORDER}
@@ -47,9 +47,13 @@ CASES_PER_TASK = 33
 MAX_FINALS_PER_TASK = 10
 MAX_REQUESTS_PER_TASK = CASES_PER_TASK + MAX_FINALS_PER_TASK
 MAX_REQUESTS_PER_BLOCK = 16 * MAX_REQUESTS_PER_TASK
+MAX_HTTP_ATTEMPTS_PER_BLOCK = (
+    MAX_REQUESTS_PER_BLOCK
+    + serving.transport_retry_allowance(MAX_REQUESTS_PER_BLOCK)
+)
 MAX_REQUEST_COST_USD = serving.MAX_REQUEST_COST_USD
 MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD = (
-    MAX_REQUESTS_PER_BLOCK * MAX_REQUEST_COST_USD
+    MAX_HTTP_ATTEMPTS_PER_BLOCK * MAX_REQUEST_COST_USD
 )
 DAILY_CAP_USD = 5.0
 BLOCK_RUN_CAP_USD = 4.75
@@ -74,7 +78,7 @@ DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "a0b70ff8bbe3e36eba56b357e563504f12e4792d92cedee237d4b261d15a7708"
+    "3e52e97c1ff28968273bedeea37ca2695cb41df5aff6478a3c3848b1bbee2ae0"
 )
 AUTHORIZATION_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -195,6 +199,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "scripts/bongard_openworld_luna_claim_report.py",
         "results/nonmyopic/BONGARD_OPENWORLD_PARTITION_INTEGRITY_AMENDMENT.md",
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TERMINAL_OBEDIENCE_AMENDMENT.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_LUNA_TRANSPORT_RETRY_AMENDMENT.md",
     )
     gates = {
         "source_manifest_hash_matches": (
@@ -292,6 +297,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
                     "earliest_london_date": BLOCK_EARLIEST_DATES[block_id],
                     "model_seed": BLOCK_MODEL_SEEDS[block_id],
                     "maximum_requests": MAX_REQUESTS_PER_BLOCK,
+                    "maximum_http_attempts": MAX_HTTP_ATTEMPTS_PER_BLOCK,
                     "maximum_precharged_exposure_usd": (
                         MAX_PRECHARGED_EXPOSURE_PER_BLOCK_USD
                     ),
