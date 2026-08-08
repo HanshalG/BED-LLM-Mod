@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "prospectively_frozen_before_any_bongard_response",
+  "frozen_date": "2026-08-08",
+  "bound_files": {
+    "claim_decision_plan": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_LUNA_CLAIM_DECISION_PLAN.md",
+      "sha256": "4288be316da2e1e9ff376733da57ee9f2f48ae08930ee78265054da2f4153d0e"
+    },
+    "endpoint_utility_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_ENDPOINT_PREDICTIVE_UTILITY_AMENDMENT.md",
+      "sha256": "2fce4b66696d5b635f8d32c5f968a917aac20ab64305cab2728bc5f9973a55b8"
+    },
+    "development_manifest": {
+      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V14.json",
+      "sha256": "377596232d9fda34753bd99914292043ecc80a5584d55d95075e659c40e88011"
+    },
+    "confirmation_manifest": {
+      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V11.json",
+      "sha256": "42e965d6ee66d36f2a0eac38b5cfc8b18567e16684f2dce7c5fd7e8daff797f1"
+    },
+    "development_claim_generator": {
+      "path": "scripts/bongard_openworld_luna_claim_report.py",
+      "sha256": "28216198e57eef3ea5c77cfd96455a136ddaa814a2d151948879dbccef1b2693"
+    },
+    "development_analyzer": {
+      "path": "scripts/bongard_openworld_luna_vlm_development.py",
+      "sha256": "842be5245de4b4df4f3d329a03a87ffa0ff35b296ff8f8c4e0287e8a26a95b3f"
+    },
+    "development_daily_replay": {
+      "path": "scripts/bongard_openworld_luna_development32_daily_execute.py",
+      "sha256": "8aeca473752ad0251dc51924adc06dca029471e5b6632e99a8efc92f5c979fdb"
+    },
+    "confirmation_analyzer": {
+      "path": "scripts/bongard_openworld_luna_confirmation64.py",
+      "sha256": "80dda8508e1378e48593190968086f3b7db451732f5091606c5fa0a75e30b18e"
+    },
+    "confirmation_freeze_verifier": {
+      "path": "scripts/bongard_openworld_luna_confirmation64_verify.py",
+      "sha256": "1d6eb7f293f1c5edc115b680b26d73b4550d853cde576656220577272fb764ff"
+    },
+    "confirmation_daily_executor": {
+      "path": "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",
+      "sha256": "627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d"
+    },
+    "fragment_protocol": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_PAPER_FRAGMENT_PROTOCOL_20260808.md",
+      "sha256": "9b73878b4c5ab3fee3fe6aebc685d9e09e9b793d44d1ea3dd44d2191d395b1de"
+    },
+    "fragment_generator": {
+      "path": "scripts/bongard_openworld_luna_paper_fragment.py",
+      "sha256": "b24cab445a9a2d58bd6f946946f58c3747fb8c260266f78968342f1049f12966"
+    }
+  },
+  "manuscript": {
+    "path": "paper/main.tex",
+    "preresult_sha256": "6ece61e00c284c961e08375b873a410a959bf9bab978f847c0d099dbaf7453bf",
+    "generated_fragment_path": "paper/generated/bongard_openworld_result.tex",
+    "generated_fragment_absent_at_freeze": true,
+    "live_hook_absent_at_freeze": true,
+    "detailed_late_number_game_audit_replaced_after_verified_result": true,
+    "conditional_include_to_be_added_after_verified_result": true,
+    "insertion_anchor": "immediately before the paragraph headed LLM-native generated support is not generation-robust"
+  },
+  "requirements": {
+    "development_and_confirmation_can_be_pooled": false,
+    "confirmed_tier_requires_confirmation_pass": true,
+    "shared_validity_failure_can_show_efficacy_metrics": false,
+    "mechanics_failure_can_show_efficacy_metrics": false,
+    "number_game_headline_is_replaced_by_development_only": false,
+    "unknown_or_tampered_outcome_fails_closed": true,
+    "model_calls": 0,
+    "cost_usd": 0.0
+  }
+}
