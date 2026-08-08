@@ -1,0 +1,272 @@
+{
+  "all_gates_pass": true,
+  "authorizes_paid_calls": false,
+  "cost_usd": 0.0,
+  "gates": {
+    "all_tasks_have_balanced_disjoint_roles": true,
+    "all_tasks_use_the_exact_opaque_public_id_set": true,
+    "endpoint_truth_is_sealed_in_every_loaded_task": true,
+    "every_public_position_spans_every_protocol_role": true,
+    "held_out_position_predictor_auc_is_below_0_60": true,
+    "held_out_position_predictor_has_negligible_brier_regret": true,
+    "held_out_top2_position_precision_is_below_0_30": true,
+    "partition_sizes_match_frozen_protocol": true,
+    "sampled_public_prompts_have_no_hidden_state_or_role_errors": true,
+    "task_ids_are_unique": true
+  },
+  "interface_version": "bongard-openworld-prompt-role-blindness-audit-1",
+  "limitations": [
+    "The audit tests public IDs, prompt order, and request metadata; it cannot rule out memorization of a public benchmark image.",
+    "The source protocol holds out class index 6 as the endpoint, but source paths and source positions are absent from the public prompt.",
+    "Passing does not test semantic belief quality or non-myopic planning efficacy."
+  ],
+  "model_calls": 0,
+  "partitions": {
+    "confirmation": {
+      "endpoint_counts_by_public_position": [
+        13,
+        13,
+        9,
+        11,
+        9,
+        18,
+        9,
+        18,
+        13,
+        17,
+        19,
+        9,
+        16,
+        18
+      ],
+      "initial_counts_by_public_position": [
+        29,
+        30,
+        39,
+        37,
+        28,
+        20,
+        32,
+        23,
+        29,
+        17,
+        24,
+        18,
+        24,
+        34
+      ],
+      "maximum_endpoint_pair_repetitions": 5,
+      "role_counts": {
+        "candidate": 768,
+        "endpoint": 192,
+        "initial": 384
+      },
+      "tasks": 96,
+      "unique_endpoint_id_pairs": 60
+    },
+    "development": {
+      "endpoint_counts_by_public_position": [
+        9,
+        7,
+        8,
+        8,
+        8,
+        10,
+        6,
+        10,
+        11,
+        7,
+        10,
+        10,
+        12,
+        12
+      ],
+      "initial_counts_by_public_position": [
+        17,
+        19,
+        21,
+        26,
+        16,
+        20,
+        17,
+        20,
+        18,
+        20,
+        19,
+        15,
+        14,
+        14
+      ],
+      "maximum_endpoint_pair_repetitions": 2,
+      "role_counts": {
+        "candidate": 512,
+        "endpoint": 128,
+        "initial": 256
+      },
+      "tasks": 64,
+      "unique_endpoint_id_pairs": 51
+    },
+    "mechanics": {
+      "endpoint_counts_by_public_position": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        2
+      ],
+      "initial_counts_by_public_position": [
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        3,
+        2,
+        1,
+        1,
+        1
+      ],
+      "maximum_endpoint_pair_repetitions": 1,
+      "role_counts": {
+        "candidate": 32,
+        "endpoint": 8,
+        "initial": 16
+      },
+      "tasks": 4,
+      "unique_endpoint_id_pairs": 4
+    }
+  },
+  "position_predictor": {
+    "beta_prior": {
+      "candidate": 4.0,
+      "endpoint": 1.0
+    },
+    "confirmation": {
+      "auc": 0.5252583821614584,
+      "brier": 0.15991446927250744,
+      "brier_regret": -8.553072749259427e-05,
+      "constant_base_rate_brier": 0.16000000000000003,
+      "constant_base_rate_log_loss": 0.5004024235381879,
+      "endpoint_base_rate": 0.2,
+      "endpoint_rows": 192,
+      "log_loss": 0.500228463459964,
+      "rows": 960,
+      "top2_precision": 0.1875,
+      "top2_recall": 0.1875,
+      "top2_true_positives": 36
+    },
+    "endpoint_probabilities_by_public_position": [
+      0.18181818181818182,
+      0.1509433962264151,
+      0.2,
+      0.2127659574468085,
+      0.17857142857142858,
+      0.21153846153846154,
+      0.12727272727272726,
+      0.20754716981132076,
+      0.24074074074074073,
+      0.16,
+      0.21153846153846154,
+      0.22807017543859648,
+      0.22413793103448276,
+      0.25862068965517243
+    ],
+    "evaluation_partition": "confirmation",
+    "training_partitions": [
+      "mechanics",
+      "development"
+    ]
+  },
+  "public_prompt_errors": {
+    "confirmation": [],
+    "development": [],
+    "mechanics": []
+  },
+  "role_sets_by_public_position": [
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ],
+    [
+      "candidate",
+      "endpoint",
+      "initial"
+    ]
+  ],
+  "schema_version": 1,
+  "status": "prompt_role_blindness_pass"
+}
