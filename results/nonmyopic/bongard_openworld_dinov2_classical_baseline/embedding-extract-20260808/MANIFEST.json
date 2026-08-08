@@ -1,0 +1,44 @@
+{
+  "all_gates_pass": true,
+  "artifacts": {
+    "dtype": "float32",
+    "embeddings": "results/nonmyopic/bongard_openworld_dinov2_classical_baseline/embedding-extract-20260808/EMBEDDINGS.npy",
+    "embeddings_sha256": "79b678777e2bec8506d59a17c7bf3a8199882f72b3c77178554ccb252c4f08d9",
+    "index": "results/nonmyopic/bongard_openworld_dinov2_classical_baseline/embedding-extract-20260808/INDEX.json",
+    "index_sha256": "9f3a1de76dc7124c0a1a8872949b52e46fb7b85a5ee26267032aa548516e2733",
+    "shape": [
+      2296,
+      384
+    ]
+  },
+  "authorizes_paid_calls": false,
+  "candidate_labels_accessed": false,
+  "cost_usd": 0.0,
+  "endpoint_labels_accessed": false,
+  "gates": {
+    "embedding_array_is_exact_finite_unit_normalized_float32": true,
+    "exact_partition_image_counts": true,
+    "opaque_image_index_has_no_labels_or_roles": true
+  },
+  "interface_version": "bongard-openworld-dinov2-embedding-extract-1",
+  "interpretation": "This artifact contains frozen-image DINOv2 representations only. It reads no candidate or endpoint outcomes and provides no efficacy result.",
+  "model": {
+    "config_sha256": "1809f83e3bdb1609a501a610ad4a742f4fd8ae44d72ca4aa0df52d1f2ac8628d",
+    "device": "mps",
+    "model_id": "facebook/dinov2-small",
+    "parameters": 22056576,
+    "preprocessor_config_sha256": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828",
+    "revision": "ed25f3a31f01632728cabb09d1542f84ab7b0056",
+    "torch_version": "2.8.0",
+    "transformers_version": "4.55.0",
+    "weights_sha256": "ae1e99fcefd534ed978cdeb8326f08030c96e28b7a81ffcbc98a857c84d14be1"
+  },
+  "model_calls": 0,
+  "partition_image_counts": {
+    "confirmation": 1344,
+    "development": 896,
+    "mechanics": 56
+  },
+  "schema_version": 1,
+  "status": "embedding_extract_pass"
+}
