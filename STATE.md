@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Freeze the missing all-task compute-matched Bongard audit before
+responses. It replays root+continuation score identities,exact shuffled-value
+permutation,and every policy argmax before reporting paired20k-bootstrap Brier/
+log-loss effects. Shuffled is strict branch-bank-compute matched;history-blind
+is branch-request-count matched;myopic is explicitly only online-greedy. The
+audit is descriptive/non-gating and cannot rescue a claim. Protocol09616a6e,
+implementation929eda10;unit7/7,integration23/23,full Bongard226/226;model0,
+cost0,endpoints unopened.
+
 2026-08-09: Verify the frozen Bongard myopic control against the closest prior's
 operational pattern. `myopic_width` is greedy endpoint-PIG at root,then after the
 real label uses the same answer-conditioned regenerated Luna branch belief and
