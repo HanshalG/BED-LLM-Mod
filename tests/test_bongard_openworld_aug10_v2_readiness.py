@@ -6,6 +6,9 @@ from pathlib import Path
 
 from scripts import bongard_openworld_aug10_final_handoff as final_handoff
 from scripts import bongard_openworld_aug10_postprocess as postprocess
+from scripts import (
+    bongard_openworld_confirmation_final_handoff as confirmation_final,
+)
 from scripts import bongard_openworld_development_final_handoff as development_final
 from scripts import bongard_openworld_paper_with_classical_suite as paper_wrapper
 
@@ -154,6 +157,25 @@ DEVELOPMENT_FINAL_TEST = (
 )
 DEVELOPMENT_FINAL_TEST_SHA256 = (
     "67c7eaa5d20f61b2faf6770253e5b220adb1b2b00277f89d7d06c7b44add4882"
+)
+CONFIRMATION_FINAL_PROTOCOL = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_CONFIRMATION_FINAL_HANDOFF_PROTOCOL_20260809.md"
+)
+CONFIRMATION_FINAL_PROTOCOL_SHA256 = (
+    "9eb040b61c00d9f2bd18a30accba440163bf02384c3400f129446692a3d559c6"
+)
+CONFIRMATION_FINAL_IMPLEMENTATION = (
+    REPO_ROOT / "scripts/bongard_openworld_confirmation_final_handoff.py"
+)
+CONFIRMATION_FINAL_IMPLEMENTATION_SHA256 = (
+    "da82c11b9be13c41b1d58bbc63aee149e2fe44bc9111d5eae8c803f30ef611d0"
+)
+CONFIRMATION_FINAL_TEST = (
+    REPO_ROOT / "tests/test_bongard_openworld_confirmation_final_handoff.py"
+)
+CONFIRMATION_FINAL_TEST_SHA256 = (
+    "d9cb13ef44eb5fbc28ed9a45f2f436f58caa58905d01ec20b355619c809a5b62"
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
@@ -335,3 +357,21 @@ def test_development_terminal_handoff_binds_deterministic_v7_paper_path() -> Non
         PAPER_WRAPPER_SHA256,
     )
     assert development_final.verify_bindings()["implementations"]
+
+
+def test_confirmation_terminal_handoff_binds_complete_v7_paper_path() -> None:
+    assert _sha256(CONFIRMATION_FINAL_PROTOCOL) == (
+        CONFIRMATION_FINAL_PROTOCOL_SHA256
+    )
+    assert _sha256(CONFIRMATION_FINAL_IMPLEMENTATION) == (
+        CONFIRMATION_FINAL_IMPLEMENTATION_SHA256
+    )
+    assert _sha256(CONFIRMATION_FINAL_TEST) == CONFIRMATION_FINAL_TEST_SHA256
+    assert confirmation_final.PROTOCOL_SHA256 == CONFIRMATION_FINAL_PROTOCOL_SHA256
+    assert confirmation_final.BOUND_IMPLEMENTATIONS["paper_wrapper_v7"] == (
+        "scripts/bongard_openworld_paper_with_classical_suite.py",
+        PAPER_WRAPPER_SHA256,
+    )
+    bindings = confirmation_final.verify_bindings()
+    assert bindings["implementations"]
+    assert bindings["confirmation_execution"]["verified"] is True
