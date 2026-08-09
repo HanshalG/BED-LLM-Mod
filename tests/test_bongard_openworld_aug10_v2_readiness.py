@@ -26,6 +26,23 @@ CLOSEST_PRIOR_AMENDMENT = REPO_ROOT / (
 CLOSEST_PRIOR_AMENDMENT_SHA256 = (
     "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647"
 )
+ANSWER_SIGNAL_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_ANSWER_SIGNAL_ABOVE_REGENERATION_NOISE_AMENDMENT_20260809.md"
+)
+ANSWER_SIGNAL_AMENDMENT_SHA256 = (
+    "f61a7ad4fb2a4cfad3011cae30b6a03be493bce08f2b2f4a79381211efbfe4f1"
+)
+ANSWER_SIGNAL_IMPLEMENTATION = (
+    REPO_ROOT / "scripts/bongard_openworld_answer_signal_audit.py"
+)
+ANSWER_SIGNAL_IMPLEMENTATION_SHA256 = (
+    "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd"
+)
+ANSWER_SIGNAL_TEST = REPO_ROOT / "tests/test_bongard_openworld_answer_signal_audit.py"
+ANSWER_SIGNAL_TEST_SHA256 = (
+    "7a7a1acda321ff6204f3c62b86bd2b11a2a21ca4a5e236fb82ae0575d521bfe8"
+)
 RANDOM_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_RANDOM_STRATEGY_PAPER_HANDOFF_AMENDMENT_20260809.md"
@@ -51,7 +68,7 @@ FINAL_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
 )
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "016e535e6f8e53f80fd815baf387a5aba0de770bc40e7284e92aa67688596084"
+    "8d7b41c05f7b7f383881529a552b2b6c4e2dee8f6ef7b1b1388adf179eb28884"
 )
 ATOMIC_REHEARSAL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -64,7 +81,7 @@ ATOMIC_REHEARSAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_aug10_atomic_rehearsal.py"
 )
 ATOMIC_REHEARSAL_TEST_SHA256 = (
-    "04186fb837250f1fe9d203a5acfa369beb1dc4f6634acd78ca15856333a557ce"
+    "ea0f68af24aa51a834aed1d56ae922ad67ceabeeed3d34060c5472dff3d11a33"
 )
 DEVELOPMENT_DAILY_HANDOFF_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -77,7 +94,7 @@ DEVELOPMENT_DAILY_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_daily_handoff.py"
 )
 DEVELOPMENT_DAILY_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "0c94b16aaf12a4f509b051b49ecd256260b2b254c9c5b62b014baac7a6265027"
+    "ca76725fd3589e7207945c7a3e079b3dc12148e25b173c812e0c3e7f493384c3"
 )
 DEVELOPMENT_DAILY_HANDOFF_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_daily_handoff.py"
@@ -103,7 +120,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "6191fcd071f8e041aeb84b96bd74bf863536a303ae0708a0e8c2fdb66618cb7b"
+    "739ee58d378d8a0067b9e4dca52c5c13c3847b33dcc47e9d061b38277c2a8038"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -113,7 +130,7 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "a5659ab7c92d4d6722425382826f947f5212ba3c39ea49b6ed78e7df8c984b5f"
+    "e5449f096a09d28d5a9154977d2d916edac8f6f3731a2638f64e54127ae2f47a"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
@@ -146,6 +163,11 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
         if name not in PAPER_ONLY_BINDINGS:
             assert _sha256(path) == record["sha256"]
     assert _sha256(CLOSEST_PRIOR_AMENDMENT) == CLOSEST_PRIOR_AMENDMENT_SHA256
+    assert _sha256(ANSWER_SIGNAL_AMENDMENT) == ANSWER_SIGNAL_AMENDMENT_SHA256
+    assert _sha256(ANSWER_SIGNAL_IMPLEMENTATION) == (
+        ANSWER_SIGNAL_IMPLEMENTATION_SHA256
+    )
+    assert _sha256(ANSWER_SIGNAL_TEST) == ANSWER_SIGNAL_TEST_SHA256
     assert _sha256(RANDOM_PAPER_HANDOFF_AMENDMENT) == (
         RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256
     )
@@ -215,6 +237,10 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
     )
     assert final_handoff.PROTOCOL_SHA256 == FINAL_HANDOFF_PROTOCOL_SHA256
     assert final_handoff.BOUND_IMPLEMENTATIONS == {
+        "answer_signal_audit": (
+            "scripts/bongard_openworld_answer_signal_audit.py",
+            ANSWER_SIGNAL_IMPLEMENTATION_SHA256,
+        ),
         "aug10_wrapper": (
             "scripts/bongard_openworld_luna_aug10_execute.py",
             "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",

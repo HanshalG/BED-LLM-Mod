@@ -76,6 +76,15 @@ BOUND_FILES = {
         "BONGARD_OPENWORLD_CURIOSITREE_CLOSEST_PRIOR_AMENDMENT_20260809.md",
         "ddbd666abbb1a3d9437c30f6f3847f0f4275d6c48145d60a766ad2351e44cb12",
     ),
+    "answer_signal_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_ANSWER_SIGNAL_ABOVE_REGENERATION_NOISE_AMENDMENT_20260809.md",
+        "f61a7ad4fb2a4cfad3011cae30b6a03be493bce08f2b2f4a79381211efbfe4f1",
+    ),
+    "answer_signal_audit": (
+        "scripts/bongard_openworld_answer_signal_audit.py",
+        "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd",
+    ),
     "preresult_references": (
         "paper/references.bib",
         "dea4327670d7169e32c0901e20bda4aa23868df6968c92e3855f929dc91bd93c",
@@ -98,7 +107,7 @@ BOUND_FILES = {
     ),
     "development_daily_replay": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "3e2addb43523c4ec639d33f1d30f67149249462277ca6b5fcf678262a5637106",
+        "f7caea8467c5f9d88d3634742e8e842edf9c50fd53855f1a38c81ce9601ef5fb",
     ),
     "confirmation_analyzer": (
         "scripts/bongard_openworld_luna_confirmation64.py",

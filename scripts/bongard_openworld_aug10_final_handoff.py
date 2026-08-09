@@ -15,12 +15,13 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_aug10_postprocess as postprocess
+from scripts import bongard_openworld_answer_signal_audit as answer_signal
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-aug10-final-handoff-1"
+INTERFACE_VERSION = "bongard-openworld-aug10-final-handoff-2"
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_AUG10_FINAL_HANDOFF_PROTOCOL_20260809.md"
@@ -29,6 +30,10 @@ PROTOCOL_SHA256 = (
     "76858ea571f478572f8067fa85084e0ea54798017b452d30caca33d9a0cc7e5a"
 )
 BOUND_IMPLEMENTATIONS = {
+    "answer_signal_audit": (
+        "scripts/bongard_openworld_answer_signal_audit.py",
+        "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd",
+    ),
     "aug10_wrapper": (
         "scripts/bongard_openworld_luna_aug10_execute.py",
         "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
@@ -171,6 +176,24 @@ def _expected_random_report(
     return report
 
 
+def _load_or_run_answer_signal(
+    *,
+    output_path: Path,
+    mechanics_result: Path,
+    runner: Callable[..., dict[str, Any]],
+) -> dict[str, Any]:
+    if output_path.exists():
+        observed = _load(output_path)
+        expected = answer_signal.build_report(mechanics_result=mechanics_result)
+        if observed != expected:
+            raise ValueError("banked August 10 answer-signal audit changed")
+        return observed
+    return runner(
+        mechanics_result=mechanics_result,
+        output_path=output_path,
+    )
+
+
 def _load_or_run_random(
     *,
     output_path: Path,
@@ -238,8 +261,50 @@ def _validate_final(
     )
     if replayed_postprocess != _load(postprocess_path):
         raise ValueError("banked final handoff postprocess did not replay")
+    answer_component = components.get("answer_signal_audit")
+    should_have_answer = False
+    if paid_path.name == "RESULT.json":
+        try:
+            postprocess._mechanics_from_wrapper(paid_path)
+        except ValueError:
+            pass
+        else:
+            should_have_answer = True
+    if (answer_component is not None) is not should_have_answer:
+        raise ValueError("banked final handoff answer-signal scope changed")
+    answer_passed = False
+    if answer_component is not None:
+        if paid_path.name != "RESULT.json":
+            raise ValueError("answer-signal audit requires the terminal wrapper")
+        mechanics_result = postprocess._mechanics_from_wrapper(paid_path)
+        expected_answer = answer_signal.build_report(
+            mechanics_result=mechanics_result
+        )
+        observed_answer = _load(Path(str(answer_component["path"])))
+        if expected_answer != observed_answer:
+            raise ValueError("banked final handoff answer-signal audit did not replay")
+        answer_passed = observed_answer.get("status") == "answer_signal_valid"
+    if (
+        record.get("answer_signal_audit_opened") is not should_have_answer
+        or record.get("answer_signal_status")
+        != (
+            observed_answer.get("status")
+            if answer_component is not None
+            else None
+        )
+        or record.get("answer_signal_authorizes_development") is not answer_passed
+        or (
+            should_have_answer
+            and not answer_passed
+            and record.get("status") != "failed_closed"
+        )
+    ):
+        raise ValueError("banked final handoff answer-signal disposition changed")
     random_component = components.get("random_strategy_control")
-    should_have_random = replayed_postprocess.get("status") == "postprocess_complete"
+    should_have_random = (
+        replayed_postprocess.get("status") == "postprocess_complete"
+        and answer_passed
+    )
     if (random_component is not None) is not should_have_random:
         raise ValueError("banked final handoff random-control scope changed")
     if random_component is not None:
@@ -263,6 +328,7 @@ def run_final_handoff(
     postprocess_dir: Path = postprocess.OUTPUT_DIR,
     execute_runner: Callable[..., dict[str, Any]] = aug10.execute_aug10_sequence,
     postprocess_runner: Callable[..., dict[str, Any]] = postprocess.run_postprocess,
+    answer_signal_runner: Callable[..., dict[str, Any]] = answer_signal.run_report,
     random_runner: Callable[..., dict[str, Any]] = random_control.run_report,
     binding_verifier: Callable[[], dict[str, Any]] = verify_bindings,
     execute_kwargs: Mapping[str, Any] | None = None,
@@ -293,6 +359,23 @@ def run_final_handoff(
             raise execute_error
         raise RuntimeError("August 10 paid wrapper omitted a terminal artifact")
 
+    answer_report = None
+    answer_path = None
+    if paid_artifact.name == "RESULT.json":
+        try:
+            mechanics_result = postprocess._mechanics_from_wrapper(paid_artifact)
+        except ValueError:
+            pass
+        else:
+            answer_path = (
+                mechanics_result.parent / "ANSWER_SIGNAL_AUDIT_RESULT.json"
+            )
+            answer_report = _load_or_run_answer_signal(
+                output_path=answer_path,
+                mechanics_result=mechanics_result,
+                runner=answer_signal_runner,
+            )
+
     processed = postprocess_runner(
         artifact_path=paid_artifact,
         output_dir=postprocess_dir,
@@ -306,11 +389,20 @@ def run_final_handoff(
         "paid_terminal": _component(paid_artifact, _load(paid_artifact)),
         "postprocess": _component(postprocess_artifact, processed),
     }
+    if answer_report is not None and answer_path is not None:
+        components["answer_signal_audit"] = _component(
+            answer_path, answer_report
+        )
     random_report = None
     if processed.get("status") == "postprocess_complete":
         if paid_artifact.resolve() != (wrapper_dir / "RESULT.json").resolve():
             raise ValueError("endpoint analyses require the terminal wrapper result")
         mechanics_result = postprocess._mechanics_from_wrapper(paid_artifact)
+    if (
+        processed.get("status") == "postprocess_complete"
+        and answer_report is not None
+        and answer_report.get("status") == "answer_signal_valid"
+    ):
         random_path = output_dir / "RANDOM_STRATEGY_CONTROL_RESULT.json"
         random_report = _load_or_run_random(
             output_path=random_path,
@@ -322,7 +414,11 @@ def run_final_handoff(
             random_path, random_report
         )
 
-    failed = processed.get("status") == "failed_closed"
+    answer_failed = (
+        answer_report is not None
+        and answer_report.get("status") != "answer_signal_valid"
+    )
+    failed = processed.get("status") == "failed_closed" or answer_failed
     record = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -330,11 +426,23 @@ def run_final_handoff(
         "date": aug10.EXPECTED_DATE,
         "bindings": bindings,
         "components": components,
-        "primary_disposition": processed.get("primary_disposition"),
+        "primary_disposition": (
+            "answer_signal_not_above_regeneration_noise"
+            if answer_failed
+            else processed.get("primary_disposition")
+        ),
         "downstream_analyses_opened": processed.get(
             "downstream_analyses_opened", False
         ),
         "random_strategy_audit_opened": random_report is not None,
+        "answer_signal_audit_opened": answer_report is not None,
+        "answer_signal_status": (
+            answer_report.get("status") if answer_report is not None else None
+        ),
+        "answer_signal_authorizes_development": (
+            answer_report is not None
+            and answer_report.get("status") == "answer_signal_valid"
+        ),
         "paid_execution_error_type": (
             type(execute_error).__name__ if execute_error is not None else None
         ),

@@ -75,7 +75,10 @@ def _real_task_response(
                         % 5
                     ) * 5
                 base = 65 if task.actual_labels[image_id] else 35
-                value = round(base + amplitude * centered)
+                answer_offset = (
+                    12 if first_extra is not None and observed[first_extra] else -12
+                ) if first_extra is not None else 0
+                value = round(base + answer_offset + amplitude * centered)
                 value = min(95, max(5, value))
             probabilities.append(value)
         rows.append(
@@ -216,6 +219,7 @@ def test_atomic_finalizer_runs_and_replays_every_real_downstream_component(
     assert set(result["components"]) == {
         "paid_terminal",
         "postprocess",
+        "answer_signal_audit",
         "random_strategy_control",
     }
     random_result = json.loads(

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from scripts import bongard_openworld_aug10_postprocess as postprocess
+from scripts import bongard_openworld_answer_signal_audit as answer_signal
 from scripts import bongard_openworld_classical_suite_outcome as classical_suite
 from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_luna_aug10_execute as aug10
@@ -108,7 +109,10 @@ def _real_task_response(
                         % 5
                     ) * 5
                 base = 65 if task.actual_labels[image_id] else 35
-                value = round(base + amplitude * centered)
+                answer_offset = (
+                    12 if first_extra is not None and observed[first_extra] else -12
+                ) if first_extra is not None else 0
+                value = round(base + answer_offset + amplitude * centered)
                 value = min(95, max(5, value))
             probabilities.append(value)
         rows.append(
@@ -357,6 +361,11 @@ def test_real_authorized_mechanics_pass_runs_full_zero_call_handoff(
     tmp_path: Path,
 ) -> None:
     wrapper, mechanics_result = _real_authorized_wrapper(tmp_path)
+    signal = answer_signal.run_report(
+        mechanics_result=mechanics_result,
+        output_path=mechanics_result.parent / "ANSWER_SIGNAL_AUDIT_RESULT.json",
+    )
+    assert signal["status"] == "answer_signal_valid"
 
     result = postprocess.run_postprocess(
         artifact_path=wrapper,

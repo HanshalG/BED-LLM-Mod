@@ -87,6 +87,12 @@ def test_complete_handoff_orders_paid_postprocess_then_random(
         _write(output_dir / "RESULT.json", result)
         return result
 
+    def answer_runner(*, output_path: Path, **_):
+        calls.append("answer")
+        result = {"status": "answer_signal_valid"}
+        _write(output_path, result)
+        return result
+
     def random_runner(*, output_path: Path, **_):
         calls.append("random")
         result = {"status": "random_strategy_control_audit_complete"}
@@ -102,11 +108,12 @@ def test_complete_handoff_orders_paid_postprocess_then_random(
         **paths,
         execute_runner=execute_runner,
         postprocess_runner=postprocess_runner,
+        answer_signal_runner=answer_runner,
         random_runner=random_runner,
         binding_verifier=_bindings,
     )
 
-    assert calls == ["paid", "postprocess", "random"]
+    assert calls == ["paid", "answer", "postprocess", "random"]
     assert result["status"] == "handoff_complete"
     assert result["random_strategy_audit_opened"] is True
     assert result["model_calls_added_by_handoff"] == 0
@@ -115,7 +122,57 @@ def test_complete_handoff_orders_paid_postprocess_then_random(
     assert set(result["components"]) == {
         "paid_terminal",
         "postprocess",
+        "answer_signal_audit",
         "random_strategy_control",
+    }
+
+
+def test_answer_signal_null_blocks_random_and_development(tmp_path: Path, monkeypatch) -> None:
+    paths = _paths(tmp_path)
+    mechanics_result = paths["mechanics_dir"] / "RESULT.json"
+    _write(mechanics_result, {"status": "mechanics_pass"})
+
+    def execute_runner(**_):
+        result = {"status": "complete"}
+        _write(paths["wrapper_dir"] / "RESULT.json", result)
+        return result
+
+    def postprocess_runner(*, output_dir: Path, **_):
+        result = {
+            "status": "postprocess_complete",
+            "primary_disposition": "mechanics_pass",
+            "existing_wrapper_authorizes_development": True,
+        }
+        _write(output_dir / "RESULT.json", result)
+        return result
+
+    def answer_runner(*, output_path: Path, **_):
+        result = {"status": "gated_null"}
+        _write(output_path, result)
+        return result
+
+    monkeypatch.setattr(
+        handoff.postprocess, "_mechanics_from_wrapper", lambda _: mechanics_result
+    )
+    result = handoff.run_final_handoff(
+        **paths,
+        execute_runner=execute_runner,
+        postprocess_runner=postprocess_runner,
+        answer_signal_runner=answer_runner,
+        random_runner=lambda **_: pytest.fail("random opened after answer null"),
+        binding_verifier=_bindings,
+    )
+
+    assert result["status"] == "failed_closed"
+    assert result["primary_disposition"] == (
+        "answer_signal_not_above_regeneration_noise"
+    )
+    assert result["answer_signal_authorizes_development"] is False
+    assert result["random_strategy_audit_opened"] is False
+    assert set(result["components"]) == {
+        "paid_terminal",
+        "postprocess",
+        "answer_signal_audit",
     }
 
 
@@ -192,10 +249,12 @@ def test_banked_paid_failure_is_dispositioned_without_reissue(
     assert result["random_strategy_audit_opened"] is False
 
 
-def test_postprocess_failure_is_banked_and_never_opens_random(
-    tmp_path: Path,
+def test_postprocess_failure_after_answer_pass_is_banked_and_never_opens_random(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     paths = _paths(tmp_path)
+    mechanics_result = paths["mechanics_dir"] / "RESULT.json"
+    _write(mechanics_result, {"status": "mechanics_pass"})
 
     def execute_runner(**_):
         result = {"status": "complete"}
@@ -211,10 +270,22 @@ def test_postprocess_failure_is_banked_and_never_opens_random(
         _write(output_dir / "FAILURE.json", result)
         return result
 
+    def answer_runner(*, output_path: Path, **_):
+        result = {"status": "answer_signal_valid"}
+        _write(output_path, result)
+        return result
+
+    monkeypatch.setattr(
+        handoff.postprocess,
+        "_mechanics_from_wrapper",
+        lambda _: mechanics_result,
+    )
+
     result = handoff.run_final_handoff(
         **paths,
         execute_runner=execute_runner,
         postprocess_runner=postprocess_runner,
+        answer_signal_runner=answer_runner,
         random_runner=lambda **_: pytest.fail("random opened after postprocess failure"),
         binding_verifier=_bindings,
     )
@@ -222,6 +293,7 @@ def test_postprocess_failure_is_banked_and_never_opens_random(
     assert result["status"] == "failed_closed"
     assert (paths["output_dir"] / "FAILURE.json").is_file()
     assert result["authorizes_rerun"] is False
+    assert result["answer_signal_status"] == "answer_signal_valid"
 
 
 def test_unbanked_paid_exception_does_not_create_handoff_artifact(
@@ -249,12 +321,15 @@ def test_existing_final_replays_postprocess_and_random(
     paid = paths["wrapper_dir"] / "RESULT.json"
     processed_path = paths["postprocess_dir"] / "RESULT.json"
     random_path = paths["output_dir"] / "RANDOM_STRATEGY_CONTROL_RESULT.json"
+    answer_path = paths["output_dir"] / "ANSWER_SIGNAL_AUDIT_RESULT.json"
     mechanics = paths["mechanics_dir"] / "RESULT.json"
     processed = {"status": "postprocess_complete"}
     random_report = {"status": "random_strategy_control_audit_complete"}
+    answer_report = {"status": "answer_signal_valid"}
     _write(paid, {"status": "complete"})
     _write(processed_path, processed)
     _write(random_path, random_report)
+    _write(answer_path, answer_report)
     _write(mechanics, {"status": "mechanics_pass"})
     record = {
         "schema_version": handoff.SCHEMA_VERSION,
@@ -264,6 +339,9 @@ def test_existing_final_replays_postprocess_and_random(
         "components": {
             "paid_terminal": handoff._component(paid, {"status": "complete"}),
             "postprocess": handoff._component(processed_path, processed),
+            "answer_signal_audit": handoff._component(
+                answer_path, answer_report
+            ),
             "random_strategy_control": handoff._component(
                 random_path, random_report
             ),
@@ -273,6 +351,9 @@ def test_existing_final_replays_postprocess_and_random(
         "authorizes_paid_calls": False,
         "authorizes_rerun": False,
         "this_record_authorizes_development": False,
+        "answer_signal_audit_opened": True,
+        "answer_signal_status": "answer_signal_valid",
+        "answer_signal_authorizes_development": True,
     }
     _write(paths["output_dir"] / "RESULT.json", record)
     replay_calls = []
@@ -284,6 +365,9 @@ def test_existing_final_replays_postprocess_and_random(
     monkeypatch.setattr(handoff.postprocess, "run_postprocess", replay_postprocess)
     monkeypatch.setattr(
         handoff.postprocess, "_mechanics_from_wrapper", lambda _: mechanics
+    )
+    monkeypatch.setattr(
+        handoff.answer_signal, "build_report", lambda **_: answer_report
     )
     monkeypatch.setattr(
         handoff, "_expected_random_report", lambda **_: random_report

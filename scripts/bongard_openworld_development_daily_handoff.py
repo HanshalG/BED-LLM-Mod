@@ -33,7 +33,7 @@ PROTOCOL_SHA256 = (
 BOUND_IMPLEMENTATIONS = {
     "main_daily": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "3e2addb43523c4ec639d33f1d30f67149249462277ca6b5fcf678262a5637106",
+        "f7caea8467c5f9d88d3634742e8e842edf9c50fd53855f1a38c81ce9601ef5fb",
     ),
     "naive_daily": (
         "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py",

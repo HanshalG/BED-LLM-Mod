@@ -18,6 +18,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_luna_aug10_execute as aug10
+from scripts import bongard_openworld_answer_signal_audit as answer_signal
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts import bongard_openworld_vlm_bed as bed
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
@@ -25,7 +26,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-4"
+INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-5"
 TIMEZONE = "Europe/London"
 ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64"
@@ -129,7 +130,10 @@ def _validate_date(block_id: str, now: datetime | None = None) -> None:
 
 
 def validate_aug10_authorization(
-    *, wrapper_result: Path = AUG10_RESULT, mechanics_result: Path = MECHANICS_RESULT
+    *,
+    wrapper_result: Path = AUG10_RESULT,
+    mechanics_result: Path = MECHANICS_RESULT,
+    answer_signal_result: Path | None = None,
 ) -> dict[str, Any]:
     wrapper = _load(wrapper_result)
     mechanics_component = (wrapper.get("components") or {}).get("mechanics") or {}
@@ -149,10 +153,21 @@ def validate_aug10_authorization(
         "artifact_sha256"
     ]:
         raise RuntimeError("August 10 mechanics result changed")
+    answer_path = answer_signal_result or (
+        mechanics_result.parent / "ANSWER_SIGNAL_AUDIT_RESULT.json"
+    )
+    answer_verification = answer_signal.verify_report(
+        report_path=answer_path,
+        mechanics_result=mechanics_result,
+    )
     return {
         "verified": True,
         "wrapper_result_sha256": _sha256(wrapper_result),
         "mechanics_result_sha256": mechanics_verification["result_sha256"],
+        "answer_signal_report_sha256": answer_verification["report_sha256"],
+        "answer_signal_pooled_prediction_mae_advantage": answer_verification[
+            "pooled_prediction_mae_advantage"
+        ],
     }
 
 

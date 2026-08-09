@@ -41,7 +41,7 @@
     },
     "postprocess_v2_regression": {
       "path": "tests/test_bongard_openworld_aug10_postprocess.py",
-      "sha256": "077a6f556ca53cc640d4dcf6d6ae3abaf7632ca218eda15246dfe5f1570e72c9"
+      "sha256": "95fc3be5bae9268b9942cd1e6ffb10fd5d3701d66aa290b4ac73306c8ecc6704"
     },
     "mechanics_disposition": {
       "path": "scripts/bongard_openworld_mechanics_disposition.py",

@@ -41,6 +41,74 @@ def _catalog() -> dict:
     }
 
 
+def test_aug10_authorization_requires_passing_answer_signal_audit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    wrapper_path = tmp_path / "wrapper.json"
+    mechanics_path = tmp_path / "mechanics.json"
+    answer_path = tmp_path / "answer.json"
+    wrapper = {
+        "interface_version": execute.aug10.INTERFACE_VERSION,
+        "status": "complete",
+        "authorizes_development": True,
+        "components": {
+            "mechanics": {
+                "artifact": str(mechanics_path),
+                "artifact_sha256": "mechanics-sha",
+                "status": "mechanics_pass",
+                "verified": True,
+            }
+        },
+    }
+    monkeypatch.setattr(execute, "_load", lambda path: wrapper)
+    monkeypatch.setattr(
+        execute,
+        "_sha256",
+        lambda path: "wrapper-sha" if path == wrapper_path else "mechanics-sha",
+    )
+    monkeypatch.setattr(
+        execute.development,
+        "verify_mechanics_result",
+        lambda path: {"result_sha256": "mechanics-sha"},
+    )
+    calls = []
+    monkeypatch.setattr(
+        execute.answer_signal,
+        "verify_report",
+        lambda **kwargs: (
+            calls.append(kwargs)
+            or {
+                "report_sha256": "answer-sha",
+                "pooled_prediction_mae_advantage": 0.09,
+            }
+        ),
+    )
+
+    result = execute.validate_aug10_authorization(
+        wrapper_result=wrapper_path,
+        mechanics_result=mechanics_path,
+        answer_signal_result=answer_path,
+    )
+
+    assert calls == [
+        {"report_path": answer_path, "mechanics_result": mechanics_path}
+    ]
+    assert result["answer_signal_report_sha256"] == "answer-sha"
+    assert result["answer_signal_pooled_prediction_mae_advantage"] == 0.09
+
+    monkeypatch.setattr(
+        execute.answer_signal,
+        "verify_report",
+        lambda **_: (_ for _ in ()).throw(ValueError("answer signal null")),
+    )
+    with pytest.raises(ValueError, match="answer signal null"):
+        execute.validate_aug10_authorization(
+            wrapper_result=wrapper_path,
+            mechanics_result=mechanics_path,
+            answer_signal_result=answer_path,
+        )
+
+
 class Harness:
     def __init__(self, root: Path):
         self.root = root
