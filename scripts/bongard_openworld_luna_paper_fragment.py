@@ -83,7 +83,12 @@ BOUND_FILES = {
     ),
     "answer_signal_audit": (
         "scripts/bongard_openworld_answer_signal_audit.py",
-        "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd",
+        "96d8fcde8c821933ca54ed9beaee37da417806d0cea951f7ceba32e5a948a35d",
+    ),
+    "answer_signal_label_privacy_correction": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_ANSWER_SIGNAL_LABEL_PRIVACY_CORRECTION_20260809.md",
+        "d35112d995f42a13329ab61bf1fadff9bacb04f31f550bfd55736e6f3af0bda9",
     ),
     "answer_signal_ordering_amendment": (
         "results/nonmyopic/"

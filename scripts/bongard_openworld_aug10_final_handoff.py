@@ -39,7 +39,7 @@ ORDERING_AMENDMENT_SHA256 = (
 BOUND_IMPLEMENTATIONS = {
     "answer_signal_audit": (
         "scripts/bongard_openworld_answer_signal_audit.py",
-        "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd",
+        "96d8fcde8c821933ca54ed9beaee37da417806d0cea951f7ceba32e5a948a35d",
     ),
     "aug10_wrapper": (
         "scripts/bongard_openworld_luna_aug10_execute.py",

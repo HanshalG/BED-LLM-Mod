@@ -28,6 +28,13 @@ PROTOCOL = REPO_ROOT / (
     "BONGARD_OPENWORLD_ANSWER_SIGNAL_ABOVE_REGENERATION_NOISE_AMENDMENT_20260809.md"
 )
 PROTOCOL_SHA256 = "f61a7ad4fb2a4cfad3011cae30b6a03be493bce08f2b2f4a79381211efbfe4f1"
+PRIVACY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_ANSWER_SIGNAL_LABEL_PRIVACY_CORRECTION_20260809.md"
+)
+PRIVACY_AMENDMENT_SHA256 = (
+    "d35112d995f42a13329ab61bf1fadff9bacb04f31f550bfd55736e6f3af0bda9"
+)
 EXPECTED_TASKS = 4
 EXPECTED_PAIRS = 32
 MIN_DYNAMIC_PREDICTION_MAE = 0.05
@@ -40,6 +47,93 @@ DEFAULT_OUTPUT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_mechanics_tree/"
     "bongard-openworld-luna-vlm-mechanics-tree-20260810/"
     "ANSWER_SIGNAL_AUDIT_RESULT.json"
+)
+
+IMAGE_IDS = tuple(f"image-{index:02d}" for index in range(14))
+PUBLIC_TASK_MANIFEST = (
+    {
+        "task_id": "task-126d30cad73b",
+        "initial_history": (
+            ("image-01", True),
+            ("image-02", False),
+            ("image-08", True),
+            ("image-13", False),
+        ),
+        "candidate_ids": (
+            "image-00",
+            "image-03",
+            "image-05",
+            "image-06",
+            "image-07",
+            "image-09",
+            "image-10",
+            "image-12",
+        ),
+        "endpoint_ids": ("image-04", "image-11"),
+    },
+    {
+        "task_id": "task-263200a0c8c3",
+        "initial_history": (
+            ("image-04", False),
+            ("image-05", True),
+            ("image-06", True),
+            ("image-09", False),
+        ),
+        "candidate_ids": (
+            "image-00",
+            "image-01",
+            "image-03",
+            "image-07",
+            "image-08",
+            "image-10",
+            "image-11",
+            "image-12",
+        ),
+        "endpoint_ids": ("image-02", "image-13"),
+    },
+    {
+        "task_id": "task-37a13c92f0b0",
+        "initial_history": (
+            ("image-00", True),
+            ("image-09", True),
+            ("image-10", False),
+            ("image-12", False),
+        ),
+        "candidate_ids": (
+            "image-01",
+            "image-02",
+            "image-03",
+            "image-04",
+            "image-05",
+            "image-06",
+            "image-07",
+            "image-13",
+        ),
+        "endpoint_ids": ("image-08", "image-11"),
+    },
+    {
+        "task_id": "task-9ff861a9070d",
+        "initial_history": (
+            ("image-02", False),
+            ("image-09", True),
+            ("image-10", True),
+            ("image-11", False),
+        ),
+        "candidate_ids": (
+            "image-00",
+            "image-01",
+            "image-04",
+            "image-05",
+            "image-06",
+            "image-07",
+            "image-08",
+            "image-12",
+        ),
+        "endpoint_ids": ("image-03", "image-13"),
+    },
+)
+PUBLIC_TASK_MANIFEST_SHA256 = (
+    "f6f5f3e15caf36e765c57a10d27c2271ed39e550331f555d68db37e49eda07c5"
 )
 
 
@@ -56,6 +150,54 @@ def _load(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"expected JSON object: {path}")
     return value
+
+
+def load_label_free_mechanics_tasks() -> list[bed.VisualTask]:
+    manifest_hash = hashlib.sha256(
+        bed.canonical_json(PUBLIC_TASK_MANIFEST).encode("utf-8")
+    ).hexdigest()
+    if manifest_hash != PUBLIC_TASK_MANIFEST_SHA256:
+        raise ValueError("answer-signal public task manifest changed")
+    return [
+        bed.VisualTask(
+            task_id=str(row["task_id"]),
+            image_ids=IMAGE_IDS,
+            initial_history=tuple(row["initial_history"]),
+            candidate_ids=tuple(row["candidate_ids"]),
+            endpoint_ids=tuple(row["endpoint_ids"]),
+            image_bytes={},
+            actual_labels={},
+        )
+        for row in PUBLIC_TASK_MANIFEST
+    ]
+
+
+def _validate_label_free_tasks(tasks: Sequence[bed.VisualTask]) -> None:
+    if len(tasks) != EXPECTED_TASKS:
+        raise ValueError("answer-signal audit requires exactly four sealed tasks")
+    for task in tasks:
+        initial_ids = {image_id for image_id, _ in task.initial_history}
+        candidates = set(task.candidate_ids)
+        endpoints = set(task.endpoint_ids)
+        image_ids = set(task.image_ids)
+        if (
+            len(task.image_ids) != 14
+            or len(image_ids) != 14
+            or len(initial_ids) != 4
+            or len(candidates) != 8
+            or len(endpoints) != 2
+            or initial_ids | candidates | endpoints != image_ids
+            or initial_ids & candidates
+            or initial_ids & endpoints
+            or candidates & endpoints
+        ):
+            raise ValueError("answer-signal sealed task layout changed")
+        if task.actual_labels:
+            raise ValueError(
+                "answer-signal audit forbids materialized candidate or endpoint labels"
+            )
+        if task.hidden_values:
+            raise ValueError("answer-signal audit forbids hidden source values")
 
 
 def _belief_maps(
@@ -198,6 +340,8 @@ def build_report(
 ) -> dict[str, Any]:
     if sha256_file(PROTOCOL) != PROTOCOL_SHA256:
         raise ValueError("answer-signal protocol changed")
+    if sha256_file(PRIVACY_AMENDMENT) != PRIVACY_AMENDMENT_SHA256:
+        raise ValueError("answer-signal label-privacy amendment changed")
     result = _load(mechanics_result)
     raw_path = mechanics_result.parent / "private/RAW_RESPONSES.json"
     if (
@@ -208,8 +352,10 @@ def build_report(
         raise ValueError("answer-signal audit requires an exact mechanics pass")
     raw = _load(raw_path)
     selected_tasks = sorted(
-        tasks or bed.load_mechanics_tasks(), key=lambda task: task.task_id
+        tasks if tasks is not None else load_label_free_mechanics_tasks(),
+        key=lambda task: task.task_id,
     )
+    _validate_label_free_tasks(selected_tasks)
     cases = mechanics.first_stage_cases(selected_tasks)
     expected_ids = [case.case_id for case in cases]
     responses = raw.get("first_stage_responses")
@@ -230,6 +376,15 @@ def build_report(
             "answer_signal_valid" if metrics["gates"]["all_pass"] else "gated_null"
         ),
         "protocol": {"path": str(PROTOCOL), "sha256": PROTOCOL_SHA256},
+        "privacy_amendment": {
+            "path": str(PRIVACY_AMENDMENT),
+            "sha256": PRIVACY_AMENDMENT_SHA256,
+        },
+        "task_manifest": {
+            "sha256": PUBLIC_TASK_MANIFEST_SHA256,
+            "sealed_candidate_and_endpoint_labels": True,
+            "hidden_source_values_loaded": False,
+        },
         "mechanics_result": {
             "path": str(mechanics_result.resolve()),
             "sha256": sha256_file(mechanics_result),

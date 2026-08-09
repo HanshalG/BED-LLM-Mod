@@ -37,11 +37,18 @@ ANSWER_SIGNAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_answer_signal_audit.py"
 )
 ANSWER_SIGNAL_IMPLEMENTATION_SHA256 = (
-    "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd"
+    "96d8fcde8c821933ca54ed9beaee37da417806d0cea951f7ceba32e5a948a35d"
 )
 ANSWER_SIGNAL_TEST = REPO_ROOT / "tests/test_bongard_openworld_answer_signal_audit.py"
 ANSWER_SIGNAL_TEST_SHA256 = (
-    "7a7a1acda321ff6204f3c62b86bd2b11a2a21ca4a5e236fb82ae0575d521bfe8"
+    "9a3b505c4318d2b0cbbbf35f72d739c02c9fded328db6a9e87eef1824a3895cb"
+)
+ANSWER_SIGNAL_PRIVACY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_ANSWER_SIGNAL_LABEL_PRIVACY_CORRECTION_20260809.md"
+)
+ANSWER_SIGNAL_PRIVACY_AMENDMENT_SHA256 = (
+    "d35112d995f42a13329ab61bf1fadff9bacb04f31f550bfd55736e6f3af0bda9"
 )
 ANSWER_SIGNAL_ORDERING_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -75,7 +82,7 @@ FINAL_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
 )
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "84616e49043bed86163781d924a90ba4bd069315eed6d5c5c90981771c98d240"
+    "a5842cc67266c4c328b7df4ff47a25632c5506283b17ee36e425812d1c888e70"
 )
 ATOMIC_REHEARSAL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -127,7 +134,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "e60f720790ce5bb2984956a84360747f92f60bbe8373e407cff3d87237bb969d"
+    "4a79f57b8b1ed4a36458a501e903375555265c46836de5d72397677be46a05d8"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -137,7 +144,7 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "3e377fa8601540dff8cdfdbbe0ad37ad79ff3a15879ed2b88911220dc85ce7b2"
+    "1b0279e0a09d5bf6861d2efd3be02b9adf123aac249ad97f07f8353adbcb29b2"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
@@ -175,6 +182,9 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
         ANSWER_SIGNAL_IMPLEMENTATION_SHA256
     )
     assert _sha256(ANSWER_SIGNAL_TEST) == ANSWER_SIGNAL_TEST_SHA256
+    assert _sha256(ANSWER_SIGNAL_PRIVACY_AMENDMENT) == (
+        ANSWER_SIGNAL_PRIVACY_AMENDMENT_SHA256
+    )
     assert _sha256(ANSWER_SIGNAL_ORDERING_AMENDMENT) == (
         ANSWER_SIGNAL_ORDERING_AMENDMENT_SHA256
     )

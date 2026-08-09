@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import json
 from pathlib import Path
 
@@ -202,3 +203,43 @@ def test_report_replays_exact_mechanics_raw_responses(tmp_path: Path) -> None:
             mechanics_result=mechanics_result,
             tasks=tasks,
         )
+
+
+def test_default_report_uses_only_frozen_label_free_manifest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    tasks = audit.load_label_free_mechanics_tasks()
+    mechanics_result = _mechanics_fixture(tmp_path / "mechanics", tasks)
+
+    def forbidden_general_loader():
+        raise AssertionError("general task loader materializes sealed labels")
+
+    monkeypatch.setattr(bed, "load_mechanics_tasks", forbidden_general_loader)
+    report = audit.build_report(mechanics_result=mechanics_result)
+
+    assert report["task_manifest"] == {
+        "sha256": audit.PUBLIC_TASK_MANIFEST_SHA256,
+        "sealed_candidate_and_endpoint_labels": True,
+        "hidden_source_values_loaded": False,
+    }
+    assert all(not task.actual_labels for task in tasks)
+    assert all(not task.image_bytes for task in tasks)
+    assert all(not task.hidden_values for task in tasks)
+
+
+@pytest.mark.parametrize(
+    "changed",
+    (
+        {"actual_labels": {"image-00": True}},
+        {"hidden_values": ("sealed concept",)},
+    ),
+)
+def test_report_rejects_materialized_sealed_task_values(
+    tmp_path: Path, changed: dict[str, object]
+) -> None:
+    tasks = audit.load_label_free_mechanics_tasks()
+    mechanics_result = _mechanics_fixture(tmp_path / "mechanics", tasks)
+    tasks[0] = replace(tasks[0], **changed)
+
+    with pytest.raises(ValueError, match="forbids"):
+        audit.build_report(mechanics_result=mechanics_result, tasks=tasks)
