@@ -29,7 +29,7 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-6"
 LUNA_RENDERER_SHA256 = (
-    "74d807687fa9d3fa97695f01e47ec0e30db45c79478149a6d03b1eb20a416851"
+    "28e268b28a67b6eb97aa29abf359a891a841964cc5cc717c1e72a70ab2341cf5"
 )
 CLASSICAL_SUITE_OUTCOME_SHA256 = (
     "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032"

@@ -109,6 +109,16 @@ BOUND_FILES = {
         "scripts/bongard_openworld_compute_matched_control.py",
         "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43",
     ),
+    "call_matched_power_audit": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_CALL_MATCHED_POWER_AUDIT_20260809.json",
+        "e19bf435273931a04c01cb78ce7fec1b21e4f76fa3ed9e7a9640283702d88582",
+    ),
+    "call_matched_null_interpretation_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_CALL_MATCHED_NULL_INTERPRETATION_AMENDMENT_20260809.md",
+        "f0d813bc9e403abd180db19219c88a4af4c83a2d46deab7f87399ff7bd5249cd",
+    ),
     "answer_signal_ordering_amendment": (
         "results/nonmyopic/"
         "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
@@ -199,6 +209,21 @@ CONFIRMATION_TIERS = {
         "The untouched 96-task confirmation cohort does not meet the complete "
         "frozen conjunction. The development result remains provisional and "
         "no Bongard headline claim is authorized."
+    ),
+}
+
+NULL_SENSITIVITY = {
+    "development": (
+        "Failure to clear the conjunction is not evidence of equivalence: "
+        "the prospectively frozen marginal sensitivity requires about 42\\% "
+        "true action separation and 5.10--6.31\\% true relative Brier gain "
+        "under 20--30\\% paired-SD ratios."
+    ),
+    "confirmation": (
+        "Failure to clear the conjunction is not evidence of equivalence: "
+        "the prospectively frozen marginal sensitivity requires about 41\\% "
+        "true action separation and 5.72--8.58\\% true relative Brier gain "
+        "under 20--30\\% paired-SD ratios."
     ),
 }
 
@@ -424,6 +449,8 @@ def build_development_fragment(
     lines.extend(["", "\\textbf{Frozen development interpretation.} " + DEVELOPMENT_TIERS[tier]])
     if shared_valid:
         lines.extend(["", *_metric_lines(saved["metrics"])])
+        if tier != "full_path_dependent_llm_native_development_signal":
+            lines.extend(["", NULL_SENSITIVITY["development"]])
     else:
         lines.extend(
             [
@@ -546,6 +573,8 @@ def build_confirmation_fragment(
             "",
         ]
     )
+    if tier == "confirmation_null":
+        lines.extend([NULL_SENSITIVITY["confirmation"], ""])
     metadata = _base_metadata(
         stage="confirmation", tier=tier, bound_hashes=bound_hashes
     )

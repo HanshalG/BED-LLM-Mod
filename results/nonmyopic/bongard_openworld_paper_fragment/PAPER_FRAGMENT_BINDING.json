@@ -64,6 +64,14 @@
       "path": "scripts/bongard_openworld_compute_matched_control.py",
       "sha256": "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43"
     },
+    "call_matched_power_audit": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_CALL_MATCHED_POWER_AUDIT_20260809.json",
+      "sha256": "e19bf435273931a04c01cb78ce7fec1b21e4f76fa3ed9e7a9640283702d88582"
+    },
+    "call_matched_null_interpretation_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_CALL_MATCHED_NULL_INTERPRETATION_AMENDMENT_20260809.md",
+      "sha256": "f0d813bc9e403abd180db19219c88a4af4c83a2d46deab7f87399ff7bd5249cd"
+    },
     "answer_signal_ordering_amendment": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
       "sha256": "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"

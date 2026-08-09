@@ -342,6 +342,11 @@ def test_development_fragment_obeys_every_frozen_tier(
     assert "matched realized updater" in tex
     assert "common realized updater" in tex
     assert "belief regeneration improves over" not in tex
+    if expected_tier == "full_path_dependent_llm_native_development_signal":
+        assert "not evidence of equivalence" not in tex
+    else:
+        assert "not evidence of equivalence" in tex
+        assert "5.10--6.31\\%" in tex
 
 
 def test_development_shared_validity_failure_suppresses_efficacy(
@@ -460,6 +465,10 @@ def test_confirmation_fragment_obeys_pass_and_null(
             "abstract_tex"
         ]
         assert "paired 95\\% CI" in metadata["headline"]["abstract_tex"]
+        assert "not evidence of equivalence" not in tex
+    else:
+        assert "not evidence of equivalence" in tex
+        assert "5.72--8.58\\%" in tex
 
 
 def test_confirmation_fragment_refuses_replay_mismatch(

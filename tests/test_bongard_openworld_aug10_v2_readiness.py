@@ -147,7 +147,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "5d36fefa426df6493be7f551cbfc6b23099664752b8a67cbcb390973807ca5aa"
+    "d4aade5db29649a05bfc0076fea8c6695413144e256e351263144186e957bd6c"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -157,7 +157,7 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "66520e19f476d1684584c4d4ca3a9578543b85d8243b830a34e774e9efb5d0e3"
+    "c7880dc58f157895092785ccb35c03f318775642062268594d77f288a91549d8"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
