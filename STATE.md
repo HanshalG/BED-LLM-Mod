@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Exercise the complete successful Bongard Aug10 handoff with real
+sealed mechanics IDs and every production downstream component at zero calls.
+A test-only label-aware adapter intentionally manufactures a valid mechanics
+pass;real serving+mechanics,independent validators,exact wrapper,disposition,
+authorizer,DINO+SigLIP,and path mediation all agree and preserve hash binding.
+This proves plumbing/privacy/ordering only,not Luna quality or task efficacy.
+Postprocess6/6 and full Bongard219/219 pass;production script unchanged at
+fa3d7b70,test3d7e5d01. Live credits/usage/balance remain245/220.121013787/
+24.878986213;reported new$30 is still unposted;calls/cost0.
+
 2026-08-07: Current-literature and exact-prompt audit identifies likelihood
 factorization as the leading next method. RegretBench transition currently
 revises child particles and predicts their q2 replies in one history-conditioned
