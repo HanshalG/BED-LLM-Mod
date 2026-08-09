@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close a missing closest-prior citation before any Bongard response.
+NeurIPS24 LLM-SMC-S already revises low-likelihood natural-language particles
+online and greedily selects experiments by one-step IG on current support. Narrow
+our distinction to prospective multi-step value of answer-conditioned generated
+support;make no first-LLM-revision claim. Literature-only amendment44210a83
+rebinds manuscript825b74e8,references44cd1c38,renderer e9462325,and mandatory
+DINO+SigLIP wrapper c91d9a8c. Paper remains6 pages,38/38 claims replay,
+paper/classical38/38 and full Bongard219/219 pass;calls/cost/endpoints0.
+
 2026-08-09: Exercise the complete successful Bongard Aug10 handoff with real
 sealed mechanics IDs and every production downstream component at zero calls.
 A test-only label-aware adapter intentionally manufactures a valid mechanics

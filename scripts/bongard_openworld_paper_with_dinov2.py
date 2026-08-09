@@ -27,7 +27,7 @@ from scripts import bongard_openworld_luna_vlm_development as development
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = "bongard-openworld-paper-with-dinov2-1"
 LUNA_RENDERER_SHA256 = (
-    "2083e7f93de8a8acd939f4842ac6f5dbeef95d5219fe3ad7b866d3bc4f507a74"
+    "e9462325703667cb2e2133c27134643c6fc13f269bc5096768f72076124c84d1"
 )
 DINO_PROTOCOL_SHA256 = dino_outcome.PROTOCOL_SHA256
 DINO_OUTCOME_IMPLEMENTATION_SHA256 = (

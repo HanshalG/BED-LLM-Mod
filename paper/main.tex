@@ -75,34 +75,30 @@ audits explain why deeper planning otherwise breaks.
 
 Interactive agents must often acquire information before committing to an
 answer or action. A clinical agent asks about symptoms; a support agent diagnoses
-a fault; a guessing agent narrows a large semantic space. Direct prompting is an
-unreliable solution: MediQ reports that asking models to interact can reduce
-accuracy relative to answering from the initial context \citep{li2024mediq}.
-Bayesian experimental design instead selects a query by its expected information
-gain (EIG) about a target variable. BED-LLM makes this practical in semantic
-spaces by using an LLM to propose hypotheses and provide response likelihoods
-\citep{choudhury2025bedllm}.
+a fault; a guessing agent narrows a semantic space. Direct prompting is unreliable:
+MediQ reports that interaction can reduce accuracy \citep{li2024mediq}. Bayesian
+experimental design instead selects queries by expected information gain (EIG).
+BED-LLM uses an LLM for hypotheses and response likelihoods; LLM-SMC-S revises
+low-likelihood natural-language particles online and selects each experiment by
+one-step EIG on current support \citep{choudhury2025bedllm,piriyakulkij2024experiments}.
+Both refresh beliefs after real observations, but neither credits a query for
+inducing better generated support for a later adaptive decision.
 
-The natural next step is non-myopic BED: score a query by both its immediate EIG
-and the information available to a future adaptive query. Recent methods simulate
-conversation trees for this purpose \citep{hu2024uot,arnould2026cabed}. In
-principle this can value a prerequisite question with little immediate gain. In
-practice every additional branch invokes the same uncertain model, changes the
-belief on which later calls condition, and maximizes over more noisy continuation
-scores. A larger tree can therefore make a confidently worse decision.
+Non-myopic BED instead values immediate EIG plus adaptive future information.
+Recent methods simulate conversation trees \citep{hu2024uot,arnould2026cabed},
+which can value a low-immediate-gain prerequisite. Yet each branch reuses the
+uncertain model and shifts later beliefs; depth may maximize continuation noise.
 
 ASIG amortizes a multi-turn policy but credits EIG only to its first question;
-zero-shot active feature acquisition plans non-myopically over an LLM-elicited
-but fixed MRF \citep{hartmann2026asig,perets2026afa}. We ask when inference-time
-lookahead can value answer-conditioned future semantic beliefs.
+zero-shot active feature acquisition plans over an LLM-elicited fixed MRF
+\citep{hartmann2026asig,perets2026afa}. We instead value answer-conditioned
+future semantic beliefs at inference time.
 
-We investigate this distinction using a validation-first sequence. Exact
-constrained location and Rock Diagnosis verify the recursion under exact
-models. The Number Game then makes the LLM the proposal distribution over an
-open-ended executable concept space, extending the support-mismatch setting of
-\citet{chari2026wild}. DiscoverPhysics tests branch-conditioned physical
-hypotheses under exact simulator likelihoods. $\tau$-Knowledge supplies an
-unstructured retrieval contrast with external endpoints \citep{shi2026tau}.
+Exact constrained location and Rock Diagnosis verify the recursion. Number Game
+uses the LLM as a proposal distribution over open-ended executable concepts,
+extending \citet{chari2026wild}. DiscoverPhysics tests branch-conditioned
+hypotheses with exact likelihoods; $\tau$-Knowledge supplies external retrieval
+endpoints \citep{shi2026tau}.
 
 Our contributions are:
 \begin{enumerate}
