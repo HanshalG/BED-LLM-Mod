@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Freeze the previously implemented-but-unreported Bongard random
+sanity baseline before responses. New authorization-first zero-call audit
+independently replays both task-hashed draws on all164 frozen stage tasks,then
+reports all-task dynamic-minus-random Brier/log-loss effects with paired20k
+bootstrap,SE,W/T/L,and action changes. Random is explicitly not compute matched
+and cannot support/rescue a tier,but its result cannot be omitted by sign.
+Protocol03e91353,scriptf99b68ad,test8a6f0a72;focused20/20,full249/249;
+calls/cost/endpoints0,paid chain unchanged.
+
 2026-08-09: Repair the final Aug10 readiness record's obsolete downstream
 binding without mutating it or the paid chain. Prospective V2 addendum preserves
 the original record/hashes and supersedes only mechanics-analysis bindings and
