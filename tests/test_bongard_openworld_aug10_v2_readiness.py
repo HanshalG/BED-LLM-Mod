@@ -51,6 +51,19 @@ FINAL_HANDOFF_IMPLEMENTATION = (
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
     "016e535e6f8e53f80fd815baf387a5aba0de770bc40e7284e92aa67688596084"
 )
+ATOMIC_REHEARSAL = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_ATOMIC_HANDOFF_REHEARSAL_20260809.md"
+)
+ATOMIC_REHEARSAL_SHA256 = (
+    "8fa393c0c91cc9baedc45f3dea781634b44cb3eb34586fc7b80836c7b0664d3a"
+)
+ATOMIC_REHEARSAL_TEST = (
+    REPO_ROOT / "tests/test_bongard_openworld_aug10_atomic_rehearsal.py"
+)
+ATOMIC_REHEARSAL_TEST_SHA256 = (
+    "04186fb837250f1fe9d203a5acfa369beb1dc4f6634acd78ca15856333a557ce"
+)
 PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
 
 
@@ -132,6 +145,8 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
     assert _sha256(FINAL_HANDOFF_IMPLEMENTATION) == (
         FINAL_HANDOFF_IMPLEMENTATION_SHA256
     )
+    assert _sha256(ATOMIC_REHEARSAL) == ATOMIC_REHEARSAL_SHA256
+    assert _sha256(ATOMIC_REHEARSAL_TEST) == ATOMIC_REHEARSAL_TEST_SHA256
     assert final_handoff.PROTOCOL_SHA256 == FINAL_HANDOFF_PROTOCOL_SHA256
     assert final_handoff.BOUND_IMPLEMENTATIONS == {
         "aug10_wrapper": (

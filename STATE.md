@@ -4,6 +4,16 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Exercise the new atomic Aug10 entrypoint through every real
+downstream component before responses. Existing deterministic label-aware
+fixture over the4 sealed mechanics IDs builds real serving+mechanics artifacts;
+independent validators+wrapper then flow through real disposition,DINO+SigLIP,
+mediation,compute-matched,and random audits. Second invocation independently
+replays postprocess+random while paid callback is fail-if-called. Integration
+only,not Luna efficacy/authorization. Historical bound postprocess test remains
+exact077a6f55;new rehearsal report8fa393c0,test04186fb8,readiness45fe2525;
+exact1/1,readiness+rehearsal5/5,full Bongard278/278;calls/cost/production writes0.
+
 2026-08-09: Remove the last manual Aug10 handoff boundary before paid work.
 New hash-bound finalizer runs the unchanged paid wrapper,then V2 one-shot
 postprocess,then random control only after a verified mechanics pass. Banked
