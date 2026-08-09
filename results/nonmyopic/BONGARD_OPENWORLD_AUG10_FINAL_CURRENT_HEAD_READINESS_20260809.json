@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "checked_at_london": "2026-08-09T11:12:29+01:00",
+  "status": "ready_without_paid_calls",
+  "execution_date": "2026-08-10",
+  "repository": {
+    "branch": "codex/location-finding-llmstrategy",
+    "checked_commit": "da9527b0c06f3fc85e6085178e30f04cb0659ec7",
+    "checked_upstream_commit": "da9527b0c06f3fc85e6085178e30f04cb0659ec7",
+    "tracked_diff_empty_before_audit_write": true
+  },
+  "production_bindings": {
+    "aug10_wrapper_sha256": "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
+    "development64_v17_sha256": "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676",
+    "confirmation96_v14_sha256": "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a",
+    "naive_v8_sha256": "25db6fd3241d8ffaa4989ffaadfe6bb2bec111d7f1e3d6936dd9e39fd333d454"
+  },
+  "mechanics_analysis_bindings": {
+    "postprocess_protocol_sha256": "f7d19ef3a8a48478aa30d4b63541e0c680f74641de70ed3120b25f203d888f5e",
+    "postprocess_implementation_sha256": "fa3d7b7094d1d06959fc8c9c3d0cb8759a0b4ad185d86a3b759d9c757c920c60",
+    "postprocess_tests_sha256": "8f06848f6369019e75fe312161799c30bdacb3d6bae60cc57aeb5966dc187fd3",
+    "mechanics_disposition_sha256": "870c6fe5ba1a9dd09250193bc36e4bb108708a10dc07bc225dc075d596f4d8bb",
+    "classical_suite_outcome_sha256": "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032",
+    "path_mediation_sha256": "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912"
+  },
+  "mandatory_reporting_bindings": {
+    "dinov2_plans_sha256": "58154f052424f1632c302f9b40af030c172fc4d626908c9f977211c1e8299847",
+    "siglip_plans_sha256": "a41cc3b01d18fa9008f67d6f60a3f113b8f3194b73e932b4e2c3cfc83215f587",
+    "paper_wrapper_v2_sha256": "0f53568a84380e8361e5525cf486c842d39e5926f4763f929d7f417c79638021",
+    "classical_claim_scope_amendment_sha256": "65126b3d02ef8ba63bcb140aa7242ddaf18d91b7302047b25ce805b291de2f5c",
+    "siglip_calibration_audit_sha256": "f4f05e02735a6b63bab9ecf4c0bfe6ec0ee4bb059e224f4bf94eb499663fc578",
+    "path_mediation_protocol_sha256": "db9e4d53d2fb36856625b0e6d12b152a0a58d4fe460c0290903b70cbbc594d1d"
+  },
+  "preflight": {
+    "interface_version": "bongard-openworld-luna-aug10-execute-4",
+    "status": "ready_without_paid_calls",
+    "execution_paths": {
+      "wrapper": "absent",
+      "serving": "absent",
+      "mechanics": "absent",
+      "daily_ledger": "absent",
+      "postprocess": "absent"
+    },
+    "mechanics_tasks": 4,
+    "mechanics_images": 56,
+    "serving_cases": 10,
+    "serving_message_bytes": 8821758,
+    "model_calls_made": 0,
+    "files_written": 0
+  },
+  "live_model": {
+    "id": "openai/gpt-5.6-luna",
+    "input_modalities": [
+      "file",
+      "image",
+      "text"
+    ],
+    "supports_structured_output": true,
+    "context_length": 1050000,
+    "max_completion_tokens": 128000,
+    "prompt_usd_per_million_tokens": 0.1,
+    "completion_usd_per_million_tokens": 0.6,
+    "maximum_request_cost_usd": 0.004,
+    "covered_prompt_tokens_at_live_price": 20800.0
+  },
+  "live_credits_before": {
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787,
+    "balance_usd": 24.878986213
+  },
+  "live_credits_after": {
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787,
+    "balance_usd": 24.878986213
+  },
+  "live_credits_byte_identical_before_after": true,
+  "reported_topup_posted": false,
+  "budget": {
+    "account_wide_daily_cap_usd": 5.0,
+    "serving_maximum_cost_usd": 0.25,
+    "mechanics_maximum_cost_usd": 1.75,
+    "maximum_component_caps_usd": 2.0,
+    "unallocated_daily_allowance_usd": 3.0,
+    "unspent_allowance_does_not_roll_over": true
+  },
+  "verification": {
+    "bongard_tests_passed": 218,
+    "candidate_labels_accessed": false,
+    "scientific_endpoints_accessed": false,
+    "paid_model_calls": 0,
+    "cost_usd": 0.0
+  },
+  "authorization": {
+    "authorizes_early_execution": false,
+    "requires_fresh_same_day_preflight": true,
+    "postprocess_creates_development_authorization": false,
+    "next_action": "On August 10, rerun the exact preflight and execute the frozen wrapper once only if ready_without_paid_calls; then run the zero-call postprocessor once on the terminal artifact."
+  }
+}
