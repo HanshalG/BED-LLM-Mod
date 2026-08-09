@@ -20,13 +20,14 @@ if str(REPO_ROOT) not in sys.path:
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_luna_confirmation64 as confirmation
 from scripts import bongard_openworld_luna_confirmation64_execute_verify as execute_verify
+from scripts import bongard_openworld_luna_development32_daily_execute as development_daily
 from scripts import bongard_openworld_luna_vlm_development as development
 from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-daily-execute-5"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-daily-execute-6"
 TIMEZONE = "Europe/London"
 DAILY_CAP_USD = 5.0
 MAX_ACCEPTED_RESPONSES = confirmation.MAX_REQUESTS_PER_BLOCK
@@ -55,6 +56,13 @@ LEDGERS = {
 }
 COMBINED_RESULT = ROOT / "COMBINED_RESULT.json"
 MECHANICS_RESULT = confirmation.freeze_verify.MECHANICS_RESULT
+BUDGET_CHAIN_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_CONFIRMATION_ACCOUNT_WIDE_BUDGET_CHAIN_CORRECTION_20260809.md"
+)
+BUDGET_CHAIN_AMENDMENT_SHA256 = (
+    "40889c8d1dd3768f5ba06d454c0ee13250bcbfc95046caab3075fa318b41ebbf"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -83,22 +91,153 @@ def _result_paths() -> dict[str, Path]:
     }
 
 
+def _finite_live(live: Mapping[str, Any]) -> dict[str, float]:
+    values = {
+        field: float(live[field])
+        for field in ("total_credits_usd", "total_usage_usd", "balance_usd")
+    }
+    if not all(math.isfinite(value) for value in values.values()):
+        raise RuntimeError("live OpenRouter credit values are non-finite")
+    return values
+
+
+def _development_close() -> dict[str, Any]:
+    ledger_path = REPO_ROOT / (
+        "results/nonmyopic/openrouter_daily_budget/"
+        "2026-08-14-naive-first-link.json"
+    )
+    handoff_path = REPO_ROOT / (
+        "results/nonmyopic/bongard_openworld_development_daily_handoff/"
+        "block-d-20260814/RESULT.json"
+    )
+    if not ledger_path.is_file() or not handoff_path.is_file():
+        raise RuntimeError("August 14 paired development close is missing")
+    ledger = _load(ledger_path)
+    handoff = _load(handoff_path)
+    component = (handoff.get("components") or {}).get("naive_ledger") or {}
+    recorded = float(ledger.get("recorded_actual_spend_usd", math.inf))
+    remaining = float(
+        (ledger.get("reconciliation") or {}).get(
+            "remaining_daily_allowance_usd", math.inf
+        )
+    )
+    if (
+        ledger.get("interface_version")
+        != development_daily.EXPECTED_NAIVE_DAILY_INTERFACE
+        or ledger.get("date") != "2026-08-14"
+        or ledger.get("timezone") != TIMEZONE
+        or float(ledger.get("daily_cap_usd", 0.0)) != DAILY_CAP_USD
+        or ledger.get("account_wide_usage_counts_against_cap") is not True
+        or ledger.get("opening_boundary_derived_from_main_reconciled_ledger")
+        is not True
+        or ledger.get("opening_boundary_amendment_sha256")
+        != development_daily.BUDGET_CHAIN_AMENDMENT_SHA256
+        or ledger.get("unspent_allowance_does_not_roll_over") is not True
+        or (ledger.get("naive_first_link") or {}).get("status") != "passed"
+        or not 0.0 <= recorded <= DAILY_CAP_USD
+        or (ledger.get("reconciliation") or {}).get(
+            "recorded_spend_is_max_of_posted_and_local"
+        )
+        is not True
+        or remaining != DAILY_CAP_USD - recorded
+        or handoff.get("interface_version")
+        != development_daily.EXPECTED_PAIRED_HANDOFF_INTERFACE
+        or handoff.get("status") != "paired_daily_complete"
+        or handoff.get("block_id") != "d"
+        or float(handoff.get("recorded_daily_spend_usd", math.inf)) != recorded
+        or Path(component.get("path", "")).resolve() != ledger_path.resolve()
+        or component.get("sha256") != _sha256(ledger_path)
+        or component.get("status") != "reconciled"
+    ):
+        raise RuntimeError("August 14 paired development close is invalid")
+    return {
+        "closing_total_usage_boundary_usd": (
+            float(ledger["opening_total_usage_usd"]) + recorded
+        ),
+        "source": {
+            "kind": "paired_development_naive_close",
+            "ledger_path": str(ledger_path),
+            "ledger_sha256": _sha256(ledger_path),
+            "handoff_path": str(handoff_path),
+            "handoff_sha256": _sha256(handoff_path),
+        },
+    }
+
+
+def _prior_day_close(block_id: str) -> dict[str, Any]:
+    if block_id == confirmation.BLOCK_ORDER[0]:
+        return _development_close()
+    prior_id = confirmation.BLOCK_ORDER[
+        confirmation.BLOCK_ORDER.index(block_id) - 1
+    ]
+    validation = validate_ledger(path=LEDGERS[prior_id], block_id=prior_id)
+    ledger = _load(LEDGERS[prior_id])
+    return {
+        "closing_total_usage_boundary_usd": (
+            float(ledger["opening_total_usage_usd"])
+            + float(ledger["recorded_actual_spend_usd"])
+        ),
+        "source": {
+            "kind": "confirmation_close",
+            "block_id": prior_id,
+            "ledger_path": str(LEDGERS[prior_id]),
+            "ledger_sha256": validation["ledger_sha256"],
+        },
+    }
+
+
+def _budget_from_boundary(
+    *, live: Mapping[str, Any], prior_close: Mapping[str, Any]
+) -> dict[str, float]:
+    values = _finite_live(live)
+    boundary = float(prior_close["closing_total_usage_boundary_usd"])
+    if not math.isfinite(boundary):
+        raise RuntimeError("predecessor usage boundary is non-finite")
+    if values["total_usage_usd"] + 1e-12 < boundary:
+        raise RuntimeError("live cumulative usage is below the predecessor close")
+    spent = max(0.0, values["total_usage_usd"] - boundary)
+    if spent + confirmation.RUN_BUDGET_USD > DAILY_CAP_USD + 1e-12:
+        raise RuntimeError(
+            "confirmation cap exceeds the remaining account-wide day"
+        )
+    return {
+        "opening_total_usage_boundary_usd": boundary,
+        "spent_before_confirmation_usd": spent,
+        "remaining_after_full_cap_usd": (
+            DAILY_CAP_USD - spent - confirmation.RUN_BUDGET_USD
+        ),
+    }
+
+
 def _initialize_ledger(
-    *, path: Path, live: Mapping[str, float], block_id: str, now: datetime
+    *,
+    path: Path,
+    live: Mapping[str, float],
+    block_id: str,
+    now: datetime,
+    prior_close: Mapping[str, Any],
 ) -> dict[str, Any]:
     if path.exists():
         raise FileExistsError(f"confirmation ledger already exists: {path}")
+    values = _finite_live(live)
+    budget = _budget_from_boundary(live=values, prior_close=prior_close)
+    boundary = budget["opening_total_usage_boundary_usd"]
     ledger = {
         "schema_version": SCHEMA_VERSION,
         "date": now.date().isoformat(),
         "timezone": TIMEZONE,
         "daily_cap_usd": DAILY_CAP_USD,
-        "opening_total_credits_usd": float(live["total_credits_usd"]),
-        "opening_total_usage_usd": float(live["total_usage_usd"]),
-        "opening_balance_usd": float(live["balance_usd"]),
+        "opening_total_credits_usd": values["total_credits_usd"],
+        "opening_total_usage_usd": boundary,
+        "opening_balance_usd": values["total_credits_usd"] - boundary,
+        "execution_opening_total_usage_usd": values["total_usage_usd"],
+        "execution_opening_balance_usd": values["balance_usd"],
         "opening_frozen_at_london": now.isoformat(),
-        "recorded_actual_spend_usd": 0.0,
+        "recorded_actual_spend_usd": budget["spent_before_confirmation_usd"],
         "account_wide_usage_counts_against_cap": True,
+        "opening_boundary_derived_from_reconciled_predecessor_close": True,
+        "opening_boundary_amendment_sha256": BUDGET_CHAIN_AMENDMENT_SHA256,
+        "prior_day_close": dict(prior_close),
         "unspent_allowance_does_not_roll_over": True,
         "first_authorized_block": {
             "interface_version": confirmation.INTERFACE_VERSION,
@@ -270,6 +409,7 @@ def preflight_daily_block(
     model_catalog_reader: Callable[[], dict[str, Any]] = (
         aug10.read_openrouter_model_catalog
     ),
+    prior_close_validator: Callable[[str], dict[str, Any]] = _prior_day_close,
 ) -> dict[str, Any]:
     if block_id not in confirmation.BLOCK_ORDER:
         raise ValueError(f"unknown confirmation block {block_id!r}")
@@ -317,11 +457,23 @@ def preflight_daily_block(
             block_dir.exists() and any(block_dir.iterdir())
         ):
             raise RuntimeError("fresh confirmation block path is not pristine")
-        live = live_reader()
+        if (
+            not BUDGET_CHAIN_AMENDMENT.is_file()
+            or _sha256(BUDGET_CHAIN_AMENDMENT) != BUDGET_CHAIN_AMENDMENT_SHA256
+        ):
+            raise RuntimeError("confirmation budget-chain amendment changed")
+        prior_close = prior_close_validator(block_id)
+        live = _finite_live(live_reader())
+        budget = _budget_from_boundary(live=live, prior_close=prior_close)
         model = aug10._validate_model_catalog(model_catalog_reader())
         if float(live["balance_usd"]) + 1e-12 < DAILY_CAP_USD:
             raise RuntimeError("live balance is below confirmation $5 start gate")
-        runtime = {"live_credits": live, "model": model}
+        runtime = {
+            "live_credits": live,
+            "model": model,
+            "prior_day_close": prior_close,
+            "budget": budget,
+        }
     return {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -341,6 +493,7 @@ def preflight_daily_block(
             "maximum_accepted_responses": MAX_ACCEPTED_RESPONSES,
             "maximum_http_attempts": MAX_HTTP_ATTEMPTS,
             "maximum_precharged_exposure_usd": MAX_PRECHARGED_EXPOSURE_USD,
+            **(runtime["budget"] if runtime is not None else {}),
         },
         "model_calls_made": 0,
         "files_written": 0,
@@ -357,6 +510,7 @@ def execute_daily_block(
     ),
     block_runner: Callable[..., dict[str, Any]] = confirmation.run_block,
     analyzer: Callable[..., dict[str, Any]] = confirmation.analyze_combined,
+    prior_close_validator: Callable[[str], dict[str, Any]] = _prior_day_close,
 ) -> dict[str, Any]:
     local_now = _validate_date(block_id, now)
     execution_bindings = execute_verify.verify_execution_bindings()
@@ -391,12 +545,23 @@ def execute_daily_block(
     else:
         if block_dir.exists() and any(block_dir.iterdir()):
             raise RuntimeError("partial confirmation block cannot repeat")
-        live = live_reader()
         aug10._validate_model_catalog(model_catalog_reader())
+        if (
+            not BUDGET_CHAIN_AMENDMENT.is_file()
+            or _sha256(BUDGET_CHAIN_AMENDMENT) != BUDGET_CHAIN_AMENDMENT_SHA256
+        ):
+            raise RuntimeError("confirmation budget-chain amendment changed")
+        prior_close = prior_close_validator(block_id)
+        live = _finite_live(live_reader())
+        _budget_from_boundary(live=live, prior_close=prior_close)
         if float(live["balance_usd"]) + 1e-12 < DAILY_CAP_USD:
             raise RuntimeError("live balance is below confirmation $5 start gate")
         ledger = _initialize_ledger(
-            path=LEDGERS[block_id], live=live, block_id=block_id, now=local_now
+            path=LEDGERS[block_id],
+            live=live,
+            block_id=block_id,
+            now=local_now,
+            prior_close=prior_close,
         )
         require_budget(
             ledger,

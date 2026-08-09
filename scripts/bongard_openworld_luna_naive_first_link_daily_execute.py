@@ -26,7 +26,7 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-daily-execute-2"
+INTERFACE_VERSION = "bongard-openworld-luna-naive-first-link-daily-execute-3"
 TIMEZONE = "Europe/London"
 SMOKE_DATE = "2026-08-08"
 ROOT = REPO_ROOT / "results/nonmyopic/bongard_openworld_luna_naive_first_link"
@@ -230,6 +230,10 @@ def _naive_predecessor(block_id: str) -> dict[str, Any]:
         or ledger.get("date") != development.BLOCK_EARLIEST_DATES[block_id]
         or float(ledger.get("daily_cap_usd", 0.0)) != 5.0
         or ledger.get("account_wide_usage_counts_against_cap") is not True
+        or ledger.get("opening_boundary_derived_from_main_reconciled_ledger")
+        is not True
+        or ledger.get("opening_boundary_amendment_sha256")
+        != main_daily.BUDGET_CHAIN_AMENDMENT_SHA256
         or baseline.get("status") != "passed"
         or baseline.get("model") != naive.MODEL_ID
         or baseline.get("reasoning_effort") != naive.REASONING_EFFORT
@@ -324,6 +328,20 @@ def _initial_ledger(
         "opening_balance_usd": opening_balance,
         "recorded_actual_spend_usd": spent,
         "account_wide_usage_counts_against_cap": True,
+        "opening_boundary_derived_from_main_reconciled_ledger": (
+            predecessor is not None
+        ),
+        "opening_boundary_amendment_sha256": (
+            main_daily.BUDGET_CHAIN_AMENDMENT_SHA256
+            if predecessor is not None
+            else None
+        ),
+        "execution_opening_total_usage_usd": float(
+            preflight["live_credits"]["total_usage_usd"]
+        ),
+        "execution_opening_balance_usd": float(
+            preflight["live_credits"]["balance_usd"]
+        ),
         "unspent_allowance_does_not_roll_over": True,
         "main_predecessor": predecessor,
         "naive_first_link": {
@@ -378,10 +396,47 @@ def _execute(
     live = preflight["live_credits"]
     predecessor = preflight.get("main_predecessor")
     if predecessor:
-        main_ledger = _load(Path(predecessor["ledger_path"]))
+        main_ledger_path = Path(predecessor["ledger_path"])
+        main_ledger = _load(main_ledger_path)
+        if (
+            development.sha256_file(main_ledger_path)
+            != predecessor["ledger_sha256"]
+        ):
+            raise RuntimeError("main development ledger changed before naive dispatch")
         opening_usage = float(main_ledger["opening_total_usage_usd"])
         opening_credits = float(main_ledger["opening_total_credits_usd"])
         opening_balance = float(main_ledger["opening_balance_usd"])
+        live = live_reader()
+        live_usage = float(live["total_usage_usd"])
+        live_balance = float(live["balance_usd"])
+        if not all(
+            math.isfinite(value)
+            for value in (
+                float(live["total_credits_usd"]),
+                live_usage,
+                live_balance,
+            )
+        ):
+            raise RuntimeError("live OpenRouter credit values are non-finite")
+        if live_usage + 1e-12 < opening_usage:
+            raise RuntimeError("live cumulative usage is below the main boundary")
+        spent = _day_spent(
+            opening_usage=opening_usage,
+            recorded_spend=float(main_ledger["recorded_actual_spend_usd"]),
+            live_usage=live_usage,
+        )
+        if spent + naive.RUN_BUDGET_USD > 5.0 + 1e-12:
+            raise RuntimeError(
+                "naive baseline cap exceeds the remaining account-wide day"
+            )
+        if live_balance + 1e-12 < naive.RUN_BUDGET_USD:
+            raise RuntimeError("OpenRouter balance is below naive run cap")
+        preflight = json.loads(json.dumps(preflight))
+        preflight["live_credits"] = live
+        preflight["budget"]["spent_before_naive_usd"] = spent
+        preflight["budget"]["remaining_after_full_naive_cap_usd"] = (
+            5.0 - spent - naive.RUN_BUDGET_USD
+        )
     else:
         opening_usage = float(live["total_usage_usd"])
         opening_credits = float(live["total_credits_usd"])

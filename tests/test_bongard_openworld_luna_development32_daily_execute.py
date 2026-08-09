@@ -146,9 +146,19 @@ class Harness:
 
     def fresh_preflight(self, *, block_id: str, live_reader, **_) -> dict:
         self.preflight_calls.append(block_id)
+        prior_close = {
+            "opening_total_usage_usd": 75.0,
+            "recorded_actual_spend_usd": 5.0,
+            "closing_total_usage_boundary_usd": 80.0,
+            "source": {"kind": "fixture"},
+        }
         return {
             "status": "ready_without_paid_calls",
             "live_credits": live_reader(),
+            "prior_day_close": prior_close,
+            "budget": execute._budget_from_boundary(
+                live=live_reader(), prior_close=prior_close
+            ),
         }
 
     def block_executor(
@@ -173,6 +183,13 @@ class Harness:
             "daily_cap_usd": 5.0,
             "recorded_actual_spend_usd": recorded,
             "account_wide_usage_counts_against_cap": True,
+            "opening_boundary_derived_from_reconciled_predecessor_close": True,
+            "opening_boundary_amendment_sha256": (
+                execute.BUDGET_CHAIN_AMENDMENT_SHA256
+            ),
+            "paired_daily_maximum_cost_usd": (
+                execute.PAIRED_DAILY_MAXIMUM_COST_USD
+            ),
             "unspent_allowance_does_not_roll_over": True,
             "additional_paid_blocks_authorized": False,
             "first_authorized_block": {
@@ -313,9 +330,17 @@ def test_runtime_preflight_is_read_only_and_exact(tmp_path: Path) -> None:
             "balance_usd": 20.0,
         },
         model_catalog_reader=_catalog,
+        prior_close_validator=lambda _: {
+            "opening_total_usage_usd": 75.0,
+            "recorded_actual_spend_usd": 5.0,
+            "closing_total_usage_boundary_usd": 80.0,
+            "source": {"kind": "fixture"},
+        },
     )
     assert result["status"] == "ready_without_paid_calls"
-    assert result["budget"]["block_maximum_cost_usd"] == 4.75
+    assert result["budget"]["main_block_maximum_cost_usd"] == 4.75
+    assert result["budget"]["paired_daily_maximum_cost_usd"] == 4.95
+    assert result["budget"]["spent_before_development_usd"] == 0.0
     assert result["precharge_amendment"]["sha256"] == (
         execute.aug10.PRECHARGE_AMENDMENT_SHA256
     )
@@ -324,6 +349,29 @@ def test_runtime_preflight_is_read_only_and_exact(tmp_path: Path) -> None:
     assert result["files_written"] == 0
     assert not block_dir.exists()
     assert not ledger.exists()
+
+
+def test_runtime_preflight_counts_prior_account_spend(tmp_path: Path) -> None:
+    prior = {
+        "opening_total_usage_usd": 75.0,
+        "recorded_actual_spend_usd": 5.0,
+        "closing_total_usage_boundary_usd": 80.0,
+        "source": {"kind": "fixture"},
+    }
+    with pytest.raises(RuntimeError, match="remaining account-wide day"):
+        execute.preflight_fresh_block_runtime(
+            block_id="a",
+            block_dir=tmp_path / "block-a",
+            ledger_path=tmp_path / "ledger-a.json",
+            live_reader=lambda: {
+                "total_credits_usd": 100.0,
+                "total_usage_usd": 80.051,
+                "balance_usd": 19.949,
+            },
+            model_catalog_reader=_catalog,
+            prior_close_validator=lambda _: prior,
+        )
+    assert not (tmp_path / "ledger-a.json").exists()
 
 
 def test_runtime_preflight_refuses_low_balance_and_nonpristine_path(
@@ -342,6 +390,9 @@ def test_runtime_preflight_refuses_low_balance_and_nonpristine_path(
                 "balance_usd": 4.99,
             },
             model_catalog_reader=_catalog,
+            prior_close_validator=lambda _: {
+                "closing_total_usage_boundary_usd": 95.01
+            },
         )
     _write(block_dir / "partial.json", {})
     with pytest.raises(RuntimeError, match="path is not pristine"):
@@ -374,6 +425,12 @@ def _full_preflight(harness: Harness, block_id: str) -> dict:
             "balance_usd": 20.0,
         },
         model_catalog_reader=_catalog,
+        prior_close_validator=lambda _: {
+            "opening_total_usage_usd": 75.0,
+            "recorded_actual_spend_usd": 5.0,
+            "closing_total_usage_boundary_usd": 80.0,
+            "source": {"kind": "fixture"},
+        },
     )
 
 
@@ -475,6 +532,66 @@ def test_failed_fresh_runtime_preflight_writes_nothing(tmp_path: Path) -> None:
 
     assert not harness.block_dirs["a"].exists()
     assert not harness.ledger_paths["a"].exists()
+
+
+def test_usage_race_after_preflight_opens_no_ledger_or_block(
+    tmp_path: Path,
+) -> None:
+    harness = Harness(tmp_path)
+    prior = {
+        "opening_total_usage_usd": 75.0,
+        "recorded_actual_spend_usd": 5.0,
+        "closing_total_usage_boundary_usd": 80.0,
+        "source": {"kind": "fixture"},
+    }
+
+    def ready(**_) -> dict:
+        return {
+            "status": "ready_without_paid_calls",
+            "live_credits": {
+                "total_credits_usd": 100.0,
+                "total_usage_usd": 80.0,
+                "balance_usd": 20.0,
+            },
+            "prior_day_close": prior,
+            "budget": execute._budget_from_boundary(
+                live={
+                    "total_credits_usd": 100.0,
+                    "total_usage_usd": 80.0,
+                    "balance_usd": 20.0,
+                },
+                prior_close=prior,
+            ),
+        }
+
+    with pytest.raises(execute.PreExecutionGateError, match="remaining account-wide"):
+        execute.execute_daily_block(
+            block_id="a",
+            block_dir=harness.block_dirs["a"],
+            ledger_path=harness.ledger_paths["a"],
+            ledger_paths=harness.ledger_paths,
+            protocol_manifest=harness.protocol_manifest,
+            aug10_result=tmp_path / "aug10.json",
+            mechanics_result=tmp_path / "mechanics.json",
+            combined_result=harness.combined_result,
+            block_result_paths=harness.result_paths,
+            now=_now("a"),
+            manifest_validator=harness.manifest_validator,
+            aug10_validator=harness.aug10_validator,
+            block_executor=lambda **_: pytest.fail("development block opened"),
+            block_validator=harness.block_validator,
+            analyzer=harness.analyzer,
+            combined_validator=harness.combined_validator,
+            live_reader=lambda: {
+                "total_credits_usd": 100.0,
+                "total_usage_usd": 80.051,
+                "balance_usd": 19.949,
+            },
+            fresh_preflight=ready,
+        )
+
+    assert not harness.ledger_paths["a"].exists()
+    assert not harness.block_dirs["a"].exists()
 
 
 def test_later_block_requires_prior_verified_daily_wrapper(tmp_path: Path) -> None:

@@ -4,6 +4,22 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close the remaining account-wide daily-budget reset boundary before
+any Development64 or Confirmation96 response. Aug11 now inherits the exact
+reconciled Aug10 close; Aug12--14 inherit the preceding cryptographically linked
+main-plus-naive close; Aug15 inherits the Aug14 paired close; and Aug16--18
+inherit the preceding verified confirmation close. Preexisting account usage is
+`live-boundary`, never zeroed at process start. Development reserves the full
+$4.95 main-plus-naive pair before its main ledger, rereads live usage before
+writing, and the naive component reauthorizes its $.20 after main reconciliation.
+Confirmation similarly reserves its full $4.75. Negative deltas, >$.05 prior
+development-day spend, >$.25 prior confirmation-day spend, malformed closes,
+and preflight races open no ledger or call. Prompts/tasks/seeds/actions/endpoints,
+models, calls, and scientific gates are unchanged. Focused accounting/provenance
+tests 87/87; full Bongard 324/324; paper exactly 6 pages; authenticated Aug10
+handoff ready with calls/files 0 and unchanged $24.878986213 balance. Development
+and confirmation correctly wait for their predecessors. No paid calls.
+
 2026-08-09: Close the post-Development64 selective-reporting and replay boundary
 before any paid response. Mandatory paper wrapper V6 removes random temporary
 paths from metadata while preserving all V5 science;identical renders now match

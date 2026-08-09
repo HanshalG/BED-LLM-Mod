@@ -39,7 +39,7 @@ PROTOCOL_SHA256 = (
 BOUND_IMPLEMENTATIONS = {
     "paired_daily_handoff": (
         "scripts/bongard_openworld_development_daily_handoff.py",
-        "ca76725fd3589e7207945c7a3e079b3dc12148e25b173c812e0c3e7f493384c3",
+        "2a415d656df3db65544730bf2e1e9c667b399bd09790fb57c17babbadc43c705",
     ),
     "claim_finalizer": (
         "scripts/bongard_openworld_luna_development_claim_finalize.py",
@@ -63,7 +63,7 @@ BOUND_IMPLEMENTATIONS = {
     ),
     "paper_wrapper_v6": (
         "scripts/bongard_openworld_paper_with_classical_suite.py",
-        "21f3f90f3d69aa462cfe7cefa7cb5d149b8ccd6fd71857f82496525e87e9578f",
+        "4bbfdcbead6df1bca0d8843809569fe617071114cdd0293d851c2e8dedc41d4a",
     ),
 }
 OUTPUT_DIR = REPO_ROOT / (

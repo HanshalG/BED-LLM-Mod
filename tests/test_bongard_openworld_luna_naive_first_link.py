@@ -233,6 +233,10 @@ def test_prior_naive_block_requires_replayable_privacy_and_ledger_chain(
                 "date": development.BLOCK_EARLIEST_DATES["a"],
                 "daily_cap_usd": 5.0,
                 "account_wide_usage_counts_against_cap": True,
+                "opening_boundary_derived_from_main_reconciled_ledger": True,
+                "opening_boundary_amendment_sha256": (
+                    daily.main_daily.BUDGET_CHAIN_AMENDMENT_SHA256
+                ),
                 "recorded_actual_spend_usd": 4.80,
                 "naive_first_link": {
                     "status": "passed",
@@ -440,7 +444,10 @@ def test_supplemental_execution_preserves_main_ledger_hash(
             "balance_usd": 50.30,
         },
         "budget": {"spent_before_naive_usd": 4.70},
-        "main_predecessor": {"ledger_path": str(main_ledger)},
+        "main_predecessor": {
+            "ledger_path": str(main_ledger),
+            "ledger_sha256": development.sha256_file(main_ledger),
+        },
     }
 
     def runner(*, output_dir, run_id):
@@ -455,11 +462,20 @@ def test_supplemental_execution_preserves_main_ledger_hash(
         )
         return result
 
-    live_after = {
-        "total_credits_usd": 275.0,
-        "total_usage_usd": 224.75,
-        "balance_usd": 50.25,
-    }
+    live_snapshots = iter(
+        [
+            {
+                "total_credits_usd": 275.0,
+                "total_usage_usd": 224.70,
+                "balance_usd": 50.30,
+            },
+            {
+                "total_credits_usd": 275.0,
+                "total_usage_usd": 224.75,
+                "balance_usd": 50.25,
+            },
+        ]
+    )
     daily._execute(
         preflight=preflight,
         output_dir=output,
@@ -467,7 +483,7 @@ def test_supplemental_execution_preserves_main_ledger_hash(
         run_id="fixture",
         runner=runner,
         runner_kwargs={},
-        live_reader=lambda: live_after,
+        live_reader=lambda: next(live_snapshots),
     )
     assert development.sha256_file(main_ledger) == before
     ledger = json.loads(supplement.read_text())
@@ -476,3 +492,55 @@ def test_supplemental_execution_preserves_main_ledger_hash(
         "remaining_daily_allowance_usd"
     ] == pytest.approx(0.25)
     assert (output / "EXECUTION.json").is_file()
+
+
+def test_naive_refresh_refuses_intervening_account_spend_before_ledger(
+    tmp_path: Path,
+) -> None:
+    main_ledger = tmp_path / "main-ledger.json"
+    main_ledger.write_text(
+        json.dumps(
+            {
+                "opening_total_credits_usd": 275.0,
+                "opening_total_usage_usd": 220.0,
+                "opening_balance_usd": 55.0,
+                "recorded_actual_spend_usd": 4.70,
+            }
+        ),
+        encoding="utf-8",
+    )
+    supplement = tmp_path / "supplement.json"
+    preflight = {
+        "date": "2026-08-11",
+        "live_credits": {
+            "total_credits_usd": 275.0,
+            "total_usage_usd": 224.70,
+            "balance_usd": 50.30,
+        },
+        "budget": {
+            "spent_before_naive_usd": 4.70,
+            "remaining_after_full_naive_cap_usd": 0.10,
+        },
+        "main_predecessor": {
+            "ledger_path": str(main_ledger),
+            "ledger_sha256": development.sha256_file(main_ledger),
+        },
+    }
+
+    with pytest.raises(RuntimeError, match="remaining account-wide day"):
+        daily._execute(
+            preflight=preflight,
+            output_dir=tmp_path / "baseline",
+            ledger_path=supplement,
+            run_id="fixture",
+            runner=lambda **_: pytest.fail("naive runner opened"),
+            runner_kwargs={},
+            live_reader=lambda: {
+                "total_credits_usd": 275.0,
+                "total_usage_usd": 224.81,
+                "balance_usd": 50.19,
+            },
+        )
+
+    assert not supplement.exists()
+    assert not (tmp_path / "baseline").exists()

@@ -40,8 +40,12 @@ MATCHED_UPDATER_INTEGRITY_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md"
 )
+BUDGET_CHAIN_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_CONFIRMATION_ACCOUNT_WIDE_BUDGET_CHAIN_CORRECTION_20260809.md"
+)
 CORE_SHA256 = "d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794"
-DAILY_SHA256 = "627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d"
+DAILY_SHA256 = "7b313f65786fbe5e20c65d226fb519a3cb97241b18f224f9d5d7d0903ee2a050"
 AMENDMENT_SHA256 = (
     "0f284c475e04c58f546d21baf9d2f0b41975832c0f11b1fc54317d3de124a351"
 )
@@ -56,6 +60,9 @@ MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
 )
 MATCHED_UPDATER_INTEGRITY_AMENDMENT_SHA256 = (
     "1f0da098fbed4968a3594761194f661a0ebf49b12c477383d7c90bfa4989abf9"
+)
+BUDGET_CHAIN_AMENDMENT_SHA256 = (
+    "40889c8d1dd3768f5ba06d454c0ee13250bcbfc95046caab3075fa318b41ebbf"
 )
 
 
@@ -76,6 +83,7 @@ def verify_execution_bindings() -> dict[str, Any]:
         MATCHED_UPDATER_INTEGRITY_AMENDMENT: (
             MATCHED_UPDATER_INTEGRITY_AMENDMENT_SHA256
         ),
+        BUDGET_CHAIN_AMENDMENT: BUDGET_CHAIN_AMENDMENT_SHA256,
     }
     changed = [
         str(path)
@@ -105,6 +113,7 @@ def verify_execution_bindings() -> dict[str, Any]:
         "matched_updater_integrity_amendment_sha256": (
             MATCHED_UPDATER_INTEGRITY_AMENDMENT_SHA256
         ),
+        "budget_chain_amendment_sha256": BUDGET_CHAIN_AMENDMENT_SHA256,
         "protocol_manifest_sha256": protocol["manifest_sha256"],
     }
 

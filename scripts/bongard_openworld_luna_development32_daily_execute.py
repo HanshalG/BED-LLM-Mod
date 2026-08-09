@@ -26,8 +26,13 @@ from scripts.openrouter_daily_budget import read_live_credits
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-5"
+INTERFACE_VERSION = "bongard-openworld-luna-development64-daily-execute-6"
 TIMEZONE = "Europe/London"
+DAILY_CAP_USD = 5.0
+PAIRED_NAIVE_RUN_BUDGET_USD = 0.20
+PAIRED_DAILY_MAXIMUM_COST_USD = (
+    development.RUN_BUDGET_USD + PAIRED_NAIVE_RUN_BUDGET_USD
+)
 ROOT = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64"
 )
@@ -55,6 +60,49 @@ LEDGERS = {
     for block_id in development.BLOCK_ORDER
 }
 COMBINED_RESULT = ROOT / "COMBINED_RESULT.json"
+BUDGET_CHAIN_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_DEVELOPMENT_ACCOUNT_WIDE_BUDGET_CHAIN_CORRECTION_20260809.md"
+)
+BUDGET_CHAIN_AMENDMENT_SHA256 = (
+    "2df90bef412fa814f90f5709bd2147f81f34c47d235cabcb4e6df9b214929d5d"
+)
+PRIOR_CLOSE_LEDGERS = {
+    "a": aug10.DAILY_LEDGER,
+    **{
+        block_id: REPO_ROOT
+        / "results/nonmyopic/openrouter_daily_budget"
+        / (
+            f"{development.BLOCK_EARLIEST_DATES[prior_id]}-"
+            "naive-first-link.json"
+        )
+        for block_id, prior_id in zip(
+            development.BLOCK_ORDER[1:],
+            development.BLOCK_ORDER[:-1],
+            strict=True,
+        )
+    },
+}
+PRIOR_HANDOFF_RESULTS = {
+    block_id: REPO_ROOT
+    / "results/nonmyopic/bongard_openworld_development_daily_handoff"
+    / (
+        f"block-{prior_id}-"
+        f"{development.BLOCK_EARLIEST_DATES[prior_id].replace('-', '')}"
+    )
+    / "RESULT.json"
+    for block_id, prior_id in zip(
+        development.BLOCK_ORDER[1:],
+        development.BLOCK_ORDER[:-1],
+        strict=True,
+    )
+}
+EXPECTED_PAIRED_HANDOFF_INTERFACE = (
+    "bongard-openworld-development-daily-handoff-2"
+)
+EXPECTED_NAIVE_DAILY_INTERFACE = (
+    "bongard-openworld-luna-naive-first-link-daily-execute-3"
+)
 
 
 class PreExecutionGateError(RuntimeError):
@@ -69,6 +117,121 @@ def _sha256(path: Path) -> str:
     return development.sha256_file(path)
 
 
+def _finite_live(live: Mapping[str, Any]) -> dict[str, float]:
+    values = {
+        field: float(live[field])
+        for field in ("total_credits_usd", "total_usage_usd", "balance_usd")
+    }
+    if not all(math.isfinite(value) for value in values.values()):
+        raise RuntimeError("live OpenRouter credit values are non-finite")
+    return values
+
+
+def _prior_day_close(block_id: str) -> dict[str, Any]:
+    """Return the independently linked cumulative-usage close before a block."""
+    if block_id not in development.BLOCK_ORDER:
+        raise ValueError(f"unknown development block {block_id!r}")
+    ledger_path = PRIOR_CLOSE_LEDGERS[block_id]
+    if block_id == development.BLOCK_ORDER[0]:
+        ledger = aug10._validate_ledger(ledger_path, require_mechanics=True)
+        source = {
+            "kind": "aug10_reconciled_close",
+            "ledger_path": str(ledger_path),
+            "ledger_sha256": _sha256(ledger_path),
+        }
+    else:
+        prior_index = development.BLOCK_ORDER.index(block_id) - 1
+        prior_id = development.BLOCK_ORDER[prior_index]
+        expected_date = development.BLOCK_EARLIEST_DATES[prior_id]
+        handoff_path = PRIOR_HANDOFF_RESULTS[block_id]
+        if not ledger_path.is_file() or not handoff_path.is_file():
+            raise RuntimeError(
+                f"paired predecessor close for block {prior_id} is missing"
+            )
+        ledger = _load(ledger_path)
+        handoff = _load(handoff_path)
+        naive = ledger.get("naive_first_link") or {}
+        reconciliation = ledger.get("reconciliation") or {}
+        recorded = float(ledger.get("recorded_actual_spend_usd", math.inf))
+        remaining = float(
+            reconciliation.get("remaining_daily_allowance_usd", math.inf)
+        )
+        component = (handoff.get("components") or {}).get("naive_ledger") or {}
+        component_path = Path(component.get("path", ""))
+        if (
+            ledger.get("interface_version") != EXPECTED_NAIVE_DAILY_INTERFACE
+            or ledger.get("date") != expected_date
+            or ledger.get("timezone") != TIMEZONE
+            or float(ledger.get("daily_cap_usd", 0.0)) != DAILY_CAP_USD
+            or ledger.get("account_wide_usage_counts_against_cap") is not True
+            or ledger.get("unspent_allowance_does_not_roll_over") is not True
+            or naive.get("status") != "passed"
+            or not math.isfinite(recorded)
+            or not 0.0 <= recorded <= DAILY_CAP_USD
+            or reconciliation.get("recorded_spend_is_max_of_posted_and_local")
+            is not True
+            or remaining != DAILY_CAP_USD - recorded
+            or handoff.get("interface_version")
+            != EXPECTED_PAIRED_HANDOFF_INTERFACE
+            or handoff.get("status") != "paired_daily_complete"
+            or handoff.get("block_id") != prior_id
+            or handoff.get("date") != expected_date
+            or float(handoff.get("recorded_daily_spend_usd", math.inf))
+            != recorded
+            or component.get("status") != "reconciled"
+            or component_path.resolve() != ledger_path.resolve()
+            or component.get("sha256") != _sha256(ledger_path)
+        ):
+            raise RuntimeError(
+                f"paired predecessor close for block {prior_id} is invalid"
+            )
+        source = {
+            "kind": "paired_development_naive_close",
+            "block_id": prior_id,
+            "ledger_path": str(ledger_path),
+            "ledger_sha256": _sha256(ledger_path),
+            "handoff_path": str(handoff_path),
+            "handoff_sha256": _sha256(handoff_path),
+        }
+    opening = float(ledger.get("opening_total_usage_usd", math.nan))
+    recorded = float(ledger.get("recorded_actual_spend_usd", math.nan))
+    boundary = opening + recorded
+    if not all(math.isfinite(value) for value in (opening, recorded, boundary)):
+        raise RuntimeError("predecessor usage boundary is non-finite")
+    if not 0.0 <= recorded <= DAILY_CAP_USD:
+        raise RuntimeError("predecessor recorded spend is outside the daily cap")
+    return {
+        "opening_total_usage_usd": opening,
+        "recorded_actual_spend_usd": recorded,
+        "closing_total_usage_boundary_usd": boundary,
+        "source": source,
+    }
+
+
+def _budget_from_boundary(
+    *, live: Mapping[str, Any], prior_close: Mapping[str, Any]
+) -> dict[str, float]:
+    values = _finite_live(live)
+    boundary = float(prior_close["closing_total_usage_boundary_usd"])
+    if values["total_usage_usd"] + 1e-12 < boundary:
+        raise RuntimeError("live cumulative usage is below the predecessor close")
+    spent = max(0.0, values["total_usage_usd"] - boundary)
+    if spent + PAIRED_DAILY_MAXIMUM_COST_USD > DAILY_CAP_USD + 1e-12:
+        raise RuntimeError(
+            "paired development cap exceeds the remaining account-wide day"
+        )
+    return {
+        "opening_total_usage_boundary_usd": boundary,
+        "spent_before_development_usd": spent,
+        "main_block_maximum_cost_usd": development.RUN_BUDGET_USD,
+        "paired_naive_maximum_cost_usd": PAIRED_NAIVE_RUN_BUDGET_USD,
+        "paired_daily_maximum_cost_usd": PAIRED_DAILY_MAXIMUM_COST_USD,
+        "remaining_after_full_paired_cap_usd": (
+            DAILY_CAP_USD - spent - PAIRED_DAILY_MAXIMUM_COST_USD
+        ),
+    }
+
+
 def preflight_fresh_block_runtime(
     *,
     block_id: str,
@@ -81,6 +244,7 @@ def preflight_fresh_block_runtime(
     precharge_validator: Callable[[], dict[str, Any]] = (
         aug10._validate_precharge_amendment
     ),
+    prior_close_validator: Callable[[str], dict[str, Any]] = _prior_day_close,
 ) -> dict[str, Any]:
     """Validate volatile launch conditions without writing or model calls."""
     if block_id not in development.BLOCK_ORDER:
@@ -89,16 +253,17 @@ def preflight_fresh_block_runtime(
         raise RuntimeError(f"development block {block_id} ledger already exists")
     if block_dir.exists() and (not block_dir.is_dir() or any(block_dir.iterdir())):
         raise RuntimeError(f"development block {block_id} path is not pristine")
+    if (
+        not BUDGET_CHAIN_AMENDMENT.is_file()
+        or _sha256(BUDGET_CHAIN_AMENDMENT) != BUDGET_CHAIN_AMENDMENT_SHA256
+    ):
+        raise RuntimeError("development budget-chain amendment changed")
     precharge = precharge_validator()
     model = aug10._validate_model_catalog(model_catalog_reader())
-    live = live_reader()
-    values = [
-        float(live[field])
-        for field in ("total_credits_usd", "total_usage_usd", "balance_usd")
-    ]
-    if not all(math.isfinite(value) for value in values):
-        raise RuntimeError("live OpenRouter credit values are non-finite")
-    if float(live["balance_usd"]) + 1e-12 < 5.0:
+    prior_close = prior_close_validator(block_id)
+    live = _finite_live(live_reader())
+    budget = _budget_from_boundary(live=live, prior_close=prior_close)
+    if live["balance_usd"] + 1e-12 < DAILY_CAP_USD:
         raise RuntimeError("live OpenRouter balance is below the $5 start gate")
     return {
         "schema_version": SCHEMA_VERSION,
@@ -107,16 +272,72 @@ def preflight_fresh_block_runtime(
         "block_id": block_id,
         "date": development.BLOCK_EARLIEST_DATES[block_id],
         "precharge_amendment": precharge,
+        "budget_chain_amendment": {
+            "path": str(BUDGET_CHAIN_AMENDMENT),
+            "sha256": _sha256(BUDGET_CHAIN_AMENDMENT),
+        },
+        "prior_day_close": prior_close,
         "model": model,
         "live_credits": live,
         "budget": {
-            "account_wide_daily_cap_usd": 5.0,
-            "block_maximum_cost_usd": development.RUN_BUDGET_USD,
+            "account_wide_daily_cap_usd": DAILY_CAP_USD,
+            **budget,
             "unspent_allowance_does_not_roll_over": True,
         },
         "model_calls_made": 0,
         "files_written": 0,
     }
+
+
+def _initialize_boundary_ledger(
+    *,
+    path: Path,
+    live: Mapping[str, Any],
+    block_id: str,
+    prior_close: Mapping[str, Any],
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    if path.exists():
+        raise FileExistsError(f"development ledger already exists: {path}")
+    timezone = ZoneInfo(TIMEZONE)
+    local_now = now.astimezone(timezone) if now else datetime.now(timezone)
+    expected = development.BLOCK_EARLIEST_DATES[block_id]
+    if local_now.date().isoformat() != expected:
+        raise RuntimeError(f"development block {block_id} can run only on {expected}")
+    values = _finite_live(live)
+    budget = _budget_from_boundary(live=values, prior_close=prior_close)
+    boundary = budget["opening_total_usage_boundary_usd"]
+    ledger = {
+        "schema_version": development.SCHEMA_VERSION,
+        "date": local_now.date().isoformat(),
+        "timezone": TIMEZONE,
+        "daily_cap_usd": DAILY_CAP_USD,
+        "opening_total_credits_usd": values["total_credits_usd"],
+        "opening_total_usage_usd": boundary,
+        "opening_balance_usd": values["total_credits_usd"] - boundary,
+        "execution_opening_total_usage_usd": values["total_usage_usd"],
+        "execution_opening_balance_usd": values["balance_usd"],
+        "opening_frozen_at_london": local_now.isoformat(),
+        "recorded_actual_spend_usd": budget[
+            "spent_before_development_usd"
+        ],
+        "account_wide_usage_counts_against_cap": True,
+        "opening_boundary_derived_from_reconciled_predecessor_close": True,
+        "opening_boundary_amendment_sha256": BUDGET_CHAIN_AMENDMENT_SHA256,
+        "prior_day_close": dict(prior_close),
+        "paired_daily_maximum_cost_usd": PAIRED_DAILY_MAXIMUM_COST_USD,
+        "unspent_allowance_does_not_roll_over": True,
+        "first_authorized_block": {
+            "interface_version": development.INTERFACE_VERSION,
+            "block_id": block_id,
+            "model": development.MODEL_ID,
+            "maximum_cost_usd": development.RUN_BUDGET_USD,
+            "status": "authorized_pending",
+        },
+        "additional_paid_blocks_authorized": False,
+    }
+    checkpoint(path, ledger)
+    return ledger
 
 
 def _validate_date(block_id: str, now: datetime | None = None) -> None:
@@ -248,6 +469,14 @@ def validate_block_ledger(*, path: Path, block_id: str) -> dict[str, Any]:
         or ledger.get("timezone") != TIMEZONE
         or float(ledger.get("daily_cap_usd", 0.0)) != 5.0
         or ledger.get("account_wide_usage_counts_against_cap") is not True
+        or ledger.get(
+            "opening_boundary_derived_from_reconciled_predecessor_close"
+        )
+        is not True
+        or ledger.get("opening_boundary_amendment_sha256")
+        != BUDGET_CHAIN_AMENDMENT_SHA256
+        or float(ledger.get("paired_daily_maximum_cost_usd", 0.0))
+        != PAIRED_DAILY_MAXIMUM_COST_USD
         or ledger.get("unspent_allowance_does_not_roll_over") is not True
         or ledger.get("additional_paid_blocks_authorized") is not False
         or not math.isfinite(recorded)
@@ -374,6 +603,7 @@ def preflight_daily_block(
     model_catalog_reader: Callable[[], dict[str, Any]] = (
         aug10.read_openrouter_model_catalog
     ),
+    prior_close_validator: Callable[[str], dict[str, Any]] = _prior_day_close,
 ) -> dict[str, Any]:
     """Report complete predecessor and runtime readiness without writes."""
     if block_id not in development.BLOCK_ORDER:
@@ -406,14 +636,6 @@ def preflight_daily_block(
             )
 
     manifest_verification = manifest_validator(protocol_manifest)
-    runtime = preflight_fresh_block_runtime(
-        block_id=block_id,
-        block_dir=block_dir,
-        ledger_path=ledger_path,
-        live_reader=live_reader,
-        model_catalog_reader=model_catalog_reader,
-    )
-
     aug10_exists = aug10_result.is_file()
     mechanics_exists = mechanics_result.is_file()
     prior_blocks: dict[str, Any] = {}
@@ -480,6 +702,17 @@ def preflight_daily_block(
         )
         prior_blocks[prior_id] = verification
 
+    runtime = None
+    if waiting_for is None:
+        runtime = preflight_fresh_block_runtime(
+            block_id=block_id,
+            block_dir=block_dir,
+            ledger_path=ledger_path,
+            live_reader=live_reader,
+            model_catalog_reader=model_catalog_reader,
+            prior_close_validator=prior_close_validator,
+        )
+
     status = (
         "ready_without_paid_calls"
         if waiting_for is None
@@ -495,9 +728,9 @@ def preflight_daily_block(
         "aug10_predecessor": aug10_verification,
         "prior_blocks": prior_blocks,
         "runtime": runtime,
-        "model": runtime["model"],
-        "live_credits": runtime["live_credits"],
-        "budget": runtime["budget"],
+        "model": runtime["model"] if runtime is not None else None,
+        "live_credits": runtime["live_credits"] if runtime is not None else None,
+        "budget": runtime["budget"] if runtime is not None else None,
         "model_calls_made": 0,
         "files_written": 0,
     }
@@ -622,12 +855,22 @@ def execute_daily_block(
                     raise PreExecutionGateError(
                         "fresh preflight omitted the live credit snapshot"
                     )
-                development._initialize_daily_ledger(
-                    path=ledger_path,
-                    live=live_opening,
-                    block_id=block_id,
-                    now=now,
-                )
+                prior_close = preflight.get("prior_day_close")
+                if not isinstance(prior_close, dict):
+                    raise PreExecutionGateError(
+                        "fresh preflight omitted the predecessor close"
+                    )
+                try:
+                    refreshed_live = live_reader()
+                    _initialize_boundary_ledger(
+                        path=ledger_path,
+                        live=refreshed_live,
+                        block_id=block_id,
+                        prior_close=prior_close,
+                        now=now,
+                    )
+                except Exception as exc:
+                    raise PreExecutionGateError(str(exc)) from exc
             block_executor(
                 output_dir=block_dir,
                 run_id=BLOCK_RUN_IDS[block_id],

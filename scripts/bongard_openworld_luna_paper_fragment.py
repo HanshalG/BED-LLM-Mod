@@ -122,7 +122,7 @@ BOUND_FILES = {
     ),
     "development_daily_replay": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "f7caea8467c5f9d88d3634742e8e842edf9c50fd53855f1a38c81ce9601ef5fb",
+        "bcfefaab9e96dca47d7a3a99d37a7c9857797831ab0f0b1939f21817d32d2de2",
     ),
     "confirmation_analyzer": (
         "scripts/bongard_openworld_luna_confirmation64.py",
@@ -134,7 +134,7 @@ BOUND_FILES = {
     ),
     "confirmation_daily_executor": (
         "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",
-        "627eb36ee0af272c1f6f5541c9d45d5605cceb74d526e988169f9e3311296c5d",
+        "7b313f65786fbe5e20c65d226fb519a3cb97241b18f224f9d5d7d0903ee2a050",
     ),
 }
 

@@ -22,7 +22,7 @@ from scripts import bongard_openworld_luna_vlm_development as development
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-development-daily-handoff-1"
+INTERFACE_VERSION = "bongard-openworld-development-daily-handoff-2"
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_DEVELOPMENT_DAILY_HANDOFF_PROTOCOL_20260809.md"
@@ -33,11 +33,11 @@ PROTOCOL_SHA256 = (
 BOUND_IMPLEMENTATIONS = {
     "main_daily": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "f7caea8467c5f9d88d3634742e8e842edf9c50fd53855f1a38c81ce9601ef5fb",
+        "bcfefaab9e96dca47d7a3a99d37a7c9857797831ab0f0b1939f21817d32d2de2",
     ),
     "naive_daily": (
         "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py",
-        "38f817234967f333c23cfcf5b1e83db44a3e0cd80da2bcbdc06bb3aab75e1d74",
+        "26aa0b755d48cfcdad69738ba96be56d4072a6935815b06513b8c4b0c2746ee1",
     ),
 }
 ROOT = REPO_ROOT / "results/nonmyopic/bongard_openworld_development_daily_handoff"

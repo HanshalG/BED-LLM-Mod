@@ -19,7 +19,8 @@
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/SMOKE_V1_REPLAY_PAYLOAD.json": "281b9159ca3cd9e86f9d972e3da4fbaef0af4ecc0c1a3977f9723eef33e2c747",
     "results/nonmyopic/bongard_openworld_luna_naive_first_link/SMOKE_V2_REPLAY_CERTIFICATE.json": "725bb7827508b6b20bf34037cc33feb17b78e1c31c4da9a21d9c3b9ea474d1da",
     "scripts/bongard_openworld_luna_naive_first_link.py": "816c15b5762bb757381a100b53d7c8d1802a4aa018bbcc46e87a0c7671570bcc",
-    "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "38f817234967f333c23cfcf5b1e83db44a3e0cd80da2bcbdc06bb3aab75e1d74",
+    "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT_ACCOUNT_WIDE_BUDGET_CHAIN_CORRECTION_20260809.md": "2df90bef412fa814f90f5709bd2147f81f34c47d235cabcb4e6df9b214929d5d",
+    "scripts/bongard_openworld_luna_naive_first_link_daily_execute.py": "26aa0b755d48cfcdad69738ba96be56d4072a6935815b06513b8c4b0c2746ee1",
     "scripts/bongard_openworld_luna_naive_smoke_migration.py": "1a0b961021f4ac3e50317d8bcd002a027e9aaecce5195ad6f70dde82d337816c"
   },
   "frozen_before_development_responses": true,

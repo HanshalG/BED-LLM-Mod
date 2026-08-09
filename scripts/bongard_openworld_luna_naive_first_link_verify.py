@@ -22,7 +22,7 @@ MANIFEST = REPO_ROOT / (
     "PROTOCOL_MANIFEST_V8.json"
 )
 MANIFEST_SHA256 = (
-    "25db6fd3241d8ffaa4989ffaadfe6bb2bec111d7f1e3d6936dd9e39fd333d454"
+    "931e80bb5793f4e3546abc642cd04d46b28474a5bd3493019b155dbfd157241c"
 )
 MAIN_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
