@@ -126,6 +126,40 @@ def _random_result(
     }
 
 
+def _mediation_result(
+    *, stage: str = "development", mean_brier: float = -0.05
+) -> dict:
+    return {
+        "status": "path_mediation_complete",
+        "stage": stage,
+        "stage_result_sha256": "synthetic-stage-sha256",
+        "task_count": 2,
+        "summary": {
+            "second_action_changed": 2,
+            "robust_second_action_changed": 1,
+            "both_supports_robustly_prefer_own_action": 1,
+            "mean_rule_jaccard": 0.25,
+            "mean_candidate_predictive_probability_mae": 0.12,
+            "mean_endpoint_predictive_probability_mae": 0.08,
+            "mean_second_query_score_spearman": 0.40,
+            "endpoint_shift_vs_realized_brier_benefit_spearman": 0.55,
+            "dynamic_action_gap_vs_realized_brier_benefit_spearman": 0.35,
+        },
+        "endpoint_effects": {
+            "all_tasks": {
+                "dynamic_minus_history_blind_brier": _compute_summary(
+                    mean_brier
+                ),
+                "dynamic_minus_history_blind_log_loss": _compute_summary(-0.04),
+            }
+        },
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_claim_tier": False,
+    }
+
+
 def test_classical_tex_reports_both_encoders_and_luna_comparisons() -> None:
     tex = "\n".join(paper.classical_tex_lines(_result()))
     assert "DINOv2-small" in tex
@@ -149,13 +183,13 @@ def test_compute_matched_tex_reports_strict_shuffled_comparison() -> None:
     lines, metadata = paper.compute_matched_tex_lines(_compute_result())
     tex = "\n".join(lines)
     assert "Compute-matched shuffled continuation" in tex
-    assert "root scores and continuation-value multiset" in tex
+    assert "root scores and the continuation-value multiset" in tex
     assert "-0.0300" in tex
     assert "-0.0200" in tex
-    assert "1/2 tasks" in tex
+    assert "1/2" in tex
     assert "2/2" in tex
-    assert "negative differences favor dynamic" in tex
-    assert "descriptive and cannot alter" in tex
+    assert "Negative favors dynamic" in tex
+    assert "descriptive and non-gating" in tex
     assert metadata["strict_compute_matched_control"] == (
         "shuffled_dynamic_depth2"
     )
@@ -208,8 +242,8 @@ def test_random_strategy_tex_reports_every_direction(mean_brier: float) -> None:
     assert "Frozen random-strategy sanity baseline" in tex
     assert f"{mean_brier:.4f}" in tex
     expected_counts = "2/0/0" if mean_brier < 0 else "0/0/2"
-    assert f"{expected_counts} wins/ties/losses" in tex
-    assert "1/2 tasks" in tex
+    assert f"{expected_counts} W/T/L" in tex
+    assert "1/2" in tex
     assert "2/2" in tex
     assert "not compute matched" in tex
     assert metadata["compute_matched"] is False
@@ -242,6 +276,56 @@ def test_random_strategy_tex_rejects_tamper(
         result["first_query_changes"] = 3
     with pytest.raises(ValueError, match=message):
         paper.random_strategy_tex_lines(result)
+
+
+@pytest.mark.parametrize("mean_brier", [-0.05, 0.05])
+def test_path_mediation_tex_reports_every_direction(mean_brier: float) -> None:
+    lines, metadata = paper.path_mediation_tex_lines(
+        _mediation_result(mean_brier=mean_brier)
+    )
+    tex = "\n".join(lines)
+    assert "Replayed belief-to-action mediation" in tex
+    assert f"{mean_brier:.4f}" in tex
+    assert "rule Jaccard 0.2500" in tex
+    assert "2/1/1 of 2" in tex
+    assert "descriptive" in tex
+    assert metadata["second_action_changed"] == 2
+    assert metadata["changes_claim_tier"] is False
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("status", "complete path-mediation audit"),
+        ("calls", "complete path-mediation audit"),
+        ("count", "summary is invalid"),
+        ("finite", "summary is invalid"),
+        ("effect_n", "invalid all-task effect"),
+        ("effect_counts", "invalid all-task effect"),
+    ],
+)
+def test_path_mediation_tex_rejects_tamper(
+    mutation: str, message: str
+) -> None:
+    result = deepcopy(_mediation_result())
+    if mutation == "status":
+        result["status"] = "incomplete"
+    elif mutation == "calls":
+        result["model_calls"] = 1
+    elif mutation == "count":
+        result["summary"]["robust_second_action_changed"] = 3
+    elif mutation == "finite":
+        result["summary"]["mean_rule_jaccard"] = float("nan")
+    elif mutation == "effect_n":
+        result["endpoint_effects"]["all_tasks"][
+            "dynamic_minus_history_blind_brier"
+        ]["n"] = 1
+    else:
+        result["endpoint_effects"]["all_tasks"][
+            "dynamic_minus_history_blind_brier"
+        ]["wins"] = 3
+    with pytest.raises(ValueError, match=message):
+        paper.path_mediation_tex_lines(result)
 
 
 def test_classical_claim_scope_requires_both_challengers() -> None:
@@ -311,6 +395,26 @@ def test_random_strategy_replay_rejects_saved_mismatch(
         )
 
 
+def test_path_mediation_replay_rejects_saved_mismatch(
+    tmp_path: Path, monkeypatch
+) -> None:
+    saved = tmp_path / "MEDIATION.json"
+    saved.write_text(json.dumps({"status": "saved"}), encoding="utf-8")
+    monkeypatch.setattr(
+        paper.path_mediation,
+        "run_report",
+        lambda **kwargs: {"status": "independent-replay"},
+    )
+    with pytest.raises(ValueError, match="does not independently replay"):
+        paper.replay_path_mediation(
+            stage="development",
+            saved_path=saved,
+            result_path=tmp_path / "COMBINED.json",
+            block_results=[],
+            output_path=tmp_path / "REPLAY.json",
+        )
+
+
 @pytest.mark.skipif(
     shutil.which("pdflatex") is None,
     reason="LaTeX toolchain is unavailable",
@@ -325,6 +429,8 @@ def test_classical_tex_compiles(tmp_path: Path) -> None:
         + "\n".join(paper.compute_matched_tex_lines(_compute_result())[0])
         + "\n"
         + "\n".join(paper.random_strategy_tex_lines(_random_result())[0])
+        + "\n"
+        + "\n".join(paper.path_mediation_tex_lines(_mediation_result())[0])
         + "\n\\end{document}\n",
         encoding="utf-8",
     )
@@ -382,15 +488,22 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         "replay_random_strategy_audit",
         lambda **kwargs: _random_result(stage=kwargs["stage"]),
     )
+    monkeypatch.setattr(
+        paper,
+        "replay_path_mediation",
+        lambda **kwargs: _mediation_result(stage=kwargs["stage"]),
+    )
     output = tmp_path / "generated/bongard_openworld_result.tex"
     suite = tmp_path / "CLASSICAL_SUITE_RESULT.json"
     combined = tmp_path / "COMBINED_RESULT.json"
     compute = tmp_path / "COMPUTE_MATCHED_AUDIT.json"
     random_audit = tmp_path / "RANDOM_STRATEGY_AUDIT.json"
+    mediation = tmp_path / "PATH_MEDIATION.json"
     suite.write_text("{}", encoding="utf-8")
     combined.write_text("{}", encoding="utf-8")
     compute.write_text("{}", encoding="utf-8")
     random_audit.write_text("{}", encoding="utf-8")
+    mediation.write_text("{}", encoding="utf-8")
     with pytest.raises(ValueError, match="classical, compute-matched"):
         paper.write_combined_fragment(
             stage="development",
@@ -398,6 +511,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=suite,
             compute_audit_path=None,
             random_audit_path=random_audit,
+            mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
             combined_result=combined,
             block_results=[],
@@ -417,6 +531,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=suite,
             compute_audit_path=compute,
             random_audit_path=random_audit,
+            mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
             combined_result=combined,
             block_results=[],
@@ -441,6 +556,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=suite,
             compute_audit_path=compute,
             random_audit_path=random_audit,
+            mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
             combined_result=combined,
             block_results=[],
@@ -450,12 +566,38 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         "replay_random_strategy_audit",
         lambda **kwargs: _random_result(stage=kwargs["stage"]),
     )
+    monkeypatch.setattr(
+        paper,
+        "replay_path_mediation",
+        lambda **kwargs: {
+            **_mediation_result(stage=kwargs["stage"]),
+            "stage_result_sha256": "wrong-stage-result",
+        },
+    )
+    with pytest.raises(ValueError, match="path-mediation report does not match"):
+        paper.write_combined_fragment(
+            stage="development",
+            output=output,
+            classical_suite_path=suite,
+            compute_audit_path=compute,
+            random_audit_path=random_audit,
+            mediation_path=mediation,
+            claim_report_path=tmp_path / "CLAIM.json",
+            combined_result=combined,
+            block_results=[],
+        )
+    monkeypatch.setattr(
+        paper,
+        "replay_path_mediation",
+        lambda **kwargs: _mediation_result(stage=kwargs["stage"]),
+    )
     result = paper.write_combined_fragment(
         stage="development",
         output=output,
         classical_suite_path=suite,
         compute_audit_path=compute,
         random_audit_path=random_audit,
+        mediation_path=mediation,
         claim_report_path=tmp_path / "CLAIM.json",
         combined_result=combined,
         block_results=[tmp_path / f"block-{index}.json" for index in range(4)],
@@ -466,11 +608,12 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
     assert "SigLIP2-So400m" in tex
     assert "Compute-matched shuffled continuation" in tex
     assert "Frozen random-strategy sanity baseline" in tex
+    assert "Replayed belief-to-action mediation" in tex
     assert output.with_name(
         paper.luna_fragment.HEADLINE_FILENAME
     ).read_text(encoding="utf-8") == "ORIGINAL HEADLINE\n"
     assert result["status"] == (
-        "written_with_mandatory_classical_compute_and_random_suites"
+        "written_with_mandatory_classical_compute_random_and_mediation_suites"
     )
     assert result["claim_tier"] == "development_null"
     with pytest.raises(
@@ -482,6 +625,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=None,
             compute_audit_path=compute,
             random_audit_path=None,
+            mediation_path=None,
             failure_path=tmp_path / "FAILURE.json",
         )
     with pytest.raises(
@@ -493,6 +637,19 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=None,
             compute_audit_path=None,
             random_audit_path=random_audit,
+            mediation_path=None,
+            failure_path=tmp_path / "FAILURE.json",
+        )
+    with pytest.raises(
+        ValueError, match="mechanics failure cannot have a path-mediation"
+    ):
+        paper.write_combined_fragment(
+            stage="confirmation-mechanics-failure",
+            output=tmp_path / "generated/mechanics-failure-mediation.tex",
+            classical_suite_path=None,
+            compute_audit_path=None,
+            random_audit_path=None,
+            mediation_path=mediation,
             failure_path=tmp_path / "FAILURE.json",
         )
 
@@ -564,21 +721,29 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
         "replay_random_strategy_audit",
         lambda **kwargs: _random_result(stage=kwargs["stage"]),
     )
+    monkeypatch.setattr(
+        paper,
+        "replay_path_mediation",
+        lambda **kwargs: _mediation_result(stage=kwargs["stage"]),
+    )
     output = tmp_path / "generated/bongard_openworld_result.tex"
     suite = tmp_path / "CLASSICAL_SUITE_RESULT.json"
     combined = tmp_path / "COMBINED_RESULT.json"
     compute = tmp_path / "COMPUTE_MATCHED_AUDIT.json"
     random_audit = tmp_path / "RANDOM_STRATEGY_AUDIT.json"
+    mediation = tmp_path / "PATH_MEDIATION.json"
     suite.write_text("{}", encoding="utf-8")
     combined.write_text("{}", encoding="utf-8")
     compute.write_text("{}", encoding="utf-8")
     random_audit.write_text("{}", encoding="utf-8")
+    mediation.write_text("{}", encoding="utf-8")
     paper.write_combined_fragment(
         stage="confirmation",
         output=output,
         classical_suite_path=suite,
         compute_audit_path=compute,
         random_audit_path=random_audit,
+        mediation_path=mediation,
         combined_result=combined,
         block_results=[tmp_path / f"block-{index}.json" for index in range(4)],
     )
@@ -596,3 +761,6 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
     assert metadata["random_strategy_audit"]["summary"][
         "compute_matched"
     ] is False
+    assert metadata["path_mediation"]["summary"][
+        "second_action_changed"
+    ] == 2

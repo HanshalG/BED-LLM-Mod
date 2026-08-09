@@ -4,6 +4,18 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Make the central Bongard mechanism impossible to omit from the
+paper before responses. Path mediation already replays answer-conditioned vs
+same-seed blind intermediate beliefs after the same first query/answer,score
+maps,second actions,and common-terminal endpoint effects,but V4 did not require
+it. Mandatory V5 now binds protocol+implementation,independently replays the
+saved stage report,requires stage-result identity,and reports rule/predictive/
+score divergence,changed/robust actions,all-task Brier CI,and two descriptive
+associations regardless of direction. It remains descriptive/non-gating. Dense
+metric-first control typography keeps pass/null papers6 pages. Amendment1902eff1,
+wrapperfe5bb4c9,wrapper-testac2efd23,page-testbe98cffc,readiness-testaf6c25d8;
+focused65/65,full266/266;calls/cost/endpoints0,paid chain unchanged.
+
 2026-08-09: Close the last direction-dependent Bongard paper omission before
 responses. The paid tree already executes random and the frozen audit replays it,
 but mandatory wrapper V3 did not require/render that artifact. Prospective V4 now

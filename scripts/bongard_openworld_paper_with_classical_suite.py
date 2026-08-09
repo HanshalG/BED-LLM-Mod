@@ -22,11 +22,12 @@ from scripts import bongard_openworld_luna_confirmation64_daily_execute as confi
 from scripts import bongard_openworld_luna_development32_daily_execute as development_daily
 from scripts import bongard_openworld_luna_paper_fragment as luna_fragment
 from scripts import bongard_openworld_luna_vlm_development as development
+from scripts import bongard_openworld_path_mediation as path_mediation
 from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-4"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-5"
 LUNA_RENDERER_SHA256 = (
     "9cf6dc0e187330de7592a5d72ec2abeb465dc0a195a2d865ce69f8ca66497c53"
 )
@@ -38,6 +39,15 @@ COMPUTE_MATCHED_CONTROL_SHA256 = (
 )
 RANDOM_STRATEGY_CONTROL_SHA256 = (
     "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441"
+)
+PATH_MEDIATION_SHA256 = (
+    "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912"
+)
+PATH_MEDIATION_PROTOCOL = REPO_ROOT / (
+    "results/nonmyopic/BONGARD_OPENWORLD_PATH_MEDIATION_PROTOCOL_20260809.md"
+)
+PATH_MEDIATION_PROTOCOL_SHA256 = (
+    "db9e4d53d2fb36856625b0e6d12b152a0a58d4fe460c0290903b70cbbc594d1d"
 )
 COMPUTE_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -52,6 +62,13 @@ RANDOM_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
 )
 RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256 = (
     "56d310e8e19a22e9613f57618c6bcaf8ebdc6c1862d25dd4c9b49ad5d3b70961"
+)
+MEDIATION_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_PATH_MEDIATION_PAPER_HANDOFF_AMENDMENT_20260809.md"
+)
+MEDIATION_PAPER_HANDOFF_AMENDMENT_SHA256 = (
+    "1902eff1a655bb1a8456e9c9d14e3d1bdf7adbcf76865686bef1263b1188d36b"
 )
 DEFAULT_OUTPUT = luna_fragment.DEFAULT_OUTPUT
 
@@ -73,6 +90,12 @@ def _number(value: Any, digits: int = 4) -> str:
     return f"{float(value):.{digits}f}"
 
 
+def control_addendum_tex_lines(lines: Sequence[str]) -> list[str]:
+    if not lines:
+        raise ValueError("Bongard paper control addendum is empty")
+    return ["{\\fontsize{8}{8.3}\\selectfont", *lines, "}"]
+
+
 def verify_bound_implementations() -> dict[str, str]:
     observed = {
         "luna_renderer": suite_outcome.siglip.sha256_file(
@@ -87,11 +110,20 @@ def verify_bound_implementations() -> dict[str, str]:
         "random_strategy_control": suite_outcome.siglip.sha256_file(
             REPO_ROOT / "scripts/bongard_openworld_random_strategy_control.py"
         ),
+        "path_mediation": suite_outcome.siglip.sha256_file(
+            REPO_ROOT / "scripts/bongard_openworld_path_mediation.py"
+        ),
+        "path_mediation_protocol": suite_outcome.siglip.sha256_file(
+            PATH_MEDIATION_PROTOCOL
+        ),
         "compute_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
             COMPUTE_PAPER_HANDOFF_AMENDMENT
         ),
         "random_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
             RANDOM_PAPER_HANDOFF_AMENDMENT
+        ),
+        "mediation_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
+            MEDIATION_PAPER_HANDOFF_AMENDMENT
         ),
     }
     expected = {
@@ -99,10 +131,15 @@ def verify_bound_implementations() -> dict[str, str]:
         "classical_suite_outcome": CLASSICAL_SUITE_OUTCOME_SHA256,
         "compute_matched_control": COMPUTE_MATCHED_CONTROL_SHA256,
         "random_strategy_control": RANDOM_STRATEGY_CONTROL_SHA256,
+        "path_mediation": PATH_MEDIATION_SHA256,
+        "path_mediation_protocol": PATH_MEDIATION_PROTOCOL_SHA256,
         "compute_paper_handoff_amendment": (
             COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256
         ),
         "random_paper_handoff_amendment": RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256,
+        "mediation_paper_handoff_amendment": (
+            MEDIATION_PAPER_HANDOFF_AMENDMENT_SHA256
+        ),
     }
     if observed != expected:
         raise ValueError(
@@ -291,19 +328,15 @@ def compute_matched_tex_lines(
     lines = [
         "\\paragraph{Compute-matched shuffled continuation.}",
         (
-            "The strict branch-bank-compute-matched control preserved the root "
-            "scores and continuation-value multiset but permuted candidate-to-"
-            "continuation assignment. Dynamic depth two minus shuffled depth two "
-            f"was {_number(brier['mean_difference'])} in endpoint Brier (95\\% "
-            f"bootstrap CI $[{_number(brier['ci95'][0])},"
-            f"{_number(brier['ci95'][1])}]$) and "
-            f"{_number(log_loss['mean_difference'])} in log loss (95\\% "
-            f"bootstrap CI $[{_number(log_loss['ci95'][0])},"
-            f"{_number(log_loss['ci95'][1])}]$). The first query changed on "
-            f"{first_changes}/{task_count} tasks and the final history on "
-            f"{history_changes}/{task_count}; negative differences favor dynamic "
-            "depth two. This all-task comparison is descriptive and cannot alter "
-            "the preregistered claim tier."
+            "The strict branch-bank-compute-matched shuffle preserved root scores "
+            "and the continuation-value multiset. Dynamic minus shuffled was "
+            f"{_number(brier['mean_difference'])} Brier (95\\% CI "
+            f"$[{_number(brier['ci95'][0])},{_number(brier['ci95'][1])}]$) and "
+            f"{_number(log_loss['mean_difference'])} log loss (95\\% CI "
+            f"$[{_number(log_loss['ci95'][0])},{_number(log_loss['ci95'][1])}]$); "
+            f"first query/final history changed on {first_changes}/{task_count} "
+            f"and {history_changes}/{task_count}. Negative favors dynamic; this "
+            "all-task audit is descriptive and non-gating."
         ),
     ]
     metadata = {
@@ -412,18 +445,15 @@ def random_strategy_tex_lines(
     lines = [
         "\\paragraph{Frozen random-strategy sanity baseline.}",
         (
-            "Dynamic depth two minus the task-hashed random two-query policy "
-            f"was {_number(brier['mean_difference'])} in endpoint Brier (95\\% "
-            f"bootstrap CI $[{_number(brier['ci95'][0])},"
-            f"{_number(brier['ci95'][1])}]$; "
-            f"{brier['wins']}/{brier['ties']}/{brier['losses']} wins/ties/losses) "
-            f"and {_number(log_loss['mean_difference'])} in log loss (95\\% "
-            f"bootstrap CI $[{_number(log_loss['ci95'][0])},"
-            f"{_number(log_loss['ci95'][1])}]$). The first query changed on "
-            f"{first_changes}/{task_count} tasks and the final history on "
-            f"{history_changes}/{task_count}; negative differences favor dynamic "
-            "depth two. Random is a descriptive sanity baseline, is not compute "
-            "matched, and cannot alter the preregistered claim tier."
+            "Dynamic minus task-hashed random was "
+            f"{_number(brier['mean_difference'])} Brier (95\\% CI "
+            f"$[{_number(brier['ci95'][0])},{_number(brier['ci95'][1])}]$; "
+            f"{brier['wins']}/{brier['ties']}/{brier['losses']} W/T/L) and "
+            f"{_number(log_loss['mean_difference'])} log loss (95\\% CI "
+            f"$[{_number(log_loss['ci95'][0])},{_number(log_loss['ci95'][1])}]$); "
+            f"first query/final history changed on {first_changes}/{task_count} "
+            f"and {history_changes}/{task_count}. Negative favors dynamic. Random "
+            "is descriptive, non-gating, and not compute matched."
         ),
     ]
     metadata = {
@@ -435,6 +465,156 @@ def random_strategy_tex_lines(
         "changes_claim_tier": False,
         "authorizes_paid_calls": False,
         "compute_matched": False,
+    }
+    return lines, metadata
+
+
+def _validated_mediation_effect(
+    effect: Mapping[str, Any], *, task_count: int
+) -> dict[str, Any]:
+    values = {
+        name: effect.get(name)
+        for name in (
+            "mean_difference",
+            "sample_sd",
+            "bootstrap_probability_improvement",
+        )
+    }
+    interval = effect.get("ci95")
+    counts = [effect.get(name) for name in ("wins", "ties", "losses")]
+    if (
+        effect.get("n") != task_count
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in values.values()
+        )
+        or not 0.0 <= float(values["bootstrap_probability_improvement"]) <= 1.0
+        or not isinstance(interval, Sequence)
+        or isinstance(interval, (str, bytes))
+        or len(interval) != 2
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in interval
+        )
+        or float(interval[0]) > float(interval[1])
+        or not all(isinstance(value, int) and value >= 0 for value in counts)
+        or sum(counts) != task_count
+    ):
+        raise ValueError("path-mediation paper input has invalid all-task effect")
+    return {
+        "n": task_count,
+        "mean_difference": float(values["mean_difference"]),
+        "sample_sd": float(values["sample_sd"]),
+        "ci95": [float(interval[0]), float(interval[1])],
+        "bootstrap_probability_improvement": float(
+            values["bootstrap_probability_improvement"]
+        ),
+        "wins": int(counts[0]),
+        "ties": int(counts[1]),
+        "losses": int(counts[2]),
+    }
+
+
+def path_mediation_tex_lines(
+    result: Mapping[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    task_count = result.get("task_count")
+    if (
+        result.get("status") != "path_mediation_complete"
+        or not isinstance(task_count, int)
+        or task_count <= 0
+        or result.get("model_calls") != 0
+        or result.get("cost_usd") != 0.0
+        or result.get("authorizes_paid_calls") is not False
+        or result.get("changes_claim_tier") is not False
+    ):
+        raise ValueError("paper input is not the complete path-mediation audit")
+    summary = result.get("summary")
+    endpoint_effects = result.get("endpoint_effects")
+    if not isinstance(summary, Mapping) or not isinstance(
+        endpoint_effects, Mapping
+    ):
+        raise ValueError("path-mediation paper summaries are missing")
+    count_names = (
+        "second_action_changed",
+        "robust_second_action_changed",
+        "both_supports_robustly_prefer_own_action",
+    )
+    counts = {name: summary.get(name) for name in count_names}
+    metric_names = (
+        "mean_rule_jaccard",
+        "mean_candidate_predictive_probability_mae",
+        "mean_endpoint_predictive_probability_mae",
+        "mean_second_query_score_spearman",
+        "endpoint_shift_vs_realized_brier_benefit_spearman",
+        "dynamic_action_gap_vs_realized_brier_benefit_spearman",
+    )
+    metrics = {name: summary.get(name) for name in metric_names}
+    if (
+        not all(
+            isinstance(value, int) and 0 <= value <= task_count
+            for value in counts.values()
+        )
+        or counts["robust_second_action_changed"]
+        > counts["second_action_changed"]
+        or counts["both_supports_robustly_prefer_own_action"]
+        > counts["second_action_changed"]
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in metrics.values()
+        )
+        or not 0.0 <= float(metrics["mean_rule_jaccard"]) <= 1.0
+        or float(metrics["mean_candidate_predictive_probability_mae"]) < 0.0
+        or float(metrics["mean_endpoint_predictive_probability_mae"]) < 0.0
+        or not -1.0 <= float(metrics["mean_second_query_score_spearman"]) <= 1.0
+        or not -1.0
+        <= float(metrics["endpoint_shift_vs_realized_brier_benefit_spearman"])
+        <= 1.0
+        or not -1.0
+        <= float(metrics["dynamic_action_gap_vs_realized_brier_benefit_spearman"])
+        <= 1.0
+    ):
+        raise ValueError("path-mediation paper summary is invalid")
+    all_tasks = endpoint_effects.get("all_tasks")
+    if not isinstance(all_tasks, Mapping):
+        raise ValueError("path-mediation all-task endpoint effects are missing")
+    brier_raw = all_tasks.get("dynamic_minus_history_blind_brier")
+    if not isinstance(brier_raw, Mapping):
+        raise ValueError("path-mediation all-task Brier effect is missing")
+    brier = _validated_mediation_effect(brier_raw, task_count=task_count)
+    lines = [
+        "\\paragraph{Replayed belief-to-action mediation.}",
+        (
+            "After the same first query/answer, dynamic versus same-seed blind "
+            f"beliefs had rule Jaccard {_number(metrics['mean_rule_jaccard'])}, "
+            f"candidate/endpoint predictive MAE "
+            f"{_number(metrics['mean_candidate_predictive_probability_mae'])}/"
+            f"{_number(metrics['mean_endpoint_predictive_probability_mae'])}, and "
+            f"score Spearman {_number(metrics['mean_second_query_score_spearman'], 3)}. "
+            f"Second actions changed/robustly changed/mutually robust on "
+            f"{counts['second_action_changed']}/{counts['robust_second_action_changed']}/"
+            f"{counts['both_supports_robustly_prefer_own_action']} of {task_count}. "
+            f"Dynamic minus matched-blind Brier was {_number(brier['mean_difference'])} "
+            f"(95\\% CI $[{_number(brier['ci95'][0])},{_number(brier['ci95'][1])}]$); "
+            "endpoint-shift/action-gap correlations with realized benefit were "
+            f"{_number(metrics['endpoint_shift_vs_realized_brier_benefit_spearman'], 3)}/"
+            f"{_number(metrics['dynamic_action_gap_vs_realized_brier_benefit_spearman'], 3)}. "
+            "Associations are descriptive and non-gating."
+        ),
+    ]
+    metadata = {
+        "task_count": task_count,
+        **{name: int(value) for name, value in counts.items()},
+        **{name: float(value) for name, value in metrics.items()},
+        "all_task_dynamic_minus_history_blind_brier": brier,
+        "changes_claim_tier": False,
+        "authorizes_paid_calls": False,
     }
     return lines, metadata
 
@@ -648,6 +828,27 @@ def replay_random_strategy_audit(
     return replay
 
 
+def replay_path_mediation(
+    *,
+    stage: str,
+    saved_path: Path,
+    result_path: Path,
+    block_results: Sequence[Path],
+    output_path: Path,
+) -> dict[str, Any]:
+    replay = path_mediation.run_report(
+        stage=stage,
+        result_path=result_path,
+        output_path=output_path,
+        block_results=block_results,
+        wrapper_result=None,
+    )
+    saved = _load(saved_path)
+    if _canonical(saved) != _canonical(replay):
+        raise ValueError("saved path-mediation report does not independently replay")
+    return replay
+
+
 def write_combined_fragment(
     *,
     stage: str,
@@ -655,6 +856,7 @@ def write_combined_fragment(
     classical_suite_path: Path | None,
     compute_audit_path: Path | None,
     random_audit_path: Path | None,
+    mediation_path: Path | None,
     claim_report_path: Path | None = None,
     combined_result: Path | None = None,
     block_results: Sequence[Path] = (),
@@ -693,6 +895,10 @@ def write_combined_fragment(
                 raise ValueError(
                     "mechanics failure cannot have a random-strategy endpoint audit"
                 )
+            if mediation_path is not None:
+                raise ValueError(
+                    "mechanics failure cannot have a path-mediation endpoint report"
+                )
             addendum = [
                 "\\paragraph{Frozen classical vision comparators.}",
                 "No DINO or SigLIP endpoint comparison is rendered because no replay-verified combined endpoint result exists.",
@@ -700,17 +906,19 @@ def write_combined_fragment(
             suite_metadata = None
             compute_metadata = None
             random_metadata = None
+            mediation_metadata = None
             claim_scope = None
         else:
             if (
                 classical_suite_path is None
                 or compute_audit_path is None
                 or random_audit_path is None
+                or mediation_path is None
                 or combined_result is None
             ):
                 raise ValueError(
                     "endpoint result rendering requires the frozen classical, "
-                    "compute-matched, and random-strategy suites"
+                    "compute-matched, random-strategy, and path-mediation suites"
                 )
             replay = replay_classical_suite(
                 stage=stage,
@@ -784,8 +992,41 @@ def write_combined_fragment(
                 "status": random_replay["status"],
                 "summary": random_summary,
             }
+            mediation_replay = replay_path_mediation(
+                stage=stage,
+                saved_path=mediation_path,
+                result_path=combined_result,
+                block_results=block_results,
+                output_path=temporary / "PATH_MEDIATION_REPLAY.json",
+            )
+            if (
+                mediation_replay.get("stage") != stage
+                or mediation_replay.get("stage_result_sha256")
+                != replay.get("stage_result_sha256")
+            ):
+                raise ValueError(
+                    "path-mediation report does not match the rendered stage result"
+                )
+            mediation_lines, mediation_summary = path_mediation_tex_lines(
+                mediation_replay
+            )
+            addendum.extend(mediation_lines)
+            mediation_metadata = {
+                "outcome_sha256": suite_outcome.siglip.sha256_file(
+                    mediation_path
+                ),
+                "stage_result_sha256": mediation_replay["stage_result_sha256"],
+                "status": mediation_replay["status"],
+                "summary": mediation_summary,
+            }
 
-        combined_tex = original_tex.rstrip() + "\n\n" + "\n".join(addendum) + "\n"
+        formatted_addendum = control_addendum_tex_lines(addendum)
+        combined_tex = (
+            original_tex.rstrip()
+            + "\n\n"
+            + "\n".join(formatted_addendum)
+            + "\n"
+        )
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(combined_tex, encoding="utf-8")
         headline_path = output.with_name(luna_fragment.HEADLINE_FILENAME)
@@ -807,6 +1048,7 @@ def write_combined_fragment(
             "classical_claim_scope": claim_scope,
             "compute_matched_audit": compute_metadata,
             "random_strategy_audit": random_metadata,
+            "path_mediation": mediation_metadata,
             "tex_sha256": suite_outcome.siglip.sha256_file(output),
             "headline_tex_sha256": suite_outcome.siglip.sha256_file(
                 headline_path
@@ -821,7 +1063,7 @@ def write_combined_fragment(
         )
     return {
         "status": (
-            "written_with_mandatory_classical_compute_and_random_suites"
+            "written_with_mandatory_classical_compute_random_and_mediation_suites"
         ),
         "stage": stage,
         "claim_tier": metadata["claim_tier"],
@@ -846,6 +1088,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--classical-suite", type=Path)
     parser.add_argument("--compute-matched-audit", type=Path)
     parser.add_argument("--random-strategy-audit", type=Path)
+    parser.add_argument("--path-mediation", type=Path)
     parser.add_argument("--claim-report", type=Path)
     parser.add_argument("--combined-result", type=Path)
     parser.add_argument("--block-result", type=Path, action="append", default=[])
@@ -882,6 +1125,7 @@ def main() -> None:
         classical_suite_path=args.classical_suite,
         compute_audit_path=args.compute_matched_audit,
         random_audit_path=args.random_strategy_audit,
+        mediation_path=args.path_mediation,
         claim_report_path=claim,
         combined_result=combined,
         block_results=blocks,

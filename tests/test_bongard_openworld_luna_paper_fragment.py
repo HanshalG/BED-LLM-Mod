@@ -138,6 +138,36 @@ def _paper_random_result(n: int) -> dict:
     }
 
 
+def _paper_mediation_result(n: int) -> dict:
+    effect = _paper_compute_result(n)["comparisons"][
+        "shuffled_dynamic_depth2"
+    ]["mean_brier"]
+    return {
+        "status": "path_mediation_complete",
+        "task_count": n,
+        "summary": {
+            "second_action_changed": n // 2,
+            "robust_second_action_changed": n // 3,
+            "both_supports_robustly_prefer_own_action": n // 4,
+            "mean_rule_jaccard": 0.25,
+            "mean_candidate_predictive_probability_mae": 0.12,
+            "mean_endpoint_predictive_probability_mae": 0.08,
+            "mean_second_query_score_spearman": 0.40,
+            "endpoint_shift_vs_realized_brier_benefit_spearman": 0.55,
+            "dynamic_action_gap_vs_realized_brier_benefit_spearman": 0.35,
+        },
+        "endpoint_effects": {
+            "all_tasks": {
+                "dynamic_minus_history_blind_brier": effect,
+            }
+        },
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_claim_tier": False,
+    }
+
+
 def _metrics(n: int) -> dict:
     summary = _summary(n)
     return {
@@ -597,10 +627,17 @@ def test_confirmation_fragment_compiles_within_page_budget(
     random_control = suite_paper.random_strategy_tex_lines(
         _paper_random_result(fragment.confirmation.TASKS)
     )[0]
+    mediation = suite_paper.path_mediation_tex_lines(
+        _paper_mediation_result(fragment.confirmation.TASKS)
+    )[0]
     output.write_text(
         output.read_text(encoding="utf-8").rstrip()
         + "\n\n"
-        + "\n".join([*classical, *compute, *random_control])
+        + "\n".join(
+            suite_paper.control_addendum_tex_lines(
+                [*classical, *compute, *random_control, *mediation]
+            )
+        )
         + "\n",
         encoding="utf-8",
     )
