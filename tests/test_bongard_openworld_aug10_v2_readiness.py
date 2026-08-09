@@ -23,6 +23,13 @@ CLOSEST_PRIOR_AMENDMENT = REPO_ROOT / (
 CLOSEST_PRIOR_AMENDMENT_SHA256 = (
     "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647"
 )
+RANDOM_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_RANDOM_STRATEGY_PAPER_HANDOFF_AMENDMENT_20260809.md"
+)
+RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256 = (
+    "56d310e8e19a22e9613f57618c6bcaf8ebdc6c1862d25dd4c9b49ad5d3b70961"
+)
 PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
 
 
@@ -48,6 +55,9 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
         if name not in PAPER_ONLY_BINDINGS:
             assert _sha256(path) == record["sha256"]
     assert _sha256(CLOSEST_PRIOR_AMENDMENT) == CLOSEST_PRIOR_AMENDMENT_SHA256
+    assert _sha256(RANDOM_PAPER_HANDOFF_AMENDMENT) == (
+        RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256
+    )
 
 
 def test_aug10_v2_readiness_supersedes_only_stale_downstream_fields() -> None:

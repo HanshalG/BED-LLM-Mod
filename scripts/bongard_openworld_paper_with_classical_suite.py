@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Bongard paper fragment with mandatory DINO and SigLIP controls."""
+"""Render Bongard results with mandatory classical, compute, and random controls."""
 
 from __future__ import annotations
 
@@ -22,10 +22,11 @@ from scripts import bongard_openworld_luna_confirmation64_daily_execute as confi
 from scripts import bongard_openworld_luna_development32_daily_execute as development_daily
 from scripts import bongard_openworld_luna_paper_fragment as luna_fragment
 from scripts import bongard_openworld_luna_vlm_development as development
+from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-3"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-4"
 LUNA_RENDERER_SHA256 = (
     "9cf6dc0e187330de7592a5d72ec2abeb465dc0a195a2d865ce69f8ca66497c53"
 )
@@ -35,12 +36,22 @@ CLASSICAL_SUITE_OUTCOME_SHA256 = (
 COMPUTE_MATCHED_CONTROL_SHA256 = (
     "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba"
 )
+RANDOM_STRATEGY_CONTROL_SHA256 = (
+    "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441"
+)
 COMPUTE_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_COMPUTE_MATCHED_PAPER_HANDOFF_AMENDMENT_20260809.md"
 )
 COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256 = (
     "a1a08f899266dc8a0fbab40c741e83306eaf69307be34b210a517d16d2521f79"
+)
+RANDOM_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_RANDOM_STRATEGY_PAPER_HANDOFF_AMENDMENT_20260809.md"
+)
+RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256 = (
+    "56d310e8e19a22e9613f57618c6bcaf8ebdc6c1862d25dd4c9b49ad5d3b70961"
 )
 DEFAULT_OUTPUT = luna_fragment.DEFAULT_OUTPUT
 
@@ -73,17 +84,25 @@ def verify_bound_implementations() -> dict[str, str]:
         "compute_matched_control": suite_outcome.siglip.sha256_file(
             REPO_ROOT / "scripts/bongard_openworld_compute_matched_control.py"
         ),
+        "random_strategy_control": suite_outcome.siglip.sha256_file(
+            REPO_ROOT / "scripts/bongard_openworld_random_strategy_control.py"
+        ),
         "compute_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
             COMPUTE_PAPER_HANDOFF_AMENDMENT
+        ),
+        "random_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
+            RANDOM_PAPER_HANDOFF_AMENDMENT
         ),
     }
     expected = {
         "luna_renderer": LUNA_RENDERER_SHA256,
         "classical_suite_outcome": CLASSICAL_SUITE_OUTCOME_SHA256,
         "compute_matched_control": COMPUTE_MATCHED_CONTROL_SHA256,
+        "random_strategy_control": RANDOM_STRATEGY_CONTROL_SHA256,
         "compute_paper_handoff_amendment": (
             COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256
         ),
+        "random_paper_handoff_amendment": RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256,
     }
     if observed != expected:
         raise ValueError(
@@ -300,6 +319,126 @@ def compute_matched_tex_lines(
     return lines, metadata
 
 
+def _validated_random_summary(
+    comparisons: Mapping[str, Any], metric: str, *, task_count: int
+) -> dict[str, Any]:
+    summary = comparisons.get(metric)
+    if not isinstance(summary, Mapping):
+        raise ValueError(f"random-strategy paper input lacks {metric}")
+    values = {
+        name: summary.get(name)
+        for name in ("mean_difference", "sample_sd", "standard_error")
+    }
+    interval = summary.get("ci95")
+    counts = [summary.get(name) for name in ("wins", "ties", "losses")]
+    if (
+        summary.get("n") != task_count
+        or summary.get("bootstrap_draws") != 20_000
+        or summary.get("negative_favors") != "dynamic_depth2"
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in values.values()
+        )
+        or not isinstance(interval, Sequence)
+        or isinstance(interval, (str, bytes))
+        or len(interval) != 2
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in interval
+        )
+        or float(interval[0]) > float(interval[1])
+        or not all(isinstance(value, int) and value >= 0 for value in counts)
+        or sum(counts) != task_count
+        or not math.isclose(
+            float(values["standard_error"]),
+            float(values["sample_sd"]) / math.sqrt(task_count),
+            rel_tol=1e-12,
+            abs_tol=1e-12,
+        )
+    ):
+        raise ValueError(f"random-strategy paper input has invalid {metric}")
+    return {
+        "n": task_count,
+        "mean_difference": float(values["mean_difference"]),
+        "sample_sd": float(values["sample_sd"]),
+        "standard_error": float(values["standard_error"]),
+        "ci95": [float(interval[0]), float(interval[1])],
+        "bootstrap_draws": 20_000,
+        "wins": int(counts[0]),
+        "ties": int(counts[1]),
+        "losses": int(counts[2]),
+        "negative_favors": "dynamic_depth2",
+    }
+
+
+def random_strategy_tex_lines(
+    result: Mapping[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    task_count = result.get("task_count")
+    if (
+        result.get("status") != "random_strategy_control_audit_complete"
+        or result.get("random_policy_draws_without_replacement") is not True
+        or result.get("random_draws_replayed_exactly") is not True
+        or not isinstance(task_count, int)
+        or task_count <= 0
+        or result.get("model_calls") != 0
+        or result.get("cost_usd") != 0.0
+        or result.get("authorizes_paid_calls") is not False
+        or result.get("changes_claim_tier") is not False
+    ):
+        raise ValueError("paper input is not the complete random-strategy audit")
+    comparisons = result.get("comparisons")
+    if not isinstance(comparisons, Mapping):
+        raise ValueError("random-strategy paper comparisons are missing")
+    brier = _validated_random_summary(
+        comparisons, "mean_brier", task_count=task_count
+    )
+    log_loss = _validated_random_summary(
+        comparisons, "mean_log_loss", task_count=task_count
+    )
+    first_changes = result.get("first_query_changes")
+    history_changes = result.get("final_history_changes")
+    if (
+        not isinstance(first_changes, int)
+        or not 0 <= first_changes <= task_count
+        or not isinstance(history_changes, int)
+        or not 0 <= history_changes <= task_count
+    ):
+        raise ValueError("random-strategy action-change counts are invalid")
+    lines = [
+        "\\paragraph{Frozen random-strategy sanity baseline.}",
+        (
+            "Dynamic depth two minus the task-hashed random two-query policy "
+            f"was {_number(brier['mean_difference'])} in endpoint Brier (95\\% "
+            f"bootstrap CI $[{_number(brier['ci95'][0])},"
+            f"{_number(brier['ci95'][1])}]$; "
+            f"{brier['wins']}/{brier['ties']}/{brier['losses']} wins/ties/losses) "
+            f"and {_number(log_loss['mean_difference'])} in log loss (95\\% "
+            f"bootstrap CI $[{_number(log_loss['ci95'][0])},"
+            f"{_number(log_loss['ci95'][1])}]$). The first query changed on "
+            f"{first_changes}/{task_count} tasks and the final history on "
+            f"{history_changes}/{task_count}; negative differences favor dynamic "
+            "depth two. Random is a descriptive sanity baseline, is not compute "
+            "matched, and cannot alter the preregistered claim tier."
+        ),
+    ]
+    metadata = {
+        "task_count": task_count,
+        "mean_brier": brier,
+        "mean_log_loss": log_loss,
+        "first_query_changes": first_changes,
+        "final_history_changes": history_changes,
+        "changes_claim_tier": False,
+        "authorizes_paid_calls": False,
+        "compute_matched": False,
+    }
+    return lines, metadata
+
+
 def _validated_paired_summary(
     comparison: Mapping[str, Any], metric: str
 ) -> dict[str, Any]:
@@ -488,12 +627,34 @@ def replay_compute_matched_audit(
     return replay
 
 
+def replay_random_strategy_audit(
+    *,
+    stage: str,
+    saved_path: Path,
+    result_path: Path,
+    block_results: Sequence[Path],
+    output_path: Path,
+) -> dict[str, Any]:
+    replay = random_control.run_report(
+        stage=stage,
+        result_path=result_path,
+        output_path=output_path,
+        block_results=block_results,
+        wrapper_result=None,
+    )
+    saved = _load(saved_path)
+    if _canonical(saved) != _canonical(replay):
+        raise ValueError("saved random-strategy audit does not independently replay")
+    return replay
+
+
 def write_combined_fragment(
     *,
     stage: str,
     output: Path,
     classical_suite_path: Path | None,
     compute_audit_path: Path | None,
+    random_audit_path: Path | None,
     claim_report_path: Path | None = None,
     combined_result: Path | None = None,
     block_results: Sequence[Path] = (),
@@ -528,22 +689,28 @@ def write_combined_fragment(
                 raise ValueError(
                     "mechanics failure cannot have a compute-matched endpoint audit"
                 )
+            if random_audit_path is not None:
+                raise ValueError(
+                    "mechanics failure cannot have a random-strategy endpoint audit"
+                )
             addendum = [
                 "\\paragraph{Frozen classical vision comparators.}",
                 "No DINO or SigLIP endpoint comparison is rendered because no replay-verified combined endpoint result exists.",
             ]
             suite_metadata = None
             compute_metadata = None
+            random_metadata = None
             claim_scope = None
         else:
             if (
                 classical_suite_path is None
                 or compute_audit_path is None
+                or random_audit_path is None
                 or combined_result is None
             ):
                 raise ValueError(
-                    "endpoint result rendering requires the frozen classical and "
-                    "compute-matched suites"
+                    "endpoint result rendering requires the frozen classical, "
+                    "compute-matched, and random-strategy suites"
                 )
             replay = replay_classical_suite(
                 stage=stage,
@@ -590,6 +757,33 @@ def write_combined_fragment(
                 "status": compute_replay["status"],
                 "summary": compute_summary,
             }
+            random_replay = replay_random_strategy_audit(
+                stage=stage,
+                saved_path=random_audit_path,
+                result_path=combined_result,
+                block_results=block_results,
+                output_path=temporary / "RANDOM_STRATEGY_REPLAY.json",
+            )
+            if (
+                random_replay.get("stage") != stage
+                or random_replay.get("stage_result_sha256")
+                != replay.get("stage_result_sha256")
+            ):
+                raise ValueError(
+                    "random-strategy audit does not match the rendered stage result"
+                )
+            random_lines, random_summary = random_strategy_tex_lines(
+                random_replay
+            )
+            addendum.extend(random_lines)
+            random_metadata = {
+                "outcome_sha256": suite_outcome.siglip.sha256_file(
+                    random_audit_path
+                ),
+                "stage_result_sha256": random_replay["stage_result_sha256"],
+                "status": random_replay["status"],
+                "summary": random_summary,
+            }
 
         combined_tex = original_tex.rstrip() + "\n\n" + "\n".join(addendum) + "\n"
         output.parent.mkdir(parents=True, exist_ok=True)
@@ -612,6 +806,7 @@ def write_combined_fragment(
             "classical_suite": suite_metadata,
             "classical_claim_scope": claim_scope,
             "compute_matched_audit": compute_metadata,
+            "random_strategy_audit": random_metadata,
             "tex_sha256": suite_outcome.siglip.sha256_file(output),
             "headline_tex_sha256": suite_outcome.siglip.sha256_file(
                 headline_path
@@ -625,7 +820,9 @@ def write_combined_fragment(
             encoding="utf-8",
         )
     return {
-        "status": "written_with_mandatory_classical_and_compute_suites",
+        "status": (
+            "written_with_mandatory_classical_compute_and_random_suites"
+        ),
         "stage": stage,
         "claim_tier": metadata["claim_tier"],
         "tex_path": str(output),
@@ -648,6 +845,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--classical-suite", type=Path)
     parser.add_argument("--compute-matched-audit", type=Path)
+    parser.add_argument("--random-strategy-audit", type=Path)
     parser.add_argument("--claim-report", type=Path)
     parser.add_argument("--combined-result", type=Path)
     parser.add_argument("--block-result", type=Path, action="append", default=[])
@@ -683,6 +881,7 @@ def main() -> None:
         output=args.output.resolve(),
         classical_suite_path=args.classical_suite,
         compute_audit_path=args.compute_matched_audit,
+        random_audit_path=args.random_strategy_audit,
         claim_report_path=claim,
         combined_result=combined,
         block_results=blocks,

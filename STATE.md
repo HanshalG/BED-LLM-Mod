@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close the last direction-dependent Bongard paper omission before
+responses. The paid tree already executes random and the frozen audit replays it,
+but mandatory wrapper V3 did not require/render that artifact. Prospective V4 now
+independently replays the exact stage random audit,requires matching stage-result
+hash,20k paired Brier/log-loss summaries,SE/count integrity,and reports W/T/L plus
+action changes regardless of sign. Random remains non-compute-matched,descriptive,
+and non-gating;mechanics failure rejects an endpoint audit. Both pass/null papers
+remain6 pages;amendment56d310e8,wrapper70eb410b,wrapper-test3dce3ab8,
+page-testef33ad74,readiness-test696ed3a2;focused52/52,full257/257;
+calls/cost/endpoints0,paid chain unchanged.
+
 2026-08-09: Correct the paper against the two closest 2026 priors before any
 Bongard response. ASIG regenerates beliefs each turn and can learn long-horizon
 behavior through its O=3 outcome return, although explicit EIG remains E=1;

@@ -117,6 +117,27 @@ def _paper_compute_result(n: int) -> dict:
     }
 
 
+def _paper_random_result(n: int) -> dict:
+    result = _paper_compute_result(n)
+    comparison = result["comparisons"]["shuffled_dynamic_depth2"]
+    return {
+        "status": "random_strategy_control_audit_complete",
+        "task_count": n,
+        "random_policy_draws_without_replacement": True,
+        "random_draws_replayed_exactly": True,
+        "comparisons": {
+            "mean_brier": comparison["mean_brier"],
+            "mean_log_loss": comparison["mean_log_loss"],
+        },
+        "first_query_changes": comparison["first_query_changes"],
+        "final_history_changes": comparison["final_history_changes"],
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_claim_tier": False,
+    }
+
+
 def _metrics(n: int) -> dict:
     summary = _summary(n)
     return {
@@ -573,10 +594,13 @@ def test_confirmation_fragment_compiles_within_page_budget(
     compute = suite_paper.compute_matched_tex_lines(
         _paper_compute_result(fragment.confirmation.TASKS)
     )[0]
+    random_control = suite_paper.random_strategy_tex_lines(
+        _paper_random_result(fragment.confirmation.TASKS)
+    )[0]
     output.write_text(
         output.read_text(encoding="utf-8").rstrip()
         + "\n\n"
-        + "\n".join([*classical, *compute])
+        + "\n".join([*classical, *compute, *random_control])
         + "\n",
         encoding="utf-8",
     )
