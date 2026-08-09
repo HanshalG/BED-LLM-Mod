@@ -27,7 +27,7 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-5"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-6"
 LUNA_RENDERER_SHA256 = (
     "9cf6dc0e187330de7592a5d72ec2abeb465dc0a195a2d865ce69f8ca66497c53"
 )
@@ -69,6 +69,13 @@ MEDIATION_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
 )
 MEDIATION_PAPER_HANDOFF_AMENDMENT_SHA256 = (
     "1902eff1a655bb1a8456e9c9d14e3d1bdf7adbcf76865686bef1263b1188d36b"
+)
+DETERMINISTIC_METADATA_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_DETERMINISTIC_PAPER_METADATA_AMENDMENT_20260809.md"
+)
+DETERMINISTIC_METADATA_AMENDMENT_SHA256 = (
+    "b39ef5be597b3527d082469369b0a097b4ab476837d1997eb477dd6d9e84bbe0"
 )
 DEFAULT_OUTPUT = luna_fragment.DEFAULT_OUTPUT
 
@@ -125,6 +132,9 @@ def verify_bound_implementations() -> dict[str, str]:
         "mediation_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
             MEDIATION_PAPER_HANDOFF_AMENDMENT
         ),
+        "deterministic_metadata_amendment": suite_outcome.siglip.sha256_file(
+            DETERMINISTIC_METADATA_AMENDMENT
+        ),
     }
     expected = {
         "luna_renderer": LUNA_RENDERER_SHA256,
@@ -140,6 +150,9 @@ def verify_bound_implementations() -> dict[str, str]:
         "mediation_paper_handoff_amendment": (
             MEDIATION_PAPER_HANDOFF_AMENDMENT_SHA256
         ),
+        "deterministic_metadata_amendment": (
+            DETERMINISTIC_METADATA_AMENDMENT_SHA256
+        ),
     }
     if observed != expected:
         raise ValueError(
@@ -148,6 +161,30 @@ def verify_bound_implementations() -> dict[str, str]:
         )
     suite_outcome.verify_frozen_inputs()
     return observed
+
+
+def _path_invariant_renderer_summary(record: Mapping[str, Any]) -> dict[str, Any]:
+    required = {
+        "status",
+        "stage",
+        "claim_tier",
+        "tex_sha256",
+        "headline_sha256",
+        "metadata_sha256",
+        "model_calls",
+        "cost_usd",
+    }
+    if not required.issubset(record):
+        raise ValueError("Luna renderer omitted path-invariant artifact fields")
+    hashes = {
+        field: record[field]
+        for field in ("tex_sha256", "headline_sha256", "metadata_sha256")
+    }
+    if any(not isinstance(value, str) or len(value) != 64 for value in hashes.values()):
+        raise ValueError("Luna renderer artifact hash is malformed")
+    if record["model_calls"] != 0 or float(record["cost_usd"]) != 0.0:
+        raise ValueError("Luna paper renderer unexpectedly used a model")
+    return {field: record[field] for field in sorted(required)}
 
 
 def _encoder_tex(
@@ -1042,7 +1079,7 @@ def write_combined_fragment(
             "stage": stage,
             "claim_tier": original_metadata["claim_tier"],
             "bound_implementations": bound,
-            "original_renderer": original,
+            "original_renderer": _path_invariant_renderer_summary(original),
             "original_metadata": original_metadata,
             "classical_suite": suite_metadata,
             "classical_claim_scope": claim_scope,

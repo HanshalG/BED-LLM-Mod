@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close the post-Development64 selective-reporting and replay boundary
+before any paid response. Mandatory paper wrapper V6 removes random temporary
+paths from metadata while preserving all V5 science;identical renders now match
+TeX,headline,and metadata bytes across directories. New atomic development
+finalizer validates paired blocks A-D,then always runs/replays claim,classical,
+mediation,compute-matched,random,and V6 paper in fixed order for every claim
+direction. Banked failures reconstruct only their exact successful zero-call
+prefix and stop before the failed stage. Amendment b39ef5be,protocol474dc8ef,
+wrapper57fa4739,finalizer77730d16,readiness80e720f3;focused66/66,full Bongard
+306/306,paper6 pages,calls/cost0,paid chain unchanged.
+
 2026-08-09: Close the conditional Aug11-14 baseline-omission boundary before
 mechanics. Each clean Development16 block and frozen Luna-medium naive baseline
 already share opening usage and hard$5 cap,but separate commands could omit the

@@ -467,6 +467,13 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             "status": "written",
             "stage": stage,
             "claim_tier": metadata["claim_tier"],
+            "tex_sha256": paper.suite_outcome.siglip.sha256_file(output),
+            "headline_sha256": paper.suite_outcome.siglip.sha256_file(headline),
+            "metadata_sha256": paper.suite_outcome.siglip.sha256_file(
+                output.with_suffix(".json")
+            ),
+            "model_calls": 0,
+            "cost_usd": 0.0,
         }
 
     monkeypatch.setattr(
@@ -616,6 +623,44 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         "written_with_mandatory_classical_compute_random_and_mediation_suites"
     )
     assert result["claim_tier"] == "development_null"
+    second_output = tmp_path / "second-location/bongard_openworld_result.tex"
+    second = paper.write_combined_fragment(
+        stage="development",
+        output=second_output,
+        classical_suite_path=suite,
+        compute_audit_path=compute,
+        random_audit_path=random_audit,
+        mediation_path=mediation,
+        claim_report_path=tmp_path / "CLAIM.json",
+        combined_result=combined,
+        block_results=[tmp_path / f"block-{index}.json" for index in range(4)],
+    )
+    assert second_output.read_bytes() == output.read_bytes()
+    assert second_output.with_suffix(".json").read_bytes() == (
+        output.with_suffix(".json").read_bytes()
+    )
+    assert second_output.with_name(
+        paper.luna_fragment.HEADLINE_FILENAME
+    ).read_bytes() == output.with_name(
+        paper.luna_fragment.HEADLINE_FILENAME
+    ).read_bytes()
+    assert second["metadata_sha256"] == result["metadata_sha256"]
+    combined_metadata = json.loads(
+        output.with_suffix(".json").read_text(encoding="utf-8")
+    )
+    assert set(combined_metadata["original_renderer"]) == {
+        "claim_tier",
+        "cost_usd",
+        "headline_sha256",
+        "metadata_sha256",
+        "model_calls",
+        "stage",
+        "status",
+        "tex_sha256",
+    }
+    assert not any(
+        "path" in key for key in combined_metadata["original_renderer"]
+    )
     with pytest.raises(
         ValueError, match="mechanics failure cannot have a compute-matched"
     ):
@@ -696,6 +741,13 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
             "status": "written",
             "stage": stage,
             "claim_tier": metadata["claim_tier"],
+            "tex_sha256": paper.suite_outcome.siglip.sha256_file(output),
+            "headline_sha256": paper.suite_outcome.siglip.sha256_file(headline),
+            "metadata_sha256": paper.suite_outcome.siglip.sha256_file(
+                output.with_suffix(".json")
+            ),
+            "model_calls": 0,
+            "cost_usd": 0.0,
         }
 
     suite_result = _result()

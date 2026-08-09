@@ -6,6 +6,8 @@ from pathlib import Path
 
 from scripts import bongard_openworld_aug10_final_handoff as final_handoff
 from scripts import bongard_openworld_aug10_postprocess as postprocess
+from scripts import bongard_openworld_development_final_handoff as development_final
+from scripts import bongard_openworld_paper_with_classical_suite as paper_wrapper
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +84,42 @@ DEVELOPMENT_DAILY_HANDOFF_TEST = (
 )
 DEVELOPMENT_DAILY_HANDOFF_TEST_SHA256 = (
     "8c15a41212b45ec6e0f5b76d832de6acaaefb9f9bba37240c94462a6550e4504"
+)
+DETERMINISTIC_PAPER_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_DETERMINISTIC_PAPER_METADATA_AMENDMENT_20260809.md"
+)
+DETERMINISTIC_PAPER_AMENDMENT_SHA256 = (
+    "b39ef5be597b3527d082469369b0a097b4ab476837d1997eb477dd6d9e84bbe0"
+)
+DEVELOPMENT_FINAL_PROTOCOL = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_DEVELOPMENT_FINAL_HANDOFF_PROTOCOL_20260809.md"
+)
+DEVELOPMENT_FINAL_PROTOCOL_SHA256 = (
+    "474dc8efbf175abf59da8e3f6f12889405e2de135a6d92dcf024d1534eb2fbac"
+)
+DEVELOPMENT_FINAL_IMPLEMENTATION = (
+    REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
+)
+DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
+    "77730d16f67f47ba07fbc1857f3d03bb658a5164b580108d0566606a90223a2c"
+)
+DEVELOPMENT_FINAL_TEST = (
+    REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
+)
+DEVELOPMENT_FINAL_TEST_SHA256 = (
+    "923efe01c8f7bb82bd58bd7b66effcaa3cf83916a37599e2952c6442799d5534"
+)
+PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
+PAPER_WRAPPER_SHA256 = (
+    "57fa47391f85cf66ec194a93998f2bf50a68da674709a84f58115f1b7bd5b151"
+)
+PAPER_WRAPPER_TEST = (
+    REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
+)
+PAPER_WRAPPER_TEST_SHA256 = (
+    "daf56b5d8b2b05819d598540404c8006fa4fd3d2be68a25caa389fb5e8644e2a"
 )
 PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
 
@@ -191,3 +229,25 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
         ),
     }
     assert final_handoff.verify_bindings()["implementations"]
+
+
+def test_development_terminal_handoff_binds_deterministic_v6_paper_path() -> None:
+    assert paper_wrapper.INTERFACE_VERSION == (
+        "bongard-openworld-paper-with-classical-suite-6"
+    )
+    assert _sha256(DETERMINISTIC_PAPER_AMENDMENT) == (
+        DETERMINISTIC_PAPER_AMENDMENT_SHA256
+    )
+    assert _sha256(DEVELOPMENT_FINAL_PROTOCOL) == DEVELOPMENT_FINAL_PROTOCOL_SHA256
+    assert _sha256(DEVELOPMENT_FINAL_IMPLEMENTATION) == (
+        DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256
+    )
+    assert _sha256(DEVELOPMENT_FINAL_TEST) == DEVELOPMENT_FINAL_TEST_SHA256
+    assert _sha256(PAPER_WRAPPER) == PAPER_WRAPPER_SHA256
+    assert _sha256(PAPER_WRAPPER_TEST) == PAPER_WRAPPER_TEST_SHA256
+    assert development_final.PROTOCOL_SHA256 == DEVELOPMENT_FINAL_PROTOCOL_SHA256
+    assert development_final.BOUND_IMPLEMENTATIONS["paper_wrapper_v6"] == (
+        "scripts/bongard_openworld_paper_with_classical_suite.py",
+        PAPER_WRAPPER_SHA256,
+    )
+    assert development_final.verify_bindings()["implementations"]
