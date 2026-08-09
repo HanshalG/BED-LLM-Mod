@@ -24,7 +24,7 @@ from scripts import bongard_openworld_luna_vlm_development as development
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-1"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-2"
 LUNA_RENDERER_SHA256 = (
     "2083e7f93de8a8acd939f4842ac6f5dbeef95d5219fe3ad7b866d3bc4f507a74"
 )
@@ -151,6 +151,151 @@ def classical_tex_lines(result: Mapping[str, Any]) -> list[str]:
     ]
 
 
+def _validated_paired_summary(
+    comparison: Mapping[str, Any], metric: str
+) -> dict[str, Any]:
+    summary = comparison.get(metric)
+    if not isinstance(summary, Mapping):
+        raise ValueError(f"classical challenge lacks {metric}")
+    mean = summary.get("mean")
+    interval = summary.get("bootstrap_95pct_ci")
+    if (
+        not isinstance(mean, (int, float))
+        or not math.isfinite(float(mean))
+        or not isinstance(interval, Sequence)
+        or isinstance(interval, (str, bytes))
+        or len(interval) != 2
+        or not all(
+            isinstance(value, (int, float)) and math.isfinite(float(value))
+            for value in interval
+        )
+        or float(interval[0]) > float(interval[1])
+        or summary.get("bootstrap_draws") != 20_000
+    ):
+        raise ValueError(f"classical challenge has invalid {metric}")
+    return {
+        "mean": float(mean),
+        "bootstrap_95pct_ci": [float(interval[0]), float(interval[1])],
+        "bootstrap_draws": 20_000,
+    }
+
+
+def classical_claim_scope(result: Mapping[str, Any]) -> dict[str, Any]:
+    """Classify task-level scope without changing the within-Luna claim tier."""
+    if (
+        result.get("status") != "classical_suite_complete"
+        or result.get("all_gates_pass") is not True
+        or result.get("authorizes_paid_calls") is not False
+    ):
+        raise ValueError("classical claim scope requires the complete frozen suite")
+    comparisons = {
+        "dinov2_depth2": result.get("paired_luna_minus_dino", {}).get(
+            "luna_dynamic_minus_dinov2_depth2"
+        ),
+        "siglip_depth2": result.get("paired_luna_minus_siglip", {}).get(
+            "luna_dynamic_minus_siglip_depth2"
+        ),
+    }
+    details: dict[str, Any] = {}
+    for name, comparison in comparisons.items():
+        if not isinstance(comparison, Mapping):
+            raise ValueError(f"classical challenge lacks {name}")
+        brier = _validated_paired_summary(comparison, "mean_brier")
+        log_loss = _validated_paired_summary(comparison, "mean_log_loss")
+        details[name] = {
+            "luna_minus_classical_brier": brier,
+            "luna_minus_classical_log_loss": log_loss,
+            "brier_interval_strictly_below_zero": (
+                brier["bootstrap_95pct_ci"][1] < 0.0
+            ),
+            "log_loss_nonworse": log_loss["mean"] <= 0.0,
+        }
+        details[name]["clears_challenge"] = (
+            brier["mean"] < 0.0
+            and details[name]["brier_interval_strictly_below_zero"]
+            and details[name]["log_loss_nonworse"]
+        )
+    clears_both = all(row["clears_challenge"] for row in details.values())
+    return {
+        "status": (
+            "luna_clears_both_fixed_classical_challengers"
+            if clears_both
+            else "within_luna_only_no_task_level_necessity"
+        ),
+        "clears_both_fixed_classical_challengers": clears_both,
+        "criterion": (
+            "For both DINOv2 depth two and SigLIP2 depth two, Luna dynamic minus "
+            "classical Brier must have mean below zero and paired two-sided 95% "
+            "bootstrap upper endpoint below zero, with mean log loss nonworse."
+        ),
+        "changes_within_luna_claim_tier": False,
+        "authorizes_paid_calls": False,
+        "comparisons": details,
+    }
+
+
+def _headline_with_classical_scope(
+    *,
+    original_headline: str,
+    original_metadata: Mapping[str, Any],
+    scope: Mapping[str, Any] | None,
+) -> str:
+    headline = original_metadata.get("headline")
+    if not isinstance(headline, Mapping):
+        raise ValueError("original Luna headline metadata is missing")
+    authorized = headline.get("authorized") is True
+    abstract_tex = headline.get("abstract_tex")
+    contribution_tex = headline.get("contribution_tex")
+    if not isinstance(abstract_tex, str) or not isinstance(contribution_tex, str):
+        raise ValueError("original Luna headline copy is malformed")
+    if authorized is not bool(abstract_tex and contribution_tex):
+        raise ValueError("original Luna headline authorization is inconsistent")
+    if not authorized:
+        return original_headline
+    if (
+        original_metadata.get("stage") != "confirmation"
+        or original_metadata.get("claim_tier") != "full_llm_native_confirmation"
+        or scope is None
+    ):
+        raise ValueError("classical headline qualification lacks full confirmation")
+    if scope.get("clears_both_fixed_classical_challengers") is True:
+        abstract_qualifier = (
+            " Luna dynamic depth two also clears both frozen fixed semantic-vision "
+            "challengers: its paired endpoint-Brier intervals versus DINOv2 and "
+            "SigLIP2 are strictly below zero with nonworse mean log loss."
+        )
+        contribution_qualifier = (
+            "\\item a prospectively scoped comparison showing lower endpoint Brier "
+            "than both frozen DINOv2 and SigLIP2 depth-two planners, with paired "
+            "intervals below zero and nonworse mean log loss;"
+        )
+    elif scope.get("status") == "within_luna_only_no_task_level_necessity":
+        abstract_qualifier = (
+            " This is a within-Luna path-dependent-belief result; it does not clear "
+            "both frozen classical challengers and therefore does not establish "
+            "task-level LLM necessity."
+        )
+        contribution_qualifier = (
+            "\\item a prospectively scoped classical comparison that limits the "
+            "Bongard finding to within-Luna path-dependent belief dynamics rather "
+            "than task-level LLM necessity;"
+        )
+    else:
+        raise ValueError("unknown classical headline scope")
+    return "\n".join(
+        [
+            "\\renewcommand{\\BongardAbstractResult}{%",
+            abstract_tex + abstract_qualifier,
+            "}",
+            "\\renewcommand{\\BongardContributionResult}{%",
+            contribution_tex,
+            contribution_qualifier,
+            "}",
+            "",
+        ]
+    )
+
+
 def replay_classical_suite(
     *,
     stage: str,
@@ -213,6 +358,7 @@ def write_combined_fragment(
                 "No DINO or SigLIP endpoint comparison is rendered because no replay-verified combined endpoint result exists.",
             ]
             suite_metadata = None
+            claim_scope = None
         else:
             if classical_suite_path is None or combined_result is None:
                 raise ValueError(
@@ -227,19 +373,26 @@ def write_combined_fragment(
                 output_path=temporary / "CLASSICAL_SUITE_REPLAY.json",
             )
             addendum = classical_tex_lines(replay)
+            claim_scope = classical_claim_scope(replay)
             suite_metadata = {
                 "outcome_sha256": suite_outcome.siglip.sha256_file(
                     classical_suite_path
                 ),
                 "stage_result_sha256": replay["stage_result_sha256"],
                 "status": replay["status"],
+                "claim_scope": claim_scope,
             }
 
         combined_tex = original_tex.rstrip() + "\n\n" + "\n".join(addendum) + "\n"
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(combined_tex, encoding="utf-8")
         headline_path = output.with_name(luna_fragment.HEADLINE_FILENAME)
-        headline_path.write_text(original_headline, encoding="utf-8")
+        qualified_headline = _headline_with_classical_scope(
+            original_headline=original_headline,
+            original_metadata=original_metadata,
+            scope=claim_scope,
+        )
+        headline_path.write_text(qualified_headline, encoding="utf-8")
         metadata = {
             "schema_version": SCHEMA_VERSION,
             "interface_version": INTERFACE_VERSION,
@@ -249,6 +402,7 @@ def write_combined_fragment(
             "original_renderer": original,
             "original_metadata": original_metadata,
             "classical_suite": suite_metadata,
+            "classical_claim_scope": claim_scope,
             "tex_sha256": suite_outcome.siglip.sha256_file(output),
             "headline_tex_sha256": suite_outcome.siglip.sha256_file(
                 headline_path
