@@ -4,6 +4,17 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close the conditional Aug11-14 baseline-omission boundary before
+mechanics. Each clean Development16 block and frozen Luna-medium naive baseline
+already share opening usage and hard$5 cap,but separate commands could omit the
+baseline after seeing main output,especially blockD combined endpoint. New
+hash-bound daily handoff forces main->naive regardless direction,binds six
+artifacts,and closes later blocks on either banked failure without rerun. It is
+dormant until exact mechanics authorization and creates none. Live blockA
+preflight waits_for_aug10,verifies Luna+smoke,combined cap$4.95,writes/calls0.
+Protocol6453a42e,implementation0c94b16a,test8c15a412,readinessdac4442b;
+focused49/49,full Bongard292/292,cost0,paid children unchanged.
+
 2026-08-09: Exercise the new atomic Aug10 entrypoint through every real
 downstream component before responses. Existing deterministic label-aware
 fixture over the4 sealed mechanics IDs builds real serving+mechanics artifacts;
