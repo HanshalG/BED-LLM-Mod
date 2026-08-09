@@ -83,6 +83,10 @@ low-likelihood natural-language particles online and selects each experiment by
 one-step EIG on current support \citep{choudhury2025bedllm,piriyakulkij2024experiments}.
 Both refresh beliefs after real observations, but neither credits a query for
 inducing better generated support for a later adaptive decision.
+CuriosiTree also prompts LLMs as a semantic predictor and environment simulator
+at test time, but greedily scores immediate elimination among current top-$k$
+labels rather than adaptive continuation through a regenerated later belief
+\citep{cooper2025curiositree}.
 
 Non-myopic BED instead values immediate EIG plus adaptive future information.
 Recent methods simulate conversation trees \citep{hu2024uot,arnould2026cabed},

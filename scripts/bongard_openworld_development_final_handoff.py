@@ -63,7 +63,7 @@ BOUND_IMPLEMENTATIONS = {
     ),
     "paper_wrapper_v6": (
         "scripts/bongard_openworld_paper_with_classical_suite.py",
-        "57fa47391f85cf66ec194a93998f2bf50a68da674709a84f58115f1b7bd5b151",
+        "a5659ab7c92d4d6722425382826f947f5212ba3c39ea49b6ed78e7df8c984b5f",
     ),
 }
 OUTPUT_DIR = REPO_ROOT / (

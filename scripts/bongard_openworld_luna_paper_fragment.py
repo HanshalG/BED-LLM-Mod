@@ -25,7 +25,7 @@ FRAGMENT_PROTOCOL_SHA256 = (
     "975f4097d88743cf6455d91dcc558b9219084200ca7153ea3bcc77b3f38c525c"
 )
 PRERESULT_MANUSCRIPT_SHA256 = (
-    "3757e64ce787338ba589e6264ce82a0770b73d9099fb69383399625c3af41ef8"
+    "b7f7f587384e15defb8ebae8bbbf5e7029db7bbbea011bbb685901ee46045f21"
 )
 DEFAULT_OUTPUT = REPO_ROOT / "paper/generated/bongard_openworld_result.tex"
 HEADLINE_FILENAME = "bongard_openworld_headline.tex"
@@ -71,9 +71,14 @@ BOUND_FILES = {
         "BONGARD_OPENWORLD_2026_CLOSEST_PRIOR_AMENDMENT_20260809.md",
         "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647",
     ),
+    "curiositree_closest_prior_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_CURIOSITREE_CLOSEST_PRIOR_AMENDMENT_20260809.md",
+        "ddbd666abbb1a3d9437c30f6f3847f0f4275d6c48145d60a766ad2351e44cb12",
+    ),
     "preresult_references": (
         "paper/references.bib",
-        "5a3a2adc9bc5b359a002cb6e1eebb07973bcb7a5dc4b96076d5f2ec04ac2a60e",
+        "dea4327670d7169e32c0901e20bda4aa23868df6968c92e3855f929dc91bd93c",
     ),
     "development_manifest": (
         "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",

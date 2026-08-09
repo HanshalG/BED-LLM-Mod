@@ -575,6 +575,19 @@ def test_fragment_binding_matches_current_files() -> None:
     assert fragment.sha256_file(closest_prior) == (
         "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647"
     )
+    curiositree_prior = fragment.REPO_ROOT / (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_CURIOSITREE_CLOSEST_PRIOR_AMENDMENT_20260809.md"
+    )
+    assert fragment.sha256_file(curiositree_prior) == (
+        "ddbd666abbb1a3d9437c30f6f3847f0f4275d6c48145d60a766ad2351e44cb12"
+    )
+    assert "cooper2025curiositree" in (
+        fragment.REPO_ROOT / "paper/references.bib"
+    ).read_text(encoding="utf-8")
+    assert "CuriosiTree also prompts LLMs" in (
+        fragment.REPO_ROOT / "paper/main.tex"
+    ).read_text(encoding="utf-8")
     assert manuscript[
         "detailed_late_number_game_audit_replaced_after_verified_result"
     ] is True
