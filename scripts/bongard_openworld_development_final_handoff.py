@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_classical_suite_outcome as classical_suite
+from scripts import bongard_openworld_classical_horizon_opportunity as opportunity
 from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_development_daily_handoff as paired_daily
 from scripts import bongard_openworld_luna_development32_daily_execute as main_daily
@@ -56,6 +57,10 @@ BOUND_IMPLEMENTATIONS = {
     "compute_matched_control": (
         "scripts/bongard_openworld_compute_matched_control.py",
         "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43",
+    ),
+    "classical_horizon_opportunity": (
+        "scripts/bongard_openworld_classical_horizon_opportunity.py",
+        "f47aa276b526ad380c4edfddb203a040c6b52b217b1343e9a94e4d36cc88adf3",
     ),
     "random_strategy_control": (
         "scripts/bongard_openworld_random_strategy_control.py",
@@ -321,6 +326,7 @@ def _validate_terminal_record(
         "classical_suite",
         "path_mediation",
         "compute_matched_control",
+        "classical_horizon_opportunity",
         "random_strategy_control",
         "paper",
     }:
@@ -352,6 +358,7 @@ def run_final_handoff(
     classical_runner: Callable[..., dict[str, Any]] = classical_suite.run_outcome,
     mediation_runner: Callable[..., dict[str, Any]] = path_mediation.run_report,
     compute_runner: Callable[..., dict[str, Any]] = compute_control.run_report,
+    opportunity_runner: Callable[..., dict[str, Any]] = opportunity.run_report,
     random_runner: Callable[..., dict[str, Any]] = random_control.run_report,
     paper_runner: Callable[..., dict[str, Any]] = paper.write_combined_fragment,
     binding_verifier: Callable[[], dict[str, Any]] = verify_bindings,
@@ -469,6 +476,23 @@ def run_final_handoff(
             runner=lambda path: compute_runner(output_path=path, **shared),
         )
         components["compute_matched_control"] = _component(compute_path, compute)
+
+        failed_stage = "classical_horizon_opportunity"
+        replayed_failure = _return_replayed_failure(
+            stage=failed_stage,
+            existing_failure=existing_failure,
+            components=components,
+        )
+        if replayed_failure is not None:
+            return replayed_failure
+        opportunity_path = output_dir / "CLASSICAL_HORIZON_OPPORTUNITY_RESULT.json"
+        opportunity_report = _load_or_replay_json(
+            path=opportunity_path,
+            runner=lambda path: opportunity_runner(output_path=path, **shared),
+        )
+        components["classical_horizon_opportunity"] = _component(
+            opportunity_path, opportunity_report
+        )
 
         failed_stage = "random_strategy_control"
         replayed_failure = _return_replayed_failure(

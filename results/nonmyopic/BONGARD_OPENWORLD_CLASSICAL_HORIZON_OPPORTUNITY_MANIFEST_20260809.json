@@ -1,0 +1,2676 @@
+{
+  "authorizes_paid_calls": false,
+  "candidate_labels_accessed": false,
+  "cost_usd": 0.0,
+  "definition": "dinov2_depth2_or_siglip_depth2_changes_own_myopic_first_query",
+  "endpoint_labels_accessed": false,
+  "inputs": {
+    "encoders": {
+      "dinov2": {
+        "manifest_path": "results/nonmyopic/bongard_openworld_dinov2_classical_baseline/plans-20260808/MANIFEST.json",
+        "manifest_sha256": "56e9d538ded501f4518dc662d8403f3f15ba254c8cedb132e4bd09d10949e504",
+        "plans_path": "results/nonmyopic/bongard_openworld_dinov2_classical_baseline/plans-20260808/PLANS.json",
+        "plans_sha256": "58154f052424f1632c302f9b40af030c172fc4d626908c9f977211c1e8299847"
+      },
+      "siglip": {
+        "manifest_path": "results/nonmyopic/bongard_openworld_siglip_classical_baseline/plans-20260809/MANIFEST.json",
+        "manifest_sha256": "95c00d948ee77589995c3434e3eb01b0a908b496fe2d984b859dbae4032d057d",
+        "plans_path": "results/nonmyopic/bongard_openworld_siglip_classical_baseline/plans-20260809/PLANS.json",
+        "plans_sha256": "a41cc3b01d18fa9008f67d6f60a3f113b8f3194b73e932b4e2c3cfc83215f587"
+      }
+    },
+    "protocol": "144c93f148e90f73dc62b1983e24ab59565c168800225375f3aecbda9554ebbf"
+  },
+  "interface_version": "bongard-openworld-classical-horizon-opportunity-1",
+  "luna_responses_accessed": false,
+  "model_calls": 0,
+  "partitions": {
+    "confirmation": {
+      "classical_horizon_agreement_count": 47,
+      "classical_horizon_disagreement_count": 49,
+      "rows": [
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-00ee6e2c568b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-02066dc686a4"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-03b0266bd76a"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-0515df947dac"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-07857cb90e82"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-09062a653ce3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-104b4378bd78"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-1056d9995048"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-107011356703"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-108777900645"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-12f87effcf0a"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-14a0a11b65d5"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-15e426c8fb01"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-18cebc946305"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-1e5258c052af"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-260a338618d1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-2d67c5c90cbe"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-30b6589895f9"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-34b7e21a6566"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-34d2d354df90"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-38206e1d73af"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-3a1d336037e6"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-3cfcd9d26763"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-40a28feac9b6"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-413bb5ee10a5"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-427a90cf9430"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-440af7b6203b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-45568785cb6f"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-4717f2e3e057"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-47b5edecc334"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-493e00ecd14a"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-53531cadb4c1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-591e619bc79c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-5969b1ca01c3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-5b3dcf541d7c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-5bc6b0eab5ee"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-5cbccf19be18"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-67244cc80c0d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-6aa7f0cd5e72"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-6b938b0588ed"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-6d0db1b5eb31"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-6f221951cd16"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-6f44dbd51dd4"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-6f75f1eb6931"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-6facce6f9016"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-70e3464c0025"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-72403446c5b6"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-75f629376c7c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-7bcd9a1dc6e3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-7e06d3317d31"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-85b851902bf9"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-8706c22e5ce0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-877a4dae3dfb"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-897b5a740574"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-8a1d92d09825"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-8a85a280ba52"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-8b6016871a03"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-8cc5d0a3d9ea"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-8d578fcc555e"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-8decb74cec39"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-8e01b45db18c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-90adab8b601c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-918150cab237"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-94a0eb0c6620"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-96509a757df8"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-96667b14f7ae"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-99feabab241b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-9a174b62f7ef"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-a0dfb491389d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-a3fa9f8c8f5c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-a4b7f7066b40"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-a9c7920e6bdf"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-aeef78c80315"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-b8ac49c97c56"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-b96b8b299e73"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-bc5f156c6bff"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-c083432cf3ee"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-c3130fa609da"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-c43ac082b205"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-c5b2f70c67e6"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-cc5d72c63290"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-cdd3b15f514b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-d272e8c7dc44"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-d32b625457f1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-d47c42f7ef27"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-d5f044deee57"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-db7db8840c37"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-dceac4589309"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-df1c7bf8f32b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-e2a12fa8d184"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-e3459e72a5ac"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-e7ed50de85a4"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-f3e071cacaa4"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-f489ca2ea0cf"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-fcbc7a173144"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-fd2a7a149470"
+        }
+      ],
+      "task_count": 96
+    },
+    "development": {
+      "classical_horizon_agreement_count": 37,
+      "classical_horizon_disagreement_count": 27,
+      "rows": [
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-04a5b29836e5"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-0de521078860"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-1115241711d0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-122638c1178c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-15ef229f53cd"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-16dab9c83ab0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-17d6ccc3df88"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-191ad68ad98b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-1be62240ab79"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-1cfee2814b2a"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-2d69b47b9046"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-2db6d9597b53"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-308a5aea6c82"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-37a03a5ea6fb"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-39b4b8990795"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-3d50d5e027c6"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-4788e9dfbc1b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-4c69e9a0b720"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-4f1b3268f4c1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-508e54e4f1b5"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-50948b1ecc57"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-5e421a16d5ea"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-62561c64737d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-636136790828"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-6483cfdd2ea0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-66206228234f"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-6b85e053d0c7"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-71fdcb17fb49"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-76d90797a598"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-7ec67b0e6b67"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-09"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-831fa9a7f345"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-8445ce643554"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-886e71f141aa"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-889f655713fc"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-8debedd9e4f1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-941a1b8eb2d4"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-9a9462d2ba7c"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-9b6f3ff23fb0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-04"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-04"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-a287c66193c7"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-a3c24411488b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-ab1e41ae83a0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-ac2600b3e2f8"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-b9ba6254c24f"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-05",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-baff417af236"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-09",
+              "myopic_first_image_id": "image-09"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-bb26962e44a3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-bce22b856825"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-01"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-c0cf547f4c45"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-c2fc130fb232"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-11",
+              "myopic_first_image_id": "image-11"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-c7d03f31927d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-cc654f0287bb"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-cdbc9941ad62"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-d6873682c353"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-d8fb938fc6f1"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-dc0bb917d013"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-de3f24017f77"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-04",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-de66208ae2ef"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-05"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-e16c261f42b5"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-e49dcf89a105"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-e98dc1694ab9"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-01"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-eb10ce2a3732"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-10"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-f0605254b98d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-10",
+              "myopic_first_image_id": "image-10"
+            },
+            "siglip": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-01",
+              "myopic_first_image_id": "image-05"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-f1ec63efc13d"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-02",
+              "myopic_first_image_id": "image-02"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-f268588051d3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-03",
+              "myopic_first_image_id": "image-03"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-fedaf84bfda6"
+        }
+      ],
+      "task_count": 64
+    },
+    "mechanics": {
+      "classical_horizon_agreement_count": 3,
+      "classical_horizon_disagreement_count": 1,
+      "rows": [
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-00",
+              "myopic_first_image_id": "image-00"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-126d30cad73b"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": true,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-03"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-12",
+              "myopic_first_image_id": "image-12"
+            }
+          },
+          "stratum": "classical_horizon_disagreement",
+          "task_id": "task-263200a0c8c3"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-07",
+              "myopic_first_image_id": "image-07"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-13",
+              "myopic_first_image_id": "image-13"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-37a13c92f0b0"
+        },
+        {
+          "encoders": {
+            "dinov2": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-06",
+              "myopic_first_image_id": "image-06"
+            },
+            "siglip": {
+              "changed_first_query": false,
+              "depth2_first_image_id": "image-08",
+              "myopic_first_image_id": "image-08"
+            }
+          },
+          "stratum": "classical_horizon_agreement",
+          "task_id": "task-9ff861a9070d"
+        }
+      ],
+      "task_count": 4
+    }
+  },
+  "schema_version": 1,
+  "status": "endpoint_blind_classical_horizon_opportunity_manifest"
+}

@@ -80,6 +80,7 @@ class Harness:
             "classical": "classical_suite_complete",
             "mediation": "path_mediation_complete",
             "compute": "compute_matched_control_audit_complete",
+            "opportunity": "classical_horizon_opportunity_stratum_complete",
             "random": "random_strategy_control_audit_complete",
         }
 
@@ -129,6 +130,7 @@ class Harness:
             "classical_runner": self.component_runner("classical"),
             "mediation_runner": self.component_runner("mediation"),
             "compute_runner": self.component_runner("compute"),
+            "opportunity_runner": self.component_runner("opportunity"),
             "random_runner": self.component_runner("random"),
             "paper_runner": self.paper_runner,
             "binding_verifier": _bindings,
@@ -198,6 +200,7 @@ def test_all_dispositions_run_complete_terminal_sequence(
         "classical",
         "mediation",
         "compute",
+        "opportunity",
         "random",
         "paper",
     ]
@@ -222,6 +225,7 @@ def test_all_dispositions_run_complete_terminal_sequence(
         "classical_suite",
         "path_mediation",
         "compute_matched_control",
+        "classical_horizon_opportunity",
         "random_strategy_control",
         "paper_tex",
         "paper_metadata",
@@ -256,8 +260,8 @@ def test_all_dispositions_run_complete_terminal_sequence(
             ["claim", "classical", "mediation"],
         ),
         (
-            "random",
-            "random_strategy_control",
+            "opportunity",
+            "classical_horizon_opportunity",
             {
                 "claim_finalization",
                 "claim_report",
@@ -268,6 +272,19 @@ def test_all_dispositions_run_complete_terminal_sequence(
             ["claim", "classical", "mediation", "compute"],
         ),
         (
+            "random",
+            "random_strategy_control",
+            {
+                "claim_finalization",
+                "claim_report",
+                "classical_suite",
+                "path_mediation",
+                "compute_matched_control",
+                "classical_horizon_opportunity",
+            },
+            ["claim", "classical", "mediation", "compute", "opportunity"],
+        ),
+        (
             "paper",
             "paper",
             {
@@ -276,9 +293,17 @@ def test_all_dispositions_run_complete_terminal_sequence(
                 "classical_suite",
                 "path_mediation",
                 "compute_matched_control",
+                "classical_horizon_opportunity",
                 "random_strategy_control",
             },
-            ["claim", "classical", "mediation", "compute", "random"],
+            [
+                "claim",
+                "classical",
+                "mediation",
+                "compute",
+                "opportunity",
+                "random",
+            ],
         ),
     ],
 )
@@ -337,6 +362,7 @@ def test_complete_handoff_replays_every_component_without_new_artifact(
         "classical",
         "mediation",
         "compute",
+        "opportunity",
         "random",
         "paper",
     ]
