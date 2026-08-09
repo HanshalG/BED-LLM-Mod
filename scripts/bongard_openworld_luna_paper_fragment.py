@@ -90,6 +90,11 @@ BOUND_FILES = {
         "BONGARD_OPENWORLD_ANSWER_SIGNAL_LABEL_PRIVACY_CORRECTION_20260809.md",
         "d35112d995f42a13329ab61bf1fadff9bacb04f31f550bfd55736e6f3af0bda9",
     ),
+    "account_wide_budget_boundary_correction": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md",
+        "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de",
+    ),
     "answer_signal_ordering_amendment": (
         "results/nonmyopic/"
         "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",

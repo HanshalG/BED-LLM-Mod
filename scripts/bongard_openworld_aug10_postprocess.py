@@ -38,10 +38,17 @@ COMPUTE_AMENDMENT = REPO_ROOT / (
 COMPUTE_AMENDMENT_SHA256 = (
     "0e0a443b033b4ea5dcbe426dbf1820de9baa029ff2d78794d87e329f52cda66f"
 )
+BUDGET_BOUNDARY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md"
+)
+BUDGET_BOUNDARY_AMENDMENT_SHA256 = (
+    "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
+)
 BOUND_IMPLEMENTATIONS = {
     "aug10_wrapper": (
         "scripts/bongard_openworld_luna_aug10_execute.py",
-        "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
+        "27b78be19f2e68e14335abecc5bfde0dcd197fbe6e6b895ff2581dafdc3cddbb",
     ),
     "mechanics_disposition": (
         "scripts/bongard_openworld_mechanics_disposition.py",
@@ -100,6 +107,9 @@ def verify_bound_implementations() -> dict[str, Any]:
     amendment_hash = _sha256(COMPUTE_AMENDMENT)
     if amendment_hash != COMPUTE_AMENDMENT_SHA256:
         raise ValueError("August 10 postprocess compute amendment changed")
+    budget_amendment_hash = _sha256(BUDGET_BOUNDARY_AMENDMENT)
+    if budget_amendment_hash != BUDGET_BOUNDARY_AMENDMENT_SHA256:
+        raise ValueError("August 10 account-wide budget amendment changed")
     observed = {
         name: {"path": relative, "sha256": _sha256(REPO_ROOT / relative)}
         for name, (relative, _) in BOUND_IMPLEMENTATIONS.items()
@@ -118,6 +128,10 @@ def verify_bound_implementations() -> dict[str, Any]:
         "compute_amendment": {
             "path": str(COMPUTE_AMENDMENT),
             "sha256": amendment_hash,
+        },
+        "budget_boundary_amendment": {
+            "path": str(BUDGET_BOUNDARY_AMENDMENT),
+            "sha256": budget_amendment_hash,
         },
         "implementations": observed,
     }

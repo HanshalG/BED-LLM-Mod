@@ -43,11 +43,11 @@ BOUND_IMPLEMENTATIONS = {
     ),
     "aug10_wrapper": (
         "scripts/bongard_openworld_luna_aug10_execute.py",
-        "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
+        "27b78be19f2e68e14335abecc5bfde0dcd197fbe6e6b895ff2581dafdc3cddbb",
     ),
     "postprocess_v2": (
         "scripts/bongard_openworld_aug10_postprocess.py",
-        "883707739185f91fc7d60fe12661896e3a62c690b406fc993e5ccbdeffd69ce0",
+        "2bd8de7e84698936fded46aab71ff5a86c07a583a3ae7f349f64f4f04157ab52",
     ),
     "random_strategy_control": (
         "scripts/bongard_openworld_random_strategy_control.py",

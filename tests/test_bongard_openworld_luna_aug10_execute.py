@@ -35,14 +35,24 @@ def _opening_ledger() -> dict:
         "date": "2026-08-10",
         "timezone": "Europe/London",
         "daily_cap_usd": 5.0,
+        "opening_total_usage_usd": execute.OPENING_TOTAL_USAGE_BOUNDARY_USD,
         "recorded_actual_spend_usd": 0.0,
+        "account_wide_usage_counts_against_cap": True,
+        "opening_boundary_derived_from_authenticated_aug9_snapshot": True,
+        "opening_boundary_amendment_sha256": (
+            execute.ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256
+        ),
     }
 
 
-def _live(*, balance: float = 20.0) -> dict[str, float]:
+def _live(
+    *,
+    balance: float = 20.0,
+    usage: float = execute.OPENING_TOTAL_USAGE_BOUNDARY_USD,
+) -> dict[str, float]:
     return {
-        "total_credits_usd": 100.0,
-        "total_usage_usd": 100.0 - balance,
+        "total_credits_usd": usage + balance,
+        "total_usage_usd": usage,
         "balance_usd": balance,
     }
 
@@ -89,7 +99,9 @@ def _serving_runner(calls: list[str], *, status: str = "passed"):
         }
         _write(output_dir / "RESULT.json", result)
         ledger = json.loads(ledger_path.read_text())
-        ledger["recorded_actual_spend_usd"] = 0.08
+        ledger["recorded_actual_spend_usd"] = (
+            float(ledger["recorded_actual_spend_usd"]) + 0.08
+        )
         ledger["bongard_luna_vlm_serving_smoke"] = {
             "status": status,
             "interface_version": serving.INTERFACE_VERSION,
@@ -119,7 +131,9 @@ def _mechanics_runner(calls: list[str], *, status: str = "mechanics_pass"):
         }
         _write(output_dir / "RESULT.json", result)
         ledger = json.loads(ledger_path.read_text())
-        ledger["recorded_actual_spend_usd"] = 0.78
+        ledger["recorded_actual_spend_usd"] = (
+            float(ledger["recorded_actual_spend_usd"]) + 0.70
+        )
         ledger["bongard_luna_vlm_mechanics_tree"] = {
             "status": status,
             "interface_version": mechanics.INTERFACE_VERSION,
@@ -200,8 +214,15 @@ def test_unopened_sequence_runs_preflight_before_ledger_or_component(
     assert calls == ["preflight", "serving", "mechanics"]
     assert result["status"] == "complete"
     ledger = json.loads(paths["daily_ledger"].read_text())
-    assert ledger["opening_total_usage_usd"] == pytest.approx(80.0)
-    assert ledger["opening_balance_usd"] == pytest.approx(20.0)
+    assert ledger["opening_total_usage_usd"] == pytest.approx(
+        execute.OPENING_TOTAL_USAGE_BOUNDARY_USD
+    )
+    assert ledger["opening_balance_usd"] == pytest.approx(
+        execute.OPENING_BALANCE_BOUNDARY_USD
+    )
+    assert ledger["execution_opening_total_usage_usd"] == pytest.approx(
+        execute.OPENING_TOTAL_USAGE_BOUNDARY_USD
+    )
 
 
 def test_failed_fresh_preflight_writes_nothing_and_makes_no_component_call(
@@ -395,7 +416,114 @@ def test_preflight_is_read_only_and_reports_exact_budget(tmp_path: Path) -> None
         "unallocated_daily_allowance_usd": 3.0,
         "mechanics_requires_observed_serving_projection": True,
         "unspent_allowance_does_not_roll_over": True,
+        "opening_total_usage_boundary_usd": pytest.approx(
+            execute.OPENING_TOTAL_USAGE_BOUNDARY_USD
+        ),
+        "preexecution_account_spend_usd": pytest.approx(0.0),
+        "remaining_after_full_component_caps_usd": pytest.approx(3.0),
     }
+    assert result["account_wide_budget_boundary"]["sha256"] == (
+        execute.ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256
+    )
+
+
+def test_preflight_charges_unrelated_usage_before_bongard(tmp_path: Path) -> None:
+    paths = _paths(tmp_path)
+    usage = execute.OPENING_TOTAL_USAGE_BOUNDARY_USD + 2.50
+
+    result = _preflight(
+        paths,
+        live_reader=lambda: _live(balance=20.0, usage=usage),
+    )
+
+    assert result["budget"]["preexecution_account_spend_usd"] == pytest.approx(
+        2.50
+    )
+    assert result["budget"][
+        "remaining_after_full_component_caps_usd"
+    ] == pytest.approx(0.50)
+    assert not paths["daily_ledger"].exists()
+
+
+def test_preflight_refuses_when_prior_usage_cannot_cover_full_caps(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    usage = execute.OPENING_TOTAL_USAGE_BOUNDARY_USD + 3.01
+
+    with pytest.raises(RuntimeError, match="prior usage leaves less"):
+        _preflight(
+            paths,
+            live_reader=lambda: _live(balance=20.0, usage=usage),
+        )
+
+    assert not paths["daily_ledger"].exists()
+
+
+def test_unopened_sequence_preserves_prior_account_spend_in_ledger(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    calls = []
+    usage = execute.OPENING_TOTAL_USAGE_BOUNDARY_USD + 1.25
+
+    def fresh_preflight(**kwargs):
+        return {
+            "status": "ready_without_paid_calls",
+            "live_credits": kwargs["live_reader"](),
+        }
+
+    result = execute.execute_aug10_sequence(
+        **paths,
+        now=NOW,
+        live_reader=lambda: _live(balance=20.0, usage=usage),
+        fresh_preflight=fresh_preflight,
+        serving_runner=_serving_runner(calls),
+        mechanics_runner=_mechanics_runner(calls),
+        serving_validator=_serving_validator,
+        mechanics_validator=_mechanics_validator,
+    )
+
+    ledger = json.loads(paths["daily_ledger"].read_text())
+    assert calls == ["serving", "mechanics"]
+    assert ledger["opening_total_usage_usd"] == pytest.approx(
+        execute.OPENING_TOTAL_USAGE_BOUNDARY_USD
+    )
+    assert ledger["preexecution_account_spend_usd"] == pytest.approx(1.25)
+    assert result["recorded_actual_spend_usd"] == pytest.approx(2.03)
+
+
+def test_usage_race_after_preflight_fails_before_ledger_or_component(
+    tmp_path: Path,
+) -> None:
+    paths = _paths(tmp_path)
+    reads = iter(
+        (
+            _live(),
+            _live(usage=execute.OPENING_TOTAL_USAGE_BOUNDARY_USD + 3.01),
+        )
+    )
+
+    def fresh_preflight(**kwargs):
+        return {
+            "status": "ready_without_paid_calls",
+            "live_credits": kwargs["live_reader"](),
+        }
+
+    with pytest.raises(RuntimeError, match="prior usage leaves less"):
+        execute.execute_aug10_sequence(
+            **paths,
+            now=NOW,
+            live_reader=lambda: next(reads),
+            fresh_preflight=fresh_preflight,
+            serving_runner=lambda **_: pytest.fail("serving opened after spend race"),
+            mechanics_runner=lambda **_: pytest.fail("mechanics opened"),
+            serving_validator=_serving_validator,
+            mechanics_validator=_mechanics_validator,
+        )
+
+    assert not paths["daily_ledger"].exists()
+    assert not paths["output_dir"].exists()
 
 
 def test_preflight_refuses_partial_artifact(tmp_path: Path) -> None:

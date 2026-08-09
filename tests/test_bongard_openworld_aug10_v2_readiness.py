@@ -50,6 +50,19 @@ ANSWER_SIGNAL_PRIVACY_AMENDMENT = REPO_ROOT / (
 ANSWER_SIGNAL_PRIVACY_AMENDMENT_SHA256 = (
     "d35112d995f42a13329ab61bf1fadff9bacb04f31f550bfd55736e6f3af0bda9"
 )
+ACCOUNT_WIDE_BUDGET_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md"
+)
+ACCOUNT_WIDE_BUDGET_AMENDMENT_SHA256 = (
+    "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
+)
+CURRENT_AUG10_WRAPPER_SHA256 = (
+    "27b78be19f2e68e14335abecc5bfde0dcd197fbe6e6b895ff2581dafdc3cddbb"
+)
+CURRENT_POSTPROCESS_SHA256 = (
+    "2bd8de7e84698936fded46aab71ff5a86c07a583a3ae7f349f64f4f04157ab52"
+)
 ANSWER_SIGNAL_ORDERING_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md"
@@ -82,7 +95,7 @@ FINAL_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
 )
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "a5842cc67266c4c328b7df4ff47a25632c5506283b17ee36e425812d1c888e70"
+    "b6dda894b8ed05d62c6cde4f58257af9011776ba5c7f1f519bb8a08837007767"
 )
 ATOMIC_REHEARSAL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -134,7 +147,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "4a79f57b8b1ed4a36458a501e903375555265c46836de5d72397677be46a05d8"
+    "9c0a43f91f37b69db13a8fd1a38eba94ccf1596b0de37f26ca2ab3bb9d1fb715"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -144,7 +157,7 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "1b0279e0a09d5bf6861d2efd3be02b9adf123aac249ad97f07f8353adbcb29b2"
+    "21f3f90f3d69aa462cfe7cefa7cb5d149b8ccd6fd71857f82496525e87e9578f"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
@@ -152,7 +165,11 @@ PAPER_WRAPPER_TEST = (
 PAPER_WRAPPER_TEST_SHA256 = (
     "daf56b5d8b2b05819d598540404c8006fa4fd3d2be68a25caa389fb5e8644e2a"
 )
-PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
+HISTORICAL_SUPERSEDED_BINDINGS = {
+    "mandatory_paper_wrapper_v3",
+    "paid_aug10_wrapper",
+    "postprocess_v2",
+}
 
 
 def _sha256(path: Path) -> str:
@@ -163,7 +180,7 @@ def _load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
+def test_historical_v2_readiness_remains_bound_except_prospective_corrections() -> None:
     report = _load(ADDENDUM)
 
     assert report["status"] == "ready_without_paid_calls"
@@ -174,8 +191,21 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
     for name, record in report["bindings"].items():
         path = REPO_ROOT / record["path"]
         assert path.is_file()
-        if name not in PAPER_ONLY_BINDINGS:
+        if name not in HISTORICAL_SUPERSEDED_BINDINGS:
             assert _sha256(path) == record["sha256"]
+    assert report["bindings"]["paid_aug10_wrapper"]["sha256"] != (
+        CURRENT_AUG10_WRAPPER_SHA256
+    )
+    assert report["bindings"]["postprocess_v2"]["sha256"] != (
+        CURRENT_POSTPROCESS_SHA256
+    )
+    assert postprocess.BUDGET_BOUNDARY_AMENDMENT_SHA256 == (
+        ACCOUNT_WIDE_BUDGET_AMENDMENT_SHA256
+    )
+    assert postprocess.BOUND_IMPLEMENTATIONS["aug10_wrapper"] == (
+        "scripts/bongard_openworld_luna_aug10_execute.py",
+        CURRENT_AUG10_WRAPPER_SHA256,
+    )
     assert _sha256(CLOSEST_PRIOR_AMENDMENT) == CLOSEST_PRIOR_AMENDMENT_SHA256
     assert _sha256(ANSWER_SIGNAL_AMENDMENT) == ANSWER_SIGNAL_AMENDMENT_SHA256
     assert _sha256(ANSWER_SIGNAL_IMPLEMENTATION) == (
@@ -184,6 +214,9 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
     assert _sha256(ANSWER_SIGNAL_TEST) == ANSWER_SIGNAL_TEST_SHA256
     assert _sha256(ANSWER_SIGNAL_PRIVACY_AMENDMENT) == (
         ANSWER_SIGNAL_PRIVACY_AMENDMENT_SHA256
+    )
+    assert _sha256(ACCOUNT_WIDE_BUDGET_AMENDMENT) == (
+        ACCOUNT_WIDE_BUDGET_AMENDMENT_SHA256
     )
     assert _sha256(ANSWER_SIGNAL_ORDERING_AMENDMENT) == (
         ANSWER_SIGNAL_ORDERING_AMENDMENT_SHA256
@@ -266,11 +299,11 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
         ),
         "aug10_wrapper": (
             "scripts/bongard_openworld_luna_aug10_execute.py",
-            "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
+            CURRENT_AUG10_WRAPPER_SHA256,
         ),
         "postprocess_v2": (
             "scripts/bongard_openworld_aug10_postprocess.py",
-            "883707739185f91fc7d60fe12661896e3a62c690b406fc993e5ccbdeffd69ce0",
+            CURRENT_POSTPROCESS_SHA256,
         ),
         "random_strategy_control": (
             "scripts/bongard_openworld_random_strategy_control.py",

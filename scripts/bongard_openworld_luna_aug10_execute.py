@@ -73,6 +73,16 @@ PRECHARGE_AMENDMENT = REPO_ROOT / (
 PRECHARGE_AMENDMENT_SHA256 = (
     "75acd7ae3b51e287a08e81e202d0cfcd95d83dfd3ed308f678b7fe7854bbbff4"
 )
+ACCOUNT_WIDE_BOUNDARY_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md"
+)
+ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256 = (
+    "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
+)
+OPENING_TOTAL_CREDITS_BOUNDARY_USD = 245.0
+OPENING_TOTAL_USAGE_BOUNDARY_USD = 220.121013787
+OPENING_BALANCE_BOUNDARY_USD = 24.878986213
 
 
 class PreExecutionGateError(RuntimeError):
@@ -111,7 +121,14 @@ def _validate_ledger(path: Path, *, require_mechanics: bool) -> dict[str, Any]:
         ledger.get("date") != EXPECTED_DATE
         or ledger.get("timezone") != TIMEZONE
         or float(ledger.get("daily_cap_usd", 0.0)) != 5.0
+        or float(ledger.get("opening_total_usage_usd", -1.0))
+        != OPENING_TOTAL_USAGE_BOUNDARY_USD
         or float(ledger.get("recorded_actual_spend_usd", 0.0)) > 5.0 + 1e-12
+        or ledger.get("account_wide_usage_counts_against_cap") is not True
+        or ledger.get("opening_boundary_derived_from_authenticated_aug9_snapshot")
+        is not True
+        or ledger.get("opening_boundary_amendment_sha256")
+        != ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256
     ):
         raise RuntimeError("August 10 ledger boundary is invalid")
     smoke = ledger.get("bongard_luna_vlm_serving_smoke") or {}
@@ -210,6 +227,94 @@ def _validate_precharge_amendment(
         "sha256": digest,
         "maximum_request_cost_usd": serving.MAX_REQUEST_COST_USD,
     }
+
+
+def _validate_account_wide_boundary(
+    live: Mapping[str, float],
+    *,
+    path: Path = ACCOUNT_WIDE_BOUNDARY_AMENDMENT,
+) -> dict[str, Any]:
+    digest = _sha256(path)
+    if digest != ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256:
+        raise RuntimeError("Bongard account-wide budget amendment hash changed")
+    current_usage = float(live["total_usage_usd"])
+    values = (
+        float(live["total_credits_usd"]),
+        current_usage,
+        float(live["balance_usd"]),
+    )
+    if not all(math.isfinite(value) for value in values):
+        raise RuntimeError("live OpenRouter credit values are non-finite")
+    spent = current_usage - OPENING_TOTAL_USAGE_BOUNDARY_USD
+    if spent < -1e-12:
+        raise RuntimeError("live OpenRouter usage is below the frozen boundary")
+    component_cap = serving.RUN_BUDGET_USD + mechanics.RUN_BUDGET_USD
+    if spent + component_cap > 5.0 + 1e-12:
+        raise RuntimeError(
+            "account-wide prior usage leaves less than the complete frozen "
+            "Bongard component caps"
+        )
+    return {
+        "path": str(path),
+        "sha256": digest,
+        "opening_total_credits_usd": OPENING_TOTAL_CREDITS_BOUNDARY_USD,
+        "opening_total_usage_usd": OPENING_TOTAL_USAGE_BOUNDARY_USD,
+        "opening_balance_usd": OPENING_BALANCE_BOUNDARY_USD,
+        "preexecution_account_spend_usd": max(0.0, spent),
+        "remaining_after_full_component_caps_usd": max(
+            0.0, 5.0 - spent - component_cap
+        ),
+    }
+
+
+def _initialize_aug10_daily_ledger(
+    *,
+    path: Path,
+    live: Mapping[str, float],
+    now: datetime | None,
+) -> dict[str, Any]:
+    if path.exists():
+        raise RuntimeError("August 10 daily ledger already exists")
+    _validate_date(now)
+    boundary = _validate_account_wide_boundary(live)
+    timezone = ZoneInfo(TIMEZONE)
+    local_now = now.astimezone(timezone) if now else datetime.now(timezone)
+    ledger = {
+        "schema_version": serving.SCHEMA_VERSION,
+        "date": EXPECTED_DATE,
+        "timezone": TIMEZONE,
+        "daily_cap_usd": 5.0,
+        "opening_total_credits_usd": OPENING_TOTAL_CREDITS_BOUNDARY_USD,
+        "opening_total_usage_usd": OPENING_TOTAL_USAGE_BOUNDARY_USD,
+        "opening_balance_usd": OPENING_BALANCE_BOUNDARY_USD,
+        "opening_frozen_at_london": "2026-08-09",
+        "execution_opened_at_london": local_now.isoformat(),
+        "execution_opening_total_credits_usd": float(live["total_credits_usd"]),
+        "execution_opening_total_usage_usd": float(live["total_usage_usd"]),
+        "execution_opening_balance_usd": float(live["balance_usd"]),
+        "preexecution_account_spend_usd": boundary[
+            "preexecution_account_spend_usd"
+        ],
+        "recorded_actual_spend_usd": boundary[
+            "preexecution_account_spend_usd"
+        ],
+        "account_wide_usage_counts_against_cap": True,
+        "opening_boundary_derived_from_authenticated_aug9_snapshot": True,
+        "opening_boundary_amendment_sha256": (
+            ACCOUNT_WIDE_BOUNDARY_AMENDMENT_SHA256
+        ),
+        "unspent_allowance_does_not_roll_over": True,
+        "first_authorized_block": {
+            "interface_version": serving.INTERFACE_VERSION,
+            "model": serving.MODEL_ID,
+            "expected_requests": serving.EXPECTED_REQUESTS,
+            "maximum_cost_usd": serving.RUN_BUDGET_USD,
+            "status": "authorized_pending",
+        },
+        "additional_paid_blocks_authorized": False,
+    }
+    checkpoint(path, ledger)
+    return ledger
 
 
 def _validate_image_integrity_manifest(path: Path) -> dict[str, Any]:
@@ -353,6 +458,7 @@ def preflight_aug10_sequence(
         raise RuntimeError("live OpenRouter credit values are non-finite")
     if float(live["balance_usd"]) + 1e-12 < MINIMUM_STARTING_BALANCE_USD:
         raise RuntimeError("live OpenRouter balance is below the $5 start gate")
+    account_boundary = _validate_account_wide_boundary(live)
 
     component_cap = serving.RUN_BUDGET_USD + mechanics.RUN_BUDGET_USD
     return {
@@ -375,7 +481,17 @@ def preflight_aug10_sequence(
             "unallocated_daily_allowance_usd": 5.0 - component_cap,
             "mechanics_requires_observed_serving_projection": True,
             "unspent_allowance_does_not_roll_over": True,
+            "opening_total_usage_boundary_usd": (
+                OPENING_TOTAL_USAGE_BOUNDARY_USD
+            ),
+            "preexecution_account_spend_usd": account_boundary[
+                "preexecution_account_spend_usd"
+            ],
+            "remaining_after_full_component_caps_usd": account_boundary[
+                "remaining_after_full_component_caps_usd"
+            ],
         },
+        "account_wide_budget_boundary": account_boundary,
         "model_calls_made": 0,
         "files_written": 0,
     }
@@ -637,7 +753,8 @@ def execute_aug10_sequence(
             raise PreExecutionGateError(
                 "fresh preflight omitted the live credit snapshot"
             )
-        serving.initialize_daily_ledger(
+        live_opening = live_reader()
+        _initialize_aug10_daily_ledger(
             path=daily_ledger,
             live=live_opening,
             now=now,
