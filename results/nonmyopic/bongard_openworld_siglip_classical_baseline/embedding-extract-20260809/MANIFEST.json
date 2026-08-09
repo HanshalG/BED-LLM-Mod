@@ -1,0 +1,50 @@
+{
+  "all_gates_pass": true,
+  "artifacts": {
+    "dtype": "float32",
+    "embeddings": "results/nonmyopic/bongard_openworld_siglip_classical_baseline/embedding-extract-20260809/EMBEDDINGS.npy",
+    "embeddings_sha256": "338151bc734b9ea4259a57ccabacd6a499df5fe8afcf8cefdcdd3a4c6b13f4d1",
+    "index": "results/nonmyopic/bongard_openworld_siglip_classical_baseline/embedding-extract-20260809/INDEX.json",
+    "index_sha256": "9f3a1de76dc7124c0a1a8872949b52e46fb7b85a5ee26267032aa548516e2733",
+    "shape": [
+      2296,
+      1152
+    ]
+  },
+  "authorizes_paid_calls": false,
+  "candidate_labels_accessed": false,
+  "cost_usd": 0.0,
+  "endpoint_labels_accessed": false,
+  "gates": {
+    "embedding_array_is_exact_finite_unit_normalized_float32": true,
+    "exact_partition_image_counts": true,
+    "opaque_image_index_has_no_labels_or_roles": true
+  },
+  "interface_version": "bongard-openworld-siglip-embedding-extract-1",
+  "interpretation": "This artifact contains frozen-image SigLIP representations only. It reads no candidate or endpoint outcomes and provides no efficacy result.",
+  "model": {
+    "config_sha256": "048fd125a0ce9fdf98919bb3651c8596510488282cf76402eb838418a8029c79",
+    "device": "mps",
+    "model_id": "google/siglip2-so400m-patch16-512",
+    "parameters": 428772800,
+    "preprocessor_config_sha256": "63ff380d3e424f93e6fbca5cc8e74eeed882e96fd6be2b7728aed308f3ad1513",
+    "revision": "ceea1cba8130d8271436da4828633198c176a775",
+    "torch_version": "2.10.0",
+    "transformers_version": "4.57.5",
+    "verified_local_files": {
+      "config.json": "048fd125a0ce9fdf98919bb3651c8596510488282cf76402eb838418a8029c79",
+      "model.safetensors": "a621bd212e1b3329b428595f9693217e19587afe826adf3e5c241a16392e8973",
+      "preprocessor_config.json": "63ff380d3e424f93e6fbca5cc8e74eeed882e96fd6be2b7728aed308f3ad1513"
+    },
+    "vision_tower_only": true,
+    "weights_sha256": "a621bd212e1b3329b428595f9693217e19587afe826adf3e5c241a16392e8973"
+  },
+  "model_calls": 0,
+  "partition_image_counts": {
+    "confirmation": 1344,
+    "development": 896,
+    "mechanics": 56
+  },
+  "schema_version": 1,
+  "status": "embedding_extract_pass"
+}

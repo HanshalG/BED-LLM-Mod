@@ -1,0 +1,103 @@
+{
+  "all_gates_pass": true,
+  "authorizes_paid_calls": false,
+  "calibration": {
+    "bias": 0.0,
+    "log_loss_by_scale": {
+      "-0.25": 0.6914495537801132,
+      "-0.5": 0.6899712947835905,
+      "-1.0": 0.6876706505880178,
+      "-16.0": 0.9154270172821356,
+      "-2.0": 0.6856601250440025,
+      "-32.0": 1.4262453299688342,
+      "-4.0": 0.6915188460528997,
+      "-64.0": 2.614799352768307,
+      "-8.0": 0.7368583220806565,
+      "0.0": 0.6931471805599453,
+      "0.25": 0.6950643352180302,
+      "0.5": 0.6972008576594244,
+      "1.0": 0.7021297763396855,
+      "16.0": 1.1467730293088196,
+      "2.0": 0.714578376547338,
+      "32.0": 1.8889373540222014,
+      "4.0": 0.7493553490595707,
+      "64.0": 3.540183401181214,
+      "8.0": 0.8525313280939983
+    },
+    "partitions": [
+      "mechanics",
+      "development"
+    ],
+    "samples": 272,
+    "scale_grid": [
+      -64.0,
+      -32.0,
+      -16.0,
+      -8.0,
+      -4.0,
+      -2.0,
+      -1.0,
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0,
+      64.0
+    ],
+    "selected_scale": -2.0,
+    "source": "leave-one-out initial-history labels only"
+  },
+  "candidate_labels_accessed": false,
+  "cost_usd": 0.0,
+  "embedding_binding": {
+    "embeddings": "338151bc734b9ea4259a57ccabacd6a499df5fe8afcf8cefdcdd3a4c6b13f4d1",
+    "index": "9f3a1de76dc7124c0a1a8872949b52e46fb7b85a5ee26267032aa548516e2733",
+    "manifest": "9c3aa45197730421697c4eaa8cff6d395beeda624b188665af53f24dbd7946ba"
+  },
+  "endpoint_labels_accessed": false,
+  "gates": {
+    "all_partition_plans_are_complete": true,
+    "both_policies_have_complete_counterfactual_branches": true,
+    "bound_label_free_embedding_artifact_matches": true,
+    "depth_two_changes_a_robust_first_action": true,
+    "scale_selected_from_exact_initial_history_samples": true,
+    "shared_planner_implementation_matches": true
+  },
+  "interface_version": "bongard-openworld-siglip-classical-baseline-1",
+  "interpretation": "These are endpoint-sealed classical SigLIP counterfactual plans, not an endpoint result. They become a performance baseline only after an independently authorized stage opens the corresponding outcomes.",
+  "model_calls": 0,
+  "plans_path": "results/nonmyopic/bongard_openworld_siglip_classical_baseline/plans-20260809/PLANS.json",
+  "plans_sha256": "a41cc3b01d18fa9008f67d6f60a3f113b8f3194b73e932b4e2c3cfc83215f587",
+  "schema_version": 1,
+  "shared_planner_sha256": "ab30cb7add964eecfdb85194bd591c5be3dc6f78cd6a54d07c46868740a8bbfc",
+  "status": "classical_plans_frozen",
+  "summary": {
+    "confirmation": {
+      "changed_first_actions": 21,
+      "median_depth2_margin": 0.0003200393235022192,
+      "median_myopic_margin": 0.0010584200457440796,
+      "robust_changed_first_actions": 21,
+      "tasks": 96
+    },
+    "development": {
+      "changed_first_actions": 17,
+      "median_depth2_margin": 0.00021417641830268064,
+      "median_myopic_margin": 0.001017839082441907,
+      "robust_changed_first_actions": 17,
+      "tasks": 64
+    },
+    "mechanics": {
+      "changed_first_actions": 0,
+      "median_depth2_margin": 0.00031280621998885927,
+      "median_myopic_margin": 0.0016030803965967344,
+      "robust_changed_first_actions": 0,
+      "tasks": 4
+    }
+  }
+}
