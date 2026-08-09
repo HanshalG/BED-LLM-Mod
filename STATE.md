@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Repair the final Aug10 readiness record's obsolete downstream
+binding without mutating it or the paid chain. Prospective V2 addendum preserves
+the original record/hashes and supersedes only mechanics-analysis bindings and
+handoff instructions. Fresh real preflight again finds all five paths absent,
+Luna exact at$.10/.60M,4 tasks/56 images/10 cases,zero calls/files;credits remain
+245/220.121013787/balance24.878986213 and reported$30 unposted. Permanent hash
+contract3/3,focused11/11,full Bongard239/239;JSON21b2861f,MD66834d9d,
+test466bbda8;cost0,endpoints unopened.
+
 2026-08-09: Close the Aug10 one-shot handoff gap before any paid response.
 Postprocess V2 now runs exact classical-suite,path-mediation,then compute-matched
 audit after an authorized mechanics pass and binds all four components in one

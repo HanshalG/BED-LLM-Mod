@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "interface_version": "bongard-openworld-aug10-v2-readiness-addendum-1",
+  "checked_at_london": "2026-08-09T13:10:00+01:00",
+  "status": "ready_without_paid_calls",
+  "execution_date": "2026-08-10",
+  "repository": {
+    "branch": "codex/location-finding-llmstrategy",
+    "checked_predecessor_commit": "496c721d3473a86fc2b682c9af5440f094171d59",
+    "checked_upstream_commit": "496c721d3473a86fc2b682c9af5440f094171d59",
+    "tracked_diff_empty_before_addendum": true
+  },
+  "historical_readiness": {
+    "json_path": "results/nonmyopic/BONGARD_OPENWORLD_AUG10_FINAL_CURRENT_HEAD_READINESS_20260809.json",
+    "json_sha256": "6ea9ec149f7b62187cf9f966be9f1d6b5cea7ec1fb5bada198b75bbbc01c185f",
+    "markdown_path": "results/nonmyopic/BONGARD_OPENWORLD_AUG10_FINAL_CURRENT_HEAD_READINESS_20260809.md",
+    "markdown_sha256": "093acc3a79cdd08ad3818dc904daca4f41a85f78ad2ef36f867d70b33281eb93",
+    "remains_immutable": true,
+    "superseded_fields": [
+      "mechanics_analysis_bindings",
+      "mechanics_terminal_handoff_instructions"
+    ],
+    "paid_chain_fields_remain_in_force": true
+  },
+  "bindings": {
+    "paid_aug10_wrapper": {
+      "path": "scripts/bongard_openworld_luna_aug10_execute.py",
+      "sha256": "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5"
+    },
+    "postprocess_protocol": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_AUG10_POSTPROCESS_PROTOCOL_20260809.md",
+      "sha256": "f7d19ef3a8a48478aa30d4b63541e0c680f74641de70ed3120b25f203d888f5e"
+    },
+    "postprocess_v2_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_AUG10_POSTPROCESS_COMPUTE_AMENDMENT_20260809.md",
+      "sha256": "0e0a443b033b4ea5dcbe426dbf1820de9baa029ff2d78794d87e329f52cda66f"
+    },
+    "postprocess_v2": {
+      "path": "scripts/bongard_openworld_aug10_postprocess.py",
+      "sha256": "883707739185f91fc7d60fe12661896e3a62c690b406fc993e5ccbdeffd69ce0"
+    },
+    "postprocess_v2_regression": {
+      "path": "tests/test_bongard_openworld_aug10_postprocess.py",
+      "sha256": "077a6f556ca53cc640d4dcf6d6ae3abaf7632ca218eda15246dfe5f1570e72c9"
+    },
+    "mechanics_disposition": {
+      "path": "scripts/bongard_openworld_mechanics_disposition.py",
+      "sha256": "870c6fe5ba1a9dd09250193bc36e4bb108708a10dc07bc225dc075d596f4d8bb"
+    },
+    "classical_suite": {
+      "path": "scripts/bongard_openworld_classical_suite_outcome.py",
+      "sha256": "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032"
+    },
+    "path_mediation": {
+      "path": "scripts/bongard_openworld_path_mediation.py",
+      "sha256": "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912"
+    },
+    "compute_matched_control": {
+      "path": "scripts/bongard_openworld_compute_matched_control.py",
+      "sha256": "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba"
+    },
+    "mandatory_paper_wrapper_v3": {
+      "path": "scripts/bongard_openworld_paper_with_classical_suite.py",
+      "sha256": "0cca8468d39482361b118f39f174ca67b155bfd11778b0d10fe954f00e1e6edb"
+    }
+  },
+  "preflight": {
+    "interface_version": "bongard-openworld-luna-aug10-execute-4",
+    "status": "ready_without_paid_calls",
+    "canonical_sha256": "0da1cf74f05cd1237f966aeadc2d073d588460ecb68049b7683d47e56c95073a",
+    "execution_paths": {
+      "wrapper": "absent",
+      "serving": "absent",
+      "mechanics": "absent",
+      "daily_ledger": "absent",
+      "postprocess_v2": "absent"
+    },
+    "mechanics_tasks": 4,
+    "mechanics_images": 56,
+    "serving_cases": 10,
+    "serving_message_bytes": 8821758,
+    "model_calls_made": 0,
+    "files_written": 0
+  },
+  "live_model": {
+    "id": "openai/gpt-5.6-luna",
+    "prompt_usd_per_million_tokens": 0.1,
+    "completion_usd_per_million_tokens": 0.6,
+    "maximum_request_cost_usd": 0.004,
+    "covered_prompt_tokens_at_live_price": 20800.0
+  },
+  "live_credits": {
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.121013787,
+    "balance_usd": 24.878986213,
+    "reported_topup_posted": false
+  },
+  "budget": {
+    "account_wide_daily_cap_usd": 5.0,
+    "maximum_component_caps_usd": 2.0,
+    "unallocated_daily_allowance_usd": 3.0,
+    "unspent_allowance_does_not_roll_over": true
+  },
+  "verification": {
+    "readiness_contract_tests_passed": 3,
+    "focused_combined_tests_passed": 11,
+    "postprocess_focused_tests_passed": 28,
+    "bongard_tests_passed": 239,
+    "candidate_labels_accessed": false,
+    "scientific_endpoints_accessed": false,
+    "paid_model_calls": 0,
+    "cost_usd": 0.0
+  },
+  "authorization": {
+    "authorizes_early_execution": false,
+    "requires_fresh_aug10_same_day_preflight": true,
+    "postprocess_creates_development_authorization": false,
+    "postprocess_authorizes_rerun": false,
+    "mechanics_compute_audit_is_owned_by_postprocess_v2": true,
+    "separate_mechanics_compute_audit_after_success_is_forbidden": true,
+    "next_action": "On August 10, run the fresh preflight and frozen paid wrapper once if ready, then run postprocess V2 once on the terminal artifact."
+  }
+}
