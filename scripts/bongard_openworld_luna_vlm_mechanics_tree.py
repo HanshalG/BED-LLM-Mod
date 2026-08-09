@@ -12,6 +12,7 @@ import json
 import math
 from pathlib import Path
 import random
+import statistics
 import sys
 from typing import Any, Callable, Mapping, Protocol, Sequence
 from zoneinfo import ZoneInfo
@@ -29,7 +30,7 @@ from scripts.openrouter_daily_budget import read_live_credits, require_budget
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-13"
+INTERFACE_VERSION = "bongard-openworld-luna-vlm-mechanics-tree-14"
 MODEL_ID = serving.MODEL_ID
 MODEL_SEED = 2_026_081_021
 RANDOM_SEED = 2_026_081_022
@@ -54,6 +55,7 @@ MIN_ACTION_MARGIN_NATS = 1e-6
 SCORE_OBJECTIVE = "endpoint_predictive_information_gain_nats"
 POLICIES = (
     "myopic_width",
+    "compute_matched_myopic_ensemble",
     "fixed_depth2",
     "fixed_score_dynamic_update",
     "dynamic_depth2",
@@ -64,6 +66,7 @@ POLICIES = (
 )
 SCORE_POLICIES = (
     "myopic_width",
+    "compute_matched_myopic_ensemble",
     "fixed_depth2",
     "dynamic_depth2",
     "shuffled_dynamic_depth2",
@@ -432,6 +435,42 @@ def shuffled_continuation_control(
     )
 
 
+def compute_matched_myopic_ensemble_scores(
+    *,
+    task: bed.VisualTask,
+    root: bed.SemanticBelief,
+    history_blind_branches: Mapping[
+        tuple[str, bool], bed.SemanticBelief
+    ],
+) -> dict[str, float]:
+    """Average one-step PIG across the root and 16 fresh root-prompt draws."""
+    expected_keys = {
+        (candidate, label)
+        for candidate in task.candidate_ids
+        for label in (False, True)
+    }
+    if set(history_blind_branches) != expected_keys:
+        raise ValueError("compute-matched myopic ensemble requires all blind draws")
+    supports = [
+        root,
+        *(history_blind_branches[key] for key in sorted(expected_keys)),
+    ]
+    if len(supports) != 1 + 2 * len(task.candidate_ids):
+        raise AssertionError("compute-matched myopic call count changed")
+    if any(support.history != root.history for support in supports):
+        raise ValueError("compute-matched myopic supports must share root history")
+    per_draw = [
+        bed.candidate_endpoint_eigs(
+            support, task.candidate_ids, task.endpoint_ids
+        )
+        for support in supports
+    ]
+    return {
+        candidate: statistics.fmean(scores[candidate] for scores in per_draw)
+        for candidate in task.candidate_ids
+    }
+
+
 def selection_margin(scores: Mapping[str, float], selected: str) -> float:
     alternatives = [value for key, value in scores.items() if key != selected]
     if selected not in scores or not alternatives:
@@ -461,6 +500,11 @@ def plan_task_policies(
     myopic_scores = bed.candidate_endpoint_eigs(
         root, candidates, endpoint_ids
     )
+    compute_matched_myopic_scores = compute_matched_myopic_ensemble_scores(
+        task=task,
+        root=root,
+        history_blind_branches=history_blind_branches,
+    )
     fixed_scores = bed.fixed_support_endpoint_depth_two_scores(
         root, candidates, endpoint_ids
     )
@@ -482,6 +526,9 @@ def plan_task_policies(
     )
     first_by_policy = {
         "myopic_width": bed.select_best(myopic_scores),
+        "compute_matched_myopic_ensemble": bed.select_best(
+            compute_matched_myopic_scores
+        ),
         "fixed_depth2": bed.select_best(fixed_scores),
         "fixed_score_dynamic_update": bed.select_best(fixed_scores),
         "dynamic_depth2": bed.select_best(dynamic_scores),
@@ -551,6 +598,7 @@ def plan_task_policies(
                 if policy == "random"
                 else {
                     "myopic_width": myopic_scores,
+                    "compute_matched_myopic_ensemble": compute_matched_myopic_scores,
                     "fixed_depth2": fixed_scores,
                     "fixed_score_dynamic_update": fixed_scores,
                     "dynamic_depth2": dynamic_scores,
@@ -565,6 +613,7 @@ def plan_task_policies(
                 else selection_margin(
                     {
                         "myopic_width": myopic_scores,
+                        "compute_matched_myopic_ensemble": compute_matched_myopic_scores,
                         "fixed_depth2": fixed_scores,
                         "fixed_score_dynamic_update": fixed_scores,
                         "dynamic_depth2": dynamic_scores,
@@ -587,6 +636,7 @@ def plan_task_policies(
         "root_hypothesis_eig_diagnostics": hypothesis_eig_diagnostics,
         "root_scores": {
             "myopic_width": myopic_scores,
+            "compute_matched_myopic_ensemble": compute_matched_myopic_scores,
             "fixed_depth2": fixed_scores,
             "fixed_score_dynamic_update": fixed_scores,
             "dynamic_depth2": dynamic_scores,
@@ -611,6 +661,7 @@ def final_cases(
             "dynamic_depth2",
             "history_blind_depth2",
             "history_blind_update_matched_first",
+            "compute_matched_myopic_ensemble",
             "myopic_width",
             "fixed_depth2",
             "fixed_score_dynamic_update",
@@ -732,6 +783,7 @@ def all_action_final_cases(
                 "dynamic_depth2",
                 "history_blind_depth2",
                 "history_blind_update_matched_first",
+                "compute_matched_myopic_ensemble",
                 "myopic_width",
                 "fixed_depth2",
                 "fixed_score_dynamic_update",
@@ -1144,6 +1196,26 @@ def mechanics_gates(
         >= MIN_ACTION_MARGIN_NATS
         for tree in trees
     )
+    compute_matched_myopic_changes = sum(
+        tree["policies"]["dynamic_depth2"]["first_image_id"]
+        != tree["policies"]["compute_matched_myopic_ensemble"][
+            "first_image_id"
+        ]
+        for tree in trees
+    )
+    robust_compute_matched_myopic_changes = sum(
+        tree["policies"]["dynamic_depth2"]["first_image_id"]
+        != tree["policies"]["compute_matched_myopic_ensemble"][
+            "first_image_id"
+        ]
+        and tree["policies"]["dynamic_depth2"]["first_score_margin"]
+        >= MIN_ACTION_MARGIN_NATS
+        and tree["policies"]["compute_matched_myopic_ensemble"][
+            "first_score_margin"
+        ]
+        >= MIN_ACTION_MARGIN_NATS
+        for tree in trees
+    )
     robust_dynamic_blind_changes = sum(
         tree["policies"]["dynamic_depth2"]["first_image_id"]
         != tree["policies"]["history_blind_depth2"]["first_image_id"]
@@ -1262,6 +1334,28 @@ def mechanics_gates(
         "dynamic_depth2_changes_at_least_one_myopic_first_action": dynamic_changes >= 1,
         "dynamic_action_change_clears_numerical_tie_margin": (
             robust_dynamic_changes >= 1
+        ),
+        "compute_matched_myopic_uses_root_plus_16_answer_free_root_prompt_draws": (
+            paired_requests.get("pair_count") == DYNAMIC_BRANCH_REQUESTS
+            and (paired_requests.get("gates") or {}).get(
+                "all_blind_prompts_match_ordinary_root_prompt"
+            )
+            is True
+            and (paired_requests.get("gates") or {}).get(
+                "distinct_pairs_use_distinct_seeds"
+            )
+            is True
+            and all(
+                set(tree["root_scores"]["compute_matched_myopic_ensemble"])
+                == set(tree["root_scores"]["dynamic_depth2"])
+                for tree in trees
+            )
+        ),
+        "dynamic_depth2_changes_at_least_one_compute_matched_myopic_first_action": (
+            compute_matched_myopic_changes >= 1
+        ),
+        "dynamic_vs_compute_matched_myopic_action_change_clears_numerical_tie_margin": (
+            robust_compute_matched_myopic_changes >= 1
         ),
         "dynamic_and_history_blind_change_a_nontied_first_action": (
             robust_dynamic_blind_changes >= 1

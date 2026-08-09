@@ -95,6 +95,20 @@ BOUND_FILES = {
         "BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md",
         "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de",
     ),
+    "compute_matched_myopic_ensemble_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md",
+        "064fb13dd1fbbcea255e38b1b9eae41dfb9347bcf1b91fa5bc5711eba7985368",
+    ),
+    "compute_matched_control_audit_protocol": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_COMPUTE_MATCHED_CONTROL_AUDIT_PROTOCOL_20260809.md",
+        "994be46dfabe30ca564ad9befbd47e6e84935f39c389c33db287b2c85b417c6f",
+    ),
+    "compute_matched_control_audit": (
+        "scripts/bongard_openworld_compute_matched_control.py",
+        "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43",
+    ),
     "answer_signal_ordering_amendment": (
         "results/nonmyopic/"
         "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
@@ -105,32 +119,32 @@ BOUND_FILES = {
         "dea4327670d7169e32c0901e20bda4aa23868df6968c92e3855f929dc91bd93c",
     ),
     "development_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
-        "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676",
+        "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V18.json",
+        "df55546302190161ab2c4005f936e967e24dafe5f42483288c39100e0b03614f",
     ),
     "confirmation_manifest": (
-        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V14.json",
-        "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a",
+        "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V15.json",
+        "63cda4a2cd964eeae2227292483760fade0c7738e9c35fe3b4e0dddac8152c0e",
     ),
     "development_claim_generator": (
         "scripts/bongard_openworld_luna_claim_report.py",
-        "f9b828bb5dc85b2fd0ef2757c0708674f8e7489c518d3bc0fabd6536546888e3",
+        "81c915250d2a03a5af6656b1bdaa52bb654d71edf9798eb77112f93bc2c53887",
     ),
     "development_analyzer": (
         "scripts/bongard_openworld_luna_vlm_development.py",
-        "03f06f89bc675897bf44ee82b69567f5217d7ab3d4bcd208996fe6fb623afc7a",
+        "6010f426b9239ee9b85fbc2ccb188a981d068aaad50ec4f2d87b757b64da971f",
     ),
     "development_daily_replay": (
         "scripts/bongard_openworld_luna_development32_daily_execute.py",
-        "bcfefaab9e96dca47d7a3a99d37a7c9857797831ab0f0b1939f21817d32d2de2",
+        "81749066f8b68c4d6f9638b8be61875ef71c9470e91945d3c0d8b31d600e746e",
     ),
     "confirmation_analyzer": (
         "scripts/bongard_openworld_luna_confirmation64.py",
-        "d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794",
+        "8928bbee168cad3fd380ba7f5ad4633e293b21727d00347dc4bbe7adffa2e107",
     ),
     "confirmation_freeze_verifier": (
         "scripts/bongard_openworld_luna_confirmation64_verify.py",
-        "1f905dcff4c2f251b45e07641c5ed7822d6a3676b8a0bcca797e1527a7c396f8",
+        "fcf50a7daa11bef208d3d2c796cbfc933f4b9497f71ec7d9d5724f7d98f1e1b6",
     ),
     "confirmation_daily_executor": (
         "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",
@@ -141,7 +155,8 @@ BOUND_FILES = {
 DEVELOPMENT_TIERS = {
     "full_path_dependent_llm_native_development_signal": (
         "The prospective 64-task development cohort supports dynamic depth-two "
-        "planning over myopic selection, answer-conditioned simulated support "
+        "planning over ordinary and call-matched ensemble myopic selection, "
+        "answer-conditioned simulated support "
         "over same-seed history-blind simulation for first-query planning "
         "under a common realized updater, and path-dependent dynamic support "
         "over fixed-support, matched fixed-score, and dynamic-first matched "
@@ -240,7 +255,7 @@ def _percent(value: Any) -> str:
 def _methods_lines(task_count: int) -> list[str]:
     return [
         "\\paragraph{Bongard-OpenWorld: multimodal LLM-native sequential BED.}",
-        f"On {task_count} 14-image tasks, Luna generated ten history-conditioned predictive particles at root and counterfactual branches. Each particle contained a free-form semantic rule, a history-conditioned weight, and a predictive positive-label probability for all 14 images. The deterministic planner consumed only the weights and probability matrix; rule strings were interpretive descriptions and uniqueness checks, not numerical planner inputs. Candidate and endpoint roles were hidden. The planner saw endpoint IDs but no labels and minimized sealed endpoint-label predictive entropy. Controls were one-step PIG, fixed-support d2, same-seed history-blind planning simulation with a common realized updater, matched fixed-score/dynamic-update, dynamic-first matched history-blind intermediate updating with a common terminal updater, shuffled continuation, and random selection.",
+        f"On {task_count} 14-image tasks, Luna generated ten history-conditioned predictive particles at root and counterfactual branches, each with a free-form rule, history weight, and predictive positive-label probability. The planner used only weights and probabilities; rule strings were interpretive descriptions. Candidate/endpoint roles were hidden, with endpoint IDs but no labels visible. It minimized endpoint predictive entropy. Controls were one-step PIG; a call-matched myopic ensemble over the root plus 16 answer-free root generations; fixed-support d2; same-seed history-blind simulation with a common realized updater; matched fixed-score/dynamic update; dynamic-first matched history-blind intermediate update with a common terminal updater; shuffled continuation; and random selection.",
     ]
 
 
@@ -277,6 +292,16 @@ def _metric_lines(metrics: Mapping[str, Any]) -> list[str]:
             "myopic",
             metrics["dynamic_vs_myopic_relative_brier_improvement"],
             metrics["dynamic_vs_myopic_changed_final_histories"],
+        ),
+        (
+            "call-matched",
+            "dynamic_vs_compute_matched_myopic",
+            metrics[
+                "dynamic_vs_compute_matched_myopic_relative_brier_improvement"
+            ],
+            metrics[
+                "dynamic_vs_compute_matched_myopic_changed_final_histories"
+            ],
         ),
         (
             "history-blind",
@@ -344,7 +369,7 @@ def _base_metadata(
 ) -> dict[str, Any]:
     return {
         "schema_version": 1,
-        "interface_version": "bongard-openworld-luna-paper-fragment-3",
+        "interface_version": "bongard-openworld-luna-paper-fragment-4",
         "status": "rendered",
         "stage": stage,
         "claim_tier": tier,
@@ -430,6 +455,9 @@ def _confirmation_metrics(result: Mapping[str, Any]) -> dict[str, Any]:
         "pooled_policy_metrics": result["pooled_policy_metrics"],
         "comparisons_vs_myopic": result["comparisons_vs_myopic"],
         "dynamic_vs_history_blind": result["dynamic_vs_history_blind"],
+        "dynamic_vs_compute_matched_myopic": result[
+            "dynamic_vs_compute_matched_myopic"
+        ],
         "dynamic_vs_fixed_depth2": result["dynamic_vs_fixed_depth2"],
         "dynamic_vs_fixed_score_dynamic_update": result[
             "dynamic_vs_fixed_score_dynamic_update"
@@ -443,6 +471,9 @@ def _confirmation_metrics(result: Mapping[str, Any]) -> dict[str, Any]:
         ],
         "dynamic_vs_history_blind_relative_brier_improvement": result[
             "dynamic_vs_history_blind_relative_brier_improvement"
+        ],
+        "dynamic_vs_compute_matched_myopic_relative_brier_improvement": result[
+            "dynamic_vs_compute_matched_myopic_relative_brier_improvement"
         ],
         "dynamic_vs_fixed_depth2_relative_brier_improvement": result[
             "dynamic_vs_fixed_depth2_relative_brier_improvement"
@@ -458,6 +489,9 @@ def _confirmation_metrics(result: Mapping[str, Any]) -> dict[str, Any]:
         ],
         "dynamic_vs_history_blind_changed_final_histories": result[
             "dynamic_vs_history_blind_changed_final_histories"
+        ],
+        "dynamic_vs_compute_matched_myopic_changed_final_histories": result[
+            "dynamic_vs_compute_matched_myopic_changed_final_histories"
         ],
         "dynamic_vs_fixed_depth2_changed_final_histories": result[
             "dynamic_vs_fixed_depth2_changed_final_histories"
@@ -534,13 +568,15 @@ def build_confirmation_fragment(
                 "answer-conditioned VLM predictive beliefs reduces endpoint "
                 f"Brier by {_percent(relative)} versus one-step PIG "
                 f"(paired 95\\% CI $[{_number(primary['ci95'][0])},"
-                f"{_number(primary['ci95'][1])}]$) and also beats fixed-support, "
-                "history-blind, and matched-updater controls."
+                f"{_number(primary['ci95'][1])}]$) and also beats the "
+                "call-matched myopic ensemble, fixed-support, history-blind, "
+                "and matched-updater controls."
             ),
             "contribution_tex": (
                 "\\item untouched multimodal confirmation that two-step BED over "
                 "answer-conditioned VLM predictive-belief transitions outperforms "
-                "one-step, fixed-support, history-blind, and matched-updater controls;"
+                "one-step, call-matched myopic-ensemble, fixed-support, "
+                "history-blind, and matched-updater controls;"
             ),
         }
     return "\n".join(lines), metadata

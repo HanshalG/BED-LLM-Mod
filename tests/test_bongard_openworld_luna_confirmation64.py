@@ -203,6 +203,7 @@ def test_confirmation_block_runs_and_replays_with_fixture(
 def _scored_tree(task_id: str, index: int) -> dict:
     endpoint_values = {
         "myopic_width": (0.20, 0.40),
+        "compute_matched_myopic_ensemble": (0.15, 0.33),
         "fixed_depth2": (0.12, 0.30),
         "fixed_score_dynamic_update": (0.14, 0.32),
         "dynamic_depth2": (0.10, 0.25),
@@ -252,6 +253,7 @@ def _scored_tree(task_id: str, index: int) -> dict:
         },
         "ranking_fidelity": {
             "dynamic_depth2": 0.8,
+            "compute_matched_myopic_ensemble": 0.45,
             "myopic_width": 0.5,
             "fixed_depth2": 0.6,
             "shuffled_dynamic_depth2": 0.3,

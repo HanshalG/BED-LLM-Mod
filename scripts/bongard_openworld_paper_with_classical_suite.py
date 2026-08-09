@@ -29,13 +29,13 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 SCHEMA_VERSION = 1
 INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-6"
 LUNA_RENDERER_SHA256 = (
-    "d9d6dc75e5b4521b9682ba607d7db3f13630acbb342e7ef75a97fc9145104602"
+    "74d807687fa9d3fa97695f01e47ec0e30db45c79478149a6d03b1eb20a416851"
 )
 CLASSICAL_SUITE_OUTCOME_SHA256 = (
     "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032"
 )
 COMPUTE_MATCHED_CONTROL_SHA256 = (
-    "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba"
+    "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43"
 )
 RANDOM_STRATEGY_CONTROL_SHA256 = (
     "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441"
@@ -328,7 +328,9 @@ def compute_matched_tex_lines(
     if (
         result.get("status") != "compute_matched_control_audit_complete"
         or result.get("compute_contract_exact") is not True
-        or result.get("strict_compute_matched_control")
+        or result.get("strict_compute_matched_myopic_control")
+        != "compute_matched_myopic_ensemble"
+        or result.get("strict_continuation_compute_matched_control")
         != "shuffled_dynamic_depth2"
         or result.get("matched_request_count_control")
         != "history_blind_depth2"
@@ -344,45 +346,68 @@ def compute_matched_tex_lines(
     comparisons = result.get("comparisons")
     if not isinstance(comparisons, Mapping):
         raise ValueError("compute-matched paper comparisons are missing")
-    shuffled = comparisons.get("shuffled_dynamic_depth2")
-    if not isinstance(shuffled, Mapping):
-        raise ValueError("strict compute-matched comparison is missing")
-    brier = _validated_compute_summary(
-        shuffled, "mean_brier", task_count=task_count
-    )
-    log_loss = _validated_compute_summary(
-        shuffled, "mean_log_loss", task_count=task_count
-    )
-    first_changes = shuffled.get("first_query_changes")
-    history_changes = shuffled.get("final_history_changes")
-    if (
-        not isinstance(first_changes, int)
-        or not 0 <= first_changes <= task_count
-        or not isinstance(history_changes, int)
-        or not 0 <= history_changes <= task_count
+    validated = {}
+    for control in (
+        "compute_matched_myopic_ensemble",
+        "shuffled_dynamic_depth2",
     ):
-        raise ValueError("compute-matched action-change counts are invalid")
+        comparison = comparisons.get(control)
+        if not isinstance(comparison, Mapping):
+            raise ValueError("strict compute-matched comparison is missing")
+        brier = _validated_compute_summary(
+            comparison, "mean_brier", task_count=task_count
+        )
+        log_loss = _validated_compute_summary(
+            comparison, "mean_log_loss", task_count=task_count
+        )
+        first_changes = comparison.get("first_query_changes")
+        history_changes = comparison.get("final_history_changes")
+        if (
+            not isinstance(first_changes, int)
+            or not 0 <= first_changes <= task_count
+            or not isinstance(history_changes, int)
+            or not 0 <= history_changes <= task_count
+        ):
+            raise ValueError("compute-matched action-change counts are invalid")
+        validated[control] = {
+            "mean_brier": brier,
+            "mean_log_loss": log_loss,
+            "first_query_changes": first_changes,
+            "final_history_changes": history_changes,
+        }
+    ensemble = validated["compute_matched_myopic_ensemble"]
+    shuffled = validated["shuffled_dynamic_depth2"]
     lines = [
-        "\\paragraph{Compute-matched shuffled continuation.}",
+        "\\paragraph{Call-matched controls.}",
         (
-            "The strict branch-bank-compute-matched shuffle preserved root scores "
-            "and the continuation-value multiset. Dynamic minus shuffled was "
-            f"{_number(brier['mean_difference'])} Brier (95\\% CI "
-            f"$[{_number(brier['ci95'][0])},{_number(brier['ci95'][1])}]$) and "
-            f"{_number(log_loss['mean_difference'])} log loss (95\\% CI "
-            f"$[{_number(log_loss['ci95'][0])},{_number(log_loss['ci95'][1])}]$); "
-            f"first query/final history changed on {first_changes}/{task_count} "
-            f"and {history_changes}/{task_count}. Negative favors dynamic; this "
-            "all-task audit is descriptive and non-gating."
+            "A myopic ensemble averaged one-step endpoint EIG over the root plus "
+            "16 answer-free root-prompt beliefs, matching 17 first-stage calls. "
+            f"Dynamic--ensemble Brier was {_number(ensemble['mean_brier']['mean_difference'])} "
+            f"(95\\% CI $[{_number(ensemble['mean_brier']['ci95'][0])},"
+            f"{_number(ensemble['mean_brier']['ci95'][1])}]$) and "
+            f"log loss {_number(ensemble['mean_log_loss']['mean_difference'])}; "
+            "first/final changed on "
+            f"{ensemble['first_query_changes']}/{task_count} and "
+            f"{ensemble['final_history_changes']}/{task_count}. Against shuffled "
+            "continuation, differences were "
+            f"{_number(shuffled['mean_brier']['mean_difference'])} Brier and "
+            f"{_number(shuffled['mean_log_loss']['mean_difference'])} log loss. "
+            "Negative favors dynamic; this zero-call audit does not alter gates."
         ),
     ]
     metadata = {
-        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "strict_compute_matched_myopic_control": (
+            "compute_matched_myopic_ensemble"
+        ),
+        "strict_continuation_compute_matched_control": (
+            "shuffled_dynamic_depth2"
+        ),
         "task_count": task_count,
-        "mean_brier": brier,
-        "mean_log_loss": log_loss,
-        "first_query_changes": first_changes,
-        "final_history_changes": history_changes,
+        "mean_brier": ensemble["mean_brier"],
+        "mean_log_loss": ensemble["mean_log_loss"],
+        "first_query_changes": ensemble["first_query_changes"],
+        "final_history_changes": ensemble["final_history_changes"],
+        "comparisons": validated,
         "changes_claim_tier": False,
         "authorizes_paid_calls": False,
     }

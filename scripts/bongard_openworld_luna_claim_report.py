@@ -20,7 +20,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-claim-report-6"
+INTERFACE_VERSION = "bongard-openworld-luna-claim-report-7"
 
 SHARED_GATES = (
     "all_four_endpoint_blind_blocks_independently_replay",
@@ -38,6 +38,13 @@ POLICY_GATES = (
     "dynamic_brier_relative_improvement_at_least_3_percent",
     "dynamic_brier_bootstrap_improvement_probability_at_least_0_80",
     "dynamic_log_loss_is_not_worse_than_myopic",
+    "at_least_24_dynamic_final_histories_differ_from_compute_matched_myopic",
+    "at_least_24_dynamic_action_changes_from_compute_matched_myopic_clear_numerical_tie_margin",
+    "dynamic_and_compute_matched_myopic_differ_in_every_execution_block",
+    "dynamic_brier_relative_improvement_vs_compute_matched_myopic_at_least_3_percent",
+    "dynamic_brier_vs_compute_matched_myopic_bootstrap_probability_at_least_0_80",
+    "dynamic_log_loss_is_not_worse_than_compute_matched_myopic",
+    "dynamic_ranking_fidelity_is_not_worse_than_compute_matched_myopic",
     "dynamic_brier_is_not_worse_than_shuffled_control",
 )
 MECHANISM_GATES = (
@@ -82,7 +89,8 @@ CLAIM_SCOPES = {
         "allowed": [
             (
                 "Prospective development evidence that dynamic depth-two "
-                "planning improves endpoint Brier over myopic-width selection."
+                "planning improves endpoint Brier over both ordinary myopic "
+                "width and a call-matched 17-belief myopic ensemble."
             ),
             (
                 "Matched-control development evidence that, under a common "
@@ -115,7 +123,8 @@ CLAIM_SCOPES = {
         "allowed": [
             (
                 "Prospective development evidence for dynamic depth-two "
-                "planning over myopic-width selection."
+                "planning over ordinary and call-matched ensemble myopic "
+                "selection."
             ),
             (
                 "Matched-control development evidence for answer-conditioned "
@@ -134,7 +143,8 @@ CLAIM_SCOPES = {
         "allowed": [
             (
                 "Prospective development evidence for the dynamic depth-two "
-                "policy comparison only."
+                "policy comparison, including the call-matched myopic "
+                "ensemble, only."
             )
         ],
         "forbidden": [
@@ -270,6 +280,9 @@ def build_claim_report(
         "pooled_policy_metrics": result["pooled_policy_metrics"],
         "comparisons_vs_myopic": result["comparisons_vs_myopic"],
         "dynamic_vs_history_blind": result["dynamic_vs_history_blind"],
+        "dynamic_vs_compute_matched_myopic": result[
+            "dynamic_vs_compute_matched_myopic"
+        ],
         "dynamic_vs_fixed_depth2": result["dynamic_vs_fixed_depth2"],
         "dynamic_vs_fixed_score_dynamic_update": result[
             "dynamic_vs_fixed_score_dynamic_update"
@@ -283,6 +296,9 @@ def build_claim_report(
         ],
         "dynamic_vs_history_blind_relative_brier_improvement": result[
             "dynamic_vs_history_blind_relative_brier_improvement"
+        ],
+        "dynamic_vs_compute_matched_myopic_relative_brier_improvement": result[
+            "dynamic_vs_compute_matched_myopic_relative_brier_improvement"
         ],
         "dynamic_vs_fixed_depth2_relative_brier_improvement": result[
             "dynamic_vs_fixed_depth2_relative_brier_improvement"
@@ -298,6 +314,9 @@ def build_claim_report(
         ],
         "dynamic_vs_history_blind_changed_final_histories": result[
             "dynamic_vs_history_blind_changed_final_histories"
+        ],
+        "dynamic_vs_compute_matched_myopic_changed_final_histories": result[
+            "dynamic_vs_compute_matched_myopic_changed_final_histories"
         ],
         "dynamic_vs_fixed_depth2_changed_final_histories": result[
             "dynamic_vs_fixed_depth2_changed_final_histories"

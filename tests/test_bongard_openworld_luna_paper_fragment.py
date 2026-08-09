@@ -98,11 +98,18 @@ def _paper_compute_result(n: int) -> dict:
     return {
         "status": "compute_matched_control_audit_complete",
         "task_count": n,
-        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "strict_compute_matched_myopic_control": "compute_matched_myopic_ensemble",
+        "strict_continuation_compute_matched_control": "shuffled_dynamic_depth2",
         "matched_request_count_control": "history_blind_depth2",
         "online_regeneration_greedy_control": "myopic_width",
         "compute_contract_exact": True,
         "comparisons": {
+            "compute_matched_myopic_ensemble": {
+                "mean_brier": summary(-0.015),
+                "mean_log_loss": summary(-0.02),
+                "first_query_changes": n // 2,
+                "final_history_changes": n // 2 + 2,
+            },
             "shuffled_dynamic_depth2": {
                 "mean_brier": summary(-0.02),
                 "mean_log_loss": summary(-0.03),
@@ -185,6 +192,10 @@ def _metrics(n: int) -> dict:
             "mean_brier": summary,
             "mean_log_loss": summary,
         },
+        "dynamic_vs_compute_matched_myopic": {
+            "mean_brier": summary,
+            "mean_log_loss": summary,
+        },
         "dynamic_vs_fixed_depth2": {
             "mean_brier": summary,
             "mean_log_loss": summary,
@@ -207,11 +218,13 @@ def _metrics(n: int) -> dict:
         },
         "dynamic_vs_myopic_relative_brier_improvement": 0.10,
         "dynamic_vs_history_blind_relative_brier_improvement": 0.06,
+        "dynamic_vs_compute_matched_myopic_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": 0.05,
         "dynamic_vs_fixed_score_dynamic_update_relative_brier_improvement": 0.04,
         "dynamic_vs_history_blind_update_matched_first_relative_brier_improvement": 0.04,
         "dynamic_vs_myopic_changed_final_histories": n // 2,
         "dynamic_vs_history_blind_changed_final_histories": n // 2 - 1,
+        "dynamic_vs_compute_matched_myopic_changed_final_histories": n // 2 - 1,
         "dynamic_vs_fixed_depth2_changed_final_histories": n // 2 - 2,
         "dynamic_vs_fixed_score_dynamic_update_changed_final_histories": n // 2 - 3,
         "dynamic_vs_history_blind_update_matched_first_changed_final_histories": n // 2 - 4,

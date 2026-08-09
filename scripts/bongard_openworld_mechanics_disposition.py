@@ -70,6 +70,7 @@ MECHANICS_GATE_CATEGORIES = {
         "terminal_histories_use_task_level_common_random_numbers",
         "all_scores_are_finite_and_executable",
         "all_policies_use_endpoint_predictive_information_gain",
+        "compute_matched_myopic_uses_root_plus_16_answer_free_root_prompt_draws",
         "fixed_score_dynamic_update_exactly_matches_fixed_first_and_dynamic_second",
         "history_blind_update_matched_first_exactly_matches_dynamic_first",
         "shuffled_control_exactly_permutes_complete_continuation_values",
@@ -90,6 +91,8 @@ MECHANICS_GATE_CATEGORIES = {
     "nonmyopic_opportunity_absent": (
         "dynamic_depth2_changes_at_least_one_myopic_first_action",
         "dynamic_action_change_clears_numerical_tie_margin",
+        "dynamic_depth2_changes_at_least_one_compute_matched_myopic_first_action",
+        "dynamic_vs_compute_matched_myopic_action_change_clears_numerical_tie_margin",
         "dynamic_and_history_blind_change_a_nontied_first_action",
         "dynamic_and_matched_history_blind_update_change_at_least_one_second_action",
         "at_least_two_controls_have_a_distinct_final_history",

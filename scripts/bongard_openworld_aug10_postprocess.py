@@ -48,11 +48,11 @@ BUDGET_BOUNDARY_AMENDMENT_SHA256 = (
 BOUND_IMPLEMENTATIONS = {
     "aug10_wrapper": (
         "scripts/bongard_openworld_luna_aug10_execute.py",
-        "27b78be19f2e68e14335abecc5bfde0dcd197fbe6e6b895ff2581dafdc3cddbb",
+        "6c71919fdd99b42e90cfb2adb4d3c0c3a90d1b419043679eef81a13bb9d9c090",
     ),
     "mechanics_disposition": (
         "scripts/bongard_openworld_mechanics_disposition.py",
-        "870c6fe5ba1a9dd09250193bc36e4bb108708a10dc07bc225dc075d596f4d8bb",
+        "9317e16cb6a9b70f3ca690dbac2b05a69177a89af0dc6f7d8b5b6585136f0d4e",
     ),
     "classical_suite": (
         "scripts/bongard_openworld_classical_suite_outcome.py",
@@ -64,7 +64,7 @@ BOUND_IMPLEMENTATIONS = {
     ),
     "compute_matched_control": (
         "scripts/bongard_openworld_compute_matched_control.py",
-        "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba",
+        "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43",
     ),
 }
 OUTPUT_DIR = REPO_ROOT / (

@@ -58,10 +58,10 @@ ACCOUNT_WIDE_BUDGET_AMENDMENT_SHA256 = (
     "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
 )
 CURRENT_AUG10_WRAPPER_SHA256 = (
-    "27b78be19f2e68e14335abecc5bfde0dcd197fbe6e6b895ff2581dafdc3cddbb"
+    "6c71919fdd99b42e90cfb2adb4d3c0c3a90d1b419043679eef81a13bb9d9c090"
 )
 CURRENT_POSTPROCESS_SHA256 = (
-    "2bd8de7e84698936fded46aab71ff5a86c07a583a3ae7f349f64f4f04157ab52"
+    "21fe0470e31fc22dc085af59670558e26c5d86f136fee0a0a31c5fd1a05d452e"
 )
 ANSWER_SIGNAL_ORDERING_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
@@ -95,7 +95,7 @@ FINAL_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
 )
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "b6dda894b8ed05d62c6cde4f58257af9011776ba5c7f1f519bb8a08837007767"
+    "d1d9280e8b6e475190787e0f66d20c9de21bd54f7eb3817abba514580e8d60a2"
 )
 ATOMIC_REHEARSAL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -121,7 +121,7 @@ DEVELOPMENT_DAILY_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_daily_handoff.py"
 )
 DEVELOPMENT_DAILY_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "2a415d656df3db65544730bf2e1e9c667b399bd09790fb57c17babbadc43c705"
+    "494948baed08e3d7f4a8dbd04d9d0d27f763c23e4604dc42204f2e2d111694d0"
 )
 DEVELOPMENT_DAILY_HANDOFF_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_daily_handoff.py"
@@ -147,7 +147,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "ed2e7888a30218ce32f6b747465e85e2c69b01c93802e42d2d22e1b3ac829cfa"
+    "5d36fefa426df6493be7f551cbfc6b23099664752b8a67cbcb390973807ca5aa"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -157,16 +157,18 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "4bbfdcbead6df1bca0d8843809569fe617071114cdd0293d851c2e8dedc41d4a"
+    "66520e19f476d1684584c4d4ca3a9578543b85d8243b830a34e774e9efb5d0e3"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
 )
 PAPER_WRAPPER_TEST_SHA256 = (
-    "daf56b5d8b2b05819d598540404c8006fa4fd3d2be68a25caa389fb5e8644e2a"
+    "04157da9877bde472bb688db5a752aefd3021b7831187135a5a7b76848f4e1d6"
 )
 HISTORICAL_SUPERSEDED_BINDINGS = {
     "mandatory_paper_wrapper_v3",
+    "compute_matched_control",
+    "mechanics_disposition",
     "paid_aug10_wrapper",
     "postprocess_v2",
 }

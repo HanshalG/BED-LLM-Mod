@@ -31,7 +31,7 @@ from scripts.number_game_deepseek_planner_serving_smoke import summarize_usage
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-11"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-12"
 MODEL_ID = development.MODEL_ID
 BLOCK_ORDER = freeze_verify.BLOCK_ORDER
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -817,6 +817,19 @@ def analyze_combined(
         )
         for metric_index, metric in enumerate(("mean_brier", "mean_log_loss"))
     }
+    dynamic_vs_compute_matched_myopic = {
+        metric: paired_summary(
+            [
+                tree["policies"]["dynamic_depth2"]["endpoint"][metric]
+                - tree["policies"]["compute_matched_myopic_ensemble"][
+                    "endpoint"
+                ][metric]
+                for tree in trees
+            ],
+            seed=BOOTSTRAP_SEED + 5_000 + metric_index,
+        )
+        for metric_index, metric in enumerate(("mean_brier", "mean_log_loss"))
+    }
     dynamic_vs_fixed = {
         metric: paired_summary(
             [
@@ -873,6 +886,13 @@ def analyze_combined(
                 != tree["policies"]["history_blind_depth2"]["final_history_key"]
                 for tree in block_trees
             ),
+            "dynamic_compute_matched_myopic_changed_final_histories": sum(
+                tree["policies"]["dynamic_depth2"]["final_history_key"]
+                != tree["policies"]["compute_matched_myopic_ensemble"][
+                    "final_history_key"
+                ]
+                for tree in block_trees
+            ),
             "dynamic_fixed_changed_final_histories": sum(
                 tree["policies"]["dynamic_depth2"]["final_history_key"]
                 != tree["policies"]["fixed_depth2"]["final_history_key"]
@@ -902,6 +922,13 @@ def analyze_combined(
                 - tree["policies"]["history_blind_depth2"]["endpoint"]["mean_brier"]
                 for tree in block_trees
             ),
+            "dynamic_minus_compute_matched_myopic_mean_brier": statistics.fmean(
+                tree["policies"]["dynamic_depth2"]["endpoint"]["mean_brier"]
+                - tree["policies"]["compute_matched_myopic_ensemble"][
+                    "endpoint"
+                ]["mean_brier"]
+                for tree in block_trees
+            ),
             "dynamic_minus_matched_history_blind_update_mean_brier": statistics.fmean(
                 tree["policies"]["dynamic_depth2"]["endpoint"]["mean_brier"]
                 - tree["policies"]["history_blind_update_matched_first"][
@@ -928,6 +955,26 @@ def analyze_combined(
     blind_changed = sum(
         tree["policies"]["dynamic_depth2"]["final_history_key"]
         != tree["policies"]["history_blind_depth2"]["final_history_key"]
+        for tree in trees
+    )
+    compute_matched_myopic_changed = sum(
+        tree["policies"]["dynamic_depth2"]["final_history_key"]
+        != tree["policies"]["compute_matched_myopic_ensemble"][
+            "final_history_key"
+        ]
+        for tree in trees
+    )
+    robust_compute_matched_myopic_changed = sum(
+        tree["policies"]["dynamic_depth2"]["first_image_id"]
+        != tree["policies"]["compute_matched_myopic_ensemble"][
+            "first_image_id"
+        ]
+        and tree["policies"]["dynamic_depth2"]["first_score_margin"]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
+        and tree["policies"]["compute_matched_myopic_ensemble"][
+            "first_score_margin"
+        ]
+        >= mechanics.MIN_ACTION_MARGIN_NATS
         for tree in trees
     )
     fixed_changed = sum(
@@ -989,6 +1036,9 @@ def analyze_combined(
     )
     myopic_brier = pooled["myopic_width"]["mean_brier"]
     blind_brier = pooled["history_blind_depth2"]["mean_brier"]
+    compute_matched_myopic_brier = pooled[
+        "compute_matched_myopic_ensemble"
+    ]["mean_brier"]
     dynamic_brier = pooled["dynamic_depth2"]["mean_brier"]
     fixed_brier = pooled["fixed_depth2"]["mean_brier"]
     matched_fixed_brier = pooled["fixed_score_dynamic_update"]["mean_brier"]
@@ -1003,6 +1053,12 @@ def analyze_combined(
     blind_relative_gain = (
         (blind_brier - dynamic_brier) / blind_brier
         if blind_brier > 0
+        else -math.inf
+    )
+    compute_matched_myopic_relative_gain = (
+        (compute_matched_myopic_brier - dynamic_brier)
+        / compute_matched_myopic_brier
+        if compute_matched_myopic_brier > 0
         else -math.inf
     )
     fixed_relative_gain = (
@@ -1065,6 +1121,34 @@ def analyze_combined(
         ),
         "dynamic_log_loss_is_not_worse_than_myopic": (
             dynamic_comparison["mean_log_loss"]["mean_difference"] <= 0
+        ),
+        "at_least_36_dynamic_final_histories_differ_from_compute_matched_myopic": (
+            compute_matched_myopic_changed >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "at_least_36_dynamic_action_changes_from_compute_matched_myopic_clear_numerical_tie_margin": (
+            robust_compute_matched_myopic_changed
+            >= MIN_CHANGED_FINAL_HISTORIES
+        ),
+        "dynamic_and_compute_matched_myopic_differ_in_every_execution_block": all(
+            row["dynamic_compute_matched_myopic_changed_final_histories"] >= 1
+            for row in blockwise.values()
+        ),
+        "dynamic_brier_relative_improvement_vs_compute_matched_myopic_at_least_3_percent": (
+            compute_matched_myopic_relative_gain
+            >= MIN_RELATIVE_BRIER_IMPROVEMENT
+        ),
+        "dynamic_brier_vs_compute_matched_myopic_paired_tree_bootstrap_95pct_upper_below_zero": (
+            dynamic_vs_compute_matched_myopic["mean_brier"]["ci95"][1] < 0
+        ),
+        "dynamic_log_loss_is_not_worse_than_compute_matched_myopic": (
+            dynamic_vs_compute_matched_myopic["mean_log_loss"][
+                "mean_difference"
+            ]
+            <= 0
+        ),
+        "dynamic_ranking_fidelity_is_not_worse_than_compute_matched_myopic": (
+            ranking["dynamic_depth2"]["mean_spearman"]
+            >= ranking["compute_matched_myopic_ensemble"]["mean_spearman"]
         ),
         "at_least_36_dynamic_final_histories_differ_from_fixed_depth2": (
             fixed_changed >= MIN_CHANGED_FINAL_HISTORIES
@@ -1206,6 +1290,7 @@ def analyze_combined(
         "blockwise": blockwise,
         "comparisons_vs_myopic": comparisons,
         "dynamic_vs_history_blind": dynamic_vs_blind,
+        "dynamic_vs_compute_matched_myopic": dynamic_vs_compute_matched_myopic,
         "dynamic_vs_fixed_depth2": dynamic_vs_fixed,
         "dynamic_vs_fixed_score_dynamic_update": dynamic_vs_matched_fixed,
         "dynamic_vs_history_blind_update_matched_first": (
@@ -1216,6 +1301,15 @@ def analyze_combined(
         "dynamic_vs_myopic_relative_brier_improvement": relative_gain,
         "dynamic_vs_history_blind_changed_final_histories": blind_changed,
         "dynamic_vs_history_blind_relative_brier_improvement": blind_relative_gain,
+        "dynamic_vs_compute_matched_myopic_changed_final_histories": (
+            compute_matched_myopic_changed
+        ),
+        "dynamic_vs_compute_matched_myopic_robust_action_changes": (
+            robust_compute_matched_myopic_changed
+        ),
+        "dynamic_vs_compute_matched_myopic_relative_brier_improvement": (
+            compute_matched_myopic_relative_gain
+        ),
         "dynamic_vs_fixed_depth2_changed_final_histories": fixed_changed,
         "dynamic_vs_fixed_depth2_robust_action_changes": robust_fixed_changed,
         "dynamic_vs_fixed_depth2_relative_brier_improvement": fixed_relative_gain,

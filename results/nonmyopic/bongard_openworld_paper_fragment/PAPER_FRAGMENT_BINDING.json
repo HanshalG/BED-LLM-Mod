@@ -52,6 +52,18 @@
       "path": "results/nonmyopic/BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md",
       "sha256": "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
     },
+    "compute_matched_myopic_ensemble_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md",
+      "sha256": "064fb13dd1fbbcea255e38b1b9eae41dfb9347bcf1b91fa5bc5711eba7985368"
+    },
+    "compute_matched_control_audit_protocol": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_COMPUTE_MATCHED_CONTROL_AUDIT_PROTOCOL_20260809.md",
+      "sha256": "994be46dfabe30ca564ad9befbd47e6e84935f39c389c33db287b2c85b417c6f"
+    },
+    "compute_matched_control_audit": {
+      "path": "scripts/bongard_openworld_compute_matched_control.py",
+      "sha256": "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43"
+    },
     "answer_signal_ordering_amendment": {
       "path": "results/nonmyopic/BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
       "sha256": "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"
@@ -61,32 +73,32 @@
       "sha256": "44cd1c38638f57e6cbe9c53c3c5d94007a230686ca59949a58f49ed3b0d66768"
     },
     "development_manifest": {
-      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V17.json",
-      "sha256": "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
+      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V18.json",
+      "sha256": "df55546302190161ab2c4005f936e967e24dafe5f42483288c39100e0b03614f"
     },
     "confirmation_manifest": {
-      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V14.json",
-      "sha256": "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a"
+      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V15.json",
+      "sha256": "63cda4a2cd964eeae2227292483760fade0c7738e9c35fe3b4e0dddac8152c0e"
     },
     "development_claim_generator": {
       "path": "scripts/bongard_openworld_luna_claim_report.py",
-      "sha256": "f9b828bb5dc85b2fd0ef2757c0708674f8e7489c518d3bc0fabd6536546888e3"
+      "sha256": "81c915250d2a03a5af6656b1bdaa52bb654d71edf9798eb77112f93bc2c53887"
     },
     "development_analyzer": {
       "path": "scripts/bongard_openworld_luna_vlm_development.py",
-      "sha256": "03f06f89bc675897bf44ee82b69567f5217d7ab3d4bcd208996fe6fb623afc7a"
+      "sha256": "6010f426b9239ee9b85fbc2ccb188a981d068aaad50ec4f2d87b757b64da971f"
     },
     "development_daily_replay": {
       "path": "scripts/bongard_openworld_luna_development32_daily_execute.py",
-      "sha256": "bcfefaab9e96dca47d7a3a99d37a7c9857797831ab0f0b1939f21817d32d2de2"
+      "sha256": "81749066f8b68c4d6f9638b8be61875ef71c9470e91945d3c0d8b31d600e746e"
     },
     "confirmation_analyzer": {
       "path": "scripts/bongard_openworld_luna_confirmation64.py",
-      "sha256": "d20aca14b8b254851caf785cac3dcf4a82a2e0b41c327506991e77ad676ad794"
+      "sha256": "8928bbee168cad3fd380ba7f5ad4633e293b21727d00347dc4bbe7adffa2e107"
     },
     "confirmation_freeze_verifier": {
       "path": "scripts/bongard_openworld_luna_confirmation64_verify.py",
-      "sha256": "1f905dcff4c2f251b45e07641c5ed7822d6a3676b8a0bcca797e1527a7c396f8"
+      "sha256": "fcf50a7daa11bef208d3d2c796cbfc933f4b9497f71ec7d9d5724f7d98f1e1b6"
     },
     "confirmation_daily_executor": {
       "path": "scripts/bongard_openworld_luna_confirmation64_daily_execute.py",

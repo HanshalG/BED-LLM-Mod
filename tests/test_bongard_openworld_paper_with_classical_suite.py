@@ -84,11 +84,18 @@ def _compute_result(*, stage: str = "development") -> dict:
         "stage": stage,
         "stage_result_sha256": "synthetic-stage-sha256",
         "task_count": 2,
-        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "strict_compute_matched_myopic_control": "compute_matched_myopic_ensemble",
+        "strict_continuation_compute_matched_control": "shuffled_dynamic_depth2",
         "matched_request_count_control": "history_blind_depth2",
         "online_regeneration_greedy_control": "myopic_width",
         "compute_contract_exact": True,
         "comparisons": {
+            "compute_matched_myopic_ensemble": {
+                "mean_brier": _compute_summary(-0.025),
+                "mean_log_loss": _compute_summary(-0.015),
+                "first_query_changes": 1,
+                "final_history_changes": 1,
+            },
             "shuffled_dynamic_depth2": {
                 "mean_brier": _compute_summary(-0.03),
                 "mean_log_loss": _compute_summary(-0.02),
@@ -179,19 +186,19 @@ def test_classical_tex_rejects_incomplete_suite() -> None:
         paper.classical_tex_lines(invalid)
 
 
-def test_compute_matched_tex_reports_strict_shuffled_comparison() -> None:
+def test_compute_matched_tex_reports_call_matched_and_shuffled_comparisons() -> None:
     lines, metadata = paper.compute_matched_tex_lines(_compute_result())
     tex = "\n".join(lines)
-    assert "Compute-matched shuffled continuation" in tex
-    assert "root scores and the continuation-value multiset" in tex
+    assert "Call-matched controls" in tex
+    assert "root plus 16 answer-free root-prompt beliefs" in tex
+    assert "Against shuffled continuation" in tex
     assert "-0.0300" in tex
     assert "-0.0200" in tex
     assert "1/2" in tex
-    assert "2/2" in tex
     assert "Negative favors dynamic" in tex
-    assert "descriptive and non-gating" in tex
-    assert metadata["strict_compute_matched_control"] == (
-        "shuffled_dynamic_depth2"
+    assert "does not alter gates" in tex
+    assert metadata["strict_compute_matched_myopic_control"] == (
+        "compute_matched_myopic_ensemble"
     )
     assert metadata["changes_claim_tier"] is False
 
@@ -212,7 +219,7 @@ def test_compute_matched_tex_rejects_tamper(
 ) -> None:
     result = deepcopy(_compute_result())
     if mutation == "control":
-        result["strict_compute_matched_control"] = "myopic_width"
+        result["strict_compute_matched_myopic_control"] = "myopic_width"
     elif mutation == "calls":
         result["model_calls"] = 1
     elif mutation == "claim":
@@ -613,7 +620,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
     assert tex.startswith("ORIGINAL LUNA FRAGMENT")
     assert "DINOv2-small" in tex
     assert "SigLIP2-So400m" in tex
-    assert "Compute-matched shuffled continuation" in tex
+    assert "Call-matched controls" in tex
     assert "Frozen random-strategy sanity baseline" in tex
     assert "Replayed belief-to-action mediation" in tex
     assert output.with_name(
@@ -808,8 +815,8 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
     assert expected_text in headline
     assert metadata["classical_claim_scope"]["status"] == expected_status
     assert metadata["compute_matched_audit"]["summary"][
-        "strict_compute_matched_control"
-    ] == "shuffled_dynamic_depth2"
+        "strict_compute_matched_myopic_control"
+    ] == "compute_matched_myopic_ensemble"
     assert metadata["random_strategy_audit"]["summary"][
         "compute_matched"
     ] is False

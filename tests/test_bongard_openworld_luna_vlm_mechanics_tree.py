@@ -463,6 +463,67 @@ def test_history_blind_pairs_share_seed_and_hide_the_simulated_answer() -> None:
     assert not reordered["gates"]["all_pass"]
 
 
+def test_compute_matched_myopic_ensemble_averages_exact_root_draws() -> None:
+    task = _task(0)
+    root = bed.parse_belief_response(
+        _response(
+            bed.build_belief_messages(task, task.initial_history), seed=0
+        ),
+        image_ids=task.image_ids,
+        history=task.initial_history,
+    )
+    branches = {}
+    for index, key in enumerate(
+        (candidate, label)
+        for candidate in task.candidate_ids
+        for label in (False, True)
+    ):
+        branches[key] = bed.parse_belief_response(
+            _response(
+                bed.build_belief_messages(task, task.initial_history),
+                seed=index + 1,
+            ),
+            image_ids=task.image_ids,
+            history=task.initial_history,
+        )
+
+    actual = tree.compute_matched_myopic_ensemble_scores(
+        task=task,
+        root=root,
+        history_blind_branches=branches,
+    )
+    supports = [root, *(branches[key] for key in sorted(branches))]
+    per_draw = [
+        bed.candidate_endpoint_eigs(
+            support, task.candidate_ids, task.endpoint_ids
+        )
+        for support in supports
+    ]
+    expected = {
+        candidate: sum(scores[candidate] for scores in per_draw) / 17
+        for candidate in task.candidate_ids
+    }
+    assert len(supports) == 17
+    assert actual == pytest.approx(expected)
+
+    missing = dict(branches)
+    missing.pop(next(iter(missing)))
+    with pytest.raises(ValueError, match="all blind draws"):
+        tree.compute_matched_myopic_ensemble_scores(
+            task=task, root=root, history_blind_branches=missing
+        )
+
+    mismatched = dict(branches)
+    key = next(iter(mismatched))
+    mismatched[key] = replace(
+        mismatched[key], history=task.initial_history + ((key[0], key[1]),)
+    )
+    with pytest.raises(ValueError, match="share root history"):
+        tree.compute_matched_myopic_ensemble_scores(
+            task=task, root=root, history_blind_branches=mismatched
+        )
+
+
 def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> None:
     task = _task(0)
     root = bed.parse_belief_response(

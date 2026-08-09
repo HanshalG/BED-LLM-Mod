@@ -25,12 +25,21 @@ def _tree(index: int) -> dict:
     history_blind = {"a": 0.25, "b": 0.30, "c": 0.20}
     endpoints = {
         "dynamic_depth2": (0.20 + index * 0.001, 0.50 + index * 0.002),
+        "compute_matched_myopic_ensemble": (
+            0.245 + index * 0.001,
+            0.61 + index * 0.002,
+        ),
         "shuffled_dynamic_depth2": (0.24 + index * 0.001, 0.60 + index * 0.002),
         "history_blind_depth2": (0.23 + index * 0.001, 0.57 + index * 0.002),
         "myopic_width": (0.25 + index * 0.001, 0.63 + index * 0.002),
     }
     scores = {
         "dynamic_depth2": dynamic,
+        "compute_matched_myopic_ensemble": {
+            "a": 0.24,
+            "b": 0.31,
+            "c": 0.22,
+        },
         "shuffled_dynamic_depth2": shuffled,
         "history_blind_depth2": history_blind,
         "myopic_width": root,
@@ -73,7 +82,10 @@ def test_build_report_replays_compute_contract_and_paired_effects() -> None:
     )
 
     assert report["status"] == "compute_matched_control_audit_complete"
-    assert report["strict_compute_matched_control"] == (
+    assert report["strict_compute_matched_myopic_control"] == (
+        "compute_matched_myopic_ensemble"
+    )
+    assert report["strict_continuation_compute_matched_control"] == (
         "shuffled_dynamic_depth2"
     )
     assert report["matched_request_count_control"] == "history_blind_depth2"

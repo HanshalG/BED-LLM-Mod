@@ -24,13 +24,13 @@ from scripts import bongard_openworld_sample_size_expansion_audit as expansion_a
 from scripts import bongard_openworld_source_protocol_audit as source_audit
 
 
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-14"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-15"
 MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_confirmation64/"
-    "PROTOCOL_MANIFEST_V14.json"
+    "PROTOCOL_MANIFEST_V15.json"
 )
 MANIFEST_SHA256 = (
-    "0d9c6f52ea05aa93e40bf7aa61c8ebc6323f50a6454624d6f6c49ca946d3924a"
+    "63cda4a2cd964eeae2227292483760fade0c7738e9c35fe3b4e0dddac8152c0e"
 )
 SOURCE_MANIFEST_SHA256 = (
     "7acd3cc9abd24fb60f7da98710aa2ed89b75d9c137ada46380f258d16380e763"
@@ -52,7 +52,7 @@ POWER_AMENDMENT_SHA256 = (
     "824374a32527b11cbda2d3bf81e570b4102d7930de0c3c5405626ce2ff6446b1"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
+    "df55546302190161ab2c4005f936e967e24dafe5f42483288c39100e0b03614f"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -100,6 +100,13 @@ MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
 MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
     "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
 )
+COMPUTE_MATCHED_MYOPIC_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md"
+)
+COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
+    "064fb13dd1fbbcea255e38b1b9eae41dfb9347bcf1b91fa5bc5711eba7985368"
+)
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_DATES = {
     "a": "2026-08-15",
@@ -131,6 +138,7 @@ IMPLEMENTATION_PATHS = (
     "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
     "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
+    "results/nonmyopic/BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md",
     "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
     "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
     "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -264,6 +272,12 @@ def verify_manifest(
                 == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
                 and sha256_file(MATCHED_REALIZED_UPDATER_AMENDMENT)
                 == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+                and precondition.get(
+                    "compute_matched_myopic_amendment_sha256"
+                )
+                == COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256
+                and sha256_file(COMPUTE_MATCHED_MYOPIC_AMENDMENT)
+                == COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256
             and precondition.get(
                 "legacy_no_ad_hoc_execution_field_is_preserved"
             )
@@ -332,6 +346,7 @@ def verify_manifest(
                 "endpoint_predictive_utility_amendment_hash_matches",
                 "history_blind_estimand_clarification_hash_matches",
                 "matched_realized_updater_amendment_hash_matches",
+                "compute_matched_myopic_amendment_hash_matches",
                 "development_manifest_is_frozen_and_endpoint_blind",
                 "exact_expanded_experimental_partitions_are_bound",
                 "exact_96_unique_opaque_task_identities",
@@ -355,7 +370,7 @@ def verify_manifest(
                 "path_dependent_support",
             }
             and len(manifest["science_gates"]["shared"]) == 4
-            and len(manifest["science_gates"]["policy"]) == 9
+            and len(manifest["science_gates"]["policy"]) == 16
             and len(manifest["science_gates"]["matched_mechanism"]) == 6
                 and len(manifest["science_gates"]["path_dependent_support"]) == 19
         ),

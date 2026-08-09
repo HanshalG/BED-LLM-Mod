@@ -26,7 +26,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-14"
+INTERFACE_VERSION = "bongard-openworld-luna-confirmation96-freeze-15"
 MODEL_ID = serving.MODEL_ID
 BLOCK_ORDER = ("a", "b", "c", "d")
 BLOCK_SIZES = {block_id: 24 for block_id in BLOCK_ORDER}
@@ -89,10 +89,10 @@ POWER_AMENDMENT_SHA256 = (
 )
 DEVELOPMENT_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/bongard_openworld_luna_vlm_development64/"
-    "PROTOCOL_MANIFEST_V17.json"
+    "PROTOCOL_MANIFEST_V18.json"
 )
 DEVELOPMENT_MANIFEST_SHA256 = (
-    "7564ced7755f17be13f254067f013130b4beb277313fc51de16b43611a608676"
+    "df55546302190161ab2c4005f936e967e24dafe5f42483288c39100e0b03614f"
 )
 DEVELOPMENT_POWER_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_DEVELOPMENT64_POWER_AMENDMENT.md"
@@ -133,6 +133,13 @@ MATCHED_REALIZED_UPDATER_AMENDMENT = REPO_ROOT / (
 )
 MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256 = (
     "dfa981153687004c8fb2c1195879d0774a281ca6c231c55d85495f2ac622178b"
+)
+COMPUTE_MATCHED_MYOPIC_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md"
+)
+COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256 = (
+    "064fb13dd1fbbcea255e38b1b9eae41dfb9347bcf1b91fa5bc5711eba7985368"
 )
 CONFIRMATION_UID_SHA256 = (
     "3826a64b46668226c996afa92e81cf270bf59f99a373813e37196552300ecb26"
@@ -193,6 +200,13 @@ def _science_gates() -> dict[str, Any]:
             "dynamic_brier_relative_improvement_at_least_3_percent",
             "dynamic_brier_paired_tree_bootstrap_95pct_upper_below_zero",
             "dynamic_log_loss_is_not_worse_than_myopic",
+            "at_least_36_dynamic_final_histories_differ_from_compute_matched_myopic",
+            "at_least_36_dynamic_action_changes_from_compute_matched_myopic_clear_numerical_tie_margin",
+            "dynamic_and_compute_matched_myopic_differ_in_every_execution_block",
+            "dynamic_brier_relative_improvement_vs_compute_matched_myopic_at_least_3_percent",
+            "dynamic_brier_vs_compute_matched_myopic_paired_tree_bootstrap_95pct_upper_below_zero",
+            "dynamic_log_loss_is_not_worse_than_compute_matched_myopic",
+            "dynamic_ranking_fidelity_is_not_worse_than_compute_matched_myopic",
             "dynamic_brier_is_not_worse_than_shuffled_control",
         ],
         "matched_mechanism": [
@@ -257,6 +271,7 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "results/nonmyopic/BONGARD_OPENWORLD_HISTORY_BLIND_ESTIMAND_CLARIFICATION_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_LUNA_MATCHED_REALIZED_UPDATER_AMENDMENT_20260808.md",
         "results/nonmyopic/BONGARD_OPENWORLD_MATCHED_UPDATER_INTEGRITY_AMENDMENT_20260808.md",
+        "results/nonmyopic/BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md",
         "results/nonmyopic/BONGARD_OPENWORLD_SAMPLE_SIZE_POWER_AUDIT_20260808.json",
         "results/nonmyopic/bongard_openworld_sample_size_expansion_audit/"
         "bongard-openworld-sample-size-expansion-audit-20260808/MANIFEST_V2.json",
@@ -307,6 +322,10 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
         "matched_realized_updater_amendment_hash_matches": (
             sha256_file(MATCHED_REALIZED_UPDATER_AMENDMENT)
             == MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+        ),
+        "compute_matched_myopic_amendment_hash_matches": (
+            sha256_file(COMPUTE_MATCHED_MYOPIC_AMENDMENT)
+            == COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256
         ),
         "development_manifest_is_frozen_and_endpoint_blind": (
             development_manifest.get("status") == "frozen"
@@ -403,6 +422,9 @@ def build_manifest(*, output_path: Path) -> dict[str, Any]:
             ),
             "matched_realized_updater_amendment_sha256": (
                 MATCHED_REALIZED_UPDATER_AMENDMENT_SHA256
+            ),
+            "compute_matched_myopic_amendment_sha256": (
+                COMPUTE_MATCHED_MYOPIC_AMENDMENT_SHA256
             ),
             "legacy_no_ad_hoc_execution_field_is_preserved": True,
             "development_null_or_partial_tier_forbids_execution": True,

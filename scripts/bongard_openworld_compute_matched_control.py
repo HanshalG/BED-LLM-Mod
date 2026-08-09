@@ -22,17 +22,18 @@ from scripts import bongard_openworld_vlm_bed as bed
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-compute-matched-control-1"
+INTERFACE_VERSION = "bongard-openworld-compute-matched-control-2"
 BOOTSTRAP_SEED = 2026280901
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_COMPUTE_MATCHED_CONTROL_AUDIT_PROTOCOL_20260809.md"
 )
 PROTOCOL_SHA256 = (
-    "09616a6ed8f8164abf932793fd91d27cf38f86a1691533c75cf9901c08324d9b"
+    "994be46dfabe30ca564ad9befbd47e6e84935f39c389c33db287b2c85b417c6f"
 )
 STAGES = stage_outcome.STAGES
 CONTROLS = (
+    "compute_matched_myopic_ensemble",
     "shuffled_dynamic_depth2",
     "history_blind_depth2",
     "myopic_width",
@@ -158,6 +159,10 @@ def _task_row(tree: Mapping[str, Any]) -> dict[str, Any]:
 
     score_maps = {
         "dynamic_depth2": dynamic_scores,
+        "compute_matched_myopic_ensemble": _score_map(
+            root_scores.get("compute_matched_myopic_ensemble"),
+            context="compute-matched myopic ensemble root scores",
+        ),
         "shuffled_dynamic_depth2": shuffled_scores,
         "history_blind_depth2": _score_map(
             root_scores.get("history_blind_depth2"),
@@ -165,8 +170,14 @@ def _task_row(tree: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "myopic_width": myopic_scores,
     }
-    if set(score_maps["history_blind_depth2"]) != candidates:
-        raise ValueError("history-blind score support differs")
+    if any(
+        set(score_maps[name]) != candidates
+        for name in (
+            "compute_matched_myopic_ensemble",
+            "history_blind_depth2",
+        )
+    ):
+        raise ValueError("matched control score support differs")
     endpoints: dict[str, dict[str, float]] = {}
     selections: dict[str, dict[str, str]] = {}
     for policy_name, scores in score_maps.items():
@@ -263,7 +274,12 @@ def build_report(
         "stage_claim_tier": stage_result.get("claim_tier"),
         "stage_authorization": dict(authorization),
         "task_count": expected,
-        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "strict_compute_matched_myopic_control": (
+            "compute_matched_myopic_ensemble"
+        ),
+        "strict_continuation_compute_matched_control": (
+            "shuffled_dynamic_depth2"
+        ),
         "matched_request_count_control": "history_blind_depth2",
         "online_regeneration_greedy_control": "myopic_width",
         "compute_contract_exact": True,
@@ -274,9 +290,11 @@ def build_report(
         "authorizes_paid_calls": False,
         "changes_claim_tier": False,
         "interpretation_scope": (
-            "Descriptive all-task paired effects only. Shuffled continuation is "
-            "strictly branch-bank-compute matched; history blind is branch-request-"
-            "count matched; myopic is the online-regeneration greedy baseline."
+            "Descriptive all-task paired effects only. The myopic ensemble uses "
+            "the root plus all 16 answer-free root-prompt draws, matching the "
+            "dynamic planner's root plus 16 answer-conditioned branches. Shuffled "
+            "continuation is branch-bank-compute matched; history blind is "
+            "branch-request-count matched; myopic is the online greedy baseline."
         ),
     }
 

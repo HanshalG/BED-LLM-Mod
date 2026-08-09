@@ -3,7 +3,9 @@
 Frozen: 2026-08-09 (Europe/London), before any Bongard mechanics,
 development, confirmation, or scientific endpoint response.
 
-Status: **prospective zero-call descriptive audit**.
+Status: **prospective zero-call audit**. The separate compute-matched myopic
+amendment makes its new control part of the main frozen conjunction; this audit
+remains a read-only report and cannot change gates after execution.
 
 ## Purpose
 
@@ -15,16 +17,21 @@ myopic comparison as compute matched.
 
 ## Frozen Controls
 
-For every task report three paired comparisons:
+For every task report four paired comparisons:
 
-1. **Shuffled continuation:** `shuffled_dynamic_depth2` uses the exact same
+1. **Compute-matched myopic ensemble:**
+   `compute_matched_myopic_ensemble` averages one-step endpoint PIG across the
+   ordinary root and all 16 distinct-seed, byte-identical root-prompt beliefs.
+   It therefore spends the same 17 belief calls as dynamic first-query
+   planning without conditioning the extra calls on possible answers.
+2. **Shuffled continuation:** `shuffled_dynamic_depth2` uses the exact same
    root EIG vector and complete dynamic continuation-value multiset as
    `dynamic_depth2`, with the continuation values deterministically permuted
    across first actions. This is the strict branch-bank-compute-matched control.
-2. **History blind:** `history_blind_depth2` uses one same-seed, same-batch,
+3. **History blind:** `history_blind_depth2` uses one same-seed, same-batch,
    adjacent VLM generation for every conditioned dynamic branch, but hides the
    simulated answer. This is the matched branch-request-count control.
-3. **Online greedy:** `myopic_width` selects each real query by one-step
+4. **Online greedy:** `myopic_width` selects each real query by one-step
    endpoint-predictive EIG and uses the same answer-conditioned regenerated
    belief after the first real answer. This is the practical greedy baseline,
    not an algorithmically compute-matched baseline.
@@ -37,7 +44,7 @@ The audit must verify from every stored tree that:
 - shuffled continuation values are an exact multiset permutation of dynamic
   continuation values;
 - each stored first query is the deterministic argmax of its score map;
-- all three controls and dynamic have finite endpoint Brier and log loss.
+- all four controls and dynamic have finite endpoint Brier and log loss.
 
 Any mismatch fails closed before metrics are emitted.
 
@@ -54,9 +61,10 @@ sample standard deviation, standard error, 95% bootstrap interval, bootstrap
 probability that the difference is below zero, and wins/ties/losses. Also
 report first-query and final-history change counts.
 
-Negative differences favor dynamic. The report must identify shuffled as the
-strict compute-matched control, history-blind as request-count matched, and
-myopic as the online-greedy cost/performance baseline.
+Negative differences favor dynamic. The report must identify the myopic
+ensemble as the strict call-matched myopic control, shuffled as the strict
+continuation-bank control, history-blind as request-count matched, and myopic
+as the online-greedy cost/performance baseline.
 
 ## Authorization And Interpretation
 
@@ -64,12 +72,13 @@ The stage-specific independent authorizer must verify mechanics, development,
 or confirmation before the result is loaded for analysis. The output binds the
 stage result and every block result by SHA-256 and is written once.
 
-This audit is descriptive and cannot alter, rescue, or veto any frozen gate,
-claim tier, development authorization, confirmation authorization, classical
-comparison, or paper headline. A favorable myopic result without a favorable
-shuffled result is not evidence of compute-matched superiority. Conversely, a
-favorable shuffled result does not prove that no cheaper classical method can
-match the policy.
+This report cannot alter, rescue, or veto any frozen gate, claim tier,
+development authorization, confirmation authorization, classical comparison,
+or paper headline. The main executors independently enforce the preregistered
+myopic-ensemble gates. A favorable ordinary-myopic result without a favorable
+myopic-ensemble result is not evidence of compute-matched superiority.
+Conversely, a favorable matched result does not prove that no cheaper classical
+method can match the policy.
 
 The audit makes zero model calls, costs `$0`, and authorizes no paid call or
 rerun.
