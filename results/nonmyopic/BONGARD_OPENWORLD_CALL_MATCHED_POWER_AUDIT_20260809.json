@@ -1,0 +1,90 @@
+{
+  "assumptions": {
+    "action_changes_are_iid_for_sensitivity_only": true,
+    "brier_uses_normal_approximation_to_paired_task_mean": true,
+    "gate_dependencies_are_unknown": true,
+    "ranking_and_log_loss_use_normal_approximation_to_mean_difference": true,
+    "values_are_marginal_sensitivity_not_joint_power_or_outcome_forecasts": true
+  },
+  "authorizes_paid_calls": false,
+  "bindings": {
+    "base_sample_size_power_audit": {
+      "path": "scripts/bongard_openworld_power_audit.py",
+      "sha256": "97b6fcd0266f074c3bd5d12efa20bbebf6f7e0e3c20cf8abfc44225c4d5fe1af"
+    },
+    "call_matched_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_COMPUTE_MATCHED_MYOPIC_ENSEMBLE_AMENDMENT_20260809.md",
+      "sha256": "064fb13dd1fbbcea255e38b1b9eae41dfb9347bcf1b91fa5bc5711eba7985368"
+    },
+    "confirmation_manifest_v15": {
+      "path": "results/nonmyopic/bongard_openworld_luna_confirmation64/PROTOCOL_MANIFEST_V15.json",
+      "sha256": "63cda4a2cd964eeae2227292483760fade0c7738e9c35fe3b4e0dddac8152c0e"
+    },
+    "development_manifest_v18": {
+      "path": "results/nonmyopic/bongard_openworld_luna_vlm_development64/PROTOCOL_MANIFEST_V18.json",
+      "sha256": "df55546302190161ab2c4005f936e967e24dafe5f42483288c39100e0b03614f"
+    }
+  },
+  "changes_scientific_gates": false,
+  "cost_usd": 0.0,
+  "designs": [
+    {
+      "blocks": 4,
+      "brier_sensitivity": [
+        {
+          "observed_relative_gain_threshold": 0.03,
+          "paired_difference_sd_ratio": 0.2,
+          "true_relative_gain_for_80pct_marginal_power": 0.05104053083932286
+        },
+        {
+          "observed_relative_gain_threshold": 0.03156079625898429,
+          "paired_difference_sd_ratio": 0.3,
+          "true_relative_gain_for_80pct_marginal_power": 0.06312159251796857
+        }
+      ],
+      "design": "development64_candidate",
+      "minimum_changed_action_fraction": 0.375,
+      "minimum_changed_actions": 24,
+      "ranking_or_log_loss_standardized_favorable_margin_for_80pct_marginal_power": 0.1052026541966143,
+      "tasks": 64,
+      "true_change_probability_for_80pct_marginal_power": 0.41926498884686714
+    },
+    {
+      "blocks": 4,
+      "brier_sensitivity": [
+        {
+          "observed_relative_gain_threshold": 0.040007597302960905,
+          "paired_difference_sd_ratio": 0.2,
+          "true_relative_gain_for_80pct_marginal_power": 0.057187118794172404
+        },
+        {
+          "observed_relative_gain_threshold": 0.060011395954441354,
+          "paired_difference_sd_ratio": 0.3,
+          "true_relative_gain_for_80pct_marginal_power": 0.08578067819125859
+        }
+      ],
+      "design": "confirmation96_candidate",
+      "minimum_changed_action_fraction": 0.375,
+      "minimum_changed_actions": 36,
+      "ranking_or_log_loss_standardized_favorable_margin_for_80pct_marginal_power": 0.08589760745605747,
+      "tasks": 96,
+      "true_change_probability_for_80pct_marginal_power": 0.4121720383798604
+    }
+  ],
+  "endpoint_data_accessed": false,
+  "frozen_before_first_bongard_response": true,
+  "implementation": {
+    "path": "scripts/bongard_openworld_call_matched_power_audit.py",
+    "sha256": "96273a7aea65c4b3df38c5579726bff90cd80b5a0a66a3026f50d6669ae40a94"
+  },
+  "interpretation": {
+    "a_null_can_reflect_small_effect_or_insufficient_action_separation": true,
+    "changed_action_gate_requires_more_than_37_5pct_true_change_rate_for_80pct_power": true,
+    "full_conjunction_power_is_no_greater_than_its_weakest_marginal_gate": true,
+    "no_post_outcome_threshold_relaxation_is_allowed": true,
+    "three_percent_brier_floor_is_not_an_80pct_powered_target": true
+  },
+  "model_calls": 0,
+  "schema_version": 1,
+  "status": "call_matched_gate_sensitivity_complete"
+}
