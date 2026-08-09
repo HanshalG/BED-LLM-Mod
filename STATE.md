@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Verify the frozen Bongard myopic control against the closest prior's
+operational pattern. `myopic_width` is greedy endpoint-PIG at root,then after the
+real label uses the same answer-conditioned regenerated Luna branch belief and
+greedily selects query2;terminal generation/scoring is shared. New regression
+independently recomputes both EIG vectors+argmaxes;mechanics13/13. This is an
+LLM-SMC-S analogue,not its SMC weighting,resampling,or LLM experiment proposal,
+and supports no implementation-comparison/priority claim. Audit9afdf43c;
+production/protocol/calls/cost/endpoints unchanged.
+
 2026-08-09: Close a missing closest-prior citation before any Bongard response.
 NeurIPS24 LLM-SMC-S already revises low-likelihood natural-language particles
 online and greedily selects experiments by one-step IG on current support. Narrow

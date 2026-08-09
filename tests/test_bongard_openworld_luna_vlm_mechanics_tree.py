@@ -553,6 +553,29 @@ def test_first_action_plans_are_invariant_to_unreleased_candidate_labels() -> No
         ),
         task.endpoint_ids,
     )
+    myopic_row = original_plan["policies"]["myopic_width"]
+    expected_myopic_first_scores = bed.candidate_endpoint_eigs(
+        root, task.candidate_ids, task.endpoint_ids
+    )
+    myopic_first = myopic_row["first_image_id"]
+    assert original_plan["root_scores"]["myopic_width"] == (
+        expected_myopic_first_scores
+    )
+    assert myopic_first == bed.select_best(expected_myopic_first_scores)
+    myopic_label = bool(task.actual_labels[myopic_first])
+    expected_myopic_second_scores = bed.candidate_endpoint_eigs(
+        branches[(myopic_first, myopic_label)],
+        tuple(
+            candidate
+            for candidate in task.candidate_ids
+            if candidate != myopic_first
+        ),
+        task.endpoint_ids,
+    )
+    assert myopic_row["second_scores"] == expected_myopic_second_scores
+    assert myopic_row["second_image_id"] == bed.select_best(
+        expected_myopic_second_scores
+    )
     matched_update = original_plan["policies"][
         "history_blind_update_matched_first"
     ]
