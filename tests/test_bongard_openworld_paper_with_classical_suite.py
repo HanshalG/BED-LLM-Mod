@@ -110,6 +110,35 @@ def _compute_result(*, stage: str = "development") -> dict:
     }
 
 
+def _opportunity_result(*, stage: str = "development") -> dict:
+    return {
+        "status": "classical_horizon_opportunity_stratum_complete",
+        "stage": stage,
+        "stage_result_sha256": "synthetic-stage-sha256",
+        "task_count": 4,
+        "stratum_definition": (
+            "dinov2_depth2_or_siglip_depth2_changes_own_myopic_first_query"
+        ),
+        "strict_control": "compute_matched_myopic_ensemble",
+        "compute_contract_exact": True,
+        "strata": {
+            "classical_horizon_disagreement": {
+                "task_count": 2,
+                "paired": {"mean_brier": _compute_summary(-0.04)},
+            },
+            "classical_horizon_agreement": {
+                "task_count": 2,
+                "paired": {"mean_brier": _compute_summary(0.01)},
+            },
+        },
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_primary_gates": False,
+        "changes_claim_tier": False,
+    }
+
+
 def _random_result(
     *, stage: str = "development", mean_brier: float = -0.04
 ) -> dict:
@@ -177,6 +206,48 @@ def test_classical_tex_reports_both_encoders_and_luna_comparisons() -> None:
     assert "0.0100" in tex
     assert "negative values favor Luna" in tex
     assert "reported regardless of direction" in tex
+
+
+def test_horizon_opportunity_tex_reports_both_frozen_strata() -> None:
+    lines, summary = paper.horizon_opportunity_tex_lines(_opportunity_result())
+    tex = "\n".join(lines)
+
+    assert "(2/4)" in tex
+    assert "-0.0400" in tex
+    assert "0.0100" in tex
+    assert "negative favors dynamic" in tex
+    assert "descriptive and non-gating" in tex
+    assert set(summary["strata"]) == {
+        "classical_horizon_disagreement",
+        "classical_horizon_agreement",
+    }
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("control", "complete horizon-opportunity audit"),
+        ("calls", "complete horizon-opportunity audit"),
+        ("coverage", "do not cover"),
+        ("standard_error", "invalid mean_brier"),
+    ],
+)
+def test_horizon_opportunity_tex_rejects_tamper(
+    mutation: str, message: str
+) -> None:
+    result = deepcopy(_opportunity_result())
+    if mutation == "control":
+        result["strict_control"] = "myopic_width"
+    elif mutation == "calls":
+        result["model_calls"] = 1
+    elif mutation == "coverage":
+        result["task_count"] = 5
+    else:
+        result["strata"]["classical_horizon_disagreement"]["paired"][
+            "mean_brier"
+        ]["standard_error"] += 0.01
+    with pytest.raises(ValueError, match=message):
+        paper.horizon_opportunity_tex_lines(result)
 
 
 def test_classical_tex_rejects_incomplete_suite() -> None:
@@ -382,6 +453,26 @@ def test_compute_matched_replay_rejects_saved_mismatch(
         )
 
 
+def test_horizon_opportunity_replay_rejects_saved_mismatch(
+    tmp_path: Path, monkeypatch
+) -> None:
+    saved = tmp_path / "OPPORTUNITY.json"
+    saved.write_text(json.dumps({"status": "saved"}), encoding="utf-8")
+    monkeypatch.setattr(
+        paper.opportunity,
+        "run_report",
+        lambda **kwargs: {"status": "independent-replay"},
+    )
+    with pytest.raises(ValueError, match="does not independently replay"):
+        paper.replay_horizon_opportunity(
+            stage="development",
+            saved_path=saved,
+            result_path=tmp_path / "COMBINED.json",
+            block_results=[],
+            output_path=tmp_path / "REPLAY.json",
+        )
+
+
 def test_random_strategy_replay_rejects_saved_mismatch(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -434,6 +525,8 @@ def test_classical_tex_compiles(tmp_path: Path) -> None:
         + "\n".join(paper.classical_tex_lines(_result()))
         + "\n"
         + "\n".join(paper.compute_matched_tex_lines(_compute_result())[0])
+        + "\n"
+        + "\n".join(paper.horizon_opportunity_tex_lines(_opportunity_result())[0])
         + "\n"
         + "\n".join(paper.random_strategy_tex_lines(_random_result())[0])
         + "\n"
@@ -499,6 +592,11 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
     )
     monkeypatch.setattr(
         paper,
+        "replay_horizon_opportunity",
+        lambda **kwargs: _opportunity_result(stage=kwargs["stage"]),
+    )
+    monkeypatch.setattr(
+        paper,
         "replay_random_strategy_audit",
         lambda **kwargs: _random_result(stage=kwargs["stage"]),
     )
@@ -511,11 +609,13 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
     suite = tmp_path / "CLASSICAL_SUITE_RESULT.json"
     combined = tmp_path / "COMBINED_RESULT.json"
     compute = tmp_path / "COMPUTE_MATCHED_AUDIT.json"
+    opportunity = tmp_path / "HORIZON_OPPORTUNITY.json"
     random_audit = tmp_path / "RANDOM_STRATEGY_AUDIT.json"
     mediation = tmp_path / "PATH_MEDIATION.json"
     suite.write_text("{}", encoding="utf-8")
     combined.write_text("{}", encoding="utf-8")
     compute.write_text("{}", encoding="utf-8")
+    opportunity.write_text("{}", encoding="utf-8")
     random_audit.write_text("{}", encoding="utf-8")
     mediation.write_text("{}", encoding="utf-8")
     with pytest.raises(ValueError, match="classical, compute-matched"):
@@ -544,6 +644,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             output=output,
             classical_suite_path=suite,
             compute_audit_path=compute,
+            opportunity_path=opportunity,
             random_audit_path=random_audit,
             mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
@@ -554,6 +655,32 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         paper,
         "replay_compute_matched_audit",
         lambda **kwargs: _compute_result(stage=kwargs["stage"]),
+    )
+    monkeypatch.setattr(
+        paper,
+        "replay_horizon_opportunity",
+        lambda **kwargs: {
+            **_opportunity_result(stage=kwargs["stage"]),
+            "stage_result_sha256": "wrong-stage-result",
+        },
+    )
+    with pytest.raises(ValueError, match="horizon-opportunity report does not match"):
+        paper.write_combined_fragment(
+            stage="development",
+            output=output,
+            classical_suite_path=suite,
+            compute_audit_path=compute,
+            opportunity_path=opportunity,
+            random_audit_path=random_audit,
+            mediation_path=mediation,
+            claim_report_path=tmp_path / "CLAIM.json",
+            combined_result=combined,
+            block_results=[],
+        )
+    monkeypatch.setattr(
+        paper,
+        "replay_horizon_opportunity",
+        lambda **kwargs: _opportunity_result(stage=kwargs["stage"]),
     )
     monkeypatch.setattr(
         paper,
@@ -569,6 +696,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             output=output,
             classical_suite_path=suite,
             compute_audit_path=compute,
+            opportunity_path=opportunity,
             random_audit_path=random_audit,
             mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
@@ -594,6 +722,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             output=output,
             classical_suite_path=suite,
             compute_audit_path=compute,
+            opportunity_path=opportunity,
             random_audit_path=random_audit,
             mediation_path=mediation,
             claim_report_path=tmp_path / "CLAIM.json",
@@ -610,6 +739,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         output=output,
         classical_suite_path=suite,
         compute_audit_path=compute,
+        opportunity_path=opportunity,
         random_audit_path=random_audit,
         mediation_path=mediation,
         claim_report_path=tmp_path / "CLAIM.json",
@@ -621,13 +751,15 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
     assert "DINOv2-small" in tex
     assert "SigLIP2-So400m" in tex
     assert "Call-matched controls" in tex
+    assert "endpoint-blind DINO-or-SigLIP horizon-disagreement split" in tex
     assert "Frozen random-strategy sanity baseline" in tex
     assert "Replayed belief-to-action mediation" in tex
     assert output.with_name(
         paper.luna_fragment.HEADLINE_FILENAME
     ).read_text(encoding="utf-8") == "ORIGINAL HEADLINE\n"
     assert result["status"] == (
-        "written_with_mandatory_classical_compute_random_and_mediation_suites"
+        "written_with_mandatory_classical_compute_opportunity_random_and_"
+        "mediation_suites"
     )
     assert result["claim_tier"] == "development_null"
     second_output = tmp_path / "second-location/bongard_openworld_result.tex"
@@ -636,6 +768,7 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
         output=second_output,
         classical_suite_path=suite,
         compute_audit_path=compute,
+        opportunity_path=opportunity,
         random_audit_path=random_audit,
         mediation_path=mediation,
         claim_report_path=tmp_path / "CLAIM.json",
@@ -689,6 +822,19 @@ def test_combined_writer_preserves_headline_and_appends_both_encoders(
             classical_suite_path=None,
             compute_audit_path=None,
             random_audit_path=random_audit,
+            mediation_path=None,
+            failure_path=tmp_path / "FAILURE.json",
+        )
+    with pytest.raises(
+        ValueError, match="mechanics failure cannot have a horizon-opportunity"
+    ):
+        paper.write_combined_fragment(
+            stage="confirmation-mechanics-failure",
+            output=tmp_path / "generated/mechanics-failure-opportunity.tex",
+            classical_suite_path=None,
+            compute_audit_path=None,
+            opportunity_path=opportunity,
+            random_audit_path=None,
             mediation_path=None,
             failure_path=tmp_path / "FAILURE.json",
         )
@@ -777,6 +923,11 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
     )
     monkeypatch.setattr(
         paper,
+        "replay_horizon_opportunity",
+        lambda **kwargs: _opportunity_result(stage=kwargs["stage"]),
+    )
+    monkeypatch.setattr(
+        paper,
         "replay_random_strategy_audit",
         lambda **kwargs: _random_result(stage=kwargs["stage"]),
     )
@@ -789,11 +940,13 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
     suite = tmp_path / "CLASSICAL_SUITE_RESULT.json"
     combined = tmp_path / "COMBINED_RESULT.json"
     compute = tmp_path / "COMPUTE_MATCHED_AUDIT.json"
+    opportunity = tmp_path / "HORIZON_OPPORTUNITY.json"
     random_audit = tmp_path / "RANDOM_STRATEGY_AUDIT.json"
     mediation = tmp_path / "PATH_MEDIATION.json"
     suite.write_text("{}", encoding="utf-8")
     combined.write_text("{}", encoding="utf-8")
     compute.write_text("{}", encoding="utf-8")
+    opportunity.write_text("{}", encoding="utf-8")
     random_audit.write_text("{}", encoding="utf-8")
     mediation.write_text("{}", encoding="utf-8")
     paper.write_combined_fragment(
@@ -801,6 +954,7 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
         output=output,
         classical_suite_path=suite,
         compute_audit_path=compute,
+        opportunity_path=opportunity,
         random_audit_path=random_audit,
         mediation_path=mediation,
         combined_result=combined,
@@ -817,6 +971,7 @@ def test_confirmation_headline_is_qualified_by_classical_scope(
     assert metadata["compute_matched_audit"]["summary"][
         "strict_compute_matched_myopic_control"
     ] == "compute_matched_myopic_ensemble"
+    assert metadata["horizon_opportunity"]["summary"]["task_count"] == 4
     assert metadata["random_strategy_audit"]["summary"][
         "compute_matched"
     ] is False

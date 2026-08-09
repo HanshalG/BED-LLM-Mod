@@ -124,6 +124,44 @@ def _paper_compute_result(n: int) -> dict:
     }
 
 
+def _paper_opportunity_result(n: int) -> dict:
+    disagreement = 49 if n == 96 else 27
+    agreement = n - disagreement
+
+    def summary(count: int, mean: float) -> dict:
+        result = _paper_compute_result(count)["comparisons"][
+            "compute_matched_myopic_ensemble"
+        ]["mean_brier"]
+        result["mean_difference"] = mean
+        result["ci95"] = [mean - 0.01, mean + 0.01]
+        return result
+
+    return {
+        "status": "classical_horizon_opportunity_stratum_complete",
+        "task_count": n,
+        "stratum_definition": (
+            "dinov2_depth2_or_siglip_depth2_changes_own_myopic_first_query"
+        ),
+        "strict_control": "compute_matched_myopic_ensemble",
+        "compute_contract_exact": True,
+        "strata": {
+            "classical_horizon_disagreement": {
+                "task_count": disagreement,
+                "paired": {"mean_brier": summary(disagreement, -0.02)},
+            },
+            "classical_horizon_agreement": {
+                "task_count": agreement,
+                "paired": {"mean_brier": summary(agreement, 0.01)},
+            },
+        },
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_primary_gates": False,
+        "changes_claim_tier": False,
+    }
+
+
 def _paper_random_result(n: int) -> dict:
     result = _paper_compute_result(n)
     comparison = result["comparisons"]["shuffled_dynamic_depth2"]
@@ -659,6 +697,9 @@ def test_confirmation_fragment_compiles_within_page_budget(
     compute = suite_paper.compute_matched_tex_lines(
         _paper_compute_result(fragment.confirmation.TASKS)
     )[0]
+    opportunity = suite_paper.horizon_opportunity_tex_lines(
+        _paper_opportunity_result(fragment.confirmation.TASKS)
+    )[0]
     random_control = suite_paper.random_strategy_tex_lines(
         _paper_random_result(fragment.confirmation.TASKS)
     )[0]
@@ -670,7 +711,7 @@ def test_confirmation_fragment_compiles_within_page_budget(
         + "\n\n"
         + "\n".join(
             suite_paper.control_addendum_tex_lines(
-                [*classical, *compute, *random_control, *mediation]
+                [*classical, *compute, *opportunity, *random_control, *mediation]
             )
         )
         + "\n",

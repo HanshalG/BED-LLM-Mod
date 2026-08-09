@@ -29,13 +29,13 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-development-final-handoff-1"
+INTERFACE_VERSION = "bongard-openworld-development-final-handoff-2"
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_DEVELOPMENT_FINAL_HANDOFF_PROTOCOL_20260809.md"
 )
 PROTOCOL_SHA256 = (
-    "474dc8efbf175abf59da8e3f6f12889405e2de135a6d92dcf024d1534eb2fbac"
+    "68d226b835d493a30d5f875d8a6563ba637232f9f2b0120ae34e2fff89656ad3"
 )
 BOUND_IMPLEMENTATIONS = {
     "paired_daily_handoff": (
@@ -66,9 +66,9 @@ BOUND_IMPLEMENTATIONS = {
         "scripts/bongard_openworld_random_strategy_control.py",
         "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441",
     ),
-    "paper_wrapper_v6": (
+    "paper_wrapper_v7": (
         "scripts/bongard_openworld_paper_with_classical_suite.py",
-        "c7880dc58f157895092785ccb35c03f318775642062268594d77f288a91549d8",
+        "49cef94e9a652eb081e0a6bcad1898dbf065392e09b2346712caee1a165c1f62",
     ),
 }
 OUTPUT_DIR = REPO_ROOT / (
@@ -258,7 +258,10 @@ def _load_or_replay_paper(
         raise ValueError("development paper artifact is partial")
     saved = [path.read_bytes() for path in paths]
     saved_result = {
-        "status": "written_with_mandatory_classical_compute_random_and_mediation_suites",
+        "status": (
+            "written_with_mandatory_classical_compute_opportunity_random_and_"
+            "mediation_suites"
+        ),
         "stage": "development",
         "claim_tier": _load(paths[1])["claim_tier"],
         "tex_path": str(output),
@@ -527,6 +530,7 @@ def run_final_handoff(
                 output=output,
                 classical_suite_path=classical_path,
                 compute_audit_path=compute_path,
+                opportunity_path=opportunity_path,
                 random_audit_path=random_path,
                 mediation_path=mediation_path,
                 claim_report_path=claim_report_path,

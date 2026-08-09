@@ -141,29 +141,29 @@ DEVELOPMENT_FINAL_PROTOCOL = REPO_ROOT / (
     "BONGARD_OPENWORLD_DEVELOPMENT_FINAL_HANDOFF_PROTOCOL_20260809.md"
 )
 DEVELOPMENT_FINAL_PROTOCOL_SHA256 = (
-    "474dc8efbf175abf59da8e3f6f12889405e2de135a6d92dcf024d1534eb2fbac"
+    "68d226b835d493a30d5f875d8a6563ba637232f9f2b0120ae34e2fff89656ad3"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "825672ed4eda42bcfea9124041d65a13acea3574c75a9327f60fbea097cd5a48"
+    "3cfbda752881d5221b30b48dcf71bd22dcd910231203aef867e48702d46ed60c"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_TEST_SHA256 = (
-    "a95e3d17cbe58bebd41b545b2e3fcf9e9951392d78fc618186fbf3354db68140"
+    "67c7eaa5d20f61b2faf6770253e5b220adb1b2b00277f89d7d06c7b44add4882"
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "c7880dc58f157895092785ccb35c03f318775642062268594d77f288a91549d8"
+    "49cef94e9a652eb081e0a6bcad1898dbf065392e09b2346712caee1a165c1f62"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
 )
 PAPER_WRAPPER_TEST_SHA256 = (
-    "04157da9877bde472bb688db5a752aefd3021b7831187135a5a7b76848f4e1d6"
+    "4c2d8ab8f8265391e1ef9729ace9a7d2a9f5d12b1312d5e414c39d0526388d2a"
 )
 HISTORICAL_SUPERSEDED_BINDINGS = {
     "mandatory_paper_wrapper_v3",
@@ -315,9 +315,9 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
     assert final_handoff.verify_bindings()["implementations"]
 
 
-def test_development_terminal_handoff_binds_deterministic_v6_paper_path() -> None:
+def test_development_terminal_handoff_binds_deterministic_v7_paper_path() -> None:
     assert paper_wrapper.INTERFACE_VERSION == (
-        "bongard-openworld-paper-with-classical-suite-6"
+        "bongard-openworld-paper-with-classical-suite-7"
     )
     assert _sha256(DETERMINISTIC_PAPER_AMENDMENT) == (
         DETERMINISTIC_PAPER_AMENDMENT_SHA256
@@ -330,7 +330,7 @@ def test_development_terminal_handoff_binds_deterministic_v6_paper_path() -> Non
     assert _sha256(PAPER_WRAPPER) == PAPER_WRAPPER_SHA256
     assert _sha256(PAPER_WRAPPER_TEST) == PAPER_WRAPPER_TEST_SHA256
     assert development_final.PROTOCOL_SHA256 == DEVELOPMENT_FINAL_PROTOCOL_SHA256
-    assert development_final.BOUND_IMPLEMENTATIONS["paper_wrapper_v6"] == (
+    assert development_final.BOUND_IMPLEMENTATIONS["paper_wrapper_v7"] == (
         "scripts/bongard_openworld_paper_with_classical_suite.py",
         PAPER_WRAPPER_SHA256,
     )

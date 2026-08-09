@@ -29,13 +29,15 @@ daily handoffs. It must then execute or exactly replay, in order:
 2. the DINOv2 plus SigLIP2 classical suite;
 3. the path-mediation report;
 4. the compute-matched control audit;
-5. the random-strategy control audit;
-6. the mandatory V6 paper wrapper with all four analysis artifacts.
+5. the endpoint-blind classical horizon-opportunity report;
+6. the random-strategy control audit;
+7. the mandatory V7 paper wrapper with all five analysis artifacts.
 
-V6 is the path-invariant metadata wrapper frozen in
-`BONGARD_OPENWORLD_DETERMINISTIC_PAPER_METADATA_AMENDMENT_20260809.md`.
-It preserves every scientific and reporting rule from V5 while making the TeX,
-headline, and metadata exactly replayable across output directories.
+V7 preserves the path-invariant metadata contract frozen for V6 and adds the
+direction-agnostic, non-gating opportunity-stratum report frozen in
+`BONGARD_OPENWORLD_HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT_20260809.md`.
+It keeps the TeX, headline, and metadata exactly replayable across output
+directories.
 
 Every component uses the same combined result and exact ordered block files.
 Every development disposition, favorable or unfavorable, must complete the same

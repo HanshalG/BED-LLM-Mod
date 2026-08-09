@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_classical_suite_outcome as suite_outcome
+from scripts import bongard_openworld_classical_horizon_opportunity as opportunity
 from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_luna_confirmation64 as confirmation
 from scripts import bongard_openworld_luna_confirmation64_daily_execute as confirmation_daily
@@ -27,7 +28,7 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-6"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-7"
 LUNA_RENDERER_SHA256 = (
     "28e268b28a67b6eb97aa29abf359a891a841964cc5cc717c1e72a70ab2341cf5"
 )
@@ -42,6 +43,9 @@ RANDOM_STRATEGY_CONTROL_SHA256 = (
 )
 PATH_MEDIATION_SHA256 = (
     "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912"
+)
+HORIZON_OPPORTUNITY_SHA256 = (
+    "f47aa276b526ad380c4edfddb203a040c6b52b217b1343e9a94e4d36cc88adf3"
 )
 PATH_MEDIATION_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/BONGARD_OPENWORLD_PATH_MEDIATION_PROTOCOL_20260809.md"
@@ -76,6 +80,13 @@ DETERMINISTIC_METADATA_AMENDMENT = REPO_ROOT / (
 )
 DETERMINISTIC_METADATA_AMENDMENT_SHA256 = (
     "b39ef5be597b3527d082469369b0a097b4ab476837d1997eb477dd6d9e84bbe0"
+)
+HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT_20260809.md"
+)
+HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT_SHA256 = (
+    "f04cdff22f774001f6b1b9d2282ca6ce00c4659d4b31d33e025a4ee7533f976c"
 )
 DEFAULT_OUTPUT = luna_fragment.DEFAULT_OUTPUT
 
@@ -120,6 +131,10 @@ def verify_bound_implementations() -> dict[str, str]:
         "path_mediation": suite_outcome.siglip.sha256_file(
             REPO_ROOT / "scripts/bongard_openworld_path_mediation.py"
         ),
+        "horizon_opportunity": suite_outcome.siglip.sha256_file(
+            REPO_ROOT
+            / "scripts/bongard_openworld_classical_horizon_opportunity.py"
+        ),
         "path_mediation_protocol": suite_outcome.siglip.sha256_file(
             PATH_MEDIATION_PROTOCOL
         ),
@@ -135,6 +150,11 @@ def verify_bound_implementations() -> dict[str, str]:
         "deterministic_metadata_amendment": suite_outcome.siglip.sha256_file(
             DETERMINISTIC_METADATA_AMENDMENT
         ),
+        "horizon_opportunity_paper_handoff_amendment": (
+            suite_outcome.siglip.sha256_file(
+                HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT
+            )
+        ),
     }
     expected = {
         "luna_renderer": LUNA_RENDERER_SHA256,
@@ -142,6 +162,7 @@ def verify_bound_implementations() -> dict[str, str]:
         "compute_matched_control": COMPUTE_MATCHED_CONTROL_SHA256,
         "random_strategy_control": RANDOM_STRATEGY_CONTROL_SHA256,
         "path_mediation": PATH_MEDIATION_SHA256,
+        "horizon_opportunity": HORIZON_OPPORTUNITY_SHA256,
         "path_mediation_protocol": PATH_MEDIATION_PROTOCOL_SHA256,
         "compute_paper_handoff_amendment": (
             COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256
@@ -152,6 +173,9 @@ def verify_bound_implementations() -> dict[str, str]:
         ),
         "deterministic_metadata_amendment": (
             DETERMINISTIC_METADATA_AMENDMENT_SHA256
+        ),
+        "horizon_opportunity_paper_handoff_amendment": (
+            HORIZON_OPPORTUNITY_PAPER_HANDOFF_AMENDMENT_SHA256
         ),
     }
     if observed != expected:
@@ -210,14 +234,13 @@ def _encoder_tex(
     if not all(math.isfinite(float(value)) for value in values):
         raise ValueError("classical-suite paper values are non-finite")
     return (
-        f"{subject} obtained endpoint Brier "
-        f"{_number(pooled[myopic_policy]['mean_brier'])} with one-step PIG and "
-        f"{_number(pooled[depth2_policy]['mean_brier'])} with exact depth-two "
-        "lookahead. Its paired depth-two minus myopic difference was "
+        f"{subject}: myopic/depth-two endpoint Brier "
+        f"{_number(pooled[myopic_policy]['mean_brier'])}/"
+        f"{_number(pooled[depth2_policy]['mean_brier'])}; depth-two minus myopic "
         f"{_number(horizon['mean'])} (95\\% bootstrap CI "
-        f"$[{_number(horizon_ci[0])},{_number(horizon_ci[1])}]$). Luna dynamic "
-        f"depth two minus {comparison_name} depth two was "
-        f"{_number(luna_comparison['mean'])} in Brier (95\\% bootstrap CI "
+        f"$[{_number(horizon_ci[0])},{_number(horizon_ci[1])}]$); Luna dynamic "
+        f"minus {comparison_name} depth two "
+        f"{_number(luna_comparison['mean'])} Brier (95\\% bootstrap CI "
         f"$[{_number(luna_ci[0])},{_number(luna_ci[1])}]$)."
     )
 
@@ -412,6 +435,76 @@ def compute_matched_tex_lines(
         "authorizes_paid_calls": False,
     }
     return lines, metadata
+
+
+def horizon_opportunity_tex_lines(
+    result: Mapping[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    task_count = result.get("task_count")
+    strata = result.get("strata")
+    if (
+        result.get("status")
+        != "classical_horizon_opportunity_stratum_complete"
+        or result.get("strict_control") != "compute_matched_myopic_ensemble"
+        or result.get("compute_contract_exact") is not True
+        or not isinstance(task_count, int)
+        or task_count <= 1
+        or not isinstance(strata, Mapping)
+        or set(strata) != set(opportunity.STRATA)
+        or result.get("model_calls") != 0
+        or result.get("cost_usd") != 0.0
+        or result.get("authorizes_paid_calls") is not False
+        or result.get("changes_primary_gates") is not False
+        or result.get("changes_claim_tier") is not False
+    ):
+        raise ValueError("paper input is not the complete horizon-opportunity audit")
+
+    validated = {}
+    for stratum in opportunity.STRATA:
+        summary = strata[stratum]
+        count = summary.get("task_count") if isinstance(summary, Mapping) else None
+        paired = summary.get("paired") if isinstance(summary, Mapping) else None
+        if (
+            not isinstance(count, int)
+            or count <= 1
+            or not isinstance(paired, Mapping)
+        ):
+            raise ValueError("horizon-opportunity paper stratum is malformed")
+        validated[stratum] = {
+            "task_count": count,
+            "mean_brier": _validated_compute_summary(
+                paired, "mean_brier", task_count=count
+            ),
+        }
+    disagreement = validated[opportunity.STRATA[0]]
+    agreement = validated[opportunity.STRATA[1]]
+    if disagreement["task_count"] + agreement["task_count"] != task_count:
+        raise ValueError("horizon-opportunity paper strata do not cover the stage")
+
+    disagreement_brier = disagreement["mean_brier"]
+    agreement_brier = agreement["mean_brier"]
+    lines = [
+        (
+            "On the endpoint-blind DINO-or-SigLIP horizon-disagreement split "
+            f"({disagreement['task_count']}/{task_count}), dynamic--ensemble Brier "
+            f"was {_number(disagreement_brier['mean_difference'])} (95\\% CI "
+            f"$[{_number(disagreement_brier['ci95'][0])},"
+            f"{_number(disagreement_brier['ci95'][1])}]$), versus "
+            f"{_number(agreement_brier['mean_difference'])} (95\\% CI "
+            f"$[{_number(agreement_brier['ci95'][0])},"
+            f"{_number(agreement_brier['ci95'][1])}]$) otherwise; negative favors "
+            "dynamic and the split is descriptive and non-gating."
+        )
+    ]
+    return lines, {
+        "definition": result.get("stratum_definition"),
+        "task_count": task_count,
+        "strict_control": "compute_matched_myopic_ensemble",
+        "strata": validated,
+        "changes_primary_gates": False,
+        "changes_claim_tier": False,
+        "authorizes_paid_calls": False,
+    }
 
 
 def _validated_random_summary(
@@ -869,6 +962,28 @@ def replay_compute_matched_audit(
     return replay
 
 
+def replay_horizon_opportunity(
+    *,
+    stage: str,
+    saved_path: Path,
+    result_path: Path,
+    block_results: Sequence[Path],
+    output_path: Path,
+) -> dict[str, Any]:
+    replay = opportunity.run_report(
+        stage=stage,
+        result_path=result_path,
+        output_path=output_path,
+        block_results=block_results,
+    )
+    saved = _load(saved_path)
+    if _canonical(saved) != _canonical(replay):
+        raise ValueError(
+            "saved horizon-opportunity report does not independently replay"
+        )
+    return replay
+
+
 def replay_random_strategy_audit(
     *,
     stage: str,
@@ -919,6 +1034,7 @@ def write_combined_fragment(
     compute_audit_path: Path | None,
     random_audit_path: Path | None,
     mediation_path: Path | None,
+    opportunity_path: Path | None = None,
     claim_report_path: Path | None = None,
     combined_result: Path | None = None,
     block_results: Sequence[Path] = (),
@@ -957,6 +1073,10 @@ def write_combined_fragment(
                 raise ValueError(
                     "mechanics failure cannot have a random-strategy endpoint audit"
                 )
+            if opportunity_path is not None:
+                raise ValueError(
+                    "mechanics failure cannot have a horizon-opportunity endpoint report"
+                )
             if mediation_path is not None:
                 raise ValueError(
                     "mechanics failure cannot have a path-mediation endpoint report"
@@ -969,18 +1089,21 @@ def write_combined_fragment(
             compute_metadata = None
             random_metadata = None
             mediation_metadata = None
+            opportunity_metadata = None
             claim_scope = None
         else:
             if (
                 classical_suite_path is None
                 or compute_audit_path is None
+                or opportunity_path is None
                 or random_audit_path is None
                 or mediation_path is None
                 or combined_result is None
             ):
                 raise ValueError(
                     "endpoint result rendering requires the frozen classical, "
-                    "compute-matched, random-strategy, and path-mediation suites"
+                    "compute-matched, horizon-opportunity, random-strategy, and "
+                    "path-mediation suites"
                 )
             replay = replay_classical_suite(
                 stage=stage,
@@ -1026,6 +1149,33 @@ def write_combined_fragment(
                 "stage_result_sha256": compute_replay["stage_result_sha256"],
                 "status": compute_replay["status"],
                 "summary": compute_summary,
+            }
+            opportunity_replay = replay_horizon_opportunity(
+                stage=stage,
+                saved_path=opportunity_path,
+                result_path=combined_result,
+                block_results=block_results,
+                output_path=temporary / "HORIZON_OPPORTUNITY_REPLAY.json",
+            )
+            if (
+                opportunity_replay.get("stage") != stage
+                or opportunity_replay.get("stage_result_sha256")
+                != replay.get("stage_result_sha256")
+            ):
+                raise ValueError(
+                    "horizon-opportunity report does not match the rendered stage result"
+                )
+            opportunity_lines, opportunity_summary = horizon_opportunity_tex_lines(
+                opportunity_replay
+            )
+            addendum.extend(opportunity_lines)
+            opportunity_metadata = {
+                "outcome_sha256": suite_outcome.siglip.sha256_file(
+                    opportunity_path
+                ),
+                "stage_result_sha256": opportunity_replay["stage_result_sha256"],
+                "status": opportunity_replay["status"],
+                "summary": opportunity_summary,
             }
             random_replay = replay_random_strategy_audit(
                 stage=stage,
@@ -1109,6 +1259,7 @@ def write_combined_fragment(
             "classical_suite": suite_metadata,
             "classical_claim_scope": claim_scope,
             "compute_matched_audit": compute_metadata,
+            "horizon_opportunity": opportunity_metadata,
             "random_strategy_audit": random_metadata,
             "path_mediation": mediation_metadata,
             "tex_sha256": suite_outcome.siglip.sha256_file(output),
@@ -1125,7 +1276,7 @@ def write_combined_fragment(
         )
     return {
         "status": (
-            "written_with_mandatory_classical_compute_random_and_mediation_suites"
+            "written_with_mandatory_classical_compute_opportunity_random_and_mediation_suites"
         ),
         "stage": stage,
         "claim_tier": metadata["claim_tier"],
@@ -1149,6 +1300,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--classical-suite", type=Path)
     parser.add_argument("--compute-matched-audit", type=Path)
+    parser.add_argument("--horizon-opportunity", type=Path)
     parser.add_argument("--random-strategy-audit", type=Path)
     parser.add_argument("--path-mediation", type=Path)
     parser.add_argument("--claim-report", type=Path)
@@ -1186,6 +1338,7 @@ def main() -> None:
         output=args.output.resolve(),
         classical_suite_path=args.classical_suite,
         compute_audit_path=args.compute_matched_audit,
+        opportunity_path=args.horizon_opportunity,
         random_audit_path=args.random_strategy_audit,
         mediation_path=args.path_mediation,
         claim_report_path=claim,

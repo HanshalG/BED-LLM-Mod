@@ -99,13 +99,19 @@ class Harness:
         self.calls.append("paper")
         assert stage == "development"
         assert kwargs["combined_result"] == self.combined
+        assert kwargs["opportunity_path"] == (
+            self.output / "CLASSICAL_HORIZON_OPPORTUNITY_RESULT.json"
+        )
         _write(output, "DETERMINISTIC PAPER\n")
         metadata = {"stage": stage, "claim_tier": self.claim_tier}
         _write(output.with_suffix(".json"), metadata)
         headline = output.with_name(luna_fragment.HEADLINE_FILENAME)
         _write(headline, "DETERMINISTIC HEADLINE\n")
         return {
-            "status": "written_with_mandatory_classical_compute_random_and_mediation_suites",
+            "status": (
+                "written_with_mandatory_classical_compute_opportunity_random_and_"
+                "mediation_suites"
+            ),
             "stage": stage,
             "claim_tier": self.claim_tier,
             "tex_path": str(output),
