@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
+from scripts import bongard_openworld_aug10_final_handoff as final_handoff
 from scripts import bongard_openworld_aug10_postprocess as postprocess
 
 
@@ -36,6 +37,19 @@ MEDIATION_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
 )
 MEDIATION_PAPER_HANDOFF_AMENDMENT_SHA256 = (
     "1902eff1a655bb1a8456e9c9d14e3d1bdf7adbcf76865686bef1263b1188d36b"
+)
+FINAL_HANDOFF_PROTOCOL = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_FINAL_HANDOFF_PROTOCOL_20260809.md"
+)
+FINAL_HANDOFF_PROTOCOL_SHA256 = (
+    "76858ea571f478572f8067fa85084e0ea54798017b452d30caca33d9a0cc7e5a"
+)
+FINAL_HANDOFF_IMPLEMENTATION = (
+    REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
+)
+FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
+    "016e535e6f8e53f80fd815baf387a5aba0de770bc40e7284e92aa67688596084"
 )
 PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
 
@@ -111,3 +125,26 @@ def test_aug10_v2_readiness_never_authorizes_paid_or_duplicate_work() -> None:
     assert preflight["files_written"] == 0
     assert report["verification"]["paid_model_calls"] == 0
     assert report["verification"]["cost_usd"] == 0.0
+
+
+def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> None:
+    assert _sha256(FINAL_HANDOFF_PROTOCOL) == FINAL_HANDOFF_PROTOCOL_SHA256
+    assert _sha256(FINAL_HANDOFF_IMPLEMENTATION) == (
+        FINAL_HANDOFF_IMPLEMENTATION_SHA256
+    )
+    assert final_handoff.PROTOCOL_SHA256 == FINAL_HANDOFF_PROTOCOL_SHA256
+    assert final_handoff.BOUND_IMPLEMENTATIONS == {
+        "aug10_wrapper": (
+            "scripts/bongard_openworld_luna_aug10_execute.py",
+            "adf0cede0c14e1ac96206461371f2f53f434f5b748327f9cf93ae0e7f521f9a5",
+        ),
+        "postprocess_v2": (
+            "scripts/bongard_openworld_aug10_postprocess.py",
+            "883707739185f91fc7d60fe12661896e3a62c690b406fc993e5ccbdeffd69ce0",
+        ),
+        "random_strategy_control": (
+            "scripts/bongard_openworld_random_strategy_control.py",
+            "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441",
+        ),
+    }
+    assert final_handoff.verify_bindings()["implementations"]

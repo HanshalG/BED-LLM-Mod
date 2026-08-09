@@ -4,6 +4,18 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Remove the last manual Aug10 handoff boundary before paid work.
+New hash-bound finalizer runs the unchanged paid wrapper,then V2 one-shot
+postprocess,then random control only after a verified mechanics pass. Banked
+serving/mechanics failures go directly to disposition;interruption may finish
+only zero-call descendants;existing postprocess/random/final artifacts replay
+exactly before acceptance. It creates no authorization and changes no paid
+request,gate,estimand,or cap. Live finalizer preflight:ready,all paths absent,
+Luna exact,balance24.878986213,calls/files/cost0. Protocol76858ea5,
+implementation016e535e,test6856be6f,readiness-test278a9899;focused51/51,
+full Bongard277/277. Tomorrow use only
+`scripts/bongard_openworld_aug10_final_handoff.py`,preflight first.
+
 2026-08-09: Make the central Bongard mechanism impossible to omit from the
 paper before responses. Path mediation already replays answer-conditioned vs
 same-seed blind intermediate beliefs after the same first query/answer,score
