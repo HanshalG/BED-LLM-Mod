@@ -44,6 +44,10 @@
       "path": "scripts/bongard_openworld_answer_signal_audit.py",
       "sha256": "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd"
     },
+    "answer_signal_ordering_amendment": {
+      "path": "results/nonmyopic/BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
+      "sha256": "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"
+    },
     "preresult_references": {
       "path": "paper/references.bib",
       "sha256": "44cd1c38638f57e6cbe9c53c3c5d94007a230686ca59949a58f49ed3b0d66768"

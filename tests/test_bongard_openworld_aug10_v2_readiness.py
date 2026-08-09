@@ -43,6 +43,13 @@ ANSWER_SIGNAL_TEST = REPO_ROOT / "tests/test_bongard_openworld_answer_signal_aud
 ANSWER_SIGNAL_TEST_SHA256 = (
     "7a7a1acda321ff6204f3c62b86bd2b11a2a21ca4a5e236fb82ae0575d521bfe8"
 )
+ANSWER_SIGNAL_ORDERING_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md"
+)
+ANSWER_SIGNAL_ORDERING_AMENDMENT_SHA256 = (
+    "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"
+)
 RANDOM_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_RANDOM_STRATEGY_PAPER_HANDOFF_AMENDMENT_20260809.md"
@@ -68,7 +75,7 @@ FINAL_HANDOFF_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_aug10_final_handoff.py"
 )
 FINAL_HANDOFF_IMPLEMENTATION_SHA256 = (
-    "8d7b41c05f7b7f383881529a552b2b6c4e2dee8f6ef7b1b1388adf179eb28884"
+    "84616e49043bed86163781d924a90ba4bd069315eed6d5c5c90981771c98d240"
 )
 ATOMIC_REHEARSAL = REPO_ROOT / (
     "results/nonmyopic/"
@@ -120,7 +127,7 @@ DEVELOPMENT_FINAL_IMPLEMENTATION = (
     REPO_ROOT / "scripts/bongard_openworld_development_final_handoff.py"
 )
 DEVELOPMENT_FINAL_IMPLEMENTATION_SHA256 = (
-    "739ee58d378d8a0067b9e4dca52c5c13c3847b33dcc47e9d061b38277c2a8038"
+    "e60f720790ce5bb2984956a84360747f92f60bbe8373e407cff3d87237bb969d"
 )
 DEVELOPMENT_FINAL_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_development_final_handoff.py"
@@ -130,7 +137,7 @@ DEVELOPMENT_FINAL_TEST_SHA256 = (
 )
 PAPER_WRAPPER = REPO_ROOT / "scripts/bongard_openworld_paper_with_classical_suite.py"
 PAPER_WRAPPER_SHA256 = (
-    "e5449f096a09d28d5a9154977d2d916edac8f6f3731a2638f64e54127ae2f47a"
+    "3e377fa8601540dff8cdfdbbe0ad37ad79ff3a15879ed2b88911220dc85ce7b2"
 )
 PAPER_WRAPPER_TEST = (
     REPO_ROOT / "tests/test_bongard_openworld_paper_with_classical_suite.py"
@@ -168,6 +175,9 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
         ANSWER_SIGNAL_IMPLEMENTATION_SHA256
     )
     assert _sha256(ANSWER_SIGNAL_TEST) == ANSWER_SIGNAL_TEST_SHA256
+    assert _sha256(ANSWER_SIGNAL_ORDERING_AMENDMENT) == (
+        ANSWER_SIGNAL_ORDERING_AMENDMENT_SHA256
+    )
     assert _sha256(RANDOM_PAPER_HANDOFF_AMENDMENT) == (
         RANDOM_PAPER_HANDOFF_AMENDMENT_SHA256
     )
@@ -236,6 +246,9 @@ def test_aug10_final_handoff_binds_immutable_paid_and_zero_call_components() -> 
         DEVELOPMENT_DAILY_HANDOFF_TEST_SHA256
     )
     assert final_handoff.PROTOCOL_SHA256 == FINAL_HANDOFF_PROTOCOL_SHA256
+    assert final_handoff.ORDERING_AMENDMENT_SHA256 == (
+        ANSWER_SIGNAL_ORDERING_AMENDMENT_SHA256
+    )
     assert final_handoff.BOUND_IMPLEMENTATIONS == {
         "answer_signal_audit": (
             "scripts/bongard_openworld_answer_signal_audit.py",

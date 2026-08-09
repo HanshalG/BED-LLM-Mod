@@ -85,6 +85,11 @@ BOUND_FILES = {
         "scripts/bongard_openworld_answer_signal_audit.py",
         "e8b90ef239ad80fa0c2b0404c9ab1f5093f53ddedb9db338d2822e1577042ecd",
     ),
+    "answer_signal_ordering_amendment": (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
+        "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d",
+    ),
     "preresult_references": (
         "paper/references.bib",
         "dea4327670d7169e32c0901e20bda4aa23868df6968c92e3855f929dc91bd93c",

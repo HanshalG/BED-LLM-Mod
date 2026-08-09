@@ -30,6 +30,9 @@ def _bindings() -> dict:
 def test_bound_production_components_are_exact() -> None:
     result = handoff.verify_bindings()
     assert result["protocol"]["sha256"] == handoff.PROTOCOL_SHA256
+    assert result["ordering_amendment"]["sha256"] == (
+        handoff.ORDERING_AMENDMENT_SHA256
+    )
     assert result["implementations"] == {
         name: {"path": relative, "sha256": expected}
         for name, (relative, expected) in handoff.BOUND_IMPLEMENTATIONS.items()
@@ -133,17 +136,8 @@ def test_answer_signal_null_blocks_random_and_development(tmp_path: Path, monkey
     _write(mechanics_result, {"status": "mechanics_pass"})
 
     def execute_runner(**_):
-        result = {"status": "complete"}
+        result = {"status": "complete", "authorizes_development": True}
         _write(paths["wrapper_dir"] / "RESULT.json", result)
-        return result
-
-    def postprocess_runner(*, output_dir: Path, **_):
-        result = {
-            "status": "postprocess_complete",
-            "primary_disposition": "mechanics_pass",
-            "existing_wrapper_authorizes_development": True,
-        }
-        _write(output_dir / "RESULT.json", result)
         return result
 
     def answer_runner(*, output_path: Path, **_):
@@ -157,7 +151,9 @@ def test_answer_signal_null_blocks_random_and_development(tmp_path: Path, monkey
     result = handoff.run_final_handoff(
         **paths,
         execute_runner=execute_runner,
-        postprocess_runner=postprocess_runner,
+        postprocess_runner=lambda **_: pytest.fail(
+            "postprocess opened after answer null"
+        ),
         answer_signal_runner=answer_runner,
         random_runner=lambda **_: pytest.fail("random opened after answer null"),
         binding_verifier=_bindings,
@@ -168,12 +164,62 @@ def test_answer_signal_null_blocks_random_and_development(tmp_path: Path, monkey
         "answer_signal_not_above_regeneration_noise"
     )
     assert result["answer_signal_authorizes_development"] is False
+    assert result["postprocess_opened"] is False
+    assert result["downstream_analyses_opened"] is False
     assert result["random_strategy_audit_opened"] is False
+    assert result["existing_wrapper_authorizes_development"] is True
     assert set(result["components"]) == {
         "paid_terminal",
-        "postprocess",
         "answer_signal_audit",
     }
+    assert not paths["postprocess_dir"].exists()
+
+    monkeypatch.setattr(
+        handoff.answer_signal, "build_report", lambda **_: {"status": "gated_null"}
+    )
+    monkeypatch.setattr(
+        handoff.postprocess,
+        "run_postprocess",
+        lambda **_: pytest.fail("postprocess replayed after answer null"),
+    )
+    replayed = handoff.run_final_handoff(
+        **paths,
+        execute_runner=lambda **_: pytest.fail("paid stage repeated"),
+        binding_verifier=_bindings,
+    )
+    assert replayed == result
+
+
+def test_answer_signal_error_propagates_before_postprocess(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    paths = _paths(tmp_path)
+    mechanics_result = paths["mechanics_dir"] / "RESULT.json"
+    _write(mechanics_result, {"status": "mechanics_pass"})
+
+    def execute_runner(**_):
+        result = {"status": "complete", "authorizes_development": True}
+        _write(paths["wrapper_dir"] / "RESULT.json", result)
+        return result
+
+    monkeypatch.setattr(
+        handoff.postprocess, "_mechanics_from_wrapper", lambda _: mechanics_result
+    )
+    with pytest.raises(ValueError, match="malformed answer audit"):
+        handoff.run_final_handoff(
+            **paths,
+            execute_runner=execute_runner,
+            answer_signal_runner=lambda **_: (_ for _ in ()).throw(
+                ValueError("malformed answer audit")
+            ),
+            postprocess_runner=lambda **_: pytest.fail(
+                "postprocess opened after malformed answer audit"
+            ),
+            binding_verifier=_bindings,
+        )
+
+    assert not paths["postprocess_dir"].exists()
+    assert not paths["output_dir"].exists()
 
 
 def test_mechanics_null_never_opens_random_control(tmp_path: Path) -> None:
@@ -354,6 +400,7 @@ def test_existing_final_replays_postprocess_and_random(
         "answer_signal_audit_opened": True,
         "answer_signal_status": "answer_signal_valid",
         "answer_signal_authorizes_development": True,
+        "postprocess_opened": True,
     }
     _write(paths["output_dir"] / "RESULT.json", record)
     replay_calls = []

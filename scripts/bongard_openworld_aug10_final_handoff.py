@@ -21,13 +21,20 @@ from scripts import bongard_openworld_random_strategy_control as random_control
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-aug10-final-handoff-2"
+INTERFACE_VERSION = "bongard-openworld-aug10-final-handoff-3"
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_AUG10_FINAL_HANDOFF_PROTOCOL_20260809.md"
 )
 PROTOCOL_SHA256 = (
     "76858ea571f478572f8067fa85084e0ea54798017b452d30caca33d9a0cc7e5a"
+)
+ORDERING_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md"
+)
+ORDERING_AMENDMENT_SHA256 = (
+    "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"
 )
 BOUND_IMPLEMENTATIONS = {
     "answer_signal_audit": (
@@ -87,6 +94,9 @@ def verify_bindings() -> dict[str, Any]:
     protocol_hash = _sha256(PROTOCOL)
     if protocol_hash != PROTOCOL_SHA256:
         raise ValueError("August 10 final-handoff protocol changed")
+    ordering_hash = _sha256(ORDERING_AMENDMENT)
+    if ordering_hash != ORDERING_AMENDMENT_SHA256:
+        raise ValueError("August 10 answer-signal ordering amendment changed")
     observed = {
         name: {"path": relative, "sha256": _sha256(REPO_ROOT / relative)}
         for name, (relative, _) in BOUND_IMPLEMENTATIONS.items()
@@ -103,6 +113,10 @@ def verify_bindings() -> dict[str, Any]:
     postprocess.verify_bound_implementations()
     return {
         "protocol": {"path": str(PROTOCOL), "sha256": protocol_hash},
+        "ordering_amendment": {
+            "path": str(ORDERING_AMENDMENT),
+            "sha256": ordering_hash,
+        },
         "implementations": observed,
     }
 
@@ -237,7 +251,6 @@ def _validate_final(
     if (
         not isinstance(components, Mapping)
         or "paid_terminal" not in components
-        or "postprocess" not in components
     ):
         raise ValueError("banked final handoff components are incomplete")
     for component in components.values():
@@ -254,13 +267,6 @@ def _validate_final(
     if path.name == "FAILURE.json" and record.get("status") != "failed_closed":
         raise ValueError("final handoff failure status changed")
     paid_path = Path(str(components["paid_terminal"]["path"]))
-    postprocess_path = Path(str(components["postprocess"]["path"]))
-    replayed_postprocess = postprocess.run_postprocess(
-        artifact_path=paid_path,
-        output_dir=postprocess_path.parent,
-    )
-    if replayed_postprocess != _load(postprocess_path):
-        raise ValueError("banked final handoff postprocess did not replay")
     answer_component = components.get("answer_signal_audit")
     should_have_answer = False
     if paid_path.name == "RESULT.json":
@@ -300,9 +306,27 @@ def _validate_final(
         )
     ):
         raise ValueError("banked final handoff answer-signal disposition changed")
+    postprocess_component = components.get("postprocess")
+    should_have_postprocess = not should_have_answer or answer_passed
+    if (postprocess_component is not None) is not should_have_postprocess:
+        raise ValueError("banked final handoff postprocess scope changed")
+    if record.get("postprocess_opened") is not should_have_postprocess:
+        raise ValueError("banked final handoff postprocess disposition changed")
+    replayed_postprocess = None
+    if postprocess_component is not None:
+        postprocess_path = Path(str(postprocess_component["path"]))
+        replayed_postprocess = postprocess.run_postprocess(
+            artifact_path=paid_path,
+            output_dir=postprocess_path.parent,
+        )
+        if replayed_postprocess != _load(postprocess_path):
+            raise ValueError("banked final handoff postprocess did not replay")
+    elif record.get("downstream_analyses_opened") is not False:
+        raise ValueError("answer-null handoff opened downstream analyses")
     random_component = components.get("random_strategy_control")
     should_have_random = (
-        replayed_postprocess.get("status") == "postprocess_complete"
+        replayed_postprocess is not None
+        and replayed_postprocess.get("status") == "postprocess_complete"
         and answer_passed
     )
     if (random_component is not None) is not should_have_random:
@@ -376,30 +400,37 @@ def run_final_handoff(
                 runner=answer_signal_runner,
             )
 
-    processed = postprocess_runner(
-        artifact_path=paid_artifact,
-        output_dir=postprocess_dir,
-    )
-    postprocess_artifact = (
-        postprocess_dir / "FAILURE.json"
-        if processed.get("status") == "failed_closed"
-        else postprocess_dir / "RESULT.json"
-    )
     components = {
         "paid_terminal": _component(paid_artifact, _load(paid_artifact)),
-        "postprocess": _component(postprocess_artifact, processed),
     }
     if answer_report is not None and answer_path is not None:
         components["answer_signal_audit"] = _component(
             answer_path, answer_report
         )
+    answer_failed = (
+        answer_report is not None
+        and answer_report.get("status") != "answer_signal_valid"
+    )
+    processed = None
+    if not answer_failed:
+        processed = postprocess_runner(
+            artifact_path=paid_artifact,
+            output_dir=postprocess_dir,
+        )
+        postprocess_artifact = (
+            postprocess_dir / "FAILURE.json"
+            if processed.get("status") == "failed_closed"
+            else postprocess_dir / "RESULT.json"
+        )
+        components["postprocess"] = _component(postprocess_artifact, processed)
     random_report = None
-    if processed.get("status") == "postprocess_complete":
+    if processed is not None and processed.get("status") == "postprocess_complete":
         if paid_artifact.resolve() != (wrapper_dir / "RESULT.json").resolve():
             raise ValueError("endpoint analyses require the terminal wrapper result")
         mechanics_result = postprocess._mechanics_from_wrapper(paid_artifact)
     if (
-        processed.get("status") == "postprocess_complete"
+        processed is not None
+        and processed.get("status") == "postprocess_complete"
         and answer_report is not None
         and answer_report.get("status") == "answer_signal_valid"
     ):
@@ -414,11 +445,13 @@ def run_final_handoff(
             random_path, random_report
         )
 
-    answer_failed = (
-        answer_report is not None
-        and answer_report.get("status") != "answer_signal_valid"
+    failed = (
+        answer_failed
+        or (
+            processed is not None
+            and processed.get("status") == "failed_closed"
+        )
     )
-    failed = processed.get("status") == "failed_closed" or answer_failed
     record = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -429,10 +462,17 @@ def run_final_handoff(
         "primary_disposition": (
             "answer_signal_not_above_regeneration_noise"
             if answer_failed
-            else processed.get("primary_disposition")
+            else (
+                processed.get("primary_disposition")
+                if processed is not None
+                else None
+            )
         ),
-        "downstream_analyses_opened": processed.get(
-            "downstream_analyses_opened", False
+        "postprocess_opened": processed is not None,
+        "downstream_analyses_opened": (
+            processed.get("downstream_analyses_opened", False)
+            if processed is not None
+            else False
         ),
         "random_strategy_audit_opened": random_report is not None,
         "answer_signal_audit_opened": answer_report is not None,
@@ -446,8 +486,10 @@ def run_final_handoff(
         "paid_execution_error_type": (
             type(execute_error).__name__ if execute_error is not None else None
         ),
-        "existing_wrapper_authorizes_development": processed.get(
-            "existing_wrapper_authorizes_development", False
+        "existing_wrapper_authorizes_development": (
+            processed.get("existing_wrapper_authorizes_development", False)
+            if processed is not None
+            else bool(_load(paid_artifact).get("authorizes_development", False))
         ),
         "model_calls_added_by_handoff": 0,
         "cost_usd_added_by_handoff": 0.0,
