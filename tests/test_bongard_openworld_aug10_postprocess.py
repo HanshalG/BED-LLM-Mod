@@ -4,8 +4,11 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts import bongard_openworld_aug10_postprocess as postprocess
 from scripts import bongard_openworld_classical_suite_outcome as classical_suite
+from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_luna_vlm_mechanics_tree as mechanics
 from scripts import bongard_openworld_luna_vlm_serving_smoke as serving
@@ -78,6 +81,9 @@ def _real_task_response(
     initial_ids = set(dict(task.initial_history))
     extras = sorted(set(observed) - initial_ids)
     first_extra = extras[0] if extras else None
+    branch_label = (
+        "none" if first_extra is None else str(int(observed[first_extra]))
+    )
     rows = []
     for hypothesis_index, hypothesis_id in enumerate(bed.HYPOTHESIS_IDS):
         centered = (hypothesis_index - 4.5) / 4.5
@@ -110,7 +116,7 @@ def _real_task_response(
                 "hypothesis_id": hypothesis_id,
                 "rule": (
                     f"{request['task_id']} {first_extra or 'root'} "
-                    f"{('none' if first_extra is None else int(observed[first_extra]))} "
+                    f"{branch_label} "
                     f"zero-call semantic rule {hypothesis_index + 1}"
                 ),
                 "history_weight": 20 - hypothesis_index,
@@ -243,13 +249,23 @@ def _write_component(
     }
     if interface_version == classical_suite.INTERFACE_VERSION:
         result["all_gates_pass"] = True
+    elif interface_version == compute_control.INTERFACE_VERSION:
+        result.update(
+            {
+                "compute_contract_exact": True,
+                "strict_compute_matched_control": "shuffled_dynamic_depth2",
+                "matched_request_count_control": "history_blind_depth2",
+                "online_regeneration_greedy_control": "myopic_width",
+                "changes_claim_tier": False,
+            }
+        )
     else:
         result["changes_claim_tier"] = False
     _write(output_path, result)
     return result
 
 
-def test_wrapper_pass_runs_suite_then_mediation_and_binds_zero_call_result(
+def test_wrapper_pass_runs_all_analyses_in_order_and_binds_zero_call_result(
     tmp_path: Path,
 ) -> None:
     wrapper, mechanics = _wrapper(tmp_path)
@@ -276,6 +292,22 @@ def test_wrapper_pass_runs_suite_then_mediation_and_binds_zero_call_result(
             status="path_mediation_complete",
         )
 
+    def compute_runner(**kwargs):
+        calls.append("compute_matched_control")
+        assert calls == [
+            "classical_suite",
+            "path_mediation",
+            "compute_matched_control",
+        ]
+        assert kwargs["result_path"] == mechanics
+        assert kwargs["wrapper_result"] == wrapper
+        return _write_component(
+            output_path=kwargs["output_path"],
+            result_path=kwargs["result_path"],
+            interface_version=compute_control.INTERFACE_VERSION,
+            status="compute_matched_control_audit_complete",
+        )
+
     result = postprocess.run_postprocess(
         artifact_path=wrapper,
         output_dir=tmp_path / "postprocess",
@@ -283,15 +315,22 @@ def test_wrapper_pass_runs_suite_then_mediation_and_binds_zero_call_result(
         classifier=lambda path: _pass_disposition(),
         suite_runner=suite_runner,
         mediation_runner=mediation_runner,
+        compute_runner=compute_runner,
+        compute_validator=postprocess._validate_zero_call_component,
     )
 
-    assert calls == ["classical_suite", "path_mediation"]
+    assert calls == [
+        "classical_suite",
+        "path_mediation",
+        "compute_matched_control",
+    ]
     assert result["status"] == "postprocess_complete"
     assert result["downstream_analyses_opened"] is True
     assert set(result["components"]) == {
         "disposition",
         "classical_suite",
         "path_mediation",
+        "compute_matched_control",
     }
     assert result["model_calls"] == 0
     assert result["cost_usd"] == 0.0
@@ -299,6 +338,19 @@ def test_wrapper_pass_runs_suite_then_mediation_and_binds_zero_call_result(
     assert result["authorizes_rerun"] is False
     assert result["existing_wrapper_authorizes_development"] is True
     assert result["this_record_authorizes_development"] is False
+    compute_path = tmp_path / "postprocess/COMPUTE_MATCHED_CONTROL_RESULT.json"
+    compute_path.write_text("{}", encoding="utf-8")
+    with pytest.raises(ValueError, match="component changed"):
+        postprocess.run_postprocess(
+            artifact_path=wrapper,
+            output_dir=tmp_path / "postprocess",
+            implementation_verifier=_bindings,
+            classifier=lambda path: _pass_disposition(),
+            suite_runner=suite_runner,
+            mediation_runner=mediation_runner,
+            compute_runner=compute_runner,
+            compute_validator=postprocess._validate_zero_call_component,
+        )
 
 
 def test_real_authorized_mechanics_pass_runs_full_zero_call_handoff(
@@ -331,6 +383,11 @@ def test_real_authorized_mechanics_pass_runs_full_zero_call_handoff(
             "PATH_MEDIATION_RESULT.json",
             path_mediation.INTERFACE_VERSION,
             "path_mediation_complete",
+        ),
+        (
+            "COMPUTE_MATCHED_CONTROL_RESULT.json",
+            compute_control.INTERFACE_VERSION,
+            "compute_matched_control_audit_complete",
         ),
     ):
         component = json.loads(
@@ -365,6 +422,7 @@ def test_null_disposition_never_opens_endpoint_analyses(tmp_path: Path) -> None:
         classifier=lambda path: disposition,
         suite_runner=bomb,
         mediation_runner=bomb,
+        compute_runner=bomb,
     )
 
     assert result["status"] == "terminal_disposition_only"
@@ -372,6 +430,9 @@ def test_null_disposition_never_opens_endpoint_analyses(tmp_path: Path) -> None:
     assert set(result["components"]) == {"disposition"}
     assert not (tmp_path / "postprocess/CLASSICAL_SUITE_RESULT.json").exists()
     assert not (tmp_path / "postprocess/PATH_MEDIATION_RESULT.json").exists()
+    assert not (
+        tmp_path / "postprocess/COMPUTE_MATCHED_CONTROL_RESULT.json"
+    ).exists()
 
 
 def test_real_component_failure_classifier_stays_disposition_only(
@@ -399,6 +460,7 @@ def test_real_component_failure_classifier_stays_disposition_only(
         implementation_verifier=_bindings,
         suite_runner=bomb,
         mediation_runner=bomb,
+        compute_runner=bomb,
     )
 
     assert result["status"] == "terminal_disposition_only"
@@ -422,6 +484,10 @@ def test_downstream_failure_is_banked_once_and_never_runs_later_stage(
         del kwargs
         raise AssertionError("mediation ran after suite failure")
 
+    def bomb_compute(**kwargs):
+        del kwargs
+        raise AssertionError("compute audit ran after suite failure")
+
     kwargs = {
         "artifact_path": wrapper,
         "output_dir": tmp_path / "postprocess",
@@ -429,6 +495,7 @@ def test_downstream_failure_is_banked_once_and_never_runs_later_stage(
         "classifier": lambda path: _pass_disposition(),
         "suite_runner": reject_suite,
         "mediation_runner": bomb_mediation,
+        "compute_runner": bomb_compute,
     }
     failure = postprocess.run_postprocess(**kwargs)
     repeated = postprocess.run_postprocess(**kwargs)
@@ -438,6 +505,7 @@ def test_downstream_failure_is_banked_once_and_never_runs_later_stage(
     assert failure["status"] == "failed_closed"
     assert failure["failed_stage"] == "classical_suite"
     assert failure["error_type"] == "RuntimeError"
+    assert set(failure["completed_artifacts"]) == {"disposition"}
     assert failure["authorizes_paid_calls"] is False
     assert failure["authorizes_rerun"] is False
     assert failure["existing_wrapper_authorizes_development"] is True
@@ -446,10 +514,129 @@ def test_downstream_failure_is_banked_once_and_never_runs_later_stage(
     assert (tmp_path / "postprocess/FAILURE.json").is_file()
 
 
+def test_compute_failure_banks_prior_components_and_never_resumes(
+    tmp_path: Path,
+) -> None:
+    wrapper, _ = _wrapper(tmp_path)
+    calls = []
+
+    def component_runner(name, interface_version, status):
+        def run(**kwargs):
+            calls.append(name)
+            return _write_component(
+                output_path=kwargs["output_path"],
+                result_path=kwargs["result_path"],
+                interface_version=interface_version,
+                status=status,
+            )
+
+        return run
+
+    def reject_compute(**kwargs):
+        del kwargs
+        calls.append("compute_matched_control")
+        raise RuntimeError("synthetic compute failure")
+
+    kwargs = {
+        "artifact_path": wrapper,
+        "output_dir": tmp_path / "postprocess",
+        "implementation_verifier": _bindings,
+        "classifier": lambda path: _pass_disposition(),
+        "suite_runner": component_runner(
+            "classical_suite",
+            classical_suite.INTERFACE_VERSION,
+            "classical_suite_complete",
+        ),
+        "mediation_runner": component_runner(
+            "path_mediation",
+            path_mediation.INTERFACE_VERSION,
+            "path_mediation_complete",
+        ),
+        "compute_runner": reject_compute,
+    }
+    failure = postprocess.run_postprocess(**kwargs)
+    repeated = postprocess.run_postprocess(**kwargs)
+
+    assert calls == [
+        "classical_suite",
+        "path_mediation",
+        "compute_matched_control",
+    ]
+    assert repeated == failure
+    assert failure["status"] == "failed_closed"
+    assert failure["failed_stage"] == "compute_matched_control"
+    assert failure["error_type"] == "RuntimeError"
+    assert set(failure["completed_artifacts"]) == {
+        "disposition",
+        "classical_suite",
+        "path_mediation",
+    }
+    assert failure["existing_wrapper_authorizes_development"] is True
+    assert failure["this_record_authorizes_development"] is False
+    assert not (
+        tmp_path / "postprocess/COMPUTE_MATCHED_CONTROL_RESULT.json"
+    ).exists()
+
+
+def test_invalid_compute_checkpoint_is_not_banked_as_completed(
+    tmp_path: Path,
+) -> None:
+    wrapper, _ = _wrapper(tmp_path)
+
+    def component_runner(interface_version, status):
+        def run(**kwargs):
+            return _write_component(
+                output_path=kwargs["output_path"],
+                result_path=kwargs["result_path"],
+                interface_version=interface_version,
+                status=status,
+            )
+
+        return run
+
+    def malformed_compute(**kwargs):
+        _write(kwargs["output_path"], {"status": "malformed"})
+        return {"status": "malformed"}
+
+    kwargs = {
+        "artifact_path": wrapper,
+        "output_dir": tmp_path / "postprocess",
+        "implementation_verifier": _bindings,
+        "classifier": lambda path: _pass_disposition(),
+        "suite_runner": component_runner(
+            classical_suite.INTERFACE_VERSION,
+            "classical_suite_complete",
+        ),
+        "mediation_runner": component_runner(
+            path_mediation.INTERFACE_VERSION,
+            "path_mediation_complete",
+        ),
+        "compute_runner": malformed_compute,
+        "compute_validator": postprocess._validate_zero_call_component,
+    }
+    failure = postprocess.run_postprocess(**kwargs)
+    repeated = postprocess.run_postprocess(**kwargs)
+
+    assert repeated == failure
+    assert failure["status"] == "failed_closed"
+    assert failure["failed_stage"] == "compute_matched_control"
+    assert set(failure["completed_artifacts"]) == {
+        "disposition",
+        "classical_suite",
+        "path_mediation",
+    }
+    assert (
+        tmp_path / "postprocess/COMPUTE_MATCHED_CONTROL_RESULT.json"
+    ).is_file()
+
+
 def test_bound_protocol_and_implementations_match_current_tree() -> None:
     observed = postprocess.verify_bound_implementations()
 
     assert observed["protocol"]["sha256"] == postprocess.PROTOCOL_SHA256
+    assert observed["compute_amendment"]["sha256"] == (
+        postprocess.COMPUTE_AMENDMENT_SHA256
+    )
     assert set(observed["implementations"]) == set(
         postprocess.BOUND_IMPLEMENTATIONS
     )

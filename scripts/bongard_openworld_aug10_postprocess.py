@@ -16,19 +16,27 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_classical_suite_outcome as classical_suite
+from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_luna_aug10_execute as aug10
 from scripts import bongard_openworld_mechanics_disposition as disposition
 from scripts import bongard_openworld_path_mediation as path_mediation
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-aug10-postprocess-1"
+INTERFACE_VERSION = "bongard-openworld-aug10-postprocess-2"
 PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_AUG10_POSTPROCESS_PROTOCOL_20260809.md"
 )
 PROTOCOL_SHA256 = (
     "f7d19ef3a8a48478aa30d4b63541e0c680f74641de70ed3120b25f203d888f5e"
+)
+COMPUTE_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_AUG10_POSTPROCESS_COMPUTE_AMENDMENT_20260809.md"
+)
+COMPUTE_AMENDMENT_SHA256 = (
+    "0e0a443b033b4ea5dcbe426dbf1820de9baa029ff2d78794d87e329f52cda66f"
 )
 BOUND_IMPLEMENTATIONS = {
     "aug10_wrapper": (
@@ -46,6 +54,10 @@ BOUND_IMPLEMENTATIONS = {
     "path_mediation": (
         "scripts/bongard_openworld_path_mediation.py",
         "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912",
+    ),
+    "compute_matched_control": (
+        "scripts/bongard_openworld_compute_matched_control.py",
+        "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba",
     ),
 }
 OUTPUT_DIR = REPO_ROOT / (
@@ -70,6 +82,10 @@ def _load(path: Path) -> dict[str, Any]:
     return value
 
 
+def _canonical(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+
+
 def _write_once(path: Path, value: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as handle:
@@ -81,6 +97,9 @@ def verify_bound_implementations() -> dict[str, Any]:
     protocol_hash = _sha256(PROTOCOL)
     if protocol_hash != PROTOCOL_SHA256:
         raise ValueError("August 10 postprocess protocol changed")
+    amendment_hash = _sha256(COMPUTE_AMENDMENT)
+    if amendment_hash != COMPUTE_AMENDMENT_SHA256:
+        raise ValueError("August 10 postprocess compute amendment changed")
     observed = {
         name: {"path": relative, "sha256": _sha256(REPO_ROOT / relative)}
         for name, (relative, _) in BOUND_IMPLEMENTATIONS.items()
@@ -96,6 +115,10 @@ def verify_bound_implementations() -> dict[str, Any]:
         )
     return {
         "protocol": {"path": str(PROTOCOL), "sha256": protocol_hash},
+        "compute_amendment": {
+            "path": str(COMPUTE_AMENDMENT),
+            "sha256": amendment_hash,
+        },
         "implementations": observed,
     }
 
@@ -173,6 +196,42 @@ def _validate_zero_call_component(
     return result
 
 
+def _validate_compute_component_exact(
+    *,
+    path: Path,
+    expected_interface: str,
+    expected_status: str,
+    stage_result: Path,
+) -> dict[str, Any]:
+    result = _validate_zero_call_component(
+        path=path,
+        expected_interface=expected_interface,
+        expected_status=expected_status,
+        stage_result=stage_result,
+    )
+    authorization = result.get("stage_authorization")
+    if (
+        not isinstance(authorization, Mapping)
+        or authorization.get("verified") is not True
+    ):
+        raise ValueError("compute-matched checkpoint lacks stage authorization")
+    replay = compute_control.build_report(
+        stage="mechanics",
+        stage_result=_load(stage_result),
+        authorization=authorization,
+    )
+    replay["protocol"] = {
+        "path": str(compute_control.PROTOCOL),
+        "sha256": compute_control.PROTOCOL_SHA256,
+    }
+    replay["stage_result_path"] = str(stage_result)
+    replay["stage_result_sha256"] = _sha256(stage_result)
+    replay["block_result_sha256"] = []
+    if _canonical(result) != _canonical(replay):
+        raise ValueError("compute-matched checkpoint does not exactly replay")
+    return result
+
+
 def _component_record(path: Path, result: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "path": str(path),
@@ -190,12 +249,13 @@ def _load_or_run_component(
     expected_interface: str,
     expected_status: str,
     stage_result: Path,
+    validator: Callable[..., dict[str, Any]] = _validate_zero_call_component,
 ) -> dict[str, Any]:
     if not path.exists():
         runner(**runner_kwargs)
     if not path.is_file():
         raise ValueError(f"postprocess component omitted its output: {path}")
-    return _validate_zero_call_component(
+    return validator(
         path=path,
         expected_interface=expected_interface,
         expected_status=expected_status,
@@ -234,6 +294,45 @@ def _validate_terminal_record(
         or input_record.get("sha256") != _sha256(artifact_path)
     ):
         raise ValueError("banked August 10 postprocess record changed")
+    status = record["status"]
+    if status == "postprocess_complete":
+        artifact_records = record.get("components")
+        expected_names = {
+            "disposition",
+            "classical_suite",
+            "path_mediation",
+            "compute_matched_control",
+        }
+    elif status == "terminal_disposition_only":
+        artifact_records = record.get("components")
+        expected_names = {"disposition"}
+    else:
+        artifact_records = record.get("completed_artifacts")
+        expected_names = {
+            "disposition": set(),
+            "classical_suite": {"disposition"},
+            "path_mediation": {"disposition", "classical_suite"},
+            "compute_matched_control": {
+                "disposition",
+                "classical_suite",
+                "path_mediation",
+            },
+        }.get(record.get("failed_stage"))
+    if not isinstance(artifact_records, Mapping):
+        raise ValueError("banked postprocess component bindings are missing")
+    if expected_names is None or set(artifact_records) != expected_names:
+        raise ValueError("banked postprocess component set changed")
+    for name, component in artifact_records.items():
+        if not isinstance(component, Mapping):
+            raise ValueError(f"banked component record is malformed: {name}")
+        component_path = Path(str(component.get("path", "")))
+        if not component_path.is_absolute():
+            component_path = REPO_ROOT / component_path
+        if (
+            not component_path.is_file()
+            or component.get("sha256") != _sha256(component_path)
+        ):
+            raise ValueError(f"banked postprocess component changed: {name}")
 
 
 def _bank_failure(
@@ -243,22 +342,9 @@ def _bank_failure(
     bindings: Mapping[str, Any],
     failed_stage: str,
     error: Exception,
-    disposition_path: Path,
-    classical_path: Path,
-    mediation_path: Path,
+    completed_artifacts: Mapping[str, Any],
     existing_wrapper_authorizes_development: bool,
 ) -> dict[str, Any]:
-    artifacts = {}
-    for name, component_path in (
-        ("disposition", disposition_path),
-        ("classical_suite", classical_path),
-        ("path_mediation", mediation_path),
-    ):
-        if component_path.is_file():
-            artifacts[name] = {
-                "path": str(component_path),
-                "sha256": _sha256(component_path),
-            }
     failure = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -272,7 +358,7 @@ def _bank_failure(
         "failed_stage": failed_stage,
         "error_type": type(error).__name__,
         "error": str(error),
-        "completed_artifacts": artifacts,
+        "completed_artifacts": dict(completed_artifacts),
         "model_calls": 0,
         "cost_usd": 0.0,
         "authorizes_paid_calls": False,
@@ -296,6 +382,10 @@ def run_postprocess(
     classifier: Callable[[Path], dict[str, Any]] = disposition.classify_artifact,
     suite_runner: Callable[..., dict[str, Any]] = classical_suite.run_outcome,
     mediation_runner: Callable[..., dict[str, Any]] = path_mediation.run_report,
+    compute_runner: Callable[..., dict[str, Any]] = compute_control.run_report,
+    compute_validator: Callable[..., dict[str, Any]] = (
+        _validate_compute_component_exact
+    ),
 ) -> dict[str, Any]:
     artifact_path = artifact_path.resolve()
     if not artifact_path.is_file():
@@ -306,6 +396,7 @@ def run_postprocess(
     disposition_path = output_dir / "MECHANICS_DISPOSITION.json"
     classical_path = output_dir / "CLASSICAL_SUITE_RESULT.json"
     mediation_path = output_dir / "PATH_MEDIATION_RESULT.json"
+    compute_path = output_dir / "COMPUTE_MATCHED_CONTROL_RESULT.json"
     terminal = [path for path in (result_path, failure_path) if path.exists()]
     if len(terminal) > 1:
         raise RuntimeError("ambiguous August 10 postprocess terminal artifacts")
@@ -318,6 +409,7 @@ def run_postprocess(
 
     failed_stage = "disposition"
     existing_authorization = False
+    components: dict[str, Any] = {}
     try:
         fresh_disposition = classifier(artifact_path)
         if disposition_path.exists():
@@ -334,11 +426,9 @@ def run_postprocess(
             fresh_disposition.get("primary_category") == "mechanics_pass"
             and existing_authorization
         )
-        components: dict[str, Any] = {
-            "disposition": _component_record(
-                disposition_path, fresh_disposition
-            )
-        }
+        components["disposition"] = _component_record(
+            disposition_path, fresh_disposition
+        )
         if downstream:
             mechanics_result = _mechanics_from_wrapper(artifact_path)
             failed_stage = "classical_suite"
@@ -375,6 +465,24 @@ def run_postprocess(
             components["path_mediation"] = _component_record(
                 mediation_path, mediation
             )
+            failed_stage = "compute_matched_control"
+            compute = _load_or_run_component(
+                path=compute_path,
+                runner=compute_runner,
+                runner_kwargs={
+                    "stage": "mechanics",
+                    "result_path": mechanics_result,
+                    "output_path": compute_path,
+                    "wrapper_result": artifact_path,
+                },
+                expected_interface=compute_control.INTERFACE_VERSION,
+                expected_status="compute_matched_control_audit_complete",
+                stage_result=mechanics_result,
+                validator=compute_validator,
+            )
+            components["compute_matched_control"] = _component_record(
+                compute_path, compute
+            )
         result = {
             "schema_version": SCHEMA_VERSION,
             "interface_version": INTERFACE_VERSION,
@@ -406,9 +514,7 @@ def run_postprocess(
             bindings=bindings,
             failed_stage=failed_stage,
             error=exc,
-            disposition_path=disposition_path,
-            classical_path=classical_path,
-            mediation_path=mediation_path,
+            completed_artifacts=components,
             existing_wrapper_authorizes_development=existing_authorization,
         )
 

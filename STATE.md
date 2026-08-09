@@ -4,6 +4,15 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Close the Aug10 one-shot handoff gap before any paid response.
+Postprocess V2 now runs exact classical-suite,path-mediation,then compute-matched
+audit after an authorized mechanics pass and binds all four components in one
+terminal result. Interrupted compute checkpoints are canonically replayed;
+malformed outputs are never called completed;failures bind the exact validated
+prefix and never resume. A successful mechanics postprocess forbids a separate
+compute rerun. Amendment0e0a443b,postprocessor88370773,test077a6f55;
+focused28/28,full Bongard236/236;model0,cost0,endpoints unopened.
+
 2026-08-09: Freeze the missing all-task compute-matched Bongard audit before
 responses. It replays root+continuation score identities,exact shuffled-value
 permutation,and every policy argmax before reporting paired20k-bootstrap Brier/
