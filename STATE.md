@@ -4,6 +4,19 @@ A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
 
+2026-08-09: Correct the paper against the two closest 2026 priors before any
+Bongard response. ASIG regenerates beliefs each turn and can learn long-horizon
+behavior through its O=3 outcome return, although explicit EIG remains E=1;
+Qin et al. already generate executable LLM hypotheses online and act greedily.
+Narrow the distinction to explicit test-time lookahead that values a root partly
+through answer-conditioned regenerated beliefs for a later adaptive choice; no
+priority claim. Literature-only amendment5a8f4f4c;main3757e64c,refs5a3a2adc,
+renderer9cf6dc0e,wrapper26eab8de;focused34/34,full249/249,paper6 pages;
+calls/cost/endpoints0,paid chain unchanged. Read-only OpenRouter recheck still
+shows credits245,usage220.121013787,balance24.878986213,daily-key usage0:the
+reported$30 top-up remains unposted. Keep hard account-wide$5/London-day cap;
+route exact DeepSeek0731 for bulk text and Luna for vision.
+
 2026-08-09: Freeze the previously implemented-but-unreported Bongard random
 sanity baseline before responses. New authorization-first zero-call audit
 independently replays both task-hashed draws on all164 frozen stage tasks,then

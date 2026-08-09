@@ -69,7 +69,7 @@ verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
 
-\fontsize{9}{9.6}\selectfont
+\fontsize{9}{9.3}\selectfont
 
 \section{Introduction}
 
@@ -89,10 +89,13 @@ Recent methods simulate conversation trees \citep{hu2024uot,arnould2026cabed},
 which can value a low-immediate-gain prerequisite. Yet each branch reuses the
 uncertain model and shifts later beliefs; depth may maximize continuation noise.
 
-ASIG amortizes a multi-turn policy but credits EIG only to its first question;
-zero-shot active feature acquisition plans over an LLM-elicited fixed MRF
-\citep{hartmann2026asig,perets2026afa}. We instead value answer-conditioned
-future semantic beliefs at inference time.
+ASIG regenerates beliefs each turn and trains a multi-turn policy with
+one-question EIG ($E{=}1$) and a three-question outcome return ($O{=}3$), but
+explicit EIG does not score future generated support \citep{hartmann2026asig}.
+Qin et al. generate executable LLM hypotheses online but select greedily
+\citep{qin2026box}; zero-shot active feature acquisition plans over a fixed
+LLM-elicited MRF \citep{perets2026afa}. We explicitly score answer-conditioned
+future semantic beliefs at test time.
 
 Exact constrained location and Rock Diagnosis verify the recursion. Number Game
 uses the LLM as a proposal distribution over open-ended executable concepts,
@@ -578,8 +581,10 @@ prior--likelihood construction, and filtered hypotheses
 \citep{choudhury2025bedllm}. UoT plans over explicit disease sets
 \citep{hu2024uot}; CA-BED uses finite hypotheses and soft LLM likelihoods
 \citep{arnould2026cabed}, leaving dynamic candidate sets unevaluated. ASIG
-regenerates beliefs at observed turns but gives only myopic EIG credit
-\citep{hartmann2026asig}. In our Detective audit, d2 tracked entropy reduction
+combines one-step EIG ($E{=}1$) with a three-turn outcome return ($O{=}3$), so
+its trained policy can encode long-horizon behavior, but its EIG term does not
+value future regenerated support \citep{hartmann2026asig}. In our Detective
+audit, d2 tracked entropy reduction
 ($\rho=.750$) but ranked truth-posterior gain backwards ($\rho=-.208$).
 Exact role-conditioned answers restored correlation to $.933$ but removed most
 action opportunity. Calibration and a non-myopic gap must coexist.

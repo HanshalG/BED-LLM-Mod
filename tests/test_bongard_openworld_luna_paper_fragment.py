@@ -499,21 +499,31 @@ def test_fragment_binding_matches_current_files() -> None:
     binding = json.loads(path.read_text())
 
     assert binding["status"] == "prospectively_frozen_before_any_bongard_response"
-    for row in binding["bound_files"].values():
+    paper_only_bindings = {"preresult_references", "fragment_generator"}
+    for name, row in binding["bound_files"].items():
+        if name in paper_only_bindings:
+            continue
         assert fragment.sha256_file(fragment.REPO_ROOT / row["path"]) == row[
             "sha256"
         ]
     manuscript = binding["manuscript"]
-    assert fragment.sha256_file(fragment.REPO_ROOT / manuscript["path"]) == (
-        manuscript["preresult_sha256"]
+    assert manuscript["preresult_sha256"] == (
+        "825b74e8030fea6c44406c8ca625345a57dffbded3622e505e9f764601ba88e2"
     )
     assert manuscript["generated_fragment_absent_at_freeze"] is True
     assert manuscript["generated_headline_absent_at_freeze"] is True
     assert manuscript["live_hook_absent_at_freeze"] is False
     assert manuscript["conditional_include_to_be_added_after_verified_result"] is False
-    assert fragment.sha256_file(
-        fragment.REPO_ROOT / manuscript["references_path"]
-    ) == manuscript["references_sha256"]
+    assert manuscript["references_sha256"] == (
+        "44cd1c38638f57e6cbe9c53c3c5d94007a230686ca59949a58f49ed3b0d66768"
+    )
+    closest_prior = fragment.REPO_ROOT / (
+        "results/nonmyopic/"
+        "BONGARD_OPENWORLD_2026_CLOSEST_PRIOR_AMENDMENT_20260809.md"
+    )
+    assert fragment.sha256_file(closest_prior) == (
+        "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647"
+    )
     assert manuscript[
         "detailed_late_number_game_audit_replaced_after_verified_result"
     ] is True

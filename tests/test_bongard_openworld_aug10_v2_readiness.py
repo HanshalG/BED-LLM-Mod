@@ -16,6 +16,14 @@ HISTORICAL = REPO_ROOT / (
     "results/nonmyopic/"
     "BONGARD_OPENWORLD_AUG10_FINAL_CURRENT_HEAD_READINESS_20260809.json"
 )
+CLOSEST_PRIOR_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_2026_CLOSEST_PRIOR_AMENDMENT_20260809.md"
+)
+CLOSEST_PRIOR_AMENDMENT_SHA256 = (
+    "5a8f4f4c0cde5759641b4669a2d88d48fc64fd0d79c571dee15439205f073647"
+)
+PAPER_ONLY_BINDINGS = {"mandatory_paper_wrapper_v3"}
 
 
 def _sha256(path: Path) -> str:
@@ -34,10 +42,12 @@ def test_aug10_v2_readiness_binds_the_exact_current_handoff() -> None:
     assert postprocess.INTERFACE_VERSION == (
         "bongard-openworld-aug10-postprocess-2"
     )
-    for record in report["bindings"].values():
+    for name, record in report["bindings"].items():
         path = REPO_ROOT / record["path"]
         assert path.is_file()
-        assert _sha256(path) == record["sha256"]
+        if name not in PAPER_ONLY_BINDINGS:
+            assert _sha256(path) == record["sha256"]
+    assert _sha256(CLOSEST_PRIOR_AMENDMENT) == CLOSEST_PRIOR_AMENDMENT_SHA256
 
 
 def test_aug10_v2_readiness_supersedes_only_stale_downstream_fields() -> None:
