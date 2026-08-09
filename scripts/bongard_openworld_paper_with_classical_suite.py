@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts import bongard_openworld_classical_suite_outcome as suite_outcome
+from scripts import bongard_openworld_compute_matched_control as compute_control
 from scripts import bongard_openworld_luna_confirmation64 as confirmation
 from scripts import bongard_openworld_luna_confirmation64_daily_execute as confirmation_daily
 from scripts import bongard_openworld_luna_development32_daily_execute as development_daily
@@ -24,12 +25,22 @@ from scripts import bongard_openworld_luna_vlm_development as development
 
 
 SCHEMA_VERSION = 1
-INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-2"
+INTERFACE_VERSION = "bongard-openworld-paper-with-classical-suite-3"
 LUNA_RENDERER_SHA256 = (
     "e9462325703667cb2e2133c27134643c6fc13f269bc5096768f72076124c84d1"
 )
 CLASSICAL_SUITE_OUTCOME_SHA256 = (
     "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032"
+)
+COMPUTE_MATCHED_CONTROL_SHA256 = (
+    "929eda107f8cb60caf4cd7363f07856e135adaa89f16e946edb710c1a93dfbba"
+)
+COMPUTE_PAPER_HANDOFF_AMENDMENT = REPO_ROOT / (
+    "results/nonmyopic/"
+    "BONGARD_OPENWORLD_COMPUTE_MATCHED_PAPER_HANDOFF_AMENDMENT_20260809.md"
+)
+COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256 = (
+    "a1a08f899266dc8a0fbab40c741e83306eaf69307be34b210a517d16d2521f79"
 )
 DEFAULT_OUTPUT = luna_fragment.DEFAULT_OUTPUT
 
@@ -59,10 +70,20 @@ def verify_bound_implementations() -> dict[str, str]:
         "classical_suite_outcome": suite_outcome.siglip.sha256_file(
             REPO_ROOT / "scripts/bongard_openworld_classical_suite_outcome.py"
         ),
+        "compute_matched_control": suite_outcome.siglip.sha256_file(
+            REPO_ROOT / "scripts/bongard_openworld_compute_matched_control.py"
+        ),
+        "compute_paper_handoff_amendment": suite_outcome.siglip.sha256_file(
+            COMPUTE_PAPER_HANDOFF_AMENDMENT
+        ),
     }
     expected = {
         "luna_renderer": LUNA_RENDERER_SHA256,
         "classical_suite_outcome": CLASSICAL_SUITE_OUTCOME_SHA256,
+        "compute_matched_control": COMPUTE_MATCHED_CONTROL_SHA256,
+        "compute_paper_handoff_amendment": (
+            COMPUTE_PAPER_HANDOFF_AMENDMENT_SHA256
+        ),
     }
     if observed != expected:
         raise ValueError(
@@ -149,6 +170,134 @@ def classical_tex_lines(result: Mapping[str, Any]) -> list[str]:
             "universal classical impossibility."
         ),
     ]
+
+
+def _validated_compute_summary(
+    comparison: Mapping[str, Any], metric: str, *, task_count: int
+) -> dict[str, Any]:
+    summary = comparison.get(metric)
+    if not isinstance(summary, Mapping):
+        raise ValueError(f"compute-matched paper input lacks {metric}")
+    values = {
+        name: summary.get(name)
+        for name in ("mean_difference", "sample_sd", "standard_error")
+    }
+    interval = summary.get("ci95")
+    counts = [summary.get(name) for name in ("wins", "ties", "losses")]
+    if (
+        summary.get("n") != task_count
+        or summary.get("bootstrap_draws") != 20_000
+        or summary.get("negative_favors") != "dynamic_depth2"
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in values.values()
+        )
+        or not isinstance(interval, Sequence)
+        or isinstance(interval, (str, bytes))
+        or len(interval) != 2
+        or not all(
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+            for value in interval
+        )
+        or float(interval[0]) > float(interval[1])
+        or not all(isinstance(value, int) and value >= 0 for value in counts)
+        or sum(counts) != task_count
+        or not math.isclose(
+            float(values["standard_error"]),
+            float(values["sample_sd"]) / math.sqrt(task_count),
+            rel_tol=1e-12,
+            abs_tol=1e-12,
+        )
+    ):
+        raise ValueError(f"compute-matched paper input has invalid {metric}")
+    return {
+        "n": task_count,
+        "mean_difference": float(values["mean_difference"]),
+        "sample_sd": float(values["sample_sd"]),
+        "standard_error": float(values["standard_error"]),
+        "ci95": [float(interval[0]), float(interval[1])],
+        "bootstrap_draws": 20_000,
+        "wins": int(counts[0]),
+        "ties": int(counts[1]),
+        "losses": int(counts[2]),
+        "negative_favors": "dynamic_depth2",
+    }
+
+
+def compute_matched_tex_lines(
+    result: Mapping[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    task_count = result.get("task_count")
+    if (
+        result.get("status") != "compute_matched_control_audit_complete"
+        or result.get("compute_contract_exact") is not True
+        or result.get("strict_compute_matched_control")
+        != "shuffled_dynamic_depth2"
+        or result.get("matched_request_count_control")
+        != "history_blind_depth2"
+        or result.get("online_regeneration_greedy_control") != "myopic_width"
+        or not isinstance(task_count, int)
+        or task_count <= 0
+        or result.get("model_calls") != 0
+        or result.get("cost_usd") != 0.0
+        or result.get("authorizes_paid_calls") is not False
+        or result.get("changes_claim_tier") is not False
+    ):
+        raise ValueError("paper input is not the complete compute-matched audit")
+    comparisons = result.get("comparisons")
+    if not isinstance(comparisons, Mapping):
+        raise ValueError("compute-matched paper comparisons are missing")
+    shuffled = comparisons.get("shuffled_dynamic_depth2")
+    if not isinstance(shuffled, Mapping):
+        raise ValueError("strict compute-matched comparison is missing")
+    brier = _validated_compute_summary(
+        shuffled, "mean_brier", task_count=task_count
+    )
+    log_loss = _validated_compute_summary(
+        shuffled, "mean_log_loss", task_count=task_count
+    )
+    first_changes = shuffled.get("first_query_changes")
+    history_changes = shuffled.get("final_history_changes")
+    if (
+        not isinstance(first_changes, int)
+        or not 0 <= first_changes <= task_count
+        or not isinstance(history_changes, int)
+        or not 0 <= history_changes <= task_count
+    ):
+        raise ValueError("compute-matched action-change counts are invalid")
+    lines = [
+        "\\paragraph{Compute-matched shuffled continuation.}",
+        (
+            "The strict branch-bank-compute-matched control preserved the root "
+            "scores and continuation-value multiset but permuted candidate-to-"
+            "continuation assignment. Dynamic depth two minus shuffled depth two "
+            f"was {_number(brier['mean_difference'])} in endpoint Brier (95\\% "
+            f"bootstrap CI $[{_number(brier['ci95'][0])},"
+            f"{_number(brier['ci95'][1])}]$) and "
+            f"{_number(log_loss['mean_difference'])} in log loss (95\\% "
+            f"bootstrap CI $[{_number(log_loss['ci95'][0])},"
+            f"{_number(log_loss['ci95'][1])}]$). The first query changed on "
+            f"{first_changes}/{task_count} tasks and the final history on "
+            f"{history_changes}/{task_count}; negative differences favor dynamic "
+            "depth two. This all-task comparison is descriptive and cannot alter "
+            "the preregistered claim tier."
+        ),
+    ]
+    metadata = {
+        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "task_count": task_count,
+        "mean_brier": brier,
+        "mean_log_loss": log_loss,
+        "first_query_changes": first_changes,
+        "final_history_changes": history_changes,
+        "changes_claim_tier": False,
+        "authorizes_paid_calls": False,
+    }
+    return lines, metadata
 
 
 def _validated_paired_summary(
@@ -318,11 +467,33 @@ def replay_classical_suite(
     return replay
 
 
+def replay_compute_matched_audit(
+    *,
+    stage: str,
+    saved_path: Path,
+    result_path: Path,
+    block_results: Sequence[Path],
+    output_path: Path,
+) -> dict[str, Any]:
+    replay = compute_control.run_report(
+        stage=stage,
+        result_path=result_path,
+        output_path=output_path,
+        block_results=block_results,
+        wrapper_result=None,
+    )
+    saved = _load(saved_path)
+    if _canonical(saved) != _canonical(replay):
+        raise ValueError("saved compute-matched audit does not independently replay")
+    return replay
+
+
 def write_combined_fragment(
     *,
     stage: str,
     output: Path,
     classical_suite_path: Path | None,
+    compute_audit_path: Path | None,
     claim_report_path: Path | None = None,
     combined_result: Path | None = None,
     block_results: Sequence[Path] = (),
@@ -353,16 +524,26 @@ def write_combined_fragment(
                 raise ValueError(
                     "mechanics failure cannot have a classical endpoint result"
                 )
+            if compute_audit_path is not None:
+                raise ValueError(
+                    "mechanics failure cannot have a compute-matched endpoint audit"
+                )
             addendum = [
                 "\\paragraph{Frozen classical vision comparators.}",
                 "No DINO or SigLIP endpoint comparison is rendered because no replay-verified combined endpoint result exists.",
             ]
             suite_metadata = None
+            compute_metadata = None
             claim_scope = None
         else:
-            if classical_suite_path is None or combined_result is None:
+            if (
+                classical_suite_path is None
+                or compute_audit_path is None
+                or combined_result is None
+            ):
                 raise ValueError(
-                    "endpoint result rendering requires the frozen classical suite"
+                    "endpoint result rendering requires the frozen classical and "
+                    "compute-matched suites"
                 )
             replay = replay_classical_suite(
                 stage=stage,
@@ -381,6 +562,33 @@ def write_combined_fragment(
                 "stage_result_sha256": replay["stage_result_sha256"],
                 "status": replay["status"],
                 "claim_scope": claim_scope,
+            }
+            compute_replay = replay_compute_matched_audit(
+                stage=stage,
+                saved_path=compute_audit_path,
+                result_path=combined_result,
+                block_results=block_results,
+                output_path=temporary / "COMPUTE_MATCHED_REPLAY.json",
+            )
+            if (
+                compute_replay.get("stage") != stage
+                or compute_replay.get("stage_result_sha256")
+                != replay.get("stage_result_sha256")
+            ):
+                raise ValueError(
+                    "compute-matched audit does not match the rendered stage result"
+                )
+            compute_lines, compute_summary = compute_matched_tex_lines(
+                compute_replay
+            )
+            addendum.extend(compute_lines)
+            compute_metadata = {
+                "outcome_sha256": suite_outcome.siglip.sha256_file(
+                    compute_audit_path
+                ),
+                "stage_result_sha256": compute_replay["stage_result_sha256"],
+                "status": compute_replay["status"],
+                "summary": compute_summary,
             }
 
         combined_tex = original_tex.rstrip() + "\n\n" + "\n".join(addendum) + "\n"
@@ -403,6 +611,7 @@ def write_combined_fragment(
             "original_metadata": original_metadata,
             "classical_suite": suite_metadata,
             "classical_claim_scope": claim_scope,
+            "compute_matched_audit": compute_metadata,
             "tex_sha256": suite_outcome.siglip.sha256_file(output),
             "headline_tex_sha256": suite_outcome.siglip.sha256_file(
                 headline_path
@@ -416,7 +625,7 @@ def write_combined_fragment(
             encoding="utf-8",
         )
     return {
-        "status": "written_with_mandatory_classical_suite",
+        "status": "written_with_mandatory_classical_and_compute_suites",
         "stage": stage,
         "claim_tier": metadata["claim_tier"],
         "tex_path": str(output),
@@ -438,6 +647,7 @@ def parse_args() -> argparse.Namespace:
         required=True,
     )
     parser.add_argument("--classical-suite", type=Path)
+    parser.add_argument("--compute-matched-audit", type=Path)
     parser.add_argument("--claim-report", type=Path)
     parser.add_argument("--combined-result", type=Path)
     parser.add_argument("--block-result", type=Path, action="append", default=[])
@@ -472,6 +682,7 @@ def main() -> None:
         stage=args.stage,
         output=args.output.resolve(),
         classical_suite_path=args.classical_suite,
+        compute_audit_path=args.compute_matched_audit,
         claim_report_path=claim,
         combined_result=combined,
         block_results=blocks,

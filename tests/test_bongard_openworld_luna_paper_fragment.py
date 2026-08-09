@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+import math
 from pathlib import Path
 import shutil
 
@@ -10,6 +11,7 @@ import pytest
 from scripts import bongard_openworld_luna_claim_report as claim
 from scripts import bongard_openworld_luna_paper_fragment as fragment
 from scripts import bongard_openworld_luna_vlm_development as development
+from scripts import bongard_openworld_paper_with_classical_suite as suite_paper
 from scripts.validate_paper_draft import validate_paper_draft
 
 
@@ -23,6 +25,95 @@ def _summary(n: int) -> dict:
         "wins": n - 12,
         "ties": 4,
         "losses": 8,
+    }
+
+
+def _paper_summary(mean: float) -> dict:
+    return {
+        "values": [mean, mean],
+        "mean": mean,
+        "bootstrap_draws": 20_000,
+        "bootstrap_seed": 20260808,
+        "bootstrap_95pct_ci": [mean - 0.01, mean + 0.01],
+    }
+
+
+def _paper_classical_result() -> dict:
+    return {
+        "status": "classical_suite_complete",
+        "stage_result_sha256": "synthetic-stage-sha256",
+        "all_gates_pass": True,
+        "authorizes_paid_calls": False,
+        "dino": {
+            "pooled": {
+                "dinov2_myopic": {"mean_brier": 0.24},
+                "dinov2_depth2": {"mean_brier": 0.22},
+            },
+            "paired_depth2_minus_myopic": {
+                "mean_brier": _paper_summary(-0.02)
+            },
+        },
+        "siglip": {
+            "pooled": {
+                "siglip_myopic": {"mean_brier": 0.20},
+                "siglip_depth2": {"mean_brier": 0.18},
+            },
+            "paired_depth2_minus_myopic": {
+                "mean_brier": _paper_summary(-0.02)
+            },
+        },
+        "paired_luna_minus_dino": {
+            "luna_dynamic_minus_dinov2_depth2": {
+                "mean_brier": _paper_summary(-0.03),
+                "mean_log_loss": _paper_summary(-0.02),
+            }
+        },
+        "paired_luna_minus_siglip": {
+            "luna_dynamic_minus_siglip_depth2": {
+                "mean_brier": _paper_summary(0.01),
+                "mean_log_loss": _paper_summary(0.00),
+            }
+        },
+    }
+
+
+def _paper_compute_result(n: int) -> dict:
+    sample_sd = 0.04
+
+    def summary(mean: float) -> dict:
+        return {
+            "n": n,
+            "mean_difference": mean,
+            "sample_sd": sample_sd,
+            "standard_error": sample_sd / math.sqrt(n),
+            "ci95": [mean - 0.01, mean + 0.01],
+            "bootstrap_probability_improvement": 0.95,
+            "wins": n - 8,
+            "ties": 4,
+            "losses": 4,
+            "bootstrap_draws": 20_000,
+            "negative_favors": "dynamic_depth2",
+        }
+
+    return {
+        "status": "compute_matched_control_audit_complete",
+        "task_count": n,
+        "strict_compute_matched_control": "shuffled_dynamic_depth2",
+        "matched_request_count_control": "history_blind_depth2",
+        "online_regeneration_greedy_control": "myopic_width",
+        "compute_contract_exact": True,
+        "comparisons": {
+            "shuffled_dynamic_depth2": {
+                "mean_brier": summary(-0.02),
+                "mean_log_loss": summary(-0.03),
+                "first_query_changes": n // 2,
+                "final_history_changes": n // 2 + 4,
+            }
+        },
+        "model_calls": 0,
+        "cost_usd": 0.0,
+        "authorizes_paid_calls": False,
+        "changes_claim_tier": False,
     }
 
 
@@ -461,11 +552,23 @@ def test_confirmation_fragment_compiles_within_page_budget(
         / "plots/nonmyopic/rocksample_scale_confirmation_entropy.png",
         plot_dir / "rocksample_scale_confirmation_entropy.png",
     )
+    output = paper_dir / "generated/bongard_openworld_result.tex"
     fragment.write_fragment(
         stage="confirmation",
-        output=paper_dir / "generated/bongard_openworld_result.tex",
+        output=output,
         combined_result=result,
         block_results=blocks,
+    )
+    classical = suite_paper.classical_tex_lines(_paper_classical_result())
+    compute = suite_paper.compute_matched_tex_lines(
+        _paper_compute_result(fragment.confirmation.TASKS)
+    )[0]
+    output.write_text(
+        output.read_text(encoding="utf-8").rstrip()
+        + "\n\n"
+        + "\n".join([*classical, *compute])
+        + "\n",
+        encoding="utf-8",
     )
 
     checks = validate_paper_draft(paper_dir)
