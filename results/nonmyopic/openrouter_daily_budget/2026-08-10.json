@@ -1,0 +1,45 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "additional_paid_blocks_authorized": false,
+  "bongard_luna_vlm_serving_smoke": {
+    "actual_cost_usd": 0.008666225,
+    "interface_version": "bongard-openworld-luna-vlm-serving-smoke-4",
+    "maximum_cost_usd": 0.25,
+    "model": "openai/gpt-5.6-luna",
+    "status": "gated_null"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-10",
+  "execution_opened_at_london": "2026-08-10T01:40:07.701271+01:00",
+  "execution_opening_balance_usd": 24.87898621299999,
+  "execution_opening_total_credits_usd": 245.0,
+  "execution_opening_total_usage_usd": 220.121013787,
+  "first_authorized_block": {
+    "actual_cost_usd": 0.008666225,
+    "expected_requests": 10,
+    "interface_version": "bongard-openworld-luna-vlm-serving-smoke-4",
+    "maximum_cost_usd": 0.25,
+    "model": "openai/gpt-5.6-luna",
+    "status": "gated_null"
+  },
+  "opening_balance_usd": 24.878986213,
+  "opening_boundary_amendment_sha256": "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de",
+  "opening_boundary_derived_from_authenticated_aug9_snapshot": true,
+  "opening_frozen_at_london": "2026-08-09",
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.121013787,
+  "preexecution_account_spend_usd": 0.0,
+  "reconciliation": {
+    "live_balance_usd": 24.87898621299999,
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.121013787,
+    "locally_measured_spend_usd": 0.008666225,
+    "posted_spend_since_opening_usd": 0.0,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 4.991333775
+  },
+  "recorded_actual_spend_usd": 0.008666225,
+  "schema_version": 1,
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}

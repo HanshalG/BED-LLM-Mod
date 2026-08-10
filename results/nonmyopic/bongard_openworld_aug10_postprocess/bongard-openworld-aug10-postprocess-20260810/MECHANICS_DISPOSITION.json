@@ -1,0 +1,28 @@
+{
+  "existing_wrapper_authorizes_development": false,
+  "failed_gates": [
+    "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
+  ],
+  "failed_gates_by_category": {
+    "predictive_belief_invalid": [
+      "simulated_branch_labels_beat_constant_half_brier_in_both_classes"
+    ]
+  },
+  "input": {
+    "artifact_type": "serving_result",
+    "hash_bound_by_wrapper": true,
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_luna_vlm_serving_smoke/bongard-openworld-luna-vlm-serving-smoke-20260810/RESULT.json",
+    "sha256": "91cc2dfbeae10fb5cc5fe9d98ca6cdd2b8c3c7068c1f734a08d2678b2f926b46"
+  },
+  "interface_version": "bongard-openworld-mechanics-disposition-1",
+  "matched_failure_categories": [
+    "predictive_belief_invalid"
+  ],
+  "next_action": "The LLM predictive belief interface failed its truth-anchored validity gate. A future experiment must change the belief model/interface, not tune the planner.",
+  "primary_category": "predictive_belief_invalid",
+  "schema_version": 1,
+  "status": "valid_disposition",
+  "this_record_authorizes_development": false,
+  "this_record_authorizes_paid_calls": false,
+  "this_record_authorizes_rerun": false
+}

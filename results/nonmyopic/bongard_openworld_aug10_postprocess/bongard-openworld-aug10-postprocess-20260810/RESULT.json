@@ -1,0 +1,62 @@
+{
+  "authorizes_paid_calls": false,
+  "authorizes_rerun": false,
+  "bindings": {
+    "budget_boundary_amendment": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/BONGARD_OPENWORLD_AUG10_ACCOUNT_WIDE_BUDGET_BOUNDARY_CORRECTION_20260809.md",
+      "sha256": "3ea4f1805f5dbda20d8ac8cf31215fc92ad5bedccee40834573fa3762fec94de"
+    },
+    "compute_amendment": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/BONGARD_OPENWORLD_AUG10_POSTPROCESS_COMPUTE_AMENDMENT_20260809.md",
+      "sha256": "0e0a443b033b4ea5dcbe426dbf1820de9baa029ff2d78794d87e329f52cda66f"
+    },
+    "implementations": {
+      "aug10_wrapper": {
+        "path": "scripts/bongard_openworld_luna_aug10_execute.py",
+        "sha256": "6c71919fdd99b42e90cfb2adb4d3c0c3a90d1b419043679eef81a13bb9d9c090"
+      },
+      "classical_suite": {
+        "path": "scripts/bongard_openworld_classical_suite_outcome.py",
+        "sha256": "8c2bc93b3d416a47c2d1e19112a670f270b79712c22e4ba3d2181308e3d0e032"
+      },
+      "compute_matched_control": {
+        "path": "scripts/bongard_openworld_compute_matched_control.py",
+        "sha256": "353cd4edc4c1917cb0250ca7f15d9e9feb2fc563a0eba0c03140160461b33d43"
+      },
+      "mechanics_disposition": {
+        "path": "scripts/bongard_openworld_mechanics_disposition.py",
+        "sha256": "9317e16cb6a9b70f3ca690dbac2b05a69177a89af0dc6f7d8b5b6585136f0d4e"
+      },
+      "path_mediation": {
+        "path": "scripts/bongard_openworld_path_mediation.py",
+        "sha256": "1aef1c9eb90757bd31fec4beb077ddf79965e1a42b2715b4f7a6788e57e8b912"
+      }
+    },
+    "protocol": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/BONGARD_OPENWORLD_AUG10_POSTPROCESS_PROTOCOL_20260809.md",
+      "sha256": "f7d19ef3a8a48478aa30d4b63541e0c680f74641de70ed3120b25f203d888f5e"
+    }
+  },
+  "components": {
+    "disposition": {
+      "interface_version": "bongard-openworld-mechanics-disposition-1",
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_aug10_postprocess/bongard-openworld-aug10-postprocess-20260810/MECHANICS_DISPOSITION.json",
+      "sha256": "c28658cfbb9d12af025b047c803a5c14130971bf1432e5f026b8b858c85aa393",
+      "status": "valid_disposition"
+    }
+  },
+  "cost_usd": 0.0,
+  "date": "2026-08-10",
+  "downstream_analyses_opened": false,
+  "existing_wrapper_authorizes_development": false,
+  "input_artifact": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_luna_aug10_execution/bongard-openworld-luna-aug10-20260810/RESULT.json",
+    "sha256": "4266d3ae5ac9548781887ec57311b5a272ba53f8bc57b85424def3903a1d442b"
+  },
+  "interface_version": "bongard-openworld-aug10-postprocess-2",
+  "model_calls": 0,
+  "primary_disposition": "predictive_belief_invalid",
+  "schema_version": 1,
+  "status": "terminal_disposition_only",
+  "this_record_authorizes_development": false
+}

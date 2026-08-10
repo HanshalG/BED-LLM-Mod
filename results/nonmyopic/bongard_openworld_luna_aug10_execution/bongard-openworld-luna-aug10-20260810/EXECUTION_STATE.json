@@ -1,0 +1,17 @@
+{
+  "components": {
+    "serving": {
+      "artifact": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_luna_vlm_serving_smoke/bongard-openworld-luna-vlm-serving-smoke-20260810/RESULT.json",
+      "artifact_sha256": "91cc2dfbeae10fb5cc5fe9d98ca6cdd2b8c3c7068c1f734a08d2678b2f926b46",
+      "cost_usd": 0.008666225,
+      "raw_responses_sha256": "538f534e162291dcc0e088c399140ccb43a54683320b461ed2bbd69cc1933b13",
+      "status": "gated_null",
+      "verified": true
+    }
+  },
+  "daily_ledger": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/openrouter_daily_budget/2026-08-10.json",
+  "date": "2026-08-10",
+  "interface_version": "bongard-openworld-luna-aug10-execute-4",
+  "schema_version": 1,
+  "status": "in_progress"
+}

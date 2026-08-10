@@ -1,0 +1,60 @@
+{
+  "answer_signal_audit_opened": false,
+  "answer_signal_authorizes_development": false,
+  "answer_signal_status": null,
+  "authorizes_paid_calls": false,
+  "authorizes_rerun": false,
+  "bindings": {
+    "implementations": {
+      "answer_signal_audit": {
+        "path": "scripts/bongard_openworld_answer_signal_audit.py",
+        "sha256": "96d8fcde8c821933ca54ed9beaee37da417806d0cea951f7ceba32e5a948a35d"
+      },
+      "aug10_wrapper": {
+        "path": "scripts/bongard_openworld_luna_aug10_execute.py",
+        "sha256": "6c71919fdd99b42e90cfb2adb4d3c0c3a90d1b419043679eef81a13bb9d9c090"
+      },
+      "postprocess_v2": {
+        "path": "scripts/bongard_openworld_aug10_postprocess.py",
+        "sha256": "21fe0470e31fc22dc085af59670558e26c5d86f136fee0a0a31c5fd1a05d452e"
+      },
+      "random_strategy_control": {
+        "path": "scripts/bongard_openworld_random_strategy_control.py",
+        "sha256": "f99b68adb9b0db9d066ac2aa36a11351330ff476e6df430361431d07191f7441"
+      }
+    },
+    "ordering_amendment": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/BONGARD_OPENWORLD_ANSWER_SIGNAL_ORDERING_CORRECTION_20260809.md",
+      "sha256": "ab7bf1149ce1cc4044f9a5f7f0d540766974427a6385eb55965ac7ba6ebc1a1d"
+    },
+    "protocol": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/BONGARD_OPENWORLD_AUG10_FINAL_HANDOFF_PROTOCOL_20260809.md",
+      "sha256": "76858ea571f478572f8067fa85084e0ea54798017b452d30caca33d9a0cc7e5a"
+    }
+  },
+  "components": {
+    "paid_terminal": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_luna_aug10_execution/bongard-openworld-luna-aug10-20260810/RESULT.json",
+      "sha256": "4266d3ae5ac9548781887ec57311b5a272ba53f8bc57b85424def3903a1d442b",
+      "status": "stopped_after_serving_gated_null"
+    },
+    "postprocess": {
+      "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/bongard_openworld_aug10_postprocess/bongard-openworld-aug10-postprocess-20260810/RESULT.json",
+      "sha256": "3daa63065add0d6e44d25eda003b7f5a3d886e9b1f81b361c21252ebe981125a",
+      "status": "terminal_disposition_only"
+    }
+  },
+  "cost_usd_added_by_handoff": 0.0,
+  "date": "2026-08-10",
+  "downstream_analyses_opened": false,
+  "existing_wrapper_authorizes_development": false,
+  "interface_version": "bongard-openworld-aug10-final-handoff-3",
+  "model_calls_added_by_handoff": 0,
+  "paid_execution_error_type": null,
+  "postprocess_opened": true,
+  "primary_disposition": "predictive_belief_invalid",
+  "random_strategy_audit_opened": false,
+  "schema_version": 1,
+  "status": "handoff_complete",
+  "this_record_authorizes_development": false
+}

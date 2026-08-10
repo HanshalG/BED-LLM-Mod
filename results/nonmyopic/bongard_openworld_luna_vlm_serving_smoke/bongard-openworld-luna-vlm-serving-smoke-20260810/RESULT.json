@@ -1,0 +1,910 @@
+{
+  "cases": [
+    {
+      "belief": {
+        "history_entropy": 2.1493103395898387,
+        "history_size": 4,
+        "hypotheses": [
+          {
+            "history_weight": 0.18,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "0a5a3a2d64a223daa5c2b6821f727443ce60c4bcc2211acf436ed0b5452b68fa",
+            "rule": "The image depicts a cute, gentle-looking animal in a soft watercolor illustration."
+          },
+          {
+            "history_weight": 0.16,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "f67c07189fb05f49af63f9a3de899fe88ca735398a7ce0c935a22e876d3718b8",
+            "rule": "The main subject is a small mammal, especially a kitten, rabbit, or similarly cuddly creature, rather than a bird, fish, reptile, or large mammal."
+          },
+          {
+            "history_weight": 0.12,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "1b2592dc4b9951871ed6e921ccf1dd1cbe75077c71221caa7c39c50e2186150d",
+            "rule": "A single animal is shown prominently against a mostly plain or lightly painted background."
+          },
+          {
+            "history_weight": 0.14,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "9d7768bb0b7897472d2e3cca47374027038b8f7675fee42772fb1b1ec1eff93b",
+            "rule": "The subject has conspicuously large, glossy, forward-facing eyes that create a cute character-like appearance."
+          },
+          {
+            "history_weight": 0.11,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "611f0525f45b21326af1223d2ca914a541d7fae8390aaad32db757d95c20fbc0",
+            "rule": "The image contains a solitary cute animal with no group of animals and no obvious dramatic, threatening, or predatory theme."
+          },
+          {
+            "history_weight": 0.1,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "4583712a7e5684fb60023efb93269a3c2e6b49e2981071e9a7dc8e6a0e6cf27f",
+            "rule": "The main animal is shown in a portrait-like, close-up composition occupying much of the frame."
+          },
+          {
+            "history_weight": 0.08,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "6565ba1c64627ce9c975cf7421f03cc98b61608c6949358be1b3d58890b03bd7",
+            "rule": "The artwork features a warm, pastel, softly blended watercolor palette associated with sweetness or innocence."
+          },
+          {
+            "history_weight": 0.07,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "e0f9dd688682265dcac330ceeea921556ad4f90cb88f26b76f3630eccbe88d7f",
+            "rule": "The positive concept is compositional: one cute small animal is isolated on a light background and presented as a front-facing or upright portrait."
+          },
+          {
+            "history_weight": 0.02,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "bc5deddeaa02eca26b65f2c3d508b683c40d15724a5bac86991627944b402076",
+            "rule": "The image depicts a non-threatening domesticated or commonly kept small animal, without scenery being central to the scene."
+          },
+          {
+            "history_weight": 0.02,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "065408ee65befa5be4d70fb8f377d6251eb03d323469957f3889e6e0845e65e6",
+            "rule": "The subject is specifically a cute animal with prominent rounded facial features and a compact, plush or furry body."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.2511557379466781
+      },
+      "case_id": "task-126d30cad73b-root",
+      "history_size": 4,
+      "kind": "root",
+      "request_text_sha256": "43eb3ca5ca5a59a430f64b6d44a07ef9f96a6e5fb49d37cf5f2c57c7c1237298",
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.2521085750763348,
+        "history_size": 4,
+        "hypotheses": [
+          {
+            "history_weight": 0.16216216216216217,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "df8bd9ee56a53ada18b42527b9697bd726d534212dcd4e419921b1fce8d58334",
+            "rule": "A white swan is the main subject, shown swimming or standing on water."
+          },
+          {
+            "history_weight": 0.12162162162162163,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "eb390e7e3212a8f0c2a9df9dceafb6a9fb83f1f35c3703b8a950dc060623fd4e",
+            "rule": "The image depicts a white swan with a black-and-orange bill."
+          },
+          {
+            "history_weight": 0.10810810810810811,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "10e01286169d0ba5f75d4cfb18cb8e1d1a778307394e8ae90e314f15114fb337",
+            "rule": "A white swan is actively moving across water with wings raised or extended."
+          },
+          {
+            "history_weight": 0.07432432432432433,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "d37f5ed189360209d0664ffb606778048382128001e45572d2c04546ce2e4660",
+            "rule": "A white swan is floating on open water in a natural photographic scene, without a nest or dense group being central."
+          },
+          {
+            "history_weight": 0.10135135135135136,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "3d0e076b4de8c74eb1e0cabdb72672d56cdeb6f2e16934b5992d9be5bc44bd12",
+            "rule": "The bird has the characteristic curved swan neck and a predominantly white body."
+          },
+          {
+            "history_weight": 0.060810810810810814,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "9eeea2739d1cc94b51c89fa8cf2db24ceb0357e55a2d620807aee84d5c19ec95",
+            "rule": "A single white swan is shown in profile or three-quarter view, with its head and full body visible."
+          },
+          {
+            "history_weight": 0.08783783783783784,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "1bbe70a6c742301f0be4804515eb41d1034e678b39a9807061a1298847fcef1c",
+            "rule": "The scene contains one or more white swans on water, while excluding other white water birds such as geese, herons, or egrets."
+          },
+          {
+            "history_weight": 0.05405405405405406,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "ebbebba673343fe6d95794a4c8ac370fee10f099f1d4d1723264708ce21d6c51",
+            "rule": "A swan is depicted with its neck bent into a pronounced S- or loop-like curve."
+          },
+          {
+            "history_weight": 0.13513513513513514,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "6e1e1b909e431a42cc5a1ef78520f0e460b9d03e04c2c63dd784d73b44a49be1",
+            "rule": "The main bird is white and located in or immediately beside a pond or lake with visible water."
+          },
+          {
+            "history_weight": 0.0945945945945946,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "c21a620b3193315b974755c6fe6191305ee3b387d12f244f410c7c81fcb1c379",
+            "rule": "A swan is the dominant subject and is not black, heavily colored, or replaced by a different long-necked waterbird."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.10364453924516982
+      },
+      "case_id": "task-263200a0c8c3-root",
+      "history_size": 4,
+      "kind": "root",
+      "request_text_sha256": "eb448a9d2ec875959cf71437bffb607d14bcace2c6e76b9b23992b9d5a4d4adc",
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.173739776803803,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.18,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "685825f7efa539d0a02001892b2c2ee5892f90c5d9299fa70d578fa69bf95350",
+            "rule": "A single, clearly isolated animal is the main subject, without a group of animals."
+          },
+          {
+            "history_weight": 0.16,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "1b287a6461013d2dd7a3af8271a8d1d48037f3ffec45450a4ffff90200889df3",
+            "rule": "The image shows one small, cute mammal rendered as a soft watercolor illustration."
+          },
+          {
+            "history_weight": 0.14,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "5895be4028922fad9e546dd3f99d8a13fe8addd10db1691ac052196cd9e9fde6",
+            "rule": "The animal has prominent, exaggeratedly large eyes and a charming, childlike appearance."
+          },
+          {
+            "history_weight": 0.12,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "6f2315c30f186a9e833727ed72454f48c969ff7dd840a35e2f7f4bc581b3573f",
+            "rule": "The composition contains a single animal against a mostly plain white or lightly washed background."
+          },
+          {
+            "history_weight": 0.1,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "5bee3d3b953eae6b766f22b8de5a26b9a2e12c7a6ae4faed417eaae52192beb3",
+            "rule": "The subject is a non-domestic or wild animal presented alone in a naturalistic watercolor portrait."
+          },
+          {
+            "history_weight": 0.09,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "88ceed893054beba7a3a4f53816ca67b99577a0376ca8a7039807e1d7af8f07f",
+            "rule": "The artwork depicts a furry terrestrial mammal rather than a bird, fish, reptile, or amphibian."
+          },
+          {
+            "history_weight": 0.08,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "0cbf42cb9e7e5481eccadddd6d71d393b04f18522d338d3e39e1a968ba16599f",
+            "rule": "The animal is shown in a close-up or portrait-oriented view, with its face or upper body emphasized."
+          },
+          {
+            "history_weight": 0.07,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "5668ba4feb551eeba42a4c431411f2e482ac19ea2d07866f0bea81b8fb161430",
+            "rule": "The image features a single animal with no visible human, object, or built-environment context."
+          },
+          {
+            "history_weight": 0.04,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "eb807215557c339e747249e15aff105e33c9ce31563d5c8b62bc35536671a0a5",
+            "rule": "The animal is depicted in a gentle, non-threatening manner, with a cute or peaceful mood."
+          },
+          {
+            "history_weight": 0.02,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "ceaa851fef6a6c609f3d66fb81f336e8b3b2b2e9d2fc0a24c29c10fe4ebea22a",
+            "rule": "The positive concept is specifically a solitary small mammal portrait: one compact animal, softly painted, and visually cute."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.6191787179399315
+      },
+      "case_id": "task-126d30cad73b-image-00-negative",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "6ac4105ca98809359d36285de1b090ab21c5c4d4b0c76e4a9c5ec55b9e399b2a",
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.258052417863944,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.14035087719298245,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "8763cd596f37d13971d9d01defa4a1127c6d3e5df604bbb508c06fe6911e8354",
+            "rule": "A watercolor illustration featuring a single cute terrestrial animal as the main subject, without a group of animals or a prominent human-made setting."
+          },
+          {
+            "history_weight": 0.12280701754385964,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "55f04a553686a8450ab8405b2253a92988a3bd898a9601992d385a326c0f184b",
+            "rule": "The main subject is a small, furry, non-predatory mammal depicted in a gentle or cute style."
+          },
+          {
+            "history_weight": 0.10526315789473684,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "24486dca1237e1361fe4d2e19368dfb49f43a884a7a1b79e34af6545dcf34a1e",
+            "rule": "A single animal portrait or close-up, with the animal occupying most of the image and little environmental context."
+          },
+          {
+            "history_weight": 0.08771929824561403,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "143140403af380e9855530ff95d65f5f69aebceabf260894bfa06d8e75f3e329",
+            "rule": "The image depicts a mammal rather than a bird, reptile, fish, or other animal group."
+          },
+          {
+            "history_weight": 0.08771929824561403,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "841da3d20625c28fd64d1a28444164f8ea69582cd4681dc8e3e29147397d574b",
+            "rule": "The principal animal has conspicuous rounded or oversized eyes and an expressly endearing cartoon-like presentation."
+          },
+          {
+            "history_weight": 0.07017543859649122,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "2a50653caa128dff3c12e2e7ca6d73a25acb451257f0785cbe1f0257618f1e1a",
+            "rule": "A solitary animal is shown against a predominantly plain white or lightly washed watercolor background."
+          },
+          {
+            "history_weight": 0.07017543859649122,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "969ed3c403b5165f2728086908d287fa85b2054a38b3f4c23bb68c97a82451c5",
+            "rule": "The subject is a small animal without visible predatory teeth, claws used aggressively, or threatening facial expression."
+          },
+          {
+            "history_weight": 0.05263157894736842,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "5df9c8993483009920cc8cf968ce1521f709d863b504749f3ea986e6bc0f32f9",
+            "rule": "A single land-dwelling animal is the only clearly dominant living subject; plants may be present but no other animals are central."
+          },
+          {
+            "history_weight": 0.12280701754385964,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "95830f06de9cfa4d2ef5f7ccd47b58d901c76695b64f04ff14509081574f52eb",
+            "rule": "The animal is rendered as a soft, naturalistic watercolor portrait with rounded forms and pastel or muted coloring, rather than a dramatic or frightening scene."
+          },
+          {
+            "history_weight": 0.14035087719298245,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "e148964d5ceb6730abe4b694231ef5cda8be23c227d38e455e972643bce2074d",
+            "rule": "A cute solitary furry animal, especially a small mammal such as a hedgehog, cat, rabbit, deer, or otter, is presented as the focal subject in watercolor."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.10035232888301679
+      },
+      "case_id": "task-126d30cad73b-image-00-positive",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "745fb89a4e89dd920a6f206f9f47e2bf187d50eff99f3e170e2700fdd0ece97c",
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.2934178604551207,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.11940298507462686,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "853c4aa246d4820af559252fcf8ab28d510364005ebd2836a9debd0a197632c9",
+            "rule": "A single, close-up, cute terrestrial mammal is the main subject, isolated against a mostly plain background."
+          },
+          {
+            "history_weight": 0.11940298507462686,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "541f9cd21ef32702097f5d906825d6455bdd28197c58e4242a6ef0b1b5ffcc8c",
+            "rule": "The image depicts one small furry animal in a soft watercolor portrait, without a group or elaborate scene."
+          },
+          {
+            "history_weight": 0.1044776119402985,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "524b6ecba62869c960081f1452d3b3bd95fdcdfb93e3513c80da76d8842429c7",
+            "rule": "A single animal faces toward the viewer with a prominently cute, rounded face and large expressive eyes."
+          },
+          {
+            "history_weight": 0.1044776119402985,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "8b1bcabfc2ba7ff10709cae114b9a866aad9ed6a54df2ad24e2d06b5828aec4b",
+            "rule": "The subject is a small mammal rather than a bird, reptile, fish, or large wild animal, and occupies most of the frame."
+          },
+          {
+            "history_weight": 0.08955223880597014,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "208f1470c5c3ba4b43daa7b42b255b4ac0889092b6dd0352df90edbadd9dfbff",
+            "rule": "A solitary rabbit-like or rodent-like furry animal is portrayed in a gentle pastel watercolor style."
+          },
+          {
+            "history_weight": 0.08955223880597014,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "b2804ae704d0875804ffb05a9eb87a45a4277adf115aa78301d67c7c2d5e8f26",
+            "rule": "The image shows one upright or seated small mammal, with no visible habitat-defining background beyond watercolor washes."
+          },
+          {
+            "history_weight": 0.08955223880597014,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "a527a4f5f9231c0e36f1ab76b62633ff4398a734db65c85cec6d10f591479f3e",
+            "rule": "A cute animal portrait is presented on a clean white or very lightly textured background, with the animal centered and unobstructed."
+          },
+          {
+            "history_weight": 0.1044776119402985,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "686df97d347b307797b2fb4690348ef99a837d599afb23d529a5902fd0c21519",
+            "rule": "The positive concept is specifically a single small mammal rendered alone, contrasting with group scenes, aquatic animals, and multi-animal compositions."
+          },
+          {
+            "history_weight": 0.07462686567164178,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "4becfb9b0e49b9a761b1234df6f887e1f81ac40856390146e8b1ffd775834bb2",
+            "rule": "The main subject is a non-predatory-looking, cuddly animal with soft fur and a friendly or curious expression."
+          },
+          {
+            "history_weight": 0.1044776119402985,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "590083c372ede99597b04074795470f15054594bc44f1543176b46f4802277f3",
+            "rule": "A single small animal is isolated as a character-like portrait rather than shown in a naturalistic landscape or with other animals."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.21697238968454063
+      },
+      "case_id": "task-126d30cad73b-image-03-negative",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "240a8c0686858005cf9ebefb6834dc52e133a1acb8b4a1b4bdc138b963183895",
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.230409916283082,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.17142857142857143,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "7876aec8ec883af48e59a01f50cb5749caee3ad933e7865248b6b61c009242a0",
+            "rule": "The image depicts a single cute terrestrial mammal as the main subject."
+          },
+          {
+            "history_weight": 0.14285714285714285,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "bd74bd2537d36845b7ce22c9d36a7660c6e527dd25c6bf47c6370c3a5ea4ae46",
+            "rule": "The image contains a rabbit or hare."
+          },
+          {
+            "history_weight": 0.12857142857142856,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "61d3ac012dbca829a7442c4999682a186cc1167d04c7355e5f6f2ac1a1cfd9a7",
+            "rule": "The main animal has prominent large, rounded, forward-facing eyes and a soft cuddly appearance."
+          },
+          {
+            "history_weight": 0.11428571428571428,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "e72a8e4b59082ccc8f3160d5372da3cf829609f992ff5c893531c90eb92b9a8a",
+            "rule": "The image shows a watercolor-style animal portrait or illustration on a mostly light background."
+          },
+          {
+            "history_weight": 0.1,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "ba11794a2334fad283eacbfecf211286d428fbda80f5fa42456e4eaa6ebf704b",
+            "rule": "The scene contains a non-predatory mammal rather than a predator, reptile, bird, or fish."
+          },
+          {
+            "history_weight": 0.08571428571428572,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "b8119ddb8510159a7a14bdb901612c284aa6c0403f981f5f260246869b2e9fab",
+            "rule": "The subject is a small animal shown alone, without a group or substantial environmental scene."
+          },
+          {
+            "history_weight": 0.08571428571428572,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "7faf2243101deca8b9ed1662b2685ac8f0b489bf9c0c85ba63298253996d4df0",
+            "rule": "The main subject is an animal associated with a rounded, compact body and short visible limbs."
+          },
+          {
+            "history_weight": 0.07142857142857142,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "b10c57bce4f27aa93e004bcbf833839e66c96ea134fb1b4882dd72bae70f1206",
+            "rule": "The image depicts a gentle herbivore or small domestic-style animal in a whimsical watercolor treatment."
+          },
+          {
+            "history_weight": 0.05714285714285714,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "c8dfe384130d5daf103f59fcf35a509c53e21370d6e89df6411d46c5fdb8d0a3",
+            "rule": "The image contains a clearly recognizable animal face prominently occupying the composition."
+          },
+          {
+            "history_weight": 0.04285714285714286,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "d278dfe7bd559b7d78d4e41efe0a2df8b4092b18a96c8aa00537f4dd88912354",
+            "rule": "The image shows a single animal without text, watermark emphasis, or a multi-animal arrangement."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.661801234470635
+      },
+      "case_id": "task-126d30cad73b-image-03-positive",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "bbd3c9c3d711a1ec18a0298df956798724419ebaeff233946b8763017d00e13a",
+      "task_id": "task-126d30cad73b"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.2729434078316966,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.09615384615384616,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "bd1deef360ca8b0b9fd498f37410aed0480b251b219a04489e90ffa178287df4",
+            "rule": "A swan is actively swimming or standing on open water, rather than resting on land or flying."
+          },
+          {
+            "history_weight": 0.11538461538461539,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "3a1a47bc351e93b89024a752337c3df57f244175bb9d8b73c10e6e332e54a4f0",
+            "rule": "The image shows a swan in motion with wings visibly raised or extended, including takeoff or flight."
+          },
+          {
+            "history_weight": 0.1346153846153846,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "307a601f5fc957bd4c7ad7777e673af14e1b5c9b5efd6c182387bad22b0d0074",
+            "rule": "The main bird is a white swan with an orange bill and black facial markings."
+          },
+          {
+            "history_weight": 0.07692307692307693,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "a500fb2f23eac17f5084ff9c3b6ac26d38ebdcd72768f5823dccfd245c6f2f55",
+            "rule": "A swan is shown close to the water surface with its bill or head lowered toward the water."
+          },
+          {
+            "history_weight": 0.09615384615384616,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "f60267e03319c36dca6b1c06e6de8618dbdce380ad42b5f00396281d2b77869b",
+            "rule": "The image contains one or more swans swimming together in a natural water setting."
+          },
+          {
+            "history_weight": 0.057692307692307696,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "9de69f197be31a5314bb560b26f334d2a935da047fa5ed210d6afc56da5b11be",
+            "rule": "The swan is isolated as the dominant subject in a relatively uncluttered scene."
+          },
+          {
+            "history_weight": 0.1346153846153846,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "7901d84a6ca988014049053e8a758e8ed4b454ca31681202825e2f55a31f45bf",
+            "rule": "The bird has a long, curved S-shaped neck characteristic of a swan and is predominantly white."
+          },
+          {
+            "history_weight": 0.07692307692307693,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "6a3d614c353641480d5207f2420855d9fa011aacbdacbcfcfd7bf590469e4bd5",
+            "rule": "A white swan is depicted in a calm, non-flight pose on or beside water, with wings folded."
+          },
+          {
+            "history_weight": 0.11538461538461539,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "06398efd34e0f273249a92673091f66d670167cf4d6cfb27c94cf3fbd16bf7fd",
+            "rule": "The main subject is specifically a mute swan, identifiable by an orange bill with a black basal knob or black facial patch."
+          },
+          {
+            "history_weight": 0.09615384615384616,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "2ca6c301d7d9fd8ab3fa40d30aec87f713e4005ac193e9116fb83d172ad57ebe",
+            "rule": "A waterbird is presented as a realistic photograph rather than an illustration, with the bird visibly interacting with water."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.38216089209968435
+      },
+      "case_id": "task-263200a0c8c3-image-00-negative",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "d2802579ee3afdc97e2ed3361d04653a05a86c0827967d089e8c65204e628b39",
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.2721730775195814,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.13773314203730272,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "2224c319ebfd106d288cc6a58526af33a4174c459bde7b046122f5fe16df181a",
+            "rule": "The image shows one or more white swans."
+          },
+          {
+            "history_weight": 0.1291248206599713,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "1f0c41e5ae12016ac5a41074ec23ecf464a4571ef6c44e2694947294f623a677",
+            "rule": "A white swan is the main prominent subject, regardless of whether it is swimming or flying."
+          },
+          {
+            "history_weight": 0.12051649928263988,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "61f599c85a83bb0cc8cae7265dd297a1fad2e0a32366449d2768787eec77b08c",
+            "rule": "The image contains a white swan on or immediately above water."
+          },
+          {
+            "history_weight": 0.11477761836441894,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "7f13942e36615b49a983f3e0d5eb78d257cf28e599155fc5e9b6173ac38d6885",
+            "rule": "The principal bird has a long curved neck and an orange-and-black bill characteristic of a mute swan."
+          },
+          {
+            "history_weight": 0.10329985652797705,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "9ae8b41e9cea991e642165a9db3c531c94194dd3465e40160b462d5b23f7456d",
+            "rule": "A swan is visibly interacting with water, such as swimming, landing, or drinking."
+          },
+          {
+            "history_weight": 0.0975609756097561,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "497175a8f9a9a58128739f52b32fc139bb63d5509314a52fece3b273bf439da4",
+            "rule": "The dominant bird is white and has a distinctly S-shaped or gracefully curved neck."
+          },
+          {
+            "history_weight": 0.08608321377331421,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "da54f979d4d643d71302e78f9ba104a487fc5b9fb1b080fc5012222852a1e55b",
+            "rule": "The image depicts a swan rather than a goose, heron, egret, pigeon, or black swan."
+          },
+          {
+            "history_weight": 0.07890961262553801,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "df560069ff0d21438b42360465d60c3f4aed1dc1c915570b9fe507eddaa9772c",
+            "rule": "A white swan is shown in a natural aquatic or wetland setting, with water or marsh vegetation visible."
+          },
+          {
+            "history_weight": 0.07173601147776183,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "8c767770a40974746c7b190f23c7d114c32b443733c11f87ca3624212e340b34",
+            "rule": "The composition prominently features a white waterfowl with an elongated neck and broad white body, specifically a swan-like bird."
+          },
+          {
+            "history_weight": 0.06025824964131994,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "4ed339dae37ba4740e9d045683f83a9baad1a3a998c5431c1ca27e25d16fa66f",
+            "rule": "Multiple swans are present, or a single swan is shown in a clearly recognizable swan pose such as swimming with its neck upright or flying with wings extended."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.029992648263848943
+      },
+      "case_id": "task-263200a0c8c3-image-00-positive",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "521a10972f5fe9d977b83d8c1002f8e280bc04af6b87b79917d2c30e4f29c036",
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.234922746634953,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.18,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "7beecd0e5e5d080eb311e9623625273482aff3e5719ea809c94a3aeb30ad1da9",
+            "rule": "A white swan is the main subject, shown in a natural photographic scene."
+          },
+          {
+            "history_weight": 0.14,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "e0989fbaa79c9cf6896ac91882febd29ea8603a976a2a794bd3d7b968c5691ac",
+            "rule": "The image shows a white swan actively swimming or moving across water, rather than resting on land."
+          },
+          {
+            "history_weight": 0.11,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "6acee8a64e32299fcee91c2ee4358b51173f64dd55021da18d20bca44d48187a",
+            "rule": "A white swan is depicted with its wings visibly extended or flying."
+          },
+          {
+            "history_weight": 0.12,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "3295604956c96533e6dd53d1fff1517ad74032a222d08379b70f893b433691e1",
+            "rule": "A white swan is shown in a close or prominent portrait-like view, with its long curved neck and orange-and-black bill clearly visible."
+          },
+          {
+            "history_weight": 0.09,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "52135258a0b3024e9c8aae19854347faafbb13a85ee8032161538e7414cb9ae8",
+            "rule": "The central bird is a white swan on or beside water, with no prominent lilies or lotus leaves surrounding it."
+          },
+          {
+            "history_weight": 0.07,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "cf090cc2463c76f65fe68a6e95fc3c28d6937fc77d4d63419d26b133dd584f53",
+            "rule": "The image contains a swan with a clearly orange bill featuring a black basal marking."
+          },
+          {
+            "history_weight": 0.1,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "72cf5b742210c88ef83c73e56878f480ee9101243ea978dc8cd710e36bc55f04",
+            "rule": "The scene shows a white swan alone or as the dominant subject, rather than a flock or a different white waterbird."
+          },
+          {
+            "history_weight": 0.08,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "5728c58c2824e26637a983afb060d72d09c5a8e497218d339b0fce3b18ab9615",
+            "rule": "A white swan is shown in a realistic photograph, not an illustration or highly stylized artwork."
+          },
+          {
+            "history_weight": 0.06,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "32c95ffd5a35aa2972258b22b695ca2f8d4859c50423a719143d6aab4367d691",
+            "rule": "The bird is a white swan with a large rounded body and an upright or curved neck, positioned in a wetland or park-like setting."
+          },
+          {
+            "history_weight": 0.05,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "a61867ce1da87fcf2aea81c1fc42277924e672327c316a328675b3bc83304717",
+            "rule": "A white swan is engaged in an aquatic action\u2014swimming, bathing, or taking off from water\u2014with its body visibly interacting with the water surface."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.2463605118150293
+      },
+      "case_id": "task-263200a0c8c3-image-01-negative",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "c8cb0b15988b33f79e7334f9799643fbea003663eb0e107c37d90c9c66a6d552",
+      "task_id": "task-263200a0c8c3"
+    },
+    {
+      "belief": {
+        "history_entropy": 2.171674357241813,
+        "history_size": 5,
+        "hypotheses": [
+          {
+            "history_weight": 0.2,
+            "hypothesis_id": "H01",
+            "likelihood_sha256": "4ed8431ebde222f2d5db937adbb18bc0507e69f0046e710f4dbc0562346dcb03",
+            "rule": "The image shows a white swan (rather than another waterbird)."
+          },
+          {
+            "history_weight": 0.15555555555555556,
+            "hypothesis_id": "H02",
+            "likelihood_sha256": "8d1928d2b99cb93c9d7f8988657e831bdd8f459086a628fe8d074e780b47d42a",
+            "rule": "A white swan is the main subject and is shown on or immediately beside water."
+          },
+          {
+            "history_weight": 0.13333333333333333,
+            "hypothesis_id": "H03",
+            "likelihood_sha256": "43bac54e87f9213366ce5aee4e22699603af929e1bc1936b7fa07c622b70fa04",
+            "rule": "The image shows a white swan with a characteristic orange bill and black facial marking."
+          },
+          {
+            "history_weight": 0.1111111111111111,
+            "hypothesis_id": "H04",
+            "likelihood_sha256": "5ceb4c8cee307dde3b56d526f66309237c0e1c8623f092f88586a2a2d81930d0",
+            "rule": "The main bird is a white swan in a natural photographic scene, not an illustration or a different species."
+          },
+          {
+            "history_weight": 0.1,
+            "hypothesis_id": "H05",
+            "likelihood_sha256": "2dca167efe4c9074921c74c555f88aa2dcdf0dd3a23bedbcc44d73e13d455417",
+            "rule": "A swan is visibly swimming, floating, or taking off from a body of water."
+          },
+          {
+            "history_weight": 0.08888888888888889,
+            "hypothesis_id": "H06",
+            "likelihood_sha256": "c28407b69f731827808c49a4ddcad2b9b73c6657a45e16e99356dc13d87d3c34",
+            "rule": "The image contains a single prominent white swan with its long neck clearly visible."
+          },
+          {
+            "history_weight": 0.07777777777777778,
+            "hypothesis_id": "H07",
+            "likelihood_sha256": "facad9fddde4273a033c202e9270157852faab130805572374d0ab52b1b61567",
+            "rule": "The subject is a white swan rather than a goose, duck, flamingo, egret, or black swan."
+          },
+          {
+            "history_weight": 0.06666666666666667,
+            "hypothesis_id": "H08",
+            "likelihood_sha256": "fee08c0dee7ce3f49dd8cb38a07e91adead76ebd08afc5c07dc5b1fd8ac6319d",
+            "rule": "The scene prominently depicts a swan with a curved or upright S-shaped neck."
+          },
+          {
+            "history_weight": 0.044444444444444446,
+            "hypothesis_id": "H09",
+            "likelihood_sha256": "db8af3afc9f6f70a99249e84a2934cbddaeddd9440b96d591dc527168199b0a0",
+            "rule": "The main subject is a white waterbird with a dark facial mask near the bill and a substantial rounded body."
+          },
+          {
+            "history_weight": 0.022222222222222223,
+            "hypothesis_id": "H10",
+            "likelihood_sha256": "bd3ae0604c7b5cbad9b07fa0986b197d5b226a420bfb5d7f3f07fa71e03b8ac1",
+            "rule": "The image shows a white swan in a relatively natural, non-crowded composition, excluding groups or strongly stylized artwork."
+          }
+        ],
+        "observed_history_fit_log_loss": 0.44150257285561134
+      },
+      "case_id": "task-263200a0c8c3-image-01-positive",
+      "history_size": 5,
+      "kind": "branch",
+      "request_text_sha256": "21e77f7433b5f94b4ceeddd78b165cf4b49ca35a948aa0b55f216551a81735a7",
+      "task_id": "task-263200a0c8c3"
+    }
+  ],
+  "gates": {
+    "all_10_strict_schemas_parse": true,
+    "all_four_simulated_branch_pairs_change_unobserved_beliefs": true,
+    "all_history_conditioned_weights_have_finite_positive_mass_and_entropy": true,
+    "all_multimodal_prompts_hide_bound_source_truth": true,
+    "all_pass": false,
+    "all_responses_have_exact_unique_hypothesis_support": true,
+    "both_roots_have_nonzero_nonidentical_candidate_eig": true,
+    "cost_at_most_0_25": true,
+    "exact_expected_accepted_requests": true,
+    "http_attempts_equal_accepted_plus_retries": true,
+    "provider_error_retries_are_bounded_subset": true,
+    "simulated_branch_labels_beat_constant_half_brier_in_both_classes": false,
+    "total_retries_within_preregistered_bound": true,
+    "transport_usage_counts_are_nonnegative_integers": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "metrics": {
+    "branch_label_obedience": {
+      "branch_count": 8,
+      "negative_mean_brier": 0.30447494764157224,
+      "positive_mean_brier": 0.15694568596780956,
+      "rows": [
+        {
+          "brier": 0.762129,
+          "candidate_id": "image-00",
+          "label": "negative",
+          "truth_probability": 0.127
+        },
+        {
+          "brier": 0.011527977839335176,
+          "candidate_id": "image-00",
+          "label": "positive",
+          "truth_probability": 0.8926315789473684
+        },
+        {
+          "brier": 0.0021824237023836063,
+          "candidate_id": "image-03",
+          "label": "negative",
+          "truth_probability": 0.9532835820895522
+        },
+        {
+          "brier": 0.610630612244898,
+          "candidate_id": "image-03",
+          "label": "positive",
+          "truth_probability": 0.21857142857142856
+        },
+        {
+          "brier": 0.34402736686390534,
+          "candidate_id": "image-00",
+          "label": "negative",
+          "truth_probability": 0.41346153846153844
+        },
+        {
+          "brier": 0.003255709342560561,
+          "candidate_id": "image-00",
+          "label": "positive",
+          "truth_probability": 0.9429411764705882
+        },
+        {
+          "brier": 0.10956099999999998,
+          "candidate_id": "image-01",
+          "label": "negative",
+          "truth_probability": 0.669
+        },
+        {
+          "brier": 0.0023684444444444413,
+          "candidate_id": "image-01",
+          "label": "positive",
+          "truth_probability": 0.9513333333333334
+        }
+      ]
+    },
+    "branch_sensitivities": [
+      {
+        "candidate_id": "image-00",
+        "material": true,
+        "rule_jaccard": 0.0,
+        "unobserved_image_count": 9,
+        "unobserved_prediction_mae": 0.16659746588693958
+      },
+      {
+        "candidate_id": "image-03",
+        "material": true,
+        "rule_jaccard": 0.0,
+        "unobserved_image_count": 9,
+        "unobserved_prediction_mae": 0.23376664297559818
+      },
+      {
+        "candidate_id": "image-00",
+        "material": true,
+        "rule_jaccard": 0.0,
+        "unobserved_image_count": 9,
+        "unobserved_prediction_mae": 0.2838813780671743
+      },
+      {
+        "candidate_id": "image-01",
+        "material": true,
+        "rule_jaccard": 0.0,
+        "unobserved_image_count": 9,
+        "unobserved_prediction_mae": 0.20885802469135803
+      }
+    ],
+    "max_observed_history_fit_log_loss": 0.661801234470635,
+    "mean_observed_history_fit_log_loss": 0.3053121573204146,
+    "roots": [
+      {
+        "candidate_eigs": {
+          "image-00": 0.1450623675765912,
+          "image-03": 0.028914944663460673,
+          "image-05": 0.27756307707224503,
+          "image-06": 0.29086174744950766,
+          "image-07": 0.004129183234978129,
+          "image-09": 0.13622944901614176,
+          "image-10": 0.12116379381985354,
+          "image-12": 0.2551934906345994
+        },
+        "max_candidate_eig": 0.29086174744950766,
+        "task_id": "task-126d30cad73b",
+        "unique_candidate_eig_count_1e8": 8
+      },
+      {
+        "candidate_eigs": {
+          "image-00": 0.16109989223375099,
+          "image-01": 0.22915663254154994,
+          "image-03": 0.15862649147366747,
+          "image-07": 0.1825287175305954,
+          "image-08": 0.2670736308946813,
+          "image-10": 0.16548357290726212,
+          "image-11": 0.17255644872588238,
+          "image-12": 0.17719880500911556
+        },
+        "max_candidate_eig": 0.2670736308946813,
+        "task_id": "task-263200a0c8c3",
+        "unique_candidate_eig_count_1e8": 8
+      }
+    ]
+  },
+  "protocol": {
+    "actual_candidate_labels_accessed": false,
+    "endpoint_labels_accessed": false,
+    "expected_requests": 10,
+    "interface_version": "bongard-openworld-luna-vlm-serving-smoke-4",
+    "model": "openai/gpt-5.6-luna",
+    "model_seed": 2026081001,
+    "preregistration": "results/nonmyopic/BONGARD_OPENWORLD_LUNA_VLM_MECHANICS_PREREGISTRATION.md",
+    "reasoning": false,
+    "run_budget_usd": 0.25,
+    "scientific_endpoint_accessed": false,
+    "semantic_validity_amendment": "results/nonmyopic/BONGARD_OPENWORLD_LUNA_SEMANTIC_VALIDITY_AMENDMENT.md"
+  },
+  "raw_responses_sha256": "538f534e162291dcc0e088c399140ccb43a54683320b461ed2bbd69cc1933b13",
+  "schema_version": 1,
+  "status": "gated_null",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "completion_tokens": 6961,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "prompt_tokens": 35923,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.008666225
+  }
+}
