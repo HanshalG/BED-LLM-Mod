@@ -1,0 +1,111 @@
+{
+  "authorizes": "close_regretbench_primary_nonmyopic_route",
+  "confirmation_opened": false,
+  "cost_usd": 0.0,
+  "development_opened": false,
+  "fresh_exact4_population": {
+    "maximum_depth_two_gain_nats": 0.0,
+    "prior_cohort_counts": {
+      "factorized_v2": 132,
+      "option_id": 132,
+      "original": 132,
+      "typed_action": 132,
+      "union": 528
+    },
+    "strict_positive_depth_two_gain_count": 0,
+    "task_count": 759
+  },
+  "gates": {
+    "all_available_test_checksums_match": true,
+    "all_eligible_depth_two_gains_are_zero": true,
+    "all_fresh_exact4_depth_two_gains_are_zero": true,
+    "all_pass": true,
+    "exact_2419_eligible_tasks": true,
+    "exact_528_prior_tasks_excluded": true,
+    "exact_6286_test_files": true,
+    "exact_759_fresh_exact4_tasks": true,
+    "four_prior_cohorts_are_disjoint": true,
+    "official_commit_matches": true,
+    "protocol_hash_matches": true,
+    "source_helper_hash_matches": true
+  },
+  "interface_version": "regretbench-horizon-opportunity-audit-1",
+  "interpretation": "The official fixed-support CIG has no depth-two first-action advantage; LLM-regeneration differences would lack an independent environment-grounded horizon opportunity.",
+  "model_calls_made": 0,
+  "policy_endpoint_opened": false,
+  "population": {
+    "eligible_task_count": 2419,
+    "maximum_depth_two_gain_nats": 0.0,
+    "strict_positive_depth_two_gain_count": 0,
+    "test_file_count": 6286,
+    "tolerance": 1e-12
+  },
+  "protocol_sha256": "6f708ba0a2056d15acc602f10a62f4377bf794398dea9c0910753c8162611f61",
+  "saved_llm_responses_opened": false,
+  "schema_version": 1,
+  "source_commit": "b2978e1c2e31b7a7c4e1508ee3e1fa1cb98f4aa7",
+  "source_helper_sha256": "6906a6db52f26fb781c59b76d29ff095adaef0d85154c6b28d8a396402028163",
+  "status": "structural_opportunity_null",
+  "strata": {
+    "facets_2_intents_3": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 211
+    },
+    "facets_2_intents_4": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 118
+    },
+    "facets_2_intents_5": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 62
+    },
+    "facets_2_intents_6": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 40
+    },
+    "facets_3_intents_3": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 472
+    },
+    "facets_3_intents_4": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 242
+    },
+    "facets_3_intents_5": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 127
+    },
+    "facets_3_intents_6": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 80
+    },
+    "facets_4_intents_3": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 555
+    },
+    "facets_4_intents_4": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 312
+    },
+    "facets_4_intents_5": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 113
+    },
+    "facets_4_intents_6": {
+      "maximum_gain_nats": 0.0,
+      "strict_positive_gain_count": 0,
+      "task_count": 87
+    }
+  }
+}
