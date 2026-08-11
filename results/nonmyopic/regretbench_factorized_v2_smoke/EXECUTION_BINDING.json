@@ -1,0 +1,39 @@
+{
+  "accepted_requests_authorized": 10,
+  "account_boundary": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11.json",
+    "sha256": "8ab4fc46b62d896393ed68514473560c53ccb1dc2978e01b53f50cf4e6c4c301"
+  },
+  "confirmation_calls_authorized": false,
+  "dated_budget_wrapper": {
+    "path": "scripts/regretbench_factorized_v2_aug11_execute.py",
+    "sha256": "e5662ee68a18c9bc788179ee245e27cb65189a77cd2d5d3a6440855ce78b296c"
+  },
+  "development_calls_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/regretbench_factorized_v2_smoke_verify.py",
+    "sha256": "dff5c42e5813fbbaa45d5ae45320a153d27072cf4b6369f7bc263fff7fe3221d"
+  },
+  "maximum_http_attempts": 14,
+  "producer": {
+    "path": "scripts/regretbench_factorized_v2_smoke.py",
+    "sha256": "97c5c48280e147ef7ca70fe29407e212810756ceeb9a2d4a10f3df5512c4a9c9"
+  },
+  "run_cap_usd": 0.2,
+  "smoke_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_V2_EXACT10_SMOKE_PROTOCOL_20260811.md",
+    "sha256": "3901343d7633e056b450a778b9077f218866567bb6fe5a16c6c81c851f85f3db"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/regretbench_factorized_v2_source_audit/SOURCE_PROTOCOL_MANIFEST.json",
+    "sha256": "831a8bcf8f38b183c080c5a369896366915ca8b8ada38294143d7f31a11c1999"
+  },
+  "source_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_V2_SOURCE_PROTOCOL_20260811.md",
+    "sha256": "151751b576e2db14a6e21848d7d548a09f92172a6709e476ed903d41fea8c753"
+  },
+  "source_result": {
+    "path": "results/nonmyopic/regretbench_factorized_v2_source_audit/RESULT.json",
+    "sha256": "54fc24022ccce75f5865173edf0049392862c413813fdd0e7884fbfc55e537a7"
+  }
+}
