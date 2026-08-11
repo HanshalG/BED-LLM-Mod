@@ -1,0 +1,12 @@
+{
+  "authorizes": "nothing",
+  "confirmation_opened": false,
+  "development_opened": false,
+  "endpoint_outcomes_opened": false,
+  "error": "selected root branch reply is not a real facet value",
+  "error_type": "ValueError",
+  "interface_version": "regretbench-proposal-evaluator-v1-aug11-execute-1",
+  "schema_version": 1,
+  "stage_ledger_sha256": "307cbb01ec7602e5b43cc999ce897878bbb2a5be227de5b173249680e0140f5a",
+  "status": "failed_closed"
+}

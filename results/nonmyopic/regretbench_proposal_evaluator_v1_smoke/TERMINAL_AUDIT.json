@@ -1,0 +1,62 @@
+{
+  "accepted_requests": {
+    "branch_evaluator": 0,
+    "branch_proposal": 0,
+    "root_evaluator": 2,
+    "root_proposal": 2,
+    "total": 4
+  },
+  "artifacts": {
+    "daily_failure_sha256": "a66a45339b887b70ca082309c2cd595a16259414af4fb36e0e77d33b043711af",
+    "private_privacy_sha256": "e8092ef1c2f74b19a7123e3dc7f5affa0b76f872109509d59979c7569c752522",
+    "private_raw_responses_sha256": "f38dc6d759f4a593105c7eeefe35c1fc5286b3da76d85743dc121e3c1e379f9d",
+    "private_run_log_sha256": "7bb48fe11b66b2cb6c5f6233a05c22e2502e6624d20a4f18c66c8f52e6cd7fe4",
+    "stage_ledger_sha256": "307cbb01ec7602e5b43cc999ce897878bbb2a5be227de5b173249680e0140f5a"
+  },
+  "authorizes": "nothing",
+  "budget": {
+    "locally_measured_stage_cost_usd": 0.000700813708,
+    "posted_spend_since_aug11_boundary_at_reconciliation_usd": 0.0022111290000168538,
+    "recorded_account_wide_spend_usd": 0.0027690027079927404,
+    "remaining_aug11_allowance_usd": 4.997230997292007
+  },
+  "diagnostic_only": true,
+  "endpoint_outcomes_opened": false,
+  "first_terminal_error": "selected root branch reply is not a real facet value",
+  "interface_version": "regretbench-proposal-evaluator-v1-exact20-smoke-1",
+  "manual_surface_diagnostic": {
+    "gating_authority": false,
+    "task_0_selected_groups": "natural person/title paraphrases rather than exact source category strings",
+    "task_1_selected_groups": "valid county names with a county suffix absent from canonical source values",
+    "unsupported_lower_mass_groups_also_present": true
+  },
+  "root_diagnostics": [
+    {
+      "selected_question_eig_nats": 1.9135484277609518,
+      "selected_reply_group_count_inspected": 4,
+      "selected_top_two_exact_source_matches": 0,
+      "selected_top_two_masses": [
+        0.2857142857142857,
+        0.19047619047619047
+      ],
+      "task_index": 0
+    },
+    {
+      "selected_question_eig_nats": 2.0794415416798357,
+      "selected_reply_group_count_inspected": 4,
+      "selected_top_two_exact_source_matches": 0,
+      "selected_top_two_masses": [
+        0.125,
+        0.125
+      ],
+      "task_index": 1
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed_closed",
+  "transport": {
+    "finish_reason_stop_count": 4,
+    "reasoning_tokens": 0,
+    "usage_log_request_count": 4
+  }
+}
