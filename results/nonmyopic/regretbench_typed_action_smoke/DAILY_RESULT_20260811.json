@@ -1,0 +1,16 @@
+{
+  "authorizes": "nothing",
+  "confirmation_opened": false,
+  "development_opened": false,
+  "endpoint_outcomes_opened": false,
+  "independent_replay_passed": true,
+  "interface_version": "regretbench-typed-action-aug11-execute-1",
+  "mechanics_opened": false,
+  "recorded_daily_spend_usd": 0.0044488695239977005,
+  "schema_version": 1,
+  "smoke_result_sha256": "c21312b3e8d752bec8ef0d96ec6d12332c3ae5f9bc55a9574a03b2c11442e28c",
+  "smoke_status": "calibration_failed",
+  "smoke_verification_sha256": "7fdec1765e81096070610a9928830c4ee3d97dc4aaebac0439383805c23cd122",
+  "stage_ledger_sha256": "7a39a6bbafe272f130a5de5d9c0c7d96e37d03b6374ea6086a652489fa2786f9",
+  "status": "complete_reconciled"
+}

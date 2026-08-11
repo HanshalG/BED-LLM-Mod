@@ -1,0 +1,140 @@
+{
+  "authorizes": "nothing",
+  "bindings": {
+    "codec_protocol": "79a2fef1d8244007afece2c5f69484be6d3e8e3a4795b69e7982aad1d3bcc740",
+    "public_tasks": "12de3ae0e4953da606279c77af5aeabc7f85a6f202bd68952dfa2a6bb9e8526b",
+    "source_audit": "8e930df9015b909a4c0abd83ae4f01aefd320893efc4bfb9aa5c47cdc4e3ee86",
+    "source_manifest": "276c0e5d43b8415b1f2e8e8ceb4d97d3340cc5b02b56ba389a61ddc9a12dbcec",
+    "source_protocol": "4301b0473ce7a3611af60dfc28a8b24b8e1a34d5d9a1592a10b9b7d2f207d93e",
+    "source_result": "df404209abe7287db5de5936185f907a96e6da43983c37737be554a4fe5f9a3d"
+  },
+  "codec_mappings_publicly_reported": false,
+  "confirmation_opened": false,
+  "daily_budget_status": {
+    "authorized": true,
+    "balance_usd": 24.867091052000006,
+    "current_total_usage_usd": 220.132908948,
+    "daily_cap_usd": 5.0,
+    "date": "2026-08-11",
+    "opening_total_usage_usd": 220.129680012,
+    "posted_spend_today_usd": 0.003228935999999294,
+    "projected_cost_usd": 0.1,
+    "recorded_spend_today_usd": 0.003228935999999294,
+    "remaining_today_usd": 4.996771064000001,
+    "spent_today_usd": 0.003228935999999294,
+    "timezone": "Europe/London",
+    "total_credits_usd": 245.0,
+    "total_usage_usd": 220.132908948
+  },
+  "development_opened": false,
+  "gates": {
+    "all_codec_mappings_use_at_least_two_non_other_options": true,
+    "all_codec_mappings_use_at_least_two_options": true,
+    "all_codec_mappings_use_other_at_most_once": true,
+    "all_codec_replicates_agree": false,
+    "all_evaluators_normalized": true,
+    "all_pass": false,
+    "all_prompt_privacy_audits_pass": true,
+    "all_proposals_exclude_weights_likelihoods_and_source_values": true,
+    "all_proposals_use_exact_typed_action_permutations": true,
+    "all_selected_actions_have_at_least_two_values": true,
+    "all_selected_actions_replay_from_full_cig": true,
+    "all_selected_mutual_information_at_least_005": true,
+    "all_top_predictive_options_are_realized": false,
+    "all_top_two_predictive_masses_at_least_010": true,
+    "at_most_four_retries": true,
+    "attempts_between_eight_and_twelve": true,
+    "attempts_equal_accepted_plus_retries": true,
+    "exact_eight_accepted_requests": true,
+    "exact_four_codec_responses": true,
+    "exact_two_codec_tasks": true,
+    "exact_two_proposals_and_evaluations": true,
+    "no_proposal_emits_question_text": true,
+    "source_values_loaded_only_after_four_root_calls": true,
+    "within_codec_budget": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "interface_version": "regretbench-typed-action-exact8-smoke-1",
+  "mechanics_opened": false,
+  "policy_endpoint_opened": false,
+  "schedule": {
+    "codec_calls": 4,
+    "evaluators": 2,
+    "expected_accepted_requests": 8,
+    "proposals": 2
+  },
+  "schema_version": 1,
+  "source_values_publicly_reported": false,
+  "status": "calibration_failed",
+  "task_diagnostics": [
+    {
+      "codec_replicates_agree": true,
+      "full_cig_action_replays": true,
+      "other_mapped_value_count": 0,
+      "private_mapping_sha256": "4618fb980d25a4f13b15ece3799bb61983c678fc1bcf1274183bb16e8a196abc",
+      "proposal_sha256": "8e357e2f2ffb098c61dec291cacb862843874ef045e574d81f85b4fac754bcb9",
+      "selected_action_id": "entity_type",
+      "selected_action_index": 0,
+      "selected_mutual_information_nats": 0.3474156187593431,
+      "source_value_count": 3,
+      "task_index": 0,
+      "top_predictive_option_ids": [
+        3,
+        1
+      ],
+      "top_predictive_option_masses": [
+        0.46249999999999997,
+        0.275
+      ],
+      "top_predictive_options_realized": false,
+      "used_non_other_option_count": 3,
+      "used_option_count": 3,
+      "used_option_ids": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "codec_replicates_agree": false,
+      "full_cig_action_replays": true,
+      "other_mapped_value_count": 1,
+      "private_mapping_sha256": "f2f991d74dfbb2edf7f4475dcb7d82989de00a71e44bb11d4a6fbb49442577b6",
+      "proposal_sha256": "6ca4c0dacad2ad4ce888ab65c957ded60bb6e78f4995ee8e4b22aeb24cb2b458",
+      "selected_action_id": "notable_feature",
+      "selected_action_index": 2,
+      "selected_mutual_information_nats": 0.667465132456313,
+      "source_value_count": 4,
+      "task_index": 1,
+      "top_predictive_option_ids": [
+        3,
+        1
+      ],
+      "top_predictive_option_masses": [
+        0.45719098250943707,
+        0.24107988810852268
+      ],
+      "top_predictive_options_realized": true,
+      "used_non_other_option_count": 3,
+      "used_option_count": 4,
+      "used_option_ids": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 8,
+    "completion_tokens": 3352,
+    "forced_exits": 0,
+    "http_attempts": 8,
+    "prompt_tokens": 4386,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.001219933524
+  }
+}
