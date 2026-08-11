@@ -1,0 +1,11 @@
+{
+  "authorizes": "nothing",
+  "confirmation_opened": false,
+  "development_opened": false,
+  "error": "transition revision label disagrees with lineage",
+  "error_type": "ValueError",
+  "interface_version": "regretbench-factorized-v2-aug11-execute-1",
+  "schema_version": 1,
+  "stage_ledger_sha256": "8d8b48c4514c41cfb679908289aecc3942625611605ab3190d0e2a79fb5849cf",
+  "status": "failed_closed"
+}

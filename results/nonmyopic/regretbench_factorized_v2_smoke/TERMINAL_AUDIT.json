@@ -1,0 +1,83 @@
+{
+  "accepted_requests": {
+    "root": 2,
+    "static_likelihood": 0,
+    "total": 6,
+    "transition": 4
+  },
+  "artifacts": {
+    "daily_failure_sha256": "8a62f55ae1866ad4bcb4d734b4f71cc24faccb275957c068d7c643526ec421a6",
+    "private_raw_responses_sha256": "9d5d718aaa4782e30469a9d8f65341da8a0ec5ed0bc931f22f2f68e90f9726ce",
+    "private_run_log_sha256": "ad780328947737be57c65d9cdd7a442222472f50c76d9317a1ecd9ace04a790f",
+    "stage_ledger_sha256": "8d8b48c4514c41cfb679908289aecc3942625611605ab3190d0e2a79fb5849cf"
+  },
+  "authorizes": "nothing",
+  "budget": {
+    "live_posted_spend_since_boundary_usd": 0.00022494699999242584,
+    "locally_measured_accepted_request_cost_usd": 0.0020681893240000002,
+    "recorded_account_wide_spend_usd": 0.002068189324006653,
+    "remaining_aug11_allowance_usd": 4.997931810675993
+  },
+  "development_opened": false,
+  "diagnostic_only": true,
+  "endpoint_outcomes_opened": false,
+  "first_terminal_error": "transition revision label disagrees with lineage",
+  "interface_version": "regretbench-factorized-v2-exact10-smoke-1",
+  "privacy": {
+    "all_six_emitted_prompt_audits_passed": true,
+    "task_answers_or_endpoints_exposed": false
+  },
+  "schema_version": 1,
+  "static_likelihood_gate_opened": false,
+  "status": "failed_closed",
+  "transition_audit": [
+    {
+      "arm": "conditioned",
+      "declared_retained": 1,
+      "declared_revised": 7,
+      "exact_changed": 0,
+      "exact_unchanged": 8,
+      "lineage_label_mismatches": 7,
+      "parser_passed": false,
+      "response_index": 0
+    },
+    {
+      "arm": "history_blind",
+      "declared_retained": 8,
+      "declared_revised": 0,
+      "exact_changed": 0,
+      "exact_unchanged": 8,
+      "lineage_label_mismatches": 0,
+      "parser_passed": false,
+      "response_index": 1,
+      "retained_count_gate": "failed_8_not_in_2_to_6"
+    },
+    {
+      "arm": "conditioned",
+      "declared_retained": 3,
+      "declared_revised": 5,
+      "exact_changed": 5,
+      "exact_unchanged": 3,
+      "lineage_label_mismatches": 0,
+      "parser_passed": true,
+      "response_index": 2
+    },
+    {
+      "arm": "history_blind",
+      "declared_retained": 1,
+      "declared_revised": 7,
+      "exact_changed": 1,
+      "exact_unchanged": 7,
+      "lineage_label_mismatches": 6,
+      "parser_passed": false,
+      "response_index": 3
+    }
+  ],
+  "transition_parser_pass_count": 1,
+  "transition_response_count": 4,
+  "transport": {
+    "finish_reason_stop_count": 6,
+    "reasoning_tokens": 0,
+    "usage_log_request_count": 6
+  }
+}
