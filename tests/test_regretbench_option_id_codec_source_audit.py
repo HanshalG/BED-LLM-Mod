@@ -30,3 +30,19 @@ def test_option_id_source_audit_freezes_disjoint_four_stage_cohort(tmp_path):
     assert counts == {"original": 132, "factorized_v2": 132, "union": 264}
     assert len(selected) == len(set(selected)) == 132
     assert not (set(selected) & prior)
+
+    public = json.loads((tmp_path / "CODEC_PUBLIC_TASKS.json").read_text())
+    assert len(public["tasks"]) == 2
+    assert set(public["tasks"][0]) == {
+        "task_index",
+        "task_id",
+        "prompt",
+        "task_file_sha256",
+        "semantic_facets",
+        "reference_questions",
+    }
+    assert public["source_values_included"] is False
+    assert public["intent_descriptions_included"] is False
+    assert public["reference_questions_included_for_code_only"] is True
+    assert public["action_metadata_in_model_prompts"] is False
+    assert public["endpoint_outcomes_included"] is False

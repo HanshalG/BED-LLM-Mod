@@ -24,13 +24,13 @@ PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/REGRETBENCH_OPTION_ID_CODEC_SOURCE_PROTOCOL_20260811.md"
 )
 PROTOCOL_SHA256 = (
-    "d90ed1e3f575e0ef50a5df13caf16a1637a64b3946359562402921dcf3f4389a"
+    "9f60d684327b4a8520669d341ad4d2490644e5409167c4b58e9f8d7bfdfeed9c"
 )
 CODEC_PROTOCOL = REPO_ROOT / (
     "results/nonmyopic/REGRETBENCH_OPTION_ID_CODEC_EXACT8_PROTOCOL_20260811.md"
 )
 CODEC_PROTOCOL_SHA256 = (
-    "e626e402f85163be49df432ca2414d0745103bdf60ce989cc3b25a9279bc18ed"
+    "5b574fc14551f4645b6b6a69d6b32a905b148a3cb210dbff971d33753969445f"
 )
 ORIGINAL_MANIFEST = REPO_ROOT / (
     "results/nonmyopic/regretbench_llm_native_source_audit/"
@@ -177,6 +177,40 @@ def run_audit(*, output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
     }
     gates["all_pass"] = all(gates.values())
     original_manifest = load_object(ORIGINAL_MANIFEST)
+    public_codec_tasks = {
+        "schema_version": SCHEMA_VERSION,
+        "interface_version": INTERFACE_VERSION,
+        "tasks": [
+            {
+                "task_index": index,
+                "task_id": str(cig["cig_id"]),
+                "prompt": str(cig["prompt"]),
+                "task_file_sha256": sha256_file(path),
+                "semantic_facets": list(
+                    (cig.get("semantic_action_schema") or {}).get("ask_facets", [])
+                ),
+                "reference_questions": [
+                    {
+                        "semantic_action": str(row["semantic_action"]),
+                        "text": str(row["text"]),
+                    }
+                    for row in cig.get("reference_questions", [])
+                ],
+            }
+            for index, (path, cig) in enumerate(splits["codec_calibration"])
+        ],
+        "source_values_included": False,
+        "intent_descriptions_included": False,
+        "reference_questions_included_for_code_only": True,
+        "action_metadata_in_model_prompts": False,
+        "endpoint_outcomes_included": False,
+    }
+    output_dir.mkdir(parents=True, exist_ok=True)
+    public_tasks_path = output_dir / "CODEC_PUBLIC_TASKS.json"
+    public_tasks_path.write_text(
+        json.dumps(public_codec_tasks, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "interface_version": INTERFACE_VERSION,
@@ -217,8 +251,8 @@ def run_audit(*, output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
         },
         "policy_visibility": original_manifest["policy_visibility"],
         "codec_calibration_cannot_select_mechanics": True,
+        "codec_public_tasks_sha256": sha256_file(public_tasks_path),
     }
-    output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "SOURCE_PROTOCOL_MANIFEST.json"
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -239,6 +273,7 @@ def run_audit(*, output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
             name: manifest["splits"][name]["ids_sha256"] for name in SPLIT_SIZES
         },
         "source_protocol_manifest_sha256": sha256_file(manifest_path),
+        "codec_public_tasks_sha256": sha256_file(public_tasks_path),
         "protocol_sha256": PROTOCOL_SHA256,
         "codec_protocol_sha256": CODEC_PROTOCOL_SHA256,
         "model_calls_made": 0,

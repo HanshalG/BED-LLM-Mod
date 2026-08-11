@@ -1,5 +1,6 @@
 {
   "codec_calibration_cannot_select_mechanics": true,
+  "codec_public_tasks_sha256": "7c79dbabcb07eb9f5935e03f089deb151927cde91b2315798f407a6a8959c11a",
   "fixed_support_control": {
     "selected_max_depth_gain_nats": 0.0,
     "selected_strict_positive_depth_gains": 0

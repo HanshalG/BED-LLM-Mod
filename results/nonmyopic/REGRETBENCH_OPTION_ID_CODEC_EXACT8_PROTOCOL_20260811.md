@@ -20,7 +20,7 @@ A separate history-free **likelihood evaluator** receives the public prompt and 
 H[p(option)] - sum_h p(h) H[p(option | h)].
 ```
 
-The selected question is the deterministic maximum-MI mapper-supported generated question. Proposal and evaluator prompts contain no source facet values.
+The selected question is the deterministic maximum-MI question supported by a frozen code-only mapper using only public facet IDs and reference-question text. Proposal and evaluator prompts contain neither that action metadata nor source facet values. Only after selection does code load the complete CIG, require the full benchmark mapper to agree on the same facet, and then load that facet's unique values.
 
 Only after selection, code loads the unique values of that selected source facet. Two independently seeded **environment codec** calls receive only:
 
@@ -39,7 +39,7 @@ Each codec call returns exactly one valid option ID per value index. It sees no 
 = 8 accepted responses
 ```
 
-Calls occur in three fixed batches: proposals, evaluators, codecs. The two codec calls for a task are adjacent and have identical payload/schema/model/temperature but distinct frozen seeds.
+Calls occur in three fixed stages: proposals, evaluators, codecs. The two codec calls for a task are adjacent and have identical payload/schema/model/temperature but distinct frozen seeds. The two task pairs may use different strict schemas because their selected facets can have different value counts.
 
 ## Model, Seeds, And Budget
 
@@ -78,12 +78,12 @@ All are conjunctive:
 - every question has exact option IDs `0..3`, three distinct substantive labels, and exact final label `Other / none of these`;
 - evaluator particle indexes are an exact permutation;
 - every prior and likelihood vector is finite, nonnegative, positive-mass, and normalized by code;
-- selected question is mapper-supported and has mutual information at least `0.05` nats; and
+- selected question is supported by the public action mapper, the post-selection full benchmark mapper agrees on the same facet, and mutual information is at least `0.05` nats; and
 - its two largest evaluator predictive option masses are each at least `0.10`.
 
 ### Environment codec executability
 
-- source values are loaded only after question selection and are absent from proposal/evaluator payload hashes;
+- public action metadata and source values are absent from proposal/evaluator payload hashes; complete CIG/source values are loaded only after question selection;
 - selected facet has at least two unique nonempty source values;
 - both codec responses are exact value-index permutations with valid option IDs;
 - the two independently seeded mappings agree on every value;

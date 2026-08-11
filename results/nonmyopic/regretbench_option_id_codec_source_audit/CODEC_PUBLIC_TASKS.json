@@ -1,0 +1,66 @@
+{
+  "action_metadata_in_model_prompts": false,
+  "endpoint_outcomes_included": false,
+  "intent_descriptions_included": false,
+  "interface_version": "regretbench-option-id-codec-source-audit-1",
+  "reference_questions_included_for_code_only": true,
+  "schema_version": 1,
+  "source_values_included": false,
+  "tasks": [
+    {
+      "prompt": "Where is LEHS located?",
+      "reference_questions": [
+        {
+          "semantic_action": "ask:entity_type",
+          "text": "Do you mean a public high school or an independent (private) girls' school?"
+        },
+        {
+          "semantic_action": "ask:city",
+          "text": "Which town/city do you mean?"
+        },
+        {
+          "semantic_action": "ask:state",
+          "text": "If it's in the United States, which state?"
+        },
+        {
+          "semantic_action": "ask:country",
+          "text": "Do you mean the LEHS in the United States or the one in the United Kingdom?"
+        }
+      ],
+      "semantic_facets": [
+        "entity_type",
+        "city",
+        "state",
+        "country"
+      ],
+      "task_file_sha256": "4a1a4512ba7bcd1f23d5359e3b6128c7392acea7e75eeb5746748543c104a63d",
+      "task_id": "ambigdocs_test_15775",
+      "task_index": 0
+    },
+    {
+      "prompt": "What is the notable achievement of Manjunath?",
+      "reference_questions": [
+        {
+          "semantic_action": "ask:entity_type",
+          "text": "Which Manjunath are you asking about?"
+        },
+        {
+          "semantic_action": "ask:location",
+          "text": "Which location is relevant to the achievement you mean?"
+        },
+        {
+          "semantic_action": "ask:accomplishment_type",
+          "text": "What kind of notable achievement are you asking about?"
+        }
+      ],
+      "semantic_facets": [
+        "entity_type",
+        "location",
+        "accomplishment_type"
+      ],
+      "task_file_sha256": "a6c5126052a1dac950a0fcf2ab7265ea51588254f4adcba7363be334da15a87e",
+      "task_id": "ambigdocs_test_12066",
+      "task_index": 1
+    }
+  ]
+}
