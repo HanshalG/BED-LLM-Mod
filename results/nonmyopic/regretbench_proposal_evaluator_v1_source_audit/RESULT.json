@@ -1,0 +1,76 @@
+{
+  "authorizes": "proposal_evaluator_v1_exact20_smoke_only",
+  "bindings": {
+    "predecessor_failure": {
+      "path": "results/nonmyopic/regretbench_factorized_v2_smoke/DAILY_FAILURE_20260811.json",
+      "sha256": "8a62f55ae1866ad4bcb4d734b4f71cc24faccb275957c068d7c643526ec421a6"
+    },
+    "predecessor_ledger": {
+      "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11-regretbench-factorized-v2-smoke.json",
+      "sha256": "8d8b48c4514c41cfb679908289aecc3942625611605ab3190d0e2a79fb5849cf"
+    },
+    "predecessor_paid_prompt_audit": {
+      "path": "results/nonmyopic/regretbench_factorized_v2_smoke/PAID_PROMPT_AUDIT.json",
+      "sha256": "60268e7b9c5eb5547c1c32ad371f0a70406c6ed1b794706ef4ac86bee6d7febe"
+    },
+    "predecessor_source_manifest": {
+      "path": "results/nonmyopic/regretbench_factorized_v2_source_audit/SOURCE_PROTOCOL_MANIFEST.json",
+      "sha256": "831a8bcf8f38b183c080c5a369896366915ca8b8ada38294143d7f31a11c1999"
+    },
+    "predecessor_source_result": {
+      "path": "results/nonmyopic/regretbench_factorized_v2_source_audit/RESULT.json",
+      "sha256": "54fc24022ccce75f5865173edf0049392862c413813fdd0e7884fbfc55e537a7"
+    },
+    "predecessor_terminal_audit": {
+      "path": "results/nonmyopic/regretbench_factorized_v2_smoke/TERMINAL_AUDIT.json",
+      "sha256": "5c72f3b085ccfb726654d33e7229ec8c9d38d9a8683d2c5bcae01897563f06f3"
+    },
+    "predecessor_terminal_report": {
+      "path": "results/nonmyopic/REGRETBENCH_FACTORIZED_V2_AUG11_TERMINAL_RESULT_20260811.md",
+      "sha256": "085ddb06aef35821ab3b846d673037b9e38511ceaa351e4557d4eefbcaf76879"
+    },
+    "smoke_protocol": {
+      "path": "results/nonmyopic/REGRETBENCH_PROPOSAL_EVALUATOR_V1_EXACT20_SMOKE_PROTOCOL_20260811.md",
+      "sha256": "c56939f2f45c1da2a5dd2dc4e6ab8fd7921cf3033febe085a4d3a0933cd5583b"
+    },
+    "source_protocol": {
+      "path": "results/nonmyopic/REGRETBENCH_PROPOSAL_EVALUATOR_V1_SOURCE_PROTOCOL_20260811.md",
+      "sha256": "9edb0a7828dfa74b660bea02fc80c50db05be4b6df571efe0911693ee41c190e"
+    }
+  },
+  "classification": {
+    "paid_root_hashes_equal_positions_zero_one_in_order": true,
+    "paid_root_positions": [
+      0,
+      1
+    ],
+    "positions_two_three_absent_from_all_paid_payloads": true,
+    "untouched_positions": [
+      2,
+      3
+    ]
+  },
+  "confirmation_opened": false,
+  "cost_usd": 0.0,
+  "development_opened": false,
+  "endpoint_outcomes_opened": false,
+  "gates": {
+    "all_paid_prompt_audits_passed": true,
+    "all_pass": true,
+    "no_predecessor_science_outputs_exist": true,
+    "paid_roots_are_exactly_positions_zero_one": true,
+    "positions_two_three_never_sent": true,
+    "predecessor_authorizes_nothing": true,
+    "predecessor_exact_six_calls_before_static": true,
+    "predecessor_failed_closed": true,
+    "predecessor_private_projection_exact": true,
+    "predecessor_source_passed": true,
+    "predecessor_stage_failed_closed": true,
+    "successor_has_exactly_two_tasks": true
+  },
+  "interface_version": "regretbench-proposal-evaluator-v1-source-audit-1",
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "status": "source_protocol_pass",
+  "task_manifest_sha256": "c24d703a9d6f6a87b7f0d96c5dcac469a567e98dbea89beb4a9429ec51a57803"
+}

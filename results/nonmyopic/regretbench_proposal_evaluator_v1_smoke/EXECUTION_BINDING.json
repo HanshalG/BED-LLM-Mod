@@ -1,0 +1,48 @@
+{
+  "accepted_requests_authorized": 20,
+  "account_boundary": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11.json",
+    "sha256": "8ab4fc46b62d896393ed68514473560c53ccb1dc2978e01b53f50cf4e6c4c301"
+  },
+  "confirmation_calls_authorized": false,
+  "dated_budget_wrapper": {
+    "path": "scripts/regretbench_proposal_evaluator_v1_aug11_execute.py",
+    "sha256": "0b1c83ba58c51935fbaa40359982c7b5479ca94df20c39fbc77608418c5b28bd"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/regretbench_proposal_evaluator_v1_smoke_verify.py",
+    "sha256": "34496bd0cd5eea65b138b1d18dbe9db5ba5d90d7bc14f7410a72a15fd1d3920e"
+  },
+  "maximum_http_attempts": 24,
+  "predecessor_stage_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11-regretbench-factorized-v2-smoke.json",
+    "sha256": "8d8b48c4514c41cfb679908289aecc3942625611605ab3190d0e2a79fb5849cf"
+  },
+  "producer": {
+    "path": "scripts/regretbench_proposal_evaluator_v1_smoke.py",
+    "sha256": "0582858e395d39e0b50b9d5c4e8aceb62ce00062d9ac8d88b20abf9299e46f51"
+  },
+  "run_cap_usd": 0.2,
+  "smoke_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_PROPOSAL_EVALUATOR_V1_EXACT20_SMOKE_PROTOCOL_20260811.md",
+    "sha256": "c56939f2f45c1da2a5dd2dc4e6ab8fd7921cf3033febe085a4d3a0933cd5583b"
+  },
+  "source_audit": {
+    "path": "scripts/regretbench_proposal_evaluator_v1_source_audit.py",
+    "sha256": "44e1bd3ea4fd639b97005c6dcee106805a945284f0013af99856438986e7bd44"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/regretbench_proposal_evaluator_v1_source_audit/SOURCE_TASK_MANIFEST.json",
+    "sha256": "d3c92a4edecc39b6524790f0e46b813ae8c04ad8507ac67535a95680b9afe7ad"
+  },
+  "source_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_PROPOSAL_EVALUATOR_V1_SOURCE_PROTOCOL_20260811.md",
+    "sha256": "9edb0a7828dfa74b660bea02fc80c50db05be4b6df571efe0911693ee41c190e"
+  },
+  "source_result": {
+    "path": "results/nonmyopic/regretbench_proposal_evaluator_v1_source_audit/RESULT.json",
+    "sha256": "e3e627a69578f19671e57d9e0a731c8c1eb30d53984c5f238c6a83f91bc93be9"
+  }
+}

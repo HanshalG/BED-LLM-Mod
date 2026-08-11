@@ -1,0 +1,37 @@
+{
+  "development_or_confirmation_tasks_loaded": false,
+  "interface_version": "regretbench-proposal-evaluator-v1-source-audit-1",
+  "paid_predecessor_tasks": [
+    {
+      "position": 0,
+      "root_payload_sha256": "348978eea188e7babe49e3d3449d00c4e8e0c7187f3c196ce09495fda6b7925c",
+      "task_file_sha256": "27824ce3aa0a8595b2c94f2c48595cca74581b3ab0d6dcf974cd7a1204247c7a",
+      "task_id": "ambigdocs_test_31367"
+    },
+    {
+      "position": 1,
+      "root_payload_sha256": "5b425f9e82e907b844902d89998bbc44f57d3c38da01d1004e316869b5dd303d",
+      "task_file_sha256": "86649bbea3664317891828072e67e8a29f5e43ed889734c1918916dcf0f4f83d",
+      "task_id": "ambigdocs_test_44737"
+    }
+  ],
+  "predecessor_mechanics_ids_sha256": "93fdbfb55d0ded5fdbed1cfa78f251a863590f07ae2eaece2e20bdfc2d01a353",
+  "schema_version": 1,
+  "smoke_protocol_sha256": "c56939f2f45c1da2a5dd2dc4e6ab8fd7921cf3033febe085a4d3a0933cd5583b",
+  "source_protocol_sha256": "9edb0a7828dfa74b660bea02fc80c50db05be4b6df571efe0911693ee41c190e",
+  "successor_smoke_tasks": [
+    {
+      "position": 2,
+      "root_payload_sha256": "b4e4c16d030c77d099c656bd5deb06efcea9bcf112d9a1c3fa235b3cb7f79adb",
+      "task_file_sha256": "12e09b093adb3bfac622ddc4b6a7a00e7caec0ccb024f6a0e3fc0e9df1f03015",
+      "task_id": "ambigdocs_test_60701"
+    },
+    {
+      "position": 3,
+      "root_payload_sha256": "6e361c13073c6cc85335df603bb82f12c8916ca09b3fa4ba05efcfbd577c6eab",
+      "task_file_sha256": "5061a954cb6da27f0f68920b2184aa2214b7fa3ccb7e9d779f7e98bd05e52e0a",
+      "task_id": "ambigdocs_test_55539"
+    }
+  ],
+  "successor_task_ids_sha256": "4e4faa0912df2c0a3744c5f3014678c08f1283f4b734f9220dadfce286274087"
+}

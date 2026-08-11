@@ -1,0 +1,60 @@
+{
+  "accepted_requests": {
+    "root": 2,
+    "static_likelihood": 0,
+    "total": 6,
+    "transition": 4
+  },
+  "all_prompt_privacy_audits_passed": true,
+  "authorizes": "hash_only_successor_source_replay",
+  "endpoint_outcomes_opened": false,
+  "interface_version": "regretbench-factorized-v2-paid-prompt-audit-1",
+  "paid_payload_audits": [
+    {
+      "index": 0,
+      "passed": true,
+      "payload_sha256": "348978eea188e7babe49e3d3449d00c4e8e0c7187f3c196ce09495fda6b7925c",
+      "role": "root_task_0"
+    },
+    {
+      "index": 1,
+      "passed": true,
+      "payload_sha256": "5b425f9e82e907b844902d89998bbc44f57d3c38da01d1004e316869b5dd303d",
+      "role": "root_task_1"
+    },
+    {
+      "index": 2,
+      "passed": true,
+      "payload_sha256": "9a5cb45751532de6a84ea363e677e563c8aa56f18790c9a3c072a5572ce3e6ae",
+      "role": "conditioned_transition_task_0"
+    },
+    {
+      "index": 3,
+      "passed": true,
+      "payload_sha256": "2b04aa9ff685c21cc4b1edc42ef8dc0c8bac1e84a031f5b6b0e0b773e78cd5a5",
+      "role": "answer_free_transition_task_0"
+    },
+    {
+      "index": 4,
+      "passed": true,
+      "payload_sha256": "ca88d5aee1c78a8522f2217bca003c1021b4262415c900f67ba1c43b72459e50",
+      "role": "conditioned_transition_task_1"
+    },
+    {
+      "index": 5,
+      "passed": true,
+      "payload_sha256": "0b4563c85784e16caf931cf2806ea65357ee2d3f2f0f1dad21140c61c88aa8d5",
+      "role": "answer_free_transition_task_1"
+    }
+  ],
+  "private_privacy_sha256": "e3b0e2665d19768847a9c037a98e57e67e482e08581ca2d7e65abbb76108eb82",
+  "private_raw_response_keys": [
+    "root_seeds",
+    "roots",
+    "transition_seeds",
+    "transitions"
+  ],
+  "private_raw_responses_sha256": "9d5d718aaa4782e30469a9d8f65341da8a0ec5ed0bc931f22f2f68e90f9726ce",
+  "schema_version": 1,
+  "status": "verified_hash_only_projection"
+}
