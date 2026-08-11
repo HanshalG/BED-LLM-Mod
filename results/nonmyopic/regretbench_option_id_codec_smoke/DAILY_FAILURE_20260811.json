@@ -1,0 +1,13 @@
+{
+  "authorizes": "nothing",
+  "confirmation_opened": false,
+  "development_opened": false,
+  "endpoint_outcomes_opened": false,
+  "error": "option-ID proposal question is invalid",
+  "error_type": "ValueError",
+  "interface_version": "regretbench-option-id-codec-aug11-execute-1",
+  "mechanics_opened": false,
+  "schema_version": 1,
+  "stage_ledger_sha256": "5b55a26ec7a2a26ce271c30324715d68492ed66e85ea18269e0770aff6c5afb2",
+  "status": "failed_closed"
+}

@@ -1,0 +1,63 @@
+{
+  "accepted_requests": {
+    "codec": 0,
+    "likelihood_evaluator": 0,
+    "proposal": 2,
+    "total": 2
+  },
+  "artifacts": {
+    "daily_failure_sha256": "79dd46d849017c0d18c947510c9ea2ddfe151fb46bb4a02aa91eefe1e7dd271a",
+    "private_privacy_sha256": "142164dd7dcfb3905ad4efbd351c142986d9d6c853850f1db954cfecb25af77b",
+    "private_raw_responses_sha256": "4fa803511cb6d946d42f78cbba7e7e11b60a39b2c930284e1e54dbf4cb7a1dfe",
+    "private_run_log_sha256": "b41503230871242e8f03cb5a0f2df0e8e39ac50ca4310323fc13394735b35366",
+    "stage_ledger_sha256": "5b55a26ec7a2a26ce271c30324715d68492ed66e85ea18269e0770aff6c5afb2"
+  },
+  "authorizes": "nothing",
+  "budget": {
+    "authenticated_total_credits_usd_after_run": 245.0,
+    "authenticated_total_usage_usd_after_run": 220.132678065,
+    "locally_measured_stage_cost_usd": 0.000459934776,
+    "posted_spend_since_aug11_boundary_at_reconciliation_usd": 0.0029980529999988903,
+    "recorded_account_wide_spend_usd": 0.0032289367759972265,
+    "remaining_aug11_allowance_usd": 4.996771063224003
+  },
+  "development_opened": false,
+  "diagnostic_only": true,
+  "endpoint_outcomes_opened": false,
+  "first_terminal_error": "option-ID proposal question is invalid",
+  "interface_version": "regretbench-option-id-codec-exact8-smoke-1",
+  "mechanics_opened": false,
+  "parser_audit": [
+    {
+      "invalid_question_count": 0,
+      "proposal_parser_passed": true,
+      "question_count": 4,
+      "task_index": 0
+    },
+    {
+      "invalid_question_count": 1,
+      "invalid_question_index": 1,
+      "invalid_question_surface": "What is the scope of the achievement? (e.g., international, national, regional)",
+      "proposal_parser_passed": false,
+      "question_count": 4,
+      "task_index": 1,
+      "terminal_character_is_question_mark": false
+    }
+  ],
+  "policy_endpoint_opened": false,
+  "privacy": {
+    "all_two_emitted_prompt_audits_passed": true,
+    "full_cig_loaded": false,
+    "source_values_loaded": false,
+    "task_answers_or_endpoints_exposed": false
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "transport": {
+    "completion_tokens": 1728,
+    "finish_reason_stop_count": 2,
+    "prompt_tokens": 306,
+    "reasoning_tokens": 0,
+    "usage_log_request_count": 2
+  }
+}
