@@ -1,0 +1,24 @@
+{
+  "authorizes": "zero_call_opportunity_audit_only",
+  "cost_usd": 0.0,
+  "development_or_confirmation_opened": false,
+  "gates": {
+    "all_pass": true,
+    "exact_103_repository_names": true,
+    "exact_33_eligible_repositories": true,
+    "exact_567_rows": true,
+    "exact_parquet_sha256": true,
+    "exact_repository_split_sizes": true,
+    "exact_selected_state_counts": true,
+    "exact_source_commit": true,
+    "no_source_content_or_outcome_opened": true,
+    "only_safe_metadata_columns_projected": true
+  },
+  "interface_version": "ci-repair-bed-source-manifest-result-1",
+  "model_calls_made": 0,
+  "protocol_sha256": "8d7ba8895eb7b118563ab5bc2883a16513b2b9adc9f6cb930bb214a46d540f5e",
+  "schema_version": 1,
+  "selected_source_content_opened": false,
+  "source_manifest_sha256": "2eb9e609bc04acde051f24524725bf12d7a76f90376a510a5c89c6382eaba705",
+  "status": "source_manifest_frozen"
+}

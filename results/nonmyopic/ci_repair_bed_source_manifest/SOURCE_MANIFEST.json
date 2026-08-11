@@ -1,0 +1,266 @@
+{
+  "changed_files_opened": false,
+  "cost_usd": 0.0,
+  "diffs_opened": false,
+  "error_types_opened": false,
+  "interface_version": "ci-repair-bed-source-manifest-1",
+  "logs_opened": false,
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "selected_ids_serialized": false,
+  "selection": {
+    "grouping_key": "repo_name",
+    "maximum_selected_states_per_repository": 12,
+    "minimum_states_per_repository": 4,
+    "repository_salt": "ci-repair-bed-v2|repo|",
+    "row_salt": "ci-repair-bed-v2|row|"
+  },
+  "source": {
+    "dataset_commit": "7f5a6e8799ff57b9590cc8e87ce220c880d82c7b",
+    "eligible_repository_count": 33,
+    "parquet_sha256": "11caa322466b50f0ec31348d6adca096c7f5aac2bc8b9ec8df7721cf5b53d3f9",
+    "projected_columns": [
+      "id",
+      "repo_name"
+    ],
+    "repository_commit": "938310f45d5b76dfed56e2cfd7be344aed5b3de1",
+    "repository_count": 103,
+    "row_count": 567
+  },
+  "splits": {
+    "confirmation": {
+      "repositories": [
+        {
+          "available_state_count": 9,
+          "repo_name": "aider",
+          "selected_ids_sha256": "54b9e6e30c2d1c8108da3e4739293e20e8003895746b735f4290fc5003a1c1a9",
+          "selected_state_count": 9
+        },
+        {
+          "available_state_count": 14,
+          "repo_name": "aiohttp",
+          "selected_ids_sha256": "3418d47154809039d42c296d58269241c4e3c50061cb1eeb5581f9f49870d28b",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 51,
+          "repo_name": "axolotl",
+          "selected_ids_sha256": "5a41873d255c35cbc9612791e814185bbcae9d15d71e0769e294f1f5142b1cec",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 6,
+          "repo_name": "cloud-init",
+          "selected_ids_sha256": "2baaff6667c35a43c81f2b65b494815c1527cb554102e12d5ff6cb4fadc43e3e",
+          "selected_state_count": 6
+        },
+        {
+          "available_state_count": 28,
+          "repo_name": "conan",
+          "selected_ids_sha256": "ecf1187d42e7b4ce94fe09d14b6ca5ea25e6a2755659744f0a8665630a7dafbe",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "deepcode",
+          "selected_ids_sha256": "42850db2dcde00031a33ffcc503f5482bbb82584cd6304b39b19fc54032053af",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 30,
+          "repo_name": "litellm",
+          "selected_ids_sha256": "26e8730682c6abe9f6e7d4936e4cbc4a434a3a905238138500c102925183ab9f",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "uvicorn",
+          "selected_ids_sha256": "53bf05700ac66b3c2e62a131433d2f5b7bfc9e14ba26d5c883ca053119e5ac01",
+          "selected_state_count": 4
+        }
+      ],
+      "repository_count": 8,
+      "selected_ids_sha256": "fea222e29ed05052777c01e91342f8d8d38b517d10a17c029d2253d9c388758d",
+      "selected_state_count": 71
+    },
+    "development": {
+      "repositories": [
+        {
+          "available_state_count": 4,
+          "repo_name": "accelerate",
+          "selected_ids_sha256": "f50c1771fb4731c150fca1a0a5d7156c76737b3f47f8c73eac0890d5e382ed6c",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 7,
+          "repo_name": "agentscope",
+          "selected_ids_sha256": "3bc062bb4f4c3989aa02f5f50b902b6a53ee91c548f2304453dca54ea5706f91",
+          "selected_state_count": 7
+        },
+        {
+          "available_state_count": 84,
+          "repo_name": "agno",
+          "selected_ids_sha256": "328ed99cf0ea3dede82704a4a4bf539f5bac05b495dd80f49487549f49da21c6",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 7,
+          "repo_name": "aisuite",
+          "selected_ids_sha256": "173148c798fe78a065b819ceabae98bcaea6bce3f35bd497c8a7f9de588db9bb",
+          "selected_state_count": 7
+        },
+        {
+          "available_state_count": 6,
+          "repo_name": "calibre",
+          "selected_ids_sha256": "c35a28244073152d74ff01022b46b0e20a2541efd668c810f0b82390032814d7",
+          "selected_state_count": 6
+        },
+        {
+          "available_state_count": 15,
+          "repo_name": "camel",
+          "selected_ids_sha256": "0e8f88bf7bd3cb935a481ff68be5d066dba1002e2ad5d2c6afac2d21b1869d97",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 5,
+          "repo_name": "dask",
+          "selected_ids_sha256": "e8b6d6c4632d0778d105ecda612ca1622e6f71312781c5a9011cc81f7cd19da8",
+          "selected_state_count": 5
+        },
+        {
+          "available_state_count": 5,
+          "repo_name": "skypilot",
+          "selected_ids_sha256": "b1a475364412cbaf728a9637c0e342a45055a0a6bf82aeb5121d0259c6d0f612",
+          "selected_state_count": 5
+        }
+      ],
+      "repository_count": 8,
+      "selected_ids_sha256": "31698c95b4b95fd37cb2c8e386f3ce959c12010f85441ebc9409e2eeb2fdba50",
+      "selected_state_count": 58
+    },
+    "mechanics": {
+      "repositories": [
+        {
+          "available_state_count": 6,
+          "repo_name": "beets",
+          "selected_ids_sha256": "53172deb9f15a95dbc097e8cdd08c283af4df9b8ef63ebb1ce335c082a48bf45",
+          "selected_state_count": 6
+        },
+        {
+          "available_state_count": 5,
+          "repo_name": "httpx",
+          "selected_ids_sha256": "3ba5e9b6383ca75f75ce5df5ba323a18860f4c897230c09bc9235a6e8683ce97",
+          "selected_state_count": 5
+        },
+        {
+          "available_state_count": 5,
+          "repo_name": "sqlglot",
+          "selected_ids_sha256": "5833a8bebef9199954d087cb0d56ace8f1b354e4b8610c88d245b7271d78bf18",
+          "selected_state_count": 5
+        }
+      ],
+      "repository_count": 3,
+      "selected_ids_sha256": "fdebb5ed5cb0128a4501a31dcf187add429dd1b11682bf7a03272498b15d6aa3",
+      "selected_state_count": 16
+    },
+    "opportunity": {
+      "repositories": [
+        {
+          "available_state_count": 4,
+          "repo_name": "airbyte",
+          "selected_ids_sha256": "66bf33b3a9645ddcb3f5dd0454b8d14cc7b18c7ce8bce82bedc01f18a00f3c6d",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 5,
+          "repo_name": "aws-cli",
+          "selected_ids_sha256": "5b1c1c2f33dfd50399a17fdf00c2504a5dbcf8f03f97d5a7f567f65ed77cb178",
+          "selected_state_count": 5
+        },
+        {
+          "available_state_count": 27,
+          "repo_name": "browser-use",
+          "selected_ids_sha256": "531aaa0355dbe7d6c409309f9205a6f02af2a7bad89932bd7f77ea21ff6badca",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "cpython",
+          "selected_ids_sha256": "dcef2c51c37f60cac2301229cc23656904856ccb4def0207392abd93777485a1",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "diffusers",
+          "selected_ids_sha256": "4e501c693dfd350a5b5f6424fd179dc3692bdae9f2ef6050f4244af55d10c1de",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 8,
+          "repo_name": "django-import-export",
+          "selected_ids_sha256": "c9747f6d1e00d0604121b9fc6161cb5c07392623c25991886b92358be8caaedc",
+          "selected_state_count": 8
+        },
+        {
+          "available_state_count": 27,
+          "repo_name": "flower",
+          "selected_ids_sha256": "4905b9815104984a20a364f9765c18a170a060f0138cebdca5b0101ac088de5e",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "kitty",
+          "selected_ids_sha256": "88cd583ed95f9d1690db1cb798cb3efff1eaec07fcc66c358dae1e46bc8069a9",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 12,
+          "repo_name": "maxkb",
+          "selected_ids_sha256": "2f9702b1d8d4c4d931b1f9ff00258fd542b35979bc4b51332afeb5c44b53ceee",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "openai-python",
+          "selected_ids_sha256": "5f9e518f6e323d66b5667a2725f7f92e2735e3688f145f7d064a3cff5697fb26",
+          "selected_state_count": 4
+        }
+      ],
+      "repository_count": 10,
+      "selected_ids_sha256": "a47fc82c234a2f126c70ad470cec6ff6cd0abf67f777ec980b54c2e064d57508",
+      "selected_state_count": 69
+    },
+    "reserve": {
+      "repositories": [
+        {
+          "available_state_count": 14,
+          "repo_name": "crewai",
+          "selected_ids_sha256": "63d6281cc463681c6602055f0613b0bbc0d03d2045c624c4b11d76580dd74b6e",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 15,
+          "repo_name": "docsgpt",
+          "selected_ids_sha256": "fcb0af03b22d79c5564ca4dd5aae844ff904c99c78a1a16f32523114e693d2d1",
+          "selected_state_count": 12
+        },
+        {
+          "available_state_count": 4,
+          "repo_name": "starlette",
+          "selected_ids_sha256": "a9cbe457cc68dde7f14b989acdab68fbf4bbb7bdc7d96de5bacaacb99843b720",
+          "selected_state_count": 4
+        },
+        {
+          "available_state_count": 19,
+          "repo_name": "taipy",
+          "selected_ids_sha256": "c2bb69af0affe507f5231442fb19d483ab2247929841de1d3d95aff17ff6ecdf",
+          "selected_state_count": 12
+        }
+      ],
+      "repository_count": 4,
+      "selected_ids_sha256": "4b3827b24fdc8932f536d9fad9476de80c048f470963369c2b4f780211ec897f",
+      "selected_state_count": 40
+    }
+  },
+  "workflow_opened": false
+}
