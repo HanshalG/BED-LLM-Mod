@@ -1,0 +1,40 @@
+{
+  "authorizes": "option_id_codec_exact8_only",
+  "codec_protocol_sha256": "e626e402f85163be49df432ca2414d0745103bdf60ce989cc3b25a9279bc18ed",
+  "confirmation_opened": false,
+  "cost_usd": 0.0,
+  "counts": {
+    "available_test_files": 6286,
+    "eligible_cigs": 2419,
+    "fresh_selected_tasks": 132,
+    "prior_excluded_tasks": 264
+  },
+  "development_opened": false,
+  "gates": {
+    "all_available_test_checksums_match": true,
+    "all_pass": true,
+    "all_selected_fixed_support_depth_gains_are_zero": true,
+    "exact_2419_eligible_cigs": true,
+    "exact_264_prior_tasks_excluded": true,
+    "exact_6286_test_files": true,
+    "exact_fresh_split_sizes": true,
+    "fresh_splits_are_disjoint": true,
+    "no_selected_prompt_contains_answer_alias": true,
+    "official_commit_matches": true,
+    "selected_prompts_are_unique": true
+  },
+  "interface_version": "regretbench-option-id-codec-source-audit-1",
+  "model_calls_made": 0,
+  "policy_endpoint_opened": false,
+  "protocol_sha256": "d90ed1e3f575e0ef50a5df13caf16a1637a64b3946359562402921dcf3f4389a",
+  "schema_version": 1,
+  "source_protocol_manifest_sha256": "af97ae4cd6ccd0509fe5e6b365f5fea5ee9a8f8aeb9047bab854a8c60a9f0d7b",
+  "source_values_opened": false,
+  "split_hashes": {
+    "codec_calibration": "5e791bf3d517ea532d684b0f8bcdadb11565117d57fc8272b52a1810c20acdf5",
+    "confirmation": "d4b4121576f79830f91411a6375746199fa6057065c6f87dc1b186c5a80b96da",
+    "development": "ba0b976a2a2e191dac42938be942b36548166a35ad22910d9969bf315dd1a867",
+    "mechanics": "4a29f3abe09965aba6724ee4b3214cf9ecbf388d2e726263404390de8d9b23a3"
+  },
+  "status": "source_protocol_pass"
+}
