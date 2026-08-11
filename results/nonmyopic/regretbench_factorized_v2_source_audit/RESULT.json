@@ -1,0 +1,36 @@
+{
+  "authorizes": "factorized_v2_exact10_smoke_only",
+  "cost_usd": 0.0,
+  "counts": {
+    "available_test_files": 6286,
+    "eligible_cigs": 2419,
+    "fresh_selected_tasks": 132,
+    "prior_excluded_tasks": 132
+  },
+  "gates": {
+    "all_available_test_checksums_match": true,
+    "all_pass": true,
+    "all_selected_fixed_support_depth_gains_are_zero": true,
+    "exact_2419_eligible_cigs": true,
+    "exact_6286_test_files": true,
+    "exact_fresh_split_sizes": true,
+    "fresh_splits_are_disjoint": true,
+    "no_selected_prompt_contains_answer_alias": true,
+    "official_commit_matches": true,
+    "original_132_tasks_excluded": true,
+    "selected_prompts_are_unique": true
+  },
+  "hidden_truth_opened": false,
+  "interface_version": "regretbench-factorized-v2-source-audit-1",
+  "model_calls_made": 0,
+  "policy_endpoint_opened": false,
+  "protocol_sha256": "151751b576e2db14a6e21848d7d548a09f92172a6709e476ed903d41fea8c753",
+  "schema_version": 1,
+  "source_protocol_manifest_sha256": "831a8bcf8f38b183c080c5a369896366915ca8b8ada38294143d7f31a11c1999",
+  "split_hashes": {
+    "confirmation": "5e1571579a34944d2b4eaeb44ebf3ed98f8319da5fd4f799f1cf1f7f66f9a86e",
+    "development": "b6f0aae355692e7e40b2551c3c38243d497878aaa943b587a23254dc3c55845e",
+    "mechanics": "93fdbfb55d0ded5fdbed1cfa78f251a863590f07ae2eaece2e20bdfc2d01a353"
+  },
+  "status": "source_protocol_pass"
+}
