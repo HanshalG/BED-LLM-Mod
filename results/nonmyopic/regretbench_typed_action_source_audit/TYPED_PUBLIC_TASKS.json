@@ -1,0 +1,67 @@
+{
+  "action_metadata_in_model_prompts": true,
+  "canonical_questions_included": true,
+  "endpoint_outcomes_included": false,
+  "intent_descriptions_included": false,
+  "interface_version": "regretbench-typed-action-source-audit-1",
+  "schema_version": 1,
+  "source_values_included": false,
+  "tasks": [
+    {
+      "actions": [
+        {
+          "action_id": "entity_type",
+          "public_order": 0,
+          "question": "Which of these categories fits what you mean by \"EQ2\"?"
+        },
+        {
+          "action_id": "is_movie",
+          "public_order": 1,
+          "question": "Are you asking about a movie called EQ2?"
+        },
+        {
+          "action_id": "is_telescope",
+          "public_order": 2,
+          "question": "Do you mean EQ2 as a telescope model or product?"
+        },
+        {
+          "action_id": "is_mmo",
+          "public_order": 3,
+          "question": "Are you referring to an online multiplayer game?"
+        }
+      ],
+      "prompt": "What does EQ2 refer to?",
+      "task_file_sha256": "74d814b67b0ab24149442acc7bacbd7e241d2d0ee84db66580e6bea3d7f3ecbe",
+      "task_id": "ambigdocs_test_14873",
+      "task_index": 0
+    },
+    {
+      "actions": [
+        {
+          "action_id": "entity_type",
+          "public_order": 0,
+          "question": "Are you asking about a town/municipality or something else (like a sports club)?"
+        },
+        {
+          "action_id": "region",
+          "public_order": 1,
+          "question": "Do you mean the San Casciano in Emilia-Romagna or one in Tuscany (Siena area or Florence area)?"
+        },
+        {
+          "action_id": "notable_feature",
+          "public_order": 2,
+          "question": "Are you asking about a festival/folk event, hot springs, a sports team, or local wine/olive oil production?"
+        },
+        {
+          "action_id": "fame_category",
+          "public_order": 3,
+          "question": "Do you mean San Casciano known for cultural/traditional events, thermal/wellness springs, a sports club, or food/wine production?"
+        }
+      ],
+      "prompt": "What is San Casciano known for?",
+      "task_file_sha256": "228705a5a56bb135bd26fa1cd25e18f781b51fcf2a22940ee291dc289c0ec905",
+      "task_id": "ambigdocs_test_41607",
+      "task_index": 1
+    }
+  ]
+}

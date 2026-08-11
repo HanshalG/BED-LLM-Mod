@@ -1,0 +1,46 @@
+{
+  "authorizes": "typed_action_exact8_only",
+  "calibration_protocol_sha256": "79a2fef1d8244007afece2c5f69484be6d3e8e3a4795b69e7982aad1d3bcc740",
+  "confirmation_opened": false,
+  "cost_usd": 0.0,
+  "counts": {
+    "available_test_files": 6286,
+    "eligible_cigs": 2419,
+    "fresh_selected_tasks": 132,
+    "fresh_typed_eligible_cigs": 891,
+    "prior_excluded_tasks": 396
+  },
+  "development_opened": false,
+  "gates": {
+    "all_available_test_checksums_match": true,
+    "all_pass": true,
+    "all_selected_actions_have_at_least_two_private_values": true,
+    "all_selected_fixed_support_depth_gains_are_zero": true,
+    "all_selected_have_exactly_four_executable_actions": true,
+    "exact_2419_eligible_cigs": true,
+    "exact_396_prior_tasks_excluded": true,
+    "exact_6286_test_files": true,
+    "exact_891_fresh_typed_eligible_cigs": true,
+    "exact_fresh_split_sizes": true,
+    "fresh_splits_are_disjoint": true,
+    "no_selected_prompt_contains_answer_alias": true,
+    "official_commit_matches": true,
+    "selected_prompts_are_unique": true
+  },
+  "interface_version": "regretbench-typed-action-source-audit-1",
+  "model_calls_made": 0,
+  "policy_endpoint_opened": false,
+  "policy_source_values_opened": false,
+  "protocol_sha256": "4301b0473ce7a3611af60dfc28a8b24b8e1a34d5d9a1592a10b9b7d2f207d93e",
+  "schema_version": 1,
+  "source_protocol_manifest_sha256": "276c0e5d43b8415b1f2e8e8ceb4d97d3340cc5b02b56ba389a61ddc9a12dbcec",
+  "source_values_materialized_in_public_artifacts": false,
+  "split_hashes": {
+    "confirmation": "a41db5bf77d455e2e7d56692da0d8ef7d6fda043b98d29320b7e7496f840fef2",
+    "development": "4a6573dcc32791f4240d9c26b0bb478428fe417ca132d1dbed76c336d31c9c4b",
+    "mechanics": "67d47bea3766cb4b90a4472a2ba167f405a517d04a8f227847819db7085e14c0",
+    "typed_calibration": "11cf1f30c2aa81de7884321e31d9047a859a562f282e3f418f36f6620d50693a"
+  },
+  "status": "source_protocol_pass",
+  "typed_public_tasks_sha256": "12de3ae0e4953da606279c77af5aeabc7f85a6f202bd68952dfa2a6bb9e8526b"
+}
