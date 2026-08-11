@@ -1,0 +1,61 @@
+{
+  "accepted_requests_authorized": 8,
+  "account_boundary": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11.json",
+    "sha256": "8ab4fc46b62d896393ed68514473560c53ccb1dc2978e01b53f50cf4e6c4c301"
+  },
+  "confirmation_calls_authorized": false,
+  "dated_budget_wrapper": {
+    "path": "scripts/regretbench_typed_action_aug11_execute.py",
+    "sha256": "7ca9fa6787afe5b91a0fda09219e94946143fcb38f6694028c98f0caaf6b0957"
+  },
+  "development_calls_authorized": false,
+  "earlier_stage_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11-regretbench-factorized-v2-smoke.json",
+    "sha256": "8d8b48c4514c41cfb679908289aecc3942625611605ab3190d0e2a79fb5849cf"
+  },
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/regretbench_typed_action_smoke_verify.py",
+    "sha256": "a344f053e3e8bab58789ef6a3342e0299d2ffc9aed7020351d563e4c6ae6c22a"
+  },
+  "maximum_http_attempts": 12,
+  "middle_stage_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11-regretbench-proposal-evaluator-v1-smoke.json",
+    "sha256": "307cbb01ec7602e5b43cc999ce897878bbb2a5be227de5b173249680e0140f5a"
+  },
+  "predecessor_stage_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-11-regretbench-option-id-codec-smoke.json",
+    "sha256": "5b55a26ec7a2a26ce271c30324715d68492ed66e85ea18269e0770aff6c5afb2"
+  },
+  "producer": {
+    "path": "scripts/regretbench_typed_action_smoke.py",
+    "sha256": "ca726a4fddf5f799a0a6e50fbe6589d496c83d99448e892e31f000535fb7f3d2"
+  },
+  "public_tasks": {
+    "path": "results/nonmyopic/regretbench_typed_action_source_audit/TYPED_PUBLIC_TASKS.json",
+    "sha256": "12de3ae0e4953da606279c77af5aeabc7f85a6f202bd68952dfa2a6bb9e8526b"
+  },
+  "run_cap_usd": 0.1,
+  "schema_version": 1,
+  "smoke_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_TYPED_ACTION_EXACT8_PROTOCOL_20260811.md",
+    "sha256": "79a2fef1d8244007afece2c5f69484be6d3e8e3a4795b69e7982aad1d3bcc740"
+  },
+  "source_audit": {
+    "path": "scripts/regretbench_typed_action_source_audit.py",
+    "sha256": "8e930df9015b909a4c0abd83ae4f01aefd320893efc4bfb9aa5c47cdc4e3ee86"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/regretbench_typed_action_source_audit/SOURCE_PROTOCOL_MANIFEST.json",
+    "sha256": "276c0e5d43b8415b1f2e8e8ceb4d97d3340cc5b02b56ba389a61ddc9a12dbcec"
+  },
+  "source_protocol": {
+    "path": "results/nonmyopic/REGRETBENCH_TYPED_ACTION_SOURCE_PROTOCOL_20260811.md",
+    "sha256": "4301b0473ce7a3611af60dfc28a8b24b8e1a34d5d9a1592a10b9b7d2f207d93e"
+  },
+  "source_result": {
+    "path": "results/nonmyopic/regretbench_typed_action_source_audit/RESULT.json",
+    "sha256": "df404209abe7287db5de5936185f907a96e6da43983c37737be554a4fe5f9a3d"
+  }
+}
