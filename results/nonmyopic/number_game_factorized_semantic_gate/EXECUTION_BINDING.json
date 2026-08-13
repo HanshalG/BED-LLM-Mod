@@ -1,0 +1,20 @@
+{
+  "audit_requests": 10,
+  "codec": {"path": "scripts/number_game_factorized_semantic_codec.py", "sha256": "c46213e92079300e08e541a28460897f0796665ebd8b60229bb8474aa5e7dbd4"},
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "endpoints_authorized": false,
+  "maximum_http_attempts": 70,
+  "maximum_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "producer": {"path": "scripts/number_game_factorized_semantic_gate.py", "sha256": "4d5ccbebb298a562d09075078647e10f8b7a2dae62985ad3e66e68b1915c4753"},
+  "proposal_requests": 30,
+  "protocol": {"path": "results/nonmyopic/NUMBER_GAME_FACTORIZED_SEMANTIC_SUPPORT_GATE_PROTOCOL_20260813.md", "sha256": "b8f63ecf4aaaf981655c2436471aa7dbe2c29cff70537fb1c90a8b05c7d30473"},
+  "schema_version": 1,
+  "stage_cap_usd": 0.08,
+  "targets_authorized": false,
+  "tests": {"path": "tests/test_number_game_factorized_semantic_codec.py", "sha256": "66fd979d469863b19f910d3ea2bb9d81cdde6e55cf98c8c82634533630c80309"},
+  "translation_requests": 30,
+  "verifier": {"path": "scripts/number_game_factorized_semantic_verify.py", "sha256": "d2e61ca7d3e5559df23eca996512e2927c549cbe38cb9f8299b30d696228433b"},
+  "wrapper": {"path": "scripts/number_game_factorized_semantic_aug13_execute.py", "sha256": "f608b45bfed05f167934cad656272bb4859fbdb790b2a5453aed460da057eb71"}
+}
