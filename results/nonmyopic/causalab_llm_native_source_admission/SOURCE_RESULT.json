@@ -1,0 +1,62 @@
+{
+  "access_accounting": {
+    "cluster_jobs": 0,
+    "environment_executions": 0,
+    "episode_trajectories_read": 0,
+    "graph_records_read": 0,
+    "intervention_outcomes_opened": 0,
+    "model_calls": 0,
+    "openrouter_cost_usd": 0.0,
+    "transfer_endpoints_opened": 0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_causalab_release_as_llm_native_headline_route",
+  "failure_gate": "open_support_ownership",
+  "failure_reason": "source_provides_complete_executable_candidate_filter",
+  "gates": {
+    "bindings_and_release": true,
+    "irreducible_llm_role": null,
+    "native_sequential_experiment": true,
+    "no_privileged_publication": true,
+    "open_support_ownership": false,
+    "prospective_classical_control": null,
+    "replay_and_sealing": true
+  },
+  "interface_version": "causalab-llm-native-source-admission-v1",
+  "ordering": "stopped_before_graph_records_or_episode_execution",
+  "release_metadata": {
+    "declared_record_count": 950,
+    "declared_suite_count": 19,
+    "observed_manifest_record_count": 950,
+    "observed_manifest_suite_count": 19
+  },
+  "repository_binding": {
+    "commit": "42ba47fb88e60dc1eca17bd29c47ace4e8e9960e",
+    "protocol_sha256": "41deda4b99dcbbc9cb60befcde9e94a975fec0b5bf98e6c86fd28cabf872fa7b",
+    "source_blob_sha256": {
+      "causal_tool": "fa1370e56390a9cc78fb74ad9c158ea484b8fe367f0fd8dfa8ed6bce621cbede",
+      "license": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "manifest": "f7ac4fdc36f7277d58f1028674a7f3b4ccc82cbc275257ac5a762cb9ce1be684",
+      "metrics": "deb5a75025be51ea7982e98c226df6887b7661fec66f14d58ca6d632b3cb81a2",
+      "prompt": "5fac4a6bf05d92922d98b9c9d2b809981410daea1bf7799dc02fdc1c07c3b069",
+      "readme": "eb49087281900d5020f74371b7ffa100a5898049ac1dd394714869e8f3cdd088",
+      "scenario": "25dfa10b582ce6ca5015a9fa4e60acb186224a7e654295d71a2080844db6bd00"
+    },
+    "tree": "5700be5d041eda64c56d610cdaa9dfaa1e7736c1"
+  },
+  "schema_version": 1,
+  "source_features": {
+    "candidate_bank_can_enter_prompt": true,
+    "complete_candidate_loader": true,
+    "deterministic_consistency_filter": true,
+    "environment_seed_binding": true,
+    "exact_transition_simulator": true,
+    "finite_intervention_budget": true,
+    "graph_binding": true,
+    "hidden_scm_declared": true,
+    "machine_parseable_hypothesis": true,
+    "manipulator_and_transfer_objects": true,
+    "policy_can_omit_hidden_graph": true
+  },
+  "status": "source_failed_closed"
+}

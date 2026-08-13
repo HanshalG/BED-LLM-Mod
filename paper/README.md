@@ -85,7 +85,10 @@ Collaborative Battleship released-bank opportunity followed by a target-blind
 fresh executable-bank depth null, plus the Paprika and MediQ validation
 failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
-gate failed.
+gate failed. The newly released CausaLab source passes sequential-experiment and
+replay gates but closes before task access because its official agent exactly
+enumerates and filters the finite active graph bank, so the LLM would not own an
+irreducible open support.
 
 Draft validation:
 
