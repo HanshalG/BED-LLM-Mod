@@ -7,6 +7,7 @@ from typing import Any, Sequence
 import pytest
 
 from scripts import hiddenbench_semantic_query_serving as serving
+from scripts import hiddenbench_semantic_query_serving_verify as verifier
 from scripts.hiddenbench_semantic_query_custodian import project_rows
 
 
@@ -216,3 +217,24 @@ def test_ten_call_serving_passes_without_label_leakage(
         "world": 4,
         "router": 2,
     }
+    verification = verifier.verify(tmp_path / "run")
+    assert verification["status"] == "verification_pass"
+    assert verification["registered_answers_loaded"] is False
+
+
+def test_verifier_rejects_public_score_tampering(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setattr(serving, "load_projected_views", lambda source_path: projected_views())
+    run_dir = tmp_path / "run"
+    serving.run_serving(
+        source_path=tmp_path / "unused.json",
+        output_dir=run_dir,
+        adapter=FakeAdapter(),
+    )
+    result_path = run_dir / "RESULT.json"
+    result = json.loads(result_path.read_text())
+    result["scores"][0]["depth_two"]["Q1"] += 0.01
+    result_path.write_text(json.dumps(result))
+    with pytest.raises(RuntimeError, match="verification failed"):
+        verifier.verify(run_dir)

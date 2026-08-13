@@ -39,8 +39,10 @@ model, preventing a hallucinated observation from entering the history.
   `5340d17a11ae4654a82fff76a7e4244c39336f3b282240c05c6d0b2c88e5be28`;
 - source manifest SHA-256:
   `b105c1f54e2b5ec56606b4eef2c7f464e2bdab996315f9a54a4d9ea817b6d56d`;
-- source result SHA-256:
+- machine source-audit result SHA-256:
   `67b3f641bb8ac7956e33281c2bdd074402e775ac88c643f6db4c468788b73bf9`;
+- human source-result report SHA-256:
+  `1533df27870b7c795f7389f9eb328e90b99297de94c0f0d6c60807a37e5c4c2b`;
 - HiddenBench commit:
   `3be6ca16973e4fb751ffc0dfb7eb11f2d28335d1`;
 - benchmark SHA-256:

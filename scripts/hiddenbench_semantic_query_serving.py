@@ -30,7 +30,7 @@ from scripts.discoverphysics_oscillator_belief_smoke import checkpoint
 
 INTERFACE_VERSION = "hiddenbench-semantic-query-serving-v1"
 MODEL_ID = "deepseek/deepseek-v4-flash-0731"
-PROTOCOL_SHA256 = "ccc2bf5e9160daa55f63b0b9247d863578a4a82152604459aa21a1d54c0eac53"
+PROTOCOL_SHA256 = "c363595920ac6b37ce0846fe283ef38524ac8fce934983927613bc7fbc270cc0"
 MODEL_SEEDS = tuple(range(202608133000, 202608133010))
 EXPECTED_REQUESTS = 10
 MAX_TOKENS = 4096

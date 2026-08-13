@@ -114,3 +114,6 @@ results/path_e/animals_reanalysis/*
 results/nonmyopic/rock_diagnosis_confirmation/TRACES.jsonl.gz
 results/nonmyopic/rock_diagnosis_5_7_exact_confirmation/TRACES.jsonl.gz
 results/nonmyopic/gated_sensor_depth_qualification_20260722/TRACES.jsonl.gz
+
+# HiddenBench selected task values and raw model responses stay local.
+results/nonmyopic/hiddenbench_semantic_query_serving/**/private/
