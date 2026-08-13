@@ -1,0 +1,41 @@
+{
+  "authorizes": "fresh_overgenerated_design_only",
+  "decision": "close_exact_factorized_interface",
+  "endpoints_opened": false,
+  "gates": {
+    "aggregate_signature": true,
+    "authority_closed": true,
+    "binding_ledger": true,
+    "cost_reconciles": true,
+    "exact_clean_transport": true,
+    "proposal_only": true
+  },
+  "interface_version": "number-game-factorized-semantic-terminal-audit-1",
+  "model_calls_made": 0,
+  "proposal": {
+    "actual_cost_usd": 0.01528704,
+    "audit_requests": 0,
+    "invalid_lexical_items": 2,
+    "invalid_observed_language_items": 7,
+    "items": 240,
+    "minimum_draw_valid": 21,
+    "per_draw_valid_counts": [
+      23,
+      24,
+      24,
+      24,
+      22,
+      22,
+      21,
+      24,
+      23,
+      24
+    ],
+    "requests": 30,
+    "translation_requests": 0,
+    "valid_items": 231
+  },
+  "schema_version": 1,
+  "status": "terminal_audit_pass",
+  "targets_opened": false
+}

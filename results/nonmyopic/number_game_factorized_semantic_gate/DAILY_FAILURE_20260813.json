@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.015287039999999997,
+  "authorizes": "nothing",
+  "endpoints_opened": false,
+  "error": "proposal description is invalid",
+  "error_type": "ValueError",
+  "interface_version": "number-game-factorized-semantic-aug13-execute-1",
+  "label_exists": false,
+  "ledger_sha256": "1c352d3b9f9b79881890ceb6bd577bd7e015d9989b63e0755c7c1493897bfb9c",
+  "raw_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "targets_opened": false,
+  "verification_exists": false
+}
