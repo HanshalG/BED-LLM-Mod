@@ -1,0 +1,45 @@
+diff --git a/game/cli/commands/play.go b/game/cli/commands/play.go
+index caabe2d..e13b9f8 100644
+--- a/game/cli/commands/play.go
++++ b/game/cli/commands/play.go
+@@ -13,0 +14 @@ import (
++	"sort"
+@@ -255 +256 @@ func (gameState *GameState) Run() error {
+-		for _, snakeState := range gameState.snakeStates {
++		for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -297 +298 @@ func (gameState *GameState) Run() error {
+-			for _, snakeState := range gameState.snakeStates {
++			for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -350 +351 @@ func (gameState *GameState) initializeBoardFromArgs() (bool, *rules.BoardState,
+-	for _, snakeState := range gameState.snakeStates {
++	for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -362 +363 @@ func (gameState *GameState) initializeBoardFromArgs() (bool, *rules.BoardState,
+-	for _, snakeState := range gameState.snakeStates {
++	for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -386 +387 @@ func (gameState *GameState) createNextBoardState(boardState *rules.BoardState) (
+-		for _, snakeState := range gameState.snakeStates {
++		for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -398 +399 @@ func (gameState *GameState) createNextBoardState(boardState *rules.BoardState) (
+-		for _, snakeState := range gameState.snakeStates {
++		for _, snakeState := range gameState.orderedSnakeStates() {
+@@ -556,0 +558,17 @@ func (gameState *GameState) createClientGame() client.Game {
++// orderedSnakeStates removes Go map iteration from all behavior-relevant player
++// traversal. Player names are fixed by the experiment manifest; IDs break only
++// impossible duplicate-name ties.
++func (gameState *GameState) orderedSnakeStates() []SnakeState {
++	states := make([]SnakeState, 0, len(gameState.snakeStates))
++	for _, state := range gameState.snakeStates {
++		states = append(states, state)
++	}
++	sort.Slice(states, func(i, j int) bool {
++		if states[i].Name == states[j].Name {
++			return states[i].ID < states[j].ID
++		}
++		return states[i].Name < states[j].Name
++	})
++	return states
++}
++
+@@ -576 +594 @@ func (gameState *GameState) buildSnakesFromOptions() (map[string]SnakeState, err
+-			id = uuid.New().String()
++			id = fmt.Sprintf("revengebench-%d-%d", gameState.Seed, i)
