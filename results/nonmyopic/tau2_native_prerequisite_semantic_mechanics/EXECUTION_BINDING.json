@@ -1,0 +1,51 @@
+{
+  "accepted_requests_authorized": 6,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {
+    "path": "scripts/tau2_native_prerequisite_semantic_aug13_execute.py",
+    "sha256": "7ac28d6a132b50e83b61a0f516ab0b757ee8757a730fbc5eab836a824992c8c5"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/tau2_native_prerequisite_semantic_verify.py",
+    "sha256": "72bfa7c8e95cdea8cb29656db00244e84b8ec3c131ccf1634412ccd30d956797"
+  },
+  "maximum_http_attempts": 6,
+  "opening_total_usage_usd": 220.13412888,
+  "opportunity_audit": {
+    "path": "scripts/tau2_native_prerequisite_opportunity.py",
+    "sha256": "59a133ffc7c807082648f1f7008f1054c9304349d68bcded5e476b5d342318b6"
+  },
+  "opportunity_result": {
+    "path": "results/nonmyopic/tau2_native_prerequisite_opportunity/RESULT.json",
+    "sha256": "9bcb91d715e17e481fcc8fc031b8a5d788b291289bc3fbb4cc2adc1461632e8f"
+  },
+  "producer": {
+    "path": "scripts/tau2_native_prerequisite_semantic_mechanics.py",
+    "sha256": "7f06f4c25527b31254d9334a568e9850781247857d78df158e08a1b4ba012623"
+  },
+  "run_cap_usd": 0.1,
+  "schema_version": 1,
+  "semantic_protocol": {
+    "path": "results/nonmyopic/TAU2_NATIVE_PREREQUISITE_SEMANTIC_MECHANICS_PROTOCOL_20260813.md",
+    "sha256": "becabec3bd8558d7cd7dc0d29bf8e48b0dd317f6e71b82bf36d611ab6469f86e"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/tau2_native_prerequisite_source/SOURCE_MANIFEST.json",
+    "sha256": "4fff94c86fbc4bd5633d945d56ea072e3fef31523ff6598a608b3278562eae2e"
+  },
+  "source_protocol": {
+    "path": "results/nonmyopic/TAU2_NATIVE_PREREQUISITE_SOURCE_PROTOCOL_20260813.md",
+    "sha256": "cc44807b74199d4aff5ec86b60ff8beae3ab123156750cb2cbcc1f1a1f092f78"
+  },
+  "source_result": {
+    "path": "results/nonmyopic/tau2_native_prerequisite_source/RESULT.json",
+    "sha256": "ca8b4b05fe153c0bfb7e6630e44fda62dcbf099ee51015dc9e784546131a46c2"
+  },
+  "source_selector": {
+    "path": "scripts/tau2_native_prerequisite_source_manifest.py",
+    "sha256": "1190b52efb1d77d50c4e496a55108b4aee7c83d150c189f0c4f58bcc0008a02f"
+  }
+}
