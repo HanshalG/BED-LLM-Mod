@@ -1,0 +1,87 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "freeze_new_protocol_only",
+  "bindings": {
+    "branch": "codex/location-finding-llmstrategy",
+    "commit": "e0c8c718598bb2cde638516fecdc4b7b2deac7e1",
+    "event": "push",
+    "protocol_sha256": "8150d0c15fc3a369b9fd1f55a673462236f5cb8a29c6df7bafbed6a7971dc534",
+    "repository": "HanshalG/BED-LLM-Mod",
+    "workflow_sha256": "eb69cacba11cf66380a179830c5b84039190a4f8571b746cbc81972f2c9703b9"
+  },
+  "controls": [
+    {
+      "arm": 1,
+      "exit_code": 0,
+      "image": "alpine:3.20@sha256:c64c687cbea9300178b30c95835354e34c4e4febc4badfe27102879de0483b5e",
+      "name": "alpine",
+      "nonce": "swesmith-amd64-alpine-arm-1",
+      "stdout_lines": [
+        "swesmith-amd64-alpine-arm-1",
+        "x86_64"
+      ]
+    },
+    {
+      "arm": 2,
+      "exit_code": 0,
+      "image": "alpine:3.20@sha256:c64c687cbea9300178b30c95835354e34c4e4febc4badfe27102879de0483b5e",
+      "name": "alpine",
+      "nonce": "swesmith-amd64-alpine-arm-2",
+      "stdout_lines": [
+        "swesmith-amd64-alpine-arm-2",
+        "x86_64"
+      ]
+    },
+    {
+      "arm": 1,
+      "exit_code": 0,
+      "image": "ubuntu:22.04@sha256:0199853f6d6b20b0424f3c5694a72a62764f01e6a771b1eb48a4197848986c7e",
+      "name": "ubuntu",
+      "nonce": "swesmith-amd64-ubuntu-arm-1",
+      "stdout_lines": [
+        "swesmith-amd64-ubuntu-arm-1",
+        "x86_64"
+      ]
+    },
+    {
+      "arm": 2,
+      "exit_code": 0,
+      "image": "ubuntu:22.04@sha256:0199853f6d6b20b0424f3c5694a72a62764f01e6a771b1eb48a4197848986c7e",
+      "name": "ubuntu",
+      "nonce": "swesmith-amd64-ubuntu-arm-2",
+      "stdout_lines": [
+        "swesmith-amd64-ubuntu-arm-2",
+        "x86_64"
+      ]
+    }
+  ],
+  "decision": "fresh_native_amd64_protocol_may_be_frozen",
+  "gates": {
+    "exact_control_replay": true,
+    "exact_identity": true,
+    "exact_public_shape": true,
+    "exact_remote_context": true,
+    "immutable_files": true,
+    "native_amd64_runner": true,
+    "zero_paid_or_cluster_use": true,
+    "zero_private_surface": true
+  },
+  "privacy": {
+    "endpoints_opened": 0,
+    "instance_ids_read": 0,
+    "private_files_read": 0,
+    "swesmith_rows_read": 0,
+    "task_payloads_read": 0
+  },
+  "protocol_version": "swesmith-debug-bed-native-amd64-preflight-v1",
+  "runner": {
+    "docker_arch": "x86_64",
+    "docker_os": "linux",
+    "host_machine": "x86_64"
+  },
+  "status": "preflight_pass"
+}
