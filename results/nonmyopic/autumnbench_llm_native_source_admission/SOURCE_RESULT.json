@@ -1,0 +1,54 @@
+{
+  "authorizes": "nothing",
+  "bindings": {
+    "autumn_commit": true,
+    "autumn_tree": true,
+    "manifest": true,
+    "mara_commit": true,
+    "mara_tree": true,
+    "protocol": true
+  },
+  "decision": "close_exact_autumnbench_public_release_route",
+  "failure_gate": "exact_129_tasks_43_worlds",
+  "gates": {
+    "complete_three_type_triplets": false,
+    "exact_129_tasks_43_worlds": false,
+    "immutable_bindings": true,
+    "local_deterministic_handshake": null,
+    "native_experiment_interface": null,
+    "no_privileged_publication": true,
+    "path_separation": null,
+    "sealed_derived_tests": null
+  },
+  "interface_version": "autumnbench-llm-native-source-admission-v1",
+  "manifest": {
+    "all_observed_worlds_form_triplets": true,
+    "declared_total_count": 60,
+    "observed_task_count": 60,
+    "sha256": "c3f17e4d51318994dcd169a8ab3c4db1212dc30b83ad6b0dec88e933edb2071a",
+    "type_counts": {
+      "change_detection": 20,
+      "masked_frame_prediction": 20,
+      "planning": 20
+    },
+    "unique_base_world_count": 20,
+    "unique_task_count": 60
+  },
+  "ordering": "stopped_before_task_payload_or_fixture_execution",
+  "payloads": {
+    "endpoint_outcomes_opened": 0,
+    "fixture_executions": 0,
+    "model_calls": 0,
+    "nonfixture_answers_downloaded": 0,
+    "nonfixture_programs_downloaded": 0,
+    "nonfixture_prompts_downloaded": 0
+  },
+  "repository_bindings": {
+    "autumn_commit": "0929d175c3d296de091ac4b998d09b9b55a38f67",
+    "autumn_tree": "12e0cb5acfd25f5f6483cc90e696d10c00111c25",
+    "mara_commit": "d0d4e9251151778415cc5195c5dfb8296a5ded24",
+    "mara_tree": "ec7872d2f5ab047ac43e37ed5c8b8ea108d493f8"
+  },
+  "schema_version": 1,
+  "status": "source_failed_closed"
+}
