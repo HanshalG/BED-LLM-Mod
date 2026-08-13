@@ -1,0 +1,49 @@
+{
+  "accepted_requests_authorized": 12,
+  "calibration_manifest": {
+    "path": "results/nonmyopic/tau2_mms_split_partition_calibration/CALIBRATION_MANIFEST.json",
+    "sha256": "14fe197ce995a8190a88a7b170df27567bdcd755d6fd4bf25765cab99452cff6"
+  },
+  "concurrency": 2,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {
+    "path": "scripts/tau2_mms_split_partition_aug13_execute.py",
+    "sha256": "3368d5cb4d7d1c451f3ad3ba522bf0a288e57e1521492b63fbdac41b8713583f"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/tau2_mms_split_partition_verify.py",
+    "sha256": "e7ecae839e69e76262fa76962fd8b9715b41bd84aa57f040d0d781d404db44ee"
+  },
+  "interface_version": "tau2-mms-split-partition-execution-binding-1",
+  "maximum_http_attempts": 12,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_failure": {
+    "path": "results/nonmyopic/tau2_mms_partition_semantic_calibration/DAILY_FAILURE_20260813.json",
+    "sha256": "92cd3cb082a5df090ebfaa66ddfc80eee780f0d81bfefd6e1bbf531712a072ea"
+  },
+  "predecessor_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-tau2-mms-partition-semantic.json",
+    "sha256": "5e19b082d611fc6a8397cf79f5a0b3b3050fe69e0443b7593301d4e4e5dee38d"
+  },
+  "producer": {
+    "path": "scripts/tau2_mms_split_partition_calibration.py",
+    "sha256": "c0ce90eca7b5d5817898a1dc0fa2bcbc0c22654c822b60dc8487b18d8cc0dc11"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/TAU2_MMS_SPLIT_PARTITION_CALIBRATION_PROTOCOL_20260813.md",
+    "sha256": "9da88f62e888298e9be4f043894bca228f6972d12fc41599b5922a01f7cbd830"
+  },
+  "run_cap_usd": 0.06,
+  "schema_version": 1,
+  "source_audit": {
+    "path": "scripts/tau2_mms_split_partition_source_audit.py",
+    "sha256": "8c4b4b77946de992c1d47d71a75b0a25fd213180c9fdebc3a225631824321f84"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/tau2_mms_split_partition_calibration/CALIBRATION_MANIFEST.json",
+    "sha256": "14fe197ce995a8190a88a7b170df27567bdcd755d6fd4bf25765cab99452cff6"
+  }
+}
