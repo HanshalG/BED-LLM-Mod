@@ -1,0 +1,86 @@
+{
+  "authorizes": "implementation_only",
+  "cost_usd": 0.0,
+  "episodes": [
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "e7b6dec84961a1f32f6dd50ab2f67393fd41241ebb38812b443606754cee5796",
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "b9509ea597cf5e881bbb455d234be7514c3b4c9051a6817ea56e467ae3c3c0a8",
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "44ded4bcd67a76c838a6fd67f0bc70e1a799fde5d42fe48f2845f92b5c66fbce",
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "b34f56cec175f0c5eb194c31e3e74d09936f34e3645a59592fa340457164cf59",
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "e34721ca44f24b5149a45f80d69b5e01a13704260a6ccb7ba97be15c5fce4672",
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "episode_sha256": "228f33e2e64d0f259c60f1fa4c5d90459370ae9180af67ca6473d652a3397c4a",
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.3862943611198906,
+      "native_partition_has_four_groups": true,
+      "root_actions_all_constant": true
+    }
+  ],
+  "gates": {
+    "all_depth_two_select_prerequisite": true,
+    "all_greedy_avoid_prerequisite": true,
+    "all_horizon_gains_at_least_one_nat": true,
+    "all_native_partitions_four_way": true,
+    "all_root_actions_constant": true,
+    "all_source_gates_pass": true,
+    "exact_public_tool_contract": true,
+    "exact_six_fresh_episodes": true,
+    "family_balance_three_three": true
+  },
+  "interface_version": "tau2-mms-gemma26b-thinking-source-audit-1",
+  "model_calls_made": 0,
+  "public_tool_contract": {
+    "all_tools_read_only": true,
+    "exact_docstrings": true,
+    "granted_names_are_visible": true,
+    "native_method": "check_app_permissions",
+    "root_tool_count": 8,
+    "tau2_commit": "1d244f5dca42944b67a379b44bfeb9f5748f189d",
+    "user_tools_sha256": "03fa751eeea3734313a3f5274223d42750fd5c1a28f2624265a678f271ac309d"
+  },
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "selected_tool_responses_opened_for_source_audit_only": true,
+  "status": "source_pass"
+}
