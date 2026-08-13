@@ -1,0 +1,79 @@
+{
+  "model_id": "deepseek/deepseek-v4-flash-0731",
+  "requests": [
+    {
+      "episode_index": 0,
+      "kind": "root",
+      "seed": 202608130500
+    },
+    {
+      "episode_index": 1,
+      "kind": "root",
+      "seed": 202608130501
+    },
+    {
+      "episode_index": 2,
+      "kind": "root",
+      "seed": 202608130502
+    },
+    {
+      "episode_index": 3,
+      "kind": "root",
+      "seed": 202608130503
+    },
+    {
+      "episode_index": 4,
+      "kind": "root",
+      "seed": 202608130504
+    },
+    {
+      "episode_index": 5,
+      "kind": "root",
+      "seed": 202608130505
+    },
+    {
+      "episode_index": 0,
+      "kind": "native",
+      "seed": 202608130600
+    },
+    {
+      "episode_index": 1,
+      "kind": "native",
+      "seed": 202608130601
+    },
+    {
+      "episode_index": 2,
+      "kind": "native",
+      "seed": 202608130602
+    },
+    {
+      "episode_index": 3,
+      "kind": "native",
+      "seed": 202608130603
+    },
+    {
+      "episode_index": 4,
+      "kind": "native",
+      "seed": 202608130604
+    },
+    {
+      "episode_index": 5,
+      "kind": "native",
+      "seed": 202608130605
+    }
+  ],
+  "responses": [
+    "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": false, \"confidence\": 0.8}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.9}]}",
+    "{\"actions\":[{\"action_id\":\"apn_settings\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"installed_apps\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"mms_probe\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_mode\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_status\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"speed_test\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"status_bar\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"wifi_calling\",\"all_worlds_same\":true,\"confidence\":0.95}]}",
+    "{\"actions\":[{\"action_id\":\"apn_settings\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"installed_apps\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"mms_probe\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_mode\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_status\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"speed_test\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"status_bar\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"wifi_calling\",\"all_worlds_same\":true,\"confidence\":0.95}]}",
+    "{\"actions\":[{\"action_id\":\"apn_settings\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"installed_apps\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"mms_probe\",\"all_worlds_same\":true,\"confidence\":0.9},{\"action_id\":\"network_mode\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_status\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"speed_test\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"status_bar\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"wifi_calling\",\"all_worlds_same\":true,\"confidence\":0.95}]}",
+    "{\"actions\":[{\"action_id\":\"apn_settings\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"installed_apps\",\"all_worlds_same\":false,\"confidence\":0.95},{\"action_id\":\"mms_probe\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_mode\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_status\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"speed_test\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"status_bar\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"wifi_calling\",\"all_worlds_same\":true,\"confidence\":0.95}]}",
+    "{\"actions\":[{\"action_id\":\"apn_settings\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"installed_apps\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"mms_probe\",\"all_worlds_same\":false,\"confidence\":0.9},{\"action_id\":\"network_mode\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"network_status\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"speed_test\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"status_bar\",\"all_worlds_same\":true,\"confidence\":0.95},{\"action_id\":\"wifi_calling\",\"all_worlds_same\":true,\"confidence\":0.95}]}",
+    "{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.9}",
+    "{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.95}",
+    "{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.9}",
+    "{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.95}",
+    "{\"action_id\": \"messaging_permissions\", \"world_groups\": [0, 0, 0, 0], \"confidence\": 0.9}",
+    "{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.95}"
+  ]
+}
