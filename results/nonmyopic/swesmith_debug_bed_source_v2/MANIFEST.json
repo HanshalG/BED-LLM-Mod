@@ -1,0 +1,117 @@
+{
+  "debuggym": {
+    "bound_file_sha256": {
+      "edit_tool": "5362752ad45671a2933037641a944a441099e531337ee89298e13e000e130434",
+      "eval_tool": "6012e0ec5fc5108924dc373fd5e5908b2fedf6c4e9fb6dae98bf26faaae7f2ff",
+      "pdb_tool": "ffd1453415ee0588bf72c62c3adb8ea238f9d2c004352aa884d8b947e79bc60b",
+      "repository_environment": "705faa2e83dac1336c7a6f62aab839a3b633a77a722b4f09c50ee583c2740967",
+      "split_config": "b5f8e0e12f96adb46f79769a29c603c30dc92331dcdca9cb5c9d6feffb287b14",
+      "submit_tool": "a424d295b764269d7ff0a382b432664917b561c58c57c211bfde26efde1d9c50",
+      "swe_smith_environment": "a3fe5cb78df49df5742611bf33e6587ff943dc64cd6dcc90caa6a256bf92e3e2",
+      "view_tool": "f2948627292b1030f457ef64da437da01a8d23909ec426d0ed1832c6b3843ee1"
+    },
+    "commit": "cc3fe3ef4ce08919e522eb00ea1bea5689f3b53e",
+    "repository": "https://github.com/microsoft/debug-gym",
+    "tree": "54b04c0313b66d72c7f285dc255d2693164a7193"
+  },
+  "ordered_split_id_sha256": {
+    "confirmation": "b7be736c5db53ef7891dcfbdd5e793ec18c2547736449fe8ff86f10c2cd95cfd",
+    "development": "e342e8064f28306a7efcca3f4bade396a0ef8cc99b4ca4a0a4d49ac715028fab",
+    "excluded": "9befb3556ad6465f8b59f7eff161dee5b44b1cee748d73c381899fa7f73c4b36",
+    "mechanics": "fa8130c4b29970ed844140d872e708469d245584641a77e7b5650ce9b239383e",
+    "opportunity": "e324db3cd0d81eee76148dccacb175591aba541247ed64963e588125459c701f",
+    "raw_confirmation": "dbbb13979667b9f5f35c86ba9a32fa5eb33ff708b3d380f802a282fc022218a8",
+    "raw_development": "54e503e7761709896e0185484ff9542d2c99631c0475aae230f26d6dde936518",
+    "reserve": "6decdc05d7664eb65558498a17dca00b2b4372f31b9ff6655ee619768a1296c1"
+  },
+  "population": {
+    "composition_counts": {
+      "combine_file": 5865,
+      "combine_module": 4227
+    },
+    "images": 128,
+    "repositories": 128,
+    "total": 50137
+  },
+  "privacy": {
+    "endpoints_opened": false,
+    "individual_instance_ids_serialized": false,
+    "patches_opened": false,
+    "problem_statements_opened": false,
+    "repository_source_opened": false,
+    "test_names_opened": false,
+    "test_outputs_opened": false
+  },
+  "protocol_version": "swesmith-debug-bed-source-v2",
+  "schema_fields": [
+    "instance_id",
+    "repo",
+    "patch",
+    "FAIL_TO_PASS",
+    "PASS_TO_PASS",
+    "created_at",
+    "image_name",
+    "base_commit",
+    "problem_statement"
+  ],
+  "split_counts": {
+    "confirmation": 121,
+    "development": 760,
+    "excluded": 37,
+    "mechanics": 8,
+    "opportunity": 64,
+    "raw_confirmation": 125,
+    "raw_development": 789,
+    "reserve": 9731
+  },
+  "swesmith": {
+    "repository": "https://huggingface.co/datasets/SWE-bench/SWE-smith",
+    "revision": "699b53400d3855206a0fbf3ff4beaf1a52f4f232",
+    "shards": {
+      "data/train-00000-of-00011.parquet": {
+        "sha256": "dfd117de4998d8ea1d4d86d5779420f81fbf1881428bede14fb2998b684f1048",
+        "size": 7581187
+      },
+      "data/train-00001-of-00011.parquet": {
+        "sha256": "3a4f7b5f5cb2e73a00d7a667c52e826befc8603d15ba025c13092032f065be84",
+        "size": 6445888
+      },
+      "data/train-00002-of-00011.parquet": {
+        "sha256": "c666846cf683b5037eb141668dbe7e819e02c3404c2e69d70cd6702a477e0c46",
+        "size": 5092697
+      },
+      "data/train-00003-of-00011.parquet": {
+        "sha256": "f882c50b1acd39c77af812b47a207b3d6d91b5d5e45c982be3cdd8d3a98fc3bc",
+        "size": 4595151
+      },
+      "data/train-00004-of-00011.parquet": {
+        "sha256": "35a3c007c2aa1d49fffd962bc74b86497ca06cc5b875413d5dd3abda1d166299",
+        "size": 7265387
+      },
+      "data/train-00005-of-00011.parquet": {
+        "sha256": "6e7c1848bc31ad5eae9d7af07170b7fd578916702bad76178555ec605ae94dd1",
+        "size": 66780564
+      },
+      "data/train-00006-of-00011.parquet": {
+        "sha256": "e6a054f9e4cecc1f58f1eb156b3eec5c439714b5694fea0bc56f93245d5fea6b",
+        "size": 12775180
+      },
+      "data/train-00007-of-00011.parquet": {
+        "sha256": "9089ccc9551af345c785369e4aa83649e410d22ac58be22c826a880ade860655",
+        "size": 13716391
+      },
+      "data/train-00008-of-00011.parquet": {
+        "sha256": "c27fba33643442c20ee588d0fe632972cf3e6907ec55aab92b65695db4fc689c",
+        "size": 7814261
+      },
+      "data/train-00009-of-00011.parquet": {
+        "sha256": "b40c9c12548aeaf0f0269b542cec821b814bebbd68b11e58f4addc650292924f",
+        "size": 116236859
+      },
+      "data/train-00010-of-00011.parquet": {
+        "sha256": "e8b2bfa0a6fe0566b92b7aa0b810b6eebb81c762a6f2526f46441fa17dac9eda",
+        "size": 5274728
+      }
+    }
+  }
+}

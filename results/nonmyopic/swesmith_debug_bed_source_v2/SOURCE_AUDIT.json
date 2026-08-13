@@ -1,0 +1,44 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "zero_model_call_mechanics_only",
+  "decision": "execution_mechanics_authorized",
+  "gates": {
+    "composed_tasks_have_f2p_and_p2p": true,
+    "effective_official_lists_match_loader": true,
+    "immutable_debuggym_binding": true,
+    "immutable_swesmith_shards": true,
+    "large_composed_population": true,
+    "mechanics_opportunity_reserve_complete_disjoint": true,
+    "raw_official_lists_valid": true,
+    "released_execution_contract": true,
+    "single_exact_schema_and_large_population": true,
+    "unique_nonempty_ids_and_images": true
+  },
+  "manifest_sha256": "f3cdc0006a77875760de9bfcd7d3676bfdb28032f2c957a1f303ee7b839985ce",
+  "privacy": {
+    "endpoints_opened": false,
+    "individual_instance_ids_serialized": false,
+    "patches_opened": false,
+    "problem_statements_opened": false,
+    "repository_source_opened": false,
+    "test_names_opened": false,
+    "test_outputs_opened": false
+  },
+  "protocol_sha256": "f26b468deac21d730abd10569b1ce86c9147dd4b127fad48b77d1591d075902e",
+  "protocol_version": "swesmith-debug-bed-source-v2",
+  "released_contract": {
+    "bug_patch_applied_to_fresh_environment": true,
+    "exact_dataset_revision_bound": true,
+    "f2p_scored_only_if_all_p2p_pass": true,
+    "official_tests_executed": true,
+    "persistent_pdb_experiments_supported": true,
+    "seedable_environment": true,
+    "upstream_remote_removed": true
+  },
+  "status": "source_pass",
+  "v1_split_gate_passed": false
+}
