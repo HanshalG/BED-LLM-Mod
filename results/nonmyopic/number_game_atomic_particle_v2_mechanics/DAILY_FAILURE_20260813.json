@@ -1,0 +1,18 @@
+{
+  "actual_cost_usd": 0.005144319999999999,
+  "authorizes": "nothing",
+  "canonical_targets_opened": false,
+  "classical_grammar_opened": false,
+  "confirmation_opened": false,
+  "development_opened": false,
+  "error": "atomic particle group misses valid or unique floor",
+  "error_type": "ValueError",
+  "interface_version": "number-game-atomic-particle-v2-aug13-execute-1",
+  "ledger_sha256": "0540d54185b4858a02050f30c27e2bcd42c04cecdb7cc509de66e434fa161b2e",
+  "raw_exists": true,
+  "schema_version": 1,
+  "scientific_result_exists": false,
+  "status": "failed_closed",
+  "topology_exists": false,
+  "verification_exists": false
+}
