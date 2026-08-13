@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.020880640000000002,
+  "authorizes": "nothing",
+  "endpoints_opened": false,
+  "error": "proposal shard retained fewer than seven valid items",
+  "error_type": "ValueError",
+  "interface_version": "number-game-overgenerated-factorized-aug13-execute-1",
+  "label_exists": false,
+  "ledger_sha256": "2200f12679869636ade51f9215d4ad0b3486a57b34971098c8427aaa61cde933",
+  "raw_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "targets_opened": false,
+  "verification_exists": false
+}
