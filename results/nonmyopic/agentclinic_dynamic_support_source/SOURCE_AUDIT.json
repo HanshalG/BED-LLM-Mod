@@ -1,0 +1,21 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "decision": "mechanics_authorized",
+  "gates": {
+    "all_image_urls_https": true,
+    "canonical_rows_unique": true,
+    "exact_population_size": true,
+    "exact_six_field_schema": true,
+    "exactly_one_correct_answer_per_case": true,
+    "immutable_source_binding": true,
+    "partition_complete_and_disjoint": true,
+    "required_fields_nonempty": true
+  },
+  "manifest_sha256": "8099905d3ab2330b53ad867f7e13a3e723bf4673d8fa34e0d226f1fcdde05cc9",
+  "protocol_version": "agentclinic-dynamic-support-source-v1",
+  "status": "source_pass"
+}

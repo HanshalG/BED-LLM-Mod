@@ -1,0 +1,32 @@
+{
+  "canonical_unique_count": 120,
+  "ordered_split_case_id_sha256": {
+    "confirmation": "67884f441d2a17cb5eddbfbd7576b628deac56b1a6088b4238b0069b558930af",
+    "development": "0e5921d652945d83c218c4ec197b621f2a0a5c66f63b49da8a05841f69f7a207",
+    "mechanics": "3c60e70097899ade4d1a84a8055d42eea6d8c6240582fe36655660e755cb2f69",
+    "opportunity": "6f23696d29cab2cab4dcf8305c4c216cca0038bed1906e9a699792a6176d600a",
+    "reserve": "e04aa793361a228699eb1a765922e7c2301fb57c4699d5a11dbf65914228c909"
+  },
+  "population_count": 120,
+  "privacy": {
+    "diagnoses_serialized": false,
+    "endpoint_values_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "agentclinic-dynamic-support-source-v1",
+  "source": {
+    "commit": "b6570edefb940857a7c334350656b29f9d984f24",
+    "file": "agentclinic_nejm_extended.jsonl",
+    "file_sha256": "d945305ee17ee1456053fbfe2e9d9c5e8b27d14538bf48ab8ace7306dc437b85",
+    "repository": "https://github.com/SamuelSchmidgall/AgentClinic",
+    "tree": "084556771761828ac0fd121d37353207de91486c"
+  },
+  "split_counts": {
+    "confirmation": 40,
+    "development": 30,
+    "mechanics": 6,
+    "opportunity": 24,
+    "reserve": 20
+  }
+}
