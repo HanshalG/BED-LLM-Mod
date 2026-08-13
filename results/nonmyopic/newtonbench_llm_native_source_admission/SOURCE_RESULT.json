@@ -1,0 +1,43 @@
+{
+  "access_accounting": {
+    "candidate_laws_submitted": 0,
+    "cluster_jobs": 0,
+    "evaluation_outcomes_opened": 0,
+    "model_calls": 0,
+    "openrouter_cost_usd": 0.0,
+    "saved_trajectories_or_results_read": 0,
+    "target_laws_invoked": 0,
+    "tasks_executed": 0
+  },
+  "aggregate_source": {
+    "arbitrary_noiseless_batch_interface_observed": true,
+    "complete_source_law_registries_observed": true,
+    "declared_tasks": 324,
+    "domain_modules": 12,
+    "law_difficulties_per_domain": 3,
+    "law_versions_per_difficulty": 3,
+    "system_complexities": 3
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_newtonbench_release_as_nonmyopic_llm_native_route",
+  "failure_gate": "finite_budget_horizon",
+  "failure_reason": "one_action_accepts_arbitrarily_many_noiseless_experiments",
+  "gates": {
+    "bindings_and_population": true,
+    "exact_controls": null,
+    "finite_budget_horizon": false,
+    "irreducible_llm_role": null,
+    "native_sequential_experiment": true,
+    "no_privileged_publication": true,
+    "open_support_ownership": null
+  },
+  "interface_version": "newtonbench-llm-native-source-admission-v1",
+  "ordering": "stopped_before_task_execution_or_target_law_evaluation",
+  "repository_binding": {
+    "commit": "912a4ba5f4356ddd06acc16e44460ca30be4abc2",
+    "protocol_sha256": "b408a36f94c4750c352662f4c7e424cf0b23ef973608e5e53dd94c49178e5ad4",
+    "tree": "88b68ea14e1ee6bc17a237642ab9eccde52faa48"
+  },
+  "schema_version": 1,
+  "status": "source_failed_closed"
+}
