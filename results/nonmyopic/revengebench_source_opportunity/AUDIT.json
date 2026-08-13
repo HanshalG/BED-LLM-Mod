@@ -1,0 +1,194 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "cohort": {
+    "eligible_arenas": [
+      "battlesnake",
+      "halite",
+      "huskybench",
+      "robocode"
+    ],
+    "ordered_salted_target_hash": "33480518a8966c7e7a02fc52b90883d9e8ca66127f5cdaa6dc85caff400d3f31",
+    "target_count": 12
+  },
+  "decision": "freeze_zero_call_execution_opportunity_audit",
+  "privacy": {
+    "released_outcomes_opened": false,
+    "released_trajectories_opened": false,
+    "source_text_serialized": false,
+    "target_provenance_opened": false
+  },
+  "protocol_version": "revengebench-source-opportunity-v1",
+  "reason": "The frozen targets are parseable and semantically nontrivial, but arbitrary executable probe policies induce dynamic game trajectories. Static source cannot establish answer-conditioned response partitions, a depth-two first-probe witness, or held-out endpoint separation without paired execution.",
+  "source_summary": {
+    "parseable_count": 12,
+    "parser_counts": {
+      "c_comment_string_aware_lexer": 3,
+      "java_comment_string_aware_lexer": 3,
+      "python_ast": 6
+    },
+    "semantically_nontrivial_arena_count": 4,
+    "semantically_nontrivial_count": 11,
+    "source_prerequisite_pass": true,
+    "targets": [
+      {
+        "action_site_count": 5,
+        "arena": "battlesnake",
+        "branch_count": 21,
+        "comparison_count": 22,
+        "function_count": 5,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "2645f4b12c2abe6f342e73c26e2e807c6c49d8729eb03bcb1a5106aca4122e15",
+        "semantically_nontrivial": true,
+        "state_reference_count": 7
+      },
+      {
+        "action_site_count": 6,
+        "arena": "battlesnake",
+        "branch_count": 12,
+        "comparison_count": 20,
+        "function_count": 6,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "df0e38ffb0ab764e9b05ee13fdf244fc31f0787e25ce7219fe18265627334548",
+        "semantically_nontrivial": true,
+        "state_reference_count": 3
+      },
+      {
+        "action_site_count": 12,
+        "arena": "battlesnake",
+        "branch_count": 21,
+        "comparison_count": 21,
+        "function_count": 7,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "4c2d1aebae043bbc07a11abed6e3df518367058d1aec240e6b72b6ce6fdcf227",
+        "semantically_nontrivial": true,
+        "state_reference_count": 5
+      },
+      {
+        "action_site_count": 28,
+        "arena": "halite",
+        "branch_count": 11,
+        "comparison_count": 31,
+        "function_count": 22,
+        "parseable": true,
+        "parser": "c_comment_string_aware_lexer",
+        "salted_target_hash": "9d5947845a6fb2feae16cbe52885f0c5ec14f59e4deaa9d0d94192a5db01f535",
+        "semantically_nontrivial": true,
+        "state_reference_count": 3
+      },
+      {
+        "action_site_count": 2,
+        "arena": "halite",
+        "branch_count": 15,
+        "comparison_count": 40,
+        "function_count": 17,
+        "parseable": true,
+        "parser": "c_comment_string_aware_lexer",
+        "salted_target_hash": "1d8246e16bed10f1fbdea42e3ffd20a8098fbae3a6770bd9499f82f5401feee8",
+        "semantically_nontrivial": true,
+        "state_reference_count": 7
+      },
+      {
+        "action_site_count": 41,
+        "arena": "halite",
+        "branch_count": 29,
+        "comparison_count": 60,
+        "function_count": 22,
+        "parseable": true,
+        "parser": "c_comment_string_aware_lexer",
+        "salted_target_hash": "7db2b689572ac832e00302b2ad3dae8c533e61bd688c78d2b0fdabde02d6e402",
+        "semantically_nontrivial": true,
+        "state_reference_count": 7
+      },
+      {
+        "action_site_count": 24,
+        "arena": "huskybench",
+        "branch_count": 23,
+        "comparison_count": 27,
+        "function_count": 10,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "f4e6b7043354d4aa7fbc2a58ecac5f3a85e48ad7268616a6d9d9019707eb0e53",
+        "semantically_nontrivial": true,
+        "state_reference_count": 21
+      },
+      {
+        "action_site_count": 30,
+        "arena": "huskybench",
+        "branch_count": 78,
+        "comparison_count": 82,
+        "function_count": 9,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "3e0b2b16e1029e7176a5a2f2907887a57ad68461bb91d16461329132fde04907",
+        "semantically_nontrivial": true,
+        "state_reference_count": 23
+      },
+      {
+        "action_site_count": 41,
+        "arena": "huskybench",
+        "branch_count": 48,
+        "comparison_count": 55,
+        "function_count": 16,
+        "parseable": true,
+        "parser": "python_ast",
+        "salted_target_hash": "64700797439ef03038b84fd10b018be7724590ee2e94078ead1d0a2e5d0c9de5",
+        "semantically_nontrivial": true,
+        "state_reference_count": 26
+      },
+      {
+        "action_site_count": 60,
+        "arena": "robocode",
+        "branch_count": 26,
+        "comparison_count": 30,
+        "function_count": 88,
+        "parseable": true,
+        "parser": "java_comment_string_aware_lexer",
+        "salted_target_hash": "a5ac8251ca77d9de27973ce37e8895dce21d156cf17107f7cf9c0da99a3c5c18",
+        "semantically_nontrivial": true,
+        "state_reference_count": 18
+      },
+      {
+        "action_site_count": 3,
+        "arena": "robocode",
+        "branch_count": 0,
+        "comparison_count": 0,
+        "function_count": 7,
+        "parseable": true,
+        "parser": "java_comment_string_aware_lexer",
+        "salted_target_hash": "82c68d6567e07f5020c8520e425b01648c1c7c4bf49e01e6c8c500ffccabd24e",
+        "semantically_nontrivial": false,
+        "state_reference_count": 0
+      },
+      {
+        "action_site_count": 87,
+        "arena": "robocode",
+        "branch_count": 55,
+        "comparison_count": 134,
+        "function_count": 310,
+        "parseable": true,
+        "parser": "java_comment_string_aware_lexer",
+        "salted_target_hash": "92405bb5e75f1378bd4274cc1854ae26a86b7535105f8c367e80cd1de14cd51f",
+        "semantically_nontrivial": true,
+        "state_reference_count": 20
+      }
+    ]
+  },
+  "status": "execution_opportunity_required",
+  "structural_contracts": {
+    "adaptive_continuation_static_proven": false,
+    "compute_matched_receding_myopic_witness_static_proven": false,
+    "endpoint_separation_static_proven": false,
+    "intervention_sensitive_observation_static_proven": false,
+    "irreversible_first_action_source_supported": true,
+    "llm_native_opening_source_supported": true,
+    "nonadditive_horizon_static_proven": false,
+    "semantic_latent_behavior_source_supported": true
+  }
+}
