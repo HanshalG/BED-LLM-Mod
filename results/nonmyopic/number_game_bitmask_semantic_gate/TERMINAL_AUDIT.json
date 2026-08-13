@@ -1,0 +1,25 @@
+{
+  "authorizes": "prospective_sharded_interface_design_only",
+  "decision": "close_exact_bitmask_interface",
+  "endpoints_opened": false,
+  "gates": {
+    "all_ten_length_stops": true,
+    "authority_closed": true,
+    "cost_reconciles": true,
+    "exact_binding_and_ledger": true,
+    "exact_proposal_only_transport": true,
+    "zero_parseable_complete_responses": true
+  },
+  "interface_version": "number-game-bitmask-semantic-terminal-audit-1",
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "status": "terminal_audit_pass",
+  "targets_opened": false,
+  "transport": {
+    "accepted_requests": 10,
+    "actual_cost_usd": 0.038855680000000004,
+    "audit_requests": 0,
+    "length_stop_count": 10,
+    "parseable_response_count": 0
+  }
+}

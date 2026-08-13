@@ -1,0 +1,20 @@
+{
+  "account_utils": {"path": "scripts/number_game_bitmask_semantic_aug13_execute.py", "sha256": "be637f5be258df7e90368d8d6074da41afcf4203b861d62c1c8e4500101a8359"},
+  "audit_requests": 10,
+  "codec": {"path": "scripts/number_game_sharded_bitmask_semantic_codec.py", "sha256": "772f468f1bb90de15a881b4783dacbd24b9da3f2fa3bdfdae4900299bbda118b"},
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "endpoints_authorized": false,
+  "maximum_http_attempts": 40,
+  "maximum_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "producer": {"path": "scripts/number_game_sharded_bitmask_semantic_gate.py", "sha256": "08d9366b426854481b6db2ed6ccf65a5bb5080f863dc9a91b45b8ec7f95a20bf"},
+  "proposal_requests": 30,
+  "protocol": {"path": "results/nonmyopic/NUMBER_GAME_SHARDED_BITMASK_SEMANTIC_SUPPORT_GATE_PROTOCOL_20260813.md", "sha256": "6c229c85185d79d65b942482c93f448641ae89277b486ca27832c4300c4d2fcb"},
+  "schema_version": 1,
+  "stage_cap_usd": 0.08,
+  "targets_authorized": false,
+  "tests": {"path": "tests/test_number_game_sharded_bitmask_semantic_codec.py", "sha256": "4e6a0dc528c57087a2424ba58f1b62ab18df1e614ea7f1d044532e29e1ddc32d"},
+  "verifier": {"path": "scripts/number_game_sharded_bitmask_semantic_verify.py", "sha256": "cc1ab76721fd10213ebf2380a55ace547a5445dc7f9d60b5c5aa96bc7aeefd25"},
+  "wrapper": {"path": "scripts/number_game_sharded_bitmask_semantic_aug13_execute.py", "sha256": "30d49c77d1bc5aa2a02ab55603518eb5b577f8ee6791b131d6995676a12b7d73"}
+}

@@ -1,0 +1,55 @@
+{
+  "closing_balance_usd": 24.74947583400001,
+  "closing_total_credits_usd": 245.0,
+  "closing_total_usage_usd": 220.250524166,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "execution_binding_sha256": "b5a08bf584267e5f8e17ec6e67db515ce17748cee4b852ff16be1bf493b1fab9",
+  "execution_opening_balance_usd": 24.788331513999992,
+  "execution_opening_total_credits_usd": 245.0,
+  "execution_opening_total_usage_usd": 220.211668486,
+  "interface_version": "number-game-bitmask-semantic-aug13-execute-1",
+  "opening_total_usage_usd": 220.13412888,
+  "proposal_authorization": {
+    "exposure": {
+      "exact_phase_exposure_usd": 0.04044672,
+      "max_output_tokens_per_request": 3000,
+      "maximum_request_exposure_usd": 0.00404704,
+      "request_exposures_usd": [
+        0.00403584,
+        0.00403584,
+        0.00404704,
+        0.00404704,
+        0.00404672,
+        0.00404672,
+        0.00404704,
+        0.00404704,
+        0.00404672,
+        0.00404672
+      ],
+      "tracker_reservation_usd": 0.040470400000000004
+    },
+    "live": {
+      "balance_usd": 24.788331513999992,
+      "total_credits_usd": 245.0,
+      "total_usage_usd": 220.211668486
+    },
+    "model": {
+      "completion_price_usd_per_token": 1.28e-06,
+      "id": "qwen/qwen3.7-plus",
+      "prompt_price_usd_per_token": 3.2e-07,
+      "seed_supported": true,
+      "structured_output_supported": true
+    }
+  },
+  "recorded_actual_spend_usd": 0.11639528600002791,
+  "schema_version": 1,
+  "stage": {
+    "actual_cost_usd": 0.03885568,
+    "maximum_cost_usd": 0.08,
+    "maximum_http_attempts": 20,
+    "maximum_retries": 0,
+    "status": "failed_closed"
+  },
+  "timezone": "Europe/London"
+}

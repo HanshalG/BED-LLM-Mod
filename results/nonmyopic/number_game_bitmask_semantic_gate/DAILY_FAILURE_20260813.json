@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.03885568,
+  "authorizes": "nothing",
+  "endpoints_opened": false,
+  "error": "Unterminated string starting at: line 25 column 115 (char 4878)",
+  "error_type": "JSONDecodeError",
+  "interface_version": "number-game-bitmask-semantic-aug13-execute-1",
+  "label_exists": false,
+  "ledger_sha256": "5e0307f19d9a827f8cc208e2c9f6641c2506593f0de5299e4c3135ff9d65fae0",
+  "raw_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "targets_opened": false,
+  "verification_exists": false
+}
