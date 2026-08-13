@@ -1,0 +1,52 @@
+{
+  "accepted_requests_authorized": 6,
+  "calibration_manifest": {
+    "path": "results/nonmyopic/tau2_mms_array_semantic_calibration/CALIBRATION_MANIFEST.json",
+    "sha256": "879fdd7c137a228c0ca227f6adb6a09d4e8712e90219ea7328558c359b3f6590"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {
+    "path": "scripts/tau2_mms_array_semantic_aug13_execute.py",
+    "sha256": "5b04685634e3180187ab0a3f5199e0352af64a7b52e66540be00f28b629761c1"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/tau2_mms_array_semantic_verify.py",
+    "sha256": "b929cf720bd32669a081163360b39b4279cbbe2748ff1c1aa5fd49e48238bdae"
+  },
+  "interface_version": "tau2-mms-array-semantic-execution-binding-1",
+  "maximum_http_attempts": 6,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_failure": {
+    "path": "results/nonmyopic/tau2_native_prerequisite_semantic_mechanics/DAILY_FAILURE_20260813.json",
+    "sha256": "0294cd4bfdd3cc2c4efe270c5a41150364b43622fc93dbebdcd43ce0f62d84b5"
+  },
+  "predecessor_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-tau2-native-semantic-mechanics.json",
+    "sha256": "904c443129174e2102acdd052b410c7c81bf3c3f8567cb87b86591c209dfc277"
+  },
+  "producer": {
+    "path": "scripts/tau2_mms_array_semantic_calibration.py",
+    "sha256": "6a982b9312a064f4728c77c7c002cbeb3438aa25d6888e64873f2df8652e6ffd"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/TAU2_MMS_ARRAY_SEMANTIC_CALIBRATION_PROTOCOL_20260813.md",
+    "sha256": "47526ceeff46d41f9f618f9a7e01fed19d503a9a5b58105667c6c2e7d43a5163"
+  },
+  "run_cap_usd": 0.1,
+  "schema_version": 1,
+  "source_manifest": {
+    "path": "results/nonmyopic/tau2_native_prerequisite_source/SOURCE_MANIFEST.json",
+    "sha256": "4fff94c86fbc4bd5633d945d56ea072e3fef31523ff6598a608b3278562eae2e"
+  },
+  "source_protocol": {
+    "path": "results/nonmyopic/TAU2_NATIVE_PREREQUISITE_SOURCE_PROTOCOL_20260813.md",
+    "sha256": "cc44807b74199d4aff5ec86b60ff8beae3ab123156750cb2cbcc1f1a1f092f78"
+  },
+  "source_selector": {
+    "path": "scripts/tau2_native_prerequisite_source_manifest.py",
+    "sha256": "1190b52efb1d77d50c4e496a55108b4aee7c83d150c189f0c4f58bcc0008a02f"
+  }
+}
