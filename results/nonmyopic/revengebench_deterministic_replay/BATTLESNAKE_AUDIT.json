@@ -1,0 +1,40 @@
+{
+  "arena": "battlesnake",
+  "canonical_hashes": {
+    "target_actions": [
+      "f3bc3b9269583326406332401e967dd6d9f784589735ccd7c1a1cb3c98eb42ad",
+      "f3bc3b9269583326406332401e967dd6d9f784589735ccd7c1a1cb3c98eb42ad"
+    ],
+    "target_states": [
+      "84adcd1c5fb36fdb9fca3c084a3c118b1a61892a51b4ee7b6ac7b8fe0a25eb42",
+      "84adcd1c5fb36fdb9fca3c084a3c118b1a61892a51b4ee7b6ac7b8fe0a25eb42"
+    ],
+    "terminal_result": [
+      "786bd7f0322721074c3324e2f8058fb95d41d0a87526fb2da075f9ce165bbca4",
+      "786bd7f0322721074c3324e2f8058fb95d41d0a87526fb2da075f9ce165bbca4"
+    ]
+  },
+  "counts": {
+    "target_actions_per_arm": [
+      302,
+      302
+    ],
+    "target_states_per_arm": [
+      303,
+      303
+    ]
+  },
+  "gates": {
+    "action_distance_evaluation_inputs_exact": true,
+    "canonical_target_states_exact": true,
+    "minimum_nontrivial_actions": true,
+    "normalized_score_exact": true,
+    "openrouter_calls_zero": true,
+    "raw_trajectory_serialized": false,
+    "target_actions_exact": true,
+    "terminal_result_exact": true,
+    "trajectory_length_exact": true
+  },
+  "protocol_version": "revengebench-battlesnake-replay-v1",
+  "status": "pass"
+}

@@ -1,0 +1,644 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "allowed_file_hashes": {
+    ".gitmodules": "aefa1d05af115927a72a06bc1333ed19beee97b50af0d19ddc097317fb45a43d",
+    "LICENSE": "6c3e5e03e7b7e8e8ecb83589742a6380c02e6709df0236d0076d28910dce4f60",
+    "README.md": "e9ca5c78f0006b19a0a06f92a9274916f84ce68997a69f0b360583d9430889e8",
+    "pyproject.toml": "e23e0e3b38e077faf2fc89f320dd1f982b36fa88bc1dcf8962b6375a661af024",
+    "src/revenge_bench/arenas/arena.py": "3cbc66d4ca6104f5722a71a2799eed1b80c9779dba3ba4ed2ec83a5a8dc42343",
+    "src/revenge_bench/arenas/battlesnake/battlesnake.py": "054e348d74b168103dafb2ffa4fa02562aed2eb7b05f1ee2d4ff0cd5b95ad3ac",
+    "src/revenge_bench/strategy_pool.py": "09f93bbed8eba1bd4cf842be063b290fc5e3e571470bfc222a135d963ef00491",
+    "src/revenge_bench/tournaments/bayesian_program_inference.py": "bce47ffd51a8bfa7c7da1ba659e3cd8f8e683316e8b69bb6852edf84ed54d004",
+    "src/revenge_bench/tournaments/inverse_strategy.py": "c451f8269d0817ea51249efd1ec82ac577b49d38f607b21686df54203c9c0791",
+    "src/revenge_bench/tournaments/inverse_strategy_interventionist.py": "11a0f5c30298a92e8a39ebbe97ef5a5bc6ca8cec1f762a0dde1a6349216c859d"
+  },
+  "condition_parity": {
+    "all_matched_modulo_probe_fields": true,
+    "common_models": [
+      "deepseek_v4_pro",
+      "gemma_4_31b",
+      "gpt5",
+      "gpt54_mini",
+      "gpt_oss_120b",
+      "grok4_fast"
+    ],
+    "comparison_count": 30,
+    "comparisons": [
+      {
+        "active_normalized_sha256": "5d61af8fa346c4904ea9bd7ac76d3c5846f17f1c1b77c56db66c207077cbf577",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "deepseek_v4_pro",
+        "no_probe_normalized_sha256": "5d61af8fa346c4904ea9bd7ac76d3c5846f17f1c1b77c56db66c207077cbf577"
+      },
+      {
+        "active_normalized_sha256": "d91a4d9f4b813ac4bd75c1d1e93b400ece2466ec9cdc50baf07655f1f34abe4a",
+        "arena": "halite",
+        "matched": true,
+        "model": "deepseek_v4_pro",
+        "no_probe_normalized_sha256": "d91a4d9f4b813ac4bd75c1d1e93b400ece2466ec9cdc50baf07655f1f34abe4a"
+      },
+      {
+        "active_normalized_sha256": "811b358e63a6a7e073d2a4c6a00b62060e2fa3123bbd1ecff18db404b06df864",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "deepseek_v4_pro",
+        "no_probe_normalized_sha256": "811b358e63a6a7e073d2a4c6a00b62060e2fa3123bbd1ecff18db404b06df864"
+      },
+      {
+        "active_normalized_sha256": "ecb084db1625ee9ac620c916fe31988646875dd3ab7361680a3d77c0632d094a",
+        "arena": "robocode",
+        "matched": true,
+        "model": "deepseek_v4_pro",
+        "no_probe_normalized_sha256": "ecb084db1625ee9ac620c916fe31988646875dd3ab7361680a3d77c0632d094a"
+      },
+      {
+        "active_normalized_sha256": "821bb2cfcb12b20e96460a8b24684d6cb866126b6cd94968c6e645cb4dc02549",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "deepseek_v4_pro",
+        "no_probe_normalized_sha256": "821bb2cfcb12b20e96460a8b24684d6cb866126b6cd94968c6e645cb4dc02549"
+      },
+      {
+        "active_normalized_sha256": "c7ff01b1f67399c1df003962b581d273d48e29de1caf17a8d50c9aa406c4ef15",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "gemma_4_31b",
+        "no_probe_normalized_sha256": "c7ff01b1f67399c1df003962b581d273d48e29de1caf17a8d50c9aa406c4ef15"
+      },
+      {
+        "active_normalized_sha256": "713565e0a3823d6a0b1946e46d163377925af1514706c7de1044df4119229507",
+        "arena": "halite",
+        "matched": true,
+        "model": "gemma_4_31b",
+        "no_probe_normalized_sha256": "713565e0a3823d6a0b1946e46d163377925af1514706c7de1044df4119229507"
+      },
+      {
+        "active_normalized_sha256": "78bcec7a0d59b909c6bc208afcbc5e4179f0dafbb95826e841522991c3544986",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "gemma_4_31b",
+        "no_probe_normalized_sha256": "78bcec7a0d59b909c6bc208afcbc5e4179f0dafbb95826e841522991c3544986"
+      },
+      {
+        "active_normalized_sha256": "d9970a71c27d53df7cca2ba5e897caf503a7a89a0a50b8b12bca46694a244855",
+        "arena": "robocode",
+        "matched": true,
+        "model": "gemma_4_31b",
+        "no_probe_normalized_sha256": "d9970a71c27d53df7cca2ba5e897caf503a7a89a0a50b8b12bca46694a244855"
+      },
+      {
+        "active_normalized_sha256": "d5efce9d1ca64efbe84726af709d8f47e0f3d2ffb5f969d5184ccba087be7549",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "gemma_4_31b",
+        "no_probe_normalized_sha256": "d5efce9d1ca64efbe84726af709d8f47e0f3d2ffb5f969d5184ccba087be7549"
+      },
+      {
+        "active_normalized_sha256": "58340660f841d70978eaebbf979c6971749ed54ffa528d7bf600402a0c070efb",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "gpt5",
+        "no_probe_normalized_sha256": "58340660f841d70978eaebbf979c6971749ed54ffa528d7bf600402a0c070efb"
+      },
+      {
+        "active_normalized_sha256": "0114ee695aaf61039044519cd371581c9f3e82c97ca300e738ee81e0387116dd",
+        "arena": "halite",
+        "matched": true,
+        "model": "gpt5",
+        "no_probe_normalized_sha256": "0114ee695aaf61039044519cd371581c9f3e82c97ca300e738ee81e0387116dd"
+      },
+      {
+        "active_normalized_sha256": "c232b2fed1086ad3f3554d3048e12fc7cb1ed970ff0f73b632362208fadf0ce6",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "gpt5",
+        "no_probe_normalized_sha256": "c232b2fed1086ad3f3554d3048e12fc7cb1ed970ff0f73b632362208fadf0ce6"
+      },
+      {
+        "active_normalized_sha256": "803063415201116da43c19406bf4795f241c5e44e7ed2b99f84914a716c88791",
+        "arena": "robocode",
+        "matched": true,
+        "model": "gpt5",
+        "no_probe_normalized_sha256": "803063415201116da43c19406bf4795f241c5e44e7ed2b99f84914a716c88791"
+      },
+      {
+        "active_normalized_sha256": "40dd3fadf3c742b2dc3485539ee95129b906965870c0001aadf6f266a8be52ae",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "gpt5",
+        "no_probe_normalized_sha256": "40dd3fadf3c742b2dc3485539ee95129b906965870c0001aadf6f266a8be52ae"
+      },
+      {
+        "active_normalized_sha256": "60c580e09d62659f6d451791665e53b155d0f4616901135ac4ba4e5fe36c8f8e",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "gpt54_mini",
+        "no_probe_normalized_sha256": "60c580e09d62659f6d451791665e53b155d0f4616901135ac4ba4e5fe36c8f8e"
+      },
+      {
+        "active_normalized_sha256": "538e6fec1d7025f8275eefc81df3b57943ff0f87bc19e18d93cf783b60a74c0c",
+        "arena": "halite",
+        "matched": true,
+        "model": "gpt54_mini",
+        "no_probe_normalized_sha256": "538e6fec1d7025f8275eefc81df3b57943ff0f87bc19e18d93cf783b60a74c0c"
+      },
+      {
+        "active_normalized_sha256": "d11c25e4d30302865b23d2914225e764f84b9491b3d5e5df95cc59b2b441d88b",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "gpt54_mini",
+        "no_probe_normalized_sha256": "d11c25e4d30302865b23d2914225e764f84b9491b3d5e5df95cc59b2b441d88b"
+      },
+      {
+        "active_normalized_sha256": "ca1c9dd6616893baac1d05e4496c31d511d5fbe5dc51cce03ea61bc035947344",
+        "arena": "robocode",
+        "matched": true,
+        "model": "gpt54_mini",
+        "no_probe_normalized_sha256": "ca1c9dd6616893baac1d05e4496c31d511d5fbe5dc51cce03ea61bc035947344"
+      },
+      {
+        "active_normalized_sha256": "a78c633ad0cddd5ea9c54aa4907b30365433d562ca9bf5651275831aceae3571",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "gpt54_mini",
+        "no_probe_normalized_sha256": "a78c633ad0cddd5ea9c54aa4907b30365433d562ca9bf5651275831aceae3571"
+      },
+      {
+        "active_normalized_sha256": "c09aa8b937455dc5f0c84c3ff29bf3fbf9c549b969ee5d978f3d8b268164561d",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "gpt_oss_120b",
+        "no_probe_normalized_sha256": "c09aa8b937455dc5f0c84c3ff29bf3fbf9c549b969ee5d978f3d8b268164561d"
+      },
+      {
+        "active_normalized_sha256": "a9355816a1a022a3e269344d759e5c4eb08305d30a5f19566ef2cdd201841c85",
+        "arena": "halite",
+        "matched": true,
+        "model": "gpt_oss_120b",
+        "no_probe_normalized_sha256": "a9355816a1a022a3e269344d759e5c4eb08305d30a5f19566ef2cdd201841c85"
+      },
+      {
+        "active_normalized_sha256": "ea38751973fb7a1c9bec9a8d6b2ae6cc75cd2b26cd52f3f33ebe70ac27049571",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "gpt_oss_120b",
+        "no_probe_normalized_sha256": "ea38751973fb7a1c9bec9a8d6b2ae6cc75cd2b26cd52f3f33ebe70ac27049571"
+      },
+      {
+        "active_normalized_sha256": "3bcea9b9ac981b1e0d0c2993ee03de1a398040d3d3c444c9a04d41407bb93faf",
+        "arena": "robocode",
+        "matched": true,
+        "model": "gpt_oss_120b",
+        "no_probe_normalized_sha256": "3bcea9b9ac981b1e0d0c2993ee03de1a398040d3d3c444c9a04d41407bb93faf"
+      },
+      {
+        "active_normalized_sha256": "ea312f22753fb347389e35596e3672627f55c988c854ed04181323a41be49214",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "gpt_oss_120b",
+        "no_probe_normalized_sha256": "ea312f22753fb347389e35596e3672627f55c988c854ed04181323a41be49214"
+      },
+      {
+        "active_normalized_sha256": "245f85a2ed0b0a8f1fb5095d9173b11e843cd2c1e561c0724bb00db016983193",
+        "arena": "battlesnake",
+        "matched": true,
+        "model": "grok4_fast",
+        "no_probe_normalized_sha256": "245f85a2ed0b0a8f1fb5095d9173b11e843cd2c1e561c0724bb00db016983193"
+      },
+      {
+        "active_normalized_sha256": "4a4ae9656efb40dea57c0975a5fa335c3dd9fa5a8698d554f79930594d1e4cf8",
+        "arena": "halite",
+        "matched": true,
+        "model": "grok4_fast",
+        "no_probe_normalized_sha256": "4a4ae9656efb40dea57c0975a5fa335c3dd9fa5a8698d554f79930594d1e4cf8"
+      },
+      {
+        "active_normalized_sha256": "e43af52c7e6c0906fb0d01a91a2a491ec2a342939a8465e4ea31215bbce0c0e0",
+        "arena": "huskybench",
+        "matched": true,
+        "model": "grok4_fast",
+        "no_probe_normalized_sha256": "e43af52c7e6c0906fb0d01a91a2a491ec2a342939a8465e4ea31215bbce0c0e0"
+      },
+      {
+        "active_normalized_sha256": "fcffab0d8eff5f1278e8b6301baefb9fdb397105c0cb65737b97de3efa568a0c",
+        "arena": "robocode",
+        "matched": true,
+        "model": "grok4_fast",
+        "no_probe_normalized_sha256": "fcffab0d8eff5f1278e8b6301baefb9fdb397105c0cb65737b97de3efa568a0c"
+      },
+      {
+        "active_normalized_sha256": "b11f6e943f43971b8c6c61c15e35996d7e120a0aab07005450e556b41f106d2f",
+        "arena": "robotrumble",
+        "matched": true,
+        "model": "grok4_fast",
+        "no_probe_normalized_sha256": "b11f6e943f43971b8c6c61c15e35996d7e120a0aab07005450e556b41f106d2f"
+      }
+    ]
+  },
+  "contracts": {
+    "battlesnake_command_has_explicit_seed": false,
+    "bpi_baseline_config_count": 30,
+    "bpi_baseline_released": true,
+    "heldout_executable_action_distance_endpoint": true,
+    "learner_and_target_are_separate_agents": true,
+    "mit_license": true,
+    "probe_is_normal_gameplay_opponent": true,
+    "unseeded_agent_order_shuffle": true,
+    "unseeded_battlesnake_player_shuffle": true
+  },
+  "decision": "run_zero_call_deterministic_replay_audit_only",
+  "gates": {
+    "active_no_probe_condition_parity": true,
+    "all_non_replay_source_gates_pass": true,
+    "all_source_gates_pass": false,
+    "at_least_four_arenas_sixty_targets_ten_each": true,
+    "exact_common_random_number_replay_exposed": false,
+    "external_executable_action_distance_endpoint": true,
+    "frozen_split_sufficient": true,
+    "immutable_clean_source_and_submodule": true,
+    "probe_is_ordinary_executable_opponent": true,
+    "released_bpi_control": true,
+    "research_permissive_license": true,
+    "target_and_policy_visibility_separable": true,
+    "unique_targets_and_entrypoints": true
+  },
+  "privacy": {
+    "development_or_confirmation_observations_opened": false,
+    "endpoint_actions_opened": false,
+    "released_messages_opened": false,
+    "released_per_target_scores_opened": false,
+    "released_simulations_opened": false,
+    "released_tournaments_opened": false,
+    "serialized_target_fields": [
+      "arena",
+      "target_id",
+      "entrypoint_exists"
+    ],
+    "target_policy_contents_opened": false,
+    "target_provenance_contents_opened": false
+  },
+  "protocol": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/REVENGEBENCH_SOURCE_ADMISSION_PROTOCOL_20260813.md",
+    "sha256": "90103e558a836c599442efd5e89e6e296d8c7c43d4c590f2ccb5053a1ad828a0",
+    "split_salt": "revengebench-bed-20260813:"
+  },
+  "schema_version": 1,
+  "source": {
+    "codeclash_commit": "a66d63eee9a1f4f5bcda7ca753c404dcfdb63e92",
+    "commit": "351a5a7c2671150bae44c8bc46d7115ec996615f",
+    "repository": "https://github.com/bethgelab/revenge-bench",
+    "submodule_clean": true,
+    "submodule_status": "a66d63eee9a1f4f5bcda7ca753c404dcfdb63e92 vendor/codeclash (a66d63e)",
+    "tree": "8991d42d09f3f8fb095580d87a68ba21b7dc6f5c",
+    "working_tree_clean": true
+  },
+  "status": "pending_replay",
+  "targets": {
+    "arena_count": 5,
+    "arenas": {
+      "battlesnake": {
+        "all_entrypoints_present": true,
+        "entrypoint": "main.py",
+        "missing_entrypoint_ids": [],
+        "ordered_target_id_sha256": "6bd54bdb4676fa32d622a7d71e3db1dea0776610af9b05d57670e27387442010",
+        "split_ordered_id_sha256": {
+          "confirmation": "8b63f48f19e264d6a9bf27f707d75e9a119a081b4ca10baeb54aa5382c7d3b55",
+          "development": "18fbe5d1c29f38ffa2b0eccf791059408e412c7f212bb833742891589584604b",
+          "mechanics": "8c286016cf438bf44963445c995d82e7565e3115e30f2287a8918a97ed19f016",
+          "opportunity": "4cab4cea17d53c9ccbbafa6c77586f2e5c75552ea8f2a0f0140391376e132e0f",
+          "reserve": "24b1739300485810f09898506a4aada46d8718e72d5fa09605fe340508d9df55"
+        },
+        "splits": {
+          "confirmation": [
+            "gpt5__9aa36d603153",
+            "o3__7c211153581f",
+            "cs4-20250514__9371d3cca6ff",
+            "o3__c0bf1efaf67c"
+          ],
+          "development": [
+            "gemini-2.5-pro__f6a6d17b3e1c",
+            "gpt5-mini__b245c7cc6fca",
+            "gemini-2.5-pro__b7d86ae8fa94",
+            "gpt5__fe94b257b136"
+          ],
+          "mechanics": [
+            "cs4-5-20250929__3c2a3a422fb5"
+          ],
+          "opportunity": [
+            "p1__e2e0615779df",
+            "o3__451ea38d9c09",
+            "gpt5-mini__eba7f5649934"
+          ],
+          "reserve": [
+            "o3__a4f0e087333a",
+            "cs4-20250514__263cb1cfefb2",
+            "qwen3-coder-plus-2025-09-23__dd1493274996",
+            "cs4-20250514__f80300d975bf",
+            "grok-code-fast-1__7dbfdf6bedf6",
+            "grok-code-fast-1__81b851eb2d3d",
+            "cs4-5-20250929__23db08feeb37",
+            "gpt5-mini__b420e33bfe23",
+            "gemini-2.5-pro__9bcf231afbe6",
+            "gemini-2.5-pro__07ff9f7044b9",
+            "gpt5-mini__809b92cac2b9",
+            "gpt5-mini__b73dace14f59",
+            "gemini-2.5-pro__9491bf13aa25",
+            "grok-code-fast-1__a163a393a259",
+            "gemini-2.5-pro__3d8375c67d84",
+            "gpt5__2c8cc8479f62",
+            "cs4-20250514__2748ac5b983c",
+            "cs4-20250514__0787b4d66216",
+            "o3__da1944ed2379",
+            "grok-code-fast-1__72edf9b1a925",
+            "qwen3-coder-plus-2025-09-23__c47706a88a18",
+            "cs4-5-20250929__4fca4ecec869",
+            "gemini-2.5-pro__2ce2abb83eeb",
+            "grok-code-fast-1__ffedb9e45e41",
+            "cs4-5-20250929__4349a491670d",
+            "grok-code-fast-1__5801bf49e0e7",
+            "grok-code-fast-1__e2d9c3c435ba",
+            "gpt5-mini__62facd9e0b93"
+          ]
+        },
+        "target_count": 40
+      },
+      "halite": {
+        "all_entrypoints_present": true,
+        "entrypoint": "main.c",
+        "missing_entrypoint_ids": [],
+        "ordered_target_id_sha256": "3a2a756ec4cb8044a2e77f4e90bbc2169e5a16418c44f0259117b478627e3d05",
+        "split_ordered_id_sha256": {
+          "confirmation": "7e20340ce313fe002be70d773773cd24f6403b3298b5279cfaaa124efbd4d75d",
+          "development": "c91c652fa4c545d7b917c3c76b923d82009e43e8384839d22f8d67d053896f56",
+          "mechanics": "821a814dbbf5923f52870d57e1848c8c53250b57c6626ae5ec0b9e2e972e95d1",
+          "opportunity": "bd8d51cf65519df0133a617569d5ed9dd290cd76ffeced067c6e1b942cbbfd9d",
+          "reserve": "77c3946f1fe0f9d2d97200f264b10b016493cecbb412dae676ca18a76818c20d"
+        },
+        "splits": {
+          "confirmation": [
+            "gpt5__6e0a8bf090a2",
+            "o3__f7034e6c2071",
+            "gemini-2.5-pro__a77c1e187214",
+            "qwen3-coder-plus-2025-09-23__eed2231c2d69"
+          ],
+          "development": [
+            "cs4-20250514__c183bc6eb245",
+            "gpt5-mini__f6a4394056e6",
+            "grok-code-fast-1__0a6bc8aed145",
+            "grok-code-fast-1__f1d9d9b12d79"
+          ],
+          "mechanics": [
+            "gemini-2.5-pro__797b77f4c9c2"
+          ],
+          "opportunity": [
+            "cs4-5-20250929__efaca3c57599",
+            "o3__17ab493af1e6",
+            "cs4-5-20250929__67c6c4a22514"
+          ],
+          "reserve": [
+            "o3__7b3c5fdd7395",
+            "qwen3-coder-plus-2025-09-23__a0f176397851",
+            "gpt5__c98b51a24f8c",
+            "grok-code-fast-1__cf5904738030",
+            "grok-code-fast-1__8ba19be9c293",
+            "cs4-20250514__df6804d9a90e",
+            "cs4-5-20250929__ff4452059b90",
+            "o3__20de1f0392ef",
+            "gpt5-mini__c15659fab903",
+            "gpt5-mini__9a9257161ef8",
+            "gemini-2.5-pro__f2ce731a5c20",
+            "gpt5-mini__19cc927998e8",
+            "o3__f744d9f01571",
+            "cs4-20250514__d9760cb345c4",
+            "grok-code-fast-1__75be90cbd572",
+            "qwen3-coder-plus-2025-09-23__ecd0ae6e5654",
+            "qwen3-coder-plus-2025-09-23__40585eb155cc",
+            "cs4-20250514__3d386035ddd8",
+            "gpt5-mini__0398f94a8bef",
+            "cs4-5-20250929__7e419e752451",
+            "gemini-2.5-pro__cb333c8da332",
+            "cs4-5-20250929__4e929419cbaf",
+            "gemini-2.5-pro__cd4c0b86488c",
+            "cs4-20250514__859ca8a35fe2",
+            "qwen3-coder-plus-2025-09-23__d57d031b04a1",
+            "cs4-20250514__b4b3a8ea19a4",
+            "gpt5__c5aecab34124",
+            "qwen3-coder-plus-2025-09-23__76c2ebfcd3bc"
+          ]
+        },
+        "target_count": 40
+      },
+      "huskybench": {
+        "all_entrypoints_present": true,
+        "entrypoint": "player.py",
+        "missing_entrypoint_ids": [],
+        "ordered_target_id_sha256": "989f0c95cf148b512ec6f497c5061853191b6586b0276cdaae3f3ff8dbbbb016",
+        "split_ordered_id_sha256": {
+          "confirmation": "673912f02e7315694f47782defb91e7515358f61ffa9b9b60f246a6af0375bf3",
+          "development": "cac29c62d8fbec80080d4bd0d957fadc6feb023f8d426e2eaa7f64f97b7ff996",
+          "mechanics": "78a8525a7988390407e895baad0fa8c98ed1f85ddbdd751c641561cfc22a177f",
+          "opportunity": "37107801fe58e8013f5917432dc8925ee948d167a950debd5eeca92b55dfb246",
+          "reserve": "9c65ff381b33e41bd6e1594c65435577c052f4229f7b5418c3e3ae10c9374014"
+        },
+        "splits": {
+          "confirmation": [
+            "grok-code-fast-1__f706f230d24a",
+            "grok-code-fast-1__81b581b41bd0",
+            "cs4-5-20250929__e6964c13332c",
+            "gemini-2.5-pro__abcfd78923af"
+          ],
+          "development": [
+            "cs4-5-20250929__fdf3e493ce89",
+            "cs4-20250514__bc3e15220bdf",
+            "gpt5-mini__5eb04979f470",
+            "o3__e93f8981a0bc"
+          ],
+          "mechanics": [
+            "o3__01c0872e2c4b"
+          ],
+          "opportunity": [
+            "o3__6817bd7e411c",
+            "qwen3-coder-plus-2025-09-23__17b9476a725b",
+            "gemini-2.5-pro__0d5fb910ddeb"
+          ],
+          "reserve": [
+            "grok-code-fast-1__104f6bb227b3",
+            "gpt5__11f6e74a9700",
+            "gpt5__a61e02304fce",
+            "gemini-2.5-pro__53a9af073ce8",
+            "cs4-5-20250929__49423dc9766d",
+            "gpt5-mini__563b7a8fa4d0",
+            "cs4-20250514__93610a6962cb",
+            "gemini-2.5-pro__458429b9baf8",
+            "grok-code-fast-1__92ba781d6f81",
+            "o3__7277047ef5e2",
+            "gemini-2.5-pro__e413f80bbce3",
+            "o3__1146a321d226",
+            "gpt5-mini__b31f4eb4a244",
+            "qwen3-coder-plus-2025-09-23__e8ac03f320f7",
+            "cs4-5-20250929__ef9f9aebeb7b",
+            "qwen3-coder-plus-2025-09-23__c74ccff66ff5",
+            "gpt5__b950e7a98639",
+            "gpt5-mini__b86a5fd7661f",
+            "qwen3-coder-plus-2025-09-23__a3a7162fd199",
+            "cs4-5-20250929__4c12a8d32880",
+            "grok-code-fast-1__ab9a91288094",
+            "gpt5__a9cd1c0ad639",
+            "gpt5-mini__5d14efe5aa55",
+            "o3__9015614a1a48",
+            "gemini-2.5-pro__204ab5a51584",
+            "grok-code-fast-1__60b1491b252b",
+            "cs4-5-20250929__a840804bd7cb",
+            "gemini-2.5-pro__c6258db1e016"
+          ]
+        },
+        "target_count": 40
+      },
+      "robocode": {
+        "all_entrypoints_present": true,
+        "entrypoint": "MyTank.java",
+        "missing_entrypoint_ids": [],
+        "ordered_target_id_sha256": "95f328cff8d3cc4dce0041d436b5bf85d790f07cdccc83345b15c6cafc111a6a",
+        "split_ordered_id_sha256": {
+          "confirmation": "e4fb69de9f94abe1e4c5afb210319acda6455f9b7f85a007a1a6c10490832f82",
+          "development": "76e85e7c1eaf6ff7316742df4a565be1b898fbc8a499e222b3b34dbccb8ab308",
+          "mechanics": "337619bef239063f6ef6f8c9ffd687d16cf5660cfca5fd14db79df8ee857fcb8",
+          "opportunity": "da5adb0162bb333a2fd79730c5dc9c29110d64b31d4c9b66988cf38c167897cf",
+          "reserve": "07491da104624544c504f257fd2913c9eb418299c605ec8392518360050118f5"
+        },
+        "splits": {
+          "confirmation": [
+            "claudesonnet4520250929__f602acca7a12",
+            "claudesonnet4520250929__c0ee3a51142b",
+            "gemini25pro__fa313f0deca8",
+            "grokcodefast1__59255331fd08"
+          ],
+          "development": [
+            "gemini25pro__2c03e73826f3",
+            "o3__ffc6d7693b80",
+            "claudesonnet420250514__e1f04425a88c",
+            "gpt5__8436c8d73c16"
+          ],
+          "mechanics": [
+            "claudesonnet420250514__1993874f22ea"
+          ],
+          "opportunity": [
+            "claudesonnet4520250929__52a747f942a5",
+            "claudesonnet420250514__8a399fce4996",
+            "gpt5__9641271097f7"
+          ],
+          "reserve": [
+            "grokcodefast1__c37d49204e12",
+            "o3__7ad8ab7b079e",
+            "claudesonnet420250514__e44790deada6",
+            "qwen3coderplus20250923__18a686c44095",
+            "gpt5mini__c22aaf4fc6d4",
+            "qwen3coderplus20250923__862a36f1493c",
+            "grokcodefast1__e08a71d91855",
+            "grokcodefast1__cbbb94d86842",
+            "claudesonnet4520250929__77330abfd74b",
+            "grokcodefast1__add30a391d4e",
+            "o3__5c4cf9a399d7",
+            "claudesonnet4520250929__d3ebd794334d",
+            "claudesonnet420250514__60a7376ea9e4",
+            "gemini25pro__55ec725268b0",
+            "claudesonnet420250514__2fc174f54af4",
+            "gemini25pro__46ff7dae8afd",
+            "grokcodefast1__2a2abccdfd8e",
+            "gpt5mini__f3b3f30d9e16",
+            "o3__ed501449b3ce",
+            "claudesonnet420250514__e9fb0e196d71",
+            "gpt5mini__fd915882a87e",
+            "qwen3coderplus20250923__9ebdba6c8641",
+            "grokcodefast1__80d01e2ea502",
+            "claudesonnet420250514__a179d671c515",
+            "grokcodefast1__4df24b0bda60",
+            "gemini25pro__96620fe6750b",
+            "qwen3coderplus20250923__eb83e70473c7",
+            "grokcodefast1__5b2f214830f8"
+          ]
+        },
+        "target_count": 40
+      },
+      "robotrumble": {
+        "all_entrypoints_present": true,
+        "entrypoint": "robot.js",
+        "missing_entrypoint_ids": [],
+        "ordered_target_id_sha256": "fad8f16c9c4eb3b3485d55993b87d7675d28dd063473abed4090adc15c10177d",
+        "split_ordered_id_sha256": {
+          "confirmation": "7d056db10c747037ec2c9d87f761dc8851b87373cbba14a8156071dcce60cb13",
+          "development": "3f95dbcd9c536b90114872039d14591b21240e2a936e4a2dc29a38da27ff1491",
+          "mechanics": "25f3d27cbcb9b55a4dfa84daf6022d67389e8d26772485bd3ceee2f52b8ec6d6",
+          "opportunity": "b3d9b68871865781c9d14696b2af27824f9d85ef528c9d5f26c9e6c899e23b67",
+          "reserve": "99c4607fbc6ced3c4b4d2917575378ca909a9a17110416619d4c84229e286989"
+        },
+        "splits": {
+          "confirmation": [
+            "grok-code-fast-1__6485ca856e3a",
+            "grok-code-fast-1__315fc2fd355b",
+            "o3__f35d31c428b9",
+            "cs4-5-20250929__8729f82409e4"
+          ],
+          "development": [
+            "gpt5__8c2fd57869a9",
+            "grok-code-fast-1__ca803266a829",
+            "gemini-2.5-pro__6b21c6726600",
+            "grok-code-fast-1__20e444fd6779"
+          ],
+          "mechanics": [
+            "cs4-5-20250929__344e716f9f84"
+          ],
+          "opportunity": [
+            "cs4-20250514__aead9c0e9955",
+            "grok-code-fast-1__6403c952e9eb",
+            "cs4-20250514__a3655df811fc"
+          ],
+          "reserve": [
+            "gemini-2.5-pro__c8dac6d701e6",
+            "gpt5__9a0636e75e4f",
+            "cs4-20250514__f4e7fc5c7d93",
+            "gpt5-mini__366e38fc72c8",
+            "cs4-5-20250929__967040cc3a2d",
+            "cs4-5-20250929__684b5ef99e4f",
+            "o3__27b48f25768c",
+            "cs4-5-20250929__c6980d81e574",
+            "gemini-2.5-pro__9f1a019b5a95",
+            "qwen3-coder-plus-2025-09-23__7645cd33510a",
+            "o3__09bcc4777f89",
+            "qwen3-coder-plus-2025-09-23__e4f4e89c46f1",
+            "gemini-2.5-pro__62ee66f3ca4f",
+            "o3__58fd8ef654e0",
+            "gpt5-mini__a2cbf9ec8b8a",
+            "gemini-2.5-pro__40e1f8403ea6",
+            "qwen3-coder-plus-2025-09-23__4681c388dfa7",
+            "cs4-20250514__e60da042b2dd",
+            "qwen3-coder-plus-2025-09-23__8bcfd6d26453",
+            "cs4-5-20250929__ef774852ce8f",
+            "gpt5__4ba7ef61999c",
+            "gpt5-mini__4e70dba35853",
+            "gpt5-mini__287a268dbd19",
+            "gpt5-mini__279352a3f7ec",
+            "cs4-20250514__d06de577a885",
+            "cs4-20250514__d8cf753ede01",
+            "gemini-2.5-pro__a8f524adb245",
+            "qwen3-coder-plus-2025-09-23__926cd0a1a61d"
+          ]
+        },
+        "target_count": 40
+      }
+    },
+    "split_counts": {
+      "confirmation": 20,
+      "development": 20,
+      "mechanics": 5,
+      "opportunity": 15,
+      "reserve": 140
+    },
+    "target_count": 200
+  }
+}
