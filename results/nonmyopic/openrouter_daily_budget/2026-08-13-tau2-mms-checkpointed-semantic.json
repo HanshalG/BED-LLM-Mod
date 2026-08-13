@@ -1,0 +1,30 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "closing_balance_usd": 24.85843270699999,
+  "closing_total_credits_usd": 245.0,
+  "closing_total_usage_usd": 220.141567293,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "execution_binding_sha256": "786c74f863f49acf4511debf39d552438f7b9e76d2b781f18c1d3935c3e3a565",
+  "execution_opening_balance_usd": 24.860520132999994,
+  "execution_opening_total_credits_usd": 245.0,
+  "execution_opening_total_usage_usd": 220.139479867,
+  "interface_version": "tau2-mms-checkpointed-semantic-aug13-execute-1",
+  "opening_balance_usd": 24.86587112000001,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_failure_sha256": "9acbe900eb98280d6387082aed494a0205a1648ebfaca384eb9a7d08a7ba9da4",
+  "predecessor_ledger_sha256": "bfda62723448b8e7fc7006dd34831cbd4de5968fb65b0a80c91e9a81e029930f",
+  "recorded_actual_spend_usd": 0.009814359000017703,
+  "schema_version": 1,
+  "stage": {
+    "actual_cost_usd": 0.004463372,
+    "expected_accepted_requests": 6,
+    "maximum_cost_usd": 0.1,
+    "maximum_http_attempts": 6,
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "status": "mms_checkpointed_semantic_null"
+  },
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}

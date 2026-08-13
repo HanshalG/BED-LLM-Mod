@@ -1,0 +1,495 @@
+{
+  "all_error_groups_cover_all_worlds": true,
+  "all_error_groups_world_invariant": true,
+  "authorizes": "nothing",
+  "cost_usd": 0.0,
+  "development_confirmation_reserve_opened": false,
+  "error_group_count": 9,
+  "error_groups": [
+    {
+      "action_id": "speed_test",
+      "actual_values": [
+        "no_connection"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 0,
+      "error_count": 4,
+      "field_id": "speed",
+      "predicted_values": [
+        "poor"
+      ]
+    },
+    {
+      "action_id": "status_bar",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 1,
+      "error_count": 4,
+      "field_id": "data_enabled",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "network_status",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 2,
+      "error_count": 4,
+      "field_id": "wifi_connected",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "network_status",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 2,
+      "error_count": 4,
+      "field_id": "wifi_radio",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "network_status",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 3,
+      "error_count": 4,
+      "field_id": "wifi_connected",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "network_status",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 3,
+      "error_count": 4,
+      "field_id": "wifi_radio",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "speed_test",
+      "actual_values": [
+        "no_connection"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 3,
+      "error_count": 4,
+      "field_id": "speed",
+      "predicted_values": [
+        "good"
+      ]
+    },
+    {
+      "action_id": "status_bar",
+      "actual_values": [
+        "False"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 4,
+      "error_count": 4,
+      "field_id": "data_enabled",
+      "predicted_values": [
+        "True"
+      ]
+    },
+    {
+      "action_id": "network_status",
+      "actual_values": [
+        "True"
+      ],
+      "covers_all_worlds": true,
+      "episode_index": 5,
+      "error_count": 4,
+      "field_id": "mobile_data",
+      "predicted_values": [
+        "False"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 0,
+      "family": "mms_abroad",
+      "field_id": "speed",
+      "predicted": "poor",
+      "world_index": 0
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 0,
+      "family": "mms_abroad",
+      "field_id": "speed",
+      "predicted": "poor",
+      "world_index": 1
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 0,
+      "family": "mms_abroad",
+      "field_id": "speed",
+      "predicted": "poor",
+      "world_index": 2
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 0,
+      "family": "mms_abroad",
+      "field_id": "speed",
+      "predicted": "poor",
+      "world_index": 3
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 1,
+      "family": "mms_abroad",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 1,
+      "family": "mms_abroad",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 1,
+      "family": "mms_abroad",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 1,
+      "family": "mms_abroad",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 2,
+      "family": "mms_abroad",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "speed",
+      "predicted": "good",
+      "world_index": 0
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "speed",
+      "predicted": "good",
+      "world_index": 1
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "speed",
+      "predicted": "good",
+      "world_index": 2
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_radio",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "network_status",
+      "actual": false,
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "wifi_connected",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "speed_test",
+      "actual": "no_connection",
+      "confidence": 0.9,
+      "episode_index": 3,
+      "family": "mms_home",
+      "field_id": "speed",
+      "predicted": "good",
+      "world_index": 3
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 4,
+      "family": "mms_home",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 0
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 4,
+      "family": "mms_home",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 1
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 4,
+      "family": "mms_home",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 2
+    },
+    {
+      "action_id": "status_bar",
+      "actual": false,
+      "confidence": 0.95,
+      "episode_index": 4,
+      "family": "mms_home",
+      "field_id": "data_enabled",
+      "predicted": true,
+      "world_index": 3
+    },
+    {
+      "action_id": "network_status",
+      "actual": true,
+      "confidence": 0.95,
+      "episode_index": 5,
+      "family": "mms_home",
+      "field_id": "mobile_data",
+      "predicted": false,
+      "world_index": 0
+    },
+    {
+      "action_id": "network_status",
+      "actual": true,
+      "confidence": 0.95,
+      "episode_index": 5,
+      "family": "mms_home",
+      "field_id": "mobile_data",
+      "predicted": false,
+      "world_index": 1
+    },
+    {
+      "action_id": "network_status",
+      "actual": true,
+      "confidence": 0.95,
+      "episode_index": 5,
+      "family": "mms_home",
+      "field_id": "mobile_data",
+      "predicted": false,
+      "world_index": 2
+    },
+    {
+      "action_id": "network_status",
+      "actual": true,
+      "confidence": 0.95,
+      "episode_index": 5,
+      "family": "mms_home",
+      "field_id": "mobile_data",
+      "predicted": false,
+      "world_index": 3
+    }
+  ],
+  "interface_version": "tau2-mms-checkpointed-absolute-error-localization-1",
+  "model_calls_made": 0,
+  "registered_status_unchanged": "mms_checkpointed_semantic_null",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "total_field_errors": 36
+}

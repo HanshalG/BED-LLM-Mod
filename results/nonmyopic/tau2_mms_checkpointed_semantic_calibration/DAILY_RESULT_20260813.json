@@ -1,0 +1,30 @@
+{
+  "actual_cost_usd": 0.004463372,
+  "authorizes": "nothing",
+  "interface_version": "tau2-mms-checkpointed-semantic-aug13-execute-1",
+  "ledger_sha256": "64ebf9e8ebe736aa5e7c33552100abf2d99a86affa63652f73d9174d29d5e0f7",
+  "partial_bank_sha256": "3cdf22f3f178ef2803f8e154cf108672652849f500514ef88e6b10ca8bf76af2",
+  "result_sha256": "2f060d07400bcf4ca0f639844e27c5fdea448dfe83dee9886affc2e2b465d4a2",
+  "schema_version": 1,
+  "status": "mms_checkpointed_semantic_null",
+  "verification": {
+    "all_pass": true,
+    "checks": {
+      "downstream_unopened": true,
+      "ordering_exact": true,
+      "privacy_exact": true,
+      "serving_exact": true,
+      "status_exact": true
+    },
+    "cost_usd": 0.0,
+    "expected_result_status": "mms_checkpointed_semantic_null",
+    "interface_version": "tau2-mms-checkpointed-semantic-verification-1",
+    "model_calls_made": 0,
+    "partial_bank_sha256": "3cdf22f3f178ef2803f8e154cf108672652849f500514ef88e6b10ca8bf76af2",
+    "raw_bank_sha256": "7edc7af2a4c404c5e0e641702729385cf2828c53f76641baf056bcc3dd390689",
+    "result_sha256": "2f060d07400bcf4ca0f639844e27c5fdea448dfe83dee9886affc2e2b465d4a2",
+    "schema_version": 1,
+    "status": "verified"
+  },
+  "verification_sha256": "7b218bfbf1b664b8c8e2de567cac58db0be7d61394563131395bad74e58249e3"
+}

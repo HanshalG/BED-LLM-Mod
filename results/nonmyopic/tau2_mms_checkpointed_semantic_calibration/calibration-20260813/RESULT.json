@@ -1,0 +1,333 @@
+{
+  "authorizes": "nothing",
+  "calibration_gates": {
+    "all_calibration_gates_pass": false,
+    "all_six_depth_two_choose_installed_apps": true,
+    "all_six_greedy_avoid_installed_apps": true,
+    "all_six_horizon_gain_at_least_0_10": true,
+    "each_family_brier_at_most_0_25": false,
+    "equivalent_max_tv_at_most_0_10": true,
+    "equivalent_mean_tv_at_most_0_03": true,
+    "exact_216_world_action_cells": true,
+    "exact_24_native_followup_cells": true,
+    "mean_horizon_gain_at_least_0_50": true,
+    "mean_multiclass_brier_at_most_0_18": false,
+    "native_mean_posterior_brier_at_most_0_18": true,
+    "native_mean_truth_posterior_at_least_0_65": true,
+    "native_signature_exact_at_least_23": true,
+    "native_truth_top_rank_at_least_23": true,
+    "semantic_source_spearman_at_least_0_80": true,
+    "typed_signature_accuracy_at_least_0_90": false
+  },
+  "daily_budget_status": {
+    "daily_cap_usd": 5.0,
+    "opening_total_usage_boundary_usd": 220.13412888,
+    "prior_account_spend_usd": 0.005350987795992523,
+    "remaining_after_full_cap_usd": 4.894649012204008,
+    "run_cap_usd": 0.1
+  },
+  "development_confirmation_reserve_opened": false,
+  "episode_metrics": [
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    }
+  ],
+  "interface_version": "tau2-mms-checkpointed-semantic-calibration-1",
+  "manifest_sha256": "a89e6c1d68363badc119ab106fafc6edf377b4f4bd05d380cfd4fc6a3a00cc96",
+  "metrics": {
+    "cell_count": 216,
+    "equivalent_max_total_variation": 0.0,
+    "equivalent_mean_total_variation": 0.0,
+    "equivalent_pair_count": 288,
+    "family_mean_multiclass_brier": {
+      "mms_abroad": 0.1978935185185185,
+      "mms_home": 0.26143518518518516
+    },
+    "mean_horizon_gain_nats": 1.0865820211463548,
+    "mean_multiclass_brier": 0.2296643518518524,
+    "native_followup_cell_count": 24,
+    "native_mean_posterior_brier": 0.004906157569069081,
+    "native_mean_truth_posterior": 0.9425511197663101,
+    "native_signature_exact_count": 24,
+    "native_truth_top_rank_count": 24,
+    "semantic_source_two_step_spearman": 0.997775303139718,
+    "typed_signature_accuracy": 0.8703703703703703
+  },
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "model_seeds": [
+    202608130300,
+    202608130301,
+    202608130302,
+    202608130303,
+    202608130304,
+    202608130305
+  ],
+  "ordering": {
+    "all_partial_responses_banked": true,
+    "complete_raw_bank_created": true,
+    "official_calibration_loaded_after_complete_bank": true
+  },
+  "privacy": {
+    "prompt_sha256": [
+      "31115e75e341fed364fdc892d25c0719c20157b0734ee3626cd637e931918385",
+      "e91a48bd013686526dcc6857afe4de2c498085ce2722cdebac43c2b26ac8926b",
+      "3a7b923db6d56701b491c1ad88d377df74116377e3960e2aeff7ef4ecaff1383",
+      "304892d08bff93ff4dea6cb316c110a688a7e4a4dd155f1a0707d573d162bf11",
+      "4b8ca0f1b64d4a2205d1551d3167ef78c7d0117cf53ef63378c939967da72db9",
+      "c45f36895ea5ba5370783058774d45294a4139c343ac820a02a0eb9786edbfdd"
+    ],
+    "raw_tool_responses_in_prompts": false,
+    "repair_or_endpoint_outcomes_in_prompts": false,
+    "selected_task_ids_in_prompts": false,
+    "source_fault_ids_in_prompts": false
+  },
+  "protocol_sha256": "5c69ff6e8d959ea08b4c2216c59ace4471dc53ca8799f7793718bb83b001076f",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "serving_gates": {
+    "exact_six_accepted_requests": true,
+    "exact_six_http_attempts": true,
+    "within_stage_cap": true,
+    "zero_forced_exits": true,
+    "zero_provider_error_retries": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "status": "mms_checkpointed_semantic_null",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 6,
+    "completion_tokens": 14495,
+    "forced_exits": 0,
+    "http_attempts": 6,
+    "prompt_tokens": 5572,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.004463372
+  }
+}
