@@ -1,0 +1,126 @@
+{
+  "attribution_counts": {
+    "invalid_rule": 1
+  },
+  "authorizes_paid_calls": false,
+  "bindings": {
+    "controls": "513def73b8e75f31eca123e593c2e9b0deab715fbd52ed6d3833020564237672",
+    "failure": "bf2a119f23e8241a7c2f694a3d3009104b0f3151073d37407cb6ddd7a917c244",
+    "protocol": "6c94b4b5609dc5d9aa3913f7b11c1d989b7303460870eb86643ef329079b02c8",
+    "raw_responses": "f8201be3cd199f895a6d971d4fa713beaee01660d4419a341c167a986cded241"
+  },
+  "counts": {
+    "draws": 3072,
+    "draws_below_16": 1,
+    "failing_slots": 1,
+    "pools_below_24": 1,
+    "slots": 1536,
+    "trees": 32
+  },
+  "decision": "authorize_fresh_value_free_support_mechanics_design",
+  "draw_valid_counts": {
+    "histogram": {
+      "14": 1,
+      "19": 19,
+      "20": 73,
+      "21": 283,
+      "22": 838,
+      "23": 1341,
+      "24": 517
+    },
+    "maximum": 24,
+    "median": 23.0,
+    "minimum": 14,
+    "p01": 20.0
+  },
+  "failing_slots": [
+    {
+      "attribution": "invalid_rule",
+      "draw_novel_contributions": [
+        22,
+        1
+      ],
+      "draw_valid_counts": [
+        22,
+        14
+      ],
+      "history_index": 34,
+      "local_tree_index": 17,
+      "pool_valid_count": 23,
+      "rejection_counts": {
+        "duplicate_extension": 1,
+        "inconsistent": 0,
+        "invalid_expression": 11,
+        "invalid_name": 0,
+        "missing_or_incomplete": 0,
+        "wrong_fields": 0
+      },
+      "stage": "second"
+    }
+  ],
+  "interface_version": "number-game-fresh-control-mechanics-localization-v1",
+  "pool_valid_counts": {
+    "histogram": {
+      "23": 1,
+      "24": 1,
+      "25": 17,
+      "26": 32,
+      "27": 72,
+      "28": 144,
+      "29": 216,
+      "30": 248,
+      "31": 273,
+      "32": 223,
+      "33": 165,
+      "34": 88,
+      "35": 36,
+      "36": 14,
+      "37": 5,
+      "38": 1
+    },
+    "maximum": 38,
+    "median": 31.0,
+    "minimum": 23,
+    "p01": 25.0
+  },
+  "privacy": {
+    "model_calls": 0,
+    "openrouter_cost_usd": 0.0,
+    "policy_endpoints_scored": 0,
+    "raw_response_file_hashed_but_not_deserialized": true,
+    "source_trees_or_targets_read": 0,
+    "support_payloads_not_deserialized": true
+  },
+  "rejection_totals": {
+    "duplicate_extension": 3134,
+    "inconsistent": 0,
+    "invalid_expression": 1129,
+    "invalid_name": 0,
+    "missing_or_incomplete": 0,
+    "wrong_fields": 0
+  },
+  "schema_version": 1,
+  "second_draw_novel_contributions": {
+    "histogram": {
+      "1": 2,
+      "2": 4,
+      "3": 17,
+      "4": 54,
+      "5": 116,
+      "6": 176,
+      "7": 277,
+      "8": 253,
+      "9": 272,
+      "10": 201,
+      "11": 102,
+      "12": 39,
+      "13": 17,
+      "14": 6
+    },
+    "maximum": 14,
+    "median": 8.0,
+    "minimum": 1,
+    "p01": 3.0
+  },
+  "status": "diagnostic_complete"
+}
