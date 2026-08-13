@@ -18,6 +18,8 @@ def test_v2_audit_is_independently_fail_closed() -> None:
     assert '"v1_manifest_reproduced"' in source
     assert '"producer_source_pass"' in source
     assert '"zero_call_privacy_boundary"' in source
+    assert '"v2_was_serialization_only_null"' in source
+    assert 'manifest_hash == v1_result.get("manifest_sha256")' in source
 
 
 def test_v2_correction_does_not_define_new_selection() -> None:
@@ -25,4 +27,3 @@ def test_v2_correction_does_not_define_new_selection() -> None:
     assert "SALT =" not in source
     assert "eligible =" not in source
     assert "ordered =" not in source
-
