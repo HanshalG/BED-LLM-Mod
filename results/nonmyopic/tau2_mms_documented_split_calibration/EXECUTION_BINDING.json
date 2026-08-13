@@ -1,0 +1,57 @@
+{
+  "accepted_requests_authorized": 12,
+  "calibration_manifest": {
+    "path": "results/nonmyopic/tau2_mms_documented_split_calibration/CALIBRATION_MANIFEST.json",
+    "sha256": "c9087d3c3ccfc1ded8ab8bfa4d3b5325397d8ad10509ba7c6b3f2cd2931501d0"
+  },
+  "concurrency": 2,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {
+    "path": "scripts/tau2_mms_documented_split_aug13_execute.py",
+    "sha256": "23de8295d67d1b18b270bcec6b15aca9b4c0d212e0d2f7995515107beb50f83c"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {
+    "path": "scripts/tau2_mms_documented_split_verify.py",
+    "sha256": "c40a0c727142d663c0d186729a09cf64f518ace1d73bd0386c69e10925d462a9"
+  },
+  "interface_version": "tau2-mms-documented-split-execution-binding-1",
+  "maximum_http_attempts": 12,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-tau2-mms-split-partition.json",
+    "sha256": "e010e3eed75c684bd483b10694330735405173cbc031cad5a20d6a471d62b72f"
+  },
+  "predecessor_report": {
+    "path": "results/nonmyopic/TAU2_MMS_SPLIT_PARTITION_TERMINAL_RESULT_20260813.md",
+    "sha256": "311b914fdce93db737fa614ce4251e1bfb5a9b3f264b3036e60d908bb75bf6ad"
+  },
+  "predecessor_result": {
+    "path": "results/nonmyopic/tau2_mms_split_partition_calibration/DAILY_RESULT_20260813.json",
+    "sha256": "43bae98708a7d5132921173478d6085d4c791579861cd73510dbf92f6cc04b86"
+  },
+  "producer": {
+    "path": "scripts/tau2_mms_documented_split_calibration.py",
+    "sha256": "eb7454440735cb1a48c29d60149201d415b059ebcca9ece84cfebcb32b818c56"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/TAU2_MMS_DOCUMENTED_SPLIT_CALIBRATION_PROTOCOL_20260813.md",
+    "sha256": "c55ffb52768c04d01377b830b6552897e232072f19269215bb423080c639c554"
+  },
+  "run_cap_usd": 0.06,
+  "schema_version": 1,
+  "source_audit": {
+    "path": "scripts/tau2_mms_documented_split_source_audit.py",
+    "sha256": "2332f8793a61f99694c4cd26aeb3fd6079a1e13edf1fedc7c96f8868b64bfecf"
+  },
+  "source_audit_result": {
+    "path": "results/nonmyopic/tau2_mms_documented_split_calibration/SOURCE_AUDIT.json",
+    "sha256": "a23c38dd464f3155ed9d5a73c0e6b52cd5f3fd07a53c12040c98425f40cc9967"
+  },
+  "tau2_user_tools": {
+    "path": "external/tau2-bench/src/tau2/domains/telecom/user_tools.py",
+    "sha256": "03fa751eeea3734313a3f5274223d42750fd5c1a28f2624265a678f271ac309d"
+  }
+}
