@@ -1,0 +1,39 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_r2e_gym_debug_bed_source",
+  "gates": {
+    "complete_disjoint_split": true,
+    "eligible_population_size": true,
+    "eligible_repository_diversity": true,
+    "exact_population_and_schema": true,
+    "exact_source_and_runtime_bindings": true,
+    "native_debugger_contract": false,
+    "public_manifest_shape": true
+  },
+  "manifest_sha256": "bc1c4eb4da8adf91f0fcedab3e4ab8c4c20e17dc0c67ee052e59ea72eacf2dbc",
+  "privacy": {
+    "commit_hashes_serialized": false,
+    "docker_images_serialized": false,
+    "endpoints_opened": false,
+    "projected_columns": [
+      "repo_name",
+      "docker_image",
+      "commit_hash",
+      "num_non_test_files",
+      "num_non_test_func_methods",
+      "num_non_test_lines"
+    ],
+    "repositories_serialized": false,
+    "row_offsets_serialized": false,
+    "task_payload_columns_materialized": false,
+    "task_payload_values_serialized": false
+  },
+  "protocol_sha256": "dc6376fb8fdc1dead3c8dd9c9ae127e88e5fb2b868c012e5dcd12b831cafc5a0",
+  "protocol_version": "r2e-gym-debug-bed-source-v1",
+  "status": "source_failed_closed"
+}

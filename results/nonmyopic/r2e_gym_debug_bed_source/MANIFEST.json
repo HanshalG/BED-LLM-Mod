@@ -1,0 +1,79 @@
+{
+  "bindings": {
+    "dataset_revision": "8d3163011f01f9393bb3dc7700497a79a8686ae5",
+    "dataset_tree": "fa991fad5d79264d94047a50233b4240281e27a4",
+    "debuggym_commit": "cc3fe3ef4ce08919e522eb00ea1bea5689f3b53e",
+    "debuggym_tree": "54b04c0313b66d72c7f285dc255d2693164a7193",
+    "ordered_shard_sha256": [
+      "03da135cddd3ac037bbae1c9c1ae78c81a0ef04d2b79d36d5290045d9fe08708",
+      "e0d3cf4b4dec1aab0263b73ab9f214012ad3296639036a6f9783b9fd3cb39a79",
+      "a48ab1c024cbbebc365d90407060e4e5addbd9b67aa1da47edc50abd05deee1c",
+      "fdef7fa3845df43b34c872ebd52da658c7c2f4cab3e68dab6dd6ca8bab117f43",
+      "e11d27b6a57f470033edb755695758d12b52e7e567a854b33befbc6701abc95d",
+      "f41eff181a1e075cab12a7ef08e5f2489fe8e0e4e542287b11f9a9a4c5868456",
+      "5c97e3099203912a4fc228d75c1f32174daef52f3810ccd08a53cc7ac63ba6a5",
+      "1ccfcbfbcefb75cb94318bcc2323abecbae54cc3d253e28f84c486718701626c"
+    ],
+    "r2e_commit": "0d94c4eb9431cd195c55a7ea3abd54006c9a1735",
+    "r2e_tree": "fcf3cab14b8fe62b0cddcc52f3a3a5d4fb2855cf",
+    "runtime_file_sha256": {
+      "debuggym_pdb": "ffd1453415ee0588bf72c62c3adb8ea238f9d2c004352aa884d8b947e79bc60b",
+      "debuggym_r2e_adapter": "e6aa7c331030c578b15a40dfb0e5ddad33bf40506df8013f0758e8a33a8e659a",
+      "r2e_docker_runtime": "a83b1d1daea4181e97bce2a3ea19f85144b7776403792783dc0b977adc69eb0a",
+      "r2e_environment": "5098d5237f3e761151285f4a9bb3d80fdd0cea2d34d1065d83ac1214f86ac718",
+      "r2e_log_parser": "395f637f4b8d68160948f95097f861506f123978852a9da77258aa3ba3fe1904"
+    }
+  },
+  "population": {
+    "eligible_count": 586,
+    "eligible_repository_count": 10,
+    "eligible_repository_size_histogram": {
+      "8": 1,
+      "11": 1,
+      "19": 1,
+      "33": 1,
+      "47": 2,
+      "51": 1,
+      "79": 1,
+      "109": 1,
+      "182": 1
+    },
+    "row_count": 4578,
+    "schema_sha256": "4c0e8f1ed7796afd24971643e8a345aab5a49a62fbc12f14415112db6ee95dc4"
+  },
+  "privacy": {
+    "commit_hashes_serialized": false,
+    "docker_images_serialized": false,
+    "endpoints_opened": false,
+    "projected_columns": [
+      "repo_name",
+      "docker_image",
+      "commit_hash",
+      "num_non_test_files",
+      "num_non_test_func_methods",
+      "num_non_test_lines"
+    ],
+    "repositories_serialized": false,
+    "row_offsets_serialized": false,
+    "task_payload_columns_materialized": false,
+    "task_payload_values_serialized": false
+  },
+  "protocol_version": "r2e-gym-debug-bed-source-v1",
+  "selection": {
+    "salt_sha256": "4f8e1217b02da587ca58539b189ac89e22c496fa9d5b77696a7eb0424b6a2528",
+    "split_counts": {
+      "confirmation": 96,
+      "development": 64,
+      "opportunity": 64,
+      "reserve": 346,
+      "structural_screen": 16
+    },
+    "split_ordered_id_sha256": {
+      "confirmation": "6924a0cec3b9021537c7e3658c824e566a52e4facbda67489467facc5924906f",
+      "development": "f0b6c1a0706c88afe8ccd0e535118e59a6361167fa2fb3684cd5a15a1f7f8563",
+      "opportunity": "67ad2f5b6ddf6ee4666cea99b662f3179a798cd1c2acb41b1acd498e5ff9f56d",
+      "reserve": "6aa16da6c9a53a04c089120c57c6970ae1de9cde073935ddb20794310e6dbc31",
+      "structural_screen": "67ac2e4086efe33968b86bc807fb710acfb3edcfa56455211fbbd88b757adec3"
+    }
+  }
+}
