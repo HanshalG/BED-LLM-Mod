@@ -1,0 +1,25 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_swesmith_debug_bed_v3_structural_cohort",
+  "failure_stage": "payload_projection_before_exact_row_filter",
+  "observed": {
+    "full_population_rows_materialized": 50137,
+    "private_rows_retained": 12,
+    "public_identifying_values_serialized": false
+  },
+  "ordering": {
+    "mechanics_workflow_pushed": false,
+    "model_calls_opened": false,
+    "native_task_execution_opened": false,
+    "patch_endpoints_opened": false,
+    "planner_opened": false
+  },
+  "protocol_version": "swesmith-debug-bed-v3-structural-privacy-terminal-v1",
+  "status": "privacy_ordering_failed_closed",
+  "supersedes_authorization_from": "results/nonmyopic/swesmith_debug_bed_source_v3/STRUCTURAL_SCREEN.json"
+}
