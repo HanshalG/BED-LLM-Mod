@@ -1,0 +1,13 @@
+{
+  "actual_cost_usd": 0.012775379999999998,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "Gemma26B budgeted thinking serving gate failed",
+  "error_type": "ValueError",
+  "interface_version": "tau2-mms-gemma26b-budgeted-thinking-aug13-execute-1",
+  "ledger_sha256": "64a5c5485d4fb9ead5a75890907a10c4dca246bb4408c38cf70323c4276da89d",
+  "partial_bank_sha256": "fbb0ee231e4e11c9fd89b8c97e349ae11425a2f629a4f85201f1242f302a3746",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

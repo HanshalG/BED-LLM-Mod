@@ -1,0 +1,21 @@
+{
+  "prompt_sha256": [
+    "42cf46238e190cbb6778096ae65a95e92bdabe4820b2d45b2029179160408eca",
+    "1b46a65f9484b8e7406ffe88a308132adc6b4a371a25ca0c7156722944f7e5d3",
+    "cea49e76704acc0822fad72c36e3c7da585440ec7b6befd88e9a9b3ccdd466d0",
+    "b872d253671ec4d93fbb0d3f7764f6ec653d0c66c9405e308b9a08a278dcf478",
+    "97d296fb6a48805aa429bcfd994149c1e7fc1786e1038a42cf74f1193300061c",
+    "a1b2333fa7cf50722eaa667c6bfc21b131bb6a70b99800ad7f18d5b0621e0455",
+    "0c237ab679c1b1a543a55aca19241b9747ff98f971fc0a0720ed082030fa19e9",
+    "c57469bdff19132ab960f2f6009277fe8643418571d5ccbb0a0140ad47341f36",
+    "d25cfc3c2ad4e2ce91e1667dd62b46c8dab1dcfc899d28be38b1ce74149296ae",
+    "5eb53fa1a0f9f51b200bcd1e36fadffad37ed6ea07ff2584f19cde59eab31a07",
+    "27ef3d05f0756f2f8cf02bd2c66552304dce0ed49d5b6e3014e4e26a6a3408d8",
+    "4c3a93615b399cac0cfcb72cecbcd3575eea58346c4eb9efefeca2019e05aa10"
+  ],
+  "public_tool_contract_in_prompts": true,
+  "raw_tool_responses_in_prompts": false,
+  "repair_or_endpoint_outcomes_in_prompts": false,
+  "selected_task_ids_in_prompts": false,
+  "source_fault_ids_in_prompts": false
+}
