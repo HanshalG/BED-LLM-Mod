@@ -1,0 +1,678 @@
+{
+  "action_summary": {
+    "mms_abroad:apn_settings": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:installed_apps": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:messaging_permissions": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 24,
+      "field_total": 24,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:mms_probe": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:network_mode": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 4,
+      "exact_accuracy": 0.5,
+      "field_accuracy": 0.5,
+      "field_correct": 4,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:network_status": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 72,
+      "field_total": 72,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:speed_test": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 4,
+      "exact_accuracy": 0.5,
+      "field_accuracy": 0.5,
+      "field_correct": 4,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:status_bar": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 32,
+      "field_total": 32,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_abroad:wifi_calling": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_home:apn_settings": {
+      "cells": 8,
+      "confidence_sum": 7.400000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9250000000000002
+    },
+    "mms_home:installed_apps": {
+      "cells": 8,
+      "confidence_sum": 7.6000000000000005,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9500000000000001
+    },
+    "mms_home:messaging_permissions": {
+      "cells": 8,
+      "confidence_sum": 7.200000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 24,
+      "field_total": 24,
+      "mean_confidence": 0.9000000000000001
+    },
+    "mms_home:mms_probe": {
+      "cells": 8,
+      "confidence_sum": 7.200000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9000000000000001
+    },
+    "mms_home:network_mode": {
+      "cells": 8,
+      "confidence_sum": 7.6000000000000005,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9500000000000001
+    },
+    "mms_home:network_status": {
+      "cells": 8,
+      "confidence_sum": 7.4,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 72,
+      "field_total": 72,
+      "mean_confidence": 0.925
+    },
+    "mms_home:speed_test": {
+      "cells": 8,
+      "confidence_sum": 7.200000000000001,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.9000000000000001
+    },
+    "mms_home:status_bar": {
+      "cells": 8,
+      "confidence_sum": 7.4,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 32,
+      "field_total": 32,
+      "mean_confidence": 0.925
+    },
+    "mms_home:wifi_calling": {
+      "cells": 8,
+      "confidence_sum": 7.4,
+      "exact": 8,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 8,
+      "field_total": 8,
+      "mean_confidence": 0.925
+    },
+    "mobile_abroad:customer_bills": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 2,
+      "exact_accuracy": 0.2,
+      "field_accuracy": 0.2,
+      "field_correct": 2,
+      "field_total": 10,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:customer_lookup": {
+      "cells": 10,
+      "confidence_sum": 7.4,
+      "exact": 0,
+      "exact_accuracy": 0.0,
+      "field_accuracy": 0.0,
+      "field_correct": 0,
+      "field_total": 10,
+      "mean_confidence": 0.74
+    },
+    "mobile_abroad:data_usage": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 10,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 10,
+      "field_total": 10,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:line_details": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 10,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 30,
+      "field_total": 30,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:network_status": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 0,
+      "exact_accuracy": 0.0,
+      "field_accuracy": 0.7555555555555555,
+      "field_correct": 68,
+      "field_total": 90,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:payment_request": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 10,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 10,
+      "field_total": 10,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:sim_status": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 10,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 10,
+      "field_total": 10,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:speed_test": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 10,
+      "exact_accuracy": 1.0,
+      "field_accuracy": 1.0,
+      "field_correct": 10,
+      "field_total": 10,
+      "mean_confidence": 0.5599999999999999
+    },
+    "mobile_abroad:status_bar": {
+      "cells": 10,
+      "confidence_sum": 5.6,
+      "exact": 4,
+      "exact_accuracy": 0.4,
+      "field_accuracy": 0.7,
+      "field_correct": 28,
+      "field_total": 40,
+      "mean_confidence": 0.5599999999999999
+    }
+  },
+  "authorizes": "nothing",
+  "cost_usd": 0.0,
+  "field_summary": [
+    {
+      "accuracy": 0.0,
+      "correct": 0,
+      "field": "mobile_abroad:customer_lookup:account_active",
+      "total": 10
+    },
+    {
+      "accuracy": 0.2,
+      "correct": 2,
+      "field": "mobile_abroad:customer_bills:has_overage_charge",
+      "total": 10
+    },
+    {
+      "accuracy": 0.4,
+      "correct": 4,
+      "field": "mobile_abroad:network_status:connection",
+      "total": 10
+    },
+    {
+      "accuracy": 0.4,
+      "correct": 4,
+      "field": "mobile_abroad:network_status:network_type",
+      "total": 10
+    },
+    {
+      "accuracy": 0.4,
+      "correct": 4,
+      "field": "mobile_abroad:network_status:signal",
+      "total": 10
+    },
+    {
+      "accuracy": 0.4,
+      "correct": 4,
+      "field": "mobile_abroad:status_bar:network_type",
+      "total": 10
+    },
+    {
+      "accuracy": 0.4,
+      "correct": 4,
+      "field": "mobile_abroad:status_bar:signal",
+      "total": 10
+    },
+    {
+      "accuracy": 0.5,
+      "correct": 4,
+      "field": "mms_abroad:network_mode:mode",
+      "total": 8
+    },
+    {
+      "accuracy": 0.5,
+      "correct": 4,
+      "field": "mms_abroad:speed_test:speed",
+      "total": 8
+    },
+    {
+      "accuracy": 0.6,
+      "correct": 6,
+      "field": "mobile_abroad:network_status:mobile_data",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:apn_settings:mmsc_configured",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:installed_apps:messaging_installed",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:messaging_permissions:phone",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:messaging_permissions:sms",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:messaging_permissions:storage",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:mms_probe:can_send",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:airplane_mode",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:connection",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:data_roaming",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:mobile_data",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:network_type",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:signal",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:sim_active",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:wifi_connected",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:network_status:wifi_radio",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:status_bar:airplane_mode",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:status_bar:data_enabled",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:status_bar:network_type",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:status_bar:signal",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_abroad:wifi_calling:enabled",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:apn_settings:mmsc_configured",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:installed_apps:messaging_installed",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:messaging_permissions:phone",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:messaging_permissions:sms",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:messaging_permissions:storage",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:mms_probe:can_send",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_mode:mode",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:airplane_mode",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:connection",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:data_roaming",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:mobile_data",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:network_type",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:signal",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:sim_active",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:wifi_connected",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:network_status:wifi_radio",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:speed_test:speed",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:status_bar:airplane_mode",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:status_bar:data_enabled",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:status_bar:network_type",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:status_bar:signal",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 8,
+      "field": "mms_home:wifi_calling:enabled",
+      "total": 8
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:data_usage:exhausted",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:line_details:data_exhausted",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:line_details:line_active",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:line_details:roaming_enabled",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:network_status:airplane_mode",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:network_status:data_roaming",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:network_status:sim_active",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:network_status:wifi_connected",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:network_status:wifi_radio",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:payment_request:requested",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:sim_status:active",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:speed_test:speed",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:status_bar:airplane_mode",
+      "total": 10
+    },
+    {
+      "accuracy": 1.0,
+      "correct": 10,
+      "field": "mobile_abroad:status_bar:data_enabled",
+      "total": 10
+    }
+  ],
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "status": "non_gating_error_localization",
+  "terminal_failure_unchanged": true
+}

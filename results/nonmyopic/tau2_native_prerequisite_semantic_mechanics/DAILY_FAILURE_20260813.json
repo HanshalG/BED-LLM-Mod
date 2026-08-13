@@ -1,0 +1,12 @@
+{
+  "actual_cost_usd": 0.002086228884,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "semantic action order changed",
+  "error_type": "ValueError",
+  "interface_version": "tau2-native-prerequisite-semantic-aug13-execute-1",
+  "ledger_sha256": "904c443129174e2102acdd052b410c7c81bf3c3f8567cb87b86591c209dfc277",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

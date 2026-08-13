@@ -1,0 +1,267 @@
+{
+  "authorizes": "nothing",
+  "cost_usd": 0.0,
+  "episode_metrics": [
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.0048314417259872,
+      "native_prerequisite": "installed_apps",
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "customer_lookup",
+      "exact_two_step_information_nats": {
+        "customer_lookup": 1.3296613488547582,
+        "network_status": 0.6365141682948128,
+        "payment_request": 0.6365141682948128,
+        "sim_status": 0.6365141682948128,
+        "speed_test": 0.6365141682948128,
+        "status_bar": 0.6365141682948128
+      },
+      "family": "mobile_abroad",
+      "greedy_first_action": "network_status",
+      "horizon_gain_nats": 0.23621045485662262,
+      "native_prerequisite": "customer_lookup",
+      "root_information_nats": {
+        "customer_lookup": 0.0,
+        "network_status": 0.09348649709817392,
+        "payment_request": 0.0,
+        "sim_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0
+      },
+      "state_count": 6,
+      "two_step_information_nats": {
+        "customer_lookup": 0.3296969519547965,
+        "network_status": 0.09348649709817385,
+        "payment_request": 0.09348649709817392,
+        "sim_status": 0.09348649709817392,
+        "speed_test": 0.09348649709817392,
+        "status_bar": 0.09348649709817392
+      }
+    },
+    {
+      "depth_two_first_action": "customer_lookup",
+      "exact_two_step_information_nats": {
+        "customer_lookup": 1.0397207708399179,
+        "network_status": 0.6931471805599453,
+        "payment_request": 0.6931471805599453,
+        "sim_status": 0.6931471805599453,
+        "speed_test": 0.6931471805599453,
+        "status_bar": 0.6931471805599453
+      },
+      "family": "mobile_abroad",
+      "greedy_first_action": "network_status",
+      "horizon_gain_nats": 0.07304977089447529,
+      "native_prerequisite": "customer_lookup",
+      "root_information_nats": {
+        "customer_lookup": 0.0,
+        "network_status": 0.04247475919884924,
+        "payment_request": 0.0,
+        "sim_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0
+      },
+      "state_count": 4,
+      "two_step_information_nats": {
+        "customer_lookup": 0.11552453009332453,
+        "network_status": 0.04247475919884924,
+        "payment_request": 0.04247475919884924,
+        "sim_status": 0.04247475919884924,
+        "speed_test": 0.04247475919884924,
+        "status_bar": 0.04247475919884924
+      }
+    }
+  ],
+  "metrics": {
+    "cell_count": 234,
+    "equivalent_max_total_variation": 0.25,
+    "equivalent_mean_total_variation": 0.0029585798816568047,
+    "equivalent_pair_count": 338,
+    "family_mean_multiclass_brier": {
+      "mms_abroad": 0.20086805555555556,
+      "mms_home": 0.012499999999999999,
+      "mobile_abroad": 0.575925925925926
+    },
+    "mean_horizon_gain_nats": 0.7486811919159636,
+    "mean_multiclass_brier": 0.2871616809116808,
+    "native_followup_cell_count": 26,
+    "native_mean_posterior_brier": 0.1760538487162669,
+    "native_mean_truth_posterior": 0.7409974397559599,
+    "native_signature_exact_count": 26,
+    "native_truth_top_rank_count": 26,
+    "semantic_source_two_step_spearman": 0.97587953271739,
+    "typed_signature_accuracy": 0.8205128205128205
+  },
+  "model_calls_made": 0,
+  "raw_bank_sha256": "2473811cb9ae8a146b691e990089239293bca8e4edefb208a5eddf09b574f5ad",
+  "schema_version": 1,
+  "source_order_failure": "semantic action order changed",
+  "status": "non_gating_order_insensitive_diagnostic",
+  "terminal_failure_unchanged": true,
+  "would_pass_semantic_and_planning_gates": {
+    "all_semantic_and_planning_gates_pass": false,
+    "all_six_depth_two_choose_prerequisite": true,
+    "all_six_greedy_avoid_prerequisite": true,
+    "all_six_horizon_gain_at_least_0_05": true,
+    "each_family_brier_at_most_0_25": false,
+    "equivalent_max_tv_at_most_0_15": false,
+    "equivalent_mean_tv_at_most_0_05": true,
+    "exact_234_world_action_cells": true,
+    "exact_26_native_followup_cells": true,
+    "mean_horizon_gain_at_least_0_15": true,
+    "mean_multiclass_brier_at_most_0_20": false,
+    "native_mean_posterior_brier_at_most_0_20": true,
+    "native_mean_truth_posterior_at_least_0_60": true,
+    "native_signature_exact_at_least_24": true,
+    "native_truth_top_rank_at_least_24": true,
+    "semantic_source_spearman_at_least_0_70": true,
+    "typed_signature_accuracy_at_least_0_80": true
+  }
+}
