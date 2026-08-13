@@ -15,7 +15,7 @@
   },
   "manifest_sha256": "9dc0c02f3fb3944b2e26e13d046af3f28ed3e6aedecc8b1817e94b72de6b9351",
   "model_calls_made": 0,
-  "protocol_sha256": "2e7ec4553ac6a51f61d3957767faa1f46e8504c4e6d16b2a83f0574fb68351db",
+  "protocol_sha256": "cc44807b74199d4aff5ec86b60ff8beae3ab123156750cb2cbcc1f1a1f092f78",
   "schema_version": 1,
   "status": "source_manifest_frozen"
 }

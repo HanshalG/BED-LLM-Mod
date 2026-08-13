@@ -97,7 +97,8 @@ hard-coded or supplied to an LLM.
 For each episode, compute deterministic mutual information under its uniform
 source prior. Greedy selects maximum root information. Exact depth two selects
 the root with maximum expected information after an optimal legal second read
-in each realized branch. Lexical action ID breaks exact ties. Horizon gain is
+in each realized branch. The lexicographically greatest action ID breaks exact
+ties, matching the established Tau2 source-audit convention. Horizon gain is
 depth-two information minus the two-step information obtained when the first
 action is forced to greedy.
 
