@@ -1,0 +1,41 @@
+{
+  "ordered_split_case_id_sha256": {
+    "confirmation": "568372a6f13db4bc03fb7a20fc9647f8f5a95e6bcb77f925b98bca0cbd46dacf",
+    "development": "88935641458c9200af031afad14aaf7b53b9fc8c5a8cc3c91a6dd5507d33bbf3",
+    "mechanics": "78e7dac0e4300a1d4199953faef226fbb58c241c94db622646973874e32574e3",
+    "opportunity": "405ce01776558810b73f572bf789146368c8c972eee970a070e3b2257521231d",
+    "reserve": "422e68f10e554921f1625d20cb63a8c790b1c3e35b60f8343d7c664335e7b9c7"
+  },
+  "population": {
+    "distinct_normalized_diagnosis_labels": 745,
+    "eligible_count": 1280,
+    "eligible_fraction": 0.541913632514818,
+    "total_count": 2362
+  },
+  "privacy": {
+    "case_keys_serialized": false,
+    "diagnoses_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "medchain-dynamic-support-source-v1",
+  "source": {
+    "bound_file_sha256": {
+      "data": "cb947c9b7ff8979ebbaa816b3b0977ed04bc84b6257147166a7fe725b7dbdb87",
+      "extraction_helper": "ffa40c1899960c8b1cdd6ac022446280f84791badf0d0774e43593683bfeb3e0",
+      "patient_interface": "781aa0d9014c671f5fada3603d6292975e06b786b12d12d0f6df55a971677b08",
+      "workflow": "ac85f53576e1c871b72291e55941e07c2df275eabbe115433fc152cd6b776954"
+    },
+    "commit": "35ab53e3c601831a7bca181c72ecad6b12b55ff3",
+    "repository": "https://github.com/ljwztc/MedChain",
+    "tree": "ba425765442c69b51142ddd8d2731aa894eaf9b8"
+  },
+  "split_counts": {
+    "confirmation": 96,
+    "development": 64,
+    "mechanics": 6,
+    "opportunity": 30,
+    "reserve": 1084
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "code_contract": {
+    "environment_is_stateful_and_loads_actions": true,
+    "native_tools_and_wiki_nonempty": true,
+    "reward_binds_state_tools_errors_policy_and_user": true,
+    "task_types_bind_internal_and_user": true,
+    "user_simulator_has_distinct_failure_contract": true
+  },
+  "decision": "close_carbench_source_route",
+  "gates": {
+    "both_disambiguation_types_in_each_split": true,
+    "exact_official_population_counts": true,
+    "immutable_code_binding": true,
+    "immutable_data_binding": true,
+    "released_code_contract": true,
+    "required_structural_fields_nonempty": false,
+    "single_exact_task_schema": true,
+    "task_ids_unique_nonempty_disjoint": true,
+    "train_partition_complete_disjoint": true
+  },
+  "manifest_sha256": "72c34557fd294da8fc2282774b347e1743ecf98fd4be9c1828760315ffecbe58",
+  "privacy": {
+    "actions_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_sha256": "e1d1a62476d31768af3b1a95fc30b2495cd4ff7bd8e2789fa3ab3615a0706c78",
+  "protocol_version": "carbench-dynamic-belief-source-v1",
+  "status": "source_failed_closed"
+}

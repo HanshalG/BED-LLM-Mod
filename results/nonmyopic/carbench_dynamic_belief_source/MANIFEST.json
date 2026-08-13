@@ -1,0 +1,67 @@
+{
+  "code": {
+    "bound_file_sha256": {
+      "environment": "c2ba3dac37b681ebb54e9380f7d90b0bd649026ac889a18911c9957413e8a819",
+      "reward": "3dba6c02bc52a5584cbe7f1e11a270aa228264c2b3ee45b72188544e1f53ce64",
+      "tools": "0fbb9660d802aae62785674d194ec801a9b3875070758764ce3d1ca5232f74b5",
+      "types": "0789ba719a4089be62eebff748efa3b5f93efdde76d0c3ff5a5d66a292d27362",
+      "user_simulator": "ffa1f77a6b54b2da87d4653bf7ab146c31b6dfd2d7aba06cad60dff6aa4c7583",
+      "wiki": "471dd42ddcede9be8251291ef87e1e18db3d24c326fc892e07db2bcb41f4f93f"
+    },
+    "commit": "9ed387d8de2dac20e5227d8e949bd33d20041fc5",
+    "repository": "https://github.com/CAR-bench/car-bench",
+    "tree": "9f0d800b901f94277b2c9e80333a47bc5ac345eb"
+  },
+  "confirmation_case_id_sha256": "022f614a02689e4677ca2977aae8cd87af336c34f040023d40bccb2d0273a902",
+  "data": {
+    "commit": "1fcf24ad802c42e04a0d8fe05b5ca0d481a4e7af",
+    "repository": "https://huggingface.co/datasets/johanneskirmayr/car-bench-dataset",
+    "test_sha256": "0cb012e7a066f9d4f226dc42643b0a8ffa42e23ecf09a5e1564fc8c9233903d5",
+    "train_sha256": "9dace1484321e1b7b40967713e9715efae72ec83bd84848d24a4a0a6ed5c452f",
+    "tree": "fa920ff4d6b0b9079d6b78e011e87c02aac5b28f"
+  },
+  "ordered_split_case_id_sha256": {
+    "development": "c12423255585fc8837420645317a2c2ec6803d088445a5b2d6b14c8c3686564f",
+    "mechanics": "6d0c9eec949dff7441c1307ca4d8927804fa46e96ccaf10f06e4ad8404272559",
+    "opportunity": "f2feefbfd86a7c52a705fde2560c094b420af41ae8ff1cdb0a68081cac185285"
+  },
+  "population_counts": {
+    "test": 25,
+    "train": 31
+  },
+  "privacy": {
+    "actions_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "carbench-dynamic-belief-source-v1",
+  "schema_fields": [
+    "actions",
+    "calendar_id",
+    "context_init_config",
+    "disambiguation_element_internal",
+    "disambiguation_element_note",
+    "disambiguation_element_user",
+    "instruction",
+    "persona",
+    "removed_part",
+    "task_id",
+    "task_type"
+  ],
+  "task_type_counts": {
+    "test": {
+      "disambiguation_internal": 13,
+      "disambiguation_user": 12
+    },
+    "train": {
+      "disambiguation_internal": 12,
+      "disambiguation_user": 19
+    }
+  },
+  "train_split_counts": {
+    "development": 15,
+    "mechanics": 6,
+    "opportunity": 10
+  }
+}

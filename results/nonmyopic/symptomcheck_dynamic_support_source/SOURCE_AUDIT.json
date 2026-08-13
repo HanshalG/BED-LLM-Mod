@@ -1,0 +1,43 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_symptomcheck_construction",
+  "gates": {
+    "canonical_rows_unique_and_required_fields_nonempty": false,
+    "diagnosis_population_diverse": true,
+    "exact_population_count": true,
+    "immutable_source_binding": true,
+    "partition_complete_disjoint": true,
+    "released_patient_contract": true,
+    "released_simulator_contract": true,
+    "single_exact_schema": true,
+    "visible_private_fields_separated": true
+  },
+  "manifest_sha256": "ac9e6e544542b7cbd0d2c77abe2f93fff45224d6d8af4acf02668751efc031cb",
+  "patient_contract": {
+    "diagnosis_not_in_patient_prompt": true,
+    "doctor_receives_demographics_only": true,
+    "patient_receives_all_nondiagnostic_fields": true,
+    "patient_relevance_and_missing_information_contract": true
+  },
+  "privacy": {
+    "diagnoses_serialized": false,
+    "dialogues_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_sha256": "646893d61e4837175be21b5ca6f269e881462e6f727889d367019b4e3e4f3859",
+  "protocol_version": "symptomcheck-dynamic-support-source-v1",
+  "simulator_contract": {
+    "alternating_patient_and_doctor_turns": true,
+    "diagnosis_endpoint_accessor": true,
+    "finite_dialogue_horizon": true,
+    "separate_doctor_and_patient_histories": true
+  },
+  "status": "source_failed_closed"
+}

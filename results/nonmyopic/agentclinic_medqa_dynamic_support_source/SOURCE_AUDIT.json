@@ -1,0 +1,41 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_agentclinic_medqa_construction",
+  "gates": {
+    "exact_physical_population_size": false,
+    "immutable_source_binding": true,
+    "single_exact_five_field_osce_schema": false,
+    "single_exact_top_level_schema": true
+  },
+  "later_source_gates_opened": false,
+  "population_shape": {
+    "distinct_osce_schema_count": 2,
+    "distinct_top_level_schema_count": 1,
+    "expected_nonblank_rows": 213,
+    "observed_nonblank_rows": 214,
+    "rows_with_exact_five_field_osce_schema": 213,
+    "rows_with_exact_top_level_schema": 214
+  },
+  "privacy": {
+    "diagnoses_serialized": false,
+    "endpoint_values_opened": false,
+    "field_values_serialized": false,
+    "individual_case_ids_serialized": false,
+    "mechanics_cases_opened": false,
+    "source_values_serialized": false
+  },
+  "protocol_sha256": "e9dc3e3ff1a637189e3f0cd433f141eeb3a16fa952d60327456bb2361295bbfa",
+  "protocol_version": "agentclinic-medqa-dynamic-support-source-v1",
+  "source_binding": {
+    "code_sha256": "ee9cfb3020c7addf717ba8eb3510ba81b2b4b53071cba67d0663ad6c7c6ddbd3",
+    "commit": "b6570edefb940857a7c334350656b29f9d984f24",
+    "data_sha256": "54a024eb2705c6c55d1988766adf4ab02ea7bbe2a28f843107b740032200f232",
+    "tree": "084556771761828ac0fd121d37353207de91486c"
+  },
+  "status": "source_failed_closed"
+}

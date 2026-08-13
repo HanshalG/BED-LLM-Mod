@@ -1,0 +1,50 @@
+{
+  "ordered_split_case_id_sha256": {
+    "confirmation": "9ebd05c22b3f195690e7354e372a87f0c479a8ecae43b4b15db61598f248bc73",
+    "development": "dddd4cc176d11aa24dba37667f41a56caa16fb0a8119dd8041e2ced6964bc697",
+    "mechanics": "f60a07ed35a44e9483d8cf674dd08b8c875816ce5c8086bc89d307b75531959d",
+    "opportunity": "9b93239dbc682050a0888b656340ef3a426089695e15b14c96b2452f006de240",
+    "reserve": "b96ee208a1e6a89975de449dceebceee37dcf7dbaadbb389ea9df0ef9f4f6c56"
+  },
+  "population": {
+    "count": 400,
+    "distinct_normalized_diagnoses": 254,
+    "schema_fields": [
+      "absent_findings",
+      "chief_complaints",
+      "correct_diagnosis",
+      "demographics",
+      "family_history",
+      "physical_history",
+      "presentation",
+      "social_history"
+    ]
+  },
+  "privacy": {
+    "diagnoses_serialized": false,
+    "dialogues_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "symptomcheck-dynamic-support-source-v1",
+  "source": {
+    "bound_file_sha256": {
+      "agent": "117da867d1056612cde29918e3033c95b82573fe4868a5b953cc6f3559a75867",
+      "data": "f516ee0fb17bdaefca7f53483fb4e38a1eb3c72cf52cf45d34dcf0484bf66976",
+      "entrypoint": "622461ee9bfc2f84ca559f34501b499a2c981b09d901961a7443be002dfa24e2",
+      "simulator": "5400d243eb749b49335cde4c971303f68c8479c94a04c057a9f08c37699a22a7",
+      "vignette": "0721796828a3efc8f198466a1d433e0643928173d366815e4527908e411ad7c5"
+    },
+    "commit": "36c80b44fee77da271d97d38c43e49926dc95b8e",
+    "repository": "https://github.com/medaks/medask-benchmarks",
+    "tree": "b0649fb98bb150889974974dd8737b4ced30ee58"
+  },
+  "split_counts": {
+    "confirmation": 96,
+    "development": 64,
+    "mechanics": 6,
+    "opportunity": 30,
+    "reserve": 204
+  }
+}

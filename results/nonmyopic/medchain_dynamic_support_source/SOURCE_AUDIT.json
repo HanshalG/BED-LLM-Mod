@@ -1,0 +1,42 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_medchain_construction",
+  "gates": {
+    "eligible_diagnoses_nonempty_and_diverse": true,
+    "eligible_partition_complete_disjoint": true,
+    "eligible_population_large_enough": false,
+    "exact_unique_object_population": false,
+    "immutable_source_binding": true,
+    "released_patient_contract": true,
+    "released_workflow_contract": true,
+    "visible_private_fields_separated": true
+  },
+  "manifest_sha256": "f10e73f7a1819faa725ed124d6093e362890d9b69ef84dd9a9299f4c92c75c5c",
+  "patient_contract": {
+    "doctor_receives_chief_complaint_only": true,
+    "patient_forbidden_to_invent_missing_facts": true,
+    "patient_grounded_in_private_history_and_exams": true,
+    "patient_withholds_unasked_examinations": true
+  },
+  "privacy": {
+    "case_keys_serialized": false,
+    "diagnoses_serialized": false,
+    "endpoints_opened": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_sha256": "14f5800c85b4c7a402042eb21451c196d5448f41e959ee1a3281e37d589b1299",
+  "protocol_version": "medchain-dynamic-support-source-v1",
+  "status": "source_failed_closed",
+  "workflow_contract": {
+    "diagnosis_used_downstream": true,
+    "doctor_patient_intake_excludes_diagnosis": true,
+    "extracts_separate_clinical_fields": true,
+    "workflow_calls_separate_extractor": true
+  }
+}
