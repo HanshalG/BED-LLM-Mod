@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.04743296,
+  "authorizes": "nothing",
+  "endpoints_opened": false,
+  "error": "item 1 contradicts history",
+  "error_type": "ValueError",
+  "interface_version": "number-game-sharded-bitmask-semantic-aug13-execute-1",
+  "label_exists": false,
+  "ledger_sha256": "2d14afbc1e18e9b926f0beddb436cdbfb42bf8ee9f1d7a76c1583727d89ed0ea",
+  "raw_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "targets_opened": false,
+  "verification_exists": false
+}

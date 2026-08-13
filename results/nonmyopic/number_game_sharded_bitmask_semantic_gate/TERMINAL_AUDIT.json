@@ -1,0 +1,27 @@
+{
+  "authorizes": "fresh_factorized_design_only",
+  "decision": "close_explicit_mask_generation",
+  "endpoints_opened": false,
+  "gates": {
+    "all_json_parseable": true,
+    "authority_closed": true,
+    "binding_and_ledger": true,
+    "cost_reconciles": true,
+    "exact_clean_transport": true,
+    "systematic_history_failure": true
+  },
+  "interface_version": "number-game-sharded-bitmask-terminal-audit-1",
+  "mechanics": {
+    "actual_cost_usd": 0.047432959999999996,
+    "audit_requests": 0,
+    "history_contradicting_hypotheses": 163,
+    "history_contradicting_rate": 0.6791666666666667,
+    "history_contradicting_shards": 30,
+    "hypotheses": 240,
+    "proposal_requests": 30
+  },
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "status": "terminal_audit_pass",
+  "targets_opened": false
+}

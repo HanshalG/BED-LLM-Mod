@@ -1,0 +1,76 @@
+{
+  "closing_balance_usd": 24.702042874,
+  "closing_total_credits_usd": 245.0,
+  "closing_total_usage_usd": 220.297957126,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "execution_binding_sha256": "6543e6f50090bcdcb4bb7f597b3f7f28f5f67cb2114491588b7f30543aef0e10",
+  "execution_opening_balance_usd": 24.74947583400001,
+  "execution_opening_total_credits_usd": 245.0,
+  "execution_opening_total_usage_usd": 220.250524166,
+  "interface_version": "number-game-sharded-bitmask-semantic-aug13-execute-1",
+  "opening_total_usage_usd": 220.13412888,
+  "proposal_authorization": {
+    "exposure": {
+      "exact_phase_exposure_usd": 0.056060160000000005,
+      "max_output_tokens_per_request": 1300,
+      "maximum_request_exposure_usd": 0.00187104,
+      "request_count": 30,
+      "request_exposures_usd": [
+        0.0018598400000000002,
+        0.0018598400000000002,
+        0.0018598400000000002,
+        0.0018598400000000002,
+        0.0018598400000000002,
+        0.0018598400000000002,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.00187104,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002,
+        0.0018707200000000002
+      ],
+      "tracker_reservation_usd": 0.0561312
+    },
+    "live": {
+      "balance_usd": 24.74947583400001,
+      "total_credits_usd": 245.0,
+      "total_usage_usd": 220.250524166
+    },
+    "model": {
+      "completion_price_usd_per_token": 1.28e-06,
+      "id": "qwen/qwen3.7-plus",
+      "prompt_price_usd_per_token": 3.2e-07,
+      "seed_supported": true,
+      "structured_output_supported": true
+    }
+  },
+  "recorded_actual_spend_usd": 0.16382824600000845,
+  "schema_version": 1,
+  "stage": {
+    "actual_cost_usd": 0.04743296,
+    "maximum_cost_usd": 0.08,
+    "maximum_http_attempts": 40,
+    "maximum_retries": 0,
+    "status": "failed_closed"
+  },
+  "timezone": "Europe/London"
+}
