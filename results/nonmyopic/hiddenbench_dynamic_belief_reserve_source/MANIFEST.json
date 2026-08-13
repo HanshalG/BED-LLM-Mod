@@ -1,0 +1,35 @@
+{
+  "bindings": {
+    "mechanics_protocol_sha256": "f7e414eb844cbcfb8974254b54691fff5c8350fe1efefbe61473dab573ad83a3",
+    "source_audit_sha256": "67b3f641bb8ac7956e33281c2bdd074402e775ac88c643f6db4c468788b73bf9",
+    "source_manifest_sha256": "b105c1f54e2b5ec56606b4eef2c7f464e2bdab996315f9a54a4d9ea817b6d56d",
+    "source_protocol_sha256": "5340d17a11ae4654a82fff76a7e4244c39336f3b282240c05c6d0b2c88e5be28",
+    "source_sha256": "2815afffca4e470d1dfbc81e625160447df1109ce371968181c9e1e6b90443a3"
+  },
+  "privacy": {
+    "answers_serialized": false,
+    "descriptions_serialized": false,
+    "endpoints_opened": false,
+    "facts_serialized": false,
+    "model_responses_opened": false,
+    "names_serialized": false,
+    "rationales_serialized": false,
+    "task_ids_serialized": false,
+    "task_rows_serialized": false
+  },
+  "protocol_version": "hiddenbench-dynamic-belief-reserve-source-v1",
+  "selection": {
+    "cohort_count": 4,
+    "cohort_ordered_id_sha256": "adcbabc78acc15d7b88d2b0552636525ea64d25840113033a469c558bae3807a",
+    "cohort_source": "reserve_positions_0_through_3",
+    "original_split_counts": [
+      4,
+      12,
+      16,
+      24,
+      9
+    ],
+    "population_count": 65,
+    "remaining_reserve_count": 5
+  }
+}
