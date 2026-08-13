@@ -167,7 +167,7 @@ All gates are conjunctive.
    four tasks, and has response-contingent second queries on at least two first
    queries per task.
 9. Router/auditor semantic obedience: exact private-fact agreement on all 16
-   queries, channel agreement on at least 14/16, at least three distinct private
+   queries, exact response-channel agreement on all 16, at least three distinct private
    facts used per task, and no direct-answer or free-text observation admitted.
 10. Prompt privacy replay proves no task/source ID, `correct_answer` designation,
     rationale, or private fact enters a root/refresh prompt, and no option enters a
@@ -187,7 +187,10 @@ belief after the first channel and then exact likelihood updating after the seco
 fixed-support depth two applies exact Bayes at both steps.
 
 Report per-task and mean final Brier score, correct-option log loss, and correct
-option probability. Development is authorized only if all are true:
+option probability. Multiclass Brier is
+`sum_option (p(option) - 1[option=correct])^2`; log loss is
+`-log p(correct)` and is nonfinite if the correct-option probability is zero.
+Development is authorized only if all are true:
 
 1. dynamic and compute-matched myopic choose different first queries on at least
    two tasks;
