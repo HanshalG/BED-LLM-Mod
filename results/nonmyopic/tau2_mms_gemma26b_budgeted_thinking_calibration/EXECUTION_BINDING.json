@@ -1,0 +1,62 @@
+{
+  "accepted_requests_authorized": 12,
+  "calibration_manifest": {
+    "path": "results/nonmyopic/tau2_mms_gemma26b_budgeted_thinking_calibration/CALIBRATION_MANIFEST.json",
+    "sha256": "e694aab6e8b9c36dd77262c8663af866f98db1086b1c13a726c612d3b4fbd2b5"
+  },
+  "concurrency": 2,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {
+    "path": "scripts/tau2_mms_gemma26b_budgeted_thinking_aug13_execute.py",
+    "sha256": "caf5ac93704b1e7b45ca0098b8ab042b5a767073967eb8bd3534bfd5dd4246b6"
+  },
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "final_answer_max_tokens": 512,
+  "forced_final_continuation_enabled": false,
+  "independent_verifier": {
+    "path": "scripts/tau2_mms_gemma26b_budgeted_thinking_verify.py",
+    "sha256": "e99832bb85be85f2eaa50f5223ac7aa665967dcdf55d91226bebb6e1819d74be"
+  },
+  "interface_version": "tau2-mms-gemma26b-budgeted-thinking-execution-binding-1",
+  "maximum_http_attempts": 12,
+  "maximum_provider_error_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_ledger": {
+    "path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-tau2-mms-gemma26b-thinking.json",
+    "sha256": "f5bb1145e834448eba12bfc1881770ca8cad1ec0af917840e2d133adba9edac2"
+  },
+  "predecessor_report": {
+    "path": "results/nonmyopic/TAU2_MMS_GEMMA26B_THINKING_TERMINAL_RESULT_20260813.md",
+    "sha256": "fe89d5a0491e1b924eed856e25f23a80cdd141032fbbf8b3325ed7f3fd0e259e"
+  },
+  "predecessor_result": {
+    "path": "results/nonmyopic/tau2_mms_gemma26b_thinking_calibration/DAILY_FAILURE_20260813.json",
+    "sha256": "497cf0c630dfa505496a1390d7008383d1e77a63addbc80e31df104d068879a5"
+  },
+  "producer": {
+    "path": "scripts/tau2_mms_gemma26b_budgeted_thinking_calibration.py",
+    "sha256": "7a88ccfec97e91f46667a89f690c1802f5aaaabf4acebd7b7725b7b8b0b32817"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/TAU2_MMS_GEMMA26B_BUDGETED_THINKING_CALIBRATION_PROTOCOL_20260813.md",
+    "sha256": "84af8a1a6db477b7da6ac23ae4e7687fb409bbedb0bc59455ebc109a431b2bc5"
+  },
+  "reasoning_max_tokens": 4096,
+  "run_cap_usd": 0.08,
+  "schema_version": 1,
+  "source_audit": {
+    "path": "scripts/tau2_mms_gemma26b_budgeted_thinking_source_audit.py",
+    "sha256": "aa5afb2c1070b47743f4eb4e6d62f332d7f506611089a37fe05ee559aa08e314"
+  },
+  "source_audit_result": {
+    "path": "results/nonmyopic/tau2_mms_gemma26b_budgeted_thinking_calibration/SOURCE_AUDIT.json",
+    "sha256": "f91950a58745268e7cc915ce08ba4cf9155a27d859e3eef31307af7423ac07aa"
+  },
+  "tau2_user_tools": {
+    "path": "external/tau2-bench/src/tau2/domains/telecom/user_tools.py",
+    "sha256": "03fa751eeea3734313a3f5274223d42750fd5c1a28f2624265a678f271ac309d"
+  },
+  "total_completion_max_tokens": 4608
+}

@@ -1,0 +1,53 @@
+{
+  "cost_usd": 0.0,
+  "episodes": [
+    {
+      "episode_sha256": "2c5be9816941d3b889c2d827d32866389f76afbcc1df2e19db516204367150df",
+      "family": "mms_abroad",
+      "reserve_family_position": 21,
+      "state_count": 4
+    },
+    {
+      "episode_sha256": "ce8990f270d53c5fc37401fa55cb5d96fa534e4113fd969e06ba5083830445b6",
+      "family": "mms_abroad",
+      "reserve_family_position": 22,
+      "state_count": 4
+    },
+    {
+      "episode_sha256": "adc4851d82a9befa514565d4d75e8c6efc71f5e4c5b6adc9ed0c7a60498b0fb4",
+      "family": "mms_abroad",
+      "reserve_family_position": 23,
+      "state_count": 4
+    },
+    {
+      "episode_sha256": "769693958fc61f900327617d9a81656200d2cc36cd591adf0b939aff0089c43b",
+      "family": "mms_abroad",
+      "reserve_family_position": 24,
+      "state_count": 4
+    },
+    {
+      "episode_sha256": "7e84ae8776313835b6eac5b48312a4941b7010875fea2aefd8f17d28db6e3142",
+      "family": "mms_home",
+      "reserve_family_position": 21,
+      "state_count": 4
+    },
+    {
+      "episode_sha256": "bf452f879652ae22fbd616a6331c0021ddad72a06d95fc815bf3f50c71e3c48e",
+      "family": "mms_home",
+      "reserve_family_position": 22,
+      "state_count": 4
+    }
+  ],
+  "interface_version": "tau2-mms-gemma26b-budgeted-thinking-manifest-1",
+  "model_calls_made": 0,
+  "predecessor_episode_overlap": 0,
+  "public_tool_contract": {
+    "tau2_commit": "1d244f5dca42944b67a379b44bfeb9f5748f189d",
+    "user_tools_sha256": "03fa751eeea3734313a3f5274223d42750fd5c1a28f2624265a678f271ac309d"
+  },
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "selected_tool_responses_opened": false,
+  "source_split": "reserve",
+  "task_ids_serialized": false
+}
