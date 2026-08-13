@@ -1,0 +1,57 @@
+{
+  "bindings": {
+    "commit": "3be6ca16973e4fb751ffc0dfb7eb11f2d28335d1",
+    "file_sha256": {
+      "benchmark": "2815afffca4e470d1dfbc81e625160447df1109ce371968181c9e1e6b90443a3",
+      "first_prompt": "526ccec3cecec874ed63498e2eb22bffaa1abd69decedb676371ead9f9df1d8f",
+      "later_prompt": "f83f6be2ba440e4f6fa34b88c92fa2fc84f9e4f6c48e66b4f2e0578bc0756205",
+      "license": "705dcb2b9b5abff9312bd885deae2d3fdcadfe65d4fc0cd0aa3b8b1d8545e354",
+      "loader": "3961483e5824af418fc3dc4a274a3c9ef61983ee3099cc0e6f619a9147b2daa9",
+      "simulator": "1728834ea009073a8f7ca14dd4961f387e8f3c7f480a22981f5322c85a87d14f",
+      "system_prompt": "38e8a41bb90836b488821729e3072557fa42d3fb69984a50c63bc91aa3c606fe"
+    },
+    "tree": "e72388d2d7baf29fdef25807ac00d0bd93dc1ad1"
+  },
+  "population": {
+    "possible_answer_count_histogram": {
+      "3": 59,
+      "4": 6
+    },
+    "private_fact_count_histogram": {
+      "3": 7,
+      "4": 58
+    },
+    "schema_sha256": "549a8c719953ba31b3487edc2c2e472f5aa8e20278162978b360d05606d1a121",
+    "task_count": 65
+  },
+  "privacy": {
+    "answers_serialized": false,
+    "descriptions_serialized": false,
+    "endpoints_opened": false,
+    "facts_serialized": false,
+    "model_responses_opened": false,
+    "names_serialized": false,
+    "planner_scores_opened": false,
+    "rationales_serialized": false,
+    "task_ids_serialized": false,
+    "task_rows_serialized": false
+  },
+  "protocol_version": "hiddenbench-adaptive-elicitation-source-v1",
+  "selection": {
+    "salt_sha256": "3749470af168c77ec4fbcb0695ec0b25b36b9c83ba7ab210673b108e68609be9",
+    "split_counts": {
+      "confirmation": 24,
+      "development": 16,
+      "mechanics": 4,
+      "opportunity": 12,
+      "reserve": 9
+    },
+    "split_ordered_id_sha256": {
+      "confirmation": "0bb0c6cf122e42e69bd5c72abbb7394c317849e7be1f38456d8fd9aa5d048683",
+      "development": "8b552a5a0cb064dc8cda700035d864c6ec356f2ccfca72ae0e607826e18c55ff",
+      "mechanics": "21b105c3b925ab3c563c5f5ecbda0c61ee08afc4c5b75564a994148b6b73714a",
+      "opportunity": "b320aef68ede2d36bfbeea0608ed8ff73a555ca0dd0ccff9ead61e82bf3df30a",
+      "reserve": "a78297d1d215dcdd0b1b8c4cd4007d3b48c103d2ec04b4d8c10026db9a22a9ef"
+    }
+  }
+}

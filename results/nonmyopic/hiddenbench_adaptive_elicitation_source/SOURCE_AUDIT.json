@@ -1,0 +1,28 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "separately_frozen_four_task_mechanics_only",
+  "decision": "mechanics_protocol_authorized",
+  "gates": {
+    "complete_disjoint_split": true,
+    "exact_population_and_schema": true,
+    "exact_source_bindings": true,
+    "native_private_information_channel": true,
+    "public_manifest_is_aggregate_only": true,
+    "public_manifest_shape": true,
+    "semantic_task_contracts": true
+  },
+  "limitations": {
+    "llm_likelihood_calibrated": false,
+    "nonmyopic_opportunity_established": false,
+    "policy_endpoint_opened": false,
+    "published_multiagent_results_used_as_endpoint": false
+  },
+  "manifest_sha256": "17ae2f1bd38f042ee86c4ddb59f676993670a014c5ed0dc65ff3b38e62264147",
+  "protocol_sha256": "5340d17a11ae4654a82fff76a7e4244c39336f3b282240c05c6d0b2c88e5be28",
+  "protocol_version": "hiddenbench-adaptive-elicitation-source-v1",
+  "status": "source_pass"
+}
