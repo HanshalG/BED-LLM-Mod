@@ -1,0 +1,440 @@
+{
+  "authorizes": "nothing",
+  "calibration_gates": {
+    "all_24_native_truth_top_rank": true,
+    "all_calibration_gates_pass": false,
+    "all_six_depth_two_choose_installed_apps": false,
+    "all_six_greedy_avoid_installed_apps": true,
+    "all_six_horizon_gain_at_least_0_50": false,
+    "all_six_native_partitions_exact": false,
+    "at_least_47_exact_root_decisions": true,
+    "equivalent_max_tv_at_most_0_10": false,
+    "equivalent_mean_tv_at_most_0_03": true,
+    "exact_24_native_answers": true,
+    "exact_36_native_pair_relations": true,
+    "exact_48_root_decisions": true,
+    "native_pair_accuracy_one": false,
+    "native_partition_brier_at_most_0_08": false,
+    "native_posterior_brier_at_most_0_18": false,
+    "native_truth_mass_at_least_0_65": false,
+    "root_brier_at_most_0_08": true,
+    "semantic_source_spearman_at_least_0_90": false
+  },
+  "daily_budget_status": {
+    "daily_cap_usd": 5.0,
+    "opening_total_usage_boundary_usd": 220.13412888,
+    "prior_account_spend_usd": 0.012679961403989637,
+    "remaining_after_full_cap_usd": 4.927320038596011,
+    "run_cap_usd": 0.06
+  },
+  "development_confirmation_reserve_opened": false,
+  "episode_metrics": [
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "speed_test",
+      "horizon_gain_nats": 1.1683326005667223,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 2.220446049250313e-16,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 2.220446049250313e-16,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 2.220446049250313e-16,
+        "network_mode": 2.220446049250313e-16,
+        "network_status": 2.220446049250313e-16,
+        "speed_test": 2.220446049250313e-16,
+        "status_bar": 2.220446049250313e-16,
+        "wifi_calling": 2.220446049250313e-16
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "wifi_calling",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_abroad",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 0.0,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "wifi_calling",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 0.0,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "installed_apps",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "wifi_calling",
+      "horizon_gain_nats": 1.1683326005667225,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.1683326005667225,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      }
+    },
+    {
+      "depth_two_first_action": "wifi_calling",
+      "exact_two_step_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 1.3862943611198906,
+        "mms_probe": 0.0,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "family": "mms_home",
+      "greedy_first_action": "mms_probe",
+      "horizon_gain_nats": 0.0,
+      "root_information_nats": {
+        "apn_settings": 0.0,
+        "installed_apps": 0.0,
+        "mms_probe": 1.0048314417259872,
+        "network_mode": 0.0,
+        "network_status": 0.0,
+        "speed_test": 0.0,
+        "status_bar": 0.0,
+        "wifi_calling": 0.0
+      },
+      "two_step_information_nats": {
+        "apn_settings": 1.0048314417259872,
+        "installed_apps": 1.0048314417259872,
+        "mms_probe": 1.0048314417259872,
+        "network_mode": 1.0048314417259872,
+        "network_status": 1.0048314417259872,
+        "speed_test": 1.0048314417259872,
+        "status_bar": 1.0048314417259872,
+        "wifi_calling": 1.0048314417259872
+      }
+    }
+  ],
+  "interface_version": "tau2-mms-documented-split-resilient-calibration-1",
+  "manifest_sha256": "9f108dabbcc52640deb0bbb3f2402f56cc325c2574fae48d35e1fe5c76783ff2",
+  "metrics": {
+    "equivalent_max_total_variation": 0.875,
+    "equivalent_mean_total_variation": 0.018229166666666668,
+    "equivalent_pair_count": 288,
+    "mean_horizon_gain_nats": 0.5841663002833611,
+    "native_answer_count": 24,
+    "native_mean_partition_brier": 0.6340625000000002,
+    "native_mean_posterior_brier": 0.3759613843935266,
+    "native_mean_truth_posterior": 0.606012658227848,
+    "native_pair_relation_accuracy": 0.5,
+    "native_pair_relation_count": 36,
+    "native_partition_count": 6,
+    "native_partition_exact_count": 3,
+    "native_truth_top_rank_count": 24,
+    "root_decision_count": 48,
+    "root_exact_count": 47,
+    "root_mean_brier": 0.04718749999999999,
+    "semantic_source_two_step_spearman": 0.455937263095251
+  },
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "native_seeds": [
+    202608131600,
+    202608131601,
+    202608131602,
+    202608131603,
+    202608131604,
+    202608131605
+  ],
+  "ordering": {
+    "all_partial_responses_banked": true,
+    "complete_raw_bank_created": true,
+    "official_calibration_loaded_after_complete_bank": true
+  },
+  "privacy": {
+    "prompt_sha256": [
+      "a4155a0ee1587e055dfdaf16f8b30cd5e15746088677e9ef0848fed2ee601b29",
+      "f8cd570f087470573cb99ff81f017eb878df5f383ca0f1f991a153528919d4d4",
+      "ace68feaefeb11314ff3787f9fff0c05c6564daf10de16569171bac4174c7d3a",
+      "5dbfc52601fca3c1ce0cf1d458a2e94f05cded0d8f2637091e984dbffe18975d",
+      "ab5535a60e07b520f5fe51487a28ce59465911488c303bdae3083e87b5400d9c",
+      "48eb16fc742e83aac38d0093dbf91511c08456c6864b2bb00c5646d64fd6f80c",
+      "46c84894fa87072eb0ad3f20f92ed9812ccf72901be11e2087afea75109c7162",
+      "40e34fed1738bfc3b1366844e50c5db85dda77ca4b6d7db72f742e646736e827",
+      "dcff99ecf01fa09ce7f56f4921eae09a9b05e14b337b670eda95b704d9919836",
+      "52c8f74259d9ecf6d078de3e1c011e6ae44eff45af90e74aae681e9b43e6a503",
+      "d31e92732d3c096fc6a3cee264184402e8de935feb5a155f82fca19ebd9fe5ee",
+      "d4257656ebf8073f7a9f6f599eba64b257828a572e24fd09fd42cca8ed466863"
+    ],
+    "public_tool_contract_in_prompts": true,
+    "raw_tool_responses_in_prompts": false,
+    "repair_or_endpoint_outcomes_in_prompts": false,
+    "selected_task_ids_in_prompts": false,
+    "source_fault_ids_in_prompts": false
+  },
+  "protocol_sha256": "ae2aa80489c55048257c9ad6c9f29b536df1003e5e78a2d9ecdb5217c74a5492",
+  "repair_or_task_success_endpoints_opened": false,
+  "retry_identity": {
+    "attempts": [
+      {
+        "attempt_number": 1,
+        "episode_index": 0,
+        "index": 0,
+        "kind": "root",
+        "payload_sha256": "1b7e7cecb7155f3e152039cfef082878557816af928506690ad4a3397779220a",
+        "seed": 202608131500
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 1,
+        "index": 1,
+        "kind": "root",
+        "payload_sha256": "495c419df5306b69e90754e29f0706d99961c5a0e6f360349afa70f9b0523833",
+        "seed": 202608131501
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 2,
+        "index": 2,
+        "kind": "root",
+        "payload_sha256": "52eeaf50725db409da9b78f578270aa4c912faf7fe15be230540cb8d86d41fe4",
+        "seed": 202608131502
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 3,
+        "index": 3,
+        "kind": "root",
+        "payload_sha256": "7c448fbdccba1ece124c80ed1d565e4b55f63517d3e5d71e374b16527ede83e5",
+        "seed": 202608131503
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 4,
+        "index": 4,
+        "kind": "root",
+        "payload_sha256": "bae789b0ffa12e539a0d49ad2c8fa3d9e37023762f59ee098857f79d8ada563e",
+        "seed": 202608131504
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 5,
+        "index": 5,
+        "kind": "root",
+        "payload_sha256": "db68474f5816498255c6e5b1c1b649dae9537f4bbcda313f3075295445a0b091",
+        "seed": 202608131505
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 0,
+        "index": 6,
+        "kind": "native",
+        "payload_sha256": "d0043280c3086e0322f56d9b42550124175c597e673d9ae4955362c1e504a9d5",
+        "seed": 202608131600
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 1,
+        "index": 7,
+        "kind": "native",
+        "payload_sha256": "8ac8f1603c138ecc5184f539fd9c8867f40ad3482d840f7fe80695a7b02b719b",
+        "seed": 202608131601
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 2,
+        "index": 8,
+        "kind": "native",
+        "payload_sha256": "f13de39a54231ee0e3c4ecc45a265a145070c1f985e96f0a41385dfbb5fbe97d",
+        "seed": 202608131602
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 3,
+        "index": 9,
+        "kind": "native",
+        "payload_sha256": "1b2270abcecfc5eb2fa2f5c988d53bddae6f34cd8058cee6bf79d1cd4435c7dc",
+        "seed": 202608131603
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 4,
+        "index": 10,
+        "kind": "native",
+        "payload_sha256": "afdcdd3d6fbe3b889c6daba69a3be966eeb5ad44f25689ea92a7e433b98e7a79",
+        "seed": 202608131604
+      },
+      {
+        "attempt_number": 1,
+        "episode_index": 5,
+        "index": 11,
+        "kind": "native",
+        "payload_sha256": "e773799e14ed2f2654bdfd25bd428665d59ffdef3ea7e1c83c010aa39257758c",
+        "seed": 202608131605
+      }
+    ]
+  },
+  "root_seeds": [
+    202608131500,
+    202608131501,
+    202608131502,
+    202608131503,
+    202608131504,
+    202608131505
+  ],
+  "schema_version": 1,
+  "serving_gates": {
+    "exact_twelve_accepted_requests": true,
+    "http_attempts_equal_accepted_plus_retries": true,
+    "http_attempts_within_bound": true,
+    "provider_error_retries_exact": true,
+    "retry_identity_complete": true,
+    "retry_payload_and_seed_identical": true,
+    "total_retries_within_bound": true,
+    "within_stage_cap": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "status": "mms_documented_split_resilient_null",
+  "usage": {
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 12,
+    "completion_tokens": 1384,
+    "forced_exits": 0,
+    "http_attempts": 12,
+    "prompt_tokens": 7174,
+    "provider_error_retries": 0,
+    "retry_count": 0,
+    "run_cost_usd": 0.001179065776
+  }
+}

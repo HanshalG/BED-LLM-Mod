@@ -1,0 +1,13 @@
+{
+  "actual_cost_usd": 0.001179065776,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "independent documented first-attempt identity changed",
+  "error_type": "ValueError",
+  "interface_version": "tau2-mms-documented-split-resilient-aug13-execute-1",
+  "ledger_sha256": "aab4dc785fcfe1b30b8eaa896efe15ee75869f13f87bdff8a30973f13032974a",
+  "partial_bank_sha256": "8ea803b778be650c20d29b163b389d517316ef4be0688b1cb5bb796509c8a0b6",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}
