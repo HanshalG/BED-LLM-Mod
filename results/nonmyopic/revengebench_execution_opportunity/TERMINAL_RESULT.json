@@ -1,0 +1,67 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "arenas": {
+    "battlesnake": {
+      "all_fresh_arms_exact": true,
+      "all_self_distances_zero": true,
+      "beta_results": {
+        "0.5": {
+          "changed_first_action": true,
+          "depth_two_first_probe": 1,
+          "depth_two_margin_nats": 0.0,
+          "myopic_first_probe": 2
+        },
+        "1.0": {
+          "changed_first_action": true,
+          "depth_two_first_probe": 1,
+          "depth_two_margin_nats": 0.0,
+          "myopic_first_probe": 2
+        },
+        "2.0": {
+          "changed_first_action": false,
+          "depth_two_first_probe": 1,
+          "depth_two_margin_nats": 0.0,
+          "myopic_first_probe": 1
+        }
+      },
+      "complete_cells": 27,
+      "qualifies": false,
+      "status": "complete_no_horizon_opportunity"
+    },
+    "halite": {
+      "failed_cell": {
+        "decision_count_per_arm": [
+          1,
+          1
+        ],
+        "fresh_arms_exact": true,
+        "hypothesis_index": 0,
+        "probe_index": 2,
+        "seed_index": 0,
+        "self_distance": 0.0
+      },
+      "qualifies": false,
+      "reason_code": "frozen_probe_implements_non_halite_protocol",
+      "status": "failed_native_probe_gate"
+    },
+    "huskybench": {
+      "qualifies": null,
+      "reason_code": "stage_already_mathematically_impossible",
+      "status": "not_executed_gate_preserving_stop"
+    }
+  },
+  "decision": "close_revengebench_route",
+  "minimum_qualifying_arenas": 2,
+  "privacy": {
+    "prior_released_outcomes_opened": false,
+    "raw_trajectories_serialized": false,
+    "source_content_serialized": false
+  },
+  "protocol_version": "revengebench-execution-opportunity-v4-terminal",
+  "qualifying_arena_count_maximum": 1,
+  "status": "no_horizon_opportunity"
+}

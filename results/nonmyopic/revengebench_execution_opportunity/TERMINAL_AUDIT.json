@@ -1,0 +1,11 @@
+{
+  "decision": "close_revengebench_route",
+  "gates": {
+    "accounting_zero": true,
+    "battlesnake_nonqualifying": true,
+    "gate_preserving_stop_valid": true,
+    "halite_native_probe_gate_failed": true,
+    "minimum_two_arenas_now_impossible": true
+  },
+  "status": "pass"
+}

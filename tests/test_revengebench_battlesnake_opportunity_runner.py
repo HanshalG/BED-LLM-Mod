@@ -33,6 +33,25 @@ def test_target_states_preserve_target_identity_and_infer_actions() -> None:
     assert all(state["you"]["name"] == "target" for state in states)
 
 
+def test_post_elimination_probe_turns_are_skipped() -> None:
+    records = []
+    for turn in range(4):
+        target = _snake("target", "target-id", 2 + turn)
+        probe = _snake("probe", "probe-id", 8)
+        snakes = [probe, target] if turn < 3 else [probe]
+        records.append(
+            {
+                "turn": turn,
+                "board": {"width": 11, "height": 11, "food": [], "hazards": [], "snakes": snakes},
+            }
+        )
+
+    states, actions = runner.target_states_and_actions(records)
+
+    assert [state["turn"] for state in states] == [0, 1]
+    assert actions == ["right", "right"]
+
+
 def test_candidate_actions_reseed_and_unwrap_move_dict(tmp_path: Path) -> None:
     policy = tmp_path / "policy"
     policy.mkdir()

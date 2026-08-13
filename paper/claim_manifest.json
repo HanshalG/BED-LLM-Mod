@@ -1229,6 +1229,30 @@
         {"pointer": "/qwen_noninferiority/paired_tree_bootstrap_95pct", "equals": [-0.007103586154010388, 0.002169391522195176], "tolerance": 1e-12},
         {"pointer": "/qwen_noninferiority/upper_ci_below_margin", "equals": true}
       ]
+    },
+    {
+      "id": "revengebench_execution_opportunity_terminal_aug13",
+      "paper_scope": "A prospective zero-call RevengeBench screen closed before any LLM or policy endpoint because BattleSnake had no depth-two utility gain and Halite failed the frozen native-probe gate.",
+      "artifact": {
+        "path": "results/nonmyopic/revengebench_execution_opportunity/TERMINAL_RESULT.json",
+        "sha256": "3b01918ad7639fafd69f33bccc580777a1a04a7f478e84af03562afb406eb5db"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "no_horizon_opportunity"},
+        {"pointer": "/decision", "equals": "close_revengebench_route"},
+        {"pointer": "/minimum_qualifying_arenas", "equals": 2},
+        {"pointer": "/qualifying_arena_count_maximum", "equals": 1},
+        {"pointer": "/arenas/battlesnake/status", "equals": "complete_no_horizon_opportunity"},
+        {"pointer": "/arenas/battlesnake/qualifies", "equals": false},
+        {"pointer": "/arenas/battlesnake/beta_results/0.5/depth_two_margin_nats", "equals": 0.0, "tolerance": 1e-12},
+        {"pointer": "/arenas/battlesnake/beta_results/2.0/changed_first_action", "equals": false},
+        {"pointer": "/arenas/halite/status", "equals": "failed_native_probe_gate"},
+        {"pointer": "/arenas/halite/failed_cell/decision_count_per_arm", "equals": [1, 1]},
+        {"pointer": "/arenas/halite/failed_cell/fresh_arms_exact", "equals": true},
+        {"pointer": "/arenas/huskybench/status", "equals": "not_executed_gate_preserving_stop"},
+        {"pointer": "/accounting/openrouter_calls", "equals": 0},
+        {"pointer": "/accounting/openrouter_cost_usd", "equals": 0.0, "tolerance": 1e-12}
+      ]
     }
   ]
 }

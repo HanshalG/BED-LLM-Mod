@@ -28,8 +28,9 @@ except ImportError:  # Direct script execution adds scripts/ rather than the rep
     import revengebench_execution_opportunity_math as opportunity_math
 
 
-PROTOCOL_VERSION = "revengebench-battlesnake-opportunity-v2"
-IMAGE = "bed-revengebench-battlesnake:20260813"
+PROTOCOL_VERSION = "revengebench-battlesnake-opportunity-v3"
+IMAGE = "bed-revengebench-battlesnake-v3:20260813"
+IMAGE_ID = "sha256:9313f9a8f0afca2dc313ce9293d865d4eaa3b982367ad038a2af0aaf7a9bd1bc"
 SERVER_SHA256 = "1464edfb6a18f8c92bbaebe4c963822ca5e9e3b0f38e05ad6af2552e07c3af87"
 MAX_DECISIONS = 64
 DIRECTIONS = {(0, 1): "up", (0, -1): "down", (1, 0): "right", (-1, 0): "left"}
@@ -189,25 +190,32 @@ def load_records(path: Path) -> list[dict[str, Any]]:
 
 
 def target_states_and_actions(records: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
-    states = []
+    turns = []
     for record in records:
         if not isinstance(record.get("turn"), int) or not isinstance(record.get("board"), dict):
             continue
-        state = copy.deepcopy(record)
-        snakes = state["board"].get("snakes", [])
-        target = next((snake for snake in snakes if snake.get("name") == "target"), None)
-        if target is None:
-            raise ValueError(f"turn {state['turn']}: target missing")
-        state["you"] = copy.deepcopy(target)
-        states.append(state)
-    states.sort(key=lambda item: item["turn"])
-    if len({item["turn"] for item in states}) != len(states):
+        turns.append(copy.deepcopy(record))
+    turns.sort(key=lambda item: item["turn"])
+    if len({item["turn"] for item in turns}) != len(turns):
         raise ValueError("duplicate target turns")
     actions = []
     retained_states = []
-    for current, following in zip(states, states[1:]):
-        head = current["you"]["head"]
-        next_head = following["you"]["head"]
+    for current, following in zip(turns, turns[1:]):
+        target = next(
+            (snake for snake in current["board"].get("snakes", []) if snake.get("name") == "target"),
+            None,
+        )
+        next_target = next(
+            (snake for snake in following["board"].get("snakes", []) if snake.get("name") == "target"),
+            None,
+        )
+        # Match the release parser: an eliminated target contributes no further
+        # state-action pair, while the surviving probe may continue the game.
+        if target is None or next_target is None:
+            continue
+        current["you"] = copy.deepcopy(target)
+        head = target["head"]
+        next_head = next_target["head"]
         action = DIRECTIONS.get((next_head["x"] - head["x"], next_head["y"] - head["y"]))
         if action is None:
             raise ValueError(f"turn {current['turn']}: invalid head displacement")
@@ -316,6 +324,7 @@ def evaluate(
     hypothesis_indices: list[int] | None = None,
     probe_indices: list[int] | None = None,
     seed_indices: list[int] | None = None,
+    arm_count: int = 2,
 ) -> dict[str, Any]:
     manifest_raw = manifest_path.read_bytes()
     manifest = json.loads(manifest_raw)
@@ -328,6 +337,11 @@ def evaluate(
     seed_indices = seed_indices if seed_indices is not None else list(range(3))
     if sha256_bytes(server_path.read_bytes()) != SERVER_SHA256:
         raise ValueError("public BattleSnake server wrapper hash mismatch")
+    if arm_count < 2:
+        raise ValueError("arm_count must be at least two")
+    image_id = run(["docker", "image", "inspect", IMAGE, "--format", "{{.Id}}"]).stdout.strip()
+    if image_id != IMAGE_ID:
+        raise ValueError("repaired BattleSnake image ID mismatch")
     candidate_sources = [source_root / "data/targets/battlesnake" / item["target_id"] for item in hypotheses]
 
     summaries = []
@@ -338,11 +352,11 @@ def evaluate(
             for s_index in seed_indices:
                 seed = seeds[s_index]
                 arms = []
-                for arm in range(2):
+                for arm in range(arm_count):
                     trajectory = private_root / f"h{h_index}_q{q_index}_s{s_index}_a{arm}.jsonl"
                     run_game(target_source, probe_source, server_path, seed_shim, seed, trajectory)
                     arms.append(trajectory_summary(trajectory, candidate_sources, seed))
-                exact = arms[0] == arms[1]
+                exact = all(arm == arms[0] for arm in arms[1:])
                 self_distance = arms[0]["candidate_mean_distances"][h_index]
                 summaries.append(
                     {
@@ -390,6 +404,7 @@ def evaluate(
             "manifest_sha256": sha256_bytes(manifest_raw),
             "server_sha256": SERVER_SHA256,
             "image": IMAGE,
+            "image_id": IMAGE_ID,
         },
         "runs": summaries,
         "distance_matrices": distance_matrices,
@@ -423,6 +438,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hypothesis-indices", type=parse_indices)
     parser.add_argument("--probe-indices", type=parse_indices)
     parser.add_argument("--seed-indices", type=parse_indices)
+    parser.add_argument("--arm-count", type=int, default=2)
     return parser.parse_args()
 
 
@@ -437,6 +453,7 @@ def main() -> int:
         hypothesis_indices=args.hypothesis_indices,
         probe_indices=args.probe_indices,
         seed_indices=args.seed_indices,
+        arm_count=args.arm_count,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
