@@ -1,0 +1,18 @@
+{
+  "actual_cost_usd": 0.0,
+  "authorizes": "nothing",
+  "canonical_targets_opened": false,
+  "classical_grammar_opened": false,
+  "confirmation_opened": false,
+  "development_opened": false,
+  "error": "name 'active_lock' is not defined",
+  "error_type": "NameError",
+  "interface_version": "number-game-atomic-particle-aug13-execute-1",
+  "ledger_sha256": "ed97c6b40962d1af5ed4621f8915e95f1cd8e10177add70b4f5fde764108f488",
+  "raw_exists": false,
+  "schema_version": 1,
+  "scientific_result_exists": false,
+  "status": "failed_closed",
+  "topology_exists": false,
+  "verification_exists": false
+}
