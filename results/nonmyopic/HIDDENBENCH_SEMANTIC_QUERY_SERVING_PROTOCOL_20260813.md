@@ -147,8 +147,11 @@ All gates are conjunctive.
    first query `q`, depth-two value is its expected entropy reduction plus the
    expected maximum second-step entropy reduction over `Q1`--`Q4` excluding `q`,
    under the posterior for each first-response channel. Depth two must select a
-   different first request from greedy one-step EIG on at least two tasks. This
-   is a serving-mechanics diagnostic, not an efficacy endpoint.
+   different first request from greedy one-step EIG on at least two tasks. On
+   every task, maximum one-step EIG must be at least `0.005` nats, the one-step
+   EIG range must be at least `0.001` nats, and both the greedy and depth-two
+   winning scores must exceed their runners-up by at least `0.0001` nats. This is
+   a serving-mechanics diagnostic, not an efficacy endpoint.
 8. Both router calls report `addressed=true`, return valid fact IDs, and select
    different private facts for the two distinct requests. The realized
    observations are byte-for-byte released facts selected by those IDs; no model
