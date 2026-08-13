@@ -59,9 +59,12 @@ four selected rows into two disjoint in-memory views:
 - the **router view** contains the same opaque slot, description, and indexed
   private facts, but no answer options.
 
-The registered correct answer and rationale are never emitted by the custodian,
-written to an intermediate artifact, passed to an adapter, or loaded by the
-planner/router process. The custodian exits before a model call. Public outputs
+The `correct_answer` field, its designation of one option as correct, and the
+rationale are never emitted by the custodian, written to an intermediate
+artifact, passed to an adapter, or loaded by the planner/router process. The
+planner necessarily sees all candidate option strings, including the string that
+the sealed field later designates as correct, but it receives no signal about
+which option that is. The custodian exits before a model call. Public outputs
 contain only aggregate counts, hashes, gates, accounting, and dispositions; raw
 task values and model responses are banked under a gitignored `private/`
 directory.
@@ -106,9 +109,10 @@ block:
    the router view and returns `addressed`, a valid private-fact ID, and no
    observation text. Local code substitutes the exact selected fact.
 
-No call may see the registered answer, rationale, task ID, source split, or a
-private fact outside the two router prompts. The root/world calls see no private
-facts. The router calls see no answer options or option-conditioned worlds.
+No call may see the `correct_answer` field or designation, rationale, task ID,
+source split, or a private fact outside the two router prompts. The root/world
+calls see all opaque candidate options but no private facts. The router calls see
+no answer options or option-conditioned worlds.
 
 ## Frozen Serving Gates
 
@@ -121,9 +125,9 @@ All gates are conjunctive.
 2. Every root, world, and router object has exactly the frozen keys, IDs, lengths,
    finite values, and coverage. Priors and likelihood rows are nonnegative and
    sum to one within `1e-6`.
-3. No request contains a registered answer/rationale, and no root/world request
-   contains a private fact. No response or public artifact contains a source task
-   ID.
+3. No request contains the `correct_answer` field/designation or rationale, and
+   no root/world request contains a private fact. No response or public artifact
+   contains a source task ID.
 
 ### Semantic mechanics
 
