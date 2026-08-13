@@ -1,0 +1,23 @@
+{
+  "accepted_requests_authorized": 6,
+  "calibration_manifest": {"path": "results/nonmyopic/tau2_mms_checkpointed_semantic_calibration/CALIBRATION_MANIFEST.json", "sha256": "a89e6c1d68363badc119ab106fafc6edf377b4f4bd05d380cfd4fc6a3a00cc96"},
+  "concurrency": 2,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "dated_wrapper": {"path": "scripts/tau2_mms_checkpointed_semantic_aug13_execute.py", "sha256": "f3bd2588d1b0884201c200b4d7a689311d255f22dabef932edb6da3e613c4535"},
+  "development_calls_authorized": false,
+  "endpoint_outcomes_authorized": false,
+  "independent_verifier": {"path": "scripts/tau2_mms_checkpointed_semantic_verify.py", "sha256": "4a7395086679b7a8db5a56752a358cf2e4c6250bf55a9fb8b1a38289cc5defed"},
+  "interface_version": "tau2-mms-checkpointed-semantic-execution-binding-1",
+  "maximum_http_attempts": 6,
+  "opening_total_usage_usd": 220.13412888,
+  "predecessor_failure": {"path": "results/nonmyopic/tau2_mms_array_semantic_calibration/DAILY_FAILURE_20260813.json", "sha256": "9acbe900eb98280d6387082aed494a0205a1648ebfaca384eb9a7d08a7ba9da4"},
+  "predecessor_ledger": {"path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-tau2-mms-array-semantic.json", "sha256": "bfda62723448b8e7fc7006dd34831cbd4de5968fb65b0a80c91e9a81e029930f"},
+  "producer": {"path": "scripts/tau2_mms_checkpointed_semantic_calibration.py", "sha256": "831ef3fa4f00628fa56190a2253345ee8318d19df41ab9d8803db7348fa950cd"},
+  "protocol": {"path": "results/nonmyopic/TAU2_MMS_CHECKPOINTED_SEMANTIC_CALIBRATION_PROTOCOL_20260813.md", "sha256": "5c69ff6e8d959ea08b4c2216c59ace4471dc53ca8799f7793718bb83b001076f"},
+  "run_cap_usd": 0.1,
+  "schema_version": 1,
+  "source_manifest": {"path": "results/nonmyopic/tau2_native_prerequisite_source/SOURCE_MANIFEST.json", "sha256": "4fff94c86fbc4bd5633d945d56ea072e3fef31523ff6598a608b3278562eae2e"},
+  "source_protocol": {"path": "results/nonmyopic/TAU2_NATIVE_PREREQUISITE_SOURCE_PROTOCOL_20260813.md", "sha256": "cc44807b74199d4aff5ec86b60ff8beae3ab123156750cb2cbcc1f1a1f092f78"},
+  "source_selector": {"path": "scripts/tau2_native_prerequisite_source_manifest.py", "sha256": "1190b52efb1d77d50c4e496a55108b4aee7c83d150c189f0c4f58bcc0008a02f"}
+}
