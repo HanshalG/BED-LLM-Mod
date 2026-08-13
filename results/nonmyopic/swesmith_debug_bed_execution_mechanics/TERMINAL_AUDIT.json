@@ -1,0 +1,19 @@
+{
+  "bindings": {
+    "mechanics_protocol_sha256": "6a786c696e7288ab54b2fe4b82602ff82d5d7ea85bdb79be6c630aeb6580b206",
+    "source_audit_file_sha256": "07a3730a4c443fcb5de79f2e536bf6cca38b4afde68834915ff22f5fb666de0e",
+    "source_manifest_file_sha256": "9358c865ec1f952560aece523d46b90aba0b9ec26423861f391100ffc53a3c9d",
+    "source_v2_implementation_sha256": "0f65e55306ca7a26e1b0daadaf4497d8a6a72aaf40a9953f679142f38c54653c"
+  },
+  "gates": {
+    "aggregate_hunk_eligibility_accounted": true,
+    "architecture_mismatch_bound": true,
+    "dependencies_match": true,
+    "exact_mechanics_population_accounted": true,
+    "first_eligible_two_arm_failure_exact": true,
+    "scientific_stages_closed": true,
+    "terminal_decision": true,
+    "zero_calls_and_cost": true
+  },
+  "status": "audit_pass"
+}

@@ -1,0 +1,36 @@
+{
+  "attempted_eligible_tasks": 1,
+  "confirmation_opened": false,
+  "decision": "close_exact_swesmith_debug_bed_mechanics",
+  "development_opened": false,
+  "execution_host_platform": "linux/arm64",
+  "fresh_arm_exit_codes": [
+    133,
+    133
+  ],
+  "fresh_arm_stderr_bytes": [
+    140,
+    140
+  ],
+  "fresh_arm_stdout_bytes": [
+    0,
+    0
+  ],
+  "infrastructure_failure_stage": "container_process_start_before_bin_true",
+  "mechanics_image_count": 7,
+  "mechanics_image_platform_counts": {
+    "linux/amd64": 7
+  },
+  "mechanics_task_count": 8,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "opportunity_opened": false,
+  "patch_endpoint_opened": false,
+  "pdb_handshake_opened": false,
+  "planner_opened": false,
+  "status": "infrastructure_failed_closed",
+  "structurally_eligible_count": 6,
+  "structurally_invalid_count": 2,
+  "test_matrix_opened": false,
+  "cluster_use": 0
+}
