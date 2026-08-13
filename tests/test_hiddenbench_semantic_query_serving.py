@@ -222,6 +222,16 @@ def test_ten_call_serving_passes_without_label_leakage(
     assert verification["registered_answers_loaded"] is False
 
 
+def test_frozen_adapter_configuration_failure_is_reproduced(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    with pytest.raises(
+        ValueError, match="openrouter_backoff_seconds must be positive"
+    ):
+        serving.build_adapter("config-rehearsal", tmp_path)
+
+
 def test_verifier_rejects_public_score_tampering(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

@@ -1,0 +1,12 @@
+{
+  "actual_cost_usd": 0.0,
+  "authorizes": "nothing",
+  "error": "openrouter_backoff_seconds must be positive",
+  "error_type": "ValueError",
+  "interface_version": "hiddenbench-semantic-query-aug13-execute-v1",
+  "ledger_sha256": "e6071c353d1d43db931f4a79d1bc838e10ec1f4d51fac98526bed90bead520a3",
+  "opportunity_endpoints_opened": false,
+  "registered_answers_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

@@ -1,0 +1,22 @@
+{
+  "authorizes": "nothing",
+  "decision": "close_exact_hiddenbench_semantic_query_interface",
+  "execution_binding_sha256": "272e0c9daf3d0556cc0888f0c37a854abdf5f8ca8c9aace3fea9915483e5dc75",
+  "failure_sha256": "567b2afb35d5f6cf7645119f661d8563a7b78168c73771d34fba4b5fc9f4adc3",
+  "gates": {
+    "exact_terminal_failure": true,
+    "exact_zero_cost_accounting": true,
+    "execution_binding_matches_ledger": true,
+    "no_model_or_endpoint_artifacts": true,
+    "no_relaunch_authority": true
+  },
+  "interface_version": "hiddenbench-semantic-query-terminal-audit-v1",
+  "ledger_sha256": "e6071c353d1d43db931f4a79d1bc838e10ec1f4d51fac98526bed90bead520a3",
+  "model_calls_made": 0,
+  "model_cost_usd": 0.0,
+  "opportunity_endpoints_opened": false,
+  "registered_answers_opened": false,
+  "schema_version": 1,
+  "source_task_values_loaded": false,
+  "status": "terminal_audit_pass"
+}
