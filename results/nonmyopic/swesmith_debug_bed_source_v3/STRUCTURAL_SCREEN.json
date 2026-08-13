@@ -1,0 +1,40 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "freeze_zero_call_mechanics_protocol_only",
+  "decision": "mechanics_protocol_may_be_frozen",
+  "eligible_count": 12,
+  "hunk_counts": [
+    2,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "mechanics_ordered_id_sha256": "62c2287b526b54bfefa4a5b67f3427de850feff22433f1ff4031876583203526",
+  "mechanics_slot_count": 8,
+  "privacy": {
+    "endpoints_opened": false,
+    "image_name_serialized": false,
+    "instance_ids_serialized": false,
+    "patches_serialized": false,
+    "problems_serialized": false,
+    "repositories_serialized": false,
+    "source_files_serialized": false,
+    "test_names_serialized": false
+  },
+  "protocol_version": "swesmith-debug-bed-v3-structural-screen-v1",
+  "screening_count": 12,
+  "selected_image_sha256": "38abbd149d0f670b7af5144b17ae315cbd15a7476e2b69bdbfd5d01a07ad6d1d",
+  "status": "structural_pass"
+}
