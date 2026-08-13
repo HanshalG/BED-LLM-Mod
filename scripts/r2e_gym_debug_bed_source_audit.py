@@ -89,7 +89,10 @@ def _runtime_contract(r2e_root: Path, debuggym_root: Path) -> bool:
         "def run_action(" in env,
         "class R2EGymEnv" in adapter,
         'EVAL_COMMAND = "bash /root/run_tests.sh"' in adapter,
-        "class Pdb" in pdb,
+        "class PDBTool" in pdb,
+        "def start_pdb(" in pdb,
+        "def restart_pdb(" in pdb,
+        "def interact_with_pdb(" in pdb,
     ))
 
 

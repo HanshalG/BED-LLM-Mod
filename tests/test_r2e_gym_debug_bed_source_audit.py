@@ -58,3 +58,12 @@ def test_runtime_bindings_are_content_addressed() -> None:
     assert set(MODULE.DEBUG_FILES) == {"debuggym_r2e_adapter", "debuggym_pdb"}
     for _, expected in (*MODULE.RUNTIME_FILES.values(), *MODULE.DEBUG_FILES.values()):
         assert len(expected) == 64
+
+
+def test_pdb_contract_uses_released_class_name() -> None:
+    source = SCRIPT.read_text()
+    assert '"class PDBTool" in pdb' in source
+    assert '"class Pdb" in pdb' not in source
+    assert '"def start_pdb(" in pdb' in source
+    assert '"def restart_pdb(" in pdb' in source
+    assert '"def interact_with_pdb(" in pdb' in source
