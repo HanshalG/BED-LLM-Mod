@@ -1,0 +1,44 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "bindings": {
+    "agentclinic_py_sha256": "ee9cfb3020c7addf717ba8eb3510ba81b2b4b53071cba67d0663ad6c7c6ddbd3",
+    "preflight_protocol_sha256": "75b6dc525ec6855a11ad8d9e5a4f9c7ac820fee4adca3c39350965bfd657a745",
+    "preflight_result_sha256": "25cb3c11f5ecf19989f9dfa02fef019d7df9c6432139a32df25575d938f9585f",
+    "source_protocol_sha256": "389ebee33bd3adf73b4601412346b1e20662727f7de52ff76a3759d5567f6b25"
+  },
+  "decision": "close_exact_agentclinic_construction",
+  "gates": {
+    "immutable_bindings": true,
+    "patient_channel_conditionally_redundant_under_v1_intake": true,
+    "preflight_was_zero_call_and_endpoint_blind": true,
+    "released_patient_contract_replayed": true,
+    "semantic_serving_was_never_authorized_or_opened": true
+  },
+  "privacy": {
+    "diagnoses_serialized": false,
+    "endpoint_values_opened": false,
+    "individual_case_ids_serialized": false,
+    "model_responses_opened": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "agentclinic-dynamic-support-terminal-audit-v1",
+  "reason": "the released patient responder is grounded only in patient_info, which V1 already exposes as fixed intake",
+  "scientific_interpretation": {
+    "patient_response_additional_information_about_latent_world": "zero_conditioned_on_visible_intake_action_and_history",
+    "planner_or_policy_efficacy_evaluated": false,
+    "reduced_intake_successor_authorized": false,
+    "test_channel_structural_opportunity_evaluated": false
+  },
+  "source_contract": {
+    "fixed_intake_is_patient_info": true,
+    "patient_prompt_receives_all_patient_information": true,
+    "patient_state_is_scenario_patient_information": true,
+    "scenario_returns_patient_info": true
+  },
+  "status": "agentclinic_v1_closed"
+}

@@ -1,0 +1,36 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "answer_cardinality_max": 5,
+  "answer_cardinality_min": 5,
+  "decision": "freeze_semantic_serving_protocol",
+  "gates": {
+    "answers_nonempty_and_unique": true,
+    "at_least_four_answers_each": true,
+    "exact_unique_mechanics_cohort": true,
+    "exactly_one_correct_answer_each": true,
+    "fixed_intake_nonempty": true,
+    "gold_answer_not_verbatim_in_policy_context": true,
+    "ordered_mechanics_hash_matches": true,
+    "patient_and_test_channels_present": true,
+    "public_artifact_contains_no_case_values": true,
+    "source_and_artifacts_immutable": true
+  },
+  "mechanics_count": 6,
+  "privacy": {
+    "answer_choices_serialized": false,
+    "diagnoses_serialized": false,
+    "endpoint_values_opened": false,
+    "image_urls_serialized": false,
+    "individual_case_ids_serialized": false,
+    "source_values_serialized": false
+  },
+  "protocol_version": "agentclinic-dynamic-support-mechanics-preflight-v1",
+  "source_audit_sha256": "118a8afcf6b1825b76815bcec34dcfd56190eb3b192580b01f7c936691488c57",
+  "source_manifest_sha256": "1025f72c6c8b952ca3374374643f9097da44563b700b92111478e3e1be2bb1e1",
+  "source_protocol_sha256": "389ebee33bd3adf73b4601412346b1e20662727f7de52ff76a3759d5567f6b25",
+  "status": "mechanics_preflight_pass"
+}

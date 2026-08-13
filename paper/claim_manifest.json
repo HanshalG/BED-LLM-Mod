@@ -1235,7 +1235,7 @@
       "paper_scope": "A prospective zero-call RevengeBench screen closed before any LLM or policy endpoint because BattleSnake had no depth-two utility gain and Halite failed the frozen native-probe gate.",
       "artifact": {
         "path": "results/nonmyopic/revengebench_execution_opportunity/TERMINAL_RESULT.json",
-        "sha256": "3b01918ad7639fafd69f33bccc580777a1a04a7f478e84af03562afb406eb5db"
+        "sha256": "56b1f4c56d11720ca580fa4f526661e14d8750659846a9413472642d1c7ee726"
       },
       "checks": [
         {"pointer": "/status", "equals": "no_horizon_opportunity"},
