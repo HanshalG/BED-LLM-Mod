@@ -1,0 +1,21 @@
+{
+  "authorizes": "zero_call_opportunity_audit_only",
+  "cost_usd": 0.0,
+  "gates": {
+    "all_pass": true,
+    "exact_114_base_sets_excluded": true,
+    "exact_2092_fresh_sets": true,
+    "exact_2285_unique_tasks": true,
+    "exact_90_prior_sets_excluded": true,
+    "exact_eligible_episode_counts": true,
+    "exact_source_commits": true,
+    "exact_source_hashes": true,
+    "exact_split_counts": true,
+    "no_selected_response_or_outcome_opened": true
+  },
+  "manifest_sha256": "9dc0c02f3fb3944b2e26e13d046af3f28ed3e6aedecc8b1817e94b72de6b9351",
+  "model_calls_made": 0,
+  "protocol_sha256": "2e7ec4553ac6a51f61d3957767faa1f46e8504c4e6d16b2a83f0574fb68351db",
+  "schema_version": 1,
+  "status": "source_manifest_frozen"
+}

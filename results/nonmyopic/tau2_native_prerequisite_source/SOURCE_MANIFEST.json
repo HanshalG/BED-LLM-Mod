@@ -1,0 +1,2504 @@
+{
+  "cost_usd": 0.0,
+  "counts": {
+    "eligible_mms_abroad": 297,
+    "eligible_mms_home": 77,
+    "eligible_mobile_abroad": 29,
+    "fresh_physical_sets": 2092,
+    "official_base_physical_sets": 114,
+    "official_tasks": 2285,
+    "prior_study_physical_sets": 90
+  },
+  "evaluation_endpoints_opened": false,
+  "fault_names_serialized": false,
+  "interface_version": "tau2-native-prerequisite-source-manifest-1",
+  "model_calls_made": 0,
+  "public_source_and_ticket_templates_inspected": true,
+  "schema_version": 1,
+  "selected_initialization_actions_serialized": false,
+  "selected_task_identities_serialized": false,
+  "selected_tool_responses_opened": false,
+  "selection_salt": "tau2-native-prerequisite-v1|",
+  "source": {
+    "splits_sha256": "605b488bb9a6acb3c7f4505240a855fdc8681d09aadb16a8f38b2efcfc5c3aec",
+    "t3_commit": "492f31fa05d2065c750a72d5e798385af282fa5d",
+    "tasks_sha256": "37e562e1ae3242577407e1303b1548bc64e7ea68e37d36173e6747990ceaf8a4",
+    "tau2_commit": "1d244f5dca42944b67a379b44bfeb9f5748f189d"
+  },
+  "splits": {
+    "confirmation": {
+      "episode_count": 96,
+      "episodes": [
+        {
+          "episode_sha256": "e79a07b343f4ca41a79c38550de4255bd806616db935c06c26143e0559d5b8e0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "63314a8eed317512b763164b7561500e24e52595acf67cdb129ae346de5d6551",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d10443ea98be66e81bad75e4b569788a82b279735b077ce266227a4d9aedf022",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "172541d229a685e2213c0e506c6786fb573911942b5296560f6aa779077b9973",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0fdf50e0626d6348dac07b9e0f8aa2ef696f8e15f6a24d707eca837c12746e3c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "29161a0da488891e7dad6739c01205ce52b340ee0eaa0e50171faf4888b7fee1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "815345c32dcb1014bc80cd3ba91ae3aca2808f3d645131473a37665bb1ce28ec",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c4f5686cd8ea219e0ca102ab5418786130d2dca0c0e9ce3030605f5c923448bc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "21fe42e61323f662a624fe66e6f53fa0e8c9241e478016055ecc92a971cd2361",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8a471cd49ade3044d1f3d6af84854e341f1d0aab399d1dff04934757d02461ac",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0476056a2a8620982710fc3c77b60646443488302afaece5b246b61372aed8f4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "84b1a6b67ee45a450c763fb5c211d5cd652b84a9cb37a9d021e29d0f53531a14",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02bf230399af05acd3b68dadff836d04a5774828de5384f16bb53c39806093ae",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "186fa15ecdeb4b1e0bbbf8d2036f6ab6f212cdaf8e9c501c82bd0f00470c515a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "977f9c2c2c8851b662d35f52be9ec6f55d7631b2fe17e48489dfe69165e2fc75",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c261db024ff6af112f60c7d18bf506a70f646f323d6ee2af1c13ac8e46b68490",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fd255213dde5390d31f10a9a4c5a1eaa473e6edd82eded62c76cd7a2fb26206b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "16a4ea419cf083ea50b4d8ebd3d9d2b528491ac5b6a6e195db45162bcb518c38",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "885eddfeb145a7e23baf360b2c171aaf17fd39070e5bcf1e9d2b53c2dfb9bc84",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fa259df6833ccf9df3ae3228fe09cd4c3d2666b93c5d73081504e8dbd7ba0a60",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "25d495e79a7aa4d713b0d487885217e68c6d4755e67bf918286f6aa190b4b26a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "371e3a9a507522c52a0282b895813b4a218db214597cd635a4a745d30a62e72d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4bf2dbdabeb365a52b60f8f466910e1df4d4dd731e91cad2adaef78b836ad5a5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d4d9a85d018496fa87387308ba75cf955f36710fd0b2d0ee8adf66c799a87353",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cf115a34fc28d42aec6f4da0f8890de1cb5ddc47ec83cff9ee1549b3e26d1c5a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "72e4cba1edd18af8afc1610516b92c61aef781340f45e2c600c4aa390b539607",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1bd9431ce474d1d4f194d6c3ff2cefc808ade8a323d7df24cc76e8c885a4f0ec",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5ba22ce37c553edc7486b60d081365f2a7fa37c08b7cb1c4a844c9dde1dc252f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e0ef41bfd866f0025aabfeb4f85c34ec88228fc7d333049a0a158e7f3c108ee8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "aa5fdc69496bdae8672dcec90bae618daf61dc6fd92f7c27774c6c1f743a34aa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6aa3496a5b00ee26d54f4058b874cfb82e32a6fc43bbd7a39089dc37be185137",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0bdd26e1f3ef260c9de7a676cc0918401b06bbb594fd16d307d9f429ff6650c8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b7fe2074d3e0e94e59a5921ae31300b30b763ade83f247d2fd8b6c60e3838a75",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4cb695b9f0a4cfb6aece95e7fd2b10892a3fa21a00b9cdd2ee1b899bfedec260",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d8c837b1bd0c4ec8a28b473723023373343858e3b1acbb2a62d40830d7981de2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "99f5f420e761260bb9e732dbd9e58ae02324e3c911e16a190404289ba28b552d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a1dd1fadfa50f93adbeb7c5360822bbf87bd23374aed120b4b3ebb489e894e99",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9aa690f57d8bd3af04dea7757583b7edef9302fb3e2816d0c1ac413391fed4ec",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "30b0b1fa88bbdc1b3a04a3d2c1d8de5dfb55991cb8f2ba3d59111346b741ce2d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ebaab0107f98bbe977aee54ec25cd5d67a8f247203a3393ccbc83330594be124",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c13862043e535ccd5fc6c12b6ed09ce145ade8c5018358f3d8f78260d281dec6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d9db8be70335331bc5fc1dd49a4c9c88d0e6aa974715af78a06c9297a1873ffd",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5a4343ff777e8ea1211fc016f63f78d74e5c577e0035fa84e9789c53214f3b16",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "41528ac8ae6e6a1c1441d99d049f208c3b32a0932908b56be8d2b2e31a497b9c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4e12d5d7de2a970fe18a35419f6f60b9d218f86629e6be36e07d36138dd63ccf",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "de729534c521330bbe1c4f53cf6f3a5d2783a2998cf9c35eeb8e894f562ada2a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "08ca1d1dcc3c85340ac419eccf18ffa71c7b487dc47a82df3b895ff78a8ed6b5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6139086b2842e48de1f14e28dc08981f38df26dbe8bbb2682e2d4708d88835e5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c8b5df8a95bd6fb508ed64ae303c365f47ba333b86d19dc094b4dc2e565a5fff",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "417c44d9c1c56703b3b4be518f67a4a14ccb97e73d941aac575810307fe21e06",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2f325132cedbd5f0a6cac0311a58a170871d0045452c51cf2c3d852f669c0953",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8701596cf6dc20c7809890cf1398efd0e5dbd53fe44199bde5dcf2b0f0d3a6e5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c93e7549d263a57a0e22ff089bcdf4394a96ea663ede7c999fb7c6ca5df95523",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f29eaff9a2b406bdd48b81d6a4cd1733a4884b44fe1fbae20949b7aade00bc27",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ac79aa1d50eabf6d40bdc2384c513fbec617861ffa10ee4f7cab3549a4e88ba7",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e4142e9d7555def03c805ead578de431c49c0d76dcc217e4fe00a18f656286af",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cf57025e416c6a6460f0eccc378c5606c2cfbe7ffa79b3cae8c601589fc48af2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fa4a9e430901d4b3942ce2a9d5c53cdc442d884c6c9d5db19378ae5814bc93ac",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bbb0f4d8becd400d4ff8d440b9ee50bdab01b5b35f25226efe2d5ec6f3d0d9f9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "176bb9496bb94c33e7490f1c395969cc9db053c425933169ddc1f9ce1b8007ba",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4c32ebaf9e1bd3694c9d7bd2366700a60d41f4f5a1475ced70ab567ce6c617cb",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e16209f95a0060fd3b4c7821cd3f3595d10fb2b4de9e8c7677d489d6082da184",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "be4c84cc9ebffe23225785c22a9c71bcad59420049dbc8b34dbb6a7843e10915",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "94454c38767962911abb4773d76d4331764865664851a77a4ad8cecf2cda0ff2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "81b5604b959e6b02d21c7f94592f3d8a81686cbb36213d9cd0d64b28139c7fca",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6de5a72f0537a07ff41e1f8af3971ff714e32266aa4195fbce377d9e7c38ad3e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "171192abc62e451cb69bfe545cb87660d113b50afe4be08115e63029eaee19c3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0d74b87334d9933aba2b56b3e782acebbfee4aded5c699ede95e2cd955441669",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4b8735d0201143c33ccc3da553cd280f681c9330b80704f5fb248ae3e4e13ed7",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d4e7c633e4e6dff6ffc7d5f4323a64e8fbdedb24a35befecbecff657f8a7a87c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0384cc6d417086bb5c0948c7189c8afe1f7308ab811259077e7136447fbed458",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "da6a2bc7cb90b8d9c2feda32cfba830b38e8991df10f6d98b84d01941bd04491",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "78013a3616e2c3381c6fb535b005c9736ee8c59f980fe67d9c57cfad31110b2f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "385427f4e73534b8cd44209006459c6307a2712b0c7d6e22cf8bed036d8d3ed7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "574a9869088ab24e71e36d6318167bcec73280edda15996082004161691ea132",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c13762ca3a56356913fdaaf1f2cbb72983047bfbb31f9773b2b48c8e203dd5f2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3f64640a297b9deb352e9ceef81687db93219aea67ffd5e460691362059e85f3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b1ae920c4749c70e43c9b63875b24684b6947faec27d40f314284ed0fd3ce4ef",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9b2dc1a6b0a7e5ee84218502b8feee38450bd76bb6bb38e1a55542415fa4319b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b711a459bd1c4b69be2930efdadbd26f2e33a6b7eaa94241915250149531e1ea",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "44ee9bb56638a848a913d51fa3bb38dbf0c33b184bd692a7bf6789122a38c24f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3b69d5de710e22d3f92b34221b6bb17cca28e8665aa180caeba3178eaae4ee08",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cbca9bf09d7c21e683476e59c3315e3022055912888c525f005eb088b91f14e5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3543b48b4c5b8fac2c31882c95360b910f280ba367d99a42f1b008ed0c9d60f0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "36e0a2ef325d3ef4d925d42e6b9cf1be52fb381875a727a4923d156cfe501f2d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e66807e2f839b6710026d9bbb5facb6b950b2e2501021c27803bd95eb96e6ea7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "14068bd9ceb3b0ece5b54abec517c6afd9590e764e6a1d27badb653e8c53988e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5f683570d131b2fa961b195610174a805efc808e54cc999d4c6c6d2376982243",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bbca5ea2410448859fc2cadcb0e124e8be50ac445e1a7c68e958863162e1b864",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9d74b89f67b2566c72204eead04595b407b2d945d29621204f8375bcce4474fa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "90c47f1a44b30ef7a7e3452325583b6f48eb2271d78741d6cea4751c9c572bb2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "04084cda50e3d70bdc26a4ba0069119a5fe68212f0ca6908275620561c477cb8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "de8c1c8528a368666777df577295adfff4d83fbabcfabbfd1d1798af489415e9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fb0a923639218b7c375df44977f74540a719c968f7b3f3383fc9f8e2500c3031",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a02f4ae95ab0034a90883c7de6d3e58b5c1a3cb6a0ba31d7d7e633e7f5b78648",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "49aeb2f9cd9ad4df7e5439fd2f7d79884266008a3f6068c9d685e72cd921fc0f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "11069f539fd73b0b5004bdcd40f46c293eec9a08f6f9f1178d5bf144104ab990",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b058cb4052259a1d756763edb6e03e2644c9b0ee5fb613fc0be872c9b6926049",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d04294324e419b037095fd39edf4aef798b770f35d9de996cecc3ad0175af413",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "17949f9a021d0527800c33aa5a215abb0932441e3098a7bd2afef0a6ba302b54",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d67af6225bbaae9b5b9e63d681b4275c0792dc8c0cf4cdd58bd55ed558f989f3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5ac79cd94fed36f6eea642bd1bf134d656b57959422e137d78b85fe55e3b4fce",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "94a8affd8508792afcef1a2a4c960257531f07dafb2a9d1f67638de27545bea7",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3c22a4e252cc080cea60617072b6239776ee1f98dae92d6b5bae36788654db9e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bd5b7fd2acbdfaace38b325f4872619f840ea1e835599931b78ba79f9f612801",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "846d6a52136691fe6c7fc655c2cc3381542981e5afa893d171910b95e50d53f0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "dae2c42182a8767b88773755bc9fc0752524f521340a8b6c6d7148945b232b51",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5c256bd8732b89e261613abb2b8184520e425960cdacecf440f9583c9ef8ba2d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4eb3c2eeceda9ee54041051454483d4f49b641f949e5b6994ba3771fe7fd17b6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3ef8b14f675a4a18f3f4ffa827948e436b28a6ef9eb74c56eddef73a68e366b5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7e4f5dad729de8a287009d711b82ba5780423c9f8420ca59e4ea4bb9a5e32d16",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9d0148824679095d193c47069681a3409ce264cb1bb5efcdfc3a6a916008be43",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d2cbb008a922e654adba790e6c343861e2904613d9af7b6bb5439f0836d6301a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ca5472e4a7b3e335a2aaac17f43ff6f24390b794d90429bb4fc5d807bcb2092a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "16ff533ddeb9cbb2d67b1d87ed3c92e1ce2b12f8ee1cc0107fe3d1f9cb760912",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f3a0bad04c69495b742e8ded3c818a86352bbac4ec6ddf6bd1846a20e185b663",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2162180e4bad787f11097cfc965b48cb970a95d1737be8e77e0fa83e7e5ca54b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "928e0f81ab64cfd75c6140f57d64ff3bafa563fe5c182c41c9024ce24af49196",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a561c78e3931e693fdf5ac2471ff4033247e585fcf2aeb6068e06a50d2913fe0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4f3196560283aa0f0c5663d3d8c0720fbc737dfbd6635a905268d741a4f5a02d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2d15c1e07898e4ad7bc75bd882820e163fa44af96b1c498bb389ff086629bd6a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6dc7dfb4f86e271a88577b64d9da923e8375b19f7c6d934f67fed59246dfd848",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8455e00da95d702a1a42bb215d146b8f890e6c016ce4451e76e36adce513a817",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "925c452db1a86d04da62ad60413b4db1339dfc838ccd03b09807cd91254c6dfa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bce75865a2264ae26bf441f3f18d12cab05d53bfd3648b82c7677d75b9a1cca8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "90b294b0b2d9862b575b1a6f47a7a2f93f94e944d5f24dab914e5fb699f0c4ae",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3fcb0677359242d6e74a2949915e3bfbbae5bdeb444cdfd2b64fdd4dc048f865",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "db2b82b26200f2f530cad919e4454318074037d9cddb9ef65264b6966d956b3b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "12eada3f3b5f8d8f9220fa87e1f4d887efc7a17b7a345d62ee2206d6e5d2792a",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "8a9cbb8509fef9f59809d491df3c06166858d3ad37b4bddeaab75003d6cd0277",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "59d6e7dc99017606e89f793a3f44e7f9ce1e355960d5d4441459467ce405de05",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "fb32b2a61152b29228a6e31958cf86fab3c543ef3ff30f6923c9346c5fb4001d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "87a93677581d2b2d3368f7c74fd9cfcf765bfb2f6d4f56f7ff74882d5d64c4af",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "dab4301550e40aacde2b71fa40fc9c134fac220c3e0a033a57030879fe7f2d60",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "082b2434c4e506ae3d884e90f71f3bf3284d6e8e2a758452b1ee33b9f740b5a3",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "e52eaee4b92fa38aef05792923a87638dec3bd415dd85bf84ee17d630fb0fe74",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "907cd4b8e23a5a30d4cd6d583d25b2ca140a7e77ef7f1ebe4d8686107f106434",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "4717239c397a3ed9aee7791e9a9ccb4c29582a993fda8283a564f40037dfcd2f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02d4bf1b8ecf23f007ad0e55ae5043a5bacfb75fa3dd3984890c64588aeea6cc",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "dad20f038a44a2a15d6b93d89be091a9c48b042064c48aeaeaf2ba8be19e024f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8a990282d48029425af08828cf280fcffd18e4460ab95570b60bd67708b5b857",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "5284a1371a51f820ccde8a8c3fce9c0e282877ba0cdb3982057055f458fc8587",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a299629b10067c1f797d6a8d30c00f54ec6dc375ff26f539e74d31e548d02340",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "4818b58d37074b3695466a1c99df45738a7dd50b865ca4e1fa96959e395443a4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1e7e199e44a6dfae10ebd4545529e2c9e7acd926dc3f56c4bab530abea7568a3",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "af4ffa15e2b0d48a1b4ba3350bf16183abd0f59e31ce3519255d0828c8b20bb2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a82a7aed9894ee81e6f9b4b6736773253a1801c655d83bcb03d6e23230fcb3c4",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "17736766e555654edd9c2bd8372a9fa764f48c609dab0f873fa297029ca56199",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "30ecc38efb93be9aa8178e66590eb88aba02c56384239b751f8d040c3dbeb848",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "77dffd9bac44ca1bd6fc836f0c7b193718e139d38d8d3fff89e6f1caf0f54eac",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3c4ee27b1afc70a1eeea71e3e1e21b9b31c98e45ecedf6e47cebda5cbac2405c",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "af63ffed60d231630dd2d200196d2974d38bdf892db9920f54e802a7a00baa51",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cbff07547886e66b23cdc91e0062655fed7e84690df6477e2c5bd999de6e407e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "dd94e5150bd5d8e1cec3a128e2f77133115c91f1264adfaeba2655c38c7c58d2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6226765bf9cb63a024cd04915b8d3367cce9c9e7e5945c3fde21f9097163639e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "00b452f1049a44d0c90ef6121d1da3d3f4e78149691dbd11989fd79052724a33",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4589bad8399b0a198b9d61f0cb8af14149fb0628a0a486fa6ee0f8001ef54989",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "cd5d373456301c20bfc46dfd5b50102d0b6c363ae2aab2bebf4e504dff9b27e2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e890cf334ccbeedb9bcf5a17765a26a66f4029262b38be8b5f947663bd208eeb",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "ed5f1565daaf66f6c31197c09a1a49fb258cb7c27605e29db2fc2db53ec8c5c9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5ccd01e6211e2e82ed7202ae8a22d478016e9640188eb101683bbdfcd4648c45",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "833e34089c9c6bad16ad956636565178242ee30737051227b7c5b79b9794c278",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c490900ee0e4f4c3b89c6a4a12623943b885092c1044ad1edd260f9e55ad262c",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "d677350c5c7c50db6416653d4d1ddba704ed1ee78c7443bde320abe1acfcdc63",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b77091a273d4c024ce34a2a530990f1b39810e8f894d0faf495d6c8410f79025",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "d8ea0fca59f65363ec1d27c686d4cfb60c8f5b2d65d2d27220ae462417d36080",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2e43a3c661b0499658e66386325f346ec4a0fdac6569182be34aba5862d5d054",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "4cf713c1497fc9afa59308983911d90eb61d7a5108447762293216b304693729",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "dd9972ddd22ba8eaa4d6d27b9a42361c6b7766e94ffb8855ac216786d12b4b88",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "ea161732c8597ac413b3ea4b920332bb7e10b27e6e2f2fa41f85e6360370b06e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6205a99140cfd6e20d469af5e36a341a6f256355413c37810189cd467f8b9efc",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "711fe75d50b5dbbe0e90e866cfed768adaea610ace5bdd3d8acfd3f5ad3390a7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4c62b0f94818dc417fc9be152f430b190cbe360b0dd86e8b780f0738fdb5641c",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "d2d29de3eef2164e00c604cd4e1cada23523c74416f3d65e7e425911b13a6b7a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9163233b8a29bdec392e8f6b782a2e14c3f027f26fe2d10eb00bf34b72233ca2",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "a9e7ccb24ce297c2b0e307755a240ef3ca7d9e4fc33b22cd7f1ebb85b19e61ef",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "331f34692b202ee4d1fb8eedaf2be33b329419a9425ffd68525c0ca92c348d3c",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "f0d17e4446c2c7d83a8387945bb5c4a5ddefb90393a306099240994c2773ea2d",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "562b4c7a21e17dfb9b7fece22858b928e3ae4f81444c2f35b0f7043b1b9c7f0d",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "00ca80f3907ca0a8716c9e38553b8e7a722906ceded3829edd3bf24c9d7df455",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "433b150ebe38470e38445922fb9397c92414ec3768858c3175ea4c036390a3e2",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "2cbfb02a89d47ef998988b44d5246016734c29324a55ff90d3b97ece1064747b",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "561c122b3182059e2bc04db2eddddd520c4d8823d42aac5e4e871acdb2497f51",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "09fdcb21bbea843285143e7f20628af1cfeed2c9737025477b0f0dbdd11af88d",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "7dedcdf838a2e51962ff73ef49033f036dfec659f7898056b163e116400bd16e",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "aa7834232fd4abf27602b6b9888856aa61c24643449176f62620bb5c2d342f7e",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "84ef9f11849471256351a46d14c74ea04e1ae1d05937e823c75cdf79a0cc4467",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "7e0b59614a397452394e2f1eb59f109f17368997107134f73a3a7f27b404c407",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "7456d4ff9ef9444f213482ab05557cca06cf99aa269e6592a1f48bf572d3bece",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "ba55d36d921b6cbcdd559b5eab99ad84f4af4cc445a4ad01d223cce4a6a1f055",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e35d5e95e0410b6454638b3688981f08994aef631e22e02610f74307add352bc",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "2eba0794e6f2dc877811b04d131be8c888c1d42a4dbc6e89f56c01a2ea598d7a",
+          "state_count": 6
+        }
+      ],
+      "family_episode_counts": {
+        "mms_abroad": 64,
+        "mms_home": 24,
+        "mobile_abroad": 8
+      },
+      "world_count": 394
+    },
+    "development": {
+      "episode_count": 64,
+      "episodes": [
+        {
+          "episode_sha256": "db0bbe190fea021b624453751c6fc4f8375e9aa8f66d15c0c84db97eaecac306",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "904371986c046de8d1710229b2c2ce948690166849525114dacae51e62bfd8bc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f7704b45e1ca79ad56cf3199b294394cc3a49b45ae4e1116ef44331dc0c0e9fc",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3ace95bf4b95138cd72dc3b9e3d3e171747a2040ca193747c572a560cc4b7d9d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bbd10671eec37cf14f0bfae0021c2a18436b3bc7d3ec5c41eea621b455f8a8c9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "983bdacb8166c9c0599b8c8068d79220bd75b1ad103408a99b654457b0a37bdd",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a2600f1fa2cdbc5ad878d95a18d767a86d58261aa835e2cf058f77ed70a2f1c5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "509c368abe24fc22b46a77a05b9ab1e993bbf9099fccccad284eacca05ca7dc6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "55a195d09c61411f69244d4740facfe1aae7c65724d2a4bf941310d5a0576dd8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4abb843f7b24fe601dae49513494d8bd84978b20ed2fcc9d54c0ad05fa87195b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9d4999eb20b3f51aa094d21119ba56b32a53409dc1159626f7b90c663d055755",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "94d5b19517c12fb4602eb8c133af5cfb184ca60ef743629dcc6bd523dcd92138",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5b4618aba08f2df12fb21c564e89f09ba6426cb4038300d221a3f1f2cf8560c9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8329864b3a973e19e765b0212d68177c0a6dbce5cb90d55c3cceee825568e7f6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9eed09b2563daafe9c9dedc40ecd0d3cff01706a4333c2786ed316557642d62f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "00c110b68180eb00a821414ce0419659235f15d2de339fb16510fc84052a39d9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3139146e1e54a5cc6f42b53185c0d948faa0bad6fdef1d85a25f7df5f70c955e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "228917e90de7a694a591220ea9eafe30adaa17626fd407089e0a4977f825ba71",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7d2d0af3cc6f2f0d2231b0fc7c0d7e21c19d23e45b4bb4d3f6633276ea9d09a1",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5f7d621a872526720f5fd0e563c2b5322f78679b9eeee491f2f325e36e63bc1c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0803221f424f8f03a4a31a932da7ef0fe92d6280274b9176099e77116b41b272",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "118d8ea71f5b5b5943cb5a33951021a337ae747c1c1c639c5b48f8e5a7515d15",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4732702862ef5e9b570d0ec0d2af128417e23a50f36baf3689f13f69d20a5a6f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "55450813134d7d5d8899f8c1da4019b8d9c8770dfe4705abb56db42b1d568ccc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "560097202bdcbc15cb82f954eea512347daae86440abacd9d3065469d037bda0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "890ffd818989b16b46fcb8efb8d8509fd9173d42114d8e555d5f3670a82ba561",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b76091b72bfe4cdfd871047c349fd130b21e446ded84b023012494795e9ccdf5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "27d8ce6d6a14dea4b70f970fda8dd8af111e2805dd5a2a891e2895cf6a602fc1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f8feb98d4f4e37f3b131d4b7d45af552fb9d6396af6f111eb29b75884ac2aa33",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "de7ea59213537374f0693babecf8a85182986e8b34dec609efe298b5c45cfe4c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ef7c61a62a5d8b0cc6b74178d6dd8e1e100640eeb15923a7973ef68b214ea0bd",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1ffb7ccce5d05143c620c99bc11046308fb72bde1303bdccae8e8f9822ad3a4f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "56401259c1bfc1b808df0d617208df95c90c9bc2d8b6b9ad38ddeec6e68cd484",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "41ceebc880096243f7f4d2a05a4eba0ff28e6d8e5baa471c4d1bd18ced6d129f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7ab9f20eac9584fd6db9a940b0c08e76de0705508a2754e8dd8c8d3de8b4d864",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "38a92375f35e897a43fdb09451170afe7bd2ffb3de7e5ef98af713bd34e9cddb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5756017bd4c7789e4a75a7e8b0ee37a59f0e96b67c76d6b4b300aa2e915fa81f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e23f44451fd5c6f2e632218303af32ae1c39df8f5026206d06b6ceedf8f8db1a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9c874d87a3c51e96d933000ead795efddaa82e3a66cd082ebcfee6e055ebc029",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fa054b3a02cb05a14f3caefca9cd6c68c2614ec92291fa864c8a23894f074a47",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02d0867a172f38bf1df7d778c1bd81931de9c253cef8cda9594b6ead38ec47e7",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2002ab23d7e0b1aeeed5446cdb5b3adb2c08a7d564d91f82cad0fd9bae7b15cc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bfe63670d2f17d27afa9a8bf68e4fe9ed2d6d7e7f01049a646357918559fc456",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ff87e044ba6592aa10a1ed0682a6d03bc85d6671e47ced3266ccb80d04e1560b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6b594f3d81dfe60ed4cb48ddceab4835094027b7a0d53a14da431fbeb0fb4fbc",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fe46cea97541fd639bbcbd7fc8c749aa47e7194083f6ffc1b0916881f196bae1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1f2563a7acbd5cdf87eb241119b1b85c653871d096781fa27eaa9489ddcd9377",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0277b687c8d5a09b83338d79723c06dc9187745cd6852d6ca76d1d9aa5e9b8b1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7aa7d19fcc91a6606bae80032708114d60429f5af90fd65ed0b7d034fbc44a09",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "af2b81eb1393868968aaf00ae5ab8cc54354f9341a4945d8d5c91386144b22ca",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f464e71defa8eeb9b297a2cdee7b55c667b7f4525fa134a805d67e6da9542f61",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0555c975bc6273f70d571b4ff405ea75ae226c53a9cd1d5568979eac90063b38",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4759b2f080d50fe64e4e1d286a9fc6b63a22765de89b1de9112173d854c8df79",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9a14388fcce2045e4128e623f7017ae90753d440ce60ec468e2f71365559da03",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f25a289b7485ad2de8de8c1b44e45f6ea51d49c9877b0d223419363c45baf0d6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "41df8e594cb34870bcb3778f072e48d6605bf7fc1686a819dc5aa6353061ff0d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fe36fb1d95267d11f0664908a1c4dfcace6b224ae671e1b7c8a9a99ad7e00c65",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "457467d7819536ba4fabfe8f3b3ed25c864492447148d6b0d7ffe67d6b81eb2e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f79968f72180a57fe1ce7564609d2e5539cb590ae2c72dff9a4d820d7a01d721",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c8a516d8214ec7347a529c47fdd4e07182097d92aa7f023bdd7bc5ebdcea0eac",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ded1b6ff300365767206361ec9e2734112474aed6dfe9660e2577329f3cad00e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "34e4dca736e4283b88311dfbc821f5d9e04272acf7bff776bcbb48700412cf47",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a9960dc56983be3e0de11862c33b34d0d55ab4292d6188e5f76ae6f1fbd00337",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "35f44f9329c3637a077dcd46c3806241d1064a2613c41df4636761e21bf74bae",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f6dd7db1be66e33424ba9e043b48309236e1148395b8d13b1bee1ed6021dd65f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0e83c9aa0f5b8ee7af34437c8fb47d5d5e4d44045142d3228fbda5f3376f5a4c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "51f0ddafaef02c9bf465f305d8585a027a02ac3ffbdede047d7366764a9a0671",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9fd9b4acd01818bb26201496fb762d47d9c3fd65836187f880f67a05420e12f9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3cfb76d5681cddfd3689761f00024061dfab85e3b0645df9a57ce9bb895aea12",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1e381d4b43e9e2dcd2576f31aa8d60ee6280b3db4688fa3e4272ef094dc57c3a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "743a862953cb2b2400a2c3c9474ff1d94ebd5f7ba8b0d132c20c3f6a49d2781b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9c0d42b4fdb375921e5aa9513bfb605e1b1d8d9e806a6eda6fb172a5f9897a1a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3decf0897a05e7995306ed21c7b0ebaad145e768e7555a461bc9f9f32c8e8ca3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "bc6544dbbd7ead35ff4afe4a938a7e7a7651469a51d16900d2da454fa5434203",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2922971fb950cf3808196a40816c93aeeeb5683f40a73aa6e7856fe834dd89e2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "29be26fa17918be77f79cc823fec7615c0540e81bc568510a634e9979fee82e9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0f67471703ce99e307e552d22f1060809cf6f65bba09f3ab3dfd7ca5257febe4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1974a7b297a82d2ad979924a9c66151cb169a4c41f59235efff542783f5ade2a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "512aa870de2f2f0b662f8a753356c08671c6d6c8b41947b7bd628a693408279a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d8f68af4710e30890a34f44a967e72cc198157db3905aae469463ccaa8abab5b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "22416e21a2a1df8c636e6e822ae881ad5298b6b3720e8b669546112cefee4191",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "b74516fc0566786ad085ec0ce7bd7af318fccf62d627b8ceb0d206d82d7d0903",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bc9e5f43b87922fa2f3c960291a9691d9412edde857ce08b964370a77b018825",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "c13640ee9f493f6bdc0053226176df8757aa2eefc5cba8fb31213d1d3921ab9d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "01112204ce0a782f5400cadd5cdaf2aabf125d47b107d5d0900b4b1f3e6f1d7c",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "b61c72f2ded8cf85f5be2d735e179a7ac6f47ddf630f476cd3d671314d487983",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "091364acfb16347466c42064ab5864dad9f0cf7ede3653fb2d576c6ebd9fe215",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "3465cac2dbd3cf0f49aa2e511fa9fbe6984f5e42e0a64f1b182c2e25442ff54e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "277489128e2292d1b340ef3f8e331250892d33c22372798ce2d93baa9626455e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "27f1ca044bf564a71aaea14872bbad855d32c68fc3699ff1d513c438568b5ef3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "50c6d79f11a9abe75278f2dd34b86dbb6b1157321edfb037d8c21eb50affd5a8",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "7d793e47e7e233cca1086cf27fc9c7d3dfdaf8067a8ca1a7e7a99d0e935c99c9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "80ef27ac8c3aa171117d6bdcb9f5ac233c69d93d29ce577a037e6549888c962d",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "399f2261fc504256578fb8211a91282147fd8f103325773e947a8cd7ec5976ac",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cbf9fd584b96fa10c4a717ab948f46e92cd262ce2339f79a88c9cb53a0f2ee99",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "8692db84e71ea37a37091f80d772596e312c8aacfd64fd6dbdbc0d66ba376bd5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "51722808c17fdfa5ff9d2e4f57a139060525d942c10b6dcb6123ec623570d633",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "91a4a490581a93be689f1874d0ce6092ec68aa4fe09b417c3c865ad5b381e627",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3b6c0fd721772b3b191b25b69cad582b964a70b234a62ace5fd32a21da1caefa",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "d4e936b4bb12f99bfa2d0236544ccf4861123371718273fa0f7bc926a5a28b25",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fe6a2cc22548b7a942d81e46605fdaa5d6fbb8929fe3439658718f34b16958bc",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "44b0606a32abd37c05d1d50821dccbc097e1b7695a88ea4175b11de146508ebb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a216e4880eeb5ab0de04082d89d96fa480c87af4827600bd5e6e7f6614216860",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "cfd9aee12be69b2fdc7d732cc1dff4418682d0c8d2661ab9c70ae8c2f545b296",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b8abcce19f2d530ddeadff1acd719f7c91187bfa35eb63e9c97238ba069a8eac",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "7449e357c42703e99da9a032809fd0d9a272db0cf35364059219bc128e126e1f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fc7fb2a9bb0d2093be67e22b2f09d4b65a76ec3d35ddba126f2aa69a17dad1e1",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "07ca57b90e6614156412d60fa37dcc70eca68ebfbc7aada689ef43b7ec3b2270",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f1cf2d967f132ee4c9f4e4959250fd2eb62e6631c9c8cf914f915deaf23beb4c",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "00ce6a5814f403ec206d95888e3baa0429e5e4e0d279e779d9f521ff6833ab86",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "68264ea2aadf359a2d2092b93593c4fa467922476013940d38b606d75f844a63",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2b138d0dbaf01168d62e7bbcffd29dc7cb0c3daeadf9f6a0fd7cddfc49ff0e9a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "927aed27b8757b1c284bf672106d647d46fce7261804dc16b498e32f8d96cb35",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "796f439b793df00083ff1eb58f0cb4a77f0f255c4fe377198cc8102bcd983844",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "9f4aed24a904d2de568f11a5d996bf5be790555f832d66fadfd7e87108488436",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "7c06d08d91b66fa02eeedeed53ee886c13c61043d906d31d3524d795a8e53bc3",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "3242f269933eef29379594ba0e63b001b4b20b1db03a6ac2a115f1f87cadadf3",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "ad99ea1e37b02a357a16bfc1dfe36ea58816e4f3cacdbecd2eb402353e375597",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "02a460607a36f5dccd915f539ef3e09d3ff45d3854c0f5d6316d2700ec3ed106",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "d1c25bd09a0e8ba2c78926b9d8cec40b8a218e33587851d327593b9b0c33485c",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "aebdaf306d56522b149635978014920a13939b8c5399256c5354a234b622a164",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "cd36a2d93a9cf6b88a24f1d0d822cc4e0419754e381389147fbf4a5a2d82df2c",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "5b7cf3be73753aed382491f724af61753d6cd65ead5efd7440a06baaf4a2a847",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "b42e68eb4a48f7a5fe036c58b03484df75b18b0bd276f737d6a1607ade1c1d3c",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "9c2c0fc1dab21d827dad97e4de2d32d0417144c0f0e648a3e661e2f960366ae0",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "b870086c871bc5cfb9f461fcf85ebdb3d75d09ee6a26fe8e1c212e963e3d270b",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "b66fedfc0ab6297982ee2f413451b6e0b91e8964fe95c27fad8a0ca33019209c",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "b29eb368bf39f8e6ec437a44abfe10cebf334564d160cd7ef5548093db6a91e0",
+          "state_count": 5
+        }
+      ],
+      "family_episode_counts": {
+        "mms_abroad": 40,
+        "mms_home": 16,
+        "mobile_abroad": 8
+      },
+      "world_count": 267
+    },
+    "mechanics": {
+      "episode_count": 6,
+      "episodes": [
+        {
+          "episode_sha256": "bfb478a86529c9524f7850a015a0ff618994414740ad377f60b373a7bca99983",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "dc33884957bf4917a12cac5f3b28c50c4ab3e97efeefcdccc7fafd4f836d312c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2cdc1e8b4151e8b4365aff25522d5d91457c6cd47ad0cb87a956ec3912bd51e4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "67806cb909f2c7bd2cb2e389df000e859e0f04b5513e13c731a2efd425f0cb5d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "81115a8bdd01b019725ad5120b9871de11d06009ee7c6c9e580a3f544b58b1d6",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "42bcebff9c5dcf7c1f3242e38533d0feed27cac7096de6e298189492a8bb12f3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7f3d15ab0561d27de77f5cafab30cab6f121bf66886e6c1d04716e2b03c2b16a",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2499786fb226aed2ac86ede1f17c8ae384059c33ff4ef90eafd26bbe4fe56617",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4b134878df2bfc6f74ae3564e35b53f9d2193b81415e5e6310af5fde5cd517e0",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "47e24e4724b6f3e16cbb565bc7542869ba548ffc1d436c925ce6717477341465",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "3f4dff854d151d6e691f0e8ea722723dc9ed3182d2de9975d7ff7fbb64b85259",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "fe8d06a15dca9cfd339eb5dfba89860c8f04f203ad3698a4dbff4047f739554e",
+          "state_count": 4
+        }
+      ],
+      "family_episode_counts": {
+        "mms_abroad": 2,
+        "mms_home": 2,
+        "mobile_abroad": 2
+      },
+      "world_count": 26
+    },
+    "opportunity": {
+      "episode_count": 44,
+      "episodes": [
+        {
+          "episode_sha256": "5dca3dc9958d987391ee4dc338d31d163b8ffbfc16a2f92be9be328f6a3fe8ed",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "eb9f14af7010b0e4cf2da87582d5d15e269f3d5ca2bccc9f905ff2ff9e71c00b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "64443a67f48f40307da1b88dabef8dd7a0989c6b8a8c2086ac341ae19d29b161",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b07995c892b05a836f9a9782e84294ecba445c4b2cdad4b6743545370db576bf",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a847017c67eb5217b676d4447a87eee4a6c210ec67a78b4d095dd9df6ffe4975",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8751931f9824feed4d37af8e95c58da97c66861a3ee1e2fb0658d8d44d9c2abe",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3fd4a4f9396f15d0c3845719e6986a8e4104a9514829d9980127d30fec689602",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7479630ed736e859b52a954c3f1196f48fd8a6bf29455e360963ffe9b45a1b2d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9e7aa4508f99c9688b7c11e7a61ca7f5fb8ca5ef801ffc7ecb501a57741d2c35",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "48cf963cc9fdbe688286ea9141d64de6763f1787e8c0693cdba17039190b10ef",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1833acfb711be0fed8f33a4b54cf84f7a734c263b2b2bafea481827c2f9bee14",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fdecf756604b653955697dace52925ac725335800dc637f72f56144429f913ef",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d07f6870e1115f12931df587a411908ffb21548bf2193fc0f0a03247f7bc8c89",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "cf0e63ab59220c9eab9c453e6ddb19e95e63c6249f6775f6172d4c590b3be896",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "89a4a41181244ff32ea42415bc13efa01b63f88b1d38dab70927979c567f824f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b41ca35e53e36af5f5af292c99f0b4b590b5a1c9b5b7f72b474cb13f78784de1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e075398e06ebcefab45de72ab0ac6b578146bab88a3ce0833870bf4bdf5d3b7b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1f486b9413d5d968cdc56d93c1d4e5a485d1fd176d80000f58eda742773351f2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "488d62639d81752d98689c222945c4352180684c78dd5683f7b684f5fb348278",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "842bb7420b74ef12a9f74b3a2bc47525270eae8ae5b459fcef9475f8d8e8197e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d542ee1af8ccea799cee25dbffafd0154ab5c78127fdfa69bb98e4818c2f3385",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "73c3cd4568325ed53cd75aabe46d32690fc5995fa0b6c0d8670f61e997bb88fe",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "dc30f6567dfaab59914ec1b8b930b4ef4f1aad5a2f17cdc984a9dfeecb78265e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9412baa18a297fe46e2494bcb8896b991f50162597dc4ed07c7e7dbe02051bc2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4a63300c0574ca2b05db8492cea7e4f27d48a9f089313b4740edce7633b98231",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ab8bd2025c06daa53143b8f6e59760efc1a3496995c765ea71474e0bbc686858",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "dd89b4fd11435cb559077a2b696fc6b16f9919ad2ee13cff69611529470e00b9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d4858cb98495989622ab185bd3b6930dc8d5a990a29e8e959efab53e8232cf6b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a9ed6c9f404054a06b18171babb195b2af9775ce00a5637429610b2f2d533960",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2234d57f437976e06eaf7d53d8bc642bc08e7a6ec0423fb7dcee5c48a4e6a97a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b6b84e8a4a24b35cb2f969e2943bc91fec156cb69be7352d83ec7dff7167f628",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3c0e89125930c08b6fd433a7c50ac1f01859a574f065f0b4558a088de3908003",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "af6d703316fd7cfacd25c02d4773df6fc06cd8f33ef3a61475ce04fc44226b01",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "da236e9789a9e3083aeec7237b7ca1203df8878c87ab191ab03bd403b1b6077c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02ae4ff2d58145ad1a32bdd899a329393056c17cc971baca80f6edfdbc376f54",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2a64533251af8f8d1b2705b609ecdcd42fe881758781668f7b128e725765963d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7bbb64757498e10cc3115763ea7133426ec3ea9cb508292ed2faa01d4688124f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "326c20ad8caa710d7094c27164dc933296e51072522b1b76eef49ce60075d14d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8d2907764e53697fe346e7c95c118e54e0f862cb40fd731ecaf545582ab6c4df",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6fc4acf1b01f3bb8ca6a6609e7063125d4edb9085c177daa1f967f571fb94492",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6126408226de3f043ed1307baa4d12bbb2b804ad9e8b2ce1be7fda02e4d30d12",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2741f4e9100a8718ec60bd8bc30103dbbd86f50495194212909aa3f0ae49dc82",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e3826c28232bbbe394177407d19a661cddda3b97d6f3d97bc8f8172b1383d9d0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "453095031fec1d49f5bc253f56a5c15b1a6fbd25cb32777ea621eae321390fff",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cf18be64c7b2b2af57bdbec9e22a55430a293ce677ded34e5ea803420308ed37",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "dea2081568852b8c058727cba04167a91ef2e2db79529972d91bdff1b13f5dd9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e7b15daae30e440f5fae4e76e0c770c3580e0d1a06c80665a7689ce0a3580fa5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0adb3f0be03cb88b389180a9c03ba196d4803fe1d73667bd55d9316a8744c719",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "243b4d248ed9dab325fc6fd825da85ed4ca7ad669ecd39fb7e2ab2b9c544cc34",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "b81448346faf67e902825c8279861ab99ae96d2ca47faf38670baf2eedbf9d7a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "861aa7bb6dbcbedd8afb1892a24e572688c0b788b33a54d7f1245b80d2c8a89d",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "b826d5c794103115407e8fbe8f1c1113b14b4eef59a4cf7cd48c487eedb5a8f4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d3443517328e09b482fadc22c9c58a305f35573961f967920bbb53bde6533fbc",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "5d202c356174d5e90a07cf26d20e936135e7c7643a5a278b31173721bffcde08",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5e5a1b545a53b70a26cf2ce0c071ca433cefe4cf2f05072830bfad18cbc98bd8",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "7a7e5ae4321633632b84e0d967a242d3055647695994c9ef96c3c73dcb682fd2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4d9b65e8cf6884d1b81540c077388a7b4b5014bbfd0a90535c42fc6f56425c34",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2edc1886baf4b641db221709601a214d3ebc80f4dfcfe72131ef564115265ae2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1ffb0cdfcf2a886b6f3a54c5af3092fac604cf3ea9f4acb3c196dd011c3ec43b",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "c91507bc640fcbf73684626c7c1be80bf7cd9bccca2665055d0eb46568f33985",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9497aa8e84b51815f60efaec17b984fec8d75f7f34758eea8dd94bb66c9382fd",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2ac87b22053b2e35d2a66312f1d11e37f5c33744f7b7a997aff3aff10cf56747",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "52d8c084ed90ed5434ce1d1adee8aee1f4d6117db1e37a889f5d1e025948452e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "d5bda63f5c73748a301b9916ed556902bdd567c90cce1448810712daa1ad1475",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0d2b3fd53471fe3703f51ac36c2d64745ca89e829122df89d74889822b3eea77",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "bd8b8f3992b2a370f51956c1dce1bad96ba89afcfbd5d41a698d87a7124b8600",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "397bc9eae1c0b719df8c5538b7d2e7903b8ebbd1922eb2255327582ac5eddaa3",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "dcb1dad5596cf1ddd7503fb50fc25b54a589fa3776ae1ae8611e99ac675b3bf3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1d621f78fd17c025676a544738afa551c27f33e5f646e3e8900e5f51c829efe1",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "fdcfc26dfbd9ea60073de54fe48511346e3f822519a97ee82b8246f1bb44eb92",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "999af22b352bbb874a57faff1c3cbef7afd4c6af99096f0e445599dfe73c6428",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "16ecf9325341f07874e2f87911734dd204580236854c9a3c2fe477eece5d0bc4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3e1b8d07011656445b3c64a7371844e4c70c3ff0c2ea95f1328620ec57c97f34",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "989cf49f66fba58fa8378d5b410c03328d3bfb6b3960ea8a6419ad694fe35aee",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "a408fa56b21659ea2c8423fe7c2cd14f34b5ed4c945abd159a2b6fd88823e344",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "f4d1c6df1578ddb7a04fcfab68b5efa2bc830f02461466f9fcd879b6cb3c6d70",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "890af1178c63ddb20c5b2842d9074c5af734f4b4ee0a36de1e5725867f6a14e3",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "ac275ef79f21f9c95f22c5f27b0c169ed703bbf294cd2087859f5eaa2f58db55",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "5be3eb29129f61f38a74efc5235e0b4f491dc3f33cd996a1a1c5364ba110a27a",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "d53175c0f1be5dd92ec62ebb17d8418b89747c12cfe083ff85d950fbe3f32112",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "ada99d7b82607b0de538b1715d18b88b129eb4eac3fbe4c2a8b4dcf45696a252",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "ff551ac77214f7dcfb6a69fb81e0dd3ddc6302b78faf6f32c9722e8b969fcf0a",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "23316c7aa4074d83fd04ff3be246b13fb4491b2ce641b439f3235a6ab440c463",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "fab252022ea23b1a9cda1643978a526147a8456c98a30615c8a13bb2d7c884c1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c4a261b08f4640ad3fa2708809bcf966233cf3b9251220431052a1ba35604012",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "a466e7b31fa9071288ea91d2dc9ed395fb546ef1798d2450a7a4788edbe447b4",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "6a72d4f16e1ee0d3a9edcc9d31f8e3ecbd5a21f260a1e082762065b8e504bd78",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "c7246b43527ebd4c80fbb59d76232e7417d638d54da0b99899733c59bc9abde6",
+          "state_count": 5
+        }
+      ],
+      "family_episode_counts": {
+        "mms_abroad": 24,
+        "mms_home": 12,
+        "mobile_abroad": 8
+      },
+      "world_count": 186
+    },
+    "reserve": {
+      "episode_count": 193,
+      "episodes": [
+        {
+          "episode_sha256": "81f6f3e738394366d287cfe29c78f061f632a96588e184167874f7eded19a5b3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "fc0ac485eed178236e67845bbcfe258ab9268e8435c1fc0edcfc7f39143c1cfe",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fc7c958bcd472f88ca57294932fe97e8dcedeeed6239790bd9b97439cbcbc147",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0ef2c1fdad7c48cca048319587aa739f0d79d1f465e13343911e6b35ddb48ea3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4d5b5c162c8a0eea36a0714f988a049e89967afa9f179effe716280d8c79e9e9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "757ee72242145eead4f91c49b50e14723797336ff1643b6f09bb399ca193cb34",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5e32dc4ffeafd00f7bcd4381162855f1f13f86a7f980b45c1fb28fcaefbc8f81",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ebe52b645b28e22561feae4354fa66cbf2447d8e7e59c8923f629109380f6d14",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bd918281b5e12b72bfa645c95223ae57565878cbc23c75dbfbca88d83075a26a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d86494bd2c3eaeab0df4ad7649da43514cc00211ed4c319c9804ccffac8bfea7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02e8c80920d7ccdc8a8d2aadf151a5ff869f5b511db8ea7caf680530d5ec41b6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "041227e4d8059c79f3bb12f547d90b83b763baeaaec3d924c2f46e102f65febc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bdcff93fd84ad0f73a0e88a6ae1c01779e458621b47619f2b9a51e593374aa95",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f5421a45c6c0a31e0c54c4b22f0d06198fa1a94ebdc0909b87beaa0d77b8b3f7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "54b4b1af7a9b89e002fdec8d9744f358ad52327b15b39adf9bb6a395a9d6cef4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "43cbd43e37dbf6d0a14e211f6b48a5e360a9f6b57a108308ac8ceb60546665a4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b4283432dc43b62a044c8c849878a5e5805421cd9e3ac8e02aacd4b17acccff6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "69aa02111699c71b5ee25f9d60a0b6685990c999ce3dad3f610a8a832eeaa911",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e3229f88a1efd2ca9519445f6058991588f5ee6f68ad646fbb0cfcced70883ab",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "042c8384bd9f4afaa3baca37df94915293aa0e31f6fa8d83451eade6e60a252c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "472b184d33af648285e1868ef8b029899e8bc35bb28d92cdc08a58893d9c21c1",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b6aea690b8d942df92ed4ce341d17fd14ce067e893fd2a449483c6e58a3d8c31",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "251ec4fa0702dcf9945cbb36b44d3ea4d74e60376871922d334e061eebd3033b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5a8970b55e5bb4506306dba0838c105fac98f5edcd1aa22f8f7e75b6db2f6db1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ff9891901acafc8f8dcbe1b2ce5a1801682e88115a011f0dfc66b5cb2e75f000",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "56747fa50ae5450b8498dd463c195d95cc02c34c9a64df77a0e471a9f6ed763b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "02e73f8300a0a1369655202298931950bfa82cfc761beec175ce0e25b0affb05",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "10ba7a6dbd27b189e5530c8352ee3990840b0a6b10f61c3e621a9fe0ce4d3619",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "10fef33d870a3fb748933524456213d00b2aa31a65bf2c616861d20a370ea0b8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "08f4995c14d1e4515d0108b9295374573cf1a3ed91fc7385bdc700836081aa77",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0b0873095cc28b5db4dbeb7d634df6bef9f604981a6077154ffd009c21c38521",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6174080fdad0a33fca0dca2e7204ebd6c7e3c9b37b79588254493f0f27163235",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4ca9fc96d0cfca0a12471093fafa110c4732daad5cd494e7d372205fcc2befd6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d367b3f9f28909fe3d8aeed476d3a7eb42ae251f31420e35563f733203f5fd77",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ca4a36003fe03f987060317db5d62b307d16b96d825244326d58688570c92429",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7139d28cf2e7e02a9f416981aa327fecc34f61fed23edb97c7119525be39db9b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e7b6dec84961a1f32f6dd50ab2f67393fd41241ebb38812b443606754cee5796",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c7ca595ececda4469ab267078dce896c17c624320ffbfb3bbc41e897acfa6e81",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b9509ea597cf5e881bbb455d234be7514c3b4c9051a6817ea56e467ae3c3c0a8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1075603f928f7e09cc2ea65f5ab878d9e0f55b39855c135e9a1c2960317255dd",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "44ded4bcd67a76c838a6fd67f0bc70e1a799fde5d42fe48f2845f92b5c66fbce",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0aafb26fc3a9197b0a751ce2da966cc665261a39fa5c09ec2c193b6d089962c4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2c5be9816941d3b889c2d827d32866389f76afbcc1df2e19db516204367150df",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "db4b9ab4be7577baca1df3db2d0b85588f8ebe3d19052da7fc1ab2fbcc6ece0a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ce8990f270d53c5fc37401fa55cb5d96fa534e4113fd969e06ba5083830445b6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0e6474c6d1c39430b2bfdab88a86358ebda643269bf094edf470f90ac5b8193e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "adc4851d82a9befa514565d4d75e8c6efc71f5e4c5b6adc9ed0c7a60498b0fb4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f2b14eecd182e2dd182094e67459674d1d0935ec1afa154acf21a4e4351c1bb2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "769693958fc61f900327617d9a81656200d2cc36cd591adf0b939aff0089c43b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "a10ed494640fc5ef74ceb3670c326188ced213a3cb31d0af2d3f790720004642",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "45f481e6bc329d60fe7b32a0afa15d3cbfb71e8680df3f05f03f3776809973be",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e8b1cd5d0c5fcf5b173dd019192d0f7a32a95ec88a4a683d1460271914ce645b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "98ce5d0600e5afb9fdcd960308d739b09d98b14f99557777e3123aa5e570aed1",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9dde41fa51e761c3fcfb0c596f1b6f1968d313425ad29e6bc7b7149351be9aad",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3610ee7f1f9bfaf97554d536aabf13f0e5d72f37711e1fad49a718dd6b239b45",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7dfef58c21de426f1db55c58d7433a3851029d5fa5ec7553deccb648feb0f1ae",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b904553f3be39b781162bd0832df167cc9d9a96d7644bf6e0d63384322f956ba",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "246910113e82d08973ba2b449f9bf0d3ba198bc472a4d6aac64eb589d7280417",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e86629b60b239d88fcc580c37692347b02438fb28f768fbe527faa231876fdef",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "51ca01cf6cb720cb6027c4630d8ac1ab068a5e5c26e2a3924b364b3bee1b44ff",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "138e67fa1638db1e4086d938644de79eb07a7678fc72f4af38e4483e73b44385",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e4da93de1041a5f47b28fe8ce21326d2530df08c3025f7346144342f46a47da3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "315298355e81f78699540560a5f4d7561d902c97ca98d17aafee34ff2e9617e5",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "55b2ae301f15cb9cb9592f87b7b86d85aa89df4f63c07e3be5531d370997b4ea",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ffec29efd1dbbb65f8a6ef2364fee1ae388abece204d5b7562e4a807b95ca52f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ced988829f478bfd4f9304a5c5dbe0ccc33ac653644b056987bb56648ea167f7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "89175c9dd61a274883d472f8864fad1bde052e37b88e86e2b60bf741fa580ab6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9b951cad156349cc72a5da2bc5cb1b37aa8338c0349ba348fe6b318cbd81d282",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d9ef19efd15df32d5952e845097a3d9a80f04ebe248ea65299fe0069d71341f0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4b293dafb5fcfaa2fc704489df0113d9d64a6b303a0fb7b3cbcb5e889a24be06",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ad3f3616d3e4a20bd9fe99591b86c774bc472e29eae7ebbedfb5a4abd5bc7516",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c8c32894d09c9b2ef3918f1f836ca8c5f4ae7cc7eba1cea1c6eff18b75c3b743",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a637b8dd1a0e88a4325913ef9487dd20a0f4992e49a538464d5040410248dc40",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "586e36d09427a99be27c969ef38dfc66ebc65481ca5a4e86d6d9423608274980",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5e910145cf41abb1e2f3e526dfe26bedc65e1495ce05d3132b8f9586875e2aa3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "a6578373df5b5b5744e85e130f9ac27db2e68d3fe1edf6b0988cd71da95d1d7e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "42129ca9e43ce511ae6d429217cd8e21b9e8326d575893ffc56e539da02cf693",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "adb964f4629a6200d89efe7f683fe5815d0cc4059f824997c4ef772b7f201b4b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0ed069dd3488eefdf83c30ee9b230c9f6171bb87310ee2bc16f07decf696b127",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "cfc038277e0b0f6d759c2d74546338e4acc7d385336b6b437c1962b67008f703",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "676e2e81f2dc9c9e145f9e69c50623ee32dd347b5147ecc95604c48dfcc0571a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8223e611ec8b435c694573fadc0b5d3508e27458a2d60949405343a8c7a625c8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "98b02e4ecdda29493e6bd12efbceab41004b73e668c5185157d9722697ad9c34",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "99bf29e86562245515fa3d489ca366f09dd8093f3695eb8af0191861244d075e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "58f3f2ff7e24d8aac71b50ef5b8d6655407fdef29f7973a37409b213cd1536de",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "cd52ebf250619c42badddd9f2ff8d78d7834e4ff3c16da4b09ea89f132642605",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e229c75fc7c0d81606d39589c8a73bc3c7c96da81de03774ffcdc1889ea0df43",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "57580a37bc18c64e03248be10300125edf36f8904ffcb111ba610b74045c17e4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4ed5286fa8ec3b6e00cfa690c409023668241e28feaa44ecf96c9d3c11a49d6c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c1ec3fd9a74672a80bbb251e020db2a9f01fa322ad91c78d8fd73b2f4f464370",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c29d24f84994029881508803b5d4815b394c6e73c031ce7365dd86e78f73ded1",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "cb03f2c7959ecb7757519e32de5c336961b88538ea7f01eeb5b9dbbc763f8abe",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "dff17a1caafb0ec5bb191164fcc1f2de4cdb2c860febd8afc6d41f8960f932f1",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d5d002200a0b9b4c306a74eb51de08e4299089e714470106f1816cb8d2467549",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5c6f35c4779984302af86a05fd3758fb7269d1d3ec32cd8df216cc16bf53373b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9227e2db57dfc81693f997c88ffde20ceceb3f790e0a01ee9e051698e272b453",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "75cf165d09c698c8ab2659cf32c796dc048794f88823af7ee8aad294f987849c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "10239fa1569afc7fbee1cfc222d0ac29054363cc49e78098608dbc3759bf36cc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a216bc09541423c1ba0daba0b19288f75fea71cc148d1bb18a0b1b7f5ca70e8d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1eab311ad4b35237fd2f91b0500a4d65bb6f209a86d3df4324354de23c6d9ebf",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f92137c0b961a4084956659f82c20446a7854d8c5727004f99e23b350f2359ee",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "476629006588c4bda93a958f4832d54261ec1f42d8ae9e17ed2b257af5276bff",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6aaa383a9b868cb220075f8cd3ebfe9c97fd25caee7ee9033a95ff7d86484af2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6e9e11f339334988f9ada642c6ab3538bc5de18064216187f4dafa75799ded02",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e78503b1f587c9c68348583166a827687042cc912bbd2469ff1db101a8f5ea98",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "46e606295193bab0bd938eef63ba00e9cac084641c3781c31a0583b473058e31",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "379658d11c4a8408f615cd7c8bb9960feb81a0dc83c19996c734e321fafa4c4f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "cc78fd0e748d47a8ca95ce3abbc30494c662f4345f6cbeb51e5ddbb67da2b48c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0806ba28a82341f0c09078f3ce74d2813595f6526e117639bb93789e06d3de42",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7e3fd7b308e5764cafd8c49b75462aa89e5a31d2f2666471124d18fc2004f2ed",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ad190cf66aa0909f3d9b91a75142a6575435ad058b15cc7a09041d601e780205",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "07badb556b4bd8885778a16276b39f8194392fc7e448d351993b931a18d0c107",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "53090ef332cac87cba2edcf3036b21384587039dbdae5630b1aa80ea3075211a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "16e71d866f70058154492a548cd0c05ade24d15a8d2ef3966d6ae6d2e575d861",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b7cb52d21f5e7821b4e656443d5bf9b893bcdff8e7be69700fb7462762acd98c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "56421aad08d597ad7b16c32866bdedacf5838584b60690ee78f1b0a1c6ba756c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "22d2c8dbcd0c0d4f9d723148c625c1aa49162a9b399079a1d5a9c762bf3b9995",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1bc04dcc4e59069987873ec51649b1a724bd4736939ffec1a55dab25b67b2ede",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e30225fdf61bafb5c676f507ef178883c6440a9aa88629f871753495c7f5195a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e05b59f8c8555db8e19a4fbcbaef03cc4f3d17cdf3910ca93614aea7782fab33",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ccef02fc40d99a929b9fe43c813883290e852c9b65e79a9a8aa3a77199c15f26",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e468a9aac33e967d70879c3ec4791094f32312d45e335ac47778c2f415a08ecb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2b77cd562395904b2e8ddc3cbcbf5e32c3cc7f5ea557bf307dc111585bfbc13d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5db68bc203f6f9679ec11e078cf512d94f01650242f2a89a1a23c3d1edaf8873",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0cb94c8f933b6ec126d0c7d354adfd35fee611059215cb7d4cf3bac90596c7eb",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "533939819525a4b8c77242d0e1819197cafcc52ddbb2738fc76d90c8caf9ffc2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5a235cc21148af2c8781963a77dd7f059daf4ee834a7352b3da07b14d3e9edac",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ff9f2324371c16aa1c467347bacb0e11b919aa4f1729ca87c73836f9c5776b78",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "732cf0e3f57ec7bb72602318f74483bab0bf687e6b920ffd430fc6016e1d7884",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "616d3836c3290ea68eca3571dc1eac993d6fc8445256403b04b66609610a2b35",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9461cd8d2f91ef6f55a2b0a4fea2f16497ebddc815172139a522286dbc369086",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9116434dde773b88ac3412c375d6fb78f7d8f70d3d3c3fdacf802712f2679b6f",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9562c38ef13f97f8f3366ec753d3dcb332e6fcccd8a692a17143b7c3565038d6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e2708817d76e37740c37c5617b44c51e1d7eda74851eb1f84103c4a6d90f1637",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "976146447fedb7b9fbd20c7ddb01d383f0bca4740659b56b9d0f4272c7b50faf",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d26653d169e571f57b8d66f4dd82f30a202ec748ac16d526e91b4d3065734af2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bec38de2fd270d0e25c22045709f290f88fdec660822b7cc0b31bc7f35e25cdc",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f841bec30bb13a87496bf76a81fa7ee6427a447e7deb26aa0401b427433b9163",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "10692c8627581fccb3a01a7f16de3c7d373658be8c41564c3b66137a6cc7289a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "db20a6a3329a1c07a141f40fe45612710655d423f6ad4a3b28c1bed8ae176359",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9b9cbbbfc97710d63ced1ffb5c445af993379384a2abc5749ee5b3c2d525cd7e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3f88b939499763af7cbbcf01ea30465f60d18823b302ab2a50bb640320f81631",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cbe06bb9bf3d047212fd4e968d4b8fc0c76f0d23aab4d26cc90ec63c425a3e6a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e99cba8c3033e271528f63f2445b5f522d7f751876095df1c0770b72280035f6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cb76d5721e847b9d9208dc4702653ef02e9e7c3883f7b8c8bc9ed6c81afa83b3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "df8d3b3a9f004d28d3178fa43af88e4c8bf38d47bf09afedd194146068c856d4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a3b85b093d70aa665939324acdd7d495452110aea3fc36ebb5f296566e676f04",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0df9f6446bc68cf56dd0c9d3132b709b65b36050066938005fb313d1738a1cb8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5c444473e6a17146b22c9958eb069c1b56ec275a786bcdb24a65ff48d7a8ddbe",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1b4fb83afd1e02e73e413f2a91acf49355a90491b0a7f49998359d6df9f4df55",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b7927d7f27277c7d8fbb8ac7b08afd9e58c1df210e6f54c2f8871b897c71cbd8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "218e209cc663cfa75431cfa6504d23065eccc4f34b5ed24503df510546172fb0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "63be86777109be9641e8f2b5915a243a9ef6024e6e4560e3a816fa7f515008bd",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c36003a9892cd5dfda6c0819109a364d946a77047a84e15c2ac56881ce3dd5f1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b290d07446558b37821c232f76a98c3da6654d413fda8149593d7bbb90d5accf",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b9447809fe8eb7bf33d356e4518e52d88c73ccb2834b0e118b0c79c62d147570",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c39bafaf75175f94a912f4ab4a24f8355fc9ce57f58c31209c79ad1508842cfe",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "bb71b04db6d32ce03784597275668bfc83b0b38a70b251fdc83216096948fdd8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ebfcf029fa2ffca30532d8bb483e409ae6c976efe5d1968a2013cbe3c0024d2b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "757417b7eabdcbdb85d60ee17b6ba3072e199a57090c97c31e0b57c8425be0ee",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8d6a438a588446b4e3ee0a52521dfca0542fda0514a6a69811d328bd44826f0c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3f3bfcb6cc9c7c7f608ffc8a291865a99885fbd7bd4cbbe76c52533059b873eb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9438fb2659a7ce9925a85838da7f7be170fe5ce7c25ff77e223367bdf1d80159",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "792ef7f16c14b4b6985fecd98b7ae65516a7df880100b10b7775f2e542526d8d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "541deae56300baf2636cc7e7e324e6651c75080aed5df763d974a41f7f982c7c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c8e5cd04e09a4ee726c63b4086922eb774483e85c7c3cf67c88d0156da2cff86",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7f5a0146cec718a7bcb98f76427427d999ca9eade50412d2ed0bc1d99e24019a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "33167f2ab7b1175e18d78bd482b6d0fc44dc5d5d02fb9c49fc9feda0894911bb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4f8f3f70a13d576e89a25444d390dc31d0e346cf3dbb39ed7bf3e8919c3c010f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e721c3c620ca76da1fff8d829e73053503773dafdb1f71d87fa59734239a4c80",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b4767d61915741189fb640555729e8bae0e586c70f070dcf32b1f73e62383462",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b76bb66674490f4eec8bf06d885c15f7a0440874524f0c5ee9ccd4e85f1616e5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cc91f741ec88ea0524a9eae9c9de4b4bd00adfa5e5be6b8c187eddd1c27e1375",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5698a74eec94bf8c170740de40ceed8a97584a0a8e82296e920abd5a5635a5d8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "857ac7efbb2baa23923615e9f2d1dfc44b036298b42d9d0a372567dce5497a3b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e30874932b238f01a7662953e33d1324962f93dd9605f5e2c548c3f0f97b5ddb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cbf4e5b565238f5e95c995dfda962ba015f47e609b0fcea1694a22e5e8c53a20",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "877fe5a0ad3aca12787ed4a866b789595d93701dca19d5575b0223ca81c2103d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a7122fb1481439752a7b2fa6a55e4aabdf4cb4f3aa04d4695c6dff60bd42ab73",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "097b0c49da3b45d0448679ced51e07fc26af92da49c5a381e43e8a2047499015",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f1728822858c63ec241cb2a27e83f8a6a31b1c84197e7d28a689721cb0da5e47",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e207edd4e4232f318c07455decfcd80384aaafe5eba27473ba7a0679033c98b8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d5f2e76ec0e56107368771bbc770f5aa732347dd153c3bddd43a330279c27d48",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c9817f3d6f5d90e2493c40ea3583dd5ba08a0d622b16cf5cf97ca778ed9d0141",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ff867d0d15bdf210c825d21981df919e007e35b172b7393abf3ab9444da2a69c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3d280fe245c3f3c1acd1d948fdc397293a78d1cb8058356887601d730b4a2f28",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "27ee1e0356505c0a9ecc63ede2b9337bb9de84a4a90eb357c8d74e4a228aaa69",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7ba7e90b4326d8ca34aa9fdf1511e7c24750eabb1ce453f231b4abf3683e8f4b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "61fdfb3cc58e3b7b89210129747ca0df35a8a56bbfbdb359d9e79b9d4026581c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "bbc06611a44d6fe76a6d7fa430ebf900a6c2f11dcb3ae2220267d3a100ee8281",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3db4dd9f23a3c5bf20eb2ecf7f81f2a69b2f698798aa17aa3f7df83a4b00981d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1540bdf9409e282340b2111b894bf227179fca34c9a91cf0efcb84e780409de9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5386d47034f644101d01dd683bf34f55b32643216608861b2bfd0478c066073c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1167c807bf93ee7bfbec0d1baaab32c68ac3f7e2ca7ebbd2ed97e5e5f09430ce",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "554f77d213a26f8b2e84bba4aad639e0c2de1d7bad866c2f8772e1e19f155ce9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "633d819048beaf9f85817de97c881cbcf0f28fa4709826f51294e45bde72dec6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fb168587ca9c76591e637299883cc536d269e51b11161cb7531b326e7d9470c3",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b753444403d8b869f88313a6bc3dd3cee7a9820e85fafbb455110776351dfeaa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ad99f8c785b216985eba8a4dbd528a1a143ff80d3d8ce31022a916a92114f63a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "dcc8d132a82d1d550233ab738a1627fd8ce7fc452199ebb6bf4f10f85fa9c492",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b0a7d2598fd973245c8c1f01587f18ac3a5f01e13f1b38b88c32f8e177b68b26",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "738ca6151b7ec64f6bc013dd5464fe080de6366f5ba907a71de60a905dfa8299",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e03384c25a67a81bd1073623b3099a5e48a2aba0e384b7beee10dfb483b0b988",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c906f35dc3b0a38501103980a032235bb49c7f5b4e45a47a9b5d728f9fcb9360",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1a0a4b9c762002406dacc550ca90282ddc75a970fa9ebdd978c274e24a76b579",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b1a10ad4ac4ff17e14071a720e9787a13b1db7c0f1bacfdc05f7d018688df983",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "46e14dc50eb58f919887a75278ecfe9fa2195307dd2237ae1c2feb119ffdc0bd",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3a128941bca1229aa90d2a1b3d4b18ddebdf262a4ab3cdce8a90facfebf70ab8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d3ecabf7b5fd6365282dd7732d9aa6d8ce7769a5b5b4ca1b2f0ad2c88c0899f8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "02233188fa9f1218f4cd27606891c8ce2c02948a4fc835f36256074526c48c3e",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fc73ac386e981f81f44217948b480730041dad5766fac3065c9d29396206e2b8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5b689cf379ba37d5b9dd3e71caff43da1857e0f8e80e20fc9482360f03a90c58",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a04708e70e16ca0d6a2f751ddaa3d0597567347e4502566dc5327a96d46a7e25",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "5796c7b81fed9c225a93aaa8f1574eb10dd24ba180a31df8a120a729c9b85e88",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "aa430ba3428511ebdee1b946940892c0cfc30ee99a853a815bfd5ba8502913ac",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "53e0ad439816ece390fa11abda779824972777b275d6df274b940de98b36bd6a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "af1e4c555d9fb5469aa9802f01ff991036d9e66376023119ab851ced22ce8dac",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "6290d5e0fc31b41f2b5366d04d3b60bca5ffddc8a9642396c66a0b30b1a575fb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4dfd92b9792bdbf9a4ef10be070bb357bbc2bf499f7b34d5f3044be52077ce19",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ce9b9d851997d80344635827006abcde20fc74bf727318495213ce23faa0b356",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a06b8c19754aef10dba98607939fec17db6949002c8dc84611a16ab2ebd2e7e0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "347d70de753c7d49af2f46bb2a15d1144f290dafcc307129b0b338bc8b505015",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "55b9b7d3f51b2f86154d01618438327091b20cb4bf3d6ee57ced449dc6f8c905",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2af9123ded23f7983b76565a8c851492c1f995a0f9c5e8b9d457aa95c814a8d9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "024dc726aab851bed531b891bb66ba47324da61d17168a3ac88b35f94229642b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f2a8aaf0c397fd753468692cf15eadd40b2d6fddd08de15ff1cfcce8c27aab48",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "90003ee7d6bf84c897f5f522a817bc79c5ee6474ba56d516ff03ae4d677787e6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c7f20fe5afd8d33e79ee78870dee5737793487218caee70b778456d9561162c5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f6985d75c129bd30c2a19f96f95a3ceff3a62827eeb12b566a420c33fae8519e",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4fc0ba8deb7008823e06f1239fe5d9737f10f382cf6f866c7f35ace27444ed53",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f18bff6cec95680ca0d1416ec92d7f0f6da57bc184139abe59b64d1dcbcfd866",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9982891c6928836f0f8abac362926d97dfc9e9a43013be297a79c397a4625aaf",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b76235c95595ae154d03571943587d5c4347f68d77264757ee79fe1627a28145",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e163c0aed51cd502defea5bec0eb536ef23c41793e7ffcfc2b8c3c9b55d5e1db",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "df2e4cd8b12f83c4304ac374feb624f2d8a0edc515ecad6df2bbc25ba3cd6d7c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0ee0ba3f436e762f08c9c63de6cfa8ace757b34802dd1eb05515c2d795da8de5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "1e25eba06192695b5607650cdd3afcc46c818d82b245b14bc921bcba7cdf98b4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8aa65715c0f2b65e69fdc9f20ffe9242f8afa91987b38826a789992844a6e8ff",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5ba05dae3a8ed9d4a9bbf2a2f38fae90971cf40ee36ced77015fed1d669b4b46",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "99bca7dd57fd8f55a8539712f6ef7452e079ff4c223d5cf8203546dd84c4ee22",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "ea7adbf63e3ae3a6da963b48467b70fbdc9ebadfa6708d2b557a78589731a3b0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "59ec8bf3994a0587ac617b1fbbd59a4e53d784fc05a238671f86a22e251590dc",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bcfc515906210812ec1f49aeb8a7286047cf9a67f0e66147bb55c9e8dedf2111",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "19db78cb4cb9a7c63700351c841b09c48184c35213362de143cd738d32e6ef51",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5185c8f20b0e2a49ae584704c13c6adfb1ac997522692c7132a1a53d5cff813d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "de362fcb7aa8bffc1b5ae8cfffe5cdec6adb6dd093efe7263c6c165dea26c818",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0e4e44938b980cc79f9ec564853c6c6d9f76f3284231934234296d1f0ca1a7f8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "7da3705631da5466c2ddfc58b39da39180b70ca55ec9720297a3d6cb10c1a0c7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "71745281191f64a85691526e15a5f578f4063d49f8c4532ac85ee86533ed36d0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "abcbe9cb99332505390dd4018aaafea5d0c65639381276fd5696574a9feab30c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "825dcaf0c92967896bcf11374134dd2f04558fdd8e267cd70e56eaeeeb4007bc",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f6d3f235324346608e28d6d14bcfa1f93eb5f1ba55766cccdc7e68567e2305c6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9bf4b1d0b01d6e7ac90b17723d9e0fd6173a7554ced7f3f5e78b15a1f8603b9f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0d83fb9f773a120b974a82c9189c9250c8850af102b60a31f9527805bda49ddf",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "53c6bf6b8025385726b4a46f3b5940ea293be5b25f869e369ad8b3edfc180b45",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "527cb81d1256a34962e9e1dcebf2e34c8bf5eb93de4bf4eef0364ecf553ed20a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fe6f8463ac6e69db56532a2ef545be086c931283954982bfe5b79c27e7b68937",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f8ab56db28b7d34e5f1ab2f42bc035e469844a9f5a8bba67fdbda530e13f57af",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "862ab195a778d57fb3f723385eb04de053f8050cf7212cd8562edc40ca2e9afa",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ba601051e8992f2162001a3a7316135185dcd907641a161963c7f48469272ccb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "84069753f0e24c84b3ff496c3ec4cec88c4a894ccb627998065f4cf4a8dae172",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b676fca254e427dd71749957f070cbd3e52a323d8bb3142ce4712d58998fd501",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "16f487666ad63d07beb166b31dacf467416615a90d9530ced1c92e4d62e519ce",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "c3d509669534b9e86bb1f5a15b5f50503a6d05597753df0551d2f9779fad84a9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "49fe6130ca9499e24e25136761720b9cb19d45872572bf2c1e17975b64fbfdf2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "862ca9d4dc5437a4165c8084da8b216b7318f552bcaa2a27f9a2fa1cecce1dee",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "431f85ba31ba68563e536cd5685d0b7b8d1862dfe1823fe77d3e8d92a98bec15",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d7766ef3947e14adbc57d8fcd70a8ca5d0558fff80d951fba27cdde6b0110e5b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "c8c6aba577aca7be9259052354ef15bf3e409f0cccf0d1561798c54669f7fa88",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "50f23143ac8349a5d67ffe055d194da257866cade92479c2935025e4d5d87201",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "978900af6f0034528c858ac3ffbb8972882685131326b5d36c1e9855cb02c1c6",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "0497ac0b3300572855aa5816c8ea34718e5a6443ccda6406d8283bae827bc02a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9c8e125a5c6f4e3099959246a7c3564d2eba1c1f15c0c252948d84afa9f85a73",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8b5974bd7b2fecd38c74dd93e94dfa98932360e044bef209feccbc8a26401c1b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0dc4a3ca34524bf9d9ea1f792d4c7e2c2a25bb8f726de008e2d68bef90115a4b",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3a301de136e8720843a02b33debd5461cfb047d655b9f7ea2a0145b1dd02d4a3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "31875bffeedaa17a5219022dcd93b6740a5fd9d34bde6d569bf6ce4a0f5effca",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9426b1c564bd174eaf3b3e6e08fd61320342cd5e77c9e28e8c149a97086361ef",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "28198be97378cc64c30713b96707e9907be213e865c5c81f989aed206a9e3d2d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "1c9431939cbffabc567b3c0afa2ac8ead11ad3cf3f68e3de8131e368ca0a51e9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6208f2879fcf6531effeeca205134ca24f30df73879e484f2666d514c065bfb0",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "40c53921d706cbae1a7b539561f2cb60b90d8083860638a04347178a8f3eccf0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3ff9d4903932ad752f7b7fa58f811896d53d56a9759a75942d8284ab15ba4501",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "26c21bfada5bf89f6fdd2a514b2d9059e3edba7f870bec48966f66d6b8f36dd4",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cfc9edb98ae300b699f5e04ebe4245e244173fd790bf16498d5c7bd7285cdef9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d1e087217d2bef54b2e5b20367bf52042ddaa9d33988c543ad8bc4e238c787b9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "93f2ea6521bae6f68afe4346640cb01f07860f1e46a6776bf6417ed00dcbc852",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b7938e41688f7800e966c36736be38092cef230c6cf5dd5204653186abcc9705",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4887923af457c0a66bf34b54450f0f7a566da3835c7db14d7fd1bf8010620c5a",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "bb9c8161cddd933113c3f0b9999790160c94da552759e8e48d86ecfd9c033eaa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e546a0f7848f77e73a8ce4b87096c4389fb3db18cd78b96f6da2ff080f5f7075",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "738d0c8070957adbfacf77f0cbcc5955876b2b91578caa64305962e4f0a96cc6",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8dc3906e0a40f964a1c6ff8e32f9ab0acb5b9d18422d8ce294b0181ad3fcd784",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "d8d5a5cae274c58068d633a1f96699f53d3abce1a8f09e070676180fd02d2346",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a96c819e1573ca94fd354ea8b0e8950cb9dde3f44490f11ff680b51e6de9ba8f",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "55a8e2e71598169e436dfd13329080ea47191c677040ca5c6e6665f712481393",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b2664cdfa7a395f0af3ac0a851434a01828abd722331b30385dc5f685ab48eba",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "9aa7783dea66e5eeafd48474ab68b3f982b9b51609af3d4d63a077f5e5d6086c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "fb7f0d41b51c6798e2e2650a3c0a763cb2712eaf86de34ce0abcafe4198fce98",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4d7d3d01743dcd2695c5eff7b614fc9d8fa80591620ab5c129abb59991e75376",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5103915b9b67cd4dcac788e0953e1feee0d3a6ca3e442b4f42d919a3d5e10418",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "8496e95d5ba9a25f897e6f6502e1611ca7575695ce99b66560a140ae94bacced",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e25c6b635ef5bbde4daf5da547000de84b8610cda8cd78bec9579b1dd6efa566",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ea3b2407e2edc19b084bda96f2f6596ef865c7481cf2c0dd892e29f1762b80bb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d6af677e29406196e9f262d62f10252bf25aa7bf88946c0e6075869812761838",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "f9c3e70a26904d6670cf24b809a40b5ad02fdebf94b4f6083809332fbb883161",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4208fc4f09da6521783364d097b4392b3379c0704e85f95ab53b7d6d603929f2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "2bd1d65100743aa1297fb7f9609c1865bca49cc462c595e33b84bfbfb65eb910",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "174992f60050f4a0abcef6a417ae16c48950eae0ca8df6a66a85350a83f8a70d",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "b8e1b45c29e684b96ed2ae6dabec4652dc2f3c5b1e04855f618f06063b9ab5c3",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "044ee7d9c037418508aeb70ecbce2cc7a42594ad62c55b8524585f1dd0a34a84",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "44d6f33e7a084cc2b6fcb3a7b8b76c1f71526b6d3dfb3595e81cbbbf2652bcb1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "11abf76ea1db05232aaccfd7fd4bebc6850290defef4606c1d387a2117d64dc4",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "4d6ef483c39fff534371172b7f2df12dc212af4dd4009d098e50f537607adbdf",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bd1508e5d0fe122a1e6a3fd2f7688f675f2a9204c6e4b56f87a05da0ad83830c",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e81c385e0aefca614de15c3c44570efc4a277db8c0bc64c14074055447cfd586",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "2cc1e5d1033dce412d16e6cd8b0b135b6149da5a3a62a9cdecd001ab3739ecd9",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "ec238226f794fc6cec469850d61f97dddee0c88d01d861e5dda55a2a6eb08794",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "123a90350789ac6156f88fa1a540ec1dd121efd5fabf59bab69506c33f16fe57",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "e91503736bf0030ba085a6080cca49da9b71c0a09714ea5354d94a6d7a194efb",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "32fb7c1b8e69de1d770529e8f63cb8996527f0d4239288913d3d90f5d03e0cc2",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "87cff9369af029636a35c18382132e62a8ca40a8764184b9ecfa64d4f8a8a33b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "091fc522803b8de0ef1357742f1ff519f674ff8ac81a0096b60ae37486345c19",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "78328d657d43de28b0688a7856e69ba628f45817f46729a1b62a488f6a1cf5fa",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f62222ace6937f3b77fb00d95e148dafc103073be72afc7d628d8408d1fea7a8",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "87bf13aaff13a4bf0259c0de421ae6e11c823d30680b2e6bb4826e3f4f0f518d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d1d054179696c12ced36c83370ed0ce273b4ef874a44c70b040c8ba895243e23",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "414528e5c4b09f86d785d2ec063eaa7dcd75261871edf671cfe487b92db9664b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "a725e5763ddfd99b30b6fe0bf8b65aec393e534c021184d9c85e680aefddd308",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "934b62f21024a0ce38fa5404d9b9cd1465b003be32d86980d1e2ecb0b798b0a5",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d7d78d28091f813556b57903850f40b232322f618266930393946cc563de29cf",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "3587cc4e6dc119065354c0f34aaf44622ac3698a6ab8c423a3934a3fc8e62c20",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4c819ff3bc25f0d0a5415391a3348b374fb153f7aaa7fa28ba282c4fbbe915eb",
+          "family": "mms_abroad",
+          "selected_task_ids_sha256": "10dd72075874de82e993f5c0f5b935bd4a1c901dc92c92a2a0e8b0c696ca7707",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d61fa9a14b64eac6b07525fb488b5ce9b1a3d6f7caa1d498aed060b613b964bb",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "9c168ea2825ef6126a0d284face4e0421b76d0d3fb4ae8117a1a1d8815579de7",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "8f8b18047cc28fb7b8792fc39634322c336cc44b05312b0ace9b9977c5a5b7a2",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "1a225f3ad72628f5f769caff1397a7ccc437ca5d79942aa50766adf2552cf6d1",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "5b409daddb999097c25eba9a393137ea5bc2aa2cd374b3fb03fc393827e93376",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "99b1185dafc29ac77cee2ebe6dc9fefafdfbc7501123e35761c20fa3313ac55b",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4d24132129262ee9d3179bfc31e1bc24c7ed21877001a35ab17e7f56cd4304f9",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2adf6ba5fc96de7121029679fddab87db2d6ed5fe3f637c08fb4e2758182e215",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b37f33df296c8bf4ddc30f57b4e7c0abaa7a8a2c590a7b1e5635996ff161ca3e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "ff817ee04d9a3aa80265b257fbc47703dc89c3ac50085c03cb531fc72266759c",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "9cc4fa1357470ca619cfa4831edb110257e7b099bdb7a9ddb31bb437fe01f8eb",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "6951c74a21783cd7ad5525727dd0a4d3f0583934dbabdb49cbf741d6ef1cde92",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "65b5c39ad7267f934ab095eb1571c44e5d443d269cfcc675cd3ce2017a9229ea",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "4d916e964b3c260ed478be21c8ffc5eae4bb51587eef6b9f8e100f2f1f7253e0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f0176757d8ca8c9e160a5f6ac3b1de18c010e233a2c40354cb60749fe62bebc8",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "16a27c9a344e75b4bb6aab73015f1f9ce45c1346b5d382246e5de7739d6220ea",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "86b6be9fe0a73d023d53488c506ebdfa6122f6d4a25d3c75a01e724a8bc6c798",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "c927573993bb995ad40f18b95b2d6dbdb5398d3eb5cfe0d2443ec929b06f88ce",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "cc04de1fa18f85442010cc79351270cda8de76adcdab45a82c84b947f06b42b3",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "ab2675c849c6ca06782a1e70a74191b41c92aa7345109ce4b5990c749a0f017a",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "65d3decc9c8139377504aa14630bfa8b9e58401a7ceb1c7dc8ad1b0a6a04a0d1",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "de41ab5d4d42b051739517552d584d418fe78229c20b441a674ba1e12f294f64",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "42df3d361551f547ef29ccffd3a4300cb82e77f368aee8f61ff26c96636fd7e0",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "66a0d996f95281ea58b455747e8fe07fa2b2382d54ddcb5de3fd32394677a0db",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "31a59b9b36dcf51c20a980f9ab30e59f26ce52527d550b092d90bdbdc775944b",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "4d2dbe97698f499978b198ad87d901520d5531580c08e847f8a65a36320f90d8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "6f2d96065af29962feb2ea1a2505b6057f727a3c95d8b8ff1354e5dee5947f81",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "2b113f6a0a333b4c4efa658cbf1900d8c9c609102e316fe9d542ce334272d97d",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "0888bcf4607971aebe6184a7bd299157223036b7c360421dd036635d1f9d999e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "bcc014392b4dbe6a860e64ae47733d4be622e5445f7086ed78f0d2158994b4e2",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "3435328708f3e33227773469cabccc7eeb2074ce67e38188ef9a8fcaa3e8fcc0",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "562d63f84b1f683d0594daa4e894b35196fd944775ae028433870c1b4d193f16",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "4fa017e47c09bff68cee7d7431d527b90bcf93d746cf5e8b53e1a8abf3194648",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "f33e7c0597d5d997ca9d9c08c9f9d723bf9aca25b2ed6501952d10fde1006220",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "f6e3558cf872febd93c7d3a07c8ad412b9c158e01b18b42be0077e5d774bbe97",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "f710ee68f4fdc87726f1eefe12ceb686ec5547fb8a6dfdfd57a96fc0e013e630",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "b34f56cec175f0c5eb194c31e3e74d09936f34e3645a59592fa340457164cf59",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "8cc45cbe43a96e730ed87212858174fa2a113f5b74714fc25e7a07d5dcaf8107",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "e34721ca44f24b5149a45f80d69b5e01a13704260a6ccb7ba97be15c5fce4672",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "3bf964abe0c77e13285c19bdab443015765570d8f8df16690c03c4fa72ec8695",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "228f33e2e64d0f259c60f1fa4c5d90459370ae9180af67ca6473d652a3397c4a",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "a800138ce82ac37d042b11f769c7067e95b753c666ea0d6d10e08e14b01437d9",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "7e84ae8776313835b6eac5b48312a4941b7010875fea2aefd8f17d28db6e3142",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "7a02fe74360f9f1377430e8561fb6404a19cd5ded21760a43a1e62cee5f8cbc0",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "bf452f879652ae22fbd616a6331c0021ddad72a06d95fc815bf3f50c71e3c48e",
+          "family": "mms_home",
+          "selected_task_ids_sha256": "00a7f46bf41ce36d88ab8e07893a6e7dba551c267cc0ab9f48610880e71db7b8",
+          "state_count": 4
+        },
+        {
+          "episode_sha256": "d830920da3bbcc3f5e15db5a3af9946c8cd67fec0c96a46bf6d94fe61d309fe7",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "de3932616431e45df577894f1d0d080352c6c664bc9a2979e185aab055bdee70",
+          "state_count": 6
+        },
+        {
+          "episode_sha256": "c4ab72196c850650c5bf6f9ed61134b15dd8e098c28ab3b4b519f1b662430505",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "f080fe92cdaeaaf51a6a0c9b2c90e8e3f400871af71835e27b43986c3a7b016b",
+          "state_count": 5
+        },
+        {
+          "episode_sha256": "dc47f81809a720b5ab41577672aaf668b60f0c5ad80af5859fd6efe06a280c63",
+          "family": "mobile_abroad",
+          "selected_task_ids_sha256": "35b8ea01ee471333bea6c0954b7a0bf723bca7788e9daa13a12ba7078e88950f",
+          "state_count": 6
+        }
+      ],
+      "family_episode_counts": {
+        "mms_abroad": 167,
+        "mms_home": 23,
+        "mobile_abroad": 3
+      },
+      "world_count": 777
+    }
+  },
+  "task_ids_serialized": false
+}
