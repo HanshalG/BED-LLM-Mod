@@ -1,0 +1,55 @@
+{
+  "block_size": 256,
+  "canonical_targets_authorized_before_complete_bank": false,
+  "classical_grammar_authorized_before_complete_bank": false,
+  "codec": {
+    "path": "scripts/number_game_atomic_particle_codec.py",
+    "sha256": "40deba2963e2494866ba87e9c8095610eba742f2f9a932eebca517bcea8e7d20"
+  },
+  "codec_tests": {
+    "path": "tests/test_number_game_atomic_particle_codec.py",
+    "sha256": "c7dd8b3b08705ef1ff5865ef3321164f89ece0f96eb26171b3a61f201f61f1a9"
+  },
+  "collapse_clarification": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_CANONICAL_COLLAPSE_CLARIFICATION_20260813.md",
+    "sha256": "cf8ed35a588adf4d9ee392aae3a93b2e9998956b4df97ed8dc1aa7039f525693"
+  },
+  "concurrency": 128,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "half_bank_clarification": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_HALF_BANK_CLARIFICATION_20260813.md",
+    "sha256": "013cd70c52bc0767d970e2cf6aa4f56d56812f6b1bfe9f98ac4f760d76f874a8"
+  },
+  "maximum_http_attempts": 6400,
+  "maximum_retries": 0,
+  "model": "qwen/qwen3.7-plus",
+  "opening_total_usage_usd": 220.13412888,
+  "producer": {
+    "path": "scripts/number_game_atomic_particle_mechanics.py",
+    "sha256": "dbd408d3b2dc664474ef7f66d87c94e9e48426f6a2fa7e54fc749543f8d21baf"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_DEPTH3_MECHANICS_PROTOCOL_20260813.md",
+    "sha256": "e3141377bc9c65cb54550a4e7319c192e6a14b85d13181e0fdce79e77a2105ea"
+  },
+  "requests": 6400,
+  "schema_version": 1,
+  "stage_cap_usd": 3.5,
+  "transaction_tests": {
+    "path": "tests/test_number_game_atomic_particle_mechanics.py",
+    "sha256": "a5afa45a640c13c63e9df109b5da619fbdf6f21195513a771b676c0cf9652cb7"
+  },
+  "verifier": {
+    "path": "scripts/number_game_atomic_particle_verify.py",
+    "sha256": "e90c9bfa4b93e37ffb771378f8b860fd0f39c835533e545392005a418d42bdc7"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_atomic_particle_aug13_execute.py",
+    "sha256": "4765fbc5d9e658ee248293f03746d8d7525dbbe35133bf6e1ec9be6f664357c2"
+  },
+  "wrapper_tests": {
+    "path": "tests/test_number_game_atomic_particle_execute.py",
+    "sha256": "9eb1f0e137d4afef5d2d1985d4d0ac8f1b0d4a49da1cf3f4b4fc068ab28e2517"
+  }
+}
