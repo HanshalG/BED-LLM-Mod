@@ -1,0 +1,13 @@
+{
+  "actual_cost_usd": 0.0008877044039999999,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "provider-error response persisted after retries",
+  "error_type": "RuntimeError",
+  "interface_version": "tau2-mms-documented-split-aug13-execute-1",
+  "ledger_sha256": "2419d9e0acf80fee80c958151ff1e2d706a47027cb08d4fb79f52d08fab3812a",
+  "partial_bank_sha256": "6993657114e42a82be2bf796a36002a98583758a2c1954cc2cf4525b46c1539e",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}
