@@ -1,0 +1,47 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "bindings": {
+    "protocol_sha256": "7c9143821573985e7087157e736f1905652e83c4fc10b73c0affd5cde711f674",
+    "source_manifest_file_sha256": "16dbadda6ebc008121bff38fdfb787bc028eedb572fb541e3ec05c223b6a6ed4",
+    "source_result_file_sha256": "1fc2104b8336c3d724a11bdec1f9665f76ce71e5b3b06167603583c5d14c978e",
+    "source_structural_prefix_sha256": "67ac2e4086efe33968b86bc807fb710acfb3edcfa56455211fbbd88b757adec3"
+  },
+  "decision": "close_exact_r2e_gym_debug_bed_route",
+  "gates": {
+    "exact_source_prefix": true,
+    "minimum_structural_cohort": false,
+    "payload_projection_boundary": true,
+    "predicate_payload_exactness": true,
+    "public_shape": true,
+    "source_v3_pass_bound": true
+  },
+  "privacy": {
+    "endpoints_opened": false,
+    "execution_logs_opened": false,
+    "identifiers_serialized_publicly": false,
+    "nonselected_payload_rows_materialized": 0,
+    "payload_rows_materialized": 16,
+    "relevant_source_opened": false,
+    "task_text_opened": false,
+    "test_expectations_opened": false
+  },
+  "protocol_version": "r2e-gym-debug-bed-structural-screen-v1",
+  "screen": {
+    "mechanics_count": 1,
+    "mechanics_ordered_id_sha256": "fcb5d5cad6b9d0119c996347abb0f8352710fb3e5226dfa36a7eb74773f2f67b",
+    "qualifying_count": 1,
+    "qualifying_entity_count_histogram": {
+      "2": 1
+    },
+    "qualifying_file_count_histogram": {
+      "2": 1
+    },
+    "screened_count": 16
+  },
+  "status": "structural_screen_failed_closed"
+}

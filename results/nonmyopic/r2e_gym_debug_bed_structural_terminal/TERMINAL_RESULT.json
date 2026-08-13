@@ -1,0 +1,47 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "nothing",
+  "decision": "close_exact_r2e_gym_debug_bed_route",
+  "downstream": {
+    "containers_opened": false,
+    "counterfactual_worlds_opened": false,
+    "development_opened": false,
+    "endpoints_opened": false,
+    "mechanics_opened": false,
+    "model_calls_opened": false,
+    "native_tests_opened": false,
+    "pdb_probes_opened": false,
+    "planner_opened": false
+  },
+  "private": {
+    "identities_committed": false,
+    "nonselected_payload_rows_materialized": 0,
+    "selected_payload_rows_materialized": 16
+  },
+  "source_manifest_file_sha256": "16dbadda6ebc008121bff38fdfb787bc028eedb572fb541e3ec05c223b6a6ed4",
+  "source_result_file_sha256": "1fc2104b8336c3d724a11bdec1f9665f76ce71e5b3b06167603583c5d14c978e",
+  "status": "pre_mechanics_structural_null",
+  "structural_protocol_file_sha256": "7c9143821573985e7087157e736f1905652e83c4fc10b73c0affd5cde711f674",
+  "structural_screen": {
+    "entity_count_histogram": {
+      "0": 13,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "file_count_histogram": {
+      "2": 3,
+      "3": 8,
+      "4": 4,
+      "5": 1
+    },
+    "minimum_required": 8,
+    "qualifying_count": 1,
+    "screened_count": 16,
+    "structural_screen_file_sha256": "b73691392a188ccd727e579a223a66ae2b14673f10518ea29611e1400540c373"
+  }
+}
