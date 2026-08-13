@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.000668,
+  "authorizes": "nothing",
+  "endpoint_result_opened": false,
+  "error": "root response has the wrong fields",
+  "error_type": "ValueError",
+  "interface_version": "hiddenbench-dynamic-belief-v3-aug13-execute-v1",
+  "label_free_result_exists": false,
+  "ledger_sha256": "c005ded5177bd862cd20c392bba37af2f03a95f099b5eae543ce707a34bdb771",
+  "pass_token_exists": false,
+  "registered_answers_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "verification_exists": false
+}

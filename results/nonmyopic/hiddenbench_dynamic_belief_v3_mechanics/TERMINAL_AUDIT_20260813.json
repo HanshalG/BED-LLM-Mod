@@ -1,0 +1,45 @@
+{
+  "account_wide_spend_since_boundary_usd": 0.044891285999995034,
+  "actual_cost_usd": 0.000668,
+  "authorizes": "nothing",
+  "charged_responses": 2,
+  "classification": "serving_schema_transport_null",
+  "decision": "close_hiddenbench_dynamic_belief_v3",
+  "endpoint_scores_opened": false,
+  "gates": {
+    "bound_terminal_artifacts": true,
+    "failure_is_non_authorizing": true,
+    "labels_and_endpoints_remain_closed": true,
+    "ledger_reconciled": true,
+    "root_batch_stopped_before_refresh": true,
+    "transport_trace_matches": true,
+    "two_valid_roots_two_identical_schema_echoes": true
+  },
+  "http_response_records": 4,
+  "integrity": {
+    "failure": {
+      "path": "results/nonmyopic/hiddenbench_dynamic_belief_v3_mechanics/DAILY_FAILURE_20260813.json",
+      "sha256": "299173b7c0299239d32685a8541d6527b2fce1bbc304c50267e1997f8b34ca82"
+    },
+    "ledger": {
+      "path": "results/nonmyopic/openrouter_daily_budget/2026-08-13-hiddenbench-dynamic-belief-v3.json",
+      "sha256": "c005ded5177bd862cd20c392bba37af2f03a95f099b5eae543ce707a34bdb771"
+    },
+    "log": {
+      "path": "results/nonmyopic/hiddenbench_dynamic_belief_v3_mechanics/mechanics-20260813/run.log",
+      "sha256": "bfc5b90b3146f7f31fa8199cc73e95fb79c6e93b834ac846fbca7408a6def5bb"
+    },
+    "raw": {
+      "path": "results/nonmyopic/hiddenbench_dynamic_belief_v3_mechanics/mechanics-20260813/private/RAW_RESPONSES.json",
+      "sha256": "327ebb9bbba772ce929503687c0176db543d82969d13699025a9d32c347c4c9d"
+    }
+  },
+  "interface_version": "hiddenbench-dynamic-belief-v3-terminal-audit-v1",
+  "registered_answers_opened": false,
+  "schema_echoes": 2,
+  "schema_version": 1,
+  "scientific_interpretation": "no semantic-calibration or planning inference",
+  "status": "terminal_audit_pass",
+  "strict_root_envelopes": 2,
+  "zero_cost_error_responses": 2
+}
