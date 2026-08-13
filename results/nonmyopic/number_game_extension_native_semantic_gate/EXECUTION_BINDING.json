@@ -1,0 +1,41 @@
+{
+  "audit_requests": 10,
+  "budget_amendment": {
+    "path": "results/nonmyopic/NUMBER_GAME_EXTENSION_NATIVE_SEMANTIC_SUPPORT_GATE_BUDGET_AMENDMENT_20260813.md",
+    "sha256": "c94788439847cc403d56d2b6537f072de45787a927b659e65bcf00ee1316688f"
+  },
+  "codec": {
+    "path": "scripts/number_game_extension_native_semantic_codec.py",
+    "sha256": "beeaac7137068b303e36d5da3c02ac1fa371121a56e29d2e1388c24815b83ef2"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "maximum_http_attempts": 20,
+  "maximum_retries": 0,
+  "number_game_targets_authorized": false,
+  "opening_total_usage_usd": 220.13412888,
+  "policy_endpoints_authorized": false,
+  "producer": {
+    "path": "scripts/number_game_extension_native_semantic_gate.py",
+    "sha256": "7ded95436765a80af51a9eb44a446b8c3731f357a58700419d1bf3751bc7fbbf"
+  },
+  "proposal_requests": 10,
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_EXTENSION_NATIVE_SEMANTIC_SUPPORT_GATE_PROTOCOL_20260813.md",
+    "sha256": "097936f1fed2cc8b29b170c986a186da4a06ce05bc2e87b679a4bcae7892e0c4"
+  },
+  "schema_version": 1,
+  "stage_cap_usd": 0.08,
+  "tests": {
+    "path": "tests/test_number_game_extension_native_semantic_gate.py",
+    "sha256": "7e685940727bb2824970263fbacbd1e4e2d200397270ff7617b2ed25bbb0cb00"
+  },
+  "verifier": {
+    "path": "scripts/number_game_extension_native_semantic_verify.py",
+    "sha256": "1887bbafa9eb84286557667e9ff471b4ecda1f8c59bfb74ceb9d7d1a82660b90"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_extension_native_semantic_aug13_execute.py",
+    "sha256": "9df6c209fb54796b5e2e2b2d496aebc9992839aa6b2388ce029b2ec01e5d1679"
+  }
+}
