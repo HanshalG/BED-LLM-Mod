@@ -1,0 +1,56 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "arenas": {
+    "battlesnake": {
+      "entrypoint": "main.py",
+      "entrypoint_matches_release": true,
+      "native_counterfactual_callable": true,
+      "public_evaluator_contract_present": true,
+      "reason_code": "native_target_policy_callable_on_frozen_states"
+    },
+    "halite": {
+      "entrypoint": "main.c",
+      "entrypoint_matches_release": true,
+      "native_counterfactual_callable": true,
+      "public_evaluator_contract_present": true,
+      "reason_code": "native_target_policy_callable_on_frozen_states"
+    },
+    "huskybench": {
+      "entrypoint": "player.py",
+      "entrypoint_matches_release": true,
+      "native_counterfactual_callable": true,
+      "public_evaluator_contract_present": true,
+      "reason_code": "native_target_policy_callable_on_frozen_states"
+    },
+    "robocode": {
+      "entrypoint": "MyTank.java",
+      "entrypoint_matches_release": true,
+      "native_counterfactual_callable": false,
+      "public_evaluator_contract_present": true,
+      "reason_code": "released_targets_are_stateful_java_bots_but_offline_evaluator_requires_a_python_main_move_surrogate"
+    }
+  },
+  "bindings": {
+    "execution_manifest_sha256": "642e17e0f784ca40fddb13bfd15cadbe781fbff4ccc1e9c6d138865473975696",
+    "inverse_strategy_sha256": "c451f8269d0817ea51249efd1ec82ac577b49d38f607b21686df54203c9c0791"
+  },
+  "callable_arenas": [
+    "battlesnake",
+    "halite",
+    "huskybench"
+  ],
+  "decision": "freeze_callable_arena_successor_before_trajectories",
+  "privacy": {
+    "provenance_opened": false,
+    "selected_source_content_read": false,
+    "trajectory_or_outcome_opened": false
+  },
+  "protocol_version": "revengebench-counterfactual-interface-v1",
+  "reason": "The V1 likelihood requires every candidate target policy to act on every frozen target state. RoboCode target policies are Java engine bots, while the release's offline evaluator queries a separate learned Python move(state) surrogate that is absent from the frozen target bank.",
+  "status": "infrastructure_inconclusive",
+  "v1_all_arena_gate_pass": false
+}

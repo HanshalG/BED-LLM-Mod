@@ -1,0 +1,162 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "arenas": {
+    "battlesnake": {
+      "endpoint_seeds": [
+        4253096111,
+        3949197715,
+        2830311519
+      ],
+      "entrypoint": "main.py",
+      "hypotheses": [
+        {
+          "public_hash": "4319fecc66cf2353974786c9cf9d5d48a06f46406a902c07ae0037ad7f6fce3d",
+          "target_id": "p1__e2e0615779df"
+        },
+        {
+          "public_hash": "2e07f9aef6614d02727168c0345ef31e5dd38a233b9e7ed4000360154493dcf2",
+          "target_id": "o3__451ea38d9c09"
+        },
+        {
+          "public_hash": "0ef41c9e54174aba0fe8ef5ba748ef023bfd145db4fc563857ef24ca68460d6c",
+          "target_id": "gpt5-mini__eba7f5649934"
+        }
+      ],
+      "probe_seeds": [
+        3057230032,
+        2797181718,
+        629191659
+      ],
+      "probes": [
+        {
+          "public_hash": "5bd93f8a80ab595456f9e2ebb349567aebfe0999d621073977cb30a6ce62afce",
+          "selection_hash": "013cad3efff0dd48d204b5ae7dd909b6e2dc769c7dc47a83eb57d75d10490147",
+          "target_id": "gpt5-mini__b73dace14f59"
+        },
+        {
+          "public_hash": "78f480ed8272e614b1525990c3a856a26ec7d610b3068dc03a3f79111522f770",
+          "selection_hash": "019bcc9ae66468a6df4a7086eef0ebe3ed70c60f7a2da613ed5ab25131047d0f",
+          "target_id": "gemini-2.5-pro__07ff9f7044b9"
+        },
+        {
+          "public_hash": "3aa7203515e0d2c28b35dd24872a3bb9e5c806a2815a146134284ca726f3bf02",
+          "selection_hash": "1eb9374dccd9739379f79d71b98d50656eafb95208a38860e454c2ab2fafd7a0",
+          "target_id": "gemini-2.5-pro__9491bf13aa25"
+        }
+      ]
+    },
+    "halite": {
+      "endpoint_seeds": [
+        3105339765,
+        593110275,
+        1047610600
+      ],
+      "entrypoint": "main.c",
+      "hypotheses": [
+        {
+          "public_hash": "c4d74399666635bdc69b133aff3a8016456fe9b9729b8eef4b29c1e58a042b4f",
+          "target_id": "cs4-5-20250929__efaca3c57599"
+        },
+        {
+          "public_hash": "0c3c088f44a30e47000642e69e3f73a4994b6a30ab31a45347da50ae69755b1c",
+          "target_id": "o3__17ab493af1e6"
+        },
+        {
+          "public_hash": "414614a078fa3a5ab5a21fbd9c820875ba4d3248127a4b7ebbfdce4819b15163",
+          "target_id": "cs4-5-20250929__67c6c4a22514"
+        }
+      ],
+      "probe_seeds": [
+        2583074295,
+        2804186301,
+        4166437802
+      ],
+      "probes": [
+        {
+          "public_hash": "be69e7520433d6f046c8cbd9ade90be2934c347a56ade6c9eb82390441c28235",
+          "selection_hash": "00195666c4da3fa038024e351c9b5621dd6ac54d8372cc218f22830ffa2ecc0b",
+          "target_id": "cs4-20250514__859ca8a35fe2"
+        },
+        {
+          "public_hash": "2c18241a251ac09df40cf54d52159d6b9eb0e4e98c8e7b2519d51ab8a6143c55",
+          "selection_hash": "1341411d52fa1a33220eaf91d796e4a0d4afa3de7dc7e99ada624471a26d28af",
+          "target_id": "cs4-20250514__3d386035ddd8"
+        },
+        {
+          "public_hash": "e7722a93d2a277046931947fee7f586b5eaf6db1651d4bf87e2a3bba1fbeecf4",
+          "selection_hash": "15ebcef70461d39eeba907dc9feb28ae1ee681ee9d46faad1771592d986ba87d",
+          "target_id": "qwen3-coder-plus-2025-09-23__40585eb155cc"
+        }
+      ]
+    },
+    "huskybench": {
+      "endpoint_seeds": [
+        102069491,
+        3673191945,
+        3763630815
+      ],
+      "entrypoint": "player.py",
+      "hypotheses": [
+        {
+          "public_hash": "31b2ca2ee99e3170e04ba05d88b378fa951b70d9e4a4436d2c3dc476d2cd26c4",
+          "target_id": "o3__6817bd7e411c"
+        },
+        {
+          "public_hash": "5b5e97eac3b7abf05c449cc79a1d894680502d26abeae060c3f9854d0075a7d4",
+          "target_id": "qwen3-coder-plus-2025-09-23__17b9476a725b"
+        },
+        {
+          "public_hash": "ed072de5ca269b8ae0ed2add9783bfce0ca6dbd143012a100e891621751dfc2b",
+          "target_id": "gemini-2.5-pro__0d5fb910ddeb"
+        }
+      ],
+      "probe_seeds": [
+        3753585512,
+        188233967,
+        815072254
+      ],
+      "probes": [
+        {
+          "public_hash": "a67b2b8975260653f639d8e53f66042275f27be0e772f1d300cf1a27e1b1e913",
+          "selection_hash": "0a599b548afc591d1fff69a3b3d5235fec52ed356d27f9b171747def75d3531d",
+          "target_id": "cs4-5-20250929__4c12a8d32880"
+        },
+        {
+          "public_hash": "edb86ddd8fcb0d06af57e99ee95f0f2bfe3303586a5d40b46c1cdc3b5b1ae5ec",
+          "selection_hash": "0c37db81e2d736bcb846cf6881b91c602cf5041e4b3ad34e747ae643af892a27",
+          "target_id": "gemini-2.5-pro__c6258db1e016"
+        },
+        {
+          "public_hash": "862c8be0c8966115d05232153519b728861fc5dffa786c5ae6a4eed47bf0d5ea",
+          "selection_hash": "0dc45f4dfdede407ed077c42c2edfa0e017c826498a7fed59ea833cde048dd22",
+          "target_id": "grok-code-fast-1__60b1491b252b"
+        }
+      ]
+    }
+  },
+  "betas": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "max_target_decisions_per_simulation": 64,
+  "minimum_robust_changed_arenas": 2,
+  "predecessor_bindings": {
+    "interface_result_sha256": "0c0ed9e8edfc14aba93a2bbcf0b9cf41d216f3aaf2d4bc33458f34408f2f362a",
+    "v1_manifest_sha256": "642e17e0f784ca40fddb13bfd15cadbe781fbff4ccc1e9c6d138865473975696"
+  },
+  "privacy": {
+    "provenance_opened": false,
+    "source_content_read": false,
+    "trajectory_or_outcome_opened": false
+  },
+  "protocol_version": "revengebench-execution-opportunity-v2",
+  "source_bindings": {
+    "revengebench_commit": "351a5a7c2671150bae44c8bc46d7115ec996615f",
+    "revengebench_tree": "8991d42d09f3f8fb095580d87a68ba21b7dc6f5c"
+  }
+}
