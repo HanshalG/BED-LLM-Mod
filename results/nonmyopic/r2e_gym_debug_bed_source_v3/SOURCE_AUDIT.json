@@ -1,0 +1,23 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "separately_frozen_exact_row_structural_screen_only",
+  "correction_protocol_sha256": "6430f4033e4518c2d980bfe15a0220033f767e39dfa2a4ed2d431b903b18281d",
+  "decision": "structural_screen_protocol_authorized",
+  "gates": {
+    "producer_source_pass": true,
+    "released_pdb_contract": true,
+    "v1_manifest_reproduced": true,
+    "v1_was_single_gate_audit_null": true,
+    "v2_was_serialization_only_null": true,
+    "zero_call_privacy_boundary": true
+  },
+  "protocol_version": "r2e-gym-debug-bed-source-v3-canonical-replay",
+  "status": "source_pass",
+  "v1_manifest_file_sha256": "16dbadda6ebc008121bff38fdfb787bc028eedb572fb541e3ec05c223b6a6ed4",
+  "v1_result_file_sha256": "d8a60a650435dae960315f9b9bf9ae8bc1a773ab07404c4851c4b45f6914b7a0",
+  "v2_manifest_sha256": "bc1c4eb4da8adf91f0fcedab3e4ab8c4c20e17dc0c67ee052e59ea72eacf2dbc"
+}
