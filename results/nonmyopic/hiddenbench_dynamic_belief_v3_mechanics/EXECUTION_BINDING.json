@@ -1,0 +1,63 @@
+{
+  "accepted_requests_authorized": 10,
+  "codec": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_codec.py",
+    "sha256": "f028b647609745e27437a149e62237c2e3f9661033c864b039f5a0dd40426a42"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "development_calls_authorized": false,
+  "endpoint_custodian": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_endpoint_custodian.py",
+    "sha256": "dcbc0a1541e8edb1b84fe6e80d3bed045c09520defef22b084a9f890ee85ba9b"
+  },
+  "endpoint_requires_pass_token": true,
+  "endpoint_scorer": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_endpoint_score.py",
+    "sha256": "1ca41efe64d7c86ef0cfb313c1232024cabf8fee86f320bbbe7eb747d7f17dd8"
+  },
+  "math": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_math.py",
+    "sha256": "6e6de4445075fb3bc920b9088ea5789b3590135ffd11e46eaa399e3804268f2f"
+  },
+  "maximum_http_attempts": 10,
+  "maximum_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "pass_token": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_pass_token.py",
+    "sha256": "f89043579586672641c13e23c1284a18d129a5c3ea580aa3389c46d9938725aa"
+  },
+  "producer": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_serving.py",
+    "sha256": "d9638a5cd92d0023481d76108959b467d339748432cfba64f2105947dc038e80"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/HIDDENBENCH_DYNAMIC_BELIEF_V3_MECHANICS_PROTOCOL_20260813.md",
+    "sha256": "cab055aed50b22abfc1b90e720523882d8d6320616f0ab5f474a9340bf428bba"
+  },
+  "run_cap_usd": 0.04,
+  "serving_custodian": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_serving_custodian.py",
+    "sha256": "40be970e3450d4ec50fe323673db52b9a2a3ebeab5dbb238fba7c4752c74b6e4"
+  },
+  "source_audit": {
+    "path": "results/nonmyopic/hiddenbench_dynamic_belief_v3_source/SOURCE_AUDIT.json",
+    "sha256": "c639c4ad20b1e7d02d1f3f8bc9895ce64e08b6ea4beb6f1ce863b348d9bda87f"
+  },
+  "source_manifest": {
+    "path": "results/nonmyopic/hiddenbench_dynamic_belief_v3_source/MANIFEST.json",
+    "sha256": "e69f9f3f6373f68d2164a04ea8f5f00fa773984fb46281f4e5dd5b58b86c77ca"
+  },
+  "source_selector": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_source.py",
+    "sha256": "78b0422ad7610e7e12e282bfb7fd5dfaa15108ffb51284a99e2d236e03253fba"
+  },
+  "verifier": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_verify.py",
+    "sha256": "d48d6a661394e6d4b063432c4c7182a5429777db2e1104902ef62d3e5769de7e"
+  },
+  "wrapper": {
+    "path": "scripts/hiddenbench_dynamic_belief_v3_aug13_execute.py",
+    "sha256": "0d7e20f7aa7c9c0aed7ebb504312f61853b34ff870e117b308f0c8b0f71edb2f"
+  }
+}
