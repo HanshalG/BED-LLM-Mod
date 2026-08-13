@@ -1,0 +1,23 @@
+{
+  "accepted_successful_responses": 5,
+  "actual_cost_usd": 0.003264759796,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "provider-error response persisted after retries",
+  "error_type": "RuntimeError",
+  "failed_provider_responses": 1,
+  "frozen_requests_attempted": 6,
+  "interface_version": "tau2-mms-array-semantic-terminal-audit-1",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "model_seeds_reusable": false,
+  "official_calibration_loaded": false,
+  "prompt_privacy_sha256": "40316158053be4f933ccbd1cddd1f018f3ba6d8b3547326fbba4893e8145d065",
+  "raw_response_bank_created": false,
+  "registered_semantic_result_created": false,
+  "repair_or_task_success_endpoints_opened": false,
+  "run_log_sha256": "37537c363fac001cf985f4e35df0c144c38ec5bab2f700e16a29b0debc8ae90d",
+  "schema_version": 1,
+  "semantic_or_planning_gates_computed": false,
+  "status": "failed_closed",
+  "transport_failure_only": true
+}

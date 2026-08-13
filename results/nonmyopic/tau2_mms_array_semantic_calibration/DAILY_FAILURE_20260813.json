@@ -1,0 +1,12 @@
+{
+  "actual_cost_usd": 0.0032647597959999997,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "provider-error response persisted after retries",
+  "error_type": "RuntimeError",
+  "interface_version": "tau2-mms-array-semantic-aug13-execute-1",
+  "ledger_sha256": "bfda62723448b8e7fc7006dd34831cbd4de5968fb65b0a80c91e9a81e029930f",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

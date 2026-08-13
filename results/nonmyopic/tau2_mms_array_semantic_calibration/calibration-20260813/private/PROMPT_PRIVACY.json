@@ -1,0 +1,14 @@
+{
+  "prompt_sha256": [
+    "9d0eb275d7c2a7233141c8fec2602ef6d507784fa47c05b08476c915242712af",
+    "2a7f0b6dc664dcf6e06b17650a1ccea162ea23d7eb5961d9e24122090b7bb16d",
+    "7af1061ac54ffcdf1c1236a595957da6cb71cbd80a49716af26dab8efe9f72e8",
+    "826101d0769ca968db11ccfa8e2536ac417867a5a8de4373f64a71d822fdd8b4",
+    "cd673ede6817dc4f06cfd697e5b068625408cef12b49bf5a6b4ce12953bab46f",
+    "7ba0003dd19f8c647842941932b7e5cb26ae0b8310abe6e827869f20d370b61b"
+  ],
+  "raw_tool_responses_in_prompts": false,
+  "repair_or_endpoint_outcomes_in_prompts": false,
+  "selected_task_ids_in_prompts": false,
+  "source_fault_ids_in_prompts": false
+}
