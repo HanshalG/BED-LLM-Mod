@@ -1,0 +1,51 @@
+name: SWE-smith native amd64 preflight
+
+on:
+  push:
+    branches:
+      - codex/location-finding-llmstrategy
+    paths:
+      - .github/workflows/swesmith_debug_bed_native_amd64_preflight.yml
+      - results/nonmyopic/SWESMITH_DEBUG_BED_NATIVE_AMD64_PREFLIGHT_PROTOCOL_20260813.md
+      - scripts/swesmith_debug_bed_native_amd64_preflight.py
+      - scripts/swesmith_debug_bed_native_amd64_preflight_audit.py
+      - tests/test_swesmith_debug_bed_native_amd64_preflight.py
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    if: github.repository == 'HanshalG/BED-LLM-Mod' && github.ref_name == 'codex/location-finding-llmstrategy'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Run exact public-image preflight
+        run: |
+          python3 scripts/swesmith_debug_bed_native_amd64_preflight.py run \
+            --protocol results/nonmyopic/SWESMITH_DEBUG_BED_NATIVE_AMD64_PREFLIGHT_PROTOCOL_20260813.md \
+            --workflow .github/workflows/swesmith_debug_bed_native_amd64_preflight.yml \
+            --result results/nonmyopic/swesmith_debug_bed_native_amd64_preflight/PREFLIGHT_RESULT.json
+      - name: Verify result independently
+        run: |
+          python3 scripts/swesmith_debug_bed_native_amd64_preflight_audit.py \
+            --protocol results/nonmyopic/SWESMITH_DEBUG_BED_NATIVE_AMD64_PREFLIGHT_PROTOCOL_20260813.md \
+            --workflow .github/workflows/swesmith_debug_bed_native_amd64_preflight.yml \
+            --result results/nonmyopic/swesmith_debug_bed_native_amd64_preflight/PREFLIGHT_RESULT.json \
+            --expected-commit "$GITHUB_SHA"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: swesmith-native-amd64-preflight
+          path: results/nonmyopic/swesmith_debug_bed_native_amd64_preflight/PREFLIGHT_RESULT.json
+          if-no-files-found: error
+          retention-days: 1
+      - name: Commit aggregate attestation
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add results/nonmyopic/swesmith_debug_bed_native_amd64_preflight/PREFLIGHT_RESULT.json
+          git commit -m "bank SWE-smith native amd64 preflight"
+          git push origin HEAD:codex/location-finding-llmstrategy
