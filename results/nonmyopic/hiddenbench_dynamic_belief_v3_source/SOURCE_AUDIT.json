@@ -1,0 +1,21 @@
+{
+  "accounting": {
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "implementation_only",
+  "decision": "implementation_authorized",
+  "gates": {
+    "exact_population_and_unique_ids": true,
+    "exact_source_binding": true,
+    "exact_v2_exclusion_hash": true,
+    "exact_v3_cohort_count": true,
+    "exact_v3_cohort_hash": true,
+    "one_reserve_row_left_unused": true,
+    "public_manifest_is_aggregate_only": true,
+    "v3_disjoint_from_v2_and_nonreserve": true
+  },
+  "manifest_sha256": "aaea4787173eaa46bf583d3bcced4552c2fc1585d26ebd8a4901f6597c7a9a95",
+  "protocol_version": "hiddenbench-dynamic-belief-v3-source-v1",
+  "status": "source_pass"
+}
