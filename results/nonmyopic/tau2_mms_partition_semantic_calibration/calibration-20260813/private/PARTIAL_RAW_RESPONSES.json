@@ -1,0 +1,45 @@
+{
+  "complete": true,
+  "completed": [
+    {
+      "index": 0,
+      "response": "{\"actions\":[\n  {\"action_id\":\"apn_settings\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"installed_apps\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"mms_probe\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},\n  {\"action_id\":\"network_mode\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"network_status\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"speed_test\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"status_bar\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"wifi_calling\",\"world_groups\":[0,0,0,0],\"confidence\":0.95},\n  {\"action_id\":\"messaging_permissions\",\"world_groups\":[0,0,0,0],\"confidence\":0.9}\n]}",
+      "seed": 202608130400
+    },
+    {
+      "index": 1,
+      "response": "{\"partitions\":[\n{\"action\":\"apn_settings\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"installed_apps\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"mms_probe\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"network_mode\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"network_status\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"speed_test\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"status_bar\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"wifi_calling\",\"groups\":[[0,1,2,3]]},\n{\"action\":\"messaging_permissions\",\"groups\":[[0],[1,2,3]]}\n],\"confidence\":0.9}",
+      "seed": 202608130401
+    },
+    {
+      "index": 2,
+      "response": "{\"actions\":[\n{\"action_id\":\"apn_settings\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"installed_apps\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"mms_probe\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"network_mode\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"network_status\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"speed_test\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"status_bar\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"wifi_calling\",\"world_groups\":[\n 0,0,0,0\n],\"confidence\":0.95},\n{\"action_id\":\"messaging_permissions\",\"world_groups\":[\n 0,1,2,3\n],\"confidence\":0.95}\n]}",
+      "seed": 202608130402
+    },
+    {
+      "index": 3,
+      "response": "{\"actions\":[{\"action_id\":\"apn_settings\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"installed_apps\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"mms_probe\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"network_mode\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"network_status\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"speed_test\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"status_bar\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"wifi_calling\",\"world_groups\":[0,0,0,0],\"confidence\":0.9},{\"action_id\":\"messaging_permissions\",\"world_groups\":[0,1,2,3],\"confidence\":0.95}]}",
+      "seed": 202608130403
+    },
+    {
+      "index": 4,
+      "response": "{\"actions\":[\n{\"action_id\":\"apn_settings\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"installed_apps\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"mms_probe\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"network_mode\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"network_status\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"speed_test\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"status_bar\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"wifi_calling\",\"confidence\":0.95,\"world_groups\":[\n 0,0,0,0\n]},\n{\"action_id\":\"messaging_permissions\",\"confidence\":0.95,\"world_groups\":[\n 0,1,2,3\n]}\n]}",
+      "seed": 202608130404
+    },
+    {
+      "index": 5,
+      "response": "{\"actions\":[\n  {\"action_id\":\"apn_settings\",\"confidence\":0.8,\"world_groups\":[",
+      "seed": 202608130405
+    }
+  ],
+  "expected_seeds": [
+    202608130400,
+    202608130401,
+    202608130402,
+    202608130403,
+    202608130404,
+    202608130405
+  ],
+  "interface_version": "tau2-mms-partition-semantic-calibration-1",
+  "model_id": "deepseek/deepseek-v4-flash-0731"
+}

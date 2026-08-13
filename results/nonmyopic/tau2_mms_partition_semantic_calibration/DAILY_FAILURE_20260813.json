@@ -1,0 +1,13 @@
+{
+  "actual_cost_usd": 0.00108296,
+  "authorizes": "nothing",
+  "development_confirmation_reserve_opened": false,
+  "error": "partition MMS action array changed",
+  "error_type": "ValueError",
+  "interface_version": "tau2-mms-partition-semantic-aug13-execute-1",
+  "ledger_sha256": "5e19b082d611fc6a8397cf79f5a0b3b3050fe69e0443b7593301d4e4e5dee38d",
+  "partial_bank_sha256": "830c0f22867a4227c6f276f3ca18472e76c4e26aad32553579ae05edbb694a9d",
+  "repair_or_task_success_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "failed_closed"
+}
