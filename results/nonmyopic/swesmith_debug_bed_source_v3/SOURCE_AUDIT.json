@@ -1,0 +1,31 @@
+{
+  "accounting": {
+    "oatml_cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "authorizes": "private_structural_screen_only",
+  "decision": "structural_screen_authorized",
+  "gates": {
+    "composed_with_tests": true,
+    "exact_source_bindings": true,
+    "fresh_reserve_only": true,
+    "native_preflight_bound": true,
+    "public_manifest_shape": true,
+    "single_image_screening_prefix": true
+  },
+  "manifest_sha256": "d3c03b83727482ec2b55681f154e995e9ef56ac8b6c2ea30baeab2ca0342780c",
+  "privacy": {
+    "endpoints_opened": false,
+    "image_names_serialized": false,
+    "instance_ids_serialized": false,
+    "patches_opened": false,
+    "problem_statements_opened": false,
+    "repositories_serialized": false,
+    "source_files_opened": false,
+    "test_names_opened": false
+  },
+  "protocol_sha256": "4ddef82bfceaef9af079ae7c1a72a0a1ef7bdfc486abc5cca21d6f309f0b570f",
+  "protocol_version": "swesmith-debug-bed-source-v3-native-amd64",
+  "status": "source_pass"
+}

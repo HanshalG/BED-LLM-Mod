@@ -1,0 +1,31 @@
+{
+  "bindings": {
+    "debuggym_commit": "cc3fe3ef4ce08919e522eb00ea1bea5689f3b53e",
+    "debuggym_tree": "54b04c0313b66d72c7f285dc255d2693164a7193",
+    "native_preflight_result_commit": "5150d0da",
+    "native_preflight_result_file_sha256": "1d46acff8e5906a1450f68362268d98d153cabb6d543ef33a97cffc22a8596cf",
+    "source_v2_manifest_file_sha256": "9358c865ec1f952560aece523d46b90aba0b9ec26423861f391100ffc53a3c9d",
+    "swesmith_0_0_4_wheel_sha256": "149d3fc54bcb0d3b3010121e7de4a13e5e6f31bee08be5918dea1f7b0a8dd5ef",
+    "swesmith_revision": "699b53400d3855206a0fbf3ff4beaf1a52f4f232"
+  },
+  "privacy": {
+    "endpoints_opened": false,
+    "image_names_serialized": false,
+    "instance_ids_serialized": false,
+    "patches_opened": false,
+    "problem_statements_opened": false,
+    "repositories_serialized": false,
+    "source_files_opened": false,
+    "test_names_opened": false
+  },
+  "protocol_version": "swesmith-debug-bed-source-v3-native-amd64",
+  "selection": {
+    "candidate_image_count": 122,
+    "reserve_count": 9731,
+    "salt_sha256": "2ec1a4e16420faaffa280ddd5fe437995c5f39e307b249acc30f758b19cdec79",
+    "screening_count": 12,
+    "screening_ordered_id_sha256": "8b4ad842c39dfa9994c4dfac7c13ef24325088f1a794f08d57c065785f95e171",
+    "selected_image_eligible_count": 427,
+    "selected_image_sha256": "38abbd149d0f670b7af5144b17ae315cbd15a7476e2b69bdbfd5d01a07ad6d1d"
+  }
+}
