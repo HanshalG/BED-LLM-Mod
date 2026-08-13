@@ -44,6 +44,10 @@ full fresh causal replication.
 The paper therefore claims a
 robust LLM-native policy result and a fresh Brier-positive dynamic-support
 primary, not an unqualified all-metric or monotonic-depth result.
+Separately, $\tau$-Knowledge contributes a held-out all-gates pass with
+external required-document endpoints; a clean same-task full regeneration
+reverses the root-ranking gain and ties myopic coverage, so it is reported as a
+qualified positive rather than a robust replication.
 
 This directory holds the evidence-supported workshop draft on non-myopic BED
 with LLM-derived probabilistic models. It combines exact planning controls,

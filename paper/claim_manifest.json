@@ -1,7 +1,54 @@
 {
   "schema_version": 1,
-  "description": "Hash-pinned public artifacts and exact fields supporting the paper's headline Number Game and Rock Diagnosis claims.",
+  "description": "Hash-pinned public artifacts and exact fields supporting the paper's Number Game, tau-Knowledge, and Rock Diagnosis claims.",
   "claims": [
+    {
+      "id": "tau_knowledge_v3_1_heldout_pass",
+      "paper_scope": "Held-out 20-task tau-Knowledge all-gates pass with statistically supported root and continuation ranking and directional external-document endpoints.",
+      "artifact": {
+        "path": "results/nonmyopic/tau_knowledge_receding_continuation_v3_1_confirmation/tau-knowledge-receding-v3-1-confirmation-20260725T030000Z/CONFIRMATION.json",
+        "sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "passed"},
+        {"pointer": "/summary/num_cases", "equals": 20},
+        {"pointer": "/summary/gates/all_pass", "equals": true},
+        {"pointer": "/summary/root_pairwise_comparable_count", "equals": 121},
+        {"pointer": "/summary/myopic_root_pairwise_accuracy", "equals": 0.5537190082644629, "tolerance": 1e-12},
+        {"pointer": "/summary/nonmyopic_root_pairwise_accuracy", "equals": 0.7024793388429752, "tolerance": 1e-12},
+        {"pointer": "/summary/root_pairwise_accuracy_gain", "equals": 0.14876033057851235, "tolerance": 1e-12},
+        {"pointer": "/summary/focused_pairwise_comparable_count", "equals": 228},
+        {"pointer": "/summary/focused_pairwise_accuracy", "equals": 0.756578947368421, "tolerance": 1e-12},
+        {"pointer": "/summary/focused_optimal_followup_count", "equals": 80},
+        {"pointer": "/summary/focused_mean_regret", "equals": 0.21, "tolerance": 1e-12},
+        {"pointer": "/summary/end_to_end_total_advantage_over_myopic", "equals": 4},
+        {"pointer": "/summary/end_to_end_total_advantage_over_random", "equals": 8},
+        {"pointer": "/usage/physical_requests", "equals": 280},
+        {"pointer": "/usage/reasoning_tokens", "equals": 0}
+      ]
+    },
+    {
+      "id": "tau_knowledge_v3_1_execution_replication_null",
+      "paper_scope": "Preregistered clean same-task full-regeneration null that qualifies the held-out tau-Knowledge pass.",
+      "artifact": {
+        "path": "results/nonmyopic/tau_knowledge_v3_1_execution_replication/tau-knowledge-v3-1-execution-replication-20260725T173000Z/ANALYSIS.json",
+        "sha256": "14a895286330def28b22085f409af3d086f8e7e959fd691ddfeca038e54ed486"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "gate_failed"},
+        {"pointer": "/gates/exact_280_physical_requests", "equals": true},
+        {"pointer": "/gates/zero_retries", "equals": true},
+        {"pointer": "/gates/zero_reasoning_tokens", "equals": true},
+        {"pointer": "/gates/replication_original_v3_1_gates_pass", "equals": false},
+        {"pointer": "/replication_comparisons/count/nonmyopic_mean", "equals": 1.15, "tolerance": 1e-12},
+        {"pointer": "/replication_comparisons/count/baseline_mean", "equals": 1.15, "tolerance": 1e-12},
+        {"pointer": "/replication_comparisons/count/mean_difference", "equals": 0.0, "tolerance": 1e-12},
+        {"pointer": "/replication_comparisons/count/bootstrap_95_ci", "equals": [-0.5, 0.5], "tolerance": 1e-12},
+        {"pointer": "/task_clustered_two_execution_comparisons/count/mean_difference", "equals": 0.1, "tolerance": 1e-12},
+        {"pointer": "/task_clustered_two_execution_comparisons/count/exact_one_sided_p", "equals": 0.348388671875, "tolerance": 1e-12},
+        {"pointer": "/task_clustered_two_execution_comparisons/count/bootstrap_95_ci", "equals": [-0.275, 0.45], "tolerance": 1e-12}
+      ]
+    },
     {
       "id": "number_game_depth_two_powered",
       "paper_scope": "Powered 32-tree depth-two predictive-risk result and controls.",

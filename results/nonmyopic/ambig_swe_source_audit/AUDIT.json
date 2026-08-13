@@ -1,0 +1,140 @@
+{
+  "accounting": {
+    "cluster_use": 0,
+    "openrouter_calls": 0,
+    "openrouter_cost_usd": 0.0
+  },
+  "decision": "gate_failed_before_content",
+  "files": {
+    "LICENSE": {
+      "sha256": "620ea528732cdf251e4d3a00b8a69d6c06a730001d748756e3bc9b7b49a6a599",
+      "size_bytes": 1095
+    },
+    "data/fully-specified.csv": {
+      "sha256": "0a540c5073a30abdcf2ab42f43f425d81382f81b0791012a16d4d3117caec99e",
+      "size_bytes": 205996
+    },
+    "data/interaction.csv": {
+      "sha256": "85de1f9def269d102de241324c6b9d94fe3b829879282c8394c8aefc8f27eb36",
+      "size_bytes": 205042
+    },
+    "data/underspecified.csv": {
+      "sha256": "abffdd0b8553fd35c53383acae35ab421743191881718b6ed35f49321c1bebc0",
+      "size_bytes": 206190
+    },
+    "evaluation/benchmarks/swe_bench/data/full_summaries_verified.xlsx": {
+      "sha256": "bb68158f585903d3434a7fa6df12530a5459441c2260d852fd8a338ccef89660",
+      "size_bytes": 1310317
+    },
+    "evaluation/benchmarks/swe_bench/interact_run_infer.py": {
+      "sha256": "b878b3c3bdaf1efdfe8bff8ad4b52215919e5bcb0cc2ce84230607abf2973bde",
+      "size_bytes": 25119
+    },
+    "evaluation/benchmarks/swe_bench/prompt.py": {
+      "sha256": "e67cd1fc4d98c9f7f1271e56dadba5b58b8362900c39ba39b656864e892d47ab",
+      "size_bytes": 3071
+    }
+  },
+  "gates": {
+    "all_source_gates_pass": false,
+    "at_least_300_aligned_tasks": true,
+    "at_least_three_missing_information_units_per_mechanics_task": null,
+    "category_diversity_on_at_least_four_mechanics_tasks": null,
+    "external_executable_patch_endpoint_available": null,
+    "identical_unique_task_ids_across_three_views": false,
+    "license_permits_research_use": null,
+    "policy_initial_observation_is_target_blind": null,
+    "retained_split_nonempty": true,
+    "shorter_hidden_initial_issue_on_all_mechanics": null,
+    "simulator_excludes_gold_patches_tests_and_outcomes": null,
+    "unrestricted_forkable_history_conditioned_simulator": null
+  },
+  "inventory": {
+    "aligned_task_count": 497,
+    "all_three_views_have_identical_id_sets": false,
+    "headers": {
+      "fully_specified": [
+        "instance_id",
+        "problem_statement",
+        "claude_sonnet3.5",
+        "deepseek-v2",
+        "claude_haiku_3.5",
+        "llama31.70b"
+      ],
+      "interaction": [
+        "instance_id",
+        "problem_statement",
+        "claude_sonnet3.5",
+        "deepseek-v2",
+        "claude_haiku_3.5",
+        "llama31.70b"
+      ],
+      "underspecified": [
+        "instance_id",
+        "problem_statement",
+        "claude_sonnet3.5",
+        "deepseek-v2",
+        "claude_haiku_3.5",
+        "llama31.70b"
+      ]
+    },
+    "ordered_id_sha256": {
+      "fully_specified": "81e689879762217f3661c977d139102e7ad26dc4fd73d3928bfc99fd0fb59f53",
+      "interaction": "94b909917a568872d60e198fdd182124df5ecd445978116becadcebc804c8414",
+      "underspecified": "70083eea8ebc03d40bec04469e409e065e74ae046d230a3c80ddf2abaecd8e34"
+    },
+    "row_counts": {
+      "fully_specified": 500,
+      "interaction": 497,
+      "underspecified": 500
+    },
+    "sorted_id_set_sha256": {
+      "fully_specified": "33e18be7a9bd9f674790b63ed4d0b3fb17c176994802e3062b7d5a430a4e7d16",
+      "interaction": "a48e8b617233ceb2854fa815eb81d407c098f97eb071a8ca011857e3267fe0c3",
+      "underspecified": "33e18be7a9bd9f674790b63ed4d0b3fb17c176994802e3062b7d5a430a4e7d16"
+    },
+    "split_counts": {
+      "confirmation": 96,
+      "development": 64,
+      "mechanics": 6,
+      "opportunity": 40,
+      "retained": 291
+    },
+    "split_ordered_id_sha256": {
+      "confirmation": "ec4fd9f0377d24ad15ed8d05660ad2b292adfdcaffbe4b3e3eff5ce1a9cba219",
+      "development": "e2afe6bc43c3926e019fb0c492366addf428235744b6c39b11718bd0f0675476",
+      "mechanics": "49f6f808af4e0af5389d941cd27d286f2a4f8efc84e5a8e56599d9486398c495",
+      "opportunity": "398eee4ea3a3785328fbc2caea0a56a660cc1cc10cbdc7c614a4dd536a62dc91",
+      "retained": "3a4efe7fef8879ce6f7333f539dd491c71a85395777001fa1acca68bd4fbda02"
+    }
+  },
+  "privacy": {
+    "confirmation_content_opened": false,
+    "csv_projection": [
+      "instance_id"
+    ],
+    "development_content_opened": false,
+    "gold_patches_opened": false,
+    "mechanics_content_opened": false,
+    "opportunity_content_opened": false,
+    "retained_content_opened": false,
+    "saved_policy_outcomes_opened": false,
+    "task_text_retained_or_serialized": false,
+    "tests_or_test_outcomes_opened": false
+  },
+  "protocol": {
+    "cost_usd": 0.0,
+    "model_calls": 0,
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/AMBIG_SWE_SOURCE_AUDIT_PROTOCOL_20260813.md",
+    "sha256": "aaa7b29a5fc7bb7124ef7be0b7b6393fce7aa4b7977ed0504dab4fabd1970250",
+    "split_salt": "ambig-swe-20260813:"
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "ed58236332ad039b54f968145d7bed9ba988f262",
+    "repository": "https://github.com/sani903/InteractiveSWEAgents",
+    "tree": "a6c2204c8f9e1bfcc4c6d96cc5f5605f980063fa",
+    "working_tree_clean": true
+  },
+  "status": "source_gate_failed"
+}

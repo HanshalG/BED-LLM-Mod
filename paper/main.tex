@@ -64,7 +64,9 @@ is a gated null because three trees miss a support-size floor. A fresh matched
 prompt confirmation passes all four gates: answer-conditioned support improves
 second-stage MSE by 9.51\%, and root-specific benefit predicts realized
 advantage at Spearman $.530$ ($[.058,.827]$); its selected-root mean remains
-null. \BongardAbstractResult Finite Rock Diagnosis separately
+null. In external retrieval, one held-out $\tau$-Knowledge run passes all
+frozen gates, but a clean same-task regeneration reverses its root gain.
+\BongardAbstractResult Finite Rock Diagnosis separately
 verifies exact lookahead but leaves the LLM replaceable. Negative semantic
 audits explain why deeper planning otherwise breaks.
 \end{abstract}
@@ -211,7 +213,7 @@ Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, 
 Number Game & LLM executable-rule support & Cross-fitted terminal risk & d3 beats myopic 12.48\%; fresh powered dynamic--fixed 3.44\% & Policy robust; mechanism Brier-positive, mechanics-qualified \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
-$\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
+$\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Held-out pass; regeneration null \\
 LongVidSearch 4-hop & Exact retrieval endpoint & 10/40 gaps replicated & Support smoke passes; ranking stops pre-endpoint & Policy unmeasured \\
 Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; holdout invalid \\
 DiscoverPhysics & LLM support, exact likelihood & Central scout & T1: 2.928/3.785/3.001; T2: 3.245/3.728/3.071; T3: 3.049/3.481/3.049 & Root robust; support nonreplication \\
@@ -414,7 +416,7 @@ and fixed B tied ($3.0491$ versus $3.0485$; $[-.0098,.0088]$). A frozen
 uncertainty clip made support gains positive on all three endpoints
 ($.28/.67/.20\%$), but failed preregistered $.5/1\%$ magnitude gates.
 
-\paragraph{LLM-native semantic lookahead is not execution-robust in retrieval.}
+\paragraph{LLM-native retrieval passes once but is not execution-robust.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking
 domain: 698 unstructured policy documents, BM25 transitions, and hidden
 required-document annotations \citep{shi2026tau}. GPT-5.4 generated
@@ -672,7 +674,9 @@ gate fails before likelihood. Pi-Bench's fallback erased its d2 opportunity.
 OpenRouter nondeterminism remains a limitation. Thus depth requires a coherent
 simulator and a real gap. Number Game supplies non-myopic-over-myopic and fresh
 Brier-positive dynamic-support evidence, but its causal claim remains mechanics-
-and endpoint-qualified. We do not claim that non-myopic BED cannot work outside
+and endpoint-qualified. $\tau$-Knowledge supplies a held-out all-gates
+external-document pass, but its same-task full regeneration reverses root
+ranking and ties myopic coverage. We do not claim that non-myopic BED cannot work outside
 this setting.
 
 {\fontsize{6.8}{7.0}\selectfont
