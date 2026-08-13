@@ -1,0 +1,37 @@
+{
+  "audit_requests": 10,
+  "codec": {
+    "path": "scripts/number_game_overgenerated_factorized_codec.py",
+    "sha256": "fc61c7e501da2401f55e326433e0999ffe48ecb61ca8e4d5d12d950eee520be9"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "endpoints_authorized": false,
+  "maximum_http_attempts": 80,
+  "maximum_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "producer": {
+    "path": "scripts/number_game_overgenerated_factorized_gate.py",
+    "sha256": "904c389ed61d5dbe3a42c5f696120400ae3fc0e08b65a991ef92a8f0497dbbeb"
+  },
+  "proposal_requests": 40,
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_OVERGENERATED_FACTORIZED_SUPPORT_GATE_PROTOCOL_20260813.md",
+    "sha256": "a8f932235d7200aba0bf00288e65a89c7e503d2ad8a48472b3fc0133378f7f78"
+  },
+  "stage_cap_usd": 0.08,
+  "targets_authorized": false,
+  "tests": {
+    "path": "tests/test_number_game_overgenerated_factorized_codec.py",
+    "sha256": "b6c0e95df980c09ba2ebcc7d3947c140d168ddd1bdaa599911becddd3eebf1a3"
+  },
+  "translation_requests": 30,
+  "verifier": {
+    "path": "scripts/number_game_overgenerated_factorized_verify.py",
+    "sha256": "fec13fc394f624afe8b20982ae248ae2e00201d0bd3589e253c36867bffa48fa"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_overgenerated_factorized_aug13_execute.py",
+    "sha256": "617d3bbb17236f4afd5bcc124a64e0b8346493f81cb1e2dba00655ea4cc21c4d"
+  }
+}
