@@ -1,0 +1,275 @@
+{
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "episode_index": 0,
+      "index": 0,
+      "kind": "root",
+      "payload_sha256": "610a97cca0de1f331904deabc5f9ebb60df0e2a3b5824d59a9d4d1b8d638369f",
+      "seed": 202608131800
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 1,
+      "index": 1,
+      "kind": "root",
+      "payload_sha256": "b7286d7ad44021c767ca848adceec563816c80977afcc66a3a8b071774ed9a57",
+      "seed": 202608131801
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 2,
+      "index": 2,
+      "kind": "root",
+      "payload_sha256": "4e19cf53ec0a48a3ebf9ae6c829192a7fd7930e2021897f352850c9c647f9c00",
+      "seed": 202608131802
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 3,
+      "index": 3,
+      "kind": "root",
+      "payload_sha256": "ed6b16c701fe54b7aca1495852c2f8ea066e4c89a4d2478a1f46e10fd3d13ae5",
+      "seed": 202608131803
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 4,
+      "index": 4,
+      "kind": "root",
+      "payload_sha256": "5d9a735c19660e52c9427c600a5bde2b45ffc81afb3d1e2987f9678a0483578e",
+      "seed": 202608131804
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 5,
+      "index": 5,
+      "kind": "root",
+      "payload_sha256": "2989ea10f3563d5944607b633973310cd2c7aa9dcca2b5528776d4c9857b290a",
+      "seed": 202608131805
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 0,
+      "index": 6,
+      "kind": "native",
+      "payload_sha256": "b72b5992dd4035fa303be29ad1531acb05f084b5f60c9505c7b750dcddd958eb",
+      "seed": 202608131900
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 1,
+      "index": 7,
+      "kind": "native",
+      "payload_sha256": "29ade059cbf4955b9cf6c25791411d3ffe4036dbb9db093609e69aec7fd33ed4",
+      "seed": 202608131901
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 2,
+      "index": 8,
+      "kind": "native",
+      "payload_sha256": "ed30139925829942946dbfa0cfbac0dacea41976c55555e9a51dce83c4f0c486",
+      "seed": 202608131902
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 3,
+      "index": 9,
+      "kind": "native",
+      "payload_sha256": "91a9d3ba25480480b0b68998ea80030de436ea64cf47bedf54bd47b441b44530",
+      "seed": 202608131903
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 4,
+      "index": 10,
+      "kind": "native",
+      "payload_sha256": "e66b7af06e7e239a1c67e240dde810a03f9f2072b2c8f250583c45c10a62d689",
+      "seed": 202608131904
+    },
+    {
+      "attempt_number": 1,
+      "episode_index": 5,
+      "index": 11,
+      "kind": "native",
+      "payload_sha256": "f82b09d5c4504b1f2876a0d8008c75546819f0d8b43bf849370291aa0ac1cdd2",
+      "seed": 202608131905
+    }
+  ],
+  "complete": true,
+  "completed": [
+    {
+      "episode_index": 0,
+      "index": 0,
+      "kind": "root",
+      "response": "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": false, \"confidence\": 0.9}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.95}]}",
+      "seed": 202608131800
+    },
+    {
+      "episode_index": 1,
+      "index": 1,
+      "kind": "root",
+      "response": "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": false, \"confidence\": 0.9}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.9}]}",
+      "seed": 202608131801
+    },
+    {
+      "episode_index": 2,
+      "index": 2,
+      "kind": "root",
+      "response": "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": false, \"confidence\": 0.95}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.95}]}",
+      "seed": 202608131802
+    },
+    {
+      "episode_index": 3,
+      "index": 3,
+      "kind": "root",
+      "response": "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": false, \"confidence\": 0.95}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.95}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.95}]}",
+      "seed": 202608131803
+    },
+    {
+      "episode_index": 4,
+      "index": 4,
+      "kind": "root",
+      "response": "{\"actions\": [{\"action_id\": \"apn_settings\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"installed_apps\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"mms_probe\", \"all_worlds_same\": true, \"confidence\": 0.8}, {\"action_id\": \"network_mode\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"network_status\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"speed_test\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"status_bar\", \"all_worlds_same\": true, \"confidence\": 0.9}, {\"action_id\": \"wifi_calling\", \"all_worlds_same\": true, \"confidence\": 0.9}]}",
+      "seed": 202608131804
+    },
+    {
+      "episode_index": 5,
+      "index": 5,
+      "kind": "root",
+      "response": "",
+      "seed": 202608131805
+    },
+    {
+      "episode_index": 0,
+      "index": 6,
+      "kind": "native",
+      "response": "{\"action_id\": \"messaging_permissions\", \"world_groups\": [0, 1, 2, 3], \"confidence\": 0.9}",
+      "seed": 202608131900
+    },
+    {
+      "episode_index": 1,
+      "index": 7,
+      "kind": "native",
+      "response": "{\"action_id\": \"messaging_permissions\", \"world_groups\": [0, 1, 2, 3], \"confidence\": 0.9}",
+      "seed": 202608131901
+    },
+    {
+      "episode_index": 2,
+      "index": 8,
+      "kind": "native",
+      "response": "",
+      "seed": 202608131902
+    },
+    {
+      "episode_index": 3,
+      "index": 9,
+      "kind": "native",
+      "response": "{\"action_id\": \"messaging_permissions\", \"world_groups\": [0, 1, 2, 3], \"confidence\": 0.95}",
+      "seed": 202608131903
+    },
+    {
+      "episode_index": 4,
+      "index": 10,
+      "kind": "native",
+      "response": "{\"action_id\": \"messaging_permissions\", \"world_groups\": [0, 1, 2, 3], \"confidence\": 0.95}",
+      "seed": 202608131904
+    },
+    {
+      "episode_index": 5,
+      "index": 11,
+      "kind": "native",
+      "response": "",
+      "seed": 202608131905
+    }
+  ],
+  "interface_version": "tau2-mms-gemma26b-thinking-calibration-1",
+  "model_id": "google/gemma-4-26b-a4b-it",
+  "requests": [
+    {
+      "episode_index": 0,
+      "index": 0,
+      "kind": "root",
+      "prompt_sha256": "789acc345d8dee066e39bbf46e05bc11b01d73c57a93ae4ea3c46b1e8a222008",
+      "seed": 202608131800
+    },
+    {
+      "episode_index": 1,
+      "index": 1,
+      "kind": "root",
+      "prompt_sha256": "20f737a194a0ad6b80a257f2da9b439a8ff6769ade87873302e3cd556cadabab",
+      "seed": 202608131801
+    },
+    {
+      "episode_index": 2,
+      "index": 2,
+      "kind": "root",
+      "prompt_sha256": "3a6f783260cb2cd530af0e6c4d38985873d9e1f605ba4656c0568afd5bb28495",
+      "seed": 202608131802
+    },
+    {
+      "episode_index": 3,
+      "index": 3,
+      "kind": "root",
+      "prompt_sha256": "beba5448ead2f3fd5f44ef7b99e56c44a6933b1976688b28f4e87ca9f7deed1f",
+      "seed": 202608131803
+    },
+    {
+      "episode_index": 4,
+      "index": 4,
+      "kind": "root",
+      "prompt_sha256": "c61f44506fbd12cd4d62331eb440c00d6da24102557a113567c3470f277a75bb",
+      "seed": 202608131804
+    },
+    {
+      "episode_index": 5,
+      "index": 5,
+      "kind": "root",
+      "prompt_sha256": "152777d47a8c43aab439bb9100b799c79af6c46e10b0d1c2b536ccf652b532ee",
+      "seed": 202608131805
+    },
+    {
+      "episode_index": 0,
+      "index": 6,
+      "kind": "native",
+      "prompt_sha256": "ac87881131de1ac8af1139ed02a52272d72352bdc882dc29b2617ea79417deb6",
+      "seed": 202608131900
+    },
+    {
+      "episode_index": 1,
+      "index": 7,
+      "kind": "native",
+      "prompt_sha256": "2ecf9569249f5dc446caf2b87cdee3466aee7934fb5794390c41d088c35d288b",
+      "seed": 202608131901
+    },
+    {
+      "episode_index": 2,
+      "index": 8,
+      "kind": "native",
+      "prompt_sha256": "1c487be183ea9c4262a7f0a172dd4b3a2cdf8a8fc5dd62907c242c665baf24ac",
+      "seed": 202608131902
+    },
+    {
+      "episode_index": 3,
+      "index": 9,
+      "kind": "native",
+      "prompt_sha256": "eba8ac4fefb1f7d97d73a4ad0b80549399632cca7678001e9b1f7513b24441ed",
+      "seed": 202608131903
+    },
+    {
+      "episode_index": 4,
+      "index": 10,
+      "kind": "native",
+      "prompt_sha256": "02db97459d3144ef0cfc3dc5df6043610a98642aea6d8db470c0e4e5d2205c1e",
+      "seed": 202608131904
+    },
+    {
+      "episode_index": 5,
+      "index": 11,
+      "kind": "native",
+      "prompt_sha256": "8c45614bdc287a125dec122484268110e681df40ecdb0b99192f6d2f3c6eed3b",
+      "seed": 202608131905
+    }
+  ]
+}
