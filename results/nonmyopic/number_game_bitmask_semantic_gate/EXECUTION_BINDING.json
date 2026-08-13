@@ -1,0 +1,38 @@
+{
+  "audit_requests": 10,
+  "codec": {
+    "path": "scripts/number_game_bitmask_semantic_codec.py",
+    "sha256": "dbac8709f6799873daf99b32725f151dfb98a9842853299e13d24ba0521f2cd5"
+  },
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "endpoints_authorized": false,
+  "maximum_http_attempts": 20,
+  "maximum_retries": 0,
+  "opening_total_usage_usd": 220.13412888,
+  "prior_interface_closed": true,
+  "producer": {
+    "path": "scripts/number_game_bitmask_semantic_gate.py",
+    "sha256": "cd6b01dbd17fce53092508a79a2f635e7051a86afb25db553f6f3ea6fc0a57d3"
+  },
+  "proposal_requests": 10,
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_BITMASK_SEMANTIC_SUPPORT_GATE_PROTOCOL_20260813.md",
+    "sha256": "15b6d1ff6da5d62013c2717ebb88ab2740d8893a0cf0c429f91113a306a8f200"
+  },
+  "schema_version": 1,
+  "stage_cap_usd": 0.08,
+  "targets_authorized": false,
+  "tests": {
+    "path": "tests/test_number_game_bitmask_semantic_codec.py",
+    "sha256": "791916dd71530b512d097cb2be1fbb134c61b95183a17da35beac184041a6033"
+  },
+  "verifier": {
+    "path": "scripts/number_game_bitmask_semantic_verify.py",
+    "sha256": "7518af67dae3b0ed3c140fbf7ee799471652d9ca727c99f8fa11c23405b77e8d"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_bitmask_semantic_aug13_execute.py",
+    "sha256": "be637f5be258df7e90368d8d6074da41afcf4203b861d62c1c8e4500101a8359"
+  }
+}

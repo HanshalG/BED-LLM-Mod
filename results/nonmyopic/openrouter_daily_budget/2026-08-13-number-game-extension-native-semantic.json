@@ -1,0 +1,70 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "closing_balance_usd": 24.788331514000014,
+  "closing_total_credits_usd": 245.0,
+  "closing_total_usage_usd": 220.211668486,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-13",
+  "execution_binding_sha256": "3bcd4f741e179d983fd1650ac029c6be1b1e719b9bb6b505936b098da6ed11c5",
+  "execution_opening_balance_usd": 24.820979834000013,
+  "execution_opening_total_credits_usd": 245.0,
+  "execution_opening_total_usage_usd": 220.179020166,
+  "interface_version": "number-game-extension-native-semantic-aug13-execute-1",
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.13412888,
+  "proposal_authorization": {
+    "exposure": {
+      "exact_phase_exposure_usd": 0.044279040000000006,
+      "max_output_tokens_per_request": 3300,
+      "maximum_request_exposure_usd": 0.004434560000000001,
+      "message_bytes": [
+        590,
+        590,
+        623,
+        623,
+        658,
+        658,
+        657,
+        657,
+        658,
+        658
+      ],
+      "request_exposures_usd": [
+        0.004412800000000001,
+        0.004412800000000001,
+        0.00442336,
+        0.00442336,
+        0.004434560000000001,
+        0.004434560000000001,
+        0.004434240000000001,
+        0.004434240000000001,
+        0.004434560000000001,
+        0.004434560000000001
+      ],
+      "tracker_reservation_usd": 0.044345600000000006
+    },
+    "live": {
+      "balance_usd": 24.820979834000013,
+      "total_credits_usd": 245.0,
+      "total_usage_usd": 220.179020166
+    },
+    "model": {
+      "completion_price_usd_per_token": 1.28e-06,
+      "id": "qwen/qwen3.7-plus",
+      "prompt_price_usd_per_token": 3.2e-07,
+      "seed_supported": true,
+      "structured_output_supported": true
+    }
+  },
+  "recorded_actual_spend_usd": 0.07753960599998777,
+  "schema_version": 1,
+  "stage": {
+    "actual_cost_usd": 0.03264832,
+    "maximum_cost_usd": 0.08,
+    "maximum_http_attempts": 20,
+    "maximum_retries": 0,
+    "status": "failed_closed"
+  },
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}

@@ -1,0 +1,27 @@
+{
+  "authorizes": "prospective_distinct_interface_design_only",
+  "decision": "close_exact_array_extension_interface",
+  "gates": {
+    "cost_reconciles_conservatively": true,
+    "exact_binding": true,
+    "exact_proposal_only_transport": true,
+    "no_audit_or_endpoint_artifacts": true,
+    "parse_signature_matches": true,
+    "terminal_authority_is_closed": true,
+    "transport_signature_matches": true
+  },
+  "interface_version": "number-game-extension-native-semantic-terminal-audit-1",
+  "model_calls_made": 0,
+  "number_game_targets_opened": false,
+  "policy_endpoints_opened": false,
+  "schema_version": 1,
+  "status": "terminal_audit_pass",
+  "transport": {
+    "accepted_requests": 10,
+    "actual_cost_usd": 0.03264832,
+    "audit_requests": 0,
+    "clean_stop_count": 7,
+    "length_stop_count": 3,
+    "parseable_response_count": 7
+  }
+}

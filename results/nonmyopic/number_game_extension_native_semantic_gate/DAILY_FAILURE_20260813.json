@@ -1,0 +1,15 @@
+{
+  "actual_cost_usd": 0.03264832,
+  "authorizes": "nothing",
+  "error": "Unterminated string starting at: line 95 column 19 (char 5054)",
+  "error_type": "JSONDecodeError",
+  "interface_version": "number-game-extension-native-semantic-aug13-execute-1",
+  "label_free_result_exists": false,
+  "ledger_sha256": "4733ec604d0e8f48e629df66b2d8a5507a03334aa76de984ccc5c6dd0bf7d501",
+  "number_game_targets_opened": false,
+  "policy_endpoints_opened": false,
+  "raw_response_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "verification_exists": false
+}
