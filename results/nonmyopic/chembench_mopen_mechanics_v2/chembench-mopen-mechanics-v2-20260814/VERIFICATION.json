@@ -1,0 +1,88 @@
+{
+  "cost_usd": 0.0,
+  "gate": {
+    "conditions": {
+      "call_matched_replay_exact": true,
+      "d2_mean_reduction_at_least_5pct": false,
+      "d2_root_differs_on_at_least_one_slice": false,
+      "d2_truth_cell_majority": true,
+      "d3_mean_reduction_at_least_5pct": false,
+      "d3_truth_cell_majority": true,
+      "fixed_support_has_no_proposals": true,
+      "history_blind_is_separate": true,
+      "runtime_checks_pass": true
+    },
+    "d2_vs_d1": {
+      "absolute_reduction": 0.0006841336989164559,
+      "left_mean": 0.044088919115286604,
+      "losses": 28,
+      "relative_reduction": 0.015517134750514935,
+      "right_mean": 0.04340478541637015,
+      "ties": 81,
+      "tolerance": 1e-06,
+      "wins": 35
+    },
+    "d3_vs_d1": {
+      "absolute_reduction": -0.016358514481882545,
+      "left_mean": 0.044088919115286604,
+      "losses": 39,
+      "relative_reduction": -0.37103460030642227,
+      "right_mean": 0.06044743359716915,
+      "ties": 59,
+      "tolerance": 1e-06,
+      "wins": 46
+    },
+    "d3_vs_d2": {
+      "absolute_reduction": -0.017042648180799,
+      "left_mean": 0.04340478541637015,
+      "losses": 31,
+      "relative_reduction": -0.39264445192652314,
+      "right_mean": 0.06044743359716915,
+      "ties": 74,
+      "tolerance": 1e-06,
+      "wins": 39
+    },
+    "exact_descriptive": {
+      "d2_vs_d1": {
+        "absolute_reduction": 0.0006841336989164559,
+        "left_mean": 0.044088919115286604,
+        "losses": 33,
+        "relative_reduction": 0.015517134750514935,
+        "right_mean": 0.04340478541637015,
+        "ties": 71,
+        "wins": 40
+      },
+      "d3_vs_d1": {
+        "absolute_reduction": -0.016358514481882545,
+        "left_mean": 0.044088919115286604,
+        "losses": 44,
+        "relative_reduction": -0.37103460030642227,
+        "right_mean": 0.06044743359716915,
+        "ties": 50,
+        "wins": 50
+      },
+      "d3_vs_d2": {
+        "absolute_reduction": -0.017042648180799,
+        "left_mean": 0.04340478541637015,
+        "losses": 38,
+        "relative_reduction": -0.39264445192652314,
+        "right_mean": 0.06044743359716915,
+        "ties": 62,
+        "wins": 44
+      }
+    },
+    "passed": false,
+    "root_differences": 0
+  },
+  "model_calls": 0,
+  "replayed_slices": [
+    "easy/v3",
+    "hard/v3",
+    "medium/v3"
+  ],
+  "result_sha256": "e4a9527a3016953ed88a2cf65f8727a9633f59b734e2fb17de6aa23fc2ab6948",
+  "schema_version": "chembench-mopen-mechanics-v2-verification",
+  "source_commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+  "status": "verified",
+  "transition_bank_sha256": "b041b719734cbf481c2b1d77191dfc6db8d54fbd8af2f081f717b79dc840d754"
+}
