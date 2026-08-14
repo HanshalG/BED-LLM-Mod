@@ -12,6 +12,7 @@ from .mechanics import (
     ProposalCache,
     ScriptedResidualProposer,
 )
+from .source import MixedVersionResponses, build_mixed_version_responses
 
 __all__ = [
     "BankedProposer",
@@ -20,10 +21,12 @@ __all__ = [
     "FixedProposer",
     "HistoryBlindProposer",
     "ModelBank",
+    "MixedVersionResponses",
     "OracleProposer",
     "ParameterSpec",
     "ProposalCache",
     "RateLaw",
     "RateLawError",
     "ScriptedResidualProposer",
+    "build_mixed_version_responses",
 ]

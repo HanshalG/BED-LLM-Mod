@@ -27,6 +27,7 @@ from environments.chembench_mopen.mechanics import (
     ProposalCache,
     ScriptedResidualProposer,
 )
+from environments.chembench_mopen.source import build_mixed_version_responses
 from scripts.chembench_mopen_nonmyopic_opportunity import (
     EXECUTION_BUDGET,
     ValidationSlice,
@@ -35,12 +36,11 @@ from scripts.chembench_mopen_nonmyopic_opportunity import (
     comparison,
     frozen_assays,
     load_source,
-    response_matrices,
     verify_source,
 )
 
 
-SCHEMA_VERSION = "chembench-mopen-mechanics-v1"
+SCHEMA_VERSION = "chembench-mopen-mechanics-v2"
 PROTOCOL_PATH = Path(
     "results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V1_PROTOCOL_20260814.md"
 )
@@ -53,6 +53,14 @@ ARCHITECTURE_PATH = Path(
     "results/nonmyopic/CHEMBENCH_NONMYOPIC_MOPEN_ARCHITECTURE_PROTOCOL_20260814.md"
 )
 ARCHITECTURE_SHA256 = "552639280609b0c179304fb3dd784b9dfc8d0960e444bc4e312055762e7bd7c6"
+V1_TERMINAL_PATH = Path(
+    "results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V1_TERMINAL_20260814.md"
+)
+V1_TERMINAL_SHA256 = "d69843882b9c97f7c6b325b38b2aa5ca8e29a9e2de439146ccf085774220f91a"
+V2_PROTOCOL_PATH = Path(
+    "results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V2_PROTOCOL_20260814.md"
+)
+V2_PROTOCOL_SHA256 = "3fd3e9ba0c1bb80645c0687ddf8e5b09985f5a2c4d136e2f8c3bc17dd99d0279"
 PRACTICAL_TIE_TOLERANCE = 1e-6
 INITIAL_SUPPORT_NAMES = (
     "c0_michaelis_menten",
@@ -111,6 +119,8 @@ def verify_protocol_bindings() -> None:
         (PROTOCOL_PATH, PROTOCOL_SHA256),
         (AMENDMENT_PATH, AMENDMENT_SHA256),
         (ARCHITECTURE_PATH, ARCHITECTURE_SHA256),
+        (V1_TERMINAL_PATH, V1_TERMINAL_SHA256),
+        (V2_PROTOCOL_PATH, V2_PROTOCOL_SHA256),
     ):
         actual = _sha256(path)
         if actual != expected:
@@ -191,15 +201,29 @@ def build_bank(
     )
 
 
-def _evaluate_mode(bank: ModelBank, proposer: Any, *, seed: int) -> tuple[dict[str, Any], ProposalCache]:
+def _evaluate_mode(
+    bank: ModelBank,
+    proposer: Any,
+    *,
+    seed: int,
+    truth_indices: Sequence[int],
+) -> tuple[dict[str, Any], ProposalCache]:
     cache = ProposalCache(proposer)
     horizons: dict[str, Any] = {}
     for depth in (3, 2, 1):
         planner = DynamicPlanner(bank, cache, seed=seed)
-        horizons[f"d{depth}"] = planner.evaluate_horizon(depth, execution_budget=EXECUTION_BUDGET)
+        horizons[f"d{depth}"] = planner.evaluate_horizon(
+            depth,
+            execution_budget=EXECUTION_BUDGET,
+            truth_indices=truth_indices,
+        )
     misses_before_replay = cache.misses
     replay_planner = DynamicPlanner(bank, cache, seed=seed)
-    replay = replay_planner.evaluate_horizon(1, execution_budget=EXECUTION_BUDGET)
+    replay = replay_planner.evaluate_horizon(
+        1,
+        execution_budget=EXECUTION_BUDGET,
+        truth_indices=truth_indices,
+    )
     call_matched = {
         "result": replay,
         "matches_dynamic_d1": replay == horizons["d1"],
@@ -220,8 +244,19 @@ def _evaluate_mode(bank: ModelBank, proposer: Any, *, seed: int) -> tuple[dict[s
     }, cache
 
 
-def _mode_summary(bank: ModelBank, proposer: Any, *, seed: int) -> dict[str, Any]:
-    result, _ = _evaluate_mode(bank, proposer, seed=seed)
+def _mode_summary(
+    bank: ModelBank,
+    proposer: Any,
+    *,
+    seed: int,
+    truth_indices: Sequence[int],
+) -> dict[str, Any]:
+    result, _ = _evaluate_mode(
+        bank,
+        proposer,
+        seed=seed,
+        truth_indices=truth_indices,
+    )
     return result
 
 
@@ -337,8 +372,23 @@ def run_mechanics(
     dictionary = scripted_dictionary(model_index)
     noninitial = tuple(index for index, name in enumerate(domains) if name not in INITIAL_SUPPORT_NAMES)
     for slice_index, item in enumerate(slices):
-        means, target_features = response_matrices(source, domains, item, assays)
-        bank = build_bank(means, target_features, domains, action_names)
+        mixed = build_mixed_version_responses(
+            source,
+            domains,
+            INITIAL_SUPPORT_NAMES,
+            difficulty=item.difficulty,
+            initial_version="v2",
+            truth_version=item.version,
+            query_seed=item.query_seed,
+            assays=assays,
+        )
+        bank = build_bank(
+            mixed.observation_means,
+            mixed.target_log_rates,
+            domains,
+            action_names,
+        )
+        truth_indices = mixed.truth_indices
         parent = bank.initial_state()
         parent_snapshot = parent
         invalid_child = bank.transition(parent, 0, 0, (-1, bank.num_models, bank.initial_support[0]))
@@ -353,12 +403,30 @@ def run_mechanics(
         )
 
         seed = 2026081600 + slice_index
-        oracle_result, oracle_cache = _evaluate_mode(bank, OracleProposer(bank), seed=seed)
-        scripted_result = _mode_summary(
-            bank, ScriptedResidualProposer(bank, dictionary), seed=seed
+        oracle_result, oracle_cache = _evaluate_mode(
+            bank,
+            OracleProposer(bank),
+            seed=seed,
+            truth_indices=truth_indices,
         )
-        fixed_result = _mode_summary(bank, FixedProposer(), seed=seed)
-        blind_result = _mode_summary(bank, HistoryBlindProposer(noninitial), seed=seed)
+        scripted_result = _mode_summary(
+            bank,
+            ScriptedResidualProposer(bank, dictionary),
+            seed=seed,
+            truth_indices=truth_indices,
+        )
+        fixed_result = _mode_summary(
+            bank,
+            FixedProposer(),
+            seed=seed,
+            truth_indices=truth_indices,
+        )
+        blind_result = _mode_summary(
+            bank,
+            HistoryBlindProposer(noninitial),
+            seed=seed,
+            truth_indices=truth_indices,
+        )
         for mode_result in (oracle_result, scripted_result, fixed_result, blind_result):
             for horizon in mode_result["horizons"].values():
                 runtime_checks["finite_and_normalized"] &= math.isfinite(
@@ -369,7 +437,14 @@ def run_mechanics(
                 "slice": item.name,
                 "query_seed": item.query_seed,
                 "num_domains": bank.num_models,
-                "num_queries": target_features.shape[1],
+                "num_truths": len(truth_indices),
+                "truth_domains": [domains[index] for index in truth_indices],
+                "num_queries": mixed.target_log_rates.shape[1],
+                "version_by_model": {
+                    domain: mixed.version_by_model[index]
+                    for index, domain in enumerate(domains)
+                },
+                "version_map_sha256": mixed.version_map_sha256,
                 "modes": {
                     "oracle": oracle_result,
                     "scripted": scripted_result,
@@ -401,6 +476,14 @@ def run_mechanics(
         "architecture_protocol": {
             "path": str(ARCHITECTURE_PATH),
             "sha256": _sha256(ARCHITECTURE_PATH),
+        },
+        "v1_terminal": {
+            "path": str(V1_TERMINAL_PATH),
+            "sha256": _sha256(V1_TERMINAL_PATH),
+        },
+        "v2_protocol": {
+            "path": str(V2_PROTOCOL_PATH),
+            "sha256": _sha256(V2_PROTOCOL_PATH),
         },
         "source": source_binding,
         "active_domains": list(domains),

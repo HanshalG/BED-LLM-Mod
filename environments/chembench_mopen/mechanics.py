@@ -413,13 +413,22 @@ class DynamicPlanner:
             )
         return result
 
-    def evaluate_horizon(self, horizon: int, *, execution_budget: int = 4) -> dict[str, Any]:
+    def evaluate_horizon(
+        self,
+        horizon: int,
+        *,
+        execution_budget: int = 4,
+        truth_indices: Sequence[int] | None = None,
+    ) -> dict[str, Any]:
         state = self.bank.initial_state()
         available = tuple(range(self.bank.num_actions))
         planned_value, root_action = self.plan(state, available, min(horizon, execution_budget), 0)
+        truths = tuple(range(self.bank.num_models)) if truth_indices is None else tuple(truth_indices)
+        if not truths or any(truth < 0 or truth >= self.bank.num_models for truth in truths):
+            raise ValueError("truth indices are invalid")
         truth_losses = [
             self.expected_truth_loss(state, available, execution_budget, horizon, truth)
-            for truth in range(self.bank.num_models)
+            for truth in truths
         ]
         return {
             "horizon": int(horizon),
@@ -428,5 +437,6 @@ class DynamicPlanner:
             "planned_value": float(planned_value),
             "expected_terminal_mse": float(np.mean(truth_losses)),
             "expected_terminal_rmsle": math.sqrt(max(float(np.mean(truth_losses)), 0.0)),
+            "num_truths": len(truths),
             "truth_losses": [float(value) for value in truth_losses],
         }

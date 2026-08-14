@@ -23,6 +23,7 @@ from environments.chembench_mopen.mechanics import (
     ModelBank,
     ProposalCache,
 )
+from environments.chembench_mopen.source import build_mixed_version_responses
 from scripts.chembench_mopen_nonmyopic_opportunity import (
     EXECUTION_BUDGET,
     ValidationSlice,
@@ -31,12 +32,11 @@ from scripts.chembench_mopen_nonmyopic_opportunity import (
     comparison,
     frozen_assays,
     load_source,
-    response_matrices,
     verify_source,
 )
 
 
-SCHEMA_VERSION = "chembench-mopen-mechanics-v1"
+SCHEMA_VERSION = "chembench-mopen-mechanics-v2"
 PROTOCOLS = {
     Path("results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V1_PROTOCOL_20260814.md"):
         "bcf58c405036d16284b8131330d70ae7114524bd961e5681139c70ee0d9e7c43",
@@ -44,6 +44,10 @@ PROTOCOLS = {
         "932c1a789eabb1acccaad7e7129443fe933d4410f33412e23784bde6633b5c01",
     Path("results/nonmyopic/CHEMBENCH_NONMYOPIC_MOPEN_ARCHITECTURE_PROTOCOL_20260814.md"):
         "552639280609b0c179304fb3dd784b9dfc8d0960e444bc4e312055762e7bd7c6",
+    Path("results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V1_TERMINAL_20260814.md"):
+        "d69843882b9c97f7c6b325b38b2aa5ca8e29a9e2de439146ccf085774220f91a",
+    Path("results/nonmyopic/CHEMBENCH_MOPEN_MECHANICS_V2_PROTOCOL_20260814.md"):
+        "3fd3e9ba0c1bb80645c0687ddf8e5b09985f5a2c4d136e2f8c3bc17dd99d0279",
 }
 INITIAL_SUPPORT_NAMES = (
     "c0_michaelis_menten",
@@ -60,6 +64,11 @@ EXPECTED_SLICES = (
     ValidationSlice("easy", "v3", 2026081601),
     ValidationSlice("medium", "v3", 2026081602),
     ValidationSlice("hard", "v3", 2026081603),
+)
+OPENED_SCREEN_SLICES = (
+    ValidationSlice("easy", "v2", 2026081502),
+    ValidationSlice("medium", "v2", 2026081505),
+    ValidationSlice("hard", "v2", 2026081508),
 )
 PRACTICAL_TIE_TOLERANCE = 1e-6
 
@@ -195,7 +204,13 @@ def _recompute_gate(slice_results: Sequence[dict[str, Any]], runtime_checks: dic
     }
 
 
-def verify(result_path: Path, bank_path: Path, source_root: Path) -> dict[str, Any]:
+def verify(
+    result_path: Path,
+    bank_path: Path,
+    source_root: Path,
+    *,
+    expected_slices: Sequence[ValidationSlice] = EXPECTED_SLICES,
+) -> dict[str, Any]:
     for path, expected in PROTOCOLS.items():
         if _sha256(path) != expected:
             raise RuntimeError(f"protocol hash mismatch: {path}")
@@ -216,14 +231,29 @@ def verify(result_path: Path, bank_path: Path, source_root: Path) -> dict[str, A
     domains = active_domains(source)
     if list(domains) != result["active_domains"]:
         raise ValueError("active domains differ from recorded result")
-    if result["slices"] != [item.__dict__ for item in EXPECTED_SLICES]:
-        raise ValueError("result does not use the frozen v3 slices")
+    if result["slices"] != [item.__dict__ for item in expected_slices]:
+        raise ValueError("result does not use the expected slices")
     assays = frozen_assays()
     action_names = tuple(item.name for item in assays)
     replayed_oracle: dict[str, Any] = {}
-    for slice_index, item in enumerate(EXPECTED_SLICES):
-        means, targets = response_matrices(source, domains, item, assays)
-        bank = _build_bank(means, targets, domains, action_names)
+    for slice_index, item in enumerate(expected_slices):
+        mixed = build_mixed_version_responses(
+            source,
+            domains,
+            INITIAL_SUPPORT_NAMES,
+            difficulty=item.difficulty,
+            initial_version="v2",
+            truth_version=item.version,
+            query_seed=item.query_seed,
+            assays=assays,
+        )
+        bank = _build_bank(
+            mixed.observation_means,
+            mixed.target_log_rates,
+            domains,
+            action_names,
+        )
+        truth_indices = mixed.truth_indices
         bank_record = transition_bank["slices"][item.name]
         expected_seed = 2026081600 + slice_index
         if bank_record["planner_seed"] != expected_seed:
@@ -234,11 +264,15 @@ def verify(result_path: Path, bank_path: Path, source_root: Path) -> dict[str, A
         for depth in (3, 2, 1):
             planner = DynamicPlanner(bank, cache, seed=expected_seed)
             horizons[f"d{depth}"] = planner.evaluate_horizon(
-                depth, execution_budget=EXECUTION_BUDGET
+                depth,
+                execution_budget=EXECUTION_BUDGET,
+                truth_indices=truth_indices,
             )
         misses_before = cache.misses
         replay = DynamicPlanner(bank, cache, seed=expected_seed).evaluate_horizon(
-            1, execution_budget=EXECUTION_BUDGET
+            1,
+            execution_budget=EXECUTION_BUDGET,
+            truth_indices=truth_indices,
         )
         oracle = {
             "mode": "registry_oracle",
@@ -258,6 +292,15 @@ def verify(result_path: Path, bank_path: Path, source_root: Path) -> dict[str, A
             },
         }
         recorded_slice = next(value for value in result["slice_results"] if value["slice"] == item.name)
+        expected_versions = {
+            domain: mixed.version_by_model[index] for index, domain in enumerate(domains)
+        }
+        if recorded_slice["version_by_model"] != expected_versions:
+            raise AssertionError(f"version-map replay mismatch for {item.name}")
+        if recorded_slice["version_map_sha256"] != mixed.version_map_sha256:
+            raise AssertionError(f"version-map hash mismatch for {item.name}")
+        if recorded_slice["truth_domains"] != [domains[index] for index in truth_indices]:
+            raise AssertionError(f"truth cohort mismatch for {item.name}")
         if oracle != recorded_slice["modes"]["oracle"]:
             raise AssertionError(f"oracle replay mismatch for {item.name}")
         replayed_oracle[item.name] = oracle
@@ -283,10 +326,16 @@ def main() -> None:
     parser.add_argument("--transition-bank", type=Path, required=True)
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--screen-opened-v2", action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite verification: {args.output}")
-    verification = verify(args.result, args.transition_bank, args.source_root)
+    verification = verify(
+        args.result,
+        args.transition_bank,
+        args.source_root,
+        expected_slices=(OPENED_SCREEN_SLICES if args.screen_opened_v2 else EXPECTED_SLICES),
+    )
     if verification["status"] != "verified":
         raise RuntimeError("result status does not match independently replayed gate")
     args.output.parent.mkdir(parents=True, exist_ok=True)

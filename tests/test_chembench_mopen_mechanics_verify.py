@@ -10,6 +10,10 @@ from scripts.chembench_mopen_mechanics import (
     ARCHITECTURE_SHA256,
     PROTOCOL_PATH,
     PROTOCOL_SHA256,
+    V1_TERMINAL_PATH,
+    V1_TERMINAL_SHA256,
+    V2_PROTOCOL_PATH,
+    V2_PROTOCOL_SHA256,
     _sha256,
     verify_protocol_bindings,
 )
@@ -21,6 +25,8 @@ def test_mechanics_protocol_hashes_are_exact() -> None:
     assert _sha256(PROTOCOL_PATH) == PROTOCOL_SHA256
     assert _sha256(AMENDMENT_PATH) == AMENDMENT_SHA256
     assert _sha256(ARCHITECTURE_PATH) == ARCHITECTURE_SHA256
+    assert _sha256(V1_TERMINAL_PATH) == V1_TERMINAL_SHA256
+    assert _sha256(V2_PROTOCOL_PATH) == V2_PROTOCOL_SHA256
 
 
 def test_independent_comparison_uses_frozen_practical_tolerance() -> None:
