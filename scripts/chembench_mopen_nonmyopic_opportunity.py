@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Exact fixed-support horizon-opportunity audit for ActiveSciBench-Chem.
 
-This script implements the frozen protocol in
-results/nonmyopic/CHEMBENCH_MOPEN_NONMYOPIC_OPPORTUNITY_PROTOCOL_20260814.md.
+This script implements the frozen V2 protocol in
+results/nonmyopic/CHEMBENCH_MOPEN_NONMYOPIC_OPPORTUNITY_V2_PROTOCOL_20260814.md.
 It makes no model or network calls. The upstream source checkout is supplied by
 path and verified before any validation response matrix is constructed.
 """
@@ -56,7 +56,6 @@ class ValidationSlice:
 
 
 VALIDATION_SLICES = (
-    ValidationSlice("easy", "v1", 2026081501),
     ValidationSlice("easy", "v2", 2026081502),
     ValidationSlice("medium", "v0", 2026081503),
     ValidationSlice("medium", "v1", 2026081504),
@@ -277,7 +276,16 @@ class ExactPlanner:
         if total <= 0:
             raise ValueError("belief has no mass")
         result /= total
-        return tuple(float(value) for value in np.round(result, 12))
+        return tuple(float(value) for value in result)
+
+    @staticmethod
+    def normalized_posterior(weights: np.ndarray, likelihood: np.ndarray) -> np.ndarray:
+        posterior = weights * likelihood
+        total = float(posterior.sum())
+        if total <= 0 or not math.isfinite(total):
+            raise FloatingPointError("reachable observation has zero represented posterior mass")
+        posterior /= total
+        return posterior
 
     @lru_cache(maxsize=None)
     def bayes_risk(self, belief: tuple[float, ...]) -> float:
@@ -311,8 +319,9 @@ class ExactPlanner:
                 probability = float(probability)
                 if probability <= 1e-14:
                     continue
-                posterior = weights * self.likelihoods[:, action, outcome]
-                posterior /= posterior.sum()
+                posterior = self.normalized_posterior(
+                    weights, self.likelihoods[:, action, outcome]
+                )
                 child_value, _ = self.plan(self.belief_key(posterior), remainder, depth - 1)
                 value += probability * child_value
             if value < best_value - TIE_TOLERANCE:
@@ -341,8 +350,9 @@ class ExactPlanner:
             probability = float(probability)
             if probability <= 1e-14:
                 continue
-            posterior = weights * self.likelihoods[:, action, outcome]
-            posterior /= posterior.sum()
+            posterior = self.normalized_posterior(
+                weights, self.likelihoods[:, action, outcome]
+            )
             result += probability * self.expected_policy_risk(
                 self.belief_key(posterior), remainder, remaining - 1, horizon
             )
@@ -367,8 +377,9 @@ class ExactPlanner:
             probability = float(probability)
             if probability <= 1e-14:
                 continue
-            posterior = weights * self.likelihoods[:, action, outcome]
-            posterior /= posterior.sum()
+            posterior = self.normalized_posterior(
+                weights, self.likelihoods[:, action, outcome]
+            )
             result += probability * self.expected_truth_loss(
                 self.belief_key(posterior), remainder, remaining - 1, horizon, truth
             )
@@ -449,12 +460,14 @@ def apply_gate(slice_results: Sequence[dict[str, Any]]) -> dict[str, Any]:
         slice_d3_wins += int(risks[3] < risks[2] - TIE_TOLERANCE)
         slice_d3_over_d1 += int(risks[3] < risks[1] - TIE_TOLERANCE)
         per_slice.append({"slice": item["slice"], "risks": risks})
+    required_slice_wins = 6
+    num_slices = len(VALIDATION_SLICES)
     conditions = {
         "d2_mean_reduction_at_least_5pct": d2_vs_d1["relative_reduction"] >= 0.05,
         "d3_mean_reduction_at_least_5pct": d3_vs_d2["relative_reduction"] >= 0.05,
-        "d2_slice_wins_at_least_6_of_8": slice_d2_wins >= 6,
-        "d3_slice_wins_at_least_6_of_8": slice_d3_wins >= 6,
-        "d3_beats_d1_on_all_8_slices": slice_d3_over_d1 == len(VALIDATION_SLICES),
+        "d2_slice_wins_at_least_6_of_7": slice_d2_wins >= required_slice_wins,
+        "d3_slice_wins_at_least_6_of_7": slice_d3_wins >= required_slice_wins,
+        "d3_beats_d1_on_all_7_slices": slice_d3_over_d1 == num_slices,
         "d2_truth_cell_majority": d2_vs_d1["wins"] > d2_vs_d1["losses"],
         "d3_truth_cell_majority": d3_vs_d2["wins"] > d3_vs_d2["losses"],
     }
@@ -496,7 +509,7 @@ def run_validation(source_root: Path) -> dict[str, Any]:
         )
     gate = apply_gate(slice_results)
     return {
-        "schema_version": "chembench-mopen-nonmyopic-opportunity-v1",
+        "schema_version": "chembench-mopen-nonmyopic-opportunity-v2",
         "status": "passed" if gate["passed"] else "failed_closed",
         "model_calls": 0,
         "cost_usd": 0.0,

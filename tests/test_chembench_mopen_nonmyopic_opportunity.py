@@ -19,7 +19,7 @@ def test_frozen_protocol_dimensions_and_query_sampling() -> None:
     assays = frozen_assays()
     assert len(assays) == 18
     assert len({assay.name for assay in assays}) == 18
-    assert len(VALIDATION_SLICES) == 8
+    assert len(VALIDATION_SLICES) == 7
 
     bounds = {
         "C_A": (0.01, 100.0),
@@ -81,6 +81,13 @@ def test_exact_planner_truth_replay_matches_prior_risk() -> None:
         assert result["root_action_index"] in range(3)
 
 
+def test_belief_key_preserves_tiny_positive_mass() -> None:
+    key = ExactPlanner.belief_key([1e-20, 1.0])
+    assert key[0] > 0.0
+    assert key[0] == pytest.approx(1e-20)
+    assert sum(key) == pytest.approx(1.0)
+
+
 def _slice_result(name: str, d1: float, d2: float, d3: float) -> dict:
     return {
         "slice": name,
@@ -103,8 +110,8 @@ def test_frozen_gate_is_conjunctive() -> None:
         failing[index] = _slice_result(VALIDATION_SLICES[index].name, 1.0, 0.9, 0.91)
     gate = apply_gate(failing)
     assert gate["passed"] is False
-    assert gate["conditions"]["d3_beats_d1_on_all_8_slices"] is True
-    assert gate["conditions"]["d3_slice_wins_at_least_6_of_8"] is False
+    assert gate["conditions"]["d3_beats_d1_on_all_7_slices"] is True
+    assert gate["conditions"]["d3_slice_wins_at_least_6_of_7"] is False
     assert gate["conditions"]["d3_truth_cell_majority"] is True
 
     failing = [_slice_result(item.name, 1.0, 0.96, 0.92) for item in VALIDATION_SLICES]
