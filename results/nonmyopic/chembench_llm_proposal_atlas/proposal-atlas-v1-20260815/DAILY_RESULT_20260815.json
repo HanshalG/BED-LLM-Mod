@@ -1,0 +1,53 @@
+{
+  "authorizes": "nothing",
+  "evaluation_sha256": "8d727786d187b8c3a542f2f99bfd8addb8ecab8bcab3ae437846dab91efea56d",
+  "interface_version": "chembench-llm-proposal-atlas-aug15-execute-1",
+  "labels_sha256": "51a862fe4f04068158b16f296fcae10282abd07dae76ca32e7f9588bca56a108",
+  "ledger_sha256": "a226f98ff6775fc8f8b91449ab12f3b08c0167e52e4f353c5fe73a4760fd4467",
+  "manifest_sha256": "0e00c44d02a56a9662738c1bda4f65127a04cc8122fede773f04aee471219661",
+  "policy_endpoints_opened": false,
+  "raw_sha256": "9b1662179398b21b9d91b521d3be1099f895d314638c839132973b5ff2e615f2",
+  "schema_version": 1,
+  "semantic_conditions": {
+    "atlas_fresh_jaccard_at_least_20pct": true,
+    "atlas_risk_beats_blind_and_random": true,
+    "atlas_risk_within_125pct_oracle": false,
+    "aware_core_advantage_at_least_10pp": false,
+    "aware_core_recall_at_least_45pct": false,
+    "aware_executable_responses_at_least_70pct": false,
+    "aware_item_compile_at_least_80pct": false,
+    "aware_modifier_f1_at_least_45pct": false,
+    "aware_truth_advantage_at_least_10pp": false,
+    "aware_truth_recall_at_least_25pct": false,
+    "clean_transport_at_least_90pct": false,
+    "fresh_risk_beats_blind_and_random": true,
+    "fresh_risk_within_125pct_oracle": false,
+    "heldout_atlas_core_at_least_4_of_9": true,
+    "heldout_atlas_truth_at_least_2_of_9": false,
+    "heldout_fresh_core_at_least_4_of_9": false,
+    "heldout_fresh_truth_at_least_2_of_9": false,
+    "paired_semantic_wins_exceed_losses": false,
+    "strict_schema_at_least_90pct": false
+  },
+  "status": "failed_closed",
+  "transport_conditions": {
+    "accepted_requests_at_most_126": true,
+    "http_attempts_at_most_126": true,
+    "independent_verification_passed": true,
+    "within_stage_cap": true,
+    "zero_forced_paths": false,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "usage": {
+    "accepted_requests": 126,
+    "cost_usd": 0.02788226219999999,
+    "forced_exits": 1,
+    "forced_final_requests": 0,
+    "http_attempts": 126,
+    "reasoning_tokens": 0,
+    "retries": 0
+  },
+  "v5_opened": false,
+  "verification_sha256": "c029e8016bcf6f338b6d0f5054f33abad1fee9f6cbb615c071735a6f35290451"
+}

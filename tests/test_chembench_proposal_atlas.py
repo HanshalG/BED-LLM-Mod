@@ -328,6 +328,7 @@ def test_executor_catalog_and_payload_are_parameter_constrained_nonreasoning(
     with pytest.raises(RuntimeError, match="price ceiling"):
         executor.validate_catalog(_catalog(expensive=True))
     _relocate_executor(monkeypatch, tmp_path)
+    monkeypatch.chdir(tmp_path)
     monkeypatch.setenv("OPENROUTER_API_KEY", "unit-test-only")
     adapter = executor.build_adapter(request_cap=0.01, authorize=None)
     adapter._seed = threading.local()

@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "cost_zero_at_source_gate": true,
+    "labels_reconstructed": true,
+    "manifest_reconstructed": true,
+    "model_calls_zero_at_source_gate": true,
+    "request_count_126": true,
+    "response_count_126": true,
+    "semantic_evaluation_replayed": true,
+    "source_gate_replayed": true,
+    "task_count_36": true
+  },
+  "evaluation": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SEMANTIC_EVALUATION.json",
+    "sha256": "8d727786d187b8c3a542f2f99bfd8addb8ecab8bcab3ae437846dab91efea56d"
+  },
+  "labels": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SEALED_LABELS.json",
+    "sha256": "51a862fe4f04068158b16f296fcae10282abd07dae76ca32e7f9588bca56a108"
+  },
+  "manifest": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/PUBLIC_MANIFEST.json",
+    "sha256": "0e00c44d02a56a9662738c1bda4f65127a04cc8122fede773f04aee471219661"
+  },
+  "responses": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/private/RAW_RESPONSE_BANK.json",
+    "sha256": "9b1662179398b21b9d91b521d3be1099f895d314638c839132973b5ff2e615f2"
+  },
+  "schema_version": "chembench-llm-proposal-atlas-v1-verification",
+  "semantic_status": "failed_closed",
+  "status": "passed",
+  "summary": {
+    "path": "/Users/hanshalgoyal/BED-LLM-Mod/results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SOURCE_SUMMARY.json",
+    "sha256": "d2791361d87ac405dcda779e95358714f7f33d8f3b252e6ca33a8c9a53646a62"
+  }
+}
