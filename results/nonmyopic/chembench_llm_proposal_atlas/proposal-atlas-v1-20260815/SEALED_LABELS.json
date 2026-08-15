@@ -1,0 +1,614 @@
+{
+  "implementation_commit": "ecf8e119e818e42701c6174a0da5dd4291b11449",
+  "schema_version": "chembench-llm-proposal-atlas-v1-sealed-labels",
+  "tasks": [
+    {
+      "oracle_proposal_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "task_id": "chem-easy-h1-1",
+      "truth_model_index": 10,
+      "truth_model_name": "c12_mm_uncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "michaelis_menten",
+        "modifiers": [
+          "arrhenius",
+          "uncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        14,
+        16,
+        20,
+        23
+      ],
+      "task_id": "chem-easy-h1-2",
+      "truth_model_index": 20,
+      "truth_model_name": "c35_hill_noncompetitive",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        14,
+        15,
+        17
+      ],
+      "task_id": "chem-easy-h1-3",
+      "truth_model_index": 17,
+      "truth_model_name": "c29_pingpong_noncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "pingpong",
+        "modifiers": [
+          "arrhenius",
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "task_id": "chem-easy-h1-4",
+      "truth_model_index": 9,
+      "truth_model_name": "c10_mm_competitive_arrhenius",
+      "truth_signature": {
+        "core_family": "michaelis_menten",
+        "modifiers": [
+          "arrhenius",
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        16,
+        37,
+        46
+      ],
+      "task_id": "chem-easy-h2-1",
+      "truth_model_index": 46,
+      "truth_model_name": "c76_ordered_bi_bi_arrhenius",
+      "truth_signature": {
+        "core_family": "ordered_bi_bi",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        55,
+        31,
+        35,
+        38
+      ],
+      "task_id": "chem-easy-h2-2",
+      "truth_model_index": 38,
+      "truth_model_name": "c68_anticoop_hill",
+      "truth_signature": {
+        "core_family": "anticooperative_hill",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        17,
+        31,
+        32
+      ],
+      "task_id": "chem-easy-h2-3",
+      "truth_model_index": 32,
+      "truth_model_name": "c54_sinh_competitive_arrhenius",
+      "truth_signature": {
+        "core_family": "substrate_inhibition",
+        "modifiers": [
+          "arrhenius",
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        22,
+        23,
+        24,
+        26
+      ],
+      "task_id": "chem-easy-h2-4",
+      "truth_model_index": 24,
+      "truth_model_name": "c41_hill_noncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "arrhenius",
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        11,
+        23,
+        26,
+        50
+      ],
+      "task_id": "chem-easy-h3-1",
+      "truth_model_index": 50,
+      "truth_model_name": "c81_coop_inh_arrhenius",
+      "truth_signature": {
+        "core_family": "cooperative_inhibition",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        45,
+        9,
+        26,
+        19
+      ],
+      "task_id": "chem-easy-h3-2",
+      "truth_model_index": 45,
+      "truth_model_name": "c75_two_substrate_inhibition",
+      "truth_signature": {
+        "core_family": "two_substrate_inhibition",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        37,
+        46,
+        47,
+        53
+      ],
+      "task_id": "chem-easy-h3-3",
+      "truth_model_index": 47,
+      "truth_model_name": "c78_allosteric_act_arrhenius",
+      "truth_signature": {
+        "core_family": "allosteric_activation",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        52,
+        15,
+        18,
+        19
+      ],
+      "task_id": "chem-easy-h3-4",
+      "truth_model_index": 52,
+      "truth_model_name": "c90_ordered_bi_bi_noncomp",
+      "truth_signature": {
+        "core_family": "ordered_bi_bi",
+        "modifiers": [
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        9,
+        14,
+        15,
+        17
+      ],
+      "task_id": "chem-medium-h1-1",
+      "truth_model_index": 14,
+      "truth_model_name": "c25_pingpong_competitive",
+      "truth_signature": {
+        "core_family": "pingpong",
+        "modifiers": [
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        11,
+        12,
+        18,
+        19
+      ],
+      "task_id": "chem-medium-h1-2",
+      "truth_model_index": 18,
+      "truth_model_name": "c33_hill_competitive",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "task_id": "chem-medium-h1-3",
+      "truth_model_index": 11,
+      "truth_model_name": "c14_mm_noncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "michaelis_menten",
+        "modifiers": [
+          "arrhenius",
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "task_id": "chem-medium-h1-4",
+      "truth_model_index": 12,
+      "truth_model_name": "c16_mm_product_arrhenius",
+      "truth_signature": {
+        "core_family": "michaelis_menten",
+        "modifiers": [
+          "arrhenius",
+          "product_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        14,
+        15,
+        51
+      ],
+      "task_id": "chem-medium-h2-1",
+      "truth_model_index": 51,
+      "truth_model_name": "c89_ordered_bi_bi_competitive",
+      "truth_signature": {
+        "core_family": "ordered_bi_bi",
+        "modifiers": [
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        27,
+        28,
+        30,
+        31
+      ],
+      "task_id": "chem-medium-h2-2",
+      "truth_model_index": 30,
+      "truth_model_name": "c51_sinh_product",
+      "truth_signature": {
+        "core_family": "substrate_inhibition",
+        "modifiers": [
+          "product_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        19,
+        24,
+        25,
+        18
+      ],
+      "task_id": "chem-medium-h2-3",
+      "truth_model_index": 25,
+      "truth_model_name": "c46_hill_uncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "arrhenius",
+          "uncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        16,
+        37,
+        47
+      ],
+      "task_id": "chem-medium-h2-4",
+      "truth_model_index": 37,
+      "truth_model_name": "c67_allosteric_act",
+      "truth_signature": {
+        "core_family": "allosteric_activation",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        16,
+        48,
+        56,
+        9
+      ],
+      "task_id": "chem-medium-h3-1",
+      "truth_model_index": 48,
+      "truth_model_name": "c79_anticoop_arrhenius",
+      "truth_signature": {
+        "core_family": "anticooperative_hill",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        49,
+        34,
+        23,
+        11
+      ],
+      "task_id": "chem-medium-h3-2",
+      "truth_model_index": 49,
+      "truth_model_name": "c80_mixed_inh_arrhenius",
+      "truth_signature": {
+        "core_family": "mixed_inhibition",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        28,
+        30,
+        45,
+        41
+      ],
+      "task_id": "chem-medium-h3-3",
+      "truth_model_index": 41,
+      "truth_model_name": "c71_coop_inhibition",
+      "truth_signature": {
+        "core_family": "cooperative_inhibition",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        23,
+        26,
+        33,
+        9
+      ],
+      "task_id": "chem-medium-h3-4",
+      "truth_model_index": 33,
+      "truth_model_name": "c56_sinh_noncompetitive_arrhenius",
+      "truth_signature": {
+        "core_family": "substrate_inhibition",
+        "modifiers": [
+          "arrhenius",
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        15,
+        18,
+        19
+      ],
+      "task_id": "chem-hard-h1-1",
+      "truth_model_index": 15,
+      "truth_model_name": "c26_pingpong_noncompetitive",
+      "truth_signature": {
+        "core_family": "pingpong",
+        "modifiers": [
+          "noncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        15,
+        18,
+        19
+      ],
+      "task_id": "chem-hard-h1-2",
+      "truth_model_index": 19,
+      "truth_model_name": "c34_hill_uncompetitive",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "uncompetitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        15,
+        18,
+        19
+      ],
+      "task_id": "chem-hard-h1-3",
+      "truth_model_index": 13,
+      "truth_model_name": "c23_pingpong_arrhenius",
+      "truth_signature": {
+        "core_family": "pingpong",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        9,
+        12,
+        13,
+        16
+      ],
+      "task_id": "chem-hard-h1-4",
+      "truth_model_index": 16,
+      "truth_model_name": "c27_pingpong_competitive_arrhenius",
+      "truth_signature": {
+        "core_family": "pingpong",
+        "modifiers": [
+          "arrhenius",
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        18,
+        21,
+        22,
+        23
+      ],
+      "task_id": "chem-hard-h2-1",
+      "truth_model_index": 23,
+      "truth_model_name": "c39_hill_competitive_arrhenius",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "arrhenius",
+          "competitive_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        21,
+        30,
+        31,
+        35
+      ],
+      "task_id": "chem-hard-h2-2",
+      "truth_model_index": 31,
+      "truth_model_name": "c52_sinh_arrhenius",
+      "truth_signature": {
+        "core_family": "substrate_inhibition",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        19,
+        21,
+        36
+      ],
+      "task_id": "chem-hard-h2-3",
+      "truth_model_index": 36,
+      "truth_model_name": "c65_ordered_bi_bi",
+      "truth_signature": {
+        "core_family": "ordered_bi_bi",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        18,
+        21,
+        22,
+        23
+      ],
+      "task_id": "chem-hard-h2-4",
+      "truth_model_index": 22,
+      "truth_model_name": "c37_hill_arrhenius",
+      "truth_signature": {
+        "core_family": "hill",
+        "modifiers": [
+          "arrhenius"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        40,
+        43,
+        44
+      ],
+      "task_id": "chem-hard-h3-1",
+      "truth_model_index": 43,
+      "truth_model_name": "c73_metal_activation",
+      "truth_signature": {
+        "core_family": "metal_activation",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        12,
+        16,
+        30,
+        34
+      ],
+      "task_id": "chem-hard-h3-2",
+      "truth_model_index": 34,
+      "truth_model_name": "c61_sinh_product_arrhenius",
+      "truth_signature": {
+        "core_family": "substrate_inhibition",
+        "modifiers": [
+          "arrhenius",
+          "product_inhibition"
+        ]
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        28,
+        30,
+        35,
+        40
+      ],
+      "task_id": "chem-hard-h3-3",
+      "truth_model_index": 40,
+      "truth_model_name": "c70_mixed_inhibition",
+      "truth_signature": {
+        "core_family": "mixed_inhibition",
+        "modifiers": []
+      }
+    },
+    {
+      "oracle_proposal_indices": [
+        13,
+        40,
+        43,
+        44
+      ],
+      "task_id": "chem-hard-h3-4",
+      "truth_model_index": 44,
+      "truth_model_name": "c74_product_activation",
+      "truth_signature": {
+        "core_family": "product_activation",
+        "modifiers": []
+      }
+    }
+  ]
+}

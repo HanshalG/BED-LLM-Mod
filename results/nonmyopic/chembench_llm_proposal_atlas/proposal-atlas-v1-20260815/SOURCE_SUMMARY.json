@@ -1,0 +1,40 @@
+{
+  "cost_usd": 0.0,
+  "implementation_commit": "ecf8e119e818e42701c6174a0da5dd4291b11449",
+  "labels": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SEALED_LABELS.json",
+    "sha256": "51a862fe4f04068158b16f296fcae10282abd07dae76ca32e7f9588bca56a108"
+  },
+  "manifest": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/PUBLIC_MANIFEST.json",
+    "sha256": "0e00c44d02a56a9662738c1bda4f65127a04cc8122fede773f04aee471219661"
+  },
+  "model_calls": 0,
+  "schema_version": "chembench-llm-proposal-atlas-v1-source-summary",
+  "source_counts": {
+    "easy/1": 8,
+    "easy/2": 22,
+    "easy/3": 16,
+    "hard/1": 10,
+    "hard/2": 8,
+    "hard/3": 14,
+    "medium/1": 9,
+    "medium/2": 20,
+    "medium/3": 14
+  },
+  "source_gate": {
+    "conditions": {
+      "all_latest_states_trigger": true,
+      "at_least_ten_core_families": true,
+      "four_tasks_per_stratum": true,
+      "no_hidden_generator_name_in_prompts": true,
+      "paired_seed_identity": true,
+      "prompt_lengths_bounded": true,
+      "request_counts_exact": true,
+      "thirty_six_unique_generators": true,
+      "truth_in_source_oracle_top_four": true
+    },
+    "passed": true
+  },
+  "status": "passed"
+}

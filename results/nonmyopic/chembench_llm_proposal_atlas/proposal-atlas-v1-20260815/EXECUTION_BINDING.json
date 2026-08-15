@@ -1,0 +1,63 @@
+{
+  "atlas_module": {
+    "path": "environments/chembench_mopen/proposal_atlas.py",
+    "sha256": "0170cc532a9810439398163076d31628e2d63407d3f09b7b3c5525bc3e7aaf5a"
+  },
+  "concurrency": 64,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-15",
+  "factored_module": {
+    "path": "environments/chembench_mopen/factored.py",
+    "sha256": "5199962fe4aaa0e9255eb8db064197be7244601a638c7b769ec887c9f2fbf4f0"
+  },
+  "labels": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SEALED_LABELS.json",
+    "sha256": "51a862fe4f04068158b16f296fcae10282abd07dae76ca32e7f9588bca56a108"
+  },
+  "manifest": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/PUBLIC_MANIFEST.json",
+    "sha256": "0e00c44d02a56a9662738c1bda4f65127a04cc8122fede773f04aee471219661"
+  },
+  "maximum_http_attempts": 126,
+  "maximum_retries": 0,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "opening_total_usage_usd": 220.339269126,
+  "policy_endpoints_authorized": false,
+  "producer": {
+    "path": "scripts/chembench_llm_proposal_atlas.py",
+    "sha256": "866e74e70b6537ec3e982605630ec4368e1821f73d9923f853a8fc61d6aaf0fb"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/CHEMBENCH_LLM_PROPOSAL_ATLAS_PROTOCOL_20260815.md",
+    "sha256": "59ca8b498e0b01a6de5bea08414297edb340befd824de0b2e14e89c46e6a3483"
+  },
+  "provider": "parameter_constrained_router",
+  "reasoning": "disabled",
+  "requests": 126,
+  "required_implementation_commit": "ecf8e119e818e42701c6174a0da5dd4291b11449",
+  "selection_clarification": {
+    "path": "results/nonmyopic/CHEMBENCH_LLM_PROPOSAL_ATLAS_SOURCE_SELECTION_CLARIFICATION_20260815.md",
+    "sha256": "5fb61a14e7bc4c6b1540ab79b81ef1281b4f868e0969b43c76f23f586dbf705c"
+  },
+  "source_summary": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SOURCE_SUMMARY.json",
+    "sha256": "d2791361d87ac405dcda779e95358714f7f33d8f3b252e6ca33a8c9a53646a62"
+  },
+  "source_verification": {
+    "path": "results/nonmyopic/chembench_llm_proposal_atlas/proposal-atlas-v1-20260815/SOURCE_VERIFICATION.json",
+    "sha256": "bf06c0aeda1170c0d70d5b3f9e8cdce13340ec25e37626acf7547777eea7886b"
+  },
+  "stage_cap_usd": 0.75,
+  "tests": {
+    "path": "tests/test_chembench_proposal_atlas.py",
+    "sha256": "df2c7777f5191375cc3608919618b635065b90b400108287d6b58227da273b47"
+  },
+  "verifier": {
+    "path": "scripts/chembench_llm_proposal_atlas_verify.py",
+    "sha256": "a80d07cddd9cce1c1acb0bc4f00554df09ff094318ec22efff1001925d33b029"
+  },
+  "wrapper": {
+    "path": "scripts/chembench_llm_proposal_atlas_aug15_execute.py",
+    "sha256": "7285f33771cc8e5f84731929678278f54a8b534042f99e6a3daefecbf6824f12"
+  }
+}
