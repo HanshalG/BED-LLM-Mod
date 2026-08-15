@@ -57,8 +57,9 @@ All implementation-integrity conditions pass:
 
 Raw result:
 
-- `results/nonmyopic/chembench_staged_compound_corridor/corridor-v1-20260815/RESULT.json`
-- SHA-256: `cc6768fcd9895a8f40427236c57aa334f8dbb63ca3c6801f4a82bf22e18df3eb`
+- `results/nonmyopic/chembench_staged_compound_corridor/corridor-v1-20260815/RESULT.json.gz`
+- gzip SHA-256: `15994ba9a04396f099e951a09711457826a1732ebfa829e031e3be2427fd63ba`
+- decompressed JSON SHA-256: `cc6768fcd9895a8f40427236c57aa334f8dbb63ca3c6801f4a82bf22e18df3eb`
 
 ## Diagnosis
 
