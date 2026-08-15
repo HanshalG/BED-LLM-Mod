@@ -1,0 +1,67 @@
+{
+  "block_size": 256,
+  "budget_date_aug14": {
+    "path": "results/nonmyopic/NUMBER_GAME_STRATIFIED_ATOMIC_V3_AUG14_BUDGET_DATE_AMENDMENT_20260814.md",
+    "sha256": "aa2848bec2776b62f0d5db62aec9033cb5331e6a6dd0e16ae3986cd610a48127"
+  },
+  "budget_date_aug15": {
+    "path": "results/nonmyopic/NUMBER_GAME_STRATIFIED_ATOMIC_V3_AUG15_BUDGET_DATE_AMENDMENT_20260815.md",
+    "sha256": "e4afb2fa58d85dce15ad4f9d91e83a67a4fe7cdcfa43c7852f59c82186c8d70f"
+  },
+  "canonical_targets_authorized_before_complete_bank": false,
+  "classical_grammar_authorized_before_complete_bank": false,
+  "codec": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_codec.py",
+    "sha256": "9ccaa73900d32c2b68b94330ee95e04a4f807d278eb6c94efca334240a815907"
+  },
+  "collapse_clarification": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_CANONICAL_COLLAPSE_CLARIFICATION_20260813.md",
+    "sha256": "cf8ed35a588adf4d9ee392aae3a93b2e9998956b4df97ed8dc1aa7039f525693"
+  },
+  "concurrency": 128,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-15",
+  "half_bank_clarification": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_HALF_BANK_CLARIFICATION_20260813.md",
+    "sha256": "013cd70c52bc0767d970e2cf6aa4f56d56812f6b1bfe9f98ac4f760d76f874a8"
+  },
+  "maximum_http_attempts": 6400,
+  "maximum_retries": 0,
+  "mechanics_tests": {
+    "path": "tests/test_number_game_stratified_atomic_particle_v3.py",
+    "sha256": "926df722e90c88d75b25eed68fec2455db3609cb6afbf4fa7461319aaae29500"
+  },
+  "model": "qwen/qwen3.7-plus",
+  "opening_total_usage_usd": 220.339269126,
+  "parent_protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_ATOMIC_PARTICLE_DEPTH3_MECHANICS_PROTOCOL_20260813.md",
+    "sha256": "e3141377bc9c65cb54550a4e7319c192e6a14b85d13181e0fdce79e77a2105ea"
+  },
+  "producer": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_mechanics.py",
+    "sha256": "4544af6caa1767db7e05c7e6466b30162527800b29a935fd650f89c684db6e80"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_STRATIFIED_ATOMIC_PARTICLE_V3_PROTOCOL_20260813.md",
+    "sha256": "a1f119276aa00f9d7619c5a20b1de41df6b35b5dc87e087a0f1a97aa654a7244"
+  },
+  "requests": 6400,
+  "schema_version": 1,
+  "stage_cap_usd": 3.5,
+  "synthetic_test_helper": {
+    "path": "tests/test_number_game_atomic_particle_mechanics.py",
+    "sha256": "a5afa45a640c13c63e9df109b5da619fbdf6f21195513a771b676c0cf9652cb7"
+  },
+  "verifier": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_verify.py",
+    "sha256": "6aa305f458f1d734c90abf4bb3b06ded0f8e8a8b2d71757b069d49f365756cc8"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_aug15_execute.py",
+    "sha256": "0699cb3433a68dcd37c0f8d80edd73993fcda6c5e1b352fc1a9f6cbce28bed8f"
+  },
+  "wrapper_tests": {
+    "path": "tests/test_number_game_stratified_atomic_particle_v3_execute.py",
+    "sha256": "6b0ae0aa09e78aeb60f1d604c2e4345180fa13da07aeb214c6fb62d6d1fe6fc1"
+  }
+}
