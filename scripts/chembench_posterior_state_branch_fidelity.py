@@ -179,7 +179,11 @@ def deterministic_belief_medoids(
     for cluster in range(cluster_count):
         indices = np.flatnonzero(labels == cluster)
         if not len(indices):
-            raise RuntimeError("farthest-first Lloyd clustering produced an empty cluster")
+            medoids[cluster] = int(
+                np.argmin(np.sum(np.square(centered - centers[cluster]), axis=1))
+            )
+            probabilities[cluster] = 0.0
+            continue
         distances = np.sum(np.square(centered[indices] - centers[cluster]), axis=1)
         medoids[cluster] = int(indices[int(np.argmin(distances))])
         probabilities[cluster] = len(indices) / len(values)

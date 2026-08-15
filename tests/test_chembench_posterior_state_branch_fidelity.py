@@ -36,6 +36,15 @@ def test_deterministic_medoids_cover_separated_groups() -> None:
     assert np.allclose(np.sort(probabilities), [1 / 3, 1 / 3, 1 / 3])
 
 
+def test_deterministic_medoids_retain_zero_mass_duplicate_centers() -> None:
+    labels, medoids, probabilities = deterministic_belief_medoids(
+        np.zeros((12, 2)), 3
+    )
+    assert labels.tolist() == [0] * 12
+    assert medoids.tolist() == [0, 0, 0]
+    assert probabilities.tolist() == [1.0, 0.0, 0.0]
+
+
 def test_posterior_state_branches_are_finite_and_normalized() -> None:
     result = posterior_state_branch_expected_risk(
         outcomes=np.linspace(-1.0, 2.0, 27),
