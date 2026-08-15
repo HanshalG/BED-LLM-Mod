@@ -1,0 +1,1094 @@
+{
+  "interface_version": "number-game-stratified-atomic-particle-depth3-3",
+  "responses": [
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "99558768dda03d2b39419465a17aa04f37aa2a538bf6f4fad875341ad903c064",
+      "response": "{\"name\": \"Rule 1\", \"expression\": \"is_prime(n)\"}",
+      "seed": 202608180000,
+      "signature": "00000",
+      "slot": 0,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "99558768dda03d2b39419465a17aa04f37aa2a538bf6f4fad875341ad903c064",
+      "response": "{\n  \"name\": \"Divisible by 3 or 7\",\n  \"expression\": \"(divisible(n, 3) or divisible(n, 7))\"\n}",
+      "seed": 202608180001,
+      "signature": "00000",
+      "slot": 1,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "a01143f38b60307bbe26a1fbbd1d13ba88f28753ce30cbde2422142d89d402cb",
+      "response": "{\n  \"name\": \"perfect_square\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180002,
+      "signature": "00001",
+      "slot": 2,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "a01143f38b60307bbe26a1fbbd1d13ba88f28753ce30cbde2422142d89d402cb",
+      "response": "{\n  \"name\": \"is_square(n)\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180003,
+      "signature": "00001",
+      "slot": 3,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "38c8c61581535ba1e6f929d06d4675c919ad8f2a29327ee0bd9c1a5bdee6603f",
+      "response": "{\"name\": \"hypothesis\", \"expression\": \"(not is_square(n)) and (divisible(n, 7) or divisible(n, 6))\"}",
+      "seed": 202608180004,
+      "signature": "00010",
+      "slot": 4,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "38c8c61581535ba1e6f929d06d4675c919ad8f2a29327ee0bd9c1a5bdee6603f",
+      "response": "{\"name\":\"Multiples of 7 or 14\",\"expression\":\"divisible(n, 7) and not divisible(n, 3)\"}",
+      "seed": 202608180005,
+      "signature": "00010",
+      "slot": 5,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "c85c1298b5718f13cd0c04c9ceea32fa64a098a828db8b51223fe960e96e0994",
+      "response": "{\n  \"name\": \"is_square\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180006,
+      "signature": "00011",
+      "slot": 6,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "c85c1298b5718f13cd0c04c9ceea32fa64a098a828db8b51223fe960e96e0994",
+      "response": "{\n  \"name\": \"divisible by three\",\n  \"expression\": \"divisible(n, 3)\"\n}",
+      "seed": 202608180007,
+      "signature": "00011",
+      "slot": 7,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "03ac7c79361b128fc58b9ba7fde823bd6068aa332b4fec695d13e3406908a1fb",
+      "response": "{\n  \"name\": \"perfect_square_and_odd\",\n  \"expression\": \"is_square(n) and not divisible(n, 2)\"\n}",
+      "seed": 202608180008,
+      "signature": "00100",
+      "slot": 8,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "03ac7c79361b128fc58b9ba7fde823bd6068aa332b4fec695d13e3406908a1fb",
+      "response": "{\"name\": \"is_perfect_square_and_not_divisible_by_2_or_3\", \"expression\": \"is_square(n) and n % 2 != 0 and n % 3 != 0\"}",
+      "seed": 202608180009,
+      "signature": "00100",
+      "slot": 9,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "4c418e7878e40c7922ff69a0f758a1200c8a55ead09aaeb029555ae76fa9d0f0",
+      "response": "{\"name\":\"is_square(n)\",\"expression\":\"is_square(n)\"}",
+      "seed": 202608180010,
+      "signature": "00101",
+      "slot": 10,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "4c418e7878e40c7922ff69a0f758a1200c8a55ead09aaeb029555ae76fa9d0f0",
+      "response": "{\n  \"name\": \"perfect_squares\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180011,
+      "signature": "00101",
+      "slot": 11,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "0011217160f7dba16214c2a07265980160a27f99788099d90159b92cd6eaf98d",
+      "response": "{\n  \"name\": \"Perfect squares divisible by 3\",\n  \"expression\": \"is_square(n) and divisible(n, 3)\"\n}",
+      "seed": 202608180012,
+      "signature": "00110",
+      "slot": 12,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "0011217160f7dba16214c2a07265980160a27f99788099d90159b92cd6eaf98d",
+      "response": "{\n  \"name\": \"Hypothesis\",\n  \"expression\": \"divisible(n, 3) and divisible(n, 7)\"\n}",
+      "seed": 202608180013,
+      "signature": "00110",
+      "slot": 13,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "d6d35e0ded9033aba464ad6f98ea56ed4e98ef40e11bbf85b07ebc0ffa4cf2c8",
+      "response": "{\n  \"name\": \"is_square(n) or divisible(n, 6)\",\n  \"expression\": \"is_square(n) or divisible(n, 6)\"\n}",
+      "seed": 202608180014,
+      "signature": "00111",
+      "slot": 14,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "d6d35e0ded9033aba464ad6f98ea56ed4e98ef40e11bbf85b07ebc0ffa4cf2c8",
+      "response": "{\n  \"name\": \"is_square_or_divisible_by_6\",\n  \"expression\": \"is_square(n) or divisible(n, 6)\"\n}",
+      "seed": 202608180015,
+      "signature": "00111",
+      "slot": 15,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8bd22ddc5cb5a89c90d5e03fdbe6307f400aee890c79ae2c3c272cc239840291",
+      "response": "{\"name\": \"divisible_by_3_and_4\", \"expression\": \"divisible(n, 3) and divisible(n, 4)\"}",
+      "seed": 202608180016,
+      "signature": "01000",
+      "slot": 16,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8bd22ddc5cb5a89c90d5e03fdbe6307f400aee890c79ae2c3c272cc239840291",
+      "response": "{\n  \"name\": \"divisible_by_3_and_4\",\n  \"expression\": \"(divisible(n, 3) and divisible(n, 4))\"\n}",
+      "seed": 202608180017,
+      "signature": "01000",
+      "slot": 17,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "69b38524ea4703a9906c7837fb3bfff7ec3cbca4787cb4d91ca3b53961bc49c7",
+      "response": "{\n  \"name\": \"Perfect Square with Even Digit Sum\",\n  \"expression\": \"is_square(n) and (digit_sum(n) % 2 == 0)\"\n}",
+      "seed": 202608180018,
+      "signature": "01001",
+      "slot": 18,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "69b38524ea4703a9906c7837fb3bfff7ec3cbca4787cb4d91ca3b53961bc49c7",
+      "response": "{\n  \"name\": \"Perfect Squares Not Ending in 5\",\n  \"expression\": \"is_square(n) and not ends_with(n, 5)\"\n}",
+      "seed": 202608180019,
+      "signature": "01001",
+      "slot": 19,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8505c9eaab18ea659697b34a271a85509b44fda4909a8631ebcd16bc914d2dba",
+      "response": "{\n  \"name\": \"divisible_by_3_not_perfect_square\",\n  \"expression\": \"divisible(n, 3) and not is_square(n)\"\n}",
+      "seed": 202608180020,
+      "signature": "01010",
+      "slot": 20,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8505c9eaab18ea659697b34a271a85509b44fda4909a8631ebcd16bc914d2dba",
+      "response": "{\n  \"name\": \"divisible_by_3_and_not_perfect_square\",\n  \"expression\": \"divisible(n, 3) and not is_square(n)\"\n}",
+      "seed": 202608180021,
+      "signature": "01010",
+      "slot": 21,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "536393c04db80791298f1af4f43c641c7a6692b53c1d6ade8488c9008afbcb2a",
+      "response": "{\n  \"name\": \"divisible by 3\",\n  \"expression\": \"divisible(n, 3)\"\n}",
+      "seed": 202608180022,
+      "signature": "01011",
+      "slot": 22,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "536393c04db80791298f1af4f43c641c7a6692b53c1d6ade8488c9008afbcb2a",
+      "response": "{\n  \"name\": \"even_or_square\",\n  \"expression\": \"(not (n % 2 == 1)) or is_square(n)\"\n}",
+      "seed": 202608180023,
+      "signature": "01011",
+      "slot": 23,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "0a26c8a68f019f73539939618a1aec006bf3a591e6aebec5eafced3fabc51fcf",
+      "response": "{\n  \"name\": \"square_or_divisible_by_3_and_4\",\n  \"expression\": \"(is_square(n) or (divisible(n, 3) and divisible(n, 4))) and not is_prime(n)\"\n}",
+      "seed": 202608180024,
+      "signature": "01100",
+      "slot": 24,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "0a26c8a68f019f73539939618a1aec006bf3a591e6aebec5eafced3fabc51fcf",
+      "response": "{\n  \"name\": \"is_square_and_even\",\n  \"expression\": \"(is_square(n) and divisible(n, 2))\"\n}",
+      "seed": 202608180025,
+      "signature": "01100",
+      "slot": 25,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8c7feec43ed66f6585464d9426ac8f47378fb752d98159b31b71619a596e94e1",
+      "response": "{\n  \"name\": \"Perfect Squares\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180026,
+      "signature": "01101",
+      "slot": 26,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8c7feec43ed66f6585464d9426ac8f47378fb752d98159b31b71619a596e94e1",
+      "response": "{\n  \"name\": \"Perfect Squares\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180027,
+      "signature": "01101",
+      "slot": 27,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "93ae9eb8d2a870e84bf1937d4ab94ef4e05795158ae8b0715e5a22d88bc2b41b",
+      "response": "{\"name\": \"divisible_by_3\", \"expression\": \"divisible(n, 3)\"}",
+      "seed": 202608180028,
+      "signature": "01110",
+      "slot": 28,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "93ae9eb8d2a870e84bf1937d4ab94ef4e05795158ae8b0715e5a22d88bc2b41b",
+      "response": "{\n  \"name\": \"Divisible by 3 and Not Prime\",\n  \"expression\": \"divisible(n, 3) and not is_prime(n)\"\n}",
+      "seed": 202608180029,
+      "signature": "01110",
+      "slot": 29,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "1693dd2ccd6e0476a500158ef1e11667cea1c06623c7d54e58b638cb5194b58c",
+      "response": "{\n  \"name\": \"divisible by 3\",\n  \"expression\": \"divisible(n, 3)\"\n}",
+      "seed": 202608180030,
+      "signature": "01111",
+      "slot": 30,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "1693dd2ccd6e0476a500158ef1e11667cea1c06623c7d54e58b638cb5194b58c",
+      "response": "{\n  \"name\": \"Non-prime and (divisible by 3 or square)\",\n  \"expression\": \"(not is_prime(n)) and (divisible(n, 3) or is_square(n))\"\n}",
+      "seed": 202608180031,
+      "signature": "01111",
+      "slot": 31,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "a0087e811a0fbaf5ba291a349ded5da91f67063c958a5167b89b5c10b62e4819",
+      "response": "{\"name\":\"prime\",\"expression\":\"is_prime(n)\"}",
+      "seed": 202608180032,
+      "signature": "10000",
+      "slot": 32,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "a0087e811a0fbaf5ba291a349ded5da91f67063c958a5167b89b5c10b62e4819",
+      "response": "{\"name\": \"Rule for 7\", \"expression\": \"is_prime(n)\"}",
+      "seed": 202608180033,
+      "signature": "10000",
+      "slot": 33,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8fbaa2cf62f634b1d3c60cc0c460a4325ee5607faef2d2a56b65788ee569967c",
+      "response": "{\"name\": \"is_prime_or_perfect_square\", \"expression\": \"is_prime(n) or is_square(n)\"}",
+      "seed": 202608180034,
+      "signature": "10001",
+      "slot": 34,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8fbaa2cf62f634b1d3c60cc0c460a4325ee5607faef2d2a56b65788ee569967c",
+      "response": "{\"name\": \"Is a perfect square of an odd integer\", \"expression\": \"is_square(n) and not divisible(is_square(n) ** 0.5, 2)\"}",
+      "seed": 202608180035,
+      "signature": "10001",
+      "slot": 35,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "413abfdc747e218266b6ad21b947c6f4f1decc2f94ce602d18f67f66b4f5ac24",
+      "response": "{\n  \"name\": \"Even and not a perfect square\",\n  \"expression\": \"not is_square(n) and divisible(n, 2)\"\n}",
+      "seed": 202608180036,
+      "signature": "10010",
+      "slot": 36,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "413abfdc747e218266b6ad21b947c6f4f1decc2f94ce602d18f67f66b4f5ac24",
+      "response": "{\n  \"name\": \"Divisible by 7\",\n  \"expression\": \"divisible(n, 7)\"\n}",
+      "seed": 202608180037,
+      "signature": "10010",
+      "slot": 37,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "62faba67778ce46c2ef6eed168a5066c2a3ef6271f5db24f8d6b0d0bbaaa0b39",
+      "response": "{\n  \"name\": \"is_square_or_divisible_by_7\",\n  \"expression\": \"is_square(n) or divisible(n, 7)\"\n}",
+      "seed": 202608180038,
+      "signature": "10011",
+      "slot": 38,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "62faba67778ce46c2ef6eed168a5066c2a3ef6271f5db24f8d6b0d0bbaaa0b39",
+      "response": "{\n  \"name\": \"Odd numbers and multiples of 21\",\n  \"expression\": \"(n % 2 == 1) or (divisible(n, 21))\"\n}",
+      "seed": 202608180039,
+      "signature": "10011",
+      "slot": 39,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "75aed4d4c943b86690ac4204091eea0eef39cfde0a07176b82403b17f81803d1",
+      "response": "{\n  \"name\": \"is_perfect_square\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180040,
+      "signature": "10100",
+      "slot": 40,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "75aed4d4c943b86690ac4204091eea0eef39cfde0a07176b82403b17f81803d1",
+      "response": "{\n  \"name\": \"Is Square\",\n  \"expression\": \"is_square(n)\"\n}",
+      "seed": 202608180041,
+      "signature": "10100",
+      "slot": 41,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "434951074a4a198e7196351c0d17229f2c2e5a10ab6c53774f1585de85e2babb",
+      "response": "{\"name\":\"perfect_squares\",\"expression\":\"is_square(n)\"}",
+      "seed": 202608180042,
+      "signature": "10101",
+      "slot": 42,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "434951074a4a198e7196351c0d17229f2c2e5a10ab6c53774f1585de85e2babb",
+      "response": "{\n  \"name\": \"square_or_prime\",\n  \"expression\": \"is_square(n) or is_prime(n)\"\n}",
+      "seed": 202608180043,
+      "signature": "10101",
+      "slot": 43,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "3c410fad6cc7a8b47e71f916240e094e5c9d2b20b51e7f5e36ed898bd65433a5",
+      "response": "{\n  \"name\": \"perfect_square_not_ending_in_1_or_6\",\n  \"expression\": \"is_square(n) and not (ends_with(n, 1) or ends_with(n, 6))\"\n}",
+      "seed": 202608180044,
+      "signature": "10110",
+      "slot": 44,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "3c410fad6cc7a8b47e71f916240e094e5c9d2b20b51e7f5e36ed898bd65433a5",
+      "response": "{\"name\":\"is_perfect_square\",\"expression\":\"is_square(n)\"}",
+      "seed": 202608180045,
+      "signature": "10110",
+      "slot": 45,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "46dc044258b28fb9440e7f5eb586501c3d6eec25b4e15ec758e3681d9da9a07b",
+      "response": "{\n  \"name\": \"is_square_or_sum_6\",\n  \"expression\": \"is_square(n) or digit_sum(n) == 6\"\n}",
+      "seed": 202608180046,
+      "signature": "10111",
+      "slot": 46,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "46dc044258b28fb9440e7f5eb586501c3d6eec25b4e15ec758e3681d9da9a07b",
+      "response": "{\n  \"name\": \"Square or Divisible by 7\",\n  \"expression\": \"is_square(n) or divisible(n, 7)\"\n}",
+      "seed": 202608180047,
+      "signature": "10111",
+      "slot": 47,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "b6018eb7c95008fe6904e66b9e2e1435e1d4ffce855fe6e337c7e3c4db8c1657",
+      "response": "{\"name\": \"divisible_by_7_or_12\", \"expression\": \"divisible(n, 7) or divisible(n, 12)\"}",
+      "seed": 202608180048,
+      "signature": "11000",
+      "slot": 48,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "b6018eb7c95008fe6904e66b9e2e1435e1d4ffce855fe6e337c7e3c4db8c1657",
+      "response": "{\n  \"name\": \"Sum of digits is prime\",\n  \"expression\": \"is_prime(digit_sum(n))\"\n}",
+      "seed": 202608180049,
+      "signature": "11000",
+      "slot": 49,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "ae9013f898f819cf42b969a40c056da06182863e1ff1a2e105e6e16526d159f9",
+      "response": "{\n  \"name\": \"rule_1748\",\n  \"expression\": \"(is_square(n) or divisible(n, 7)) and not (ends_with(n, 5) or ends_with(n, 2))\"\n}",
+      "seed": 202608180050,
+      "signature": "11001",
+      "slot": 50,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "ae9013f898f819cf42b969a40c056da06182863e1ff1a2e105e6e16526d159f9",
+      "response": "{\n  \"name\": \"digit_sum_is_perfect_square\",\n  \"expression\": \"is_square(digit_sum(n))\"\n}",
+      "seed": 202608180051,
+      "signature": "11001",
+      "slot": 51,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "4b9e6561492c252999e01d736eefd7e546f469ed95f22f36ef2606b960f39a7e",
+      "response": "{\n  \"name\": \"divisible_by_7_or_not_square\",\n  \"expression\": \"divisible(n, 7) or not is_square(n)\"\n}",
+      "seed": 202608180052,
+      "signature": "11010",
+      "slot": 52,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "4b9e6561492c252999e01d736eefd7e546f469ed95f22f36ef2606b960f39a7e",
+      "response": "{\n  \"name\": \"Not a perfect square\",\n  \"expression\": \"not is_square(n)\"\n}",
+      "seed": 202608180053,
+      "signature": "11010",
+      "slot": 53,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "71f13d249e193c4faf7505236ab8982fa183ea6d6b7aacc42ece2f5c993e864e",
+      "response": "{\n  \"name\": \"divisible by 3 or perfect square\",\n  \"expression\": \"(divisible(n, 3) or is_square(n)) and not (n == 25)\"\n}",
+      "seed": 202608180054,
+      "signature": "11011",
+      "slot": 54,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "71f13d249e193c4faf7505236ab8982fa183ea6d6b7aacc42ece2f5c993e864e",
+      "response": "{\n  \"name\": \"is_square(n) or (n > 10 and divisible(n, 7))\",\n  \"expression\": \"is_square(n) or (n > 10 and divisible(n, 7))\"\n}",
+      "seed": 202608180055,
+      "signature": "11011",
+      "slot": 55,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "df26e32e6db760110e3873777f3036fd603d492cc0f1e0a4aa3affd89023bf69",
+      "response": "{\"name\": \"divisible_by_7_or_ends_with_2_or_is_square\", \"expression\": \"(divisible(n, 7) or ends_with(n, 2) or is_square(n)) and not (n == 42 or n == 81)\"}",
+      "seed": 202608180056,
+      "signature": "11100",
+      "slot": 56,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "df26e32e6db760110e3873777f3036fd603d492cc0f1e0a4aa3affd89023bf69",
+      "response": "{\n  \"name\": \"Square or Prime\",\n  \"expression\": \"is_square(n) or is_prime(n)\"\n}",
+      "seed": 202608180057,
+      "signature": "11100",
+      "slot": 57,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "63e5520b1f61eaf942b9ca784f948f0bc965d3e73e825374991b61d0523b7875",
+      "response": "{\n  \"name\": \"is_square_or_prime\",\n  \"expression\": \"is_square(n) or is_prime(n)\"\n}",
+      "seed": 202608180058,
+      "signature": "11101",
+      "slot": 58,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "63e5520b1f61eaf942b9ca784f948f0bc965d3e73e825374991b61d0523b7875",
+      "response": "{\n  \"name\": \"is_square_or_is_prime\",\n  \"expression\": \"is_square(n) or is_prime(n)\"\n}",
+      "seed": 202608180059,
+      "signature": "11101",
+      "slot": 59,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8ad99b3caa1de19c790b7bf52daf71f4ff36c5ea92eb148f7495bc644084c346",
+      "response": "{\n  \"name\": \"Rule for Number Game\",\n  \"expression\": \"divisible(n, 3) or is_square(n)\"\n}",
+      "seed": 202608180060,
+      "signature": "11110",
+      "slot": 60,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "8ad99b3caa1de19c790b7bf52daf71f4ff36c5ea92eb148f7495bc644084c346",
+      "response": "{\n  \"name\": \"digit_sum_is_prime_or_square\",\n  \"expression\": \"is_prime(digit_sum(n)) or is_square(digit_sum(n))\"\n}",
+      "seed": 202608180061,
+      "signature": "11110",
+      "slot": 61,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "ad8efc2aa2683eb97ddf77b0ebaeb4f194783bf8e75cf844c6d6ae1da9323e33",
+      "response": "{\n  \"name\": \"digit_sum_is_square\",\n  \"expression\": \"is_square(digit_sum(n))\"\n}",
+      "seed": 202608180062,
+      "signature": "11111",
+      "slot": 62,
+      "stage": "initial",
+      "tree": 0
+    },
+    {
+      "anchors": [
+        7,
+        12,
+        25,
+        42,
+        81
+      ],
+      "observations": [],
+      "prompt_sha256": "ad8efc2aa2683eb97ddf77b0ebaeb4f194783bf8e75cf844c6d6ae1da9323e33",
+      "response": "{\n  \"name\": \"digital_root_is_7_or_perfect_square\",\n  \"expression\": \"(digit_sum(n) % 9 == 7 and n != 0) or is_square(n)\"\n}",
+      "seed": 202608180063,
+      "signature": "11111",
+      "slot": 63,
+      "stage": "initial",
+      "tree": 0
+    }
+  ],
+  "schema_version": 1
+}
