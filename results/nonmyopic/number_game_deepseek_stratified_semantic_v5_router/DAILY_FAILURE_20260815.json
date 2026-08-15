@@ -1,0 +1,16 @@
+{
+  "actual_cost_usd": 0.0022453330000000004,
+  "authorizes": "nothing",
+  "canonical_targets_opened": false,
+  "development_confirmation_opened": false,
+  "error": "DeepSeek semantic bank replay failed",
+  "error_type": "RuntimeError",
+  "interface_version": "number-game-deepseek-stratified-semantic-v5-router-aug15-execute-1",
+  "label_exists": true,
+  "ledger_sha256": "46772d88b5037a622492889c91b05bf926a0c69313f2d8c3f4f2ff7c1d68deee",
+  "policy_endpoints_opened": false,
+  "raw_exists": true,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "verification_exists": true
+}

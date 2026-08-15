@@ -1,0 +1,13 @@
+{
+  "gates": {
+    "diagnostics_replay": true,
+    "outcomes_closed": true,
+    "raw_hash_matches": true,
+    "request_identities_match": true,
+    "transport_records_replay": false
+  },
+  "interface_version": "number-game-deepseek-stratified-semantic-v4-verifier-1",
+  "model_calls_made": 0,
+  "schema_version": 1,
+  "status": "verification_failed"
+}
