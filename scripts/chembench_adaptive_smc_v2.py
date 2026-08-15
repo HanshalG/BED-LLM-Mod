@@ -79,6 +79,10 @@ def evaluate_v2_case(
     history_designs: np.ndarray,
     query_designs: np.ndarray,
     v1_case: Mapping[str, Any],
+    *,
+    num_particles: int = NUM_PARTICLES,
+    bank_1_seed_base: int = SMC_V2_BANK_1_SEED_BASE,
+    bank_2_seed_base: int = SMC_V2_BANK_2_SEED_BASE,
 ) -> dict[str, Any]:
     prior = _prior_for(source, domain, difficulty)
     truth_parameters = _truth_parameters(source, prior, domain, difficulty, cohort)
@@ -125,16 +129,16 @@ def evaluate_v2_case(
     bank_1 = adaptive_tempered_smc(
         prior,
         log_likelihood,
-        num_particles=NUM_PARTICLES,
-        seed=_stable_seed(SMC_V2_BANK_1_SEED_BASE, difficulty, domain),
+        num_particles=num_particles,
+        seed=_stable_seed(bank_1_seed_base, difficulty, domain),
         initialization="sobol",
         proposal_geometry="full",
     )
     bank_2 = adaptive_tempered_smc(
         prior,
         log_likelihood,
-        num_particles=NUM_PARTICLES,
-        seed=_stable_seed(SMC_V2_BANK_2_SEED_BASE, difficulty, domain),
+        num_particles=num_particles,
+        seed=_stable_seed(bank_2_seed_base, difficulty, domain),
         initialization="sobol",
         proposal_geometry="full",
     )
