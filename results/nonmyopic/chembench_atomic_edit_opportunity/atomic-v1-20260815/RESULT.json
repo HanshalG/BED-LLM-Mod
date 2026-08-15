@@ -1,0 +1,352 @@
+{
+  "aggregate": {
+    "d2_vs_d1": {
+      "absolute_reduction": 0.0010209540915462473,
+      "left_mean": 0.0010209540915470726,
+      "losses": 0,
+      "relative_reduction": 0.9999999999991916,
+      "right_mean": 8.252478708262318e-16,
+      "ties": 43,
+      "wins": 8
+    },
+    "d3_vs_d2": {
+      "absolute_reduction": 8.252478708262318e-16,
+      "left_mean": 8.252478708262318e-16,
+      "losses": 0,
+      "relative_reduction": 1.0,
+      "right_mean": 0.0,
+      "ties": 51,
+      "wins": 0
+    },
+    "mean_terminal_mse": {
+      "d1": 0.0010209540915470726,
+      "d2": 8.252478708262318e-16,
+      "d3": 0.0
+    },
+    "num_truth_cells": 51,
+    "sample_sd_terminal_mse": {
+      "d1": 0.00363173234238686,
+      "d2": 5.893448605312911e-15,
+      "d3": 0.0
+    }
+  },
+  "cost_usd": 0.0,
+  "eligibility": {
+    "definition": "one modifier add/remove with unchanged core, or one core replacement with unchanged modifiers, from frozen initial support",
+    "standard_cores": [
+      "hill",
+      "michaelis_menten",
+      "pingpong",
+      "substrate_inhibition"
+    ],
+    "standard_modifiers": [
+      "arrhenius",
+      "competitive_inhibition",
+      "noncompetitive_inhibition",
+      "ph_bell_curve",
+      "product_inhibition",
+      "uncompetitive_inhibition"
+    ]
+  },
+  "gate": {
+    "conditions": {
+      "d2_has_material_mean_gain": true,
+      "d2_has_truth_cell_win": true,
+      "d3_has_material_mean_gain": false,
+      "d3_has_truth_cell_win": false
+    },
+    "passed": false
+  },
+  "interpretation": "The standard atomic subset is saturated by depth two if the d3 truth-cell win gate fails; it is not suitable for a monotonic d1/d2/d3 efficacy test.",
+  "model_calls": 0,
+  "schema_version": "chembench-atomic-edit-opportunity-v1",
+  "slices": [
+    {
+      "difficulty": "easy",
+      "expected_terminal_mse": {
+        "d1": 0.00254112132330164,
+        "d2": 2.4757436124786956e-15,
+        "d3": 0.0
+      },
+      "num_truths": 17,
+      "root_action": {
+        "d1": "T=278",
+        "d2": "C_A=0.02",
+        "d3": "C_I=50,C_A=1"
+      },
+      "truth_losses": {
+        "d1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.047525074098932e-12,
+          0.011699542196533009,
+          0.019799995192843024,
+          0.0,
+          0.01169952029219293,
+          4.813510006952276e-09,
+          0.0,
+          1.3927769666401103e-15,
+          0.0
+        ],
+        "d2": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          4.2087641412137826e-14,
+          0.0
+        ],
+        "d3": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "truth_names": [
+        "c10_mm_competitive_arrhenius",
+        "c12_mm_uncompetitive_arrhenius",
+        "c14_mm_noncompetitive_arrhenius",
+        "c16_mm_product_arrhenius",
+        "c23_pingpong_arrhenius",
+        "c25_pingpong_competitive",
+        "c26_pingpong_noncompetitive",
+        "c33_hill_competitive",
+        "c34_hill_uncompetitive",
+        "c35_hill_noncompetitive",
+        "c36_hill_product",
+        "c37_hill_arrhenius",
+        "c48_sinh_competitive",
+        "c49_sinh_uncompetitive",
+        "c50_sinh_noncompetitive",
+        "c51_sinh_product",
+        "c52_sinh_arrhenius"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "expected_terminal_mse": {
+        "d1": 0.00013414674823440138,
+        "d2": 0.0,
+        "d3": 0.0
+      },
+      "num_truths": 17,
+      "root_action": {
+        "d1": "T=368",
+        "d2": "T=368",
+        "d3": "T=368"
+      },
+      "truth_losses": {
+        "d1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0017802638030338278,
+          0.0,
+          0.0005002309169509955,
+          0.0
+        ],
+        "d2": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "d3": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "truth_names": [
+        "c10_mm_competitive_arrhenius",
+        "c12_mm_uncompetitive_arrhenius",
+        "c14_mm_noncompetitive_arrhenius",
+        "c16_mm_product_arrhenius",
+        "c23_pingpong_arrhenius",
+        "c25_pingpong_competitive",
+        "c26_pingpong_noncompetitive",
+        "c33_hill_competitive",
+        "c34_hill_uncompetitive",
+        "c35_hill_noncompetitive",
+        "c36_hill_product",
+        "c37_hill_arrhenius",
+        "c48_sinh_competitive",
+        "c49_sinh_uncompetitive",
+        "c50_sinh_noncompetitive",
+        "c51_sinh_product",
+        "c52_sinh_arrhenius"
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "expected_terminal_mse": {
+        "d1": 0.00038759420310517553,
+        "d2": 0.0,
+        "d3": 0.0
+      },
+      "num_truths": 17,
+      "root_action": {
+        "d1": "T=368",
+        "d2": "C_A=10",
+        "d3": "C_A=10"
+      },
+      "truth_losses": {
+        "d1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.006589101452787984,
+          0.0,
+          0.0
+        ],
+        "d2": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "d3": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "truth_names": [
+        "c10_mm_competitive_arrhenius",
+        "c12_mm_uncompetitive_arrhenius",
+        "c14_mm_noncompetitive_arrhenius",
+        "c16_mm_product_arrhenius",
+        "c23_pingpong_arrhenius",
+        "c25_pingpong_competitive",
+        "c26_pingpong_noncompetitive",
+        "c33_hill_competitive",
+        "c34_hill_uncompetitive",
+        "c35_hill_noncompetitive",
+        "c36_hill_product",
+        "c37_hill_arrhenius",
+        "c48_sinh_competitive",
+        "c49_sinh_uncompetitive",
+        "c50_sinh_noncompetitive",
+        "c51_sinh_product",
+        "c52_sinh_arrhenius"
+      ]
+    }
+  ],
+  "source": {
+    "commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+    "file_sha256": {
+      "autoscilab/oracle/chembench.py": "eba9514d68573b4aa8c6a427606f1d0d7a9c431d8396e69ef4ae0774d2a449de",
+      "autoscilab/oracle/chembench_excluded.py": "defc6c0c5edafe75dffaa366a61298856f413bd465a6e4e3636e9b0c57124003",
+      "autoscilab/oracle/compound_domains.py": "0dfd47c1858efacb732f0fbceace3ebd61bb30f864ec777d628fb70f876343f3"
+    },
+    "root": "/private/tmp/LLM-AutoSciLab-acf160e",
+    "tree": "e042d418fc30c6c70f6d1c6b0636d43f0c1c0f7a"
+  },
+  "status": "insufficient_horizon_gap"
+}
