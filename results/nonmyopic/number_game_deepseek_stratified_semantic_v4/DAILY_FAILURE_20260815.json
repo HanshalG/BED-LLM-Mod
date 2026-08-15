@@ -1,0 +1,16 @@
+{
+  "actual_cost_usd": 0.0,
+  "authorizes": "nothing",
+  "canonical_targets_opened": false,
+  "development_confirmation_opened": false,
+  "error": "OpenRouter HTTP 404: {\"error\":{\"message\":\"No endpoints found for deepseek/deepseek-v4-flash-0731.\",\"code\":404},\"user_id\":\"user_2surxsookTj9pqO8DGetb9AMK6g\"}",
+  "error_type": "RuntimeError",
+  "interface_version": "number-game-deepseek-stratified-semantic-v4-aug15-execute-1",
+  "label_exists": false,
+  "ledger_sha256": "d8f847e363cf669843795cd19a8d0898a1339268d426f42fd5ab52b3309f99ed",
+  "policy_endpoints_opened": false,
+  "raw_exists": false,
+  "schema_version": 1,
+  "status": "failed_closed",
+  "verification_exists": false
+}
