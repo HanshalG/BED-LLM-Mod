@@ -16,6 +16,8 @@ API, network call, benchmark endpoint, or paid resource.
 
 - Posterior-state predecessor result SHA-256:
   `637c031946268e8015687d5eb4af4d037bfc1399300e56c0e50bdf049b4fab07`.
+- Inherited component-bank reference result SHA-256:
+  `e4533d76af6ab9be344bbf72806762eb695a425e7664a272105b3d075f706b16`.
 - Authorized V3 result SHA-256:
   `dce0832190aa8b76c9b345220a9043edb6e622db3b8cf0f524b68b5c06c783c1`.
 - Use the predecessor's exact 36 source-only cases, first four observations,
