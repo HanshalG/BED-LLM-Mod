@@ -1,0 +1,52 @@
+{
+  "block_size": 64,
+  "canonical_targets_authorized": false,
+  "codec": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_codec.py",
+    "sha256": "9ccaa73900d32c2b68b94330ee95e04a4f807d278eb6c94efca334240a815907"
+  },
+  "concurrency": 64,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-15",
+  "maximum_http_attempts": 192,
+  "maximum_retries": 0,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "opening_total_usage_usd": 220.339269126,
+  "policy_endpoints_authorized": false,
+  "producer": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4.py",
+    "sha256": "5f836a7e20915fbe4b646037b37b0801485b0186e3c18ec502eb068bf9bbcf64"
+  },
+  "provider": "parameter_constrained_router",
+  "requests": 192,
+  "schema_version": 1,
+  "stage_cap_usd": 0.2,
+  "tests": {
+    "path": "tests/test_number_game_deepseek_stratified_semantic_v5_router.py",
+    "sha256": "57c4427342ce30710da864c6bd2aaeaff6201ca5efb93f555d31fbd6e6698af0"
+  },
+  "transport_parent": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4_aug15_execute.py",
+    "sha256": "db3fc21f5bd7e3c4efb81bbfe5b5f6a45582b5cf3a5ab9681bbdfc83514ca478"
+  },
+  "v4_protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_DEEPSEEK_STRATIFIED_SEMANTIC_V4_PROTOCOL_20260815.md",
+    "sha256": "69de1f6c02b052d7081e8bffa191eaaee070c3d9e879d90250c885033ff3dd31"
+  },
+  "v4_terminal": {
+    "path": "results/nonmyopic/NUMBER_GAME_DEEPSEEK_STRATIFIED_SEMANTIC_V4_TERMINAL_RESULT_20260815.md",
+    "sha256": "4b366291f41a3810206a0f2a3795dc490711da30682d6c480f7804563a5a3558"
+  },
+  "v5_protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_DEEPSEEK_STRATIFIED_SEMANTIC_V5_ROUTER_PROTOCOL_20260815.md",
+    "sha256": "a6e6a6860af769eac25749f89e73181d63cc6ff722f7ba29a7810f0650b8e6e6"
+  },
+  "verifier": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4_verify.py",
+    "sha256": "aee5437be81d6ca33a30e3939edbc925baf25d21285d091e058083492e8ece99"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v5_router_aug15_execute.py",
+    "sha256": "4f8cf3c40029efad35719bd32552c0a89787f76c716a82628cf38664cb9d20a6"
+  }
+}
