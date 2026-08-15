@@ -440,3 +440,408 @@ class DynamicPlanner:
             "num_truths": len(truths),
             "truth_losses": [float(value) for value in truth_losses],
         }
+
+
+@dataclass(frozen=True)
+class SpeculativeState:
+    inference: DynamicState
+    particle_weight: tuple[float, ...]
+
+    def weights(self) -> np.ndarray:
+        values = np.asarray(self.particle_weight, dtype=float)
+        if not np.isfinite(values).all() or not math.isclose(
+            float(values.sum()), 1.0, abs_tol=1e-12, rel_tol=0.0
+        ):
+            raise FloatingPointError("speculative particle weights are not normalized")
+        return values
+
+
+class SpeculativePlanner:
+    """Plan over possible executable worlds while inference support expands."""
+
+    def __init__(
+        self,
+        bank: ModelBank,
+        proposal_cache: ProposalCache,
+        particle_indices: Sequence[int],
+        *,
+        seed: int = 2026081700,
+    ) -> None:
+        particles = tuple(dict.fromkeys(int(item) for item in particle_indices))
+        if not particles or any(item < 0 or item >= bank.num_models for item in particles):
+            raise ValueError("speculative particle indices are invalid")
+        self.bank = bank
+        self.proposal_cache = proposal_cache
+        self.particle_indices = particles
+        self.seed = int(seed)
+
+    def initial_state(self) -> SpeculativeState:
+        count = len(self.particle_indices)
+        return SpeculativeState(
+            inference=self.bank.initial_state(),
+            particle_weight=tuple(1.0 / count for _ in range(count)),
+        )
+
+    def _seed(self, state: SpeculativeState, action: int, outcome: int) -> int:
+        key = proposal_key("speculative-seed", state.inference, action, outcome, self.seed)
+        return int(key[:16], 16) % (2**31 - 1)
+
+    def predictive(self, state: SpeculativeState, action: int) -> np.ndarray:
+        result = state.weights() @ self.bank.likelihoods[
+            np.asarray(self.particle_indices), action, :
+        ]
+        total = float(result.sum())
+        if total <= 0 or not math.isfinite(total):
+            raise FloatingPointError("speculative predictive has no mass")
+        return result / total
+
+    def transition(self, state: SpeculativeState, action: int, outcome: int) -> SpeculativeState:
+        weights = state.weights()
+        posterior = weights * self.bank.likelihoods[
+            np.asarray(self.particle_indices), action, outcome
+        ]
+        total = float(posterior.sum())
+        if total <= 0 or not math.isfinite(total):
+            raise FloatingPointError("speculative branch has zero posterior mass")
+        posterior /= total
+        seed = self._seed(state, action, outcome)
+        proposal = self.proposal_cache.get(state.inference, action, outcome, seed)
+        inference = self.bank.transition(state.inference, action, outcome, proposal)
+        return SpeculativeState(
+            inference=inference,
+            particle_weight=tuple(float(value) for value in posterior),
+        )
+
+    def forecast(self, state: SpeculativeState) -> np.ndarray:
+        weights = state.inference.represented_weights
+        models = np.asarray(state.inference.represented_models)
+        return weights @ self.bank.target_features[models]
+
+    def leaf_risk(self, state: SpeculativeState) -> float:
+        forecast = self.forecast(state)
+        targets = self.bank.target_features[np.asarray(self.particle_indices)]
+        losses = np.mean((targets - forecast) ** 2, axis=1)
+        return float(state.weights() @ losses)
+
+    def speculative_variance(self, state: SpeculativeState, action: int) -> float:
+        means = self.bank.likelihoods[
+            np.asarray(self.particle_indices), action, :
+        ] @ np.arange(3, dtype=float)
+        weights = state.weights()
+        mean = float(weights @ means)
+        return float(weights @ (means - mean) ** 2)
+
+    def candidate_actions(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        width: int,
+    ) -> tuple[int, ...]:
+        by_group: dict[str, tuple[float, int]] = {}
+        for action in available:
+            group = self.bank.action_groups[action]
+            if group is None:
+                continue
+            score = self.speculative_variance(state, action)
+            current = by_group.get(group)
+            if current is None or score > current[0] + TIE_TOLERANCE or (
+                abs(score - current[0]) <= TIE_TOLERANCE and action < current[1]
+            ):
+                by_group[group] = (score, action)
+        ranked = sorted(by_group.values(), key=lambda item: (-item[0], item[1]))
+        return tuple(action for _, action in ranked[:width])
+
+    @lru_cache(maxsize=None)
+    def action_value(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        action: int,
+        depth: int,
+        level: int,
+    ) -> float:
+        probabilities = self.predictive(state, action)
+        remainder = tuple(item for item in available if item != action)
+        value = 0.0
+        for outcome, probability in enumerate(probabilities):
+            probability = float(probability)
+            if probability <= 1e-14:
+                continue
+            child = self.transition(state, action, outcome)
+            child_value, _ = self.plan(child, remainder, depth - 1, level + 1)
+            value += probability * child_value
+        return value
+
+    @lru_cache(maxsize=None)
+    def plan(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        depth: int,
+        level: int = 0,
+    ) -> tuple[float, int]:
+        if depth <= 0 or not available:
+            return self.leaf_risk(state), -1
+        width = 6 if level == 0 else 3 if level == 1 else 2
+        candidates = self.candidate_actions(state, available, width)
+        if not candidates:
+            return self.leaf_risk(state), -1
+        best_value = math.inf
+        best_action = -1
+        for action in candidates:
+            value = self.action_value(state, available, action, depth, level)
+            if value < best_value - TIE_TOLERANCE:
+                best_value = value
+                best_action = action
+        if best_action < 0:
+            raise AssertionError("speculative planner failed to select an action")
+        return best_value, best_action
+
+    @lru_cache(maxsize=None)
+    def expected_truth_loss(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining: int,
+        horizon: int,
+        truth: int,
+    ) -> float:
+        if remaining <= 0 or not available:
+            forecast = self.forecast(state)
+            return float(np.mean((forecast - self.bank.target_features[truth]) ** 2))
+        _, action = self.plan(state, available, min(horizon, remaining), 0)
+        if action < 0:
+            forecast = self.forecast(state)
+            return float(np.mean((forecast - self.bank.target_features[truth]) ** 2))
+        remainder = tuple(item for item in available if item != action)
+        result = 0.0
+        for outcome, probability in enumerate(self.bank.likelihoods[truth, action, :]):
+            probability = float(probability)
+            if probability <= 1e-14:
+                continue
+            child = self.transition(state, action, outcome)
+            result += probability * self.expected_truth_loss(
+                child,
+                remainder,
+                remaining - 1,
+                horizon,
+                truth,
+            )
+        return result
+
+    def forced_root_risk(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        action: int,
+        *,
+        execution_budget: int,
+        horizon: int,
+    ) -> float:
+        remainder = tuple(item for item in available if item != action)
+        particle_prior = state.weights()
+        truth_losses = []
+        for truth in self.particle_indices:
+            value = 0.0
+            for outcome, probability in enumerate(self.bank.likelihoods[truth, action, :]):
+                probability = float(probability)
+                if probability <= 1e-14:
+                    continue
+                child = self.transition(state, action, outcome)
+                value += probability * self.expected_truth_loss(
+                    child,
+                    remainder,
+                    execution_budget - 1,
+                    horizon,
+                    truth,
+                )
+            truth_losses.append(value)
+        return float(particle_prior @ np.asarray(truth_losses))
+
+    def evaluate_horizon(self, horizon: int, *, execution_budget: int = 4) -> dict[str, Any]:
+        state = self.initial_state()
+        available = tuple(range(self.bank.num_actions))
+        planned_value, root_action = self.plan(
+            state,
+            available,
+            min(horizon, execution_budget),
+            0,
+        )
+        truth_losses = [
+            self.expected_truth_loss(
+                state,
+                available,
+                execution_budget,
+                horizon,
+                truth,
+            )
+            for truth in self.particle_indices
+        ]
+        return {
+            "horizon": int(horizon),
+            "root_action_index": int(root_action),
+            "root_action": self.bank.action_names[root_action],
+            "planned_value": float(planned_value),
+            "expected_terminal_mse": float(np.mean(truth_losses)),
+            "expected_terminal_rmsle": math.sqrt(max(float(np.mean(truth_losses)), 0.0)),
+            "num_truths": len(self.particle_indices),
+            "truth_losses": [float(value) for value in truth_losses],
+        }
+
+
+class PolicyLadderPlanner(SpeculativePlanner):
+    """Apply exact finite-budget policy improvement to dynamic support updates."""
+
+    @lru_cache(maxsize=None)
+    def policy_action_value(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining: int,
+        level: int,
+        action: int,
+    ) -> float:
+        if remaining <= 0:
+            return self.leaf_risk(state)
+        probabilities = self.predictive(state, action)
+        remainder = tuple(item for item in available if item != action)
+        value = 0.0
+        for outcome, probability in enumerate(probabilities):
+            probability = float(probability)
+            if probability <= 1e-14:
+                continue
+            child = self.transition(state, action, outcome)
+            if level == 1 or remaining == 1:
+                child_value = self.leaf_risk(child)
+            else:
+                child_value = self.policy_value(
+                    child,
+                    remainder,
+                    remaining - 1,
+                    level - 1,
+                )
+            value += probability * child_value
+        return value
+
+    @lru_cache(maxsize=None)
+    def policy_action(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining: int,
+        level: int,
+    ) -> int:
+        if level <= 0:
+            raise ValueError("policy level must be positive")
+        if remaining <= 0 or not available:
+            return -1
+        candidates = self.candidate_actions(state, available, 6)
+        if not candidates:
+            return -1
+        return min(
+            (
+                self.policy_action_value(
+                    state,
+                    available,
+                    remaining,
+                    level,
+                    action,
+                ),
+                action,
+            )
+            for action in candidates
+        )[1]
+
+    @lru_cache(maxsize=None)
+    def policy_value(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining: int,
+        level: int,
+    ) -> float:
+        if remaining <= 0 or not available:
+            return self.leaf_risk(state)
+        action = self.policy_action(state, available, remaining, level)
+        if action < 0:
+            return self.leaf_risk(state)
+        remainder = tuple(item for item in available if item != action)
+        value = 0.0
+        for outcome, probability in enumerate(self.predictive(state, action)):
+            probability = float(probability)
+            if probability <= 1e-14:
+                continue
+            child = self.transition(state, action, outcome)
+            value += probability * self.policy_value(
+                child,
+                remainder,
+                remaining - 1,
+                level,
+            )
+        return value
+
+    @lru_cache(maxsize=None)
+    def expected_policy_truth_loss(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining: int,
+        level: int,
+        truth: int,
+    ) -> float:
+        if remaining <= 0 or not available:
+            forecast = self.forecast(state)
+            return float(np.mean((forecast - self.bank.target_features[truth]) ** 2))
+        action = self.policy_action(state, available, remaining, level)
+        if action < 0:
+            forecast = self.forecast(state)
+            return float(np.mean((forecast - self.bank.target_features[truth]) ** 2))
+        remainder = tuple(item for item in available if item != action)
+        value = 0.0
+        for outcome, probability in enumerate(self.bank.likelihoods[truth, action, :]):
+            probability = float(probability)
+            if probability <= 1e-14:
+                continue
+            child = self.transition(state, action, outcome)
+            value += probability * self.expected_policy_truth_loss(
+                child,
+                remainder,
+                remaining - 1,
+                level,
+                truth,
+            )
+        return value
+
+    def evaluate_policy_level(
+        self,
+        level: int,
+        *,
+        execution_budget: int = 4,
+    ) -> dict[str, Any]:
+        if level <= 0:
+            raise ValueError("policy level must be positive")
+        state = self.initial_state()
+        available = tuple(range(self.bank.num_actions))
+        root_action = self.policy_action(state, available, execution_budget, level)
+        planned_value = self.policy_value(state, available, execution_budget, level)
+        truth_losses = [
+            self.expected_policy_truth_loss(
+                state,
+                available,
+                execution_budget,
+                level,
+                truth,
+            )
+            for truth in self.particle_indices
+        ]
+        expected_terminal_mse = float(np.mean(truth_losses))
+        return {
+            "policy_level": int(level),
+            "root_action_index": int(root_action),
+            "root_action": self.bank.action_names[root_action],
+            "planned_value": float(planned_value),
+            "expected_terminal_mse": expected_terminal_mse,
+            "expected_terminal_rmsle": math.sqrt(max(expected_terminal_mse, 0.0)),
+            "num_truths": len(self.particle_indices),
+            "truth_losses": [float(value) for value in truth_losses],
+        }

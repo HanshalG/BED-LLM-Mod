@@ -9,8 +9,11 @@ from .mechanics import (
     HistoryBlindProposer,
     ModelBank,
     OracleProposer,
+    PolicyLadderPlanner,
     ProposalCache,
     ScriptedResidualProposer,
+    SpeculativePlanner,
+    SpeculativeState,
 )
 from .source import MixedVersionResponses, build_mixed_version_responses
 
@@ -23,10 +26,13 @@ __all__ = [
     "ModelBank",
     "MixedVersionResponses",
     "OracleProposer",
+    "PolicyLadderPlanner",
     "ParameterSpec",
     "ProposalCache",
     "RateLaw",
     "RateLawError",
     "ScriptedResidualProposer",
+    "SpeculativePlanner",
+    "SpeculativeState",
     "build_mixed_version_responses",
 ]
