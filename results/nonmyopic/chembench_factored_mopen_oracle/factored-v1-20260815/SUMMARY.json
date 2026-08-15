@@ -1,0 +1,55 @@
+{
+  "schema_version": "chembench-factored-mopen-oracle-v1-summary",
+  "status": "passed",
+  "model_calls": 0,
+  "cost_usd": 0.0,
+  "implementation_commit": "b9f5192a",
+  "aggregate": {
+    "d1_terminal_mse": 0.054391102514986266,
+    "d2_terminal_mse": 0.03781695047070272,
+    "d3_terminal_mse": 0.03176549894239036,
+    "d2_vs_d1_relative_reduction": 0.30472175186588474,
+    "d3_vs_d2_relative_reduction": 0.1600195534804028,
+    "d2_vs_d1_practical_wins_ties_losses": [56, 64, 24],
+    "d3_vs_d2_practical_wins_ties_losses": [27, 94, 23],
+    "d2_root_differences": 3,
+    "d3_root_differences": 2
+  },
+  "slices": {
+    "easy/v4": {
+      "d1_terminal_mse": 0.04399663825162889,
+      "d2_terminal_mse": 0.025624341548130775,
+      "d3_terminal_mse": 0.024154054280496485,
+      "source_false_trigger_mass": 0.09717005860729012,
+      "unique_transition_trigger_rate": 0.3075268817204301,
+      "fixed_support_d1_terminal_mse": 0.22125161147175199
+    },
+    "medium/v4": {
+      "d1_terminal_mse": 0.05614784771299436,
+      "d2_terminal_mse": 0.04282472379980562,
+      "d3_terminal_mse": 0.028816374842552315,
+      "source_false_trigger_mass": 0.03545654900477077,
+      "unique_transition_trigger_rate": 0.35363457760314343,
+      "fixed_support_d1_terminal_mse": 0.4408889808081344
+    },
+    "hard/v4": {
+      "d1_terminal_mse": 0.06302882158033551,
+      "d2_terminal_mse": 0.04500178606417177,
+      "d3_terminal_mse": 0.04232606770412228,
+      "source_false_trigger_mass": 0.09259257718115395,
+      "unique_transition_trigger_rate": 0.2768100303170443,
+      "fixed_support_d1_terminal_mse": 0.45634279145929857
+    }
+  },
+  "conditions_passed": 16,
+  "conditions_total": 16,
+  "raw_content_sha256": {
+    "RESULT.json": "2f1cdb224a5628d9b9e342c8d29dccf064fd9165db4a0fe40358be4192c7eb81",
+    "TRANSITION_BANK.json": "b9af378701f813c3a61cd5725e8f54b4b461826196c39b3386726fe7cc404db1"
+  },
+  "archive_sha256": {
+    "RESULT.json.gz": "247f0b3996ce3ea58a71e37af8cc314dad1399d5f8987850b590b615ae6f3d2e",
+    "TRANSITION_BANK.json.gz": "4a48da4968407059806bdc70bee6f7dce987d36f63bbc5e7ab8f91b60ce280b3",
+    "VERIFICATION.json": "d97daa7dacbbeb7ab0a08907fd4e3785f92a319e0aa224f5ebdfc5f9059594f3"
+  }
+}
