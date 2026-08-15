@@ -13,6 +13,59 @@ from environments.chembench_mopen.source import LINEAR_PARAMETER_NAMES
 
 ArrayLogLikelihood = Callable[[np.ndarray], np.ndarray]
 
+_SOBOL_POLYNOMIALS = (1, 3, 7, 11, 13, 19, 25, 37)
+_SOBOL_INITIAL_DIRECTIONS = (
+    (1,),
+    (1,),
+    (1, 3),
+    (1, 3, 1),
+    (1, 1, 1),
+    (1, 1, 3, 3),
+    (1, 3, 5, 13),
+    (1, 1, 5, 5, 17),
+)
+
+
+def _scrambled_sobol_points(dimension: int, power: int, seed: int) -> np.ndarray:
+    """Generate a digitally shifted Sobol prefix for up to eight dimensions."""
+
+    if not 1 <= dimension <= len(_SOBOL_POLYNOMIALS) or power <= 0:
+        raise ValueError("Sobol dimension or power is unsupported")
+    bits = 52
+    directions = np.zeros((dimension, bits), dtype=np.uint64)
+    for bit in range(1, bits + 1):
+        directions[0, bit - 1] = np.uint64(1 << (bits - bit))
+    for dim in range(1, dimension):
+        polynomial = _SOBOL_POLYNOMIALS[dim]
+        degree = polynomial.bit_length() - 1
+        coefficient_bits = (polynomial >> 1) & ((1 << (degree - 1)) - 1)
+        initial = _SOBOL_INITIAL_DIRECTIONS[dim]
+        for bit in range(1, degree + 1):
+            directions[dim, bit - 1] = np.uint64(initial[bit - 1] << (bits - bit))
+        for bit in range(degree + 1, bits + 1):
+            value = directions[dim, bit - degree - 1]
+            value ^= value >> np.uint64(degree)
+            for offset in range(1, degree):
+                if (coefficient_bits >> (degree - 1 - offset)) & 1:
+                    value ^= directions[dim, bit - offset - 1]
+            directions[dim, bit - 1] = value
+
+    count = 1 << power
+    integer_points = np.empty((count, dimension), dtype=np.uint64)
+    state = np.zeros(dimension, dtype=np.uint64)
+    for index in range(count):
+        integer_points[index] = state
+        trailing_ones = 0
+        value = index
+        while value & 1:
+            trailing_ones += 1
+            value >>= 1
+        state ^= directions[:, trailing_ones]
+    rng = np.random.default_rng(seed)
+    digital_shift = rng.integers(0, 1 << bits, size=dimension, dtype=np.uint64)
+    integer_points ^= digital_shift[None, :]
+    return integer_points.astype(float) / float(1 << bits)
+
 
 def _logsumexp(values: np.ndarray) -> float:
     array = np.asarray(values, dtype=float)
@@ -137,6 +190,21 @@ class TransformedParameterPrior:
                 result[filled : filled + take] = batch[:take]
                 filled += take
         return result
+
+    def sample_sobol(self, seed: int, count: int) -> np.ndarray:
+        """Draw a scrambled Sobol prefix from the conditional transformed prior."""
+
+        if count <= 0:
+            raise ValueError("sample count must be positive")
+        base_power = int(math.ceil(math.log2(count)))
+        extra_power = 2 if self.ordered_pairs else 0
+        for power in range(base_power + extra_power, base_power + extra_power + 8):
+            unit = _scrambled_sobol_points(self.dimension, power, seed)
+            values = self.lower + unit * self.width
+            values = values[self.valid_rows(values)]
+            if len(values) >= count:
+                return np.asarray(values[:count], dtype=float)
+        raise RuntimeError("could not draw enough ordered Sobol prior particles")
 
     def encode(self, parameters: Mapping[str, Any]) -> np.ndarray:
         if set(parameters) != set(self.names):
@@ -297,6 +365,8 @@ def adaptive_tempered_smc(
     max_tempering_rungs: int = 80,
     proposal_scale: float = 0.5,
     proposal_floor_fraction: float = 0.01,
+    initialization: str = "random",
+    proposal_geometry: str = "diagonal",
 ) -> SMCResult:
     if num_particles <= 1:
         raise ValueError("SMC requires at least two particles")
@@ -306,9 +376,17 @@ def adaptive_tempered_smc(
         raise ValueError("SMC rung and rejuvenation settings must be positive")
     if proposal_scale <= 0 or proposal_floor_fraction <= 0:
         raise ValueError("SMC proposal scales must be positive")
+    if initialization not in {"random", "sobol"}:
+        raise ValueError("SMC initialization must be random or sobol")
+    if proposal_geometry not in {"diagonal", "full"}:
+        raise ValueError("SMC proposal geometry must be diagonal or full")
 
     rng = np.random.default_rng(seed)
-    particles = prior.sample(rng, num_particles)
+    particles = (
+        prior.sample(rng, num_particles)
+        if initialization == "random"
+        else prior.sample_sobol(seed, num_particles)
+    )
     log_likelihoods = np.asarray(log_likelihood(particles), dtype=float)
     if log_likelihoods.shape != (num_particles,) or not np.isfinite(log_likelihoods).all():
         raise ValueError("initial SMC log likelihoods are invalid")
@@ -349,16 +427,30 @@ def adaptive_tempered_smc(
         log_likelihoods = log_likelihoods[indices].copy()
         log_weights.fill(-math.log(num_particles))
 
-        particle_spread = np.std(particles, axis=0, ddof=1)
-        step_scale = np.maximum(
-            proposal_scale * particle_spread,
-            proposal_floor_fraction * prior.width,
-        )
+        if proposal_geometry == "diagonal":
+            particle_spread = np.std(particles, axis=0, ddof=1)
+            step_scale = np.maximum(
+                proposal_scale * particle_spread,
+                proposal_floor_fraction * prior.width,
+            )
+            proposal_cholesky = None
+        else:
+            covariance = np.atleast_2d(np.cov(particles, rowvar=False, ddof=1))
+            floor = proposal_floor_fraction * prior.width
+            proposal_covariance = proposal_scale**2 * covariance + np.diag(floor**2)
+            proposal_cholesky = np.linalg.cholesky(proposal_covariance)
+            step_scale = None
         accepted_this_rung = 0
         invalid_this_rung = 0
         proposed_this_rung = num_particles * rejuvenation_moves
         for _move in range(rejuvenation_moves):
-            proposals = particles + rng.normal(size=particles.shape) * step_scale[None, :]
+            innovations = rng.normal(size=particles.shape)
+            if proposal_cholesky is None:
+                if step_scale is None:
+                    raise AssertionError("diagonal proposal scale is absent")
+                proposals = particles + innovations * step_scale[None, :]
+            else:
+                proposals = particles + innovations @ proposal_cholesky.T
             valid = prior.valid_rows(proposals)
             invalid_this_rung += int(np.count_nonzero(~valid))
             proposal_log_likelihoods = np.full(num_particles, -math.inf, dtype=float)

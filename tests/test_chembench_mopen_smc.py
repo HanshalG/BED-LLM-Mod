@@ -28,6 +28,19 @@ def test_transformed_prior_round_trips_and_enforces_order() -> None:
     assert prior.outside_coordinate_count(states[0]) == 0
 
 
+def test_scrambled_sobol_prior_is_reproducible_and_well_spread() -> None:
+    prior = TransformedParameterPrior.from_parameter_states(
+        ({"kcat": 1.0, "pKa1": 5.0, "pKa2": 7.0}, {"kcat": 4.0, "pKa1": 6.0, "pKa2": 9.0})
+    )
+    first = prior.sample_sobol(23, 256)
+    second = prior.sample_sobol(23, 256)
+    np.testing.assert_array_equal(first, second)
+    assert prior.valid_rows(first).all()
+    scaled = (first - prior.lower) / prior.width
+    assert np.all(np.mean(scaled, axis=0) > 0.4)
+    assert np.all(np.mean(scaled, axis=0) < 0.6)
+
+
 def test_static_importance_sampling_has_normalized_finite_weights() -> None:
     prior = TransformedParameterPrior.from_parameter_states(
         ({"alpha": -2.0}, {"alpha": 2.0}),
@@ -102,3 +115,31 @@ def test_adaptive_smc_is_reproducible_from_seed() -> None:
     np.testing.assert_array_equal(first.weights, second.weights)
     assert first.log_evidence == second.log_evidence
     assert first.diagnostics == second.diagnostics
+
+
+def test_sobol_full_covariance_smc_is_finite_and_reproducible() -> None:
+    prior = TransformedParameterPrior.from_parameter_states(
+        (
+            {"alpha": -3.0, "beta": -2.0},
+            {"alpha": 3.0, "beta": 2.0},
+        ),
+        expansion_factor=0.0,
+        clamp_identity_positive=False,
+    )
+
+    def log_likelihood(particles: np.ndarray) -> np.ndarray:
+        residual = particles[:, 0] + 0.8 * particles[:, 1] - 1.0
+        return -0.5 * np.square(residual / 0.2)
+
+    kwargs = dict(
+        num_particles=256,
+        seed=53,
+        initialization="sobol",
+        proposal_geometry="full",
+    )
+    first = adaptive_tempered_smc(prior, log_likelihood, **kwargs)
+    second = adaptive_tempered_smc(prior, log_likelihood, **kwargs)
+    np.testing.assert_array_equal(first.particles, second.particles)
+    assert first.log_evidence == second.log_evidence
+    assert first.diagnostics.temperatures[-1] == 1.0
+    assert 0.0 < first.diagnostics.aggregate_acceptance_rate < 1.0
