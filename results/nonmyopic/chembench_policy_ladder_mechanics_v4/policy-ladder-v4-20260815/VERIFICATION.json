@@ -1,0 +1,113 @@
+{
+  "cost_usd": 0.0,
+  "gate": {
+    "conditions": {
+      "call_matched_d1_replay_exact": true,
+      "d2_mean_reduction_at_least_5pct": true,
+      "d2_root_differs_on_at_least_one_slice": true,
+      "d2_truth_cell_majority": true,
+      "d3_mean_reduction_at_least_5pct": true,
+      "d3_root_differs_on_at_least_one_slice": true,
+      "d3_truth_cell_majority": true,
+      "per_slice_model_risk_nonincreasing": true,
+      "planned_truth_replay_calibrated": true,
+      "runtime_checks_pass": true
+    },
+    "d2_root_differences": 3,
+    "d2_vs_d1": {
+      "absolute_reduction": 0.007157889627422941,
+      "left_mean": 0.03919425074072232,
+      "losses": 31,
+      "relative_reduction": 0.18262600999248052,
+      "right_mean": 0.032036361113299376,
+      "ties": 75,
+      "tolerance": 1e-06,
+      "wins": 38
+    },
+    "d3_root_differences": 1,
+    "d3_vs_d1": {
+      "absolute_reduction": 0.009947454848101972,
+      "left_mean": 0.03919425074072232,
+      "losses": 19,
+      "relative_reduction": 0.25379882661634084,
+      "right_mean": 0.029246795892620345,
+      "ties": 76,
+      "tolerance": 1e-06,
+      "wins": 49
+    },
+    "d3_vs_d2": {
+      "absolute_reduction": 0.0027895652206790314,
+      "left_mean": 0.032036361113299376,
+      "losses": 7,
+      "relative_reduction": 0.08707497118082455,
+      "right_mean": 0.029246795892620345,
+      "ties": 111,
+      "tolerance": 1e-06,
+      "wins": 26
+    },
+    "exact_descriptive": {
+      "d2_vs_d1": {
+        "absolute_reduction": 0.007157889627422941,
+        "left_mean": 0.03919425074072232,
+        "losses": 33,
+        "relative_reduction": 0.18262600999248052,
+        "right_mean": 0.032036361113299376,
+        "ties": 69,
+        "wins": 42
+      },
+      "d3_vs_d1": {
+        "absolute_reduction": 0.009947454848101972,
+        "left_mean": 0.03919425074072232,
+        "losses": 22,
+        "relative_reduction": 0.25379882661634084,
+        "right_mean": 0.029246795892620345,
+        "ties": 70,
+        "wins": 52
+      },
+      "d3_vs_d2": {
+        "absolute_reduction": 0.0027895652206790314,
+        "left_mean": 0.032036361113299376,
+        "losses": 11,
+        "relative_reduction": 0.08707497118082455,
+        "right_mean": 0.029246795892620345,
+        "ties": 105,
+        "wins": 28
+      }
+    },
+    "passed": true
+  },
+  "model_calls": 0,
+  "result_path": "results/nonmyopic/chembench_policy_ladder_mechanics_v4/policy-ladder-v4-20260815/RESULT.json",
+  "result_sha256": "f46e1fac28332b06ac2c62ff91fd68e537849c93ea74199ee7dc5d2d418aaec6",
+  "schema_version": "chembench-policy-ladder-mechanics-v4-verification",
+  "slices": [
+    {
+      "difficulty": "easy",
+      "query_seed": 2026081701,
+      "version": "v4"
+    },
+    {
+      "difficulty": "medium",
+      "query_seed": 2026081702,
+      "version": "v4"
+    },
+    {
+      "difficulty": "hard",
+      "query_seed": 2026081703,
+      "version": "v4"
+    }
+  ],
+  "source": {
+    "commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+    "file_sha256": {
+      "autoscilab/oracle/chembench.py": "eba9514d68573b4aa8c6a427606f1d0d7a9c431d8396e69ef4ae0774d2a449de",
+      "autoscilab/oracle/chembench_excluded.py": "defc6c0c5edafe75dffaa366a61298856f413bd465a6e4e3636e9b0c57124003",
+      "autoscilab/oracle/compound_domains.py": "0dfd47c1858efacb732f0fbceace3ebd61bb30f864ec777d628fb70f876343f3"
+    },
+    "root": "/private/tmp/LLM-AutoSciLab-acf160e",
+    "tree": "e042d418fc30c6c70f6d1c6b0636d43f0c1c0f7a"
+  },
+  "status": "verified",
+  "transition_bank_path": "results/nonmyopic/chembench_policy_ladder_mechanics_v4/policy-ladder-v4-20260815/TRANSITION_BANK.json",
+  "transition_bank_sha256": "eb6c51b945c05f697b25681ed02a49763cb50ea234436b691a9d45a7e69b3b59"
+}
