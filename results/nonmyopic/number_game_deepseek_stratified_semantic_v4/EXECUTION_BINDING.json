@@ -1,0 +1,48 @@
+{
+  "block_size": 64,
+  "canonical_targets_authorized": false,
+  "codec": {
+    "path": "scripts/number_game_stratified_atomic_particle_v3_codec.py",
+    "sha256": "9ccaa73900d32c2b68b94330ee95e04a4f807d278eb6c94efca334240a815907"
+  },
+  "concurrency": 64,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-15",
+  "maximum_http_attempts": 192,
+  "maximum_retries": 0,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "opening_total_usage_usd": 220.339269126,
+  "policy_endpoints_authorized": false,
+  "producer": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4.py",
+    "sha256": "5f836a7e20915fbe4b646037b37b0801485b0186e3c18ec502eb068bf9bbcf64"
+  },
+  "protocol": {
+    "path": "results/nonmyopic/NUMBER_GAME_DEEPSEEK_STRATIFIED_SEMANTIC_V4_PROTOCOL_20260815.md",
+    "sha256": "69de1f6c02b052d7081e8bffa191eaaee070c3d9e879d90250c885033ff3dd31"
+  },
+  "provider": "GMICloud",
+  "requests": 192,
+  "schema_version": 1,
+  "stage_cap_usd": 0.2,
+  "synthetic_test_helper": {
+    "path": "tests/test_number_game_atomic_particle_mechanics.py",
+    "sha256": "a5afa45a640c13c63e9df109b5da619fbdf6f21195513a771b676c0cf9652cb7"
+  },
+  "tests": {
+    "path": "tests/test_number_game_deepseek_stratified_semantic_v4.py",
+    "sha256": "ca9053826353987d0f07b15c9465550ecc345aa1cd5bd41aec81384d1fd54256"
+  },
+  "v3_terminal": {
+    "path": "results/nonmyopic/NUMBER_GAME_STRATIFIED_ATOMIC_PARTICLE_V3_TERMINAL_RESULT_20260815.md",
+    "sha256": "147d8a5844fe2fba48e9b59ecd18c072583d763e61889ab376794f672694a890"
+  },
+  "verifier": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4_verify.py",
+    "sha256": "aee5437be81d6ca33a30e3939edbc925baf25d21285d091e058083492e8ece99"
+  },
+  "wrapper": {
+    "path": "scripts/number_game_deepseek_stratified_semantic_v4_aug15_execute.py",
+    "sha256": "db3fc21f5bd7e3c4efb81bbfe5b5f6a45582b5cf3a5ab9681bbdfc83514ca478"
+  }
+}
