@@ -281,13 +281,28 @@ class ScriptedResidualProposer:
         return tuple(item for item in candidates if item not in state.discovered)[:MAX_PROPOSALS]
 
 
-def proposal_key(mode: str, state: DynamicState, action: int, outcome: int, seed: int) -> str:
+def _proposal_outcome_value(outcome: int | float) -> int | float:
+    if isinstance(outcome, (int, np.integer)):
+        return int(outcome)
+    value = float(outcome)
+    if not math.isfinite(value):
+        raise ValueError("proposal outcome must be finite")
+    return value
+
+
+def proposal_key(
+    mode: str,
+    state: DynamicState,
+    action: int,
+    outcome: int | float,
+    seed: int,
+) -> str:
     payload = {
         "mode": mode,
         "seed": int(seed),
         "state": state.public_key(),
         "action": int(action),
-        "outcome": int(outcome),
+        "outcome": _proposal_outcome_value(outcome),
     }
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 

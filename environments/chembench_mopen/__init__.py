@@ -1,5 +1,15 @@
 """Dynamic-support Bayesian experiment design for ChemBench."""
 
+from .continuous import (
+    ContinuousOracleProposer,
+    ContinuousParameterBank,
+    ContinuousPolicyLadderPlanner,
+    ContinuousSpeculativeState,
+    ContinuousState,
+    PredictiveBranch,
+    ScenarioPolicyLadderPlanner,
+    weighted_quantile_branches,
+)
 from .ir import ParameterSpec, RateLaw, RateLawError
 from .empirical import (
     EmpiricalOracleProposer,
@@ -32,6 +42,11 @@ from .source import (
 
 __all__ = [
     "BankedProposer",
+    "ContinuousOracleProposer",
+    "ContinuousParameterBank",
+    "ContinuousPolicyLadderPlanner",
+    "ContinuousSpeculativeState",
+    "ContinuousState",
     "DynamicPlanner",
     "DynamicState",
     "EmpiricalOracleProposer",
@@ -46,14 +61,17 @@ __all__ = [
     "MixedVersionResponses",
     "OracleProposer",
     "PolicyLadderPlanner",
+    "PredictiveBranch",
     "ParameterSpec",
     "ProposalCache",
     "RateLaw",
     "RateLawError",
+    "ScenarioPolicyLadderPlanner",
     "ScriptedResidualProposer",
     "SpeculativePlanner",
     "SpeculativeState",
     "build_mixed_version_responses",
     "build_empirical_parameter_responses",
     "sample_broadened_parameter_particles",
+    "weighted_quantile_branches",
 ]
