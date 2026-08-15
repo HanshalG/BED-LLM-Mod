@@ -123,6 +123,13 @@ def test_preflight_restores_closed_v4_executor_globals(monkeypatch, tmp_path: Pa
     assert v4.build_adapter is original["build_adapter"]
 
 
+def test_default_catalog_reader_uses_immutable_parent_function(monkeypatch) -> None:
+    monkeypatch.setattr(v5, "PARENT_READ_CATALOG", catalog)
+    with v5.configured_parent():
+        assert v4.read_catalog is v5.read_catalog
+        assert v5.read_catalog() == catalog()
+
+
 def test_full_fake_execute_preserves_v4_science_and_writes_v5_terminal(
     monkeypatch, tmp_path: Path
 ) -> None:

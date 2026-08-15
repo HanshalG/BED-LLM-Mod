@@ -23,7 +23,7 @@
   "stage_cap_usd": 0.2,
   "tests": {
     "path": "tests/test_number_game_deepseek_stratified_semantic_v5_router.py",
-    "sha256": "57c4427342ce30710da864c6bd2aaeaff6201ca5efb93f555d31fbd6e6698af0"
+    "sha256": "b4965b3cc3b94a3d32e8decc516a186f6a2cec713bae8ded56870f8b6bc5f3e1"
   },
   "transport_parent": {
     "path": "scripts/number_game_deepseek_stratified_semantic_v4_aug15_execute.py",
@@ -47,6 +47,6 @@
   },
   "wrapper": {
     "path": "scripts/number_game_deepseek_stratified_semantic_v5_router_aug15_execute.py",
-    "sha256": "4f8cf3c40029efad35719bd32552c0a89787f76c716a82628cf38664cb9d20a6"
+    "sha256": "5ef5e554e867e4a4ced6918dfe0b3bc1536fa84567c9671c3ff8a91c5b8ec301"
   }
 }

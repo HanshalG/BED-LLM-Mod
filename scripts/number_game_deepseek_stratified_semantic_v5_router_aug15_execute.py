@@ -23,6 +23,7 @@ from scripts import number_game_deepseek_stratified_semantic_v4_verify as verifi
 from scripts import number_game_deepseek_stratified_semantic_v4_aug15_execute as parent
 
 
+PARENT_READ_CATALOG = parent.read_catalog
 INTERFACE_VERSION = "number-game-deepseek-stratified-semantic-v5-router-aug15-execute-1"
 DATE = "2026-08-15"
 OPENING_USAGE_USD = 220.339269126
@@ -53,7 +54,7 @@ def load(path: Path) -> dict[str, Any]:
 
 
 def read_catalog() -> dict[str, Any]:
-    return parent.read_catalog()
+    return PARENT_READ_CATALOG()
 
 
 def validate_catalog(catalog: Mapping[str, Any]) -> dict[str, Any]:
