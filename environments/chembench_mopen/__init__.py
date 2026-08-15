@@ -1,6 +1,13 @@
 """Dynamic-support Bayesian experiment design for ChemBench."""
 
 from .ir import ParameterSpec, RateLaw, RateLawError
+from .empirical import (
+    EmpiricalOracleProposer,
+    EmpiricalParameterBank,
+    EmpiricalPolicyLadderPlanner,
+    EmpiricalSpeculativeState,
+    EmpiricalState,
+)
 from .mechanics import (
     BankedProposer,
     DynamicPlanner,
@@ -15,12 +22,24 @@ from .mechanics import (
     SpeculativePlanner,
     SpeculativeState,
 )
-from .source import MixedVersionResponses, build_mixed_version_responses
+from .source import (
+    EmpiricalParameterResponses,
+    MixedVersionResponses,
+    build_empirical_parameter_responses,
+    build_mixed_version_responses,
+    sample_broadened_parameter_particles,
+)
 
 __all__ = [
     "BankedProposer",
     "DynamicPlanner",
     "DynamicState",
+    "EmpiricalOracleProposer",
+    "EmpiricalParameterBank",
+    "EmpiricalParameterResponses",
+    "EmpiricalPolicyLadderPlanner",
+    "EmpiricalSpeculativeState",
+    "EmpiricalState",
     "FixedProposer",
     "HistoryBlindProposer",
     "ModelBank",
@@ -35,4 +54,6 @@ __all__ = [
     "SpeculativePlanner",
     "SpeculativeState",
     "build_mixed_version_responses",
+    "build_empirical_parameter_responses",
+    "sample_broadened_parameter_particles",
 ]
