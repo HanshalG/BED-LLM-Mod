@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from environments.chembench_mopen.compositional import (
+    AuditedCompositionalPolicyPlanner,
     AtomicStructureOracleProposer,
     CompoundSignature,
     CompositionalEditCompiler,
@@ -15,6 +16,7 @@ from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
     SCHEMA_VERSION,
     WELL_BUDGET,
+    _audit_summary,
     _canonical_hash,
     _proposal_records_hash,
     _replay_execution,
@@ -86,6 +88,31 @@ def _planner(*, well_budget: int = WELL_BUDGET) -> CostedCompositionalPolicyPlan
     )
 
 
+class _UncachedTransitionPlanner(CostedCompositionalPolicyPlanner):
+    def transition(self, state, action, outcome):
+        return AuditedCompositionalPolicyPlanner.transition(
+            self, state, action, outcome
+        )
+
+
+def _uncached_planner(*, well_budget: int) -> _UncachedTransitionPlanner:
+    cached = _planner(well_budget=well_budget)
+    return _UncachedTransitionPlanner(
+        cached.bank,
+        ProposalCache(
+            AtomicStructureOracleProposer(
+                cached.bank, cached.compiler, cached.particles
+            )
+        ),
+        cached.particle_indices,
+        compiler=cached.compiler,
+        particles=cached.particles,
+        actions=cached.actions,
+        well_budget=well_budget,
+        seed=cached.seed,
+    )
+
+
 def test_costed_planner_removes_repeat_variants_and_respects_budget() -> None:
     planner = _planner()
     available = tuple(range(planner.bank.num_actions))
@@ -112,6 +139,30 @@ def test_cost_blind_planning_uses_unit_future_cost_but_actual_execution_is_bound
     result = planner.evaluate_policy_level(3, scenario_uniforms=scenarios)
     assert np.isfinite(result["expected_terminal_mse"])
     assert result["execution_audit"]["within_budget_no_base_reuse"]
+
+
+@pytest.mark.parametrize("cost_aware", (True, False))
+@pytest.mark.parametrize("level", (1, 2, 3))
+def test_transition_cache_is_byte_exact(cost_aware: bool, level: int) -> None:
+    scenarios = np.random.default_rng(20260846 + level).random((1, 6, 3))
+    cached = _planner(well_budget=3)
+    uncached = _uncached_planner(well_budget=3)
+    cached.cost_aware = cost_aware
+    uncached.cost_aware = cost_aware
+
+    cached_result = cached.evaluate_policy_level(level, scenario_uniforms=scenarios)
+    uncached_result = uncached.evaluate_policy_level(level, scenario_uniforms=scenarios)
+
+    assert cached_result == uncached_result
+    assert cached.last_execution_policy_records == uncached.last_execution_policy_records
+    assert np.array_equal(cached.last_scenario_losses, uncached.last_scenario_losses)
+    assert _audit_summary(cached.transition_audit) == _audit_summary(
+        uncached.transition_audit
+    )
+    assert _proposal_records_hash(cached.proposal_cache.frozen_records) == (
+        _proposal_records_hash(uncached.proposal_cache.frozen_records)
+    )
+    assert cached.transition.cache_info().hits > 0
 
 
 def test_streaming_proposal_digest_matches_materialized_canonical_json() -> None:

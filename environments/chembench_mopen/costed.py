@@ -62,6 +62,12 @@ class CostedCompositionalPolicyPlanner(AuditedCompositionalPolicyPlanner):
         ] = {}
         self.last_scenario_losses: np.ndarray | None = None
 
+    @lru_cache(maxsize=None)
+    def transition(
+        self, state: SpeculativeState, action: int, outcome: int
+    ) -> SpeculativeState:
+        return super().transition(state, action, outcome)
+
     def feasible_actions(
         self, available: tuple[int, ...], remaining_wells: int
     ) -> tuple[int, ...]:
