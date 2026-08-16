@@ -70,6 +70,11 @@ EFFICIENCY_PATH = Path(
     "CHEMBENCH_COSTED_REPEAT_CORRIDOR_EVALUATOR_EFFICIENCY_AMENDMENT_20260816.md"
 )
 EFFICIENCY_SHA256 = "102ce68e4ca4316d2650bc8096356baf3defc6580735f5d24cb165c32ccec783"
+SHARDING_PATH = Path(
+    "results/nonmyopic/"
+    "CHEMBENCH_COSTED_REPEAT_CORRIDOR_DIFFICULTY_SHARDING_CLARIFICATION_20260816.md"
+)
+SHARDING_SHA256 = "2b87d325e3265ba485046469da50b5e2de432904c43cb69bbeb8b94c018a4454"
 TRUTH_VERSION = "v4"
 QUERY_SEEDS = {"easy": 2026084201, "medium": 2026084202, "hard": 2026084203}
 NUM_QUERIES = 512
@@ -812,123 +817,154 @@ def apply_gate(slices: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     }
 
 
-def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
+def _protocol_bindings() -> dict[str, dict[str, str]]:
+    return {
+        str(PROTOCOL_PATH): {"sha256": PROTOCOL_SHA256},
+        str(CONTROL_PATH): {"sha256": CONTROL_SHA256},
+        str(CRN_PATH): {"sha256": CRN_SHA256},
+        str(EFFICIENCY_PATH): {"sha256": EFFICIENCY_SHA256},
+        str(SHARDING_PATH): {"sha256": SHARDING_SHA256},
+    }
+
+
+def _verify_protocol_bindings() -> None:
+    for path, binding in _protocol_bindings().items():
+        if sha256(Path(path)) != binding["sha256"]:
+            raise RuntimeError(f"costed-repeat protocol binding mismatch: {path}")
+
+
+def _frozen_settings() -> dict[str, Any]:
+    return {
+        "truth_structures": list(TRUTH_STRUCTURES),
+        "difficulties": list(DIFFICULTIES),
+        "inference_versions": list(INFERENCE_VERSIONS),
+        "truth_version": TRUTH_VERSION,
+        "query_seeds": QUERY_SEEDS,
+        "num_queries": NUM_QUERIES,
+        "log_noise": LOG_NOISE,
+        "repeat_counts": list(REPEAT_COUNTS),
+        "base_assays": list(BASE_ASSAY_NAMES),
+        "well_budget": WELL_BUDGET,
+        "random_seed_base": RANDOM_SEED_BASE,
+        "random_replicates": RANDOM_REPLICATES,
+        "num_scenarios": NUM_SCENARIOS,
+        "crn_seeds": CRN_SEEDS,
+    }
+
+
+def evaluate_difficulty(source: Any, difficulty_index: int) -> dict[str, Any]:
+    if not 0 <= difficulty_index < len(DIFFICULTIES):
+        raise ValueError("difficulty index is outside the frozen set")
+    difficulty = DIFFICULTIES[difficulty_index]
+    (
+        bank,
+        compiler,
+        particles,
+        truths,
+        actions,
+        thresholds,
+        response_sha,
+    ) = make_costed_bank(source, difficulty)
+    scenario_uniforms = np.random.default_rng(CRN_SEEDS[difficulty]).random(
+        (len(truths), NUM_SCENARIOS, WELL_BUDGET)
+    )
+    scenario_sha = hashlib.sha256(
+        np.asarray(scenario_uniforms, dtype=np.float64).tobytes(order="C")
+    ).hexdigest()
+    suite, cache = evaluate_dynamic_suite(
+        bank,
+        compiler,
+        particles,
+        truths,
+        actions,
+        AtomicStructureOracleProposer(bank, compiler, particles),
+        difficulty_index=difficulty_index,
+        scenario_uniforms=scenario_uniforms,
+    )
+    del cache
+    seed = 2026084300 + difficulty_index
+    fixed = evaluate_fixed(
+        bank,
+        compiler,
+        particles,
+        truths,
+        actions,
+        seed=seed,
+        scenario_uniforms=scenario_uniforms,
+    )
+    (
+        full_bank,
+        full_compiler,
+        full_particles,
+        full_truths,
+        full_actions,
+        full_thresholds,
+        full_sha,
+    ) = make_costed_bank(source, difficulty, full_support=True)
     if (
-        sha256(PROTOCOL_PATH) != PROTOCOL_SHA256
-        or sha256(CONTROL_PATH) != CONTROL_SHA256
-        or sha256(CRN_PATH) != CRN_SHA256
-        or sha256(EFFICIENCY_PATH) != EFFICIENCY_SHA256
+        full_sha != response_sha
+        or full_truths != truths
+        or full_actions != actions
+        or not np.array_equal(full_thresholds, thresholds)
     ):
-        raise RuntimeError("costed-repeat protocol binding mismatch")
-    source_binding = verify_source(source_root)
-    source = load_source(source_root)
-    slices = []
-    for difficulty_index, difficulty in enumerate(DIFFICULTIES):
-        (
-            bank,
-            compiler,
-            particles,
-            truths,
-            actions,
-            thresholds,
-            response_sha,
-        ) = make_costed_bank(source, difficulty)
-        scenario_uniforms = np.random.default_rng(CRN_SEEDS[difficulty]).random(
-            (len(truths), NUM_SCENARIOS, WELL_BUDGET)
-        )
-        scenario_sha = hashlib.sha256(
-            np.asarray(scenario_uniforms, dtype=np.float64).tobytes(order="C")
-        ).hexdigest()
-        suite, cache = evaluate_dynamic_suite(
-            bank,
-            compiler,
-            particles,
-            truths,
-            actions,
-            AtomicStructureOracleProposer(bank, compiler, particles),
-            difficulty_index=difficulty_index,
-            scenario_uniforms=scenario_uniforms,
-        )
-        del cache
-        seed = 2026084300 + difficulty_index
-        fixed = evaluate_fixed(
-            bank,
-            compiler,
-            particles,
-            truths,
-            actions,
-            seed=seed,
-            scenario_uniforms=scenario_uniforms,
-        )
-        full_bank, full_compiler, full_particles, full_truths, full_actions, full_thresholds, full_sha = (
-            make_costed_bank(source, difficulty, full_support=True)
-        )
-        if (
-            full_sha != response_sha
-            or full_truths != truths
-            or full_actions != actions
-            or not np.array_equal(full_thresholds, thresholds)
-        ):
-            raise AssertionError("full-support control changed costed responses")
-        full = evaluate_fixed(
-            full_bank,
-            full_compiler,
-            full_particles,
-            full_truths,
-            full_actions,
-            seed=seed,
-            scenario_uniforms=scenario_uniforms,
-        )
-        slices.append(
-            {
-                "difficulty": difficulty,
-                "query_seed": QUERY_SEEDS[difficulty],
-                "crn_seed": CRN_SEEDS[difficulty],
-                "scenario_uniforms_sha256": scenario_sha,
-                "response_sha256": response_sha,
-                "thresholds_sha256": hashlib.sha256(
-                    np.asarray(thresholds, dtype=np.float64).tobytes(order="C")
-                ).hexdigest(),
-                "thresholds_inference_only": True,
-                "num_models": bank.num_models,
-                "num_truths": len(truths),
-                "suite": suite,
-                "replay_exact": suite["replay_audit"]["exact"]
-                and fixed["replay_exact"]
-                and full["replay_exact"],
-                "fixed": fixed,
-                "full_support": full,
-            }
-        )
+        raise AssertionError("full-support control changed costed responses")
+    full = evaluate_fixed(
+        full_bank,
+        full_compiler,
+        full_particles,
+        full_truths,
+        full_actions,
+        seed=seed,
+        scenario_uniforms=scenario_uniforms,
+    )
+    return {
+        "difficulty": difficulty,
+        "query_seed": QUERY_SEEDS[difficulty],
+        "crn_seed": CRN_SEEDS[difficulty],
+        "scenario_uniforms_sha256": scenario_sha,
+        "response_sha256": response_sha,
+        "thresholds_sha256": hashlib.sha256(
+            np.asarray(thresholds, dtype=np.float64).tobytes(order="C")
+        ).hexdigest(),
+        "thresholds_inference_only": True,
+        "num_models": bank.num_models,
+        "num_truths": len(truths),
+        "suite": suite,
+        "replay_exact": suite["replay_audit"]["exact"]
+        and fixed["replay_exact"]
+        and full["replay_exact"],
+        "fixed": fixed,
+        "full_support": full,
+    }
+
+
+def _binding(
+    source_binding: Mapping[str, Any], implementation_commit: str
+) -> dict[str, Any]:
+    settings = _frozen_settings()
+    return {
+        "implementation_commit": implementation_commit,
+        "protocols": _protocol_bindings(),
+        "source": dict(source_binding),
+        "source_sha256": _canonical_hash(source_binding),
+        "settings": settings,
+        "settings_sha256": _canonical_hash(settings),
+    }
+
+
+def _final_result(
+    binding: Mapping[str, Any],
+    slices: Sequence[Mapping[str, Any]],
+    *,
+    shard_bindings: Sequence[Mapping[str, str]] = (),
+) -> dict[str, Any]:
     gate = apply_gate(slices)
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "passed" if gate["passed"] else "failed_closed",
-        "implementation_commit": implementation_commit,
-        "protocols": {
-            str(PROTOCOL_PATH): {"sha256": PROTOCOL_SHA256},
-            str(CONTROL_PATH): {"sha256": CONTROL_SHA256},
-            str(CRN_PATH): {"sha256": CRN_SHA256},
-            str(EFFICIENCY_PATH): {"sha256": EFFICIENCY_SHA256},
-        },
-        "source": source_binding,
-        "settings": {
-            "truth_structures": list(TRUTH_STRUCTURES),
-            "difficulties": list(DIFFICULTIES),
-            "inference_versions": list(INFERENCE_VERSIONS),
-            "truth_version": TRUTH_VERSION,
-            "query_seeds": QUERY_SEEDS,
-            "num_queries": NUM_QUERIES,
-            "log_noise": LOG_NOISE,
-            "repeat_counts": list(REPEAT_COUNTS),
-            "base_assays": list(BASE_ASSAY_NAMES),
-            "well_budget": WELL_BUDGET,
-            "random_seed_base": RANDOM_SEED_BASE,
-            "random_replicates": RANDOM_REPLICATES,
-            "num_scenarios": NUM_SCENARIOS,
-            "crn_seeds": CRN_SEEDS,
-        },
-        "slices": slices,
+        **dict(binding),
+        "shards": list(shard_bindings),
+        "slices": list(slices),
         "gate": gate,
         "model_calls": 0,
         "network_calls": 0,
@@ -936,29 +972,129 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
     }
 
 
+def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
+    _verify_protocol_bindings()
+    source_binding = verify_source(source_root)
+    source = load_source(source_root)
+    slices = [evaluate_difficulty(source, index) for index in range(len(DIFFICULTIES))]
+    return _final_result(_binding(source_binding, implementation_commit), slices)
+
+
+def run_shard(
+    source_root: Path, *, implementation_commit: str, difficulty: str
+) -> dict[str, Any]:
+    _verify_protocol_bindings()
+    if difficulty not in DIFFICULTIES:
+        raise ValueError("difficulty is outside the frozen set")
+    source_binding = verify_source(source_root)
+    source = load_source(source_root)
+    difficulty_index = DIFFICULTIES.index(difficulty)
+    return {
+        "schema_version": f"{SCHEMA_VERSION}-difficulty-shard-v1",
+        "status": "slice_complete",
+        "difficulty_index": difficulty_index,
+        "difficulty": difficulty,
+        "binding": _binding(source_binding, implementation_commit),
+        "slice": evaluate_difficulty(source, difficulty_index),
+        "model_calls": 0,
+        "network_calls": 0,
+        "cost_usd": 0.0,
+    }
+
+
+def _validated_shard_slice(
+    payload: Mapping[str, Any],
+    *,
+    expected_binding: Mapping[str, Any],
+    expected_index: int,
+    difficulty: str,
+) -> Mapping[str, Any]:
+    if payload.get("schema_version") != f"{SCHEMA_VERSION}-difficulty-shard-v1":
+        raise ValueError("invalid difficulty shard schema")
+    if (
+        payload.get("status") != "slice_complete"
+        or payload.get("difficulty_index") != expected_index
+        or payload.get("difficulty") != difficulty
+        or payload.get("binding") != expected_binding
+        or payload.get("model_calls") != 0
+        or payload.get("network_calls") != 0
+        or payload.get("cost_usd") != 0.0
+        or payload.get("slice", {}).get("difficulty") != difficulty
+    ):
+        raise ValueError("difficulty shard failed binding validation")
+    return payload["slice"]
+
+
+def assemble_shards(
+    source_root: Path,
+    *,
+    implementation_commit: str,
+    shard_paths: Sequence[Path],
+) -> dict[str, Any]:
+    _verify_protocol_bindings()
+    if len(shard_paths) != len(DIFFICULTIES):
+        raise ValueError("assembler requires exactly three difficulty shards")
+    source_binding = verify_source(source_root)
+    expected_binding = _binding(source_binding, implementation_commit)
+    slices = []
+    shard_bindings = []
+    for expected_index, (difficulty, path) in enumerate(zip(DIFFICULTIES, shard_paths)):
+        payload = json.loads(path.read_text())
+        slices.append(
+            _validated_shard_slice(
+                payload,
+                expected_binding=expected_binding,
+                expected_index=expected_index,
+                difficulty=difficulty,
+            )
+        )
+        shard_bindings.append(
+            {"difficulty": difficulty, "sha256": sha256(path), "file": path.name}
+        )
+    return _final_result(
+        expected_binding, slices, shard_bindings=shard_bindings
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--required-commit", required=True)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--difficulty", choices=DIFFICULTIES)
+    mode.add_argument("--assemble-shards", nargs=3, type=Path, metavar=("EASY", "MEDIUM", "HARD"))
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite {args.output}")
     commit = require_pushed_commit(args.required_commit)
-    result = run(args.source_root, implementation_commit=commit)
+    if args.difficulty is not None:
+        result = run_shard(
+            args.source_root,
+            implementation_commit=commit,
+            difficulty=args.difficulty,
+        )
+    elif args.assemble_shards is not None:
+        result = assemble_shards(
+            args.source_root,
+            implementation_commit=commit,
+            shard_paths=args.assemble_shards,
+        )
+    else:
+        result = run(args.source_root, implementation_commit=commit)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    summary = {
+        "status": result["status"],
+        "output": str(args.output),
+        "output_sha256": sha256(args.output),
+    }
+    if "gate" in result:
+        summary["gate"] = result["gate"]
+    else:
+        summary["difficulty"] = result["difficulty"]
     print(
-        json.dumps(
-            {
-                "status": result["status"],
-                "gate": result["gate"],
-                "output": str(args.output),
-                "output_sha256": sha256(args.output),
-            },
-            indent=2,
-            sort_keys=True,
-        )
+        json.dumps(summary, indent=2, sort_keys=True)
     )
 
 

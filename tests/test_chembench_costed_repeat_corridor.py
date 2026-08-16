@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from environments.chembench_mopen.compositional import (
     AtomicStructureOracleProposer,
@@ -12,10 +13,12 @@ from environments.chembench_mopen.costed import CostedCompositionalPolicyPlanner
 from environments.chembench_mopen.mechanics import ModelBank, ProposalCache
 from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
+    SCHEMA_VERSION,
     WELL_BUDGET,
     _canonical_hash,
     _proposal_records_hash,
     _replay_execution,
+    _validated_shard_slice,
     costed_likelihoods,
 )
 
@@ -153,3 +156,34 @@ def test_transcript_replay_reproduces_every_crn_trajectory() -> None:
     assert replay["exact"]
     assert replay["unused_policy_records"] == 0
     assert replay["scenario_losses_sha256"] == replay["expected_scenario_losses_sha256"]
+
+
+def test_difficulty_shard_validation_is_fail_closed() -> None:
+    binding = {"implementation_commit": "abc", "settings_sha256": "123"}
+    payload = {
+        "schema_version": f"{SCHEMA_VERSION}-difficulty-shard-v1",
+        "status": "slice_complete",
+        "difficulty_index": 0,
+        "difficulty": "easy",
+        "binding": binding,
+        "slice": {"difficulty": "easy", "result": 1},
+        "model_calls": 0,
+        "network_calls": 0,
+        "cost_usd": 0.0,
+    }
+    assert _validated_shard_slice(
+        payload,
+        expected_binding=binding,
+        expected_index=0,
+        difficulty="easy",
+    ) == payload["slice"]
+
+    malformed = dict(payload)
+    malformed["binding"] = {"implementation_commit": "wrong"}
+    with pytest.raises(ValueError, match="binding validation"):
+        _validated_shard_slice(
+            malformed,
+            expected_binding=binding,
+            expected_index=0,
+            difficulty="easy",
+        )
