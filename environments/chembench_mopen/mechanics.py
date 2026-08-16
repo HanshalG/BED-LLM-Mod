@@ -291,6 +291,19 @@ def _proposal_outcome_value(outcome: int | float) -> int | float:
     return value
 
 
+def _canonical_public_json(state: Any) -> str:
+    attribute = "_proposal_key_canonical_public_json"
+    cached = getattr(state, attribute, None)
+    if cached is not None:
+        return str(cached)
+    encoded = json.dumps(state.public_key(), sort_keys=True, separators=(",", ":"))
+    try:
+        object.__setattr__(state, attribute, encoded)
+    except (AttributeError, TypeError):
+        pass
+    return encoded
+
+
 def proposal_key(
     mode: str,
     state: DynamicState,
@@ -298,14 +311,21 @@ def proposal_key(
     outcome: int | float,
     seed: int,
 ) -> str:
-    payload = {
-        "mode": mode,
-        "seed": int(seed),
-        "state": state.public_key(),
-        "action": int(action),
-        "outcome": _proposal_outcome_value(outcome),
-    }
-    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    outcome_value = _proposal_outcome_value(outcome)
+    payload = (
+        '{"action":'
+        + str(int(action))
+        + ',"mode":'
+        + json.dumps(mode, separators=(",", ":"))
+        + ',"outcome":'
+        + json.dumps(outcome_value, separators=(",", ":"))
+        + ',"seed":'
+        + str(int(seed))
+        + ',"state":'
+        + _canonical_public_json(state)
+        + "}"
+    )
+    return hashlib.sha256(payload.encode()).hexdigest()
 
 
 class BankedProposer:

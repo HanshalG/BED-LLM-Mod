@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import hashlib
+import json
+
 import numpy as np
 import pytest
 
@@ -11,7 +14,12 @@ from environments.chembench_mopen.compositional import (
     StructureParticleIndex,
 )
 from environments.chembench_mopen.costed import CostedCompositionalPolicyPlanner
-from environments.chembench_mopen.mechanics import ModelBank, ProposalCache
+from environments.chembench_mopen.mechanics import (
+    ModelBank,
+    ProposalCache,
+    _proposal_outcome_value,
+    proposal_key,
+)
 from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
     SCHEMA_VERSION,
@@ -163,6 +171,39 @@ def test_transition_cache_is_byte_exact(cost_aware: bool, level: int) -> None:
         _proposal_records_hash(uncached.proposal_cache.frozen_records)
     )
     assert cached.transition.cache_info().hits > 0
+
+
+def _materialized_proposal_key(mode, state, action, outcome, seed):
+    payload = {
+        "mode": mode,
+        "seed": int(seed),
+        "state": state.public_key(),
+        "action": int(action),
+        "outcome": _proposal_outcome_value(outcome),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
+@pytest.mark.parametrize(
+    ("mode", "action", "outcome", "seed"),
+    (
+        ("speculative-seed", 0, 0, 23),
+        ("atomic_compositional_oracle", np.int64(5), np.int64(2), 9182),
+        ('quoted " mode \\ path', 7, 1.25, -2),
+        ("unicode-\N{GREEK SMALL LETTER DELTA}", 9, -0.0, 2**31 - 1),
+    ),
+)
+def test_proposal_key_cached_state_fragment_is_byte_exact(
+    mode, action, outcome, seed
+) -> None:
+    planner = _planner(well_budget=2)
+    initial = planner.initial_state().inference
+    transitioned = planner.transition(planner.initial_state(), 0, 1).inference
+    for state in (initial, transitioned):
+        expected = _materialized_proposal_key(mode, state, action, outcome, seed)
+        assert proposal_key(mode, state, action, outcome, seed) == expected
+        assert proposal_key(mode, state, action, outcome, seed) == expected
 
 
 def test_streaming_proposal_digest_matches_materialized_canonical_json() -> None:
