@@ -21,14 +21,19 @@ from environments.chembench_mopen.compositional import (
     AtomicStructureOracleProposer,
     CompositionalEditCompiler,
     StructureParticleIndex,
-    replay_proposer,
 )
 from environments.chembench_mopen.costed import (
     CostedAction,
     CostedCompositionalPolicyPlanner,
     RandomCostedCompositionalPolicyPlanner,
+    TranscriptReplayCostedPolicyPlanner,
 )
-from environments.chembench_mopen.mechanics import FixedProposer, ModelBank, ProposalCache
+from environments.chembench_mopen.mechanics import (
+    FixedProposer,
+    ModelBank,
+    ProposalCache,
+    proposal_key,
+)
 from environments.chembench_mopen.source import _query_assays
 from scripts.chembench_factored_mopen_oracle import sha256
 from scripts.chembench_mopen_mechanics import INITIAL_SUPPORT_NAMES
@@ -60,6 +65,11 @@ CRN_PATH = Path(
     "results/nonmyopic/CHEMBENCH_COSTED_REPEAT_CORRIDOR_CRN_EVALUATION_AMENDMENT_20260815.md"
 )
 CRN_SHA256 = "bc61ce8d9e0886726b11a6f73949c2350ab30f803cf5b06b71f57a5cb70f379a"
+EFFICIENCY_PATH = Path(
+    "results/nonmyopic/"
+    "CHEMBENCH_COSTED_REPEAT_CORRIDOR_EVALUATOR_EFFICIENCY_AMENDMENT_20260816.md"
+)
+EFFICIENCY_SHA256 = "102ce68e4ca4316d2650bc8096356baf3defc6580735f5d24cb165c32ccec783"
 TRUTH_VERSION = "v4"
 QUERY_SEEDS = {"easy": 2026084201, "medium": 2026084202, "hard": 2026084203}
 NUM_QUERIES = 512
@@ -270,35 +280,126 @@ def make_costed_bank(
 
 
 def _canonical_hash(value: Any) -> str:
-    return hashlib.sha256(
-        json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
-    ).hexdigest()
+    digest = hashlib.sha256()
+    encoder = json.JSONEncoder(sort_keys=True, separators=(",", ":"))
+    for chunk in encoder.iterencode(value):
+        digest.update(chunk.encode())
+    return digest.hexdigest()
+
+
+def _sorted_mapping_hash(records: Mapping[str, Any]) -> str:
+    """Hash a large sorted mapping without copying or materializing it as JSON."""
+    digest = hashlib.sha256()
+    encoder = json.JSONEncoder(sort_keys=True, separators=(",", ":"))
+    digest.update(b"{")
+    for index, key in enumerate(sorted(records)):
+        if index:
+            digest.update(b",")
+        digest.update(encoder.encode(key).encode())
+        digest.update(b":")
+        digest.update(encoder.encode(records[key]).encode())
+    digest.update(b"}")
+    return digest.hexdigest()
+
+
+def _proposal_records_hash(records: Mapping[str, Sequence[int]]) -> str:
+    return _sorted_mapping_hash(records)
 
 
 def _audit_summary(records: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
-    proposed = [record for record in records.values() if record["proposal"]]
-    return {
-        "records": len(records),
-        "records_sha256": _canonical_hash(records),
-        "proposals": len(proposed),
-        "all_complete_three_particle_edits": bool(proposed)
-        and all(
+    proposal_count = 0
+    all_complete = True
+    truth_particles_proposed = 0
+    for record in records.values():
+        if not record["proposal"]:
+            continue
+        proposal_count += 1
+        all_complete = all_complete and (
             len(record["proposal"]) == 3
             and len(record["proposal_structures"]) == 1
             and record["edit"] is not None
-            for record in proposed
+        )
+        truth_particles_proposed += bool(record["truth_particle_proposed"])
+    return {
+        "records": len(records),
+        "records_sha256": _sorted_mapping_hash(records),
+        "proposals": proposal_count,
+        "all_complete_three_particle_edits": proposal_count > 0 and all_complete,
+        "truth_particles_proposed": truth_particles_proposed,
+    }
+
+
+def _combined_audit(summaries: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    proposals = sum(int(item["proposals"]) for item in summaries)
+    return {
+        "components": len(summaries),
+        "component_sha256": [str(item["records_sha256"]) for item in summaries],
+        "records": sum(int(item["records"]) for item in summaries),
+        "proposals": proposals,
+        "all_complete_three_particle_edits": proposals > 0
+        and all(
+            int(item["proposals"]) == 0
+            or bool(item["all_complete_three_particle_edits"])
+            for item in summaries
         ),
         "truth_particles_proposed": sum(
-            bool(record["truth_particle_proposed"]) for record in proposed
+            int(item["truth_particles_proposed"]) for item in summaries
         ),
     }
 
 
-def _merge_audit(target: dict[str, dict[str, Any]], source: Mapping[str, dict[str, Any]]) -> None:
-    for key, value in source.items():
-        if key in target and target[key] != value:
-            raise AssertionError("costed transition audit mismatch")
-        target[key] = value
+class _ImmutableRecordProposer:
+    mode = "immutable-reference"
+
+    def __init__(
+        self, source_mode: str, records: Mapping[str, tuple[int, ...]]
+    ) -> None:
+        self.source_mode = source_mode
+        self.records = records
+
+    def get_by_key(self, key: str) -> tuple[int, ...]:
+        if key not in self.records:
+            raise KeyError(f"proposal key is absent from immutable records: {key}")
+        return tuple(self.records[key])
+
+    def propose(self, state: Any, action: int, outcome: int, seed: int) -> tuple[int, ...]:
+        key = proposal_key(self.source_mode, state, action, outcome, seed)
+        return self.get_by_key(key)
+
+
+def _proposal_record_replay(cache: ProposalCache) -> dict[str, Any]:
+    records = cache.frozen_records
+    proposer = _ImmutableRecordProposer(cache.source_mode, records)
+    exact = True
+    for key in sorted(records):
+        if proposer.get_by_key(key) != tuple(records[key]):
+            exact = False
+            break
+    return {
+        "exact": exact,
+        "records": len(records),
+        "records_sha256": _proposal_records_hash(records),
+    }
+
+
+def _policy_records_hash(
+    records: Mapping[tuple[Any, tuple[int, ...], int, int], int]
+) -> str:
+    row_hashes = []
+    for (state, available, remaining, level), action in records.items():
+        row_hashes.append(
+            _canonical_hash(
+                {
+                    "state": state.inference.public_key(),
+                    "particle_weight": list(state.particle_weight),
+                    "available": list(available),
+                    "remaining_wells": int(remaining),
+                    "level": int(level),
+                    "action": int(action),
+                }
+            )
+        )
+    return _canonical_hash(sorted(row_hashes))
 
 
 def _planner(
@@ -312,7 +413,12 @@ def _planner(
     *,
     seed: int,
     cost_aware: bool = True,
+    well_budget: int = WELL_BUDGET,
+    policy_records: Mapping[tuple[Any, tuple[int, ...], int, int], int] | None = None,
 ) -> CostedCompositionalPolicyPlanner:
+    extra: dict[str, Any] = {}
+    if policy_records is not None:
+        extra["policy_records"] = policy_records
     return planner_type(
         bank,
         cache,
@@ -320,10 +426,75 @@ def _planner(
         compiler=compiler,
         particles=particles,
         actions=actions,
-        well_budget=WELL_BUDGET,
+        well_budget=well_budget,
         cost_aware=cost_aware,
         seed=seed,
+        **extra,
     )
+
+
+def _replay_execution(
+    source_planner: CostedCompositionalPolicyPlanner,
+    source_cache: ProposalCache,
+    expected_result: Mapping[str, Any],
+    bank: ModelBank,
+    truths: Sequence[int],
+    compiler: CompositionalEditCompiler,
+    particles: StructureParticleIndex,
+    actions: Sequence[CostedAction],
+    *,
+    level: int,
+    seed: int,
+    cost_aware: bool,
+    scenario_uniforms: np.ndarray,
+) -> dict[str, Any]:
+    if source_planner.last_scenario_losses is None:
+        raise AssertionError("source policy did not retain scenario losses")
+    policy_records = source_planner.last_execution_policy_records
+    immutable = _ImmutableRecordProposer(
+        source_cache.source_mode, source_cache.frozen_records
+    )
+    replay_cache = ProposalCache(immutable, source_mode=source_cache.source_mode)
+    replay_planner = _planner(
+        TranscriptReplayCostedPolicyPlanner,
+        bank,
+        replay_cache,
+        truths,
+        compiler,
+        particles,
+        actions,
+        seed=seed,
+        cost_aware=cost_aware,
+        well_budget=source_planner.well_budget,
+        policy_records=policy_records,
+    )
+    replay_losses, replay_execution_audit = replay_planner.simulate_truth_losses(
+        level, scenario_uniforms
+    )
+    expected_losses = source_planner.last_scenario_losses
+    expected_loss_sha = hashlib.sha256(
+        np.asarray(expected_losses, dtype=np.float64).tobytes(order="C")
+    ).hexdigest()
+    replay_loss_sha = hashlib.sha256(
+        np.asarray(replay_losses, dtype=np.float64).tobytes(order="C")
+    ).hexdigest()
+    policy_exact = replay_planner.last_execution_policy_records == policy_records
+    losses_exact = np.array_equal(replay_losses, expected_losses)
+    execution_exact = replay_execution_audit == expected_result["execution_audit"]
+    unused = replay_planner.unused_policy_record_count
+    return {
+        "exact": policy_exact and losses_exact and execution_exact and unused == 0,
+        "policy_records": len(policy_records),
+        "policy_records_sha256": _policy_records_hash(policy_records),
+        "unused_policy_records": unused,
+        "scenario_losses_exact": losses_exact,
+        "scenario_losses_sha256": replay_loss_sha,
+        "expected_scenario_losses_sha256": expected_loss_sha,
+        "execution_audit_exact": execution_exact,
+        "transition_audit": _audit_summary(replay_planner.transition_audit),
+        "proposal_cache_entries": len(replay_cache.frozen_records),
+        "proposal_cache_sha256": _proposal_records_hash(replay_cache.frozen_records),
+    }
 
 
 def evaluate_dynamic_suite(
@@ -339,24 +510,45 @@ def evaluate_dynamic_suite(
     source_mode: str | None = None,
 ) -> tuple[dict[str, Any], ProposalCache]:
     cache = ProposalCache(proposer, source_mode=source_mode)
-    audit: dict[str, dict[str, Any]] = {}
+    audit_summaries: list[dict[str, Any]] = []
     primary = {}
     seed = 2026084300 + difficulty_index
+    primary_planner = _planner(
+        CostedCompositionalPolicyPlanner,
+        bank,
+        cache,
+        truths,
+        compiler,
+        particles,
+        actions,
+        seed=seed,
+    )
     for level in (3, 2, 1):
-        planner = _planner(
-            CostedCompositionalPolicyPlanner,
-            bank,
+        result = primary_planner.evaluate_policy_level(
+            level, scenario_uniforms=scenario_uniforms
+        )
+        result["replay_audit"] = _replay_execution(
+            primary_planner,
             cache,
+            result,
+            bank,
             truths,
             compiler,
             particles,
             actions,
+            level=level,
             seed=seed,
+            cost_aware=True,
+            scenario_uniforms=scenario_uniforms,
         )
-        primary[f"d{level}"] = planner.evaluate_policy_level(
-            level, scenario_uniforms=scenario_uniforms
+        primary[f"d{level}"] = result
+        print(
+            f"difficulty_index={difficulty_index} primary=d{level} complete",
+            file=sys.stderr,
+            flush=True,
         )
-        _merge_audit(audit, planner.transition_audit)
+    audit_summaries.append(_audit_summary(primary_planner.transition_audit))
+    del primary_planner
 
     cost_blind_planner = _planner(
         CostedCompositionalPolicyPlanner,
@@ -372,7 +564,27 @@ def evaluate_dynamic_suite(
     cost_blind = cost_blind_planner.evaluate_policy_level(
         3, scenario_uniforms=scenario_uniforms
     )
-    _merge_audit(audit, cost_blind_planner.transition_audit)
+    cost_blind["replay_audit"] = _replay_execution(
+        cost_blind_planner,
+        cache,
+        cost_blind,
+        bank,
+        truths,
+        compiler,
+        particles,
+        actions,
+        level=3,
+        seed=seed,
+        cost_aware=False,
+        scenario_uniforms=scenario_uniforms,
+    )
+    audit_summaries.append(_audit_summary(cost_blind_planner.transition_audit))
+    print(
+        f"difficulty_index={difficulty_index} cost_blind=d3 complete",
+        file=sys.stderr,
+        flush=True,
+    )
+    del cost_blind_planner
 
     random_results = []
     for replicate in range(RANDOM_REPLICATES):
@@ -387,24 +599,54 @@ def evaluate_dynamic_suite(
             actions,
             seed=random_seed,
         )
-        random_results.append(
-            random_planner.evaluate_policy_level(
-                1, scenario_uniforms=scenario_uniforms
-            )
+        random_result = random_planner.evaluate_policy_level(
+            1, scenario_uniforms=scenario_uniforms
         )
-        _merge_audit(audit, random_planner.transition_audit)
+        random_result["replay_audit"] = _replay_execution(
+            random_planner,
+            cache,
+            random_result,
+            bank,
+            truths,
+            compiler,
+            particles,
+            actions,
+            level=1,
+            seed=random_seed,
+            cost_aware=True,
+            scenario_uniforms=scenario_uniforms,
+        )
+        random_results.append(random_result)
+        audit_summaries.append(_audit_summary(random_planner.transition_audit))
+        del random_planner
+        print(
+            f"difficulty_index={difficulty_index} random={replicate + 1}/{RANDOM_REPLICATES} complete",
+            file=sys.stderr,
+            flush=True,
+        )
     random_truth_losses = np.mean(
         [item["truth_losses"] for item in random_results], axis=0
     )
+    proposal_replay = _proposal_record_replay(cache)
+    replay_components = [
+        result["replay_audit"]
+        for result in (*primary.values(), cost_blind, *random_results)
+    ]
     return {
         "primary": primary,
         "cost_blind_d3": cost_blind,
         "random_replicates": random_results,
         "random_mean_truth_losses": [float(value) for value in random_truth_losses],
         "random_mean_terminal_mse": float(np.mean(random_truth_losses)),
-        "transition_audit": _audit_summary(audit),
-        "cache_records_sha256": _canonical_hash(cache.records),
-        "cache_entries": len(cache.records),
+        "transition_audit": _combined_audit(audit_summaries),
+        "replay_audit": {
+            "exact": proposal_replay["exact"]
+            and all(item["exact"] for item in replay_components),
+            "proposal_records": proposal_replay,
+            "execution_components": len(replay_components),
+        },
+        "cache_records_sha256": proposal_replay["records_sha256"],
+        "cache_entries": proposal_replay["records"],
     }, cache
 
 
@@ -418,17 +660,39 @@ def evaluate_fixed(
     seed: int,
     scenario_uniforms: np.ndarray,
 ) -> dict[str, Any]:
+    cache = ProposalCache(FixedProposer())
     planner = _planner(
         CostedCompositionalPolicyPlanner,
         bank,
-        ProposalCache(FixedProposer()),
+        cache,
         truths,
         compiler,
         particles,
         actions,
         seed=seed,
     )
-    return planner.evaluate_policy_level(1, scenario_uniforms=scenario_uniforms)
+    result = planner.evaluate_policy_level(1, scenario_uniforms=scenario_uniforms)
+    result["replay_audit"] = _replay_execution(
+        planner,
+        cache,
+        result,
+        bank,
+        truths,
+        compiler,
+        particles,
+        actions,
+        level=1,
+        seed=seed,
+        cost_aware=True,
+        scenario_uniforms=scenario_uniforms,
+    )
+    result["transition_audit"] = _audit_summary(planner.transition_audit)
+    result["proposal_record_replay"] = _proposal_record_replay(cache)
+    result["replay_exact"] = (
+        result["replay_audit"]["exact"]
+        and result["proposal_record_replay"]["exact"]
+    )
+    return result
 
 
 def apply_gate(slices: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -553,6 +817,7 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
         sha256(PROTOCOL_PATH) != PROTOCOL_SHA256
         or sha256(CONTROL_PATH) != CONTROL_SHA256
         or sha256(CRN_PATH) != CRN_SHA256
+        or sha256(EFFICIENCY_PATH) != EFFICIENCY_SHA256
     ):
         raise RuntimeError("costed-repeat protocol binding mismatch")
     source_binding = verify_source(source_root)
@@ -584,17 +849,7 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
             difficulty_index=difficulty_index,
             scenario_uniforms=scenario_uniforms,
         )
-        replay, _ = evaluate_dynamic_suite(
-            bank,
-            compiler,
-            particles,
-            truths,
-            actions,
-            replay_proposer(cache.source_mode, cache.records),
-            source_mode=cache.source_mode,
-            difficulty_index=difficulty_index,
-            scenario_uniforms=scenario_uniforms,
-        )
+        del cache
         seed = 2026084300 + difficulty_index
         fixed = evaluate_fixed(
             bank,
@@ -638,7 +893,9 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
                 "num_models": bank.num_models,
                 "num_truths": len(truths),
                 "suite": suite,
-                "replay_exact": replay == suite,
+                "replay_exact": suite["replay_audit"]["exact"]
+                and fixed["replay_exact"]
+                and full["replay_exact"],
                 "fixed": fixed,
                 "full_support": full,
             }
@@ -652,6 +909,7 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
             str(PROTOCOL_PATH): {"sha256": PROTOCOL_SHA256},
             str(CONTROL_PATH): {"sha256": CONTROL_SHA256},
             str(CRN_PATH): {"sha256": CRN_SHA256},
+            str(EFFICIENCY_PATH): {"sha256": EFFICIENCY_SHA256},
         },
         "source": source_binding,
         "settings": {

@@ -13,6 +13,9 @@ from environments.chembench_mopen.mechanics import ModelBank, ProposalCache
 from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
     WELL_BUDGET,
+    _canonical_hash,
+    _proposal_records_hash,
+    _replay_execution,
     costed_likelihoods,
 )
 
@@ -33,7 +36,7 @@ def test_costed_thresholds_ignore_heldout_truth_rows() -> None:
     assert len(actions) == len(BASE_ASSAY_NAMES) * 3
 
 
-def _planner() -> CostedCompositionalPolicyPlanner:
+def _planner(*, well_budget: int = WELL_BUDGET) -> CostedCompositionalPolicyPlanner:
     base_means = np.asarray(
         [np.linspace(0.5 + index, 2.0 + index, 10) for index in range(10)]
     )
@@ -75,7 +78,7 @@ def _planner() -> CostedCompositionalPolicyPlanner:
         compiler=compiler,
         particles=particles,
         actions=actions,
-        well_budget=WELL_BUDGET,
+        well_budget=well_budget,
         seed=23,
     )
 
@@ -106,3 +109,47 @@ def test_cost_blind_planning_uses_unit_future_cost_but_actual_execution_is_bound
     result = planner.evaluate_policy_level(3, scenario_uniforms=scenarios)
     assert np.isfinite(result["expected_terminal_mse"])
     assert result["execution_audit"]["within_budget_no_base_reuse"]
+
+
+def test_streaming_proposal_digest_matches_materialized_canonical_json() -> None:
+    records = {"b": (3, 4, 5), "a": (), "c": (8,)}
+    materialized = {key: list(value) for key, value in records.items()}
+    assert _proposal_records_hash(records) == _canonical_hash(materialized)
+
+
+def test_shared_depth_cache_matches_isolated_planners() -> None:
+    scenarios = np.random.default_rng(31).random((1, 2, 2))
+    shared = _planner(well_budget=2)
+    shared_results = {
+        level: shared.evaluate_policy_level(level, scenario_uniforms=scenarios)
+        for level in (3, 2, 1)
+    }
+    for level in (3, 2, 1):
+        isolated = _planner(well_budget=2)
+        isolated_result = isolated.evaluate_policy_level(
+            level, scenario_uniforms=scenarios
+        )
+        assert shared_results[level] == isolated_result
+
+
+def test_transcript_replay_reproduces_every_crn_trajectory() -> None:
+    planner = _planner(well_budget=2)
+    scenarios = np.random.default_rng(32).random((1, 3, 2))
+    result = planner.evaluate_policy_level(2, scenario_uniforms=scenarios)
+    replay = _replay_execution(
+        planner,
+        planner.proposal_cache,
+        result,
+        planner.bank,
+        planner.particle_indices,
+        planner.compiler,
+        planner.particles,
+        planner.actions,
+        level=2,
+        seed=planner.seed,
+        cost_aware=True,
+        scenario_uniforms=scenarios,
+    )
+    assert replay["exact"]
+    assert replay["unused_policy_records"] == 0
+    assert replay["scenario_losses_sha256"] == replay["expected_scenario_losses_sha256"]

@@ -7,7 +7,7 @@ import json
 import math
 from dataclasses import dataclass
 from functools import lru_cache
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 import numpy as np
 
@@ -57,6 +57,10 @@ class CostedCompositionalPolicyPlanner(AuditedCompositionalPolicyPlanner):
         self.cost_aware = bool(cost_aware)
         self.shortlist_per_objective = int(shortlist_per_objective)
         self.shortlist_cap = int(shortlist_cap)
+        self.last_execution_policy_records: dict[
+            tuple[SpeculativeState, tuple[int, ...], int, int], int
+        ] = {}
+        self.last_scenario_losses: np.ndarray | None = None
 
     def feasible_actions(
         self, available: tuple[int, ...], remaining_wells: int
@@ -256,6 +260,9 @@ class CostedCompositionalPolicyPlanner(AuditedCompositionalPolicyPlanner):
         reused_base_count = 0
         outcome_digest = hashlib.sha256()
         targets = self.bank.target_features[np.asarray(self.particle_indices)]
+        policy_records: dict[
+            tuple[SpeculativeState, tuple[int, ...], int, int], int
+        ] = {}
         for truth_position, truth in enumerate(self.particle_indices):
             for scenario in range(uniforms.shape[1]):
                 state = self.initial_state()
@@ -265,6 +272,11 @@ class CostedCompositionalPolicyPlanner(AuditedCompositionalPolicyPlanner):
                 decisions = 0
                 while True:
                     action = self.policy_action(state, available, remaining, level)
+                    policy_key = (state, available, remaining, level)
+                    previous_action = policy_records.get(policy_key)
+                    if previous_action is not None and previous_action != action:
+                        raise AssertionError("execution policy is not deterministic")
+                    policy_records[policy_key] = action
                     if action < 0:
                         break
                     metadata = self.actions[action]
@@ -304,6 +316,8 @@ class CostedCompositionalPolicyPlanner(AuditedCompositionalPolicyPlanner):
                 losses[truth_position, scenario] = float(
                     np.mean((forecast - targets[truth_position]) ** 2)
                 )
+        self.last_execution_policy_records = policy_records
+        self.last_scenario_losses = losses.copy()
         return losses, {
             "num_scenarios": int(uniforms.shape[1]),
             "maximum_wells_spent": maximum_spend,
@@ -387,3 +401,38 @@ class RandomCostedCompositionalPolicyPlanner(CostedCompositionalPolicyPlanner):
             json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
         ).digest()
         return feasible[int.from_bytes(digest[:8], "big") % len(feasible)]
+
+
+class TranscriptReplayCostedPolicyPlanner(CostedCompositionalPolicyPlanner):
+    """Re-execute CRN trajectories from an immutable exact-policy transcript."""
+
+    def __init__(
+        self,
+        *args: Any,
+        policy_records: Mapping[
+            tuple[SpeculativeState, tuple[int, ...], int, int], int
+        ],
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self._replay_policy_records = dict(policy_records)
+        self._consumed_policy_records: set[
+            tuple[SpeculativeState, tuple[int, ...], int, int]
+        ] = set()
+
+    def policy_action(
+        self,
+        state: SpeculativeState,
+        available: tuple[int, ...],
+        remaining_wells: int,
+        level: int,
+    ) -> int:
+        key = (state, available, remaining_wells, level)
+        if key not in self._replay_policy_records:
+            raise KeyError("execution state is absent from the immutable policy transcript")
+        self._consumed_policy_records.add(key)
+        return self._replay_policy_records[key]
+
+    @property
+    def unused_policy_record_count(self) -> int:
+        return len(self._replay_policy_records.keys() - self._consumed_policy_records)

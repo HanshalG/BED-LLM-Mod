@@ -7,6 +7,7 @@ import json
 import math
 from dataclasses import dataclass
 from functools import lru_cache
+from types import MappingProxyType
 from typing import Any, Mapping, Protocol, Sequence
 
 import numpy as np
@@ -342,6 +343,11 @@ class ProposalCache:
     @property
     def records(self) -> dict[str, list[int]]:
         return {key: list(value) for key, value in sorted(self._cache.items())}
+
+    @property
+    def frozen_records(self) -> Mapping[str, tuple[int, ...]]:
+        """Read-only zero-copy view used by large deterministic replay audits."""
+        return MappingProxyType(self._cache)
 
 
 class DynamicPlanner:
