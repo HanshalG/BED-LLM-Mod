@@ -19,7 +19,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.chembench_factored_mopen_oracle import require_pushed_commit, sha256
+from scripts.chembench_costed_repeat_disk_runtime import require_pushed_runtime_commit
+from scripts.chembench_factored_mopen_oracle import sha256
 
 
 SCHEMA_VERSION = "chembench-costed-repeat-legacy-medium-cutoff-v1"
@@ -264,7 +265,7 @@ def main() -> None:
     parser.add_argument("--required-commit", required=True)
     parser.add_argument("--preflight", action="store_true")
     args = parser.parse_args()
-    commit = require_pushed_commit(args.required_commit)
+    commit = require_pushed_runtime_commit(args.required_commit)
     snapshot = process_snapshot(FROZEN_PID)
     output = args.main_root / SHARD_DIR / "medium.json"
     if args.preflight:

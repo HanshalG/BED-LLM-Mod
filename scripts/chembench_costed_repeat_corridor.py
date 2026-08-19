@@ -39,6 +39,7 @@ from scripts.chembench_factored_mopen_oracle import sha256
 from scripts.chembench_costed_repeat_disk_runtime import (
     DiskRuntimeStores,
     canonical_mapping_items,
+    require_pushed_runtime_commit,
 )
 from scripts.chembench_mopen_mechanics import INITIAL_SUPPORT_NAMES
 from scripts.chembench_mopen_nonmyopic_opportunity import frozen_assays, load_source, verify_source
@@ -1299,7 +1300,12 @@ def main() -> None:
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite {args.output}")
-    commit = require_pushed_commit(args.required_commit)
+    commit = (
+        require_pushed_runtime_commit(args.required_commit)
+        if args.runtime_mode == DiskRuntimeStores.mode
+        or args.allow_disk_runtime_shards
+        else require_pushed_commit(args.required_commit)
+    )
     scientific_commit = args.scientific_commit or commit
     runtime = None
     if args.runtime_mode == DiskRuntimeStores.mode:

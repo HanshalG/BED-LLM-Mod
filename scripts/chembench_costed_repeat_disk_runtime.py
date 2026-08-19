@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import subprocess
 from collections.abc import Iterator, Mapping, MutableMapping, Sequence
 from pathlib import Path
 from typing import Any, Callable
@@ -17,6 +18,31 @@ from environments.chembench_mopen.mechanics import proposal_key
 
 
 _ENCODER = json.JSONEncoder(sort_keys=True, separators=(",", ":"))
+RUNTIME_BRANCH = "origin/codex/costed-disk-audit"
+
+
+def require_pushed_runtime_commit(required_commit: str) -> str:
+    """Require exact HEAD provenance from the dedicated disk-runtime branch."""
+
+    resolved = subprocess.run(
+        ["git", "rev-parse", required_commit],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if resolved != head:
+        raise RuntimeError(f"required runtime commit is not HEAD: {resolved} != {head}")
+    subprocess.run(
+        ["git", "merge-base", "--is-ancestor", resolved, RUNTIME_BRANCH],
+        check=True,
+    )
+    return resolved
 
 
 class SqliteCanonicalMapping(MutableMapping[str, Any]):
