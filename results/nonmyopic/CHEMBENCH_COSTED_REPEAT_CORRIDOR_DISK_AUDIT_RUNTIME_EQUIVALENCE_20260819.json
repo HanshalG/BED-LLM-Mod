@@ -1,0 +1,44 @@
+{
+  "conditions": {
+    "bounded_memory_passed": true,
+    "canonical_hash_exact": true,
+    "crn_trajectories_exact": true,
+    "duplicate_detection_exact": true,
+    "policy_results_exact": true,
+    "proposal_replay_exact": true
+  },
+  "cost_usd": 0.0,
+  "file_sha256": {
+    "environments/chembench_mopen/compositional.py": "9f6c7e35a94c24e77db87c7739b5b7d3cbe5f80e25c57af4840e1ed8aab804e6",
+    "scripts/chembench_costed_repeat_corridor.py": "43d951659b96dae03df6e4d8373a0746a0eb7d7d16475d334fcf19898d91d91d",
+    "scripts/chembench_costed_repeat_disk_runtime.py": "d6835a5983e36bb859e6f3395f8dcfa118b1dee6fa81254ff504fd9d9bcc91e7",
+    "scripts/chembench_costed_repeat_disk_runtime_verify.py": "938ff3160f8e0e29831f74ec52772bc949f4c3a889a2ab1e97130b6452884884",
+    "tests/test_chembench_costed_repeat_corridor.py": "8ebbd173a183ef879023bdf59a1d21c3b6cba6f6e9d1b244174137bd86533fe6"
+  },
+  "memory": {
+    "database_bytes": 9007104,
+    "maximum_peak_rss_mib": 192.0,
+    "peak_rss_mib": 46.921875,
+    "records": 100000,
+    "records_sha256": "ca1bfffc9f56dc0deaa31540540df57650d96694dd312e5cbfbab0aa968cd406"
+  },
+  "model_calls": 0,
+  "network_calls": 0,
+  "protocol_sha256": "a830ce66cd9ffd7824b2f14523d4d2a0789055189a6af9a8c7f2de5613e60d6d",
+  "runtime_mode": "sqlite_canonical_v1",
+  "schema_version": "chembench-costed-repeat-disk-runtime-equivalence-v1",
+  "scientific_implementation_commit": "d9559a2f03d415966200d9f74c3bd84bbe12f021",
+  "status": "passed",
+  "test": {
+    "command": [
+      "/opt/anaconda3/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_chembench_costed_repeat_corridor.py"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "..........                                                               [100%]\n10 passed in 59.27s"
+  }
+}

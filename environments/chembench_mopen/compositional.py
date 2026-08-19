@@ -285,10 +285,14 @@ class AuditedCompositionalPolicyPlanner(PolicyLadderPlanner):
             ),
             "represented_after": list(self.particles.represented_structures(inference)),
         }
-        previous = self.transition_audit.get(key)
-        if previous is not None and previous != record:
-            raise AssertionError("compositional transition audit is not deterministic")
-        self.transition_audit[key] = record
+        record_once = getattr(self.transition_audit, "record_once", None)
+        if record_once is not None:
+            record_once(key, record)
+        else:
+            previous = self.transition_audit.get(key)
+            if previous is not None and previous != record:
+                raise AssertionError("compositional transition audit is not deterministic")
+            self.transition_audit[key] = record
         return SpeculativeState(
             inference=inference,
             particle_weight=tuple(float(item) for item in posterior),

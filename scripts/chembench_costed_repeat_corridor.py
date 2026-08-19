@@ -36,6 +36,10 @@ from environments.chembench_mopen.mechanics import (
 )
 from environments.chembench_mopen.source import _query_assays
 from scripts.chembench_factored_mopen_oracle import sha256
+from scripts.chembench_costed_repeat_disk_runtime import (
+    DiskRuntimeStores,
+    canonical_mapping_items,
+)
 from scripts.chembench_mopen_mechanics import INITIAL_SUPPORT_NAMES
 from scripts.chembench_mopen_nonmyopic_opportunity import frozen_assays, load_source, verify_source
 from scripts.chembench_staged_compound_corridor import (
@@ -53,6 +57,7 @@ from scripts.chembench_staged_compound_corridor import (
 
 
 SCHEMA_VERSION = "chembench-costed-repeat-corridor-v1"
+SCIENTIFIC_IMPLEMENTATION_COMMIT = "d9559a2f03d415966200d9f74c3bd84bbe12f021"
 PROTOCOL_PATH = Path(
     "results/nonmyopic/CHEMBENCH_COSTED_REPEAT_CORRIDOR_PROTOCOL_20260815.md"
 )
@@ -75,6 +80,11 @@ SHARDING_PATH = Path(
     "CHEMBENCH_COSTED_REPEAT_CORRIDOR_DIFFICULTY_SHARDING_CLARIFICATION_20260816.md"
 )
 SHARDING_SHA256 = "2b87d325e3265ba485046469da50b5e2de432904c43cb69bbeb8b94c018a4454"
+DISK_RUNTIME_PATH = Path(
+    "results/nonmyopic/"
+    "CHEMBENCH_COSTED_REPEAT_CORRIDOR_DISK_AUDIT_RUNTIME_AMENDMENT_20260818.md"
+)
+DISK_RUNTIME_SHA256 = "a830ce66cd9ffd7824b2f14523d4d2a0789055189a6af9a8c7f2de5613e60d6d"
 TRUTH_VERSION = "v4"
 QUERY_SEEDS = {"easy": 2026084201, "medium": 2026084202, "hard": 2026084203}
 NUM_QUERIES = 512
@@ -297,12 +307,12 @@ def _sorted_mapping_hash(records: Mapping[str, Any]) -> str:
     digest = hashlib.sha256()
     encoder = json.JSONEncoder(sort_keys=True, separators=(",", ":"))
     digest.update(b"{")
-    for index, key in enumerate(sorted(records)):
+    for index, (key, canonical_value) in enumerate(canonical_mapping_items(records)):
         if index:
             digest.update(b",")
         digest.update(encoder.encode(key).encode())
         digest.update(b":")
-        digest.update(encoder.encode(records[key]).encode())
+        digest.update(canonical_value)
     digest.update(b"}")
     return digest.hexdigest()
 
@@ -312,6 +322,12 @@ def _proposal_records_hash(records: Mapping[str, Sequence[int]]) -> str:
 
 
 def _audit_summary(records: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+    counters = getattr(records, "audit_counters", None)
+    if counters is not None:
+        return {
+            **counters(),
+            "records_sha256": _sorted_mapping_hash(records),
+        }
     proposal_count = 0
     all_complete = True
     truth_particles_proposed = 0
@@ -375,11 +391,15 @@ class _ImmutableRecordProposer:
 def _proposal_record_replay(cache: ProposalCache) -> dict[str, Any]:
     records = cache.frozen_records
     proposer = _ImmutableRecordProposer(cache.source_mode, records)
-    exact = True
-    for key in sorted(records):
-        if proposer.get_by_key(key) != tuple(records[key]):
-            exact = False
-            break
+    validator = getattr(records, "validate_canonical_values", None)
+    if validator is not None:
+        exact = bool(validator())
+    else:
+        exact = True
+        for key in sorted(records):
+            if proposer.get_by_key(key) != tuple(records[key]):
+                exact = False
+                break
     return {
         "exact": exact,
         "records": len(records),
@@ -420,11 +440,12 @@ def _planner(
     cost_aware: bool = True,
     well_budget: int = WELL_BUDGET,
     policy_records: Mapping[tuple[Any, tuple[int, ...], int, int], int] | None = None,
+    transition_audit: Any | None = None,
 ) -> CostedCompositionalPolicyPlanner:
     extra: dict[str, Any] = {}
     if policy_records is not None:
         extra["policy_records"] = policy_records
-    return planner_type(
+    planner = planner_type(
         bank,
         cache,
         truths,
@@ -436,6 +457,9 @@ def _planner(
         seed=seed,
         **extra,
     )
+    if transition_audit is not None:
+        planner.transition_audit = transition_audit
+    return planner
 
 
 def _replay_execution(
@@ -513,8 +537,13 @@ def evaluate_dynamic_suite(
     difficulty_index: int,
     scenario_uniforms: np.ndarray,
     source_mode: str | None = None,
-) -> tuple[dict[str, Any], ProposalCache]:
-    cache = ProposalCache(proposer, source_mode=source_mode)
+    runtime: DiskRuntimeStores | None = None,
+) -> tuple[dict[str, Any], Any]:
+    cache = (
+        ProposalCache(proposer, source_mode=source_mode)
+        if runtime is None
+        else runtime.proposal_cache(proposer, source_mode=source_mode)
+    )
     audit_summaries: list[dict[str, Any]] = []
     primary = {}
     seed = 2026084300 + difficulty_index
@@ -527,6 +556,9 @@ def evaluate_dynamic_suite(
         particles,
         actions,
         seed=seed,
+        transition_audit=(
+            None if runtime is None else runtime.transition_audit("primary")
+        ),
     )
     for level in (3, 2, 1):
         result = primary_planner.evaluate_policy_level(
@@ -553,6 +585,8 @@ def evaluate_dynamic_suite(
             flush=True,
         )
     audit_summaries.append(_audit_summary(primary_planner.transition_audit))
+    if runtime is not None:
+        runtime.close_store(primary_planner.transition_audit)
     del primary_planner
 
     cost_blind_planner = _planner(
@@ -565,6 +599,9 @@ def evaluate_dynamic_suite(
         actions,
         seed=seed,
         cost_aware=False,
+        transition_audit=(
+            None if runtime is None else runtime.transition_audit("cost-blind")
+        ),
     )
     cost_blind = cost_blind_planner.evaluate_policy_level(
         3, scenario_uniforms=scenario_uniforms
@@ -584,6 +621,8 @@ def evaluate_dynamic_suite(
         scenario_uniforms=scenario_uniforms,
     )
     audit_summaries.append(_audit_summary(cost_blind_planner.transition_audit))
+    if runtime is not None:
+        runtime.close_store(cost_blind_planner.transition_audit)
     print(
         f"difficulty_index={difficulty_index} cost_blind=d3 complete",
         file=sys.stderr,
@@ -827,10 +866,14 @@ def _protocol_bindings() -> dict[str, dict[str, str]]:
     }
 
 
-def _verify_protocol_bindings() -> None:
+def _verify_protocol_bindings(*, include_disk_runtime: bool = False) -> None:
     for path, binding in _protocol_bindings().items():
         if sha256(Path(path)) != binding["sha256"]:
             raise RuntimeError(f"costed-repeat protocol binding mismatch: {path}")
+    if include_disk_runtime and sha256(DISK_RUNTIME_PATH) != DISK_RUNTIME_SHA256:
+        raise RuntimeError(
+            f"costed-repeat disk runtime binding mismatch: {DISK_RUNTIME_PATH}"
+        )
 
 
 def _frozen_settings() -> dict[str, Any]:
@@ -852,7 +895,12 @@ def _frozen_settings() -> dict[str, Any]:
     }
 
 
-def evaluate_difficulty(source: Any, difficulty_index: int) -> dict[str, Any]:
+def evaluate_difficulty(
+    source: Any,
+    difficulty_index: int,
+    *,
+    runtime: DiskRuntimeStores | None = None,
+) -> dict[str, Any]:
     if not 0 <= difficulty_index < len(DIFFICULTIES):
         raise ValueError("difficulty index is outside the frozen set")
     difficulty = DIFFICULTIES[difficulty_index]
@@ -880,7 +928,11 @@ def evaluate_difficulty(source: Any, difficulty_index: int) -> dict[str, Any]:
         AtomicStructureOracleProposer(bank, compiler, particles),
         difficulty_index=difficulty_index,
         scenario_uniforms=scenario_uniforms,
+        runtime=runtime,
     )
+    close_cache = getattr(cache, "close", None)
+    if close_cache is not None:
+        close_cache()
     del cache
     seed = 2026084300 + difficulty_index
     fixed = evaluate_fixed(
@@ -980,26 +1032,111 @@ def run(source_root: Path, *, implementation_commit: str) -> dict[str, Any]:
     return _final_result(_binding(source_binding, implementation_commit), slices)
 
 
-def run_shard(
-    source_root: Path, *, implementation_commit: str, difficulty: str
+def _runtime_equivalence_binding(path: Path) -> dict[str, Any]:
+    payload = json.loads(path.read_text())
+    required_true = (
+        "canonical_hash_exact",
+        "duplicate_detection_exact",
+        "policy_results_exact",
+        "proposal_replay_exact",
+        "crn_trajectories_exact",
+        "bounded_memory_passed",
+    )
+    expected_files = {
+        "environments/chembench_mopen/compositional.py",
+        "scripts/chembench_costed_repeat_corridor.py",
+        "scripts/chembench_costed_repeat_disk_runtime.py",
+        "scripts/chembench_costed_repeat_disk_runtime_verify.py",
+        "tests/test_chembench_costed_repeat_corridor.py",
+    }
+    if (
+        payload.get("schema_version") != "chembench-costed-repeat-disk-runtime-equivalence-v1"
+        or payload.get("status") != "passed"
+        or payload.get("scientific_implementation_commit")
+        != SCIENTIFIC_IMPLEMENTATION_COMMIT
+        or payload.get("runtime_mode") != DiskRuntimeStores.mode
+        or payload.get("protocol_sha256") != DISK_RUNTIME_SHA256
+        or not all(payload.get("conditions", {}).get(key) is True for key in required_true)
+        or set(payload.get("file_sha256", {})) != expected_files
+    ):
+        raise ValueError("disk runtime equivalence manifest failed validation")
+    for file_name, expected_sha in payload["file_sha256"].items():
+        if sha256(Path(file_name)) != expected_sha:
+            raise ValueError(f"disk runtime equivalence file mismatch: {file_name}")
+    return {
+        "file": str(path),
+        "sha256": sha256(path),
+        "conditions": {key: True for key in required_true},
+    }
+
+
+def _disk_runtime_binding(
+    *, runtime_implementation_commit: str, equivalence_path: Path
 ) -> dict[str, Any]:
-    _verify_protocol_bindings()
+    return {
+        "runtime_mode": DiskRuntimeStores.mode,
+        "runtime_implementation_commit": runtime_implementation_commit,
+        "amendment": {
+            "file": str(DISK_RUNTIME_PATH),
+            "sha256": DISK_RUNTIME_SHA256,
+        },
+        "equivalence": _runtime_equivalence_binding(equivalence_path),
+    }
+
+
+def run_shard(
+    source_root: Path,
+    *,
+    implementation_commit: str,
+    scientific_implementation_commit: str,
+    difficulty: str,
+    runtime: DiskRuntimeStores | None = None,
+    runtime_equivalence_path: Path | None = None,
+) -> dict[str, Any]:
+    disk_runtime = runtime is not None
+    _verify_protocol_bindings(include_disk_runtime=disk_runtime)
     if difficulty not in DIFFICULTIES:
         raise ValueError("difficulty is outside the frozen set")
+    if disk_runtime:
+        if scientific_implementation_commit != SCIENTIFIC_IMPLEMENTATION_COMMIT:
+            raise ValueError("disk runtime scientific commit differs from frozen commit")
+        if difficulty not in {"medium", "hard"}:
+            raise ValueError("disk runtime is authorized only for an incomplete shard")
+        if runtime_equivalence_path is None:
+            raise ValueError("disk runtime requires an equivalence manifest")
+        runtime_binding = _disk_runtime_binding(
+            runtime_implementation_commit=implementation_commit,
+            equivalence_path=runtime_equivalence_path,
+        )
+    elif scientific_implementation_commit != implementation_commit:
+        raise ValueError("legacy runtime requires identical scientific and runtime commits")
     source_binding = verify_source(source_root)
     source = load_source(source_root)
     difficulty_index = DIFFICULTIES.index(difficulty)
-    return {
-        "schema_version": f"{SCHEMA_VERSION}-difficulty-shard-v1",
-        "status": "slice_complete",
-        "difficulty_index": difficulty_index,
-        "difficulty": difficulty,
-        "binding": _binding(source_binding, implementation_commit),
-        "slice": evaluate_difficulty(source, difficulty_index),
-        "model_calls": 0,
-        "network_calls": 0,
-        "cost_usd": 0.0,
-    }
+    try:
+        result = {
+            "schema_version": (
+                f"{SCHEMA_VERSION}-difficulty-shard-v2"
+                if disk_runtime
+                else f"{SCHEMA_VERSION}-difficulty-shard-v1"
+            ),
+            "status": "slice_complete",
+            "difficulty_index": difficulty_index,
+            "difficulty": difficulty,
+            "binding": _binding(source_binding, scientific_implementation_commit),
+            "slice": evaluate_difficulty(
+                source, difficulty_index, runtime=runtime
+            ),
+            "model_calls": 0,
+            "network_calls": 0,
+            "cost_usd": 0.0,
+        }
+        if disk_runtime:
+            result["runtime_binding"] = runtime_binding
+        return result
+    finally:
+        if runtime is not None:
+            runtime.close()
 
 
 def _validated_shard_slice(
@@ -1025,35 +1162,90 @@ def _validated_shard_slice(
     return payload["slice"]
 
 
+def _validated_disk_runtime_shard_slice(
+    payload: Mapping[str, Any],
+    *,
+    expected_binding: Mapping[str, Any],
+    expected_index: int,
+    difficulty: str,
+    runtime_implementation_commit: str,
+) -> Mapping[str, Any]:
+    if payload.get("schema_version") != f"{SCHEMA_VERSION}-difficulty-shard-v2":
+        raise ValueError("invalid disk runtime difficulty shard schema")
+    equivalence_file = (
+        payload.get("runtime_binding", {}).get("equivalence", {}).get("file")
+    )
+    if not isinstance(equivalence_file, str) or not equivalence_file:
+        raise ValueError("disk runtime shard lacks equivalence provenance")
+    expected_runtime = _disk_runtime_binding(
+        runtime_implementation_commit=runtime_implementation_commit,
+        equivalence_path=Path(equivalence_file),
+    )
+    if payload.get("runtime_binding") != expected_runtime:
+        raise ValueError("difficulty shard failed disk runtime validation")
+    legacy_view = dict(payload)
+    legacy_view["schema_version"] = f"{SCHEMA_VERSION}-difficulty-shard-v1"
+    legacy_view.pop("runtime_binding", None)
+    return _validated_shard_slice(
+        legacy_view,
+        expected_binding=expected_binding,
+        expected_index=expected_index,
+        difficulty=difficulty,
+    )
+
+
 def assemble_shards(
     source_root: Path,
     *,
     implementation_commit: str,
+    scientific_implementation_commit: str,
     shard_paths: Sequence[Path],
+    allow_disk_runtime: bool = False,
 ) -> dict[str, Any]:
-    _verify_protocol_bindings()
+    _verify_protocol_bindings(include_disk_runtime=allow_disk_runtime)
     if len(shard_paths) != len(DIFFICULTIES):
         raise ValueError("assembler requires exactly three difficulty shards")
+    if allow_disk_runtime:
+        if scientific_implementation_commit != SCIENTIFIC_IMPLEMENTATION_COMMIT:
+            raise ValueError("mixed-runtime assembler scientific commit mismatch")
+    elif scientific_implementation_commit != implementation_commit:
+        raise ValueError("legacy assembler requires identical commits")
     source_binding = verify_source(source_root)
-    expected_binding = _binding(source_binding, implementation_commit)
+    expected_binding = _binding(source_binding, scientific_implementation_commit)
     slices = []
     shard_bindings = []
     for expected_index, (difficulty, path) in enumerate(zip(DIFFICULTIES, shard_paths)):
         payload = json.loads(path.read_text())
-        slices.append(
-            _validated_shard_slice(
-                payload,
-                expected_binding=expected_binding,
-                expected_index=expected_index,
-                difficulty=difficulty,
+        if allow_disk_runtime and difficulty == "hard":
+            slices.append(
+                _validated_disk_runtime_shard_slice(
+                    payload,
+                    expected_binding=expected_binding,
+                    expected_index=expected_index,
+                    difficulty=difficulty,
+                    runtime_implementation_commit=implementation_commit,
+                )
             )
-        )
+        else:
+            slices.append(
+                _validated_shard_slice(
+                    payload,
+                    expected_binding=expected_binding,
+                    expected_index=expected_index,
+                    difficulty=difficulty,
+                )
+            )
         shard_bindings.append(
             {"difficulty": difficulty, "sha256": sha256(path), "file": path.name}
         )
-    return _final_result(
-        expected_binding, slices, shard_bindings=shard_bindings
-    )
+    final_binding = dict(expected_binding)
+    if allow_disk_runtime:
+        final_binding["runtime_provenance"] = {
+            "assembler_implementation_commit": implementation_commit,
+            "disk_runtime_amendment_sha256": DISK_RUNTIME_SHA256,
+            "hard_runtime_binding": json.loads(shard_paths[2].read_text())["runtime_binding"],
+        }
+    return _final_result(final_binding, slices, shard_bindings=shard_bindings)
 
 
 def main() -> None:
@@ -1061,6 +1253,13 @@ def main() -> None:
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--required-commit", required=True)
+    parser.add_argument("--scientific-commit")
+    parser.add_argument(
+        "--runtime-mode", choices=("in_memory", DiskRuntimeStores.mode), default="in_memory"
+    )
+    parser.add_argument("--runtime-dir", type=Path)
+    parser.add_argument("--runtime-equivalence", type=Path)
+    parser.add_argument("--allow-disk-runtime-shards", action="store_true")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--difficulty", choices=DIFFICULTIES)
     mode.add_argument("--assemble-shards", nargs=3, type=Path, metavar=("EASY", "MEDIUM", "HARD"))
@@ -1068,17 +1267,32 @@ def main() -> None:
     if args.output.exists():
         raise FileExistsError(f"refusing to overwrite {args.output}")
     commit = require_pushed_commit(args.required_commit)
+    scientific_commit = args.scientific_commit or commit
+    runtime = None
+    if args.runtime_mode == DiskRuntimeStores.mode:
+        if args.difficulty is None or args.runtime_dir is None:
+            raise ValueError("disk runtime requires one difficulty and --runtime-dir")
+        runtime = DiskRuntimeStores(args.runtime_dir)
+    elif args.runtime_dir is not None or args.runtime_equivalence is not None:
+        raise ValueError("runtime paths require the disk runtime mode")
+    if args.allow_disk_runtime_shards and args.assemble_shards is None:
+        raise ValueError("disk runtime shard allowance is assembler-only")
     if args.difficulty is not None:
         result = run_shard(
             args.source_root,
             implementation_commit=commit,
+            scientific_implementation_commit=scientific_commit,
             difficulty=args.difficulty,
+            runtime=runtime,
+            runtime_equivalence_path=args.runtime_equivalence,
         )
     elif args.assemble_shards is not None:
         result = assemble_shards(
             args.source_root,
             implementation_commit=commit,
+            scientific_implementation_commit=scientific_commit,
             shard_paths=args.assemble_shards,
+            allow_disk_runtime=args.allow_disk_runtime_shards,
         )
     else:
         result = run(args.source_root, implementation_commit=commit)

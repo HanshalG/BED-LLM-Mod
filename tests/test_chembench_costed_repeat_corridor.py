@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -13,13 +17,24 @@ from environments.chembench_mopen.costed import CostedCompositionalPolicyPlanner
 from environments.chembench_mopen.mechanics import ModelBank, ProposalCache
 from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
+    DISK_RUNTIME_SHA256,
     SCHEMA_VERSION,
+    SCIENTIFIC_IMPLEMENTATION_COMMIT,
     WELL_BUDGET,
     _canonical_hash,
+    _audit_summary,
+    _disk_runtime_binding,
     _proposal_records_hash,
+    _proposal_record_replay,
     _replay_execution,
+    _runtime_equivalence_binding,
+    _validated_disk_runtime_shard_slice,
     _validated_shard_slice,
     costed_likelihoods,
+)
+from scripts.chembench_costed_repeat_disk_runtime import (
+    SqliteCanonicalMapping,
+    SqliteProposalCache,
 )
 
 
@@ -118,6 +133,154 @@ def test_streaming_proposal_digest_matches_materialized_canonical_json() -> None
     records = {"b": (3, 4, 5), "a": (), "c": (8,)}
     materialized = {key: list(value) for key, value in records.items()}
     assert _proposal_records_hash(records) == _canonical_hash(materialized)
+
+
+def test_sqlite_canonical_mapping_matches_in_memory_bytes(tmp_path) -> None:
+    path = tmp_path / "records.sqlite3"
+    records = SqliteCanonicalMapping(path)
+    values = {"b": (3, 4, 5), "a": (), "c": (8,)}
+    for key in ("b", "a", "c"):
+        assert records.record_once(key, values[key])
+    assert not records.record_once("b", values["b"])
+    with pytest.raises(AssertionError, match="not deterministic"):
+        records.record_once("b", (99,))
+    assert list(records) == ["a", "b", "c"]
+    assert _proposal_records_hash(records) == _canonical_hash(
+        {key: list(value) for key, value in values.items()}
+    )
+    assert records.validate_canonical_values()
+    records.close()
+    assert not path.exists()
+
+
+def test_sqlite_runtime_matches_complete_small_policy_ladder(tmp_path) -> None:
+    scenarios = np.random.default_rng(312).random((1, 3, 2))
+    memory = _planner(well_budget=2)
+    disk = _planner(well_budget=2)
+    disk_cache = SqliteProposalCache(
+        disk.proposal_cache.proposer,
+        tmp_path / "proposals.sqlite3",
+    )
+    disk.proposal_cache = disk_cache
+    disk_audit = SqliteCanonicalMapping(
+        tmp_path / "audit.sqlite3", audit_records=True
+    )
+    disk.transition_audit = disk_audit
+
+    memory_results = {
+        level: memory.evaluate_policy_level(level, scenario_uniforms=scenarios)
+        for level in (3, 2, 1)
+    }
+    disk_results = {
+        level: disk.evaluate_policy_level(level, scenario_uniforms=scenarios)
+        for level in (3, 2, 1)
+    }
+    assert disk_results == memory_results
+    assert _audit_summary(disk_audit) == _audit_summary(memory.transition_audit)
+    assert _proposal_records_hash(disk_cache.frozen_records) == _proposal_records_hash(
+        memory.proposal_cache.frozen_records
+    )
+    assert disk_cache.hits == memory.proposal_cache.hits
+    assert disk_cache.misses == memory.proposal_cache.misses
+    assert disk_cache.frozen_records.validate_canonical_values()
+    assert _proposal_record_replay(disk_cache)["exact"]
+    replay = _replay_execution(
+        disk,
+        disk_cache,
+        disk_results[1],
+        disk.bank,
+        disk.particle_indices,
+        disk.compiler,
+        disk.particles,
+        disk.actions,
+        level=1,
+        seed=disk.seed,
+        cost_aware=True,
+        scenario_uniforms=scenarios,
+    )
+    assert replay["exact"]
+    assert replay["scenario_losses_sha256"] == replay["expected_scenario_losses_sha256"]
+
+    disk_audit.close()
+    disk_cache.close()
+
+
+def test_disk_runtime_equivalence_manifest_is_fail_closed(tmp_path) -> None:
+    file_names = {
+        "environments/chembench_mopen/compositional.py",
+        "scripts/chembench_costed_repeat_corridor.py",
+        "scripts/chembench_costed_repeat_disk_runtime.py",
+        "scripts/chembench_costed_repeat_disk_runtime_verify.py",
+        "tests/test_chembench_costed_repeat_corridor.py",
+    }
+    conditions = {
+        "canonical_hash_exact": True,
+        "duplicate_detection_exact": True,
+        "policy_results_exact": True,
+        "proposal_replay_exact": True,
+        "crn_trajectories_exact": True,
+        "bounded_memory_passed": True,
+    }
+    payload = {
+        "schema_version": "chembench-costed-repeat-disk-runtime-equivalence-v1",
+        "status": "passed",
+        "scientific_implementation_commit": SCIENTIFIC_IMPLEMENTATION_COMMIT,
+        "runtime_mode": "sqlite_canonical_v1",
+        "protocol_sha256": DISK_RUNTIME_SHA256,
+        "conditions": conditions,
+        "file_sha256": {
+            name: hashlib.sha256(Path(name).read_bytes()).hexdigest()
+            for name in file_names
+        },
+    }
+    path = tmp_path / "equivalence.json"
+    path.write_text(json.dumps(payload))
+    binding = _runtime_equivalence_binding(path)
+    assert binding["conditions"] == conditions
+    scientific_binding = {
+        "implementation_commit": SCIENTIFIC_IMPLEMENTATION_COMMIT,
+        "settings_sha256": "settings",
+    }
+    shard = {
+        "schema_version": f"{SCHEMA_VERSION}-difficulty-shard-v2",
+        "status": "slice_complete",
+        "difficulty_index": 2,
+        "difficulty": "hard",
+        "binding": scientific_binding,
+        "runtime_binding": _disk_runtime_binding(
+            runtime_implementation_commit="runtime-commit",
+            equivalence_path=path,
+        ),
+        "slice": {"difficulty": "hard", "result": 3},
+        "model_calls": 0,
+        "network_calls": 0,
+        "cost_usd": 0.0,
+    }
+    assert _validated_disk_runtime_shard_slice(
+        shard,
+        expected_binding=scientific_binding,
+        expected_index=2,
+        difficulty="hard",
+        runtime_implementation_commit="runtime-commit",
+    ) == shard["slice"]
+    malformed_shard = dict(shard)
+    malformed_shard["runtime_binding"] = {
+        **shard["runtime_binding"],
+        "runtime_mode": "wrong",
+    }
+    with pytest.raises(ValueError, match="disk runtime validation"):
+        _validated_disk_runtime_shard_slice(
+            malformed_shard,
+            expected_binding=scientific_binding,
+            expected_index=2,
+            difficulty="hard",
+            runtime_implementation_commit="runtime-commit",
+        )
+
+    payload["conditions"]["crn_trajectories_exact"] = False
+    path.write_text(json.dumps(payload))
+    with pytest.raises(ValueError, match="failed validation"):
+        _runtime_equivalence_binding(path)
 
 
 def test_shared_depth_cache_matches_isolated_planners() -> None:
