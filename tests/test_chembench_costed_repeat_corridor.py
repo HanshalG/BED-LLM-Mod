@@ -18,6 +18,7 @@ from environments.chembench_mopen.mechanics import ModelBank, ProposalCache
 from scripts.chembench_costed_repeat_corridor import (
     BASE_ASSAY_NAMES,
     DISK_RUNTIME_SHA256,
+    LIVENESS_SHA256,
     SCHEMA_VERSION,
     SCIENTIFIC_IMPLEMENTATION_COMMIT,
     WELL_BUDGET,
@@ -29,6 +30,7 @@ from scripts.chembench_costed_repeat_corridor import (
     _replay_execution,
     _runtime_equivalence_binding,
     _validated_disk_runtime_shard_slice,
+    _validated_disk_runtime_bindings,
     _validated_shard_slice,
     costed_likelihoods,
 )
@@ -227,6 +229,7 @@ def test_disk_runtime_equivalence_manifest_is_fail_closed(tmp_path) -> None:
         "scientific_implementation_commit": SCIENTIFIC_IMPLEMENTATION_COMMIT,
         "runtime_mode": "sqlite_canonical_v1",
         "protocol_sha256": DISK_RUNTIME_SHA256,
+        "liveness_protocol_sha256": LIVENESS_SHA256,
         "conditions": conditions,
         "file_sha256": {
             name: hashlib.sha256(Path(name).read_bytes()).hexdigest()
@@ -263,6 +266,16 @@ def test_disk_runtime_equivalence_manifest_is_fail_closed(tmp_path) -> None:
         difficulty="hard",
         runtime_implementation_commit="runtime-commit",
     ) == shard["slice"]
+    assert _validated_disk_runtime_bindings(
+        [shard["runtime_binding"], shard["runtime_binding"]]
+    ) == [shard["runtime_binding"], shard["runtime_binding"]]
+    with pytest.raises(ValueError, match="provenance is not identical"):
+        _validated_disk_runtime_bindings(
+            [
+                shard["runtime_binding"],
+                {**shard["runtime_binding"], "runtime_mode": "wrong"},
+            ]
+        )
     malformed_shard = dict(shard)
     malformed_shard["runtime_binding"] = {
         **shard["runtime_binding"],

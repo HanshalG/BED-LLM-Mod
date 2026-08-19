@@ -85,6 +85,11 @@ DISK_RUNTIME_PATH = Path(
     "CHEMBENCH_COSTED_REPEAT_CORRIDOR_DISK_AUDIT_RUNTIME_AMENDMENT_20260818.md"
 )
 DISK_RUNTIME_SHA256 = "a830ce66cd9ffd7824b2f14523d4d2a0789055189a6af9a8c7f2de5613e60d6d"
+LIVENESS_PATH = Path(
+    "results/nonmyopic/"
+    "CHEMBENCH_COSTED_REPEAT_CORRIDOR_LEGACY_MEDIUM_LIVENESS_CLARIFICATION_20260819.md"
+)
+LIVENESS_SHA256 = "9a63e391c16f9b3f33de52772cea30d7a1a2e62654134e4d519e7c6e958574a3"
 TRUTH_VERSION = "v4"
 QUERY_SEEDS = {"easy": 2026084201, "medium": 2026084202, "hard": 2026084203}
 NUM_QUERIES = 512
@@ -874,6 +879,10 @@ def _verify_protocol_bindings(*, include_disk_runtime: bool = False) -> None:
         raise RuntimeError(
             f"costed-repeat disk runtime binding mismatch: {DISK_RUNTIME_PATH}"
         )
+    if include_disk_runtime and sha256(LIVENESS_PATH) != LIVENESS_SHA256:
+        raise RuntimeError(
+            f"costed-repeat liveness binding mismatch: {LIVENESS_PATH}"
+        )
 
 
 def _frozen_settings() -> dict[str, Any]:
@@ -1056,6 +1065,7 @@ def _runtime_equivalence_binding(path: Path) -> dict[str, Any]:
         != SCIENTIFIC_IMPLEMENTATION_COMMIT
         or payload.get("runtime_mode") != DiskRuntimeStores.mode
         or payload.get("protocol_sha256") != DISK_RUNTIME_SHA256
+        or payload.get("liveness_protocol_sha256") != LIVENESS_SHA256
         or not all(payload.get("conditions", {}).get(key) is True for key in required_true)
         or set(payload.get("file_sha256", {})) != expected_files
     ):
@@ -1079,6 +1089,10 @@ def _disk_runtime_binding(
         "amendment": {
             "file": str(DISK_RUNTIME_PATH),
             "sha256": DISK_RUNTIME_SHA256,
+        },
+        "liveness_clarification": {
+            "file": str(LIVENESS_PATH),
+            "sha256": LIVENESS_SHA256,
         },
         "equivalence": _runtime_equivalence_binding(equivalence_path),
     }
@@ -1194,6 +1208,16 @@ def _validated_disk_runtime_shard_slice(
     )
 
 
+def _validated_disk_runtime_bindings(
+    bindings: Sequence[Mapping[str, Any]],
+) -> list[Mapping[str, Any]]:
+    if len(bindings) not in {1, 2} or any(
+        binding != bindings[0] for binding in bindings[1:]
+    ):
+        raise ValueError("disk runtime shard provenance is not identical")
+    return list(bindings)
+
+
 def assemble_shards(
     source_root: Path,
     *,
@@ -1214,9 +1238,11 @@ def assemble_shards(
     expected_binding = _binding(source_binding, scientific_implementation_commit)
     slices = []
     shard_bindings = []
+    disk_runtime_bindings = []
     for expected_index, (difficulty, path) in enumerate(zip(DIFFICULTIES, shard_paths)):
         payload = json.loads(path.read_text())
-        if allow_disk_runtime and difficulty == "hard":
+        disk_shard = payload.get("schema_version") == f"{SCHEMA_VERSION}-difficulty-shard-v2"
+        if allow_disk_runtime and difficulty in {"medium", "hard"} and disk_shard:
             slices.append(
                 _validated_disk_runtime_shard_slice(
                     payload,
@@ -1226,7 +1252,10 @@ def assemble_shards(
                     runtime_implementation_commit=implementation_commit,
                 )
             )
+            disk_runtime_bindings.append(payload["runtime_binding"])
         else:
+            if allow_disk_runtime and difficulty == "hard":
+                raise ValueError("mixed-runtime assembly requires a disk-backed hard shard")
             slices.append(
                 _validated_shard_slice(
                     payload,
@@ -1240,10 +1269,14 @@ def assemble_shards(
         )
     final_binding = dict(expected_binding)
     if allow_disk_runtime:
+        disk_runtime_bindings = _validated_disk_runtime_bindings(
+            disk_runtime_bindings
+        )
         final_binding["runtime_provenance"] = {
             "assembler_implementation_commit": implementation_commit,
             "disk_runtime_amendment_sha256": DISK_RUNTIME_SHA256,
-            "hard_runtime_binding": json.loads(shard_paths[2].read_text())["runtime_binding"],
+            "liveness_clarification_sha256": LIVENESS_SHA256,
+            "disk_runtime_bindings": disk_runtime_bindings,
         }
     return _final_result(final_binding, slices, shard_bindings=shard_bindings)
 

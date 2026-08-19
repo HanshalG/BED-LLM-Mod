@@ -19,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.chembench_costed_repeat_corridor import (
     DISK_RUNTIME_SHA256,
+    LIVENESS_SHA256,
     SCIENTIFIC_IMPLEMENTATION_COMMIT,
     _proposal_records_hash,
 )
@@ -115,6 +116,7 @@ def build_manifest() -> dict[str, Any]:
         "scientific_implementation_commit": SCIENTIFIC_IMPLEMENTATION_COMMIT,
         "runtime_mode": DiskRuntimeStores.mode,
         "protocol_sha256": DISK_RUNTIME_SHA256,
+        "liveness_protocol_sha256": LIVENESS_SHA256,
         "conditions": conditions,
         "test": {
             "command": test_command,
