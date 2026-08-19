@@ -1,0 +1,28 @@
+{
+  "account_wide_usage_counts_against_cap": true,
+  "additional_paid_blocks_authorized": false,
+  "daily_cap_usd": 5.0,
+  "date": "2026-08-19",
+  "opening_balance_usd": 24.623306006000007,
+  "opening_frozen_at_london": "2026-08-19T20:37:59+01:00",
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.376693994,
+  "recorded_actual_spend_usd": 0.0,
+  "reconciliation": {
+    "live_balance_usd": 24.623306006000007,
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.376693994,
+    "locally_measured_spend_usd": 0.0,
+    "posted_spend_since_opening_usd": 0.0,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 5.0
+  },
+  "research_state": {
+    "active_dependency": "chembench_costed_repeat_corridor_medium_disk_audit",
+    "paid_block_authorized": false,
+    "reason": "zero-call oracle mechanics must complete before any new LLM semantic gate"
+  },
+  "schema_version": 1,
+  "timezone": "Europe/London",
+  "unspent_allowance_does_not_roll_over": true
+}
