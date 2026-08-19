@@ -10,16 +10,16 @@
   "cost_usd": 0.0,
   "file_sha256": {
     "environments/chembench_mopen/compositional.py": "9f6c7e35a94c24e77db87c7739b5b7d3cbe5f80e25c57af4840e1ed8aab804e6",
-    "scripts/chembench_costed_repeat_corridor.py": "b2efbfd9c50595b55bb00ceb8aa7c773f4e8b4ece638931e61473c15ac19c2c6",
+    "scripts/chembench_costed_repeat_corridor.py": "db48d62fcb5e2f6495d5f2f10f97a3b4fb443b1b7dd653e8f70d3f4f096523b7",
     "scripts/chembench_costed_repeat_disk_runtime.py": "47b34be3331e9c5733076e85e0606ee6d72e6910e8276ed0407ca60d21a9553f",
     "scripts/chembench_costed_repeat_disk_runtime_verify.py": "51e6ba96f09639f9ee55be98f6c582b05263966848a7e9b81d51a4ec11f9885b",
-    "tests/test_chembench_costed_repeat_corridor.py": "d8c3be687517686ae528f4290f87c5a324e9fdec514bf9fa88feddf4820e8f76"
+    "tests/test_chembench_costed_repeat_corridor.py": "7bba9f5c082ba27d7001e547a8561ee0d7e3173ca7abbc9a6a49e3ee0e54699b"
   },
   "liveness_protocol_sha256": "9a63e391c16f9b3f33de52772cea30d7a1a2e62654134e4d519e7c6e958574a3",
   "memory": {
     "database_bytes": 9007104,
     "maximum_peak_rss_mib": 192.0,
-    "peak_rss_mib": 46.140625,
+    "peak_rss_mib": 46.46875,
     "records": 100000,
     "records_sha256": "ca1bfffc9f56dc0deaa31540540df57650d96694dd312e5cbfbab0aa968cd406"
   },
@@ -40,6 +40,6 @@
     ],
     "returncode": 0,
     "stderr": "",
-    "stdout": "..........                                                               [100%]\n10 passed in 54.55s"
+    "stdout": "...........                                                              [100%]\n11 passed in 55.69s"
   }
 }

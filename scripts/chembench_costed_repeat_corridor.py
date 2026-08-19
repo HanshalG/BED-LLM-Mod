@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import math
+import shutil
 import sys
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -112,6 +113,7 @@ BASE_ASSAY_NAMES = (
 RANDOM_SEED_BASE = 2026084400
 RANDOM_REPLICATES = 8
 NUM_SCENARIOS = 128
+MINIMUM_DISK_RUNTIME_FREE_BYTES = 6 * 1024**3
 CRN_SEEDS = {"easy": 2026084501, "medium": 2026084502, "hard": 2026084503}
 
 
@@ -1282,6 +1284,55 @@ def assemble_shards(
     return _final_result(final_binding, slices, shard_bindings=shard_bindings)
 
 
+def disk_runtime_preflight(
+    source_root: Path,
+    *,
+    output: Path,
+    runtime_dir: Path,
+    runtime_equivalence_path: Path,
+    implementation_commit: str,
+    scientific_implementation_commit: str,
+    difficulty: str,
+) -> dict[str, Any]:
+    _verify_protocol_bindings(include_disk_runtime=True)
+    if scientific_implementation_commit != SCIENTIFIC_IMPLEMENTATION_COMMIT:
+        raise ValueError("disk runtime scientific commit differs from frozen commit")
+    if difficulty not in {"medium", "hard"}:
+        raise ValueError("disk runtime is authorized only for an incomplete shard")
+    if output.exists():
+        raise FileExistsError(f"refusing to overwrite {output}")
+    if runtime_dir.exists() and any(runtime_dir.iterdir()):
+        raise FileExistsError("disk runtime directory is not fresh and empty")
+    disk_parent = runtime_dir if runtime_dir.exists() else runtime_dir.parent
+    if not disk_parent.exists():
+        raise FileNotFoundError(f"disk runtime parent is absent: {disk_parent}")
+    disk_usage = shutil.disk_usage(disk_parent)
+    if disk_usage.free < MINIMUM_DISK_RUNTIME_FREE_BYTES:
+        raise RuntimeError("disk runtime has less than the frozen 6 GiB free-space floor")
+    source_binding = verify_source(source_root)
+    runtime_binding = _disk_runtime_binding(
+        runtime_implementation_commit=implementation_commit,
+        equivalence_path=runtime_equivalence_path,
+    )
+    return {
+        "status": "ready_without_evaluation",
+        "difficulty": difficulty,
+        "output": str(output),
+        "output_exists": False,
+        "runtime_dir": str(runtime_dir),
+        "runtime_dir_empty": True,
+        "disk_free_bytes": disk_usage.free,
+        "minimum_disk_free_bytes": MINIMUM_DISK_RUNTIME_FREE_BYTES,
+        "scientific_binding": _binding(
+            source_binding, scientific_implementation_commit
+        ),
+        "runtime_binding": runtime_binding,
+        "model_calls": 0,
+        "network_calls": 0,
+        "cost_usd": 0.0,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
@@ -1294,12 +1345,11 @@ def main() -> None:
     parser.add_argument("--runtime-dir", type=Path)
     parser.add_argument("--runtime-equivalence", type=Path)
     parser.add_argument("--allow-disk-runtime-shards", action="store_true")
+    parser.add_argument("--preflight", action="store_true")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--difficulty", choices=DIFFICULTIES)
     mode.add_argument("--assemble-shards", nargs=3, type=Path, metavar=("EASY", "MEDIUM", "HARD"))
     args = parser.parse_args()
-    if args.output.exists():
-        raise FileExistsError(f"refusing to overwrite {args.output}")
     commit = (
         require_pushed_runtime_commit(args.required_commit)
         if args.runtime_mode == DiskRuntimeStores.mode
@@ -1307,15 +1357,40 @@ def main() -> None:
         else require_pushed_commit(args.required_commit)
     )
     scientific_commit = args.scientific_commit or commit
-    runtime = None
     if args.runtime_mode == DiskRuntimeStores.mode:
-        if args.difficulty is None or args.runtime_dir is None:
-            raise ValueError("disk runtime requires one difficulty and --runtime-dir")
-        runtime = DiskRuntimeStores(args.runtime_dir)
+        if (
+            args.difficulty is None
+            or args.runtime_dir is None
+            or args.runtime_equivalence is None
+        ):
+            raise ValueError(
+                "disk runtime requires one difficulty, --runtime-dir, and equivalence"
+            )
     elif args.runtime_dir is not None or args.runtime_equivalence is not None:
         raise ValueError("runtime paths require the disk runtime mode")
     if args.allow_disk_runtime_shards and args.assemble_shards is None:
         raise ValueError("disk runtime shard allowance is assembler-only")
+    if args.preflight:
+        if args.runtime_mode != DiskRuntimeStores.mode or args.difficulty is None:
+            raise ValueError("preflight is supported only for one disk runtime shard")
+        result = disk_runtime_preflight(
+            args.source_root,
+            output=args.output,
+            runtime_dir=args.runtime_dir,
+            runtime_equivalence_path=args.runtime_equivalence,
+            implementation_commit=commit,
+            scientific_implementation_commit=scientific_commit,
+            difficulty=args.difficulty,
+        )
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return
+    if args.output.exists():
+        raise FileExistsError(f"refusing to overwrite {args.output}")
+    runtime = (
+        DiskRuntimeStores(args.runtime_dir)
+        if args.runtime_mode == DiskRuntimeStores.mode
+        else None
+    )
     if args.difficulty is not None:
         result = run_shard(
             args.source_root,

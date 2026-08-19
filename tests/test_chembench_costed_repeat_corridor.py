@@ -33,6 +33,7 @@ from scripts.chembench_costed_repeat_corridor import (
     _validated_disk_runtime_bindings,
     _validated_shard_slice,
     costed_likelihoods,
+    disk_runtime_preflight,
 )
 from scripts.chembench_costed_repeat_disk_runtime import (
     SqliteCanonicalMapping,
@@ -294,6 +295,22 @@ def test_disk_runtime_equivalence_manifest_is_fail_closed(tmp_path) -> None:
     path.write_text(json.dumps(payload))
     with pytest.raises(ValueError, match="failed validation"):
         _runtime_equivalence_binding(path)
+
+
+def test_disk_runtime_preflight_rejects_nonempty_runtime_directory(tmp_path) -> None:
+    runtime_dir = tmp_path / "runtime"
+    runtime_dir.mkdir()
+    (runtime_dir / "stale.sqlite3").write_bytes(b"stale")
+    with pytest.raises(FileExistsError, match="not fresh and empty"):
+        disk_runtime_preflight(
+            tmp_path / "unused-source",
+            output=tmp_path / "medium.json",
+            runtime_dir=runtime_dir,
+            runtime_equivalence_path=tmp_path / "unused-equivalence.json",
+            implementation_commit="runtime",
+            scientific_implementation_commit=SCIENTIFIC_IMPLEMENTATION_COMMIT,
+            difficulty="medium",
+        )
 
 
 def test_shared_depth_cache_matches_isolated_planners() -> None:
