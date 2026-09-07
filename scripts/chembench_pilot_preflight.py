@@ -6,17 +6,22 @@ import json
 from pathlib import Path
 
 from environments.chembench_mopen.pilot_data import build_public_pilot, read_protocol
+from environments.chembench_mopen.crossing_belief import CrossingGaussianModel
+from environments.chembench_mopen.envelope_belief import EnvelopeGaussianModel
 from scripts.chembench_mopen_nonmyopic_opportunity import load_source, verify_source
 
 
-def preflight(source_root):
+def preflight(source_root, engine="crossing"):
+    if engine not in ("crossing", "envelope"):
+        raise ValueError("unknown numerical engine")
     config, digest = read_protocol()
     binding = verify_source(source_root)
     if binding["commit"] != config["source_commit"]:
         raise ValueError("source mismatch")
     root = Path(__file__).resolve().parents[1]
     gate = (
-        root / "results/nonmyopic/chembench_crossing_refinement/20260908-v1/RESULT.json"
+        root
+        / f"results/nonmyopic/chembench_{engine}_refinement/20260908-v1/RESULT.json"
     )
     result = json.loads(gate.read_text())
     if result["status"] != "synthetic_refinement_passed" or not all(
@@ -26,7 +31,12 @@ def preflight(source_root):
     for relative, expected in result["source_hashes"].items():
         if hashlib.sha256((root / relative).read_bytes()).hexdigest() != expected:
             raise ValueError("numerical binding changed")
-    public = build_public_pilot(load_source(source_root))
+    public = build_public_pilot(
+        load_source(source_root),
+        model_type=EnvelopeGaussianModel
+        if engine == "envelope"
+        else CrossingGaussianModel,
+    )
     action_checks = []
     for action in range(len(public.designs)):
         try:
@@ -49,6 +59,7 @@ def preflight(source_root):
         else "public_preflight_failed",
         "action_checks": action_checks,
         "prior_particles": public.model.num_particles,
+        "engine": engine,
         "protocol_sha256": digest,
         "source_binding": binding,
         "hidden_worlds_opened": False,
@@ -62,10 +73,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument(
+        "--engine", choices=["crossing", "envelope"], default="crossing"
+    )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=False)
     try:
-        result = preflight(args.source_root)
+        result = preflight(args.source_root, args.engine)
     except Exception as exc:
         result = {
             "status": "execution_failed",

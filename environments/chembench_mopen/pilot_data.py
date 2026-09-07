@@ -81,7 +81,7 @@ def predict(source, bank, inputs):
     return np.log1p(values)
 
 
-def build_public_pilot(source):
+def build_public_pilot(source, model_type=CrossingGaussianModel):
     """Never sample hidden worlds or evaluate their observations/targets here."""
     config, digest = read_protocol()
     bank = draw_parameters(
@@ -89,7 +89,7 @@ def build_public_pilot(source):
     )
     designs = np.array(config["designs"], dtype=float)
     targets = target_inputs(config)
-    model = CrossingGaussianModel(
+    model = model_type(
         predict(source, bank, designs),
         config["observation_sigma"],
         predict(source, bank, targets),
