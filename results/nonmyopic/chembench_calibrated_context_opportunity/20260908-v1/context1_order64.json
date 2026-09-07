@@ -1,0 +1,92 @@
+{
+  "context": 1,
+  "quantile": 0.375,
+  "common_observation": 1.432556391231314,
+  "order": 64,
+  "h1_full_budget": {
+    "value": 0.004662597030598417,
+    "measurement_budget": 3,
+    "root_action": 1,
+    "root_one_step_values": [
+      [
+        0,
+        0.09698001264136642
+      ],
+      [
+        1,
+        0.023709039483257567
+      ],
+      [
+        2,
+        0.10478584241872463
+      ],
+      [
+        3,
+        0.10130068536365149
+      ]
+    ],
+    "processed_states": 1081985,
+    "elapsed_seconds": 14.30915129208006
+  },
+  "h2_plan": {
+    "action": 2,
+    "value": 0.007994147990803517,
+    "root_values": [
+      [
+        0,
+        0.01373166032135047
+      ],
+      [
+        1,
+        0.008044295458628278
+      ],
+      [
+        2,
+        0.007994147990803517
+      ],
+      [
+        3,
+        0.01674220245801089
+      ]
+    ],
+    "requested_horizon": 2,
+    "effective_horizon": 2,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 49408,
+    "elapsed_seconds": 0.47644137497991323
+  },
+  "h3_plan": {
+    "action": 2,
+    "value": 0.004604140289697767,
+    "root_values": [
+      [
+        0,
+        0.0054666291400208965
+      ],
+      [
+        1,
+        0.00464756806211982
+      ],
+      [
+        2,
+        0.004604140289697767
+      ],
+      [
+        3,
+        0.005050451022512112
+      ]
+    ],
+    "requested_horizon": 3,
+    "effective_horizon": 3,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 6340864,
+    "elapsed_seconds": 57.74632520810701
+  },
+  "full_budget_values": [
+    0.004662597030598417,
+    0.004604140289697767,
+    0.004604140289697767
+  ]
+}
