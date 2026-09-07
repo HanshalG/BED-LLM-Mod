@@ -1,0 +1,234 @@
+{
+  "status": "public_plan_failed",
+  "error_type": "SearchLimitExceeded",
+  "message": "batch horizon exceeded global resource budget",
+  "protocol_sha256": "8e1fc9df41d177fa80b2e500c22c663e3a78a980ecedaa355c667116cc2e1d36",
+  "source_binding": {
+    "root": "/Users/hanshalgoyal/BED-LLM-Mod/external/LLM-AutoSciLab-horizon-reference",
+    "commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+    "tree": "e042d418fc30c6c70f6d1c6b0636d43f0c1c0f7a",
+    "file_sha256": {
+      "autoscilab/oracle/chembench.py": "eba9514d68573b4aa8c6a427606f1d0d7a9c431d8396e69ef4ae0774d2a449de",
+      "autoscilab/oracle/compound_domains.py": "0dfd47c1858efacb732f0fbceace3ebd61bb30f864ec777d628fb70f876343f3",
+      "autoscilab/oracle/chembench_excluded.py": "defc6c0c5edafe75dffaa366a61298856f413bd465a6e4e3636e9b0c57124003"
+    }
+  },
+  "elapsed_seconds": 60.13086595805362,
+  "horizon": 3,
+  "engine": "native",
+  "prior_particles": 16,
+  "hidden_worlds_opened": false,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false,
+  "profile": [
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 205,
+      "function": "plan_batched",
+      "calls": 1,
+      "self_seconds": 0.000511623,
+      "cumulative_seconds": 60.121848167
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 276,
+      "function": "integrate",
+      "calls": 490,
+      "self_seconds": 0.06467730000000001,
+      "cumulative_seconds": 60.121159708
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 319,
+      "function": "<lambda>",
+      "calls": 2,
+      "self_seconds": 0.000108917,
+      "cumulative_seconds": 60.038672333
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 287,
+      "function": "value",
+      "calls": 489,
+      "self_seconds": 0.203286132,
+      "cumulative_seconds": 60.038563416
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 305,
+      "function": "<lambda>",
+      "calls": 487,
+      "self_seconds": 0.0070391130000000005,
+      "cumulative_seconds": 59.514304708000004
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 28,
+      "function": "posterior_branches_many",
+      "calls": 490,
+      "self_seconds": 37.554433834,
+      "cumulative_seconds": 57.93478454700001
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/envelope_belief.py",
+      "line": 16,
+      "function": "quadrature_rule",
+      "calls": 31234,
+      "self_seconds": 8.975438272,
+      "cumulative_seconds": 14.199452311000002
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 169,
+      "function": "_finish_branches",
+      "calls": 490,
+      "self_seconds": 2.9491192780000004,
+      "cumulative_seconds": 5.653319799
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls": 163244,
+      "self_seconds": 3.8622106300000003,
+      "cumulative_seconds": 3.8622106300000003
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/batch_horizon.py",
+      "line": 272,
+      "function": "terminal",
+      "calls": 30912,
+      "self_seconds": 1.213654358,
+      "cumulative_seconds": 1.8044276700000002
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/raw_belief.py",
+      "line": 65,
+      "function": "_logs",
+      "calls": 31235,
+      "self_seconds": 0.406439001,
+      "cumulative_seconds": 1.6474598420000002
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'extend' of 'list' objects>",
+      "calls": 341528,
+      "self_seconds": 1.230819185,
+      "cumulative_seconds": 1.230819185
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/fromnumeric.py",
+      "line": 71,
+      "function": "_wrapreduction",
+      "calls": 66063,
+      "self_seconds": 0.307986374,
+      "cumulative_seconds": 0.977259486
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/fromnumeric.py",
+      "line": 2177,
+      "function": "sum",
+      "calls": 31889,
+      "self_seconds": 0.11046006800000001,
+      "cumulative_seconds": 0.6778173700000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method numpy.array>",
+      "calls": 62573,
+      "self_seconds": 0.614101495,
+      "cumulative_seconds": 0.614101495
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'any' of 'numpy.ndarray' objects>",
+      "calls": 63450,
+      "self_seconds": 0.107206253,
+      "cumulative_seconds": 0.5927841420000001
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/fromnumeric.py",
+      "line": 2421,
+      "function": "all",
+      "calls": 32704,
+      "self_seconds": 0.094672379,
+      "cumulative_seconds": 0.5106130050000001
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/_methods.py",
+      "line": 55,
+      "function": "_any",
+      "calls": 63450,
+      "self_seconds": 0.047902016000000006,
+      "cumulative_seconds": 0.48557788900000004
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/raw_belief.py",
+      "line": 76,
+      "function": "_action",
+      "calls": 31724,
+      "self_seconds": 0.038508235,
+      "cumulative_seconds": 0.417889337
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/fromnumeric.py",
+      "line": 1025,
+      "function": "argsort",
+      "calls": 31724,
+      "self_seconds": 0.063485334,
+      "cumulative_seconds": 0.401083972
+    },
+    {
+      "file": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/horizon.py",
+      "line": 50,
+      "function": "_integer",
+      "calls": 31728,
+      "self_seconds": 0.07600688500000001,
+      "cumulative_seconds": 0.37941655900000004
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/lib/ufunclike.py",
+      "line": 71,
+      "function": "isposinf",
+      "calls": 31725,
+      "self_seconds": 0.351136914,
+      "cumulative_seconds": 0.351136914
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/fromnumeric.py",
+      "line": 53,
+      "function": "_wrapfunc",
+      "calls": 32214,
+      "self_seconds": 0.099299884,
+      "cumulative_seconds": 0.350956357
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.isinstance>",
+      "calls": 95435,
+      "self_seconds": 0.106678268,
+      "cumulative_seconds": 0.333649116
+    },
+    {
+      "file": "/Users/hanshalgoyal/.cache/uv/archive-v0/ODJdtUXI4KOdI6uqAB7vt/lib/python3.12/site-packages/numpy/core/numeric.py",
+      "line": 274,
+      "function": "full",
+      "calls": 31478,
+      "self_seconds": 0.252854488,
+      "cumulative_seconds": 0.318182562
+    }
+  ],
+  "source_hashes": {
+    "scripts/chembench_public_kernel_profile.py": "485863e93d7dee196429eb5d423e625b4daa82bc603c5a8406e0c9f5d4648bac",
+    "environments/chembench_mopen/batch_horizon.py": "a2d62b7d707a7e8be9298fae4c29cc33cc45ed2c50b9530c5be99fe5b0825bca",
+    "environments/chembench_mopen/envelope_belief.py": "ec6b42244d36c94b714fda5fa232a277d38cd932ede02c5916f01577ac76274a",
+    "environments/chembench_mopen/native_belief.py": "f4d6194b93560c943cd3ef3c87f4fafb6e67d02bc9764106c3e8da4c296adaad",
+    "environments/chembench_mopen/_native_quantiles.pyx": "fb3969330b1ee6d9a4530721202ff466881a81e1edb7561c1312ef909c05c20d",
+    "scripts/requirements-chembench-native.txt": "7c154d6ed8cc68f16c4469605acb636115993764b46e1ef8b7e48f5143d33842"
+  }
+}

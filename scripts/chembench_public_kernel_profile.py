@@ -20,14 +20,22 @@ def main():
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--horizon", type=int, choices=[1, 2, 3], default=3)
+    parser.add_argument("--engine", choices=["numpy", "native"], default="numpy")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=False)
     config, digest = read_protocol()
     binding = verify_source(args.source_root)
     if binding["commit"] != config["source_commit"]:
         raise ValueError("source mismatch")
+    model_type = EnvelopeGaussianModel
+    if args.engine == "native":
+        from environments.chembench_mopen.native_belief import (
+            NativeEnvelopeGaussianModel,
+        )
+
+        model_type = NativeEnvelopeGaussianModel
     model = build_public_pilot(
-        load_source(args.source_root), model_type=EnvelopeGaussianModel
+        load_source(args.source_root), model_type=model_type
     ).model
     profile = cProfile.Profile()
     started = monotonic()
@@ -57,6 +65,7 @@ def main():
             "source_binding": binding,
             "elapsed_seconds": monotonic() - started,
             "horizon": args.horizon,
+            "engine": args.engine,
             "prior_particles": model.num_particles,
             "hidden_worlds_opened": False,
             "model_calls": 0,
@@ -81,6 +90,9 @@ def main():
                     "scripts/chembench_public_kernel_profile.py",
                     "environments/chembench_mopen/batch_horizon.py",
                     "environments/chembench_mopen/envelope_belief.py",
+                    "environments/chembench_mopen/native_belief.py",
+                    "environments/chembench_mopen/_native_quantiles.pyx",
+                    "scripts/requirements-chembench-native.txt",
                 ]
             },
         }

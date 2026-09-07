@@ -1,0 +1,4 @@
+numpy==1.26.4
+scipy==1.17.1
+Cython==3.0.12
+setuptools==75.8.0

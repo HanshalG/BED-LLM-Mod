@@ -104,7 +104,8 @@ class GaussianParticleModel:
 
     def condition(self, state: Hashable, action: int, observation: float) -> tuple:
         logs = self._logs(state) + self.log_likelihood(action, observation)
-        logs -= np.logaddexp.reduce(logs)
+        logs -= np.max(logs)
+        logs -= np.log(np.sum(np.exp(logs)))
         return tuple(float(value) for value in logs)
 
     def branches(self, state: Hashable, action: int) -> tuple[BeliefBranch, ...]:

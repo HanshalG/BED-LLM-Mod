@@ -11,6 +11,7 @@ from scripts.chembench_batch_refinement import execute
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--engine", choices=["numpy", "native"], default="numpy")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=False)
     root = Path(__file__).resolve().parents[1]
@@ -23,9 +24,23 @@ def main():
         "environments/chembench_mopen/raw_belief.py",
         "environments/chembench_mopen/quantile_belief.py",
     ]
+    model_type = EnvelopeGaussianModel
+    if args.engine == "native":
+        from environments.chembench_mopen.native_belief import (
+            NativeEnvelopeGaussianModel,
+        )
+
+        model_type = NativeEnvelopeGaussianModel
+        paths.extend(
+            [
+                "environments/chembench_mopen/native_belief.py",
+                "environments/chembench_mopen/_native_quantiles.pyx",
+                "scripts/requirements-chembench-native.txt",
+            ]
+        )
     hashes = {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in paths}
     try:
-        result = execute(args.output_dir, model_type=EnvelopeGaussianModel)
+        result = execute(args.output_dir, model_type=model_type)
     except Exception as exc:
         result = {
             "status": "execution_failed",
@@ -35,6 +50,7 @@ def main():
     result.update(
         {
             "source_hashes": hashes,
+            "engine": args.engine,
             "settings": {
                 "orders": [32, 64],
                 "error_cap": 0.001,

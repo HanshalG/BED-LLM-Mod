@@ -39,7 +39,11 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
         raise ValueError("expected normalized log weights")
     weights = np.exp(logs)
     means, sigmas = model.means[:, action], model.sigmas[:, action]
-    if hasattr(model, "quadrature_rule"):
+    if hasattr(model, "_quadrature_rules_many"):
+        quantiles, integration_weights = model._quadrature_rules_many(
+            logs, weights, action
+        )
+    elif hasattr(model, "quadrature_rule"):
         rules = [model.quadrature_rule(row, action) for row in logs]
         quantiles = np.stack([rule[0] for rule in rules])
         integration_weights = np.stack([rule[1] for rule in rules])
@@ -57,6 +61,18 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
     # Composite rules can round an interior tail node to an endpoint. Keep its
     # mass but evaluate at the closest representable interior probability.
     quantiles = np.clip(quantiles, np.nextafter(0.0, 1.0), np.nextafter(1.0, 0.0))
+    if hasattr(model, "_invert_quantiles_many"):
+        observations = model._invert_quantiles_many(weights, means, sigmas, quantiles)
+        return _finish_branches(
+            logs,
+            weights,
+            means,
+            sigmas,
+            quantiles,
+            observations,
+            integration_weights,
+            return_weights,
+        )
     component_q = means[None, :, None] + sigmas[None, :, None] * ndtri(
         quantiles[:, None, :]
     )
@@ -65,13 +81,6 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
     high = np.max(np.where(active, component_q, -np.inf), axis=1)
     if not np.isfinite(low).all() or not np.isfinite(high).all():
         raise ValueError("quantiles exceed numerical range")
-
-    def cdf(y):
-        return np.sum(
-            weights[:, :, None]
-            * ndtr((y[:, None, :] - means[None, :, None]) / sigmas[None, :, None]),
-            axis=1,
-        )
 
     # Newton only accelerates ordinary probabilities. Verify a narrow bracket
     # around converged proposals; tails/plateaus retain the original bisection.
@@ -149,7 +158,36 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
         pending = pending[(next_middle > lo[pending]) & (next_middle < hi[pending])]
     low, high = lo.reshape(shape), hi.reshape(shape)
     observations = low / 2 + high / 2
-    if np.max(np.abs(cdf(observations) - quantiles)) > 1e-8:
+    return _finish_branches(
+        logs,
+        weights,
+        means,
+        sigmas,
+        quantiles,
+        observations,
+        integration_weights,
+        return_weights,
+    )
+
+
+def _finish_branches(
+    logs,
+    weights,
+    means,
+    sigmas,
+    quantiles,
+    observations,
+    integration_weights,
+    return_weights,
+):
+    cdf = np.sum(
+        weights[:, :, None]
+        * ndtr(
+            (observations[:, None, :] - means[None, :, None]) / sigmas[None, :, None]
+        ),
+        axis=1,
+    )
+    if not np.isfinite(observations).all() or np.max(np.abs(cdf - quantiles)) > 1e-8:
         raise ArithmeticError("predictive quantile inversion failed")
     with np.errstate(over="ignore", invalid="ignore"):
         likelihoods = (
@@ -160,7 +198,10 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
     if not np.isfinite(likelihoods).all():
         raise ValueError("likelihood exceeds numerical range")
     posterior = logs[:, None, :] + likelihoods
-    posterior -= np.logaddexp.reduce(posterior, axis=2)[:, :, None]
+    # A max-shifted sum uses one logarithm per posterior instead of repeatedly
+    # evaluating logaddexp across every particle. Keep normalization in log space.
+    posterior -= np.max(posterior, axis=2, keepdims=True)
+    posterior -= np.log(np.sum(np.exp(posterior), axis=2, keepdims=True))
     return (
         (observations, posterior, integration_weights)
         if return_weights
@@ -212,7 +253,9 @@ def plan_batched(
             + 8 * model.num_particles * model.targets.shape[1]
         )
     )
-    distance_bytes = 8 * model.num_particles**2
+    distance_bytes = 8 * model.num_particles**2 + getattr(
+        model, "_workspace_fixed_bytes", 0
+    )
     batch_size = min(batch_size, (max_workspace_bytes - distance_bytes) // row_bytes)
     if batch_size < 1:
         raise SearchLimitExceeded("workspace budget too small for one belief")

@@ -138,7 +138,7 @@ def episode(
     }
 
 
-def run(output, source_root):
+def run(output, source_root, engine="envelope"):
     config, digest = read_protocol()
     started = monotonic()
     phase = "public_preflight"
@@ -178,12 +178,21 @@ def run(output, source_root):
         return plans
 
     try:
-        check = preflight(source_root, "envelope")
+        if engine not in ("envelope", "native"):
+            raise ValueError("unsupported pilot engine")
+        check = preflight(source_root, engine)
         save("preflight", check)
         if check["status"] != "public_preflight_passed":
             raise RuntimeError("public predecessor not ready")
         source = load_source(source_root)
-        public = build_public_pilot(source, model_type=EnvelopeGaussianModel)
+        model_type = EnvelopeGaussianModel
+        if engine == "native":
+            from environments.chembench_mopen.native_belief import (
+                NativeEnvelopeGaussianModel,
+            )
+
+            model_type = NativeEnvelopeGaussianModel
+        public = build_public_pilot(source, model_type=model_type)
         phase = "public_root_planning"
         public_roots = roots(public.model, "public_root")
         # All initial core decisions must exist before this endpoint boundary.
@@ -201,7 +210,7 @@ def run(output, source_root):
                 "world_parameters": bank,
             },
         )
-        oracle = EnvelopeGaussianModel(
+        oracle = model_type(
             observations,
             config["observation_sigma"],
             targets,
@@ -300,6 +309,7 @@ def run(output, source_root):
     result.update(
         {
             "protocol_sha256": digest,
+            "engine": engine,
             "hidden_worlds_opened": opened,
             "model_calls": 0,
             "cost_usd": 0,
@@ -314,9 +324,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--engine", choices=["envelope", "native"], default="envelope")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=False)
-    result = run(args.output_dir, args.source_root)
+    result = run(args.output_dir, args.source_root, args.engine)
     root = Path(__file__).resolve().parents[1]
     result["source_hashes"] = {
         p: hashlib.sha256((root / p).read_bytes()).hexdigest()
