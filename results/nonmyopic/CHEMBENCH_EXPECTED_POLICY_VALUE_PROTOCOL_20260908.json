@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "public_prior_only_same_budget_diagnostic_not_new_efficacy_endpoint",
+  "primary_result_sha256": "f15d7df1f7281d3d2ca17a1bf504c734ba7c40d57e48ecede2e6e660cd80180f",
+  "primary_replay_sha256": "2890550fca880a1bf511c084563ec0e76843b3eb4add3bec33c5c46f3252dd1f",
+  "physics_sha256": "8e1fc9df41d177fa80b2e500c22c663e3a78a980ecedaa355c667116cc2e1d36",
+  "measurement_budget": 3,
+  "orders": [32, 64],
+  "myopic_policy": "reselect_by_one_step_expected_fixed_target_variance_after_each_observation",
+  "evaluation": "integrate_terminal_variance_after_three_measurements_over_same_finite_public_prior",
+  "comparator": "full_contingent_three_step_optimum_same_model_budget_and_targets",
+  "reuse_banked_64_step_optimum": true,
+  "max_states": 8000000,
+  "max_seconds_per_evaluation": 60,
+  "max_panel_seconds": 180,
+  "max_workspace_bytes": 67108864,
+  "absolute_refinement_tolerance": 0.001,
+  "hidden_world_construction_allowed": false,
+  "primary_result_changes_allowed": false,
+  "paid_calls_authorized": false
+}
