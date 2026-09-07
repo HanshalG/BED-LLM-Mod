@@ -1,0 +1,161 @@
+{
+  "order": 32,
+  "one_step": [
+    {
+      "separation": 0.2,
+      "unequal_noise": false,
+      "error": 1.8743360879258653e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 0.2,
+      "unequal_noise": true,
+      "error": 3.113815949463972e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": false,
+      "error": 8.863247978829758e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": true,
+      "error": 0.00020409792890295486,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": false,
+      "error": 0.00022961848968193498,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": true,
+      "error": 0.00045342527147584607,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": false,
+      "error": 8.863247978829758e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": true,
+      "error": 8.863247978829758e-06,
+      "regret": 0.0
+    }
+  ],
+  "three_step": {
+    "action": 0,
+    "value": 0.19571291989503467,
+    "root_values": [
+      [
+        0,
+        0.19571291989503467
+      ],
+      [
+        1,
+        0.19571291989503467
+      ],
+      [
+        2,
+        0.19571291989503467
+      ]
+    ],
+    "requested_horizon": 3,
+    "effective_horizon": 3,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 202848,
+    "elapsed_seconds": 1.617496500024572
+  },
+  "three_reference": 0.19564758610976757,
+  "three_error": 6.53337852671021e-05,
+  "tree": {
+    "action": 0,
+    "value": 5.310505667324513e-05,
+    "root_values": [
+      [
+        0,
+        5.310505667324513e-05
+      ],
+      [
+        1,
+        0.04964120267731678
+      ],
+      [
+        2,
+        0.04964119971955262
+      ]
+    ],
+    "requested_horizon": 2,
+    "effective_horizon": 2,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 6240,
+    "elapsed_seconds": 0.1250576670281589
+  },
+  "open_loop": {
+    "action": 2,
+    "value": 0.05316602771752306,
+    "root_values": [
+      [
+        0,
+        0.12502641476608137
+      ],
+      [
+        1,
+        0.053166027717523066
+      ],
+      [
+        2,
+        0.05316602771752306
+      ]
+    ],
+    "requested_horizon": 2,
+    "effective_horizon": 2,
+    "mode": "open_loop",
+    "fixed_sequence": [
+      2,
+      1
+    ],
+    "processed_states": 6342,
+    "elapsed_seconds": 0.12701995787210763
+  },
+  "gap": 0.05311292266084981,
+  "continuations": [
+    {
+      "observation": -0.9641909927646983,
+      "action": 1,
+      "root_values": [
+        [
+          1,
+          5.878497992108854e-06
+        ],
+        [
+          2,
+          0.24999999999999994
+        ]
+      ]
+    },
+    {
+      "observation": 1.0358090072618515,
+      "action": 2,
+      "root_values": [
+        [
+          1,
+          0.24999999999999994
+        ],
+        [
+          2,
+          4.460679600223752e-06
+        ]
+      ]
+    }
+  ]
+}

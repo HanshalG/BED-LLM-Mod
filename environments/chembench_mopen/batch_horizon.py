@@ -25,7 +25,7 @@ class BatchPlan:
     elapsed_seconds: float
 
 
-def posterior_branches_many(model, logs, action):
+def posterior_branches_many(model, logs, action, *, return_weights=False):
     """Same 64 bisections and full scalar likelihood as QuantileGaussianModel."""
     action = model._action(action)
     logs = np.asarray(logs, dtype=float)
@@ -39,7 +39,18 @@ def posterior_branches_many(model, logs, action):
         raise ValueError("expected normalized log weights")
     weights = np.exp(logs)
     means, sigmas = model.means[:, action], model.sigmas[:, action]
-    component_q = means[:, None] + sigmas[:, None] * ndtri(model._quantiles)
+    if hasattr(model, "quadrature_rule"):
+        rules = [model.quadrature_rule(row, action) for row in logs]
+        quantiles = np.stack([rule[0] for rule in rules])
+        integration_weights = np.stack([rule[1] for rule in rules])
+    else:
+        quantiles = np.broadcast_to(model._quantiles, (len(logs), model.branch_count))
+        integration_weights = np.broadcast_to(
+            model._quadrature_weights, quantiles.shape
+        )
+    component_q = means[None, :, None] + sigmas[None, :, None] * ndtri(
+        quantiles[:, None, :]
+    )
     active = weights[:, :, None] > 0
     low = np.min(np.where(active, component_q, np.inf), axis=1)
     high = np.max(np.where(active, component_q, -np.inf), axis=1)
@@ -55,11 +66,11 @@ def posterior_branches_many(model, logs, action):
 
     for _ in range(64):
         middle = low / 2 + high / 2
-        below = cdf(middle) < model._quantiles
+        below = cdf(middle) < quantiles
         low = np.where(below, middle, low)
         high = np.where(below, high, middle)
     observations = low / 2 + high / 2
-    if np.max(np.abs(cdf(observations) - model._quantiles)) > 1e-8:
+    if np.max(np.abs(cdf(observations) - quantiles)) > 1e-8:
         raise ArithmeticError("predictive quantile inversion failed")
     with np.errstate(over="ignore", invalid="ignore"):
         likelihoods = (
@@ -71,7 +82,11 @@ def posterior_branches_many(model, logs, action):
         raise ValueError("likelihood exceeds numerical range")
     posterior = logs[:, None, :] + likelihoods
     posterior -= np.logaddexp.reduce(posterior, axis=2)[:, :, None]
-    return observations, posterior
+    return (
+        (observations, posterior, integration_weights)
+        if return_weights
+        else (observations, posterior)
+    )
 
 
 def plan_batched(
@@ -138,10 +153,14 @@ def plan_batched(
 
     def integrate(logs, action, continuation):
         check()
-        _, posterior = posterior_branches_many(model, logs, action)
+        _, posterior, integration_weights = posterior_branches_many(
+            model, logs, action, return_weights=True
+        )
         check()
         values = continuation(posterior.reshape(-1, model.num_particles))
-        return values.reshape(len(logs), model.branch_count) @ model._quadrature_weights
+        return np.sum(
+            values.reshape(len(logs), model.branch_count) * integration_weights, axis=1
+        )
 
     def value(logs, actions, remaining, sequence=None):
         output = np.empty(len(logs))

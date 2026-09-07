@@ -14,7 +14,7 @@ from environments.chembench_mopen.quantile_belief import QuantileGaussianModel
 from environments.chembench_mopen.raw_integration import predictive_expectation
 
 
-def regime_model(count):
+def regime_model(count, model_type=QuantileGaussianModel):
     means, sigmas, targets = [], [], []
     for regime in (0, 1):
         for target in (0, 1):
@@ -27,10 +27,10 @@ def regime_model(count):
             )
             sigmas.append([0.3, 0.3 if regime == 0 else 2, 0.3 if regime == 1 else 2])
             targets.append([target])
-    return QuantileGaussianModel(means, sigmas, targets, [0.25] * 4, branch_count=count)
+    return model_type(means, sigmas, targets, [0.25] * 4, branch_count=count)
 
 
-def execute(output):
+def execute(output, model_type=QuantileGaussianModel):
     root = Path(__file__).resolve().parents[1]
     raw = (
         root / "results/nonmyopic/chembench_raw_integration/20260908-v1/RESULT.json"
@@ -66,7 +66,7 @@ def execute(output):
         for case in json.loads(raw)["cases"]:
             s = case["separation"]
             noise = [[0.3, 1], [2, 1]] if case["unequal_noise"] else 1
-            m = QuantileGaussianModel(
+            m = model_type(
                 [[-s, -0.5], [s, 0.5]],
                 noise,
                 [[0], [1]],
@@ -86,7 +86,7 @@ def execute(output):
                 }
             )
         save(f"order{count}_one", one)
-        m = QuantileGaussianModel(
+        m = model_type(
             [[-0.3] * 3, [0.3] * 3], 1, [[0], [1]], [0.5, 0.5], branch_count=count
         )
         three = plan(m, 3)
@@ -97,7 +97,7 @@ def execute(output):
             ref, ref.initial_state, 0, ref.risk, value_bound=0.25
         )
         save(f"order{count}_three", asdict(three))
-        m = regime_model(count)
+        m = regime_model(count, model_type)
         tree = plan(m, 2)
         fixed = plan(m, 2, mode="open_loop")
         branches = m.branches(m.initial_state, tree.action)
