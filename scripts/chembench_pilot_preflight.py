@@ -1,0 +1,84 @@
+"""Public-source-only feasibility preflight; hidden worlds remain unopened."""
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+from environments.chembench_mopen.pilot_data import build_public_pilot, read_protocol
+from scripts.chembench_mopen_nonmyopic_opportunity import load_source, verify_source
+
+
+def preflight(source_root):
+    config, digest = read_protocol()
+    binding = verify_source(source_root)
+    if binding["commit"] != config["source_commit"]:
+        raise ValueError("source mismatch")
+    root = Path(__file__).resolve().parents[1]
+    gate = (
+        root / "results/nonmyopic/chembench_crossing_refinement/20260908-v1/RESULT.json"
+    )
+    result = json.loads(gate.read_text())
+    if result["status"] != "synthetic_refinement_passed" or not all(
+        result["checks"].values()
+    ):
+        raise ValueError("numerical predecessor failed")
+    for relative, expected in result["source_hashes"].items():
+        if hashlib.sha256((root / relative).read_bytes()).hexdigest() != expected:
+            raise ValueError("numerical binding changed")
+    public = build_public_pilot(load_source(source_root))
+    action_checks = []
+    for action in range(len(public.designs)):
+        try:
+            branches = public.model.branches(public.model.initial_state, action)
+            action_checks.append(
+                {"action": action, "status": "ready", "branches": len(branches)}
+            )
+        except Exception as exc:
+            action_checks.append(
+                {
+                    "action": action,
+                    "status": "not_ready",
+                    "error_type": type(exc).__name__,
+                    "message": str(exc),
+                }
+            )
+    return {
+        "status": "public_preflight_passed"
+        if all(a["status"] == "ready" for a in action_checks)
+        else "public_preflight_failed",
+        "action_checks": action_checks,
+        "prior_particles": public.model.num_particles,
+        "protocol_sha256": digest,
+        "source_binding": binding,
+        "hidden_worlds_opened": False,
+        "model_calls": 0,
+        "cost_usd": 0,
+        "paid_calls_authorized": False,
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source-root", type=Path, required=True)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    args = parser.parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=False)
+    try:
+        result = preflight(args.source_root)
+    except Exception as exc:
+        result = {
+            "status": "execution_failed",
+            "error_type": type(exc).__name__,
+            "message": str(exc),
+            "hidden_worlds_opened": False,
+            "paid_calls_authorized": False,
+        }
+    temp = args.output_dir / "RESULT.tmp"
+    temp.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+    temp.replace(args.output_dir / "RESULT.json")
+    print(result["status"])
+
+
+if __name__ == "__main__":
+    main()
