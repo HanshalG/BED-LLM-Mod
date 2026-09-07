@@ -26,7 +26,7 @@ class BatchPlan:
 
 
 def posterior_branches_many(model, logs, action, *, return_weights=False):
-    """Same 64 bisections and full scalar likelihood as QuantileGaussianModel."""
+    """Bracket-verified quantiles with full scalar likelihood updates."""
     action = model._action(action)
     logs = np.asarray(logs, dtype=float)
     if logs.ndim != 2 or logs.shape[1] != model.num_particles or not len(logs):
@@ -73,11 +73,81 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
             axis=1,
         )
 
+    # Newton only accelerates ordinary probabilities. Verify a narrow bracket
+    # around converged proposals; tails/plateaus retain the original bisection.
+    shape = low.shape
+    lo, hi, q = low.ravel().copy(), high.ravel().copy(), quantiles.ravel()
+    row = np.repeat(np.arange(len(logs)), model.branch_count)
+    eligible = (q > 1e-5) & (q < 1 - 1e-5)
+    pending = np.flatnonzero(eligible)
+    # A separated-mixture quantile is an initial guess only. It is particularly
+    # useful after informative observations; full-mixture brackets still decide.
+    order = np.argsort(means)
+    cumulative = np.cumsum(weights[:, order], axis=1)
+    component = np.sum(quantiles[:, :, None] > cumulative[:, None, :], axis=2)
+    component = np.minimum(component, len(means) - 1)
+    selected = order[component]
+    before = np.concatenate([np.zeros((len(logs), 1)), cumulative[:, :-1]], axis=1)
+    rows = np.arange(len(logs))[:, None]
+    with np.errstate(divide="ignore", invalid="ignore"):
+        local_q = (quantiles - before[rows, component]) / weights[rows, selected]
+    guess = means[selected] + sigmas[selected] * ndtri(
+        np.clip(local_q, 1e-15, 1 - 1e-15)
+    )
+    x = guess.ravel()
+    x = np.where(np.isfinite(x) & (x > lo) & (x < hi), x, lo / 2 + hi / 2)
+    solved = np.zeros(len(q), dtype=bool)
+
+    def selected_cdf(indices, y):
+        return np.sum(
+            weights[row[indices]] * ndtr((y[:, None] - means) / sigmas), axis=1
+        )
+
+    for _ in range(12):
+        if not len(pending):
+            break
+        z = (x[pending, None] - means) / sigmas
+        w = weights[row[pending]]
+        f = np.sum(w * ndtr(z), axis=1)
+        density = np.sum(w * np.exp(-0.5 * z**2) / sigmas, axis=1) / math.sqrt(
+            2 * math.pi
+        )
+        below = f < q[pending]
+        lo[pending] = np.where(below, x[pending], lo[pending])
+        hi[pending] = np.where(below, hi[pending], x[pending])
+        with np.errstate(divide="ignore", invalid="ignore"):
+            correction = (f - q[pending]) / density
+        tolerance = 1e-13 * np.maximum(1, np.abs(x[pending]))
+        near = np.isfinite(correction) & (np.abs(correction) <= tolerance)
+        candidates = pending[near]
+        if len(candidates):
+            left = x[candidates] - tolerance[near]
+            right = x[candidates] + tolerance[near]
+            verified = (selected_cdf(candidates, left) < q[candidates]) & (
+                selected_cdf(candidates, right) >= q[candidates]
+            )
+            done = candidates[verified]
+            lo[done], hi[done] = left[verified], right[verified]
+            solved[done] = True
+        proposal = x[pending] - correction
+        interior = (
+            np.isfinite(proposal) & (proposal > lo[pending]) & (proposal < hi[pending])
+        )
+        x[pending] = np.where(interior, proposal, lo[pending] / 2 + hi[pending] / 2)
+        pending = pending[~solved[pending]]
+
+    # The fallback also covers extreme tail probabilities and flat CDF regions.
+    pending = np.flatnonzero(~solved)
     for _ in range(64):
-        middle = low / 2 + high / 2
-        below = cdf(middle) < quantiles
-        low = np.where(below, middle, low)
-        high = np.where(below, high, middle)
+        if not len(pending):
+            break
+        middle = lo[pending] / 2 + hi[pending] / 2
+        below = selected_cdf(pending, middle) < q[pending]
+        lo[pending] = np.where(below, middle, lo[pending])
+        hi[pending] = np.where(below, hi[pending], middle)
+        next_middle = lo[pending] / 2 + hi[pending] / 2
+        pending = pending[(next_middle > lo[pending]) & (next_middle < hi[pending])]
+    low, high = lo.reshape(shape), hi.reshape(shape)
     observations = low / 2 + high / 2
     if np.max(np.abs(cdf(observations) - quantiles)) > 1e-8:
         raise ArithmeticError("predictive quantile inversion failed")

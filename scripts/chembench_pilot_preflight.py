@@ -19,7 +19,7 @@ def preflight(source_root, engine="crossing"):
     if binding["commit"] != config["source_commit"]:
         raise ValueError("source mismatch")
     root = Path(__file__).resolve().parents[1]
-    version = "v3" if engine == "envelope" else "v1"
+    version = "v4" if engine == "envelope" else "v1"
     gate = (
         root
         / f"results/nonmyopic/chembench_{engine}_refinement/20260908-{version}/RESULT.json"

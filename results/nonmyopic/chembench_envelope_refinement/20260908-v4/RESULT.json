@@ -1,0 +1,360 @@
+{
+  "status": "synthetic_refinement_passed",
+  "checks": {
+    "one_step": true,
+    "three_step": true,
+    "refinement": true,
+    "adaptivity": true
+  },
+  "records": [
+    {
+      "order": 32,
+      "one_step": [
+        {
+          "separation": 0.2,
+          "unequal_noise": false,
+          "error": 1.8743360879230897e-05,
+          "regret": 0.0
+        },
+        {
+          "separation": 0.2,
+          "unequal_noise": true,
+          "error": 3.113815949450094e-05,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": false,
+          "error": 8.863247979329358e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": true,
+          "error": 0.00020409792890307976,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": false,
+          "error": 0.0002296184896819559,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": true,
+          "error": 0.000453425271475853,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": false,
+          "error": 8.863247979329358e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": true,
+          "error": 8.863247979329358e-06,
+          "regret": 0.0
+        }
+      ],
+      "three_step": {
+        "action": 0,
+        "value": 0.19571291989503475,
+        "root_values": [
+          [
+            0,
+            0.19571291989503475
+          ],
+          [
+            1,
+            0.19571291989503475
+          ],
+          [
+            2,
+            0.19571291989503475
+          ]
+        ],
+        "requested_horizon": 3,
+        "effective_horizon": 3,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 202848,
+        "elapsed_seconds": 2.445194083964452
+      },
+      "three_reference": 0.19564758610976757,
+      "three_error": 6.533378526718536e-05,
+      "tree": {
+        "action": 0,
+        "value": 5.310505667324125e-05,
+        "root_values": [
+          [
+            0,
+            5.310505667324125e-05
+          ],
+          [
+            1,
+            0.049637028968982734
+          ],
+          [
+            2,
+            0.04963702896898273
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 6240,
+        "elapsed_seconds": 0.20495658391155303
+      },
+      "open_loop": {
+        "action": 1,
+        "value": 0.05316602771752296,
+        "root_values": [
+          [
+            0,
+            0.12502641476608134
+          ],
+          [
+            1,
+            0.05316602771752296
+          ],
+          [
+            2,
+            0.05316602771752297
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "open_loop",
+        "fixed_sequence": [
+          1,
+          2
+        ],
+        "processed_states": 6342,
+        "elapsed_seconds": 0.1364509160630405
+      },
+      "gap": 0.05311292266084972,
+      "continuations": [
+        {
+          "observation": -0.9641909927646982,
+          "action": 1,
+          "root_values": [
+            [
+              1,
+              5.878497992108823e-06
+            ],
+            [
+              2,
+              0.24999999999999994
+            ]
+          ]
+        },
+        {
+          "observation": 1.0358090072618518,
+          "action": 2,
+          "root_values": [
+            [
+              1,
+              0.24999999999999994
+            ],
+            [
+              2,
+              4.460679600223772e-06
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 64,
+      "one_step": [
+        {
+          "separation": 0.2,
+          "unequal_noise": false,
+          "error": 4.038154113761294e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 0.2,
+          "unequal_noise": true,
+          "error": 1.5243112832241668e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": false,
+          "error": 1.5243112832241668e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": true,
+          "error": 1.5243112832241668e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": false,
+          "error": 2.684043209071269e-05,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": true,
+          "error": 0.00018812593442633615,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": false,
+          "error": 1.5243112832241668e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": true,
+          "error": 1.5243112832241668e-06,
+          "regret": 0.0
+        }
+      ],
+      "three_step": {
+        "action": 0,
+        "value": 0.1956611710680335,
+        "root_values": [
+          [
+            0,
+            0.1956611710680335
+          ],
+          [
+            1,
+            0.1956611710680335
+          ],
+          [
+            2,
+            0.1956611710680335
+          ]
+        ],
+        "requested_horizon": 3,
+        "effective_horizon": 3,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 1597632,
+        "elapsed_seconds": 10.211630207952112
+      },
+      "three_reference": 0.19564758610976757,
+      "three_error": 1.3584958265921987e-05,
+      "tree": {
+        "action": 0,
+        "value": 0.00022674357976533837,
+        "root_values": [
+          [
+            0,
+            0.00022674357976533837
+          ],
+          [
+            1,
+            0.04966961202308491
+          ],
+          [
+            2,
+            0.04966961202308491
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 24768,
+        "elapsed_seconds": 0.5402755830436945
+      },
+      "open_loop": {
+        "action": 1,
+        "value": 0.053159121806565145,
+        "root_values": [
+          [
+            0,
+            0.12510646710990045
+          ],
+          [
+            1,
+            0.053159121806565145
+          ],
+          [
+            2,
+            0.05315912180656515
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "open_loop",
+        "fixed_sequence": [
+          1,
+          2
+        ],
+        "processed_states": 24966,
+        "elapsed_seconds": 0.23619374982081354
+      },
+      "gap": 0.0529323782267998,
+      "continuations": [
+        {
+          "observation": -0.9818254848455938,
+          "action": 1,
+          "root_values": [
+            [
+              1,
+              5.902947342719109e-05
+            ],
+            [
+              2,
+              0.24999999999999994
+            ]
+          ]
+        },
+        {
+          "observation": 1.0181745151757837,
+          "action": 2,
+          "root_values": [
+            [
+              1,
+              0.24999999999999997
+            ],
+            [
+              2,
+              5.3420287863445605e-05
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "scripts/chembench_envelope_refinement.py": "9a77407c719866a3c446bfb7ff496b8827f4fd8b732b5b225c44a2085bfcc997",
+    "scripts/chembench_batch_refinement.py": "a5a4d5baf65ba966fc935dda46ce7adeb7985798c30d451f435e250089282986",
+    "environments/chembench_mopen/envelope_belief.py": "0f2f615c686c1bd02dfc01bbe201e92f0cc091dd77a321d88249cb20134387e1",
+    "environments/chembench_mopen/crossing_belief.py": "864fe2a387222e83285596a82eabc7a0ec5cc342388ff0b66c79f62747cb1213",
+    "environments/chembench_mopen/batch_horizon.py": "4cda0afdd2ddb5f75f298a5d6ded31f32c60d5df8d3927e0b0fe2a014373503a",
+    "environments/chembench_mopen/raw_belief.py": "9f476f211bd34f80afc955c1e33f6892192ec2b8612817e3f3cfe03bbc8edee1",
+    "environments/chembench_mopen/quantile_belief.py": "22d13d0816501f9a6c3fc92068756121b8d408d63a41b2bf45dbb616dd3e7390"
+  },
+  "settings": {
+    "orders": [
+      32,
+      64
+    ],
+    "error_cap": 0.001,
+    "regret_cap": 0.001,
+    "adaptivity_floor": 0.001,
+    "max_plan_states": 5000000,
+    "max_plan_seconds": 60,
+    "max_panel_seconds": 180,
+    "workspace_bytes": 67108864,
+    "rule": "equal_noise_upper_envelope_otherwise_all_crossings"
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "chemistry_outcomes_opened": false,
+  "authorizes_paid_calls": false
+}

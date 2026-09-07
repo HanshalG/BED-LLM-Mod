@@ -67,3 +67,45 @@ def test_pairwise_risk_matches_weighted_variance_with_large_target_offset():
         @ ((wide - mean) ** 2 @ target_weights.astype(np.longdouble))
     )
     assert actual == pytest.approx(expected, abs=1e-10)
+
+
+@pytest.mark.parametrize("seed", range(4))
+def test_accelerated_quantiles_match_independent_bisection(seed):
+    from scipy.special import ndtr, ndtri
+    from environments.chembench_mopen.envelope_belief import EnvelopeGaussianModel
+
+    rng = np.random.default_rng(seed)
+    means = rng.normal(size=(16, 1)) * 4
+    sigma = 0.15 if seed % 2 else np.exp(rng.normal(size=(16, 1)))
+    prior = rng.dirichlet(np.full(16, 0.2))
+    model_type = EnvelopeGaussianModel if seed % 2 else QuantileGaussianModel
+    m = model_type(means, sigma, means, prior, branch_count=64)
+    states = [m.initial_state, m.condition(m.initial_state, 0, 20)]
+    actual, posterior = posterior_branches_many(m, states, 0)
+    for index, state in enumerate(states):
+        probabilities = (
+            m.quadrature_rule(state, 0)[0]
+            if hasattr(m, "quadrature_rule")
+            else m._quantiles
+        )
+        probabilities = np.clip(
+            probabilities, np.nextafter(0.0, 1.0), np.nextafter(1.0, 0.0)
+        )
+        w = np.exp(state)
+        mu, sd = m.means[:, 0], m.sigmas[:, 0]
+        component = mu[:, None] + sd[:, None] * ndtri(probabilities)
+        low = np.min(component[w > 0], axis=0)
+        high = np.max(component[w > 0], axis=0)
+        for _ in range(64):
+            middle = low / 2 + high / 2
+            cdf = np.sum(
+                w[:, None] * ndtr((middle - mu[:, None]) / sd[:, None]), axis=0
+            )
+            low, high = (
+                np.where(cdf < probabilities, middle, low),
+                np.where(cdf < probabilities, high, middle),
+            )
+        reference = low / 2 + high / 2
+        np.testing.assert_allclose(actual[index], reference, atol=1e-11, rtol=1e-12)
+        reference_posteriors = [m.condition(state, 0, y) for y in reference]
+        np.testing.assert_allclose(posterior[index], reference_posteriors, atol=1e-8)
