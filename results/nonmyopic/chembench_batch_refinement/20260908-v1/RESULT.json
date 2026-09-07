@@ -1,0 +1,356 @@
+{
+  "status": "synthetic_refinement_failed",
+  "checks": {
+    "one_step": false,
+    "three_step": true,
+    "refinement": true,
+    "adaptivity": true
+  },
+  "records": [
+    {
+      "order": 32,
+      "one_step": [
+        {
+          "separation": 0.2,
+          "unequal_noise": false,
+          "error": 8.297313319527433e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 0.2,
+          "unequal_noise": true,
+          "error": 8.962108703880478e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": false,
+          "error": 7.659961143768879e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": true,
+          "error": 9.484568905426816e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": false,
+          "error": 0.0008584070875213147,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": true,
+          "error": 0.0006132066281698124,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": false,
+          "error": 7.659961143768879e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": true,
+          "error": 7.659961143768879e-06,
+          "regret": 0.0
+        }
+      ],
+      "three_step": {
+        "action": 0,
+        "value": 0.19568239133613036,
+        "root_values": [
+          [
+            0,
+            0.19568239133613036
+          ],
+          [
+            1,
+            0.19568239133613036
+          ],
+          [
+            2,
+            0.19568239133613036
+          ]
+        ],
+        "requested_horizon": 3,
+        "effective_horizon": 3,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 202848,
+        "elapsed_seconds": 0.6907740840688348
+      },
+      "three_reference": 0.19564758610976757,
+      "three_error": 3.480522636278849e-05,
+      "tree": {
+        "action": 0,
+        "value": 1.81153801531356e-06,
+        "root_values": [
+          [
+            0,
+            1.81153801531356e-06
+          ],
+          [
+            1,
+            0.049813433504868804
+          ],
+          [
+            2,
+            0.049813433504868804
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 6240,
+        "elapsed_seconds": 0.04376495792530477
+      },
+      "open_loop": {
+        "action": 1,
+        "value": 0.05310371957705938,
+        "root_values": [
+          [
+            0,
+            0.12500090576223954
+          ],
+          [
+            1,
+            0.05310371957705938
+          ],
+          [
+            2,
+            0.05310371957705938
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "open_loop",
+        "fixed_sequence": [
+          1,
+          2
+        ],
+        "processed_states": 6342,
+        "elapsed_seconds": 0.04749820800498128
+      },
+      "gap": 0.05310190803904407,
+      "continuations": [
+        {
+          "observation": -1.1262357545910495,
+          "action": 1,
+          "root_values": [
+            [
+              1,
+              1.4217466712636516e-06
+            ],
+            [
+              2,
+              0.24999999999999994
+            ]
+          ]
+        },
+        {
+          "observation": 1.1858277976482658,
+          "action": 2,
+          "root_values": [
+            [
+              1,
+              0.24999999999999994
+            ],
+            [
+              2,
+              1.421743952772902e-06
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 64,
+      "one_step": [
+        {
+          "separation": 0.2,
+          "unequal_noise": false,
+          "error": 2.0166248353437055e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 0.2,
+          "unequal_noise": true,
+          "error": 1.3173530691579227e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": false,
+          "error": 1.3173530691579227e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 1.0,
+          "unequal_noise": true,
+          "error": 1.3173530691579227e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": false,
+          "error": 0.002359020019861106,
+          "regret": 0.0
+        },
+        {
+          "separation": 3.0,
+          "unequal_noise": true,
+          "error": 0.0005136611948977615,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": false,
+          "error": 1.3173530691579227e-06,
+          "regret": 0.0
+        },
+        {
+          "separation": 8.0,
+          "unequal_noise": true,
+          "error": 1.3173530691579227e-06,
+          "regret": 0.0
+        }
+      ],
+      "three_step": {
+        "action": 0,
+        "value": 0.1956550240328869,
+        "root_values": [
+          [
+            0,
+            0.1956550240328869
+          ],
+          [
+            1,
+            0.1956550240328869
+          ],
+          [
+            2,
+            0.1956550240328869
+          ]
+        ],
+        "requested_horizon": 3,
+        "effective_horizon": 3,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 1597632,
+        "elapsed_seconds": 7.42913229088299
+      },
+      "three_reference": 0.19564758610976757,
+      "three_error": 7.437923119330003e-06,
+      "tree": {
+        "action": 0,
+        "value": 7.495565004114489e-06,
+        "root_values": [
+          [
+            0,
+            7.495565004114489e-06
+          ],
+          [
+            1,
+            0.049491327057430354
+          ],
+          [
+            2,
+            0.04949132705743036
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "adaptive",
+        "fixed_sequence": null,
+        "processed_states": 24768,
+        "elapsed_seconds": 0.45273083401843905
+      },
+      "open_loop": {
+        "action": 1,
+        "value": 0.05315984094586709,
+        "root_values": [
+          [
+            0,
+            0.12500374757034882
+          ],
+          [
+            1,
+            0.05315984094586709
+          ],
+          [
+            2,
+            0.05315984094586711
+          ]
+        ],
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "mode": "open_loop",
+        "fixed_sequence": [
+          1,
+          2
+        ],
+        "processed_states": 24966,
+        "elapsed_seconds": 0.28673787508159876
+      },
+      "gap": 0.05315234538086298,
+      "continuations": [
+        {
+          "observation": -1.144717654575293,
+          "action": 1,
+          "root_values": [
+            [
+              1,
+              5.751079650946234e-06
+            ],
+            [
+              2,
+              0.24999999999999997
+            ]
+          ]
+        },
+        {
+          "observation": 1.1747471673734506,
+          "action": 2,
+          "root_values": [
+            [
+              1,
+              0.24999999999999997
+            ],
+            [
+              2,
+              5.751078333681688e-06
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "scripts/chembench_batch_refinement.py": "0b76a79cb55fa9de8b1ab864d97f06ef8b06e85661d056ee6569fe3d6989d9de",
+    "environments/chembench_mopen/batch_horizon.py": "fcd29a514fb321be44a84361bbff950490efc51c8a2e4fc4ed0dc129369725fe",
+    "environments/chembench_mopen/quantile_belief.py": "22d13d0816501f9a6c3fc92068756121b8d408d63a41b2bf45dbb616dd3e7390",
+    "environments/chembench_mopen/raw_belief.py": "9f476f211bd34f80afc955c1e33f6892192ec2b8612817e3f3cfe03bbc8edee1"
+  },
+  "settings": {
+    "orders": [
+      32,
+      64
+    ],
+    "error_cap": 0.001,
+    "regret_cap": 0.001,
+    "adaptivity_floor": 0.001,
+    "max_plan_states": 5000000,
+    "max_plan_seconds": 60,
+    "max_panel_seconds": 180,
+    "workspace_bytes": 67108864
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "chemistry_outcomes_opened": false,
+  "authorizes_paid_calls": false
+}

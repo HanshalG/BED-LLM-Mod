@@ -1,0 +1,50 @@
+[
+  {
+    "separation": 0.2,
+    "unequal_noise": false,
+    "error": 8.297313319527433e-06,
+    "regret": 0.0
+  },
+  {
+    "separation": 0.2,
+    "unequal_noise": true,
+    "error": 8.962108703880478e-06,
+    "regret": 0.0
+  },
+  {
+    "separation": 1.0,
+    "unequal_noise": false,
+    "error": 7.659961143768879e-06,
+    "regret": 0.0
+  },
+  {
+    "separation": 1.0,
+    "unequal_noise": true,
+    "error": 9.484568905426816e-06,
+    "regret": 0.0
+  },
+  {
+    "separation": 3.0,
+    "unequal_noise": false,
+    "error": 0.0008584070875213147,
+    "regret": 0.0
+  },
+  {
+    "separation": 3.0,
+    "unequal_noise": true,
+    "error": 0.0006132066281698124,
+    "regret": 0.0
+  },
+  {
+    "separation": 8.0,
+    "unequal_noise": false,
+    "error": 7.659961143768879e-06,
+    "regret": 0.0
+  },
+  {
+    "separation": 8.0,
+    "unequal_noise": true,
+    "error": 7.659961143768879e-06,
+    "regret": 0.0
+  }
+]
