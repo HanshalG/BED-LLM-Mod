@@ -11,7 +11,7 @@ from scripts import chembench_horizon_pilot as pilot
 from scripts import chembench_horizon_pilot_verify as verifier
 
 
-def fixture():
+def fixture(arm="h1"):
     model = EnvelopeGaussianModel(
         [[-0.2, -0.3, -0.4, -0.5], [0.3, 0.4, 0.5, 0.6]],
         1,
@@ -22,19 +22,21 @@ def fixture():
     config, _ = read_protocol()
     observations, targets, noise = np.full(4, 0.1), np.full(2, 0.2), np.zeros((3, 4))
     roots = {
-        "h1": pilot.decide(
-            model, model.initial_state, tuple(range(4)), 3, "h1", config, 60
+        arm: pilot.decide(
+            model, model.initial_state, tuple(range(4)), 3, arm, config, 60
         )
     }
     record = pilot.episode(
-        model, 0, observations, targets, noise, "h1", config, roots, monotonic() + 60
+        model, 0, observations, targets, noise, arm, config, roots, monotonic() + 60
     )
+    record = json.loads(json.dumps(record))
     return record, model, observations, targets, noise, config, roots
 
 
-def test_independent_physics_and_policy_replay():
-    values = fixture()
-    verifier.replay_episode(*values, 0, "h1")
+@pytest.mark.parametrize("arm", ["h1", "h2", "h3", "open_loop_h3", "refined_myopic"])
+def test_independent_physics_and_policy_replay(arm):
+    values = fixture(arm)
+    verifier.replay_episode(*values, 0, arm)
 
 
 @pytest.mark.parametrize(

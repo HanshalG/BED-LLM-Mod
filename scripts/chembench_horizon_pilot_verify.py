@@ -71,6 +71,7 @@ def replay_episode(
                     config["max_decision_seconds"],
                 )
             )
+            expected = json.loads(json.dumps(expected))
             for key in ("action", "effective_horizon", "mode"):
                 if choice[key] != expected[key]:
                     raise ValueError(f"policy mismatch: {key}")

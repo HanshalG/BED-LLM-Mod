@@ -1,0 +1,7 @@
+{
+  "status": "replay_failed",
+  "error_type": "ValueError",
+  "message": "policy mismatch: fixed_sequence",
+  "paid_calls_authorized": false,
+  "verifier_sha256": "4acee9615bbb171cba0b7c0426ab2ad9a8358704daaccd87ce02afcfa3cee323"
+}
