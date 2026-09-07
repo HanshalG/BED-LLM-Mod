@@ -1,0 +1,161 @@
+{
+  "order": 64,
+  "one_step": [
+    {
+      "separation": 0.2,
+      "unequal_noise": false,
+      "error": 4.0381541138723165e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 0.2,
+      "unequal_noise": true,
+      "error": 1.5243112824470106e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": false,
+      "error": 1.5243112824470106e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": true,
+      "error": 1.5243112824470106e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": false,
+      "error": 2.6840432090728303e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": true,
+      "error": 0.00018812593442629928,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": false,
+      "error": 1.5243112824470106e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": true,
+      "error": 1.5243112824470106e-06,
+      "regret": 0.0
+    }
+  ],
+  "three_step": {
+    "action": 0,
+    "value": 0.19566117106803338,
+    "root_values": [
+      [
+        0,
+        0.19566117106803338
+      ],
+      [
+        1,
+        0.19566117106803338
+      ],
+      [
+        2,
+        0.19566117106803338
+      ]
+    ],
+    "requested_horizon": 3,
+    "effective_horizon": 3,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 1597632,
+    "elapsed_seconds": 3.9371059578843415
+  },
+  "three_reference": 0.19564758610976757,
+  "three_error": 1.3584958265810965e-05,
+  "tree": {
+    "action": 0,
+    "value": 0.0002267435797653323,
+    "root_values": [
+      [
+        0,
+        0.0002267435797653323
+      ],
+      [
+        1,
+        0.049669612023084925
+      ],
+      [
+        2,
+        0.049669612023084925
+      ]
+    ],
+    "requested_horizon": 2,
+    "effective_horizon": 2,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 24768,
+    "elapsed_seconds": 0.12984629208222032
+  },
+  "open_loop": {
+    "action": 1,
+    "value": 0.05315912180656504,
+    "root_values": [
+      [
+        0,
+        0.12510646710990048
+      ],
+      [
+        1,
+        0.05315912180656504
+      ],
+      [
+        2,
+        0.05315912180656504
+      ]
+    ],
+    "requested_horizon": 2,
+    "effective_horizon": 2,
+    "mode": "open_loop",
+    "fixed_sequence": [
+      1,
+      2
+    ],
+    "processed_states": 24966,
+    "elapsed_seconds": 0.12785300007089972
+  },
+  "gap": 0.052932378226799706,
+  "continuations": [
+    {
+      "observation": -0.9818254848455938,
+      "action": 1,
+      "root_values": [
+        [
+          1,
+          5.902947342719333e-05
+        ],
+        [
+          2,
+          0.24999999999999994
+        ]
+      ]
+    },
+    {
+      "observation": 1.0181745151757835,
+      "action": 2,
+      "root_values": [
+        [
+          1,
+          0.24999999999999997
+        ],
+        [
+          2,
+          5.3420287863447e-05
+        ]
+      ]
+    }
+  ]
+}

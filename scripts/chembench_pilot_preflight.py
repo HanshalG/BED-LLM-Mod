@@ -19,9 +19,10 @@ def preflight(source_root, engine="crossing"):
     if binding["commit"] != config["source_commit"]:
         raise ValueError("source mismatch")
     root = Path(__file__).resolve().parents[1]
+    version = "v3" if engine == "envelope" else "v1"
     gate = (
         root
-        / f"results/nonmyopic/chembench_{engine}_refinement/20260908-v1/RESULT.json"
+        / f"results/nonmyopic/chembench_{engine}_refinement/20260908-{version}/RESULT.json"
     )
     result = json.loads(gate.read_text())
     if result["status"] != "synthetic_refinement_passed" or not all(
@@ -60,6 +61,7 @@ def preflight(source_root, engine="crossing"):
         "action_checks": action_checks,
         "prior_particles": public.model.num_particles,
         "engine": engine,
+        "numerical_gate_sha256": hashlib.sha256(gate.read_bytes()).hexdigest(),
         "protocol_sha256": digest,
         "source_binding": binding,
         "hidden_worlds_opened": False,

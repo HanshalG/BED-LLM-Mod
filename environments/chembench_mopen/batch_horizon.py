@@ -142,7 +142,8 @@ def plan_batched(
             + 8 * model.num_particles * model.targets.shape[1]
         )
     )
-    batch_size = min(batch_size, max_workspace_bytes // row_bytes)
+    distance_bytes = 8 * model.num_particles**2
+    batch_size = min(batch_size, (max_workspace_bytes - distance_bytes) // row_bytes)
     if batch_size < 1:
         raise SearchLimitExceeded("workspace budget too small for one belief")
     started = monotonic()
@@ -154,11 +155,19 @@ def plan_batched(
         if processed > max_states or monotonic() - started > max_seconds:
             raise SearchLimitExceeded("batch horizon exceeded global resource budget")
 
+    # Var_p(T) = 1/2 sum_ij p_i p_j ||T_i-T_j||^2. Precompute the fixed
+    # distances once, avoiding a beliefs*particles*targets tensor at every leaf.
+    # Differences keep this nonnegative and avoid large-offset cancellation.
+    distances = np.empty((model.num_particles, model.num_particles))
+    for i in range(model.num_particles):
+        check()
+        distances[i] = ((model.targets - model.targets[i]) ** 2) @ model.target_weights
+    if not np.isfinite(distances).all():
+        raise ValueError("unrepresentable target distances")
+
     def terminal(logs):
         weights = np.exp(logs)
-        forecasts = weights @ model.targets
-        deviations = model.targets[None, :, :] - forecasts[:, None, :]
-        return np.sum(weights * ((deviations**2) @ model.target_weights), axis=1)
+        return 0.5 * np.sum(weights * (weights @ distances), axis=1)
 
     def integrate(logs, action, continuation):
         check()

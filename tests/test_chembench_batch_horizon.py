@@ -49,3 +49,21 @@ def test_batch_size_invariance_and_caps():
         with pytest.raises(SearchLimitExceeded):
             plan_batched(m, m.initial_state, 3, **kwargs)
     assert plan_batched(m, m.initial_state, 0).action is None
+
+
+def test_pairwise_risk_matches_weighted_variance_with_large_target_offset():
+    rng = np.random.default_rng(882)
+    targets = 1e6 + rng.normal(size=(7, 23))
+    weights = rng.dirichlet(np.ones(7))
+    target_weights = rng.dirichlet(np.ones(23))
+    model = QuantileGaussianModel(
+        np.arange(7)[:, None], 1, targets, weights, target_weights=target_weights
+    )
+    actual = plan_batched(model, model.initial_state, 0).value
+    wide = targets.astype(np.longdouble)
+    mean = weights.astype(np.longdouble) @ wide
+    expected = float(
+        weights.astype(np.longdouble)
+        @ ((wide - mean) ** 2 @ target_weights.astype(np.longdouble))
+    )
+    assert actual == pytest.approx(expected, abs=1e-10)
