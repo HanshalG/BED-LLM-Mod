@@ -1,0 +1,22 @@
+{
+  "tree_seed": 28304,
+  "unique_initial_rules": 23,
+  "full_budget_values": [
+    0.07841871143636103,
+    0.07354508742799745,
+    0.07143540441000622
+  ],
+  "exact_full_budget_values": [
+    "1093/13938",
+    "14351/195132",
+    "2987/41814"
+  ],
+  "first_queries": [
+    53,
+    66,
+    24
+  ],
+  "initial_risk": 0.18866158827602988,
+  "states": 40775,
+  "elapsed_seconds": 1.4662385419942439
+}

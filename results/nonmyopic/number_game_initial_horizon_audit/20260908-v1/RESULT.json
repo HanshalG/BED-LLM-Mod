@@ -1,0 +1,735 @@
+{
+  "status": "initial_opportunity_null",
+  "rows": [
+    {
+      "tree_seed": 28300,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.059030903090309034,
+        0.05796579657965797,
+        0.057755775577557754
+      ],
+      "exact_full_budget_values": [
+        "787/13332",
+        "322/5555",
+        "35/606"
+      ],
+      "first_queries": [
+        72,
+        72,
+        84
+      ],
+      "initial_risk": 0.18048850339579411,
+      "states": 17203,
+      "elapsed_seconds": 0.5862256670370698
+    },
+    {
+      "tree_seed": 28301,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.07023963265891807,
+        0.06311624951315008,
+        0.061968308632105444
+      ],
+      "exact_full_budget_values": [
+        "979/13938",
+        "3079/48783",
+        "3023/48783"
+      ],
+      "first_queries": [
+        96,
+        96,
+        24
+      ],
+      "initial_risk": 0.19008403675906343,
+      "states": 22112,
+      "elapsed_seconds": 0.7766133330296725
+    },
+    {
+      "tree_seed": 28302,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.076995199519952,
+        0.06401890189018902,
+        0.06401890189018902
+      ],
+      "exact_full_budget_values": [
+        "2053/26664",
+        "569/8888",
+        "569/8888"
+      ],
+      "first_queries": [
+        24,
+        24,
+        24
+      ],
+      "initial_risk": 0.20826855412814008,
+      "states": 33495,
+      "elapsed_seconds": 1.5065011659171432
+    },
+    {
+      "tree_seed": 28303,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07905790579057906,
+        0.07635763576357636,
+        0.07608439415370108
+      ],
+      "exact_full_budget_values": [
+        "527/6666",
+        "509/6666",
+        "1291/16968"
+      ],
+      "first_queries": [
+        88,
+        88,
+        72
+      ],
+      "initial_risk": 0.19386711398412568,
+      "states": 52966,
+      "elapsed_seconds": 1.9312411251012236
+    },
+    {
+      "tree_seed": 28304,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.07841871143636103,
+        0.07354508742799745,
+        0.07143540441000622
+      ],
+      "exact_full_budget_values": [
+        "1093/13938",
+        "14351/195132",
+        "2987/41814"
+      ],
+      "first_queries": [
+        53,
+        66,
+        24
+      ],
+      "initial_risk": 0.18866158827602988,
+      "states": 40775,
+      "elapsed_seconds": 1.4662385419942439
+    },
+    {
+      "tree_seed": 28305,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07307605760576058,
+        0.06870687068706871,
+        0.06578157815781578
+      ],
+      "exact_full_budget_values": [
+        "1299/17776",
+        "229/3333",
+        "877/13332"
+      ],
+      "first_queries": [
+        71,
+        83,
+        52
+      ],
+      "initial_risk": 0.1960968824155143,
+      "states": 32700,
+      "elapsed_seconds": 1.2172419168055058
+    },
+    {
+      "tree_seed": 28306,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07690769076907691,
+        0.06295629562956295,
+        0.06295629562956295
+      ],
+      "exact_full_budget_values": [
+        "769/9999",
+        "1259/19998",
+        "1259/19998"
+      ],
+      "first_queries": [
+        11,
+        31,
+        3
+      ],
+      "initial_risk": 0.19579003354880942,
+      "states": 30580,
+      "elapsed_seconds": 1.1673462081234902
+    },
+    {
+      "tree_seed": 28307,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.06558916761241342,
+        0.06243722198306787,
+        0.06243722198306787
+      ],
+      "exact_full_budget_values": [
+        "1676/25553",
+        "3481/55752",
+        "3481/55752"
+      ],
+      "first_queries": [
+        52,
+        66,
+        40
+      ],
+      "initial_risk": 0.20685395571693274,
+      "states": 31006,
+      "elapsed_seconds": 1.1120060000102967
+    },
+    {
+      "tree_seed": 28308,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.0701248385708136,
+        0.07724685512029464,
+        0.0701248385708136
+      ],
+      "exact_full_budget_values": [
+        "1629/23230",
+        "1615/20907",
+        "1629/23230"
+      ],
+      "first_queries": [
+        66,
+        41,
+        66
+      ],
+      "initial_risk": 0.2137790338580172,
+      "states": 28449,
+      "elapsed_seconds": 1.116885333089158
+    },
+    {
+      "tree_seed": 28309,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.07423123264707424,
+        0.06928728587144428,
+        0.06925454450206925
+      ],
+      "exact_full_budget_values": [
+        "1417/19089",
+        "3527/50904",
+        "1322/19089"
+      ],
+      "first_queries": [
+        11,
+        66,
+        39
+      ],
+      "initial_risk": 0.19285602029590715,
+      "states": 26080,
+      "elapsed_seconds": 0.9681920830626041
+    },
+    {
+      "tree_seed": 28310,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07144805389629873,
+        0.06925692569256926,
+        0.067636309085454
+      ],
+      "exact_full_budget_values": [
+        "5239/73326",
+        "1385/19998",
+        "9919/146652"
+      ],
+      "first_queries": [
+        53,
+        66,
+        52
+      ],
+      "initial_risk": 0.1985925865313804,
+      "states": 21783,
+      "elapsed_seconds": 0.7729517910629511
+    },
+    {
+      "tree_seed": 28311,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.06868543997256868,
+        0.06162580543768663,
+        0.060997171145685994
+      ],
+      "exact_full_budget_values": [
+        "3205/46662",
+        "3137/50904",
+        "345/5656"
+      ],
+      "first_queries": [
+        68,
+        66,
+        24
+      ],
+      "initial_risk": 0.19649311869962507,
+      "states": 25045,
+      "elapsed_seconds": 0.971096666995436
+    },
+    {
+      "tree_seed": 28312,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.07716315109771847,
+        0.07587171760654327,
+        0.07337255464676902
+      ],
+      "exact_full_budget_values": [
+        "717/9292",
+        "705/9292",
+        "1534/20907"
+      ],
+      "first_queries": [
+        13,
+        13,
+        30
+      ],
+      "initial_risk": 0.19296636657994723,
+      "states": 43042,
+      "elapsed_seconds": 1.6205359590239823
+    },
+    {
+      "tree_seed": 28313,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.06876883340507964,
+        0.06398335485722485,
+        0.06376452862677572
+      ],
+      "exact_full_budget_values": [
+        "639/9292",
+        "4459/69690",
+        "1185/18584"
+      ],
+      "first_queries": [
+        13,
+        73,
+        20
+      ],
+      "initial_risk": 0.1784049860562616,
+      "states": 30222,
+      "elapsed_seconds": 1.0932244579307735
+    },
+    {
+      "tree_seed": 28314,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.05351035103510351,
+        0.052036453645364536,
+        0.04963353478204963
+      ],
+      "exact_full_budget_values": [
+        "1189/22220",
+        "925/17776",
+        "386/7777"
+      ],
+      "first_queries": [
+        12,
+        12,
+        24
+      ],
+      "initial_risk": 0.16966696669666967,
+      "states": 16612,
+      "elapsed_seconds": 0.5647661658003926
+    },
+    {
+      "tree_seed": 28315,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.060338642559908166,
+        0.050968575118381404,
+        0.050968575118381404
+      ],
+      "exact_full_budget_values": [
+        "841/13938",
+        "592/11615",
+        "592/11615"
+      ],
+      "first_queries": [
+        41,
+        23,
+        20
+      ],
+      "initial_risk": 0.1553089146343746,
+      "states": 24743,
+      "elapsed_seconds": 0.7704962089192122
+    },
+    {
+      "tree_seed": 28316,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.05306066320917806,
+        0.05281650614040996,
+        0.05212426004505213
+      ],
+      "exact_full_budget_values": [
+        "2701/50904",
+        "4705/89082",
+        "995/19089"
+      ],
+      "first_queries": [
+        53,
+        66,
+        53
+      ],
+      "initial_risk": 0.17247030825531534,
+      "states": 16104,
+      "elapsed_seconds": 0.5421213749796152
+    },
+    {
+      "tree_seed": 28317,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07889288928892889,
+        0.07180093009300931,
+        0.0705070507050705
+      ],
+      "exact_full_budget_values": [
+        "1753/22220",
+        "3829/53328",
+        "235/3333"
+      ],
+      "first_queries": [
+        62,
+        24,
+        6
+      ],
+      "initial_risk": 0.2084935766303903,
+      "states": 25270,
+      "elapsed_seconds": 1.0281450829934329
+    },
+    {
+      "tree_seed": 28318,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.06651958674128282,
+        0.0642313920833077,
+        0.0642313920833077
+      ],
+      "exact_full_budget_values": [
+        "6181/92920",
+        "15667/243915",
+        "15667/243915"
+      ],
+      "first_queries": [
+        73,
+        73,
+        73
+      ],
+      "initial_risk": 0.17353871493009415,
+      "states": 49526,
+      "elapsed_seconds": 1.659849083982408
+    },
+    {
+      "tree_seed": 28319,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.07101322377135673,
+        0.06202525014406202,
+        0.06202525014406202
+      ],
+      "exact_full_budget_values": [
+        "3163/44541",
+        "1184/19089",
+        "1184/19089"
+      ],
+      "first_queries": [
+        59,
+        68,
+        12
+      ],
+      "initial_risk": 0.20497968164163355,
+      "states": 18798,
+      "elapsed_seconds": 0.783012457890436
+    },
+    {
+      "tree_seed": 28320,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07889288928892889,
+        0.06158115811581158,
+        0.06158115811581158
+      ],
+      "exact_full_budget_values": [
+        "1753/22220",
+        "821/13332",
+        "821/13332"
+      ],
+      "first_queries": [
+        82,
+        68,
+        31
+      ],
+      "initial_risk": 0.21094836756402913,
+      "states": 23104,
+      "elapsed_seconds": 0.8947233750950545
+    },
+    {
+      "tree_seed": 28321,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.06142918639690056,
+        0.05241067585019372,
+        0.04939733103745157
+      ],
+      "exact_full_budget_values": [
+        "1427/23230",
+        "487/9292",
+        "459/9292"
+      ],
+      "first_queries": [
+        48,
+        96,
+        12
+      ],
+      "initial_risk": 0.17256546070486065,
+      "states": 29753,
+      "elapsed_seconds": 0.9294437079224735
+    },
+    {
+      "tree_seed": 28322,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.06541306304543498,
+        0.05433586836944564,
+        0.05304443487827044
+      ],
+      "exact_full_budget_values": [
+        "3343/51106",
+        "1136/20907",
+        "1109/20907"
+      ],
+      "first_queries": [
+        11,
+        3,
+        60
+      ],
+      "initial_risk": 0.17241572928559395,
+      "states": 18816,
+      "elapsed_seconds": 0.640025916043669
+    },
+    {
+      "tree_seed": 28323,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.0685997171145686,
+        0.0611444087552568,
+        0.058231910147536495
+      ],
+      "exact_full_budget_values": [
+        "97/1414",
+        "3693/60398",
+        "1488/25553"
+      ],
+      "first_queries": [
+        13,
+        29,
+        30
+      ],
+      "initial_risk": 0.16388103838739262,
+      "states": 28763,
+      "elapsed_seconds": 0.9148098749574274
+    },
+    {
+      "tree_seed": 28324,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07859535953595359,
+        0.07049454945494549,
+        0.07049454945494549
+      ],
+      "exact_full_budget_values": [
+        "6287/79992",
+        "5639/79992",
+        "5639/79992"
+      ],
+      "first_queries": [
+        33,
+        3,
+        3
+      ],
+      "initial_risk": 0.20382947385647657,
+      "states": 28190,
+      "elapsed_seconds": 1.1683664578013122
+    },
+    {
+      "tree_seed": 28325,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.058817620892524035,
+        0.058817620892524035,
+        0.05868847754340652
+      ],
+      "exact_full_budget_values": [
+        "4099/69690",
+        "4099/69690",
+        "409/6969"
+      ],
+      "first_queries": [
+        59,
+        59,
+        80
+      ],
+      "initial_risk": 0.1667633682082764,
+      "states": 37839,
+      "elapsed_seconds": 1.1795225420501083
+    },
+    {
+      "tree_seed": 28326,
+      "unique_initial_rules": 23,
+      "full_budget_values": [
+        0.059205050939876595,
+        0.059205050939876595,
+        0.05800688764528627
+      ],
+      "exact_full_budget_values": [
+        "2063/34845",
+        "2063/34845",
+        "539/9292"
+      ],
+      "first_queries": [
+        78,
+        78,
+        30
+      ],
+      "initial_risk": 0.18409477998839582,
+      "states": 18264,
+      "elapsed_seconds": 0.6452523751650006
+    },
+    {
+      "tree_seed": 28327,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.08404054691183405,
+        0.07453245324532454,
+        0.07119283356907119
+      ],
+      "exact_full_budget_values": [
+        "713/8484",
+        "271/3636",
+        "151/2121"
+      ],
+      "first_queries": [
+        51,
+        66,
+        13
+      ],
+      "initial_risk": 0.20524909633820526,
+      "states": 32551,
+      "elapsed_seconds": 1.264045333955437
+    },
+    {
+      "tree_seed": 28328,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.08066306630663066,
+        0.07098334833483348,
+        0.07098334833483348
+      ],
+      "exact_full_budget_values": [
+        "5377/66660",
+        "6309/88880",
+        "6309/88880"
+      ],
+      "first_queries": [
+        24,
+        11,
+        6
+      ],
+      "initial_risk": 0.21827182718271826,
+      "states": 20909,
+      "elapsed_seconds": 0.8517495829146355
+    },
+    {
+      "tree_seed": 28329,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.06966053748231966,
+        0.06195976740531196,
+        0.06195976740531196
+      ],
+      "exact_full_budget_values": [
+        "197/2828",
+        "1577/25452",
+        "1577/25452"
+      ],
+      "first_queries": [
+        59,
+        59,
+        31
+      ],
+      "initial_risk": 0.2100536584270672,
+      "states": 17057,
+      "elapsed_seconds": 0.7474702089093626
+    },
+    {
+      "tree_seed": 28330,
+      "unique_initial_rules": 21,
+      "full_budget_values": [
+        0.06642807137856643,
+        0.062365760385562366,
+        0.062365760385562366
+      ],
+      "exact_full_budget_values": [
+        "9299/139986",
+        "2381/38178",
+        "2381/38178"
+      ],
+      "first_queries": [
+        31,
+        13,
+        13
+      ],
+      "initial_risk": 0.17282952785074426,
+      "states": 32206,
+      "elapsed_seconds": 1.145886667072773
+    },
+    {
+      "tree_seed": 28331,
+      "unique_initial_rules": 22,
+      "full_budget_values": [
+        0.07775331104539025,
+        0.07488248824882489,
+        0.06923192319231923
+      ],
+      "exact_full_budget_values": [
+        "9675/124432",
+        "2995/39996",
+        "923/13332"
+      ],
+      "first_queries": [
+        79,
+        68,
+        72
+      ],
+      "initial_risk": 0.17754275427542754,
+      "states": 53548,
+      "elapsed_seconds": 1.8235882080625743
+    }
+  ],
+  "aggregate_full_budget_values": [
+    0.07008033109430031,
+    0.06446775816507748,
+    0.06319550848747824
+  ],
+  "exact_aggregate_values": [
+    "16679020531/237998597760",
+    "24177220433/375028093440",
+    "8594538517/135999198720"
+  ],
+  "adjacent_fractional_gains": [
+    0.0800877056598168,
+    0.019734666037889658
+  ],
+  "model_calls": 0,
+  "cost_usd": 0,
+  "historical_endpoints_used": false,
+  "dynamic_policy_replayed": false,
+  "paid_calls_authorized": false,
+  "elapsed_seconds": 33.96752233314328,
+  "bindings": {
+    "protocol": "07bca1c85b557f4c74d6901e8e52f28dee51fd34e7ba8f0b07b4811ca664f8b9",
+    "compiler": "1df1eab2d6e7dbbebb89e31d6c9863160d15ce519c8d9c55724de577a500a35a",
+    "bank": "cf239683033be3fbfed6a449f2aaa1ad1bcbe57d935ca21cf43e46ba938ea7f9",
+    "runner": "5c19b3ce237d9bc2de9382feae18ee0214075337b887d9d4830e5e621dc56884"
+  }
+}
