@@ -319,13 +319,18 @@ class HorizonPlanner:
             menu: tuple[int, ...],
             depth: int,
             sequence: tuple[int, ...] | None,
+            known_action: int | None = None,
         ) -> PolicyNode:
             check(expand=True)
             if depth == 0:
                 return PolicyNode(None, risk(belief), 0)
-            action = (
-                sequence[0] if sequence is not None else choose(belief, menu, depth)[1]
-            )
+            action = known_action
+            if action is None:
+                action = (
+                    sequence[0]
+                    if sequence is not None
+                    else choose(belief, menu, depth)[1]
+                )
             assert action is not None
             children = tuple(
                 PolicyEdge(
@@ -371,7 +376,14 @@ class HorizonPlanner:
                 root_values = {
                     a: action_value(state, actions, effective, a) for a in actions
                 }
-            root = materialize(state, actions, effective, fixed)
+            # Root values were already computed even when the bounded cache has
+            # evicted child states. Do not optimize the root again for display.
+            known_action = (
+                min((v, a) for a, v in root_values.items())[1]
+                if root_values and fixed is None
+                else None
+            )
+            root = materialize(state, actions, effective, fixed, known_action)
             check()
             return HorizonPlan(
                 mode,

@@ -1,0 +1,196 @@
+{
+  "branch_count": 32,
+  "one_step": [
+    {
+      "separation": 0.2,
+      "unequal_noise": false,
+      "max_error": 8.297313319527433e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 0.2,
+      "unequal_noise": true,
+      "max_error": 8.9621087038666e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": false,
+      "max_error": 7.659961143768879e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": true,
+      "max_error": 9.484568905426816e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": false,
+      "max_error": 0.0008584070875213147,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": true,
+      "max_error": 0.0006132066281698129,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": false,
+      "max_error": 7.659961143768879e-06,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": true,
+      "max_error": 7.659961143768879e-06,
+      "regret": 0.0
+    }
+  ],
+  "three_step": {
+    "value": 0.19568239133613036,
+    "reference": 0.19564758610976757,
+    "absolute_error": 3.480522636278849e-05,
+    "expanded_nodes": 173217,
+    "seconds": 17.82850654120557
+  },
+  "adaptivity": {
+    "tree_value": 1.8115380153135602e-06,
+    "fixed_value": 0.05310371957705938,
+    "gap": 0.05310190803904407,
+    "root_action": 0,
+    "continuations": [
+      {
+        "observation": -1.8333498506740233,
+        "action": 1
+      },
+      {
+        "observation": -1.6559584885270096,
+        "action": 1
+      },
+      {
+        "observation": -1.5426527243003405,
+        "action": 1
+      },
+      {
+        "observation": -1.4540084626370344,
+        "action": 1
+      },
+      {
+        "observation": -1.3782593348992145,
+        "action": 1
+      },
+      {
+        "observation": -1.3101174805942617,
+        "action": 1
+      },
+      {
+        "observation": -1.2466234514206453,
+        "action": 1
+      },
+      {
+        "observation": -1.1858277976482658,
+        "action": 1
+      },
+      {
+        "observation": -1.1262357545910495,
+        "action": 1
+      },
+      {
+        "observation": -1.0665018863482754,
+        "action": 1
+      },
+      {
+        "observation": -1.005188910766592,
+        "action": 1
+      },
+      {
+        "observation": -0.9404686627062517,
+        "action": 1
+      },
+      {
+        "observation": -0.8695722327051341,
+        "action": 1
+      },
+      {
+        "observation": -0.7874209621170496,
+        "action": 1
+      },
+      {
+        "observation": -0.6818676510740425,
+        "action": 1
+      },
+      {
+        "observation": -0.5015542166068323,
+        "action": 1
+      },
+      {
+        "observation": 0.5015542166068316,
+        "action": 2
+      },
+      {
+        "observation": 0.6818676510740425,
+        "action": 2
+      },
+      {
+        "observation": 0.7874209621170494,
+        "action": 2
+      },
+      {
+        "observation": 0.8695722327051338,
+        "action": 2
+      },
+      {
+        "observation": 0.9404686627062517,
+        "action": 2
+      },
+      {
+        "observation": 1.005188910766592,
+        "action": 2
+      },
+      {
+        "observation": 1.0665018863482754,
+        "action": 2
+      },
+      {
+        "observation": 1.1262357545910495,
+        "action": 2
+      },
+      {
+        "observation": 1.1858277976482658,
+        "action": 2
+      },
+      {
+        "observation": 1.2466234514206453,
+        "action": 2
+      },
+      {
+        "observation": 1.3101174805942617,
+        "action": 2
+      },
+      {
+        "observation": 1.3782593348992145,
+        "action": 2
+      },
+      {
+        "observation": 1.4540084626370344,
+        "action": 2
+      },
+      {
+        "observation": 1.542652724300341,
+        "action": 2
+      },
+      {
+        "observation": 1.655958488527009,
+        "action": 2
+      },
+      {
+        "observation": 1.8333498506740211,
+        "action": 2
+      }
+    ]
+  }
+}

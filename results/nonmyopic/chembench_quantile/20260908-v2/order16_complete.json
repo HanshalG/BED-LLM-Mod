@@ -1,0 +1,132 @@
+{
+  "branch_count": 16,
+  "one_step": [
+    {
+      "separation": 0.2,
+      "unequal_noise": false,
+      "max_error": 4.4830916178073554e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 0.2,
+      "unequal_noise": true,
+      "max_error": 0.001580988977376671,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": false,
+      "max_error": 4.4830916178073554e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": true,
+      "max_error": 0.005308727695478549,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": false,
+      "max_error": 0.000933716087933989,
+      "regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": true,
+      "max_error": 0.0012357728886154499,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": false,
+      "max_error": 4.4830916178073554e-05,
+      "regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": true,
+      "max_error": 4.4830916178073554e-05,
+      "regret": 0.0
+    }
+  ],
+  "three_step": {
+    "value": 0.1958081907616471,
+    "reference": 0.19564758610976757,
+    "absolute_error": 0.0001606046518795312,
+    "expanded_nodes": 22865,
+    "seconds": 6.522339583840221
+  },
+  "adaptivity": {
+    "tree_value": 3.301559863222202e-07,
+    "fixed_value": 0.05712181391637727,
+    "gap": 0.05712148376039095,
+    "root_action": 0,
+    "continuations": [
+      {
+        "observation": -1.6913310733011508,
+        "action": 1
+      },
+      {
+        "observation": -1.4783153340012936,
+        "action": 1
+      },
+      {
+        "observation": -1.3317923233024165,
+        "action": 1
+      },
+      {
+        "observation": -1.2074787479779707,
+        "action": 1
+      },
+      {
+        "observation": -1.0899723295055965,
+        "action": 1
+      },
+      {
+        "observation": -0.968370600439638,
+        "action": 1
+      },
+      {
+        "observation": -0.826574664001062,
+        "action": 1
+      },
+      {
+        "observation": -0.6068485450953134,
+        "action": 1
+      },
+      {
+        "observation": 0.6068485450953136,
+        "action": 2
+      },
+      {
+        "observation": 0.8265746640010618,
+        "action": 2
+      },
+      {
+        "observation": 0.9683706004396375,
+        "action": 2
+      },
+      {
+        "observation": 1.0899723295055965,
+        "action": 2
+      },
+      {
+        "observation": 1.2074787479779707,
+        "action": 2
+      },
+      {
+        "observation": 1.3317923233024165,
+        "action": 2
+      },
+      {
+        "observation": 1.4783153340012931,
+        "action": 2
+      },
+      {
+        "observation": 1.69133107330115,
+        "action": 2
+      }
+    ]
+  }
+}
