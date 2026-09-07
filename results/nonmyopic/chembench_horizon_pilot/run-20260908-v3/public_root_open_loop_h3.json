@@ -1,0 +1,32 @@
+{
+  "action": 1,
+  "value": 0.006261511585965171,
+  "root_values": [
+    [
+      0,
+      0.007447963905364143
+    ],
+    [
+      1,
+      0.006261511585965171
+    ],
+    [
+      2,
+      0.006264347924042152
+    ],
+    [
+      3,
+      0.006269675691096948
+    ]
+  ],
+  "requested_horizon": 3,
+  "effective_horizon": 3,
+  "mode": "open_loop",
+  "fixed_sequence": [
+    1,
+    2,
+    3
+  ],
+  "processed_states": 6391320,
+  "elapsed_seconds": 51.36995066702366
+}

@@ -1,0 +1,43 @@
+{
+  "status": "public_preflight_passed",
+  "action_checks": [
+    {
+      "action": 0,
+      "status": "ready",
+      "branches": 64
+    },
+    {
+      "action": 1,
+      "status": "ready",
+      "branches": 64
+    },
+    {
+      "action": 2,
+      "status": "ready",
+      "branches": 64
+    },
+    {
+      "action": 3,
+      "status": "ready",
+      "branches": 64
+    }
+  ],
+  "prior_particles": 16,
+  "engine": "native",
+  "numerical_gate_sha256": "a6dfb9766a34576d590a26d963cdaa041b448e4d7c2f7c0d1c65ba6e64dfd1b9",
+  "protocol_sha256": "8e1fc9df41d177fa80b2e500c22c663e3a78a980ecedaa355c667116cc2e1d36",
+  "source_binding": {
+    "root": "/Users/hanshalgoyal/BED-LLM-Mod/external/LLM-AutoSciLab-horizon-reference",
+    "commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+    "tree": "e042d418fc30c6c70f6d1c6b0636d43f0c1c0f7a",
+    "file_sha256": {
+      "autoscilab/oracle/chembench.py": "eba9514d68573b4aa8c6a427606f1d0d7a9c431d8396e69ef4ae0774d2a449de",
+      "autoscilab/oracle/compound_domains.py": "0dfd47c1858efacb732f0fbceace3ebd61bb30f864ec777d628fb70f876343f3",
+      "autoscilab/oracle/chembench_excluded.py": "defc6c0c5edafe75dffaa366a61298856f413bd465a6e4e3636e9b0c57124003"
+    }
+  },
+  "hidden_worlds_opened": false,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false
+}
