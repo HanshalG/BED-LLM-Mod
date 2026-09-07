@@ -1,0 +1,19 @@
+{
+  "tree_seed": 28306,
+  "exact_values": {
+    "h3": "1259/19998",
+    "receding_openloop_h3": "1259/19998",
+    "committed_three": "3397/53328"
+  },
+  "first_committed_sequence": [
+    3,
+    48,
+    51
+  ],
+  "receding_first_query": 3,
+  "h3_first_query": 3,
+  "exact_anticipated_adaptivity_gain": "0",
+  "exact_full_adaptivity_gap": "119/159984",
+  "query_sets_evaluated": 95011,
+  "elapsed_seconds": 2.4020180420484394
+}

@@ -75,3 +75,47 @@ def test_cap_and_resolved_support():
     with pytest.raises(RuntimeError, match="query-set cap"):
         OpenLoopMembership(solver, max_sets=0).plan(solver.full, 3)
     assert OpenLoopMembership(solver).receding(1, 3) == 0
+
+
+def test_receding_control_matches_independent_history_recursion():
+    rows = [list(product((False, True), repeat=4))[i] for i in [0, 1, 3, 6, 8, 10, 15]]
+
+    def reference(current, budget):
+        if budget == 0:
+            return independent_risk(current)
+        unique, queries = set(), []
+        for query in range(4):
+            answers = tuple(row[query] for row in current)
+            if len(set(answers)) == 1:
+                continue
+            signature = min(answers, tuple(not x for x in answers))
+            if signature not in unique:
+                queries.append(query)
+                unique.add(signature)
+        if not queries:
+            return independent_risk(current)
+        candidates = []
+        for sequence in combinations(queries, min(budget, len(queries))):
+            groups = {}
+            for row in current:
+                groups.setdefault(tuple(row[q] for q in sequence), []).append(row)
+            risk = sum(
+                (
+                    Fraction(len(g), len(current)) * independent_risk(g)
+                    for g in groups.values()
+                ),
+                Fraction(0),
+            )
+            candidates.append((risk, sequence))
+        query = min(candidates)[1][0]
+        return sum(
+            (
+                Fraction(len(g), len(current)) * reference(g, budget - 1)
+                for answer in [False, True]
+                if (g := [r for r in current if r[query] == answer])
+            ),
+            Fraction(0),
+        )
+
+    solver = ExactMembershipHorizon(rows)
+    assert OpenLoopMembership(solver).receding(solver.full, 3) == reference(rows, 3)
