@@ -1,0 +1,24 @@
+{
+  "depth": 1,
+  "status": "completed",
+  "plan": {
+    "mode": "adaptive",
+    "requested_horizon": 1,
+    "effective_horizon": 1,
+    "action": 0,
+    "value": 0.22927603471329414,
+    "root_values": [
+      [
+        0,
+        0.22927603471329414
+      ]
+    ],
+    "error_estimate": 1e-05,
+    "selection_regret_estimate": 0.0,
+    "selection_resolved": true,
+    "fixed_sequence": null,
+    "evaluations": 462,
+    "elapsed_seconds": 0.010937707964330912
+  },
+  "wall_seconds": 0.011017207987606525
+}

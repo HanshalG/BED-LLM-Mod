@@ -1,0 +1,79 @@
+{
+  "status": "reference_not_qualified",
+  "cases": [
+    {
+      "depth": 1,
+      "status": "completed",
+      "plan": {
+        "mode": "adaptive",
+        "requested_horizon": 1,
+        "effective_horizon": 1,
+        "action": 0,
+        "value": 0.22927603471329414,
+        "root_values": [
+          [
+            0,
+            0.22927603471329414
+          ]
+        ],
+        "error_estimate": 1e-05,
+        "selection_regret_estimate": 0.0,
+        "selection_resolved": true,
+        "fixed_sequence": null,
+        "evaluations": 462,
+        "elapsed_seconds": 0.010937707964330912
+      },
+      "wall_seconds": 0.011017207987606525
+    },
+    {
+      "depth": 2,
+      "status": "completed",
+      "plan": {
+        "mode": "adaptive",
+        "requested_horizon": 2,
+        "effective_horizon": 2,
+        "action": 0,
+        "value": 0.21139192539633422,
+        "root_values": [
+          [
+            0,
+            0.21139192539633422
+          ],
+          [
+            1,
+            0.21139192539633422
+          ]
+        ],
+        "error_estimate": 1e-05,
+        "selection_regret_estimate": 2e-05,
+        "selection_resolved": false,
+        "fixed_sequence": null,
+        "evaluations": 427812,
+        "elapsed_seconds": 9.732053916202858
+      },
+      "wall_seconds": 9.732209667097777
+    },
+    {
+      "depth": 3,
+      "status": "resource_limit",
+      "message": "raw horizon exceeded global resource budget",
+      "wall_seconds": 22.809543084120378
+    }
+  ],
+  "settings": {
+    "max_evaluations_per_plan": 1000000,
+    "max_seconds_per_plan": 30,
+    "tolerance": 1e-05
+  },
+  "source_hashes": {
+    "scripts/chembench_raw_horizon_audit.py": "9f3ab57b5314067fe4ab2f380683c7ec98c6c7f6f6298c6c8b21669a56408bc0",
+    "environments/chembench_mopen/raw_horizon.py": "c1b52f46923143416d8b7a81c08268bda539ae4b91e3c4960c46bc3d6fcf3664",
+    "environments/chembench_mopen/raw_integration.py": "d7be4b1dd53057310818da4dfa28f2b344f4f216acc79a7a620f5ef09e98b138",
+    "environments/chembench_mopen/raw_belief.py": "9f476f211bd34f80afc955c1e33f6892192ec2b8612817e3f3cfe03bbc8edee1"
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "chemistry_outcomes_opened": false,
+  "authorizes_paid_calls": false,
+  "positive_adaptivity_tested": false
+}

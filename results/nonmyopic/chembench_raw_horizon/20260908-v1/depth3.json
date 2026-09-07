@@ -1,0 +1,6 @@
+{
+  "depth": 3,
+  "status": "resource_limit",
+  "message": "raw horizon exceeded global resource budget",
+  "wall_seconds": 22.809543084120378
+}
