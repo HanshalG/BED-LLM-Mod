@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "status": "one_step_reference_failed",
+  "settings": {
+    "order": 9,
+    "absolute_error_cap": 0.001,
+    "regret_cap": 0.001,
+    "reference_error_cap": 1e-08
+  },
+  "cases": [
+    {
+      "separation": 0.2,
+      "unequal_noise": false,
+      "reference_risks": [
+        0.20309192502601053,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        1.187015035560611e-13,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.20309192502735046,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 1.2343170475437315e-06,
+      "selected_action": 1,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 0.2,
+      "unequal_noise": true,
+      "reference_risks": [
+        0.10822405486108717,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        2.56970891025083e-12,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.13354989030484254,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 0.02532583544375537,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": false,
+      "reference_risks": [
+        0.09932233451778506,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        3.220904178208422e-10,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.09931785562343586,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 4.478894349208007e-06,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 1.0,
+      "unequal_noise": true,
+      "reference_risks": [
+        0.08036458315741879,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        7.850748312416265e-12,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.0771952780752919,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 0.003169305082126886,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": false,
+      "reference_risks": [
+        0.0009434528090890899,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        3.0056686435091687e-12,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.0007483024663648349,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 0.00019515034272425495,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 3.0,
+      "unequal_noise": true,
+      "reference_risks": [
+        0.0035623630000346544,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        4.964060894903795e-12,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        0.0030036259528543525,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 0.0005587370471803019,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": false,
+      "reference_risks": [
+        1.2686801335250612e-15,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        2.347333950127869e-15,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        1.3100055966011277e-29,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 1.2343170475437315e-06,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    },
+    {
+      "separation": 8.0,
+      "unequal_noise": true,
+      "reference_risks": [
+        1.0748632483532738e-12,
+        0.17139782618876892
+      ],
+      "reference_error_estimates": [
+        1.9516638074585074e-12,
+        4.6720705228220534e-14
+      ],
+      "quadrature_risks": [
+        1.7599217128744078e-13,
+        0.17139906050581646
+      ],
+      "max_absolute_error": 1.2343170475437315e-06,
+      "selected_action": 0,
+      "reference_regret": 0.0
+    }
+  ],
+  "source_hashes": {
+    "scripts/chembench_raw_integration_audit.py": "86ef347b5f803a27e2f0152378a3edf49bd18ce84505f524ad21680c9bd7aea8",
+    "environments/chembench_mopen/raw_belief.py": "9f476f211bd34f80afc955c1e33f6892192ec2b8612817e3f3cfe03bbc8edee1"
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "chemistry_outcomes_opened": false,
+  "depth_two_three_qualified": false,
+  "authorizes_paid_calls": false
+}
