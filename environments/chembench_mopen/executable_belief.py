@@ -83,6 +83,7 @@ class ExecutableSnapshot:
     history_sha256: str
     conditional_log_evidence: float
     evaluated_scalar_nodes: int
+    target_inputs: tuple[tuple[float, ...], ...]
     interpretation: str = "finite_pool_conditional_fit_not_selection_corrected"
 
 
@@ -247,4 +248,5 @@ class ExecutableBeliefPool:
             hashlib.sha256(history_key.encode()).hexdigest(),
             float(evidence),
             work,
+            tuple(tuple(float(x) for x in row) for row in targets),
         )
