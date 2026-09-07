@@ -67,3 +67,24 @@ def test_fixed_observations_commute_but_round_indexed_noise_can_change_them():
     np.testing.assert_allclose(a, b, atol=1e-12)
     changed = m.condition(m.condition(m.initial_state, 1, 0.8), 0, -0.7)
     assert not np.allclose(m.forecast(a), m.forecast(changed))
+
+
+def test_three_step_value_of_receding_h2_is_h3_value_at_h2_root():
+    m = model()
+    planner = HorizonPlanner(m)
+
+    def deployed(state, menu, remaining):
+        if not remaining:
+            return m.risk(state)
+        action = planner.plan(state, min(2, remaining), available=menu).root.action
+        return sum(
+            b.probability
+            * deployed(b.state, tuple(a for a in menu if a != action), remaining - 1)
+            for b in m.branches(state, action)
+        )
+
+    h2 = planner.plan(m.initial_state, 2)
+    h3 = planner.plan(m.initial_state, 3)
+    assert deployed(m.initial_state, (0, 1, 2), 3) == pytest.approx(
+        dict(h3.root_action_values)[h2.root.action], abs=1e-12
+    )

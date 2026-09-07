@@ -1,0 +1,62 @@
+{
+  "order": 64,
+  "myopic": {
+    "value": 0.005873012931796839,
+    "measurement_budget": 3,
+    "root_action": 1,
+    "root_one_step_values": [
+      [
+        0,
+        0.0947297420565926
+      ],
+      [
+        1,
+        0.022018073671380447
+      ],
+      [
+        2,
+        0.09792194389217483
+      ],
+      [
+        3,
+        0.09518851972983644
+      ]
+    ],
+    "processed_states": 1081985,
+    "elapsed_seconds": 14.208835874916986
+  },
+  "optimal": {
+    "action": 1,
+    "value": 0.005843404443471121,
+    "root_values": [
+      [
+        0,
+        0.006714419423251385
+      ],
+      [
+        1,
+        0.005843404443471121
+      ],
+      [
+        2,
+        0.005865080125227962
+      ],
+      [
+        3,
+        0.006235993898843625
+      ]
+    ],
+    "requested_horizon": 3,
+    "effective_horizon": 3,
+    "mode": "adaptive",
+    "fixed_sequence": null,
+    "processed_states": 6340864,
+    "elapsed_seconds": 45.86154383304529
+  },
+  "optimal_provenance": {
+    "reused": true,
+    "sha256": "13b17fa0fb7e30a98b36676342c618abce511d49b8aaf28d18bc406aacf5db48"
+  },
+  "expected_gain": 2.9608488325717948e-05,
+  "fractional_gain": 0.0050414478342820646
+}
