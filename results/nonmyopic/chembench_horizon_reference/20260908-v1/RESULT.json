@@ -1,0 +1,2137 @@
+{
+  "cases": {
+    "adaptive_assay": {
+      "adaptive": {
+        "1": {
+          "effective_horizon": 1,
+          "elapsed_seconds": 0.0002670418471097946,
+          "expanded_nodes": 10,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 1,
+          "root": {
+            "action": 1,
+            "branches": [
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.1875,
+            "remaining_depth": 1
+          },
+          "root_action_values": [
+            [
+              0,
+              0.25
+            ],
+            [
+              1,
+              0.1875
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "2": {
+          "effective_horizon": 2,
+          "elapsed_seconds": 0.0007102082017809153,
+          "expanded_nodes": 24,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 2,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 2,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 2
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.125
+            ],
+            [
+              2,
+              0.125
+            ]
+          ]
+        },
+        "3": {
+          "effective_horizon": 3,
+          "elapsed_seconds": 0.0011407909914851189,
+          "expanded_nodes": 36,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 3,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 3
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.0
+            ]
+          ]
+        }
+      },
+      "open_loop": {
+        "1": {
+          "effective_horizon": 1,
+          "elapsed_seconds": 0.00018566707149147987,
+          "expanded_nodes": 12,
+          "fixed_sequence": [
+            1
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 1,
+          "root": {
+            "action": 1,
+            "branches": [
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.1875,
+            "remaining_depth": 1
+          },
+          "root_action_values": [
+            [
+              0,
+              0.25
+            ],
+            [
+              1,
+              0.1875
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "2": {
+          "effective_horizon": 2,
+          "elapsed_seconds": 0.0006935419514775276,
+          "expanded_nodes": 35,
+          "fixed_sequence": [
+            0,
+            1
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 2,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.25,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.25,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.25,
+                  "remaining_depth": 1
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.125,
+            "remaining_depth": 2
+          },
+          "root_action_values": [
+            [
+              0,
+              0.125
+            ],
+            [
+              1,
+              0.125
+            ],
+            [
+              2,
+              0.125
+            ]
+          ]
+        },
+        "3": {
+          "effective_horizon": 3,
+          "elapsed_seconds": 0.0010885829105973244,
+          "expanded_nodes": 47,
+          "fixed_sequence": [
+            0,
+            1,
+            2
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 3,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.5
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.5
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 3
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.0
+            ]
+          ]
+        }
+      }
+    },
+    "xor_complementarity": {
+      "adaptive": {
+        "1": {
+          "effective_horizon": 1,
+          "elapsed_seconds": 0.00034145801328122616,
+          "expanded_nodes": 10,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 1,
+          "root": {
+            "action": 2,
+            "branches": [
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.1875,
+            "remaining_depth": 1
+          },
+          "root_action_values": [
+            [
+              0,
+              0.25
+            ],
+            [
+              1,
+              0.25
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "2": {
+          "effective_horizon": 2,
+          "elapsed_seconds": 0.0007494159508496523,
+          "expanded_nodes": 26,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 2,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 2
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "3": {
+          "effective_horizon": 3,
+          "elapsed_seconds": 0.0011735418811440468,
+          "expanded_nodes": 38,
+          "fixed_sequence": null,
+          "mode": "adaptive",
+          "requested_horizon": 3,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.75
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.25
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.25
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.75
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.25
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.75
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.75
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.25
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 3
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.0
+            ]
+          ]
+        }
+      },
+      "open_loop": {
+        "1": {
+          "effective_horizon": 1,
+          "elapsed_seconds": 0.00019441614858806133,
+          "expanded_nodes": 12,
+          "fixed_sequence": [
+            2
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 1,
+          "root": {
+            "action": 2,
+            "branches": [
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": null,
+                  "branches": [],
+                  "expected_risk": 0.1875,
+                  "remaining_depth": 0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.1875,
+            "remaining_depth": 1
+          },
+          "root_action_values": [
+            [
+              0,
+              0.25
+            ],
+            [
+              1,
+              0.25
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "2": {
+          "effective_horizon": 2,
+          "elapsed_seconds": 0.0007323340978473425,
+          "expanded_nodes": 37,
+          "fixed_sequence": [
+            0,
+            1
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 2,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": null,
+                        "branches": [],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 1
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 2
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.1875
+            ]
+          ]
+        },
+        "3": {
+          "effective_horizon": 3,
+          "elapsed_seconds": 0.0011291669216006994,
+          "expanded_nodes": 49,
+          "fixed_sequence": [
+            0,
+            1,
+            2
+          ],
+          "mode": "open_loop",
+          "requested_horizon": 3,
+          "root": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.75
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.25
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.25
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.75
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.25
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.75
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "action": 2,
+                        "branches": [
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 0,
+                            "probability": 0.75
+                          },
+                          {
+                            "child": {
+                              "action": null,
+                              "branches": [],
+                              "expected_risk": 0.0,
+                              "remaining_depth": 0
+                            },
+                            "observation": 1,
+                            "probability": 0.25
+                          }
+                        ],
+                        "expected_risk": 0.0,
+                        "remaining_depth": 1
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "expected_risk": 0.0,
+                  "remaining_depth": 2
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "expected_risk": 0.0,
+            "remaining_depth": 3
+          },
+          "root_action_values": [
+            [
+              0,
+              0.0
+            ],
+            [
+              1,
+              0.0
+            ],
+            [
+              2,
+              0.0
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "chemistry_endpoints_opened": false,
+  "fixed_budget_receding": {
+    "cases": {
+      "adaptive_assay": {
+        "adaptive": {
+          "1": {
+            "action": 1,
+            "branches": [
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.25
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.125,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.125
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.25
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.125,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.125
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 1,
+            "planned_risk": 0.1875,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.125
+          },
+          "2": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 2,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          },
+          "3": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 2,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          }
+        },
+        "open_loop": {
+          "1": {
+            "action": 1,
+            "branches": [
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.25
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.125,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.125
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.25
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.125,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.125
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 1,
+            "planned_risk": 0.1875,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.125
+          },
+          "2": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 2,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.125,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          },
+          "3": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 2,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.125,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          }
+        }
+      },
+      "xor_complementarity": {
+        "adaptive": {
+          "1": {
+            "action": 2,
+            "branches": [
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.1875,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.1875
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.1875,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.1875
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 1,
+            "planned_risk": 0.1875,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.1875
+          },
+          "2": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          },
+          "3": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          }
+        },
+        "open_loop": {
+          "1": {
+            "action": 2,
+            "branches": [
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.1875,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.1875
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 0,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.1875
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.1875,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.1875
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 1,
+            "planned_risk": 0.1875,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.1875
+          },
+          "2": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          },
+          "3": {
+            "action": 0,
+            "branches": [
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 0,
+                "probability": 0.5
+              },
+              {
+                "child": {
+                  "action": 1,
+                  "branches": [
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 0,
+                      "probability": 0.5
+                    },
+                    {
+                      "child": {
+                        "remaining_measurements": 0,
+                        "terminal_expected_risk": 0.0
+                      },
+                      "observation": 1,
+                      "probability": 0.5
+                    }
+                  ],
+                  "optimized_horizon": 1,
+                  "planned_risk": 0.0,
+                  "remaining_measurements": 1,
+                  "terminal_expected_risk": 0.0
+                },
+                "observation": 1,
+                "probability": 0.5
+              }
+            ],
+            "optimized_horizon": 2,
+            "planned_risk": 0.0,
+            "remaining_measurements": 2,
+            "terminal_expected_risk": 0.0
+          }
+        }
+      }
+    },
+    "measurement_budget": 2
+  },
+  "gates": {
+    "adaptive_h2_resolves_target": true,
+    "adaptive_second_action_depends_on_observation": true,
+    "fixed_budget_xor_receding_h1_risk": true,
+    "fixed_budget_xor_receding_h2_risk": true,
+    "open_loop_h2_risk_matches_1_over_8": true,
+    "open_loop_replanning_can_close_planned_adaptivity_gap": true,
+    "xor_h1_prefers_noisy_target": true,
+    "xor_h1_risk_matches_3_over_16": true,
+    "xor_h2_resolves_target": true,
+    "xor_h3_legitimate_plateau": true
+  },
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "schema_version": 1,
+  "scope": "constructed mathematical checks only; not an LLM or ChemBench efficacy result",
+  "source_sha256": {
+    "environments/chembench_mopen/horizon.py": "87b2838a550a71369c152e91545bf0c1159b23ae680a849a1c0a8be38434621e",
+    "scripts/chembench_horizon_reference.py": "206cef6efa1dcd48f66925be1850f1c3aaf5f4eb69de73b5674115e746ccde59"
+  },
+  "status": "reference_checks_passed"
+}
