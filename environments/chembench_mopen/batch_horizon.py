@@ -48,6 +48,15 @@ def posterior_branches_many(model, logs, action, *, return_weights=False):
         integration_weights = np.broadcast_to(
             model._quadrature_weights, quantiles.shape
         )
+    if (
+        not np.isfinite(quantiles).all()
+        or np.any(quantiles < 0)
+        or np.any(quantiles > 1)
+    ):
+        raise ValueError("invalid integration probabilities")
+    # Composite rules can round an interior tail node to an endpoint. Keep its
+    # mass but evaluate at the closest representable interior probability.
+    quantiles = np.clip(quantiles, np.nextafter(0.0, 1.0), np.nextafter(1.0, 0.0))
     component_q = means[None, :, None] + sigmas[None, :, None] * ndtri(
         quantiles[:, None, :]
     )

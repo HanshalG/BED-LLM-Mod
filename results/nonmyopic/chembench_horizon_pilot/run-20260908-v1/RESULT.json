@@ -1,0 +1,18 @@
+{
+  "status": "execution_failed",
+  "phase": "public_root_planning",
+  "error_type": "ValueError",
+  "message": "quantiles exceed numerical range",
+  "completed_worlds": 0,
+  "protocol_sha256": "8e1fc9df41d177fa80b2e500c22c663e3a78a980ecedaa355c667116cc2e1d36",
+  "hidden_worlds_opened": false,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false,
+  "elapsed_seconds": 46.183741457993165,
+  "source_hashes": {
+    "scripts/chembench_horizon_pilot.py": "f9aacfa4019856e7663caef0c3d103013fd75d6027133dd37554479d951e8d14",
+    "scripts/chembench_pilot_preflight.py": "ff72cd0eded61649b50438426726305aad5e8da25302eeea1c6f4cade1e76236",
+    "environments/chembench_mopen/pilot_data.py": "8c6ae86928924ecb000e999fa19800618608a480cf373edb58e535b09de397bc"
+  }
+}
