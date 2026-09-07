@@ -1,0 +1,458 @@
+{
+  "status": "descriptive_engineering_summary",
+  "result_sha256": "f15d7df1f7281d3d2ca17a1bf504c734ba7c40d57e48ecede2e6e660cd80180f",
+  "replay_sha256": "2890550fca880a1bf511c084563ec0e76843b3eb4add3bec33c5c46f3252dd1f",
+  "table": [
+    {
+      "group": "core",
+      "arm": "h1",
+      "mean_final_mse": 0.019405067858350007,
+      "sd_final_mse": 0.01984084300515084,
+      "mean_mse_trace": [
+        0.06929883335050069,
+        0.020420488764148516,
+        0.019405067858350007
+      ],
+      "mean_rmse_trace": [
+        0.1996251507342368,
+        0.11974992618479201,
+        0.12181034584133545
+      ]
+    },
+    {
+      "group": "core",
+      "arm": "h2",
+      "mean_final_mse": 0.010459704910178832,
+      "sd_final_mse": 0.015410113375221872,
+      "mean_mse_trace": [
+        0.06929883335050069,
+        0.01906956465091534,
+        0.010459704910178832
+      ],
+      "mean_rmse_trace": [
+        0.1996251507342368,
+        0.11603726225726889,
+        0.0829607280840198
+      ]
+    },
+    {
+      "group": "core",
+      "arm": "h3",
+      "mean_final_mse": 0.010459704910178832,
+      "sd_final_mse": 0.015410113375221872,
+      "mean_mse_trace": [
+        0.06929883335050069,
+        0.01906956465091534,
+        0.010459704910178832
+      ],
+      "mean_rmse_trace": [
+        0.1996251507342368,
+        0.11603726225726889,
+        0.0829607280840198
+      ]
+    },
+    {
+      "group": "core",
+      "arm": "open_loop_h3",
+      "mean_final_mse": 0.01086753325828326,
+      "sd_final_mse": 0.015161813746075907,
+      "mean_mse_trace": [
+        0.06929883335050069,
+        0.017258493216056534,
+        0.01086753325828326
+      ],
+      "mean_rmse_trace": [
+        0.1996251507342368,
+        0.10352810463450225,
+        0.08728782960805778
+      ]
+    },
+    {
+      "group": "core",
+      "arm": "refined_myopic",
+      "mean_final_mse": 0.019405067858350007,
+      "sd_final_mse": 0.01984084300515084,
+      "mean_mse_trace": [
+        0.06929883335050069,
+        0.020420488764148516,
+        0.019405067858350007
+      ],
+      "mean_rmse_trace": [
+        0.1996251507342368,
+        0.11974992618479201,
+        0.12181034584133545
+      ]
+    },
+    {
+      "group": "core",
+      "arm": "random",
+      "mean_final_mse": 0.022809703710156157,
+      "sd_final_mse": 0.024241595460063572,
+      "mean_mse_trace": [
+        0.10497907725631277,
+        0.02509495908850745,
+        0.022809703710156153
+      ],
+      "mean_rmse_trace": [
+        0.2526166259511753,
+        0.13559831638897457,
+        0.12682050607128723
+      ]
+    },
+    {
+      "group": "population_oracle",
+      "arm": "h1",
+      "mean_final_mse": 0.01570134764039776,
+      "sd_final_mse": 0.03368176863081875,
+      "mean_mse_trace": [
+        0.02347245027071814,
+        0.013365891766363816,
+        0.01570134764039776
+      ],
+      "mean_rmse_trace": [
+        0.11816744178863757,
+        0.07329071590169645,
+        0.08121159947005592
+      ]
+    },
+    {
+      "group": "population_oracle",
+      "arm": "h2",
+      "mean_final_mse": 0.0015350080645010365,
+      "sd_final_mse": 0.0035140233209231143,
+      "mean_mse_trace": [
+        0.02347245027071814,
+        0.00918036175807189,
+        0.0015350080645010363
+      ],
+      "mean_rmse_trace": [
+        0.11816744178863757,
+        0.0722578423514363,
+        0.021771286184501606
+      ]
+    },
+    {
+      "group": "population_oracle",
+      "arm": "h3",
+      "mean_final_mse": 0.0015350080645010365,
+      "sd_final_mse": 0.0035140233209231143,
+      "mean_mse_trace": [
+        0.02347245027071814,
+        0.00918036175807189,
+        0.0015350080645010363
+      ],
+      "mean_rmse_trace": [
+        0.11816744178863757,
+        0.0722578423514363,
+        0.021771286184501606
+      ]
+    }
+  ],
+  "paired_worlds": [
+    {
+      "world": 0,
+      "h1_minus_h3_mse": 0.04043234383152143,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          0,
+          2
+        ],
+        "h2": [
+          1,
+          2,
+          0
+        ],
+        "h3": [
+          1,
+          2,
+          0
+        ],
+        "open_loop_h3": [
+          1,
+          2,
+          0
+        ],
+        "refined_myopic": [
+          1,
+          0,
+          2
+        ],
+        "random": [
+          0,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "world": 1,
+      "h1_minus_h3_mse": 0.0,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          0,
+          2
+        ],
+        "h2": [
+          1,
+          0,
+          2
+        ],
+        "h3": [
+          1,
+          0,
+          2
+        ],
+        "open_loop_h3": [
+          1,
+          0,
+          2
+        ],
+        "refined_myopic": [
+          1,
+          0,
+          2
+        ],
+        "random": [
+          1,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "world": 2,
+      "h1_minus_h3_mse": 0.005155584398166895,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          0,
+          2
+        ],
+        "h2": [
+          1,
+          2,
+          0
+        ],
+        "h3": [
+          1,
+          2,
+          0
+        ],
+        "open_loop_h3": [
+          1,
+          2,
+          0
+        ],
+        "refined_myopic": [
+          1,
+          0,
+          2
+        ],
+        "random": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "world": 3,
+      "h1_minus_h3_mse": 0.017036559988164057,
+      "same_final_query_set": false,
+      "sequences": {
+        "h1": [
+          1,
+          0,
+          3
+        ],
+        "h2": [
+          1,
+          3,
+          2
+        ],
+        "h3": [
+          1,
+          3,
+          2
+        ],
+        "open_loop_h3": [
+          1,
+          3,
+          2
+        ],
+        "refined_myopic": [
+          1,
+          0,
+          3
+        ],
+        "random": [
+          3,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "world": 4,
+      "h1_minus_h3_mse": 0.0,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          2,
+          3
+        ],
+        "h2": [
+          1,
+          2,
+          3
+        ],
+        "h3": [
+          1,
+          2,
+          3
+        ],
+        "open_loop_h3": [
+          1,
+          2,
+          3
+        ],
+        "refined_myopic": [
+          1,
+          2,
+          3
+        ],
+        "random": [
+          2,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "world": 5,
+      "h1_minus_h3_mse": 0.0032626267848354217,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          2,
+          0
+        ],
+        "h2": [
+          1,
+          0,
+          2
+        ],
+        "h3": [
+          1,
+          0,
+          2
+        ],
+        "open_loop_h3": [
+          1,
+          2,
+          0
+        ],
+        "refined_myopic": [
+          1,
+          2,
+          0
+        ],
+        "random": [
+          3,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "world": 6,
+      "h1_minus_h3_mse": 0.0,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          2,
+          3
+        ],
+        "h2": [
+          1,
+          2,
+          3
+        ],
+        "h3": [
+          1,
+          2,
+          3
+        ],
+        "open_loop_h3": [
+          1,
+          2,
+          3
+        ],
+        "refined_myopic": [
+          1,
+          2,
+          3
+        ],
+        "random": [
+          0,
+          1,
+          3
+        ]
+      }
+    },
+    {
+      "world": 7,
+      "h1_minus_h3_mse": 0.005675788582681585,
+      "same_final_query_set": true,
+      "sequences": {
+        "h1": [
+          1,
+          2,
+          3
+        ],
+        "h2": [
+          1,
+          3,
+          2
+        ],
+        "h3": [
+          1,
+          3,
+          2
+        ],
+        "open_loop_h3": [
+          1,
+          3,
+          2
+        ],
+        "refined_myopic": [
+          1,
+          2,
+          3
+        ],
+        "random": [
+          1,
+          3,
+          2
+        ]
+      }
+    }
+  ],
+  "h3_vs_h1_fractional_gain": 0.4609807609779619,
+  "h3_vs_open_loop_fractional_gain": 0.03752722337367409,
+  "same_set_share_of_aggregate_gain": 0.7619358755078925,
+  "h2_h3_identical_trajectories": true,
+  "h2_h3_initial_action_equal": true,
+  "interpretation": "Eight-world source engineering only; neither powered efficacy nor LLM evidence. Round-by-design CRNs give reordered queries different observations. Same-set gains need a coupling/expected-risk diagnostic. If h2/h3 choose the same initial action, the three-query budget makes their subsequent policies identical under this fixed updater, ruling out a strict depth-three gain on that fixed-prior setup.",
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false
+}

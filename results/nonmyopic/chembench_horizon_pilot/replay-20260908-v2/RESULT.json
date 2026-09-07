@@ -1,0 +1,27 @@
+{
+  "status": "replay_verified",
+  "result_sha256": "f15d7df1f7281d3d2ca17a1bf504c734ba7c40d57e48ecede2e6e660cd80180f",
+  "worlds": 8,
+  "episodes": 72,
+  "physics": "independent_full_likelihood_and_CRN_reconstruction",
+  "policies": "same_qualified_planner_reexecuted",
+  "gates": {
+    "complete": true,
+    "forecast_improvement": true,
+    "h3_vs_h1": true,
+    "h3_nonworse_h2": true,
+    "changed_worlds": true
+  },
+  "mean_final_mse": {
+    "h1": 0.019405067858350007,
+    "h2": 0.010459704910178832,
+    "h3": 0.010459704910178832,
+    "open_loop_h3": 0.01086753325828326,
+    "refined_myopic": 0.019405067858350007,
+    "random": 0.022809703710156157
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false,
+  "verifier_sha256": "fe2c00380010b8d40ac9e90dfea6dfa55ef2e46e9ed0e7d12ea92da343bbe01f"
+}
