@@ -5,6 +5,7 @@ This is interface mechanics, not a validated semantic model or scientific gate.
 """
 
 import ast
+from collections import Counter
 import json
 import math
 
@@ -113,6 +114,64 @@ def _object(pairs):
             raise RateLawError("duplicate response JSON key")
         result[key] = value
     return result
+
+
+def build_shuffled_feedback_messages(
+    *, history_inputs, observations, public_bounds, parameter_bounds, sigma, permutation
+):
+    """Prospective sham-feedback proposal only; fitters must use real outcomes.
+
+    The caller must freeze an explicit derangement before responses. No random
+    search for a favourable permutation or automatic resampling is done here.
+    This control is not retroactively added to any frozen scientific panel.
+    """
+    # Validate the original history with exactly the real-arm public interface.
+    build_messages(
+        history_inputs=history_inputs,
+        observations=observations,
+        public_bounds=public_bounds,
+        parameter_bounds=parameter_bounds,
+        sigma=sigma,
+        mode="history_aware",
+    )
+    n = len(observations)
+    if (
+        not isinstance(permutation, (list, tuple))
+        or len(permutation) != n
+        or n < 2
+        or any(type(i) is not int for i in permutation)
+        or sorted(permutation) != list(range(n))
+        or any(i == j for i, j in enumerate(permutation))
+    ):
+        raise ValueError("feedback control requires a full explicit derangement")
+    shuffled = [observations[i] for i in permutation]
+    changed = sum(a != b for a, b in zip(observations, shuffled, strict=True))
+    if changed == 0:
+        raise ValueError("permutation does not change any observed input-outcome pair")
+    original_pairs = Counter(
+        (tuple(point), y) for point, y in zip(history_inputs, observations, strict=True)
+    )
+    shuffled_pairs = Counter(
+        (tuple(point), y) for point, y in zip(history_inputs, shuffled, strict=True)
+    )
+    if original_pairs == shuffled_pairs:
+        raise ValueError("permutation only reorders exchangeable replicate outcomes")
+    messages = build_messages(
+        history_inputs=history_inputs,
+        observations=shuffled,
+        public_bounds=public_bounds,
+        parameter_bounds=parameter_bounds,
+        sigma=sigma,
+        mode="history_aware",
+    )
+    return messages, {
+        "interpretation": "sham_proposal_feedback_not_numerical_fitting_history",
+        "output_row_to_original_observation_index": list(permutation),
+        "changed_observation_rows": changed,
+        "total_history_rows": n,
+        "new_gate_authority": False,
+        "paid_calls_authorized": False,
+    }
 
 
 def _bad_constant(value):
