@@ -1,5 +1,9 @@
 # Path to a substantive depth-improving LLM BED result
 
+Second-pass update: [revised priorities and confound audit](NONMYOPIC_RESEARCH_SECOND_PASS_20260908.md)
+supersede this document's primary depth definition and unconditional chemistry
+recommendation. This first pass remains the source/evidence map.
+
 Prepared 2026-09-08 (Australia/Melbourne); literature and repository inspection on
 2026-09-07 Europe/London. This is a research plan, not a frozen paid protocol or
 permission to restart closed experiments. No model calls or new policy outcomes.
