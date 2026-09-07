@@ -1,0 +1,3 @@
+-r requirements-chembench-native.txt
+gplearn==0.4.3
+scikit-learn==1.8.0
