@@ -1,5 +1,9 @@
 # Second pass: isolate information value from computation and discovery timing
 
+Follow-up: [third-pass architecture and sequential-policy audit](NONMYOPIC_RESEARCH_THIRD_PASS_20260908.md)
+refines the immediate work package and the interpretation of saved Number Game
+depths. It preserves the closed-route and no-new-spend boundaries below.
+
 Date: 2026-09-08 (Australia/Melbourne).
 Status: planning and retrospective interpretation only. No model calls, new
 environment outcomes, experiment authorization, or changes to frozen statuses.
