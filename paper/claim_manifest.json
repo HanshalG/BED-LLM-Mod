@@ -1253,6 +1253,51 @@
         {"pointer": "/accounting/openrouter_calls", "equals": 0},
         {"pointer": "/accounting/openrouter_cost_usd", "equals": 0.0, "tolerance": 1e-12}
       ]
+    },
+    {
+      "id": "september_initial_full_horizon_reference_null",
+      "paper_scope": "Exact fixed-support receding horizons on saved initial rules, not the historical dynamic root policy or fresh efficacy.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_initial_horizon_audit/20260908-v1/RESULT.json",
+        "sha256": "fe6e1764a1deb3b0196962bff39457a4fc3888c97ed75956495b7ae6f3171c4a"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "initial_opportunity_null"},
+        {"pointer": "/adjacent_fractional_gains", "equals": [0.0800877056598168, 0.019734666037889658], "tolerance": 1e-12},
+        {"pointer": "/dynamic_policy_replayed", "equals": false},
+        {"pointer": "/historical_endpoints_used", "equals": false},
+        {"pointer": "/paid_calls_authorized", "equals": false}
+      ]
+    },
+    {
+      "id": "september_first_refresh_retrospective_diagnosis",
+      "paper_scope": "Retrospective fixed-domain first-step loss; not fresh efficacy or the historical policy estimand.",
+      "artifact": {
+        "path": "results/nonmyopic/NUMBER_GAME_FIRST_REFRESH_DIAGNOSTIC_20260908.json",
+        "sha256": "f0704ed90bdceb7180239128b66567c027f15138b4aa499f6dd6d06ba99d7386"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "descriptive_complete"},
+        {"pointer": "/means/initial_filtered", "equals": 0.18751596200805934, "tolerance": 1e-12},
+        {"pointer": "/means/retained_branch", "equals": 0.19505101011319786, "tolerance": 1e-12},
+        {"pointer": "/gate_authority", "equals": false},
+        {"pointer": "/model_calls", "equals": 0}
+      ]
+    },
+    {
+      "id": "september_validation_weight_transfer_retrospective",
+      "paper_scope": "Target-excluded fitting on an analyst-examined bank; not fresh confirmation, online weighting, or non-myopic efficacy.",
+      "artifact": {
+        "path": "results/nonmyopic/number_game_validation_weight_transfer/20260908-v1/RESULT.json",
+        "sha256": "a7d47ae0269dc950d8d08e23fa099039d8e4c0d91d55e3277317e264b3c8c16f"
+      },
+      "checks": [
+        {"pointer": "/status", "equals": "descriptive_complete"},
+        {"pointer": "/means/validation_weighted", "equals": 0.18605250220476713, "tolerance": 1e-12},
+        {"pointer": "/weights_sha256", "equals": "77bc80bebd4561cb3456ae11b38ef937fdb9f41c2bf7d0da23b6d139246cd732"},
+        {"pointer": "/gate_authority", "equals": false},
+        {"pointer": "/paid_calls_authorized", "equals": false}
+      ]
     }
   ]
 }

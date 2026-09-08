@@ -55,7 +55,9 @@ myopic EIG, 21.4\% versus fixed-support depth two, 11.6\% versus random, and
 cohorts and two planning models, depth three improves Brier over myopic by
 12.48\% ($[-.0192,-.0113]$; 95/128 wins), and simulated root advantage
 predicts realized advantage at Spearman $.423$ ($[.255,.569]$). However,
-depth three versus depth two is not robust. A hash-bound pooled audit finds a
+depth three versus depth two is not robust. These depth labels denote root
+selection with greedy future queries, not full receding-horizon optimization.
+A hash-bound pooled audit finds a
 5.85\% gain over compute-matched fixed-support depth three across both
 planner families ($[-.0099,-.0034]$). A fresh powered 96-tree comparison
 passes every scientific gate: dynamic support improves Brier by 3.44\%
@@ -75,9 +77,7 @@ audits explain why deeper planning otherwise breaks.
 
 \section{Introduction}
 
-Interactive agents must often acquire information before committing to an
-answer or action. A clinical agent asks about symptoms; a support agent diagnoses
-a fault; a guessing agent narrows a semantic space. Direct prompting is unreliable:
+Interactive agents acquire information before acting. Direct prompting is unreliable:
 MediQ reports that interaction can reduce accuracy \citep{li2024mediq}. Bayesian
 experimental design instead selects queries by expected information gain (EIG).
 BED-LLM uses an LLM for hypotheses and response likelihoods; LLM-SMC-S revises
@@ -317,14 +317,10 @@ by 17.7\% ($[-.0301,-.0101]$).
 \IfFileExists{generated/regretbench_result.tex}{%
   % The frozen RegretBench fragment replaces the detailed late Number Game audit.
 }{%
-A zero-call post-hoc ranking audit further checks the simulator's first link.
-Across all 96 trees, current-particle terminal risk ranks independent-target
-root Brier at mean Spearman $.727$ ($[.675,.774]$) and pairwise concordance
-$.806$, while myopic and fixed-depth-two scores are anti-aligned
-($-.239/-.237$). The selected root is target-optimal on 45/96 trees and top-two
-on 68/96; its mean oracle regret is $.0070$ versus $.0449$ myopic. Mean
-leave-one-particle-out root agreement is $.868$, indicating that the ranking
-signal is not carried by one indispensable hypothesis.
+A post-hoc 96-tree audit finds risk-to-endpoint Spearman $.727$
+($[.675,.774]$), versus anti-aligned myopic/fixed scores ($-.239/-.237$).
+Selected-root oracle regret is $.0070$ versus $.0449$ myopic;
+leave-one-particle-out root agreement is $.868$.
 
 Cross-fitting with eight independent prior supports raised depth-three rank
 correlation to $.771$ versus $.527$ for depth two. The first 32-tree policy
@@ -355,8 +351,9 @@ cohorts gives a retrospective 12.48\% reduction
 directional. On the 123 trees where roots differ, simulated depth-three
 advantage predicts realized advantage at Spearman $.423$
 ($[.255,.569]$), with mean realized advantage $.01579$
-($[.01179,.01990]$). The first link of the non-myopic simulator is therefore
-calibrated against myopic selection across planner families.
+($[.01179,.01990]$). Estimated root advantage is positively associated with
+realized advantage across planner families; this is not full predictive
+calibration of regenerated beliefs.
 
 The causal support claim is narrower. Retrospectively, answer-conditioned d3
 reduces Brier 5.85\% versus compute-matched fixed-support d3 across the four
@@ -633,17 +630,14 @@ Future depth studies should cross the following gates in order:
 \section{Limitations and Conclusion}
 
 This remains a positive structured-benchmark result, now with a powered
-LLM-native component. In the Number Game, classical BED can evaluate a
-fixed rule set, but cannot enumerate the open-ended support or predict how that
-support changes after a counterfactual answer. The endpoint remains synthetic,
-uses deterministic labels and a restricted safe grammar, and measures two
-queries. An earlier eight-tree replication failed its preregistered 5\% PTS
-magnitude gate; a separate 32-tree study establishes the powered 10.2\% gain.
-The first fresh three-query endpoint is also null. A later study, with precision
-selected afterward but fixed roots, unopened endpoints, and 512 fresh responses,
-passes; a fresh-tree replication reproduces its primary gain but misses two
-auxiliary gates. A third-family endpoint audit passes, but generator and task
-robustness remain open. DeepSeek V4 Flash gains 4.06\% over its myopic policy
+LLM-native component. In the Number Game, numerical BED evaluates executable
+rules supplied by LLMs. Our finite symbolic controls do not establish that all
+classical discovery methods are incapable of proposing useful rules or modelling
+support transitions. Endpoints are synthetic, with deterministic labels and a
+restricted safe grammar; the initial study uses two queries and later studies
+use three. Early magnitude and three-query gates failed; later primary gains
+do not erase those failures. Generator and task robustness remain open.
+DeepSeek V4 Flash gains 4.06\% over its myopic policy
 ($[-.0078,-.0009]$), yet misses registered replacement and mechanics gates and
 does not replace the paper-critical Qwen planner.
 The two Qwen studies on all 33 canonical concepts
@@ -652,6 +646,13 @@ used two retries under a zero-retry gate; the other used nine against a cap of
 eight. A retrospective 128-tree synthesis cannot reclassify them. It establishes
 non-myopic-over-myopic selection, not monotonic depth: d3--d2 remains null
 ($[-.0042,.0003]$) and model- and target-dependent.
+
+Retrospective fixed-101-target audits find exact receding h1/h2/h3 gains of
+8.01\%/1.97\% on 32 initial supports, missing the frozen 5\% second-link gate.
+First-step uniform refresh worsens Brier 4.02\%. Validation-fitted weights yield
+$.18605$ versus $.18752$ initial filtering (0.78\%; 31/32 trees improve), but
+the analyst had already examined the targets. This is retrospective weighting evidence,
+not fresh confirmation, an online-updater test, or a non-myopic efficacy result.
 
 The mechanism evidence is endpoint- and mechanics-qualified. Retrospective
 dynamic--fixed gains are 5.85\% cross-planner and 3.79\% pooled-Qwen, but

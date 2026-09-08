@@ -1,5 +1,26 @@
 # Validation-First Non-Myopic BED Draft
 
+## September Qualification
+
+The historical `d3` Number Game results below optimize the first query using
+greedy future queries, not full receding-horizon h3. Later exact initial-support
+audits find 8.01%/1.97% successive h1/h2/h3 gains under a different fixed 101-number
+target loss; the frozen 5% second-link gate fails. Root-advantage correlation is
+not full predictive calibration, and finite symbolic controls do not prove that
+all classical model discovery is impossible.
+
+On the saved first-step bank, uniform retained refresh worsens prediction 4.02%
+versus initial filtering. A separately fitted validation-only scalar improves
+0.78% over initial filtering (31/32 trees), but this is retrospective analysis of
+already examined targets, not untouched confirmation or the online prequential
+learner's result. The full goal of useful adaptive LLM models plus genuine
+receding-horizon and anticipated-discovery gains remains unachieved.
+See `results/nonmyopic/NUMBER_GAME_VALIDATION_WEIGHT_TRANSFER_RESULT_20260908.md`
+and `NONMYOPIC_RESEARCH_THIRD_PASS_20260908.md`. Existing historical gate statuses
+and archived manuscript variants remain unchanged.
+
+## Historical Evidence
+
 Current headline: in the Number Game, non-myopic planning over LLM-generated
 belief trees beats myopic selection across four disjoint canonical-target
 cohorts and two planning models by 12.48% Brier
