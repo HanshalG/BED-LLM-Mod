@@ -1,0 +1,6483 @@
+{
+  "case": 0,
+  "depth": 2,
+  "history": [],
+  "interpretation": "one_root_work_allocation_only_not_a_complete_plan",
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "reason": "adaptive reference exceeded evaluations",
+  "records": [
+    {
+      "action": 0,
+      "error": 2.0211218993457063e-09,
+      "evaluations": 150,
+      "observation": 1.495445115010332,
+      "outer_callback": 1,
+      "status": "completed",
+      "value": 0.23389449096185383
+    },
+    {
+      "action": 1,
+      "error": 7.048688239359764e-12,
+      "evaluations": 210,
+      "observation": 1.495445115010332,
+      "outer_callback": 1,
+      "status": "completed",
+      "value": 0.26470911155929305
+    },
+    {
+      "action": 0,
+      "error": 1.178536417158801e-09,
+      "evaluations": 150,
+      "observation": -0.6954451150103322,
+      "outer_callback": 2,
+      "status": "completed",
+      "value": 0.3354281099217918
+    },
+    {
+      "action": 1,
+      "error": 2.095201986275406e-09,
+      "evaluations": 210,
+      "observation": -0.6954451150103322,
+      "outer_callback": 2,
+      "status": "completed",
+      "value": 0.2157473718622895
+    },
+    {
+      "action": 0,
+      "error": 4.821144801024851e-09,
+      "evaluations": 270,
+      "observation": 255.7101005204629,
+      "outer_callback": 3,
+      "status": "completed",
+      "value": 3595.5020692769185
+    },
+    {
+      "action": 1,
+      "error": 7.094100847536645e-08,
+      "evaluations": 270,
+      "observation": 255.7101005204629,
+      "outer_callback": 3,
+      "status": "completed",
+      "value": 4039.1079822992674
+    },
+    {
+      "action": 0,
+      "error": 3.026781685183021e-09,
+      "evaluations": 150,
+      "observation": 0.40470016657215574,
+      "outer_callback": 4,
+      "status": "completed",
+      "value": 0.30200568700296815
+    },
+    {
+      "action": 1,
+      "error": 3.489093591385042e-09,
+      "evaluations": 150,
+      "observation": 0.40470016657215574,
+      "outer_callback": 4,
+      "status": "completed",
+      "value": 0.3193237221287555
+    },
+    {
+      "action": 0,
+      "error": 5.121871128553972e-09,
+      "evaluations": 270,
+      "observation": -254.9101005204629,
+      "outer_callback": 5,
+      "status": "completed",
+      "value": 3633.937880200255
+    },
+    {
+      "action": 1,
+      "error": 6.3345508569655e-08,
+      "evaluations": 270,
+      "observation": -254.9101005204629,
+      "outer_callback": 5,
+      "status": "completed",
+      "value": 4079.440445700227
+    },
+    {
+      "action": 0,
+      "error": 3.026508514526597e-09,
+      "evaluations": 150,
+      "observation": 0.3952998334278442,
+      "outer_callback": 6,
+      "status": "completed",
+      "value": 0.30487804304598903
+    },
+    {
+      "action": 1,
+      "error": 3.502079741517705e-09,
+      "evaluations": 150,
+      "observation": 0.3952998334278442,
+      "outer_callback": 6,
+      "status": "completed",
+      "value": 0.32117496271935564
+    },
+    {
+      "action": 0,
+      "error": 7.933472421791743e-09,
+      "evaluations": 210,
+      "observation": 42.354276970990966,
+      "outer_callback": 7,
+      "status": "completed",
+      "value": 94.73827678590114
+    },
+    {
+      "action": 1,
+      "error": 3.4414893036315442e-09,
+      "evaluations": 210,
+      "observation": 42.354276970990966,
+      "outer_callback": 7,
+      "status": "completed",
+      "value": 106.58679579614545
+    },
+    {
+      "action": 0,
+      "error": 4.4101124581590165e-09,
+      "evaluations": 150,
+      "observation": 0.4286025665709776,
+      "outer_callback": 8,
+      "status": "completed",
+      "value": 0.2950040513311272
+    },
+    {
+      "action": 1,
+      "error": 2.132559061957494e-09,
+      "evaluations": 150,
+      "observation": 0.4286025665709776,
+      "outer_callback": 8,
+      "status": "completed",
+      "value": 0.31464152278004004
+    },
+    {
+      "action": 0,
+      "error": 1.9638790279859038e-10,
+      "evaluations": 270,
+      "observation": -41.55427697099097,
+      "outer_callback": 9,
+      "status": "completed",
+      "value": 101.0678166480247
+    },
+    {
+      "action": 1,
+      "error": 2.685111726821905e-09,
+      "evaluations": 210,
+      "observation": -41.55427697099097,
+      "outer_callback": 9,
+      "status": "completed",
+      "value": 113.2196000893623
+    },
+    {
+      "action": 0,
+      "error": 4.789968815326355e-09,
+      "evaluations": 150,
+      "observation": 0.3713974334290223,
+      "outer_callback": 10,
+      "status": "completed",
+      "value": 0.31247155663003745
+    },
+    {
+      "action": 1,
+      "error": 2.5903646876890784e-09,
+      "evaluations": 150,
+      "observation": 0.3713974334290223,
+      "outer_callback": 10,
+      "status": "completed",
+      "value": 0.32587232833008983
+    },
+    {
+      "action": 0,
+      "error": 3.670032148599426e-11,
+      "evaluations": 210,
+      "observation": 15.517089618559002,
+      "outer_callback": 11,
+      "status": "completed",
+      "value": 11.819897738571935
+    },
+    {
+      "action": 1,
+      "error": 1.682074222205017e-10,
+      "evaluations": 210,
+      "observation": 15.517089618559002,
+      "outer_callback": 11,
+      "status": "completed",
+      "value": 13.32767327961603
+    },
+    {
+      "action": 0,
+      "error": 5.432449296489754e-09,
+      "evaluations": 150,
+      "observation": 0.4793803589367347,
+      "outer_callback": 12,
+      "status": "completed",
+      "value": 0.2815983556347341
+    },
+    {
+      "action": 1,
+      "error": 2.482525420421846e-09,
+      "evaluations": 150,
+      "observation": 0.4793803589367347,
+      "outer_callback": 12,
+      "status": "completed",
+      "value": 0.3050074040715526
+    },
+    {
+      "action": 0,
+      "error": 2.174246360822611e-09,
+      "evaluations": 210,
+      "observation": -14.717089618559001,
+      "outer_callback": 13,
+      "status": "completed",
+      "value": 14.135576646819905
+    },
+    {
+      "action": 1,
+      "error": 6.275743327720479e-10,
+      "evaluations": 210,
+      "observation": -14.717089618559001,
+      "outer_callback": 13,
+      "status": "completed",
+      "value": 15.73061849624984
+    },
+    {
+      "action": 0,
+      "error": 8.331212520819938e-09,
+      "evaluations": 150,
+      "observation": 0.32061964106326524,
+      "outer_callback": 14,
+      "status": "completed",
+      "value": 0.32982955124896307
+    },
+    {
+      "action": 1,
+      "error": 5.224971224322193e-10,
+      "evaluations": 150,
+      "observation": 0.32061964106326524,
+      "outer_callback": 14,
+      "status": "completed",
+      "value": 0.33550815628181346
+    },
+    {
+      "action": 0,
+      "error": 5.3258395623536465e-11,
+      "evaluations": 210,
+      "observation": 7.780974893729924,
+      "outer_callback": 15,
+      "status": "completed",
+      "value": 2.7407831823513034
+    },
+    {
+      "action": 1,
+      "error": 1.2136788544029248e-11,
+      "evaluations": 210,
+      "observation": 7.780974893729924,
+      "outer_callback": 15,
+      "status": "completed",
+      "value": 3.0963987613452497
+    },
+    {
+      "action": 0,
+      "error": 3.525902066747245e-09,
+      "evaluations": 150,
+      "observation": 0.5625801492726102,
+      "outer_callback": 16,
+      "status": "completed",
+      "value": 0.26379926014998994
+    },
+    {
+      "action": 1,
+      "error": 2.131426247629041e-09,
+      "evaluations": 150,
+      "observation": 0.5625801492726102,
+      "outer_callback": 16,
+      "status": "completed",
+      "value": 0.29084238859965944
+    },
+    {
+      "action": 0,
+      "error": 3.7828510637668144e-09,
+      "evaluations": 210,
+      "observation": -6.980974893729924,
+      "outer_callback": 17,
+      "status": "completed",
+      "value": 3.945595112091436
+    },
+    {
+      "action": 1,
+      "error": 2.4769042775422554e-09,
+      "evaluations": 210,
+      "observation": -6.980974893729924,
+      "outer_callback": 17,
+      "status": "completed",
+      "value": 4.295232087246574
+    },
+    {
+      "action": 0,
+      "error": 8.577526245024834e-10,
+      "evaluations": 150,
+      "observation": 0.23741985072738966,
+      "outer_callback": 18,
+      "status": "completed",
+      "value": 0.36027655084888766
+    },
+    {
+      "action": 1,
+      "error": 5.891107283255653e-09,
+      "evaluations": 150,
+      "observation": 0.23741985072738966,
+      "outer_callback": 18,
+      "status": "completed",
+      "value": 0.34823991813576527
+    },
+    {
+      "action": 0,
+      "error": 1.6305507764236243e-11,
+      "evaluations": 210,
+      "observation": 4.597675604511836,
+      "outer_callback": 19,
+      "status": "completed",
+      "value": 0.9270110911858538
+    },
+    {
+      "action": 1,
+      "error": 1.0743531210472652e-10,
+      "evaluations": 210,
+      "observation": 4.597675604511836,
+      "outer_callback": 19,
+      "status": "completed",
+      "value": 1.048513197896552
+    },
+    {
+      "action": 0,
+      "error": 5.603874496764569e-09,
+      "evaluations": 150,
+      "observation": 0.6858724954139357,
+      "outer_callback": 20,
+      "status": "completed",
+      "value": 0.24544290830827858
+    },
+    {
+      "action": 1,
+      "error": 1.11339010060163e-09,
+      "evaluations": 150,
+      "observation": 0.6858724954139357,
+      "outer_callback": 20,
+      "status": "completed",
+      "value": 0.2745383730556217
+    },
+    {
+      "action": 0,
+      "error": 3.1495502496184727e-09,
+      "evaluations": 150,
+      "observation": -3.7976756045118356,
+      "outer_callback": 21,
+      "status": "completed",
+      "value": 1.7869990449519222
+    },
+    {
+      "action": 1,
+      "error": 5.0626728764074924e-09,
+      "evaluations": 150,
+      "observation": -3.7976756045118356,
+      "outer_callback": 21,
+      "status": "completed",
+      "value": 1.7772708491820342
+    },
+    {
+      "action": 0,
+      "error": 1.8922988921795357e-10,
+      "evaluations": 150,
+      "observation": 0.11412750458606419,
+      "outer_callback": 22,
+      "status": "completed",
+      "value": 0.3991635877392815
+    },
+    {
+      "action": 1,
+      "error": 1.0310533168916335e-09,
+      "evaluations": 150,
+      "observation": 0.11412750458606419,
+      "outer_callback": 22,
+      "status": "completed",
+      "value": 0.35147272298660237
+    },
+    {
+      "action": 0,
+      "error": 7.078251445171178e-12,
+      "evaluations": 210,
+      "observation": 2.991961013374696,
+      "outer_callback": 23,
+      "status": "completed",
+      "value": 0.4357254740370229
+    },
+    {
+      "action": 1,
+      "error": 7.510127210806519e-11,
+      "evaluations": 210,
+      "observation": 2.991961013374696,
+      "outer_callback": 23,
+      "status": "completed",
+      "value": 0.49309066490966946
+    },
+    {
+      "action": 0,
+      "error": 5.04863706721724e-09,
+      "evaluations": 150,
+      "observation": 0.8629699265567337,
+      "outer_callback": 24,
+      "status": "completed",
+      "value": 0.23079728405752287
+    },
+    {
+      "action": 1,
+      "error": 1.2855569233991678e-10,
+      "evaluations": 210,
+      "observation": 0.8629699265567337,
+      "outer_callback": 24,
+      "status": "completed",
+      "value": 0.2602608845168189
+    },
+    {
+      "action": 0,
+      "error": 3.3660738812165553e-10,
+      "evaluations": 150,
+      "observation": -2.191961013374696,
+      "outer_callback": 25,
+      "status": "completed",
+      "value": 1.3565900279899812
+    },
+    {
+      "action": 1,
+      "error": 1.0826869030174539e-11,
+      "evaluations": 210,
+      "observation": -2.191961013374696,
+      "outer_callback": 25,
+      "status": "completed",
+      "value": 0.9722709469015323
+    },
+    {
+      "action": 0,
+      "error": 8.170521757945711e-10,
+      "evaluations": 150,
+      "observation": -0.06296992655673378,
+      "outer_callback": 26,
+      "status": "completed",
+      "value": 0.4050856850905866
+    },
+    {
+      "action": 1,
+      "error": 1.2939801700875064e-09,
+      "evaluations": 150,
+      "observation": -0.06296992655673378,
+      "outer_callback": 26,
+      "status": "completed",
+      "value": 0.31188210754470047
+    },
+    {
+      "action": 0,
+      "error": 1.0897329476158854e-11,
+      "evaluations": 210,
+      "observation": 2.070079528670864,
+      "outer_callback": 27,
+      "status": "completed",
+      "value": 0.281827445488059
+    },
+    {
+      "action": 1,
+      "error": 2.0263758711151575e-11,
+      "evaluations": 210,
+      "observation": 2.070079528670864,
+      "outer_callback": 27,
+      "status": "completed",
+      "value": 0.3189794685341764
+    },
+    {
+      "action": 0,
+      "error": 7.687630095233625e-11,
+      "evaluations": 210,
+      "observation": 1.1185286565095627,
+      "outer_callback": 28,
+      "status": "completed",
+      "value": 0.22428461528165572
+    },
+    {
+      "action": 1,
+      "error": 6.27848862642337e-12,
+      "evaluations": 210,
+      "observation": 1.1185286565095627,
+      "outer_callback": 28,
+      "status": "completed",
+      "value": 0.2536662367823164
+    },
+    {
+      "action": 0,
+      "error": 7.223700960047163e-10,
+      "evaluations": 150,
+      "observation": -1.2700795286708642,
+      "outer_callback": 29,
+      "status": "completed",
+      "value": 0.7533349091738828
+    },
+    {
+      "action": 1,
+      "error": 4.0215482354814685e-11,
+      "evaluations": 210,
+      "observation": -1.2700795286708642,
+      "outer_callback": 29,
+      "status": "completed",
+      "value": 0.4322719789778747
+    },
+    {
+      "action": 0,
+      "error": 1.4266974185167189e-09,
+      "evaluations": 150,
+      "observation": -0.3185286565095628,
+      "outer_callback": 30,
+      "status": "completed",
+      "value": 0.33713844903693885
+    },
+    {
+      "action": 1,
+      "error": 2.0859488283423575e-10,
+      "evaluations": 210,
+      "observation": -0.3185286565095628,
+      "outer_callback": 30,
+      "status": "completed",
+      "value": 0.23158959403354118
+    },
+    {
+      "action": 0,
+      "error": 1.1864758145147675e-11,
+      "evaluations": 210,
+      "observation": 3.6863353450309964,
+      "outer_callback": 31,
+      "status": "completed",
+      "value": 0.6133885546580177
+    },
+    {
+      "action": 1,
+      "error": 1.551633072380135e-10,
+      "evaluations": 210,
+      "observation": 3.6863353450309964,
+      "outer_callback": 31,
+      "status": "completed",
+      "value": 0.6940048811859156
+    },
+    {
+      "action": 0,
+      "error": 2.245254549403992e-09,
+      "evaluations": 150,
+      "observation": -2.8863353450309965,
+      "outer_callback": 32,
+      "status": "completed",
+      "value": 1.471936200940719
+    },
+    {
+      "action": 1,
+      "error": 3.4044974396033977e-09,
+      "evaluations": 210,
+      "observation": -2.8863353450309965,
+      "outer_callback": 32,
+      "status": "completed",
+      "value": 1.29575718557596
+    },
+    {
+      "action": 0,
+      "error": 1.9615856031084113e-08,
+      "evaluations": 270,
+      "observation": 512.1156461559361,
+      "outer_callback": 33,
+      "status": "completed",
+      "value": 14481.558644647032
+    },
+    {
+      "action": 1,
+      "error": 2.792073017794649e-07,
+      "evaluations": 270,
+      "observation": 512.1156461559361,
+      "outer_callback": 33,
+      "status": "completed",
+      "value": 16265.523737991456
+    },
+    {
+      "action": 0,
+      "error": 4.546854328783085e-09,
+      "evaluations": 150,
+      "observation": 1.5048454481546436,
+      "outer_callback": 34,
+      "status": "completed",
+      "value": 0.23436969386510936
+    },
+    {
+      "action": 1,
+      "error": 6.8826808938702165e-12,
+      "evaluations": 210,
+      "observation": 1.5048454481546436,
+      "outer_callback": 34,
+      "status": "completed",
+      "value": 0.2652480937741542
+    },
+    {
+      "action": 0,
+      "error": 2.021298419525837e-08,
+      "evaluations": 270,
+      "observation": -511.3156461559361,
+      "outer_callback": 35,
+      "status": "completed",
+      "value": 14558.59176585799
+    },
+    {
+      "action": 1,
+      "error": 2.6378330693915527e-07,
+      "evaluations": 270,
+      "observation": -511.3156461559361,
+      "outer_callback": 35,
+      "status": "completed",
+      "value": 16346.360424397073
+    },
+    {
+      "action": 0,
+      "error": 1.4570926949207595e-09,
+      "evaluations": 150,
+      "observation": -0.7048454481546438,
+      "outer_callback": 36,
+      "status": "completed",
+      "value": 0.3379754747200938
+    },
+    {
+      "action": 1,
+      "error": 2.0501597959752847e-09,
+      "evaluations": 210,
+      "observation": -0.7048454481546438,
+      "outer_callback": 36,
+      "status": "completed",
+      "value": 0.21702475935178037
+    },
+    {
+      "action": 0,
+      "error": 5.202936619879771e-10,
+      "evaluations": 270,
+      "observation": 85.40399905699228,
+      "outer_callback": 37,
+      "status": "completed",
+      "value": 394.564718201448
+    },
+    {
+      "action": 1,
+      "error": 8.102726122491071e-09,
+      "evaluations": 270,
+      "observation": 85.40399905699228,
+      "outer_callback": 37,
+      "status": "completed",
+      "value": 443.52686726799385
+    },
+    {
+      "action": 0,
+      "error": 1.0380213625911498e-12,
+      "evaluations": 210,
+      "observation": 1.5526502481522872,
+      "outer_callback": 38,
+      "status": "completed",
+      "value": 0.23695115279460646
+    },
+    {
+      "action": 1,
+      "error": 5.556491717803918e-12,
+      "evaluations": 210,
+      "observation": 1.5526502481522872,
+      "outer_callback": 38,
+      "status": "completed",
+      "value": 0.26817483118925534
+    },
+    {
+      "action": 0,
+      "error": 6.248283904242914e-10,
+      "evaluations": 270,
+      "observation": -84.60399905699227,
+      "outer_callback": 39,
+      "status": "completed",
+      "value": 407.36776237092323
+    },
+    {
+      "action": 1,
+      "error": 1.0384664476969542e-08,
+      "evaluations": 210,
+      "observation": -84.60399905699227,
+      "outer_callback": 39,
+      "status": "completed",
+      "value": 456.95761932482304
+    },
+    {
+      "action": 0,
+      "error": 3.183473145177958e-09,
+      "evaluations": 150,
+      "observation": -0.7526502481522874,
+      "outer_callback": 40,
+      "status": "completed",
+      "value": 0.35306824570418976
+    },
+    {
+      "action": 1,
+      "error": 8.051068205400334e-09,
+      "evaluations": 150,
+      "observation": -0.7526502481522874,
+      "outer_callback": 40,
+      "status": "completed",
+      "value": 0.22472031238140225
+    },
+    {
+      "action": 0,
+      "error": 2.9324395162556166e-09,
+      "evaluations": 210,
+      "observation": 31.729624352128337,
+      "outer_callback": 41,
+      "status": "completed",
+      "value": 52.36170093472828
+    },
+    {
+      "action": 1,
+      "error": 1.766827709012925e-09,
+      "evaluations": 210,
+      "observation": 31.729624352128337,
+      "outer_callback": 41,
+      "status": "completed",
+      "value": 58.94062625771885
+    },
+    {
+      "action": 0,
+      "error": 6.9971889935749015e-12,
+      "evaluations": 210,
+      "observation": 1.6542058328838014,
+      "outer_callback": 42,
+      "status": "completed",
+      "value": 0.2433356444557311
+    },
+    {
+      "action": 1,
+      "error": 1.6353862124031979e-12,
+      "evaluations": 210,
+      "observation": 1.6542058328838014,
+      "outer_callback": 42,
+      "status": "completed",
+      "value": 0.27540814836872457
+    },
+    {
+      "action": 0,
+      "error": 1.4113237531908145e-10,
+      "evaluations": 270,
+      "observation": -30.92962435212834,
+      "outer_callback": 43,
+      "status": "completed",
+      "value": 57.09663137667003
+    },
+    {
+      "action": 1,
+      "error": 1.994984416163123e-09,
+      "evaluations": 210,
+      "observation": -30.92962435212834,
+      "outer_callback": 43,
+      "status": "completed",
+      "value": 63.89684014349491
+    },
+    {
+      "action": 0,
+      "error": 5.647460673229197e-09,
+      "evaluations": 150,
+      "observation": -0.8542058328838016,
+      "outer_callback": 44,
+      "status": "completed",
+      "value": 0.3974279173643633
+    },
+    {
+      "action": 1,
+      "error": 4.31295746339944e-10,
+      "evaluations": 150,
+      "observation": -0.8542058328838016,
+      "outer_callback": 44,
+      "status": "completed",
+      "value": 0.24771749077050548
+    },
+    {
+      "action": 0,
+      "error": 5.807315276161088e-11,
+      "evaluations": 210,
+      "observation": 16.25739490247018,
+      "outer_callback": 45,
+      "status": "completed",
+      "value": 13.036256836066366
+    },
+    {
+      "action": 1,
+      "error": 2.0894092959435322e-10,
+      "evaluations": 210,
+      "observation": 16.25739490247018,
+      "outer_callback": 45,
+      "status": "completed",
+      "value": 14.697326027279727
+    },
+    {
+      "action": 0,
+      "error": 1.412072468525961e-11,
+      "evaluations": 210,
+      "observation": 1.8206054135555525,
+      "outer_callback": 46,
+      "status": "completed",
+      "value": 0.25638381515644715
+    },
+    {
+      "action": 1,
+      "error": 6.8239594383233165e-12,
+      "evaluations": 210,
+      "observation": 1.8206054135555525,
+      "outer_callback": 46,
+      "status": "completed",
+      "value": 0.2901819331040158
+    },
+    {
+      "action": 0,
+      "error": 2.9403393939190355e-09,
+      "evaluations": 210,
+      "observation": -15.45739490247018,
+      "outer_callback": 47,
+      "status": "completed",
+      "value": 15.461361942067306
+    },
+    {
+      "action": 1,
+      "error": 7.487618719628298e-10,
+      "evaluations": 210,
+      "observation": -15.45739490247018,
+      "outer_callback": 47,
+      "status": "completed",
+      "value": 17.216490352166847
+    },
+    {
+      "action": 0,
+      "error": 2.27809786600185e-09,
+      "evaluations": 150,
+      "observation": -1.0206054135555527,
+      "outer_callback": 48,
+      "status": "completed",
+      "value": 0.5081485533773598
+    },
+    {
+      "action": 1,
+      "error": 5.246852702918252e-10,
+      "evaluations": 210,
+      "observation": -1.0206054135555527,
+      "outer_callback": 48,
+      "status": "completed",
+      "value": 0.30491334462316944
+    },
+    {
+      "action": 0,
+      "error": 6.576043995960493e-11,
+      "evaluations": 210,
+      "observation": 9.890796324034005,
+      "outer_callback": 49,
+      "status": "completed",
+      "value": 4.559809205280534
+    },
+    {
+      "action": 1,
+      "error": 8.68393677211604e-12,
+      "evaluations": 210,
+      "observation": 9.890796324034005,
+      "outer_callback": 49,
+      "status": "completed",
+      "value": 5.1480351623410785
+    },
+    {
+      "action": 0,
+      "error": 1.0973976404465454e-11,
+      "evaluations": 210,
+      "observation": 2.0671901058382036,
+      "outer_callback": 50,
+      "status": "completed",
+      "value": 0.2814928434442549
+    },
+    {
+      "action": 1,
+      "error": 2.0225978393561403e-11,
+      "evaluations": 210,
+      "observation": 2.0671901058382036,
+      "outer_callback": 50,
+      "status": "completed",
+      "value": 0.3186008055731152
+    },
+    {
+      "action": 0,
+      "error": 2.9815254192221926e-09,
+      "evaluations": 210,
+      "observation": -9.090796324034004,
+      "outer_callback": 51,
+      "status": "completed",
+      "value": 6.056547035650066
+    },
+    {
+      "action": 1,
+      "error": 5.354312190878772e-10,
+      "evaluations": 210,
+      "observation": -9.090796324034004,
+      "outer_callback": 51,
+      "status": "completed",
+      "value": 6.671921006647061
+    },
+    {
+      "action": 0,
+      "error": 7.195926165321723e-10,
+      "evaluations": 150,
+      "observation": -1.2671901058382036,
+      "outer_callback": 52,
+      "status": "completed",
+      "value": 0.7501371933500849
+    },
+    {
+      "action": 1,
+      "error": 4.049748520375762e-11,
+      "evaluations": 210,
+      "observation": -1.2671901058382036,
+      "outer_callback": 52,
+      "status": "completed",
+      "value": 0.43056483009977364
+    },
+    {
+      "action": 0,
+      "error": 3.985935612807793e-11,
+      "evaluations": 210,
+      "observation": 6.679367141759724,
+      "outer_callback": 53,
+      "status": "completed",
+      "value": 1.9865628947151799
+    },
+    {
+      "action": 1,
+      "error": 3.388302266679814e-12,
+      "evaluations": 210,
+      "observation": 6.679367141759724,
+      "outer_callback": 53,
+      "status": "completed",
+      "value": 2.2451917970312123
+    },
+    {
+      "action": 0,
+      "error": 4.53206007538041e-12,
+      "evaluations": 210,
+      "observation": 2.4213849681237996,
+      "outer_callback": 54,
+      "status": "completed",
+      "value": 0.3294158597965253
+    },
+    {
+      "action": 1,
+      "error": 2.7781837263353602e-12,
+      "evaluations": 210,
+      "observation": 2.4213849681237996,
+      "outer_callback": 54,
+      "status": "completed",
+      "value": 0.37282773405662195
+    },
+    {
+      "action": 0,
+      "error": 1.7016863903247432e-09,
+      "evaluations": 210,
+      "observation": -5.879367141759723,
+      "outer_callback": 55,
+      "status": "completed",
+      "value": 3.0493298383810385
+    },
+    {
+      "action": 1,
+      "error": 2.99547054867236e-09,
+      "evaluations": 210,
+      "observation": -5.879367141759723,
+      "outer_callback": 55,
+      "status": "completed",
+      "value": 3.2770402634783733
+    },
+    {
+      "action": 0,
+      "error": 1.979200567847584e-10,
+      "evaluations": 150,
+      "observation": -1.6213849681237997,
+      "outer_callback": 56,
+      "status": "completed",
+      "value": 1.117123651242839
+    },
+    {
+      "action": 1,
+      "error": 3.4171668960863756e-11,
+      "evaluations": 150,
+      "observation": -1.6213849681237997,
+      "outer_callback": 56,
+      "status": "completed",
+      "value": 0.6554661295717626
+    },
+    {
+      "action": 0,
+      "error": 1.829381892222461e-11,
+      "evaluations": 210,
+      "observation": 4.8356041723520615,
+      "outer_callback": 57,
+      "status": "completed",
+      "value": 1.0239362311732838
+    },
+    {
+      "action": 1,
+      "error": 8.569335252144397e-11,
+      "evaluations": 210,
+      "observation": 4.8356041723520615,
+      "outer_callback": 57,
+      "status": "completed",
+      "value": 1.1580401894195724
+    },
+    {
+      "action": 0,
+      "error": 6.309637696923001e-12,
+      "evaluations": 210,
+      "observation": 2.9325024280294576,
+      "outer_callback": 58,
+      "status": "completed",
+      "value": 0.42297545639993195
+    },
+    {
+      "action": 1,
+      "error": 6.387748356470087e-11,
+      "evaluations": 210,
+      "observation": 2.9325024280294576,
+      "outer_callback": 58,
+      "status": "completed",
+      "value": 0.478668984902687
+    },
+    {
+      "action": 0,
+      "error": 4.994295874864024e-09,
+      "evaluations": 150,
+      "observation": -4.035604172352061,
+      "outer_callback": 59,
+      "status": "completed",
+      "value": 1.8979926329039283
+    },
+    {
+      "action": 1,
+      "error": 8.95220369738236e-09,
+      "evaluations": 210,
+      "observation": -4.035604172352061,
+      "outer_callback": 59,
+      "status": "completed",
+      "value": 1.9201760763346336
+    },
+    {
+      "action": 0,
+      "error": 3.515622008936378e-10,
+      "evaluations": 150,
+      "observation": -2.1325024280294578,
+      "outer_callback": 60,
+      "status": "completed",
+      "value": 1.3463950017654827
+    },
+    {
+      "action": 1,
+      "error": 4.371976554421922e-09,
+      "evaluations": 150,
+      "observation": -2.1325024280294578,
+      "outer_callback": 60,
+      "status": "completed",
+      "value": 0.9432646037466205
+    },
+    {
+      "action": 0,
+      "error": 6.07653989360404e-09,
+      "evaluations": 150,
+      "observation": 0.7651483716701106,
+      "outer_callback": 61,
+      "status": "completed",
+      "value": 0.2375115328000212
+    },
+    {
+      "action": 1,
+      "error": 3.818363693499975e-11,
+      "evaluations": 210,
+      "observation": 0.7651483716701106,
+      "outer_callback": 61,
+      "status": "completed",
+      "value": 0.2669448803506041
+    },
+    {
+      "action": 0,
+      "error": 3.54028754425697e-10,
+      "evaluations": 150,
+      "observation": 0.03485162832988925,
+      "outer_callback": 62,
+      "status": "completed",
+      "value": 0.4108342301015568
+    },
+    {
+      "action": 1,
+      "error": 7.854721484169625e-11,
+      "evaluations": 150,
+      "observation": 0.03485162832988925,
+      "outer_callback": 62,
+      "status": "completed",
+      "value": 0.33960223945005263
+    },
+    {
+      "action": 0,
+      "error": 3.5982476026541477e-10,
+      "evaluations": 150,
+      "observation": 1.4861247625215697,
+      "outer_callback": 63,
+      "status": "completed",
+      "value": 0.23343392754004647
+    },
+    {
+      "action": 1,
+      "error": 7.177873950848484e-12,
+      "evaluations": 210,
+      "observation": 1.4861247625215697,
+      "outer_callback": 63,
+      "status": "completed",
+      "value": 0.2641866508897912
+    },
+    {
+      "action": 0,
+      "error": 2.93810820142207e-09,
+      "evaluations": 150,
+      "observation": 0.4023450523919183,
+      "outer_callback": 64,
+      "status": "completed",
+      "value": 0.3027191100571395
+    },
+    {
+      "action": 1,
+      "error": 3.5205390724510864e-09,
+      "evaluations": 150,
+      "observation": 0.4023450523919183,
+      "outer_callback": 64,
+      "status": "completed",
+      "value": 0.31978731481911576
+    },
+    {
+      "action": 0,
+      "error": 9.360136625097281e-10,
+      "evaluations": 150,
+      "observation": -0.6861247625215698,
+      "outer_callback": 65,
+      "status": "completed",
+      "value": 0.3330368062160817
+    },
+    {
+      "action": 1,
+      "error": 2.1294352026331493e-09,
+      "evaluations": 210,
+      "observation": -0.6861247625215698,
+      "outer_callback": 65,
+      "status": "completed",
+      "value": 0.21455752999702488
+    },
+    {
+      "action": 0,
+      "error": 2.955234937391713e-09,
+      "evaluations": 150,
+      "observation": 0.3976549476080816,
+      "outer_callback": 66,
+      "status": "completed",
+      "value": 0.30415223398849806
+    },
+    {
+      "action": 1,
+      "error": 3.528502644012171e-09,
+      "evaluations": 150,
+      "observation": 0.3976549476080816,
+      "outer_callback": 66,
+      "status": "completed",
+      "value": 0.32071101305261374
+    },
+    {
+      "action": 0,
+      "error": 8.481852166637455e-09,
+      "evaluations": 150,
+      "observation": 1.44107902802573,
+      "outer_callback": 67,
+      "status": "completed",
+      "value": 0.23135791027643376
+    },
+    {
+      "action": 1,
+      "error": 6.838729396684874e-09,
+      "evaluations": 150,
+      "observation": 1.44107902802573,
+      "outer_callback": 67,
+      "status": "completed",
+      "value": 0.2618303303912895
+    },
+    {
+      "action": 0,
+      "error": 3.5404136777661248e-09,
+      "evaluations": 150,
+      "observation": 0.41411698288683385,
+      "outer_callback": 68,
+      "status": "completed",
+      "value": 0.29919502705455064
+    },
+    {
+      "action": 1,
+      "error": 3.172202441969075e-09,
+      "evaluations": 150,
+      "observation": 0.41411698288683385,
+      "outer_callback": 68,
+      "status": "completed",
+      "value": 0.31747300052195443
+    },
+    {
+      "action": 0,
+      "error": 6.309514754478338e-10,
+      "evaluations": 150,
+      "observation": -0.6410790280257301,
+      "outer_callback": 69,
+      "status": "completed",
+      "value": 0.32333982658766974
+    },
+    {
+      "action": 1,
+      "error": 2.166295647613789e-09,
+      "evaluations": 210,
+      "observation": -0.6410790280257301,
+      "outer_callback": 69,
+      "status": "completed",
+      "value": 0.20988682517270438
+    },
+    {
+      "action": 0,
+      "error": 3.5300181230250686e-09,
+      "evaluations": 150,
+      "observation": 0.3858830171131661,
+      "outer_callback": 70,
+      "status": "completed",
+      "value": 0.30782085524958347
+    },
+    {
+      "action": 1,
+      "error": 3.248551233610698e-09,
+      "evaluations": 150,
+      "observation": 0.3858830171131661,
+      "outer_callback": 70,
+      "status": "completed",
+      "value": 0.32302939247651835
+    },
+    {
+      "action": 0,
+      "error": 7.136278441037609e-11,
+      "evaluations": 210,
+      "observation": 1.356780752040384,
+      "outer_callback": 71,
+      "status": "completed",
+      "value": 0.22815372765785896
+    },
+    {
+      "action": 1,
+      "error": 5.289141845747228e-12,
+      "evaluations": 210,
+      "observation": 1.356780752040384,
+      "outer_callback": 71,
+      "status": "completed",
+      "value": 0.25818594734906025
+    },
+    {
+      "action": 0,
+      "error": 4.882069206984163e-09,
+      "evaluations": 150,
+      "observation": 0.4383024062629234,
+      "outer_callback": 72,
+      "status": "completed",
+      "value": 0.2922884695547487
+    },
+    {
+      "action": 1,
+      "error": 1.277087662942926e-09,
+      "evaluations": 150,
+      "observation": 0.4383024062629234,
+      "outer_callback": 72,
+      "status": "completed",
+      "value": 0.3127609835040864
+    },
+    {
+      "action": 0,
+      "error": 1.3627686956212973e-09,
+      "evaluations": 150,
+      "observation": -0.5567807520403842,
+      "outer_callback": 73,
+      "status": "completed",
+      "value": 0.3132499218019833
+    },
+    {
+      "action": 1,
+      "error": 8.015488856918701e-09,
+      "evaluations": 150,
+      "observation": -0.5567807520403842,
+      "outer_callback": 73,
+      "status": "completed",
+      "value": 0.20601578917498864
+    },
+    {
+      "action": 0,
+      "error": 5.808645437643215e-09,
+      "evaluations": 150,
+      "observation": 0.36169759373707655,
+      "outer_callback": 74,
+      "status": "completed",
+      "value": 0.31566628479427394
+    },
+    {
+      "action": 1,
+      "error": 2.100926977344436e-09,
+      "evaluations": 150,
+      "observation": 0.36169759373707655,
+      "outer_callback": 74,
+      "status": "completed",
+      "value": 0.32776240095937315
+    },
+    {
+      "action": 0,
+      "error": 1.6341376069553953e-10,
+      "evaluations": 210,
+      "observation": 1.2447102823553151,
+      "outer_callback": 75,
+      "status": "completed",
+      "value": 0.22533025742607704
+    },
+    {
+      "action": 1,
+      "error": 4.961513010053853e-12,
+      "evaluations": 210,
+      "observation": 1.2447102823553151,
+      "outer_callback": 75,
+      "status": "completed",
+      "value": 0.25494831093098824
+    },
+    {
+      "action": 0,
+      "error": 5.438756440502411e-09,
+      "evaluations": 150,
+      "observation": 0.47567447284882014,
+      "outer_callback": 76,
+      "status": "completed",
+      "value": 0.28250929867563235
+    },
+    {
+      "action": 1,
+      "error": 2.1488050203121237e-09,
+      "evaluations": 150,
+      "observation": 0.47567447284882014,
+      "outer_callback": 76,
+      "status": "completed",
+      "value": 0.3056899713315181
+    },
+    {
+      "action": 0,
+      "error": 2.043610855342079e-09,
+      "evaluations": 150,
+      "observation": -0.4447102823553151,
+      "outer_callback": 77,
+      "status": "completed",
+      "value": 0.31539039827734944
+    },
+    {
+      "action": 1,
+      "error": 1.6656265653698784e-09,
+      "evaluations": 150,
+      "observation": -0.4447102823553151,
+      "outer_callback": 77,
+      "status": "completed",
+      "value": 0.2110781534727809
+    },
+    {
+      "action": 0,
+      "error": 8.37175972589235e-09,
+      "evaluations": 150,
+      "observation": 0.3243255271511798,
+      "outer_callback": 78,
+      "status": "completed",
+      "value": 0.3285146396756051
+    },
+    {
+      "action": 1,
+      "error": 6.64312299850701e-10,
+      "evaluations": 150,
+      "observation": 0.3243255271511798,
+      "outer_callback": 78,
+      "status": "completed",
+      "value": 0.33483371255283734
+    },
+    {
+      "action": 0,
+      "error": 7.958093269357269e-11,
+      "evaluations": 210,
+      "observation": 1.1197739452734352,
+      "outer_callback": 79,
+      "status": "completed",
+      "value": 0.22428297206494266
+    },
+    {
+      "action": 1,
+      "error": 6.236956346111907e-12,
+      "evaluations": 210,
+      "observation": 1.1197739452734352,
+      "outer_callback": 79,
+      "status": "completed",
+      "value": 0.2536657877972698
+    },
+    {
+      "action": 0,
+      "error": 4.923139726046915e-09,
+      "evaluations": 150,
+      "observation": 0.5264382838941746,
+      "outer_callback": 80,
+      "status": "completed",
+      "value": 0.27092526868713046
+    },
+    {
+      "action": 1,
+      "error": 3.902130083763061e-09,
+      "evaluations": 150,
+      "observation": 0.5264382838941746,
+      "outer_callback": 80,
+      "status": "completed",
+      "value": 0.29670398602242576
+    },
+    {
+      "action": 0,
+      "error": 1.3899065571165627e-09,
+      "evaluations": 150,
+      "observation": -0.3197739452734352,
+      "outer_callback": 81,
+      "status": "completed",
+      "value": 0.33683817019519946
+    },
+    {
+      "action": 1,
+      "error": 2.1947402277771757e-10,
+      "evaluations": 210,
+      "observation": -0.3197739452734352,
+      "outer_callback": 81,
+      "status": "completed",
+      "value": 0.23130894028017446
+    },
+    {
+      "action": 0,
+      "error": 3.2426246123292866e-09,
+      "evaluations": 150,
+      "observation": 0.27356171610582536,
+      "outer_callback": 82,
+      "status": "completed",
+      "value": 0.34695193393758694
+    },
+    {
+      "action": 1,
+      "error": 3.420543280754283e-09,
+      "evaluations": 150,
+      "observation": 0.27356171610582536,
+      "outer_callback": 82,
+      "status": "completed",
+      "value": 0.3433931135708045
+    },
+    {
+      "action": 0,
+      "error": 3.2369262495000536e-09,
+      "evaluations": 150,
+      "observation": 0.9936523813738511,
+      "outer_callback": 83,
+      "status": "completed",
+      "value": 0.22580959660119956
+    },
+    {
+      "action": 1,
+      "error": 9.281870098909462e-10,
+      "evaluations": 150,
+      "observation": 0.9936523813738511,
+      "outer_callback": 83,
+      "status": "completed",
+      "value": 0.25517128998132593
+    },
+    {
+      "action": 0,
+      "error": 1.5629892232088636e-09,
+      "evaluations": 150,
+      "observation": 0.591102060591366,
+      "outer_callback": 84,
+      "status": "completed",
+      "value": 0.25878159398768347
+    },
+    {
+      "action": 1,
+      "error": 2.5942862103348063e-09,
+      "evaluations": 150,
+      "observation": 0.591102060591366,
+      "outer_callback": 84,
+      "status": "completed",
+      "value": 0.28655978122561654
+    },
+    {
+      "action": 0,
+      "error": 2.145868294798378e-09,
+      "evaluations": 150,
+      "observation": -0.19365238137385116,
+      "outer_callback": 85,
+      "status": "completed",
+      "value": 0.37230783388776656
+    },
+    {
+      "action": 1,
+      "error": 2.57132384682967e-11,
+      "evaluations": 210,
+      "observation": -0.19365238137385116,
+      "outer_callback": 85,
+      "status": "completed",
+      "value": 0.2668414839882293
+    },
+    {
+      "action": 0,
+      "error": 1.4903346611005227e-09,
+      "evaluations": 150,
+      "observation": 0.20889793940863388,
+      "outer_callback": 86,
+      "status": "completed",
+      "value": 0.37054664349463273
+    },
+    {
+      "action": 1,
+      "error": 2.3654021715850895e-09,
+      "evaluations": 150,
+      "observation": 0.20889793940863388,
+      "outer_callback": 86,
+      "status": "completed",
+      "value": 0.3510343799077511
+    },
+    {
+      "action": 0,
+      "error": 5.0021434884819915e-09,
+      "evaluations": 150,
+      "observation": 0.8738396246805261,
+      "outer_callback": 87,
+      "status": "completed",
+      "value": 0.23022516835082252
+    },
+    {
+      "action": 1,
+      "error": 1.2611251416108896e-10,
+      "evaluations": 210,
+      "observation": 0.8738396246805261,
+      "outer_callback": 87,
+      "status": "completed",
+      "value": 0.2596812150093325
+    },
+    {
+      "action": 0,
+      "error": 4.3951004064410565e-09,
+      "evaluations": 150,
+      "observation": 0.6705381168770247,
+      "outer_callback": 88,
+      "status": "completed",
+      "value": 0.24728865748338943
+    },
+    {
+      "action": 1,
+      "error": 2.5929031005622605e-09,
+      "evaluations": 150,
+      "observation": 0.6705381168770247,
+      "outer_callback": 88,
+      "status": "completed",
+      "value": 0.27625766615238556
+    },
+    {
+      "action": 0,
+      "error": 1.4890876296713945e-09,
+      "evaluations": 150,
+      "observation": -0.07383962468052618,
+      "outer_callback": 89,
+      "status": "completed",
+      "value": 0.40318941878211517
+    },
+    {
+      "action": 1,
+      "error": 2.0099000761657575e-09,
+      "evaluations": 150,
+      "observation": -0.07383962468052618,
+      "outer_callback": 89,
+      "status": "completed",
+      "value": 0.3082333534795823
+    },
+    {
+      "action": 0,
+      "error": 2.37823460333712e-10,
+      "evaluations": 150,
+      "observation": 0.12946188312297524,
+      "outer_callback": 90,
+      "status": "completed",
+      "value": 0.395399766442267
+    },
+    {
+      "action": 1,
+      "error": 2.1762641288620444e-09,
+      "evaluations": 150,
+      "observation": 0.12946188312297524,
+      "outer_callback": 90,
+      "status": "completed",
+      "value": 0.35245015575644245
+    },
+    {
+      "action": 0,
+      "error": 4.852434072881873e-09,
+      "evaluations": 150,
+      "observation": 1.0572670690061992,
+      "outer_callback": 91,
+      "status": "completed",
+      "value": 0.224684874353245
+    },
+    {
+      "action": 1,
+      "error": 1.2190192872857778e-11,
+      "evaluations": 210,
+      "observation": 1.0572670690061992,
+      "outer_callback": 91,
+      "status": "completed",
+      "value": 0.25403349014793725
+    },
+    {
+      "action": 0,
+      "error": 2.9190441059456654e-09,
+      "evaluations": 150,
+      "observation": -0.2572670690061993,
+      "outer_callback": 92,
+      "status": "completed",
+      "value": 0.353456802381922
+    },
+    {
+      "action": 1,
+      "error": 4.4396318342598925e-10,
+      "evaluations": 150,
+      "observation": -0.2572670690061993,
+      "outer_callback": 92,
+      "status": "completed",
+      "value": 0.2472302118587318
+    },
+    {
+      "action": 0,
+      "error": 1.0683269432672834e-09,
+      "evaluations": 150,
+      "observation": 1.4907750051166575,
+      "outer_callback": 93,
+      "status": "completed",
+      "value": 0.2336623973054988
+    },
+    {
+      "action": 1,
+      "error": 7.117927262566897e-12,
+      "evaluations": 210,
+      "observation": 1.4907750051166575,
+      "outer_callback": 93,
+      "status": "completed",
+      "value": 0.2644458364989664
+    },
+    {
+      "action": 0,
+      "error": 6.00530302840175e-09,
+      "evaluations": 150,
+      "observation": 0.7672313763015394,
+      "outer_callback": 94,
+      "status": "completed",
+      "value": 0.23733607203959334
+    },
+    {
+      "action": 1,
+      "error": 3.038317242521695e-11,
+      "evaluations": 210,
+      "observation": 0.7672313763015394,
+      "outer_callback": 94,
+      "status": "completed",
+      "value": 0.26677314001415803
+    },
+    {
+      "action": 0,
+      "error": 1.0524720243812544e-09,
+      "evaluations": 150,
+      "observation": -0.6907750051166577,
+      "outer_callback": 95,
+      "status": "completed",
+      "value": 0.33421323507698897
+    },
+    {
+      "action": 1,
+      "error": 2.113604282088641e-09,
+      "evaluations": 210,
+      "observation": -0.6907750051166577,
+      "outer_callback": 95,
+      "status": "completed",
+      "value": 0.2151416335751886
+    },
+    {
+      "action": 0,
+      "error": 3.695517920336241e-10,
+      "evaluations": 150,
+      "observation": 0.032768623698460564,
+      "outer_callback": 96,
+      "status": "completed",
+      "value": 0.4109453075235952
+    },
+    {
+      "action": 1,
+      "error": 7.252813559294004e-11,
+      "evaluations": 150,
+      "observation": 0.032768623698460564,
+      "outer_callback": 96,
+      "status": "completed",
+      "value": 0.3391435175238833
+    },
+    {
+      "action": 0,
+      "error": 1.8805534092295774e-09,
+      "evaluations": 150,
+      "observation": 1.4679205660416408,
+      "outer_callback": 97,
+      "status": "completed",
+      "value": 0.23256493645990198
+    },
+    {
+      "action": 1,
+      "error": 7.323168912704781e-12,
+      "evaluations": 210,
+      "observation": 1.4679205660416408,
+      "outer_callback": 97,
+      "status": "completed",
+      "value": 0.2632006165653672
+    },
+    {
+      "action": 0,
+      "error": 5.6446332957153095e-09,
+      "evaluations": 150,
+      "observation": 0.7776431276656302,
+      "outer_callback": 98,
+      "status": "completed",
+      "value": 0.2364820358993004
+    },
+    {
+      "action": 1,
+      "error": 9.629542712738938e-12,
+      "evaluations": 210,
+      "observation": 0.7776431276656302,
+      "outer_callback": 98,
+      "status": "completed",
+      "value": 0.2659349173075535
+    },
+    {
+      "action": 0,
+      "error": 5.832039214420334e-10,
+      "evaluations": 150,
+      "observation": -0.667920566041641,
+      "outer_callback": 99,
+      "status": "completed",
+      "value": 0.3287489917029283
+    },
+    {
+      "action": 1,
+      "error": 2.168930700847083e-09,
+      "evaluations": 210,
+      "observation": -0.667920566041641,
+      "outer_callback": 99,
+      "status": "completed",
+      "value": 0.21245414416018146
+    },
+    {
+      "action": 0,
+      "error": 4.6216627116194226e-10,
+      "evaluations": 150,
+      "observation": 0.022356872334369726,
+      "outer_callback": 100,
+      "status": "completed",
+      "value": 0.4113431080335301
+    },
+    {
+      "action": 1,
+      "error": 4.804451530099254e-11,
+      "evaluations": 150,
+      "observation": 0.022356872334369726,
+      "outer_callback": 100,
+      "status": "completed",
+      "value": 0.3367484639725823
+    },
+    {
+      "action": 0,
+      "error": 3.024291985901562e-11,
+      "evaluations": 210,
+      "observation": 1.4238471687998617,
+      "outer_callback": 101,
+      "status": "completed",
+      "value": 0.23063007306334513
+    },
+    {
+      "action": 1,
+      "error": 7.061122618042148e-12,
+      "evaluations": 210,
+      "observation": 1.4238471687998617,
+      "outer_callback": 101,
+      "status": "completed",
+      "value": 0.261003549128244
+    },
+    {
+      "action": 0,
+      "error": 4.989668831974561e-09,
+      "evaluations": 150,
+      "observation": 0.7988027119602918,
+      "outer_callback": 102,
+      "status": "completed",
+      "value": 0.23486058450501582
+    },
+    {
+      "action": 1,
+      "error": 5.322690247644814e-11,
+      "evaluations": 210,
+      "observation": 0.7988027119602918,
+      "outer_callback": 102,
+      "status": "completed",
+      "value": 0.2643330827825134
+    },
+    {
+      "action": 0,
+      "error": 8.451767808750503e-10,
+      "evaluations": 150,
+      "observation": -0.6238471687998619,
+      "outer_callback": 103,
+      "status": "completed",
+      "value": 0.32043349963566853
+    },
+    {
+      "action": 1,
+      "error": 2.1265024157225776e-09,
+      "evaluations": 210,
+      "observation": -0.6238471687998619,
+      "outer_callback": 103,
+      "status": "completed",
+      "value": 0.2085757952682927
+    },
+    {
+      "action": 0,
+      "error": 6.933501262956472e-10,
+      "evaluations": 150,
+      "observation": 0.0011972880397080887,
+      "outer_callback": 104,
+      "status": "completed",
+      "value": 0.41134491062036804
+    },
+    {
+      "action": 1,
+      "error": 3.322648322595386e-11,
+      "evaluations": 150,
+      "observation": 0.0011972880397080887,
+      "outer_callback": 104,
+      "status": "completed",
+      "value": 0.33138570365739695
+    },
+    {
+      "action": 0,
+      "error": 6.710071835924777e-11,
+      "evaluations": 210,
+      "observation": 1.3624684924458164,
+      "outer_callback": 105,
+      "status": "completed",
+      "value": 0.2283414349802134
+    },
+    {
+      "action": 1,
+      "error": 5.473402350868219e-12,
+      "evaluations": 210,
+      "observation": 1.3624684924458164,
+      "outer_callback": 105,
+      "status": "completed",
+      "value": 0.2583998832729338
+    },
+    {
+      "action": 0,
+      "error": 4.892718091353138e-09,
+      "evaluations": 150,
+      "observation": 0.8309004950358099,
+      "outer_callback": 106,
+      "status": "completed",
+      "value": 0.23267554980420882
+    },
+    {
+      "action": 1,
+      "error": 1.1252631580953442e-10,
+      "evaluations": 210,
+      "observation": 0.8309004950358099,
+      "outer_callback": 106,
+      "status": "completed",
+      "value": 0.2621533097059805
+    },
+    {
+      "action": 0,
+      "error": 1.317598797492091e-09,
+      "evaluations": 150,
+      "observation": -0.5624684924458163,
+      "outer_callback": 107,
+      "status": "completed",
+      "value": 0.3136078172973995
+    },
+    {
+      "action": 1,
+      "error": 8.532753358549594e-09,
+      "evaluations": 150,
+      "observation": -0.5624684924458163,
+      "outer_callback": 107,
+      "status": "completed",
+      "value": 0.2060740928907997
+    },
+    {
+      "action": 0,
+      "error": 6.935673238866688e-10,
+      "evaluations": 150,
+      "observation": -0.03090049503580994,
+      "outer_callback": 108,
+      "status": "completed",
+      "value": 0.4093355306646044
+    },
+    {
+      "action": 1,
+      "error": 1.9256006680876005e-10,
+      "evaluations": 150,
+      "observation": -0.03090049503580994,
+      "outer_callback": 108,
+      "status": "completed",
+      "value": 0.3221456717816723
+    },
+    {
+      "action": 0,
+      "error": 1.2835915057888487e-10,
+      "evaluations": 210,
+      "observation": 1.2899953292371493,
+      "outer_callback": 109,
+      "status": "completed",
+      "value": 0.22626720761107771
+    },
+    {
+      "action": 1,
+      "error": 4.3694823887241246e-12,
+      "evaluations": 210,
+      "observation": 1.2899953292371493,
+      "outer_callback": 109,
+      "status": "completed",
+      "value": 0.2560291212025287
+    },
+    {
+      "action": 0,
+      "error": 5.005279195670689e-09,
+      "evaluations": 150,
+      "observation": 0.8733740871747435,
+      "outer_callback": 110,
+      "status": "completed",
+      "value": 0.23024902708874717
+    },
+    {
+      "action": 1,
+      "error": 1.2627773041274588e-10,
+      "evaluations": 210,
+      "observation": 0.8733740871747435,
+      "outer_callback": 110,
+      "status": "completed",
+      "value": 0.2597054175811344
+    },
+    {
+      "action": 0,
+      "error": 1.9978428899526874e-09,
+      "evaluations": 150,
+      "observation": -0.48999532923714934,
+      "outer_callback": 111,
+      "status": "completed",
+      "value": 0.3124503370445241
+    },
+    {
+      "action": 1,
+      "error": 1.458006008927973e-09,
+      "evaluations": 150,
+      "observation": -0.48999532923714934,
+      "outer_callback": 111,
+      "status": "completed",
+      "value": 0.20758734619890248
+    },
+    {
+      "action": 0,
+      "error": 1.4561878686241347e-09,
+      "evaluations": 150,
+      "observation": -0.07337408717474353,
+      "outer_callback": 112,
+      "status": "completed",
+      "value": 0.4032749898275051
+    },
+    {
+      "action": 1,
+      "error": 1.9772124965843794e-09,
+      "evaluations": 150,
+      "observation": -0.07337408717474353,
+      "outer_callback": 112,
+      "status": "completed",
+      "value": 0.30839100527745705
+    },
+    {
+      "action": 0,
+      "error": 1.758970981026161e-10,
+      "evaluations": 210,
+      "observation": 1.2121007141665197,
+      "outer_callback": 113,
+      "status": "completed",
+      "value": 0.22483359899098276
+    },
+    {
+      "action": 1,
+      "error": 5.3166338472619235e-12,
+      "evaluations": 210,
+      "observation": 1.2121007141665197,
+      "outer_callback": 113,
+      "status": "completed",
+      "value": 0.2543676412349943
+    },
+    {
+      "action": 0,
+      "error": 4.1800881749043395e-09,
+      "evaluations": 150,
+      "observation": 0.9256817716615366,
+      "outer_callback": 114,
+      "status": "completed",
+      "value": 0.22791035396124934
+    },
+    {
+      "action": 1,
+      "error": 8.916574750581957e-11,
+      "evaluations": 210,
+      "observation": 0.9256817716615366,
+      "outer_callback": 114,
+      "status": "completed",
+      "value": 0.25732235240885204
+    },
+    {
+      "action": 0,
+      "error": 1.4771542878987002e-09,
+      "evaluations": 150,
+      "observation": -0.41210071416651967,
+      "outer_callback": 115,
+      "status": "completed",
+      "value": 0.31918106462203827
+    },
+    {
+      "action": 1,
+      "error": 6.044768431224266e-09,
+      "evaluations": 150,
+      "observation": -0.41210071416651967,
+      "outer_callback": 115,
+      "status": "completed",
+      "value": 0.21484293462246581
+    },
+    {
+      "action": 0,
+      "error": 3.4082852290166668e-09,
+      "evaluations": 150,
+      "observation": -0.12568177166153666,
+      "outer_callback": 116,
+      "status": "completed",
+      "value": 0.3915776303051975
+    },
+    {
+      "action": 1,
+      "error": 6.650672716972811e-09,
+      "evaluations": 90,
+      "observation": -0.12568177166153666,
+      "outer_callback": 116,
+      "status": "completed",
+      "value": 0.29021669725275157
+    },
+    {
+      "action": 0,
+      "error": 1.0732528057728971e-10,
+      "evaluations": 210,
+      "observation": 1.1332626616243247,
+      "outer_callback": 117,
+      "status": "completed",
+      "value": 0.22428115824422695
+    },
+    {
+      "action": 1,
+      "error": 5.88004742870493e-12,
+      "evaluations": 210,
+      "observation": 1.1332626616243247,
+      "outer_callback": 117,
+      "status": "completed",
+      "value": 0.2536783086796805
+    },
+    {
+      "action": 0,
+      "error": 3.246265839040169e-09,
+      "evaluations": 150,
+      "observation": 0.9873357593526657,
+      "outer_callback": 118,
+      "status": "completed",
+      "value": 0.225963838287194
+    },
+    {
+      "action": 1,
+      "error": 4.9106109296058464e-09,
+      "evaluations": 150,
+      "observation": 0.9873357593526657,
+      "outer_callback": 118,
+      "status": "completed",
+      "value": 0.25532897949200783
+    },
+    {
+      "action": 0,
+      "error": 9.900194329430772e-10,
+      "evaluations": 150,
+      "observation": -0.33326266162432466,
+      "outer_callback": 119,
+      "status": "completed",
+      "value": 0.3336807036410487
+    },
+    {
+      "action": 1,
+      "error": 3.60118342776925e-10,
+      "evaluations": 210,
+      "observation": -0.33326266162432466,
+      "outer_callback": 119,
+      "status": "completed",
+      "value": 0.22836762130638427
+    },
+    {
+      "action": 0,
+      "error": 1.8037697137485443e-09,
+      "evaluations": 150,
+      "observation": -0.18733575935266572,
+      "outer_callback": 120,
+      "status": "completed",
+      "value": 0.3741920430146501
+    },
+    {
+      "action": 1,
+      "error": 2.5193917729900914e-11,
+      "evaluations": 210,
+      "observation": -0.18733575935266572,
+      "outer_callback": 120,
+      "status": "completed",
+      "value": 0.2689374639387584
+    },
+    {
+      "action": 0,
+      "error": 3.860008010721596e-09,
+      "evaluations": 150,
+      "observation": 0.5564921592871903,
+      "outer_callback": 121,
+      "status": "completed",
+      "value": 0.2649378177196099
+    },
+    {
+      "action": 1,
+      "error": 2.3562593733789106e-09,
+      "evaluations": 150,
+      "observation": 0.5564921592871903,
+      "outer_callback": 121,
+      "status": "completed",
+      "value": 0.2917962082690295
+    },
+    {
+      "action": 0,
+      "error": 7.120177776369363e-10,
+      "evaluations": 150,
+      "observation": 0.24350784071280968,
+      "outer_callback": 122,
+      "status": "completed",
+      "value": 0.3580442670366696
+    },
+    {
+      "action": 1,
+      "error": 5.990433336308766e-09,
+      "evaluations": 150,
+      "observation": 0.24350784071280968,
+      "outer_callback": 122,
+      "status": "completed",
+      "value": 0.34751682756674596
+    },
+    {
+      "action": 0,
+      "error": 6.146650093313659e-09,
+      "evaluations": 150,
+      "observation": 0.763071291435563,
+      "outer_callback": 123,
+      "status": "completed",
+      "value": 0.23768804415717124
+    },
+    {
+      "action": 1,
+      "error": 4.700357345699987e-11,
+      "evaluations": 210,
+      "observation": 0.763071291435563,
+      "outer_callback": 123,
+      "status": "completed",
+      "value": 0.26711748640788613
+    },
+    {
+      "action": 0,
+      "error": 2.9108271710311985e-09,
+      "evaluations": 150,
+      "observation": 0.4011712725067711,
+      "outer_callback": 124,
+      "status": "completed",
+      "value": 0.30307623217017055
+    },
+    {
+      "action": 1,
+      "error": 3.5292346694550374e-09,
+      "evaluations": 150,
+      "observation": 0.4011712725067711,
+      "outer_callback": 124,
+      "status": "completed",
+      "value": 0.32001843806487656
+    },
+    {
+      "action": 0,
+      "error": 3.395611653997637e-10,
+      "evaluations": 150,
+      "observation": 0.036928708564436974,
+      "outer_callback": 125,
+      "status": "completed",
+      "value": 0.41071303178916885
+    },
+    {
+      "action": 1,
+      "error": 8.462546911648573e-11,
+      "evaluations": 150,
+      "observation": 0.036928708564436974,
+      "outer_callback": 125,
+      "status": "completed",
+      "value": 0.34005272193274855
+    },
+    {
+      "action": 0,
+      "error": 2.930374849268976e-09,
+      "evaluations": 150,
+      "observation": 0.39882872749322884,
+      "outer_callback": 126,
+      "status": "completed",
+      "value": 0.3037920305044376
+    },
+    {
+      "action": 1,
+      "error": 3.533112760716788e-09,
+      "evaluations": 150,
+      "observation": 0.39882872749322884,
+      "outer_callback": 126,
+      "status": "completed",
+      "value": 0.3204798007481499
+    },
+    {
+      "action": 0,
+      "error": 6.468408527446172e-09,
+      "evaluations": 150,
+      "observation": 0.7528637943418581,
+      "outer_callback": 127,
+      "status": "completed",
+      "value": 0.2385783001303483
+    },
+    {
+      "action": 1,
+      "error": 1.0562951071412019e-10,
+      "evaluations": 210,
+      "observation": 0.7528637943418581,
+      "outer_callback": 127,
+      "status": "completed",
+      "value": 0.2679855545029749
+    },
+    {
+      "action": 0,
+      "error": 3.1362428420472982e-09,
+      "evaluations": 150,
+      "observation": 0.4070133012951352,
+      "outer_callback": 128,
+      "status": "completed",
+      "value": 0.30130904863088215
+    },
+    {
+      "action": 1,
+      "error": 3.4396662894797987e-09,
+      "evaluations": 150,
+      "observation": 0.4070133012951352,
+      "outer_callback": 128,
+      "status": "completed",
+      "value": 0.3188686232140275
+    },
+    {
+      "action": 0,
+      "error": 2.823010411385726e-10,
+      "evaluations": 150,
+      "observation": 0.04713620565814186,
+      "outer_callback": 129,
+      "status": "completed",
+      "value": 0.4099665072103529
+    },
+    {
+      "action": 1,
+      "error": 1.1432306933599017e-10,
+      "evaluations": 150,
+      "observation": 0.04713620565814186,
+      "outer_callback": 129,
+      "status": "completed",
+      "value": 0.3421639438971795
+    },
+    {
+      "action": 0,
+      "error": 3.1202552186517245e-09,
+      "evaluations": 150,
+      "observation": 0.39298669870486475,
+      "outer_callback": 130,
+      "status": "completed",
+      "value": 0.30559490318905425
+    },
+    {
+      "action": 1,
+      "error": 3.4592713994956864e-09,
+      "evaluations": 150,
+      "observation": 0.39298669870486475,
+      "outer_callback": 130,
+      "status": "completed",
+      "value": 0.32163064097560357
+    },
+    {
+      "action": 0,
+      "error": 6.8821060156048705e-09,
+      "evaluations": 150,
+      "observation": 0.7329766061738352,
+      "outer_callback": 131,
+      "status": "completed",
+      "value": 0.24042532145854476
+    },
+    {
+      "action": 1,
+      "error": 2.9688353546070366e-10,
+      "evaluations": 210,
+      "observation": 0.7329766061738352,
+      "outer_callback": 131,
+      "status": "completed",
+      "value": 0.2697732271667414
+    },
+    {
+      "action": 0,
+      "error": 3.830292370406716e-09,
+      "evaluations": 150,
+      "observation": 0.4188221435648609,
+      "outer_callback": 132,
+      "status": "completed",
+      "value": 0.2978160099946925
+    },
+    {
+      "action": 1,
+      "error": 2.8945767893316047e-09,
+      "evaluations": 150,
+      "observation": 0.4188221435648609,
+      "outer_callback": 132,
+      "status": "completed",
+      "value": 0.31655080630024446
+    },
+    {
+      "action": 0,
+      "error": 2.217940440004838e-10,
+      "evaluations": 150,
+      "observation": 0.06702339382616479,
+      "outer_callback": 133,
+      "status": "completed",
+      "value": 0.40780161120108804
+    },
+    {
+      "action": 1,
+      "error": 1.1440021755323127e-10,
+      "evaluations": 150,
+      "observation": 0.06702339382616479,
+      "outer_callback": 133,
+      "status": "completed",
+      "value": 0.34576896606073526
+    },
+    {
+      "action": 0,
+      "error": 3.886611579177312e-09,
+      "evaluations": 150,
+      "observation": 0.381177856435139,
+      "outer_callback": 134,
+      "status": "completed",
+      "value": 0.3093152714907253
+    },
+    {
+      "action": 1,
+      "error": 3.0581121082852306e-09,
+      "evaluations": 150,
+      "observation": 0.381177856435139,
+      "outer_callback": 134,
+      "status": "completed",
+      "value": 0.3239546739195736
+    },
+    {
+      "action": 0,
+      "error": 6.5829649421273264e-09,
+      "evaluations": 150,
+      "observation": 0.7048272487214943,
+      "outer_callback": 135,
+      "status": "completed",
+      "value": 0.24330967271148696
+    },
+    {
+      "action": 1,
+      "error": 3.3769908952541172e-09,
+      "evaluations": 150,
+      "observation": 0.7048272487214943,
+      "outer_callback": 135,
+      "status": "completed",
+      "value": 0.27252878389356633
+    },
+    {
+      "action": 0,
+      "error": 4.808085401194551e-09,
+      "evaluations": 150,
+      "observation": 0.4365739533084026,
+      "outer_callback": 136,
+      "status": "completed",
+      "value": 0.2927670149165166
+    },
+    {
+      "action": 1,
+      "error": 1.42742498967759e-09,
+      "evaluations": 150,
+      "observation": 0.4365739533084026,
+      "outer_callback": 136,
+      "status": "completed",
+      "value": 0.31309499224709547
+    },
+    {
+      "action": 0,
+      "error": 1.9236325333056017e-10,
+      "evaluations": 150,
+      "observation": 0.09517275127850566,
+      "outer_callback": 137,
+      "status": "completed",
+      "value": 0.40320029736707874
+    },
+    {
+      "action": 1,
+      "error": 1.456658709790278e-10,
+      "evaluations": 150,
+      "observation": 0.09517275127850566,
+      "outer_callback": 137,
+      "status": "completed",
+      "value": 0.34966689007483914
+    },
+    {
+      "action": 0,
+      "error": 5.623811959157743e-09,
+      "evaluations": 150,
+      "observation": 0.36342604669159734,
+      "outer_callback": 138,
+      "status": "completed",
+      "value": 0.3150924291460192
+    },
+    {
+      "action": 1,
+      "error": 2.1877804216147677e-09,
+      "evaluations": 150,
+      "observation": 0.36342604669159734,
+      "outer_callback": 138,
+      "status": "completed",
+      "value": 0.32742669341059705
+    },
+    {
+      "action": 0,
+      "error": 4.426072311277871e-09,
+      "evaluations": 150,
+      "observation": 0.6708910423105852,
+      "outer_callback": 139,
+      "status": "completed",
+      "value": 0.24724492795239825
+    },
+    {
+      "action": 1,
+      "error": 2.555539699994336e-09,
+      "evaluations": 150,
+      "observation": 0.6708910423105852,
+      "outer_callback": 139,
+      "status": "completed",
+      "value": 0.2762171413325595
+    },
+    {
+      "action": 0,
+      "error": 5.3793541493516535e-09,
+      "evaluations": 150,
+      "observation": 0.45976977351742593,
+      "outer_callback": 140,
+      "status": "completed",
+      "value": 0.28653872059163976
+    },
+    {
+      "action": 1,
+      "error": 8.263514945558957e-10,
+      "evaluations": 150,
+      "observation": 0.45976977351742593,
+      "outer_callback": 140,
+      "status": "completed",
+      "value": 0.30866028221508984
+    },
+    {
+      "action": 0,
+      "error": 2.3598237224714807e-10,
+      "evaluations": 150,
+      "observation": 0.12910895768941477,
+      "outer_callback": 141,
+      "status": "completed",
+      "value": 0.39549106073085605
+    },
+    {
+      "action": 1,
+      "error": 2.1503943260755794e-09,
+      "evaluations": 150,
+      "observation": 0.12910895768941477,
+      "outer_callback": 141,
+      "status": "completed",
+      "value": 0.3524324816262684
+    },
+    {
+      "action": 0,
+      "error": 7.815018762963451e-09,
+      "evaluations": 150,
+      "observation": 0.340230226482574,
+      "outer_callback": 142,
+      "status": "completed",
+      "value": 0.3229494595056019
+    },
+    {
+      "action": 1,
+      "error": 1.1771463432778745e-09,
+      "evaluations": 150,
+      "observation": 0.340230226482574,
+      "outer_callback": 142,
+      "status": "completed",
+      "value": 0.3318766689093648
+    },
+    {
+      "action": 0,
+      "error": 1.1499979482684948e-09,
+      "evaluations": 150,
+      "observation": 0.6335441370259925,
+      "outer_callback": 143,
+      "status": "completed",
+      "value": 0.2522168338593714
+    },
+    {
+      "action": 1,
+      "error": 4.738850455272836e-09,
+      "evaluations": 150,
+      "observation": 0.6335441370259925,
+      "outer_callback": 143,
+      "status": "completed",
+      "value": 0.2807599928643794
+    },
+    {
+      "action": 0,
+      "error": 5.39358508894937e-09,
+      "evaluations": 150,
+      "observation": 0.4878851789606053,
+      "outer_callback": 144,
+      "status": "completed",
+      "value": 0.2795473439496718
+    },
+    {
+      "action": 1,
+      "error": 3.197914723827855e-09,
+      "evaluations": 150,
+      "observation": 0.4878851789606053,
+      "outer_callback": 144,
+      "status": "completed",
+      "value": 0.3034556137482818
+    },
+    {
+      "action": 0,
+      "error": 7.339496625881998e-10,
+      "evaluations": 150,
+      "observation": 0.16645586297400738,
+      "outer_callback": 145,
+      "status": "completed",
+      "value": 0.3847613554573455
+    },
+    {
+      "action": 1,
+      "error": 2.1924459746716244e-09,
+      "evaluations": 150,
+      "observation": 0.16645586297400738,
+      "outer_callback": 145,
+      "status": "completed",
+      "value": 0.35307903102394933
+    },
+    {
+      "action": 0,
+      "error": 7.970394886965188e-09,
+      "evaluations": 150,
+      "observation": 0.31211482103939464,
+      "outer_callback": 146,
+      "status": "completed",
+      "value": 0.3328703629553795
+    },
+    {
+      "action": 1,
+      "error": 2.4250423258387686e-10,
+      "evaluations": 150,
+      "observation": 0.31211482103939464,
+      "outer_callback": 146,
+      "status": "completed",
+      "value": 0.3370316140435387
+    },
+    {
+      "action": 0,
+      "error": 1.3064480959188406e-09,
+      "evaluations": 150,
+      "observation": 0.5947909658605214,
+      "outer_callback": 147,
+      "status": "completed",
+      "value": 0.25816947254632044
+    },
+    {
+      "action": 1,
+      "error": 2.8621023398511802e-09,
+      "evaluations": 150,
+      "observation": 0.5947909658605214,
+      "outer_callback": 147,
+      "status": "completed",
+      "value": 0.2860284592189041
+    },
+    {
+      "action": 0,
+      "error": 5.035762629298764e-09,
+      "evaluations": 150,
+      "observation": 0.5204014973381426,
+      "outer_callback": 148,
+      "status": "completed",
+      "value": 0.27220385419467724
+    },
+    {
+      "action": 1,
+      "error": 4.10200560975113e-09,
+      "evaluations": 150,
+      "observation": 0.5204014973381426,
+      "outer_callback": 148,
+      "status": "completed",
+      "value": 0.2977286116416053
+    },
+    {
+      "action": 0,
+      "error": 1.4878658577134303e-09,
+      "evaluations": 150,
+      "observation": 0.20520903413947852,
+      "outer_callback": 149,
+      "status": "completed",
+      "value": 0.37184289291996414
+    },
+    {
+      "action": 1,
+      "error": 1.7596535673634956e-09,
+      "evaluations": 150,
+      "observation": 0.20520903413947852,
+      "outer_callback": 149,
+      "status": "completed",
+      "value": 0.35131821119002926
+    },
+    {
+      "action": 0,
+      "error": 4.094015720537561e-09,
+      "evaluations": 150,
+      "observation": 0.2795985026618574,
+      "outer_callback": 150,
+      "status": "completed",
+      "value": 0.3447252543079843
+    },
+    {
+      "action": 1,
+      "error": 2.6597388700242284e-09,
+      "evaluations": 150,
+      "observation": 0.2795985026618574,
+      "outer_callback": 150,
+      "status": "completed",
+      "value": 0.3424666783899756
+    },
+    {
+      "action": 0,
+      "error": 5.622562050428844e-11,
+      "evaluations": 210,
+      "observation": 8.068115805072326,
+      "outer_callback": 151,
+      "status": "completed",
+      "value": 2.959408080941682
+    },
+    {
+      "action": 1,
+      "error": 1.2892977527445462e-11,
+      "evaluations": 210,
+      "observation": 8.068115805072326,
+      "outer_callback": 151,
+      "status": "completed",
+      "value": 3.343066817605536
+    },
+    {
+      "action": 0,
+      "error": 4.025016924786697e-09,
+      "evaluations": 210,
+      "observation": -7.268115805072325,
+      "outer_callback": 152,
+      "status": "completed",
+      "value": 4.202801756595193
+    },
+    {
+      "action": 1,
+      "error": 2.104550397100203e-09,
+      "evaluations": 210,
+      "observation": -7.268115805072325,
+      "outer_callback": 152,
+      "status": "completed",
+      "value": 4.585820027612437
+    },
+    {
+      "action": 0,
+      "error": 7.917593179627371e-08,
+      "evaluations": 270,
+      "observation": 1024.9267374268827,
+      "outer_callback": 153,
+      "status": "completed",
+      "value": 58126.680363105275
+    },
+    {
+      "action": 1,
+      "error": 1.1057635502566152e-06,
+      "evaluations": 270,
+      "observation": 1024.9267374268827,
+      "outer_callback": 153,
+      "status": "completed",
+      "value": 65281.652093968616
+    },
+    {
+      "action": 0,
+      "error": 1.1881352146965251e-11,
+      "evaluations": 210,
+      "observation": 3.7051360113196194,
+      "outer_callback": 154,
+      "status": "completed",
+      "value": 0.6189357433987905
+    },
+    {
+      "action": 1,
+      "error": 1.5558457904383725e-10,
+      "evaluations": 210,
+      "observation": 3.7051360113196194,
+      "outer_callback": 154,
+      "status": "completed",
+      "value": 0.700276878757721
+    },
+    {
+      "action": 0,
+      "error": 8.036863562525595e-08,
+      "evaluations": 270,
+      "observation": -1024.1267374268825,
+      "outer_callback": 155,
+      "status": "completed",
+      "value": 58280.90981205563
+    },
+    {
+      "action": 1,
+      "error": 1.0749481155441359e-06,
+      "evaluations": 270,
+      "observation": -1024.1267374268825,
+      "outer_callback": 155,
+      "status": "completed",
+      "value": 65443.49787255469
+    },
+    {
+      "action": 0,
+      "error": 2.3294575960481752e-09,
+      "evaluations": 150,
+      "observation": -2.9051360113196196,
+      "outer_callback": 156,
+      "status": "completed",
+      "value": 1.4763836558303947
+    },
+    {
+      "action": 1,
+      "error": 3.0688344296119916e-09,
+      "evaluations": 210,
+      "observation": -2.9051360113196196,
+      "outer_callback": 156,
+      "status": "completed",
+      "value": 1.3047484780091996
+    },
+    {
+      "action": 0,
+      "error": 2.1414180340447953e-09,
+      "evaluations": 270,
+      "observation": 171.50344322899488,
+      "outer_callback": 157,
+      "status": "completed",
+      "value": 1610.8001121146644
+    },
+    {
+      "action": 1,
+      "error": 3.234632282791986e-08,
+      "evaluations": 270,
+      "observation": 171.50344322899488,
+      "outer_callback": 157,
+      "status": "completed",
+      "value": 1809.829919753863
+    },
+    {
+      "action": 0,
+      "error": 1.1996961497484832e-11,
+      "evaluations": 210,
+      "observation": 3.8007456113149067,
+      "outer_callback": 158,
+      "status": "completed",
+      "value": 0.6477468946988278
+    },
+    {
+      "action": 1,
+      "error": 1.564020190824287e-10,
+      "evaluations": 210,
+      "observation": 3.8007456113149067,
+      "outer_callback": 158,
+      "status": "completed",
+      "value": 0.7328515229035065
+    },
+    {
+      "action": 0,
+      "error": 2.345898244955907e-09,
+      "evaluations": 270,
+      "observation": -170.70344322899487,
+      "outer_callback": 159,
+      "status": "completed",
+      "value": 1636.560847003012
+    },
+    {
+      "action": 1,
+      "error": 2.7380035735448578e-08,
+      "evaluations": 270,
+      "observation": -170.70344322899487,
+      "outer_callback": 159,
+      "status": "completed",
+      "value": 1836.8605918228684
+    },
+    {
+      "action": 0,
+      "error": 2.6379144800871366e-09,
+      "evaluations": 150,
+      "observation": -3.000745611314907,
+      "outer_callback": 160,
+      "status": "completed",
+      "value": 1.5004462641843714
+    },
+    {
+      "action": 1,
+      "error": 5.57938907748412e-09,
+      "evaluations": 150,
+      "observation": -3.000745611314907,
+      "outer_callback": 160,
+      "status": "completed",
+      "value": 1.3509831364054297
+    },
+    {
+      "action": 0,
+      "error": 2.924390917868075e-10,
+      "evaluations": 270,
+      "observation": 64.15469381926701,
+      "outer_callback": 161,
+      "status": "completed",
+      "value": 220.88422339534637
+    },
+    {
+      "action": 1,
+      "error": 8.177336349317376e-09,
+      "evaluations": 210,
+      "observation": 64.15469381926701,
+      "outer_callback": 161,
+      "status": "completed",
+      "value": 248.3674342504208
+    },
+    {
+      "action": 0,
+      "error": 1.2636953018042011e-11,
+      "evaluations": 210,
+      "observation": 4.0038567807779355,
+      "outer_callback": 162,
+      "status": "completed",
+      "value": 0.7122883076211102
+    },
+    {
+      "action": 1,
+      "error": 1.5164504938397591e-10,
+      "evaluations": 210,
+      "observation": 4.0038567807779355,
+      "outer_callback": 162,
+      "status": "completed",
+      "value": 0.8058176195864349
+    },
+    {
+      "action": 0,
+      "error": 3.7573831105195733e-10,
+      "evaluations": 270,
+      "observation": -63.35469381926701,
+      "outer_callback": 163,
+      "status": "completed",
+      "value": 230.49075053827644
+    },
+    {
+      "action": 1,
+      "error": 5.475342346726066e-09,
+      "evaluations": 210,
+      "observation": -63.35469381926701,
+      "outer_callback": 163,
+      "status": "completed",
+      "value": 258.44227374667383
+    },
+    {
+      "action": 0,
+      "error": 2.6644757988782564e-09,
+      "evaluations": 150,
+      "observation": -3.2038567807779352,
+      "outer_callback": 164,
+      "status": "completed",
+      "value": 1.559438366940956
+    },
+    {
+      "action": 1,
+      "error": 5.64961026174034e-10,
+      "evaluations": 210,
+      "observation": -3.2038567807779352,
+      "outer_callback": 164,
+      "status": "completed",
+      "value": 1.452359941512403
+    },
+    {
+      "action": 0,
+      "error": 3.476713479216265e-09,
+      "evaluations": 210,
+      "observation": 33.210234919950686,
+      "outer_callback": 165,
+      "status": "completed",
+      "value": 57.516478005807336
+    },
+    {
+      "action": 1,
+      "error": 1.97402779707331e-09,
+      "evaluations": 210,
+      "observation": 33.210234919950686,
+      "outer_callback": 165,
+      "status": "completed",
+      "value": 64.73737694480566
+    },
+    {
+      "action": 0,
+      "error": 1.4441470941611059e-11,
+      "evaluations": 210,
+      "observation": 4.336655942121437,
+      "outer_callback": 166,
+      "status": "completed",
+      "value": 0.8278480386501575
+    },
+    {
+      "action": 1,
+      "error": 1.30261400266884e-10,
+      "evaluations": 210,
+      "observation": 4.336655942121437,
+      "outer_callback": 166,
+      "status": "completed",
+      "value": 0.9364417763337627
+    },
+    {
+      "action": 0,
+      "error": 1.4728232015197947e-10,
+      "evaluations": 270,
+      "observation": -32.41023491995069,
+      "outer_callback": 167,
+      "status": "completed",
+      "value": 62.4734361897823
+    },
+    {
+      "action": 1,
+      "error": 2.077172967808981e-09,
+      "evaluations": 210,
+      "observation": -32.41023491995069,
+      "outer_callback": 167,
+      "status": "completed",
+      "value": 69.92716310928886
+    },
+    {
+      "action": 0,
+      "error": 2.4044741501680345e-09,
+      "evaluations": 150,
+      "observation": -3.5366559421214374,
+      "outer_callback": 168,
+      "status": "completed",
+      "value": 1.6776316062359649
+    },
+    {
+      "action": 1,
+      "error": 4.904425512713015e-10,
+      "evaluations": 210,
+      "observation": -3.5366559421214374,
+      "outer_callback": 168,
+      "status": "completed",
+      "value": 1.6289622119899425
+    },
+    {
+      "action": 0,
+      "error": 3.5821398554651204e-10,
+      "evaluations": 210,
+      "observation": 20.477037763078336,
+      "outer_callback": 169,
+      "status": "completed",
+      "value": 21.129193322945103
+    },
+    {
+      "action": 1,
+      "error": 5.099160856471101e-10,
+      "evaluations": 210,
+      "observation": 20.477037763078336,
+      "outer_callback": 169,
+      "status": "completed",
+      "value": 23.80715219125749
+    },
+    {
+      "action": 0,
+      "error": 1.824229435019433e-11,
+      "evaluations": 210,
+      "observation": 4.82982532668674,
+      "outer_callback": 170,
+      "status": "completed",
+      "value": 1.0215082324199936
+    },
+    {
+      "action": 1,
+      "error": 8.621326382458113e-11,
+      "evaluations": 210,
+      "observation": 4.82982532668674,
+      "outer_callback": 170,
+      "status": "completed",
+      "value": 1.1552966855214193
+    },
+    {
+      "action": 0,
+      "error": 7.532860871388652e-09,
+      "evaluations": 210,
+      "observation": -19.67703776307834,
+      "outer_callback": 171,
+      "status": "completed",
+      "value": 24.18108660146378
+    },
+    {
+      "action": 1,
+      "error": 1.2721139336152251e-09,
+      "evaluations": 210,
+      "observation": -19.67703776307834,
+      "outer_callback": 171,
+      "status": "completed",
+      "value": 26.98982513984369
+    },
+    {
+      "action": 0,
+      "error": 4.935969885101234e-09,
+      "evaluations": 150,
+      "observation": -4.02982532668674,
+      "outer_callback": 172,
+      "status": "completed",
+      "value": 1.895177303017911
+    },
+    {
+      "action": 1,
+      "error": 8.830011807730864e-09,
+      "evaluations": 210,
+      "observation": -4.02982532668674,
+      "outer_callback": 172,
+      "status": "completed",
+      "value": 1.9166174595530945
+    },
+    {
+      "action": 0,
+      "error": 2.5788170523774576e-11,
+      "evaluations": 210,
+      "observation": 14.054179398529781,
+      "outer_callback": 173,
+      "status": "completed",
+      "value": 9.59484197663362
+    },
+    {
+      "action": 1,
+      "error": 9.971635272869577e-11,
+      "evaluations": 210,
+      "observation": 14.054179398529781,
+      "outer_callback": 173,
+      "status": "completed",
+      "value": 10.82175965697922
+    },
+    {
+      "action": 0,
+      "error": 2.5551112944262083e-11,
+      "evaluations": 210,
+      "observation": 5.538215051257931,
+      "outer_callback": 174,
+      "status": "completed",
+      "value": 1.3465589687893194
+    },
+    {
+      "action": 1,
+      "error": 3.2978758208821325e-11,
+      "evaluations": 210,
+      "observation": 5.538215051257931,
+      "outer_callback": 174,
+      "status": "completed",
+      "value": 1.5225138757398424
+    },
+    {
+      "action": 0,
+      "error": 8.326185776326449e-10,
+      "evaluations": 210,
+      "observation": -13.25417939852978,
+      "outer_callback": 175,
+      "status": "completed",
+      "value": 11.695016662760779
+    },
+    {
+      "action": 1,
+      "error": 3.6544400592122307e-10,
+      "evaluations": 210,
+      "observation": -13.25417939852978,
+      "outer_callback": 175,
+      "status": "completed",
+      "value": 12.995296216395278
+    },
+    {
+      "action": 0,
+      "error": 7.215998845789955e-10,
+      "evaluations": 210,
+      "observation": -4.738215051257931,
+      "outer_callback": 176,
+      "status": "completed",
+      "value": 2.2803354814769277
+    },
+    {
+      "action": 1,
+      "error": 9.401893794752647e-09,
+      "evaluations": 150,
+      "observation": -4.738215051257931,
+      "outer_callback": 176,
+      "status": "completed",
+      "value": 2.3853725121671308
+    },
+    {
+      "action": 0,
+      "error": 6.508243419541562e-11,
+      "evaluations": 210,
+      "observation": 10.366653459714453,
+      "outer_callback": 177,
+      "status": "completed",
+      "value": 5.03814419325604
+    },
+    {
+      "action": 1,
+      "error": 1.1771956327755965e-11,
+      "evaluations": 210,
+      "observation": 10.366653459714453,
+      "outer_callback": 177,
+      "status": "completed",
+      "value": 5.687315919489079
+    },
+    {
+      "action": 0,
+      "error": 3.8318164195092386e-11,
+      "evaluations": 210,
+      "observation": 6.560449971069248,
+      "outer_callback": 178,
+      "status": "completed",
+      "value": 1.913161443690481
+    },
+    {
+      "action": 1,
+      "error": 3.5147413364059664e-12,
+      "evaluations": 210,
+      "observation": 6.560449971069248,
+      "outer_callback": 178,
+      "status": "completed",
+      "value": 2.162328330912003
+    },
+    {
+      "action": 0,
+      "error": 2.385839015038068e-09,
+      "evaluations": 210,
+      "observation": -9.566653459714452,
+      "outer_callback": 179,
+      "status": "completed",
+      "value": 6.6026253487151285
+    },
+    {
+      "action": 1,
+      "error": 3.320053343917968e-10,
+      "evaluations": 210,
+      "observation": -9.566653459714452,
+      "outer_callback": 179,
+      "status": "completed",
+      "value": 7.285067166999158
+    },
+    {
+      "action": 0,
+      "error": 1.428067605831451e-09,
+      "evaluations": 210,
+      "observation": -5.760449971069248,
+      "outer_callback": 180,
+      "status": "completed",
+      "value": 2.9613716759481274
+    },
+    {
+      "action": 1,
+      "error": 2.7568560283382118e-09,
+      "evaluations": 210,
+      "observation": -5.760449971069248,
+      "outer_callback": 180,
+      "status": "completed",
+      "value": 3.1763358685694465
+    },
+    {
+      "action": 0,
+      "error": 7.165016175018239e-12,
+      "evaluations": 210,
+      "observation": 2.2257418583505535,
+      "outer_callback": 181,
+      "status": "completed",
+      "value": 0.3012262784995291
+    },
+    {
+      "action": 1,
+      "error": 1.6599448936164622e-11,
+      "evaluations": 210,
+      "observation": 2.2257418583505535,
+      "outer_callback": 181,
+      "status": "completed",
+      "value": 0.3409314779874248
+    },
+    {
+      "action": 0,
+      "error": 1.516788235118795e-09,
+      "evaluations": 150,
+      "observation": -1.4257418583505537,
+      "outer_callback": 182,
+      "status": "completed",
+      "value": 0.926538999332237
+    },
+    {
+      "action": 1,
+      "error": 7.104107068940842e-09,
+      "evaluations": 150,
+      "observation": -1.4257418583505537,
+      "outer_callback": 182,
+      "status": "completed",
+      "value": 0.5291147195439299
+    },
+    {
+      "action": 0,
+      "error": 1.1840247154647492e-11,
+      "evaluations": 210,
+      "observation": 3.667694640053472,
+      "outer_callback": 183,
+      "status": "completed",
+      "value": 0.6079269243833987
+    },
+    {
+      "action": 1,
+      "error": 1.546574882862941e-10,
+      "evaluations": 210,
+      "observation": 3.667694640053472,
+      "outer_callback": 183,
+      "status": "completed",
+      "value": 0.687829557238882
+    },
+    {
+      "action": 0,
+      "error": 3.186045946707884e-09,
+      "evaluations": 150,
+      "observation": 1.5001352197941686,
+      "outer_callback": 184,
+      "status": "completed",
+      "value": 0.23413024437286276
+    },
+    {
+      "action": 1,
+      "error": 6.970237644706874e-12,
+      "evaluations": 210,
+      "observation": 1.5001352197941686,
+      "outer_callback": 184,
+      "status": "completed",
+      "value": 0.26497651687610385
+    },
+    {
+      "action": 0,
+      "error": 2.1551971182523193e-09,
+      "evaluations": 150,
+      "observation": -2.867694640053472,
+      "outer_callback": 185,
+      "status": "completed",
+      "value": 1.4676188250964786
+    },
+    {
+      "action": 1,
+      "error": 3.760113743618299e-09,
+      "evaluations": 210,
+      "observation": -2.867694640053472,
+      "outer_callback": 185,
+      "status": "completed",
+      "value": 1.2868729370786018
+    },
+    {
+      "action": 0,
+      "error": 1.313610145206351e-09,
+      "evaluations": 150,
+      "observation": -0.7001352197941688,
+      "outer_callback": 186,
+      "status": "completed",
+      "value": 0.33668199762859713
+    },
+    {
+      "action": 1,
+      "error": 2.07410043784343e-09,
+      "evaluations": 210,
+      "observation": -0.7001352197941688,
+      "outer_callback": 186,
+      "status": "completed",
+      "value": 0.21637499551550887
+    },
+    {
+      "action": 0,
+      "error": 1.1688564583504745e-11,
+      "evaluations": 210,
+      "observation": 3.577603171061792,
+      "outer_callback": 187,
+      "status": "completed",
+      "value": 0.5820689836395421
+    },
+    {
+      "action": 1,
+      "error": 1.509345374954617e-10,
+      "evaluations": 210,
+      "observation": 3.577603171061792,
+      "outer_callback": 187,
+      "status": "completed",
+      "value": 0.6585917776168729
+    },
+    {
+      "action": 0,
+      "error": 2.9353973097284137e-12,
+      "evaluations": 210,
+      "observation": 1.523679080784,
+      "outer_callback": 188,
+      "status": "completed",
+      "value": 0.23535391996380597
+    },
+    {
+      "action": 1,
+      "error": 6.449893830347342e-12,
+      "evaluations": 210,
+      "observation": 1.523679080784,
+      "outer_callback": 188,
+      "status": "completed",
+      "value": 0.26636417755599257
+    },
+    {
+      "action": 0,
+      "error": 1.6508039943393017e-09,
+      "evaluations": 150,
+      "observation": -2.7776031710617923,
+      "outer_callback": 189,
+      "status": "completed",
+      "value": 1.448038522856021
+    },
+    {
+      "action": 1,
+      "error": 5.684049964033114e-09,
+      "evaluations": 210,
+      "observation": -2.7776031710617923,
+      "outer_callback": 189,
+      "status": "completed",
+      "value": 1.2443321528836755
+    },
+    {
+      "action": 0,
+      "error": 2.0945862418719524e-09,
+      "evaluations": 150,
+      "observation": -0.7236790807840001,
+      "outer_callback": 190,
+      "status": "completed",
+      "value": 0.3434921654455496
+    },
+    {
+      "action": 1,
+      "error": 1.924524012025839e-09,
+      "evaluations": 210,
+      "observation": -0.7236790807840001,
+      "outer_callback": 190,
+      "status": "completed",
+      "value": 0.21981739190608712
+    },
+    {
+      "action": 0,
+      "error": 1.1112299089102387e-11,
+      "evaluations": 210,
+      "observation": 3.4090066190911004,
+      "outer_callback": 191,
+      "status": "completed",
+      "value": 0.5360754685822822
+    },
+    {
+      "action": 1,
+      "error": 1.3799938772816097e-10,
+      "evaluations": 210,
+      "observation": 3.4090066190911004,
+      "outer_callback": 191,
+      "status": "completed",
+      "value": 0.6065828624789474
+    },
+    {
+      "action": 0,
+      "error": 1.80217652206858e-12,
+      "evaluations": 210,
+      "observation": 1.5720499275361788,
+      "outer_callback": 192,
+      "status": "completed",
+      "value": 0.23807670379162493
+    },
+    {
+      "action": 1,
+      "error": 4.835418910377338e-12,
+      "evaluations": 210,
+      "observation": 1.5720499275361788,
+      "outer_callback": 192,
+      "status": "completed",
+      "value": 0.2694504464491971
+    },
+    {
+      "action": 0,
+      "error": 6.727608447731941e-10,
+      "evaluations": 150,
+      "observation": -2.6090066190911005,
+      "outer_callback": 193,
+      "status": "completed",
+      "value": 1.4168656246026785
+    },
+    {
+      "action": 1,
+      "error": 7.3799433591622014e-09,
+      "evaluations": 150,
+      "observation": -2.6090066190911005,
+      "outer_callback": 193,
+      "status": "completed",
+      "value": 1.166114545284522
+    },
+    {
+      "action": 0,
+      "error": 3.902646940678943e-09,
+      "evaluations": 150,
+      "observation": -0.772049927536179,
+      "outer_callback": 194,
+      "status": "completed",
+      "value": 0.36023059925429435
+    },
+    {
+      "action": 1,
+      "error": 6.189011951353621e-09,
+      "evaluations": 150,
+      "observation": -0.772049927536179,
+      "outer_callback": 194,
+      "status": "completed",
+      "value": 0.2284145126673955
+    },
+    {
+      "action": 0,
+      "error": 9.480130678421084e-12,
+      "evaluations": 210,
+      "observation": 3.1848656797209625,
+      "outer_callback": 195,
+      "status": "completed",
+      "value": 0.4797665008241164
+    },
+    {
+      "action": 1,
+      "error": 1.0882894615576289e-10,
+      "evaluations": 210,
+      "observation": 3.1848656797209625,
+      "outer_callback": 195,
+      "status": "completed",
+      "value": 0.542902587928952
+    },
+    {
+      "action": 0,
+      "error": 6.48703258641619e-12,
+      "evaluations": 210,
+      "observation": 1.6467940607079725,
+      "outer_callback": 196,
+      "status": "completed",
+      "value": 0.24282875518802954
+    },
+    {
+      "action": 1,
+      "error": 1.8754634908424314e-12,
+      "evaluations": 210,
+      "observation": 1.6467940607079725,
+      "outer_callback": 196,
+      "status": "completed",
+      "value": 0.2748340360618156
+    },
+    {
+      "action": 0,
+      "error": 2.0162542685111693e-10,
+      "evaluations": 150,
+      "observation": -2.3848656797209626,
+      "outer_callback": 197,
+      "status": "completed",
+      "value": 1.3839563767461434
+    },
+    {
+      "action": 1,
+      "error": 4.1990562722472565e-09,
+      "evaluations": 150,
+      "observation": -2.3848656797209626,
+      "outer_callback": 197,
+      "status": "completed",
+      "value": 1.06308966682546
+    },
+    {
+      "action": 0,
+      "error": 5.612140008845554e-09,
+      "evaluations": 150,
+      "observation": -0.8467940607079727,
+      "outer_callback": 198,
+      "status": "completed",
+      "value": 0.39360739999545885
+    },
+    {
+      "action": 1,
+      "error": 3.359286893286613e-10,
+      "evaluations": 150,
+      "observation": -0.8467940607079727,
+      "outer_callback": 198,
+      "status": "completed",
+      "value": 0.24573288743336758
+    },
+    {
+      "action": 0,
+      "error": 6.341267973086835e-12,
+      "evaluations": 210,
+      "observation": 2.934993005557202,
+      "outer_callback": 199,
+      "status": "completed",
+      "value": 0.42350172525632734
+    },
+    {
+      "action": 1,
+      "error": 6.434975898256398e-11,
+      "evaluations": 210,
+      "observation": 2.934993005557202,
+      "outer_callback": 199,
+      "status": "completed",
+      "value": 0.4792642621028111
+    },
+    {
+      "action": 0,
+      "error": 1.2200180380852147e-11,
+      "evaluations": 210,
+      "observation": 1.7483216827986814,
+      "outer_callback": 200,
+      "status": "completed",
+      "value": 0.25032543044300765
+    },
+    {
+      "action": 1,
+      "error": 2.8428148824743754e-12,
+      "evaluations": 210,
+      "observation": 1.7483216827986814,
+      "outer_callback": 200,
+      "status": "completed",
+      "value": 0.28332321788095854
+    },
+    {
+      "action": 0,
+      "error": 3.509603720007915e-10,
+      "evaluations": 150,
+      "observation": -2.1349930055572024,
+      "outer_callback": 201,
+      "status": "completed",
+      "value": 1.3468525391054549
+    },
+    {
+      "action": 1,
+      "error": 4.769027413602615e-09,
+      "evaluations": 150,
+      "observation": -2.1349930055572024,
+      "outer_callback": 201,
+      "status": "completed",
+      "value": 0.9444926864350175
+    },
+    {
+      "action": 0,
+      "error": 4.259967041365118e-09,
+      "evaluations": 150,
+      "observation": -0.9483216827986816,
+      "outer_callback": 202,
+      "status": "completed",
+      "value": 0.4541694789906371
+    },
+    {
+      "action": 1,
+      "error": 1.6016548410162313e-09,
+      "evaluations": 210,
+      "observation": -0.9483216827986816,
+      "outer_callback": 202,
+      "status": "completed",
+      "value": 0.27711070954749173
+    },
+    {
+      "action": 0,
+      "error": 3.232719873209256e-12,
+      "evaluations": 210,
+      "observation": 2.6827498777580345,
+      "outer_callback": 203,
+      "status": "completed",
+      "value": 0.3736657143430768
+    },
+    {
+      "action": 1,
+      "error": 1.977238998936403e-11,
+      "evaluations": 210,
+      "observation": 2.6827498777580345,
+      "outer_callback": 203,
+      "status": "completed",
+      "value": 0.42288980299913914
+    },
+    {
+      "action": 0,
+      "error": 1.445168879825667e-11,
+      "evaluations": 210,
+      "observation": 1.8776492361930643,
+      "outer_callback": 204,
+      "status": "completed",
+      "value": 0.26158404255471235
+    },
+    {
+      "action": 1,
+      "error": 1.0839598383074708e-11,
+      "evaluations": 210,
+      "observation": 1.8776492361930643,
+      "outer_callback": 204,
+      "status": "completed",
+      "value": 0.29606838870300056
+    },
+    {
+      "action": 0,
+      "error": 5.518541816450413e-10,
+      "evaluations": 150,
+      "observation": -1.8827498777580347,
+      "outer_callback": 205,
+      "status": "completed",
+      "value": 1.276875360859537
+    },
+    {
+      "action": 1,
+      "error": 1.4179311178567807e-09,
+      "evaluations": 150,
+      "observation": -1.8827498777580347,
+      "outer_callback": 205,
+      "status": "completed",
+      "value": 0.8124116929451861
+    },
+    {
+      "action": 0,
+      "error": 1.0219549238430457e-09,
+      "evaluations": 150,
+      "observation": -1.0776492361930645,
+      "outer_callback": 206,
+      "status": "completed",
+      "value": 0.5569047318270764
+    },
+    {
+      "action": 1,
+      "error": 6.232134107180607e-11,
+      "evaluations": 210,
+      "observation": -1.0776492361930645,
+      "outer_callback": 206,
+      "status": "completed",
+      "value": 0.3299613264525245
+    },
+    {
+      "action": 0,
+      "error": 4.012241105355993e-12,
+      "evaluations": 210,
+      "observation": 2.4431243643713847,
+      "outer_callback": 207,
+      "status": "completed",
+      "value": 0.3328092832644896
+    },
+    {
+      "action": 1,
+      "error": 1.526675659365383e-12,
+      "evaluations": 210,
+      "observation": 2.4431243643713847,
+      "outer_callback": 207,
+      "status": "completed",
+      "value": 0.37666713392658185
+    },
+    {
+      "action": 0,
+      "error": 1.1780453164859894e-11,
+      "evaluations": 210,
+      "observation": 2.0365213487643814,
+      "outer_callback": 208,
+      "status": "completed",
+      "value": 0.2779987298809361
+    },
+    {
+      "action": 1,
+      "error": 1.9586130890416356e-11,
+      "evaluations": 210,
+      "observation": 2.0365213487643814,
+      "outer_callback": 208,
+      "status": "completed",
+      "value": 0.3146465275611748
+    },
+    {
+      "action": 0,
+      "error": 6.455962789036584e-11,
+      "evaluations": 150,
+      "observation": -1.6431243643713849,
+      "outer_callback": 209,
+      "status": "completed",
+      "value": 1.1347939022900944
+    },
+    {
+      "action": 1,
+      "error": 2.1676665574721164e-11,
+      "evaluations": 150,
+      "observation": -1.6431243643713849,
+      "outer_callback": 209,
+      "status": "completed",
+      "value": 0.6692481615390263
+    },
+    {
+      "action": 0,
+      "error": 6.99751241868031e-10,
+      "evaluations": 150,
+      "observation": -1.2365213487643816,
+      "outer_callback": 210,
+      "status": "completed",
+      "value": 0.7164866906209053
+    },
+    {
+      "action": 1,
+      "error": 4.3912278919884854e-11,
+      "evaluations": 210,
+      "observation": -1.2365213487643816,
+      "outer_callback": 210,
+      "status": "completed",
+      "value": 0.4127179535301696
+    },
+    {
+      "action": 0,
+      "error": 2.7675906831309705e-09,
+      "evaluations": 150,
+      "observation": 0.6527950265408459,
+      "outer_callback": 211,
+      "status": "completed",
+      "value": 0.2495655975117124
+    },
+    {
+      "action": 1,
+      "error": 4.146898870301119e-09,
+      "evaluations": 150,
+      "observation": 0.6527950265408459,
+      "outer_callback": 211,
+      "status": "completed",
+      "value": 0.2783537704658972
+    },
+    {
+      "action": 0,
+      "error": 3.931336521785251e-10,
+      "evaluations": 150,
+      "observation": 0.14720497345915406,
+      "outer_callback": 212,
+      "status": "completed",
+      "value": 0.39054825553354705
+    },
+    {
+      "action": 1,
+      "error": 3.0286996306465888e-09,
+      "evaluations": 150,
+      "observation": 0.14720497345915406,
+      "outer_callback": 212,
+      "status": "completed",
+      "value": 0.3530504700059942
+    },
+    {
+      "action": 0,
+      "error": 6.1117524001257605e-09,
+      "evaluations": 150,
+      "observation": 0.7641090925840315,
+      "outer_callback": 213,
+      "status": "completed",
+      "value": 0.23759965723891435
+    },
+    {
+      "action": 1,
+      "error": 4.2466902849286076e-11,
+      "evaluations": 210,
+      "observation": 0.7641090925840315,
+      "outer_callback": 213,
+      "status": "completed",
+      "value": 0.2670310754390477
+    },
+    {
+      "action": 0,
+      "error": 3.82027592507161e-09,
+      "evaluations": 150,
+      "observation": 0.5572567215936229,
+      "outer_callback": 214,
+      "status": "completed",
+      "value": 0.26479348968483063
+    },
+    {
+      "action": 1,
+      "error": 2.3241898000365274e-09,
+      "evaluations": 150,
+      "observation": 0.5572567215936229,
+      "outer_callback": 214,
+      "status": "completed",
+      "value": 0.2916756639163132
+    },
+    {
+      "action": 0,
+      "error": 3.4666446555947856e-10,
+      "evaluations": 150,
+      "observation": 0.035890907415968454,
+      "outer_callback": 215,
+      "status": "completed",
+      "value": 0.41077488978702953
+    },
+    {
+      "action": 1,
+      "error": 8.158052326161646e-11,
+      "evaluations": 150,
+      "observation": 0.035890907415968454,
+      "outer_callback": 215,
+      "status": "completed",
+      "value": 0.33982851039268736
+    },
+    {
+      "action": 0,
+      "error": 7.238074380307158e-10,
+      "evaluations": 150,
+      "observation": 0.242743278406377,
+      "outer_callback": 216,
+      "status": "completed",
+      "value": 0.35832511051959415
+    },
+    {
+      "action": 1,
+      "error": 5.9930105934217034e-09,
+      "evaluations": 150,
+      "observation": 0.242743278406377,
+      "outer_callback": 216,
+      "status": "completed",
+      "value": 0.3476098912259432
+    },
+    {
+      "action": 0,
+      "error": 6.280974094617035e-09,
+      "evaluations": 150,
+      "observation": 0.7589801435244228,
+      "outer_callback": 217,
+      "status": "completed",
+      "value": 0.2380402755198314
+    },
+    {
+      "action": 1,
+      "error": 6.742415642558391e-11,
+      "evaluations": 210,
+      "observation": 0.7589801435244228,
+      "outer_callback": 217,
+      "status": "completed",
+      "value": 0.2674614366166785
+    },
+    {
+      "action": 0,
+      "error": 3.6130895279232363e-09,
+      "evaluations": 150,
+      "observation": 0.5610597418096926,
+      "outer_callback": 218,
+      "status": "completed",
+      "value": 0.26408131963864184
+    },
+    {
+      "action": 1,
+      "error": 2.1806677677786365e-09,
+      "evaluations": 150,
+      "observation": 0.5610597418096926,
+      "outer_callback": 218,
+      "status": "completed",
+      "value": 0.29107929805188637
+    },
+    {
+      "action": 0,
+      "error": 3.139422233394934e-10,
+      "evaluations": 150,
+      "observation": 0.04101985647557721,
+      "outer_callback": 219,
+      "status": "completed",
+      "value": 0.4104438867543716
+    },
+    {
+      "action": 1,
+      "error": 9.685422059480605e-11,
+      "evaluations": 150,
+      "observation": 0.04101985647557721,
+      "outer_callback": 219,
+      "status": "completed",
+      "value": 0.34091953556065435
+    },
+    {
+      "action": 0,
+      "error": 8.132637144286654e-10,
+      "evaluations": 150,
+      "observation": 0.23894025819030726,
+      "outer_callback": 220,
+      "status": "completed",
+      "value": 0.35971996906898895
+    },
+    {
+      "action": 1,
+      "error": 5.941802608420495e-09,
+      "evaluations": 150,
+      "observation": 0.23894025819030726,
+      "outer_callback": 220,
+      "status": "completed",
+      "value": 0.34806321759804293
+    },
+    {
+      "action": 0,
+      "error": 6.578684457001632e-09,
+      "evaluations": 150,
+      "observation": 0.7488833582458294,
+      "outer_callback": 221,
+      "status": "completed",
+      "value": 0.23893590468402343
+    },
+    {
+      "action": 1,
+      "error": 1.3557103379739306e-10,
+      "evaluations": 210,
+      "observation": 0.7488833582458294,
+      "outer_callback": 221,
+      "status": "completed",
+      "value": 0.26833307337802764
+    },
+    {
+      "action": 0,
+      "error": 3.151762159229023e-09,
+      "evaluations": 150,
+      "observation": 0.5686943172249596,
+      "outer_callback": 222,
+      "status": "completed",
+      "value": 0.26268017518109266
+    },
+    {
+      "action": 1,
+      "error": 1.987482727981889e-09,
+      "evaluations": 150,
+      "observation": 0.5686943172249596,
+      "outer_callback": 222,
+      "status": "completed",
+      "value": 0.2898984341629213
+    },
+    {
+      "action": 0,
+      "error": 2.655572297095301e-10,
+      "evaluations": 150,
+      "observation": 0.05111664175417058,
+      "outer_callback": 223,
+      "status": "completed",
+      "value": 0.40960781247320127
+    },
+    {
+      "action": 1,
+      "error": 1.236542393626672e-10,
+      "evaluations": 150,
+      "observation": 0.05111664175417058,
+      "outer_callback": 223,
+      "status": "completed",
+      "value": 0.34294006790395315
+    },
+    {
+      "action": 0,
+      "error": 1.0534406585574864e-09,
+      "evaluations": 150,
+      "observation": 0.23130568277504038,
+      "outer_callback": 224,
+      "status": "completed",
+      "value": 0.3625075891047016
+    },
+    {
+      "action": 1,
+      "error": 5.514454330164415e-09,
+      "evaluations": 150,
+      "observation": 0.23130568277504038,
+      "outer_callback": 224,
+      "status": "completed",
+      "value": 0.3489236001595746
+    },
+    {
+      "action": 0,
+      "error": 6.866542626214698e-09,
+      "evaluations": 150,
+      "observation": 0.7343518772188581,
+      "outer_callback": 225,
+      "status": "completed",
+      "value": 0.24029266388241904
+    },
+    {
+      "action": 1,
+      "error": 2.802653038930495e-10,
+      "evaluations": 210,
+      "observation": 0.7343518772188581,
+      "outer_callback": 225,
+      "status": "completed",
+      "value": 0.26964543282909753
+    },
+    {
+      "action": 0,
+      "error": 2.365763735004975e-09,
+      "evaluations": 150,
+      "observation": 0.5800402441855248,
+      "outer_callback": 226,
+      "status": "completed",
+      "value": 0.26066695538868706
+    },
+    {
+      "action": 1,
+      "error": 1.9933063782461707e-09,
+      "evaluations": 150,
+      "observation": 0.5800402441855248,
+      "outer_callback": 226,
+      "status": "completed",
+      "value": 0.28818412176704583
+    },
+    {
+      "action": 0,
+      "error": 2.244255685763673e-10,
+      "evaluations": 150,
+      "observation": 0.06564812278114185,
+      "outer_callback": 227,
+      "status": "completed",
+      "value": 0.40798103329068525
+    },
+    {
+      "action": 1,
+      "error": 1.1912275020893708e-10,
+      "evaluations": 150,
+      "observation": 0.06564812278114185,
+      "outer_callback": 227,
+      "status": "completed",
+      "value": 0.34554190004108964
+    },
+    {
+      "action": 0,
+      "error": 1.3643146942049489e-09,
+      "evaluations": 150,
+      "observation": 0.21995975581447508,
+      "outer_callback": 228,
+      "status": "completed",
+      "value": 0.366609595841038
+    },
+    {
+      "action": 1,
+      "error": 4.163384570711668e-09,
+      "evaluations": 150,
+      "observation": 0.21995975581447508,
+      "outer_callback": 228,
+      "status": "completed",
+      "value": 0.35007289984993517
+    },
+    {
+      "action": 0,
+      "error": 6.863062681488762e-09,
+      "evaluations": 150,
+      "observation": 0.7164483123578633,
+      "outer_callback": 229,
+      "status": "completed",
+      "value": 0.24207910559981527
+    },
+    {
+      "action": 1,
+      "error": 7.077929402299343e-09,
+      "evaluations": 150,
+      "observation": 0.7164483123578633,
+      "outer_callback": 229,
+      "status": "completed",
+      "value": 0.2713585604896363
+    },
+    {
+      "action": 0,
+      "error": 1.317127502388233e-09,
+      "evaluations": 150,
+      "observation": 0.5946335909771578,
+      "outer_callback": 230,
+      "status": "completed",
+      "value": 0.2581954192507938
+    },
+    {
+      "action": 1,
+      "error": 2.8505429115234515e-09,
+      "evaluations": 150,
+      "observation": 0.5946335909771578,
+      "outer_callback": 230,
+      "status": "completed",
+      "value": 0.2860510203253828
+    },
+    {
+      "action": 0,
+      "error": 2.0056863919134865e-10,
+      "evaluations": 150,
+      "observation": 0.08355168764213655,
+      "outer_callback": 231,
+      "status": "completed",
+      "value": 0.4053103397635458
+    },
+    {
+      "action": 1,
+      "error": 1.1099278959661345e-11,
+      "evaluations": 150,
+      "observation": 0.08355168764213655,
+      "outer_callback": 231,
+      "status": "completed",
+      "value": 0.34823247871508817
+    },
+    {
+      "action": 0,
+      "error": 1.4884023350701095e-09,
+      "evaluations": 150,
+      "observation": 0.20536640902284206,
+      "outer_callback": 232,
+      "status": "completed",
+      "value": 0.37178778070992136
+    },
+    {
+      "action": 1,
+      "error": 1.7848887918185386e-09,
+      "evaluations": 150,
+      "observation": 0.20536640902284206,
+      "outer_callback": 232,
+      "status": "completed",
+      "value": 0.3513064889134699
+    },
+    {
+      "action": 0,
+      "error": 6.220271712710875e-09,
+      "evaluations": 150,
+      "observation": 0.6962419057413796,
+      "outer_callback": 233,
+      "status": "completed",
+      "value": 0.24425612176168202
+    },
+    {
+      "action": 1,
+      "error": 1.7815429175296882e-09,
+      "evaluations": 150,
+      "observation": 0.6962419057413796,
+      "outer_callback": 233,
+      "status": "completed",
+      "value": 0.2734233549024579
+    },
+    {
+      "action": 0,
+      "error": 5.160405130961261e-10,
+      "evaluations": 150,
+      "observation": 0.6119787469133954,
+      "outer_callback": 234,
+      "status": "completed",
+      "value": 0.2554237828383923
+    },
+    {
+      "action": 1,
+      "error": 4.04308225917735e-09,
+      "evaluations": 150,
+      "observation": 0.6119787469133954,
+      "outer_callback": 234,
+      "status": "completed",
+      "value": 0.2836212958047678
+    },
+    {
+      "action": 0,
+      "error": 1.8808283661124687e-10,
+      "evaluations": 150,
+      "observation": 0.10375809425862043,
+      "outer_callback": 235,
+      "status": "completed",
+      "value": 0.4014603942520259
+    },
+    {
+      "action": 1,
+      "error": 4.427906432478368e-10,
+      "evaluations": 150,
+      "observation": 0.10375809425862043,
+      "outer_callback": 235,
+      "status": "completed",
+      "value": 0.3505669528588907
+    },
+    {
+      "action": 0,
+      "error": 1.2462073723358775e-09,
+      "evaluations": 150,
+      "observation": 0.18802125308660458,
+      "outer_callback": 236,
+      "status": "completed",
+      "value": 0.37774741036471565
+    },
+    {
+      "action": 1,
+      "error": 4.786269316084e-11,
+      "evaluations": 150,
+      "observation": 0.18802125308660458,
+      "outer_callback": 236,
+      "status": "completed",
+      "value": 0.3523833997619783
+    },
+    {
+      "action": 0,
+      "error": 4.7533549148247295e-09,
+      "evaluations": 150,
+      "observation": 0.6746945971911786,
+      "outer_callback": 237,
+      "status": "completed",
+      "value": 0.2467774228570472
+    },
+    {
+      "action": 1,
+      "error": 2.148413654010778e-09,
+      "evaluations": 150,
+      "observation": 0.6746945971911786,
+      "outer_callback": 237,
+      "status": "completed",
+      "value": 0.2757832645581451
+    },
+    {
+      "action": 0,
+      "error": 1.0167652994644847e-09,
+      "evaluations": 150,
+      "observation": 0.6315845042536977,
+      "outer_callback": 238,
+      "status": "completed",
+      "value": 0.252497687316959
+    },
+    {
+      "action": 1,
+      "error": 4.7298328101352816e-09,
+      "evaluations": 150,
+      "observation": 0.6315845042536977,
+      "outer_callback": 238,
+      "status": "completed",
+      "value": 0.28101272688914103
+    },
+    {
+      "action": 0,
+      "error": 2.1859610474549759e-10,
+      "evaluations": 150,
+      "observation": 0.1253054028088213,
+      "outer_callback": 239,
+      "status": "completed",
+      "value": 0.39646135151513007
+    },
+    {
+      "action": 1,
+      "error": 1.8620116817929466e-09,
+      "evaluations": 150,
+      "observation": 0.1253054028088213,
+      "outer_callback": 239,
+      "status": "completed",
+      "value": 0.3522276472827281
+    },
+    {
+      "action": 0,
+      "error": 7.782519761013323e-10,
+      "evaluations": 150,
+      "observation": 0.16841549574630219,
+      "outer_callback": 240,
+      "status": "completed",
+      "value": 0.3841453443524747
+    },
+    {
+      "action": 1,
+      "error": 2.0026334441418982e-09,
+      "evaluations": 150,
+      "observation": 0.16841549574630219,
+      "outer_callback": 240,
+      "status": "completed",
+      "value": 0.35304681626475165
+    },
+    {
+      "action": 0,
+      "error": 5.438402355868347e-09,
+      "evaluations": 150,
+      "observation": 0.4730296743340221,
+      "outer_callback": 241,
+      "status": "completed",
+      "value": 0.2831658473342814
+    },
+    {
+      "action": 1,
+      "error": 1.908576362382418e-09,
+      "evaluations": 150,
+      "observation": 0.4730296743340221,
+      "outer_callback": 241,
+      "status": "completed",
+      "value": 0.30617938907252
+    },
+    {
+      "action": 0,
+      "error": 8.358903828664503e-09,
+      "evaluations": 150,
+      "observation": 0.32697032566597783,
+      "outer_callback": 242,
+      "status": "completed",
+      "value": 0.3275802173135256
+    },
+    {
+      "action": 1,
+      "error": 7.628994447385094e-10,
+      "evaluations": 150,
+      "observation": 0.32697032566597783,
+      "outer_callback": 242,
+      "status": "completed",
+      "value": 0.3343487467602096
+    },
+    {
+      "action": 0,
+      "error": 3.899041209337725e-09,
+      "evaluations": 150,
+      "observation": 0.5557285296830956,
+      "outer_callback": 243,
+      "status": "completed",
+      "value": 0.265082356563966
+    },
+    {
+      "action": 1,
+      "error": 2.389294626948049e-09,
+      "evaluations": 150,
+      "observation": 0.5557285296830956,
+      "outer_callback": 243,
+      "status": "completed",
+      "value": 0.29191682243119527
+    },
+    {
+      "action": 0,
+      "error": 2.910465349012048e-09,
+      "evaluations": 150,
+      "observation": 0.4005853233334963,
+      "outer_callback": 244,
+      "status": "completed",
+      "value": 0.30325489299228303
+    },
+    {
+      "action": 1,
+      "error": 3.5318714886034813e-09,
+      "evaluations": 150,
+      "observation": 0.4005853233334963,
+      "outer_callback": 244,
+      "status": "completed",
+      "value": 0.32013382879224195
+    },
+    {
+      "action": 0,
+      "error": 7.036459409657646e-10,
+      "evaluations": 150,
+      "observation": 0.24427147031690435,
+      "outer_callback": 245,
+      "status": "completed",
+      "value": 0.35776363766140196
+    },
+    {
+      "action": 1,
+      "error": 5.983640435266277e-09,
+      "evaluations": 150,
+      "observation": 0.24427147031690435,
+      "outer_callback": 245,
+      "status": "completed",
+      "value": 0.3474232424362267
+    },
+    {
+      "action": 0,
+      "error": 2.921116421253573e-09,
+      "evaluations": 150,
+      "observation": 0.39941467666650365,
+      "outer_callback": 246,
+      "status": "completed",
+      "value": 0.3036126012405186
+    },
+    {
+      "action": 1,
+      "error": 3.533797077415147e-09,
+      "evaluations": 150,
+      "observation": 0.39941467666650365,
+      "outer_callback": 246,
+      "status": "completed",
+      "value": 0.32036438779549425
+    },
+    {
+      "action": 0,
+      "error": 4.082200825121377e-09,
+      "evaluations": 150,
+      "observation": 0.55195766417418,
+      "outer_callback": 247,
+      "status": "completed",
+      "value": 0.2658017939184275
+    },
+    {
+      "action": 1,
+      "error": 2.565806527313197e-09,
+      "evaluations": 150,
+      "observation": 0.55195766417418,
+      "outer_callback": 247,
+      "status": "completed",
+      "value": 0.29251559482542816
+    },
+    {
+      "action": 0,
+      "error": 2.977676986770227e-09,
+      "evaluations": 150,
+      "observation": 0.40349546125859853,
+      "outer_callback": 248,
+      "status": "completed",
+      "value": 0.30237010141785026
+    },
+    {
+      "action": 1,
+      "error": 3.5075349550555465e-09,
+      "evaluations": 150,
+      "observation": 0.40349546125859853,
+      "outer_callback": 248,
+      "status": "completed",
+      "value": 0.3195608365023107
+    },
+    {
+      "action": 0,
+      "error": 7.818263642148408e-10,
+      "evaluations": 150,
+      "observation": 0.24804233582581994,
+      "outer_callback": 249,
+      "status": "completed",
+      "value": 0.3563761544529871
+    },
+    {
+      "action": 1,
+      "error": 5.890083123298978e-09,
+      "evaluations": 150,
+      "observation": 0.24804233582581994,
+      "outer_callback": 249,
+      "status": "completed",
+      "value": 0.34695193532349633
+    },
+    {
+      "action": 0,
+      "error": 2.9867502204846005e-09,
+      "evaluations": 150,
+      "observation": 0.3965045387414014,
+      "outer_callback": 250,
+      "status": "completed",
+      "value": 0.30450625852667335
+    },
+    {
+      "action": 1,
+      "error": 3.518552119314341e-09,
+      "evaluations": 150,
+      "observation": 0.3965045387414014,
+      "outer_callback": 250,
+      "status": "completed",
+      "value": 0.32093763612682946
+    },
+    {
+      "action": 0,
+      "error": 4.3968415940320296e-09,
+      "evaluations": 150,
+      "observation": 0.5445233129636231,
+      "outer_callback": 251,
+      "status": "completed",
+      "value": 0.2672481778426645
+    },
+    {
+      "action": 1,
+      "error": 2.9638667849748827e-09,
+      "evaluations": 150,
+      "observation": 0.5445233129636231,
+      "outer_callback": 251,
+      "status": "completed",
+      "value": 0.2937114380148621
+    },
+    {
+      "action": 0,
+      "error": 3.259815668996e-09,
+      "evaluations": 150,
+      "observation": 0.4093309090669994,
+      "outer_callback": 252,
+      "status": "completed",
+      "value": 0.300615122835354
+    },
+    {
+      "action": 1,
+      "error": 3.3715042328330645e-09,
+      "evaluations": 150,
+      "observation": 0.4093309090669994,
+      "outer_callback": 252,
+      "status": "completed",
+      "value": 0.31841292778409397
+    },
+    {
+      "action": 0,
+      "error": 1.2294347124147719e-09,
+      "evaluations": 150,
+      "observation": 0.2554766870363769,
+      "outer_callback": 253,
+      "status": "completed",
+      "value": 0.3536341988009626
+    },
+    {
+      "action": 1,
+      "error": 5.4409677452002524e-09,
+      "evaluations": 150,
+      "observation": 0.2554766870363769,
+      "outer_callback": 253,
+      "status": "completed",
+      "value": 0.34597945164017896
+    },
+    {
+      "action": 0,
+      "error": 3.2349635668862367e-09,
+      "evaluations": 150,
+      "observation": 0.3906690909330005,
+      "outer_callback": 254,
+      "status": "completed",
+      "value": 0.3063170907861902
+    },
+    {
+      "action": 1,
+      "error": 3.402714866411515e-09,
+      "evaluations": 150,
+      "observation": 0.3906690909330005,
+      "outer_callback": 254,
+      "status": "completed",
+      "value": 0.3220871388758073
+    },
+    {
+      "action": 0,
+      "error": 4.7490758687250036e-09,
+      "evaluations": 150,
+      "observation": 0.5337978049912511,
+      "outer_callback": 255,
+      "status": "completed",
+      "value": 0.2694014317376324
+    },
+    {
+      "action": 1,
+      "error": 3.5599200001420247e-09,
+      "evaluations": 150,
+      "observation": 0.5337978049912511,
+      "outer_callback": 255,
+      "status": "completed",
+      "value": 0.29547210090599574
+    },
+    {
+      "action": 0,
+      "error": 3.778617500501297e-09,
+      "evaluations": 150,
+      "observation": 0.4179867127777681,
+      "outer_callback": 256,
+      "status": "completed",
+      "value": 0.29805962286662496
+    },
+    {
+      "action": 1,
+      "error": 2.9493929180998864e-09,
+      "evaluations": 150,
+      "observation": 0.4179867127777681,
+      "outer_callback": 256,
+      "status": "completed",
+      "value": 0.31671439541553453
+    },
+    {
+      "action": 0,
+      "error": 2.297490873492524e-09,
+      "evaluations": 150,
+      "observation": 0.26620219500874887,
+      "outer_callback": 257,
+      "status": "completed",
+      "value": 0.3496708344833357
+    },
+    {
+      "action": 1,
+      "error": 4.337013875777661e-09,
+      "evaluations": 150,
+      "observation": 0.26620219500874887,
+      "outer_callback": 257,
+      "status": "completed",
+      "value": 0.3444813020167015
+    },
+    {
+      "action": 0,
+      "error": 3.818969596057465e-09,
+      "evaluations": 150,
+      "observation": 0.3820132872222318,
+      "outer_callback": 258,
+      "status": "completed",
+      "value": 0.30904877542063075
+    },
+    {
+      "action": 1,
+      "error": 3.094195519568561e-09,
+      "evaluations": 150,
+      "observation": 0.3820132872222318,
+      "outer_callback": 258,
+      "status": "completed",
+      "value": 0.323790483823862
+    },
+    {
+      "action": 0,
+      "error": 5.033388858657992e-09,
+      "evaluations": 150,
+      "observation": 0.5205412813617579,
+      "outer_callback": 259,
+      "status": "completed",
+      "value": 0.27217395368901226
+    },
+    {
+      "action": 1,
+      "error": 4.098373734775265e-09,
+      "evaluations": 150,
+      "observation": 0.5205412813617579,
+      "outer_callback": 259,
+      "status": "completed",
+      "value": 0.297704743694347
+    },
+    {
+      "action": 0,
+      "error": 4.436894172608918e-09,
+      "evaluations": 150,
+      "observation": 0.4290912471550615,
+      "outer_callback": 260,
+      "status": "completed",
+      "value": 0.2948654919574083
+    },
+    {
+      "action": 1,
+      "error": 2.0902032632388705e-09,
+      "evaluations": 150,
+      "observation": 0.4290912471550615,
+      "outer_callback": 260,
+      "status": "completed",
+      "value": 0.3145464431620963
+    },
+    {
+      "action": 0,
+      "error": 4.0738710843342754e-09,
+      "evaluations": 150,
+      "observation": 0.27945871863824195,
+      "outer_callback": 261,
+      "status": "completed",
+      "value": 0.34477676076003183
+    },
+    {
+      "action": 1,
+      "error": 2.6770049405621195e-09,
+      "evaluations": 150,
+      "observation": 0.27945871863824195,
+      "outer_callback": 261,
+      "status": "completed",
+      "value": 0.3424884598340622
+    },
+    {
+      "action": 0,
+      "error": 4.8393912485404276e-09,
+      "evaluations": 150,
+      "observation": 0.37090875284493846,
+      "outer_callback": 262,
+      "status": "completed",
+      "value": 0.312630995470218
+    },
+    {
+      "action": 1,
+      "error": 2.5657291023489705e-09,
+      "evaluations": 150,
+      "observation": 0.37090875284493846,
+      "outer_callback": 262,
+      "status": "completed",
+      "value": 0.3259678748561016
+    },
+    {
+      "action": 0,
+      "error": 5.241930871709372e-09,
+      "evaluations": 150,
+      "observation": 0.5055234934472878,
+      "outer_callback": 263,
+      "status": "completed",
+      "value": 0.275467178450704
+    },
+    {
+      "action": 1,
+      "error": 4.130150816077267e-09,
+      "evaluations": 150,
+      "observation": 0.5055234934472878,
+      "outer_callback": 263,
+      "status": "completed",
+      "value": 0.30030670134747706
+    },
+    {
+      "action": 0,
+      "error": 5.032482804997074e-09,
+      "evaluations": 150,
+      "observation": 0.44224786242416186,
+      "outer_callback": 264,
+      "status": "completed",
+      "value": 0.2912048290223389
+    },
+    {
+      "action": 1,
+      "error": 9.524130726700636e-10,
+      "evaluations": 150,
+      "observation": 0.44224786242416186,
+      "outer_callback": 264,
+      "status": "completed",
+      "value": 0.3120005010046745
+    },
+    {
+      "action": 0,
+      "error": 6.194245778261731e-09,
+      "evaluations": 150,
+      "observation": 0.2944765065527122,
+      "outer_callback": 265,
+      "status": "completed",
+      "value": 0.3392643985039212
+    },
+    {
+      "action": 1,
+      "error": 1.0648905055177213e-09,
+      "evaluations": 150,
+      "observation": 0.2944765065527122,
+      "outer_callback": 265,
+      "status": "completed",
+      "value": 0.3400655156402387
+    },
+    {
+      "action": 0,
+      "error": 6.2281384857025015e-09,
+      "evaluations": 150,
+      "observation": 0.35775213757583807,
+      "outer_callback": 266,
+      "status": "completed",
+      "value": 0.31698345695885655
+    },
+    {
+      "action": 1,
+      "error": 1.907876522744815e-09,
+      "evaluations": 150,
+      "observation": 0.35775213757583807,
+      "outer_callback": 266,
+      "status": "completed",
+      "value": 0.32852662826974655
+    },
+    {
+      "action": 0,
+      "error": 5.383526744892359e-09,
+      "evaluations": 150,
+      "observation": 0.48944313782095117,
+      "outer_callback": 267,
+      "status": "completed",
+      "value": 0.27917756832300544
+    },
+    {
+      "action": 1,
+      "error": 3.3159911537006086e-09,
+      "evaluations": 150,
+      "observation": 0.48944313782095117,
+      "outer_callback": 267,
+      "status": "completed",
+      "value": 0.3031736328222573
+    },
+    {
+      "action": 0,
+      "error": 5.357661059369838e-09,
+      "evaluations": 150,
+      "observation": 0.4570647272855152,
+      "outer_callback": 268,
+      "status": "completed",
+      "value": 0.28724349900651347
+    },
+    {
+      "action": 1,
+      "error": 6.687551333561283e-10,
+      "evaluations": 150,
+      "observation": 0.4570647272855152,
+      "outer_callback": 268,
+      "status": "completed",
+      "value": 0.30917162901606066
+    },
+    {
+      "action": 0,
+      "error": 7.865254790107164e-09,
+      "evaluations": 150,
+      "observation": 0.31055686217904876,
+      "outer_callback": 269,
+      "status": "completed",
+      "value": 0.33343066292375434
+    },
+    {
+      "action": 1,
+      "error": 2.1987208025732157e-10,
+      "evaluations": 150,
+      "observation": 0.31055686217904876,
+      "outer_callback": 269,
+      "status": "completed",
+      "value": 0.3373067422729954
+    },
+    {
+      "action": 0,
+      "error": 7.61958893175747e-09,
+      "evaluations": 150,
+      "observation": 0.3429352727144847,
+      "outer_callback": 270,
+      "status": "completed",
+      "value": 0.32201654093017174
+    },
+    {
+      "action": 1,
+      "error": 1.2643163923922864e-09,
+      "evaluations": 150,
+      "observation": 0.3429352727144847,
+      "outer_callback": 270,
+      "status": "completed",
+      "value": 0.33136496873894505
+    },
+    {
+      "action": 0,
+      "error": 8.06818333016102e-11,
+      "evaluations": 210,
+      "observation": 16.83167672515498,
+      "outer_callback": 271,
+      "status": "completed",
+      "value": 14.021663919129866
+    },
+    {
+      "action": 1,
+      "error": 2.4319373511522135e-10,
+      "evaluations": 210,
+      "observation": 16.83167672515498,
+      "outer_callback": 271,
+      "status": "completed",
+      "value": 15.806814149587511
+    },
+    {
+      "action": 0,
+      "error": 3.5471285807292956e-09,
+      "evaluations": 210,
+      "observation": -16.031676725154984,
+      "outer_callback": 272,
+      "status": "completed",
+      "value": 16.531793484965142
+    },
+    {
+      "action": 1,
+      "error": 8.362309831676414e-10,
+      "evaluations": 210,
+      "observation": -16.031676725154984,
+      "outer_callback": 272,
+      "status": "completed",
+      "value": 18.416181904979823
+    },
+    {
+      "action": 0,
+      "error": 3.1818181712526535e-07,
+      "evaluations": 270,
+      "observation": 2050.5489199687754,
+      "outer_callback": 273,
+      "status": "completed",
+      "value": 232908.96098248346
+    },
+    {
+      "action": 1,
+      "error": 4.399102496531587e-06,
+      "evaluations": 270,
+      "observation": 2050.5489199687754,
+      "outer_callback": 273,
+      "status": "completed",
+      "value": 261567.09729145304
+    },
+    {
+      "action": 0,
+      "error": 5.659111631624227e-11,
+      "evaluations": 210,
+      "observation": 8.105717137649572,
+      "outer_callback": 274,
+      "status": "completed",
+      "value": 2.9887121181809353
+    },
+    {
+      "action": 1,
+      "error": 1.293424062396854e-11,
+      "evaluations": 210,
+      "observation": 8.105717137649572,
+      "outer_callback": 274,
+      "status": "completed",
+      "value": 3.376127597443533
+    },
+    {
+      "action": 0,
+      "error": 3.205671461656398e-07,
+      "evaluations": 270,
+      "observation": -2049.748919968775,
+      "outer_callback": 275,
+      "status": "completed",
+      "value": 233217.58393708835
+    },
+    {
+      "action": 1,
+      "error": 4.338200007217446e-06,
+      "evaluations": 270,
+      "observation": -2049.748919968775,
+      "outer_callback": 275,
+      "status": "completed",
+      "value": 261890.96157622722
+    },
+    {
+      "action": 0,
+      "error": 4.046424416476185e-09,
+      "evaluations": 210,
+      "observation": -7.305717137649571,
+      "outer_callback": 276,
+      "status": "completed",
+      "value": 4.237193566710935
+    },
+    {
+      "action": 1,
+      "error": 2.0571077347526892e-09,
+      "evaluations": 210,
+      "observation": -7.305717137649571,
+      "outer_callback": 276,
+      "status": "completed",
+      "value": 4.624641633856869
+    },
+    {
+      "action": 0,
+      "error": 8.772465317665294e-09,
+      "evaluations": 270,
+      "observation": 343.7023315730001,
+      "outer_callback": 277,
+      "status": "completed",
+      "value": 6509.616795567524
+    },
+    {
+      "action": 1,
+      "error": 1.2701188500280488e-07,
+      "evaluations": 270,
+      "observation": 343.7023315730001,
+      "outer_callback": 277,
+      "status": "completed",
+      "value": 7312.13382202985
+    },
+    {
+      "action": 0,
+      "error": 5.835606542178802e-11,
+      "evaluations": 210,
+      "observation": 8.296936337640146,
+      "outer_callback": 278,
+      "status": "completed",
+      "value": 3.1401547384980995
+    },
+    {
+      "action": 1,
+      "error": 1.2954122498096815e-11,
+      "evaluations": 210,
+      "observation": 8.296936337640146,
+      "outer_callback": 278,
+      "status": "completed",
+      "value": 3.5469774130150484
+    },
+    {
+      "action": 0,
+      "error": 9.174601847131345e-09,
+      "evaluations": 270,
+      "observation": -342.90233157300014,
+      "outer_callback": 279,
+      "status": "completed",
+      "value": 6561.298085841884
+    },
+    {
+      "action": 1,
+      "error": 1.1671198242175563e-07,
+      "evaluations": 270,
+      "observation": -342.90233157300014,
+      "outer_callback": 279,
+      "status": "completed",
+      "value": 7366.366290452013
+    },
+    {
+      "action": 0,
+      "error": 4.120163348992419e-09,
+      "evaluations": 210,
+      "observation": -7.496936337640146,
+      "outer_callback": 280,
+      "status": "completed",
+      "value": 4.414625355467637
+    },
+    {
+      "action": 1,
+      "error": 1.8240799203914258e-09,
+      "evaluations": 210,
+      "observation": -7.496936337640146,
+      "outer_callback": 280,
+      "status": "completed",
+      "value": 4.824819144413319
+    },
+    {
+      "action": 0,
+      "evaluations": 120,
+      "observation": 129.00483275354435,
+      "outer_callback": 281,
+      "status": "incomplete"
+    }
+  ],
+  "reference_qualified": false,
+  "root_action": 0,
+  "source_measurements": 0,
+  "status": "incomplete",
+  "summary": {
+    "completed_terminal_calls": 560,
+    "decisions": [
+      {
+        "chosen_action": 0,
+        "gap": -28673.377639138867,
+        "observation": -2049.748919968775
+      },
+      {
+        "chosen_action": 0,
+        "gap": -7162.58806049906,
+        "observation": -1024.1267374268825
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1787.7686585390838,
+        "observation": -511.3156461559361
+      },
+      {
+        "chosen_action": 0,
+        "gap": -805.0682046101292,
+        "observation": -342.90233157300014
+      },
+      {
+        "chosen_action": 0,
+        "gap": -445.50256549997175,
+        "observation": -254.9101005204629
+      },
+      {
+        "chosen_action": 0,
+        "gap": -200.29974481985641,
+        "observation": -170.70344322899487
+      },
+      {
+        "chosen_action": 0,
+        "gap": -49.58985695389981,
+        "observation": -84.60399905699227
+      },
+      {
+        "chosen_action": 0,
+        "gap": -27.95152320839739,
+        "observation": -63.35469381926701
+      },
+      {
+        "chosen_action": 0,
+        "gap": -12.1517834413376,
+        "observation": -41.55427697099097
+      },
+      {
+        "chosen_action": 0,
+        "gap": -7.453726919506558,
+        "observation": -32.41023491995069
+      },
+      {
+        "chosen_action": 0,
+        "gap": -6.8002087668248805,
+        "observation": -30.92962435212834
+      },
+      {
+        "chosen_action": 0,
+        "gap": -2.8087385383799095,
+        "observation": -19.67703776307834
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.8843884200146803,
+        "observation": -16.031676725154984
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.755128410099541,
+        "observation": -15.45739490247018
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.5950418494299345,
+        "observation": -14.717089618559001
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.3002795536344998,
+        "observation": -13.25417939852978
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.6824418182840297,
+        "observation": -9.566653459714452
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.6153739709969948,
+        "observation": -9.090796324034004
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.4101937889456826,
+        "observation": -7.496936337640146
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.38744806714593416,
+        "observation": -7.305717137649571
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.38301827101724406,
+        "observation": -7.268115805072325
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.3496369751551378,
+        "observation": -6.980974893729924
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.22771042509733475,
+        "observation": -5.879367141759723
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.21496419262131905,
+        "observation": -5.760449971069248
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.10503703069020309,
+        "observation": -4.738215051257931
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02218344343070533,
+        "observation": -4.035604172352061
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.021440156535183386,
+        "observation": -4.02982532668674
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.009728195769888037,
+        "observation": -3.7976756045118356
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.048669394246022346,
+        "observation": -3.5366559421214374
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10707842542855284,
+        "observation": -3.2038567807779352
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.14946312777894177,
+        "observation": -3.000745611314907
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.17163517782119508,
+        "observation": -2.9051360113196196
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.1761790153647591,
+        "observation": -2.8863353450309965
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.18074588801787672,
+        "observation": -2.867694640053472
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.2037063699723456,
+        "observation": -2.7776031710617923
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.25075107931815643,
+        "observation": -2.6090066190911005
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.32086670992068345,
+        "observation": -2.3848656797209626
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.3843190810884489,
+        "observation": -2.191961013374696
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.4023598526704374,
+        "observation": -2.1349930055572024
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.4031303980188622,
+        "observation": -2.1325024280294578
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.4644636679143508,
+        "observation": -1.8827498777580347
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.465545740751068,
+        "observation": -1.6431243643713849
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.46165752167107643,
+        "observation": -1.6213849681237997
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.3974242797883072,
+        "observation": -1.4257418583505537
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.32106293019600807,
+        "observation": -1.2700795286708642
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.31957236325031124,
+        "observation": -1.2671901058382036
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.3037687370907357,
+        "observation": -1.2365213487643816
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.22694340537455193,
+        "observation": -1.0776492361930645
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.20323520875419032,
+        "observation": -1.0206054135555527
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.17705876944314536,
+        "observation": -0.9483216827986816
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.1497104265938578,
+        "observation": -0.8542058328838016
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.14787451256209128,
+        "observation": -0.8467940607079727
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.13181608658689886,
+        "observation": -0.772049927536179
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.12834793332278752,
+        "observation": -0.7526502481522874
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.12367477353946249,
+        "observation": -0.7236790807840001
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.12095071536831345,
+        "observation": -0.7048454481546438
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.12030700211308826,
+        "observation": -0.7001352197941688
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11968073805950227,
+        "observation": -0.6954451150103322
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11907160150180038,
+        "observation": -0.6907750051166577
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11847927621905685,
+        "observation": -0.6861247625215698
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11629484754274685,
+        "observation": -0.667920566041641
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11345300141496537,
+        "observation": -0.6410790280257301
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.11185770436737583,
+        "observation": -0.6238471687998619
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.1075337244065998,
+        "observation": -0.5624684924458163
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10723413262699466,
+        "observation": -0.5567807520403842
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10486299084562159,
+        "observation": -0.48999532923714934
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10431224480456855,
+        "observation": -0.4447102823553151
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10433812999957245,
+        "observation": -0.41210071416651967
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10531308233466441,
+        "observation": -0.33326266162432466
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.105529229915025,
+        "observation": -0.3197739452734352
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10554885500339767,
+        "observation": -0.3185286565095628
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.1062265905231902,
+        "observation": -0.2572670690061993
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10546634989953724,
+        "observation": -0.19365238137385116
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.1052545790758917,
+        "observation": -0.18733575935266572
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.10136093305244592,
+        "observation": -0.12568177166153666
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.09495606530253287,
+        "observation": -0.07383962468052618
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.09488398455004804,
+        "observation": -0.07337408717474353
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.09320357754588615,
+        "observation": -0.06296992655673378
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.08718985888293207,
+        "observation": -0.03090049503580994
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0799592069629711,
+        "observation": 0.0011972880397080887
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.07459464406094779,
+        "observation": 0.022356872334369726
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.07180178999971193,
+        "observation": 0.032768623698460564
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.07123199065150415,
+        "observation": 0.03485162832988925
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.07094637939434217,
+        "observation": 0.035890907415968454
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0706603098564203,
+        "observation": 0.036928708564436974
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.06952435119371725,
+        "observation": 0.04101985647557721
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.06780256331317336,
+        "observation": 0.04713620565814186
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.06666774456924812,
+        "observation": 0.05111664175417058
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0624391332495956,
+        "observation": 0.06564812278114185
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.06203264514035278,
+        "observation": 0.06702339382616479
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.057077861048457634,
+        "observation": 0.08355168764213655
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0535334072922396,
+        "observation": 0.09517275127850566
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.050893441393135175,
+        "observation": 0.10375809425862043
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.04769086475267914,
+        "observation": 0.11412750458606419
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.04423370423240197,
+        "observation": 0.1253054028088213
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.04305857910458766,
+        "observation": 0.12910895768941477
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.042949610685824535,
+        "observation": 0.12946188312297524
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.03749778552755284,
+        "observation": 0.14720497345915406
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.03168232443339619,
+        "observation": 0.16645586297400738
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.031098528087723065,
+        "observation": 0.16841549574630219
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.025364010602737352,
+        "observation": 0.18802125308660458
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.02052468172993488,
+        "observation": 0.20520903413947852
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.020481291796451473,
+        "observation": 0.20536640902284206
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.01951226358688163,
+        "observation": 0.20889793940863388
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.016536695991102857,
+        "observation": 0.21995975581447508
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.013583988945127023,
+        "observation": 0.23130568277504038
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.012036632713122386,
+        "observation": 0.23741985072738966
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.011656751470946025,
+        "observation": 0.23894025819030726
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.010715219293650935,
+        "observation": 0.242743278406377
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.010527439469923627,
+        "observation": 0.24350784071280968
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.01034039522517527,
+        "observation": 0.24427147031690435
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.009424219129490763,
+        "observation": 0.24804233582581994
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.007654747160783626,
+        "observation": 0.2554766870363769
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0051895324666341724,
+        "observation": 0.26620219500874887
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.003558820366782456,
+        "observation": 0.27356171610582536
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.002288300925969655,
+        "observation": 0.27945871863824195
+      },
+      {
+        "chosen_action": 1,
+        "gap": 0.0022585759180087095,
+        "observation": 0.2795985026618574
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0008011171363174752,
+        "observation": 0.2944765065527122
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0038760793492410572,
+        "observation": 0.31055686217904876
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.004161251088159235,
+        "observation": 0.31211482103939464
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.005678605032850392,
+        "observation": 0.32061964106326524
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0063190728772322124,
+        "observation": 0.3243255271511798
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.006768529446683991,
+        "observation": 0.32697032566597783
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.008927209403762904,
+        "observation": 0.340230226482574
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.009348427808773319,
+        "observation": 0.3429352727144847
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01154317131089,
+        "observation": 0.35775213757583807
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.012096116165099202,
+        "observation": 0.36169759373707655
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.012334264264577843,
+        "observation": 0.36342604669159734
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.013336879385883627,
+        "observation": 0.37090875284493846
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.013400771700052383,
+        "observation": 0.3713974334290223
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.014639402428848314,
+        "observation": 0.381177856435139
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.014741708403231246,
+        "observation": 0.3820132872222318
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.015208537226934882,
+        "observation": 0.3858830171131661
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.015770048089617128,
+        "observation": 0.3906690909330005
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01603573778654932,
+        "observation": 0.39298669870486475
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.016296919673366606,
+        "observation": 0.3952998334278442
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.016431377600156116,
+        "observation": 0.3965045387414014
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01655877906411568,
+        "observation": 0.3976549476080816
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01668777024371232,
+        "observation": 0.39882872749322884
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.016751786554975667,
+        "observation": 0.39941467666650365
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.016878935799958916,
+        "observation": 0.4005853233334963
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01694220589470602,
+        "observation": 0.4011712725067711
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01706820476197629,
+        "observation": 0.4023450523919183
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01719073508446045,
+        "observation": 0.40349546125859853
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.017318035125787334,
+        "observation": 0.40470016657215574
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.017559574583145332,
+        "observation": 0.4070133012951352
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.017797804948739948,
+        "observation": 0.4093309090669994
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.018277973467403785,
+        "observation": 0.41411698288683385
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01865477254890957,
+        "observation": 0.4179867127777681
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01873479630555197,
+        "observation": 0.4188221435648609
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.019637471448912813,
+        "observation": 0.4286025665709776
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.01968095120468799,
+        "observation": 0.4290912471550615
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.020327977330578895,
+        "observation": 0.4365739533084026
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02047251394933769,
+        "observation": 0.4383024062629234
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.020795671982335617,
+        "observation": 0.44224786242416186
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.021928130009547186,
+        "observation": 0.4570647272855152
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02212156162345008,
+        "observation": 0.45976977351742593
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.023013541738238608,
+        "observation": 0.4730296743340221
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.023180672655885748,
+        "observation": 0.47567447284882014
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.023409048436818458,
+        "observation": 0.4793803589367347
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.023908269798609993,
+        "observation": 0.4878851789606053
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.023996064499251846,
+        "observation": 0.48944313782095117
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.024839522896773047,
+        "observation": 0.5055234934472878
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02552475744692806,
+        "observation": 0.5204014973381426
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.025530790005334758,
+        "observation": 0.5205412813617579
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.025778717335295298,
+        "observation": 0.5264382838941746
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.026070669168363314,
+        "observation": 0.5337978049912511
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.026463260172197578,
+        "observation": 0.5445233129636231
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02671380090700065,
+        "observation": 0.55195766417418
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.026834465867229262,
+        "observation": 0.5557285296830956
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02685839054941963,
+        "observation": 0.5564921592871903
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.026882174231482592,
+        "observation": 0.5572567215936229
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.026997978413244528,
+        "observation": 0.5610597418096926
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.027043128449669496,
+        "observation": 0.5625801492726102
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02721825898182867,
+        "observation": 0.5686943172249596
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02751716637835877,
+        "observation": 0.5800402441855248
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.027778187237933072,
+        "observation": 0.591102060591366
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02785560107458901,
+        "observation": 0.5946335909771578
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02785898667258363,
+        "observation": 0.5947909658605214
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028197512966375515,
+        "observation": 0.6119787469133954
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028515039572182044,
+        "observation": 0.6315845042536977
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028543159005008034,
+        "observation": 0.6335441370259925
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028788172954184815,
+        "observation": 0.6527950265408459
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028969008668996127,
+        "observation": 0.6705381168770247
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.028972213380161232,
+        "observation": 0.6708910423105852
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029005841701097906,
+        "observation": 0.6746945971911786
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02909546474734309,
+        "observation": 0.6858724954139357
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029167233140775878,
+        "observation": 0.6962419057413796
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02921911118207937,
+        "observation": 0.7048272487214943
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029279454889821033,
+        "observation": 0.7164483123578633
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029347905708196648,
+        "observation": 0.7329766061738352
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029352768946678487,
+        "observation": 0.7343518772188581
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029397168694004217,
+        "observation": 0.7488833582458294
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02940725437262659,
+        "observation": 0.7528637943418581
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029421161096847087,
+        "observation": 0.7589801435244228
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029429442250714893,
+        "observation": 0.763071291435563
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02943141820013334,
+        "observation": 0.7641090925840315
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029433347550582883,
+        "observation": 0.7651483716701106
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02943706797456469,
+        "observation": 0.7672313763015394
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029452881408253084,
+        "observation": 0.7776431276656302
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029472498277497566,
+        "observation": 0.7988027119602918
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029477759901771677,
+        "observation": 0.8309004950358099
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029463600459296024,
+        "observation": 0.8629699265567337
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02945639049238724,
+        "observation": 0.8733740871747435
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029456046658509982,
+        "observation": 0.8738396246805261
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0294119984476027,
+        "observation": 0.9256817716615366
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029365141204813844,
+        "observation": 0.9873357593526657
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02936169338012637,
+        "observation": 0.9936523813738511
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.02934861579469225,
+        "observation": 1.0572670690061992
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029381621500660704,
+        "observation": 1.1185286565095627
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029382815732327122,
+        "observation": 1.1197739452734352
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029397150435453545,
+        "observation": 1.1332626616243247
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029534042244011516,
+        "observation": 1.2121007141665197
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0296180535049112,
+        "observation": 1.2447102823553151
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.029761913591450972,
+        "observation": 1.2899953292371493
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03003221969120129,
+        "observation": 1.356780752040384
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03005844829272039,
+        "observation": 1.3624684924458164
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030373476064898847,
+        "observation": 1.4238471687998617
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030472420114855736,
+        "observation": 1.44107902802573
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03063568010546522,
+        "observation": 1.4679205660416408
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030752723349744743,
+        "observation": 1.4861247625215697
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030783439193467627,
+        "observation": 1.4907750051166575
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030814620597439224,
+        "observation": 1.495445115010332
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.030846272503241096,
+        "observation": 1.5001352197941686
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03087839990904484,
+        "observation": 1.5048454481546436
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03101025759218659,
+        "observation": 1.523679080784
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.031223678394648874,
+        "observation": 1.5526502481522872
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.031373742657572146,
+        "observation": 1.5720499275361788
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03200528087378607,
+        "observation": 1.6467940607079725
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03207250391299346,
+        "observation": 1.6542058328838014
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0329977874379509,
+        "observation": 1.7483216827986814
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03379811794756865,
+        "observation": 1.8206054135555525
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.034484346148288214,
+        "observation": 1.8776492361930643
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03664779768023868,
+        "observation": 2.0365213487643814
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.037107962128860306,
+        "observation": 2.0671901058382036
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03715202304611742,
+        "observation": 2.070079528670864
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.03970519948789569,
+        "observation": 2.2257418583505535
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.04341187426009663,
+        "observation": 2.4213849681237996
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.043857850662092246,
+        "observation": 2.4431243643713847
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.049224088656062315,
+        "observation": 2.6827498777580345
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.05569352850275505,
+        "observation": 2.9325024280294576
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.055762536846483746,
+        "observation": 2.934993005557202
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.057365190872646576,
+        "observation": 2.991961013374696
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.06313608710483554,
+        "observation": 3.1848656797209625
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.07050739389666527,
+        "observation": 3.4090066190911004
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.07652279397733086,
+        "observation": 3.577603171061792
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.07990263285548327,
+        "observation": 3.667694640053472
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.08061632652789796,
+        "observation": 3.6863353450309964
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.0813411353589305,
+        "observation": 3.7051360113196194
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.08510462820467868,
+        "observation": 3.8007456113149067
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.09352931196532477,
+        "observation": 4.0038567807779355
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.10859373768360514,
+        "observation": 4.336655942121437
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.12150210671069828,
+        "observation": 4.597675604511836
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.13378845310142573,
+        "observation": 4.82982532668674
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.13410395824628862,
+        "observation": 4.8356041723520615
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.17595490695052307,
+        "observation": 5.538215051257931
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.24916688722152225,
+        "observation": 6.560449971069248
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.2586289023160324,
+        "observation": 6.679367141759724
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.35561557899394636,
+        "observation": 7.780974893729924
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.38365873666385397,
+        "observation": 8.068115805072326
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.3874154792625979,
+        "observation": 8.105717137649572
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.406822674516949,
+        "observation": 8.296936337640146
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.5882259570605441,
+        "observation": 9.890796324034005
+      },
+      {
+        "chosen_action": 0,
+        "gap": -0.6491717262330399,
+        "observation": 10.366653459714453
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.2269176803455988,
+        "observation": 14.054179398529781
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.5077755410440954,
+        "observation": 15.517089618559002
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.661069191213361,
+        "observation": 16.25739490247018
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1.7851502304576456,
+        "observation": 16.83167672515498
+      },
+      {
+        "chosen_action": 0,
+        "gap": -2.6779588683123876,
+        "observation": 20.477037763078336
+      },
+      {
+        "chosen_action": 0,
+        "gap": -6.578925322990564,
+        "observation": 31.729624352128337
+      },
+      {
+        "chosen_action": 0,
+        "gap": -7.2208989389983245,
+        "observation": 33.210234919950686
+      },
+      {
+        "chosen_action": 0,
+        "gap": -11.848519010244317,
+        "observation": 42.354276970990966
+      },
+      {
+        "chosen_action": 0,
+        "gap": -27.483210855074446,
+        "observation": 64.15469381926701
+      },
+      {
+        "chosen_action": 0,
+        "gap": -48.96214906654586,
+        "observation": 85.40399905699228
+      },
+      {
+        "chosen_action": 0,
+        "gap": -199.02980763919845,
+        "observation": 171.50344322899488
+      },
+      {
+        "chosen_action": 0,
+        "gap": -443.6059130223489,
+        "observation": 255.7101005204629
+      },
+      {
+        "chosen_action": 0,
+        "gap": -802.5170264623266,
+        "observation": 343.7023315730001
+      },
+      {
+        "chosen_action": 0,
+        "gap": -1783.9650933444245,
+        "observation": 512.1156461559361
+      },
+      {
+        "chosen_action": 0,
+        "gap": -7154.971730863341,
+        "observation": 1024.9267374268827
+      },
+      {
+        "chosen_action": 0,
+        "gap": -28658.13630896958,
+        "observation": 2050.5489199687754
+      }
+    ],
+    "inner_max_evaluations": 270,
+    "inner_median_evaluations": 150,
+    "outer_callbacks": 281,
+    "sampled_switch_intervals": [
+      [
+        -4.02982532668674,
+        -3.7976756045118356
+      ],
+      [
+        0.2795985026618574,
+        0.2944765065527122
+      ]
+    ],
+    "terminal_calls": 561,
+    "terminal_evaluations": 99720,
+    "total_evaluations": 100001
+  }
+}
