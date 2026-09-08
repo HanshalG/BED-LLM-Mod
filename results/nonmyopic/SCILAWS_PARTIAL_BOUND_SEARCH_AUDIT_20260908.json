@@ -1,0 +1,833 @@
+{
+  "complete_depth_coverage": false,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "public_prior_runtime_only_not_calibration_or_depth_efficacy",
+  "model_calls": 0,
+  "paid_authorization": false,
+  "paid_cost_usd": 0,
+  "per_plan_nodes_cap": 100000,
+  "per_plan_seconds_cap": 5,
+  "policy_endpoint_authorization": false,
+  "quadrature_order": 8,
+  "schema_version": 1,
+  "source_measurements": 0,
+  "tasks": [
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 65,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.20816694649343623,
+          "root_action_values": [
+            [
+              0,
+              0.20816694649343623
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.20817966471169747
+            ],
+            [
+              2,
+              0.21299769746999464
+            ],
+            [
+              3,
+              0.2134418661735846
+            ],
+            [
+              4,
+              0.21576918384632796
+            ],
+            [
+              5,
+              0.2102459591748331
+            ],
+            [
+              6,
+              0.20909701371866765
+            ],
+            [
+              7,
+              0.21883372894508213
+            ]
+          ],
+          "seconds": 0.03198895906098187,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 3169,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 454,
+          "risk": 0.16612353905764538,
+          "root_action_values": [
+            [
+              1,
+              0.16612371545758492
+            ],
+            [
+              2,
+              0.1661235390576454
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.16735424464396004
+            ],
+            [
+              3,
+              0.1666699024247262
+            ],
+            [
+              4,
+              0.1671055728457363
+            ],
+            [
+              5,
+              0.16806583973274852
+            ],
+            [
+              6,
+              0.16661811793554682
+            ],
+            [
+              7,
+              0.16695378401361805
+            ]
+          ],
+          "seconds": 0.6491121670696884,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 65,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.19638585991042423,
+          "root_action_values": [
+            [
+              0,
+              0.19638585991042426
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.1994021137737184
+            ],
+            [
+              2,
+              0.2038098788912148
+            ],
+            [
+              3,
+              0.20029720661377332
+            ],
+            [
+              4,
+              0.19939605032980512
+            ],
+            [
+              5,
+              0.19901480387256104
+            ],
+            [
+              6,
+              0.2006271885615793
+            ],
+            [
+              7,
+              0.20885994834894617
+            ]
+          ],
+          "seconds": 0.021880374988541007,
+          "status": "completed"
+        },
+        {
+          "action": 5,
+          "depth": 2,
+          "nodes": 4555,
+          "partially_pruned_actions": 1,
+          "pruned_actions": 747,
+          "risk": 0.15778306485171542,
+          "root_action_values": [
+            [
+              2,
+              0.1579617285717413
+            ],
+            [
+              4,
+              0.15778307140075643
+            ],
+            [
+              5,
+              0.15778306485171542
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.1585526047968897
+            ],
+            [
+              1,
+              0.15779202192967537
+            ],
+            [
+              3,
+              0.15778509504975685
+            ],
+            [
+              6,
+              0.15778509504975685
+            ],
+            [
+              7,
+              0.15836484344244883
+            ]
+          ],
+          "seconds": 0.6636861672159284,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 33,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.18706444585847834,
+          "root_action_values": [
+            [
+              0,
+              0.18706444585847834
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.18980873755527627
+            ],
+            [
+              2,
+              0.19000060741040958
+            ],
+            [
+              3,
+              0.19222024308774738
+            ],
+            [
+              4,
+              0.18801867359407687
+            ],
+            [
+              5,
+              0.18791610429133898
+            ],
+            [
+              6,
+              0.19248354175370164
+            ],
+            [
+              7,
+              0.1939700285444964
+            ]
+          ],
+          "seconds": 0.006859584013000131,
+          "status": "completed"
+        },
+        {
+          "action": 6,
+          "depth": 2,
+          "nodes": 10360,
+          "partially_pruned_actions": 3,
+          "pruned_actions": 671,
+          "risk": 0.15026686371633244,
+          "root_action_values": [
+            [
+              3,
+              0.1502669612948928
+            ],
+            [
+              6,
+              0.15026686371633244
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.15130040193810468
+            ],
+            [
+              1,
+              0.15026953248805092
+            ],
+            [
+              2,
+              0.15026836135516825
+            ],
+            [
+              4,
+              0.15062342660539896
+            ],
+            [
+              5,
+              0.15068845488351493
+            ],
+            [
+              7,
+              0.15027461484106394
+            ]
+          ],
+          "seconds": 0.7090917909517884,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 33,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.18706444585847834,
+          "root_action_values": [
+            [
+              0,
+              0.18706444585847834
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.18980873755527627
+            ],
+            [
+              2,
+              0.19000060741040958
+            ],
+            [
+              3,
+              0.19222024308774738
+            ],
+            [
+              4,
+              0.18801867359407687
+            ],
+            [
+              5,
+              0.18791610429133898
+            ],
+            [
+              6,
+              0.19248354175370164
+            ],
+            [
+              7,
+              0.1939700285444964
+            ]
+          ],
+          "seconds": 0.007043875055387616,
+          "status": "completed"
+        },
+        {
+          "action": 6,
+          "depth": 2,
+          "nodes": 10360,
+          "partially_pruned_actions": 3,
+          "pruned_actions": 671,
+          "risk": 0.15026686371633244,
+          "root_action_values": [
+            [
+              3,
+              0.1502669612948928
+            ],
+            [
+              6,
+              0.15026686371633244
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.15130040193810468
+            ],
+            [
+              1,
+              0.15026953248805092
+            ],
+            [
+              2,
+              0.15026836135516825
+            ],
+            [
+              4,
+              0.15062342660539896
+            ],
+            [
+              5,
+              0.15068845488351493
+            ],
+            [
+              7,
+              0.15027461484106394
+            ]
+          ],
+          "seconds": 0.6436455000657588,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 33,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.18706444585847834,
+          "root_action_values": [
+            [
+              0,
+              0.18706444585847834
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.18980873755527627
+            ],
+            [
+              2,
+              0.19000060741040958
+            ],
+            [
+              3,
+              0.19222024308774738
+            ],
+            [
+              4,
+              0.18801867359407687
+            ],
+            [
+              5,
+              0.18791610429133898
+            ],
+            [
+              6,
+              0.19248354175370164
+            ],
+            [
+              7,
+              0.1939700285444964
+            ]
+          ],
+          "seconds": 0.00706208311021328,
+          "status": "completed"
+        },
+        {
+          "action": 6,
+          "depth": 2,
+          "nodes": 10360,
+          "partially_pruned_actions": 3,
+          "pruned_actions": 671,
+          "risk": 0.15026686371633244,
+          "root_action_values": [
+            [
+              3,
+              0.15026696129489284
+            ],
+            [
+              6,
+              0.15026686371633244
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.15130040193810468
+            ],
+            [
+              1,
+              0.15026953248805092
+            ],
+            [
+              2,
+              0.15026836135516825
+            ],
+            [
+              4,
+              0.15062342660539896
+            ],
+            [
+              5,
+              0.15068845488351493
+            ],
+            [
+              7,
+              0.15027461484106394
+            ]
+          ],
+          "seconds": 0.6525691249407828,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 65,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.19638585991042423,
+          "root_action_values": [
+            [
+              0,
+              0.19638585991042426
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.19940211377371836
+            ],
+            [
+              2,
+              0.2038098788912148
+            ],
+            [
+              3,
+              0.20029720661377334
+            ],
+            [
+              4,
+              0.19939605032980506
+            ],
+            [
+              5,
+              0.19901480387256104
+            ],
+            [
+              6,
+              0.2006271885615793
+            ],
+            [
+              7,
+              0.20885994834894617
+            ]
+          ],
+          "seconds": 0.02080449997447431,
+          "status": "completed"
+        },
+        {
+          "action": 5,
+          "depth": 2,
+          "nodes": 4555,
+          "partially_pruned_actions": 1,
+          "pruned_actions": 747,
+          "risk": 0.15778306485171545,
+          "root_action_values": [
+            [
+              2,
+              0.15796172857174126
+            ],
+            [
+              4,
+              0.15778307140075645
+            ],
+            [
+              5,
+              0.15778306485171542
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.1585526047968897
+            ],
+            [
+              1,
+              0.1577920219296754
+            ],
+            [
+              3,
+              0.15778509504975685
+            ],
+            [
+              6,
+              0.15778509504975685
+            ],
+            [
+              7,
+              0.15836484344244883
+            ]
+          ],
+          "seconds": 0.679654625011608,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 33,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.18706444585847834,
+          "root_action_values": [
+            [
+              0,
+              0.18706444585847834
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.18980873755527627
+            ],
+            [
+              2,
+              0.19000060741040958
+            ],
+            [
+              3,
+              0.19222024308774738
+            ],
+            [
+              4,
+              0.18801867359407687
+            ],
+            [
+              5,
+              0.18791610429133898
+            ],
+            [
+              6,
+              0.19248354175370164
+            ],
+            [
+              7,
+              0.1939700285444964
+            ]
+          ],
+          "seconds": 0.006862540962174535,
+          "status": "completed"
+        },
+        {
+          "action": 6,
+          "depth": 2,
+          "nodes": 10360,
+          "partially_pruned_actions": 3,
+          "pruned_actions": 671,
+          "risk": 0.15026686371633244,
+          "root_action_values": [
+            [
+              3,
+              0.1502669612948928
+            ],
+            [
+              6,
+              0.15026686371633244
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.15130040193810468
+            ],
+            [
+              1,
+              0.15026953248805092
+            ],
+            [
+              2,
+              0.15026836135516825
+            ],
+            [
+              4,
+              0.15062342660539896
+            ],
+            [
+              5,
+              0.15068845488351493
+            ],
+            [
+              7,
+              0.15027461484106394
+            ]
+          ],
+          "seconds": 0.6415488340426236,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 33,
+          "partially_pruned_actions": 0,
+          "pruned_actions": 7,
+          "risk": 0.18706444585847834,
+          "root_action_values": [
+            [
+              0,
+              0.18706444585847834
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              1,
+              0.18980873755527627
+            ],
+            [
+              2,
+              0.19000060741040958
+            ],
+            [
+              3,
+              0.19222024308774738
+            ],
+            [
+              4,
+              0.18801867359407687
+            ],
+            [
+              5,
+              0.18791610429133898
+            ],
+            [
+              6,
+              0.19248354175370164
+            ],
+            [
+              7,
+              0.1939700285444964
+            ]
+          ],
+          "seconds": 0.007944707991555333,
+          "status": "completed"
+        },
+        {
+          "action": 6,
+          "depth": 2,
+          "nodes": 10360,
+          "partially_pruned_actions": 3,
+          "pruned_actions": 671,
+          "risk": 0.15026686371633244,
+          "root_action_values": [
+            [
+              3,
+              0.1502669612948928
+            ],
+            [
+              6,
+              0.15026686371633244
+            ]
+          ],
+          "root_pruned_lower_bounds": [
+            [
+              0,
+              0.15130040193810468
+            ],
+            [
+              1,
+              0.15026953248805092
+            ],
+            [
+              2,
+              0.15026836135516825
+            ],
+            [
+              4,
+              0.15062342660539896
+            ],
+            [
+              5,
+              0.15068845488351493
+            ],
+            [
+              7,
+              0.15027461484106394
+            ]
+          ],
+          "seconds": 0.6419014998245984,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ],
+  "use_chance_bounds": true
+}
