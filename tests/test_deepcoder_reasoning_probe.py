@@ -41,6 +41,16 @@ def test_truncation_and_cost_fail():
         g.validate_response(r)
 
 
+def test_reasoning_exhausts_entire_completion_budget():
+    r = raw()
+    r['usage']['completion_tokens'] = 16384
+    r['usage']['completion_tokens_details']['reasoning_tokens'] = 16384
+    r['choices'][0]['finish_reason'] = 'length'
+    r['choices'][0]['message']['content'] = None
+    with pytest.raises(ValueError, match='incomplete response'):
+        g.validate_response(r)
+
+
 def test_full_paired_probe_without_target_access(tmp_path,monkeypatch):
     import json
     import hashlib
