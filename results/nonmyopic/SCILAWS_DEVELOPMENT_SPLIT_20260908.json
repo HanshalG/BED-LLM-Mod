@@ -1,0 +1,248 @@
+{
+  "dataset_revision": "15b93258fabc8f1785c5a5ffd4d3e51fc15dd860",
+  "development": [
+    {
+      "discipline": "Social Sciences",
+      "license_declared": "CC-BY-SA-3.0",
+      "metadata_path": "tasks/typeI/baseball_pythagorean_winpct_lahman__win_pct/metadata.yaml",
+      "metadata_sha256": "ab1630cb1958cc3fd4dc435304ac9678f96eaedf6e36524393285f11d49b72aa",
+      "source_family": "baseball_pythagorean_winpct_lahman",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "discipline": "Ecology & Hydrology",
+      "license_declared": "CC-BY-2.5",
+      "metadata_path": "tasks/typeI/bird_flight_speed_alerstam__Ue/metadata.yaml",
+      "metadata_sha256": "41638001acd714fdeb92cbcc6a49d0c607247c756831f3ab9d5f7eb0f97c31c4",
+      "source_family": "bird_flight_speed_alerstam",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "discipline": "Ecology & Hydrology",
+      "license_declared": "CC0-1.0",
+      "metadata_path": "tasks/typeI/lake_thermocline_depth_pilla__z_t/metadata.yaml",
+      "metadata_sha256": "84cf933bfe602a6a2d15f3d62b6f928855ec7819bfaae1f04fd02f2008c4c029",
+      "source_family": "lake_thermocline_depth_pilla",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "discipline": "Materials & Engineering",
+      "license_declared": "NASA-Public",
+      "metadata_path": "tasks/typeI/liion_capacity_fade_nasa_pcoe__capacity_Ah/metadata.yaml",
+      "metadata_sha256": "f5665be75968bd42440e4d696cfddf1859c9649cdffe723f2aaaae899eb082ae",
+      "source_family": "liion_capacity_fade_nasa_pcoe",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "LicenseRef-NASA-PublicDomain",
+      "metadata_path": "tasks/typeI/mars_crater_size_frequency__N_cum/metadata.yaml",
+      "metadata_sha256": "fb4c09eeebe7953906594ff8b17cb4bdf46a585edd8f828c81fca9bf1156df2d",
+      "source_family": "mars_crater_size_frequency",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "discipline": "Biology",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/spirometry_nhanes__FEV1_L/metadata.yaml",
+      "metadata_sha256": "eb92a42f8b96f78f646630b41684eb7ac73a46b5ca8e803cfa1c581a57f9a433",
+      "source_family": "spirometry_nhanes",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/volcanic_column_mer_ivespa__H_top/metadata.yaml",
+      "metadata_sha256": "8422052d90436650c290743846d220195a81a0663b14928942ac5735df8e17b0",
+      "source_family": "volcanic_column_mer_ivespa",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "discipline": "Materials & Engineering",
+      "license_declared": "ODbL",
+      "metadata_path": "tasks/typeI/wind_turbine_power_curve_engie__power_kW/metadata.yaml",
+      "metadata_sha256": "0e039390b085a18a4e5d34be19edfe5bdf2aabc7326ce0b4aa6369829edd603a",
+      "source_family": "wind_turbine_power_curve_engie",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ],
+  "guarded_siblings": [
+    {
+      "discipline": "Biology",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/spirometry_nhanes__FVC_L/metadata.yaml",
+      "metadata_sha256": "53104da11e2eba77bd803b2ff40b266330f179a3d09012e5b4af2d2aef02c119",
+      "source_family": "spirometry_nhanes",
+      "task_id": "spirometry_nhanes__FVC_L"
+    }
+  ],
+  "holdout_candidates": [
+    {
+      "discipline": "Astronomy",
+      "license_declared": "GPL-3.0-or-later (ATNF psrcat v2.8.0 distribution, CSIRO/ATNF)",
+      "metadata_path": "tasks/typeI/binary_pulsar_post_keplerian_atnf__PBDOT/metadata.yaml",
+      "metadata_sha256": "5549c781b1079b36d3697ec5812503f763462235805e7eeae4e13a754d7822ba",
+      "source_family": "binary_pulsar_post_keplerian_atnf",
+      "task_id": "binary_pulsar_post_keplerian_atnf__PBDOT"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/cepheid_period_luminosity__M_W/metadata.yaml",
+      "metadata_sha256": "ffa9ac5bd44456c2d2644830520a85fb2aed3cff41d71ff3d696e47b55a71ff5",
+      "source_family": "cepheid_period_luminosity",
+      "task_id": "cepheid_period_luminosity__M_W"
+    },
+    {
+      "discipline": "Biology",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/drosophila_isolation_by_distance_dest__M_stat/metadata.yaml",
+      "metadata_sha256": "ec440465c3952e2eb4450dd5a9642c02c703ef5fe9e36af33ffac5fe03de15ba",
+      "source_family": "drosophila_isolation_by_distance_dest",
+      "task_id": "drosophila_isolation_by_distance_dest__M_stat"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/eclipsing_binary_mass_luminosity_debcat__log_L_Lsun/metadata.yaml",
+      "metadata_sha256": "f8b232fe71d94711ca79871d5451daf3ea38cf2f101b0948f479a2edf2ef4acf",
+      "source_family": "eclipsing_binary_mass_luminosity_debcat",
+      "task_id": "eclipsing_binary_mass_luminosity_debcat__log_L_Lsun"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/exfor_neutron_capture_resonance_gold__sigma_E/metadata.yaml",
+      "metadata_sha256": "c8757316a22d336ed8a9f0e56cda5b14029ac11acf4b63406e3709e2486e3cc5",
+      "source_family": "exfor_neutron_capture_resonance_gold",
+      "task_id": "exfor_neutron_capture_resonance_gold__sigma_E"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "CC0-1.0",
+      "metadata_path": "tasks/typeI/exoplanet_mass_radius__R/metadata.yaml",
+      "metadata_sha256": "4ce832943c6db9602774146e3c73f97304fbc99f3c639cd43748155f4524e331",
+      "source_family": "exoplanet_mass_radius",
+      "task_id": "exoplanet_mass_radius__R"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "Public Domain",
+      "metadata_path": "tasks/typeI/galaxy_mass_metallicity_sdss__oh/metadata.yaml",
+      "metadata_sha256": "b9feec6ea34f8d01f3a61bf4c5237c81246687229f2a2535fb5631ac6ac001c7",
+      "source_family": "galaxy_mass_metallicity_sdss",
+      "task_id": "galaxy_mass_metallicity_sdss__oh"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "Public Domain",
+      "metadata_path": "tasks/typeI/gravity_wgs84_somigliana__g0/metadata.yaml",
+      "metadata_sha256": "46da90ced824d8d705cff5178c678da4411f897bc3954092f14d80d403d9ab16",
+      "source_family": "gravity_wgs84_somigliana",
+      "task_id": "gravity_wgs84_somigliana__g0"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC0-1.0",
+      "metadata_path": "tasks/typeI/gutenberg_richter_b_value_usgs__gr_freq_mag/metadata.yaml",
+      "metadata_sha256": "bd7ac4e8fb3985a03cc495f15900a27bc9b9c65c08e626db3d79ef225f7a4cfd",
+      "source_family": "gutenberg_richter_b_value_usgs",
+      "task_id": "gutenberg_richter_b_value_usgs__gr_freq_mag"
+    },
+    {
+      "discipline": "Materials & Engineering",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/hea_hardness_lattice_distortion_couzinie__HV/metadata.yaml",
+      "metadata_sha256": "3a54c08a4c6fa51bd3e48777da1f1c9767ff24397b627b612a8ca814d7fadfee",
+      "source_family": "hea_hardness_lattice_distortion_couzinie",
+      "task_id": "hea_hardness_lattice_distortion_couzinie__HV"
+    },
+    {
+      "discipline": "Social Sciences",
+      "license_declared": "CC0-1.0",
+      "metadata_path": "tasks/typeI/life_expectancy_preston__e0_vs_gdppc/metadata.yaml",
+      "metadata_sha256": "3e7cffc846220739cbe91eb76cd97a271e8950c586381389277859ee47d72171",
+      "source_family": "life_expectancy_preston",
+      "task_id": "life_expectancy_preston__e0_vs_gdppc"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/liquid_dispersion_glycols__refractive_index/metadata.yaml",
+      "metadata_sha256": "aa0fecc325fec3441cb197745a04519d34a3ef42c677121e65bef59c6ff99209",
+      "source_family": "liquid_dispersion_glycols",
+      "task_id": "liquid_dispersion_glycols__refractive_index"
+    },
+    {
+      "discipline": "Materials & Engineering",
+      "license_declared": "Public Domain",
+      "metadata_path": "tasks/typeI/lpbf_meltpool_rosenthal_inconel__depth/metadata.yaml",
+      "metadata_sha256": "7e3ab7b40e14b424268df51a79c469b05a6d679a09aa0dd8c48bbea8b26e7901",
+      "source_family": "lpbf_meltpool_rosenthal_inconel",
+      "task_id": "lpbf_meltpool_rosenthal_inconel__depth"
+    },
+    {
+      "discipline": "Biology",
+      "license_declared": "CC-BY-3.0",
+      "metadata_path": "tasks/typeI/metabolic_scaling_anage__log_bmr_W/metadata.yaml",
+      "metadata_sha256": "0cc8a4315cff63a820f22a64e61fb24b7e332222a032193d5eac8f5291fe21b1",
+      "source_family": "metabolic_scaling_anage",
+      "task_id": "metabolic_scaling_anage__log_bmr_W"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "LicenseRef-NASA-PublicDomain",
+      "metadata_path": "tasks/typeI/neo_size_frequency_distribution__N_cum_H/metadata.yaml",
+      "metadata_sha256": "3bca5ab48ffd9975dd51123119b4dc4237f76a35e761788eeb58ed349dcebcff",
+      "source_family": "neo_size_frequency_distribution",
+      "task_id": "neo_size_frequency_distribution__N_cum_H"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/pp_total_cross_section_donnachie_landshoff__sigma_tot/metadata.yaml",
+      "metadata_sha256": "78e01d4e2ba729524d190e76c9eaa7fbaa6ce01f0201bf1e7217b7f59ffacbcf",
+      "source_family": "pp_total_cross_section_donnachie_landshoff",
+      "task_id": "pp_total_cross_section_donnachie_landshoff__sigma_tot"
+    },
+    {
+      "discipline": "Earth & Physics",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/proton_em_form_factor__GE_over_GD/metadata.yaml",
+      "metadata_sha256": "191c2da1d7f9f199b2095dbebe0ce0459e1fbe7d2a9c9f8f5c67a2f12690ac2a",
+      "source_family": "proton_em_form_factor",
+      "task_id": "proton_em_form_factor__GE_over_GD"
+    },
+    {
+      "discipline": "Ecology & Hydrology",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/rock_core_permeability_norweg__log_k/metadata.yaml",
+      "metadata_sha256": "0556769c5aa687f107af21aca6b01924376f54c80cc1895e95f93647681e98b8",
+      "source_family": "rock_core_permeability_norweg",
+      "task_id": "rock_core_permeability_norweg__log_k"
+    },
+    {
+      "discipline": "Astronomy",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/sne_ia_distance_modulus_pantheonplus__mu/metadata.yaml",
+      "metadata_sha256": "2ea87642a584d27c2e05dfd6cc79d6c8337c2da4845c865aeac18c590d7ec898",
+      "source_family": "sne_ia_distance_modulus_pantheonplus",
+      "task_id": "sne_ia_distance_modulus_pantheonplus__mu"
+    },
+    {
+      "discipline": "Ecology & Hydrology",
+      "license_declared": "CC-BY-4.0",
+      "metadata_path": "tasks/typeI/tree_biomass_allometry_chave__agb/metadata.yaml",
+      "metadata_sha256": "05fc848d7fa879c3a0b34f7639731456b5cf9d231edf5082b9905d0e4d86c5d4",
+      "source_family": "tree_biomass_allometry_chave",
+      "task_id": "tree_biomass_allometry_chave__agb"
+    }
+  ],
+  "paid_authorization": false,
+  "policy_endpoint_authorization": false,
+  "public_metadata_sha256": "46a3ffcfdcf7481eec8343e4c78437d128dbd7176caa267f1fb0bb913d041c95",
+  "schema_version": 1,
+  "selection_salt": "scilaws-bed-source-development-v1",
+  "source_family_limitation": "Task-prefix grouping prevents shared-target siblings; it does not prove independence of underlying datasets or mechanisms.",
+  "stage": "development_source_inspection_only"
+}
