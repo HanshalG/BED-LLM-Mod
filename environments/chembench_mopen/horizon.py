@@ -298,6 +298,17 @@ class HorizonPlanner:
         def action_value(
             belief: Hashable, menu: tuple[int, ...], depth: int, action: int
         ) -> float:
+            terminal = getattr(self.model, "expected_terminal_risk", None)
+            if depth == 1 and callable(terminal):
+                value, leaf_count = terminal(belief, action)
+                leaf_count = _integer(leaf_count, "terminal leaf count", minimum=1)
+                value = float(value)
+                if not math.isfinite(value) or value < 0:
+                    raise ValueError("terminal risk must be finite and nonnegative")
+                # Charge the evaluated leaves even when their states are batched.
+                for _ in range(leaf_count):
+                    check(expand=True)
+                return value
             next_menu = remainder(menu, action)
             return math.fsum(
                 row.probability * choose(row.state, next_menu, depth - 1)[0]
@@ -309,6 +320,8 @@ class HorizonPlanner:
             check(expand=True)
             if not sequence:
                 return risk(belief)
+            if len(sequence) == 1:
+                return action_value(belief, sequence, 1, sequence[0])
             return math.fsum(
                 row.probability * sequence_value(row.state, sequence[1:])
                 for row in branches(belief, sequence[0])

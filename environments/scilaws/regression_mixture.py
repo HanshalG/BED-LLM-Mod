@@ -10,10 +10,10 @@ from functools import lru_cache
 import math
 
 import numpy as np
-from scipy.special import logsumexp, roots_jacobi
+from scipy.special import gammaln, logsumexp, roots_jacobi
 
 from environments.chembench_mopen.horizon import BeliefBranch, _integer
-from .regression_belief import RegressionBelief
+from .regression_belief import RegressionBelief, _feature_solve
 
 
 @dataclass(frozen=True)
@@ -184,7 +184,7 @@ class RegressionMixture:
         logs -= logsumexp(logs)
         return MixtureState(tuple(updated), tuple(float(v) for v in logs))
 
-    def branches(self, state, action):
+    def _quadrature(self, state, action):
         w = np.exp(self._state(state))
         action = self._action(action)
         masses = {}
@@ -201,8 +201,69 @@ class RegressionMixture:
                 y = float(y)
                 masses[y] = masses.get(y, 0.0) + float(probability)
         total = math.fsum(masses.values())
+        return tuple((y, p / total) for y, p in sorted(masses.items()) if p > 0)
+
+    def branches(self, state, action):
         return tuple(
-            BeliefBranch(y, p / total, self.condition(state, action, y))
-            for y, p in sorted(masses.items())
-            if p > 0
+            BeliefBranch(y, p, self.condition(state, action, y))
+            for y, p in self._quadrature(state, action)
         )
+
+    def expected_terminal_risk(self, state, action):
+        """Same terminal nodes/likelihoods, with vectorized conjugate updates."""
+        logs = self._state(state)
+        action = self._action(action)
+        rows = self._quadrature(state, action)
+        y, masses = np.asarray(rows).T
+        count, models, targets = len(y), len(state.components), len(self.target_weights)
+        if count * models * (targets + 32) * 8 * 5 > 64 * 1024**2:
+            raise ValueError("terminal batch workspace cap exceeded")
+        predictions, within, densities = [], [], []
+        for i, (b, x, target) in enumerate(
+            zip(
+                state.components,
+                self.action_features,
+                self.target_features,
+                strict=True,
+            )
+        ):
+            phi = x[action]
+            solved = _feature_solve(b.precision, tuple(phi))
+            denominator = 1 + phi @ solved
+            residual = y - phi @ b.mean
+            df = 2 * b.shape
+            scale2 = b.scale / b.shape * denominator
+            with np.errstate(over="raise", invalid="raise", divide="raise"):
+                densities.append(
+                    gammaln((df + 1) / 2)
+                    - gammaln(df / 2)
+                    - 0.5 * math.log(df * math.pi * scale2)
+                    - (df + 1) / 2 * np.log1p(residual**2 / scale2 / df)
+                )
+                means = np.asarray(b.mean) + residual[:, None] * (solved / denominator)
+                noise = (b.scale + 0.5 * residual**2 / denominator) / (b.shape - 0.5)
+            precision = tuple(
+                tuple(row) for row in np.asarray(b.precision) + np.outer(phi, phi)
+            )
+            within.append(
+                noise
+                * (
+                    self._target_leverage(i, precision)
+                    + int(self.include_observation_noise)
+                )
+            )
+            predictions.append(means @ target.T)
+        posterior = np.asarray(densities).T + logs
+        posterior = np.exp(posterior - logsumexp(posterior, axis=1)[:, None])
+        predictions = np.asarray(predictions).transpose(1, 0, 2)
+        average = np.sum(posterior[:, :, None] * predictions, axis=1)
+        between = (predictions - average[:, None, :]) ** 2 @ self.target_weights
+        risks = np.sum(posterior * (np.asarray(within).T + between), axis=1)
+        value = float(masses @ risks)
+        if (
+            not np.isfinite(risks).all()
+            or np.any(risks < 0)
+            or not math.isfinite(value)
+        ):
+            raise ValueError("terminal risk exceeds numeric range")
+        return value, len(rows)
