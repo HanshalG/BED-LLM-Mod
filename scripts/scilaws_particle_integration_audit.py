@@ -16,18 +16,18 @@ from scripts.scilaws_initialized_accuracy_audit import observations
 from scripts.scilaws_reference_preflight import DESIGN_SHA
 
 
-def run(output):
+def run(output, *, task_index=0, seed=1304, counts=(4, 8, 16, 32, 64)):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
     raw = Path('results/nonmyopic/SCILAWS_MEASUREMENT_DESIGN_20260908.json').read_bytes()
     if hashlib.sha256(raw).hexdigest() != DESIGN_SHA:
         raise ValueError('geometry binding mismatch')
-    design = json.loads(raw)['tasks'][0]
+    design = json.loads(raw)['tasks'][task_index]
     cases = []
     for index, scenario in enumerate(('zero', 'affine', 'quadratic')):
         exact, state, _ = initialize_corrected(design, observations(design, scenario), quadrature_order=4)
-        rng = np.random.default_rng(np.random.SeedSequence([1304, 0, index]))
+        rng = np.random.default_rng(np.random.SeedSequence([seed, task_index, index]))
         p = sample_posterior(exact, state, particles_per_family=512, rng=rng, sampling='sobol').model
         reference = ParticleReference(p, p.initial_state)
         refs, reason = [], None
@@ -37,7 +37,7 @@ def run(output):
         except (ValueError, SearchLimitExceeded) as exc:
             reason = str(exc)
         candidates = []
-        for q in (4, 8, 16, 32, 64):
+        for q in counts:
             model = QuantileGaussianModel(p.means, p.sigmas, p.targets, np.exp(p.initial_state),
                 target_weights=p.target_weights, target_conditional_variances=p.target_conditional_variances,
                 branch_count=q)
@@ -61,7 +61,7 @@ def run(output):
         print(scenario, len(refs), reason, [r['passed'] for r in candidates], flush=True)
     with output.open('x') as f:
         json.dump(dict(cases=cases, design_sha256=DESIGN_SHA, particles_per_family=512,
-                       seed=1304, source_measurements=0, model_calls=0, paid_cost_usd=0,
+                       seed=seed, source_measurements=0, model_calls=0, paid_cost_usd=0,
                        deployment_authorized=False), f, indent=2, sort_keys=True, allow_nan=False)
         f.write('\n')
 
