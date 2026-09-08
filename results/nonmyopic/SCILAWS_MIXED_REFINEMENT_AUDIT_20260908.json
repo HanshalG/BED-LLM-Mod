@@ -1,0 +1,535 @@
+{
+  "candidate_tolerance": 0.0001,
+  "cases": [
+    {
+      "assessment": {
+        "candidates": [
+          {
+            "max_root_error": 0.004928472767107617,
+            "order": 4,
+            "passed": false,
+            "regret": 0.0018041116847765104
+          },
+          {
+            "max_root_error": 0.00040756830930771537,
+            "order": 8,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 0.00015062334511767306,
+            "order": 16,
+            "passed": false,
+            "regret": 0.0
+          }
+        ],
+        "reference_max_root_delta": 1.2786698657174522e-05,
+        "reference_valid": false
+      },
+      "case": 0,
+      "history": [],
+      "rows": [
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 345,
+          "order": 4,
+          "risk": 0.26962225552603575,
+          "root_action_values": [
+            [
+              0,
+              0.2700912803638422
+            ],
+            [
+              1,
+              0.26962225552603575
+            ]
+          ],
+          "seconds": 0.036553582875058055,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 1329,
+          "order": 8,
+          "risk": 0.2728746394942278,
+          "root_action_values": [
+            [
+              0,
+              0.2728746394942278
+            ],
+            [
+              1,
+              0.27414315998383565
+            ]
+          ],
+          "seconds": 0.09151525003835559,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 5217,
+          "order": 16,
+          "risk": 0.2725959932632492,
+          "root_action_values": [
+            [
+              0,
+              0.2725959932632492
+            ],
+            [
+              1,
+              0.27456299018935615
+            ]
+          ],
+          "seconds": 0.28931349981576204,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 20673,
+          "order": 32,
+          "risk": 0.2727338299097097,
+          "root_action_values": [
+            [
+              0,
+              0.2727338299097097
+            ],
+            [
+              1,
+              0.27455104067968844
+            ]
+          ],
+          "seconds": 1.0545625831000507,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 82305,
+          "order": 64,
+          "risk": 0.27274661660836685,
+          "root_action_values": [
+            [
+              0,
+              0.27274661660836685
+            ],
+            [
+              1,
+              0.27455072829314336
+            ]
+          ],
+          "seconds": 4.443356124917045,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "assessment": {
+        "candidates": [
+          {
+            "max_root_error": 0.0005235609266324714,
+            "order": 4,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 0.0001392381403333698,
+            "order": 8,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 2.4185411907712284e-05,
+            "order": 16,
+            "passed": true,
+            "regret": 0.0
+          }
+        ],
+        "reference_max_root_delta": 7.53124696409313e-06,
+        "reference_valid": true
+      },
+      "case": 1,
+      "history": [
+        [
+          0,
+          0.7
+        ]
+      ],
+      "rows": [
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 345,
+          "order": 4,
+          "risk": 0.2200790460337907,
+          "root_action_values": [
+            [
+              0,
+              0.2200790460337907
+            ],
+            [
+              1,
+              0.2296587497364291
+            ]
+          ],
+          "seconds": 0.03774220799095929,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 1329,
+          "order": 8,
+          "risk": 0.21967588614095204,
+          "root_action_values": [
+            [
+              0,
+              0.21967588614095204
+            ],
+            [
+              1,
+              0.22980910882904812
+            ]
+          ],
+          "seconds": 0.09135650005191565,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 5217,
+          "order": 16,
+          "risk": 0.2195487635669633,
+          "root_action_values": [
+            [
+              0,
+              0.21954876356696326
+            ],
+            [
+              1,
+              0.2299725323812892
+            ]
+          ],
+          "seconds": 0.301937417127192,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 20673,
+          "order": 32,
+          "risk": 0.21954975794013287,
+          "root_action_values": [
+            [
+              0,
+              0.2195497579401329
+            ],
+            [
+              1,
+              0.2299408157224174
+            ]
+          ],
+          "seconds": 1.0763140409253538,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 82305,
+          "order": 64,
+          "risk": 0.21955548510715822,
+          "root_action_values": [
+            [
+              0,
+              0.21955548510715822
+            ],
+            [
+              1,
+              0.2299483469693815
+            ]
+          ],
+          "seconds": 4.247317999834195,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "assessment": {
+        "candidates": [
+          {
+            "max_root_error": 0.00031296915730560926,
+            "order": 4,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 2.3220685818337028e-05,
+            "order": 8,
+            "passed": true,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 3.017602657656715e-05,
+            "order": 16,
+            "passed": true,
+            "regret": 0.0
+          }
+        ],
+        "reference_max_root_delta": 2.3656019228213143e-06,
+        "reference_valid": true
+      },
+      "case": 2,
+      "history": [
+        [
+          0,
+          -0.7
+        ]
+      ],
+      "rows": [
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 345,
+          "order": 4,
+          "risk": 0.17200387089432015,
+          "root_action_values": [
+            [
+              0,
+              0.20066026992005773
+            ],
+            [
+              1,
+              0.17200387089432018
+            ]
+          ],
+          "seconds": 0.034942250000312924,
+          "status": "completed"
+        },
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 1329,
+          "order": 8,
+          "risk": 0.1718541453145101,
+          "root_action_values": [
+            [
+              0,
+              0.20037052144857045
+            ],
+            [
+              1,
+              0.1718541453145101
+            ]
+          ],
+          "seconds": 0.09424004191532731,
+          "status": "completed"
+        },
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 5217,
+          "order": 16,
+          "risk": 0.17183827557701103,
+          "root_action_values": [
+            [
+              0,
+              0.20034719690706762
+            ],
+            [
+              1,
+              0.17183827557701103
+            ]
+          ],
+          "seconds": 0.2971565828192979,
+          "status": "completed"
+        },
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 20673,
+          "order": 32,
+          "risk": 0.17186608600166475,
+          "root_action_values": [
+            [
+              0,
+              0.20034653111249479
+            ],
+            [
+              1,
+              0.17186608600166478
+            ]
+          ],
+          "seconds": 1.187299249926582,
+          "status": "completed"
+        },
+        {
+          "action": 1,
+          "depth": 2,
+          "nodes": 82305,
+          "order": 64,
+          "risk": 0.17186845160358763,
+          "root_action_values": [
+            [
+              0,
+              0.20034730076275212
+            ],
+            [
+              1,
+              0.1718684516035876
+            ]
+          ],
+          "seconds": 4.703575833002105,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "assessment": {
+        "candidates": [
+          {
+            "max_root_error": 0.0018217962844173097,
+            "order": 4,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 0.000192190979745821,
+            "order": 8,
+            "passed": false,
+            "regret": 0.0
+          },
+          {
+            "max_root_error": 3.309467525930421e-05,
+            "order": 16,
+            "passed": false,
+            "regret": 0.0
+          }
+        ],
+        "reference_max_root_delta": 3.3665877336996886e-05,
+        "reference_valid": false
+      },
+      "case": 3,
+      "history": [
+        [
+          0,
+          0.7
+        ],
+        [
+          1,
+          -0.7
+        ]
+      ],
+      "rows": [
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 345,
+          "order": 4,
+          "risk": 0.4254921879233932,
+          "root_action_values": [
+            [
+              0,
+              0.4254921879233933
+            ],
+            [
+              1,
+              0.42685678326704185
+            ]
+          ],
+          "seconds": 0.0371307919267565,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 1329,
+          "order": 8,
+          "risk": 0.42370885050780566,
+          "root_action_values": [
+            [
+              0,
+              0.42370885050780566
+            ],
+            [
+              1,
+              0.4284169272866903
+            ]
+          ],
+          "seconds": 0.09348991699516773,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 5217,
+          "order": 16,
+          "risk": 0.42364057656661963,
+          "root_action_values": [
+            [
+              0,
+              0.4236405765666197
+            ],
+            [
+              1,
+              0.42819164163168516
+            ]
+          ],
+          "seconds": 0.3048457079567015,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 20673,
+          "order": 32,
+          "risk": 0.4236645982013446,
+          "root_action_values": [
+            [
+              0,
+              0.4236645982013446
+            ],
+            [
+              1,
+              0.42819107042960747
+            ]
+          ],
+          "seconds": 1.0747473340015858,
+          "status": "completed"
+        },
+        {
+          "action": 0,
+          "depth": 2,
+          "nodes": 82305,
+          "order": 64,
+          "risk": 0.42367039163897596,
+          "root_action_values": [
+            [
+              0,
+              0.42367039163897596
+            ],
+            [
+              1,
+              0.42822473630694446
+            ]
+          ],
+          "seconds": 4.027809208026156,
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "depth": 2,
+  "interpretation": "synthetic_mixed_h2_refinement_not_h3_or_source_calibration",
+  "lower_order_deployment_authorized": false,
+  "model_calls": 0,
+  "nodes_cap": 100000,
+  "paid_cost_usd": 0,
+  "reference_tolerance": 1e-05,
+  "schema_version": 1,
+  "seconds_cap": 5,
+  "source_execution_authorized": false,
+  "source_measurements": 0
+}
