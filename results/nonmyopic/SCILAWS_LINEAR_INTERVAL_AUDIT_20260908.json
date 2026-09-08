@@ -1,0 +1,5612 @@
+{
+  "deployment_authorized": false,
+  "eligible_count": 0,
+  "midpoint_error_allowance": 1e-08,
+  "model_calls": 0,
+  "new_integrals": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2336341602610836,
+      "observation": 1.495445115010332,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2339189160583691,
+      "width": 0.0002847557972854853
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.263455014799704,
+      "observation": 1.495445115010332,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26483195258323244,
+      "width": 0.0013769377835284313
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24771863332513214,
+      "observation": -0.6954451150103322,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34580810750052793,
+      "width": 0.09808947417539579
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19499088607434817,
+      "observation": -0.6954451150103322,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21821851178822188,
+      "width": 0.023227625713873712
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 3576.6831169635784,
+      "observation": 255.7101005204629,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 3595.6196133448,
+      "width": 18.936496381221787
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4030.112722704187,
+      "observation": 255.7101005204629,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 4040.812628109365,
+      "width": 10.699905405178015
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26604450772949256,
+      "observation": 0.40470016657215574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30569830785219004,
+      "width": 0.03965380012269748
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2797536942152783,
+      "observation": 0.40470016657215574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3303579659985473,
+      "width": 0.050604271783268984
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 3612.9626410213777,
+      "observation": -254.9101005204629,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 3634.071690374659,
+      "width": 21.10904935328108
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4069.7259453490465,
+      "observation": -254.9101005204629,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 4081.341929459132,
+      "width": 11.61598411008572
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26728311226986834,
+      "observation": 0.3952998334278442,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3087275147844627,
+      "width": 0.04144440251459436
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28041668964298905,
+      "observation": 0.3952998334278442,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3325633847617537,
+      "width": 0.05214669511876463
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 94.35016184713918,
+      "observation": 42.354276970990966,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 94.74056634408315,
+      "width": 0.3904044969439724
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 106.38469608721378,
+      "observation": 42.354276970990966,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 106.62207610802037,
+      "width": 0.23738002080658305
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26294198561786764,
+      "observation": 0.4286025665709776,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2983171014757274,
+      "width": 0.03537511585785974
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2780198275446626,
+      "observation": 0.4286025665709776,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.324777321414647,
+      "width": 0.0467574938699844
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 100.31717445049051,
+      "observation": -41.55427697099097,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 101.07285015254242,
+      "width": 0.7556757020519029
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 112.89705640587812,
+      "observation": -41.55427697099097,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 113.28813962837845,
+      "width": 0.39108322250032757
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2704654788583565,
+      "observation": 0.3713974334290223,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3167381539286868,
+      "width": 0.04627267507033034
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28203611162670045,
+      "observation": 0.3713974334290223,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3381522716937484,
+      "width": 0.05611616006704795
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 11.790512434520016,
+      "observation": 15.517089618559002,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 11.820049462485358,
+      "width": 0.029537027965341522
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 13.308842810324894,
+      "observation": 15.517089618559002,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 13.33044320459423,
+      "width": 0.021600394269336576
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2566498720032248,
+      "observation": 0.4793803589367347,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2841999101843422,
+      "width": 0.027550038181117398
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2742170666250853,
+      "observation": 0.4793803589367347,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31330811147332155,
+      "width": 0.03909104484823622
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 13.954036932521731,
+      "observation": -14.717089618559001,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 14.136901530115768,
+      "width": 0.18286459759403684
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 15.66251981313911,
+      "observation": -14.717089618559001,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 15.74781026373567,
+      "width": 0.08529045059655971
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2772599094445563,
+      "observation": 0.32061964106326524,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3350588652833224,
+      "width": 0.0577989558387661
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2850127142294019,
+      "observation": 0.32061964106326524,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3495486258124533,
+      "width": 0.06453591158305139
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.7375454298575663,
+      "observation": 7.780974893729924,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.740796808109186,
+      "width": 0.0032513782516194745
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.0932765561717597,
+      "observation": 7.780974893729924,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.096754104299574,
+      "width": 0.0034775481278144227
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24748051247942698,
+      "observation": 0.5625801492726102,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.26550656891150337,
+      "width": 0.018026056432076387
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26809526350179785,
+      "observation": 0.5625801492726102,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2965745382801068,
+      "width": 0.02847927477830897
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 3.8199562122154673,
+      "observation": -6.980974893729924,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.9465692467653777,
+      "width": 0.12661303454991035
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4.2554373896165805,
+      "observation": -6.980974893729924,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.308356848413337,
+      "width": 0.0529194587967563
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2875840660078015,
+      "observation": 0.23741985072738966,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36722015624008175,
+      "width": 0.07963609023228024
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2875737957980043,
+      "observation": 0.23741985072738966,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36423859403858794,
+      "width": 0.07666479824058364
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.9265682380791376,
+      "observation": 4.597675604511836,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.9270133220712085,
+      "width": 0.00044508399207088267
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.047643980236619,
+      "observation": 4.597675604511836,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.0485880266824081,
+      "width": 0.0009440464457890485
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23682720597968915,
+      "observation": 0.6858724954139357,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24633121379870956,
+      "width": 0.009504007819020416
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.260284484266889,
+      "observation": 0.6858724954139357,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27767766783630893,
+      "width": 0.017393183569419934
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.588967771468419,
+      "observation": -3.7976756045118356,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.7883975363907259,
+      "width": 0.1994297649223069
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.7261977653381435,
+      "observation": -3.7976756045118356,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.800228738446855,
+      "width": 0.07403097310871143
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2965779992685351,
+      "observation": 0.11412750458606419,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4085481359460498,
+      "width": 0.11197013667751465
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28233831963266326,
+      "observation": 0.11412750458606419,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36691454770630794,
+      "width": 0.08457622807364468
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.43563365628720246,
+      "observation": 2.991961013374696,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.43572762374354074,
+      "width": 9.396745633827308e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.492606456883213,
+      "observation": 2.991961013374696,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.49312612414257323,
+      "width": 0.0005196672593602569
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22727719665242746,
+      "observation": 0.8629699265567337,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23114653244096164,
+      "width": 0.003869335788534184
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2528878439665269,
+      "observation": 0.8629699265567337,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2615677679738737,
+      "width": 0.008679924007346795
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.8911071031094403,
+      "observation": -2.191961013374696,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.3664188675518836,
+      "width": 0.4753117644424433
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.8865191086411381,
+      "observation": -2.191961013374696,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.009249984644608,
+      "width": 0.12273087600346977
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2858424472679837,
+      "observation": -0.06296992655673378,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4167240451869105,
+      "width": 0.13088159791892678
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2520606095128614,
+      "observation": -0.06296992655673378,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.321576212538497,
+      "width": 0.06951560302563559
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2817543505122097,
+      "observation": 2.070079528670864,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2818334255032383,
+      "width": 7.907499102860482e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.318389036896942,
+      "observation": 2.070079528670864,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3190252376711708,
+      "width": 0.0006362007742288234
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22320346525171003,
+      "observation": 1.1185286565095627,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22438713965759785,
+      "width": 0.001183674405887819
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2504934652357864,
+      "observation": 1.1185286565095627,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.25408816436726095,
+      "width": 0.0035946991314745325
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.453406942838973,
+      "observation": -1.2700795286708642,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.7865003713462984,
+      "width": 0.3330934285073254
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.38270890840093114,
+      "observation": -1.2700795286708642,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.4413183849718058,
+      "width": 0.058609476570874675
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2453584050585437,
+      "observation": -0.3185286565095628,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3477902015812977,
+      "width": 0.102431796522754
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1993792592181047,
+      "observation": -0.3185286565095628,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.23555305146386266,
+      "width": 0.03617379224575795
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6132008818683107,
+      "observation": 3.6863353450309964,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6133903225099145,
+      "width": 0.0001894406416038663
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.6934143145424769,
+      "observation": 3.6863353450309964,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6940507119667387,
+      "width": 0.0006363974242618031
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.165295166052472,
+      "observation": -2.8863353450309965,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.4744358789867784,
+      "width": 0.30914071293430645
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.2274808780868607,
+      "observation": -2.8863353450309965,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.328838287067447,
+      "width": 0.10135740898058643
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 14403.886574289178,
+      "observation": 512.1156461559361,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 14482.046400138388,
+      "width": 78.15982584921039
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 16228.693782821387,
+      "observation": 512.1156461559361,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 16272.559996130343,
+      "width": 43.8662133089565
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23411709780446782,
+      "observation": 1.5048454481546436,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23439339597453301,
+      "width": 0.0002762981700651923
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2640167471404452,
+      "observation": 1.5048454481546436,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26536800306521374,
+      "width": 0.0013512559247685352
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 14476.5999370131,
+      "observation": -511.3156461559361,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 14559.11210541673,
+      "width": 82.51216840363122
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 16308.089471002391,
+      "observation": -511.3156461559361,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 16353.790972959314,
+      "width": 45.701501956922584
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.249187517766072,
+      "observation": -0.7048454481546438,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3484889915659397,
+      "width": 0.0993014737998677
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19618657448061724,
+      "observation": -0.7048454481546438,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21951055759534593,
+      "width": 0.02332398311472869
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 392.6908376195174,
+      "observation": 85.40399905699228,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 394.5761683869826,
+      "width": 1.8853307674651774
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 442.6012996691973,
+      "observation": 85.40399905699228,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 443.69667661883864,
+      "width": 1.0953769496413202
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23673353723441687,
+      "observation": 1.5526502481522872,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.23697157910690722,
+      "width": 0.00023804187249035214
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2670490703621835,
+      "observation": 1.5526502481522872,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26828137525567763,
+      "width": 0.0012323048934941294
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 404.77228506953213,
+      "observation": -84.60399905699227,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 407.3846601301107,
+      "width": 2.612375060578586
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 455.7915732594239,
+      "observation": -84.60399905699227,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 457.19337373803626,
+      "width": 1.4018004786123583
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25774100745444284,
+      "observation": -0.7526502481522874,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.364399304548687,
+      "width": 0.10665829709424418
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.20324822093066425,
+      "observation": -0.7526502481522874,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.22731348771445745,
+      "width": 0.0240652667837932
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 52.167163371025744,
+      "observation": 31.729624352128337,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 52.36282086491043,
+      "width": 0.19565749388468845
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 58.83551167528399,
+      "observation": 31.729624352128337,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 58.95837774244161,
+      "width": 0.1228660671576236
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24317311951025872,
+      "observation": 1.6542058328838014,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2433508652613734,
+      "width": 0.00017774575111467739
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2744601707604119,
+      "observation": 1.6542058328838014,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27549313573853984,
+      "width": 0.001032964978127937
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 56.62632072423915,
+      "observation": -30.92962435212834,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 57.099844055184874,
+      "width": 0.4735233309457243
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 63.700395845203566,
+      "observation": -30.92962435212834,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 63.939993755249134,
+      "width": 0.23959791004556763
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28185645380170743,
+      "observation": -0.8542058328838016,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4113234477538579,
+      "width": 0.12946699395215044
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2237158516123156,
+      "observation": -0.8542058328838016,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2507335086342246,
+      "width": 0.027017657021909003
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 13.002680203898054,
+      "observation": 16.25739490247018,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 13.036431951198807,
+      "width": 0.033751747300753365
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 14.676157544132696,
+      "observation": 16.25739490247018,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 14.700478248797458,
+      "width": 0.02432070466476155
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2562748902346101,
+      "observation": 1.8206054135555525,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.25639379284538916,
+      "width": 0.00011890261077907027
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28942929777522935,
+      "observation": 1.8206054135555525,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.29024474482576457,
+      "width": 0.0008154470505352118
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 15.270650949776185,
+      "observation": -15.45739490247018,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 15.462746688467847,
+      "width": 0.19209573869166263
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 17.144310125025825,
+      "observation": -15.45739490247018,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 17.234487725120854,
+      "width": 0.09017760009502851
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.33801108263235385,
+      "observation": -1.0206054135555527,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.5287874393562004,
+      "width": 0.19077635672384657
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27336900554922644,
+      "observation": -1.0206054135555527,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3093388408431289,
+      "width": 0.035969835293902463
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 4.55245811262488,
+      "observation": 9.890796324034005,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.55984270138236,
+      "width": 0.007384588757480159
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 5.142155449200399,
+      "observation": 9.890796324034005,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 5.1487794524405395,
+      "width": 0.006624003240140119
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2814195160084928,
+      "observation": 2.0671901058382036,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.28149885458373863,
+      "width": 7.933857524583532e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.3180090813649975,
+      "observation": 2.0671901058382036,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.31864670503762105,
+      "width": 0.000637623672623544
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 5.926419654239354,
+      "observation": -9.090796324034004,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 6.0575430637250705,
+      "width": 0.1311234094857161
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 6.627841955595076,
+      "observation": -9.090796324034004,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 6.684905977886097,
+      "width": 0.05706402229102103
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.45192217428555015,
+      "observation": -1.2671901058382036,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.7831839972699048,
+      "width": 0.3312618229843547
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.3812401542166279,
+      "observation": -1.2671901058382036,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.43953618354918206,
+      "width": 0.05829602933255418
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.9847005973204097,
+      "observation": 6.679367141759724,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.9865704460190272,
+      "width": 0.0018698486986175045
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 2.2430924518198583,
+      "observation": 6.679367141759724,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.245413038986326,
+      "width": 0.002320587166467547
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.3293530935242058,
+      "observation": 2.4213849681237996,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3294194019610371,
+      "width": 6.630843683130827e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.37233312825342185,
+      "observation": 2.4213849681237996,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3728641201659217,
+      "width": 0.0005309919124998341
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.917532873810935,
+      "observation": -5.879367141759723,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.0503459023318955,
+      "width": 0.13281302852096033
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.2372789318296245,
+      "observation": -5.879367141759723,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.291306182865389,
+      "width": 0.05402725103576467
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6384409043443587,
+      "observation": -1.6213849681237997,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.1505500437421905,
+      "width": 0.5121091393978318
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.5790529339692342,
+      "observation": -1.6213849681237997,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.6768446737387152,
+      "width": 0.09779173976948097
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.0233961752392782,
+      "observation": 4.8356041723520615,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.0239387440641063,
+      "width": 0.0005425688248281713
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.157073334833056,
+      "observation": 4.8356041723520615,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.158125690030573,
+      "width": 0.0010523551975170076
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.42288870059079625,
+      "observation": 2.9325024280294576,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.42297768464783264,
+      "width": 8.898405703638979e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.47818879128562214,
+      "observation": 2.9325024280294576,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.4787040585344028,
+      "width": 0.0005152672487806487
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.7153938003248264,
+      "observation": -4.035604172352061,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.8993001295536605,
+      "width": 0.1839063292288341
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.8718333670664429,
+      "observation": -4.035604172352061,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.9412927295707476,
+      "width": 0.06945936250430473
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.8675223101975031,
+      "observation": -2.1325024280294578,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.3578416689089516,
+      "width": 0.4903193587114485
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.8566812540874789,
+      "observation": -2.1325024280294578,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.9796100962876905,
+      "width": 0.12292884220021161
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2317724755303864,
+      "observation": 0.7651483716701106,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23809370505541738,
+      "width": 0.006321229525030975
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25638346460415623,
+      "observation": 0.7651483716701106,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2690568350822417,
+      "width": 0.012673370478085477
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29544247675735136,
+      "observation": 0.03485162832988925,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4214778315748805,
+      "width": 0.12603535481752914
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27170003672118803,
+      "observation": 0.03485162832988925,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3527507960057639,
+      "width": 0.08105075928457589
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23316562118049278,
+      "observation": 1.4861247625215697,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23345909784797292,
+      "width": 0.00029347666748014145
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2629092981060673,
+      "observation": 1.4861247625215697,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.264312507418117,
+      "width": 0.0014032093120497358
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26635396828715285,
+      "observation": 0.4023450523919183,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30645063386192933,
+      "width": 0.04009666557477648
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2799209674587422,
+      "observation": 0.4023450523919183,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3309103498864012,
+      "width": 0.05098938242765905
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24633155521759012,
+      "observation": -0.6861247625215698,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3432929503777936,
+      "width": 0.0969613951602035
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19386787698775848,
+      "observation": -0.6861247625215698,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21701620322580414,
+      "width": 0.023148326238045663
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2669719686130854,
+      "observation": 0.3976549476080816,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30796201698566394,
+      "width": 0.040990048372578525
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2802517868514723,
+      "observation": 0.3976549476080816,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33201077725296124,
+      "width": 0.05175899040148896
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23104630054209788,
+      "observation": 1.44107902802573,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23138712409756715,
+      "width": 0.0003408235554692718
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2604299381676451,
+      "observation": 1.44107902802573,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.26197244533211356,
+      "width": 0.0015425071644684651
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26481346051339427,
+      "observation": 0.41411698288683385,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30273476667583127,
+      "width": 0.037921306162436996
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.279077866408807,
+      "observation": 0.41411698288683385,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3281523342820773,
+      "width": 0.0490744678732703
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24060169306312634,
+      "observation": -0.6410790280257301,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33311297605911055,
+      "width": 0.09251128299598421
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.18931695960724643,
+      "observation": -0.6410790280257301,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21231418998639734,
+      "width": 0.022997230379150913
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26853208623789104,
+      "observation": 0.3858830171131661,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31183159240733727,
+      "width": 0.04329950616944622
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2810671637737356,
+      "observation": 0.3858830171131661,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33477127241037063,
+      "width": 0.05370410863663505
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22773459793884865,
+      "observation": 1.356780752040384,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2281929947247117,
+      "width": 0.0004583967858630411
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25649852745742185,
+      "observation": 1.356780752040384,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.25836786127508266,
+      "width": 0.001869333817660801
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26170581739860077,
+      "observation": 0.4383024062629234,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29545556475671214,
+      "width": 0.03374974735811137
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2773016528425982,
+      "observation": 0.4383024062629234,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3225361016802784,
+      "width": 0.045234448837680186
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.234211378930866,
+      "observation": -0.5567807520403842,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3225953111396078,
+      "width": 0.08838393220874183
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1847054803336147,
+      "observation": -0.5567807520403842,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.20851706410439644,
+      "width": 0.02381158377078174
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2717654361425487,
+      "observation": 0.36169759373707655,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3201092477762011,
+      "width": 0.04834381163365237
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2826599397109674,
+      "observation": 0.36169759373707655,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34039662438009977,
+      "width": 0.05773668466913234
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22468847461048316,
+      "observation": 1.2447102823553151,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22539052478945257,
+      "width": 0.0007020501789694045
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25272096151343076,
+      "observation": 1.2447102823553151,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.25521140544119986,
+      "width": 0.0024904439277690926
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2570929897567011,
+      "observation": 0.47567447284882014,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2851583888722128,
+      "width": 0.028065399115511702
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27449635773233777,
+      "observation": 0.47567447284882014,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3141192103714687,
+      "width": 0.03962285263913096
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23432692332579141,
+      "observation": -0.4447102823553151,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3249911187983225,
+      "width": 0.09066419547253107
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.18650598211726502,
+      "observation": -0.4447102823553151,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2139868105320918,
+      "width": 0.02748082841482677
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27676802892620667,
+      "observation": 0.3243255271511798,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3336706908374225,
+      "width": 0.056902661911215846
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28482305629570387,
+      "observation": 0.3243255271511798,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3487555831261504,
+      "width": 0.06393252683044653
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22320759742243063,
+      "observation": 1.1197739452734352,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22438493455671035,
+      "width": 0.0011773371342797267
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25050474569690584,
+      "observation": 1.1197739452734352,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2540856299193287,
+      "width": 0.0035808842224228643
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2512738064068861,
+      "observation": 0.5264382838941746,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27298163953236143,
+      "width": 0.021707833125475307
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27070342899915584,
+      "observation": 0.5264382838941746,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30347221416732845,
+      "width": 0.03276878516817261
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24520014712314703,
+      "observation": -0.3197739452734352,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34747780885338925,
+      "width": 0.10227766173024222
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19919767109909456,
+      "observation": -0.3197739452734352,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.23525783499082156,
+      "width": 0.036060163891727004
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2833239156604174,
+      "observation": 0.27356171610582536,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3531399986131565,
+      "width": 0.06981608295273906
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2869122552727521,
+      "observation": 0.27356171610582536,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3587313990458225,
+      "width": 0.07181914377307042
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22392187510697464,
+      "observation": 0.9936523813738511,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.22599192016558345,
+      "width": 0.002070045058608805
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2504749376564509,
+      "observation": 0.9936523813738511,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.25588492932896384,
+      "width": 0.005409991672512937
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2447015561928873,
+      "observation": 0.591102060591366,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2602522167166745,
+      "width": 0.015550660523787174
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26612284230753197,
+      "observation": 0.591102060591366,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2915657196463908,
+      "width": 0.025442877338858805
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26462878215344465,
+      "observation": -0.19365238137385116,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3839891021613604,
+      "width": 0.11936032000791574
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.22233904895126402,
+      "observation": -0.19365238137385116,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27285258911744165,
+      "width": 0.05051354016617762
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2905560916915757,
+      "observation": 0.20889793940863388,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.378084475690441,
+      "width": 0.08752838399886531
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2874821746782185,
+      "observation": 0.20889793940863388,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3673012083004417,
+      "width": 0.0798190336222232
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22688756556278677,
+      "observation": 0.8738396246805261,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23055550638508857,
+      "width": 0.0036679408223017906
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.252589583714259,
+      "observation": 0.8738396246805261,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2609216988930233,
+      "width": 0.00833211517876431
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2379621451782584,
+      "observation": 0.6705381168770247,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24825285432170466,
+      "width": 0.010290709143446264
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26114633413436106,
+      "observation": 0.6705381168770247,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27964666043144626,
+      "width": 0.0185003262970852
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2843199308473548,
+      "observation": -0.07383962468052618,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.41489024446488965,
+      "width": 0.13057031361753485
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2496054786506143,
+      "observation": -0.07383962468052618,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.317562047895217,
+      "width": 0.06795656924460272
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2960959668902585,
+      "observation": 0.12946188312297524,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4045058120635365,
+      "width": 0.10840984517327795
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28372388378605995,
+      "observation": 0.12946188312297524,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36819444416348024,
+      "width": 0.08447056037742029
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2232707512920201,
+      "observation": 1.0572670690061992,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2248200426113661,
+      "width": 0.0015492913193460023
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25020707977935197,
+      "observation": 1.0572670690061992,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2545757070399275,
+      "width": 0.004368627260575519
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2541053603009506,
+      "observation": -0.2572670690061993,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36468411800120504,
+      "width": 0.11057875770025444
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.20954590330217743,
+      "observation": -0.2572670690061993,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.25204145316558185,
+      "width": 0.042495549863404425
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23339810928993354,
+      "observation": 1.4907750051166575,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23368719219044198,
+      "width": 0.00028908290050844165
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2631801755292781,
+      "observation": 1.4907750051166575,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2645701746673483,
+      "width": 0.001389999138070197
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23165736678544038,
+      "observation": 0.7672313763015394,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23791185613554774,
+      "width": 0.006254489350107362
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2562937695289536,
+      "observation": 0.7672313763015394,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2688633016840346,
+      "width": 0.012569532155080998
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24701498610646488,
+      "observation": -0.6907750051166577,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34453012041978104,
+      "width": 0.09751513431331615
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1944204065927847,
+      "observation": -0.6907750051166577,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2176062700126626,
+      "width": 0.02318586341987791
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2953282487773164,
+      "observation": 0.032768623698460564,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.42161724915859555,
+      "width": 0.12628900038127916
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2713466075547405,
+      "observation": 0.032768623698460564,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35222062472214766,
+      "width": 0.08087401716740716
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2322801197171183,
+      "observation": 1.4679205660416408,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23259164875406577,
+      "width": 0.0003115290369474777
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26187573737686876,
+      "observation": 1.4679205660416408,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2633326931843377,
+      "width": 0.0014569558074689626
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23109510273823516,
+      "observation": 0.7776431276656302,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23702696808248758,
+      "width": 0.005931865344252413
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2558553774807823,
+      "observation": 0.7776431276656302,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2679196133505695,
+      "width": 0.012064235869787221
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2438215657699928,
+      "observation": -0.667920566041641,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3387872331619067,
+      "width": 0.09496566739191387
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19185385609632086,
+      "observation": -0.667920566041641,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21489438643920336,
+      "width": 0.023040530342882504
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2946934432974672,
+      "observation": 0.022356872334369726,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4221525568025718,
+      "width": 0.12745911350510458
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2695291391980016,
+      "observation": 0.022356872334369726,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3494638322567397,
+      "width": 0.07993469305873813
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23029956779296312,
+      "observation": 1.4238471687998617,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2306610512559045,
+      "width": 0.00036148346294137546
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2595509834223816,
+      "observation": 1.4238471687998617,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2611527083494734,
+      "width": 0.0016017249270918188
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23001875929339421,
+      "observation": 0.7988027119602918,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23534803680069702,
+      "width": 0.005329277507302804
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25501557456626367,
+      "observation": 0.7988027119602918,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.266120315373665,
+      "width": 0.011104740807401314
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23883675178744884,
+      "observation": -0.6238471687998619,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33007054744520953,
+      "width": 0.09123379565776069
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1879601003910808,
+      "observation": -0.6238471687998619,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2110039497672672,
+      "width": 0.023043849376186393
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29308277908675134,
+      "observation": 0.0011972880397080887,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4224114628825659,
+      "width": 0.12932868379581458
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26558982423638766,
+      "observation": 0.0011972880397080887,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3433494028141094,
+      "width": 0.07775957857772176
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22793087611760454,
+      "observation": 1.3624684924458164,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22837989905646713,
+      "width": 0.00044902293886259215
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25673455382375987,
+      "observation": 1.3624684924458164,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2585786458733327,
+      "width": 0.0018440920495728097
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2285513137850868,
+      "observation": 0.8309004950358099,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23308772766286673,
+      "width": 0.004536413877779921
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2538725815202802,
+      "observation": 0.8309004950358099,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2636799422427764,
+      "width": 0.009807360722496217
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23446557455968992,
+      "observation": -0.5624684924458163,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32296391873741986,
+      "width": 0.08849834417772995
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.184856134851967,
+      "observation": -0.5624684924458163,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.20856466530683468,
+      "width": 0.023708530454867677
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28986916002828833,
+      "observation": -0.03090049503580994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.42072972761841515,
+      "width": 0.13086056759012682
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25907092283528915,
+      "observation": -0.03090049503580994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3329586793813723,
+      "width": 0.07388775654608315
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22572924913900674,
+      "observation": 1.2899953292371493,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22631764716702837,
+      "width": 0.0005883980280216305
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2540463401592615,
+      "observation": 1.2899953292371493,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2562544881755104,
+      "width": 0.002208148016248912
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22690382244718524,
+      "observation": 0.8733740871747435,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23058015187703487,
+      "width": 0.003676329429849634
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25260199058917465,
+      "observation": 0.8733740871747435,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2609486675233588,
+      "width": 0.008346676934184172
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2331191456338352,
+      "observation": -0.48999532923714934,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3218476461268613,
+      "width": 0.08872850049302608
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.18468278206259137,
+      "observation": -0.48999532923714934,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2102831402295769,
+      "width": 0.025600358166985526
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2843865956500646,
+      "observation": -0.07337408717474353,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4149733575184266,
+      "width": 0.13058676186836204
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.249711245537772,
+      "observation": -0.07337408717474353,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31773517447735805,
+      "width": 0.06802392893958606
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22410226484446163,
+      "observation": 1.2121007141665197,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22490239369586315,
+      "width": 0.0008001288514015159
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2519372307644824,
+      "observation": 1.2121007141665197,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2546631769938339,
+      "width": 0.002725946229351517
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2253123581855314,
+      "observation": 0.9256817716615366,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2281646227502231,
+      "width": 0.0028522645646917033
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25141238520366976,
+      "observation": 0.9256817716615366,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2582938189875151,
+      "width": 0.006881433783845314
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.236137667627911,
+      "observation": -0.41210071416651967,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3289985607683862,
+      "width": 0.09286089314047519
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1887409784611076,
+      "observation": -0.41210071416651967,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.21795247642827575,
+      "width": 0.029211497967168154
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27624081944139506,
+      "observation": -0.12568177166153666,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.40342752742689125,
+      "width": 0.1271867079854962
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.237649793872664,
+      "observation": -0.12568177166153666,
+      "recorded_evaluations": 90,
+      "skip_eligible": false,
+      "upper": 0.29793818782290854,
+      "width": 0.060288393950244545
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2232661322288835,
+      "observation": 1.1332626616243247,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2243772589767919,
+      "width": 0.001111126747908392
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2506407567644023,
+      "observation": 1.1332626616243247,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2540763593491612,
+      "width": 0.00343560258475889
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.22402013734474116,
+      "observation": 0.9873357593526657,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.22615178356519441,
+      "width": 0.002131646220453254
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2505334583255285,
+      "observation": 0.9873357593526657,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2560629096910696,
+      "width": 0.005529451365541116
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24354236441044763,
+      "observation": -0.33326266162432466,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3441895457015329,
+      "width": 0.10064718129108524
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19729796985155115,
+      "observation": -0.33326266162432466,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.23216491774549566,
+      "width": 0.03486694789394451
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26571476875370376,
+      "observation": -0.18733575935266572,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3859047778217883,
+      "width": 0.12019000906808452
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.22370794099748897,
+      "observation": -0.18733575935266572,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27508807860351214,
+      "width": 0.05138013760602317
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24809833475474083,
+      "observation": 0.5564921592871903,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2666999432157029,
+      "width": 0.018601608460962066
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26852686425033967,
+      "observation": 0.5564921592871903,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29769383750897066,
+      "width": 0.02916697325863099
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.286900419117892,
+      "observation": 0.24350784071280968,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3648603774812445,
+      "width": 0.07795995836335251
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28751947358176333,
+      "observation": 0.24350784071280968,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3634282424618154,
+      "width": 0.07590876888005205
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23188813215562107,
+      "observation": 0.763071291435563,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23827665992679706,
+      "width": 0.006388527771175989
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25647356432629953,
+      "observation": 0.763071291435563,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26925140770691186,
+      "width": 0.01277784338061233
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2665084226858571,
+      "observation": 0.4011712725067711,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30682724384757953,
+      "width": 0.04031882116172242
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.280004053571893,
+      "observation": 0.4011712725067711,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3311857180179009,
+      "width": 0.05118166444600791
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2955521080855173,
+      "observation": 0.036928708564436974,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4213281038139218,
+      "width": 0.12577599572840448
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27204900159656,
+      "observation": 0.036928708564436974,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3532721775861289,
+      "width": 0.08122317598956891
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26681709541820114,
+      "observation": 0.39882872749322884,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30758213014304864,
+      "width": 0.04076503472484749
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2801692903008506,
+      "observation": 0.39882872749322884,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3317353531654528,
+      "width": 0.05156606286460219
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23246928590035285,
+      "observation": 0.7528637943418581,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23919967596915123,
+      "width": 0.006730390068798386
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2569259088579998,
+      "observation": 0.7528637943418581,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27023092185814546,
+      "width": 0.013305013000145638
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2657411565640626,
+      "observation": 0.4070133012951352,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30496371871696454,
+      "width": 0.03922256215290193
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2795886916867008,
+      "observation": 0.4070133012951352,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3298156520409148,
+      "width": 0.05022696035421398
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29602853558818615,
+      "observation": 0.04713620565814186,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.42043753887206825,
+      "width": 0.1244090032838821
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27371267565028173,
+      "observation": 0.04713620565814186,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3557261867847063,
+      "width": 0.08201351113442457
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2675892102443535,
+      "observation": 0.39298669870486475,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.309483608597644,
+      "width": 0.04189439835329051
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2805778199548165,
+      "observation": 0.39298669870486475,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3331060593268417,
+      "width": 0.052528239372025165
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23366332573580914,
+      "observation": 0.7329766061738352,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24111605087876728,
+      "width": 0.007452725142958139
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25785269629361957,
+      "observation": 0.7329766061738352,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27225324772944226,
+      "width": 0.014400551435822695
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2642024528462692,
+      "observation": 0.4188221435648609,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3012809806275973,
+      "width": 0.037078527781328086
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27873641005976874,
+      "observation": 0.4188221435648609,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32705312871915687,
+      "width": 0.048316718659388136
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2966569559084949,
+      "observation": 0.06702339382616479,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.41797452760995624,
+      "width": 0.12131757170146135
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27669917829712376,
+      "observation": 0.06702339382616479,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3599656664682116,
+      "width": 0.08326648817108784
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2691587015052587,
+      "observation": 0.381177856435139,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31340809936531555,
+      "width": 0.04424939786005683
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2813863872969364,
+      "observation": 0.381177856435139,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33587225307524704,
+      "width": 0.05448586577831066
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23549626211354877,
+      "observation": 0.7048272487214943,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24411237879555645,
+      "width": 0.00861611668200768
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25926636291292643,
+      "observation": 0.7048272487214943,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2753840973092827,
+      "width": 0.016117734396356276
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26192502518276434,
+      "observation": 0.4365739533084026,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29595977269338436,
+      "width": 0.03403474751062002
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.277430091808455,
+      "observation": 0.4365739533084026,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32293412852978026,
+      "width": 0.04550403672132525
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2968702549284538,
+      "observation": 0.09517275127850566,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4129149843804315,
+      "width": 0.11604472945197769
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28031830292568144,
+      "observation": 0.09517275127850566,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3646595845291278,
+      "width": 0.08434128160344634
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2715336007190266,
+      "observation": 0.36342604669159734,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3195036796454074,
+      "width": 0.04797007892638078
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2825503903677919,
+      "observation": 0.36342604669159734,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3399982288309624,
+      "width": 0.05744783846317053
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23793543243157242,
+      "observation": 0.6708910423105852,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24820730770123225,
+      "width": 0.010271875269659836
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.261126119841986,
+      "observation": 0.6708910423105852,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2796001796298873,
+      "width": 0.018474059787901287
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25902507170343875,
+      "observation": 0.45976977351742593,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.289399647623421,
+      "width": 0.030374575919982272
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2756945253131107,
+      "observation": 0.45976977351742593,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3176521384415847,
+      "width": 0.04195761312847396
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2961094504171492,
+      "observation": 0.12910895768941477,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4046036237595254,
+      "width": 0.10849417334237621
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28369448983376927,
+      "observation": 0.12910895768941477,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36817046822263066,
+      "width": 0.0844759783888614
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27464508207900856,
+      "observation": 0.340230226482574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32779598514009356,
+      "width": 0.053150903061085
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2839545983073483,
+      "observation": 0.340230226482574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3452688265478195,
+      "width": 0.06131422824047117
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24091917428670462,
+      "observation": 0.6335441370259925,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2533914383685448,
+      "width": 0.012472264081840156
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26336131477886177,
+      "observation": 0.6335441370259925,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2848311839127257,
+      "width": 0.02146986913386395
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25564342387712874,
+      "observation": 0.4878851789606053,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.28204239179727414,
+      "width": 0.0263989679201454
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2735766668724919,
+      "observation": 0.4878851789606053,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3114653358180347,
+      "width": 0.037888668945542825
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29409815365266906,
+      "observation": 0.16645586297400738,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3931592708326606,
+      "width": 0.09906111717999155
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28616424825755027,
+      "observation": 0.16645586297400738,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3692962009469064,
+      "width": 0.08313195268935614
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2783832053120564,
+      "observation": 0.31211482103939464,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33826928566473957,
+      "width": 0.05988608035268317
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2854281902025465,
+      "observation": 0.31211482103939464,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35133644354168925,
+      "width": 0.06590825333914274
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24435607850326163,
+      "observation": 0.5947909658605214,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.25961180467748934,
+      "width": 0.015255726174227713
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.265874184838316,
+      "observation": 0.5947909658605214,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2909463308108203,
+      "width": 0.02507214597250429
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2519364709322838,
+      "observation": 0.5204014973381426,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27432425041388125,
+      "width": 0.02238777948159748
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2711485122073221,
+      "observation": 0.5204014973381426,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30468228922564294,
+      "width": 0.03353377701832083
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29090923249452033,
+      "observation": 0.20520903413947852,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.37945691075603005,
+      "width": 0.08854767826150972
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2874260783975807,
+      "observation": 0.20520903413947852,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3676022421104499,
+      "width": 0.08017616371286918
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28257167509236264,
+      "observation": 0.2795985026618574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35078805894045473,
+      "width": 0.06821638384809209
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28672788676167915,
+      "observation": 0.2795985026618574,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35766337824721284,
+      "width": 0.07093549148553369
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.955729167115332,
+      "observation": 8.068115805072326,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.9594237413797146,
+      "width": 0.0036945742643825774
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.339632323195551,
+      "observation": 8.068115805072326,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.34346450916759,
+      "width": 0.0038321859720387152
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 4.077508899830318,
+      "observation": -7.268115805072325,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.203772610305939,
+      "width": 0.12626371047562124
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4.545703875849035,
+      "observation": -7.268115805072325,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.598807058024897,
+      "width": 0.053103182175862074
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 57811.09044529361,
+      "observation": 1024.9267374268827,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 58128.66743954265,
+      "width": 317.5769942490442
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 65132.600660741555,
+      "observation": 1024.9267374268827,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 65310.2432221455,
+      "width": 177.64256140394718
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6187444357164402,
+      "observation": 3.7051360113196194,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6189375110300354,
+      "width": 0.00019307531359513685
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.6996820898140749,
+      "observation": 3.7051360113196194,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.7003231299402536,
+      "width": 0.0006410401261787158
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 57956.672159136884,
+      "observation": -1024.1267374268825,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 58282.96211744917,
+      "width": 326.2899583122853
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 65291.56164157535,
+      "observation": -1024.1267374268825,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 65472.878311108536,
+      "width": 181.31666953318927
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.1731224161400617,
+      "observation": -2.9051360113196196,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.478827603220187,
+      "width": 0.3057051870801253
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.2369488306661933,
+      "observation": -2.9051360113196196,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.3375939306890796,
+      "width": 0.10064510002288629
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1602.568692427782,
+      "observation": 171.50344322899488,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 1610.8512530593027,
+      "width": 8.28256063152071
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1805.863994351303,
+      "observation": 171.50344322899488,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 1810.575523676885,
+      "width": 4.711529325581978
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6475361523476917,
+      "observation": 3.8007456113149067,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.64774866787829,
+      "width": 0.00021251553059831174
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.7322342491615296,
+      "observation": 3.8007456113149067,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.7329000238366727,
+      "width": 0.0006657746751431715
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1626.883200209515,
+      "observation": -170.70344322899487,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 1636.6228989467363,
+      "width": 9.73969873722126
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1832.4123354855,
+      "observation": -170.70344322899487,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 1837.7382380558845,
+      "width": 5.3259025703844145
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.2134636705836312,
+      "observation": -3.000745611314907,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.502648337132724,
+      "width": 0.2891846665490927
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.2855332390793952,
+      "observation": -3.000745611314907,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.382619058100286,
+      "width": 0.09708581902089075
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 219.88459856515564,
+      "observation": 64.15469381926701,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 220.89026319843524,
+      "width": 1.0056646332795935
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 247.86530189538405,
+      "observation": 64.15469381926701,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 248.45808074977637,
+      "width": 0.5927788543923214
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.7120307666244944,
+      "observation": 4.0038567807779355,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.7122901283161073,
+      "width": 0.0002593616916128916
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.8051470337287929,
+      "observation": 4.0038567807779355,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.8058715262239635,
+      "width": 0.0007244924951705922
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 228.94749649924498,
+      "observation": -63.35469381926701,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 230.50089708872054,
+      "width": 1.553400589475558
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 257.75911249835804,
+      "observation": -63.35469381926701,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 258.5826497231573,
+      "width": 0.8235372247992814
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.3023306997015254,
+      "observation": -3.2038567807779352,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.5612918005841134,
+      "width": 0.25896110088258806
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.3914531740953464,
+      "observation": -3.2038567807779352,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.4814626215475277,
+      "width": 0.09000944745218131
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 57.299051377654294,
+      "observation": 33.210234919950686,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 57.51773522149424,
+      "width": 0.21868384383994766
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 64.62067696365821,
+      "observation": 33.210234919950686,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 64.75720148295845,
+      "width": 0.136524519300238
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.8274961530587365,
+      "observation": 4.336655942121437,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.8278500390698854,
+      "width": 0.0003538860111489406
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.9356677274040852,
+      "observation": 4.336655942121437,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.9365064379177593,
+      "width": 0.0008387105136741235
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 61.9682641167004,
+      "observation": -32.41023491995069,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 62.476875895657685,
+      "width": 0.5086117789572882
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 69.71510817394773,
+      "observation": -32.41023491995069,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 69.97347142108387,
+      "width": 0.25836324713614545
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.4579238890459476,
+      "observation": -3.5366559421214374,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.6791719828015998,
+      "width": 0.22124809375565224
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.5741562014710653,
+      "observation": -3.5366559421214374,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.6543440497946866,
+      "width": 0.08018784832362136
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 21.06572134472134,
+      "observation": 20.477037763078336,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 21.12953881376301,
+      "width": 0.06381746904166974
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 23.769763725797063,
+      "observation": 20.477037763078336,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 23.813023349505247,
+      "width": 0.04325962370818459
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.0209707072271348,
+      "observation": 4.82982532668674,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.0215107376169823,
+      "width": 0.0005400303898475123
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.154332326832168,
+      "observation": 4.82982532668674,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.1553819105118097,
+      "width": 0.0010495836796418079
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 23.93011784820205,
+      "observation": -19.67703776307834,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 24.18286587155411,
+      "width": 0.25274802335206203
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 26.89096358038771,
+      "observation": -19.67703776307834,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 27.01318859550721,
+      "width": 0.12222501511950057
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.7122443319549323,
+      "observation": -4.02982532668674,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.8964867128600182,
+      "width": 0.18424238090508593
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.8682151377669243,
+      "observation": -4.02982532668674,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.9377749877548014,
+      "width": 0.06955984998787712
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 9.57283394312961,
+      "observation": 14.054179398529781,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 9.594953015927164,
+      "width": 0.02211907279755465
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 10.807109428430904,
+      "observation": 14.054179398529781,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 10.823855352846952,
+      "width": 0.01674592441604794
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.3456424461940173,
+      "observation": 5.538215051257931,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.3465627576659436,
+      "width": 0.0009203114719262828
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.5211961338274493,
+      "observation": 5.538215051257931,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.5226393844391715,
+      "width": 0.0014432506117221244
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 11.530217508941575,
+      "observation": -13.25417939852978,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 11.696232656087794,
+      "width": 0.16601514714621857
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 12.934697983587633,
+      "observation": -13.25417939852978,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 13.011034590727977,
+      "width": 0.07633660714034463
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.127373996579346,
+      "observation": -4.738215051257931,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.2814766701676863,
+      "width": 0.15410267358834018
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 2.3423225473992524,
+      "observation": -4.738215051257931,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 2.4026786170088528,
+      "width": 0.06035606960960038
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 5.029572799535487,
+      "observation": 10.366653459714453,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 5.038183851793759,
+      "width": 0.008611052258272522
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 5.680662073966088,
+      "observation": 10.366653459714453,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 5.688174027834864,
+      "width": 0.007511953868776011
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.911419170779659,
+      "observation": 6.560449971069248,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.9131684916825298,
+      "width": 0.0017493209028707213
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 2.1603232617626467,
+      "observation": 6.560449971069248,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.1625376512029826,
+      "width": 0.0022143894403359177
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 6.46983227245697,
+      "observation": -9.566653459714452,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 6.603637471408256,
+      "width": 0.13380519895128629
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 7.239540364147206,
+      "observation": -9.566653459714452,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 7.29822091284112,
+      "width": 0.05868054869391415
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.8282825510113776,
+      "observation": -5.760449971069248,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.9623958950656473,
+      "width": 0.13411334405426967
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.136429816272219,
+      "observation": -5.760449971069248,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.19080474744786,
+      "width": 0.054374931175641184
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.301161587456674,
+      "observation": 2.2257418583505535,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.30123090287554477,
+      "width": 6.931541887078563e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.3403966750158471,
+      "observation": 2.2257418583505535,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.34097172982562596,
+      "width": 0.0005750548097788744
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.5356138349089581,
+      "observation": -1.4257418583505537,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.9634978303554103,
+      "width": 0.42788399544645217
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.4666314940903877,
+      "observation": -1.4257418583505537,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.5429605800314079,
+      "width": 0.07632908594102022
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6077427961246433,
+      "observation": 3.667694640053472,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6079286928881826,
+      "width": 0.00018589676353930606
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.6872431119026202,
+      "observation": 3.667694640053472,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6878749783119116,
+      "width": 0.0006318664092913595
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.233873810734358,
+      "observation": 1.5001352197941686,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2341543052367927,
+      "width": 0.0002804945024346972
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2637338578540647,
+      "observation": 1.5001352197941686,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2650978816976767,
+      "width": 0.00136402384361195
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.1575675267237977,
+      "observation": -2.867694640053472,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.470176824161802,
+      "width": 0.31260929743800436
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.2181195900720716,
+      "observation": -2.867694640053472,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.320186353252059,
+      "width": 0.10206676317998742
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24844273160213606,
+      "observation": -0.7001352197941688,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34712752370094707,
+      "width": 0.09868479209881101
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.1955795345940035,
+      "observation": -0.7001352197941688,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.21885318675652843,
+      "width": 0.023273652162524916
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.5819011673718839,
+      "observation": 3.577603171061792,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.5820707615332943,
+      "width": 0.0001695941614103802
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.658024329937809,
+      "observation": 3.577603171061792,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.6586353183294119,
+      "width": 0.0006109883916028958
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23511593701733924,
+      "observation": 1.523679080784,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.23537625504916024,
+      "width": 0.00026031803182099966
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2651763758760953,
+      "observation": 1.523679080784,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26647852621726714,
+      "width": 0.001302150341171815
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.1206635674351708,
+      "observation": -2.7776031710617923,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.4509281413600725,
+      "width": 0.3302645739249017
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.1732166037431135,
+      "observation": -2.7776031710617923,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 1.2787398693878673,
+      "width": 0.10552326564475378
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25234140215809153,
+      "observation": -0.7236790807840001,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3542997175859942,
+      "width": 0.10195831542790268
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.19877277309704094,
+      "observation": -0.7236790807840001,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.22233889528422776,
+      "width": 0.023566122187186817
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.5359346761497662,
+      "observation": 3.4090066190911004,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.5360772935629669,
+      "width": 0.0001426174132006519
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.6060467735342707,
+      "observation": 3.4090066190911004,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.606623329406852,
+      "width": 0.0005765558725813191
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23787143281517467,
+      "observation": 1.5720499275361788,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2380959703627806,
+      "width": 0.0002245375476059297
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26836314318174515,
+      "observation": 1.5720499275361788,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2695522239931263,
+      "width": 0.001189080811381138
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 1.0533434094174055,
+      "observation": -2.6090066190911005,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.4206817197224049,
+      "width": 0.3673383103049994
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 1.0904053810274765,
+      "observation": -2.6090066190911005,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.2023260082669713,
+      "width": 0.11192062723949481
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.261726609292351,
+      "observation": -0.772049927536179,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.37196209227179355,
+      "width": 0.11023548297944258
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.20658257251382472,
+      "observation": -0.772049927536179,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23106730376953508,
+      "width": 0.02448473125571035
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.47965503541828036,
+      "observation": 3.1848656797209625,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.4797684572994977,
+      "width": 0.00011342188121732377
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.5423992410888999,
+      "observation": 3.1848656797209625,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.5429398850053414,
+      "width": 0.0005406439164414856
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24266292565327427,
+      "observation": 1.6467940607079725,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2428442911681837,
+      "width": 0.0001813655149094373
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2738748872646374,
+      "observation": 1.6467940607079725,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27492034111964875,
+      "width": 0.001045453855011369
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.9661494922904066,
+      "observation": -2.3848656797209626,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.390068421746636,
+      "width": 0.42391892945622933
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.9814052032364226,
+      "observation": -2.3848656797209626,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.1006531525307262,
+      "width": 0.1192479492943036
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27982694123636026,
+      "observation": -0.8467940607079727,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.40727567458806757,
+      "width": 0.1274487333517073
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.22196962407691018,
+      "observation": -0.8467940607079727,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24870832516531696,
+      "width": 0.026738701088406785
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.4234147666614692,
+      "observation": 2.934993005557202,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.4235039500072564,
+      "width": 8.918334578716935e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.47878391947360055,
+      "observation": 2.934993005557202,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.4792993500679268,
+      "width": 0.0005154305943262383
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25019742852662447,
+      "observation": 1.7483216827986814,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.25033731374816043,
+      "width": 0.0001398852215359625
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28249736101530887,
+      "observation": 1.7483216827986814,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.283394143860227,
+      "width": 0.0008967828449181203
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.8685172812941965,
+      "observation": -2.1349930055572024,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.358226269845473,
+      "width": 0.48970898855127654
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.8579387804094095,
+      "observation": -2.1349930055572024,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.9808695426736287,
+      "width": 0.12293076226421917
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.3111961908105983,
+      "observation": -0.9483216827986816,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.47150991977308176,
+      "width": 0.16031372896248347
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2493526689322871,
+      "observation": -0.9483216827986816,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2807964090121121,
+      "width": 0.031443740079825006
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.3735951904135012,
+      "observation": 2.6827498777580345,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3736684070744513,
+      "width": 7.321666095011503e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.42241504039465033,
+      "observation": 2.6827498777580345,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.42292433665964896,
+      "width": 0.0005092962649986266
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26148677768016426,
+      "observation": 1.8776492361930643,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26159281198613926,
+      "width": 0.00010603430597500019
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2953636236557669,
+      "observation": 1.8776492361930643,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2961260321612915,
+      "width": 0.0007624085055246144
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.7629264562117246,
+      "observation": -1.8827498777580347,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.2980228808778767,
+      "width": 0.535096424666152
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.726142379848515,
+      "observation": -1.8827498777580347,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.8433558355906129,
+      "width": 0.11721345574209785
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.3615708473456456,
+      "observation": -1.0776492361930645,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.5804450855763802,
+      "width": 0.2188742382307346
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.29490652066184236,
+      "observation": -1.0776492361930645,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.3351369661606393,
+      "width": 0.04023044549879695
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.3327462760721886,
+      "observation": 2.4431243643713847,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.332812733974012,
+      "width": 6.645790182341349e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.376175452449124,
+      "observation": 2.4431243643713847,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.37670324350704876,
+      "width": 0.0005277910579247758
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2779227302208794,
+      "observation": 2.0365213487643814,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2780050878712726,
+      "width": 8.235765039321663e-05
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.3140403997166685,
+      "observation": 2.0365213487643814,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.31469388561722755,
+      "width": 0.000653485900559081
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.6494549544159466,
+      "observation": -1.6431243643713849,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 1.1673653075937103,
+      "width": 0.5179103531777637
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.5915956448365453,
+      "observation": -1.6431243643713849,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.6914973465190388,
+      "width": 0.09990170168249357
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.43631439563278285,
+      "observation": -1.2365213487643816,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.7481946162508878,
+      "width": 0.31188022061810494
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.3658996545101264,
+      "observation": -1.2365213487643816,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.42092559908524674,
+      "width": 0.055025944575120334
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2393414028200022,
+      "observation": 0.6527950265408459,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.25062564718238545,
+      "width": 0.011284244362383233
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26218519456759415,
+      "observation": 0.6527950265408459,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.28205537873201814,
+      "width": 0.019870184164423987
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2952785892594174,
+      "observation": 0.14720497345915406,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.39932056044003705,
+      "width": 0.10404197118061964
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2850514275752091,
+      "observation": 0.14720497345915406,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3690691105864736,
+      "width": 0.0840176830112645
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23183023559784866,
+      "observation": 0.7641090925840315,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23818504431584,
+      "width": 0.00635480871799135
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2564284641875593,
+      "observation": 0.7641090925840315,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.26915399173196053,
+      "width": 0.012725527544401205
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24802027119769574,
+      "observation": 0.5572567215936229,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2665486450111666,
+      "width": 0.01852837381347086
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26847247275240765,
+      "observation": 0.5572567215936229,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29755230869887406,
+      "width": 0.029079835946466404
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29549786536887845,
+      "observation": 0.035890907415968454,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4214042499235455,
+      "width": 0.12590638455466707
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27187507713504294,
+      "observation": 0.035890907415968454,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35301258615333764,
+      "width": 0.0811375090182947
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2869871228142972,
+      "observation": 0.242743278406377,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36515723594840854,
+      "width": 0.07817011313411132
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2875276420434993,
+      "observation": 0.242743278406377,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36353282372007834,
+      "width": 0.07600518167657905
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2321185015591512,
+      "observation": 0.7589801435244228,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2386418007115924,
+      "width": 0.006523299152441209
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2566529559561059,
+      "observation": 0.7589801435244228,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2696393212790361,
+      "width": 0.012986365322930238
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.247633997126237,
+      "observation": 0.5610597418096926,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2658021721079273,
+      "width": 0.018168174981690294
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26820272563955333,
+      "observation": 0.5610597418096926,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29685242854447597,
+      "width": 0.028649702904922636
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2957555263641182,
+      "observation": 0.04101985647557721,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.42100198646423137,
+      "width": 0.12524646010011314
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27272611752467807,
+      "observation": 0.04101985647557721,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35427755596401717,
+      "width": 0.0815514384393391
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2874147989245488,
+      "observation": 0.23894025819030726,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3666317417600441,
+      "width": 0.0792169428354953
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2875625424825225,
+      "observation": 0.23894025819030726,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3640410593474557,
+      "width": 0.07647851686493318
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23270170056573694,
+      "observation": 0.7488833582458294,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.23957056252519066,
+      "width": 0.006868861959453715
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25710660192874474,
+      "observation": 0.7488833582458294,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.27062351314986355,
+      "width": 0.01351691122111881
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24686874166015335,
+      "observation": 0.5686943172249596,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2643339894260778,
+      "width": 0.017465247765924424
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26766536987842565,
+      "observation": 0.5686943172249596,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2954681087630604,
+      "width": 0.027802738884634748
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29618610374424387,
+      "observation": 0.05111664175417058,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.4200209874600078,
+      "width": 0.12383488371576395
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2743378307888962,
+      "observation": 0.05111664175417058,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35663313494980947,
+      "width": 0.0822953041609133
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28825447429180673,
+      "observation": 0.23130568277504038,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3695791161243681,
+      "width": 0.08132464183256138
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28760316420911,
+      "observation": 0.23130568277504038,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36499952109328787,
+      "width": 0.0773963568841779
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23357809515251043,
+      "observation": 0.7343518772188581,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24097835021303096,
+      "width": 0.0074002550605205275
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25778667782890236,
+      "observation": 0.7343518772188581,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 0.2721084482392601,
+      "width": 0.01432177041035776
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24575668536961878,
+      "observation": 0.5800402441855248,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2622255359461839,
+      "width": 0.016468850576565136
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2668776192606239,
+      "observation": 0.5800402441855248,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29346214748235255,
+      "width": 0.02658452822172863
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29662628744030356,
+      "observation": 0.06564812278114185,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.41817527842397795,
+      "width": 0.12154899098367439
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2765038335342119,
+      "observation": 0.06564812278114185,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35969639401129183,
+      "width": 0.08319256047707996
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2894520515543654,
+      "observation": 0.21995975581447508,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3739178692619871,
+      "width": 0.08446581770762174
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2875880475354544,
+      "observation": 0.21995975581447508,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36626385767947,
+      "width": 0.07867581014401559
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2347189868304369,
+      "observation": 0.7164483123578633,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.24283349923743877,
+      "width": 0.008114512407001867
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25866838852205337,
+      "observation": 0.7164483123578633,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2740524873340124,
+      "width": 0.015384098811959013
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.244370751929519,
+      "observation": 0.5946335909771578,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2596389478515774,
+      "width": 0.015268195922058386
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26588476112994797,
+      "observation": 0.5946335909771578,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2909726218934156,
+      "width": 0.02508786076346764
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2968774470075224,
+      "observation": 0.08355168764213655,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.41521907253532553,
+      "width": 0.11834162552780314
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2789128153365345,
+      "observation": 0.08355168764213655,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36291338740781265,
+      "width": 0.08400057207127815
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2908943266789132,
+      "observation": 0.20536640902284206,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3793985526073227,
+      "width": 0.08850422592840951
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28742868823486367,
+      "observation": 0.20536640902284206,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36758986922913817,
+      "width": 0.0801611809942745
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.23608932778894348,
+      "observation": 0.6962419057413796,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2450965202432248,
+      "width": 0.009007192454281332
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.25972097964538104,
+      "observation": 0.6962419057413796,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27640402259390706,
+      "width": 0.016683042948526017
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2427884636461964,
+      "observation": 0.6119787469133954,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2567409075064584,
+      "width": 0.013952443860261982
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2647366986888346,
+      "observation": 0.6119787469133954,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.28814618358381666,
+      "width": 0.02340948489498207
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2967803909205625,
+      "observation": 0.10375809425862043,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.41102757318033883,
+      "width": 0.11424718225977631
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2812752943569857,
+      "observation": 0.10375809425862043,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3657727460998143,
+      "width": 0.08449745174282863
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29244675680822435,
+      "observation": 0.18802125308660458,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3857132645951061,
+      "width": 0.09326650778688172
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28702164655573953,
+      "observation": 0.18802125308660458,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3686935718953732,
+      "width": 0.08167192533963369
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2376493188542587,
+      "observation": 0.6746945971911786,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2477204336751656,
+      "width": 0.010071114820906918
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26090939188290757,
+      "observation": 0.6746945971911786,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2791027472305594,
+      "width": 0.01819335534765182
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2410845724854496,
+      "observation": 0.6315845042536977,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.25368460468829607,
+      "width": 0.012600032202846473
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26348381671601245,
+      "observation": 0.6315845042536977,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.28512338187871,
+      "width": 0.02163956516269755
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.29624770847603904,
+      "observation": 0.1253054028088213,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.40564383971515106,
+      "width": 0.10939613123911202
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28337025871958327,
+      "observation": 0.1253054028088213,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3678957028786536,
+      "width": 0.08452544415907032
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2939618905608451,
+      "observation": 0.16841549574630219,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3925045090376492,
+      "width": 0.09854261847680412
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2862588556853952,
+      "observation": 0.16841549574630219,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3692781640609679,
+      "width": 0.0830193083755727
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2574108962676938,
+      "observation": 0.4730296743340221,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2858492826485083,
+      "width": 0.028438386380814473
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27469571141240323,
+      "observation": 0.4730296743340221,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31470097633377403,
+      "width": 0.0400052649213708
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27641622645986796,
+      "observation": 0.32697032566597783,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.332684234751386,
+      "width": 0.05626800829151801
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2846846442021502,
+      "observation": 0.32697032566597783,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34818479027112154,
+      "width": 0.06350014606897131
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24817643884228124,
+      "observation": 0.5557285296830956,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2668514685519531,
+      "width": 0.01867502970967183
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26858124252697785,
+      "observation": 0.5557285296830956,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29783546859701104,
+      "width": 0.029254226070033196
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26658557969470575,
+      "observation": 0.4005853233334963,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3070156574933247,
+      "width": 0.04043007779861896
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2800454580927842,
+      "observation": 0.4005853233334963,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33132319262998955,
+      "width": 0.051277734537205355
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28681358411770347,
+      "observation": 0.24427147031690435,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3645637522004189,
+      "width": 0.07775016808271545
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2875109338399837,
+      "observation": 0.24427147031690435,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3633229949909351,
+      "width": 0.0758120611509514
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26673983396387,
+      "observation": 0.39941467666650365,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3073928993046515,
+      "width": 0.0406530653407815
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2801280327972678,
+      "observation": 0.39941467666650365,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3315978645787782,
+      "width": 0.05146983178151043
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24856411017704702,
+      "observation": 0.55195766417418,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2676057714294149,
+      "width": 0.019041661252367864
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2688505338973911,
+      "observation": 0.55195766417418,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.29853887449866956,
+      "width": 0.02968834060127845
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26620273055179405,
+      "observation": 0.40349546125859853,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30608258907600716,
+      "width": 0.03987985852421311
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2798393522089379,
+      "observation": 0.40349546125859853,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3306405015003798,
+      "width": 0.050801149291441916
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28638137934713404,
+      "observation": 0.24804233582581994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36309727933849356,
+      "width": 0.07671589999135953
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28746323228192067,
+      "observation": 0.24804233582581994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.36279178881618146,
+      "width": 0.0753285565342608
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26712388800482073,
+      "observation": 0.3965045387414014,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3083353958857617,
+      "width": 0.04121150788094097
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2803324422711553,
+      "observation": 0.3965045387414014,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3322807164489283,
+      "width": 0.051948274177773035
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.24933806554098423,
+      "observation": 0.5445233129636231,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2691226956647649,
+      "width": 0.01978463012378065
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.26938505436445626,
+      "observation": 0.5445233129636231,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2999451372993732,
+      "width": 0.030560082934916966
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2654378302128266,
+      "observation": 0.4093309090669994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3042320273252305,
+      "width": 0.03879419711240395
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2794226927336063,
+      "observation": 0.4093309090669994,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32927258414087845,
+      "width": 0.04984989140727214
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28551341741901887,
+      "observation": 0.2554766870363769,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3601996587778747,
+      "width": 0.07468624135885582
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28734284151827705,
+      "observation": 0.2554766870363769,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3616901600828628,
+      "width": 0.07434731856458576
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26789637329024285,
+      "observation": 0.3906690909330005,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31024535479130555,
+      "width": 0.0423489815010627
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28073840266774225,
+      "observation": 0.3906690909330005,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3336496218885653,
+      "width": 0.052911219220823036
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2504770716483068,
+      "observation": 0.5337978049912511,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.27138201763788106,
+      "width": 0.020904945989574264
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2701640476147026,
+      "observation": 0.5337978049912511,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3020189665204731,
+      "width": 0.031854918905770524
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2643107304977185,
+      "observation": 0.4179867127777681,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3015377897927062,
+      "width": 0.03722705929498765
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27879720550798465,
+      "observation": 0.4179867127777681,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32724812212141324,
+      "width": 0.048450916613428596
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2842272404129538,
+      "observation": 0.26620219500874887,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.356012160213867,
+      "width": 0.07178491980091323
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28711015518671473,
+      "observation": 0.26620219500874887,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35998077018087465,
+      "width": 0.07287061499415992
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26904733238744377,
+      "observation": 0.3820132872222318,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3131269551011143,
+      "width": 0.04407962271367055
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2813300074581828,
+      "observation": 0.3820132872222318,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3356769221448253,
+      "width": 0.05434691468664249
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25192103427517315,
+      "observation": 0.5205412813617579,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2742928482122846,
+      "width": 0.022371813937111462
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.271138180988347,
+      "observation": 0.5205412813617579,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3046540880856634,
+      "width": 0.03351590709731639
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26287936499418674,
+      "observation": 0.4290912471550615,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2981710761475641,
+      "width": 0.03529171115337737
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2779838085929189,
+      "observation": 0.4290912471550615,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.324663994297847,
+      "width": 0.0466801857049281
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28258920092298434,
+      "observation": 0.27945871863824195,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35084246046629924,
+      "width": 0.0682532595433149
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28673237381613725,
+      "observation": 0.27945871863824195,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3576885307939661,
+      "width": 0.07095615697782887
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2705308950918159,
+      "observation": 0.37090875284493846,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31690638373800945,
+      "width": 0.04637548864619356
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28206805120053563,
+      "observation": 0.37090875284493846,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.33826580168343706,
+      "width": 0.05619775048290143
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2536042235012107,
+      "observation": 0.5055234934472878,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2777526804294471,
+      "width": 0.024148456928236417
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27225411784040576,
+      "observation": 0.5055234934472878,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.30773194153934347,
+      "width": 0.035477823698937705
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.26120724567727593,
+      "observation": 0.44224786242416186,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2943139090049224,
+      "width": 0.033106663327646446
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.277007815287491,
+      "observation": 0.44224786242416186,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32162995473009004,
+      "width": 0.04462213944259902
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.28068029280434525,
+      "observation": 0.2944765065527122,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.34502082588688043,
+      "width": 0.06434053308253518
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2861940791316551,
+      "observation": 0.2944765065527122,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.35487959923462536,
+      "width": 0.06868552010297024
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2722948192094653,
+      "observation": 0.35775213757583807,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.32149926038081716,
+      "width": 0.049204441171351865
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28290723422644837,
+      "observation": 0.35775213757583807,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3413031370976735,
+      "width": 0.05839590287122515
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2554606656031789,
+      "observation": 0.48944313782095117,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.28165349400590417,
+      "width": 0.026192828402725243
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.27345948959966776,
+      "observation": 0.48944313782095117,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.31113067430114594,
+      "width": 0.03767118470147818
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.25935840950231137,
+      "observation": 0.4570647272855152,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.2901417234812394,
+      "width": 0.03078331397892803
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2758979384860259,
+      "observation": 0.4570647272855152,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3182608075553778,
+      "width": 0.04236286906935188
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.27858801816394163,
+      "observation": 0.31055686217904876,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3388608658029528,
+      "width": 0.060272847639011196
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.28550118996969626,
+      "observation": 0.31055686217904876,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3516587505990677,
+      "width": 0.06615756062937145
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 0.2742826685148349,
+      "observation": 0.3429352727144847,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.326811270985382,
+      "width": 0.05252860247054708
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 0.2837987107504917,
+      "observation": 0.3429352727144847,
+      "recorded_evaluations": 150,
+      "skip_eligible": false,
+      "upper": 0.3446640439940742,
+      "width": 0.06086533324358251
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 13.98462158221092,
+      "observation": 16.83167672515498,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 14.021858496637893,
+      "width": 0.0372369144269733
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 15.783728271369137,
+      "observation": 16.83167672515498,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 15.810282182950628,
+      "width": 0.026553911581491008
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 16.333663933313943,
+      "observation": -16.031676725154984,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 16.53322671922995,
+      "width": 0.19956278591600807
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 18.340708115562283,
+      "observation": -16.031676725154984,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 18.434834163358904,
+      "width": 0.09412604779662104
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 231636.68716921058,
+      "observation": 2050.5489199687754,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 232916.98230845254,
+      "width": 1280.2951392419636
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 260967.39407015865,
+      "observation": 2050.5489199687754,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 261682.36493577025,
+      "width": 714.9708656115981
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 2.984972785982027,
+      "observation": 8.105717137649572,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 2.9887280597578876,
+      "width": 0.0037552737758606014
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.372650774767792,
+      "observation": 8.105717137649572,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.3765310710473364,
+      "width": 0.0038802962795445595
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 231928.00592088394,
+      "observation": -2049.748919968775,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 233225.7357862567,
+      "width": 1297.729865372763
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 261285.4858164022,
+      "observation": -2049.748919968775,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 262007.80862809138,
+      "width": 722.3228116891987
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 4.111917099531345,
+      "observation": -7.305717137649571,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.238164174517727,
+      "width": 0.12624707498638177
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4.584475834116392,
+      "observation": -7.305717137649571,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.637614267647631,
+      "width": 0.05313843353123904
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 6475.116902725932,
+      "observation": 343.7023315730001,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 6509.832877573903,
+      "width": 34.715974847970756
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 7295.7108847302625,
+      "observation": 343.7023315730001,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 7315.258979229721,
+      "width": 19.548094499458784
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 3.136098526872751,
+      "observation": 8.296936337640146,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.140172163492635,
+      "width": 0.004073636619884358
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 3.543280153912768,
+      "observation": 8.296936337640146,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 3.547411150010773,
+      "width": 0.004130996098004935
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 6523.8995704701565,
+      "observation": -342.90233157300014,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 6561.536032881878,
+      "width": 37.63646241172137
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 7348.9764544645095,
+      "observation": -342.90233157300014,
+      "recorded_evaluations": 270,
+      "skip_eligible": false,
+      "upper": 7369.756033654487,
+      "width": 20.779579189977085
+    },
+    {
+      "action": 0,
+      "contains_recorded_value": true,
+      "lower": 4.289337429884086,
+      "observation": -7.496936337640146,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.415595322294013,
+      "width": 0.12625789240992713
+    },
+    {
+      "action": 1,
+      "contains_recorded_value": true,
+      "lower": 4.784375709263415,
+      "observation": -7.496936337640146,
+      "recorded_evaluations": 210,
+      "skip_eligible": false,
+      "upper": 4.837730444125242,
+      "width": 0.05335473486182707
+    }
+  ],
+  "saved_evaluations": 0,
+  "source_measurements": 0
+}
