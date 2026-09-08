@@ -1,0 +1,156 @@
+{
+  "adaptive": true,
+  "deployment_authorized": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "case": 0,
+      "evaluations": 100001,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.6547297887775647e-05,
+          "adaptation_evaluations": 127,
+          "check_nodes": 126,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.2727536943454646,
+          "iterations": 6,
+          "normalized_check_error": 1.512820380207558e-05,
+          "normalized_inner_error": 8.171375714158748e-09,
+          "quadrature_error": 3.1569510339224394e-09,
+          "radius": 64,
+          "status": "sample_checks_passed",
+          "tail_bound": 4.387302767958146e-07,
+          "tail_only_interval": [
+            0.2727536943454646,
+            0.27275413307574137
+          ],
+          "total_evaluations": 253,
+          "training_nodes": 64,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "case": 1,
+      "evaluations": 100001,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.9698028913633925e-05,
+          "adaptation_evaluations": 71,
+          "check_nodes": 70,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.21955846839299836,
+          "iterations": 5,
+          "normalized_check_error": 1.8921082373390963e-05,
+          "normalized_inner_error": 6.052293235417151e-09,
+          "quadrature_error": 4.526204445953274e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 2.7089925051878555e-07,
+          "tail_only_interval": [
+            0.21955846839299836,
+            0.2195587392922489
+          ],
+          "total_evaluations": 141,
+          "training_nodes": 36,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "case": 2,
+      "evaluations": 100001,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.755232947071167e-05,
+          "adaptation_evaluations": 93,
+          "check_nodes": 92,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.20034667212399485,
+          "iterations": 5,
+          "normalized_check_error": 1.625126059448534e-05,
+          "normalized_inner_error": 6.1962535227611164e-09,
+          "quadrature_error": 4.118731167554832e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 9.584104841516978e-07,
+          "tail_only_interval": [
+            0.20034667212399485,
+            0.200347630534479
+          ],
+          "total_evaluations": 185,
+          "training_nodes": 47,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "case": 3,
+      "evaluations": 96301,
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.67471777232156e-05,
+          "adaptation_evaluations": 79,
+          "check_nodes": 78,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.423677476995815,
+          "iterations": 4,
+          "normalized_check_error": 1.544736076700831e-05,
+          "normalized_inner_error": 5.353577330722757e-09,
+          "quadrature_error": 5.7996700814951505e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 3.8372682929313007e-08,
+          "tail_only_interval": [
+            0.423677476995815,
+            0.4236775153684979
+          ],
+          "total_evaluations": 157,
+          "training_nodes": 40,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "adaptation_error": 1.7401497340654992e-05,
+          "adaptation_evaluations": 73,
+          "check_nodes": 72,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.4282209813723023,
+          "iterations": 4,
+          "normalized_check_error": 1.603757894803881e-05,
+          "normalized_inner_error": 1.4784560530985374e-09,
+          "quadrature_error": 3.527030765475578e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 2.514720312527089e-08,
+          "tail_only_interval": [
+            0.4282209813723023,
+            0.4282210065195054
+          ],
+          "total_evaluations": 145,
+          "training_nodes": 37,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "sample_checks_passed"
+    }
+  ],
+  "source_measurements": 0,
+  "uniform_error_proven": false
+}
