@@ -1,0 +1,868 @@
+{
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "continuous_model_bound_diagnostic_not_certified_quadrature_pruning",
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "policy_endpoint_authorization": false,
+  "preflight_sha256": "4eb4c373ab7974e7771537c8aa8dac5f7af1ffd942b39e4ae70f900bf4b91073",
+  "pruning_authorized": false,
+  "source_measurements": 0,
+  "tasks": [
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              1
+            ],
+            [
+              6
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.2107936017715508,
+            0.23072143957732047,
+            0.20778684437285008
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.20732547143043034
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.168269472379519,
+            0.18767330003304683,
+            0.1626509037521357
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1657595301522865
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              0,
+              3,
+              4
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.15143743005845664,
+            0.1688231798376631,
+            0.14880291247941313
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.14995818828619092
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.16735424464396004,
+        0.1657595301522865,
+        0.1657595301522865,
+        0.1666699024247262,
+        0.1671055728457363,
+        0.16806583973274852,
+        0.16661811793554682,
+        0.16695378401361805
+      ],
+      "h2_quadrature_estimate": 0.16566170368055952,
+      "roots_with_bound_above_h2_estimate": 8,
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.19842270805032014,
+            0.2100786887558564,
+            0.19696803841743227
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.1963673588059022
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15893748148011178,
+            0.16946914839855573,
+            0.1562418747691517
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1572732372730659
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              6,
+              7
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              2,
+              3,
+              4
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.14419018240635442,
+            0.15221028329634506,
+            0.14231090174420857
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.1423701495540347
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.1585526047968897,
+        0.1576269182827041,
+        0.1572985953326861,
+        0.15778509504975685,
+        0.1575219409416061,
+        0.1575219409416061,
+        0.15778509504975685,
+        0.15836484344244883
+      ],
+      "h2_quadrature_estimate": 0.15734417132891004,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.18832080841064455,
+            0.19329650229308756,
+            0.1866276774317137
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.18706124703386146
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15074150247247148,
+            0.15379343904424125,
+            0.1500441857742088
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1497558929338415
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              6,
+              7
+            ],
+            [
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.13698729923914862,
+            0.13919678918075415,
+            0.1363486000636621
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.13582547981319892
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.15130040193810468,
+        0.1500197628858374,
+        0.14997994698736566,
+        0.14986378939808193,
+        0.15062342660539896,
+        0.15068845488351493,
+        0.14981417181095258,
+        0.14999609151199056
+      ],
+      "h2_quadrature_estimate": 0.14984935337809654,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.18832080841064455,
+            0.19329650229308756,
+            0.1866276774317137
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.18706124703386146
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15074150247247148,
+            0.15379343904424125,
+            0.1500441857742088
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1497558929338415
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              6,
+              7
+            ],
+            [
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.13698729923914862,
+            0.13919678918075415,
+            0.1363486000636621
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.13582547981319892
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.15130040193810468,
+        0.1500197628858374,
+        0.14997994698736566,
+        0.14986378939808193,
+        0.15062342660539896,
+        0.15068845488351493,
+        0.14981417181095258,
+        0.14999609151199056
+      ],
+      "h2_quadrature_estimate": 0.14984935337809654,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.18832080841064455,
+            0.19329650229308756,
+            0.1866276774317137
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.18706124703386146
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15074150247247148,
+            0.15379343904424125,
+            0.1500441857742088
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1497558929338415
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              6,
+              7
+            ],
+            [
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.13698729923914862,
+            0.13919678918075415,
+            0.1363486000636621
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.13582547981319892
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.15130040193810468,
+        0.1500197628858374,
+        0.14997994698736566,
+        0.14986378939808193,
+        0.15062342660539896,
+        0.15068845488351493,
+        0.14981417181095258,
+        0.14999609151199056
+      ],
+      "h2_quadrature_estimate": 0.14984935337809654,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.19842270805032014,
+            0.2100786887558564,
+            0.19696803841743227
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.1963673588059022
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15893748148011178,
+            0.16946914839855573,
+            0.15624187476915172
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1572732372730659
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              6,
+              7
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              2,
+              3,
+              4
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.14419018240635442,
+            0.15221028329634506,
+            0.14231090174420857
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.1423701495540347
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.1585526047968897,
+        0.1576269182827041,
+        0.1572985953326861,
+        0.15778509504975685,
+        0.1575219409416061,
+        0.1575219409416061,
+        0.15778509504975685,
+        0.15836484344244883
+      ],
+      "h2_quadrature_estimate": 0.15734417132891004,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.18832080841064455,
+            0.19329650229308756,
+            0.1866276774317137
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.18706124703386146
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15074150247247148,
+            0.15379343904424125,
+            0.1500441857742088
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1497558929338415
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              6,
+              7
+            ],
+            [
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.13698729923914862,
+            0.13919678918075415,
+            0.1363486000636621
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.13582547981319892
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.15130040193810468,
+        0.1500197628858374,
+        0.14997994698736566,
+        0.14986378939808193,
+        0.15062342660539896,
+        0.15068845488351493,
+        0.14981417181095258,
+        0.14999609151199056
+      ],
+      "h2_quadrature_estimate": 0.14984935337809654,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "bounds": {
+        "1": {
+          "component_sequences": [
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ],
+          "component_values": [
+            0.18000000000000002,
+            0.18832080841064455,
+            0.19329650229308756,
+            0.1866276774317137
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 8,
+          "value": 0.18706124703386146
+        },
+        "2": {
+          "component_sequences": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.14444444444444446,
+            0.15074150247247148,
+            0.15379343904424125,
+            0.1500441857742088
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 36,
+          "value": 0.1497558929338415
+        },
+        "3": {
+          "component_sequences": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              6,
+              7
+            ],
+            [
+              0,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "component_values": [
+            0.13076923076923078,
+            0.13698729923914862,
+            0.13919678918075415,
+            0.1363486000636621
+          ],
+          "interpretation": "family_revelation_continuous_model_lower_bound",
+          "quadrature_pruning_authorized": false,
+          "sequence_count_per_component": 120,
+          "value": 0.13582547981319892
+        }
+      },
+      "forced_root_h2_bounds": [
+        0.15130040193810468,
+        0.1500197628858374,
+        0.14997994698736566,
+        0.14986378939808193,
+        0.15062342660539896,
+        0.15068845488351493,
+        0.14981417181095258,
+        0.14999609151199056
+      ],
+      "h2_quadrature_estimate": 0.14984935337809654,
+      "roots_with_bound_above_h2_estimate": 7,
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ]
+}
