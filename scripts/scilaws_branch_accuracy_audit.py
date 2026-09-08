@@ -29,7 +29,7 @@ def assessment(records, complete, expected):
     return results
 
 
-def run(output):
+def run(output, *, blas_threads=None):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -68,6 +68,7 @@ def run(output):
                   [r['max_observed_error'] for r in result['assessment']], flush=True)
     with output.open('x') as f:
         json.dump(dict(cases=cases, design_sha256=DESIGN_SHA, outer_order=4,
+                       blas_threads=blas_threads,
                        reference_seconds_cap=5, reference_evaluations_cap=100000,
                        source_measurements=0, model_calls=0, paid_cost_usd=0,
                        deployment_authorized=False,
@@ -79,4 +80,11 @@ def run(output):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', required=True)
-    run(p.parse_args().output)
+    p.add_argument('--single-thread-blas', action='store_true')
+    args = p.parse_args()
+    if args.single_thread_blas:
+        from threadpoolctl import threadpool_limits
+        with threadpool_limits(limits=1, user_api='blas'):
+            run(args.output, blas_threads=1)
+    else:
+        run(args.output)
