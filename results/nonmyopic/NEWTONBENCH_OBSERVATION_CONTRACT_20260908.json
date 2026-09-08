@@ -1,0 +1,48 @@
+{
+  "status": "observation_contract_incompatible_with_current_chemistry_adapter",
+  "source_commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+  "source_sha256": {
+    "wrapper": "63733f966a3f3e383661e26927a6c34766bb8671a8c36c69973e3c377c964fe0",
+    "noise": "f239b80240ea33bd61ab08c5bf64d9d8edf11250708cba023d2d94cc1f0f6c67",
+    "optics": "1faecfa85838eb9bcb781a71271da7e0ceb923b249584eac640787059709268f",
+    "wrap": "27b144d2f12c442cdc233691e38e22991d5b6292662017a8e014687a845c299f",
+    "oscillator": "02a02873e250524fa0d611bdaf5ea0915b5517b7a0d7dd5eec5001851206011f"
+  },
+  "noise": {
+    "scale": "max(abs(true_value * noise_level), absolute_floor)",
+    "raw_additive_gaussian": true,
+    "zero_noise_bypasses_floor": true,
+    "scalar_test_scales": [
+      0.2,
+      0.01,
+      0.2
+    ],
+    "array_test_scales": [
+      0.2,
+      0.01,
+      0.2
+    ],
+    "random_sampling_performed": false
+  },
+  "optics": {
+    "unit": "degrees",
+    "equal_indices_output_for_input_one": 1.0,
+    "radian_input_would_correspond_to_degrees": 57.29577951308232,
+    "medium_v0_at_3_1_1_is_nan": true
+  },
+  "oscillator": {
+    "input_k_m_b": [
+      1,
+      0.1,
+      5
+    ],
+    "easy_v0_is_nan": true,
+    "easy_v2_signed_value": -615.0
+  },
+  "coverage": "Specific source-contract counterexamples, not whole-domain validity or planning opportunity",
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false,
+  "old_endpoints_reopened": false,
+  "runner_sha256": "f3bb95ff340001d2bec3a9cb426a83e64eee1ac223989b2a160ffa4d0ed5bbbb"
+}
