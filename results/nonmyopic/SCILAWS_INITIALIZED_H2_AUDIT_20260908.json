@@ -1,0 +1,2775 @@
+{
+  "candidate_tolerance": 0.0001,
+  "cases": [
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 4,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.027041287115933954,
+          "root_action_values": [
+            [
+              0,
+              0.02710687559901184
+            ],
+            [
+              1,
+              0.027137291813221054
+            ],
+            [
+              2,
+              0.027067827697762212
+            ],
+            [
+              3,
+              0.027066089356685148
+            ],
+            [
+              4,
+              0.027041287115933954
+            ],
+            [
+              5,
+              0.027084389832207338
+            ],
+            [
+              6,
+              0.027105932706353746
+            ],
+            [
+              7,
+              0.02704128870028794
+            ]
+          ],
+          "seconds": 1.451453457819298,
+          "status": "completed"
+        },
+        {
+          "action": 4,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.027041401524058324,
+          "root_action_values": [
+            [
+              0,
+              0.027106955647754206
+            ],
+            [
+              1,
+              0.027137381830978004
+            ],
+            [
+              2,
+              0.027067647686887627
+            ],
+            [
+              3,
+              0.027066200478992237
+            ],
+            [
+              4,
+              0.027041401524058324
+            ],
+            [
+              5,
+              0.027084493412905794
+            ],
+            [
+              6,
+              0.027106027120667998
+            ],
+            [
+              7,
+              0.027041401551097
+            ]
+          ],
+          "seconds": 3.307563499780372,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.38721131929184566,
+          "root_action_values": [
+            [
+              0,
+              0.3881477228767586
+            ],
+            [
+              1,
+              0.38886318714958495
+            ],
+            [
+              2,
+              0.38771814365233265
+            ],
+            [
+              3,
+              0.38771069624614213
+            ],
+            [
+              4,
+              0.3872131123480984
+            ],
+            [
+              5,
+              0.3872477678699288
+            ],
+            [
+              6,
+              0.3883611905637762
+            ],
+            [
+              7,
+              0.38721131929184566
+            ]
+          ],
+          "seconds": 1.4096806249581277,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.3871977665881613,
+          "root_action_values": [
+            [
+              0,
+              0.38814883936426886
+            ],
+            [
+              1,
+              0.38886331700228793
+            ],
+            [
+              2,
+              0.38772183516658926
+            ],
+            [
+              3,
+              0.38771238526228796
+            ],
+            [
+              4,
+              0.38721042830415087
+            ],
+            [
+              5,
+              0.3872493951370506
+            ],
+            [
+              6,
+              0.3883663867877593
+            ],
+            [
+              7,
+              0.38719776658816135
+            ]
+          ],
+          "seconds": 3.2251197500154376,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 4,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.16757548405102865,
+          "root_action_values": [
+            [
+              0,
+              0.16799330707187388
+            ],
+            [
+              1,
+              0.1681870895860797
+            ],
+            [
+              2,
+              0.1677443395442051
+            ],
+            [
+              3,
+              0.16773569594256788
+            ],
+            [
+              4,
+              0.16757548405102868
+            ],
+            [
+              5,
+              0.16785122050582055
+            ],
+            [
+              6,
+              0.16798621077683082
+            ],
+            [
+              7,
+              0.16757548929500687
+            ]
+          ],
+          "seconds": 1.40351516706869,
+          "status": "completed"
+        },
+        {
+          "action": 4,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.1675762617278342,
+          "root_action_values": [
+            [
+              0,
+              0.16799386713320222
+            ],
+            [
+              1,
+              0.16818761853607944
+            ],
+            [
+              2,
+              0.1677438326783069
+            ],
+            [
+              3,
+              0.16773641247854112
+            ],
+            [
+              4,
+              0.1675762617278342
+            ],
+            [
+              5,
+              0.16785192638709345
+            ],
+            [
+              6,
+              0.16798685875273695
+            ],
+            [
+              7,
+              0.1675762618914898
+            ]
+          ],
+          "seconds": 3.3314908749889582,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.033693891743803356,
+          "root_action_values": [
+            [
+              0,
+              0.033825268593123764
+            ],
+            [
+              1,
+              0.033824837594988375
+            ],
+            [
+              2,
+              0.03369391086794011
+            ],
+            [
+              3,
+              0.033801948600301966
+            ],
+            [
+              4,
+              0.03381257629166834
+            ],
+            [
+              5,
+              0.033778372191288486
+            ],
+            [
+              6,
+              0.03375366767379494
+            ],
+            [
+              7,
+              0.033693891743803356
+            ]
+          ],
+          "seconds": 1.2536415830254555,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.033694163961879346,
+          "root_action_values": [
+            [
+              0,
+              0.03382544910457831
+            ],
+            [
+              1,
+              0.03382508956897504
+            ],
+            [
+              2,
+              0.03369416396187935
+            ],
+            [
+              3,
+              0.03380224318048554
+            ],
+            [
+              4,
+              0.033812827006953664
+            ],
+            [
+              5,
+              0.03377862531117463
+            ],
+            [
+              6,
+              0.03375393566848526
+            ],
+            [
+              7,
+              0.03369416400670441
+            ]
+          ],
+          "seconds": 2.947545250179246,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.36054463435639034,
+          "root_action_values": [
+            [
+              0,
+              0.3622674359564569
+            ],
+            [
+              1,
+              0.36214473505833344
+            ],
+            [
+              2,
+              0.3605446343563904
+            ],
+            [
+              3,
+              0.36151512361416116
+            ],
+            [
+              4,
+              0.3616922270302641
+            ],
+            [
+              5,
+              0.36122362335619435
+            ],
+            [
+              6,
+              0.3610315524426951
+            ],
+            [
+              7,
+              0.3605446423926393
+            ]
+          ],
+          "seconds": 1.2948293338995427,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.3605476301129351,
+          "root_action_values": [
+            [
+              0,
+              0.3622693443950495
+            ],
+            [
+              1,
+              0.36214740793162603
+            ],
+            [
+              2,
+              0.3605476301129351
+            ],
+            [
+              3,
+              0.36151799616376035
+            ],
+            [
+              4,
+              0.3616953086820319
+            ],
+            [
+              5,
+              0.3612266628252068
+            ],
+            [
+              6,
+              0.36103470535007853
+            ],
+            [
+              7,
+              0.3605476306620406
+            ]
+          ],
+          "seconds": 3.0286041249055415,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.14572640971147358,
+          "root_action_values": [
+            [
+              0,
+              0.1463171525287712
+            ],
+            [
+              1,
+              0.14632405208039134
+            ],
+            [
+              2,
+              0.14572648680629655
+            ],
+            [
+              3,
+              0.14621109661141557
+            ],
+            [
+              4,
+              0.14625675978439526
+            ],
+            [
+              5,
+              0.14610692035759926
+            ],
+            [
+              6,
+              0.14599433336774617
+            ],
+            [
+              7,
+              0.14572640971147358
+            ]
+          ],
+          "seconds": 1.2341421670280397,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.14572766767977804,
+          "root_action_values": [
+            [
+              0,
+              0.14631800830496783
+            ],
+            [
+              1,
+              0.1463251442259028
+            ],
+            [
+              2,
+              0.14572766767977804
+            ],
+            [
+              3,
+              0.146211418824393
+            ],
+            [
+              4,
+              0.1462579127999172
+            ],
+            [
+              5,
+              0.14610808865801042
+            ],
+            [
+              6,
+              0.145995563673795
+            ],
+            [
+              7,
+              0.1457276679060857
+            ]
+          ],
+          "seconds": 2.8921126250643283,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.04659225807963203,
+          "root_action_values": [
+            [
+              0,
+              0.046775986701407105
+            ],
+            [
+              1,
+              0.04669154758629217
+            ],
+            [
+              2,
+              0.04665562105836909
+            ],
+            [
+              3,
+              0.0466217981257139
+            ],
+            [
+              4,
+              0.046721937473294416
+            ],
+            [
+              5,
+              0.04676264187656993
+            ],
+            [
+              6,
+              0.046592277225123775
+            ],
+            [
+              7,
+              0.04659225807963203
+            ]
+          ],
+          "seconds": 1.011066583916545,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.046593131192945225,
+          "root_action_values": [
+            [
+              0,
+              0.04677651024234384
+            ],
+            [
+              1,
+              0.046692134756527184
+            ],
+            [
+              2,
+              0.04665631690289387
+            ],
+            [
+              3,
+              0.04662256031938074
+            ],
+            [
+              4,
+              0.04672251882991122
+            ],
+            [
+              5,
+              0.0467631142541804
+            ],
+            [
+              6,
+              0.04659313208094461
+            ],
+            [
+              7,
+              0.046593131192945225
+            ]
+          ],
+          "seconds": 2.3805935829877853,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.29951500409259346,
+          "root_action_values": [
+            [
+              0,
+              0.30143312212388174
+            ],
+            [
+              1,
+              0.30045691369525174
+            ],
+            [
+              2,
+              0.30017653718112847
+            ],
+            [
+              3,
+              0.299763053336205
+            ],
+            [
+              4,
+              0.300887721400935
+            ],
+            [
+              5,
+              0.3012099821102242
+            ],
+            [
+              6,
+              0.29951510694922656
+            ],
+            [
+              7,
+              0.29951500409259346
+            ]
+          ],
+          "seconds": 1.041462916182354,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.2995209420817204,
+          "root_action_values": [
+            [
+              0,
+              0.30143660456725957
+            ],
+            [
+              1,
+              0.3004609783719501
+            ],
+            [
+              2,
+              0.30018138953824575
+            ],
+            [
+              3,
+              0.2997682405652498
+            ],
+            [
+              4,
+              0.3008917131924916
+            ],
+            [
+              5,
+              0.30121317952175286
+            ],
+            [
+              6,
+              0.29952094760338643
+            ],
+            [
+              7,
+              0.2995209420817204
+            ]
+          ],
+          "seconds": 2.422366375103593,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.1554128145124145,
+          "root_action_values": [
+            [
+              0,
+              0.15605021316464374
+            ],
+            [
+              1,
+              0.15576809043958256
+            ],
+            [
+              2,
+              0.15563664001014774
+            ],
+            [
+              3,
+              0.1555201161581182
+            ],
+            [
+              4,
+              0.15586639930114776
+            ],
+            [
+              5,
+              0.15601534421816718
+            ],
+            [
+              6,
+              0.15541287773495263
+            ],
+            [
+              7,
+              0.1554128145124145
+            ]
+          ],
+          "seconds": 1.0035922499373555,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.15541573266664377,
+          "root_action_values": [
+            [
+              0,
+              0.15605196629771179
+            ],
+            [
+              1,
+              0.1557700490803198
+            ],
+            [
+              2,
+              0.1556389666332093
+            ],
+            [
+              3,
+              0.1555226597543827
+            ],
+            [
+              4,
+              0.15586834471989108
+            ],
+            [
+              5,
+              0.15601692019746585
+            ],
+            [
+              6,
+              0.15541573563938085
+            ],
+            [
+              7,
+              0.15541573266664377
+            ]
+          ],
+          "seconds": 2.3885150419082493,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.04659225807963203,
+          "root_action_values": [
+            [
+              0,
+              0.046775986701407105
+            ],
+            [
+              1,
+              0.04669154758629217
+            ],
+            [
+              2,
+              0.046655621058369096
+            ],
+            [
+              3,
+              0.0466217981257139
+            ],
+            [
+              4,
+              0.046721937473294416
+            ],
+            [
+              5,
+              0.046762641876569935
+            ],
+            [
+              6,
+              0.046592277225123775
+            ],
+            [
+              7,
+              0.04659225807963203
+            ]
+          ],
+          "seconds": 1.0239969999529421,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.046593131192945225,
+          "root_action_values": [
+            [
+              0,
+              0.04677651024234384
+            ],
+            [
+              1,
+              0.046692134756527184
+            ],
+            [
+              2,
+              0.046656316902893874
+            ],
+            [
+              3,
+              0.04662256031938074
+            ],
+            [
+              4,
+              0.04672251882991122
+            ],
+            [
+              5,
+              0.0467631142541804
+            ],
+            [
+              6,
+              0.04659313208094461
+            ],
+            [
+              7,
+              0.046593131192945225
+            ]
+          ],
+          "seconds": 2.383495416957885,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.2995150040925935,
+          "root_action_values": [
+            [
+              0,
+              0.30143312212388174
+            ],
+            [
+              1,
+              0.30045691369525174
+            ],
+            [
+              2,
+              0.30017653718112847
+            ],
+            [
+              3,
+              0.29976305333620507
+            ],
+            [
+              4,
+              0.3008877214009351
+            ],
+            [
+              5,
+              0.3012099821102243
+            ],
+            [
+              6,
+              0.2995151069492266
+            ],
+            [
+              7,
+              0.2995150040925935
+            ]
+          ],
+          "seconds": 1.0359160001389682,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.2995209420817205,
+          "root_action_values": [
+            [
+              0,
+              0.30143660456725957
+            ],
+            [
+              1,
+              0.3004609783719501
+            ],
+            [
+              2,
+              0.3001813895382458
+            ],
+            [
+              3,
+              0.2997682405652498
+            ],
+            [
+              4,
+              0.3008917131924916
+            ],
+            [
+              5,
+              0.30121317952175297
+            ],
+            [
+              6,
+              0.2995209476033864
+            ],
+            [
+              7,
+              0.2995209420817205
+            ]
+          ],
+          "seconds": 2.9615053748711944,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.1554128145124146,
+          "root_action_values": [
+            [
+              0,
+              0.15605021316464382
+            ],
+            [
+              1,
+              0.15576809043958267
+            ],
+            [
+              2,
+              0.1556366400101478
+            ],
+            [
+              3,
+              0.15552011615811828
+            ],
+            [
+              4,
+              0.15586639930114787
+            ],
+            [
+              5,
+              0.1560153442181673
+            ],
+            [
+              6,
+              0.15541287773495271
+            ],
+            [
+              7,
+              0.1554128145124146
+            ]
+          ],
+          "seconds": 1.0154287500772625,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.15541573266664385,
+          "root_action_values": [
+            [
+              0,
+              0.15605196629771184
+            ],
+            [
+              1,
+              0.1557700490803199
+            ],
+            [
+              2,
+              0.1556389666332094
+            ],
+            [
+              3,
+              0.15552265975438276
+            ],
+            [
+              4,
+              0.15586834471989117
+            ],
+            [
+              5,
+              0.1560169201974659
+            ],
+            [
+              6,
+              0.15541573563938094
+            ],
+            [
+              7,
+              0.15541573266664385
+            ]
+          ],
+          "seconds": 2.400739082833752,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.04659225807963203,
+          "root_action_values": [
+            [
+              0,
+              0.046775986701407105
+            ],
+            [
+              1,
+              0.04669154758629217
+            ],
+            [
+              2,
+              0.046655621058369096
+            ],
+            [
+              3,
+              0.046621798125713904
+            ],
+            [
+              4,
+              0.046721937473294416
+            ],
+            [
+              5,
+              0.04676264187656993
+            ],
+            [
+              6,
+              0.046592277225123775
+            ],
+            [
+              7,
+              0.04659225807963203
+            ]
+          ],
+          "seconds": 1.029099125182256,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.046593131192945225,
+          "root_action_values": [
+            [
+              0,
+              0.04677651024234384
+            ],
+            [
+              1,
+              0.04669213475652719
+            ],
+            [
+              2,
+              0.046656316902893874
+            ],
+            [
+              3,
+              0.04662256031938074
+            ],
+            [
+              4,
+              0.04672251882991122
+            ],
+            [
+              5,
+              0.0467631142541804
+            ],
+            [
+              6,
+              0.04659313208094461
+            ],
+            [
+              7,
+              0.046593131192945225
+            ]
+          ],
+          "seconds": 2.4647864170838147,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.2995150040925935,
+          "root_action_values": [
+            [
+              0,
+              0.30143312212388174
+            ],
+            [
+              1,
+              0.3004569136952518
+            ],
+            [
+              2,
+              0.30017653718112847
+            ],
+            [
+              3,
+              0.29976305333620507
+            ],
+            [
+              4,
+              0.3008877214009351
+            ],
+            [
+              5,
+              0.30120998211022426
+            ],
+            [
+              6,
+              0.2995151069492266
+            ],
+            [
+              7,
+              0.2995150040925935
+            ]
+          ],
+          "seconds": 1.0399485831148922,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.2995209420817205,
+          "root_action_values": [
+            [
+              0,
+              0.30143660456725957
+            ],
+            [
+              1,
+              0.3004609783719501
+            ],
+            [
+              2,
+              0.3001813895382458
+            ],
+            [
+              3,
+              0.2997682405652498
+            ],
+            [
+              4,
+              0.3008917131924916
+            ],
+            [
+              5,
+              0.30121317952175297
+            ],
+            [
+              6,
+              0.29952094760338643
+            ],
+            [
+              7,
+              0.2995209420817205
+            ]
+          ],
+          "seconds": 2.5613392090890557,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.1554128145124146,
+          "root_action_values": [
+            [
+              0,
+              0.15605021316464382
+            ],
+            [
+              1,
+              0.15576809043958267
+            ],
+            [
+              2,
+              0.1556366400101478
+            ],
+            [
+              3,
+              0.15552011615811828
+            ],
+            [
+              4,
+              0.15586639930114787
+            ],
+            [
+              5,
+              0.1560153442181673
+            ],
+            [
+              6,
+              0.15541287773495271
+            ],
+            [
+              7,
+              0.1554128145124146
+            ]
+          ],
+          "seconds": 1.0109949999023229,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.15541573266664385,
+          "root_action_values": [
+            [
+              0,
+              0.15605196629771184
+            ],
+            [
+              1,
+              0.1557700490803199
+            ],
+            [
+              2,
+              0.1556389666332094
+            ],
+            [
+              3,
+              0.15552265975438276
+            ],
+            [
+              4,
+              0.15586834471989117
+            ],
+            [
+              5,
+              0.1560169201974659
+            ],
+            [
+              6,
+              0.15541573563938094
+            ],
+            [
+              7,
+              0.15541573266664385
+            ]
+          ],
+          "seconds": 2.459130125120282,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.03369389174380338,
+          "root_action_values": [
+            [
+              0,
+              0.033825268593123764
+            ],
+            [
+              1,
+              0.033824837594988375
+            ],
+            [
+              2,
+              0.033693910867940116
+            ],
+            [
+              3,
+              0.033801948600301966
+            ],
+            [
+              4,
+              0.03381257629166834
+            ],
+            [
+              5,
+              0.033778372191288486
+            ],
+            [
+              6,
+              0.033753667673794945
+            ],
+            [
+              7,
+              0.03369389174380337
+            ]
+          ],
+          "seconds": 1.2343198750168085,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.03369416396187935,
+          "root_action_values": [
+            [
+              0,
+              0.03382544910457831
+            ],
+            [
+              1,
+              0.033825089568975036
+            ],
+            [
+              2,
+              0.03369416396187935
+            ],
+            [
+              3,
+              0.03380224318048554
+            ],
+            [
+              4,
+              0.03381282700695366
+            ],
+            [
+              5,
+              0.03377862531117463
+            ],
+            [
+              6,
+              0.03375393566848527
+            ],
+            [
+              7,
+              0.03369416400670441
+            ]
+          ],
+          "seconds": 2.892496667103842,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.3605446343563905,
+          "root_action_values": [
+            [
+              0,
+              0.362267435956457
+            ],
+            [
+              1,
+              0.36214473505833356
+            ],
+            [
+              2,
+              0.3605446343563905
+            ],
+            [
+              3,
+              0.36151512361416116
+            ],
+            [
+              4,
+              0.3616922270302642
+            ],
+            [
+              5,
+              0.36122362335619435
+            ],
+            [
+              6,
+              0.36103155244269514
+            ],
+            [
+              7,
+              0.36054464239263934
+            ]
+          ],
+          "seconds": 1.2357641248963773,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.3605476301129352,
+          "root_action_values": [
+            [
+              0,
+              0.36226934439504943
+            ],
+            [
+              1,
+              0.36214740793162603
+            ],
+            [
+              2,
+              0.3605476301129352
+            ],
+            [
+              3,
+              0.36151799616376046
+            ],
+            [
+              4,
+              0.36169530868203204
+            ],
+            [
+              5,
+              0.361226662825207
+            ],
+            [
+              6,
+              0.3610347053500784
+            ],
+            [
+              7,
+              0.3605476306620407
+            ]
+          ],
+          "seconds": 2.8908479171805084,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.14572640971147363,
+          "root_action_values": [
+            [
+              0,
+              0.14631715252877123
+            ],
+            [
+              1,
+              0.14632405208039137
+            ],
+            [
+              2,
+              0.14572648680629657
+            ],
+            [
+              3,
+              0.14621109661141557
+            ],
+            [
+              4,
+              0.1462567597843953
+            ],
+            [
+              5,
+              0.1461069203575993
+            ],
+            [
+              6,
+              0.14599433336774623
+            ],
+            [
+              7,
+              0.14572640971147363
+            ]
+          ],
+          "seconds": 1.2420531248208135,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.14572766767977807,
+          "root_action_values": [
+            [
+              0,
+              0.14631800830496786
+            ],
+            [
+              1,
+              0.1463251442259029
+            ],
+            [
+              2,
+              0.1457276676797781
+            ],
+            [
+              3,
+              0.14621141882439306
+            ],
+            [
+              4,
+              0.14625791279991723
+            ],
+            [
+              5,
+              0.14610808865801048
+            ],
+            [
+              6,
+              0.14599556367379504
+            ],
+            [
+              7,
+              0.14572766790608574
+            ]
+          ],
+          "seconds": 3.0133254998363554,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.046592258079632014,
+          "root_action_values": [
+            [
+              0,
+              0.046775986701407105
+            ],
+            [
+              1,
+              0.04669154758629217
+            ],
+            [
+              2,
+              0.046655621058369096
+            ],
+            [
+              3,
+              0.046621798125713904
+            ],
+            [
+              4,
+              0.04672193747329441
+            ],
+            [
+              5,
+              0.04676264187656993
+            ],
+            [
+              6,
+              0.046592277225123775
+            ],
+            [
+              7,
+              0.046592258079632014
+            ]
+          ],
+          "seconds": 1.028029999928549,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.04659313119294522,
+          "root_action_values": [
+            [
+              0,
+              0.04677651024234384
+            ],
+            [
+              1,
+              0.046692134756527184
+            ],
+            [
+              2,
+              0.046656316902893874
+            ],
+            [
+              3,
+              0.046622560319380744
+            ],
+            [
+              4,
+              0.04672251882991123
+            ],
+            [
+              5,
+              0.0467631142541804
+            ],
+            [
+              6,
+              0.04659313208094461
+            ],
+            [
+              7,
+              0.04659313119294522
+            ]
+          ],
+          "seconds": 2.3617849578149617,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.2995150040925936,
+          "root_action_values": [
+            [
+              0,
+              0.3014331221238818
+            ],
+            [
+              1,
+              0.3004569136952518
+            ],
+            [
+              2,
+              0.3001765371811286
+            ],
+            [
+              3,
+              0.2997630533362051
+            ],
+            [
+              4,
+              0.30088772140093517
+            ],
+            [
+              5,
+              0.3012099821102243
+            ],
+            [
+              6,
+              0.2995151069492267
+            ],
+            [
+              7,
+              0.2995150040925936
+            ]
+          ],
+          "seconds": 1.1324457079172134,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.2995209420817205,
+          "root_action_values": [
+            [
+              0,
+              0.3014366045672596
+            ],
+            [
+              1,
+              0.30046097837195024
+            ],
+            [
+              2,
+              0.3001813895382458
+            ],
+            [
+              3,
+              0.29976824056524987
+            ],
+            [
+              4,
+              0.3008917131924916
+            ],
+            [
+              5,
+              0.30121317952175297
+            ],
+            [
+              6,
+              0.2995209476033865
+            ],
+            [
+              7,
+              0.2995209420817205
+            ]
+          ],
+          "seconds": 2.577882083831355,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16225,
+          "order": 4,
+          "risk": 0.15541281451241462,
+          "root_action_values": [
+            [
+              0,
+              0.1560502131646438
+            ],
+            [
+              1,
+              0.15576809043958265
+            ],
+            [
+              2,
+              0.15563664001014782
+            ],
+            [
+              3,
+              0.1555201161581183
+            ],
+            [
+              4,
+              0.15586639930114787
+            ],
+            [
+              5,
+              0.1560153442181673
+            ],
+            [
+              6,
+              0.15541287773495271
+            ],
+            [
+              7,
+              0.1554128145124146
+            ]
+          ],
+          "seconds": 1.0164671670645475,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64661,
+          "order": 8,
+          "risk": 0.15541573266664385,
+          "root_action_values": [
+            [
+              0,
+              0.15605196629771187
+            ],
+            [
+              1,
+              0.1557700490803199
+            ],
+            [
+              2,
+              0.15563896663320942
+            ],
+            [
+              3,
+              0.15552265975438279
+            ],
+            [
+              4,
+              0.15586834471989117
+            ],
+            [
+              5,
+              0.15601692019746594
+            ],
+            [
+              6,
+              0.15541573563938094
+            ],
+            [
+              7,
+              0.15541573266664385
+            ]
+          ],
+          "seconds": 2.368185291066766,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.04659225807963203,
+          "root_action_values": [
+            [
+              0,
+              0.046775986701407105
+            ],
+            [
+              1,
+              0.04669154758629217
+            ],
+            [
+              2,
+              0.046655621058369096
+            ],
+            [
+              3,
+              0.0466217981257139
+            ],
+            [
+              4,
+              0.046721937473294416
+            ],
+            [
+              5,
+              0.046762641876569935
+            ],
+            [
+              6,
+              0.046592277225123775
+            ],
+            [
+              7,
+              0.04659225807963203
+            ]
+          ],
+          "seconds": 1.0772196669131517,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.046593131192945225,
+          "root_action_values": [
+            [
+              0,
+              0.04677651024234384
+            ],
+            [
+              1,
+              0.046692134756527184
+            ],
+            [
+              2,
+              0.046656316902893874
+            ],
+            [
+              3,
+              0.04662256031938074
+            ],
+            [
+              4,
+              0.04672251882991122
+            ],
+            [
+              5,
+              0.0467631142541804
+            ],
+            [
+              6,
+              0.04659313208094461
+            ],
+            [
+              7,
+              0.046593131192945225
+            ]
+          ],
+          "seconds": 2.359153457917273,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "zero",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16785,
+          "order": 4,
+          "risk": 0.2995150040925935,
+          "root_action_values": [
+            [
+              0,
+              0.30143312212388174
+            ],
+            [
+              1,
+              0.30045691369525174
+            ],
+            [
+              2,
+              0.30017653718112847
+            ],
+            [
+              3,
+              0.29976305333620507
+            ],
+            [
+              4,
+              0.3008877214009351
+            ],
+            [
+              5,
+              0.3012099821102243
+            ],
+            [
+              6,
+              0.2995151069492266
+            ],
+            [
+              7,
+              0.2995150040925935
+            ]
+          ],
+          "seconds": 1.1142918330151588,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 66849,
+          "order": 8,
+          "risk": 0.2995209420817205,
+          "root_action_values": [
+            [
+              0,
+              0.30143660456725957
+            ],
+            [
+              1,
+              0.3004609783719501
+            ],
+            [
+              2,
+              0.3001813895382458
+            ],
+            [
+              3,
+              0.2997682405652498
+            ],
+            [
+              4,
+              0.3008917131924916
+            ],
+            [
+              5,
+              0.30121317952175297
+            ],
+            [
+              6,
+              0.2995209476033864
+            ],
+            [
+              7,
+              0.2995209420817205
+            ]
+          ],
+          "seconds": 2.4401827920228243,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "affine",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    },
+    {
+      "assessment": {
+        "candidates": [],
+        "reason": "reference_incomplete",
+        "reference_valid": false
+      },
+      "rows": [
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 16221,
+          "order": 4,
+          "risk": 0.1554128145124146,
+          "root_action_values": [
+            [
+              0,
+              0.15605021316464382
+            ],
+            [
+              1,
+              0.15576809043958267
+            ],
+            [
+              2,
+              0.1556366400101478
+            ],
+            [
+              3,
+              0.15552011615811828
+            ],
+            [
+              4,
+              0.15586639930114787
+            ],
+            [
+              5,
+              0.1560153442181673
+            ],
+            [
+              6,
+              0.15541287773495271
+            ],
+            [
+              7,
+              0.1554128145124146
+            ]
+          ],
+          "seconds": 1.000149083090946,
+          "status": "completed"
+        },
+        {
+          "action": 7,
+          "depth": 2,
+          "nodes": 64601,
+          "order": 8,
+          "risk": 0.15541573266664385,
+          "root_action_values": [
+            [
+              0,
+              0.15605196629771184
+            ],
+            [
+              1,
+              0.1557700490803199
+            ],
+            [
+              2,
+              0.1556389666332094
+            ],
+            [
+              3,
+              0.15552265975438276
+            ],
+            [
+              4,
+              0.15586834471989117
+            ],
+            [
+              5,
+              0.1560169201974659
+            ],
+            [
+              6,
+              0.15541573563938094
+            ],
+            [
+              7,
+              0.15541573266664385
+            ]
+          ],
+          "seconds": 2.441735167056322,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "order": 16,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 32,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        },
+        {
+          "depth": 2,
+          "order": 64,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "scenario": "quadratic",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ],
+  "deployment_authorized": false,
+  "depth": 2,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "initialized_h2_refinement_not_independent_proof_or_source_evidence",
+  "model_calls": 0,
+  "nodes_cap": 100000,
+  "paid_cost_usd": 0,
+  "reference_tolerance": 1e-05,
+  "seconds_cap": 5,
+  "source_measurements": 0
+}
