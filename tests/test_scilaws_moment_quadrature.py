@@ -3,7 +3,11 @@ import pytest
 from scipy.integrate import quad
 from scipy.stats import t
 
-from environments.scilaws.moment_quadrature import MomentMatchedMixture, match_moments
+from environments.scilaws.moment_quadrature import (
+    MomentMatchedMixture,
+    match_moments,
+    _independent_equations,
+)
 from environments.scilaws.regression_belief import RegressionBelief
 from environments.scilaws.regression_mixture import RegressionMixture
 
@@ -53,7 +57,7 @@ def test_no_change_to_likelihood_or_posterior_update():
 
 
 def test_infeasible_moments_fail_without_fallback():
-    with pytest.raises(ValueError, match="moment matching failed"):
+    with pytest.raises(ValueError, match="inconsistent numerical moment row space"):
         match_moments([-0.1, 0.1], [0.5, 0.5], [1.0], [[6.0, 0.0, 1.0]])
 
 
@@ -86,3 +90,13 @@ def test_refined_risk_matches_independent_predictive_density_integral():
     assert error < 1e-7
     value, _ = m.expected_terminal_risk(m.initial_state, 0)
     assert abs(reference - value) < 1e-5
+
+
+def test_row_space_preserves_weak_independent_constraint():
+    matrix = np.array([[1.0, 1.0, 1.0], [1.0, 1.0 + 1e-7, 1.0], [2.0, 2.0, 2.0]])
+    truth = np.array([0.2, 0.3, 0.5])
+    a, b = _independent_equations(matrix, matrix @ truth)
+    assert a.shape[0] == 2
+    np.testing.assert_allclose(a @ truth, b, atol=1e-8)
+    with pytest.raises(ValueError, match="inconsistent"):
+        _independent_equations(np.array([[1.0, 1.0], [2.0, 2.0]]), np.array([1.0, 3.0]))

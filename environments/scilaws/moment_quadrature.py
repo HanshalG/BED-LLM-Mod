@@ -14,6 +14,17 @@ from scipy.stats import t
 from .regression_mixture import RegressionMixture
 
 
+def _independent_equations(matrix, target):
+    """Whiten the represented row space; never bypass original-residual checks."""
+    u, singular, vh = np.linalg.svd(matrix, full_matrices=False)
+    cutoff = np.finfo(float).eps * max(matrix.shape) * singular[0]
+    keep = singular > cutoff
+    projected = u[:, keep].T @ target
+    if np.max(np.abs(target - u[:, keep] @ projected)) > 1e-10:
+        raise ValueError("inconsistent numerical moment row space")
+    return vh[keep], projected / singular[keep]
+
+
 def match_moments(nodes, masses, component_weights, parameters):
     y, q, w = (np.asarray(a, dtype=float) for a in (nodes, masses, component_weights))
     pars = np.asarray(parameters, dtype=float)
@@ -51,19 +62,20 @@ def match_moments(nodes, masses, component_weights, parameters):
     )
     if not np.isfinite(matrix).all() or not np.isfinite(target).all():
         raise ValueError("moment constraint overflow")
+    independent, rhs = _independent_equations(matrix, target)
     n = len(y)
     identity = eye(n, format="csr")
     # Minimize L1 departure from the existing quadrature subject to exact moments.
     inequalities = bmat([[identity, -identity], [-identity, -identity]], format="csr")
     equalities = bmat(
-        [[csr_matrix(matrix), csr_matrix((len(target), n))]], format="csr"
+        [[csr_matrix(independent), csr_matrix((len(rhs), n))]], format="csr"
     )
     result = linprog(
         np.r_[np.zeros(n), np.ones(n)],
         A_ub=inequalities,
         b_ub=np.r_[q, -q],
         A_eq=equalities,
-        b_eq=target,
+        b_eq=rhs,
         bounds=(0, None),
         method="highs",
         options=dict(
