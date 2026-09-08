@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from scripts.scilaws_source_contract_audit import audit, fixture_bundle, source_bytes
+from environments.scilaws.point_measurements import PointMeasurements
 
 REPO = Path(__file__).resolve().parents[1] / "external/SciLaws-source-audit"
 
@@ -43,3 +44,34 @@ def test_fixture_does_not_deserialize_state_or_read_sample(source, monkeypatch):
 def test_missing_definitions_fail():
     with pytest.raises(ValueError, match="definitions"):
         fixture_bundle("", "I")
+
+
+def test_point_boundary_with_pinned_runtime_fixture(source, tmp_path):
+    results = []
+    for arm in ("h1", "h3"):
+        sim = fixture_bundle(source, "I", budget=4)
+        boundary = PointMeasurements(
+            sim,
+            database=tmp_path / f"{arm}.sqlite",
+            bounds={"x": [0, 1]},
+            target="y",
+            budget=4,
+            pairing_key=b"fixture-only-private-key" * 2,
+            world_id="synthetic",
+            episode_id="pair0",
+            arm_id=arm,
+            runtime_binding="pinned-scilaws-constant-fixture",
+        )
+        response = boundary.query(
+            dict(request_id="first", point={"x": 0.5}, replicates=4)
+        )
+        assert response["remaining"] == 0
+        assert sim.budget_status()["used"] == 4
+        assert set(response["observations"]) <= {9.0, 11.0}
+        assert (
+            boundary.query(dict(request_id="first", point={"x": 0.5}, replicates=4))
+            == response
+        )
+        assert sim.budget_status()["used"] == 4
+        results.append(response)
+    assert results[0] == results[1]
