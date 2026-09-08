@@ -1,0 +1,69 @@
+{
+  "domain_size_histogram": {
+    "7": 326,
+    "8": 984,
+    "9": 740,
+    "10": 71,
+    "11": 67,
+    "12": 57,
+    "13": 55
+  },
+  "downstream_experiment_authorized": false,
+  "endpoint_values_evaluated": 0,
+  "group_size_histogram": {
+    "1": 49,
+    "2": 28,
+    "3": 20,
+    "4": 6,
+    "5": 16,
+    "6": 8,
+    "7": 6,
+    "8": 2
+  },
+  "labels_consulted": false,
+  "lexical_token_count_histogram": {
+    "22": 2,
+    "23": 2,
+    "24": 20,
+    "26": 3,
+    "28": 21,
+    "29": 1,
+    "30": 1,
+    "31": 107,
+    "32": 21,
+    "33": 5,
+    "34": 87,
+    "35": 12,
+    "36": 5,
+    "38": 82,
+    "39": 2,
+    "40": 2,
+    "43": 1,
+    "46": 1
+  },
+  "model_calls": 0,
+  "normalized_text_groups": 135,
+  "paid_cost_usd": 0,
+  "private_rows_materialized": true,
+  "record_count": 375,
+  "semantic_equivalence_checked": false,
+  "source_commit": "c1f71f98623ab6e3513f820a8e52235d5b498694",
+  "source_sha256": "55e21dee281be6ab779119dcce609d7d969e5528863c82a38fa4782fca0100ed",
+  "source_url": "https://raw.githubusercontent.com/SerafimBatzoglou/concept-synth/c1f71f98623ab6e3513f820a8e52235d5b498694/benchmarks/induction/data/induction_fullobs_v1.yaml.gz",
+  "tentative_split_groups": {
+    "confirmation": 27,
+    "development": 83,
+    "validation": 25
+  },
+  "tentative_split_records": {
+    "confirmation": 80,
+    "development": 222,
+    "validation": 73
+  },
+  "worlds_per_record_histogram": {
+    "4": 125,
+    "6": 100,
+    "7": 100,
+    "10": 50
+  }
+}
