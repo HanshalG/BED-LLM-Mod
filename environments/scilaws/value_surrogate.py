@@ -16,7 +16,7 @@ def interpolation_check(nodes, training, checks, actual):
     return interpolator, error
 
 
-def approximate_root(reference, state, action):
+def approximate_root(reference, state, action, *, adaptive=False):
     m = reference.model
     df, loc, scale2 = reference.density_parameters(state, action)
     logs = m._state(state)
@@ -43,14 +43,24 @@ def approximate_root(reference, state, action):
         max_inner_error = max(max_inner_error, max(e/(1+z*z) for _, e in results))
         return [v/(1+z*z) for v, _ in results]
 
-    training = np.asarray([values(u) for u in nodes])
-    actual = np.asarray([values(u) for u in checks])
-    interpolator, error = interpolation_check(nodes, training, checks, actual)
+    diagnostics = {}
+    if adaptive:
+        from .adaptive_value_fit import fit_adaptive
+        interpolator, nodes, diagnostics = fit_adaptive(values, nodes[0], nodes[-1])
+        if interpolator is None:
+            return dict(status='validation_failed', radius=radius, tail_bound=tail['value'],
+                        normalized_inner_error=max_inner_error, **diagnostics)
+        error = diagnostics['normalized_check_error']
+    else:
+        training = np.asarray([values(u) for u in nodes])
+        actual = np.asarray([values(u) for u in checks])
+        interpolator, error = interpolation_check(nodes, training, checks, actual)
+        if not np.isfinite(training).all() or not np.isfinite(actual).all():
+            raise ValueError('nonfinite normalized action values')
     result = dict(status='validation_failed', radius=radius, tail_bound=tail['value'],
                   normalized_check_error=error, normalized_inner_error=max_inner_error,
                   training_nodes=65, check_nodes=64, uniform_error_proven=False)
-    if not np.isfinite(training).all() or not np.isfinite(actual).all():
-        raise ValueError('nonfinite normalized action values')
+    result.update(diagnostics)
     if error > 2e-5 or max_inner_error > 1e-7:
         return result
     density = student_log_density(df, loc, scale2)
@@ -58,7 +68,10 @@ def approximate_root(reference, state, action):
     def integrand(u):
         reference.check()
         z = np.sinh(u)
-        value = float(np.min(interpolator(u))) * (1+z*z)
+        scores = interpolator(u)
+        if not np.isfinite(scores).all() or np.any(scores < 0):
+            raise ValueError('invalid interpolated action values')
+        value = float(np.min(scores)) * (1+z*z)
         probability = np.exp(np.logaddexp.reduce(logs+density(center+scale*z)))
         return value*probability*scale*np.cosh(u)
 
