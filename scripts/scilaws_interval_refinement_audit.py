@@ -9,11 +9,12 @@ from environments.scilaws.adaptive_reference import AdaptiveReference
 from environments.scilaws.initialized_reference import initialize_corrected
 from environments.scilaws.interval_refinement import refine
 from environments.scilaws.linear_risk_interval import terminal_risk_interval
+from environments.scilaws.linear_advantage_reference import LinearAdvantageReference
 from scripts.scilaws_initialized_accuracy_audit import observations
 from scripts.scilaws_reference_preflight import DESIGN_SHA
 
 
-def run(output):
+def run(output, *, linear_advantage=False):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -24,7 +25,8 @@ def run(output):
     for d in json.loads(raw)['tasks']:
         for scenario in ('zero', 'affine', 'quadratic'):
             model, state, _ = initialize_corrected(d, observations(d, scenario), quadrature_order=4)
-            ref = AdaptiveReference(model, predictive_coordinates=True)
+            cls = LinearAdvantageReference if linear_advantage else AdaptiveReference
+            ref = cls(model, predictive_coordinates=True)
             roots, reason = [], None
             try:
                 for a in range(8):
@@ -52,6 +54,7 @@ def run(output):
             print(d['task_id'], scenario, len(roots), ref.evaluations, reason, flush=True)
     with output.open('x') as f:
         json.dump(dict(cases=cases, design_sha256=DESIGN_SHA, outer_order=4,
+                       linear_advantage=linear_advantage,
                        seconds_cap=5, evaluations_cap=100000, blas_threads=1,
                        terminal_error_budget=5e-5, outer_error_bounded=False,
                        source_measurements=0, model_calls=0, paid_cost_usd=0,
@@ -63,5 +66,7 @@ if __name__ == '__main__':
     from threadpoolctl import threadpool_limits
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', required=True)
+    p.add_argument('--linear-advantage', action='store_true')
+    args = p.parse_args()
     with threadpool_limits(limits=1, user_api='blas'):
-        run(p.parse_args().output)
+        run(args.output, linear_advantage=args.linear_advantage)
