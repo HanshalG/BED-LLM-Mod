@@ -1,0 +1,41 @@
+{
+  "benchmark_outcomes_opened": 0,
+  "benchmark_task_states_loaded": 0,
+  "fixtures": {
+    "I": {
+      "clipped_coordinate": 1.0,
+      "clipped_count": 1,
+      "explicit_point_rejected_after_budget": true,
+      "law_metadata_method_present": true,
+      "same_seed_same_point_replays": true,
+      "target_filtered_rows": 20,
+      "target_filtered_values": [
+        11.0
+      ],
+      "used_after_where": 4,
+      "where_rows_after_budget": 0
+    },
+    "II": {
+      "clipped_coordinate": 1.0,
+      "clipped_count": 1,
+      "explicit_point_rejected_after_budget": true,
+      "law_metadata_method_present": true,
+      "same_seed_same_point_replays": true,
+      "target_filtered_rows": 20,
+      "target_filtered_values": [
+        11.0
+      ],
+      "used_after_where": 5,
+      "where_rows_after_budget": 1
+    }
+  },
+  "limitation": "Runtime fixture behavior only; not evidence that baseline agents used fetch_where or inspected hidden laws.",
+  "model_calls": 0,
+  "opportunity_gate_passed": false,
+  "paid_authorization": false,
+  "paid_cost_usd": 0,
+  "schema_version": 1,
+  "source_commit": "9239f66b921cb89c7a9d14061f782fdce49dcfb5",
+  "source_sha256": "d59f6d3e9405335000662e1d7a9ca850c06bbb65980ee05758ed25f11246c825",
+  "status": "requires_point_query_isolation_before_adoption"
+}
