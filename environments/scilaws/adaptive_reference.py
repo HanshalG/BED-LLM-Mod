@@ -5,10 +5,25 @@ from time import monotonic
 
 import numpy as np
 from scipy.integrate import quad
-from scipy.special import logsumexp
-from scipy.stats import t
+from scipy.special import gammaln
 
 from environments.chembench_mopen.horizon import SearchLimitExceeded
+
+
+def student_log_density(df, loc, scale2):
+    """Precompute invariant Student-t constants for validated predictive rows."""
+    df, loc, scale2 = np.asarray(df), np.asarray(loc), np.asarray(scale2)
+    if (not np.isfinite(df).all() or not np.isfinite(loc).all()
+            or not np.isfinite(scale2).all() or np.any(df <= 0) or np.any(scale2 <= 0)):
+        raise ValueError("invalid Student-t parameters")
+    normalization = (gammaln((df + 1) / 2) - gammaln(df / 2)
+                     - 0.5 * (np.log(df) + np.log(np.pi) + np.log(scale2)))
+    denominator = np.sqrt(df) * np.sqrt(scale2)
+
+    def evaluate(y):
+        return normalization - (df + 1) * np.log(np.hypot(1, (y - loc) / denominator))
+
+    return evaluate
 
 
 class AdaptiveReference:
@@ -58,6 +73,7 @@ class AdaptiveReference:
     def terminal(self, state, action):
         m = self.model
         df, loc, scale2 = self.density_parameters(state, action)
+        density = student_log_density(df, loc, scale2)
         logs = m._state(state)
         predictions, slopes = [], []
         for b, x, targets in zip(state.components, m.action_features,
@@ -70,8 +86,8 @@ class AdaptiveReference:
         predictions, slopes = np.asarray(predictions), np.asarray(slopes)
 
         def residual(y):
-            joint = logs + t.logpdf(y, df, loc=loc, scale=np.sqrt(scale2))
-            total = logsumexp(joint)
+            joint = logs + density(y)
+            total = np.logaddexp.reduce(joint)
             weights = np.exp(joint - total)
             means = predictions + slopes * (y - loc)[:, None]
             mean = weights @ means
@@ -89,11 +105,11 @@ class AdaptiveReference:
             raise ValueError("adaptive diagnostic supports only depth one/two")
         m = self.model
         df, loc, scale2 = self.density_parameters(state, action)
+        density = student_log_density(df, loc, scale2)
         logs = m._state(state)
 
         def residual(y):
-            probability = np.exp(logsumexp(
-                logs + t.logpdf(y, df, loc=loc, scale=np.sqrt(scale2))))
+            probability = np.exp(np.logaddexp.reduce(logs + density(y)))
             child = m.condition(state, action, y)
             value = min(self.terminal(child, a)[0] for a in range(m.num_actions))
             return probability * (value - m.state_risk_lower_bound(child, 1))
