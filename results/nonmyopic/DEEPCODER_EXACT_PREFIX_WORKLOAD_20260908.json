@@ -1,0 +1,31 @@
+{
+  "bindings": {
+    "environments/program_induction/exact.py": "05c7b95fe19d2c4daecb10f94848e301b9c13107dda4379059e1e0a97f77a2f6",
+    "environments/program_induction/prior.py": "326821f908ebf86519cdff82fc1010307421a353f477b4ece43bdb489b0191bf",
+    "results/nonmyopic/DEEPCODER_EXACT_PREFIX_WORKLOAD_PROTOCOL_20260908.md": "35008f78b2ca9f039d66cf1f9513e839c4bf0175af5b7c689b127e5f6c59baf1"
+  },
+  "elapsed_seconds": 5.007044040999972,
+  "frozen_commit": "7050e731",
+  "history_sha256": "7f673cb40953a32cba00097a85e0035bfb463f0beb59948f30e4f6b8c42cf95c",
+  "model_calls": 0,
+  "model_cost_usd": 0,
+  "paid_calls_authorized": false,
+  "stats": {
+    "completed_depth": 3,
+    "peak_states": 66638,
+    "transitions": 403077
+  },
+  "status": "enumeration_budget_inadequate",
+  "target_inputs": [
+    [
+      [
+        10
+      ],
+      [
+        -2,
+        2
+      ]
+    ]
+  ],
+  "target_outcomes_opened": false
+}
