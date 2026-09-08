@@ -2,6 +2,8 @@
 from dataclasses import dataclass
 
 import numpy as np
+from scipy.special import gammaincinv, ndtri
+from scipy.stats import qmc
 
 from environments.chembench_mopen.horizon import _integer
 from environments.chembench_mopen.quantile_belief import QuantileGaussianModel
@@ -15,10 +17,13 @@ class PosteriorParticles:
     coefficients: tuple
 
 
-def sample_posterior(model, state, *, particles_per_family, rng, branch_count=16):
+def sample_posterior(model, state, *, particles_per_family, rng, branch_count=16,
+                     sampling='iid'):
     n = _integer(particles_per_family, 'particles_per_family', minimum=1)
     if n > 4096 or not isinstance(rng, np.random.Generator):
         raise ValueError('bounded count and explicit numpy Generator required')
+    if sampling not in ('iid', 'sobol') or (sampling == 'sobol' and n & (n-1)):
+        raise ValueError('valid sampling mode and power-of-two Sobol count required')
     logs = model._state(state)
     masses = np.exp(logs)
     if np.any(np.isfinite(logs) & (masses == 0)):
@@ -32,9 +37,18 @@ def sample_posterior(model, state, *, particles_per_family, rng, branch_count=16
     means, targets, variances, weights, families, coefficients = [], [], [], [], [], []
     for i in active:
         b = state.components[i]
-        variance = b.scale / rng.gamma(b.shape, 1., n)
+        if sampling == 'sobol':
+            engine = qmc.Sobol(len(b.mean)+1, scramble=True, bits=52,
+                               seed=int(rng.integers(2**32)))
+            u = engine.random_base2(n.bit_length()-1)
+            if np.any((u <= 0) | (u >= 1)):
+                raise ValueError('Sobol endpoint cannot represent finite posterior sample')
+            variance = b.scale/gammaincinv(b.shape, u[:, 0])
+            z = ndtri(u[:, 1:])
+        else:
+            variance = b.scale / rng.gamma(b.shape, 1., n)
+            z = rng.standard_normal((n, len(b.mean)))
         precision_cholesky = np.linalg.cholesky(np.asarray(b.precision))
-        z = rng.standard_normal((n, len(b.mean)))
         beta = np.asarray(b.mean) + np.sqrt(variance)[:, None] * np.linalg.solve(precision_cholesky.T, z.T).T
         means.append(beta @ model.action_features[i].T)
         targets.append(beta @ model.target_features[i].T)

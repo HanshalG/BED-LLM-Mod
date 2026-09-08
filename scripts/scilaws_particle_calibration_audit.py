@@ -48,7 +48,7 @@ def compare(exact, state, particles, logs):
     return dict(**result, passed=assess(result))
 
 
-def run(output):
+def run(output, *, sampling='iid'):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -66,7 +66,7 @@ def run(output):
             for n in (32, 128, 512):
                 for seed in (1304, 1305):
                     rng = np.random.default_rng(np.random.SeedSequence([seed, index, ('zero','affine','quadratic').index(scenario)]))
-                    particles = sample_posterior(exact, state, particles_per_family=n, rng=rng)
+                    particles = sample_posterior(exact, state, particles_per_family=n, rng=rng, sampling=sampling)
                     checks = [dict(stage='initial', **compare(exact, state, particles, particles.model.initial_state))]
                     for z in (-2., 0., 2.):
                         y = float(center+z*sd)
@@ -82,7 +82,7 @@ def run(output):
                         passed=all(c['passed'] for c in checks)))
             print(d['task_id'], scenario, flush=True)
     with output.open('x') as f:
-        json.dump(dict(results=results, design_sha256=DESIGN_SHA, source_measurements=0,
+        json.dump(dict(results=results, design_sha256=DESIGN_SHA, sampling=sampling, source_measurements=0,
                        planning_calls=0, model_calls=0, paid_cost_usd=0,
                        deployment_authorized=False), f, indent=2, sort_keys=True, allow_nan=False)
         f.write('\n')
@@ -92,5 +92,7 @@ if __name__ == '__main__':
     from threadpoolctl import threadpool_limits
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', required=True)
+    p.add_argument('--sampling', choices=['iid', 'sobol'], default='iid')
+    args = p.parse_args()
     with threadpool_limits(limits=1, user_api='blas'):
-        run(p.parse_args().output)
+        run(args.output, sampling=args.sampling)
