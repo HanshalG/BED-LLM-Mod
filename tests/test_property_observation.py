@@ -12,5 +12,7 @@ def test_total_boolean_semantics():
     assert not observe([1,2],'palindrome_nonempty')
     for y in (None,[],[1],[-2,2],0,-3,4):
         assert all(type(observe(y,p)) is bool for p in PROPERTIES)
-    with pytest.raises(ValueError):observe(True,'list')
-    with pytest.raises(ValueError):observe([1],'unknown')
+    with pytest.raises(ValueError):
+        observe(True,'list')
+    with pytest.raises(ValueError):
+        observe([1],'unknown')
