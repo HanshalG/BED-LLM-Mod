@@ -54,6 +54,25 @@ def run_policy(
         type(command) not in (list, tuple)
         or not command
         or any(type(x) is not str for x in command)
+        or not Path(command[0]).is_absolute()
+    ):
+        raise ValueError("explicit command with absolute executable required")
+    policy = profile(public_root)
+    return _run_process(
+        ["/usr/bin/sandbox-exec", "-p", policy, *command],
+        cwd=public_root,
+        input_bytes=input_bytes,
+        timeout=timeout,
+        output_limit=output_limit,
+    )
+
+
+def _run_process(command, *, cwd, input_bytes=b"", timeout=5.0, output_limit=65536):
+    """Bounded transport only. Callers must add isolation for untrusted commands."""
+    if (
+        type(command) not in (list, tuple)
+        or not command
+        or any(type(x) is not str for x in command)
     ):
         raise ValueError("explicit command vector required")
     if not Path(command[0]).is_absolute():
@@ -68,8 +87,7 @@ def run_policy(
         raise ValueError("timeout must be in (0,60] seconds")
     if type(output_limit) is not int or not 1 <= output_limit <= 1048576:
         raise ValueError("output limit must be 1..1048576 bytes")
-    policy = profile(public_root)
-    root = str(Path(public_root).resolve())
+    root = str(Path(cwd).resolve(strict=True))
     env = dict(
         PATH="/usr/bin:/bin",
         HOME=root,
@@ -95,7 +113,7 @@ def run_policy(
         inp.write(input_bytes)
         inp.seek(0)
         process = subprocess.Popen(
-            ["/usr/bin/sandbox-exec", "-p", policy, *command],
+            command,
             cwd=root,
             env=env,
             stdin=inp,

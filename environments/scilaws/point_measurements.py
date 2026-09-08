@@ -112,6 +112,23 @@ class PointMeasurements:
         ):
             raise MeasurementError("measurement ledger binding mismatch")
 
+    def claim_episode(self, owner):
+        """One broker may own a fresh ledger; no alternate-journal restart."""
+        if type(owner) is not str or not owner:
+            raise ValueError("episode owner required")
+        with self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            self._check_binding(db)
+            db.execute(
+                "CREATE TABLE IF NOT EXISTS episode_owner (id INTEGER PRIMARY KEY CHECK(id=1), owner TEXT NOT NULL)"
+            )
+            if (
+                db.execute("SELECT 1 FROM episode_owner").fetchone()
+                or db.execute("SELECT 1 FROM attempts").fetchone()
+            ):
+                raise MeasurementError("episode ledger already claimed or used")
+            db.execute("INSERT INTO episode_owner VALUES (1, ?)", (owner,))
+
     def _request(self, request):
         if type(request) is not dict or set(request) != {
             "request_id",
