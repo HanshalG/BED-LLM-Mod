@@ -17,7 +17,8 @@ from scripts.scilaws_particle_integration_panel import read_bank, BANK_SHA, SCEN
 from scripts.scilaws_reference_preflight import DESIGN_SHA
 
 
-def run(output, *, task_index=0, seed=1304, references=None, reference_sha256=BANK_SHA):
+def run(output, *, task_index=0, seed=1304, references=None, reference_sha256=BANK_SHA,
+        model_class=QuantileGaussianModel, counts=(4, 8, 16, 32)):
     path = Path(output)
     if path.exists():
         raise FileExistsError(path)
@@ -37,8 +38,8 @@ def run(output, *, task_index=0, seed=1304, references=None, reference_sha256=BA
         assert saved['scenario'] == scenario and saved['reference_reason'] is None
         refs = saved['reference']
         candidates = []
-        for count in (4, 8, 16, 32):
-            model = QuantileGaussianModel(p.means, p.sigmas, p.targets, np.exp(p.initial_state),
+        for count in counts:
+            model = model_class(p.means, p.sigmas, p.targets, np.exp(p.initial_state),
                 target_weights=p.target_weights, target_conditional_variances=p.target_conditional_variances,
                 branch_count=count)
             evaluator = ParticleLinearCorrection(model, model.initial_state)
@@ -61,6 +62,7 @@ def run(output, *, task_index=0, seed=1304, references=None, reference_sha256=BA
     with path.open('x') as f:
         json.dump(dict(cases=cases, reference_sha256=reference_sha256, design_sha256=DESIGN_SHA,
                        task_index=task_index, seed=seed,
+                       integration_model=model_class.__name__,
                        source_measurements=0, model_calls=0, paid_cost_usd=0,
                        deployment_authorized=False), f, indent=2, sort_keys=True, allow_nan=False)
         f.write('\n')

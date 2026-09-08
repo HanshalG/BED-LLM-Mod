@@ -23,13 +23,13 @@ def read_bound(path, sha):
     return json.loads(raw)
 
 
-def assess(cases, references):
+def assess(cases, references, *, counts=COUNTS):
     expected = [(t, s, c) for t in range(8) for s in (1304, 1305) for c in SCENARIOS]
     def identity(c):
         return c['task_index'], c['seed'], c['scenario']
     if list(map(identity, cases)) != expected or list(map(identity, references)) != expected:
         raise ValueError('coverage or order mismatch')
-    totals = {q: 0 for q in COUNTS}
+    totals = {q: 0 for q in counts}
     for case, reference in zip(cases, references):
         refs = reference['reference']
         if (reference['reference_reason'] is not None or len(refs) != 8 or any(
@@ -37,7 +37,7 @@ def assess(cases, references):
                 or not 0 <= r['error_estimate'] + r['tail_bound'] <= 1e-7
                 or not 0 <= r['mass_error'] <= 1e-8 for r in refs)):
             raise ValueError('unqualified independent reference')
-        if [r['branch_count'] for r in case['candidates']] != list(COUNTS):
+        if [r['branch_count'] for r in case['candidates']] != list(counts):
             raise ValueError('candidate coverage mismatch')
         for row in case['candidates']:
             passed = False
