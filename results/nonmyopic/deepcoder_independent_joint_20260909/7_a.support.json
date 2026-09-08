@@ -1,0 +1,1 @@
+{"programs":["x0 = INPUT | x1 = INPUT | x2 = Filter (<0) x0 | x3 = ZipWith (-) x0 x2 | x4 = Filter (%2==0) x3","x0 = INPUT | x1 = INPUT | x2 = Filter (<0) x0 | x3 = ZipWith (-) x2 x0 | x4 = Filter (%2==0) x3"],"work":{"compatible_expanded":2,"compatible_roots":1,"full_posterior":false,"history_evaluations":183,"substitution_attempts":164,"unique_candidates":162}}

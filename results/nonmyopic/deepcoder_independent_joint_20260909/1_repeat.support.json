@@ -1,0 +1,1 @@
+{"programs":["x0 = INPUT | x1 = INPUT | x2 = ZipWith (*) x0 x1 | x3 = Map (/2) x2 | x4 = Scanl1 (*) x3","x0 = INPUT | x1 = INPUT | x2 = ZipWith (*) x1 x0 | x3 = Map (/2) x2 | x4 = Scanl1 (*) x3"],"work":{"compatible_expanded":2,"compatible_roots":1,"full_posterior":false,"history_evaluations":181,"substitution_attempts":164,"unique_candidates":162}}
