@@ -1,0 +1,115 @@
+{
+  "deployment_authorized": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "case": 0,
+      "evaluations": 100001,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "check_nodes": 64,
+          "normalized_check_error": 0.003823372765695665,
+          "normalized_inner_error": 8.17137573091482e-09,
+          "radius": 64,
+          "status": "validation_failed",
+          "tail_bound": 4.387302767958146e-07,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "case": 1,
+      "evaluations": 88106,
+      "roots": [
+        {
+          "action": 0,
+          "check_nodes": 64,
+          "normalized_check_error": 0.0003163041771327979,
+          "normalized_inner_error": 6.052293235417153e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 2.7089925051878555e-07,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "check_nodes": 64,
+          "normalized_check_error": 0.0002887094105670507,
+          "normalized_inner_error": 6.798668091050533e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 7.231075588141042e-07,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "gate_failed"
+    },
+    {
+      "case": 2,
+      "evaluations": 91286,
+      "roots": [
+        {
+          "action": 0,
+          "check_nodes": 64,
+          "normalized_check_error": 0.00029754828820849344,
+          "normalized_inner_error": 6.196253519719795e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 9.584104841516978e-07,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "check_nodes": 64,
+          "normalized_check_error": 0.0002480911118162288,
+          "normalized_inner_error": 8.802862932054432e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 2.1367098503151352e-07,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "gate_failed"
+    },
+    {
+      "case": 3,
+      "evaluations": 81506,
+      "roots": [
+        {
+          "action": 0,
+          "check_nodes": 64,
+          "normalized_check_error": 0.0011809617408575779,
+          "normalized_inner_error": 4.1776106120350554e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 3.8372682929313007e-08,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "check_nodes": 64,
+          "normalized_check_error": 0.0008799907066582291,
+          "normalized_inner_error": 1.4747939298325983e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 2.514720312527089e-08,
+          "training_nodes": 65,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "gate_failed"
+    }
+  ],
+  "source_measurements": 0,
+  "uniform_error_proven": false
+}
