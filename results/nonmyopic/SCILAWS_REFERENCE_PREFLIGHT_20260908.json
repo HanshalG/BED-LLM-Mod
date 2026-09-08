@@ -1,0 +1,168 @@
+{
+  "complete_depth_coverage": false,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "public_prior_runtime_only_not_calibration_or_depth_efficacy",
+  "model_calls": 0,
+  "paid_authorization": false,
+  "paid_cost_usd": 0,
+  "per_plan_nodes_cap": 100000,
+  "per_plan_seconds_cap": 5,
+  "policy_endpoint_authorization": false,
+  "quadrature_order": 8,
+  "schema_version": 1,
+  "source_measurements": 0,
+  "tasks": [
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.20774758438281937,
+          "seconds": 0.3055069160182029,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5336377527142473,
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.195989958391584,
+          "seconds": 0.24436812498606741,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5218396300681996,
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.25533220800571144,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.655525250127539,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.5125636251177639,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.19598995839158398,
+          "seconds": 0.2543277919758111,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5218396300681996,
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.18128254101611674,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.2827669158577919,
+          "status": "completed"
+        },
+        {
+          "depth": 2,
+          "reason": "reference search exceeded max_seconds",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ]
+}
