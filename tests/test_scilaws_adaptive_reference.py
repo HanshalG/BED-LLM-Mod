@@ -49,3 +49,25 @@ def test_precomputed_density_matches_scipy(y):
 def test_invalid_density_parameters():
     with pytest.raises(ValueError):
         student_log_density([0.0], [0.0], [1.0])
+
+
+@pytest.mark.parametrize("history", [(), ((0, 0.7),), ((0, -0.7),), ((0, 0.7), (1, -0.7))])
+def test_predictive_coordinates_preserve_terminal_integral(history):
+    m, state = fixture(8, history)
+    raw = AdaptiveReference(m)
+    transformed = AdaptiveReference(m, predictive_coordinates=True)
+    for action in (0, 1):
+        assert transformed.terminal(state, action)[0] == pytest.approx(
+            raw.terminal(state, action)[0], abs=1e-7)
+
+
+def test_affine_jacobian_and_invalid_scale():
+    from scipy.stats import norm
+    m, _ = fixture(8, ())
+    ref = AdaptiveReference(m)
+    value, error = ref.integrate(lambda y: norm.pdf(y, loc=1000, scale=0.01),
+                                 center=1000, scale=0.01)
+    assert value == pytest.approx(1.0, abs=1e-8)
+    assert error < 1e-8
+    with pytest.raises(ValueError):
+        ref.integrate(lambda y: 1.0, scale=0)

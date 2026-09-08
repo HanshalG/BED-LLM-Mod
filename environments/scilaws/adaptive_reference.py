@@ -27,12 +27,16 @@ def student_log_density(df, loc, scale2):
 
 
 class AdaptiveReference:
-    def __init__(self, model, *, tolerance=1e-8, max_seconds=5.0, max_evaluations=100000):
+    def __init__(self, model, *, tolerance=1e-8, max_seconds=5.0, max_evaluations=100000,
+                 predictive_coordinates=False):
         if not math.isfinite(tolerance) or tolerance <= 0:
             raise ValueError("invalid tolerance")
         if not math.isfinite(max_seconds) or max_seconds <= 0 or max_evaluations <= 0:
             raise ValueError("invalid reference limits")
         self.model = model
+        if not isinstance(predictive_coordinates, bool):
+            raise ValueError("predictive_coordinates must be boolean")
+        self.predictive_coordinates = predictive_coordinates
         self.tolerance = tolerance
         self.max_seconds = max_seconds
         self.max_evaluations = max_evaluations
@@ -47,10 +51,12 @@ class AdaptiveReference:
         if monotonic() - self.start > self.max_seconds:
             raise SearchLimitExceeded("adaptive reference exceeded seconds")
 
-    def integrate(self, fn):
-        def bounded(y):
+    def integrate(self, fn, *, center=0.0, scale=1.0):
+        if not math.isfinite(center) or not math.isfinite(scale) or scale <= 0:
+            raise ValueError("invalid integration coordinates")
+        def bounded(z):
             self.check()
-            value = float(fn(y))
+            value = float(fn(center + scale * z)) * scale
             if not math.isfinite(value):
                 raise ValueError("nonfinite adaptive integrand")
             return value
@@ -63,6 +69,16 @@ class AdaptiveReference:
         if not math.isfinite(value) or not math.isfinite(error):
             raise ValueError("nonfinite adaptive integral")
         return value, error
+
+    def coordinates(self, df, loc, scale2, logs):
+        if not self.predictive_coordinates:
+            return dict(center=0.0, scale=1.0)
+        if np.any(df <= 2):
+            raise ValueError("predictive coordinate variance is not finite")
+        weights = np.exp(logs)
+        center = float(weights @ loc)
+        variance = float(weights @ (scale2 * df / (df - 2) + (loc - center) ** 2))
+        return dict(center=center, scale=math.sqrt(variance))
 
     def density_parameters(self, state, action):
         return np.asarray([
@@ -94,7 +110,7 @@ class AdaptiveReference:
             between = weights @ ((means - mean) ** 2 @ m.target_weights)
             return np.exp(total) * between
 
-        value, error = self.integrate(residual)
+        value, error = self.integrate(residual, **self.coordinates(df, loc, scale2, logs))
         self.max_inner_error = max(self.max_inner_error, error)
         return m.action_risk_lower_bound(state, action, 1) + value, error
 
@@ -114,5 +130,5 @@ class AdaptiveReference:
             value = min(self.terminal(child, a)[0] for a in range(m.num_actions))
             return probability * (value - m.state_risk_lower_bound(child, 1))
 
-        value, error = self.integrate(residual)
+        value, error = self.integrate(residual, **self.coordinates(df, loc, scale2, logs))
         return m.action_risk_lower_bound(state, action, 2) + value, error

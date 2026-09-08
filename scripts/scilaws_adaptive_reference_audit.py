@@ -9,7 +9,7 @@ from environments.scilaws.adaptive_reference import AdaptiveReference
 from scripts.scilaws_mixed_refinement_audit import HISTORIES, fixture
 
 
-def run(output):
+def run(output, *, predictive_coordinates=False):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -17,7 +17,7 @@ def run(output):
     for case, history in enumerate(HISTORIES):
         for depth in (1, 2):
             m, state = fixture(8, history)
-            reference = AdaptiveReference(m)
+            reference = AdaptiveReference(m, predictive_coordinates=predictive_coordinates)
             row = dict(case=case, depth=depth, history=history)
             try:
                 values = [reference.action(state, a, depth) for a in range(2)]
@@ -39,6 +39,7 @@ def run(output):
             rows.append(row)
             print(case, depth, row['status'], flush=True)
     result = dict(rows=rows, tolerance=1e-8, seconds_cap=5, evaluations_cap=100000,
+                  predictive_coordinates=predictive_coordinates,
                   source_measurements=0, model_calls=0, paid_cost_usd=0,
                   deployment_authorized=False,
                   interpretation='adaptive_error_estimates_not_rigorous_bounds_or_source_evidence')
@@ -50,4 +51,6 @@ def run(output):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', required=True)
-    run(p.parse_args().output)
+    p.add_argument('--predictive-coordinates', action='store_true')
+    args = p.parse_args()
+    run(args.output, predictive_coordinates=args.predictive_coordinates)
