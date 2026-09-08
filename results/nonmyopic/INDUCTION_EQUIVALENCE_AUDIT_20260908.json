@@ -1,0 +1,25 @@
+{
+  "checked_pairs": 9045,
+  "downstream_experiment_authorized": false,
+  "elapsed_seconds": 11.472401957958937,
+  "final_split_authorized": false,
+  "finite_domain_equivalence_certified": false,
+  "labels_consulted": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "pair_status_counts": {
+    "distinguishable": 9042,
+    "unknown": 3
+  },
+  "pair_timeout_ms": 20,
+  "private_rows_materialized": true,
+  "proven_cross_tentative_split_equivalent_pairs": 0,
+  "proven_equivalence_components": 135,
+  "source_commit": "c1f71f98623ab6e3513f820a8e52235d5b498694",
+  "source_sha256": "55e21dee281be6ab779119dcce609d7d969e5528863c82a38fa4782fca0100ed",
+  "total_pairs": 9045,
+  "unique_texts": 135,
+  "unvisited_pairs": 0,
+  "wall_budget_seconds": 90,
+  "z3_version": "4.15.3"
+}
