@@ -1,0 +1,256 @@
+{
+  "complete_development_coverage": true,
+  "dataset_revision": "15b93258fabc8f1785c5a5ffd4d3e51fc15dd860",
+  "holdout_states_loaded": 0,
+  "model_calls": 0,
+  "paid_authorization": false,
+  "paid_cost_usd": 0,
+  "policy_endpoint_authorization": false,
+  "split_sha256": "e73e800f38c535390c5dccc3d94b1d21bd61444094a773bdf0046f43da4aedf6",
+  "tasks": [
+    {
+      "bounds": {
+        "G": [
+          52.0,
+          165.0
+        ],
+        "R": [
+          219.0,
+          1220.0
+        ],
+        "RA": [
+          209.0,
+          1252.0
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 59000,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 2950,
+      "residual_space": "linear",
+      "size_bytes": 124508,
+      "state_sha256": "cf6406b2694fb58f4b2452175ec6c29de41b98a1b6c4288fc1ab34a518ff929f",
+      "status": "source_contract_valid",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct",
+      "used_inputs": [
+        "R",
+        "RA",
+        "G"
+      ]
+    },
+    {
+      "bounds": {
+        "mass_kg": [
+          0.009,
+          10.597
+        ],
+        "wing_area_m2": [
+          0.0073,
+          0.8824
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 2620,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 131,
+      "residual_space": "linear",
+      "size_bytes": 12510,
+      "state_sha256": "ebbe1327597486f6df259c471636a02b09f552f929fe688a618929b2c1346b48",
+      "status": "source_contract_valid",
+      "task_id": "bird_flight_speed_alerstam__Ue",
+      "used_inputs": [
+        "mass_kg",
+        "wing_area_m2"
+      ]
+    },
+    {
+      "bounds": {
+        "A_s_km2": [
+          0.1,
+          895.47
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 24460,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 1223,
+      "residual_space": "linear",
+      "size_bytes": 49869,
+      "state_sha256": "5b639ec1cf0db23ffb5cbe40626cf8ec9ca006b5f9c239dc462ea6c203ebaaf8",
+      "status": "source_contract_valid",
+      "task_id": "lake_thermocline_depth_pilla__z_t",
+      "used_inputs": [
+        "A_s_km2"
+      ]
+    },
+    {
+      "bounds": {
+        "cycle_index": [
+          1.0,
+          168.0
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 12720,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 636,
+      "residual_space": "linear",
+      "size_bytes": 45819,
+      "state_sha256": "ff9ac5d79dfa319536966bbeec7ea8b3568f4b0f12b8865de88f774d4ae6ae85",
+      "status": "source_contract_valid",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah",
+      "used_inputs": [
+        "cycle_index"
+      ]
+    },
+    {
+      "bounds": {
+        "D_lower_km": [
+          1.0,
+          663.98185
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 2000,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 74,
+      "residual_space": "log",
+      "size_bytes": 11380,
+      "state_sha256": "2be632dfd3feec786f8718b849a3491e57416acfba6abc0407e01a02c4d3e3eb",
+      "status": "source_contract_valid",
+      "task_id": "mars_crater_size_frequency__N_cum",
+      "used_inputs": [
+        "D_lower_km"
+      ]
+    },
+    {
+      "bounds": {
+        "age": [
+          18.0,
+          80.0
+        ],
+        "height_cm": [
+          135.3,
+          188.3
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 72500,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 3625,
+      "residual_space": "linear",
+      "size_bytes": 161730,
+      "state_sha256": "db70545f23846853732d86f7c897db433153041a71a08a4ea7e66e6fa5d1a6e6",
+      "status": "source_contract_valid",
+      "task_id": "spirometry_nhanes__FEV1_L",
+      "used_inputs": [
+        "age",
+        "height_cm"
+      ]
+    },
+    {
+      "bounds": {
+        "MER_kg_per_s": [
+          19.38888888888889,
+          233918128.6549708
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 2600,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 130,
+      "residual_space": "log",
+      "size_bytes": 35862,
+      "state_sha256": "d462831b9a34abcd3bfe1717bad8d2461b4ffc890b711025e108d3b6e6ccd589",
+      "status": "source_contract_valid",
+      "task_id": "volcanic_column_mer_ivespa__H_top",
+      "used_inputs": [
+        "MER_kg_per_s"
+      ]
+    },
+    {
+      "bounds": {
+        "wind_speed_mps": [
+          0.0,
+          19.31
+        ]
+      },
+      "excluded_fields": [
+        "formula_source",
+        "law_constants",
+        "real_rows",
+        "residual_values",
+        "noise_scale_magnitude"
+      ],
+      "fetch_budget_rows": 6809600,
+      "formulas_executed": 0,
+      "measurements_generated": 0,
+      "noise_scale_zero": false,
+      "residual_count": 340480,
+      "residual_space": "linear",
+      "size_bytes": 5526154,
+      "state_sha256": "5db17c28c769f5bcb8c467e23dcc1fb32739dbe0aff024e1559c1e14781d4c14",
+      "status": "source_contract_valid",
+      "task_id": "wind_turbine_power_curve_engie__power_kW",
+      "used_inputs": [
+        "wind_speed_mps"
+      ]
+    }
+  ]
+}
