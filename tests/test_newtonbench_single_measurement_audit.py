@@ -25,6 +25,11 @@ def test_small_unit_scales_do_not_change_the_bound():
     )
 
 
+def test_far_apart_normals_have_upward_floored_not_zero_overlap():
+    assert coefficient(0, 1, 1000, 1) == 1e-300
+    assert classification_bound([0, 1000, 2000], [1, 1, 1]) > 0
+
+
 @pytest.mark.parametrize(
     "args", [(0, 0, 1, 1), (math.nan, 1, 0, 1), (0, 1, math.inf, 1)]
 )

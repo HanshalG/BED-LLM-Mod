@@ -47,10 +47,12 @@ def coefficient(mean_a, sigma_a, mean_b, sigma_b):
     scale = max(sigma_a, sigma_b)
     a, b = sigma_a / scale, sigma_b / scale
     variance = a * a + b * b
-    return math.exp(
-        0.5 * math.log(2 * a * b / variance)
-        - ((mean_a - mean_b) / scale) ** 2 / (4 * variance)
-    )
+    log_coefficient = 0.5 * math.log(2 * a * b / variance) - (
+        (mean_a - mean_b) / scale
+    ) ** 2 / (4 * variance)
+    # Round extreme tails upward, never report an exact zero overlap between
+    # positive-variance normals. This floor makes the bound looser, not stronger.
+    return max(1e-300, math.exp(log_coefficient))
 
 
 def classification_bound(means, scales):
@@ -68,9 +70,47 @@ def classification_bound(means, scales):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--reconcile-from", type=Path)
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
+    if args.reconcile_from:
+        original = args.reconcile_from.read_bytes()
+        report = json.loads(original)
+        if (
+            report["status"] != "source_separation_diagnostic_complete"
+            or report["source_commit"] != SOURCE
+        ):
+            raise ValueError("invalid source diagnostic for numerical reconciliation")
+        for row in report["rows"]:
+            for difficulty, result in row["strata"].items():
+                if result["status"] != "bound_complete":
+                    continue
+                mu = [
+                    value
+                    for name, value in row["finite_raw_means"].items()
+                    if difficulty == "pooled" or f"_{difficulty}_" in name
+                ]
+                if len(mu) != result["law_count"]:
+                    raise ValueError("incomplete retained source means")
+                sigmas = [
+                    max(abs(x) * report["relative_noise"], row["absolute_noise_floor"])
+                    for x in mu
+                ]
+                result["one_measurement_error_upper_bound"] = classification_bound(
+                    mu, sigmas
+                )
+        report["numerical_reconciliation"] = {
+            "parent_sha256": hashlib.sha256(original).hexdigest(),
+            "pairwise_coefficient_floor": 1e-300,
+            "source_functions_reexecuted": False,
+            "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "meaning": "Round underflowed overlaps upward; original source outputs unchanged",
+        }
+        with args.output.open("x") as file:
+            file.write(json.dumps(report, indent=2, allow_nan=False) + "\n")
+        print("Reconciled numerical overlap tails from saved means only")
+        return
     bindings = {}
 
     def read(path):

@@ -1,0 +1,671 @@
+{
+  "status": "source_separation_diagnostic_complete",
+  "source_commit": "acf160eb6c96897748dd92b152703b59b74efc05",
+  "design_rule": "One geometric midpoint of each unmodified wrapper box; no design search",
+  "relative_noise": 0.01,
+  "prior": "Uniform source versions within each difficulty; separately pooled nine",
+  "interpretation": "Classification error upper bound only; not predictive-risk or depth efficacy",
+  "source_sha256": {
+    "autoscilab/oracle/newtonbench.py": "63733f966a3f3e383661e26927a6c34766bb8671a8c36c69973e3c377c964fe0",
+    "newtonbench_vendor/modules/common/types.py": "f5814e8adfd4266eeb3def1253adfef99f0c4e3da0dc632feadd1bee0c0518b7",
+    "newtonbench_vendor/modules/m0_gravity/core.py": "9b64f7aef9a1cceea209eed1af8d7c9dac1a3b3b279a28c9f792dbae1f0edaf8",
+    "newtonbench_vendor/modules/m0_gravity/m0_types.py": "a1de3945f8ac8945abecbdd3dbe0810cffcc92fd07519bb27b85c4ab82ec6373",
+    "newtonbench_vendor/modules/m0_gravity/laws.py": "ada4e9cecae8e3420d1bb0760bf71a6de36ec0271fa01ad398847a1ee056be0b",
+    "newtonbench_vendor/modules/m1_coulomb_force/core.py": "e58850728fcd057608d113abd1cb280a7a340b55e8483cb81df5812afee33610",
+    "newtonbench_vendor/modules/m1_coulomb_force/m1_types.py": "35f06d83d1d9b881b8a70d27528a9431f02f7cea1853ac67f72d67ceb641f62a",
+    "newtonbench_vendor/modules/m1_coulomb_force/laws.py": "13fc65447751d5d44ed56bac1741b7a4f13e2b4f5a5f2501d324b18cb3ac0ab3",
+    "newtonbench_vendor/modules/m2_magnetic_force/core.py": "77ce2053cf15c0ba804fecd049d9c2d29c2b1d1f4eb129deab636142c2f6a843",
+    "newtonbench_vendor/modules/m2_magnetic_force/m2_types.py": "774f5b36b821714cfb56283db0ed7effd0de8a6cbe6a8f22df989489a0fb9260",
+    "newtonbench_vendor/modules/m2_magnetic_force/laws.py": "d8548e77466013aee8fb2d3ed7edf86d5fb50b1747de19ffbfb99af83f1f5f97",
+    "newtonbench_vendor/modules/m3_fourier_law/core.py": "668321d74b4340f0bf7806bf621ca2a2e83097434898fe14c30f380f35767dc8",
+    "newtonbench_vendor/modules/m3_fourier_law/m3_types.py": "28b00e9b62563a454ddad794d0dfd95d461b6ecd2df25ef13078f10b45831870",
+    "newtonbench_vendor/modules/m3_fourier_law/laws.py": "27ae2e06874b9f5661d24a3041542777d1bb382e4abb3a54189b59937676a55a",
+    "newtonbench_vendor/modules/m4_snell_law/core.py": "83303db7c9db8af376176970680580a8d641583b3a6d13d04e406e19fa15f2d2",
+    "newtonbench_vendor/modules/m4_snell_law/m4_types.py": "58a87e31c2dc03de3b3a695cd51b5251fd48d331c1c0f6d5d3bbd8a9f98d0cbb",
+    "newtonbench_vendor/modules/m4_snell_law/laws.py": "1faecfa85838eb9bcb781a71271da7e0ceb923b249584eac640787059709268f",
+    "newtonbench_vendor/modules/m5_radioactive_decay/core.py": "19d5f25a1eee5770aac13fea2883f026db21e6fb64a8cf313cd3c95b46d966cd",
+    "newtonbench_vendor/modules/m5_radioactive_decay/m5_types.py": "a294d095457a81706dd7fe7c34400b7d8da24bcd450afbb02c6c9b3de3612a97",
+    "newtonbench_vendor/modules/m5_radioactive_decay/laws.py": "5a8f2842dde390d2d8e7cbcd24bb5ea3da95ec37a4289f153e45057afda33e9c",
+    "newtonbench_vendor/modules/m6_underdamped_harmonic/core.py": "3c9662320ca3976ff9b3a0ae9fe458e994aa667e7734ae080bbd503c843aa343",
+    "newtonbench_vendor/modules/m6_underdamped_harmonic/m6_types.py": "6f40dc704ce4b99d22d211dd8e80bea867042bd6d7c75d015a4b68c2e986be62",
+    "newtonbench_vendor/modules/m6_underdamped_harmonic/laws.py": "02a02873e250524fa0d611bdaf5ea0915b5517b7a0d7dd5eec5001851206011f",
+    "newtonbench_vendor/modules/m7_malus_law/core.py": "33038f8afaf96fbdb292dc85dc795d2d62b22500749688d55bb70caac5147082",
+    "newtonbench_vendor/modules/m7_malus_law/m7_types.py": "3c4f75f421066fc1d6ea74549fd440cf81c6e1569d12098bd05a4231ecddb116",
+    "newtonbench_vendor/modules/m7_malus_law/laws.py": "dc8a2d24ce1ebc17efe52b6d082216c06b165200738a3887abdbef289edc8224",
+    "newtonbench_vendor/modules/m8_sound_speed/core.py": "12b1d812a1a8ac8aaa371b66732b188dd815ce076c0ae70b23ac0d9e18acee4f",
+    "newtonbench_vendor/modules/m8_sound_speed/m8_types.py": "fe10c17082fa57859539983be0a5c8811008282821c88b658a871d0f9d321dc2",
+    "newtonbench_vendor/modules/m8_sound_speed/laws.py": "f1644d1e90d922708cdc6d21cc25689334e0d57615a94e4a20a0a26aa5a74b33",
+    "newtonbench_vendor/modules/m9_hooke_law/core.py": "61cfa54309a7075f2ecd1216d2447ce48be0587f385e616be964cdd1ae3715d0",
+    "newtonbench_vendor/modules/m9_hooke_law/m9_types.py": "a5c61d4bcdbfa158d424e4c9f2f80ad169ff05b28f275f74fc1dfa801f9e7829",
+    "newtonbench_vendor/modules/m9_hooke_law/laws.py": "017c150015aac67455096ef502a3bd423e8d79914858bcb81161a2241cc4801c",
+    "newtonbench_vendor/modules/m10_be_distribution/core.py": "b78856b75797f0144d772f4045652e968c23d7a1dc0b07df768b74d9546ab9f6",
+    "newtonbench_vendor/modules/m10_be_distribution/m10_types.py": "06b41b598e4420c7cb5ba061d263a57216c371c90aa86a440bb470119f0ed2ff",
+    "newtonbench_vendor/modules/m10_be_distribution/laws.py": "c6d065d3bde4aa89cb981a245f45126a9f2dee160d8881f8fca14d209c46c338",
+    "newtonbench_vendor/modules/m11_heat_transfer/core.py": "82c18d57819a7fbc6dd93b533f5a1209ebdf5a6b58b9f5ca21d50c88c97587e1",
+    "newtonbench_vendor/modules/m11_heat_transfer/m11_types.py": "8e564b0bfe1bdb10b06aa99a7dd9241768c6fd33e6c07fba3b3fd51720a32026",
+    "newtonbench_vendor/modules/m11_heat_transfer/laws.py": "4525f153163e0730faba2bac0257d87bea63f21f7fce22d65ef73953f69e994c"
+  },
+  "rows": [
+    {
+      "domain": "m0_gravity",
+      "point": [
+        31.622776601683793,
+        31.622776601683793,
+        3.1622776601683795
+      ],
+      "input_order": [
+        "mass1",
+        "mass2",
+        "distance"
+      ],
+      "absolute_noise_floor": 1e-12,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 0.011868236782599772,
+        "_ground_truth_law_easy_v1": 0.0002110504110396376,
+        "_ground_truth_law_easy_v2": 6.673999999999999,
+        "_ground_truth_law_medium_v0": 11.86823678259977,
+        "_ground_truth_law_medium_v1": 0.00010577577166485469,
+        "_ground_truth_law_medium_v2": 667.4000000000001,
+        "_ground_truth_law_hard_v0": 0.04747294713039909,
+        "_ground_truth_law_hard_v1": 0.00029811662940155276,
+        "_ground_truth_law_hard_v2": 1.3348000000000004
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 2.2020199011304138e-63
+        }
+      }
+    },
+    {
+      "domain": "m1_coulomb_force",
+      "point": [
+        0.0001,
+        0.0001,
+        0.31622776601683794
+      ],
+      "input_order": [
+        "q1",
+        "q2",
+        "distance"
+      ],
+      "absolute_noise_floor": 1e-12,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 6.324555320336757e-07,
+        "_ground_truth_law_easy_v1": 2.0000000000000002e-23,
+        "_ground_truth_law_easy_v2": 2e-15,
+        "_ground_truth_law_medium_v0": 4e-11,
+        "_ground_truth_law_medium_v1": 1.6000000000000002e-10,
+        "_ground_truth_law_medium_v2": 3.5565588200778464e-19,
+        "_ground_truth_law_hard_v0": 9.145362100391094e-11,
+        "_ground_truth_law_hard_v1": 1.6000000000000003e-18,
+        "_ground_truth_law_hard_v2": 4.572681050195549e-19
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333331666667117
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 4.613004828849643e-88
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333333333332789
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.8888888888888888
+        }
+      }
+    },
+    {
+      "domain": "m2_magnetic_force",
+      "point": [
+        3.1622776601683795,
+        3.1622776601683795,
+        0.03162277660168379
+      ],
+      "input_order": [
+        "current1",
+        "current2",
+        "distance"
+      ],
+      "absolute_noise_floor": 1e-12,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 15115.687215604858,
+        "_ground_truth_law_easy_v1": 151.1568721560486,
+        "_ground_truth_law_easy_v2": 4.780000000000001,
+        "_ground_truth_law_medium_v0": 47800.00000000002,
+        "_ground_truth_law_medium_v1": 0.1511568721560486,
+        "_ground_truth_law_medium_v2": 75757.89459964121,
+        "_ground_truth_law_hard_v0": 24042.12717553773,
+        "_ground_truth_law_hard_v1": 0.0,
+        "_ground_truth_law_hard_v2": 67519.29463296765
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 5.455532672798405e-107
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 7.731608956163973e-09
+        }
+      }
+    },
+    {
+      "domain": "m3_fourier_law",
+      "point": [
+        1.0,
+        0.001,
+        100.0,
+        0.1
+      ],
+      "input_order": [
+        "k",
+        "A",
+        "delta_T",
+        "d"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 9.999999999999998,
+        "_ground_truth_law_easy_v1": 31.62277660168379,
+        "_ground_truth_law_easy_v2": 100.0,
+        "_ground_truth_law_medium_v0": 316.22776601683785,
+        "_ground_truth_law_medium_v1": 79432.82347242821,
+        "_ground_truth_law_medium_v2": 1584893192461112.2,
+        "_ground_truth_law_hard_v0": 1258.925411794167,
+        "_ground_truth_law_hard_v1": 21309.410153667985,
+        "_ground_truth_law_hard_v2": 501187233627271.9
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.0
+        }
+      }
+    },
+    {
+      "domain": "m4_snell_law",
+      "point": [
+        1.7320508075688772,
+        1.7320508075688772,
+        0.1224744871391589
+      ],
+      "input_order": [
+        "refractive_index_1",
+        "refractive_index_2",
+        "incidence_angle"
+      ],
+      "absolute_noise_floor": 1e-06,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 89.87752551286084,
+        "_ground_truth_law_easy_v1": 0.1224744871391589,
+        "_ground_truth_law_easy_v2": 0.12247420733115083,
+        "_ground_truth_law_medium_v0": 0.12247448714194924,
+        "_ground_truth_law_medium_v1": 89.87752551286084,
+        "_ground_truth_law_medium_v2": 0.1224744871391589,
+        "_ground_truth_law_hard_v1": 89.94627153645102,
+        "_ground_truth_law_hard_v2": 0.1224744871391589
+      },
+      "invalid_laws": [
+        {
+          "law": "_ground_truth_law_hard_v0",
+          "error_type": "ValueError"
+        }
+      ],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.33333333115810115
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333333333333333
+        },
+        "hard": {
+          "status": "invalid_source_law_no_dropping"
+        },
+        "pooled": {
+          "status": "invalid_source_law_no_dropping"
+        }
+      }
+    },
+    {
+      "domain": "m5_radioactive_decay",
+      "point": [
+        10000.0,
+        0.03162277660168379,
+        3.1622776601683795
+      ],
+      "input_order": [
+        "N0",
+        "lambda_constant",
+        "t"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 8370.864393512105,
+        "_ground_truth_law_easy_v1": 9823.743866989687,
+        "_ground_truth_law_easy_v2": 9688.719943400754,
+        "_ground_truth_law_medium_v0": 52816.58368734199,
+        "_ground_truth_law_medium_v1": 391090.2875129533,
+        "_ground_truth_law_medium_v2": 15355586.281958086,
+        "_ground_truth_law_hard_v0": 63066.053683086306,
+        "_ground_truth_law_hard_v1": 350076.20722545806,
+        "_ground_truth_law_hard_v2": 15847973.17536533
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.2623508732419239
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.11944521051195374
+        }
+      }
+    },
+    {
+      "domain": "m6_underdamped_harmonic",
+      "point": [
+        10.0,
+        1.0,
+        0.22360679774997896
+      ],
+      "input_order": [
+        "k",
+        "m",
+        "b"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 3.1445503018913548,
+        "_ground_truth_law_easy_v1": 99.75015625000002,
+        "_ground_truth_law_easy_v2": 9.9875,
+        "_ground_truth_law_medium_v0": 3.1445503018913548,
+        "_ground_truth_law_medium_v1": 99.75015625000002,
+        "_ground_truth_law_medium_v2": 9.9875,
+        "_ground_truth_law_hard_v0": 31.09393160722872,
+        "_ground_truth_law_hard_v1": 99.75015625000002,
+        "_ground_truth_law_hard_v2": 9.784266045403367
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.6865741139062125
+        }
+      }
+    },
+    {
+      "domain": "m7_malus_law",
+      "point": [
+        10.0,
+        0.12529964086141668
+      ],
+      "input_order": [
+        "I_0",
+        "theta"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 12.47984566298972,
+        "_ground_truth_law_easy_v1": 0.1586580067853266,
+        "_ground_truth_law_easy_v2": 630.2865013002825,
+        "_ground_truth_law_medium_v0": 15.428231580054403,
+        "_ground_truth_law_medium_v1": 0.159911671909577,
+        "_ground_truth_law_medium_v2": 2791.4235024028944,
+        "_ground_truth_law_hard_v0": 30.212852137179564,
+        "_ground_truth_law_hard_v1": 0.00013111128923968537,
+        "_ground_truth_law_hard_v2": 0.00012561947939135863
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.03384492798886433
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.11411232216295902
+        }
+      }
+    },
+    {
+      "domain": "m8_sound_speed",
+      "point": [
+        1.407124727947029,
+        632.4555320336759,
+        0.01
+      ],
+      "input_order": [
+        "gamma",
+        "T",
+        "M"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 140676.23173033536,
+        "_ground_truth_law_easy_v1": 31290424.656754028,
+        "_ground_truth_law_easy_v2": 4715.62684129099,
+        "_ground_truth_law_medium_v0": 444857.30491750967,
+        "_ground_truth_law_medium_v1": 1452372.8568579145,
+        "_ground_truth_law_medium_v2": 14.91212141390488,
+        "_ground_truth_law_hard_v0": 757892.6253771125,
+        "_ground_truth_law_hard_v1": 352531.4054086728,
+        "_ground_truth_law_hard_v2": 2.68027395499437e-07
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 1.3113795278474484e-256
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 2.059531534254742e-30
+        }
+      }
+    },
+    {
+      "domain": "m9_hooke_law",
+      "point": [
+        0.1
+      ],
+      "input_order": [
+        "x"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 4.622820000000001,
+        "_ground_truth_law_easy_v1": 146.18640412979587,
+        "_ground_truth_law_easy_v2": 0.18403777901781188,
+        "_ground_truth_law_medium_v0": 128.81294,
+        "_ground_truth_law_medium_v1": 147.42830532979588,
+        "_ground_truth_law_medium_v2": 392.9076798686481,
+        "_ground_truth_law_hard_v0": 168.58806840959787,
+        "_ground_truth_law_hard_v1": 172.52471472747445,
+        "_ground_truth_law_hard_v2": 27491.38721108968
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 5.064039776986031e-11
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.17125800115851622
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.1586879515181289
+        }
+      }
+    },
+    {
+      "domain": "m10_be_distribution",
+      "point": [
+        100000000000.0,
+        1000.0
+      ],
+      "input_order": [
+        "omega",
+        "T"
+      ],
+      "absolute_noise_floor": 1e-18,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 0.49999973717500007,
+        "_ground_truth_law_easy_v1": 300801471237.67676,
+        "_ground_truth_law_easy_v2": 951129805146.884,
+        "_ground_truth_law_medium_v0": 0.4176445591964451,
+        "_ground_truth_law_medium_v1": 300796.38578576996,
+        "_ground_truth_law_medium_v2": 3007968.3572779777,
+        "_ground_truth_law_hard_v0": 0.49991688743816204,
+        "_ground_truth_law_hard_v1": 37.37028492552028,
+        "_ground_truth_law_hard_v2": 0.07185572491515407
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.0
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.1111072964006937
+        }
+      }
+    },
+    {
+      "domain": "m11_heat_transfer",
+      "point": [
+        1.0,
+        707.1067811865476,
+        10.0
+      ],
+      "input_order": [
+        "m",
+        "c",
+        "delta_T"
+      ],
+      "absolute_noise_floor": 1e-09,
+      "finite_raw_means": {
+        "_ground_truth_law_easy_v0": 223606.79774997898,
+        "_ground_truth_law_easy_v1": 7071.067811865476,
+        "_ground_truth_law_easy_v2": 223606.79774997898,
+        "_ground_truth_law_medium_v0": 2.2360679774997894,
+        "_ground_truth_law_medium_v1": 70.71067811865476,
+        "_ground_truth_law_medium_v2": 2.2360679774997894,
+        "_ground_truth_law_hard_v0": 2.2360679774997894,
+        "_ground_truth_law_hard_v1": 0.13527052441883106,
+        "_ground_truth_law_hard_v2": 0.13527052441883106
+      },
+      "invalid_laws": [],
+      "strata": {
+        "easy": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333333333333333
+        },
+        "medium": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333333333333333
+        },
+        "hard": {
+          "status": "bound_complete",
+          "law_count": 3,
+          "uniform_prior_error": 0.6666666666666667,
+          "one_measurement_error_upper_bound": 0.3333333333333333
+        },
+        "pooled": {
+          "status": "bound_complete",
+          "law_count": 9,
+          "uniform_prior_error": 0.8888888888888888,
+          "one_measurement_error_upper_bound": 0.5555555555555556
+        }
+      }
+    }
+  ],
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_calls_authorized": false,
+  "new_gate_authority": false,
+  "runner_sha256": "6c6e2a316a343133492e9ddfe272de56cbd13d73a4a30c2584b37195ea4b999d"
+}
