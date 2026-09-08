@@ -1,0 +1,78 @@
+{
+  "commit": "c1f71f98623ab6e3513f820a8e52235d5b498694",
+  "dataset_rows_loaded": 0,
+  "endpoint_labels_loaded": 0,
+  "metadata_keys": [
+    "astSize",
+    "benchmark_name",
+    "benchmark_version",
+    "description",
+    "domainSizes",
+    "filtersApplied",
+    "formula",
+    "gold_ast",
+    "gold_family_id",
+    "gold_is_lift_hard",
+    "gold_qd",
+    "gold_subfamily_key",
+    "hasAxioms",
+    "hiddenTarget",
+    "instance_seed",
+    "numAxioms",
+    "observationMode",
+    "quantifierDepth",
+    "scenario",
+    "seed"
+  ],
+  "model_calls": 0,
+  "native_generator_headline_authorized": false,
+  "paid_cost_usd": 0,
+  "prediction_rows_loaded": 0,
+  "source_executed": false,
+  "source_only": true,
+  "source_sha256": "a8777d18e80fcfa095385676df9e5fa9d3e6d71e9a28865612d1fdb5d362a1c8",
+  "template_count": 10,
+  "templates": [
+    {
+      "family": "UNARY",
+      "key": "P"
+    },
+    {
+      "family": "UNARY",
+      "key": "Q_AND_NOT_P"
+    },
+    {
+      "family": "EXISTS",
+      "key": "R_SUCCESSOR"
+    },
+    {
+      "family": "EXISTS",
+      "key": "R_SUCCESSOR_P"
+    },
+    {
+      "family": "CONJ_EXISTS",
+      "key": "Q_AND_R_TO_PQ"
+    },
+    {
+      "family": "FORALL",
+      "key": "ALL_R_SUCCESSORS_P"
+    },
+    {
+      "family": "FORALL",
+      "key": "ALL_S_SUCCESSORS_NOT_Q"
+    },
+    {
+      "family": "NESTED",
+      "key": "R_THEN_S_TO_Q"
+    },
+    {
+      "family": "NESTED_FORALL",
+      "key": "ALL_R_HAVE_S_TO_Q"
+    },
+    {
+      "family": "NESTED_FORALL",
+      "key": "ALL_R_TO_EXISTS_R_P"
+    }
+  ],
+  "url": "https://raw.githubusercontent.com/SerafimBatzoglou/concept-synth/c1f71f98623ab6e3513f820a8e52235d5b498694/src/concept_synth/induction/generator.py"
+}
