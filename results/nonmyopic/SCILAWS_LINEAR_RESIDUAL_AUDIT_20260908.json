@@ -1,0 +1,195 @@
+{
+  "adaptive": true,
+  "deployment_authorized": false,
+  "linear_baseline": true,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "case": 0,
+      "evaluations": 100001,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.8763000753270476e-05,
+          "adaptation_evaluations": 99,
+          "check_nodes": 98,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.272755649888538,
+          "iterations": 5,
+          "normalized_check_error": 1.726010794827256e-05,
+          "normalized_inner_error": 8.171375714158748e-09,
+          "quadrature_error": 7.4435535920230775e-09,
+          "radius": 64,
+          "status": "sample_checks_passed",
+          "tail_bound": 4.387302767958146e-07,
+          "tail_only_interval": [
+            0.272755649888538,
+            0.2727560886188148
+          ],
+          "total_evaluations": 197,
+          "training_nodes": 50,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "case": 1,
+      "evaluations": 53304,
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 6.3051386037661205e-06,
+          "adaptation_evaluations": 41,
+          "check_nodes": 40,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.21955689691513722,
+          "iterations": 2,
+          "normalized_check_error": 5.898003243293929e-06,
+          "normalized_inner_error": 5.770197497038303e-09,
+          "quadrature_error": 7.314614158172483e-10,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 2.7089925051878555e-07,
+          "tail_only_interval": [
+            0.21955689691513722,
+            0.21955716781438775
+          ],
+          "total_evaluations": 81,
+          "training_nodes": 21,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "adaptation_error": 6.785340282690301e-06,
+          "adaptation_evaluations": 37,
+          "check_nodes": 36,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.22994659646157678,
+          "iterations": 2,
+          "normalized_check_error": 6.542681378813838e-06,
+          "normalized_inner_error": 6.607272265932144e-09,
+          "quadrature_error": 1.5705058906643148e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 7.231075588141042e-07,
+          "tail_only_interval": [
+            0.22994659646157678,
+            0.22994731956913558
+          ],
+          "total_evaluations": 73,
+          "training_nodes": 19,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "sample_checks_passed"
+    },
+    {
+      "case": 2,
+      "evaluations": 65297,
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.2204116560097546e-05,
+          "adaptation_evaluations": 43,
+          "check_nodes": 42,
+          "final_disjoint": true,
+          "fit_status": "fresh_check_failed",
+          "iterations": 2,
+          "normalized_check_error": 2.2621870874545234e-05,
+          "normalized_inner_error": 6.312751141720193e-09,
+          "radius": 32,
+          "status": "validation_failed",
+          "tail_bound": 9.584104841516978e-07,
+          "total_evaluations": 85,
+          "training_nodes": 22,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "adaptation_error": 6.923311018679711e-06,
+          "adaptation_evaluations": 51,
+          "check_nodes": 50,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.17186839200720674,
+          "iterations": 3,
+          "normalized_check_error": 7.418128530347961e-06,
+          "normalized_inner_error": 8.802862933575609e-09,
+          "quadrature_error": 5.523052707943215e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 2.1367098503151352e-07,
+          "tail_only_interval": [
+            0.17186839200720674,
+            0.1718686056781918
+          ],
+          "total_evaluations": 101,
+          "training_nodes": 26,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "gate_failed"
+    },
+    {
+      "case": 3,
+      "evaluations": 50911,
+      "roots": [
+        {
+          "action": 0,
+          "adaptation_error": 1.9303224910024444e-05,
+          "adaptation_evaluations": 43,
+          "check_nodes": 42,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.4236771685088632,
+          "iterations": 2,
+          "normalized_check_error": 1.799821067339423e-05,
+          "normalized_inner_error": 4.155268690377676e-09,
+          "quadrature_error": 8.284139326204284e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 3.8372682929313007e-08,
+          "tail_only_interval": [
+            0.4236771685088632,
+            0.42367720688154614
+          ],
+          "total_evaluations": 85,
+          "training_nodes": 22,
+          "uniform_error_proven": false
+        },
+        {
+          "action": 1,
+          "adaptation_error": 1.2611036628461486e-05,
+          "adaptation_evaluations": 37,
+          "check_nodes": 36,
+          "final_disjoint": true,
+          "fit_status": "passed",
+          "interior_estimate": 0.42821917914937446,
+          "iterations": 2,
+          "normalized_check_error": 1.1609439357653439e-05,
+          "normalized_inner_error": 1.4731972980726173e-09,
+          "quadrature_error": 8.4864781005065e-09,
+          "radius": 32,
+          "status": "sample_checks_passed",
+          "tail_bound": 2.514720312527089e-08,
+          "tail_only_interval": [
+            0.42821917914937446,
+            0.42821920429657756
+          ],
+          "total_evaluations": 73,
+          "training_nodes": 19,
+          "uniform_error_proven": false
+        }
+      ],
+      "status": "sample_checks_passed"
+    }
+  ],
+  "source_measurements": 0,
+  "uniform_error_proven": false
+}
