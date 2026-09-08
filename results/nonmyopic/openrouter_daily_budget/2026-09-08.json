@@ -21,5 +21,13 @@
     "recorded_spend_is_max_of_posted_and_local": true,
     "remaining_daily_allowance_usd": 5.0
   },
-  "research_state": "Fresh controlled proposer-plus-weight study is not authorized yet. Closed routes stay closed; automation remains paused."
+  "research_state": "User approved only the new DeepCoder proposal-quality gate before numerical-reference qualification; total block cap $0.25. No depth authorization; closed routes stay closed and automation remains paused.",
+  "scoped_authorization": {
+    "block": "deepcoder_proposal_gate_20260908",
+    "maximum_total_exposure_usd": 0.25,
+    "maximum_attempts": 16,
+    "per_attempt_reservation_usd": 0.015,
+    "explicit_user_approval": true,
+    "depth_authorized": false
+  }
 }

@@ -7,6 +7,7 @@ from contextlib import redirect_stdout
 from functools import lru_cache
 import hashlib
 import io
+import random
 import sys
 from time import monotonic
 import types
@@ -63,7 +64,7 @@ def evaluate_expression(expression, inputs):
     return expression.operation.single(args)
 
 
-def synthesize(dsl, history, *, max_attempts=2048, max_weight=9, seconds=5):
+def synthesize(dsl, history, *, max_attempts=2048, max_weight=9, seconds=5, order_seed=None):
     """Search one compatible expression, explicitly exposing bounded failures.
 
     `history` contains (two-list input, raw int/list/None output) pairs. None is
@@ -77,6 +78,8 @@ def synthesize(dsl, history, *, max_attempts=2048, max_weight=9, seconds=5):
             raise ValueError('positive integer search limits required')
     if not isinstance(seconds, (int, float)) or not 0 < seconds < float('inf'):
         raise ValueError('positive finite time limit required')
+    if order_seed is not None and type(order_seed) is not int:
+        raise ValueError('operation ordering seed must be an integer')
     for inputs, observed in history:
         if (not isinstance(inputs, list) or len(inputs) != 2
                 or any(type(xs) is not list or len(xs) > 5 or not dsl.validate_result(xs) for xs in inputs)
@@ -134,6 +137,8 @@ def synthesize(dsl, history, *, max_attempts=2048, max_weight=9, seconds=5):
                     operations.append(BoundOperation(op, lam))
         else:
             operations.append(BoundOperation(op))
+    if order_seed is not None:
+        random.Random(order_seed).shuffle(operations)
     task = types.SimpleNamespace(num_examples=len(history),
                                  inputs_dict={f'x{i}': [inp[i] for inp, _ in history] for i in range(2)},
                                  outputs=[out for _, out in history])
