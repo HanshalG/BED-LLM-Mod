@@ -1,0 +1,808 @@
+{
+  "all_fixtures_pass": false,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "pruning_authorized": false,
+  "reference": "uncorrected_order128_not_rigorous_true_integral",
+  "rows": [
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.20816766242608437,
+        0.20824794314760212,
+        0.21322399504987613,
+        0.21369619035308676,
+        0.21623985668704665,
+        0.2103659731583599,
+        0.20922096168131496,
+        0.21956364652059324
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.852098183152684e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.20816766242608437,
+        0.20824794314760212,
+        0.21322399504987613,
+        0.21369619035308676,
+        0.21623985668704665,
+        0.2103659731583599,
+        0.20922096168131496,
+        0.21956364652059324
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct",
+      "values": [
+        0.20816767959621443,
+        0.20824796031767695,
+        0.21322401278855396,
+        0.21369620814762472,
+        0.21623987481319798,
+        0.21036599057969052,
+        0.20922097902296846,
+        0.21956366504157507
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.31847078869337825,
+        0.32621563798846875,
+        0.32381728097763063,
+        0.34252547002532185,
+        0.31714585619476066,
+        0.32326332291046384,
+        0.316077076575392,
+        0.3403586878546362
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.068612642818323e-09,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.31847078869337825,
+        0.32621563798846875,
+        0.32381728097763063,
+        0.34252547002532185,
+        0.31714585619476066,
+        0.32326332291046384,
+        0.316077076575392,
+        0.3403586878546362
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct",
+      "values": [
+        0.3184707896735895,
+        0.3262156390083973,
+        0.3238172819910224,
+        0.3425254710499683,
+        0.3171458572202329,
+        0.3232633239256978,
+        0.3160770775265619,
+        0.34035868892324883
+      ]
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.766548077264396e-08,
+      "order": 8,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.19638603482368794,
+        0.19946051992734434,
+        0.20401371767771898,
+        0.20041052740305115,
+        0.19945490990169287,
+        0.19907396214604645,
+        0.20074062951686045,
+        0.20952591568645831
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "bird_flight_speed_alerstam__Ue",
+      "values": [
+        0.19638605105230575,
+        0.1994605364810493,
+        0.20401373465353917,
+        0.20041054403676062,
+        0.19945492640748283,
+        0.19907397861999415,
+        0.20074064617821855,
+        0.2095259333519391
+      ]
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.761924728338471e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.19638603482368794,
+        0.19946051992734434,
+        0.20401371767771898,
+        0.20041052740305115,
+        0.19945490990169287,
+        0.19907396214604645,
+        0.20074062951686045,
+        0.20952591568645831
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "bird_flight_speed_alerstam__Ue",
+      "values": [
+        0.19638605104778065,
+        0.19946053642472572,
+        0.2040137346543273,
+        0.2004105440009558,
+        0.19945492640021,
+        0.19907397861265602,
+        0.20074064614234008,
+        0.2095259333057056
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.30844442014247836,
+        0.31451638093020085,
+        0.3067089556383261,
+        0.31870860067600415,
+        0.3046372202252657,
+        0.3132323117781712,
+        0.3029239234499813,
+        0.3213974041863648
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.0071466438610344e-09,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.30844442014247836,
+        0.31451638093020085,
+        0.3067089556383261,
+        0.31870860067600415,
+        0.3046372202252657,
+        0.3132323117781712,
+        0.3029239234499813,
+        0.3213974041863648
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "bird_flight_speed_alerstam__Ue",
+      "values": [
+        0.3084444211055939,
+        0.31451638192098963,
+        0.3067089565935015,
+        0.3187086016580434,
+        0.30463722117733905,
+        0.3132323127557348,
+        0.3029239243942003,
+        0.32139740519351145
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.6140732667091484e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "lake_thermocline_depth_pilla__z_t",
+      "values": [
+        0.1870644796412176,
+        0.1898432534153125,
+        0.19003529645109607,
+        0.19232330450203647,
+        0.18802944388442278,
+        0.18792682361375265,
+        0.1925878393251755,
+        0.19418274602450594
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 9.46579148397575e-10,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "lake_thermocline_depth_pilla__z_t",
+      "values": [
+        0.2933950184918245,
+        0.3011022244672187,
+        0.2895049559504745,
+        0.30478653108866227,
+        0.29079421536177147,
+        0.2971767624988157,
+        0.2894694361718765,
+        0.30686058771943064
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.6140732667091484e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah",
+      "values": [
+        0.1870644796412176,
+        0.1898432534153125,
+        0.19003529645109607,
+        0.19232330450203647,
+        0.18802944388442278,
+        0.18792682361375265,
+        0.1925878393251755,
+        0.19418274602450594
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 9.46579148397575e-10,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah",
+      "values": [
+        0.2933950184918245,
+        0.3011022244672187,
+        0.2895049559504745,
+        0.30478653108866227,
+        0.29079421536177147,
+        0.2971767624988157,
+        0.2894694361718765,
+        0.30686058771943064
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.6140732667091484e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "mars_crater_size_frequency__N_cum",
+      "values": [
+        0.1870644796412176,
+        0.1898432534153125,
+        0.19003529645109607,
+        0.19232330450203647,
+        0.18802944388442278,
+        0.18792682361375265,
+        0.1925878393251755,
+        0.19418274602450594
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 9.46579148397575e-10,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "mars_crater_size_frequency__N_cum",
+      "values": [
+        0.2933950184918245,
+        0.3011022244672187,
+        0.2895049559504745,
+        0.30478653108866227,
+        0.29079421536177147,
+        0.2971767624988157,
+        0.2894694361718764,
+        0.30686058771943064
+      ]
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.7665480744888384e-08,
+      "order": 8,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.19638603482368794,
+        0.19946051992734434,
+        0.20401371767771898,
+        0.20041052740305115,
+        0.19945490990169287,
+        0.19907396214604645,
+        0.20074062951686045,
+        0.20952591568645831
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "spirometry_nhanes__FEV1_L",
+      "values": [
+        0.19638605105230575,
+        0.19946053648104928,
+        0.20401373465353909,
+        0.20041054403676065,
+        0.19945492640748283,
+        0.19907397861999415,
+        0.20074064617821857,
+        0.20952593335193906
+      ]
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.7619247255629134e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.19638603482368794,
+        0.19946051992734434,
+        0.20401371767771898,
+        0.20041052740305115,
+        0.19945490990169287,
+        0.19907396214604645,
+        0.20074062951686045,
+        0.20952591568645831
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "spirometry_nhanes__FEV1_L",
+      "values": [
+        0.19638605104778065,
+        0.19946053642472572,
+        0.20401373465432726,
+        0.20041054400095581,
+        0.19945492640021,
+        0.19907397861265602,
+        0.20074064614234008,
+        0.20952593330570557
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.30844442014247836,
+        0.3145163809302008,
+        0.3067089556383261,
+        0.31870860067600415,
+        0.3046372202252658,
+        0.3132323117781712,
+        0.3029239234499813,
+        0.3213974041863648
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.0071465883498831e-09,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.30844442014247836,
+        0.3145163809302008,
+        0.3067089556383261,
+        0.31870860067600415,
+        0.3046372202252658,
+        0.3132323117781712,
+        0.3029239234499813,
+        0.3213974041863648
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "spirometry_nhanes__FEV1_L",
+      "values": [
+        0.30844442110559395,
+        0.3145163819209896,
+        0.3067089565935015,
+        0.3187086016580434,
+        0.304637221177339,
+        0.31323231275573465,
+        0.30292392439420024,
+        0.3213974051935114
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.6140732667091484e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "volcanic_column_mer_ivespa__H_top",
+      "values": [
+        0.1870644796412176,
+        0.1898432534153125,
+        0.19003529645109607,
+        0.19232330450203647,
+        0.18802944388442278,
+        0.18792682361375265,
+        0.1925878393251755,
+        0.19418274602450594
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.2933950175772187,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 9.46579148397575e-10,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.2933950175772187,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "volcanic_column_mer_ivespa__H_top",
+      "values": [
+        0.2933950184918245,
+        0.3011022244672187,
+        0.2895049559504745,
+        0.30478653108866227,
+        0.29079421536177147,
+        0.2971767624988157,
+        0.2894694361718765,
+        0.30686058771943064
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "status": "failed_closed",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 1.6140732667091484e-08,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.1870644641759405,
+        0.18984323769568118,
+        0.19003528071546943,
+        0.19232328853814268,
+        0.1880294283265391,
+        0.18792680806439535,
+        0.19258782333864455,
+        0.19418272988377328
+      ],
+      "scenario": "prior",
+      "selected_action": 0,
+      "status": "evaluated",
+      "task_id": "wind_turbine_power_curve_engie__power_kW",
+      "values": [
+        0.1870644796412176,
+        0.1898432534153125,
+        0.19003529645109607,
+        0.19232330450203647,
+        0.18802944388442278,
+        0.18792682361375265,
+        0.1925878393251755,
+        0.19418274602450594
+      ]
+    },
+    {
+      "fixture_pass": false,
+      "order": 8,
+      "reason": "moment matching failed (solver status 4)",
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "status": "failed_closed",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    },
+    {
+      "fixture_pass": true,
+      "max_absolute_error": 9.46579148397575e-10,
+      "order": 16,
+      "reference_regret": 0.0,
+      "reference_values": [
+        0.29339501757721875,
+        0.30110222352063953,
+        0.28950495504780127,
+        0.3047865301422507,
+        0.29079421445521914,
+        0.2971767616028052,
+        0.2894694352727383,
+        0.3068605867753497
+      ],
+      "scenario": "synthetic_action3_value1.7",
+      "selected_action": 6,
+      "status": "evaluated",
+      "task_id": "wind_turbine_power_curve_engie__power_kW",
+      "values": [
+        0.2933950184918245,
+        0.3011022244672187,
+        0.2895049559504745,
+        0.30478653108866227,
+        0.29079421536177147,
+        0.2971767624988157,
+        0.2894694361718765,
+        0.30686058771943064
+      ]
+    }
+  ],
+  "scientific_execution_authorized": false,
+  "source_measurements": 0,
+  "thresholds": {
+    "max_absolute_error": 0.0001,
+    "reference_regret": 0.0001
+  }
+}
