@@ -38,7 +38,8 @@ def test_particle_update_is_full_gaussian_likelihood_not_second_initialization()
     r = sample_posterior(m, state, particles_per_family=32, rng=np.random.default_rng(8))
     p = r.model
     joint = np.asarray(p.initial_state)+p.log_likelihood(1, -.3)
-    expected = np.exp(joint-np.max(joint)); expected /= expected.sum()
+    expected = np.exp(joint-np.max(joint))
+    expected /= expected.sum()
     np.testing.assert_allclose(np.exp(p.condition(p.initial_state, 1, -.3)), expected)
 
 
