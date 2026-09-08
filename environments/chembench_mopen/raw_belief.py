@@ -34,6 +34,7 @@ class GaussianParticleModel:
         *,
         quadrature_order: int = 9,
         target_weights: np.ndarray | None = None,
+        target_conditional_variances: np.ndarray | float = 0.0,
     ) -> None:
         means = np.array(means, dtype=float, copy=True)
         if means.ndim != 2 or min(means.shape) == 0 or not np.isfinite(means).all():
@@ -48,6 +49,20 @@ class GaussianParticleModel:
         self.num_particles, self.num_actions = means.shape
         self.targets = validated.targets
         self.target_weights = validated.target_weights
+        # Fresh target noise is independent of query noise conditional on a particle.
+        # Per-particle scalar variances should be supplied as shape (particles, 1).
+        variance = np.broadcast_to(
+            np.asarray(target_conditional_variances, dtype=float), self.targets.shape
+        ).copy()
+        if not np.isfinite(variance).all() or np.any(variance < 0):
+            raise ValueError("target conditional variances must be finite and nonnegative")
+        weighted_variance = variance @ self.target_weights
+        if not np.isfinite(weighted_variance).all():
+            raise ValueError("weighted target variance exceeds numeric range")
+        variance.setflags(write=False)
+        weighted_variance.setflags(write=False)
+        self.target_conditional_variances = variance
+        self.target_noise_risk = weighted_variance
         self.quadrature_order = _integer(
             quadrature_order, "quadrature_order", minimum=1
         )
@@ -85,7 +100,8 @@ class GaussianParticleModel:
     def risk(self, state: Hashable) -> float:
         weights = np.exp(self._logs(state))
         mean = weights @ self.targets
-        return float(weights @ ((self.targets - mean) ** 2 @ self.target_weights))
+        return float(weights @ ((self.targets - mean) ** 2 @ self.target_weights)
+                     + weights @ self.target_noise_risk)
 
     def log_likelihood(self, action: int, observation: float) -> np.ndarray:
         action = self._action(action)

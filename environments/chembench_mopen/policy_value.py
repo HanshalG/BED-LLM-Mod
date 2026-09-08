@@ -57,7 +57,8 @@ def evaluate_myopic_policy(
             "policy reference supports at most three measurements"
         )
     state = model._logs(state)[None, :]
-    fixed = 8 * model.num_particles**2 + getattr(model, "_workspace_fixed_bytes", 0)
+    fixed = (8 * model.num_particles**2 + getattr(model, "_workspace_fixed_bytes", 0)
+             + model.target_conditional_variances.nbytes + model.target_noise_risk.nbytes)
     row_bytes = 8 * max(1, budget) * 20 * model.num_particles * model.branch_count
     batch_size = min(batch_size, (max_workspace_bytes - fixed) // row_bytes)
     if batch_size < 1:
@@ -85,7 +86,8 @@ def evaluate_myopic_policy(
     def risk(logs):
         check(len(logs))
         weights = np.exp(logs)
-        return 0.5 * np.sum(weights * (weights @ distances), axis=1)
+        return (0.5 * np.sum(weights * (weights @ distances), axis=1)
+                + weights @ model.target_noise_risk)
 
     def branches(logs, action):
         check(len(logs) * model.branch_count)

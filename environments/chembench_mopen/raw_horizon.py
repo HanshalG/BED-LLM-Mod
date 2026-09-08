@@ -70,7 +70,8 @@ def plan_raw_horizon(
     depth = min(horizon, len(menu))
     if depth > 3:
         raise SearchLimitExceeded("raw reference supports at most three steps")
-    bound = float(np.ptp(model.targets, axis=0) ** 2 @ model.target_weights / 4)
+    bound = float(np.ptp(model.targets, axis=0) ** 2 @ model.target_weights / 4
+                  + np.max(model.target_noise_risk))
     if not math.isfinite(bound):
         raise ValueError("unrepresentable target risk range")
     started = monotonic()

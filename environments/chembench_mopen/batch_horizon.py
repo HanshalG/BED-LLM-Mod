@@ -258,7 +258,7 @@ def plan_batched(
     )
     distance_bytes = 8 * model.num_particles**2 + getattr(
         model, "_workspace_fixed_bytes", 0
-    )
+    ) + model.target_conditional_variances.nbytes + model.target_noise_risk.nbytes
     batch_size = min(batch_size, (max_workspace_bytes - distance_bytes) // row_bytes)
     if batch_size < 1:
         raise SearchLimitExceeded("workspace budget too small for one belief")
@@ -283,7 +283,8 @@ def plan_batched(
 
     def terminal(logs):
         weights = np.exp(logs)
-        return 0.5 * np.sum(weights * (weights @ distances), axis=1)
+        return (0.5 * np.sum(weights * (weights @ distances), axis=1)
+                + weights @ model.target_noise_risk)
 
     def integrate(logs, action, continuation):
         check()
