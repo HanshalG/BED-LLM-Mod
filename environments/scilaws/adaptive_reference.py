@@ -51,7 +51,7 @@ class AdaptiveReference:
         if monotonic() - self.start > self.max_seconds:
             raise SearchLimitExceeded("adaptive reference exceeded seconds")
 
-    def integrate(self, fn, *, center=0.0, scale=1.0):
+    def integrate(self, fn, *, center=0.0, scale=1.0, points=()):
         if not math.isfinite(center) or not math.isfinite(scale) or scale <= 0:
             raise ValueError("invalid integration coordinates")
         def bounded(z):
@@ -61,14 +61,21 @@ class AdaptiveReference:
                 raise ValueError("nonfinite adaptive integrand")
             return value
 
-        result = quad(bounded, -np.inf, np.inf, epsabs=self.tolerance,
-                      epsrel=self.tolerance, limit=100, full_output=1)
-        if len(result) != 3:
-            raise ValueError("adaptive integrator did not converge: " + result[3])
-        value, error, _ = result
-        if not math.isfinite(value) or not math.isfinite(error):
-            raise ValueError("nonfinite adaptive integral")
-        return value, error
+        if any(not math.isfinite(p) for p in points):
+            raise ValueError("nonfinite integration partition")
+        edges = [-np.inf, *sorted(set((p-center)/scale for p in points)), np.inf]
+        values, errors = [], []
+        for left, right in zip(edges, edges[1:]):
+            result = quad(bounded, left, right, epsabs=self.tolerance/(len(edges)-1),
+                          epsrel=self.tolerance, limit=100, full_output=1)
+            if len(result) != 3:
+                raise ValueError("adaptive integrator did not converge: " + result[3])
+            value, error, _ = result
+            if not math.isfinite(value) or not math.isfinite(error):
+                raise ValueError("nonfinite adaptive integral")
+            values.append(value)
+            errors.append(error)
+        return math.fsum(values), math.fsum(errors)
 
     def coordinates(self, df, loc, scale2, logs):
         if not self.predictive_coordinates:
