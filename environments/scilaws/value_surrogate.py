@@ -21,7 +21,10 @@ def reconstruct_values(baseline, residual, growth):
     return np.asarray(baseline)-np.asarray(residual)*growth
 
 
-def approximate_root(reference, state, action, *, adaptive=False, linear_baseline=False):
+def approximate_root(reference, state, action, *, adaptive=False, linear_baseline=False,
+                     quintic=False):
+    if quintic and not (adaptive and linear_baseline):
+        raise ValueError('quintic candidate requires adaptive linear residual')
     if linear_baseline and not adaptive:
         raise ValueError('linear baseline requires adaptive fitting')
     m = reference.model
@@ -61,7 +64,7 @@ def approximate_root(reference, state, action, *, adaptive=False, linear_baselin
     if adaptive:
         from .adaptive_value_fit import fit_adaptive
         interpolator, nodes, diagnostics = fit_adaptive(
-            values, nodes[0], nodes[-1], nonnegative=not linear_baseline)
+            values, nodes[0], nodes[-1], nonnegative=not linear_baseline, quintic=quintic)
         if interpolator is None:
             return dict(status='validation_failed', radius=radius, tail_bound=tail['value'],
                         normalized_inner_error=max_inner_error, **diagnostics)

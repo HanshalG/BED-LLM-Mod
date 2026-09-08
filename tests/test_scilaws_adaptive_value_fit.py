@@ -35,3 +35,19 @@ def test_signed_residual_mode_does_not_clip():
     assert model is not None
     assert info['final_disjoint']
     assert model(0)[0] == -1
+
+
+def test_quintic_polynomial_and_refinement_margin():
+    model, nodes, info = fit_adaptive(lambda u: [3+u**5, 2+u**4], -1, 1, quintic=True)
+    assert model is not None
+    assert len(nodes) == 17
+    assert info['normalized_check_error'] < 1e-12
+    assert info['refinement_tolerance'] == 1e-5
+    assert info['final_disjoint']
+    assert np.isnan(model(2)).all()
+
+
+def test_quintic_does_not_rescue_aliased_function():
+    model, _, info = fit_adaptive(lambda u: [2+np.sin(32*np.pi*u)**2], 0, 1, quintic=True)
+    assert model is None
+    assert info['fit_status'] == 'fresh_check_failed'
