@@ -34,6 +34,11 @@ class PredictiveModel(Protocol):
 
     Numerical branch approximations must use a frozen rule or state-keyed seed;
     resampling on each invocation would change the objective during optimization.
+
+    Optional chance_risk_correction(state, action) adds a signed integration
+    control variate, recorded explicitly on each returned PolicyNode. An optional
+    expected_terminal_risk(state, action) batch hook must already include that
+    correction and return (value, evaluated_leaf_count).
     """
 
     num_actions: int
