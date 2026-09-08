@@ -41,6 +41,10 @@ class PredictiveModel(Protocol):
     correction and return (value, evaluated_leaf_count).
     horizon_chance_risk_correction(state, action, depth), when supplied, takes
     precedence over the depth-independent correction hook.
+    Optional action_risk_lower_bound(state, action, depth) must bound this
+    model's numerical objective for every allowed menu (including repeats).
+    It is only used with explicit adaptive use_action_bounds=True. Providers
+    are responsible for its validity; evaluated violations fail closed.
     """
 
     num_actions: int
@@ -100,6 +104,8 @@ class HorizonPlan:
     root_action_values: tuple[tuple[int, float], ...]
     expanded_nodes: int
     elapsed_seconds: float
+    root_pruned_lower_bounds: tuple[tuple[int, float], ...] = ()
+    pruned_actions: int = 0
 
 
 class FiniteBeliefModel:
@@ -225,12 +231,18 @@ class HorizonPlanner:
         available: tuple[int, ...] | None = None,
         mode: Mode = "adaptive",
         allow_repeats: bool = False,
+        use_action_bounds: bool = False,
     ) -> HorizonPlan:
         horizon = _integer(horizon, "horizon")
         if mode not in ("adaptive", "open_loop"):
             raise ValueError("mode must be adaptive or open_loop")
         if not isinstance(allow_repeats, bool):
             raise ValueError("allow_repeats must be boolean")
+        if not isinstance(use_action_bounds, bool):
+            raise ValueError("use_action_bounds must be boolean")
+        bound_hook = getattr(self.model, "action_risk_lower_bound", None)
+        if use_action_bounds and (mode != "adaptive" or not callable(bound_hook)):
+            raise ValueError("action bounds require adaptive mode and a model bound hook")
         if available is None:
             available = tuple(range(self.num_actions))
         actions = tuple(_integer(action, "action") for action in available)
@@ -247,6 +259,7 @@ class HorizonPlanner:
         hash(state)
         start = monotonic()
         nodes = 0
+        pruned_actions = 0
 
         def check(*, expand: bool = False) -> None:
             nonlocal nodes
@@ -311,6 +324,31 @@ class HorizonPlanner:
                 raise ValueError("corrected risk must be finite and nonnegative")
             return value
 
+        def evaluate_actions(belief, menu, depth):
+            nonlocal pruned_actions
+            ordered = []
+            for a in menu:
+                lower = float(bound_hook(belief, a, depth)) if use_action_bounds else 0.0
+                if not math.isfinite(lower) or lower < 0:
+                    raise ValueError("action lower bound must be finite and nonnegative")
+                ordered.append((lower, a))
+                check()
+            values, pruned = {}, {}
+            incumbent = math.inf
+            for lower, a in sorted(ordered):
+                # Strict separation preserves ties and absorbs floating-point noise.
+                margin = 1e-10 * max(1.0, abs(lower), abs(incumbent))
+                if use_action_bounds and lower > incumbent + margin:
+                    pruned[a] = lower
+                    pruned_actions += 1
+                    continue
+                value = action_value(belief, menu, depth, a)
+                if use_action_bounds and lower > value + 1e-10 * max(1.0, abs(value), lower):
+                    raise ValueError("evaluated risk violates model action lower bound")
+                values[a] = value
+                incumbent = min(incumbent, value)
+            return values, pruned
+
         @lru_cache(maxsize=self.limits.cache_size)
         def choose(
             belief: Hashable, menu: tuple[int, ...], depth: int
@@ -318,8 +356,8 @@ class HorizonPlanner:
             check(expand=True)
             if depth == 0:
                 return risk(belief), None
-            values = tuple((action_value(belief, menu, depth, a), a) for a in menu)
-            return min(values)
+            values, _ = evaluate_actions(belief, menu, depth)
+            return min((value, a) for a, value in values.items())
 
         def action_value(
             belief: Hashable, menu: tuple[int, ...], depth: int, action: int
@@ -399,6 +437,7 @@ class HorizonPlanner:
         try:
             fixed = None
             root_values: dict[int, float] = {}
+            root_pruned: dict[int, float] = {}
             if mode == "open_loop":
                 sequences = (
                     product(actions, repeat=effective)
@@ -419,9 +458,7 @@ class HorizonPlanner:
                 assert best is not None
                 fixed = best[1]
             elif effective:
-                root_values = {
-                    a: action_value(state, actions, effective, a) for a in actions
-                }
+                root_values, root_pruned = evaluate_actions(state, actions, effective)
             # Root values were already computed even when the bounded cache has
             # evicted child states. Do not optimize the root again for display.
             known_action = (
@@ -440,6 +477,8 @@ class HorizonPlanner:
                 tuple(sorted(root_values.items())),
                 nodes,
                 monotonic() - start,
+                tuple(sorted(root_pruned.items())),
+                pruned_actions,
             )
         finally:
             choose.cache_clear()

@@ -1,4 +1,4 @@
-"""Remaining-horizon family-revelation control variate, not search pruning."""
+"""Remaining-horizon potential and bounds for its corrected numerical objective."""
 
 from functools import lru_cache
 from itertools import combinations_with_replacement
@@ -70,4 +70,25 @@ class HorizonControlVariateMixture(ControlVariateMixture):
         value = float(np.dot(self._moment_error(state, action), coefficients))
         if not np.isfinite(value):
             raise ValueError("invalid horizon correction")
+        return value
+
+    def action_risk_lower_bound(self, state, action, depth):
+        """Family-revelation relaxation, valid for the positive corrected operator."""
+        depth = _integer(depth, "depth", minimum=1)
+        if depth > 3:
+            raise ValueError("horizon bound limited to depth three")
+        action = self._action(action)
+        weights = np.exp(self._state(state))
+        values = []
+        for i, (b, features) in enumerate(
+            zip(state.components, self.action_features, strict=True)
+        ):
+            phi = features[action]
+            precision = tuple(
+                tuple(row) for row in np.asarray(b.precision) + np.outer(phi, phi)
+            )
+            values.append(b.noise_variance * self._coefficient(i, precision, depth - 1))
+        value = float(np.dot(weights, values))
+        if not np.isfinite(value) or value < 0:
+            raise ValueError("invalid family action bound")
         return value
