@@ -1,7 +1,7 @@
 """Memory-bounded batch implementation of the scalar quantile Bellman search."""
 
 from dataclasses import dataclass
-from itertools import permutations
+from itertools import permutations, product
 import math
 from time import monotonic
 
@@ -216,6 +216,7 @@ def plan_batched(
     *,
     available=None,
     mode="adaptive",
+    allow_repeats=False,
     batch_size=64,
     max_states=5_000_000,
     max_seconds=60,
@@ -232,6 +233,8 @@ def plan_batched(
         raise ValueError("max_seconds must be finite and positive")
     if mode not in ("adaptive", "open_loop"):
         raise ValueError("invalid mode")
+    if type(allow_repeats) is not bool:
+        raise ValueError("allow_repeats must be boolean")
     state = model._logs(state)[None, :]
     menu = (
         tuple(range(model.num_actions))
@@ -240,7 +243,7 @@ def plan_batched(
     )
     if len(set(menu)) != len(menu):
         raise ValueError("duplicate actions")
-    depth = min(horizon, len(menu))
+    depth = (horizon if allow_repeats else min(horizon, len(menu))) if menu else 0
     if depth > 3:
         raise SearchLimitExceeded("batch reference supports at most depth three")
     # Conservative tensor allowance across all live recursion levels. Includes
@@ -309,7 +312,7 @@ def plan_batched(
             else:
                 result = np.full(len(chunk), np.inf)
                 for action in actions:
-                    rest = tuple(a for a in actions if a != action)
+                    rest = actions if allow_repeats else tuple(a for a in actions if a != action)
                     candidate = integrate(
                         chunk, action, lambda child: value(child, rest, remaining - 1)
                     )
@@ -323,14 +326,15 @@ def plan_batched(
         chosen, value_at_root = None, float(terminal(state)[0])
     elif mode == "adaptive":
         for action in menu:
-            rest = tuple(a for a in menu if a != action)
+            rest = menu if allow_repeats else tuple(a for a in menu if a != action)
             roots[action] = float(
                 integrate(state, action, lambda child: value(child, rest, depth - 1))[0]
             )
         value_at_root, chosen = min((v, a) for a, v in roots.items())
     else:
         best = None
-        for sequence in permutations(menu, depth):
+        sequences = product(menu, repeat=depth) if allow_repeats else permutations(menu, depth)
+        for sequence in sequences:
             candidate = float(value(state, menu, depth, sequence)[0])
             roots[sequence[0]] = min(roots.get(sequence[0], math.inf), candidate)
             if best is None or (candidate, sequence) < best:
