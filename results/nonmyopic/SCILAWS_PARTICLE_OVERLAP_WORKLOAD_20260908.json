@@ -1,0 +1,222 @@
+{
+  "cases": [
+    {
+      "block_rows": 14,
+      "contained": true,
+      "eliminated_actions": [],
+      "intervals": [
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.02571673483372323,
+          "lower": 0.0253065749068495,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.02571673483472323
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025703814192717403,
+          "lower": 0.025276089567539222,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.0257038141937174
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025662645353027765,
+          "lower": 0.02506589237735592,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.025662645354027763
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025652593201348807,
+          "lower": 0.02504314961358447,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.025652593202348806
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025635984578042035,
+          "lower": 0.02494617380911067,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.025635984579042034
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.02569660474824978,
+          "lower": 0.025220637840181803,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.025696604749249778
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025690650418759557,
+          "lower": 0.025212700787130112,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.025690650419759556
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.025618919969985523,
+          "lower": 0.02483344329078941,
+          "noise_floor": 0.021058459886665222,
+          "upper": 0.02561891997098552
+        }
+      ],
+      "new_width": 0.0007854766801961115,
+      "original_width": 0.004560460085320298,
+      "pair_terms": 33554432,
+      "passed": false,
+      "scenario": "zero",
+      "seconds": 0.8087730000261217,
+      "width_ratio": 0.17223628000264463,
+      "workspace_allowance_bytes": 65290240
+    },
+    {
+      "block_rows": 14,
+      "contained": true,
+      "eliminated_actions": [],
+      "intervals": [
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.36926281787253323,
+          "lower": 0.3612238088322915,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.3692628178735332
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.3689798980998459,
+          "lower": 0.3605921315280165,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.36897989810084586
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.368179103231033,
+          "lower": 0.3566770411051005,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.36817910323203296
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.36809321770941583,
+          "lower": 0.35677566930807875,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.3680932177104158
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.36775739884404096,
+          "lower": 0.3539562966973834,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.36775739884504094
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.36852953162089974,
+          "lower": 0.35863523071740777,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.3685295316218997
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.36878469489237486,
+          "lower": 0.359978094673314,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.36878469489337484
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.3674925400545003,
+          "lower": 0.35298206363315815,
+          "noise_floor": 0.2868238358091031,
+          "upper": 0.3674925400555003
+        }
+      ],
+      "new_width": 0.014510476422342156,
+      "original_width": 0.0806687042473972,
+      "pair_terms": 33554432,
+      "passed": false,
+      "scenario": "affine",
+      "seconds": 0.992984457872808,
+      "width_ratio": 0.17987739554909662,
+      "workspace_allowance_bytes": 65290240
+    },
+    {
+      "block_rows": 14,
+      "contained": true,
+      "eliminated_actions": [],
+      "intervals": [
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15939004910306093,
+          "lower": 0.15684959327744655,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.15939004910406093
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.1592997136592676,
+          "lower": 0.15663112934822732,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.1592997136602676
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15905254552632295,
+          "lower": 0.15532546805263525,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.15905254552732295
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15897663728691439,
+          "lower": 0.15514148302015263,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.1589766372879144
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15888401396137428,
+          "lower": 0.15447014700012987,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.15888401396237428
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15925147894903993,
+          "lower": 0.15628536101692958,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.15925147895003994
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.15924144441771232,
+          "lower": 0.15627267043484136,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.15924144441871232
+        },
+        {
+          "float_padding": 1e-12,
+          "linear_risk": 0.1587503744452645,
+          "lower": 0.15376421843126092,
+          "noise_floor": 0.1303349396460511,
+          "upper": 0.1587503744462645
+        }
+      ],
+      "new_width": 0.004986156015003573,
+      "original_width": 0.02841543480121339,
+      "pair_terms": 33554432,
+      "passed": false,
+      "scenario": "quadratic",
+      "seconds": 0.671162375016138,
+      "width_ratio": 0.1754735076160318,
+      "workspace_allowance_bytes": 65290240
+    }
+  ],
+  "deployment_authorized": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "source_measurements": 0,
+  "workload_passed": false
+}
