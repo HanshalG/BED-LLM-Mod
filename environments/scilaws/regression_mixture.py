@@ -6,6 +6,7 @@ Quadrature order must be qualified separately before scientific use.
 """
 
 from dataclasses import dataclass
+from functools import lru_cache
 import math
 
 import numpy as np
@@ -86,6 +87,19 @@ class RegressionMixture:
             return w
 
         self.target_weights = weights(target_weights, len(self.target_features[0]))
+        self._target_grams = tuple(
+            x.T @ (self.target_weights[:, None] * x) for x in self.target_features
+        )
+        for gram in self._target_grams:
+            gram.setflags(write=False)
+
+        @lru_cache(maxsize=256)
+        def target_leverage(component, precision):
+            return float(
+                np.trace(np.linalg.solve(precision, self._target_grams[component]))
+            )
+
+        self._target_leverage = target_leverage
         p = weights(prior, count)
         with np.errstate(divide="ignore"):
             self.initial_state = MixtureState(self.components, tuple(np.log(p)))
@@ -136,7 +150,26 @@ class RegressionMixture:
         return self.moments(state)[0]
 
     def risk(self, state):
-        return float(self.moments(state)[1] @ self.target_weights)
+        weights = np.exp(self._state(state))
+        predictions, within = [], []
+        for i, (belief, x) in enumerate(
+            zip(state.components, self.target_features, strict=True)
+        ):
+            predictions.append(x @ belief.mean)
+            within.append(
+                belief.noise_variance
+                * (
+                    self._target_leverage(i, belief.precision)
+                    + int(self.include_observation_noise)
+                )
+            )
+        predictions = np.asarray(predictions)
+        mean = weights @ predictions
+        between = (predictions - mean) ** 2 @ self.target_weights
+        result = float(weights @ (np.asarray(within) + between))
+        if not math.isfinite(result) or result < 0:
+            raise ValueError("mixture risk exceeds numeric range")
+        return result
 
     def condition(self, state, action, observation):
         logs = self._state(state).copy()

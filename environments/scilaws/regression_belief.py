@@ -6,10 +6,19 @@ observation model, not a claim about the hidden simulator's empirical noise.
 """
 
 from dataclasses import dataclass
+from functools import lru_cache
 import math
 
 import numpy as np
 from scipy.special import gammaln
+
+
+@lru_cache(maxsize=1024)
+def _feature_solve(precision, features):
+    """Precision depends on actions, not observed values; reuse exact solves."""
+    value = np.linalg.solve(precision, features)
+    value.setflags(write=False)
+    return value
 
 
 @dataclass(frozen=True)
@@ -56,7 +65,7 @@ class RegressionBelief:
     def predictive(self, features):
         """Return Student-t degrees of freedom, location and squared scale."""
         x = self._features(features)
-        leverage = float(x @ np.linalg.solve(self.precision, x))
+        leverage = float(x @ _feature_solve(self.precision, tuple(x)))
         result = (
             2 * self.shape,
             float(x @ self.mean),
@@ -86,7 +95,7 @@ class RegressionBelief:
         """Return a new state and the pre-update predictive log density."""
         log_density = self.log_predictive(features, observation)
         x = self._features(features)
-        solved = np.linalg.solve(self.precision, x)
+        solved = _feature_solve(self.precision, tuple(x))
         denominator = 1 + x @ solved
         residual = observation - x @ self.mean
         # Rank-one update avoids subtracting large quadratic sufficient statistics.
