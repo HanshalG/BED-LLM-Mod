@@ -1,0 +1,625 @@
+{
+  "deployment_authorized": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "action": 0,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.0006303338054976268,
+            0.04411009194584908
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.9817804600413287,
+            4.781780460041329
+          ],
+          "probability": 0.0013435985467822966,
+          "radius": 4,
+          "value": 0.026718188689708496
+        },
+        {
+          "component_bounds": [
+            2.5139028298012633e-05,
+            0.002981722164478052
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -8.363560920082657,
+            9.163560920082658
+          ],
+          "probability": 2.5383012598813344e-05,
+          "radius": 8,
+          "value": 0.0017990889100060361
+        },
+        {
+          "component_bounds": [
+            1.374518510266351e-06,
+            0.0001866490788932843
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -17.127121840165316,
+            17.927121840165313
+          ],
+          "probability": 4.107531165282876e-07,
+          "radius": 16,
+          "value": 0.00011253925474007711
+        },
+        {
+          "component_bounds": [
+            8.293728710283215e-08,
+            1.1649982991741787e-05
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -34.65424368033063,
+            35.45424368033063
+          ],
+          "probability": 6.4665919073747146e-09,
+          "radius": 32,
+          "value": 7.0231647098862046e-06
+        },
+        {
+          "component_bounds": [
+            5.137573962351047e-09,
+            7.277920786847904e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -69.70848736066125,
+            70.50848736066126
+          ],
+          "probability": 1.0122242527763973e-10,
+          "radius": 64,
+          "value": 4.387302767958146e-07
+        }
+      ],
+      "case": 0,
+      "selected_radius": 64
+    },
+    {
+      "action": 1,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.007609824087926326,
+            0.01193519587234506
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.894733192202055,
+            3.694733192202055
+          ],
+          "probability": 0.0004273840708540545,
+          "radius": 4,
+          "value": 0.010205047158577566
+        },
+        {
+          "component_bounds": [
+            0.00028765438835030665,
+            0.0006640324775886964
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -7.68946638440411,
+            7.4894663844041105
+          ],
+          "probability": 5.623399057294646e-06,
+          "radius": 8,
+          "value": 0.0005134812418933405
+        },
+        {
+          "component_bounds": [
+            1.5040373878616509e-05,
+            3.9584194831763176e-05
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -15.27893276880822,
+            15.07893276880822
+          ],
+          "probability": 8.240064232201784e-08,
+          "radius": 16,
+          "value": 2.976666645050451e-05
+        },
+        {
+          "component_bounds": [
+            8.945907038006888e-07,
+            2.441270009803804e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -30.457865537616442,
+            30.25786553761644
+          ],
+          "probability": 1.2647901304857474e-09,
+          "radius": 32,
+          "value": 1.8225982874025579e-06
+        },
+        {
+          "component_bounds": [
+            5.52043624058496e-08,
+            1.5205668636872805e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -60.81573107523288,
+            60.61573107523288
+          ],
+          "probability": 1.9672245180290175e-11,
+          "radius": 64,
+          "value": 1.1331575678357668e-07
+        }
+      ],
+      "case": 0,
+      "selected_radius": 64
+    },
+    {
+      "action": 0,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.05831750030437988,
+            0.005125672706647706
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -1.5038023313167337,
+            2.9807469702519125
+          ],
+          "probability": 0.002092514936709983,
+          "radius": 4,
+          "value": 0.006457180464158223
+        },
+        {
+          "component_bounds": [
+            0.0018177536911697617,
+            0.0002220061734252187
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.746076982101057,
+            5.223021621036235
+          ],
+          "probability": 2.6684584133544094e-05,
+          "radius": 8,
+          "value": 0.0002619512231605581
+        },
+        {
+          "component_bounds": [
+            4.806100109811042e-05,
+            7.5658044411439846e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -8.230626283669702,
+            9.707570922604882
+          ],
+          "probability": 2.371057819587851e-07,
+          "radius": 16,
+          "value": 8.5794877629211e-06
+        },
+        {
+          "component_bounds": [
+            1.4091607708575984e-06,
+            2.4167451667456083e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -17.199724886806994,
+            18.676669525742174
+          ],
+          "probability": 1.9151402832830886e-09,
+          "radius": 32,
+          "value": 2.7089925051878555e-07
+        },
+        {
+          "component_bounds": [
+            4.326301032053343e-08,
+            7.59396965464191e-09
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -35.13792209308158,
+            36.61486673201676
+          ],
+          "probability": 1.508856860873092e-11,
+          "radius": 64,
+          "value": 8.486843738773165e-09
+        }
+      ],
+      "case": 1,
+      "selected_radius": 32
+    },
+    {
+      "action": 1,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.2017348782283217,
+            0.0037527016596492144
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -1.4914098829593647,
+            2.222372546427276
+          ],
+          "probability": 0.0029195460604233997,
+          "radius": 4,
+          "value": 0.00870862845997678
+        },
+        {
+          "component_bounds": [
+            0.01784584277293391,
+            0.00015147405224949184
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.3483010976526852,
+            4.079263761120596
+          ],
+          "probability": 5.5266326263858286e-05,
+          "radius": 8,
+          "value": 0.0005944027929955087
+        },
+        {
+          "component_bounds": [
+            0.000697376768841264,
+            5.037811632053598e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -7.062083527039325,
+            7.793046190507237
+          ],
+          "probability": 5.236026020484982e-07,
+          "radius": 16,
+          "value": 2.2368569644777126e-05
+        },
+        {
+          "component_bounds": [
+            2.266130593078748e-05,
+            1.5984683446678048e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -14.489648385812608,
+            15.220611049280517
+          ],
+          "probability": 4.2268177240343e-09,
+          "radius": 32,
+          "value": 7.231075588141042e-07
+        },
+        {
+          "component_bounds": [
+            7.13871923389414e-07,
+            5.0141229453141126e-09
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -29.344778103359168,
+            30.07574076682708
+          ],
+          "probability": 3.323978197088125e-11,
+          "radius": 64,
+          "value": 2.2758383725393078e-08
+        }
+      ],
+      "case": 1,
+      "selected_radius": 32
+    },
+    {
+      "action": 0,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.00491229716530227,
+            0.05126277913769596
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -2.1211789474908125,
+            1.0283237341955942
+          ],
+          "probability": 0.004402919952202998,
+          "radius": 4,
+          "value": 0.009451443229261254
+        },
+        {
+          "component_bounds": [
+            0.00015170066809878468,
+            0.0051231674522491475
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.6959302883340155,
+            2.6030750750387974
+          ],
+          "probability": 0.00012835760941939074,
+          "radius": 8,
+          "value": 0.0006385610614560613
+        },
+        {
+          "component_bounds": [
+            4.547882281382576e-06,
+            0.00024218400897054284
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -6.845432970020422,
+            5.752577756725204
+          ],
+          "probability": 1.5618052180102058e-06,
+          "radius": 16,
+          "value": 2.781981049472915e-05
+        },
+        {
+          "component_bounds": [
+            1.400452167572743e-07,
+            8.496600401085246e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -13.144438333393236,
+            12.051583120098016
+          ],
+          "probability": 1.3753279151292651e-08,
+          "radius": 32,
+          "value": 9.584104841516978e-07
+        },
+        {
+          "component_bounds": [
+            4.358923509739259e-09,
+            2.735499061854897e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -25.74244906013886,
+            24.649593846843644
+          ],
+          "probability": 1.1077415333361858e-10,
+          "radius": 64,
+          "value": 3.072104829182124e-08
+        }
+      ],
+      "case": 2,
+      "selected_radius": 32
+    },
+    {
+      "action": 1,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.006211237310805023,
+            0.0173456008760293
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -3.2025170677230363,
+            1.1225720515547726
+          ],
+          "probability": 0.0022294385902955523,
+          "radius": 4,
+          "value": 0.007301635951791711
+        },
+        {
+          "component_bounds": [
+            0.00019732882237723486,
+            0.0005600643317472726
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -5.365061627361941,
+            3.2851166111936774
+          ],
+          "probability": 1.7785113187735314e-05,
+          "radius": 8,
+          "value": 0.0002328518501765105
+        },
+        {
+          "component_bounds": [
+            5.999679534469684e-06,
+            1.5748946609198842e-05
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -9.69015074663975,
+            7.6102057304714865
+          ],
+          "probability": 1.2356518973037592e-07,
+          "radius": 16,
+          "value": 6.954434380279034e-06
+        },
+        {
+          "component_bounds": [
+            1.8557748523439292e-07,
+            4.724480193700951e-07
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -18.34032898519537,
+            16.260383969027103
+          ],
+          "probability": 9.27594481064902e-10,
+          "radius": 32,
+          "value": 2.1367098503151352e-07
+        },
+        {
+          "component_bounds": [
+            5.7830035063923325e-09,
+            1.4597339166391533e-08
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -35.64068546230661,
+            33.56074044613834
+          ],
+          "probability": 7.170039515001029e-12,
+          "radius": 64,
+          "value": 6.646199644057705e-09
+        }
+      ],
+      "case": 2,
+      "selected_radius": 32
+    },
+    {
+      "action": 0,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.0021916390329888963,
+            0.005477419390100242
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -2.6085437270550167,
+            3.158226938958823
+          ],
+          "probability": 0.0013438572948959418,
+          "radius": 4,
+          "value": 0.0048377080681367155
+        },
+        {
+          "component_bounds": [
+            3.063496676245323e-05,
+            0.00015364745645602367
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -5.491929060061937,
+            6.041612271965743
+          ],
+          "probability": 1.0986137599844733e-05,
+          "radius": 8,
+          "value": 0.00012969805209928203
+        },
+        {
+          "component_bounds": [
+            4.376375277090616e-07,
+            2.825913769307273e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -11.258699726075777,
+            11.808382937979582
+          ],
+          "probability": 5.3019680823523314e-08,
+          "radius": 16,
+          "value": 2.3609382731758067e-06
+        },
+        {
+          "component_bounds": [
+            6.6436827057754325e-09,
+            4.604345810863343e-08
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -22.792241058103457,
+            23.34192427000726
+          ],
+          "probability": 2.1878532671797e-10,
+          "radius": 32,
+          "value": 3.8372682929313007e-08
+        },
+        {
+          "component_bounds": [
+            1.0301304357157457e-10,
+            7.27052319641902e-10
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -45.85932372215881,
+            46.409006934062624
+          ],
+          "probability": 8.665422856294537e-13,
+          "radius": 64,
+          "value": 6.055575917949477e-10
+        }
+      ],
+      "case": 3,
+      "selected_radius": 32
+    },
+    {
+      "action": 1,
+      "bounds": [
+        {
+          "component_bounds": [
+            0.01216190525292309,
+            0.0028416231419461364
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -2.552889018297638,
+            2.6858844443283645
+          ],
+          "probability": 0.0012752391773944113,
+          "radius": 4,
+          "value": 0.004656196650300706
+        },
+        {
+          "component_bounds": [
+            0.00021290787553876576,
+            7.001856689859806e-05
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -5.172275749610639,
+            5.305271175641366
+          ],
+          "probability": 8.507525795330757e-06,
+          "radius": 8,
+          "value": 9.783780573689218e-05
+        },
+        {
+          "component_bounds": [
+            3.0924918528804273e-06,
+            1.2355407294469396e-06
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -10.411049212236641,
+            10.54404463826737
+          ],
+          "probability": 3.765284625417903e-08,
+          "radius": 16,
+          "value": 1.5970720945676532e-06
+        },
+        {
+          "component_bounds": [
+            4.681235290854994e-08,
+            1.990945557435524e-08
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -20.888596137488648,
+            21.021591563519372
+          ],
+          "probability": 1.5158212402582537e-10,
+          "radius": 32,
+          "value": 2.514720312527089e-08
+        },
+        {
+          "component_bounds": [
+            7.248842269591693e-10,
+            3.134980905029378e-10
+          ],
+          "interpretation": "continuous_working_model_not_source_or_quadrature_bound",
+          "interval": [
+            -41.843689987992654,
+            41.976685414023386
+          ],
+          "probability": 5.965507692576535e-13,
+          "radius": 64,
+          "value": 3.9359120099351376e-10
+        }
+      ],
+      "case": 3,
+      "selected_radius": 32
+    }
+  ],
+  "source_measurements": 0,
+  "tail_allowance": 1e-06
+}
