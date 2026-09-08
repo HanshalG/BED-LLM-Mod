@@ -39,6 +39,8 @@ class PredictiveModel(Protocol):
     control variate, recorded explicitly on each returned PolicyNode. An optional
     expected_terminal_risk(state, action) batch hook must already include that
     correction and return (value, evaluated_leaf_count).
+    horizon_chance_risk_correction(state, action, depth), when supplied, takes
+    precedence over the depth-independent correction hook.
     """
 
     num_actions: int
@@ -291,9 +293,13 @@ class HorizonPlanner:
         def remainder(menu: tuple[int, ...], action: int) -> tuple[int, ...]:
             return menu if allow_repeats else tuple(a for a in menu if a != action)
 
-        def correction(belief: Hashable, action: int) -> float:
+        def correction(belief: Hashable, action: int, depth: int) -> float:
+            horizon_hook = getattr(self.model, "horizon_chance_risk_correction", None)
             hook = getattr(self.model, "chance_risk_correction", None)
-            value = float(hook(belief, action)) if callable(hook) else 0.0
+            if callable(horizon_hook):
+                value = float(horizon_hook(belief, action, depth))
+            else:
+                value = float(hook(belief, action)) if callable(hook) else 0.0
             if not math.isfinite(value):
                 raise ValueError("quadrature correction must be finite")
             check()
@@ -335,7 +341,7 @@ class HorizonPlanner:
                     row.probability * choose(row.state, next_menu, depth - 1)[0]
                     for row in branches(belief, action)
                 ),
-                correction(belief, action),
+                correction(belief, action, depth),
             )
 
         @lru_cache(maxsize=self.limits.cache_size)
@@ -350,7 +356,7 @@ class HorizonPlanner:
                     row.probability * sequence_value(row.state, sequence[1:])
                     for row in branches(belief, sequence[0])
                 ),
-                correction(belief, sequence[0]),
+                correction(belief, sequence[0], len(sequence)),
             )
 
         def materialize(
@@ -387,7 +393,7 @@ class HorizonPlanner:
             value = math.fsum(
                 edge.probability * edge.child.expected_risk for edge in children
             )
-            offset = correction(belief, action)
+            offset = correction(belief, action, depth)
             return PolicyNode(action, corrected(value, offset), depth, children, offset)
 
         try:

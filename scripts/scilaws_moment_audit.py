@@ -9,6 +9,7 @@ import numpy as np
 
 from environments.scilaws.moment_quadrature import MomentMatchedMixture
 from environments.scilaws.control_variate import ControlVariateMixture
+from environments.scilaws.horizon_control_variate import HorizonControlVariateMixture
 from environments.scilaws.reference_prior import make_model
 
 DESIGN_SHA = "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197"
@@ -16,9 +17,11 @@ DESIGN_SHA = "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197"
 
 def corrected(task, order, method="moment"):
     b = make_model(task, quadrature_order=order)
-    cls = {"moment": MomentMatchedMixture, "control_variate": ControlVariateMixture}[
-        method
-    ]
+    cls = {
+        "moment": MomentMatchedMixture,
+        "control_variate": ControlVariateMixture,
+        "horizon_control_variate": HorizonControlVariateMixture,
+    }[method]
     return cls(
         b.action_features,
         b.target_features,
@@ -100,6 +103,10 @@ def run(output, method="moment"):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", required=True)
-    p.add_argument("--method", choices=("moment", "control_variate"), default="moment")
+    p.add_argument(
+        "--method",
+        choices=("moment", "control_variate", "horizon_control_variate"),
+        default="moment",
+    )
     args = p.parse_args()
     run(args.output, args.method)

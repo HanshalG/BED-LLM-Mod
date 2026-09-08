@@ -11,6 +11,7 @@ from environments.chembench_mopen.horizon import (
     SearchLimits,
 )
 from environments.scilaws.control_variate import ControlVariateMixture
+from environments.scilaws.horizon_control_variate import HorizonControlVariateMixture
 from environments.scilaws.family_oracle_bound import family_oracle_bound
 from environments.scilaws.regression_belief import RegressionBelief
 from scripts.scilaws_moment_audit import corrected, DESIGN_SHA
@@ -35,7 +36,7 @@ def plan_row(model, state, depth):
         return dict(status="resource_limit", depth=depth, reason=str(exc))
 
 
-def run(output):
+def run(output, method="control_variate"):
     path = Path("results/nonmyopic/SCILAWS_MEASUREMENT_DESIGN_20260908.json")
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != DESIGN_SHA:
@@ -45,7 +46,11 @@ def run(output):
     fixture = []
     for order in (4, 8, 16):
         b = RegressionBelief([0.0], [[1.0]], 3.0, 0.2)
-        m = ControlVariateMixture(
+        cls = {
+            "control_variate": ControlVariateMixture,
+            "horizon_control_variate": HorizonControlVariateMixture,
+        }[method]
+        m = cls(
             [[[1.0], [2.0]]],
             [[[1.0], [3.0]]],
             [b],
@@ -70,7 +75,7 @@ def run(output):
         print("analytic order", order, flush=True)
     rows = []
     for task in json.loads(raw)["tasks"]:
-        m = corrected(task, 8, "control_variate")
+        m = corrected(task, 8, method)
         row = plan_row(m, m.initial_state, 2)
         row["task_id"] = task["task_id"]
         lower = family_oracle_bound(m, m.initial_state, 2)["value"]
@@ -85,6 +90,7 @@ def run(output):
         print(task["task_id"], row["status"], flush=True)
     result = dict(
         design_sha256=DESIGN_SHA,
+        method=method,
         analytic_fixture=fixture,
         public_h2=rows,
         thresholds=dict(
@@ -107,4 +113,10 @@ def run(output):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", required=True)
-    run(p.parse_args().output)
+    p.add_argument(
+        "--method",
+        choices=("control_variate", "horizon_control_variate"),
+        default="control_variate",
+    )
+    args = p.parse_args()
+    run(args.output, args.method)
