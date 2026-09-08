@@ -8,6 +8,7 @@ from scipy.interpolate import PchipInterpolator
 
 from .adaptive_reference import student_log_density
 from .tail_risk_bound import tail_risk_bound
+from .linear_risk_interval import terminal_risk_interval
 
 
 def interpolation_check(nodes, training, checks, actual):
@@ -16,7 +17,13 @@ def interpolation_check(nodes, training, checks, actual):
     return interpolator, error
 
 
-def approximate_root(reference, state, action, *, adaptive=False):
+def reconstruct_values(baseline, residual, growth):
+    return np.asarray(baseline)-np.asarray(residual)*growth
+
+
+def approximate_root(reference, state, action, *, adaptive=False, linear_baseline=False):
+    if linear_baseline and not adaptive:
+        raise ValueError('linear baseline requires adaptive fitting')
     m = reference.model
     df, loc, scale2 = reference.density_parameters(state, action)
     logs = m._state(state)
@@ -34,6 +41,10 @@ def approximate_root(reference, state, action, *, adaptive=False):
     checks = (nodes[:-1]+nodes[1:])/2
     max_inner_error = 0.0
 
+    def baseline(child):
+        return np.asarray([terminal_risk_interval(m, child, a)['linear_risk']
+                           for a in range(m.num_actions)])
+
     def values(u):
         nonlocal max_inner_error
         reference.check()
@@ -41,12 +52,16 @@ def approximate_root(reference, state, action, *, adaptive=False):
         child = m.condition(state, action, center+scale*z)
         results = [reference.terminal(child, a) for a in range(m.num_actions)]
         max_inner_error = max(max_inner_error, max(e/(1+z*z) for _, e in results))
-        return [v/(1+z*z) for v, _ in results]
+        scores = np.asarray([v for v, _ in results])
+        if linear_baseline:
+            scores = baseline(child)-scores
+        return scores/(1+z*z)
 
     diagnostics = {}
     if adaptive:
         from .adaptive_value_fit import fit_adaptive
-        interpolator, nodes, diagnostics = fit_adaptive(values, nodes[0], nodes[-1])
+        interpolator, nodes, diagnostics = fit_adaptive(
+            values, nodes[0], nodes[-1], nonnegative=not linear_baseline)
         if interpolator is None:
             return dict(status='validation_failed', radius=radius, tail_bound=tail['value'],
                         normalized_inner_error=max_inner_error, **diagnostics)
@@ -68,10 +83,13 @@ def approximate_root(reference, state, action, *, adaptive=False):
     def integrand(u):
         reference.check()
         z = np.sinh(u)
-        scores = interpolator(u)
+        scores = interpolator(u)*(1+z*z)
+        if linear_baseline:
+            child = m.condition(state, action, center+scale*z)
+            scores = reconstruct_values(baseline(child), interpolator(u), 1+z*z)
         if not np.isfinite(scores).all() or np.any(scores < 0):
             raise ValueError('invalid interpolated action values')
-        value = float(np.min(scores)) * (1+z*z)
+        value = float(np.min(scores))
         probability = np.exp(np.logaddexp.reduce(logs+density(center+scale*z)))
         return value*probability*scale*np.cosh(u)
 

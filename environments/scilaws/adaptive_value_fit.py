@@ -4,7 +4,7 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 
 
-def fit_adaptive(values, left, right):
+def fit_adaptive(values, left, right, *, nonnegative=True):
     nodes = np.linspace(left, right, 17)
     cache = {}
 
@@ -12,7 +12,8 @@ def fit_adaptive(values, left, right):
         key = float(u)
         if key not in cache:
             result = np.asarray(values(key), dtype=float)
-            if result.ndim != 1 or not np.isfinite(result).all() or np.any(result < 0):
+            if (result.ndim != 1 or not np.isfinite(result).all()
+                    or (nonnegative and np.any(result < 0))):
                 raise ValueError('invalid action-value sample')
             cache[key] = result
         return cache[key]
@@ -45,6 +46,6 @@ def fit_adaptive(values, left, right):
     error = float(np.max(np.abs(prediction-actual)))
     diagnostics.update(final_disjoint=True, check_nodes=len(checks),
                        normalized_check_error=error, total_evaluations=len(cache),
-                       fit_status='passed' if error <= 2e-5 and np.all(prediction >= 0)
+                       fit_status='passed' if error <= 2e-5 and (not nonnegative or np.all(prediction >= 0))
                        else 'fresh_check_failed')
     return (model if diagnostics['fit_status']=='passed' else None), nodes, diagnostics

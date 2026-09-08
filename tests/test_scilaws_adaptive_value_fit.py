@@ -28,3 +28,10 @@ def test_refinement_cap_does_not_emit_fit():
     assert model is None
     assert info['fit_status'] in ('node_cap', 'refinement_cap', 'fresh_check_failed')
     assert len(nodes) <= 65
+
+
+def test_signed_residual_mode_does_not_clip():
+    model, _, info = fit_adaptive(lambda u: [-1+u/2], -1, 1, nonnegative=False)
+    assert model is not None
+    assert info['final_disjoint']
+    assert model(0)[0] == -1

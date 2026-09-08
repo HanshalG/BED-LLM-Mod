@@ -34,3 +34,14 @@ def test_failed_validation_returns_no_score(monkeypatch):
     result = value_surrogate.approximate_root(ref, state, 0)
     assert result['status'] == 'validation_failed'
     assert 'interior_estimate' not in result
+
+
+def test_reconstructed_error_matches_normalized_residual_error():
+    from environments.scilaws.value_surrogate import reconstruct_values
+    baseline = np.array([3., 4.])
+    truth = np.array([2., 1.])
+    residual = (baseline-truth)/5
+    np.testing.assert_allclose(reconstruct_values(baseline, residual, 5), truth)
+    error = np.array([1e-6, -1e-6])
+    np.testing.assert_allclose((reconstruct_values(baseline, residual+error, 5)-truth)/5,
+                               -error, atol=1e-15)
