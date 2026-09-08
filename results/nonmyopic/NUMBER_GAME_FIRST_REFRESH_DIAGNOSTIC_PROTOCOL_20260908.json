@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "scope": "Retrospective descriptive first-observation decomposition on fully banked July outcomes; no historical policy replay or new efficacy gate",
+  "bank": "results/nonmyopic/number_game_crossfit_depth_three_confirmation/number-game-crossfit-depth-three-confirmation-20260728/TREES.json",
+  "bank_sha256": "cf239683033be3fbfed6a449f2aaa1ad1bcbe57d935ca21cf43e46ba938ea7f9",
+  "compiler": "scripts/number_game_generator_aware_bed.py",
+  "compiler_sha256": "1df1eab2d6e7dbbebb89e31d6c9863160d15ce519c8d9c55724de577a500a35a",
+  "extractor": "scripts/number_game_initial_horizon_audit.py",
+  "extractor_sha256": "5c19b3ce237d9bc2de9382feae18ee0214075337b887d9d4830e5e621dc56884",
+  "allowed_fields": ["tree_seed", "initial", "roots", "first_branches", "generated_first_branches", "targets"],
+  "seeds": [28300,28301,28302,28303,28304,28305,28306,28307,28308,28309,28310,28311,28312,28313,28314,28315,28316,28317,28318,28319,28320,28321,28322,28323,28324,28325,28326,28327,28328,28329,28330,28331],
+  "targets": "all saved target entries with their original multiplicity, fixed uniform integer domain 0..100 including queried integer",
+  "weighting": "equal target entries per root, equal saved roots per tree, equal all32trees; no root or target selection",
+  "arms": ["initial_filtered", "retained_branch", "all_first_proposals_shared_then_filtered"],
+  "shared_pool": "canonical extension union of initial and generated first branches from every saved root and both imagined answers; built before examining any target labels",
+  "empty_support": "report count and predetermined 0.5 predictor for all101targets, never drop a target/root or silently reset support",
+  "checks": "every extension hash/count, exact tree/root/branch coverage, history consistency, first retained branch equals initial-consistent plus generated, all arms complete",
+  "max_seconds": 120,
+  "gate_authority": false,
+  "paid_calls_authorized": false,
+  "claim_limits": "Shared support uses more proposals than the initial arm; not compute matched or a deployed policy. No answer-sham control: opposite-answer banks were explicitly consistency filtered, making that sham tautological. Does not rescue any closed gate."
+}
