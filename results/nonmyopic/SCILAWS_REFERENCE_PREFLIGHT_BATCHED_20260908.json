@@ -1,0 +1,232 @@
+{
+  "complete_depth_coverage": false,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "public_prior_runtime_only_not_calibration_or_depth_efficacy",
+  "model_calls": 0,
+  "paid_authorization": false,
+  "paid_cost_usd": 0,
+  "per_plan_nodes_cap": 100000,
+  "per_plan_seconds_cap": 5,
+  "policy_endpoint_authorization": false,
+  "quadrature_order": 8,
+  "schema_version": 1,
+  "source_measurements": 0,
+  "tasks": [
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.20774758438281937,
+          "seconds": 0.024756375001743436,
+          "status": "completed"
+        },
+        {
+          "action": 2,
+          "depth": 2,
+          "nodes": 66849,
+          "risk": 0.16566170368055952,
+          "seconds": 2.329734917031601,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5336377527142472,
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.195989958391584,
+          "seconds": 0.022245415952056646,
+          "status": "completed"
+        },
+        {
+          "action": 5,
+          "depth": 2,
+          "nodes": 66849,
+          "risk": 0.15734417132891004,
+          "seconds": 2.051003250060603,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5218396300681996,
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.010517582995817065,
+          "status": "completed"
+        },
+        {
+          "action": 3,
+          "depth": 2,
+          "nodes": 62481,
+          "risk": 0.14984935337809654,
+          "seconds": 1.4284740828443319,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.010473249945789576,
+          "status": "completed"
+        },
+        {
+          "action": 3,
+          "depth": 2,
+          "nodes": 62481,
+          "risk": 0.14984935337809654,
+          "seconds": 1.4086796250194311,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.010802917182445526,
+          "status": "completed"
+        },
+        {
+          "action": 3,
+          "depth": 2,
+          "nodes": 62481,
+          "risk": 0.14984935337809654,
+          "seconds": 1.4460503330919892,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 289,
+          "risk": 0.195989958391584,
+          "seconds": 0.018062707968056202,
+          "status": "completed"
+        },
+        {
+          "action": 5,
+          "depth": 2,
+          "nodes": 66849,
+          "risk": 0.15734417132891004,
+          "seconds": 1.8732339579146355,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5218396300681996,
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.009837083052843809,
+          "status": "completed"
+        },
+        {
+          "action": 3,
+          "depth": 2,
+          "nodes": 62481,
+          "risk": 0.14984935337809654,
+          "seconds": 1.4055073328781873,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "plans": [
+        {
+          "action": 0,
+          "depth": 1,
+          "nodes": 257,
+          "risk": 0.18668675032853477,
+          "seconds": 0.009985750075429678,
+          "status": "completed"
+        },
+        {
+          "action": 3,
+          "depth": 2,
+          "nodes": 62481,
+          "risk": 0.14984935337809654,
+          "seconds": 1.4028100420255214,
+          "status": "completed"
+        },
+        {
+          "depth": 3,
+          "reason": "reference search exceeded max_nodes",
+          "status": "resource_limit"
+        }
+      ],
+      "prior_risk": 0.5105099604148635,
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ]
+}
