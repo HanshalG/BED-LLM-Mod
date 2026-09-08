@@ -1,0 +1,549 @@
+{
+  "analytic_fixture": [
+    {
+      "absolute_error": 2.7755575615628914e-17,
+      "action": 1,
+      "depth": 1,
+      "exact_risk": 0.24,
+      "fixture_pass": true,
+      "nodes": 13,
+      "order": 4,
+      "risk": 0.23999999999999996,
+      "root_action_values": [
+        [
+          0,
+          0.45
+        ],
+        [
+          1,
+          0.24
+        ]
+      ],
+      "seconds": 0.0035150840412825346,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 2.7755575615628914e-17,
+      "action": 1,
+      "depth": 2,
+      "exact_risk": 0.17777777777777778,
+      "fixture_pass": true,
+      "nodes": 93,
+      "order": 4,
+      "risk": 0.17777777777777776,
+      "root_action_values": [
+        [
+          0,
+          0.21666666666666667
+        ],
+        [
+          1,
+          0.17777777777777776
+        ]
+      ],
+      "seconds": 0.011830125004053116,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 2.7755575615628914e-17,
+      "action": 1,
+      "depth": 3,
+      "exact_risk": 0.15384615384615385,
+      "fixture_pass": true,
+      "nodes": 669,
+      "order": 4,
+      "risk": 0.15384615384615383,
+      "root_action_values": [
+        [
+          0,
+          0.17
+        ],
+        [
+          1,
+          0.15384615384615383
+        ]
+      ],
+      "seconds": 0.06725820805877447,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 0.0,
+      "action": 1,
+      "depth": 1,
+      "exact_risk": 0.24,
+      "fixture_pass": true,
+      "nodes": 25,
+      "order": 8,
+      "risk": 0.24,
+      "root_action_values": [
+        [
+          0,
+          0.45
+        ],
+        [
+          1,
+          0.24
+        ]
+      ],
+      "seconds": 0.0027327497955411673,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 0.0,
+      "action": 1,
+      "depth": 2,
+      "exact_risk": 0.17777777777777778,
+      "fixture_pass": true,
+      "nodes": 345,
+      "order": 8,
+      "risk": 0.17777777777777778,
+      "root_action_values": [
+        [
+          0,
+          0.2166666666666667
+        ],
+        [
+          1,
+          0.17777777777777778
+        ]
+      ],
+      "seconds": 0.02592879207804799,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 2.7755575615628914e-17,
+      "action": 1,
+      "depth": 3,
+      "exact_risk": 0.15384615384615385,
+      "fixture_pass": true,
+      "nodes": 4953,
+      "order": 8,
+      "risk": 0.15384615384615383,
+      "root_action_values": [
+        [
+          0,
+          0.17
+        ],
+        [
+          1,
+          0.15384615384615383
+        ]
+      ],
+      "seconds": 0.29450408299453557,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 0.0,
+      "action": 1,
+      "depth": 1,
+      "exact_risk": 0.24,
+      "fixture_pass": true,
+      "nodes": 49,
+      "order": 16,
+      "risk": 0.24,
+      "root_action_values": [
+        [
+          0,
+          0.45
+        ],
+        [
+          1,
+          0.24
+        ]
+      ],
+      "seconds": 0.0036012909840792418,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 2.7755575615628914e-17,
+      "action": 1,
+      "depth": 2,
+      "exact_risk": 0.17777777777777778,
+      "fixture_pass": true,
+      "nodes": 1329,
+      "order": 16,
+      "risk": 0.1777777777777778,
+      "root_action_values": [
+        [
+          0,
+          0.21666666666666673
+        ],
+        [
+          1,
+          0.1777777777777778
+        ]
+      ],
+      "seconds": 0.07551241689361632,
+      "status": "completed"
+    },
+    {
+      "absolute_error": 0.0,
+      "action": 1,
+      "depth": 3,
+      "exact_risk": 0.15384615384615385,
+      "fixture_pass": true,
+      "nodes": 38193,
+      "order": 16,
+      "risk": 0.15384615384615385,
+      "root_action_values": [
+        [
+          0,
+          0.17000000000000004
+        ],
+        [
+          1,
+          0.15384615384615385
+        ]
+      ],
+      "seconds": 2.1130824589636177,
+      "status": "completed"
+    }
+  ],
+  "cap_nodes": 100000,
+  "cap_seconds": 5,
+  "design_sha256": "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197",
+  "interpretation": "analytic_fixture_and_necessary_bound_check_not_deep_mixture_accuracy",
+  "method": "horizon_control_variate",
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "pruning_authorized": false,
+  "public_h2": [
+    {
+      "below_bound_by": null,
+      "bound_consistency_check": false,
+      "continuous_family_lower_bound": 0.1657595301522865,
+      "depth": 2,
+      "reason": "reference search exceeded max_seconds",
+      "status": "resource_limit",
+      "task_id": "baseball_pythagorean_winpct_lahman__win_pct"
+    },
+    {
+      "action": 5,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1572732372730659,
+      "depth": 2,
+      "nodes": 66849,
+      "risk": 0.15778306485171542,
+      "root_action_values": [
+        [
+          0,
+          0.15873828761682585
+        ],
+        [
+          1,
+          0.15796255641115656
+        ],
+        [
+          2,
+          0.1579617285717413
+        ],
+        [
+          3,
+          0.1580925489452922
+        ],
+        [
+          4,
+          0.15778307140075643
+        ],
+        [
+          5,
+          0.15778306485171542
+        ],
+        [
+          6,
+          0.15809255677293768
+        ],
+        [
+          7,
+          0.15898319481112358
+        ]
+      ],
+      "seconds": 2.934146124869585,
+      "status": "completed",
+      "task_id": "bird_flight_speed_alerstam__Ue"
+    },
+    {
+      "action": 6,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1497558929338415,
+      "depth": 2,
+      "nodes": 62481,
+      "risk": 0.15026686371633244,
+      "root_action_values": [
+        [
+          0,
+          0.15148922825596384
+        ],
+        [
+          1,
+          0.1503251913779244
+        ],
+        [
+          2,
+          0.15028477937614507
+        ],
+        [
+          3,
+          0.1502669612948928
+        ],
+        [
+          4,
+          0.15087516900430498
+        ],
+        [
+          5,
+          0.15092446218674052
+        ],
+        [
+          6,
+          0.15026686371633244
+        ],
+        [
+          7,
+          0.1505359205716309
+        ]
+      ],
+      "seconds": 1.7891203749459237,
+      "status": "completed",
+      "task_id": "lake_thermocline_depth_pilla__z_t"
+    },
+    {
+      "action": 6,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1497558929338415,
+      "depth": 2,
+      "nodes": 62481,
+      "risk": 0.15026686371633244,
+      "root_action_values": [
+        [
+          0,
+          0.15148922825596384
+        ],
+        [
+          1,
+          0.1503251913779244
+        ],
+        [
+          2,
+          0.15028477937614507
+        ],
+        [
+          3,
+          0.1502669612948928
+        ],
+        [
+          4,
+          0.150875169004305
+        ],
+        [
+          5,
+          0.15092446218674052
+        ],
+        [
+          6,
+          0.15026686371633244
+        ],
+        [
+          7,
+          0.1505359205716309
+        ]
+      ],
+      "seconds": 1.6541279579978436,
+      "status": "completed",
+      "task_id": "liion_capacity_fade_nasa_pcoe__capacity_Ah"
+    },
+    {
+      "action": 6,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1497558929338415,
+      "depth": 2,
+      "nodes": 62481,
+      "risk": 0.15026686371633244,
+      "root_action_values": [
+        [
+          0,
+          0.15148922825596384
+        ],
+        [
+          1,
+          0.15032519137792438
+        ],
+        [
+          2,
+          0.15028477937614507
+        ],
+        [
+          3,
+          0.15026696129489284
+        ],
+        [
+          4,
+          0.150875169004305
+        ],
+        [
+          5,
+          0.15092446218674052
+        ],
+        [
+          6,
+          0.15026686371633244
+        ],
+        [
+          7,
+          0.1505359205716309
+        ]
+      ],
+      "seconds": 1.7724463751073927,
+      "status": "completed",
+      "task_id": "mars_crater_size_frequency__N_cum"
+    },
+    {
+      "action": 5,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1572732372730659,
+      "depth": 2,
+      "nodes": 66849,
+      "risk": 0.15778306485171545,
+      "root_action_values": [
+        [
+          0,
+          0.15873828761682585
+        ],
+        [
+          1,
+          0.15796255641115656
+        ],
+        [
+          2,
+          0.15796172857174126
+        ],
+        [
+          3,
+          0.15809254894529223
+        ],
+        [
+          4,
+          0.15778307140075645
+        ],
+        [
+          5,
+          0.15778306485171542
+        ],
+        [
+          6,
+          0.15809255677293768
+        ],
+        [
+          7,
+          0.15898319481112358
+        ]
+      ],
+      "seconds": 2.2783883749507368,
+      "status": "completed",
+      "task_id": "spirometry_nhanes__FEV1_L"
+    },
+    {
+      "action": 6,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1497558929338415,
+      "depth": 2,
+      "nodes": 62481,
+      "risk": 0.15026686371633244,
+      "root_action_values": [
+        [
+          0,
+          0.15148922825596384
+        ],
+        [
+          1,
+          0.1503251913779244
+        ],
+        [
+          2,
+          0.15028477937614507
+        ],
+        [
+          3,
+          0.1502669612948928
+        ],
+        [
+          4,
+          0.150875169004305
+        ],
+        [
+          5,
+          0.15092446218674052
+        ],
+        [
+          6,
+          0.15026686371633244
+        ],
+        [
+          7,
+          0.1505359205716309
+        ]
+      ],
+      "seconds": 1.7657987079583108,
+      "status": "completed",
+      "task_id": "volcanic_column_mer_ivespa__H_top"
+    },
+    {
+      "action": 6,
+      "below_bound_by": 0.0,
+      "bound_consistency_check": true,
+      "continuous_family_lower_bound": 0.1497558929338415,
+      "depth": 2,
+      "nodes": 62481,
+      "risk": 0.15026686371633244,
+      "root_action_values": [
+        [
+          0,
+          0.15148922825596384
+        ],
+        [
+          1,
+          0.1503251913779244
+        ],
+        [
+          2,
+          0.15028477937614507
+        ],
+        [
+          3,
+          0.1502669612948928
+        ],
+        [
+          4,
+          0.150875169004305
+        ],
+        [
+          5,
+          0.15092446218674052
+        ],
+        [
+          6,
+          0.15026686371633244
+        ],
+        [
+          7,
+          0.1505359205716309
+        ]
+      ],
+      "seconds": 1.61655137501657,
+      "status": "completed",
+      "task_id": "wind_turbine_power_curve_engie__power_kW"
+    }
+  ],
+  "scientific_execution_authorized": false,
+  "source_measurements": 0,
+  "thresholds": {
+    "analytic_absolute_error": 0.0001,
+    "below_family_bound_tolerance": 1e-10
+  }
+}
