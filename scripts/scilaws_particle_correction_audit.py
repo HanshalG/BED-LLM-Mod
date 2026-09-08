@@ -17,7 +17,7 @@ from scripts.scilaws_particle_integration_panel import read_bank, BANK_SHA, SCEN
 from scripts.scilaws_reference_preflight import DESIGN_SHA
 
 
-def run(output):
+def run(output, *, task_index=0, seed=1304, references=None, reference_sha256=BANK_SHA):
     path = Path(output)
     if path.exists():
         raise FileExistsError(path)
@@ -25,13 +25,15 @@ def run(output):
     raw = Path('results/nonmyopic/SCILAWS_MEASUREMENT_DESIGN_20260908.json').read_bytes()
     if hashlib.sha256(raw).hexdigest() != DESIGN_SHA:
         raise ValueError('geometry binding mismatch')
-    design = json.loads(raw)['tasks'][0]
+    design = json.loads(raw)['tasks'][task_index]
     cases = []
     for index, scenario in enumerate(SCENARIOS):
         exact, state, _ = initialize_corrected(design, observations(design, scenario), quadrature_order=4)
         p = sample_posterior(exact, state, particles_per_family=512,
-            rng=np.random.default_rng(np.random.SeedSequence([1304, 0, index])), sampling='sobol').model
-        saved = bank['cases'][index]
+            rng=np.random.default_rng(np.random.SeedSequence([seed, task_index, index])), sampling='sobol').model
+        if references is None and (task_index != 0 or seed != 1304):
+            raise ValueError('nondefault task requires matching references')
+        saved = bank['cases'][index] if references is None else references[index]
         assert saved['scenario'] == scenario and saved['reference_reason'] is None
         refs = saved['reference']
         candidates = []
@@ -57,7 +59,8 @@ def run(output):
         cases.append(dict(scenario=scenario, candidates=candidates))
         print(scenario, [r['passed'] for r in candidates], flush=True)
     with path.open('x') as f:
-        json.dump(dict(cases=cases, reference_sha256=BANK_SHA, design_sha256=DESIGN_SHA,
+        json.dump(dict(cases=cases, reference_sha256=reference_sha256, design_sha256=DESIGN_SHA,
+                       task_index=task_index, seed=seed,
                        source_measurements=0, model_calls=0, paid_cost_usd=0,
                        deployment_authorized=False), f, indent=2, sort_keys=True, allow_nan=False)
         f.write('\n')
