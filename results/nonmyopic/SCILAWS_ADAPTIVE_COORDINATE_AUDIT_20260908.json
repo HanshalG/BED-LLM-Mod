@@ -1,0 +1,299 @@
+{
+  "deployment_authorized": false,
+  "evaluations_cap": 100000,
+  "interpretation": "adaptive_error_estimates_not_rigorous_bounds_or_source_evidence",
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "predictive_coordinates": true,
+  "rows": [
+    {
+      "action": 0,
+      "case": 0,
+      "comparison": [
+        {
+          "max_error": 0.011375620140717357,
+          "order": 4,
+          "scores": [
+            0.42330370408585094,
+            0.4437056226585454
+          ]
+        },
+        {
+          "max_error": 0.003699357323217356,
+          "order": 8,
+          "scores": [
+            0.43837868154978565,
+            0.45197020224001255
+          ]
+        },
+        {
+          "max_error": 0.00021407896718128594,
+          "order": 16,
+          "scores": [
+            0.4348934031937496,
+            0.452576733195706
+          ]
+        },
+        {
+          "max_error": 2.6296926858293546e-09,
+          "order": 64,
+          "scores": [
+            0.43467932394300723,
+            0.45256147286954873
+          ]
+        }
+      ],
+      "depth": 1,
+      "evaluations": 480,
+      "history": [],
+      "max_inner_error_estimate": 2.6889050246442958e-11,
+      "roots": [
+        [
+          0.4346793242265683,
+          2.6889050246442958e-11
+        ],
+        [
+          0.4525614754992414,
+          7.926969986719965e-12
+        ]
+      ],
+      "status": "completed"
+    },
+    {
+      "case": 0,
+      "depth": 2,
+      "evaluations": 100001,
+      "history": [],
+      "max_inner_error_estimate": 4.399102496531587e-06,
+      "reason": "adaptive reference exceeded evaluations",
+      "status": "incomplete"
+    },
+    {
+      "action": 0,
+      "case": 1,
+      "comparison": [
+        {
+          "max_error": 0.000554296938173271,
+          "order": 4,
+          "scores": [
+            0.24409839351639537,
+            0.2724743066696681
+          ]
+        },
+        {
+          "max_error": 7.668633708868278e-05,
+          "order": 8,
+          "scores": [
+            0.24384928304772527,
+            0.2729519172707527
+          ]
+        },
+        {
+          "max_error": 3.053479511516688e-06,
+          "order": 16,
+          "scores": [
+            0.2438375738767605,
+            0.27302555012832985
+          ]
+        },
+        {
+          "max_error": 5.514564860309434e-09,
+          "order": 64,
+          "scores": [
+            0.24383785729980414,
+            0.2730285980932765
+          ]
+        }
+      ],
+      "depth": 1,
+      "evaluations": 300,
+      "history": [
+        [
+          0,
+          0.7
+        ]
+      ],
+      "max_inner_error_estimate": 6.396756448597267e-09,
+      "roots": [
+        [
+          0.24383785783251874,
+          6.396756448597267e-09
+        ],
+        [
+          0.27302860360784137,
+          2.3688857837128596e-09
+        ]
+      ],
+      "status": "completed"
+    },
+    {
+      "case": 1,
+      "depth": 2,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          0.7
+        ]
+      ],
+      "max_inner_error_estimate": 2.9089842467851888e-06,
+      "reason": "adaptive reference exceeded evaluations",
+      "status": "incomplete"
+    },
+    {
+      "action": 1,
+      "case": 2,
+      "comparison": [
+        {
+          "max_error": 0.0015615293268542163,
+          "order": 4,
+          "scores": [
+            0.33820690094218336,
+            0.2157224976956446
+          ]
+        },
+        {
+          "max_error": 8.353252266257716e-05,
+          "order": 8,
+          "scores": [
+            0.3366218427952089,
+            0.21627309749548074
+          ]
+        },
+        {
+          "max_error": 3.5679507092711837e-06,
+          "order": 16,
+          "scores": [
+            0.3366450688442597,
+            0.21635306206743404
+          ]
+        },
+        {
+          "max_error": 5.639780753519119e-09,
+          "order": 64,
+          "scores": [
+            0.3366453713433535,
+            0.21635662437836256
+          ]
+        }
+      ],
+      "depth": 1,
+      "evaluations": 360,
+      "history": [
+        [
+          0,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 2.0747465129924206e-09,
+      "roots": [
+        [
+          0.33664537161532915,
+          1.3096035282212791e-09
+        ],
+        [
+          0.21635663001814331,
+          2.0747465129924206e-09
+        ]
+      ],
+      "status": "completed"
+    },
+    {
+      "case": 2,
+      "depth": 2,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 5.7427475398324105e-06,
+      "reason": "adaptive reference exceeded evaluations",
+      "status": "incomplete"
+    },
+    {
+      "action": 0,
+      "case": 3,
+      "comparison": [
+        {
+          "max_error": 0.0012501472202458008,
+          "order": 4,
+          "scores": [
+            0.48788344036096426,
+            0.5065862129998364
+          ]
+        },
+        {
+          "max_error": 1.931372220137506e-05,
+          "order": 8,
+          "scores": [
+            0.4866139794185171,
+            0.5077191637261418
+          ]
+        },
+        {
+          "max_error": 3.325798835218663e-07,
+          "order": 16,
+          "scores": [
+            0.48663329596188376,
+            0.5077203387057665
+          ]
+        },
+        {
+          "max_error": 1.8789336753144426e-10,
+          "order": 64,
+          "scores": [
+            0.48663329313967124,
+            0.5077206710977566
+          ]
+        }
+      ],
+      "depth": 1,
+      "evaluations": 300,
+      "history": [
+        [
+          0,
+          0.7
+        ],
+        [
+          1,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 1.6599608207765572e-09,
+      "roots": [
+        [
+          0.48663329314071846,
+          1.168047452376487e-09
+        ],
+        [
+          0.50772067128565,
+          1.6599608207765572e-09
+        ]
+      ],
+      "status": "completed"
+    },
+    {
+      "case": 3,
+      "depth": 2,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          0.7
+        ],
+        [
+          1,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 6.539402389771527e-07,
+      "reason": "adaptive reference exceeded evaluations",
+      "status": "incomplete"
+    }
+  ],
+  "seconds_cap": 5,
+  "source_measurements": 0,
+  "tolerance": 1e-08
+}
