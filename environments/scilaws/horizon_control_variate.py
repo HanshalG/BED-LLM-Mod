@@ -92,3 +92,18 @@ class HorizonControlVariateMixture(ControlVariateMixture):
         if not np.isfinite(value) or value < 0:
             raise ValueError("invalid family action bound")
         return value
+
+    def state_risk_lower_bound(self, state, depth):
+        """Known-family optimal suffix on the full repeatable action menu."""
+        depth = _integer(depth, "depth")
+        if depth > 3:
+            raise ValueError("horizon bound limited to depth three")
+        weights = np.exp(self._state(state))
+        values = [
+            b.noise_variance * self._coefficient(i, b.precision, depth)
+            for i, b in enumerate(state.components)
+        ]
+        value = float(np.dot(weights, values))
+        if not np.isfinite(value) or value < 0:
+            raise ValueError("invalid family state bound")
+        return value

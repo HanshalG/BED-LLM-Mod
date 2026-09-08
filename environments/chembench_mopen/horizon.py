@@ -45,6 +45,9 @@ class PredictiveModel(Protocol):
     model's numerical objective for every allowed menu (including repeats).
     It is only used with explicit adaptive use_action_bounds=True. Providers
     are responsible for its validity; evaluated violations fail closed.
+    With use_chance_bounds=True, state_risk_lower_bound(state, depth) must
+    bound the continuation optimum under every allowed menu. Partial chance
+    values remain bounds and are never stored in the exact-value cache.
     """
 
     num_actions: int
@@ -106,6 +109,7 @@ class HorizonPlan:
     elapsed_seconds: float
     root_pruned_lower_bounds: tuple[tuple[int, float], ...] = ()
     pruned_actions: int = 0
+    partially_pruned_actions: int = 0
 
 
 class FiniteBeliefModel:
@@ -232,6 +236,7 @@ class HorizonPlanner:
         mode: Mode = "adaptive",
         allow_repeats: bool = False,
         use_action_bounds: bool = False,
+        use_chance_bounds: bool = False,
     ) -> HorizonPlan:
         horizon = _integer(horizon, "horizon")
         if mode not in ("adaptive", "open_loop"):
@@ -241,6 +246,11 @@ class HorizonPlanner:
         if not isinstance(use_action_bounds, bool):
             raise ValueError("use_action_bounds must be boolean")
         bound_hook = getattr(self.model, "action_risk_lower_bound", None)
+        state_bound_hook = getattr(self.model, "state_risk_lower_bound", None)
+        if not isinstance(use_chance_bounds, bool):
+            raise ValueError("use_chance_bounds must be boolean")
+        if use_chance_bounds and (not use_action_bounds or not callable(state_bound_hook)):
+            raise ValueError("chance bounds require action bounds and a state bound hook")
         if use_action_bounds and (mode != "adaptive" or not callable(bound_hook)):
             raise ValueError("action bounds require adaptive mode and a model bound hook")
         if available is None:
@@ -260,6 +270,7 @@ class HorizonPlanner:
         start = monotonic()
         nodes = 0
         pruned_actions = 0
+        partially_pruned_actions = 0
 
         def check(*, expand: bool = False) -> None:
             nonlocal nodes
@@ -325,7 +336,7 @@ class HorizonPlanner:
             return value
 
         def evaluate_actions(belief, menu, depth):
-            nonlocal pruned_actions
+            nonlocal pruned_actions, partially_pruned_actions
             ordered = []
             for a in menu:
                 lower = float(bound_hook(belief, a, depth)) if use_action_bounds else 0.0
@@ -342,12 +353,47 @@ class HorizonPlanner:
                     pruned[a] = lower
                     pruned_actions += 1
                     continue
-                value = action_value(belief, menu, depth, a)
+                if use_chance_bounds and depth > 1 and math.isfinite(incumbent):
+                    value, abandoned = partial_action(belief, menu, depth, a, incumbent)
+                    if abandoned:
+                        pruned[a] = value
+                        pruned_actions += 1
+                        partially_pruned_actions += 1
+                        continue
+                else:
+                    value = action_value(belief, menu, depth, a)
                 if use_action_bounds and lower > value + 1e-10 * max(1.0, abs(value), lower):
                     raise ValueError("evaluated risk violates model action lower bound")
                 values[a] = value
                 incumbent = min(incumbent, value)
             return values, pruned
+
+        def partial_action(belief, menu, depth, action, incumbent):
+            rows = branches(belief, action)
+            offset = correction(belief, action, depth)
+            lower = []
+            for row in rows:
+                bound = float(state_bound_hook(row.state, depth - 1))
+                if not math.isfinite(bound) or bound < 0:
+                    raise ValueError("state lower bound must be finite and nonnegative")
+                lower.append(row.probability * bound)
+                check()
+            contributions = list(lower)
+            # High-probability branches tend to tighten the total fastest.
+            order = sorted(range(len(rows)), key=lambda i: (-rows[i].probability, i))
+            for i in order:
+                total = math.fsum(contributions) + offset
+                margin = 1e-10 * max(1.0, abs(total), abs(incumbent))
+                if total > incumbent + margin:
+                    return total, True
+                row = rows[i]
+                value = row.probability * choose(
+                    row.state, remainder(menu, action), depth - 1
+                )[0]
+                if lower[i] > value + 1e-10 * max(1.0, abs(value), lower[i]):
+                    raise ValueError("evaluated continuation violates state lower bound")
+                contributions[i] = value
+            return corrected(math.fsum(contributions), offset), False
 
         @lru_cache(maxsize=self.limits.cache_size)
         def choose(
@@ -479,6 +525,7 @@ class HorizonPlanner:
                 monotonic() - start,
                 tuple(sorted(root_pruned.items())),
                 pruned_actions,
+                partially_pruned_actions,
             )
         finally:
             choose.cache_clear()

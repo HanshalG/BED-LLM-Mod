@@ -12,7 +12,7 @@ from scripts.scilaws_moment_audit import corrected
 from scripts.scilaws_reference_preflight import DESIGN_SHA
 
 
-def run(output):
+def run(output, *, partial=False):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -27,13 +27,14 @@ def run(output):
         for depth in (1, 2, 3):
             try:
                 p = planner.plan(m.initial_state, depth, allow_repeats=True,
-                                 use_action_bounds=True)
+                                 use_action_bounds=True, use_chance_bounds=partial)
                 row["plans"].append(dict(
                     depth=depth, status="completed", action=p.root.action,
                     risk=p.root.expected_risk, nodes=p.expanded_nodes,
                     seconds=p.elapsed_seconds, pruned_actions=p.pruned_actions,
                     root_action_values=p.root_action_values,
                     root_pruned_lower_bounds=p.root_pruned_lower_bounds,
+                    partially_pruned_actions=p.partially_pruned_actions,
                 ))
             except SearchLimitExceeded as exc:
                 row["plans"].append(dict(depth=depth, status="resource_limit", reason=str(exc)))
@@ -42,6 +43,7 @@ def run(output):
         print(row["task_id"], row["plans"][-1]["status"], flush=True)
     result = dict(
         schema_version=1, tasks=rows, design_sha256=DESIGN_SHA,
+        use_chance_bounds=partial,
         quadrature_order=8, per_plan_seconds_cap=5, per_plan_nodes_cap=100000,
         complete_depth_coverage=all(len(r["plans"]) == 3 and all(
             p["status"] == "completed" for p in r["plans"]) for r in rows),
@@ -57,4 +59,6 @@ def run(output):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", required=True)
-    run(p.parse_args().output)
+    p.add_argument("--partial", action="store_true")
+    args = p.parse_args()
+    run(args.output, partial=args.partial)
