@@ -8,14 +8,18 @@ from pathlib import Path
 import numpy as np
 
 from environments.scilaws.moment_quadrature import MomentMatchedMixture
+from environments.scilaws.control_variate import ControlVariateMixture
 from environments.scilaws.reference_prior import make_model
 
 DESIGN_SHA = "5e9f2bd902fa9de251cbe033bdd7dd4d5ad8fc79d870e80add7920ed92a18197"
 
 
-def corrected(task, order):
+def corrected(task, order, method="moment"):
     b = make_model(task, quadrature_order=order)
-    return MomentMatchedMixture(
+    cls = {"moment": MomentMatchedMixture, "control_variate": ControlVariateMixture}[
+        method
+    ]
+    return cls(
         b.action_features,
         b.target_features,
         b.components,
@@ -26,7 +30,7 @@ def corrected(task, order):
     )
 
 
-def run(output):
+def run(output, method="moment"):
     path = Path("results/nonmyopic/SCILAWS_MEASUREMENT_DESIGN_20260908.json")
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != DESIGN_SHA:
@@ -42,7 +46,7 @@ def run(output):
                 state = reference.condition(state, 3, 1.7)
             values = [reference.expected_terminal_risk(state, a)[0] for a in range(8)]
             for order in (8, 16):
-                model = corrected(task, order)
+                model = corrected(task, order, method)
                 estimates = []
                 try:
                     estimates = [
@@ -77,6 +81,7 @@ def run(output):
         print(task["task_id"], flush=True)
     result = dict(
         design_sha256=DESIGN_SHA,
+        method=method,
         rows=rows,
         thresholds=dict(max_absolute_error=1e-4, reference_regret=1e-4),
         all_fixtures_pass=all(r["fixture_pass"] for r in rows),
@@ -95,4 +100,6 @@ def run(output):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", required=True)
-    run(p.parse_args().output)
+    p.add_argument("--method", choices=("moment", "control_variate"), default="moment")
+    args = p.parse_args()
+    run(args.output, args.method)

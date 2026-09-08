@@ -80,6 +80,7 @@ class PolicyNode:
     expected_risk: float
     remaining_depth: int
     branches: tuple[PolicyEdge, ...] = ()
+    quadrature_correction: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -285,6 +286,20 @@ class HorizonPlanner:
         def remainder(menu: tuple[int, ...], action: int) -> tuple[int, ...]:
             return menu if allow_repeats else tuple(a for a in menu if a != action)
 
+        def correction(belief: Hashable, action: int) -> float:
+            hook = getattr(self.model, "chance_risk_correction", None)
+            value = float(hook(belief, action)) if callable(hook) else 0.0
+            if not math.isfinite(value):
+                raise ValueError("quadrature correction must be finite")
+            check()
+            return value
+
+        def corrected(value: float, offset: float) -> float:
+            value += offset
+            if not math.isfinite(value) or value < 0:
+                raise ValueError("corrected risk must be finite and nonnegative")
+            return value
+
         @lru_cache(maxsize=self.limits.cache_size)
         def choose(
             belief: Hashable, menu: tuple[int, ...], depth: int
@@ -310,9 +325,12 @@ class HorizonPlanner:
                     check(expand=True)
                 return value
             next_menu = remainder(menu, action)
-            return math.fsum(
-                row.probability * choose(row.state, next_menu, depth - 1)[0]
-                for row in branches(belief, action)
+            return corrected(
+                math.fsum(
+                    row.probability * choose(row.state, next_menu, depth - 1)[0]
+                    for row in branches(belief, action)
+                ),
+                correction(belief, action),
             )
 
         @lru_cache(maxsize=self.limits.cache_size)
@@ -322,9 +340,12 @@ class HorizonPlanner:
                 return risk(belief)
             if len(sequence) == 1:
                 return action_value(belief, sequence, 1, sequence[0])
-            return math.fsum(
-                row.probability * sequence_value(row.state, sequence[1:])
-                for row in branches(belief, sequence[0])
+            return corrected(
+                math.fsum(
+                    row.probability * sequence_value(row.state, sequence[1:])
+                    for row in branches(belief, sequence[0])
+                ),
+                correction(belief, sequence[0]),
             )
 
         def materialize(
@@ -361,7 +382,8 @@ class HorizonPlanner:
             value = math.fsum(
                 edge.probability * edge.child.expected_risk for edge in children
             )
-            return PolicyNode(action, value, depth, children)
+            offset = correction(belief, action)
+            return PolicyNode(action, corrected(value, offset), depth, children, offset)
 
         try:
             fixed = None

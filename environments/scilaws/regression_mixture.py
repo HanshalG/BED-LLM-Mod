@@ -210,6 +210,10 @@ class RegressionMixture:
         )
 
     def expected_terminal_risk(self, state, action):
+        value, count, _, _ = self._terminal_risk_terms(state, action)
+        return value, count
+
+    def _terminal_risk_terms(self, state, action):
         """Same terminal nodes/likelihoods, with vectorized conjugate updates."""
         logs = self._state(state)
         action = self._action(action)
@@ -218,7 +222,7 @@ class RegressionMixture:
         count, models, targets = len(y), len(state.components), len(self.target_weights)
         if count * models * (targets + 32) * 8 * 5 > 64 * 1024**2:
             raise ValueError("terminal batch workspace cap exceeded")
-        predictions, within, densities = [], [], []
+        predictions, within, densities, exact_within = [], [], [], []
         for i, (b, x, target) in enumerate(
             zip(
                 state.components,
@@ -253,6 +257,13 @@ class RegressionMixture:
                 )
             )
             predictions.append(means @ target.T)
+            exact_within.append(
+                b.noise_variance
+                * (
+                    self._target_leverage(i, precision)
+                    + int(self.include_observation_noise)
+                )
+            )
         posterior = np.asarray(densities).T + logs
         posterior = np.exp(posterior - logsumexp(posterior, axis=1)[:, None])
         predictions = np.asarray(predictions).transpose(1, 0, 2)
@@ -266,4 +277,8 @@ class RegressionMixture:
             or not math.isfinite(value)
         ):
             raise ValueError("terminal risk exceeds numeric range")
-        return value, len(rows)
+        sampled_within = float(
+            masses @ np.sum(posterior * np.asarray(within).T, axis=1)
+        )
+        analytic_within = float(np.exp(logs) @ exact_within)
+        return value, len(rows), sampled_within, analytic_within
