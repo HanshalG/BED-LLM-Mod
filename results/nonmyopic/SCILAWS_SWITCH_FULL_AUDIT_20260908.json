@@ -1,0 +1,160 @@
+{
+  "all_complete": false,
+  "all_numerical_checks": false,
+  "depth_three_authorized": false,
+  "error_interpretation": "reported_estimates_not_rigorous_nested_bounds",
+  "evaluations_cap_per_plan": 100000,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "rows": [
+    {
+      "action": null,
+      "case": 0,
+      "evaluations": 100001,
+      "history": [],
+      "max_inner_error_estimate": 6.29555543091298e-06,
+      "numerical_check": false,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "error": 2.6302462086309916e-09,
+          "value": 0.2727553099074774
+        }
+      ],
+      "status": "incomplete",
+      "switches": [
+        {
+          "action": 0,
+          "points": [
+            -3.8679578879903724,
+            0.2904824124595795
+          ]
+        },
+        {
+          "action": 1,
+          "points": [
+            -0.41246523243684496
+          ]
+        }
+      ]
+    },
+    {
+      "action": null,
+      "case": 1,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          0.7
+        ]
+      ],
+      "max_inner_error_estimate": 3.994126726277261e-05,
+      "numerical_check": false,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "error": 3.823310189991535e-10,
+          "value": 0.21955676826744341
+        }
+      ],
+      "status": "incomplete",
+      "switches": [
+        {
+          "action": 0,
+          "points": [
+            -0.2912088569543812
+          ]
+        },
+        {
+          "action": 1,
+          "points": [
+            -0.9008538114224603,
+            3.09189248129582
+          ]
+        }
+      ]
+    },
+    {
+      "action": null,
+      "case": 2,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 2.2846398173067683e-05,
+      "numerical_check": false,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "error": 1.2141917473319828e-09,
+          "value": 0.2003469265010733
+        }
+      ],
+      "status": "incomplete",
+      "switches": [
+        {
+          "action": 0,
+          "points": [
+            1.0374763202587953
+          ]
+        },
+        {
+          "action": 1,
+          "points": [
+            0.060507710050364746
+          ]
+        }
+      ]
+    },
+    {
+      "action": null,
+      "case": 3,
+      "evaluations": 100001,
+      "history": [
+        [
+          0,
+          0.7
+        ],
+        [
+          1,
+          -0.7
+        ]
+      ],
+      "max_inner_error_estimate": 8.375488947776066e-06,
+      "numerical_check": false,
+      "reason": "adaptive reference exceeded evaluations",
+      "roots": [
+        {
+          "action": 0,
+          "error": 5.768840616877918e-11,
+          "value": 0.42367687950352184
+        }
+      ],
+      "status": "incomplete",
+      "switches": [
+        {
+          "action": 0,
+          "points": [
+            -2.9401962562994295,
+            0.061618821864700454
+          ]
+        },
+        {
+          "action": 1,
+          "points": [
+            -0.4899192010318355
+          ]
+        }
+      ]
+    }
+  ],
+  "seconds_cap_per_plan": 5,
+  "source_execution_authorized": false,
+  "source_measurements": 0
+}
