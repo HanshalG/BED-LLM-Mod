@@ -1,0 +1,24 @@
+{
+  "case": 0,
+  "depth": 2,
+  "evaluations": 66898,
+  "full_panel_authorized": false,
+  "max_inner_error_estimate": 2.790891835237035e-07,
+  "model_calls": 0,
+  "outer_error_estimate": 2.6302462086309916e-09,
+  "paid_cost_usd": 0,
+  "reference_qualified": false,
+  "root_action": 0,
+  "source_measurements": 0,
+  "status": "root_complete",
+  "switches": [
+    {
+      "action": 0,
+      "points": [
+        -3.8679578879903724,
+        0.2904824124595795
+      ]
+    }
+  ],
+  "value": 0.2727553099074774
+}
