@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "name": "structured_scene_full_grammar_reference_v1",
+  "scope": "classical reference opportunity; not visual ZendoWorld or LLM efficacy",
+  "source_commit": "05809c1a",
+  "bindings": {
+    "environments/semantic_scene/rules.py": "3a7548d622b72685317852d157837eed7ffdf957e473e5b77b6f4a1ccc22ef8b",
+    "environments/semantic_scene/symbolic.py": "28f92292790e35c42a062a84645a31b9f5f9dc61f62f85e1d97a4d57cb6a94e1",
+    "scripts/number_game_initial_horizon_audit.py": "5c19b3ce237d9bc2de9382feae18ee0214075337b887d9d4830e5e621dc56884",
+    "scripts/number_game_initial_openloop_audit.py": "bfe2e8fc7ec6efa219a2c9b5d5443289ddbdf53ca4131422de5f9e180d342af4"
+  },
+  "grammar_candidates": 38808,
+  "scene_sizes": [1, 2],
+  "prior": "uniform distinct Boolean extensions of the entire grammar on the fixed scene universe; no prevalence-based rejection",
+  "targets": "all 189 one/two-object multisets, uniform; queried targets remain included",
+  "query_menus": 4,
+  "menu_size": 12,
+  "menu_hash": "sha256 of semantic-scene-v1:<menu index>:<canonical scene JSON>; ascending digest then JSON",
+  "real_query_budget": 3,
+  "policies": ["h1", "h2", "h3", "receding_openloop_h3", "committed_three", "random_without_replacement"],
+  "primary_gate": "complete panel; mean h2 <= .95 * mean h1 and mean h3 <= .95 * mean h2, with both earlier means positive; exact h3 <= receding openloop <= committed on every menu",
+  "failure": "bank full null or partial resource failure; no rerun, menu selection, grammar or threshold rescue",
+  "max_seconds": 300,
+  "max_menu_seconds": 40,
+  "max_states_per_menu": 100000,
+  "max_openloop_sets_per_menu": 100000,
+  "model_calls": 0,
+  "paid_calls_authorized": false,
+  "passing_authority": "only prospective semantic-proposal protocol design, not paid execution or efficacy"
+}
