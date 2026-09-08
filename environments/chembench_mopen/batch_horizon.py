@@ -10,6 +10,7 @@ from scipy.special import ndtr, ndtri
 
 from .horizon import SearchLimitExceeded, _integer
 from .quantile_belief import QuantileGaussianModel
+from .centered_risk import CenteredTargetRisk
 
 
 @dataclass(frozen=True)
@@ -217,6 +218,7 @@ def plan_batched(
     available=None,
     mode="adaptive",
     allow_repeats=False,
+    risk_backend="pairwise",
     batch_size=64,
     max_states=5_000_000,
     max_seconds=60,
@@ -235,6 +237,8 @@ def plan_batched(
         raise ValueError("invalid mode")
     if type(allow_repeats) is not bool:
         raise ValueError("allow_repeats must be boolean")
+    if risk_backend not in ("pairwise", "centered"):
+        raise ValueError("invalid risk backend")
     state = model._logs(state)[None, :]
     menu = (
         tuple(range(model.num_actions))
@@ -256,7 +260,9 @@ def plan_batched(
             + 8 * model.num_particles * model.targets.shape[1]
         )
     )
-    distance_bytes = 8 * model.num_particles**2 + getattr(
+    risk_bytes = (8 * model.num_particles**2 if risk_backend == "pairwise" else
+                  16 * model.num_particles * model.targets.shape[1] + 8 * model.num_particles)
+    distance_bytes = risk_bytes + getattr(
         model, "_workspace_fixed_bytes", 0
     ) + model.target_conditional_variances.nbytes + model.target_noise_risk.nbytes
     batch_size = min(batch_size, (max_workspace_bytes - distance_bytes) // row_bytes)
@@ -274,15 +280,21 @@ def plan_batched(
     # Var_p(T) = 1/2 sum_ij p_i p_j ||T_i-T_j||^2. Precompute the fixed
     # distances once, avoiding a beliefs*particles*targets tensor at every leaf.
     # Differences keep this nonnegative and avoid large-offset cancellation.
-    distances = np.empty((model.num_particles, model.num_particles))
-    for i in range(model.num_particles):
+    if risk_backend == "centered":
+        centered_risk = CenteredTargetRisk(model)
         check()
-        distances[i] = ((model.targets - model.targets[i]) ** 2) @ model.target_weights
-    if not np.isfinite(distances).all():
-        raise ValueError("unrepresentable target distances")
+    else:
+        distances = np.empty((model.num_particles, model.num_particles))
+        for i in range(model.num_particles):
+            check()
+            distances[i] = ((model.targets - model.targets[i]) ** 2) @ model.target_weights
+        if not np.isfinite(distances).all():
+            raise ValueError("unrepresentable target distances")
 
     def terminal(logs):
         weights = np.exp(logs)
+        if risk_backend == "centered":
+            return centered_risk(weights)
         return (0.5 * np.sum(weights * (weights @ distances), axis=1)
                 + weights @ model.target_noise_risk)
 
