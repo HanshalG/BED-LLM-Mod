@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "source_contract_reproduced_not_adopted",
+  "source_commit": "c18e24eae479a91f45fa0615d809f022c15281f1",
+  "source_sha256": {
+    "zendo/game_master.py": "df5789b9e1afc71e47dbffd4ff9f25adfeed766aa42a63206877b1de79fc0620",
+    "zendo/states.py": "94f6ad6c6c10721fa7208a489bd686525eac6f2388e70ee30803fce73970e687",
+    "zendo/game.py": "910bc7ad87896acdf5ebf5401723240972348a3323bc77450f9edb679b6d1757",
+    "DSL/zendo.py": "cd7221bc38484136db1f663f06fcfee5636f336fd1205c176fd4de419be05234",
+    "DSL/vlp_dsl_symbolic.py": "30fe950e8be74b364123fdfb8383f3f2ebedfa7ba7f85b7edb161fefd52c6ba5",
+    "README.md": "6b71a8e33eb71cf957f0ebe7c2e29412cf67ef85c995c93bed2d10b03c82a756"
+  },
+  "license_named_paths": [],
+  "label_contract": {
+    "fixture_only": true,
+    "stored_label": false,
+    "membership_label_same_scene": true,
+    "mismatch_warning_emitted": true,
+    "disagreement_retained": true,
+    "stubbed": [
+      "program evaluation: constant True",
+      "strip_trailing_var0: no-op"
+    ]
+  },
+  "scope": "Two extracted methods with stubs; no DSL or game-loop execution",
+  "model_calls": 0,
+  "cost_usd": 0,
+  "scientific_outcomes_opened": false,
+  "paid_authority": false
+}
