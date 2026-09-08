@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "timezone": "Europe/London",
+  "daily_cap_usd": 5.0,
+  "opening_total_credits_usd": 245.0,
+  "opening_total_usage_usd": 220.376693994,
+  "opening_balance_usd": 24.623306006,
+  "opening_frozen_at_london": "2026-09-08T02:15:30.692756+01:00",
+  "boundary_note": "Cumulative usage is unchanged from the Aug25 boundary; any subsequent account use counts against this day.",
+  "recorded_actual_spend_usd": 0.0,
+  "additional_paid_blocks_authorized": false,
+  "account_wide_usage_counts_against_cap": true,
+  "unspent_allowance_does_not_roll_over": true,
+  "reconciliation": {
+    "live_total_credits_usd": 245.0,
+    "live_total_usage_usd": 220.376693994,
+    "live_balance_usd": 24.623306006,
+    "locally_measured_spend_usd": 0.0,
+    "posted_spend_since_opening_usd": 0.0,
+    "recorded_spend_is_max_of_posted_and_local": true,
+    "remaining_daily_allowance_usd": 5.0
+  },
+  "research_state": "Fresh controlled proposer-plus-weight study is not authorized yet. Closed routes stay closed; automation remains paused."
+}
