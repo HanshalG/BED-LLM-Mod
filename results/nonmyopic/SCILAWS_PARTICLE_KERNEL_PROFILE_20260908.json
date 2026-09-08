@@ -1,0 +1,423 @@
+{
+  "cases": [
+    {
+      "evaluations_per_repeat": 2056,
+      "maximum_integrand_difference": 4.85722573273506e-17,
+      "original_seconds": [
+        0.2571925420779735,
+        0.3340563748497516,
+        0.3045927088242024
+      ],
+      "profile": [
+        {
+          "calls": 8240,
+          "cumulative_seconds": 0.15157652500000002,
+          "function": "~:0:<method 'reduce' of 'numpy.ufunc' objects>",
+          "own_seconds": 0.15157652500000002
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.118074069,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/centered_risk.py:15:__call__",
+          "own_seconds": 0.09366166000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.283862157,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:22:density_risk",
+          "own_seconds": 0.021880188000000002
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 0.30561633400000005,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:55:workload",
+          "own_seconds": 0.021062963
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.009502566,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:71:_wrapreduction",
+          "own_seconds": 0.0032492330000000002
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.006423374000000001,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/numeric.py:615:flatnonzero",
+          "own_seconds": 0.001876201
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.006488696,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2177:sum",
+          "own_seconds": 0.0015198190000000002
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0019973160000000003,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/getlimits.py:484:__new__",
+          "own_seconds": 0.001489892
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.005938582,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2322:any",
+          "own_seconds": 0.001157171
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.002016065,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1768:ravel",
+          "own_seconds": 0.001003777
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0007546320000000001,
+          "function": "~:0:<method 'nonzero' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.0007546320000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.001666661,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53:_wrapfunc",
+          "own_seconds": 0.0006834090000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.002975221,
+          "function": "~:0:<method 'all' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000651209
+        },
+        {
+          "calls": 4120,
+          "cumulative_seconds": 0.000550466,
+          "function": "~:0:<built-in method builtins.isinstance>",
+          "own_seconds": 0.000550466
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.002213032,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1881:nonzero",
+          "own_seconds": 0.000546371
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.000545501,
+          "function": "~:0:<method 'ravel' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000545501
+        },
+        {
+          "calls": 4112,
+          "cumulative_seconds": 0.000507424,
+          "function": "~:0:<method 'get' of 'dict' objects>",
+          "own_seconds": 0.000507424
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.000490858,
+          "function": "~:0:<method 'items' of 'dict' objects>",
+          "own_seconds": 0.000490858
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0023240120000000003,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/_methods.py:61:_all",
+          "own_seconds": 0.000417862
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.00030751000000000004,
+          "function": "~:0:<method 'append' of 'list' objects>",
+          "own_seconds": 0.00030751000000000004
+        }
+      ],
+      "repeats": 3,
+      "scenario": "zero",
+      "shifted_seconds": [
+        0.12461391696706414,
+        0.21417599986307323,
+        0.14784620888531208
+      ]
+    },
+    {
+      "evaluations_per_repeat": 2056,
+      "maximum_integrand_difference": 1.942890293094024e-16,
+      "original_seconds": [
+        0.28025654098019004,
+        0.3313925832044333,
+        0.23731258301995695
+      ],
+      "profile": [
+        {
+          "calls": 8240,
+          "cumulative_seconds": 0.127333148,
+          "function": "~:0:<method 'reduce' of 'numpy.ufunc' objects>",
+          "own_seconds": 0.127333148
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.087121819,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/centered_risk.py:15:__call__",
+          "own_seconds": 0.06984704400000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.22678367900000002,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:22:density_risk",
+          "own_seconds": 0.01690565
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 0.243661541,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:55:workload",
+          "own_seconds": 0.016361696000000002
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.006047366,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:71:_wrapreduction",
+          "own_seconds": 0.00257187
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.005063913000000001,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/numeric.py:615:flatnonzero",
+          "own_seconds": 0.001622402
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.004565806,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2177:sum",
+          "own_seconds": 0.0011389710000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0013027100000000001,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/getlimits.py:484:__new__",
+          "own_seconds": 0.0009015210000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0014783810000000002,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1768:ravel",
+          "own_seconds": 0.000821868
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0035252860000000003,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2322:any",
+          "own_seconds": 0.0007422300000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0012340200000000002,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53:_wrapfunc",
+          "own_seconds": 0.000568276
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0023608870000000003,
+          "function": "~:0:<method 'all' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000532516
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.000477794,
+          "function": "~:0:<method 'nonzero' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000477794
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.001673914,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1881:nonzero",
+          "own_seconds": 0.00043989400000000003
+        },
+        {
+          "calls": 4112,
+          "cumulative_seconds": 0.00040118900000000004,
+          "function": "~:0:<method 'get' of 'dict' objects>",
+          "own_seconds": 0.00040118900000000004
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.000388861,
+          "function": "~:0:<method 'items' of 'dict' objects>",
+          "own_seconds": 0.000388861
+        },
+        {
+          "calls": 4120,
+          "cumulative_seconds": 0.00036165300000000003,
+          "function": "~:0:<built-in method builtins.isinstance>",
+          "own_seconds": 0.00036165300000000003
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.001828371,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/_methods.py:61:_all",
+          "own_seconds": 0.000338068
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.000334011,
+          "function": "~:0:<method 'ravel' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000334011
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.00023245700000000001,
+          "function": "~:0:<method 'append' of 'list' objects>",
+          "own_seconds": 0.00023245700000000001
+        }
+      ],
+      "repeats": 3,
+      "scenario": "affine",
+      "shifted_seconds": [
+        0.17807283299043775,
+        0.19608112494461238,
+        0.12795850005932152
+      ]
+    },
+    {
+      "evaluations_per_repeat": 2056,
+      "maximum_integrand_difference": 1.6653345369377348e-16,
+      "original_seconds": [
+        0.24183104210533202,
+        0.23498212499544024,
+        0.3058541249483824
+      ],
+      "profile": [
+        {
+          "calls": 8240,
+          "cumulative_seconds": 0.13580002400000002,
+          "function": "~:0:<method 'reduce' of 'numpy.ufunc' objects>",
+          "own_seconds": 0.13580002400000002
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.09555917000000001,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/environments/chembench_mopen/centered_risk.py:15:__call__",
+          "own_seconds": 0.077246153
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.24456368,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:22:density_risk",
+          "own_seconds": 0.017986064
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 0.263020916,
+          "function": "/Users/hanshalgoyal/BED-LLM-Mod/scripts/scilaws_particle_kernel_profile.py:55:workload",
+          "own_seconds": 0.017778554000000002
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.0064319450000000005,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:71:_wrapreduction",
+          "own_seconds": 0.002761369
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0053501600000000005,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/numeric.py:615:flatnonzero",
+          "own_seconds": 0.001616122
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.004862616,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2177:sum",
+          "own_seconds": 0.001238519
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0014161330000000002,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/getlimits.py:484:__new__",
+          "own_seconds": 0.001008086
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0015789970000000002,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1768:ravel",
+          "own_seconds": 0.0008619340000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0037509530000000004,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2322:any",
+          "own_seconds": 0.00079664
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.0013918000000000001,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53:_wrapfunc",
+          "own_seconds": 0.0006753740000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.002474483,
+          "function": "~:0:<method 'all' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.0005921520000000001
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.000509821,
+          "function": "~:0:<method 'nonzero' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.000509821
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.001878181,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/fromnumeric.py:1881:nonzero",
+          "own_seconds": 0.00048638100000000003
+        },
+        {
+          "calls": 4128,
+          "cumulative_seconds": 0.000410662,
+          "function": "~:0:<method 'items' of 'dict' objects>",
+          "own_seconds": 0.000410662
+        },
+        {
+          "calls": 4112,
+          "cumulative_seconds": 0.00040804700000000003,
+          "function": "~:0:<method 'get' of 'dict' objects>",
+          "own_seconds": 0.00040804700000000003
+        },
+        {
+          "calls": 4120,
+          "cumulative_seconds": 0.00038326100000000003,
+          "function": "~:0:<built-in method builtins.isinstance>",
+          "own_seconds": 0.00038326100000000003
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.001882331,
+          "function": "/Users/hanshalgoyal/.cache/uv/archive-v0/ezsLRJGgkE-_8mFppSa_0/lib/python3.12/site-packages/numpy/core/_methods.py:61:_all",
+          "own_seconds": 0.000360667
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.00035172100000000004,
+          "function": "~:0:<method 'ravel' of 'numpy.ndarray' objects>",
+          "own_seconds": 0.00035172100000000004
+        },
+        {
+          "calls": 2056,
+          "cumulative_seconds": 0.00035022600000000003,
+          "function": "~:0:<method 'append' of 'list' objects>",
+          "own_seconds": 0.00035022600000000003
+        }
+      ],
+      "repeats": 3,
+      "scenario": "quadratic",
+      "shifted_seconds": [
+        0.12041854206472635,
+        0.11680325004272163,
+        0.12593149999156594
+      ]
+    }
+  ],
+  "deployment_authorized": false,
+  "model_calls": 0,
+  "paid_cost_usd": 0,
+  "policy_run": false,
+  "source_measurements": 0
+}
