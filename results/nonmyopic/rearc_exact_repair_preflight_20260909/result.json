@@ -1,0 +1,81 @@
+{
+  "status": "public_prompt_preflight_pass",
+  "calls": 0,
+  "withheld_labels_opened": false,
+  "paid_authorized": false,
+  "public_sha256": "bdf50ca9b953043aa304467cba45c79d65d32300f45cf2db8ce906221d619257",
+  "request_bytes": [
+    {
+      "task_index": 0,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 15930
+    },
+    {
+      "task_index": 0,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 30654
+    },
+    {
+      "task_index": 1,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 10245
+    },
+    {
+      "task_index": 1,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 24969
+    },
+    {
+      "task_index": 2,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 14140
+    },
+    {
+      "task_index": 2,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 28864
+    },
+    {
+      "task_index": 3,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 9710
+    },
+    {
+      "task_index": 3,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 24434
+    },
+    {
+      "task_index": 4,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 15770
+    },
+    {
+      "task_index": 4,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 30494
+    },
+    {
+      "task_index": 5,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 9367
+    },
+    {
+      "task_index": 5,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 24091
+    }
+  ]
+}
