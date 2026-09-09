@@ -76,3 +76,10 @@ def test_bad_schema_does_not_open_targets(tmp_path):
     with pytest.raises(ValueError):
         probe.collect(Block(), probe.cases(), lambda: pytest.fail('endpoints opened'))
     assert not (tmp_path/'forecasts.json').exists()
+
+
+def test_banked_qualification_replay():
+    result = probe.replay(probe.ROOT)
+    assert result['status'] == 'replay_valid' and not result['gate_passed']
+    assert result['cost'] == pytest.approx(.01375145)
+    assert result['means']['refresh'] > 10*result['means']['ridge']
