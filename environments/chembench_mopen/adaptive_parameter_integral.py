@@ -67,7 +67,7 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
             # Preserve discovered narrow regions; restarting globally can falsely
             # stop on a tiny absolute error before sampling the known peak.
             results = [cubature(integrand, region.a, region.b,
-                                rtol=1e-7, atol=1e-9*float(np.prod(region.b-region.a)),
+                                rtol=1e-5, atol=1e-8*float(np.prod(region.b-region.a)),
                                 max_subdivisions=1000,
                                 rule='gk15' if split else 'gk21')
                        for region in pilot.regions]
@@ -75,6 +75,7 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
             error = np.sum([r.error for r in results], axis=0)
             status = 'converged' if all(r.status == 'converged' for r in results) else 'not_converged'
             check = {'partition': 'pilot_regions_gk15' if split else 'pilot_regions_gk21',
+                     'requested_rtol': 1e-5, 'total_requested_atol': 1e-8,
                      'status': status, 'integrals': value.tolist(),
                      'errors': error.tolist(), 'subdivisions': sum(r.subdivisions for r in results),
                      'pilot_region_count': len(pilot.regions),
