@@ -1,0 +1,2769 @@
+{
+  "bank_sha256": "34ba78da58dc8016b855e9b6b3ead4ef79bce0c3732dafb37802a18472a560f4",
+  "conditions": {
+    "all22": {
+      "mean_loss": {
+        "1": {
+          "fraction": "0",
+          "value": 0.0
+        },
+        "2": {
+          "fraction": "0",
+          "value": 0.0
+        },
+        "3": {
+          "fraction": "0",
+          "value": 0.0
+        }
+      },
+      "random_loss": {
+        "fraction": "400949851/444528000",
+        "value": 0.9019675948421697
+      },
+      "roots": {
+        "1": 6,
+        "2": 4,
+        "3": 1
+      },
+      "rows": [
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 6
+            },
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 6
+            },
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 2
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 16,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 6
+            },
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 2
+            },
+            {
+              "action": 5,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 4
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 11,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 4
+            },
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 4
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 2
+            },
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 2
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 4
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 4
+            },
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 2
+            },
+            {
+              "action": 5,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 7,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 4
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 4
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 10
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 10
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 6
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 2
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 10
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 2
+            },
+            {
+              "action": 5,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 6
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 7,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 10
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 6
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 10
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 6
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 6
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        }
+      ],
+      "seconds": 0.12599629199394258,
+      "states": 7725
+    },
+    "oracle_pairs15": {
+      "mean_loss": {
+        "1": {
+          "fraction": "0",
+          "value": 0.0
+        },
+        "2": {
+          "fraction": "0",
+          "value": 0.0
+        },
+        "3": {
+          "fraction": "0",
+          "value": 0.0
+        }
+      },
+      "random_loss": {
+        "fraction": "471857/793800",
+        "value": 0.5944280675233056
+      },
+      "roots": {
+        "1": 6,
+        "2": 1,
+        "3": 0
+      },
+      "rows": [
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 16,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 23,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 20,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 11,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 2,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 1,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 6,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 1
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 7,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 2,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 5
+            },
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 17,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 3
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 5
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 4,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 9
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 3,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 17
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 33
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 20,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 6
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 22,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 11,
+              "support_size": 3
+            },
+            {
+              "action": 4,
+              "observation": 13,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 10
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 11,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 18
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 7,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 34
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 12,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 12
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 19,
+              "support_size": 1
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 1
+            },
+            {
+              "action": 3,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 20
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 2,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 36
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 3,
+              "support_size": 10
+            },
+            {
+              "action": 1,
+              "observation": 21,
+              "support_size": 5
+            },
+            {
+              "action": 2,
+              "observation": 10,
+              "support_size": 5
+            },
+            {
+              "action": 4,
+              "observation": 10,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 24
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 2,
+              "support_size": 3
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 3
+            },
+            {
+              "action": 2,
+              "observation": 8,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 5,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 40
+        },
+        {
+          "horizon": 3,
+          "loss": {
+            "fraction": "0",
+            "value": 0.0
+          },
+          "trace": [
+            {
+              "action": 0,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 1,
+              "observation": 1,
+              "support_size": 2
+            },
+            {
+              "action": 2,
+              "observation": 5,
+              "support_size": 2
+            },
+            {
+              "action": 4,
+              "observation": 1,
+              "support_size": 1
+            }
+          ],
+          "truth_mask": 48
+        }
+      ],
+      "seconds": 0.11501295799826039,
+      "states": 6818
+    }
+  },
+  "cost_usd": 0,
+  "model_calls": 0,
+  "old_gate_changed": false,
+  "paid_authorized": false,
+  "protocol_sha256": "09405d0b506a03a266297299d5fb86d1091a2366bb07b2d1490fd4c152f04a5e",
+  "status": "descriptive_complete"
+}
