@@ -1,0 +1,34 @@
+{
+  "cost_usd": 0,
+  "full_prior_reference": false,
+  "implementation_sha256": "038481763145fa2bc04128e9c04e0d518138b5d07f51d3593e81a068cf5e1674",
+  "input_sha256": "0e567b7429a6e4f7c37e836074701ebea6541fc0bc5bd54f5fa7a6829f866ffe",
+  "model_calls": 0,
+  "paid_authority": false,
+  "panel_sha256": "b1446a16400547b842803afa6e300f55066a2b88056de02c6f618cbe221cf840",
+  "results": {
+    "1": {
+      "expected_risk": {
+        "h1": 0.010257718627546623,
+        "h2": 0.010257718627546623,
+        "h3": 0.010257718627546623,
+        "openloop": 0.010257718627546623,
+        "random": 0.06034451393946797
+      },
+      "initial_risk": 0.22437540690104166,
+      "status": "complete"
+    },
+    "10": {
+      "expected_risk": {
+        "h1": 0.008289930555555556,
+        "h2": 0.008289930555555556,
+        "h3": 0.008289930555555556,
+        "openloop": 0.008289930555555556,
+        "random": 0.01400070036300505
+      },
+      "initial_risk": 0.4873453776041667,
+      "status": "complete"
+    }
+  },
+  "source_sha256": "58fc2606ba386f8b8b40acf0e874d2813cd3f3d8d07d803aa0e6711addd9a4ce"
+}
