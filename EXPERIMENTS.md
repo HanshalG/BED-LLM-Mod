@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Representation exact-source gate | $0 | Frozen fc29ca61;46/66publicchannels pass then8731374e/46201 verify ValueError. Replay exact/new0; cohortclosed, no publicbank/modelcalls/endpoints. REARC_REPRESENTATION_SOURCE_FAILURE_20260909.md; sourcevalid finitepool design needed prospectively, not an LLM null.24tests/.62s, accountunchanged.
+
 2026-09-09 | Shared-plan representation controller | $0 | Python-vsDSL five-call updates, six-task/30-call panel, unchanged predictive gates, 28 focused tests/.61s. Synthetic ties fail qualification and coverage null leaves labels closed. Prospective REARC_REPRESENTATION_PROTOCOL_20260909.md; fresh cohort/source and paid bank integration still pending. Authenticated account unchanged, no new model calls or efficacy claim.
 
 2026-09-09 | Native Python compatibility/scoring | $0 | Five actual synthetic container executions and four module checks pass; 11 focused tests. AST identity avoids formatting-duplicate mass; future execution failures retain mass. No benchmark/model calls or containers remain. REARC_NATIVE_PYTHON_COMPATIBILITY_RESULT_20260909.md; authenticated account unchanged, controller/protocol still required.
