@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: exact-repair run4e5caa3a completed24calls/$0.09916568, exactreplay/new0. Actionable demo fit3/6<4 =>initial_coverage_null,60hiddenoutputsremainclosed. On3activecompilererror tasks:2structuralrescuesvs0generic,1demofit; botharmsoverall3/6,differenttasks. Identicalprompt+seed oninactive task4 produceddifferentfits, stochasticnoise. REARC_EXACT_REPAIR_TERMINAL_RESULT_20260909.md nextsavedpublicruntime/type/ambiguityaudit, no depth/retry. Budgetremaining3.65706419,goalunachieved.
+
 2026-09-09 latest: exact-repair cohort/source frozen353d850f;66/66actualscheduled channelsverified/cached,60outputssealed.12promptchecks(max30654bytes),30tests; newrunnerbinds/replaysjournal andsame24callpairedrepair. REARC_EXACT_REPAIR_READINESS_20260909.md preparingone$1.92maxLunamedblock, no depthauthority. Prior/currentprogress,sourcecalls66/modelcalls0,accountunchanged,goalunachieved.
 
 2026-09-09 latest: publicsource worker/transport integrated with journal;6actualsynthetic containerchecks pass(input/demo/generate/verify/grid/runawayexit137),12tests; allprefixesreplay, nocontainersremain. Sanitizedphase/errorclass prevents hiddenerrorleak, boundedresources unchanged. REARC_PUBLIC_SOURCE_RUNTIME_RESULT_20260909.md nextfresh frozen exactschedule cachedonce, notoldcohortretry or3seedextrapolation. Prior/currentprogress,benchmark/modelcalls0,accountunchanged,goalunachieved.

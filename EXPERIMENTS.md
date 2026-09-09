@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Exact-schedule paired repair | $0.09916568 |24normalLunamedcalls/exactreplay;3/6actionabledemofit<4,hiddenlabelsclosed. Active3tasks:structuralrescue2/3vs0/3generic,demorescue1;overallboth3/6. Identical inactiveprompts/seeds stilldiffer. REARC_EXACT_REPAIR_TERMINAL_RESULT_20260909.md; no predictive/depthclaim, remaining3.65706419.
+
 2026-09-09 | Exact-schedule repair readiness | $0 |Frozen353d850f;66scheduledsourcechannels verified/cache,60outputssealed;12promptchecks,30tests withactualtransport/replay wiring. REARC_EXACT_REPAIR_READINESS_20260909.md;one24call/$1.92maxLunamedblock nextafterfreeze, no nonmyopicclaim.
 
 2026-09-09 | Public source actual runtime | $0 |6syntheticcontainercases pass;sourcefailurephases isolated,runawayexit137,allprefixesreplay,nocontainersremain.12tests. REARC_PUBLIC_SOURCE_RUNTIME_RESULT_20260909.md; no benchmark/modelcalls, freshexactschedulequalificationnext.

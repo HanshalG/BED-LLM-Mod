@@ -1,0 +1,1 @@
+{"status":"execution_error","trace":[{"arguments":[{"height":28,"kind":"grid","width":24},{"height":28,"kind":"grid","width":24},{"height":28,"kind":"grid","width":24},{"kind":"int","length":null}],"error_type":"TypeError","id":"x0","op":"cellwise"}]}
