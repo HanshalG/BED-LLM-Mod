@@ -1229,3 +1229,5 @@ metrics land.
 2026-09-09 | RE-ARC isolated graph runtime smoke | $0 |Higher-order identity passes; eval rejected1, resource stress killed137. Nonroot/read-only/no-network/no-key checks pass;12unit tests/.13s and no containers remain. Zero benchmarktasks/LLMcalls, actual source-generation qualification still pending. Account unchanged.
 
 2026-09-09 | RE-ARC sixteen-case source smoke | $0 |Frozen8636d7aa,16/16source outputs match verifiers across exact4task/4seed panel;16unique/noidentities/no replacements. Only hashes/shapes emitted, no LLMcalls; source compatibility permits prospective semantic-gate design, not depth. Account unchanged.
+
+2026-09-09 | RE-ARC predictive scoring mechanics | $0 |Whole-grid and fixedcanvas proper scores; wrongshape/failure mass retained, duplicate predictions aggregated. Seven tests/.10s, no response/target bank opened. Actual qualification protocol and symbolicbaseline still needed. Account unchanged.
