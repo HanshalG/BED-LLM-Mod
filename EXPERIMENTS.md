@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Shared-plan representation controller | $0 | Python-vsDSL five-call updates, six-task/30-call panel, unchanged predictive gates, 28 focused tests/.61s. Synthetic ties fail qualification and coverage null leaves labels closed. Prospective REARC_REPRESENTATION_PROTOCOL_20260909.md; fresh cohort/source and paid bank integration still pending. Authenticated account unchanged, no new model calls or efficacy claim.
+
 2026-09-09 | Native Python compatibility/scoring | $0 | Five actual synthetic container executions and four module checks pass; 11 focused tests. AST identity avoids formatting-duplicate mass; future execution failures retain mass. No benchmark/model calls or containers remain. REARC_NATIVE_PYTHON_COMPATIBILITY_RESULT_20260909.md; authenticated account unchanged, controller/protocol still required.
 
 2026-09-09 | Native Python runtime mechanics | $0 |7unit/9actualsyntheticchecks pass insidefreshisolatedcontainers;floodfill/resize/stateisolation,failuresbounded. REARC_NATIVE_PYTHON_RUNTIME_RESULT_20260909.md; no benchmark/modelcalls orpredictiveclaim, compatibility/controllerstillrequired.
