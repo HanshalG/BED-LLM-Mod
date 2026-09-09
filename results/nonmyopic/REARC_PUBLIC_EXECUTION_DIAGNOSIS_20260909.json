@@ -1,0 +1,284 @@
+{
+  "rows": [
+    {
+      "status": "execution_error",
+      "trace": [
+        {
+          "id": "x0",
+          "op": "first",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x1",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x2",
+          "op": "remove",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            },
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "grid",
+            "height": 25,
+            "width": 26
+          }
+        },
+        {
+          "id": "x3",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 25,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x4",
+          "op": "fgpartition",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            }
+          ],
+          "error_type": "TypeError"
+        }
+      ]
+    },
+    {
+      "status": "execution_error",
+      "trace": [
+        {
+          "id": "x0",
+          "op": "first",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x1",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x2",
+          "op": "remove",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            },
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "grid",
+            "height": 25,
+            "width": 26
+          }
+        },
+        {
+          "id": "x3",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 25,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x4",
+          "op": "fgpartition",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            }
+          ],
+          "error_type": "TypeError"
+        }
+      ]
+    },
+    {
+      "status": "execution_error",
+      "trace": [
+        {
+          "id": "x0",
+          "op": "first",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x1",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x2",
+          "op": "remove",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            },
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "grid",
+            "height": 25,
+            "width": 26
+          }
+        },
+        {
+          "id": "x3",
+          "op": "last",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 25,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x4",
+          "op": "fgpartition",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            }
+          ],
+          "error_type": "TypeError"
+        }
+      ]
+    },
+    {
+      "status": "execution_error",
+      "trace": [
+        {
+          "id": "x0",
+          "op": "first",
+          "arguments": [
+            {
+              "kind": "grid",
+              "height": 26,
+              "width": 26
+            }
+          ],
+          "result": {
+            "kind": "tuple",
+            "length": 26
+          }
+        },
+        {
+          "id": "x1",
+          "op": "compress",
+          "arguments": [
+            {
+              "kind": "tuple",
+              "length": 26
+            }
+          ],
+          "error_type": "TypeError"
+        }
+      ]
+    }
+  ],
+  "scope": "retrospective execution trace on already-paid public input0 only",
+  "model_calls": 0,
+  "cost_usd": 0,
+  "target_labels_opened": false,
+  "qualification_reopened": false,
+  "depth_authorized": false
+}
