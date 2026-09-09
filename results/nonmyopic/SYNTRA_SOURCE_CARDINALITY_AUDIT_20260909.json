@@ -1,0 +1,37 @@
+{
+  "cost_usd": 0,
+  "files": {
+    "mbpp_plus_51_cases.jsonl": {
+      "rows": 323,
+      "semantic_ambiguity_or_horizon_verified": false,
+      "sha256": "8072f8202d4f86a2df51b97d0cfc2355be670e4acd6bd9b788a2598f6409a576",
+      "split_lengths": {
+        "test": {
+          "50": 323
+        },
+        "train": {
+          "1": 323
+        }
+      }
+    },
+    "playgol_v2.jsonl": {
+      "distinct_input_counts": {
+        "4": 3,
+        "5": 322
+      },
+      "duplicate_input_panels": 1,
+      "eligible_for_one_initial_one_target_four_candidates": 0,
+      "rows": 325,
+      "sha256": "11d197909e517432ca2914ed408d74f4b33a243aab676241dc56b77a608dd1aa",
+      "split_counts": {
+        "3/2": 325
+      },
+      "unique_ids": 325,
+      "unique_names": 325
+    }
+  },
+  "model_calls": 0,
+  "paid_authority": false,
+  "scope": "Full source payloads parsed locally; only schema/cardinality metadata emitted. No code executed or task predictions scored; not a sealed-data ingestion claim.",
+  "source_commit": "40d0bdfac9a1dade0afe49fa8308fadff78035c7"
+}
