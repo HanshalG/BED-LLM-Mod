@@ -1219,3 +1219,5 @@ metrics land.
 2026-09-09 | Fixed-target predictive continuation mechanics | $0 |Exact expected-Brier selector, public-history-only policy interface, fixed target denominator and explicit support failures.7tests/.17s; expected/realized world enumeration identical. Opt-in future primitive only, historical runners untouched; no new scientific outcome. Account unchanged.
 
 2026-09-09 | Exact blind-pool coverage diagnostic | $0 |Opened initial-only generations, expected coverage widths1/2/4/8/16/31:50.75/63.43/73.08/80.78/87.58/92.70%. Exhaustive combinatorial test .09s; width1 parent replay. Stronger equal-call control requirement, no calibrated predictive/depth result or fresh validation. Account unchanged.
+
+2026-09-09 | Persistent-discrepancy mechanics | $0 |Source-informed full-support Beta rule-discrepancy world model; observed labels persist, no new observation noise or truth injection. Four tests/.08s exact finite-world enumeration and predictive coherence. No calibration/depth endpoint or tuned hyperparameters. Account unchanged.
