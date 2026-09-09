@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: mechanismrun9ce813b1 failedclosed after1call/$0.004554 on ownschema/parser mismatch:512characterAPIbound versus512UTF8bytelocalbound, lastdescription512chars/514bytes. Exactfailure replay; no compilation/otherarms/60withheldoutputs.25prelaunchtests missedUnicodeedge; newdiscrepancytests alsoflagarrayIDorder/uniqueness andwhitespace. REARC_MECHANISM_TERMINAL_RESULT_20260909.md next authoritativefixed-key schema+paritytests before newstudy; closedbankimmutable. Balance23.482712431, conservativedayspend1.09900909; goalunachieved.
+
 2026-09-09 latest: six-task mechanism controller/64KiB-.08contract frozen8c230795;18/18sourcepasses,66publicsourcechannels with60outputssealed,24promptchecks max31138bytes.17tests/.64s enforce36calls/pairedseeds/sealing/support+diversity+score gates. REARC_MECHANISM_CONTROLLER_SOURCE_RESULT_20260909.md next new budgetdispatch/bank/replay before$2.88paidblock; reusebankedpublic, no calls/costyet. Previous/currentprogress, goalunachieved.
 
 2026-09-09 latest: mechanism-contrast vsordinary matched3-call interface implemented (plan/8compile/8repair), strictpublicparsing and outputdiversity independentoflabels;12tests/.36s. REARC_MECHANISM_SUPPORT_PROTOCOL_20260909.md prospectively6disjointtasks/rootquerycoverage8of12/outputdiversity3of6/pairedBriergain gates,36calls/.08reserve/$2.88cap. Needs source+new64KiBtransport/controller/replay beforepaid; no tasks selected, calls0/cost0. Not calibratedopenworld ordepthpermission. Previous/currentprogress; goalunachieved.

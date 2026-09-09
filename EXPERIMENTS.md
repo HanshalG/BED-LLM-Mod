@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Mechanism qualification interface failure | $0.004554 |1normal Luna-medium response,1034reasoningtokens;512chars/514bytes lastdescription fails localbytebound despite schemacharbound. Exactfailure replay, no compilation/endpoints or efficacy comparison. REARC_MECHANISM_TERMINAL_RESULT_20260909.md; repaircontractparity next, no retry. Conservative day spend1.09900909/balance23.482712431.
+
 2026-09-09 | Mechanism controller/source readiness | $0 | Frozen8c230795;6freshIDs/18sourcepasses/66publicrequests with60withheldoutputssealed,24promptchecksmax31138bytes.17tests/.64s;36callcontroller and$.08receipt/requestcontract, budgetdispatch/replay still pending. REARC_MECHANISM_CONTROLLER_SOURCE_RESULT_20260909.md; no modelcalls or scientificpositive.
 
 2026-09-09 | Prospective contrasting-mechanism interface | $0 | Matched3calls/16program attempts vsordinary planning, strictpublicschema, no labels-as-diversity;12tests/.36s. Frozen support protocol proposes6fresh tasks with preupdate answercoverage/diversity/pairedscore gates; source and new budgettransport pending, no paid authority. REARC_MECHANISM_INTERFACE_RESULT_20260909.md; goal unmet.
