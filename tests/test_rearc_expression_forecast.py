@@ -6,7 +6,7 @@ from scripts.rearc_predictive_score import mixture_scores
 def test_short_circuit_preserves_scores_and_failure_mass():
     graphs = [{'name':name} for name in ('bad','good','uncertain','good')]
     case = {'inputs':[[[0]],[[1]],[[2]]], 'outputs':[[[0]],[[1]],[[2]]],
-            'target_inputs':[[[i]] for i in range(3,11)]}
+            'target_inputs':[[[3+i%7]] for i in range(8)]}
     def evaluate(graph, inputs):
         return [None if graph['name']=='bad' or (graph['name']=='uncertain' and x[0][0]>=3) else x for x in inputs]
     expected = exhaustive(graphs,case,evaluate)
