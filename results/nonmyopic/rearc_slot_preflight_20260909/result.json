@@ -1,0 +1,69 @@
+{
+  "status": "public_prompt_preflight_pass",
+  "calls": 0,
+  "target_labels_opened": false,
+  "paid_authorized": false,
+  "public_sha256": "a570c0c34bb77cb7e9c354a9aacb7178b5117a12c8f004434cf60262c0b18a6b",
+  "request_bytes": [
+    {
+      "task_index": 0,
+      "arm": "initial",
+      "bytes": 25118
+    },
+    {
+      "task_index": 0,
+      "arm": "aware",
+      "bytes": 27988
+    },
+    {
+      "task_index": 0,
+      "arm": "blind",
+      "bytes": 25118
+    },
+    {
+      "task_index": 1,
+      "arm": "initial",
+      "bytes": 22951
+    },
+    {
+      "task_index": 1,
+      "arm": "aware",
+      "bytes": 23917
+    },
+    {
+      "task_index": 1,
+      "arm": "blind",
+      "bytes": 22951
+    },
+    {
+      "task_index": 2,
+      "arm": "initial",
+      "bytes": 25213
+    },
+    {
+      "task_index": 2,
+      "arm": "aware",
+      "bytes": 28083
+    },
+    {
+      "task_index": 2,
+      "arm": "blind",
+      "bytes": 25213
+    },
+    {
+      "task_index": 3,
+      "arm": "initial",
+      "bytes": 23564
+    },
+    {
+      "task_index": 3,
+      "arm": "aware",
+      "bytes": 24894
+    },
+    {
+      "task_index": 3,
+      "arm": "blind",
+      "bytes": 23564
+    }
+  ]
+}

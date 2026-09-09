@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Fixed-slot controller and disjoint source preflight | $0 | Frozen63acab86;12/12hash-onlysourcepasses,44publicrequests with targetoutputssealed,12proposalbodiespass max28083bytes.26tests/1.44s enforce exactcalls, privacy, failures, slots and sealing. Next nested bank/replay and paid transport; no model calls or predictive result. REARC_SLOT_CONTROLLER_SOURCE_RESULT_20260909.md.
+
 2026-09-09 | Fixed-slot search/forecast mechanics | $0 | Actual synthetic worker56slots/6conversion failures/6872assignments with raw prefix retained; exact replay no process.21tests/1.37s preserve failed future prediction mass and all-invalid forecast, old paid prefix unchanged. HERB_SLOT_RUNTIME_RESULT_20260909.md. Engineering only; next integrated prospective qualification, no depth authority or prior cohort reopening.
 
 2026-09-09 | Safe proposal guidance boundary | $0 | All-export arity tests and immutable paid replay; actual synthetic worker smoke failed at search-expression conversion, exposing a second unchecked boundary. No retry or new model calls. HERB_SAFE_GUIDANCE_BOUNDARY_RESULT_20260909.md records next raw-prefix/fixed-invalid-slot dependency; not paid-ready or scientific positive.

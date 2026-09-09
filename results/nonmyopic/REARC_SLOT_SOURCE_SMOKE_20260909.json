@@ -1,0 +1,235 @@
+{
+  "status": "passed",
+  "cohort_sha256": "9c208e908ce6e860a9afce1bd0028346d2a40935a6040a00bfa2a5d3cd664201",
+  "source_commit": "e5b7f1d06362a76f9d3b8c25154ff1fafca897ce",
+  "source_hashes": {
+    "dsl.py": "c60faf5730a966fc1689c08bc96794cd97fd0311b8036e0f9b0c80e2d12f0f11",
+    "utils.py": "48e11e45f804a37fcb0e62005c879ece7d5f0e1593d3fd53f5f978d31666540a",
+    "generators.py": "1f598cb13c9c7b223181ab35485ca77d9079b600ee3baef1bce750db71248726",
+    "verifiers.py": "e11c1ceed68ddb87fa544e3504f06d677c59698669a680e8124717f7703d80a1"
+  },
+  "module_sha256": "ff9858e9be203ce6dbe6f89e877016dc13cdb205332ac5c146fbbe7540d437ac",
+  "image": "sha256:989bb9480c980a0e6722f366bf7dbf68bf6c097e66ed1fe450885989e5ef0b49",
+  "rows": [
+    {
+      "task": "bdad9b1f",
+      "seed": 36000,
+      "status": "ok",
+      "input_shape": [
+        13,
+        28
+      ],
+      "output_shape": [
+        13,
+        28
+      ],
+      "identity": false,
+      "input_sha256": "c8c164486e51d39aa12369743e2c69beb442e9d4294f78cfbb9f366c4daa7230",
+      "output_sha256": "a584957ab3cb9c0e3f1cbcc90cb07f0f130c3aa6fdc333ee0a9256cd48e0b500",
+      "verifier_sha256": "a584957ab3cb9c0e3f1cbcc90cb07f0f130c3aa6fdc333ee0a9256cd48e0b500",
+      "returncode": 0
+    },
+    {
+      "task": "bdad9b1f",
+      "seed": 36001,
+      "status": "ok",
+      "input_shape": [
+        12,
+        26
+      ],
+      "output_shape": [
+        12,
+        26
+      ],
+      "identity": false,
+      "input_sha256": "2a694648bf5c2c1cc5a539cf891e63d28f567258495c6086c2e7af3662ffdd53",
+      "output_sha256": "1de6ff3c74832c288ff6039cf049dd25be1140b7e5f4d203307ce8707832c0b7",
+      "verifier_sha256": "1de6ff3c74832c288ff6039cf049dd25be1140b7e5f4d203307ce8707832c0b7",
+      "returncode": 0
+    },
+    {
+      "task": "bdad9b1f",
+      "seed": 36002,
+      "status": "ok",
+      "input_shape": [
+        6,
+        15
+      ],
+      "output_shape": [
+        6,
+        15
+      ],
+      "identity": false,
+      "input_sha256": "7a0305e738aaea7e16a58ee6435a295d5ea37c4e8e055e404870a2452417c7b0",
+      "output_sha256": "a707676c11f4821edeaf34a7904288537496652b6b67cff1af9e38549fbf11aa",
+      "verifier_sha256": "a707676c11f4821edeaf34a7904288537496652b6b67cff1af9e38549fbf11aa",
+      "returncode": 0
+    },
+    {
+      "task": "2dee498d",
+      "seed": 36000,
+      "status": "ok",
+      "input_shape": [
+        28,
+        12
+      ],
+      "output_shape": [
+        28,
+        4
+      ],
+      "identity": false,
+      "input_sha256": "41c9366ae78707438e0bcf7d6e5d91a2a74ec2dbdbd99734cd0239dad605f501",
+      "output_sha256": "a50684ab981afa8da495ba11966dc9d597035f4fd9d7741d4de2a47eb9304edb",
+      "verifier_sha256": "a50684ab981afa8da495ba11966dc9d597035f4fd9d7741d4de2a47eb9304edb",
+      "returncode": 0
+    },
+    {
+      "task": "2dee498d",
+      "seed": 36001,
+      "status": "ok",
+      "input_shape": [
+        26,
+        12
+      ],
+      "output_shape": [
+        26,
+        4
+      ],
+      "identity": false,
+      "input_sha256": "b41956f3ce69cd2e214ef0606a836bf1f4888f78d20be845c9592e04e3a9675f",
+      "output_sha256": "094cc0cf523b317e2e5e9b7ce8ae37bccc6ec05c4831c615209ae0b85c9a4b79",
+      "verifier_sha256": "094cc0cf523b317e2e5e9b7ce8ae37bccc6ec05c4831c615209ae0b85c9a4b79",
+      "returncode": 0
+    },
+    {
+      "task": "2dee498d",
+      "seed": 36002,
+      "status": "ok",
+      "input_shape": [
+        3,
+        15
+      ],
+      "output_shape": [
+        3,
+        5
+      ],
+      "identity": false,
+      "input_sha256": "75630512dc77c470a9079f3eded6868911fde7ba8aeafe01154f6165fc04b1c1",
+      "output_sha256": "1571c1ffd50232c41ce28d4ba5a6a3cba81623fd02372061ada4d3c8be251959",
+      "verifier_sha256": "1571c1ffd50232c41ce28d4ba5a6a3cba81623fd02372061ada4d3c8be251959",
+      "returncode": 0
+    },
+    {
+      "task": "1caeab9d",
+      "seed": 36000,
+      "status": "ok",
+      "input_shape": [
+        28,
+        14
+      ],
+      "output_shape": [
+        28,
+        14
+      ],
+      "identity": false,
+      "input_sha256": "8d80d53f9c45a93fd3ec9aa092e89c8e9ef755dc9e6c59fdd0aabd35ede05bcd",
+      "output_sha256": "e0c616655a7825ea5f1bceb762307cd976eaef9c5b6346e1ea728fd110b48602",
+      "verifier_sha256": "e0c616655a7825ea5f1bceb762307cd976eaef9c5b6346e1ea728fd110b48602",
+      "returncode": 0
+    },
+    {
+      "task": "1caeab9d",
+      "seed": 36001,
+      "status": "ok",
+      "input_shape": [
+        26,
+        14
+      ],
+      "output_shape": [
+        26,
+        14
+      ],
+      "identity": false,
+      "input_sha256": "91a29bbd4b7582231aa762c000f7f322bdd1ba1fb587bb90eb0cc03a1541cde1",
+      "output_sha256": "909622fb65377c40e614a2d75394240e5351ab43022af948a279057f90d7014b",
+      "verifier_sha256": "909622fb65377c40e614a2d75394240e5351ab43022af948a279057f90d7014b",
+      "returncode": 0
+    },
+    {
+      "task": "1caeab9d",
+      "seed": 36002,
+      "status": "ok",
+      "input_shape": [
+        5,
+        16
+      ],
+      "output_shape": [
+        5,
+        16
+      ],
+      "identity": true,
+      "input_sha256": "e9980ed50b4d30e736fe4b2ad9afa96607d65f9d81b781b1cdda9cdad43d7bf7",
+      "output_sha256": "e9980ed50b4d30e736fe4b2ad9afa96607d65f9d81b781b1cdda9cdad43d7bf7",
+      "verifier_sha256": "e9980ed50b4d30e736fe4b2ad9afa96607d65f9d81b781b1cdda9cdad43d7bf7",
+      "returncode": 0
+    },
+    {
+      "task": "99b1bc43",
+      "seed": 36000,
+      "status": "ok",
+      "input_shape": [
+        13,
+        28
+      ],
+      "output_shape": [
+        6,
+        28
+      ],
+      "identity": false,
+      "input_sha256": "cb4cb3fc399f59137d98ed96887836641e57e1560b7c1e0eca0f32d9694a4aaa",
+      "output_sha256": "7f24571194a7ca1175fe8f12adbb726a18378d8c0cdbf929d283dbf955d92c80",
+      "verifier_sha256": "7f24571194a7ca1175fe8f12adbb726a18378d8c0cdbf929d283dbf955d92c80",
+      "returncode": 0
+    },
+    {
+      "task": "99b1bc43",
+      "seed": 36001,
+      "status": "ok",
+      "input_shape": [
+        26,
+        13
+      ],
+      "output_shape": [
+        26,
+        6
+      ],
+      "identity": false,
+      "input_sha256": "4f384b67d8110219b5f915795c450670bbd33aa8d91d0a3b0e3aead80c3bb521",
+      "output_sha256": "7516fda60cee65b4e22a599fb443bfdcfbcfb4857d052b343a5fe6bd0a28c6a9",
+      "verifier_sha256": "7516fda60cee65b4e22a599fb443bfdcfbcfb4857d052b343a5fe6bd0a28c6a9",
+      "returncode": 0
+    },
+    {
+      "task": "99b1bc43",
+      "seed": 36002,
+      "status": "ok",
+      "input_shape": [
+        4,
+        15
+      ],
+      "output_shape": [
+        4,
+        7
+      ],
+      "identity": false,
+      "input_sha256": "23a1695e0282776875651f3224c732afc740ab2cdd6c9ea8a04a7dbe7fe23171",
+      "output_sha256": "8978f7cb835b974131318c4f5836fe826cc67f3209aa1b8b3199bcc736580218",
+      "verifier_sha256": "8978f7cb835b974131318c4f5836fe826cc67f3209aa1b8b3199bcc736580218",
+      "returncode": 0
+    }
+  ],
+  "calls": 0,
+  "cost_usd": 0,
+  "examples_emitted": false,
+  "paid_authorized": false
+}
