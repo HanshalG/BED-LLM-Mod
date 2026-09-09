@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Safe proposal guidance boundary | $0 | All-export arity tests and immutable paid replay; actual synthetic worker smoke failed at search-expression conversion, exposing a second unchecked boundary. No retry or new model calls. HERB_SAFE_GUIDANCE_BOUNDARY_RESULT_20260909.md records next raw-prefix/fixed-invalid-slot dependency; not paid-ready or scientific positive.
+
 2026-09-09 | Luna medium nested-expression qualification | $0.02757011 | Six accepted calls, normal stops, 1034-2954 reasoning tokens. Failed closed in search guidance on malformed lbind arity after two initial updates. No initial coverage decision, held-out labels, or planning result. Exact zero-call replay verified; 38 prelaunch tests passed. See REARC_EXPRESSION_TERMINAL_RESULT_20260909.md. Account-wide conservative day spend $0.99999841; remaining $4.00000159. No rerun authorized.
 
 This ledger records Path A launches and banked artifacts that are intended to
