@@ -1211,3 +1211,5 @@ metrics land.
 2026-09-09 | Initial-only cross-generation transport | $0 |Frozen e78e3256/all32;h2/h3.132465/.136579 reversesownpriortrend,h3+3.1054%loss. Exactcoverage50.75%,failuresrare, nofuture/targetbankread.3tests.09s/manuscriptcaveat; retrospective nooldnullrescue. Remaining4.11174654 unchanged.
 
 2026-09-09 | Transport coverage decomposition | $0 |All32parent totals replay1e-12; h3-h2 covered contribution-.000581, missing+.004694. Within covered support depths improve modestly; missing-rule error reverses aggregate. Six tests pass; retrospective explanatory strata, not causal intervention/fresh endpoint or original gate rescue. Next open-support predictive qualification, not more depth. Remaining4.11174654 unchanged.
+
+2026-09-09 | Refresh information-boundary audit | $0 |Two source-bound tests demonstrate hidden-truth-dependent continuation and branch entropy mismatch in historical NumberGame generator_aware_score. Initial AST harness error fixed; no experiment rerun. Separates legitimate simulated-world scoring from forbidden truth injection into deployed belief state; newer scorer scope not inferred. Account unchanged, goal active.
