@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Scene-facts observation-interface prototype | $0 | Saved-only role-binding/near-fit diagnosis; deterministic color/component inventory and matched six-call native updater.15 focused tests pass; prospective4-task24-call/$1.92 protocol frozen before source/response selection. No unseen outputs/model calls, no semantic or planning win claimed. Ledger authenticated unchanged, remaining3.29148392; source/panel/budget replay required next.
+
 2026-09-09 | Luna-medium second-observation native revision | $0.20918020 |36normalcalls/exactreplay;awarefit1/4<3,36futurelabelsclosed, no depth.639runtimeok/5failed,observedsemanticfitbottleneck. REARC_NATIVE_REVISION_TERMINAL_RESULT_20260909.md;remaining3.29148392,balance22.873205441,no uncertainty added,closedcohort.
 
 2026-09-09 | Native revision source and panel | $0 | Frozen6dfb3299;4tasks/44channels pass, no rejection/retry, exactreplay.4secondanswers+36futurelabelsclosed;8initialpromptchecks max18261bytes. REARC_NATIVE_REVISION_SOURCE_PANEL_RESULT_20260909.md; matchedaware/blind/initial scoring implemented, budgetrevealbank stillneeded,noAPI.
