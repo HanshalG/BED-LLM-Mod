@@ -1,4 +1,7 @@
 import sys
+import hashlib
+import json
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -56,3 +59,20 @@ def test_narrow_gaussian_uses_discovered_partition():
     np.testing.assert_allclose(r['checks'][-1]['mean'], [center], atol=1e-8)
     np.testing.assert_allclose(r['checks'][-1]['variance'], [sigma**2], atol=1e-8)
     assert r['checks'][-1]['pilot_region_count'] > 1
+
+
+def test_banked_v6_centered_moment_reconstruction():
+    data = json.loads(Path('results/nonmyopic/ADAPTIVE_PARAMETER_REFERENCE_V6_20260909.json').read_text())
+    assert data['backend_sha256'] == hashlib.sha256(Path(
+        'environments/chembench_mopen/adaptive_parameter_integral.py').read_bytes()).hexdigest()
+    assert data['model_calls'] == data['cost_usd'] == 0
+    assert [r['fixture'] for r in data['rows']] == ['one_parameter', 'four_modes']
+    for row in data['rows']:
+        assert row['status'] == 'agreement'
+        assert row['evaluated_rows'] <= 400000
+        assert all(e < 1e-9 for e in row['reference_errors'].values())
+        for check in row['checks'][1:]:
+            values = np.array(check['integrals'])
+            offset = values[1:5]/values[0]
+            np.testing.assert_allclose(check['mean'], np.array(check['moment_center'])+offset)
+            np.testing.assert_allclose(check['variance'], values[5:]/values[0]-offset**2)
