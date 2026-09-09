@@ -1,0 +1,6 @@
+status = "complete"
+search_weights_are_posterior = false
+count = 64
+all_rules_positive = true
+expressions = ["I", "DOWN", "DOWN_LEFT", "EIGHT", "F", "FIVE", "FOUR", "LEFT", "NEG_ONE", "NEG_TWO", "NEG_UNITY", "NINE", "ONE", "ORIGIN", "RIGHT", "SEVEN", "SIX", "T", "TEN", "THREE", "THREE_BY_THREE", "TWO", "TWO_BY_TWO", "TWO_BY_ZERO", "UNITY", "UP", "UP_RIGHT", "ZERO", "ZERO_BY_TWO", "add", "adjacent", "apply", "argmax", "argmin", "asindices", "asobject", "astuple", "backdrop", "bordering", "both", "bottomhalf", "box", "branch", "canvas", "cellwise", "center", "centerofmass", "chain", "cmirror", "color", "colorcount", "colorfilter", "combine", "compose", "compress", "connect", "contained", "corners", "cover", "crement", "crop", "decrement", "dedupe", "delta"]
+llm_calls = 0

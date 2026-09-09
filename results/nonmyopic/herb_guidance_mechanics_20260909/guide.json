@@ -1,0 +1,20 @@
+{
+  "steps": [
+    {
+      "id": "x0",
+      "op": "vmirror",
+      "args": [
+        "I"
+      ]
+    },
+    {
+      "id": "x1",
+      "op": "hconcat",
+      "args": [
+        "x0",
+        "I"
+      ]
+    }
+  ],
+  "output": "x1"
+}

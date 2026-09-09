@@ -1,0 +1,3412 @@
+{
+  "status": "engineering_complete",
+  "arms": {
+    "base": {
+      "graphs": [
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "identity",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vupscale",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vupscale",
+              "args": [
+                "I",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "DOWN_LEFT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "EIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "F"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "FIVE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "FOUR"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "LEFT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "NEG_ONE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "NEG_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "NEG_UNITY"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "NINE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "ONE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "ORIGIN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "RIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "SEVEN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "SIX"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "T"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "TEN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "THREE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "THREE_BY_THREE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "TWO_BY_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "TWO_BY_ZERO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "UNITY"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "UP"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "UP_RIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "ZERO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "ZERO_BY_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "add"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "adjacent"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "apply"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "argmax"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "argmin"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "asindices"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "asobject"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "astuple"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "backdrop"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "bordering"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "both"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "bottomhalf"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "box"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "branch"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "canvas"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "cellwise"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "center"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "centerofmass"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "chain"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "cmirror"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "color"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "colorcount"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "colorfilter"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "combine"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "compose"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "compress"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "connect"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "contained"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "corners"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "cover"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "crement"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "crop"
+              ]
+            }
+          ],
+          "output": "x0"
+        }
+      ],
+      "predictions": [
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ]
+      ],
+      "posterior": {
+        "weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "unique_programs": 64,
+        "consistent_programs": 0,
+        "failed": true,
+        "failure_forecast": "unit_mass_on_execution_failure"
+      },
+      "attempts": 64,
+      "records": [
+        {
+          "status": "evaluated",
+          "program_index": 0
+        },
+        {
+          "status": "evaluated",
+          "program_index": 1
+        },
+        {
+          "status": "evaluated",
+          "program_index": 2
+        },
+        {
+          "status": "evaluated",
+          "program_index": 3
+        },
+        {
+          "status": "evaluated",
+          "program_index": 4
+        },
+        {
+          "status": "evaluated",
+          "program_index": 5
+        },
+        {
+          "status": "evaluated",
+          "program_index": 6
+        },
+        {
+          "status": "evaluated",
+          "program_index": 7
+        },
+        {
+          "status": "evaluated",
+          "program_index": 8
+        },
+        {
+          "status": "evaluated",
+          "program_index": 9
+        },
+        {
+          "status": "evaluated",
+          "program_index": 10
+        },
+        {
+          "status": "evaluated",
+          "program_index": 11
+        },
+        {
+          "status": "evaluated",
+          "program_index": 12
+        },
+        {
+          "status": "evaluated",
+          "program_index": 13
+        },
+        {
+          "status": "evaluated",
+          "program_index": 14
+        },
+        {
+          "status": "evaluated",
+          "program_index": 15
+        },
+        {
+          "status": "evaluated",
+          "program_index": 16
+        },
+        {
+          "status": "evaluated",
+          "program_index": 17
+        },
+        {
+          "status": "evaluated",
+          "program_index": 18
+        },
+        {
+          "status": "evaluated",
+          "program_index": 19
+        },
+        {
+          "status": "evaluated",
+          "program_index": 20
+        },
+        {
+          "status": "evaluated",
+          "program_index": 21
+        },
+        {
+          "status": "evaluated",
+          "program_index": 22
+        },
+        {
+          "status": "evaluated",
+          "program_index": 23
+        },
+        {
+          "status": "evaluated",
+          "program_index": 24
+        },
+        {
+          "status": "evaluated",
+          "program_index": 25
+        },
+        {
+          "status": "evaluated",
+          "program_index": 26
+        },
+        {
+          "status": "evaluated",
+          "program_index": 27
+        },
+        {
+          "status": "evaluated",
+          "program_index": 28
+        },
+        {
+          "status": "evaluated",
+          "program_index": 29
+        },
+        {
+          "status": "evaluated",
+          "program_index": 30
+        },
+        {
+          "status": "evaluated",
+          "program_index": 31
+        },
+        {
+          "status": "evaluated",
+          "program_index": 32
+        },
+        {
+          "status": "evaluated",
+          "program_index": 33
+        },
+        {
+          "status": "evaluated",
+          "program_index": 34
+        },
+        {
+          "status": "evaluated",
+          "program_index": 35
+        },
+        {
+          "status": "evaluated",
+          "program_index": 36
+        },
+        {
+          "status": "evaluated",
+          "program_index": 37
+        },
+        {
+          "status": "evaluated",
+          "program_index": 38
+        },
+        {
+          "status": "evaluated",
+          "program_index": 39
+        },
+        {
+          "status": "evaluated",
+          "program_index": 40
+        },
+        {
+          "status": "evaluated",
+          "program_index": 41
+        },
+        {
+          "status": "evaluated",
+          "program_index": 42
+        },
+        {
+          "status": "evaluated",
+          "program_index": 43
+        },
+        {
+          "status": "evaluated",
+          "program_index": 44
+        },
+        {
+          "status": "evaluated",
+          "program_index": 45
+        },
+        {
+          "status": "evaluated",
+          "program_index": 46
+        },
+        {
+          "status": "evaluated",
+          "program_index": 47
+        },
+        {
+          "status": "evaluated",
+          "program_index": 48
+        },
+        {
+          "status": "evaluated",
+          "program_index": 49
+        },
+        {
+          "status": "evaluated",
+          "program_index": 50
+        },
+        {
+          "status": "evaluated",
+          "program_index": 51
+        },
+        {
+          "status": "evaluated",
+          "program_index": 52
+        },
+        {
+          "status": "evaluated",
+          "program_index": 53
+        },
+        {
+          "status": "evaluated",
+          "program_index": 54
+        },
+        {
+          "status": "evaluated",
+          "program_index": 55
+        },
+        {
+          "status": "evaluated",
+          "program_index": 56
+        },
+        {
+          "status": "evaluated",
+          "program_index": 57
+        },
+        {
+          "status": "evaluated",
+          "program_index": 58
+        },
+        {
+          "status": "evaluated",
+          "program_index": 59
+        },
+        {
+          "status": "evaluated",
+          "program_index": 60
+        },
+        {
+          "status": "evaluated",
+          "program_index": 61
+        },
+        {
+          "status": "evaluated",
+          "program_index": 62
+        },
+        {
+          "status": "evaluated",
+          "program_index": 63
+        }
+      ],
+      "evaluation_requests": 64,
+      "distinguishing_input_predictions": [],
+      "search_order_log_weights": [
+        -2.9477230543676303,
+        -7.281740469855151,
+        -11.440623553214824,
+        -10.229463524222782,
+        -14.388346607582454,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824,
+        -11.440623553214824
+      ],
+      "nonmonotone_search_order_pairs": [
+        3,
+        5
+      ]
+    },
+    "guided": {
+      "graphs": [
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "identity",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "I"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "I"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "I"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "hconcat",
+              "args": [
+                "x1",
+                "I"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "hconcat",
+              "args": [
+                "x1",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "move",
+              "args": [
+                "I",
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "move",
+              "args": [
+                "I",
+                "I",
+                "DOWN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            },
+            {
+              "id": "x3",
+              "op": "vmirror",
+              "args": [
+                "x2"
+              ]
+            }
+          ],
+          "output": "x3"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            },
+            {
+              "id": "x3",
+              "op": "vmirror",
+              "args": [
+                "x2"
+              ]
+            }
+          ],
+          "output": "x3"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "DOWN_LEFT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "EIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "F"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "FIVE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "FOUR"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "LEFT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "NEG_ONE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "NEG_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "NEG_UNITY"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "NINE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "ONE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "ORIGIN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "RIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "SEVEN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "SIX"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "T"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "TEN"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "THREE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "THREE_BY_THREE"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "TWO_BY_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "TWO_BY_ZERO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "UNITY"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "UP"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "UP_RIGHT"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "ZERO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "ZERO_BY_TWO"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "add"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "adjacent"
+              ]
+            }
+          ],
+          "output": "x0"
+        }
+      ],
+      "predictions": [
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ]
+      ],
+      "posterior": {
+        "weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.1,
+          0.0,
+          0.0,
+          0.1,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.0,
+          0.1,
+          0.0,
+          0.1,
+          0.1,
+          0.0,
+          0.0,
+          0.1,
+          0.1,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "unique_programs": 64,
+        "consistent_programs": 10,
+        "failed": false,
+        "failure_forecast": null
+      },
+      "attempts": 64,
+      "records": [
+        {
+          "status": "evaluated",
+          "program_index": 0
+        },
+        {
+          "status": "evaluated",
+          "program_index": 1
+        },
+        {
+          "status": "evaluated",
+          "program_index": 2
+        },
+        {
+          "status": "evaluated",
+          "program_index": 3
+        },
+        {
+          "status": "evaluated",
+          "program_index": 4
+        },
+        {
+          "status": "evaluated",
+          "program_index": 5
+        },
+        {
+          "status": "evaluated",
+          "program_index": 6
+        },
+        {
+          "status": "evaluated",
+          "program_index": 7
+        },
+        {
+          "status": "evaluated",
+          "program_index": 8
+        },
+        {
+          "status": "evaluated",
+          "program_index": 9
+        },
+        {
+          "status": "evaluated",
+          "program_index": 10
+        },
+        {
+          "status": "evaluated",
+          "program_index": 11
+        },
+        {
+          "status": "evaluated",
+          "program_index": 12
+        },
+        {
+          "status": "evaluated",
+          "program_index": 13
+        },
+        {
+          "status": "evaluated",
+          "program_index": 14
+        },
+        {
+          "status": "evaluated",
+          "program_index": 15
+        },
+        {
+          "status": "evaluated",
+          "program_index": 16
+        },
+        {
+          "status": "evaluated",
+          "program_index": 17
+        },
+        {
+          "status": "evaluated",
+          "program_index": 18
+        },
+        {
+          "status": "evaluated",
+          "program_index": 19
+        },
+        {
+          "status": "evaluated",
+          "program_index": 20
+        },
+        {
+          "status": "evaluated",
+          "program_index": 21
+        },
+        {
+          "status": "evaluated",
+          "program_index": 22
+        },
+        {
+          "status": "evaluated",
+          "program_index": 23
+        },
+        {
+          "status": "evaluated",
+          "program_index": 24
+        },
+        {
+          "status": "evaluated",
+          "program_index": 25
+        },
+        {
+          "status": "evaluated",
+          "program_index": 26
+        },
+        {
+          "status": "evaluated",
+          "program_index": 27
+        },
+        {
+          "status": "evaluated",
+          "program_index": 28
+        },
+        {
+          "status": "evaluated",
+          "program_index": 29
+        },
+        {
+          "status": "evaluated",
+          "program_index": 30
+        },
+        {
+          "status": "evaluated",
+          "program_index": 31
+        },
+        {
+          "status": "evaluated",
+          "program_index": 32
+        },
+        {
+          "status": "evaluated",
+          "program_index": 33
+        },
+        {
+          "status": "evaluated",
+          "program_index": 34
+        },
+        {
+          "status": "evaluated",
+          "program_index": 35
+        },
+        {
+          "status": "evaluated",
+          "program_index": 36
+        },
+        {
+          "status": "evaluated",
+          "program_index": 37
+        },
+        {
+          "status": "evaluated",
+          "program_index": 38
+        },
+        {
+          "status": "evaluated",
+          "program_index": 39
+        },
+        {
+          "status": "evaluated",
+          "program_index": 40
+        },
+        {
+          "status": "evaluated",
+          "program_index": 41
+        },
+        {
+          "status": "evaluated",
+          "program_index": 42
+        },
+        {
+          "status": "evaluated",
+          "program_index": 43
+        },
+        {
+          "status": "evaluated",
+          "program_index": 44
+        },
+        {
+          "status": "evaluated",
+          "program_index": 45
+        },
+        {
+          "status": "evaluated",
+          "program_index": 46
+        },
+        {
+          "status": "evaluated",
+          "program_index": 47
+        },
+        {
+          "status": "evaluated",
+          "program_index": 48
+        },
+        {
+          "status": "evaluated",
+          "program_index": 49
+        },
+        {
+          "status": "evaluated",
+          "program_index": 50
+        },
+        {
+          "status": "evaluated",
+          "program_index": 51
+        },
+        {
+          "status": "evaluated",
+          "program_index": 52
+        },
+        {
+          "status": "evaluated",
+          "program_index": 53
+        },
+        {
+          "status": "evaluated",
+          "program_index": 54
+        },
+        {
+          "status": "evaluated",
+          "program_index": 55
+        },
+        {
+          "status": "evaluated",
+          "program_index": 56
+        },
+        {
+          "status": "evaluated",
+          "program_index": 57
+        },
+        {
+          "status": "evaluated",
+          "program_index": 58
+        },
+        {
+          "status": "evaluated",
+          "program_index": 59
+        },
+        {
+          "status": "evaluated",
+          "program_index": 60
+        },
+        {
+          "status": "evaluated",
+          "program_index": 61
+        },
+        {
+          "status": "evaluated",
+          "program_index": 62
+        },
+        {
+          "status": "evaluated",
+          "program_index": 63
+        }
+      ],
+      "evaluation_requests": 64,
+      "distinguishing_input_predictions": [
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                2,
+                1
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                2,
+                1,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                2,
+                1,
+                2,
+                1
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                2,
+                1
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                2,
+                1,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                2,
+                1,
+                2,
+                1
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        },
+        {
+          "weight": 0.1,
+          "prediction": {
+            "status": "ok",
+            "output": [
+              [
+                1,
+                2,
+                1,
+                2
+              ]
+            ],
+            "uid": 65534,
+            "read_only": true,
+            "network_denied": true,
+            "no_api_key": true
+          }
+        }
+      ],
+      "search_order_log_weights": [
+        -1.2865232073749404,
+        -3.3529352487644424,
+        -9.86616535967675,
+        -4.601358609907113,
+        -11.11458872081942,
+        -5.419347290153945,
+        -11.93257740106625,
+        -6.667770651296614,
+        -6.667770651296614,
+        -13.181000762208923,
+        -13.181000762208923,
+        -6.667770651296615,
+        -13.181000762208921,
+        -7.485759331543447,
+        -13.998989442455752,
+        -7.916194012439284,
+        -7.916194012439284,
+        -14.429424123351593,
+        -14.429424123351593,
+        -8.734182692686115,
+        -15.247412803598426,
+        -8.734182692686115,
+        -15.247412803598426,
+        -8.734182692686117,
+        -8.734182692686117,
+        -15.247412803598424,
+        -15.247412803598422,
+        -8.734182692686117,
+        -8.734182692686117,
+        -15.247412803598424,
+        -15.247412803598424,
+        -8.886734218172288,
+        -15.399964329084595,
+        -9.55217137293295,
+        -16.065401483845253,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675,
+        -9.86616535967675
+      ],
+      "nonmonotone_search_order_pairs": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        15,
+        19,
+        21,
+        23,
+        27,
+        31,
+        33,
+        35
+      ]
+    }
+  },
+  "cached_executions": 137,
+  "llm_calls": 0,
+  "cost_usd": 0,
+  "benchmark_examples": 0,
+  "guide_is_handcrafted": true,
+  "llm_efficacy_claim": false
+}

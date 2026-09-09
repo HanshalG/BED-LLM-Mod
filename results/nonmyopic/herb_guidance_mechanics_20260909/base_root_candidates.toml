@@ -1,0 +1,7 @@
+llm_calls = 0
+status = "complete"
+search_weights_are_posterior = false
+count = 64
+all_rules_positive = true
+expressions = ["I", "lefthalf(I)", "lefthalf(DOWN)", "vupscale(I, I)", "vupscale(I, DOWN)", "lefthalf(DOWN_LEFT)", "lefthalf(EIGHT)", "lefthalf(F)", "lefthalf(FIVE)", "lefthalf(FOUR)", "lefthalf(LEFT)", "lefthalf(NEG_ONE)", "lefthalf(NEG_TWO)", "lefthalf(NEG_UNITY)", "lefthalf(NINE)", "lefthalf(ONE)", "lefthalf(ORIGIN)", "lefthalf(RIGHT)", "lefthalf(SEVEN)", "lefthalf(SIX)", "lefthalf(T)", "lefthalf(TEN)", "lefthalf(THREE)", "lefthalf(THREE_BY_THREE)", "lefthalf(TWO)", "lefthalf(TWO_BY_TWO)", "lefthalf(TWO_BY_ZERO)", "lefthalf(UNITY)", "lefthalf(UP)", "lefthalf(UP_RIGHT)", "lefthalf(ZERO)", "lefthalf(ZERO_BY_TWO)", "lefthalf(add)", "lefthalf(adjacent)", "lefthalf(apply)", "lefthalf(argmax)", "lefthalf(argmin)", "lefthalf(asindices)", "lefthalf(asobject)", "lefthalf(astuple)", "lefthalf(backdrop)", "lefthalf(bordering)", "lefthalf(both)", "lefthalf(bottomhalf)", "lefthalf(box)", "lefthalf(branch)", "lefthalf(canvas)", "lefthalf(cellwise)", "lefthalf(center)", "lefthalf(centerofmass)", "lefthalf(chain)", "lefthalf(cmirror)", "lefthalf(color)", "lefthalf(colorcount)", "lefthalf(colorfilter)", "lefthalf(combine)", "lefthalf(compose)", "lefthalf(compress)", "lefthalf(connect)", "lefthalf(contained)", "lefthalf(corners)", "lefthalf(cover)", "lefthalf(crement)", "lefthalf(crop)"]
+root_grid_only = true
