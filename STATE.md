@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: named-plan Luna-medium six-task cohort frozen42b8b145; 18/18source checks, 24public prompt checks(max26690bytes), 54tests pass. Public bank sealed60outputs; oldfailedrun exactreplay intact. Budget/response/replay runner connected with pinned dependency checks; preparing one36call/$2.88max block, conservative allowance3.90099091. REARC_NAMED_PLAN_READINESS_20260909.md; no efficacy/depth claim, goalunachieved.
+
 2026-09-09 latest: named-plan successor uses sharedJSONSchema/fixedp0..p3keys/512characters, separate64KiBtransport;49tests/.41s includeUnicodeboundaries/all24orders/3callupdates, oldfailureexactreplay intact. requirements-plan-contract.txt pins isolated /private/tmp/bed-plan-contract-env (baseAnaconda lacksjsonschema). REARC_NAMED_PLAN_SUPPORT_PROTOCOL_20260909.md keepsgates/caps, fresh6 excludes26oldtasks; no cohortselected/calls/costyet. Next controller/source/budgetreplay integration. Previous/currentengineeringprogress, goalunachieved.
 
 2026-09-09 latest: mechanismrun9ce813b1 failedclosed after1call/$0.004554 on ownschema/parser mismatch:512characterAPIbound versus512UTF8bytelocalbound, lastdescription512chars/514bytes. Exactfailure replay; no compilation/otherarms/60withheldoutputs.25prelaunchtests missedUnicodeedge; newdiscrepancytests alsoflagarrayIDorder/uniqueness andwhitespace. REARC_MECHANISM_TERMINAL_RESULT_20260909.md next authoritativefixed-key schema+paritytests before newstudy; closedbankimmutable. Balance23.482712431, conservativedayspend1.09900909; goalunachieved.

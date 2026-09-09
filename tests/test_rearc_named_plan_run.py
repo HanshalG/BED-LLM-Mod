@@ -8,6 +8,12 @@ from scripts.rearc_named_plan_contract import body
 from scripts.rearc_named_plan_interface import schema
 
 
+def test_dependency_mismatch_stops_before_preflight(monkeypatch):
+    monkeypatch.setattr(run, 'version', lambda package: 'wrong')
+    with pytest.raises(ValueError, match='dependency version mismatch'):
+        run.run()
+
+
 @pytest.mark.parametrize('failure',[None,'first_authorization','second_authorization','http'])
 def test_reserve_reauthorize_dispatch_reconcile(tmp_path,monkeypatch,failure):
     probe = object.__new__(run.NamedPlanProbe)

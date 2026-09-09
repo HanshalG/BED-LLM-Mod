@@ -10,7 +10,7 @@ from scripts.rearc_source_scope import COMMIT, SOURCE
 from scripts.rearc_source_smoke import selected_functions
 from scripts.rearc_named_plan_source_smoke import COHORT_SHA
 
-SMOKE_SHA = 'd7c044d1b083783cb14f8fcb8f71e5d5a356fa08211eb3a5826d1eae9f08051f'
+SMOKE_SHA = '784385e87f68fef467382efe91a197f458e88bb96b00a51efbc057cca54c7a02'
 
 
 class NamedPlanExamples(Examples):
@@ -67,5 +67,4 @@ class NamedPlanExamples(Examples):
                 raise ValueError('target identity')
             result.append([r['output'] for r in rows])
         return result
-
 
