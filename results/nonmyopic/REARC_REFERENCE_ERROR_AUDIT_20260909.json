@@ -1,0 +1,421 @@
+{
+  "records": [
+    {
+      "response": "0_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "0_initial_repair.response.json",
+      "programs": [
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 1,
+            "value": "x1"
+          }
+        ],
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 1,
+            "value": "x2"
+          }
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "1_initial_proposal.response.json",
+      "programs": [
+        [
+          {
+            "kind": "step_identifier",
+            "step": 32,
+            "value": "x21"
+          }
+        ],
+        [
+          {
+            "kind": "step_identifier",
+            "step": 19,
+            "value": "x12"
+          }
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "1_initial_repair.response.json",
+      "programs": [
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 24,
+            "value": "NEG_THREE"
+          },
+          {
+            "kind": "unknown_reference",
+            "step": 26,
+            "value": "NEG_THREE"
+          }
+        ],
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 24,
+            "value": "NEG_THREE"
+          },
+          {
+            "kind": "unknown_reference",
+            "step": 26,
+            "value": "NEG_THREE"
+          }
+        ],
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 28,
+            "value": "NEG_THREE"
+          },
+          {
+            "kind": "unknown_reference",
+            "step": 30,
+            "value": "NEG_THREE"
+          }
+        ],
+        [
+          {
+            "kind": "unknown_reference",
+            "step": 28,
+            "value": "NEG_THREE"
+          },
+          {
+            "kind": "unknown_reference",
+            "step": 30,
+            "value": "NEG_THREE"
+          }
+        ]
+      ]
+    },
+    {
+      "response": "2_initial_proposal.response.json",
+      "programs": [
+        [
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "tojvec(multiply(TEN,TWO))"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "tojvec(multiply(TEN,TWO))"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(ZERO,subtract(multiply(TEN,TWO),FIVE))"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "tojvec(multiply(TEN,TWO))"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "astuple(multiply(FIVE,ONE),multiply(TEN,TWO))"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "hfrontier(DOWN)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "vfrontier(tojvec(multiply(TEN,TWO)))"
+          }
+        ]
+      ]
+    },
+    {
+      "response": "2_initial_repair.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "3_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "3_initial_repair.response.json",
+      "programs": [
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(height(I),divide(width(I),THREE))"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "tojvec(TWO)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(height(I),subtract(width(I),TWO))"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "tojvec(TWO)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 1,
+            "value": "astuple(height(I),TWO)"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "shape(crop(I,ORIGIN,astuple(height(I),divide(width(I),THREE))))"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(height(I),divide(width(I),THREE))"
+          }
+        ]
+      ]
+    },
+    {
+      "response": "4_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "4_initial_repair.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "5_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "5_initial_repair.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "6_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "6_initial_repair.response.json",
+      "programs": [
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(THREE,FOUR)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 2,
+            "value": "astuple(ZERO,FIVE)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 2,
+            "value": "astuple(THREE,FOUR)"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(ZERO,FIVE)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(THREE,FOUR)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 2,
+            "value": "astuple(THREE,FOUR)"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(THREE,FOUR)"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 1,
+            "value": "shape"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 2,
+            "value": "x1"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 3,
+            "value": "x2"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 3,
+            "value": "astuple(ZERO,FIVE)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 3,
+            "value": "astuple(THREE,FOUR)"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 4,
+            "value": "x3"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 5,
+            "value": "x4"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 6,
+            "value": "x5"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 7,
+            "value": "x6"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 8,
+            "value": "x7"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 9,
+            "value": "x8"
+          },
+          {
+            "kind": "step_identifier",
+            "step": 10,
+            "value": "x9"
+          }
+        ],
+        [
+          {
+            "kind": "nested_expression",
+            "step": 0,
+            "value": "astuple(THREE,FOUR)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 3,
+            "value": "astuple(ZERO,FIVE)"
+          },
+          {
+            "kind": "nested_expression",
+            "step": 3,
+            "value": "astuple(THREE,FOUR)"
+          }
+        ]
+      ]
+    },
+    {
+      "response": "7_initial_proposal.response.json",
+      "programs": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "response": "7_initial_repair.response.json",
+      "programs": [
+        [
+          {
+            "kind": "output_reference",
+            "value": "x39"
+          }
+        ],
+        [],
+        [],
+        []
+      ]
+    }
+  ],
+  "response_count": 16,
+  "batches_with_nested_expressions": 3,
+  "batches_with_reference_errors": 7,
+  "model_calls": 0,
+  "programs_executed": 0,
+  "cost_usd": 0,
+  "endpoint_reopened": false,
+  "scope": "retrospective lexical/reference categories, not type checking or repaired accuracy"
+}
