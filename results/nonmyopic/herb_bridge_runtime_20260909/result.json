@@ -1,0 +1,158 @@
+{
+  "status": "bridge_fixture_pass",
+  "candidate_rows": 128,
+  "unique_graphs": 127,
+  "iterator_output_sha256": "43829179117faab358e3e3f4a390756a6017f1c72b0373f9f15e13339a27b36d",
+  "records": [
+    {
+      "expression": "identity(I)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "vmirror(I)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            2,
+            1
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "hconcat(I, I)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2,
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "apply(identity, I)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "apply(compose(identity, identity), I)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "repeat(first(I), TWO)",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "paint(I, asobject(I))",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    }
+  ],
+  "ambiguity_demonstration": [
+    {
+      "status": "ok",
+      "output": [
+        [
+          0,
+          0
+        ]
+      ],
+      "uid": 65534,
+      "read_only": true,
+      "network_denied": true,
+      "no_api_key": true
+    },
+    {
+      "status": "ok",
+      "output": [
+        [
+          0,
+          0
+        ]
+      ],
+      "uid": 65534,
+      "read_only": true,
+      "network_denied": true,
+      "no_api_key": true
+    }
+  ],
+  "calls": 0,
+  "cost_usd": 0,
+  "full_dsl_search_qualified": false,
+  "depth_result": false
+}

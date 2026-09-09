@@ -1,0 +1,2373 @@
+benchmark_examples = 0
+calls = 0
+status = "iterator_bridge_pass"
+branch_replay_equal = true
+
+[[rows]]
+expression = "identity(I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+[[rows]]
+expression = "repeat(first(I), TWO)"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "identity(I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+[[rows]]
+expression = "apply(identity, I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+[[rows]]
+expression = "identity(repeat(first(I), TWO))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "repeat(first(repeat(first(I), TWO)), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(identity(I)), TWO)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(vmirror(I)), TWO)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "paint(I, asobject(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+[[rows]]
+expression = "vmirror(vmirror(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+[[rows]]
+expression = "hconcat(I, I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+[[rows]]
+expression = "identity(vmirror(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(identity(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(repeat(first(I), TWO))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(identity(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+[[rows]]
+expression = "apply(compose(identity, identity), I)"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "apply"
+[[rows]]
+expression = "vmirror(apply(identity, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(apply(identity, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+[[rows]]
+expression = "apply(identity, identity(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, repeat(first(I), TWO))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, vmirror(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+[[rows]]
+expression = "repeat(first(apply(identity, I)), TWO)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "apply(identity, apply(identity, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+[[rows]]
+expression = "apply(compose(compose(identity, identity), identity), I)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "I"]
+        op = "apply"
+[[rows]]
+expression = "apply(compose(identity, compose(identity, identity)), I)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "I"]
+        op = "apply"
+[[rows]]
+expression = "vmirror(repeat(first(identity(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(identity(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "paint(I, asobject(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "identity(identity(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "hconcat(repeat(first(I), TWO), I)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "I"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(I, asobject(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "paint"
+[[rows]]
+expression = "repeat(first(hconcat(I, I)), TWO)"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(vmirror(identity(I))), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(identity(vmirror(I))), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(paint(I, asobject(I))), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(identity(identity(I))), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "repeat(first(vmirror(vmirror(I))), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "hconcat(identity(I), I)"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "hconcat"
+[[rows]]
+expression = "hconcat(I, identity(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "hconcat"
+[[rows]]
+expression = "hconcat(vmirror(I), I)"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(repeat(first(I), TWO), asobject(I))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x1", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(identity(I), asobject(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "paint"
+[[rows]]
+expression = "vmirror(identity(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "hconcat(I, repeat(first(I), TWO))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "hconcat"
+[[rows]]
+expression = "identity(vmirror(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(identity(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(vmirror(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(repeat(first(identity(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(vmirror(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "paint(vmirror(I), asobject(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "paint"
+[[rows]]
+expression = "identity(vmirror(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "identity(identity(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "identity(identity(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "hconcat(I, vmirror(I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(I, asobject(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "paint"
+[[rows]]
+expression = "identity(hconcat(I, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(hconcat(I, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(vmirror(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(vmirror(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(repeat(first(vmirror(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "identity(paint(I, asobject(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(paint(I, asobject(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(repeat(first(vmirror(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(apply(compose(identity, identity), I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(apply(compose(identity, identity), I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "apply(compose(identity, identity), identity(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(compose(identity, identity), repeat(first(I), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x0", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(compose(identity, identity), vmirror(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "apply"
+[[rows]]
+expression = "repeat(first(apply(compose(identity, identity), I)), TWO)"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2", "TWO"]
+        op = "repeat"
+[[rows]]
+expression = "identity(repeat(first(apply(identity, I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(repeat(first(apply(identity, I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(apply(identity, repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "identity"
+[[rows]]
+expression = "identity(apply(identity, vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(apply(identity, vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(apply(identity, repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(identity(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "identity(apply(identity, identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(apply(identity, identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "vmirror(identity(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "identity(vmirror(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(vmirror(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "paint(I, asobject(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "paint"
+[[rows]]
+expression = "paint(apply(identity, I), asobject(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "paint"
+[[rows]]
+expression = "apply(identity, vmirror(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, identity(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, identity(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, vmirror(identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, vmirror(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, hconcat(I, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, identity(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, repeat(first(vmirror(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, paint(I, asobject(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, repeat(first(identity(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "hconcat(apply(identity, I), I)"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "hconcat"
+[[rows]]
+expression = "hconcat(I, apply(identity, I))"
+
+    [rows.graph]
+    output = "x1"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "hconcat"
+[[rows]]
+expression = "apply(identity, apply(compose(identity, identity), I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(compose(identity, identity), apply(identity, I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "identity"]
+        op = "compose"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "apply"
+[[rows]]
+expression = "identity(apply(identity, apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+[[rows]]
+expression = "vmirror(apply(identity, apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+[[rows]]
+expression = "apply(identity, apply(identity, identity(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, apply(identity, vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["identity", "x0"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, repeat(first(apply(identity, I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, apply(identity, repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["identity", "x2"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, vmirror(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "apply(identity, identity(apply(identity, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity", "I"]
+        op = "apply"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["identity", "x1"]
+        op = "apply"
+[[rows]]
+expression = "hconcat(I, paint(I, asobject(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(vmirror(repeat(first(I), TWO)), asobject(I))"
+
+    [rows.graph]
+    output = "x4"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x4"
+        args = ["x2", "x3"]
+        op = "paint"
+[[rows]]
+expression = "paint(I, asobject(paint(I, asobject(I))))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(identity(I), asobject(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x4"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x4"
+        args = ["x0", "x3"]
+        op = "paint"
+[[rows]]
+expression = "hconcat(I, repeat(first(vmirror(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "hconcat"
+[[rows]]
+expression = "hconcat(I, repeat(first(identity(I)), TWO))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(I, asobject(vmirror(identity(I))))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(I, asobject(vmirror(vmirror(I))))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(I, asobject(identity(identity(I))))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "hconcat(I, identity(repeat(first(I), TWO)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(I, asobject(identity(vmirror(I))))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["I", "x2"]
+        op = "paint"
+[[rows]]
+expression = "hconcat(repeat(first(I), TWO), identity(I))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x1", "x2"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(I, asobject(hconcat(I, I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I", "x1"]
+        op = "paint"
+[[rows]]
+expression = "hconcat(vmirror(I), identity(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "hconcat"
+[[rows]]
+expression = "paint(identity(I), asobject(vmirror(I)))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x0", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(repeat(first(I), TWO), asobject(identity(I)))"
+
+    [rows.graph]
+    output = "x4"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "first"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0", "TWO"]
+        op = "repeat"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x2"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x4"
+        args = ["x1", "x3"]
+        op = "paint"
+[[rows]]
+expression = "paint(vmirror(I), asobject(vmirror(I)))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "paint"
+[[rows]]
+expression = "paint(identity(identity(I)), asobject(I))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x1", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(hconcat(I, I), asobject(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I", "I"]
+        op = "hconcat"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x0", "x1"]
+        op = "paint"
+[[rows]]
+expression = "paint(vmirror(identity(I)), asobject(I))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x1", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(identity(vmirror(I)), asobject(I))"
+
+    [rows.graph]
+    output = "x3"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "vmirror"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["x0"]
+        op = "identity"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x3"
+        args = ["x1", "x2"]
+        op = "paint"
+[[rows]]
+expression = "paint(paint(I, asobject(I)), asobject(I))"
+
+    [rows.graph]
+    output = "x2"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asobject"
+        [[rows.graph.steps]]
+        id = "x1"
+        args = ["I", "x0"]
+        op = "paint"
+        [[rows.graph.steps]]
+        id = "x2"
+        args = ["x1", "x0"]
+        op = "paint"
