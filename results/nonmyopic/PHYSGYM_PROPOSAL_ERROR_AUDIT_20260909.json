@@ -1,0 +1,459 @@
+{
+  "cases": {
+    "103": {
+      "arms": {
+        "blind": {
+          "best_training_formula_target_mse": 0.05502688327666231,
+          "hindsight_best_single_mse": 0.007158503520391384,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.04013789266941624,
+          "valid_formulas": 3
+        },
+        "redraw": {
+          "best_training_formula_target_mse": 0.002401409355969872,
+          "hindsight_best_single_mse": 0.0019363950956265117,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0021381210997372534,
+          "valid_formulas": 2
+        },
+        "refresh": {
+          "best_training_formula_target_mse": 0.0019363950956265117,
+          "hindsight_best_single_mse": 0.0019363950956265117,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0019363950956265117,
+          "valid_formulas": 2
+        },
+        "semantic": {
+          "best_training_formula_target_mse": 0.0019363950956265117,
+          "hindsight_best_single_mse": 0.0019363950956265117,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0019363950956265117,
+          "valid_formulas": 1
+        }
+      },
+      "formulas": {
+        "blind": [
+          {
+            "expr": "exp((x0 - 0.7) ** 2 + 0.05)",
+            "four_observation_mse": 0.008035179731240173,
+            "full_target_mse": 0.05872494626059401,
+            "initial_mse": 0.00020555385107201172,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.05872494626059401,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(0.82 * x0 - 0.607)",
+            "four_observation_mse": 0.0031692066202266026,
+            "full_target_mse": 0.007158503520391384,
+            "initial_mse": 0.001046455881927556,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.007158503520391384,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(0.92 * x0 ** 2 - 1.266 * x0 + 0.506)",
+            "four_observation_mse": 0.009824207701122719,
+            "full_target_mse": 0.05502688327666231,
+            "initial_mse": 1.9392335617050316e-07,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.05502688327666231,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "redraw": [
+          {
+            "expr": "1.25*x0",
+            "four_observation_mse": 0.0019021000199711377,
+            "full_target_mse": 0.002401409355969872,
+            "initial_mse": 0.002536025998755211,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.002401409355969872,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "refresh": [
+          {
+            "expr": "x0*(3-sqrt(3))",
+            "four_observation_mse": 0.0021141302789923298,
+            "full_target_mse": 0.0019363950956265117,
+            "initial_mse": 0.0027563709787511,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.0019363950956265117,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "semantic": [
+          {
+            "expr": "(3-sqrt(3))*x0",
+            "four_observation_mse": 0.0021141302789923298,
+            "full_target_mse": 0.0019363950956265117,
+            "initial_mse": 0.0027563709787511,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.0019363950956265117,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ]
+      }
+    },
+    "457": {
+      "arms": {
+        "blind": {
+          "best_training_formula_target_mse": 0.4631961700506772,
+          "hindsight_best_single_mse": 0.13077099257634636,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.21606174078507734,
+          "valid_formulas": 6
+        },
+        "redraw": {
+          "best_training_formula_target_mse": 0.6402944555792791,
+          "hindsight_best_single_mse": 0.6402944555792791,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.6402944555792791,
+          "valid_formulas": 2
+        },
+        "refresh": {
+          "best_training_formula_target_mse": 1.1271900671664112,
+          "hindsight_best_single_mse": 1.1271900671664112,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 1.1271900671664112,
+          "valid_formulas": 1
+        },
+        "semantic": {
+          "best_training_formula_target_mse": 1.1271900671664112,
+          "hindsight_best_single_mse": 1.1271900671664112,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 1.1271900671664112,
+          "valid_formulas": 1
+        }
+      },
+      "formulas": {
+        "blind": [
+          {
+            "expr": "exp(-2.43654+0.378519*x1)",
+            "four_observation_mse": 0.302126402324569,
+            "full_target_mse": 0.6094955210482077,
+            "initial_mse": 0.003988493889584195,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.6094955210482077,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-4.33681+1.11914*x1-0.0682147*x1**2)",
+            "four_observation_mse": 0.20864474101229025,
+            "full_target_mse": 0.4631961700506772,
+            "initial_mse": 6.475535990427379e-10,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.4631961700506772,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-2.4887+0.43348*x1-0.24523*x0)",
+            "four_observation_mse": 0.38830871497593134,
+            "full_target_mse": 0.9543356140191163,
+            "initial_mse": 1.3766459342039441e-09,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.9543356140191163,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-3.3622+0.19882*x1+1.25665*x3)",
+            "four_observation_mse": 0.032185847179317204,
+            "full_target_mse": 0.9276371364452616,
+            "initial_mse": 4.673287251458092e-07,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.9276371364452616,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-2.3059+0.43061*x1-0.58176*x2)",
+            "four_observation_mse": 0.4682337905224822,
+            "full_target_mse": 0.7415062424924778,
+            "initial_mse": 8.51510890774769e-09,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.7415062424924778,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-3.45+1.8*log(x1))",
+            "four_observation_mse": 0.021573836618218697,
+            "full_target_mse": 0.13077099257634636,
+            "initial_mse": 0.010683185269486221,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.13077099257634636,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "redraw": [
+          {
+            "expr": "sqrt((4*x0*x2*sin(pi/x1))/(x3*x2**2*(1+(1+2*cos(pi/x1)**2)/6)*((1+(1+2*cos(pi/x1)**2)/6)/(1+ (1+2*cos(pi/x1)**2)/6) - 0)**2))",
+            "four_observation_mse": 0.5440173987983961,
+            "full_target_mse": 0.6402944555792791,
+            "initial_mse": 0.5875695535616549,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.6402944555792791,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "refresh": [
+          {
+            "expr": "sqrt(x0/(x3*x2)*(0.47+1.79*(x1-4)-0.05*(x1-4)*(x1-6)+0.04564*(x1-4)*(x1-6)*(x1-7)))",
+            "four_observation_mse": 0.5237269628392229,
+            "full_target_mse": null,
+            "initial_mse": 0.41233675563247657,
+            "invalid_target_indices": [
+              0,
+              1,
+              8,
+              10
+            ],
+            "valid_subset_mse": 0.615438484612787,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "semantic": [
+          {
+            "expr": "sqrt(4*((((1+2*cos(pi/x1)**2)/6)+cos(2*pi/x1))/(((1+2*cos(pi/x1)**2)/6)+1))**2*x0*sin(pi/x1)/(x3*x2*(((1+2*cos(pi/x1)**2)/6)+1)*(1-(((1+2*cos(pi/x1)**2)/6)+cos(2*pi/x1))/(((1+2*cos(pi/x1)**2)/6)+1))**2))",
+            "four_observation_mse": 0.9186776222384437,
+            "full_target_mse": 1.1271900671664112,
+            "initial_mse": 0.5034302148726244,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 1.1271900671664112,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ]
+      }
+    },
+    "458": {
+      "arms": {
+        "blind": {
+          "best_training_formula_target_mse": 7.0394326263019344,
+          "hindsight_best_single_mse": 4.693140975100994,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 5.174954357122768,
+          "valid_formulas": 5
+        },
+        "redraw": {
+          "best_training_formula_target_mse": 0.0027844717217456187,
+          "hindsight_best_single_mse": 0.0027844717217456187,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0027844717217456187,
+          "valid_formulas": 1
+        },
+        "refresh": {
+          "best_training_formula_target_mse": 0.0027844717217456187,
+          "hindsight_best_single_mse": 0.0027844717217456187,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0027844717217456187,
+          "valid_formulas": 1
+        },
+        "semantic": {
+          "best_training_formula_target_mse": 0.0027844717217456187,
+          "hindsight_best_single_mse": 0.0027844717217456187,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.0027844717217456187,
+          "valid_formulas": 1
+        }
+      },
+      "formulas": {
+        "blind": [
+          {
+            "expr": "exp(-x0-x2-x1*x3)",
+            "four_observation_mse": 5.605718428239513,
+            "full_target_mse": 9.507419161032553,
+            "initial_mse": 0.13697712797634992,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 9.507419161032553,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-2.4579-1.4351*x3)",
+            "four_observation_mse": 3.9055872137418546,
+            "full_target_mse": 4.693140975100994,
+            "initial_mse": 0.0356976769805619,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 4.693140975100994,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-0.895-2.5*x1)",
+            "four_observation_mse": 4.481160423129903,
+            "full_target_mse": 8.575980175959383,
+            "initial_mse": 0.09158613308880982,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 8.575980175959383,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-3.1273389105-2.45225*(x3-0.5847060934)+1.2476*(x3-0.5847060934)**2)",
+            "four_observation_mse": 3.9570703050880427,
+            "full_target_mse": 5.253118625907044,
+            "initial_mse": 0.15032636909710587,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 5.253118625907044,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(-6.33+5.49*x1-4.10*x3)",
+            "four_observation_mse": 3.0315912243597363,
+            "full_target_mse": 7.0394326263019344,
+            "initial_mse": 0.03378904456023742,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 7.0394326263019344,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "redraw": [
+          {
+            "expr": "sqrt(3)*x0**4*x1/(320*x2*x3)",
+            "four_observation_mse": 0.0014740666486751418,
+            "full_target_mse": 0.0027844717217456187,
+            "initial_mse": 0.001936908511629984,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.0027844717217456187,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "refresh": [
+          {
+            "expr": "sqrt(3)*x0**4*x1/(320*x2*x3)",
+            "four_observation_mse": 0.0014740666486751418,
+            "full_target_mse": 0.0027844717217456187,
+            "initial_mse": 0.001936908511629984,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.0027844717217456187,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "semantic": [
+          {
+            "expr": "sqrt(3)*x0**4*x1/(320*x2*x3)",
+            "four_observation_mse": 0.0014740666486751418,
+            "full_target_mse": 0.0027844717217456187,
+            "initial_mse": 0.001936908511629984,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.0027844717217456187,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ]
+      }
+    },
+    "653": {
+      "arms": {
+        "blind": {
+          "best_training_formula_target_mse": 0.9962117535864746,
+          "hindsight_best_single_mse": 0.962045432321099,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.9971490554654955,
+          "valid_formulas": 4
+        },
+        "redraw": {
+          "best_training_formula_target_mse": 0.002348457128683457,
+          "hindsight_best_single_mse": 0.002348457128683457,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.002348457128683457,
+          "valid_formulas": 2
+        },
+        "refresh": {
+          "best_training_formula_target_mse": 0.002348457128683457,
+          "hindsight_best_single_mse": 0.002348457128683457,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.002348457128683457,
+          "valid_formulas": 1
+        },
+        "semantic": {
+          "best_training_formula_target_mse": 0.002348457128683457,
+          "hindsight_best_single_mse": 0.002348457128683457,
+          "not_convex_mixture_optimum": true,
+          "saved_mse": 0.002348457128683457,
+          "valid_formulas": 1
+        }
+      },
+      "formulas": {
+        "blind": [
+          {
+            "expr": "exp(x1*x5+x2-x0)",
+            "four_observation_mse": 0.08522006072103967,
+            "full_target_mse": 0.962045432321099,
+            "initial_mse": 0.030028258067730806,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.962045432321099,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(x1*x5+x2-x0+0.06)",
+            "four_observation_mse": 0.09854557157698225,
+            "full_target_mse": 0.9667789869934851,
+            "initial_mse": 0.026563812399044456,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.9667789869934851,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(x1*x5+x2-x0+x4-0.7)",
+            "four_observation_mse": 0.3596409122033431,
+            "full_target_mse": 1.1049251757551124,
+            "initial_mse": 0.02496084619111531,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 1.1049251757551124,
+            "valid_subset_not_comparable_to_full_score": true
+          },
+          {
+            "expr": "exp(x1*x5+x2-x0+0.6*x4-0.45)",
+            "four_observation_mse": 0.20382111652934393,
+            "full_target_mse": 0.9962117535864746,
+            "initial_mse": 0.018893651148619666,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.9962117535864746,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "redraw": [
+          {
+            "expr": "sqrt(2*x2*x3+x0**2*pi**2*x5**4/(x4*x1))",
+            "four_observation_mse": 0.0025139297347992937,
+            "full_target_mse": 0.002348457128683457,
+            "initial_mse": 0.0018064576499729971,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.002348457128683457,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "refresh": [
+          {
+            "expr": "sqrt(2*x2*x3+pi**2*x0**2*x5**4/(x4*x1))",
+            "four_observation_mse": 0.0025139297347992937,
+            "full_target_mse": 0.002348457128683457,
+            "initial_mse": 0.0018064576499729971,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.002348457128683457,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ],
+        "semantic": [
+          {
+            "expr": "sqrt(2*x2*x3+pi**2*x0**2*x5**4/(x4*x1))",
+            "four_observation_mse": 0.0025139297347992937,
+            "full_target_mse": 0.002348457128683457,
+            "initial_mse": 0.0018064576499729971,
+            "invalid_target_indices": [],
+            "valid_subset_mse": 0.002348457128683457,
+            "valid_subset_not_comparable_to_full_score": true
+          }
+        ]
+      }
+    }
+  },
+  "cost_usd": 0,
+  "model_calls": 0,
+  "new_outcomes_opened": false,
+  "paid_authority": false,
+  "retrospective": true,
+  "source_replay": {
+    "accepted_cost_usd": 0.0437314,
+    "calls": 16,
+    "gate_passed": false,
+    "status": "replay_valid"
+  },
+  "source_terminal_sha256": "cc1bf8d8267bc229216989b77f0b77edbad8e6db9cc80affe0107a999c2d7381"
+}
