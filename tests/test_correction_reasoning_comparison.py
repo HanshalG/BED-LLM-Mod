@@ -61,3 +61,12 @@ def test_bad_response_before_targets(tmp_path):
     with pytest.raises(ValueError):
         probe.collect(Block(), probe.cases(), lambda: pytest.fail('endpoints opened'))
     assert not (tmp_path/'forecasts.json').exists()
+
+
+def test_banked_reasoning_comparison_replay():
+    report = probe.replay(probe.ROOT)
+    assert report['status'] == 'replay_valid'
+    assert report['cost'] == pytest.approx(.0443091)
+    for result in report['qualifications'].values():
+        assert not result['gate_passed'] and result['wins'] == 0
+        assert result['means']['refresh'] > result['means']['ridge']
