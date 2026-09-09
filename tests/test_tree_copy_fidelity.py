@@ -48,3 +48,9 @@ def test_full_paired_null_still_calls_control_and_replays(tmp_path):
     path.write_text(json.dumps(data))
     with pytest.raises(ValueError, match='request changed'):
         probe.replay(tmp_path)
+
+
+def test_banked_nontrivial_copy_replay():
+    result = probe.replay(probe.ROOT)
+    assert all(row['exact_copy'] for row in result['results'].values())
+    assert result['cost'] == pytest.approx(.0003266)
