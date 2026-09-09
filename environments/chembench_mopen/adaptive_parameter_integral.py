@@ -29,9 +29,11 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
     checks = []
     scaling = 1.
     evidence_only = True
+    peak_ll, peak_node = -np.inf, None
+    center = np.zeros(output_size)
 
     def integrand(unit):
-        nonlocal rows
+        nonlocal rows, peak_ll, peak_node
         if rows + len(unit) > max_rows:
             raise IntegrationUnresolved('adaptive parameter row cap')
         rows += len(unit)
@@ -43,11 +45,15 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
         with np.errstate(over='raise', invalid='raise'):
             density = np.exp(ll-log_likelihood_bound)/scaling
             if evidence_only:
+                best = int(np.argmax(ll))
+                if ll[best] > peak_ll:
+                    peak_ll, peak_node = float(ll[best]), nodes[best].copy()
                 return density
             pred = np.asarray(predict(nodes), float)
             if pred.shape != (len(unit), output_size) or not np.isfinite(pred).all():
                 raise IntegrationUnresolved('invalid prediction callback')
-            return density[:, None]*np.column_stack((np.ones(len(unit)), pred, pred**2))
+            centered = pred-center
+            return density[:, None]*np.column_stack((np.ones(len(unit)), centered, centered**2))
 
     try:
         # Absolute tolerances can accept an almost-zero integral without locating
@@ -62,6 +68,10 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
                 or pilot.error/pilot.estimate > 1e-5):
             raise IntegrationUnresolved('unresolved evidence pilot')
         scaling = float(pilot.estimate)
+        center_value = np.asarray(predict(peak_node[None, :]), float)
+        if center_value.shape != (1, output_size) or not np.isfinite(center_value).all():
+            raise IntegrationUnresolved('invalid centering prediction')
+        center = center_value[0]
         evidence_only = False
         for split in (False, True):
             # Preserve discovered narrow regions; restarting globally can falsely
@@ -76,6 +86,7 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
             status = 'converged' if all(r.status == 'converged' for r in results) else 'not_converged'
             check = {'partition': 'pilot_regions_gk15' if split else 'pilot_regions_gk21',
                      'requested_rtol': 1e-5, 'total_requested_atol': 1e-8,
+                     'moment_center': center.tolist(), 'centering_prediction_rows': 1,
                      'status': status, 'integrals': value.tolist(),
                      'errors': error.tolist(), 'subdivisions': sum(r.subdivisions for r in results),
                      'pilot_region_count': len(pilot.regions),
@@ -85,11 +96,12 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
             if (status != 'converged' or not np.isfinite(value).all()
                     or not np.isfinite(error).all() or z <= 0 or error[0]/z > 1e-5):
                 raise IntegrationUnresolved('unresolved adaptive evidence')
-            mean = value[1:1+output_size]/z
-            variance = value[1+output_size:]/z-mean**2
-            mean_error = (error[1:1+output_size] + np.abs(mean)*error[0])/z
+            offset = value[1:1+output_size]/z
+            mean = center+offset
+            variance = value[1+output_size:]/z-offset**2
+            mean_error = (error[1:1+output_size] + np.abs(offset)*error[0])/z
             second_error = (error[1+output_size:] + np.abs(value[1+output_size:]/z)*error[0])/z
-            variance_error = second_error + 2*np.abs(mean)*mean_error + mean_error**2
+            variance_error = second_error + 2*np.abs(offset)*mean_error + mean_error**2
             check.update(estimated_mean_error=mean_error.tolist(),
                          estimated_variance_error=variance_error.tolist())
             if (np.any(mean_error > 1e-6 + 1e-3*np.abs(mean))
