@@ -1221,3 +1221,5 @@ metrics land.
 2026-09-09 | Exact blind-pool coverage diagnostic | $0 |Opened initial-only generations, expected coverage widths1/2/4/8/16/31:50.75/63.43/73.08/80.78/87.58/92.70%. Exhaustive combinatorial test .09s; width1 parent replay. Stronger equal-call control requirement, no calibrated predictive/depth result or fresh validation. Account unchanged.
 
 2026-09-09 | Persistent-discrepancy mechanics | $0 |Source-informed full-support Beta rule-discrepancy world model; observed labels persist, no new observation noise or truth injection. Four tests/.08s exact finite-world enumeration and predictive coherence. No calibration/depth endpoint or tuned hyperparameters. Account unchanged.
+
+2026-09-09 | RE-ARC source contract and scope | $0 |Pinned e5b7f1d wrapper-only audit; output-filtering and task-specific input distribution require explicit pool contract. Four IDs selected by hash from400names before task body inspection, no replacement. One test/.09s; no source execution/grid outputs/LLM calls. Next selected-task contract audit, no paid authorization.
