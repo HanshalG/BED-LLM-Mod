@@ -1,0 +1,481 @@
+{
+  "status": "saved_record_audit",
+  "post_hoc": true,
+  "new_model_calls": 0,
+  "new_program_executions": 0,
+  "new_outcomes": 0,
+  "cost_usd": 0,
+  "source_result_sha256": "b2d610ebb6b1d019d878c175c3e25b34c96077716fa99b8adfd399b998d0eaf7",
+  "rows": [
+    {
+      "task_index": 0,
+      "initial_unique_programs": 64,
+      "demo0_consistent_programs": 3,
+      "demo0_posterior_entropy_nats": 1.0986122886681098,
+      "additional_demo_predictions": [
+        {
+          "demo_index": 1,
+          "missing_cached_predictions": 0,
+          "status": "complete",
+          "distinct_outputs": 2,
+          "entropy_nats": 0.6365141682948128,
+          "observed_output_probability": 0.3333333333333333,
+          "failure_probability": 0.0
+        },
+        {
+          "demo_index": 2,
+          "missing_cached_predictions": 2,
+          "status": "unavailable_without_new_execution"
+        }
+      ],
+      "final": {
+        "aware": {
+          "consistent_programs": 1,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "blind": {
+          "consistent_programs": 1,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "direct": {
+          "consistent_programs": 1,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "initial": {
+          "consistent_programs": 1,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "symbolic": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "proposal_diagnostics": {
+        "initial": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "aware": {
+          "invalid_slots": 4,
+          "feedback_statuses": [
+            "invalid_batch",
+            "evaluated"
+          ]
+        },
+        "blind": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        }
+      }
+    },
+    {
+      "task_index": 1,
+      "initial_unique_programs": 60,
+      "demo0_consistent_programs": 4,
+      "demo0_posterior_entropy_nats": 1.3862943611198906,
+      "additional_demo_predictions": [
+        {
+          "demo_index": 1,
+          "missing_cached_predictions": 0,
+          "status": "complete",
+          "distinct_outputs": 1,
+          "entropy_nats": -0.0,
+          "observed_output_probability": 1.0,
+          "failure_probability": 0.0
+        },
+        {
+          "demo_index": 2,
+          "missing_cached_predictions": 0,
+          "status": "complete",
+          "distinct_outputs": 1,
+          "entropy_nats": -0.0,
+          "observed_output_probability": 1.0,
+          "failure_probability": 0.0
+        }
+      ],
+      "final": {
+        "aware": {
+          "consistent_programs": 8,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "blind": {
+          "consistent_programs": 6,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "direct": {
+          "consistent_programs": 8,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "initial": {
+          "consistent_programs": 4,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "symbolic": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "proposal_diagnostics": {
+        "initial": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "aware": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "blind": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        }
+      }
+    },
+    {
+      "task_index": 2,
+      "initial_unique_programs": 63,
+      "demo0_consistent_programs": 4,
+      "demo0_posterior_entropy_nats": 1.3862943611198906,
+      "additional_demo_predictions": [
+        {
+          "demo_index": 1,
+          "missing_cached_predictions": 0,
+          "status": "complete",
+          "distinct_outputs": 1,
+          "entropy_nats": -0.0,
+          "observed_output_probability": 0.0,
+          "failure_probability": 0.0
+        },
+        {
+          "demo_index": 2,
+          "missing_cached_predictions": 4,
+          "status": "unavailable_without_new_execution"
+        }
+      ],
+      "final": {
+        "aware": {
+          "consistent_programs": 2,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "blind": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "direct": {
+          "consistent_programs": 2,
+          "failed": false,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "initial": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "symbolic": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "proposal_diagnostics": {
+        "initial": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "aware": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "blind": {
+          "invalid_slots": 4,
+          "feedback_statuses": [
+            "evaluated",
+            "invalid_batch"
+          ]
+        }
+      }
+    },
+    {
+      "task_index": 3,
+      "initial_unique_programs": 60,
+      "demo0_consistent_programs": 0,
+      "demo0_posterior_entropy_nats": null,
+      "additional_demo_predictions": [
+        {
+          "demo_index": 1,
+          "missing_cached_predictions": 0,
+          "status": "empty_support"
+        },
+        {
+          "demo_index": 2,
+          "missing_cached_predictions": 0,
+          "status": "empty_support"
+        }
+      ],
+      "final": {
+        "aware": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "blind": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "direct": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "initial": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "symbolic": {
+          "consistent_programs": 0,
+          "failed": true,
+          "distinct_positive_mass_outputs": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "proposal_diagnostics": {
+        "initial": {
+          "invalid_slots": 4,
+          "feedback_statuses": [
+            "evaluated",
+            "invalid_batch"
+          ]
+        },
+        "aware": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        },
+        "blind": {
+          "invalid_slots": 0,
+          "feedback_statuses": [
+            "evaluated",
+            "evaluated"
+          ]
+        }
+      }
+    }
+  ],
+  "qualification_passed": false,
+  "depth_authorized": false
+}

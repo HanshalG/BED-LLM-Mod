@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Saved root opportunity/support audit | $0 | Demo1 predictive entropies .636514/0/0/undefined; observed-output probabilities1/3,1,0,undefined. Winningtask's4rootprograms unanimously wrong, recoverybranch absent from simulator. No newexecution or labels;3tests. REARC_SLOT_OPPORTUNITY_INTERPRETATION_20260909.md; no depth authorization or gate rescue.
+
 2026-09-09 | Luna-medium fixed-slot qualification | $0.09445668 |24clean calls, initialcoverage3/4. Mean Brier aware.25/blind.50/initial.50/direct.25/symbolic1.0; only1taskwin<2gate, qualification false. Exact replay zero calls; targets opened only after sealing. Useful single-task support recovery, not non-myopia; no depth authorization. REARC_SLOT_TERMINAL_RESULT_20260909.md. Conservative account-wide day spend1.09445509; balance23.487266431.
 
 2026-09-09 | Fixed-slot controller and disjoint source preflight | $0 | Frozen63acab86;12/12hash-onlysourcepasses,44publicrequests with targetoutputssealed,12proposalbodiespass max28083bytes.26tests/1.44s enforce exactcalls, privacy, failures, slots and sealing. Next nested bank/replay and paid transport; no model calls or predictive result. REARC_SLOT_CONTROLLER_SOURCE_RESULT_20260909.md.
