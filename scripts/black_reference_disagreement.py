@@ -12,9 +12,10 @@ from scripts.bugsinpy_contract_audit import fetch
 PARENT = 'sha256:017df47b29fcfc1eeb456f5967ed271adacfac91ffe5757e0efe959cc494ff3c'
 PARENT_TAG = 'bed-black-prefixed-smoke:20260909'
 FIXED = 'd6db1c12a8e14833fe22da377cddc2bd1f43dc14'
-OUTPUT = Path('results/nonmyopic/BLACK_REFERENCE_DISAGREEMENT_V2_20260909.json')
+OUTPUT = Path('results/nonmyopic/BLACK_REFERENCE_DISAGREEMENT_V3_20260909.json')
 PROTOCOL = Path('results/nonmyopic/BLACK_REFERENCE_DISAGREEMENT_PROTOCOL_20260909.md')
 AMENDMENT = Path('results/nonmyopic/BLACK_REFERENCE_BUILD_AMENDMENT_20260909.md')
+ERROR_AMENDMENT = Path('results/nonmyopic/BLACK_REFERENCE_SAFE_ERROR_AMENDMENT_20260909.md')
 TEMPLATES = (
     'x = {e}\n', 'f({e})\n', 'print({e})\n', 'print {e}\n',
     'print >>stream, {e}\n', 'exec({e})\n', 'exec {e}\n',
@@ -61,6 +62,10 @@ for row in rows:
         result.append({'kind': 'formatted', 'text': row['source']})
     except black.InvalidInput:
         result.append({'kind': 'InvalidInput'})
+    except AssertionError as error:
+        if not str(error).startswith('cannot use --safe with this file; failed to parse source file'):
+            raise
+        result.append({'kind': 'SourceAstUnsupported'})
 print(json.dumps(result))
 '''
 
@@ -94,6 +99,7 @@ def run():
     rows = inputs()
     result = {'protocol_sha256': hashlib.sha256(PROTOCOL.read_bytes()).hexdigest(),
               'build_amendment_sha256': hashlib.sha256(AMENDMENT.read_bytes()).hexdigest(),
+              'error_amendment_sha256': hashlib.sha256(ERROR_AMENDMENT.read_bytes()).hexdigest(),
               'input_sha256': hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest(),
               'inputs': rows, 'parent_image': PARENT, 'fixed_revision': FIXED,
               'model_calls': 0, 'cost_usd': 0, 'policy_endpoints_opened': False,

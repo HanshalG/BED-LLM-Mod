@@ -1,0 +1,593 @@
+{
+  "build_amendment_sha256": "81bf108e569a8931f64693dbb5ce2b8bb2524dcc1c50a30b2daa674265de2491",
+  "cost_usd": 0,
+  "diagnostic_reference_outcomes_opened": false,
+  "error": "Command '['docker', 'run', '--name', 'bed-black-audit-b5ee280f0c334d4bac51e8658e8bd483', '--rm', '--network=none', '--read-only', '--cap-drop=ALL', '--security-opt=no-new-privileges', '--pids-limit=32', '--memory=256m', '--cpus=1', '--tmpfs=/tmp:rw,noexec,nosuid,size=16m', 'sha256:a810014f6e3c688286a8153ec97a5aaf089f1cc52238f4908b0977a83138a302', 'python', '/app/runner.py']' returned non-zero exit status 1.",
+  "fixed_revision": "d6db1c12a8e14833fe22da377cddc2bd1f43dc14",
+  "input_sha256": "1511c09372f0957c3ee24468d2e0b32ad26a4b34b2cdd67bdb129313c614a105",
+  "inputs": [
+    {
+      "id": "t3c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e0",
+      "role": "query",
+      "source": "f(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c0e0",
+      "role": "query",
+      "source": "print x\n",
+      "template": 3
+    },
+    {
+      "id": "t6c1e0",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec x\n",
+      "template": 6
+    },
+    {
+      "id": "t2c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t2c2e2",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t0c0e3",
+      "role": "query",
+      "source": "x = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t0c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nx = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t2c1e2",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t6c0e3",
+      "role": "query",
+      "source": "exec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t7c0e0",
+      "role": "query",
+      "source": "def print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t1c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nf(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t6c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t5c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t2c1e1",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint(1)\n",
+      "template": 2
+    },
+    {
+      "id": "t3c1e2",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e3",
+      "role": "query",
+      "source": "f(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t0c0e0",
+      "role": "query",
+      "source": "x = x\n",
+      "template": 0
+    },
+    {
+      "id": "t7c1e0",
+      "role": "query",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c0e2",
+      "role": "query",
+      "source": "def print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t5c0e0",
+      "role": "query",
+      "source": "exec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t1c2e1",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nf(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c2e2",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t6c2e1",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nexec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t5c0e2",
+      "role": "query",
+      "source": "exec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t3c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint x\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e2",
+      "role": "query",
+      "source": "f((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t6c0e2",
+      "role": "query",
+      "source": "exec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t4c0e0",
+      "role": "query",
+      "source": "print >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t2c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t2c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t6c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec x\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t3c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint 1\n",
+      "template": 3
+    },
+    {
+      "id": "t1c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t2c0e2",
+      "role": "diagnostic_target",
+      "source": "print((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t7c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t7c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t0c0e2",
+      "role": "diagnostic_target",
+      "source": "x = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t4c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t0c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = x\n",
+      "template": 0
+    },
+    {
+      "id": "t0c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t0c0e1",
+      "role": "diagnostic_target",
+      "source": "x = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t3c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint 1\n",
+      "template": 3
+    },
+    {
+      "id": "t4c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t0c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t7c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t2c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint(1)\n",
+      "template": 2
+    },
+    {
+      "id": "t7c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t4c0e1",
+      "role": "diagnostic_target",
+      "source": "print >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t4c0e2",
+      "role": "diagnostic_target",
+      "source": "print >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t1c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t1c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t0c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t7c0e1",
+      "role": "diagnostic_target",
+      "source": "def print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t5c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t5c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t2c0e3",
+      "role": "diagnostic_target",
+      "source": "print(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t5c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t7c0e3",
+      "role": "diagnostic_target",
+      "source": "def print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t4c0e3",
+      "role": "diagnostic_target",
+      "source": "print >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t2c0e0",
+      "role": "diagnostic_target",
+      "source": "print(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t1c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t4c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t4c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t4c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t5c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t6c0e0",
+      "role": "diagnostic_target",
+      "source": "exec x\n",
+      "template": 6
+    },
+    {
+      "id": "t5c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t0c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = x\n",
+      "template": 0
+    },
+    {
+      "id": "t5c0e3",
+      "role": "diagnostic_target",
+      "source": "exec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t5c0e1",
+      "role": "diagnostic_target",
+      "source": "exec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t2c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t6c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t6c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t3c0e3",
+      "role": "diagnostic_target",
+      "source": "print \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t7c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t3c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint x\n",
+      "template": 3
+    },
+    {
+      "id": "t0c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t6c0e1",
+      "role": "diagnostic_target",
+      "source": "exec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t6c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t1c0e1",
+      "role": "diagnostic_target",
+      "source": "f(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t6c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t5c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t5c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t3c0e2",
+      "role": "diagnostic_target",
+      "source": "print (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t1c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nf((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t1c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nf(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c0e1",
+      "role": "diagnostic_target",
+      "source": "print 1\n",
+      "template": 3
+    },
+    {
+      "id": "t0c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t3c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t2c0e1",
+      "role": "diagnostic_target",
+      "source": "print(1)\n",
+      "template": 2
+    }
+  ],
+  "model_calls": 0,
+  "parent_image": "sha256:017df47b29fcfc1eeb456f5967ed271adacfac91ffe5757e0efe959cc494ff3c",
+  "policy_endpoints_opened": false,
+  "protocol_sha256": "6d7712b3cae9368aa537f8510cbb33061274b2c22150ee2ca0d2e3dcbf52915e",
+  "status": "failed_closed",
+  "stderr": "Traceback (most recent call last):\n  File \"/app/black.py\", line 3378, in assert_equivalent\n    src_ast = ast.parse(src)\n  File \"/usr/local/lib/python3.8/ast.py\", line 47, in parse\n    return compile(source, filename, mode, flags,\n  File \"<unknown>\", line 2\n    print \"hello\"\n          ^\nSyntaxError: Missing parentheses in call to 'print'. Did you mean print(\"hello\")?\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/app/runner.py\", line 6, in <module>\n    text = black.format_file_contents(row['source'], fast=False, mode=black.FileMode())\n  File \"/app/black.py\", line 659, in format_file_contents\n    assert_equivalent(src_contents, dst_contents)\n  File \"/app/black.py\", line 3381, in assert_equivalent\n    raise AssertionError(\nAssertionError: cannot use --safe with this file; failed to parse source file with Python 3.8's builtin AST. Re-run with --fast or stop using deprecated Python 2 syntax. AST error message: Missing parentheses in call to 'print'. Did you mean print(\"hello\")? (<unknown>, line 2)\n",
+  "upstream_tests_read": false
+}
