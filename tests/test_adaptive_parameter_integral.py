@@ -45,3 +45,14 @@ def test_likelihood_shift_keeps_conditional_moments():
     assert a['status'] == b['status'] == 'agreement'
     np.testing.assert_allclose(a['checks'][-1]['variance'], b['checks'][-1]['variance'])
     assert abs(a['checks'][-1]['log_evidence']-b['checks'][-1]['log_evidence']-10000) < 1e-9
+
+
+def test_narrow_gaussian_uses_discovered_partition():
+    sigma, center = .02, .27
+    r = adaptive_parameter_integral([-4], [4],
+        lambda x: -.5*((x[:, 0]-center)/sigma)**2,
+        lambda x: x, output_size=1, log_likelihood_bound=0)
+    assert r['status'] == 'agreement'
+    np.testing.assert_allclose(r['checks'][-1]['mean'], [center], atol=1e-8)
+    np.testing.assert_allclose(r['checks'][-1]['variance'], [sigma**2], atol=1e-8)
+    assert r['checks'][-1]['pilot_region_count'] > 1

@@ -64,17 +64,24 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
         scaling = float(pilot.estimate)
         evidence_only = False
         for split in (False, True):
-            result = cubature(integrand, np.zeros(len(lower)), np.ones(len(lower)),
-                              rtol=1e-7, atol=1e-9, max_subdivisions=1000,
-                              points=[np.full(len(lower), .5)] if split else None)
-            value, error = np.asarray(result.estimate), np.asarray(result.error)
-            check = {'partition': 'midpoint' if split else 'whole',
-                     'status': result.status, 'integrals': value.tolist(),
-                     'errors': error.tolist(), 'subdivisions': result.subdivisions,
+            # Preserve discovered narrow regions; restarting globally can falsely
+            # stop on a tiny absolute error before sampling the known peak.
+            results = [cubature(integrand, region.a, region.b,
+                                rtol=1e-7, atol=1e-9*float(np.prod(region.b-region.a)),
+                                max_subdivisions=1000,
+                                points=[(region.a+region.b)/2] if split else None)
+                       for region in pilot.regions]
+            value = np.sum([r.estimate for r in results], axis=0)
+            error = np.sum([r.error for r in results], axis=0)
+            status = 'converged' if all(r.status == 'converged' for r in results) else 'not_converged'
+            check = {'partition': 'refined_pilot_regions' if split else 'pilot_regions',
+                     'status': status, 'integrals': value.tolist(),
+                     'errors': error.tolist(), 'subdivisions': sum(r.subdivisions for r in results),
+                     'pilot_region_count': len(pilot.regions),
                      'cumulative_rows': rows}
             checks.append(check)
             z = value[0]
-            if (result.status != 'converged' or not np.isfinite(value).all()
+            if (status != 'converged' or not np.isfinite(value).all()
                     or not np.isfinite(error).all() or z <= 0 or error[0]/z > 1e-5):
                 raise IntegrationUnresolved('unresolved adaptive evidence')
             mean = value[1:1+output_size]/z
