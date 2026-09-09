@@ -1,0 +1,2577 @@
+benchmark_examples = 0
+calls = 0
+status = "bounded_enumeration_complete"
+seconds = 3.573086977005005
+
+[[rows]]
+expression = "I"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "identity"
+[[rows]]
+expression = "DOWN"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["DOWN"]
+        op = "identity"
+[[rows]]
+expression = "DOWN_LEFT"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["DOWN_LEFT"]
+        op = "identity"
+[[rows]]
+expression = "EIGHT"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["EIGHT"]
+        op = "identity"
+[[rows]]
+expression = "F"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["F"]
+        op = "identity"
+[[rows]]
+expression = "FIVE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["FIVE"]
+        op = "identity"
+[[rows]]
+expression = "FOUR"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["FOUR"]
+        op = "identity"
+[[rows]]
+expression = "LEFT"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["LEFT"]
+        op = "identity"
+[[rows]]
+expression = "NEG_ONE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_ONE"]
+        op = "identity"
+[[rows]]
+expression = "NEG_TWO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_TWO"]
+        op = "identity"
+[[rows]]
+expression = "NEG_UNITY"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_UNITY"]
+        op = "identity"
+[[rows]]
+expression = "NINE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NINE"]
+        op = "identity"
+[[rows]]
+expression = "ONE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ONE"]
+        op = "identity"
+[[rows]]
+expression = "ORIGIN"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ORIGIN"]
+        op = "identity"
+[[rows]]
+expression = "RIGHT"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["RIGHT"]
+        op = "identity"
+[[rows]]
+expression = "SEVEN"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["SEVEN"]
+        op = "identity"
+[[rows]]
+expression = "SIX"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["SIX"]
+        op = "identity"
+[[rows]]
+expression = "T"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["T"]
+        op = "identity"
+[[rows]]
+expression = "TEN"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TEN"]
+        op = "identity"
+[[rows]]
+expression = "THREE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["THREE"]
+        op = "identity"
+[[rows]]
+expression = "THREE_BY_THREE"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["THREE_BY_THREE"]
+        op = "identity"
+[[rows]]
+expression = "TWO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO"]
+        op = "identity"
+[[rows]]
+expression = "TWO_BY_TWO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO_BY_TWO"]
+        op = "identity"
+[[rows]]
+expression = "TWO_BY_ZERO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO_BY_ZERO"]
+        op = "identity"
+[[rows]]
+expression = "UNITY"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UNITY"]
+        op = "identity"
+[[rows]]
+expression = "UP"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UP"]
+        op = "identity"
+[[rows]]
+expression = "UP_RIGHT"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UP_RIGHT"]
+        op = "identity"
+[[rows]]
+expression = "ZERO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ZERO"]
+        op = "identity"
+[[rows]]
+expression = "ZERO_BY_TWO"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ZERO_BY_TWO"]
+        op = "identity"
+[[rows]]
+expression = "add"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["add"]
+        op = "identity"
+[[rows]]
+expression = "adjacent"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["adjacent"]
+        op = "identity"
+[[rows]]
+expression = "apply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["apply"]
+        op = "identity"
+[[rows]]
+expression = "argmax"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["argmax"]
+        op = "identity"
+[[rows]]
+expression = "argmin"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["argmin"]
+        op = "identity"
+[[rows]]
+expression = "asindices"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["asindices"]
+        op = "identity"
+[[rows]]
+expression = "asobject"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["asobject"]
+        op = "identity"
+[[rows]]
+expression = "astuple"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["astuple"]
+        op = "identity"
+[[rows]]
+expression = "backdrop"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["backdrop"]
+        op = "identity"
+[[rows]]
+expression = "bordering"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["bordering"]
+        op = "identity"
+[[rows]]
+expression = "both"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["both"]
+        op = "identity"
+[[rows]]
+expression = "bottomhalf"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["bottomhalf"]
+        op = "identity"
+[[rows]]
+expression = "box"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["box"]
+        op = "identity"
+[[rows]]
+expression = "branch"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["branch"]
+        op = "identity"
+[[rows]]
+expression = "canvas"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["canvas"]
+        op = "identity"
+[[rows]]
+expression = "cellwise"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cellwise"]
+        op = "identity"
+[[rows]]
+expression = "center"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["center"]
+        op = "identity"
+[[rows]]
+expression = "centerofmass"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["centerofmass"]
+        op = "identity"
+[[rows]]
+expression = "chain"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["chain"]
+        op = "identity"
+[[rows]]
+expression = "cmirror"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cmirror"]
+        op = "identity"
+[[rows]]
+expression = "color"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["color"]
+        op = "identity"
+[[rows]]
+expression = "colorcount"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["colorcount"]
+        op = "identity"
+[[rows]]
+expression = "colorfilter"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["colorfilter"]
+        op = "identity"
+[[rows]]
+expression = "combine"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["combine"]
+        op = "identity"
+[[rows]]
+expression = "compose"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["compose"]
+        op = "identity"
+[[rows]]
+expression = "compress"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["compress"]
+        op = "identity"
+[[rows]]
+expression = "connect"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["connect"]
+        op = "identity"
+[[rows]]
+expression = "contained"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["contained"]
+        op = "identity"
+[[rows]]
+expression = "corners"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["corners"]
+        op = "identity"
+[[rows]]
+expression = "cover"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cover"]
+        op = "identity"
+[[rows]]
+expression = "crement"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["crement"]
+        op = "identity"
+[[rows]]
+expression = "crop"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["crop"]
+        op = "identity"
+[[rows]]
+expression = "decrement"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["decrement"]
+        op = "identity"
+[[rows]]
+expression = "dedupe"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["dedupe"]
+        op = "identity"
+[[rows]]
+expression = "delta"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["delta"]
+        op = "identity"
+[[rows]]
+expression = "difference"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["difference"]
+        op = "identity"
+[[rows]]
+expression = "divide"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["divide"]
+        op = "identity"
+[[rows]]
+expression = "dmirror"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["dmirror"]
+        op = "identity"
+[[rows]]
+expression = "dneighbors"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["dneighbors"]
+        op = "identity"
+[[rows]]
+expression = "double"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["double"]
+        op = "identity"
+[[rows]]
+expression = "downscale"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["downscale"]
+        op = "identity"
+[[rows]]
+expression = "either"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["either"]
+        op = "identity"
+[[rows]]
+expression = "equality"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["equality"]
+        op = "identity"
+[[rows]]
+expression = "even"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["even"]
+        op = "identity"
+[[rows]]
+expression = "extract"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["extract"]
+        op = "identity"
+[[rows]]
+expression = "fgpartition"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["fgpartition"]
+        op = "identity"
+[[rows]]
+expression = "fill"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["fill"]
+        op = "identity"
+[[rows]]
+expression = "first"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["first"]
+        op = "identity"
+[[rows]]
+expression = "flip"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["flip"]
+        op = "identity"
+[[rows]]
+expression = "fork"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["fork"]
+        op = "identity"
+[[rows]]
+expression = "frontiers"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["frontiers"]
+        op = "identity"
+[[rows]]
+expression = "gravitate"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["gravitate"]
+        op = "identity"
+[[rows]]
+expression = "greater"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["greater"]
+        op = "identity"
+[[rows]]
+expression = "halve"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["halve"]
+        op = "identity"
+[[rows]]
+expression = "hconcat"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hconcat"]
+        op = "identity"
+[[rows]]
+expression = "height"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["height"]
+        op = "identity"
+[[rows]]
+expression = "hfrontier"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hfrontier"]
+        op = "identity"
+[[rows]]
+expression = "hline"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hline"]
+        op = "identity"
+[[rows]]
+expression = "hmatching"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hmatching"]
+        op = "identity"
+[[rows]]
+expression = "hmirror"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hmirror"]
+        op = "identity"
+[[rows]]
+expression = "hperiod"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hperiod"]
+        op = "identity"
+[[rows]]
+expression = "hsplit"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hsplit"]
+        op = "identity"
+[[rows]]
+expression = "hupscale"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["hupscale"]
+        op = "identity"
+[[rows]]
+expression = "identity"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["identity"]
+        op = "identity"
+[[rows]]
+expression = "inbox"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["inbox"]
+        op = "identity"
+[[rows]]
+expression = "increment"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["increment"]
+        op = "identity"
+[[rows]]
+expression = "index"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["index"]
+        op = "identity"
+[[rows]]
+expression = "ineighbors"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ineighbors"]
+        op = "identity"
+[[rows]]
+expression = "initset"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["initset"]
+        op = "identity"
+[[rows]]
+expression = "insert"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["insert"]
+        op = "identity"
+[[rows]]
+expression = "intersection"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["intersection"]
+        op = "identity"
+[[rows]]
+expression = "interval"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["interval"]
+        op = "identity"
+[[rows]]
+expression = "invert"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["invert"]
+        op = "identity"
+[[rows]]
+expression = "last"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["last"]
+        op = "identity"
+[[rows]]
+expression = "lbind"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["lbind"]
+        op = "identity"
+[[rows]]
+expression = "leastcolor"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["leastcolor"]
+        op = "identity"
+[[rows]]
+expression = "leastcommon"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["leastcommon"]
+        op = "identity"
+[[rows]]
+expression = "lefthalf"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["lefthalf"]
+        op = "identity"
+[[rows]]
+expression = "leftmost"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["leftmost"]
+        op = "identity"
+[[rows]]
+expression = "llcorner"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["llcorner"]
+        op = "identity"
+[[rows]]
+expression = "lowermost"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["lowermost"]
+        op = "identity"
+[[rows]]
+expression = "lrcorner"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["lrcorner"]
+        op = "identity"
+[[rows]]
+expression = "manhattan"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["manhattan"]
+        op = "identity"
+[[rows]]
+expression = "mapply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["mapply"]
+        op = "identity"
+[[rows]]
+expression = "matcher"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["matcher"]
+        op = "identity"
+[[rows]]
+expression = "maximum"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["maximum"]
+        op = "identity"
+[[rows]]
+expression = "merge"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["merge"]
+        op = "identity"
+[[rows]]
+expression = "mfilter"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["mfilter"]
+        op = "identity"
+[[rows]]
+expression = "minimum"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["minimum"]
+        op = "identity"
+[[rows]]
+expression = "mostcolor"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["mostcolor"]
+        op = "identity"
+[[rows]]
+expression = "mostcommon"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["mostcommon"]
+        op = "identity"
+[[rows]]
+expression = "move"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["move"]
+        op = "identity"
+[[rows]]
+expression = "mpapply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["mpapply"]
+        op = "identity"
+[[rows]]
+expression = "multiply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["multiply"]
+        op = "identity"
+[[rows]]
+expression = "neighbors"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["neighbors"]
+        op = "identity"
+[[rows]]
+expression = "normalize"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["normalize"]
+        op = "identity"
+[[rows]]
+expression = "numcolors"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["numcolors"]
+        op = "identity"
+[[rows]]
+expression = "objects"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["objects"]
+        op = "identity"
+[[rows]]
+expression = "occurrences"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["occurrences"]
+        op = "identity"
+[[rows]]
+expression = "ofcolor"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ofcolor"]
+        op = "identity"
+[[rows]]
+expression = "order"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["order"]
+        op = "identity"
+[[rows]]
+expression = "other"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["other"]
+        op = "identity"
+[[rows]]
+expression = "outbox"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["outbox"]
+        op = "identity"
+[[rows]]
+expression = "paint"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["paint"]
+        op = "identity"
+[[rows]]
+expression = "pair"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["pair"]
+        op = "identity"
+[[rows]]
+expression = "palette"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["palette"]
+        op = "identity"
+[[rows]]
+expression = "papply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["papply"]
+        op = "identity"
+[[rows]]
+expression = "partition"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["partition"]
+        op = "identity"
+[[rows]]
+expression = "portrait"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["portrait"]
+        op = "identity"
+[[rows]]
+expression = "position"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["position"]
+        op = "identity"
+[[rows]]
+expression = "positive"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["positive"]
+        op = "identity"
+[[rows]]
+expression = "power"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["power"]
+        op = "identity"
+[[rows]]
+expression = "prapply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["prapply"]
+        op = "identity"
+[[rows]]
+expression = "product"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["product"]
+        op = "identity"
+[[rows]]
+expression = "rapply"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rapply"]
+        op = "identity"
+[[rows]]
+expression = "rbind"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rbind"]
+        op = "identity"
+[[rows]]
+expression = "recolor"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["recolor"]
+        op = "identity"
+[[rows]]
+expression = "remove"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["remove"]
+        op = "identity"
+[[rows]]
+expression = "repeat"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["repeat"]
+        op = "identity"
+[[rows]]
+expression = "replace"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["replace"]
+        op = "identity"
+[[rows]]
+expression = "righthalf"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["righthalf"]
+        op = "identity"
+[[rows]]
+expression = "rightmost"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rightmost"]
+        op = "identity"
+[[rows]]
+expression = "rot180"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rot180"]
+        op = "identity"
+[[rows]]
+expression = "rot270"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rot270"]
+        op = "identity"
+[[rows]]
+expression = "rot90"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["rot90"]
+        op = "identity"
+[[rows]]
+expression = "sfilter"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["sfilter"]
+        op = "identity"
+[[rows]]
+expression = "shape"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["shape"]
+        op = "identity"
+[[rows]]
+expression = "shift"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["shift"]
+        op = "identity"
+[[rows]]
+expression = "shoot"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["shoot"]
+        op = "identity"
+[[rows]]
+expression = "sign"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["sign"]
+        op = "identity"
+[[rows]]
+expression = "size"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["size"]
+        op = "identity"
+[[rows]]
+expression = "sizefilter"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["sizefilter"]
+        op = "identity"
+[[rows]]
+expression = "square"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["square"]
+        op = "identity"
+[[rows]]
+expression = "subgrid"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["subgrid"]
+        op = "identity"
+[[rows]]
+expression = "subtract"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["subtract"]
+        op = "identity"
+[[rows]]
+expression = "switch"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["switch"]
+        op = "identity"
+[[rows]]
+expression = "toindices"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["toindices"]
+        op = "identity"
+[[rows]]
+expression = "toivec"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["toivec"]
+        op = "identity"
+[[rows]]
+expression = "tojvec"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["tojvec"]
+        op = "identity"
+[[rows]]
+expression = "toobject"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["toobject"]
+        op = "identity"
+[[rows]]
+expression = "tophalf"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["tophalf"]
+        op = "identity"
+[[rows]]
+expression = "totuple"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["totuple"]
+        op = "identity"
+[[rows]]
+expression = "trim"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["trim"]
+        op = "identity"
+[[rows]]
+expression = "ulcorner"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ulcorner"]
+        op = "identity"
+[[rows]]
+expression = "underfill"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["underfill"]
+        op = "identity"
+[[rows]]
+expression = "underpaint"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["underpaint"]
+        op = "identity"
+[[rows]]
+expression = "uppermost"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["uppermost"]
+        op = "identity"
+[[rows]]
+expression = "upscale"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["upscale"]
+        op = "identity"
+[[rows]]
+expression = "urcorner"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["urcorner"]
+        op = "identity"
+[[rows]]
+expression = "valmax"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["valmax"]
+        op = "identity"
+[[rows]]
+expression = "valmin"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["valmin"]
+        op = "identity"
+[[rows]]
+expression = "vconcat"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vconcat"]
+        op = "identity"
+[[rows]]
+expression = "vfrontier"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vfrontier"]
+        op = "identity"
+[[rows]]
+expression = "vline"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vline"]
+        op = "identity"
+[[rows]]
+expression = "vmatching"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vmatching"]
+        op = "identity"
+[[rows]]
+expression = "vmirror"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vmirror"]
+        op = "identity"
+[[rows]]
+expression = "vperiod"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vperiod"]
+        op = "identity"
+[[rows]]
+expression = "vsplit"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vsplit"]
+        op = "identity"
+[[rows]]
+expression = "vupscale"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["vupscale"]
+        op = "identity"
+[[rows]]
+expression = "width"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["width"]
+        op = "identity"
+[[rows]]
+expression = "asindices(I)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["I"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(DOWN)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["DOWN"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(DOWN_LEFT)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["DOWN_LEFT"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(EIGHT)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["EIGHT"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(F)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["F"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(FIVE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["FIVE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(FOUR)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["FOUR"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(LEFT)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["LEFT"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(NEG_ONE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_ONE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(NEG_TWO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_TWO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(NEG_UNITY)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NEG_UNITY"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(NINE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["NINE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(ONE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ONE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(ORIGIN)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ORIGIN"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(RIGHT)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["RIGHT"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(SEVEN)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["SEVEN"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(SIX)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["SIX"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(T)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["T"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(TEN)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TEN"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(THREE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["THREE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(THREE_BY_THREE)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["THREE_BY_THREE"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(TWO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(TWO_BY_TWO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO_BY_TWO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(TWO_BY_ZERO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["TWO_BY_ZERO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(UNITY)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UNITY"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(UP)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UP"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(UP_RIGHT)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["UP_RIGHT"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(ZERO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ZERO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(ZERO_BY_TWO)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["ZERO_BY_TWO"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(add)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["add"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(adjacent)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["adjacent"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(apply)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["apply"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(argmax)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["argmax"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(argmin)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["argmin"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(asindices)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["asindices"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(asobject)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["asobject"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(astuple)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["astuple"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(backdrop)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["backdrop"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(bordering)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["bordering"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(both)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["both"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(bottomhalf)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["bottomhalf"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(box)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["box"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(branch)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["branch"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(canvas)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["canvas"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(cellwise)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cellwise"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(center)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["center"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(centerofmass)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["centerofmass"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(chain)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["chain"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(cmirror)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cmirror"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(color)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["color"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(colorcount)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["colorcount"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(colorfilter)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["colorfilter"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(combine)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["combine"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(compose)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["compose"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(compress)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["compress"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(connect)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["connect"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(contained)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["contained"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(corners)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["corners"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(cover)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["cover"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(crement)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["crement"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(crop)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["crop"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(decrement)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["decrement"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(dedupe)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["dedupe"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(delta)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["delta"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(difference)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["difference"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(divide)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["divide"]
+        op = "asindices"
+[[rows]]
+expression = "asindices(dmirror)"
+
+    [rows.graph]
+    output = "x0"
+
+        [[rows.graph.steps]]
+        id = "x0"
+        args = ["dmirror"]
+        op = "asindices"
+
+[computed_callable_fixture]
+output = "x1"
+
+    [[computed_callable_fixture.steps]]
+    id = "x0"
+    args = ["identity", "identity"]
+    op = "compose"
+    [[computed_callable_fixture.steps]]
+    id = "x1"
+    args = ["I"]
+    op = "x0"

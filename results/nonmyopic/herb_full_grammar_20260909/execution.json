@@ -1,0 +1,1839 @@
+{
+  "status": "complete",
+  "candidate_sha256": "ca96fb07a373ab2265e6e3d328ac620239885b34fccff1d5d98f4daa0e7a2b8b",
+  "executed": 256,
+  "counts": {
+    "ok": 1,
+    "failed": 255
+  },
+  "distinct_grid_outputs": 1,
+  "records": [
+    {
+      "expression": "I",
+      "result": {
+        "status": "ok",
+        "output": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "uid": 65534,
+        "read_only": true,
+        "network_denied": true,
+        "no_api_key": true
+      }
+    },
+    {
+      "expression": "DOWN",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "DOWN_LEFT",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "EIGHT",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "F",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "FIVE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "FOUR",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "LEFT",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "NEG_ONE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "NEG_TWO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "NEG_UNITY",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "NINE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ONE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ORIGIN",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "RIGHT",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "SEVEN",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "SIX",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "T",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "TEN",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "THREE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "THREE_BY_THREE",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "TWO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "TWO_BY_TWO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "TWO_BY_ZERO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "UNITY",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "UP",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "UP_RIGHT",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ZERO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ZERO_BY_TWO",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "add",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "adjacent",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "apply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "argmax",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "argmin",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asobject",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "astuple",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "backdrop",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "bordering",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "both",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "bottomhalf",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "box",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "branch",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "canvas",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "cellwise",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "center",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "centerofmass",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "chain",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "cmirror",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "color",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "colorcount",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "colorfilter",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "combine",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "compose",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "compress",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "connect",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "contained",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "corners",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "cover",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "crement",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "crop",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "decrement",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "dedupe",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "delta",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "difference",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "divide",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "dmirror",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "dneighbors",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "double",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "downscale",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "either",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "equality",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "even",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "extract",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "fgpartition",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "fill",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "first",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "flip",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "fork",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "frontiers",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "gravitate",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "greater",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "halve",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hconcat",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "height",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hfrontier",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hline",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hmatching",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hmirror",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hperiod",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hsplit",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "hupscale",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "identity",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "inbox",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "increment",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "index",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ineighbors",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "initset",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "insert",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "intersection",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "interval",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "invert",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "last",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "lbind",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "leastcolor",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "leastcommon",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "lefthalf",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "leftmost",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "llcorner",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "lowermost",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "lrcorner",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "manhattan",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "mapply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "matcher",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "maximum",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "merge",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "mfilter",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "minimum",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "mostcolor",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "mostcommon",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "move",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "mpapply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "multiply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "neighbors",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "normalize",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "numcolors",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "objects",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "occurrences",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ofcolor",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "order",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "other",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "outbox",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "paint",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "pair",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "palette",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "papply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "partition",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "portrait",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "position",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "positive",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "power",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "prapply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "product",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rapply",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rbind",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "recolor",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "remove",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "repeat",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "replace",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "righthalf",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rightmost",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rot180",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rot270",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "rot90",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "sfilter",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "shape",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "shift",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "shoot",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "sign",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "size",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "sizefilter",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "square",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "subgrid",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "subtract",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "switch",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "toindices",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "toivec",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "tojvec",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "toobject",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "tophalf",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "totuple",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "trim",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "ulcorner",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "underfill",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "underpaint",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "uppermost",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "upscale",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "urcorner",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "valmax",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "valmin",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vconcat",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vfrontier",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vline",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vmatching",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vmirror",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vperiod",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vsplit",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "vupscale",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "width",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(I)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(DOWN)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(DOWN_LEFT)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(EIGHT)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(F)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(FIVE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(FOUR)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(LEFT)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(NEG_ONE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(NEG_TWO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(NEG_UNITY)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(NINE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(ONE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(ORIGIN)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(RIGHT)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(SEVEN)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(SIX)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(T)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(TEN)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(THREE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(THREE_BY_THREE)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(TWO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(TWO_BY_TWO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(TWO_BY_ZERO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(UNITY)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(UP)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(UP_RIGHT)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(ZERO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(ZERO_BY_TWO)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(add)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(adjacent)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(apply)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(argmax)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(argmin)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(asindices)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(asobject)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(astuple)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(backdrop)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(bordering)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(both)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(bottomhalf)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(box)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(branch)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(canvas)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(cellwise)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(center)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(centerofmass)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(chain)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(cmirror)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(color)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(colorcount)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(colorfilter)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(combine)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(compose)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(compress)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(connect)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(contained)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(corners)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(cover)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(crement)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(crop)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(decrement)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(dedupe)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(delta)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(difference)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(divide)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    },
+    {
+      "expression": "asindices(dmirror)",
+      "result": {
+        "status": "failed",
+        "returncode": 1
+      }
+    }
+  ],
+  "computed_callable_fixture": {
+    "status": "ok",
+    "output": [
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "uid": 65534,
+    "read_only": true,
+    "network_denied": true,
+    "no_api_key": true
+  },
+  "seconds": 221.84362416699878,
+  "calls": 0,
+  "cost_usd": 0,
+  "semantic_coverage_qualified": false,
+  "benchmark_examples": 0
+}

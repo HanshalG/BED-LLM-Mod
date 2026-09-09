@@ -1,0 +1,1390 @@
+{
+  "function_count": 160,
+  "constant_count": 28,
+  "terminal_count": 189,
+  "rule_count": 353,
+  "signatures": [
+    {
+      "name": "identity",
+      "arity": 1,
+      "arguments": [
+        "Any"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "add",
+      "arity": 2,
+      "arguments": [
+        "Numerical",
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "subtract",
+      "arity": 2,
+      "arguments": [
+        "Numerical",
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "multiply",
+      "arity": 2,
+      "arguments": [
+        "Numerical",
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "divide",
+      "arity": 2,
+      "arguments": [
+        "Numerical",
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "invert",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "even",
+      "arity": 1,
+      "arguments": [
+        "Integer"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "double",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "halve",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "flip",
+      "arity": 1,
+      "arguments": [
+        "Boolean"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "equality",
+      "arity": 2,
+      "arguments": [
+        "Any",
+        "Any"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "contained",
+      "arity": 2,
+      "arguments": [
+        "Any",
+        "Container"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "combine",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Container"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "intersection",
+      "arity": 2,
+      "arguments": [
+        "FrozenSet",
+        "FrozenSet"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "difference",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Container"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "dedupe",
+      "arity": 1,
+      "arguments": [
+        "Tuple"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "order",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "repeat",
+      "arity": 2,
+      "arguments": [
+        "Any",
+        "Integer"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "greater",
+      "arity": 2,
+      "arguments": [
+        "Integer",
+        "Integer"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "size",
+      "arity": 1,
+      "arguments": [
+        "Container"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "merge",
+      "arity": 1,
+      "arguments": [
+        "ContainerContainer"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "maximum",
+      "arity": 1,
+      "arguments": [
+        "IntegerSet"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "minimum",
+      "arity": 1,
+      "arguments": [
+        "IntegerSet"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "valmax",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "valmin",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "argmax",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "argmin",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "mostcommon",
+      "arity": 1,
+      "arguments": [
+        "Container"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "leastcommon",
+      "arity": 1,
+      "arguments": [
+        "Container"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "initset",
+      "arity": 1,
+      "arguments": [
+        "Any"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "both",
+      "arity": 2,
+      "arguments": [
+        "Boolean",
+        "Boolean"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "either",
+      "arity": 2,
+      "arguments": [
+        "Boolean",
+        "Boolean"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "increment",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "decrement",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "crement",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "sign",
+      "arity": 1,
+      "arguments": [
+        "Numerical"
+      ],
+      "returns": "Numerical"
+    },
+    {
+      "name": "positive",
+      "arity": 1,
+      "arguments": [
+        "Integer"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "toivec",
+      "arity": 1,
+      "arguments": [
+        "Integer"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "tojvec",
+      "arity": 1,
+      "arguments": [
+        "Integer"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "sfilter",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "mfilter",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "extract",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Callable"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "totuple",
+      "arity": 1,
+      "arguments": [
+        "FrozenSet"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "first",
+      "arity": 1,
+      "arguments": [
+        "Container"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "last",
+      "arity": 1,
+      "arguments": [
+        "Container"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "insert",
+      "arity": 2,
+      "arguments": [
+        "Any",
+        "FrozenSet"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "remove",
+      "arity": 2,
+      "arguments": [
+        "Any",
+        "Container"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "other",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Any"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "interval",
+      "arity": 3,
+      "arguments": [
+        "Integer",
+        "Integer",
+        "Integer"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "astuple",
+      "arity": 2,
+      "arguments": [
+        "Integer",
+        "Integer"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "product",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Container"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "pair",
+      "arity": 2,
+      "arguments": [
+        "Tuple",
+        "Tuple"
+      ],
+      "returns": "TupleTuple"
+    },
+    {
+      "name": "branch",
+      "arity": 3,
+      "arguments": [
+        "Boolean",
+        "Any",
+        "Any"
+      ],
+      "returns": "Any"
+    },
+    {
+      "name": "compose",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Callable"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "chain",
+      "arity": 3,
+      "arguments": [
+        "Callable",
+        "Callable",
+        "Callable"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "matcher",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Any"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "rbind",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Any"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "lbind",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Any"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "power",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Integer"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "fork",
+      "arity": 3,
+      "arguments": [
+        "Callable",
+        "Callable",
+        "Callable"
+      ],
+      "returns": "Callable"
+    },
+    {
+      "name": "apply",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "Container"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "rapply",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Any"
+      ],
+      "returns": "Container"
+    },
+    {
+      "name": "mapply",
+      "arity": 2,
+      "arguments": [
+        "Callable",
+        "ContainerContainer"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "papply",
+      "arity": 3,
+      "arguments": [
+        "Callable",
+        "Tuple",
+        "Tuple"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "mpapply",
+      "arity": 3,
+      "arguments": [
+        "Callable",
+        "Tuple",
+        "Tuple"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "prapply",
+      "arity": 3,
+      "arguments": [
+        "Callable",
+        "Container",
+        "Container"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "mostcolor",
+      "arity": 1,
+      "arguments": [
+        "Element"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "leastcolor",
+      "arity": 1,
+      "arguments": [
+        "Element"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "height",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "width",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "shape",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "portrait",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "colorcount",
+      "arity": 2,
+      "arguments": [
+        "Element",
+        "Integer"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "colorfilter",
+      "arity": 2,
+      "arguments": [
+        "Objects",
+        "Integer"
+      ],
+      "returns": "Objects"
+    },
+    {
+      "name": "sizefilter",
+      "arity": 2,
+      "arguments": [
+        "Container",
+        "Integer"
+      ],
+      "returns": "FrozenSet"
+    },
+    {
+      "name": "asindices",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "ofcolor",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "ulcorner",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "urcorner",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "llcorner",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "lrcorner",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "crop",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "IntegerTuple",
+        "IntegerTuple"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "toindices",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "recolor",
+      "arity": 2,
+      "arguments": [
+        "Integer",
+        "Patch"
+      ],
+      "returns": "Object"
+    },
+    {
+      "name": "shift",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "IntegerTuple"
+      ],
+      "returns": "Patch"
+    },
+    {
+      "name": "normalize",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Patch"
+    },
+    {
+      "name": "dneighbors",
+      "arity": 1,
+      "arguments": [
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "ineighbors",
+      "arity": 1,
+      "arguments": [
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "neighbors",
+      "arity": 1,
+      "arguments": [
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "objects",
+      "arity": 4,
+      "arguments": [
+        "Grid",
+        "Boolean",
+        "Boolean",
+        "Boolean"
+      ],
+      "returns": "Objects"
+    },
+    {
+      "name": "partition",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Objects"
+    },
+    {
+      "name": "fgpartition",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Objects"
+    },
+    {
+      "name": "uppermost",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "lowermost",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "leftmost",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "rightmost",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "square",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "vline",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "hline",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "hmatching",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "vmatching",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "manhattan",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "adjacent",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "bordering",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Grid"
+      ],
+      "returns": "Boolean"
+    },
+    {
+      "name": "centerofmass",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "palette",
+      "arity": 1,
+      "arguments": [
+        "Element"
+      ],
+      "returns": "IntegerSet"
+    },
+    {
+      "name": "numcolors",
+      "arity": 1,
+      "arguments": [
+        "Element"
+      ],
+      "returns": "IntegerSet"
+    },
+    {
+      "name": "color",
+      "arity": 1,
+      "arguments": [
+        "Object"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "toobject",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Grid"
+      ],
+      "returns": "Object"
+    },
+    {
+      "name": "asobject",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Object"
+    },
+    {
+      "name": "rot90",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "rot180",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "rot270",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "hmirror",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Piece"
+    },
+    {
+      "name": "vmirror",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Piece"
+    },
+    {
+      "name": "dmirror",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Piece"
+    },
+    {
+      "name": "cmirror",
+      "arity": 1,
+      "arguments": [
+        "Piece"
+      ],
+      "returns": "Piece"
+    },
+    {
+      "name": "fill",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Integer",
+        "Patch"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "paint",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Object"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "underfill",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Integer",
+        "Patch"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "underpaint",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Object"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "hupscale",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "vupscale",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "upscale",
+      "arity": 2,
+      "arguments": [
+        "Element",
+        "Integer"
+      ],
+      "returns": "Element"
+    },
+    {
+      "name": "downscale",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "hconcat",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "vconcat",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "subgrid",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "hsplit",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "vsplit",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Tuple"
+    },
+    {
+      "name": "cellwise",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Grid",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "replace",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Integer",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "switch",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Integer",
+        "Integer"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "center",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "position",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "index",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "IntegerTuple"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "canvas",
+      "arity": 2,
+      "arguments": [
+        "Integer",
+        "IntegerTuple"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "corners",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "connect",
+      "arity": 2,
+      "arguments": [
+        "IntegerTuple",
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "cover",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Patch"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "trim",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "move",
+      "arity": 3,
+      "arguments": [
+        "Grid",
+        "Object",
+        "IntegerTuple"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "tophalf",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "bottomhalf",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "lefthalf",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "righthalf",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "vfrontier",
+      "arity": 1,
+      "arguments": [
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "hfrontier",
+      "arity": 1,
+      "arguments": [
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "backdrop",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "delta",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "gravitate",
+      "arity": 2,
+      "arguments": [
+        "Patch",
+        "Patch"
+      ],
+      "returns": "IntegerTuple"
+    },
+    {
+      "name": "inbox",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "outbox",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "box",
+      "arity": 1,
+      "arguments": [
+        "Patch"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "shoot",
+      "arity": 2,
+      "arguments": [
+        "IntegerTuple",
+        "IntegerTuple"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "occurrences",
+      "arity": 2,
+      "arguments": [
+        "Grid",
+        "Object"
+      ],
+      "returns": "Indices"
+    },
+    {
+      "name": "frontiers",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Objects"
+    },
+    {
+      "name": "compress",
+      "arity": 1,
+      "arguments": [
+        "Grid"
+      ],
+      "returns": "Grid"
+    },
+    {
+      "name": "hperiod",
+      "arity": 1,
+      "arguments": [
+        "Object"
+      ],
+      "returns": "Integer"
+    },
+    {
+      "name": "vperiod",
+      "arity": 1,
+      "arguments": [
+        "Object"
+      ],
+      "returns": "Integer"
+    }
+  ],
+  "direct_one_call_combinations": 1372880124,
+  "sound_type_filter": false,
+  "benchmark_examples": 0,
+  "calls": 0,
+  "source_sha256": "c60faf5730a966fc1689c08bc96794cd97fd0311b8036e0f9b0c80e2d12f0f11"
+}
