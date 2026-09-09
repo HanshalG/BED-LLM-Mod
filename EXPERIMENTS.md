@@ -1235,3 +1235,5 @@ metrics land.
 2026-09-09 | RE-ARC public proposal interface | $0 |GenericDSLdocs, publicinputs and explicit observedoutputs only;4graph strictresponse/no partialfilter.3tests/.09s;13,310promptbytes genericfixture. No actualexample or providercall, symbolicbaseline and frozen paidprotocol still required. Account unchanged.
 
 2026-09-09 | RE-ARC symbolic beam mechanics | $0 |Generic first-order gridbaseline finds two-step composition;2tests/.09s, attempt/storage bounds. Explicitly not fullDSL/object/higher-order or49stepcompetitor; no taskexecution or LLMnecessity claim. Isolated worker and frozenstudy still pending. Account unchanged.
+
+2026-09-09 | RE-ARC symbolic container and conditioning | $0 |Isolated23op search finds mirror:25743attempts/5317invalid, no benchmark examples. Exact finite-pool conditioning/duplicate treatment/failure semantics,5tests/.18s. Fixed future3demo/8target seeds per frozen task before generation; no model requests or held-out outcomes opened. Account unchanged.
