@@ -1,0 +1,67 @@
+{
+  "base_digest": "python@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f",
+  "container_args": [
+    "docker",
+    "run",
+    "--rm",
+    "--network=none",
+    "--read-only",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=32",
+    "--memory=256m",
+    "--cpus=1",
+    "--tmpfs=/tmp:rw,noexec,nosuid,size=16m",
+    "bed-black-prefixed-smoke:20260909"
+  ],
+  "cost_usd": 0,
+  "dockerfile": "FROM python@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f\nRUN pip install --no-cache-dir --only-binary=:all: click==7.1.2 attrs==19.3.0 appdirs==1.4.4 toml==0.10.2\nWORKDIR /app\nCOPY . /app\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/app HOME=/tmp\nUSER 65534:65534\nCMD [\"python\", \"/app/smoke.py\"]\n",
+  "fixed_source_read": false,
+  "image_id": "sha256:017df47b29fcfc1eeb456f5967ed271adacfac91ffe5757e0efe959cc494ff3c",
+  "model_calls": 0,
+  "revision": "026c81b83454f176a9f9253cbfb70be2c159d822",
+  "smoke": {
+    "black_version": "19.3b0",
+    "checks": [
+      {
+        "expected": "x = 1\n",
+        "ok": true,
+        "output": "x = 1\n",
+        "source": "x=1\n"
+      },
+      {
+        "expected": "f(1, 2)\n",
+        "ok": true,
+        "output": "f(1, 2)\n",
+        "source": "f( 1,2 )\n"
+      }
+    ],
+    "invalid_input": "InvalidInput",
+    "network_denied": true,
+    "no_api_key": true,
+    "status": "passed",
+    "uid": 65534,
+    "write_denied": true
+  },
+  "source_hashes": {
+    "LICENSE": "9c0428f0c3b4779850cf5bd96e11aaa8afc72d4a86d4a36223d7aba2e58d6e00",
+    "black.py": "a2a3a17242908ce2db5c562eb2ef36c15e9f1fa5fd0ecedac1d978181119c55e",
+    "blib2to3/Grammar.txt": "2dbb4f0f514c28fa59f594579e0ba0e8f382b6d94c0302607780d884f9320354",
+    "blib2to3/PatternGrammar.txt": "ee5ba5db3b6722a0e2fbe2560ebc1c883e72328ef9c3b4da1c7c5d1cc649bce3",
+    "blib2to3/__init__.py": "c8204cfd372ee45f79cb744ed0565bc8d486716115a546f48477c0719b8a6bb9",
+    "blib2to3/pgen2/__init__.py": "858eb0f50533bd3bd16fe32815f77fabfed92ede885070b6cb15827ec66ea500",
+    "blib2to3/pgen2/conv.py": "e2946a686c12e02248fafb1a57e7514e0c22bdb2b4a66e644215c86fedc37bff",
+    "blib2to3/pgen2/driver.py": "55d3dfc6243c71dd880a605d2a18f513f66c7e556d879a0cefd44e6b07a2819d",
+    "blib2to3/pgen2/grammar.py": "23eb0632fdacedafce09dd69a55ae0df8904255849b1e2c15abcb2db601e3a4a",
+    "blib2to3/pgen2/literals.py": "84bc9d5387a2e20fab844e530358571afa39fa3fc0e8024270b5f7d8ac5a595a",
+    "blib2to3/pgen2/parse.py": "ef205d15dd8a2184df48dfcba354037cc7c0f38d939bd5cdc5e56fc05f81cb18",
+    "blib2to3/pgen2/pgen.py": "2491291537fedb8765dca1c5e2ba34c0a0e3980e4ca3e3bb2b0d3ee293f37861",
+    "blib2to3/pgen2/token.py": "b835fc85419bf51c6b1adbb0c1b20cad72734bd5d678c4fb845fdef7d5d47306",
+    "blib2to3/pgen2/tokenize.py": "d42cfdda5669cee61f47285a98f5374e2d0fe0d177fda6222ce3991d86c53a28",
+    "blib2to3/pygram.py": "65074562dbe2e3ffeae4e6e010be92f03cdced43cb03c39a10d6bf0a4e4741ed",
+    "blib2to3/pytree.py": "1acf4209bf66c74e3a9b01abe119b274ea99621a4bdd8e2c5d4c41bea91173bb"
+  },
+  "status": "passed",
+  "tree_sha256": "197f4030f644c9f889f2b9890b334791b655041a45cd19b6f48db3d0204bef43",
+  "upstream_tests_read": false
+}
