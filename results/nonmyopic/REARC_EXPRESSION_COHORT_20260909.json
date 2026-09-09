@@ -1,0 +1,46 @@
+{
+  "source_commit": "e5b7f1d06362a76f9d3b8c25154ff1fafca897ce",
+  "excluded_ids": [
+    "10fcaaa3",
+    "1a07d186",
+    "1b2d62fb",
+    "264363fd",
+    "4be741c5",
+    "67e8384a",
+    "963e52fc",
+    "a68b268e",
+    "b7249182",
+    "c1d99e64",
+    "c9f8e694",
+    "f35d900a"
+  ],
+  "selected_ids": [
+    "feca6190",
+    "ae4f1146",
+    "543a7ed5",
+    "9af7a82c"
+  ],
+  "selection": "first4 SHA256(bed-rearc-expression-v1:+id), no replacement",
+  "source_seeds": [
+    34000,
+    34001,
+    34002
+  ],
+  "demo_seeds": [
+    34100,
+    34101,
+    34102
+  ],
+  "target_seeds": [
+    34200,
+    34201,
+    34202,
+    34203,
+    34204,
+    34205,
+    34206,
+    34207
+  ],
+  "calls": 0,
+  "paid_authorized": false
+}
