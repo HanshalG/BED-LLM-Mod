@@ -1225,3 +1225,5 @@ metrics land.
 2026-09-09 | RE-ARC source contract and scope | $0 |Pinned e5b7f1d wrapper-only audit; output-filtering and task-specific input distribution require explicit pool contract. Four IDs selected by hash from400names before task body inspection, no replacement. One test/.09s; no source execution/grid outputs/LLM calls. Next selected-task contract audit, no paid authorization.
 
 2026-09-09 | RE-ARC selected graph/source compatibility | $0 |All4reference programs19/20/4/49steps fit generic graph without special cases;160DSLfunctions/28constants,6tests/.08s. Two outputshapechanges require explicit outcome schema. Static compatibility only, not safe runtime or horizon/LLM evidence. All4retained, no outputs/calls, account unchanged.
+
+2026-09-09 | RE-ARC isolated graph runtime smoke | $0 |Higher-order identity passes; eval rejected1, resource stress killed137. Nonroot/read-only/no-network/no-key checks pass;12unit tests/.13s and no containers remain. Zero benchmarktasks/LLMcalls, actual source-generation qualification still pending. Account unchanged.

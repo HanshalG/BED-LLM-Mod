@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "image": "sha256:989bb9480c980a0e6722f366bf7dbf68bf6c097e66ed1fe450885989e5ef0b49",
+  "dsl_sha256": "c60faf5730a966fc1689c08bc96794cd97fd0311b8036e0f9b0c80e2d12f0f11",
+  "rows": {
+    "higher_order_identity": {
+      "status": "ok",
+      "output": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "uid": 65534,
+      "read_only": true,
+      "network_denied": true,
+      "no_api_key": true
+    },
+    "invalid_callable": {
+      "status": "failed",
+      "returncode": 1
+    },
+    "bounded_excessive_work": {
+      "status": "failed",
+      "returncode": 137
+    }
+  },
+  "model_calls": 0,
+  "cost_usd": 0,
+  "benchmark_tasks_executed": 0
+}
