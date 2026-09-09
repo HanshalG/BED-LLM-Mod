@@ -1,0 +1,58 @@
+{
+  "cost_usd": 0,
+  "model_calls": 0,
+  "paid_authority": false,
+  "predictive_evaluation": false,
+  "script_sha256": "09b7b446ea44825f82e39024c0b2fee822fbc32d22d40753fe781e8d9033c546",
+  "source_sha256": "58fc2606ba386f8b8b40acf0e874d2813cd3f3d8d07d803aa0e6711addd9a4ce",
+  "source_url": "https://raw.githubusercontent.com/google-deepmind/exedec/ef046ce2cc3fcd024e32f5dfe00e69700dac82ed/tasks/robust_fill/dsl.py",
+  "subset": "GetAll/GetToken/Trim/ConstStr/SubStr; optional ToCase; Concat<=6",
+  "tasks": {
+    "1": {
+      "attempted_atoms": 162043,
+      "compatible_piece_behaviors": 49,
+      "outputs": [
+        "alice",
+        "bob",
+        "carol",
+        "dave",
+        "edith",
+        "fred",
+        "gill",
+        "harry",
+        "ingrid",
+        "jeanne"
+      ],
+      "path": [
+        "GetAll_Type.WORD"
+      ],
+      "states": 1,
+      "status": "witness",
+      "verified_examples": 10
+    },
+    "10": {
+      "attempted_atoms": 162043,
+      "compatible_piece_behaviors": 303,
+      "outputs": [
+        "Arthur Juan",
+        "Jose Scott",
+        "Kevin Matthew",
+        "Donald George",
+        "Raymond Timothy",
+        "David James",
+        "Alice Charlie",
+        "Bob Carol",
+        "Sam Sid",
+        "Jeanne Sarah"
+      ],
+      "path": [
+        "GetToken_Type.WORD_-3",
+        "Const( )",
+        "GetToken_Type.WORD_-1"
+      ],
+      "states": 658,
+      "status": "witness",
+      "verified_examples": 10
+    }
+  }
+}
