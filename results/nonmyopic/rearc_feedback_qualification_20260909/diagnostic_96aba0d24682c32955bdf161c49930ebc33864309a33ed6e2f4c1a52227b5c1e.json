@@ -1,0 +1,1 @@
+{"status":"execution_error","trace":[{"arguments":[{"height":3,"kind":"grid","width":13},{"kind":"bool","length":null},{"kind":"bool","length":null},{"kind":"bool","length":null}],"error_type":"TypeError","id":"x0","op":"fgpartition"}]}

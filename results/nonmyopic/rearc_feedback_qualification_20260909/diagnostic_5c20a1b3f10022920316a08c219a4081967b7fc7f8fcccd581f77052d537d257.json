@@ -1,0 +1,1 @@
+{"output":[[0,4,0,0,0],[0,4,0,4,4],[3,3,3,4,3],[3,2,2,3,3]],"status":"ok","trace":[{"arguments":[{"height":26,"kind":"grid","width":5}],"id":"x0","op":"compress","result":{"height":4,"kind":"grid","width":5}}]}

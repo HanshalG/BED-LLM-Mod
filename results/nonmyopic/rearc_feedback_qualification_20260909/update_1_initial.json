@@ -1,0 +1,1 @@
+{"graphs":[],"model_calls":2,"proposal_feedback":{"error_type":"ValueError","status":"invalid_batch"},"repair_feedback":{"error_type":"ValueError","status":"invalid_batch"},"scope":"public-history finite proposal pool; not a calibrated posterior"}
