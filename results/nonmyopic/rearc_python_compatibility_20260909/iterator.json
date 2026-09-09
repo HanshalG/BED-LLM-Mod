@@ -1,0 +1,1 @@
+{"code": "def transform(g): return [[next(iter([3]))]]", "expected": [[3]], "input": [[1]], "result": {"output": [[3]], "status": "ok"}}

@@ -1,0 +1,1 @@
+{"code": "def transform(g): return [[ord(list(set(['a','b','c']))[0])%10]]", "results": [{"output": [[7]], "status": "ok"}, {"output": [[7]], "status": "ok"}]}

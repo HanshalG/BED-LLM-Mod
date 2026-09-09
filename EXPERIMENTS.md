@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Native Python compatibility/scoring | $0 | Five actual synthetic container executions and four module checks pass; 11 focused tests. AST identity avoids formatting-duplicate mass; future execution failures retain mass. No benchmark/model calls or containers remain. REARC_NATIVE_PYTHON_COMPATIBILITY_RESULT_20260909.md; authenticated account unchanged, controller/protocol still required.
+
 2026-09-09 | Native Python runtime mechanics | $0 |7unit/9actualsyntheticchecks pass insidefreshisolatedcontainers;floodfill/resize/stateisolation,failuresbounded. REARC_NATIVE_PYTHON_RUNTIME_RESULT_20260909.md; no benchmark/modelcalls orpredictiveclaim, compatibility/controllerstillrequired.
 
 2026-09-09 | Representation/source reassessment | $0 |Saved public typeflow and plan-implementation inconsistencies; pinnedPoetiq source (a6947cff) and BARC/CodeARC primarysources favor testing nativecode representation, not importingfirst-fit stopping/hostexecutor. REARC_REPRESENTATION_REASSESSMENT_20260909.md; no newoutputs/calls, predictive/depth gates unchanged.

@@ -7,7 +7,7 @@ MODULES = frozenset({'math','collections','itertools','functools','heapq'})
 def validate(code):
     if not isinstance(code,str) or len(code.encode())>16384:
         raise ValueError('code size')
-    tree=ast.parse(code)
+    tree=ast.parse(code,feature_version=8)
     if sum(1 for _ in ast.walk(tree))>4096:
         raise ValueError('code complexity')
     transforms=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='transform']

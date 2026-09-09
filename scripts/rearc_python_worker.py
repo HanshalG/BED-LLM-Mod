@@ -1,5 +1,6 @@
 """Container-only candidate execution. Never mount benchmark source or hidden data."""
 import builtins
+import __future__
 import contextlib
 import json
 import os
@@ -9,7 +10,7 @@ import traceback
 from rearc_graph_worker import grid
 from rearc_python_contract import validate,MODULES
 
-NAMES=('abs all any bool dict enumerate filter float frozenset int isinstance len list map max min next pow range reversed round set slice sorted str sum tuple zip divmod chr ord print Exception ValueError TypeError IndexError KeyError StopIteration ZeroDivisionError').split()
+NAMES=('abs all any bool dict enumerate filter float frozenset int isinstance iter len list map max min next pow range reversed round set slice sorted str sum tuple zip divmod chr ord print Exception ValueError TypeError IndexError KeyError StopIteration ZeroDivisionError').split()
 
 
 def restricted_import(name,globals=None,locals=None,fromlist=(),level=0):
@@ -30,7 +31,7 @@ def main():
         x=[list(row) for row in grid(request['input'])]
         phase='compile'
         tree=validate(request['code'])
-        program=compile(tree,'candidate.py','exec')
+        program=compile(tree,'candidate.py','exec',flags=__future__.annotations.compiler_flag,dont_inherit=True)
         safe={name:getattr(builtins,name) for name in NAMES}
         safe['__import__']=restricted_import
         namespace={'__builtins__':safe}

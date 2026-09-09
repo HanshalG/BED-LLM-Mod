@@ -1,0 +1,1 @@
+{"code": "def transform(g: list[list[int]]) -> list[list[int]]:\n return g", "expected": [[1]], "input": [[1]], "result": {"output": [[1]], "status": "ok"}}
