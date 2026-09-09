@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Paired repair source preflight failure | $0 | Actualpubliccollector failed sourcegeneration beforepublicbank/paidrun;18smoke checks passed otherseeds. Request/cause metadata missing; no retry or replacement.68integration tests pass, intervention effectunmeasured. REARC_PAIRED_REPAIR_PREFLIGHT_FAILURE_20260909.md; needsjournaled exactschedule sourceinstrument, accountunchanged.
+
 2026-09-09 | Paired repair source/controller | $0 | Frozen dd074ee7 fresh6exclude32,18/18sourcechecks;sharedproposal andindependentrepairs,24calls/pairedseeds,11tests. Requires2activecompilerinterventions plusfrozenpredictivegates;old36callreplayexact. REARC_PAIRED_REPAIR_SOURCE_RESULT_20260909.md; publiccollector/budget/replaystillrequiredbeforepaid.
 
 2026-09-09 | Saved compile-failure diagnosis | $0 |9/24invalidbatches,47syntax/arityfailures,25otherstructurallyvalidslots discarded(notexecuted/rescored). New public compiler feedback primitive retains zero acceptedslots/onefuture repair,43tests; original36callreplay intact. REARC_COMPILE_FAILURE_INTERPRETATION_20260909.md; fresh controlled test needed, not efficacy evidence.
