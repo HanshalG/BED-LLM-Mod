@@ -44,3 +44,14 @@ def test_selection_disjoint_permutation_invariant():
     chosen=select(inventory,excluded)
     assert len(chosen)==8 and not set(chosen)&set(excluded)
     assert chosen==select(list(reversed(inventory)),excluded)
+
+
+def test_banked_source_smoke_exact_coverage():
+    from pathlib import Path
+    cohort=json.loads(Path('results/nonmyopic/REARC_FEEDBACK_COHORT_20260909.json').read_text())
+    smoke=json.loads(Path('results/nonmyopic/REARC_FEEDBACK_SOURCE_SMOKE_20260909.json').read_text())
+    expected=[(task,seed) for task in cohort['selected_ids'] for seed in range(33000,33003)]
+    assert [(r['task'],r['seed']) for r in smoke['rows']]==expected
+    assert smoke['status']=='passed' and smoke['model_calls']==0
+    assert all(r['status']=='ok' and r['returncode']==0 and r['output_sha256']==r['verifier_sha256'] for r in smoke['rows'])
+    assert all('input' not in r and 'output' not in r for r in smoke['rows'])
