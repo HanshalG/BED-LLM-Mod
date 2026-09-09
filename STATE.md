@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: named-plan Luna-medium completed36calls/$0.14476104 from082df5c6, exact replay/new0,76tests. Demo coverage4/6; contrasting whole-gridBrier.681388 vsordinary.735417(7.35%gain,2wins), but answer support3/12<8 and canvas.512375>.367447 fail conjunction. Botharms cover same3queries; diversity3/6passes without sufficient predictive coverage. REARC_NAMED_PLAN_TERMINAL_RESULT_20260909.md; closedcohort/no depths/retry. Budgetremaining3.75622987,balance23.337951391; next saved public execution/generalization diagnosis, goalunachieved.
+
 2026-09-09 latest: named-plan Luna-medium six-task cohort frozen42b8b145; 18/18source checks, 24public prompt checks(max26690bytes), 54tests pass. Public bank sealed60outputs; oldfailedrun exactreplay intact. Budget/response/replay runner connected with pinned dependency checks; preparing one36call/$2.88max block, conservative allowance3.90099091. REARC_NAMED_PLAN_READINESS_20260909.md; no efficacy/depth claim, goalunachieved.
 
 2026-09-09 latest: named-plan successor uses sharedJSONSchema/fixedp0..p3keys/512characters, separate64KiBtransport;49tests/.41s includeUnicodeboundaries/all24orders/3callupdates, oldfailureexactreplay intact. requirements-plan-contract.txt pins isolated /private/tmp/bed-plan-contract-env (baseAnaconda lacksjsonschema). REARC_NAMED_PLAN_SUPPORT_PROTOCOL_20260909.md keepsgates/caps, fresh6 excludes26oldtasks; no cohortselected/calls/costyet. Next controller/source/budgetreplay integration. Previous/currentengineeringprogress, goalunachieved.
