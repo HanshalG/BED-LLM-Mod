@@ -1,0 +1,69 @@
+{
+  "status": "public_prompt_preflight_pass",
+  "calls": 0,
+  "target_labels_opened": false,
+  "paid_authorized": false,
+  "public_sha256": "837abc5cba91788e862ef2b864e9ee2a1e38bd1849e82e698df9dcd6a6c6cd78",
+  "request_bytes": [
+    {
+      "task_index": 0,
+      "arm": "initial",
+      "bytes": 14617
+    },
+    {
+      "task_index": 0,
+      "arm": "aware",
+      "bytes": 14941
+    },
+    {
+      "task_index": 0,
+      "arm": "blind",
+      "bytes": 14617
+    },
+    {
+      "task_index": 1,
+      "arm": "initial",
+      "bytes": 27354
+    },
+    {
+      "task_index": 1,
+      "arm": "aware",
+      "bytes": 27534
+    },
+    {
+      "task_index": 1,
+      "arm": "blind",
+      "bytes": 27354
+    },
+    {
+      "task_index": 2,
+      "arm": "initial",
+      "bytes": 28272
+    },
+    {
+      "task_index": 2,
+      "arm": "aware",
+      "bytes": 30070
+    },
+    {
+      "task_index": 2,
+      "arm": "blind",
+      "bytes": 28272
+    },
+    {
+      "task_index": 3,
+      "arm": "initial",
+      "bytes": 17083
+    },
+    {
+      "task_index": 3,
+      "arm": "aware",
+      "bytes": 17563
+    },
+    {
+      "task_index": 3,
+      "arm": "blind",
+      "bytes": 17083
+    }
+  ]
+}

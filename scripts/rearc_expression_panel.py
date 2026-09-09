@@ -5,7 +5,7 @@ from scripts.rearc_luna_qualification import validate_body
 from scripts.herb_candidate_expression import to_graph
 from scripts.rearc_program_graph import exports
 from scripts.rearc_program_weights import condition_programs
-from scripts.rearc_qualification_panel import forecast
+from scripts.rearc_expression_forecast import forecast
 from scripts.rearc_predictive_score import mixture_scores
 
 
