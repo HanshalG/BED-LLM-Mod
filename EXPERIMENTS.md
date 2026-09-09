@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Luna-medium native Python versus DSL | $0.15640007 |30normalcalls, exactreplay/new0. Python wholeBrier.719411vs.934375,canvas.100731vs.424891;5wins,fit6/6,disagreement6/6. Answercoverage1/12<8 gatefails,nodepth. REARC_QUALIFIED_REPRESENTATION_TERMINAL_RESULT_20260909.md; remaining3.50066412, balance23.082385641, no uncertainty added. Source-valid six-task diagnostic, not non-myopic efficacy.
+
 2026-09-09 | Bounded source-qualified representation pool | $0 | Frozen d8854f79;6valid/7attempted tasks,1reference rejection,69sourceattempts. Exactreplay/18promptchecks/36tests pass;60outputssealed,noAPI. REARC_SOURCE_QUALIFIED_REPRESENTATION_RESULT_20260909.md; budgeted nativebank stillneeded before comparison,accountunchanged.
 
 2026-09-09 | Representation exact-source gate | $0 | Frozen fc29ca61;46/66publicchannels pass then8731374e/46201 verify ValueError. Replay exact/new0; cohortclosed, no publicbank/modelcalls/endpoints. REARC_REPRESENTATION_SOURCE_FAILURE_20260909.md; sourcevalid finitepool design needed prospectively, not an LLM null.24tests/.62s, accountunchanged.
