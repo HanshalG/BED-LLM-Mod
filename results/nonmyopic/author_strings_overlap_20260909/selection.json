@@ -1,0 +1,20 @@
+{
+  "ids": [
+    "185",
+    "104",
+    "88",
+    "98",
+    "272",
+    "195",
+    "29",
+    "110",
+    "80",
+    "12",
+    "70",
+    "91"
+  ],
+  "listing_sha256": "eaa5cea37f0e7c46a61c7e8654c8845184024dc243a7bb2ad0d6ba584b384fe2",
+  "outcome_authority": false,
+  "rule": "first12 SHA256(author-strings-overlap-v1:<id>), exclude1/10",
+  "source_commit": "33e166058404fd5eec3ec0f5080df9befbe884a8"
+}

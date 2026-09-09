@@ -1,0 +1,132 @@
+{
+  "cost_usd": 0,
+  "implementation_sha256": "00b455978b8b6e52fa117681f0718571b8edcec10d5f4603ee96ce620af4dbc4",
+  "model_calls": 0,
+  "outputs_inspected": false,
+  "paid_authority": false,
+  "records": {
+    "104": {
+      "bk_sha256": "70cd6127788e74d2fe48b5ed55f832bd4c7fe0fdae3a11c3699720cf2a6968d7",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b103",
+        "b104",
+        "b105",
+        "b203",
+        "b229"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "110": {
+      "bk_sha256": "55574a399a653ad0812fe68b80032e42342cd31404ee17c7f346da7546322094",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b110",
+        "b111",
+        "b6"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "12": {
+      "bk_sha256": "97a72cc96ab661f58f6a86d5855ca140cb73782f2e2f3c5415827431fb5cd029",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b12",
+        "b13",
+        "b208",
+        "b273"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "185": {
+      "bk_sha256": "9b59aaca2da9874712e713020f6eb463ec4f1514c84309c7c5375faf292ca874",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b183",
+        "b185"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "195": {
+      "bk_sha256": "2822cc80bc5771209550f31c3316da153722fb3ba50f25d1435be01e1919e570",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b195",
+        "b196",
+        "b197",
+        "b279"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "272": {
+      "bk_sha256": "7d32e92e66ded20f5af3186e62fec902c2666fafb5c0881007afc13bb867146f",
+      "distinct_inputs": 11,
+      "exact_derivative_subsets": [
+        "b271",
+        "b272"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "29": {
+      "bk_sha256": "a21b52e14244ce5d646448c4371c4a260fb8e98ad77641d3aa9243e1ea597762",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b29"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "70": {
+      "bk_sha256": "6b9925ac97a08d4cbae416ebe58d4b4fc09169a52c10b0d92f6ba3b1f2cb57b2",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b264",
+        "b265",
+        "b61",
+        "b62",
+        "b63",
+        "b64",
+        "b65",
+        "b70"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "80": {
+      "bk_sha256": "fd5d17d54fcd13f49b22d74e6ba1bb4ae1ca8c37d614ac631d48d880a291d367",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b78",
+        "b80",
+        "b81"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "88": {
+      "bk_sha256": "64f9e533620844301479cb546214f859725f351d4426e2793a3e1257f2964cc4",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b88",
+        "b89",
+        "b90"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "91": {
+      "bk_sha256": "185e73bacc6229c957372ca595f17cf4a7ef4130958181157b8fe0cbebaf058c",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [
+        "b151",
+        "b3",
+        "b48",
+        "b91",
+        "b92"
+      ],
+      "maximum_shared_inputs": 5
+    },
+    "98": {
+      "bk_sha256": "bd662f15a8a0fde29f50f1c340fbad99af054bb3ed202c989938ac0e31878d4d",
+      "distinct_inputs": 10,
+      "exact_derivative_subsets": [],
+      "maximum_shared_inputs": 0
+    }
+  }
+}
