@@ -1,0 +1,105 @@
+{
+  "cost_usd": 0,
+  "files": {
+    "physgym/interface.py": {
+      "sha256": "f369b1dcd1b70212266956d7d01c41e6257edb056f0016b95b7c76afb58f0e44",
+      "sites": [
+        {
+          "callee": "evaluate_hypothesis",
+          "keywords": {
+            "hyp_expr": "candidate_expr",
+            "observations": "self.observations",
+            "param_names": "self.input_params",
+            "true_expr": "self.equation"
+          },
+          "line": 348
+        }
+      ]
+    },
+    "physgym/phyenv.py": {
+      "sha256": "ed943a6dd4c29ee7c0017031e1ebf4624f75021a59ed4535a83cef78ad7547d0",
+      "sites": [
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 111
+        }
+      ]
+    },
+    "physgym/utils/metrics.py": {
+      "sha256": "729a47f9ee205c101ee970bb43e387d5012f530f0783f8423c54e5748745228f",
+      "sites": [
+        {
+          "callee": "create_function_from_string",
+          "keywords": {
+            "fast_local": "True",
+            "sandbox": "True",
+            "timeout": "5"
+          },
+          "line": 386
+        },
+        {
+          "callee": "try_symbolic_equivalence",
+          "keywords": {},
+          "line": 401
+        },
+        {
+          "callee": "check_function_equivalence_llm",
+          "keywords": {
+            "model": "'google/gemini-2.5-flash'",
+            "provider": "'openrouter'"
+          },
+          "line": 419
+        }
+      ]
+    },
+    "physgym/utils/sandbox.py": {
+      "sha256": "31823f33eb02115956aeed6cbd8c11b236814525725db89e0260253de444a72a",
+      "sites": [
+        {
+          "callee": "create_function_from_string",
+          "keywords": {
+            "cached": "True",
+            "sandbox": "True"
+          },
+          "line": 567
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 272
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 324
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 372
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 469
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 497
+        },
+        {
+          "callee": "exec",
+          "keywords": {},
+          "line": 518
+        }
+      ]
+    }
+  },
+  "model_calls": 0,
+  "paid_authority": false,
+  "revision": "fe68079c0921029dde679ed44bc3192dd3b270ab",
+  "source_executed": false,
+  "task_data_opened": false
+}
