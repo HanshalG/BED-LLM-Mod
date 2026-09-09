@@ -1,0 +1,73 @@
+{
+  "scenario": "two_client",
+  "models": 4,
+  "status": "complete",
+  "initial_risk": "877/8192",
+  "risk": {
+    "h1": "0",
+    "h2": "0",
+    "h3": "0",
+    "adaptive_full": "0",
+    "committed": "0",
+    "random": "69678041/819200000"
+  },
+  "root_actions": {
+    "h1": 0,
+    "h2": 0,
+    "h3": 0
+  },
+  "committed_sequence": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    5
+  ],
+  "posterior_supports": 7,
+  "posterior_sizes": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "work": {
+    "risk": {
+      "hits": 384,
+      "misses": 7,
+      "maxsize": 100000,
+      "currsize": 7
+    },
+    "branches": {
+      "hits": 7086,
+      "misses": 770,
+      "maxsize": 100000,
+      "currsize": 770
+    },
+    "optimal": {
+      "hits": 1963,
+      "misses": 285,
+      "maxsize": 100000,
+      "currsize": 285
+    },
+    "deployed": {
+      "hits": 0,
+      "misses": 58,
+      "maxsize": 100000,
+      "currsize": 58
+    },
+    "random": {
+      "hits": 1914,
+      "misses": 285,
+      "maxsize": 100000,
+      "currsize": 285
+    },
+    "committed": {
+      "hits": 1121,
+      "misses": 200,
+      "maxsize": 100000,
+      "currsize": 200
+    }
+  },
+  "elapsed_seconds": 0.02894420899974648
+}

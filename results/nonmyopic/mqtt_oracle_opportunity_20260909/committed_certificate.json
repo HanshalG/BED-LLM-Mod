@@ -1,0 +1,145 @@
+{
+  "status": "verified",
+  "groups": [
+    {
+      "scenario": "invalid",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        1,
+        2
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        3,
+        5,
+        1
+      ]
+    },
+    {
+      "scenario": "mosquitto",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "scenario": "non_clean",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        3
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        4
+      ]
+    },
+    {
+      "scenario": "simple",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        2
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        0,
+        7,
+        3
+      ]
+    },
+    {
+      "scenario": "single_client",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        3
+      ],
+      "sequence": [
+        0,
+        0,
+        11,
+        0,
+        8,
+        1
+      ]
+    },
+    {
+      "scenario": "two_client",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    {
+      "scenario": "two_client_same_id",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        3
+      ],
+      "sequence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "scenario": "two_client_will_retain",
+      "risk": "0",
+      "posterior_partition_sizes": [
+        1,
+        1,
+        1,
+        2
+      ],
+      "sequence": [
+        1,
+        0,
+        2,
+        7,
+        7,
+        4
+      ]
+    }
+  ],
+  "all_committed_risks_zero": true,
+  "interpretation": "Nonnegative Brier risk and feasible zero-risk fixed sequences certify no adaptive advantage on this exact panel.",
+  "model_calls": 0,
+  "cost_usd": 0,
+  "result_sha256": "f87f542309f320a219e007fd158724b268be1e56a1d0864844c681508972e3a4"
+}

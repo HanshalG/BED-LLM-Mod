@@ -1,0 +1,70 @@
+{
+  "scenario": "mosquitto",
+  "models": 1,
+  "status": "complete",
+  "initial_risk": "0",
+  "risk": {
+    "h1": "0",
+    "h2": "0",
+    "h3": "0",
+    "adaptive_full": "0",
+    "committed": "0",
+    "random": "0"
+  },
+  "root_actions": {
+    "h1": 0,
+    "h2": 0,
+    "h3": 0
+  },
+  "committed_sequence": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "posterior_supports": 1,
+  "posterior_sizes": [
+    1
+  ],
+  "work": {
+    "risk": {
+      "hits": 12,
+      "misses": 1,
+      "maxsize": 100000,
+      "currsize": 1
+    },
+    "branches": {
+      "hits": 354,
+      "misses": 24,
+      "maxsize": 100000,
+      "currsize": 24
+    },
+    "optimal": {
+      "hits": 124,
+      "misses": 18,
+      "maxsize": 100000,
+      "currsize": 18
+    },
+    "deployed": {
+      "hits": 0,
+      "misses": 21,
+      "maxsize": 100000,
+      "currsize": 21
+    },
+    "random": {
+      "hits": 103,
+      "misses": 18,
+      "maxsize": 100000,
+      "currsize": 18
+    },
+    "committed": {
+      "hits": 103,
+      "misses": 18,
+      "maxsize": 100000,
+      "currsize": 18
+    }
+  },
+  "elapsed_seconds": 0.002576458005933091
+}

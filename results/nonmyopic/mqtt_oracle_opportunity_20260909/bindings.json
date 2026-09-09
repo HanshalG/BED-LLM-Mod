@@ -1,0 +1,8 @@
+{
+  "results/nonmyopic/MQTT_SOURCE_METADATA_20260909.json": "b2ddd4eb02218334f6d00331e87b0b8ca9652c483f4452873e4b4b2479598e62",
+  "results/nonmyopic/MQTT_ORACLE_TARGET_MENUS_20260909.json": "16d974874bdf51425ddb6ffc0d5dbd799eb494fe4b25517394cd8c6e4f7e927d",
+  "/Users/hanshalgoyal/BED-LLM-Mod/scripts/mqtt_opportunity_run.py": "e71fa1e8e604abce2fae5bc121ac35096c23c90418365c572b71471bc76fab72",
+  "scripts/mqtt_reference.py": "f2f50338d0db61aa3f46ceb6f75a459828e7d8a867cbb6704e12bf25fea6de22",
+  "scripts/mqtt_source_metadata.py": "2a615453a9f939456e9bfa1c8b90bc6f2473e81dfd52c205216f9ce353f8cc0c",
+  "results/nonmyopic/MQTT_ORACLE_OPPORTUNITY_PROTOCOL_20260909.md": "ccc5061de6e88cbe9ff11e18641a9065b1a15f7314e5202e23c076cc61f7440e"
+}

@@ -1,0 +1,74 @@
+{
+  "scenario": "invalid",
+  "models": 5,
+  "status": "complete",
+  "initial_risk": "1523/12800",
+  "risk": {
+    "h1": "0",
+    "h2": "0",
+    "h3": "0",
+    "adaptive_full": "0",
+    "committed": "0",
+    "random": "19056190721/229323571200"
+  },
+  "root_actions": {
+    "h1": 1,
+    "h2": 1,
+    "h3": 0
+  },
+  "committed_sequence": [
+    0,
+    0,
+    0,
+    3,
+    5,
+    1
+  ],
+  "posterior_supports": 10,
+  "posterior_sizes": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "work": {
+    "risk": {
+      "hits": 404,
+      "misses": 10,
+      "maxsize": 100000,
+      "currsize": 10
+    },
+    "branches": {
+      "hits": 8294,
+      "misses": 516,
+      "maxsize": 100000,
+      "currsize": 516
+    },
+    "optimal": {
+      "hits": 1684,
+      "misses": 172,
+      "maxsize": 100000,
+      "currsize": 172
+    },
+    "deployed": {
+      "hits": 0,
+      "misses": 50,
+      "maxsize": 100000,
+      "currsize": 50
+    },
+    "random": {
+      "hits": 1643,
+      "misses": 172,
+      "maxsize": 100000,
+      "currsize": 172
+    },
+    "committed": {
+      "hits": 1960,
+      "misses": 297,
+      "maxsize": 100000,
+      "currsize": 297
+    }
+  },
+  "elapsed_seconds": 0.030223166002542712
+}

@@ -1,0 +1,74 @@
+{
+  "scenario": "single_client",
+  "models": 5,
+  "status": "complete",
+  "initial_risk": "11/640",
+  "risk": {
+    "h1": "21/10240",
+    "h2": "21/10240",
+    "h3": "0",
+    "adaptive_full": "0",
+    "committed": "0",
+    "random": "1474046287/91729428480"
+  },
+  "root_actions": {
+    "h1": 0,
+    "h2": 0,
+    "h3": 0
+  },
+  "committed_sequence": [
+    0,
+    0,
+    11,
+    0,
+    8,
+    1
+  ],
+  "posterior_supports": 12,
+  "posterior_sizes": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "work": {
+    "risk": {
+      "hits": 436,
+      "misses": 16,
+      "maxsize": 100000,
+      "currsize": 16
+    },
+    "branches": {
+      "hits": 5261,
+      "misses": 852,
+      "maxsize": 100000,
+      "currsize": 852
+    },
+    "optimal": {
+      "hits": 1651,
+      "misses": 253,
+      "maxsize": 100000,
+      "currsize": 253
+    },
+    "deployed": {
+      "hits": 0,
+      "misses": 36,
+      "maxsize": 100000,
+      "currsize": 36
+    },
+    "random": {
+      "hits": 1619,
+      "misses": 253,
+      "maxsize": 100000,
+      "currsize": 253
+    },
+    "committed": {
+      "hits": 1193,
+      "misses": 212,
+      "maxsize": 100000,
+      "currsize": 212
+    }
+  },
+  "elapsed_seconds": 0.034738166999886744
+}
