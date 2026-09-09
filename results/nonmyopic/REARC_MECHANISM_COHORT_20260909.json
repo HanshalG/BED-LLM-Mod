@@ -1,0 +1,58 @@
+{
+  "source_commit": "e5b7f1d06362a76f9d3b8c25154ff1fafca897ce",
+  "excluded_ids": [
+    "10fcaaa3",
+    "1a07d186",
+    "1b2d62fb",
+    "1caeab9d",
+    "264363fd",
+    "2dee498d",
+    "4be741c5",
+    "543a7ed5",
+    "67e8384a",
+    "963e52fc",
+    "99b1bc43",
+    "9af7a82c",
+    "a68b268e",
+    "ae4f1146",
+    "b7249182",
+    "bdad9b1f",
+    "c1d99e64",
+    "c9f8e694",
+    "f35d900a",
+    "feca6190"
+  ],
+  "selected_ids": [
+    "d8c310e9",
+    "673ef223",
+    "9f236235",
+    "017c7c7b",
+    "363442ee",
+    "3de23699"
+  ],
+  "selection": "first6 SHA256(bed-rearc-mechanisms-v1:+id), no replacement",
+  "source_seeds": [
+    38000,
+    38001,
+    38002
+  ],
+  "demo_seeds": [
+    38100
+  ],
+  "query_seeds": [
+    38200,
+    38201
+  ],
+  "target_seeds": [
+    38300,
+    38301,
+    38302,
+    38303,
+    38304,
+    38305,
+    38306,
+    38307
+  ],
+  "calls": 0,
+  "paid_authorized": false
+}
