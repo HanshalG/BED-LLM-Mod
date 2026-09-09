@@ -1,9 +1,12 @@
 from unittest.mock import patch
+import io
+import json
 import subprocess
+import types
 
 import pytest
 
-from scripts.black_reference_disagreement import inputs, parent_binding, run_container, summarize
+from scripts.black_reference_disagreement import RUNNER, inputs, parent_binding, run_container, summarize
 
 
 def test_fixed_disjoint_domain():
@@ -36,3 +39,29 @@ def test_wrong_parent_tag_rejected():
     with patch('scripts.black_reference_disagreement.checked', return_value='[{"Id":"wrong"}]'):
         with pytest.raises(ValueError, match='parent image changed'):
             parent_binding()
+
+
+@pytest.mark.parametrize('recognized', [True, False])
+def test_only_documented_safe_mode_error_is_categorical(recognized, capsys):
+    class NothingChanged(Exception):
+        pass
+
+    class InvalidInput(Exception):
+        pass
+
+    def formatter(*args, **kwargs):
+        assert kwargs['fast'] is False
+        message = ('cannot use --safe with this file; failed to parse source file'
+                   if recognized else 'unexpected equivalence failure')
+        raise AssertionError(message)
+
+    fake = types.SimpleNamespace(format_file_contents=formatter, FileMode=lambda: None,
+                                 NothingChanged=NothingChanged, InvalidInput=InvalidInput)
+    with patch.dict('sys.modules', {'black': fake}):
+        with patch('builtins.open', return_value=io.StringIO('[{"source":"print x"}]')):
+            if recognized:
+                exec(RUNNER, {})
+                assert json.loads(capsys.readouterr().out) == [{'kind': 'SourceAstUnsupported'}]
+            else:
+                with pytest.raises(AssertionError, match='unexpected'):
+                    exec(RUNNER, {})

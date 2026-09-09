@@ -1,0 +1,625 @@
+{
+  "build_amendment_sha256": "81bf108e569a8931f64693dbb5ce2b8bb2524dcc1c50a30b2daa674265de2491",
+  "changed_ids": [],
+  "changed_queries": 0,
+  "changed_targets": 0,
+  "changed_templates": 0,
+  "cost_usd": 0,
+  "diagnostic_reference_outcomes_opened": true,
+  "error_amendment_sha256": "5f4973321b2da6246b86b6cd9d8445fbd860e139b6531d8d6386eb5f30598afe",
+  "fixed_revision": "d6db1c12a8e14833fe22da377cddc2bd1f43dc14",
+  "fixed_source_hashes": {
+    "LICENSE": "9c0428f0c3b4779850cf5bd96e11aaa8afc72d4a86d4a36223d7aba2e58d6e00",
+    "black.py": "8bf5a0d82898d6b174993c9ccc710e61ad37c5fca7785c4750def805b82e32c8",
+    "blib2to3/Grammar.txt": "2dbb4f0f514c28fa59f594579e0ba0e8f382b6d94c0302607780d884f9320354",
+    "blib2to3/PatternGrammar.txt": "ee5ba5db3b6722a0e2fbe2560ebc1c883e72328ef9c3b4da1c7c5d1cc649bce3",
+    "blib2to3/__init__.py": "c8204cfd372ee45f79cb744ed0565bc8d486716115a546f48477c0719b8a6bb9",
+    "blib2to3/pgen2/__init__.py": "858eb0f50533bd3bd16fe32815f77fabfed92ede885070b6cb15827ec66ea500",
+    "blib2to3/pgen2/conv.py": "e2946a686c12e02248fafb1a57e7514e0c22bdb2b4a66e644215c86fedc37bff",
+    "blib2to3/pgen2/driver.py": "55d3dfc6243c71dd880a605d2a18f513f66c7e556d879a0cefd44e6b07a2819d",
+    "blib2to3/pgen2/grammar.py": "23eb0632fdacedafce09dd69a55ae0df8904255849b1e2c15abcb2db601e3a4a",
+    "blib2to3/pgen2/literals.py": "84bc9d5387a2e20fab844e530358571afa39fa3fc0e8024270b5f7d8ac5a595a",
+    "blib2to3/pgen2/parse.py": "ef205d15dd8a2184df48dfcba354037cc7c0f38d939bd5cdc5e56fc05f81cb18",
+    "blib2to3/pgen2/pgen.py": "2491291537fedb8765dca1c5e2ba34c0a0e3980e4ca3e3bb2b0d3ee293f37861",
+    "blib2to3/pgen2/token.py": "b835fc85419bf51c6b1adbb0c1b20cad72734bd5d678c4fb845fdef7d5d47306",
+    "blib2to3/pgen2/tokenize.py": "d42cfdda5669cee61f47285a98f5374e2d0fe0d177fda6222ce3991d86c53a28",
+    "blib2to3/pygram.py": "65074562dbe2e3ffeae4e6e010be92f03cdced43cb03c39a10d6bf0a4e4741ed",
+    "blib2to3/pytree.py": "1acf4209bf66c74e3a9b01abe119b274ea99621a4bdd8e2c5d4c41bea91173bb"
+  },
+  "fixed_tree_sha256": "2c50a21f1d92f40f485084be2081469f2ac1c09ffd309f1e68825dc90367426e",
+  "image_ids": [
+    "sha256:a97cb66a9fac5662abdddc4d9f852c3ce290808b70a28df31f34228572c00a26",
+    "sha256:6de9ffea1f50b474318e2c51149c7c9b6c97a24221f772bb7bf6d2187aea13cb"
+  ],
+  "input_sha256": "1511c09372f0957c3ee24468d2e0b32ad26a4b34b2cdd67bdb129313c614a105",
+  "inputs": [
+    {
+      "id": "t3c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e0",
+      "role": "query",
+      "source": "f(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c0e0",
+      "role": "query",
+      "source": "print x\n",
+      "template": 3
+    },
+    {
+      "id": "t6c1e0",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec x\n",
+      "template": 6
+    },
+    {
+      "id": "t2c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t2c2e2",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t0c0e3",
+      "role": "query",
+      "source": "x = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t0c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nx = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t2c1e2",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t6c0e3",
+      "role": "query",
+      "source": "exec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t7c0e0",
+      "role": "query",
+      "source": "def print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t1c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nf(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t6c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t5c1e3",
+      "role": "query",
+      "source": "from __future__ import print_function\nexec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t2c1e1",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint(1)\n",
+      "template": 2
+    },
+    {
+      "id": "t3c1e2",
+      "role": "query",
+      "source": "from __future__ import print_function\nprint (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e3",
+      "role": "query",
+      "source": "f(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t0c0e0",
+      "role": "query",
+      "source": "x = x\n",
+      "template": 0
+    },
+    {
+      "id": "t7c1e0",
+      "role": "query",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c0e2",
+      "role": "query",
+      "source": "def print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t5c0e0",
+      "role": "query",
+      "source": "exec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t1c2e1",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nf(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c2e2",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t6c2e1",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nexec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t5c0e2",
+      "role": "query",
+      "source": "exec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t3c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint x\n",
+      "template": 3
+    },
+    {
+      "id": "t1c0e2",
+      "role": "query",
+      "source": "f((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t6c0e2",
+      "role": "query",
+      "source": "exec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t4c0e0",
+      "role": "query",
+      "source": "print >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t2c2e3",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t2c2e0",
+      "role": "query",
+      "source": "from __future__ import unicode_literals\nprint(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t6c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec x\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t3c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint 1\n",
+      "template": 3
+    },
+    {
+      "id": "t1c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t2c0e2",
+      "role": "diagnostic_target",
+      "source": "print((1, 2))\n",
+      "template": 2
+    },
+    {
+      "id": "t7c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t7c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t0c0e2",
+      "role": "diagnostic_target",
+      "source": "x = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t4c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t0c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = x\n",
+      "template": 0
+    },
+    {
+      "id": "t0c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t0c0e1",
+      "role": "diagnostic_target",
+      "source": "x = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t3c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint 1\n",
+      "template": 3
+    },
+    {
+      "id": "t4c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t0c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = 1\n",
+      "template": 0
+    },
+    {
+      "id": "t7c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t2c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint(1)\n",
+      "template": 2
+    },
+    {
+      "id": "t7c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t4c0e1",
+      "role": "diagnostic_target",
+      "source": "print >>stream, 1\n",
+      "template": 4
+    },
+    {
+      "id": "t4c0e2",
+      "role": "diagnostic_target",
+      "source": "print >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t1c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t1c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t0c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = \"hello\"\n",
+      "template": 0
+    },
+    {
+      "id": "t7c0e1",
+      "role": "diagnostic_target",
+      "source": "def print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\ndef print(x):\n    return x\nprint(x)\n",
+      "template": 7
+    },
+    {
+      "id": "t7c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint((1, 2))\n",
+      "template": 7
+    },
+    {
+      "id": "t5c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t5c2e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t2c0e3",
+      "role": "diagnostic_target",
+      "source": "print(\"hello\")\n",
+      "template": 2
+    },
+    {
+      "id": "t5c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t7c0e3",
+      "role": "diagnostic_target",
+      "source": "def print(x):\n    return x\nprint(\"hello\")\n",
+      "template": 7
+    },
+    {
+      "id": "t4c0e3",
+      "role": "diagnostic_target",
+      "source": "print >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t2c0e0",
+      "role": "diagnostic_target",
+      "source": "print(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t1c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nf(\"hello\")\n",
+      "template": 1
+    },
+    {
+      "id": "t4c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t4c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, x\n",
+      "template": 4
+    },
+    {
+      "id": "t4c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint >>stream, \"hello\"\n",
+      "template": 4
+    },
+    {
+      "id": "t5c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t6c0e0",
+      "role": "diagnostic_target",
+      "source": "exec x\n",
+      "template": 6
+    },
+    {
+      "id": "t5c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec((1, 2))\n",
+      "template": 5
+    },
+    {
+      "id": "t0c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = x\n",
+      "template": 0
+    },
+    {
+      "id": "t5c0e3",
+      "role": "diagnostic_target",
+      "source": "exec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t5c0e1",
+      "role": "diagnostic_target",
+      "source": "exec(1)\n",
+      "template": 5
+    },
+    {
+      "id": "t2c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint(x)\n",
+      "template": 2
+    },
+    {
+      "id": "t6c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec \"hello\"\n",
+      "template": 6
+    },
+    {
+      "id": "t4c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nprint >>stream, (1, 2)\n",
+      "template": 4
+    },
+    {
+      "id": "t6c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t3c0e3",
+      "role": "diagnostic_target",
+      "source": "print \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t7c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\ndef print(x):\n    return x\nprint(1)\n",
+      "template": 7
+    },
+    {
+      "id": "t3c1e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint x\n",
+      "template": 3
+    },
+    {
+      "id": "t0c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nx = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t6c0e1",
+      "role": "diagnostic_target",
+      "source": "exec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t6c1e1",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec 1\n",
+      "template": 6
+    },
+    {
+      "id": "t1c0e1",
+      "role": "diagnostic_target",
+      "source": "f(1)\n",
+      "template": 1
+    },
+    {
+      "id": "t6c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nexec (1, 2)\n",
+      "template": 6
+    },
+    {
+      "id": "t5c2e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(\"hello\")\n",
+      "template": 5
+    },
+    {
+      "id": "t5c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nexec(x)\n",
+      "template": 5
+    },
+    {
+      "id": "t3c0e2",
+      "role": "diagnostic_target",
+      "source": "print (1, 2)\n",
+      "template": 3
+    },
+    {
+      "id": "t1c2e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nf((1, 2))\n",
+      "template": 1
+    },
+    {
+      "id": "t1c2e0",
+      "role": "diagnostic_target",
+      "source": "from __future__ import unicode_literals\nf(x)\n",
+      "template": 1
+    },
+    {
+      "id": "t3c0e1",
+      "role": "diagnostic_target",
+      "source": "print 1\n",
+      "template": 3
+    },
+    {
+      "id": "t0c1e2",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nx = (1, 2)\n",
+      "template": 0
+    },
+    {
+      "id": "t3c1e3",
+      "role": "diagnostic_target",
+      "source": "from __future__ import print_function\nprint \"hello\"\n",
+      "template": 3
+    },
+    {
+      "id": "t2c0e1",
+      "role": "diagnostic_target",
+      "source": "print(1)\n",
+      "template": 2
+    }
+  ],
+  "model_calls": 0,
+  "outcome_hashes": [
+    "2431a6e4fd75c116670ce8497a497b524abf8d47ea1465829deb68b245129cfa",
+    "2431a6e4fd75c116670ce8497a497b524abf8d47ea1465829deb68b245129cfa"
+  ],
+  "parent_image": "sha256:017df47b29fcfc1eeb456f5967ed271adacfac91ffe5757e0efe959cc494ff3c",
+  "policy_endpoints_opened": false,
+  "protocol_sha256": "6d7712b3cae9368aa537f8510cbb33061274b2c22150ee2ca0d2e3dcbf52915e",
+  "source_eligibility": false,
+  "status": "audit_complete",
+  "target_disagreement_rate": 0.0,
+  "upstream_tests_read": false
+}
