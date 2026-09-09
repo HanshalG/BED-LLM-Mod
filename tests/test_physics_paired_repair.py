@@ -77,3 +77,24 @@ def test_signal_null_and_empty():
     result = probe.score(forecasts, [0.]*32)
     assert not result['descriptive_repair_signal'] and not result['depth_authorized']
     assert result['losses']['refresh'] is None
+
+
+def test_banked_failure_reproduces_without_targets():
+    root = probe.ROOT
+    report = json.loads((root/'result.json').read_text())
+    assert report['status'] == 'failed_closed' and report['calls'] == 2
+    assert not report['endpoints_opened'] and report['uncertain_exposure_usd'] == 0
+    assert not (root/'forecasts.json').exists() and not (root/'outcomes.json').exists()
+    assert set(report['implementation_sha256']) == set(probe.BINDINGS)
+    for path, digest in report['implementation_sha256'].items():
+        assert hashlib.sha256(probe.Path(path).read_bytes()).hexdigest() == digest
+    receipts = []
+    def request(tag, expected):
+        assert json.loads((root/(tag+'.request.json')).read_text()) == expected
+        raw = json.loads((root/(tag+'.response.json')).read_text())
+        receipts.append(raw['usage']['cost'])
+        return raw
+    with pytest.raises(ValueError, match='invalid expression'):
+        probe.panel(probe.load('public.json'), probe.load('forecasts.json')['pools']['semantic'], request)
+    assert len(receipts) == 2
+    assert sum(receipts) == pytest.approx(report['accepted_cost_usd'], abs=1e-12)
