@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Automata source contract candidate | $0 | AALpy ca24a8a2 pinned; isolatedSULactualfixture verifies wordreset behavior,2commands vs1query,failed2stepattemptsreported0completed.2tests;no benchmarkmodels/calls. AUTOMATA_SOURCE_ADOPTION_DECISION_20260909.md retains only for bounded source/opportunitygate with strongclassicalcontrols and physicalstepbudget. No efficacy or paidpermission;accountunchanged.
+
 2026-09-09 | Scene saved-support opportunity audit | $0 | Exactclosedreplay;successfulpools11/4/10programs allunanimous on9publicinputs,zero internal targetrisk to numericalprecision. Unsupporteddistinctfromcertainty;3tests. No actualfutureoutputs/newexecution/API. Paper-only ReplaySCM review doesnotestablishLLM/horizonadvantage. Requiresjointbelief+opportunitybeforepaidroute;accountunchanged,goalunmet.
 
 2026-09-09 | Scene inventory vs raw Luna-medium | $0.18161996 | Frozen d0d3e785;24normalcalls/exactreplay,inventoryfit2/4vsraw1/4 below3/4gate,36futurelabelsclosed.447runtimeok/8failed;rawtask1repairSyntaxErrorbatch. Observedfit benefit only,no transfer/planning claim. REARC_SCENE_TERMINAL_RESULT_20260909.md;budgetremaining3.10986396,balance22.691585481,no uncertainty added. Cohortclosed.

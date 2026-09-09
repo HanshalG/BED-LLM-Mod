@@ -1,0 +1,42 @@
+{
+  "status": "isolated_source_contract",
+  "source_commit": "ca24a8a2ae224bec8e229753bc9f6a55b6297870",
+  "source_sha256": "4d80f444833a59525f3c82f224110456b8c8b0fe997d23173050f44677f885b9",
+  "measurements": {
+    "whole_word": {
+      "outputs": [
+        "ack",
+        "armed"
+      ],
+      "membership_queries": 1,
+      "reported_steps": 2,
+      "physical_steps": 2,
+      "resets": 1
+    },
+    "split_words": {
+      "outputs": [
+        [
+          "ack"
+        ],
+        [
+          "idle"
+        ]
+      ],
+      "membership_queries": 2,
+      "reported_steps": 2,
+      "physical_steps": 2,
+      "resets": 2
+    },
+    "interrupted_word": {
+      "membership_queries": 0,
+      "reported_steps": 0,
+      "physical_steps": 2,
+      "resets": 1
+    }
+  },
+  "benchmark_instances_loaded": 0,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "planning_opportunity_established": false,
+  "paid_authorized": false
+}
