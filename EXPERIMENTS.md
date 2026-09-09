@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Native revision source and panel | $0 | Frozen6dfb3299;4tasks/44channels pass, no rejection/retry, exactreplay.4secondanswers+36futurelabelsclosed;8initialpromptchecks max18261bytes. REARC_NATIVE_REVISION_SOURCE_PANEL_RESULT_20260909.md; matchedaware/blind/initial scoring implemented, budgetrevealbank stillneeded,noAPI.
+
 2026-09-09 | Native second-observation revision controller | $0 | Sharedinitial16 +16revised/arm,9calls/task, aware-vsblind proposer butbothposteriorsconditionon2examples.17tests/.52s; prospective4task36callprotocol, no cohort orpaidcall. REARC_NATIVE_REVISION_PROTOCOL_20260909.md; source/panel/budgetreplay dependencies pending, not non-myopic efficacy.
 
 2026-09-09 | Saved Python predictive error audit | $0 | Brier gain decomposition .040556truthmass+.174409concentration;4queryshapefailures,7largecellerrors,1exact. bc1d5164 literaloutput flags8repairslots/posteriormass1. REARC_REPRESENTATION_ERROR_INTERPRETATION_20260909.md;4tests, no execution/newlabels/API. Next prospective second-observation recovery vs historyblind, closedgateunchanged.
