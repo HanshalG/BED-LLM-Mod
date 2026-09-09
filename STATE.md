@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest reassessment: savedpublicfeedback+pinnedDSL exposes doublecolor typeflow and wall/background-erasing implementation despitepreservationplan. PinnedPoetiq source supports nativePython+feedback but stopsatfirsttrainfit/hostsubprocess, notBED/drop-insecurity; BARC/CodeARC sourcecrosschecks. REARC_REPRESENTATION_REASSESSMENT_20260909.md next nativePython-vsDSL sharedplan/equalcalls with isolatedexecutor beforefreshprotocol, notanotherrepairround. Prior/currentprogress,calls0;balance23.238785711/remaining3.65706419,goalunachieved.
+
 2026-09-09 latest: exact-repair run4e5caa3a completed24calls/$0.09916568, exactreplay/new0. Actionable demo fit3/6<4 =>initial_coverage_null,60hiddenoutputsremainclosed. On3activecompilererror tasks:2structuralrescuesvs0generic,1demofit; botharmsoverall3/6,differenttasks. Identicalprompt+seed oninactive task4 produceddifferentfits, stochasticnoise. REARC_EXACT_REPAIR_TERMINAL_RESULT_20260909.md nextsavedpublicruntime/type/ambiguityaudit, no depth/retry. Budgetremaining3.65706419,goalunachieved.
 
 2026-09-09 latest: exact-repair cohort/source frozen353d850f;66/66actualscheduled channelsverified/cached,60outputssealed.12promptchecks(max30654bytes),30tests; newrunnerbinds/replaysjournal andsame24callpairedrepair. REARC_EXACT_REPAIR_READINESS_20260909.md preparingone$1.92maxLunamedblock, no depthauthority. Prior/currentprogress,sourcecalls66/modelcalls0,accountunchanged,goalunachieved.
