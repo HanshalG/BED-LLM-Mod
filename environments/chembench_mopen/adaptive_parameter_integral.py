@@ -7,7 +7,7 @@ from .parameter_quadrature import IntegrationUnresolved
 
 def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_size,
                                 log_likelihood_bound, max_rows=400000):
-    """Two partition checks with an analytic likelihood ceiling for stable scaling.
+    """Two rule checks on adaptive regions with an analytic likelihood ceiling.
 
     Uniform independent prior in the supplied transformed box. The ceiling must
     be analytically supplied, never fitted to hidden outcomes. For Gaussian
@@ -69,12 +69,12 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
             results = [cubature(integrand, region.a, region.b,
                                 rtol=1e-7, atol=1e-9*float(np.prod(region.b-region.a)),
                                 max_subdivisions=1000,
-                                points=[(region.a+region.b)/2] if split else None)
+                                rule='gk15' if split else 'gk21')
                        for region in pilot.regions]
             value = np.sum([r.estimate for r in results], axis=0)
             error = np.sum([r.error for r in results], axis=0)
             status = 'converged' if all(r.status == 'converged' for r in results) else 'not_converged'
-            check = {'partition': 'refined_pilot_regions' if split else 'pilot_regions',
+            check = {'partition': 'pilot_regions_gk15' if split else 'pilot_regions_gk21',
                      'status': status, 'integrals': value.tolist(),
                      'errors': error.tolist(), 'subdivisions': sum(r.subdivisions for r in results),
                      'pilot_region_count': len(pilot.regions),
@@ -102,9 +102,9 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
                 or abs(checks[-1]['log_evidence']-(np.log(scaling)+log_likelihood_bound)) > 1e-4
                 or any(not np.allclose(checks[-2][key], checks[-1][key], atol=1e-6, rtol=1e-3)
                        for key in ('mean', 'variance'))):
-            raise IntegrationUnresolved('partition disagreement')
+            raise IntegrationUnresolved('rule disagreement')
         return {'status': 'agreement', 'checks': checks, 'evaluated_rows': rows,
-                'interpretation': 'estimated_error_and_partition_agreement_not_coverage_certificate'}
+                'interpretation': 'estimated_error_and_rule_agreement_not_coverage_certificate'}
     except (IntegrationUnresolved, FloatingPointError) as error:
         return {'status': 'unresolved', 'checks': checks, 'evaluated_rows': rows,
                 'reason': str(error)}
