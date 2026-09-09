@@ -267,7 +267,7 @@ exactly $.591$ and $.580$ on two fresh blocks. Task-aligned h1 still beat
 configuration EIG by $.219/.217$. Rich semantic actions can repair utility
 alignment without creating non-myopic value.
 
-\paragraph{Non-myopic policy selection works in the Number Game.}
+\paragraph{Generator-aware policy comparisons in the Number Game.}
 We use the classic domain $\{0,\ldots,100\}$ and an open-ended space of
 executable predicates. Gemini 2.5 Flash proposes 24 safe rules initially and
 after both labels of eight candidate queries. Myopic EIG scores the initial
@@ -280,6 +280,15 @@ all models are nonreasoning and targets are hidden from planning. This is a
 generator-aware extension of the documented proposal-support trap
 \citep{chari2026wild}; policy efficacy alone does not identify regeneration as
 its cause.
+
+These immediate-EIG versus terminal-Brier comparisons change objective as well
+as horizon, so they do not alone isolate non-myopia. A separate retrospective
+same-objective audit of 32 initial beliefs gives expected h1/h2/h3 Brier
+$.07008/.06447/.06320$ under each belief's own prior. However, evaluating those
+policies on the other saved initial generations reverses the final increment:
+h2/h3 loss is $.13246/.13658$. This descriptive cross-generation test is not
+external calibration or a fresh endpoint; it demonstrates that within-belief
+horizon gains need not transfer. The original successive-gain gate remains null.
 
 In a preregistered powered replication over 32 fresh planning trees and 32
 fresh target supports, predictive-risk BED chooses a different root from
