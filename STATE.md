@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: new one-shot publicsourcejournal saves exactrequest beforedispatch,validatedsuccessprefix, boundedfailuremetadata; no rawfailurelabels/retry.9synthetic tests cover exit/timeout/size/malformed/leak/tamper. REARC_PUBLIC_SOURCE_JOURNAL_READINESS_20260909.md next actualboundedtransport+structuredworkererror integration, thenfresh exactschedule; oldfailedcohortnotreopened. Prior/currentprogress,calls0/accountunchanged,goalunachieved.
+
 2026-09-09 latest: paired-repair public preflight failed_closed with generic sourcegenerationfailed, no publicbank/paidrun/withheldlabels. Smoke18passed differentseeds; exactfailedrequest/cause lost by inheritedcollector, no rerun/replacement.68tests pass for integrated budget/replay but not realsourcecompatibility. REARC_PAIRED_REPAIR_PREFLIGHT_FAILURE_20260909.md; next journaled exact-schedule sourcequalification before freshcohort, effectunmeasured/notLLMnull. Prior/currentprogress,cost0/accountunchanged,goalunachieved.
 
 2026-09-09 latest: paired compiler-feedback protocol/cohort frozen dd074ee7; fresh6exclude32, source18/18passes(hash05f2c640), no modelcalls. Sharedplan+compile/twoisolatedrepair controller24calls, pairedseeds,16slots/arm,identicalpromptswhenvalid;11tests andold36callreplaypass. Requires2active interventiontasks plus predictivegates. REARC_PAIRED_REPAIR_SOURCE_RESULT_20260909.md next publiccollector/budget/terminalreplay integration before$1.92maxrun; no paidpermissionyet. Prior/currentprogress,accountunchanged,goalunachieved.

@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Public source failure journal | $0 |One-shot predispatch request + validatedprefix + boundedfailuremetadata;9synthetic tests, no benchmarks/sourcecalls/retry. REARC_PUBLIC_SOURCE_JOURNAL_READINESS_20260909.md; boundedtransport integration stillrequired beforefreshschedule/paidtest.
+
 2026-09-09 | Paired repair source preflight failure | $0 | Actualpubliccollector failed sourcegeneration beforepublicbank/paidrun;18smoke checks passed otherseeds. Request/cause metadata missing; no retry or replacement.68integration tests pass, intervention effectunmeasured. REARC_PAIRED_REPAIR_PREFLIGHT_FAILURE_20260909.md; needsjournaled exactschedule sourceinstrument, accountunchanged.
 
 2026-09-09 | Paired repair source/controller | $0 | Frozen dd074ee7 fresh6exclude32,18/18sourcechecks;sharedproposal andindependentrepairs,24calls/pairedseeds,11tests. Requires2activecompilerinterventions plusfrozenpredictivegates;old36callreplayexact. REARC_PAIRED_REPAIR_SOURCE_RESULT_20260909.md; publiccollector/budget/replaystillrequiredbeforepaid.
