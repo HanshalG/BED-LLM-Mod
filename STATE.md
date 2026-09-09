@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: named-plan successor uses sharedJSONSchema/fixedp0..p3keys/512characters, separate64KiBtransport;49tests/.41s includeUnicodeboundaries/all24orders/3callupdates, oldfailureexactreplay intact. requirements-plan-contract.txt pins isolated /private/tmp/bed-plan-contract-env (baseAnaconda lacksjsonschema). REARC_NAMED_PLAN_SUPPORT_PROTOCOL_20260909.md keepsgates/caps, fresh6 excludes26oldtasks; no cohortselected/calls/costyet. Next controller/source/budgetreplay integration. Previous/currentengineeringprogress, goalunachieved.
+
 2026-09-09 latest: mechanismrun9ce813b1 failedclosed after1call/$0.004554 on ownschema/parser mismatch:512characterAPIbound versus512UTF8bytelocalbound, lastdescription512chars/514bytes. Exactfailure replay; no compilation/otherarms/60withheldoutputs.25prelaunchtests missedUnicodeedge; newdiscrepancytests alsoflagarrayIDorder/uniqueness andwhitespace. REARC_MECHANISM_TERMINAL_RESULT_20260909.md next authoritativefixed-key schema+paritytests before newstudy; closedbankimmutable. Balance23.482712431, conservativedayspend1.09900909; goalunachieved.
 
 2026-09-09 latest: six-task mechanism controller/64KiB-.08contract frozen8c230795;18/18sourcepasses,66publicsourcechannels with60outputssealed,24promptchecks max31138bytes.17tests/.64s enforce36calls/pairedseeds/sealing/support+diversity+score gates. REARC_MECHANISM_CONTROLLER_SOURCE_RESULT_20260909.md next new budgetdispatch/bank/replay before$2.88paidblock; reusebankedpublic, no calls/costyet. Previous/currentprogress, goalunachieved.
