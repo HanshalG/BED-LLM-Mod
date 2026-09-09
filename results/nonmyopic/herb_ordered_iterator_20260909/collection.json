@@ -1,0 +1,2895 @@
+{
+  "status": "engineering_complete",
+  "arms": {
+    "base": {
+      "graphs": [
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "identity",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot270",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "compress",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "bottomhalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "righthalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "tophalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot90",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "trim",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot180",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "height",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hfrontier",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "frontiers",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "outbox",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "corners",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "palette",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rightmost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "halve",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "partition",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "portrait",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "minimum",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "mostcolor",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "merge",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "mostcommon",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lowermost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "even",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "fgpartition",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "color",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lrcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "normalize",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "maximum",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "backdrop",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "cmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "dneighbors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "double",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "leftmost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "llcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "width",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "numcolors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "neighbors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "center",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "urcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "invert",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "last",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "first",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "leastcolor",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "uppermost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "delta",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "positive",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vline",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "flip",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vfrontier",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "ulcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "crement",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "decrement",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "totuple",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "dedupe",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "initset",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "centerofmass",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "tojvec",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "ineighbors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "toindices",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "toivec",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        }
+      ],
+      "predictions": [
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ]
+      ],
+      "posterior": {
+        "weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "unique_programs": 64,
+        "consistent_programs": 0,
+        "failed": true,
+        "failure_forecast": "unit_mass_on_execution_failure"
+      },
+      "attempts": 64,
+      "records": [
+        {
+          "status": "evaluated",
+          "program_index": 0
+        },
+        {
+          "status": "evaluated",
+          "program_index": 1
+        },
+        {
+          "status": "evaluated",
+          "program_index": 2
+        },
+        {
+          "status": "evaluated",
+          "program_index": 3
+        },
+        {
+          "status": "evaluated",
+          "program_index": 4
+        },
+        {
+          "status": "evaluated",
+          "program_index": 5
+        },
+        {
+          "status": "evaluated",
+          "program_index": 6
+        },
+        {
+          "status": "evaluated",
+          "program_index": 7
+        },
+        {
+          "status": "evaluated",
+          "program_index": 8
+        },
+        {
+          "status": "evaluated",
+          "program_index": 9
+        },
+        {
+          "status": "evaluated",
+          "program_index": 10
+        },
+        {
+          "status": "evaluated",
+          "program_index": 11
+        },
+        {
+          "status": "evaluated",
+          "program_index": 12
+        },
+        {
+          "status": "evaluated",
+          "program_index": 13
+        },
+        {
+          "status": "evaluated",
+          "program_index": 14
+        },
+        {
+          "status": "evaluated",
+          "program_index": 15
+        },
+        {
+          "status": "evaluated",
+          "program_index": 16
+        },
+        {
+          "status": "evaluated",
+          "program_index": 17
+        },
+        {
+          "status": "evaluated",
+          "program_index": 18
+        },
+        {
+          "status": "evaluated",
+          "program_index": 19
+        },
+        {
+          "status": "evaluated",
+          "program_index": 20
+        },
+        {
+          "status": "evaluated",
+          "program_index": 21
+        },
+        {
+          "status": "evaluated",
+          "program_index": 22
+        },
+        {
+          "status": "evaluated",
+          "program_index": 23
+        },
+        {
+          "status": "evaluated",
+          "program_index": 24
+        },
+        {
+          "status": "evaluated",
+          "program_index": 25
+        },
+        {
+          "status": "evaluated",
+          "program_index": 26
+        },
+        {
+          "status": "evaluated",
+          "program_index": 27
+        },
+        {
+          "status": "evaluated",
+          "program_index": 28
+        },
+        {
+          "status": "evaluated",
+          "program_index": 29
+        },
+        {
+          "status": "evaluated",
+          "program_index": 30
+        },
+        {
+          "status": "evaluated",
+          "program_index": 31
+        },
+        {
+          "status": "evaluated",
+          "program_index": 32
+        },
+        {
+          "status": "evaluated",
+          "program_index": 33
+        },
+        {
+          "status": "evaluated",
+          "program_index": 34
+        },
+        {
+          "status": "evaluated",
+          "program_index": 35
+        },
+        {
+          "status": "evaluated",
+          "program_index": 36
+        },
+        {
+          "status": "evaluated",
+          "program_index": 37
+        },
+        {
+          "status": "evaluated",
+          "program_index": 38
+        },
+        {
+          "status": "evaluated",
+          "program_index": 39
+        },
+        {
+          "status": "evaluated",
+          "program_index": 40
+        },
+        {
+          "status": "evaluated",
+          "program_index": 41
+        },
+        {
+          "status": "evaluated",
+          "program_index": 42
+        },
+        {
+          "status": "evaluated",
+          "program_index": 43
+        },
+        {
+          "status": "evaluated",
+          "program_index": 44
+        },
+        {
+          "status": "evaluated",
+          "program_index": 45
+        },
+        {
+          "status": "evaluated",
+          "program_index": 46
+        },
+        {
+          "status": "evaluated",
+          "program_index": 47
+        },
+        {
+          "status": "evaluated",
+          "program_index": 48
+        },
+        {
+          "status": "evaluated",
+          "program_index": 49
+        },
+        {
+          "status": "evaluated",
+          "program_index": 50
+        },
+        {
+          "status": "evaluated",
+          "program_index": 51
+        },
+        {
+          "status": "evaluated",
+          "program_index": 52
+        },
+        {
+          "status": "evaluated",
+          "program_index": 53
+        },
+        {
+          "status": "evaluated",
+          "program_index": 54
+        },
+        {
+          "status": "evaluated",
+          "program_index": 55
+        },
+        {
+          "status": "evaluated",
+          "program_index": 56
+        },
+        {
+          "status": "evaluated",
+          "program_index": 57
+        },
+        {
+          "status": "evaluated",
+          "program_index": 58
+        },
+        {
+          "status": "evaluated",
+          "program_index": 59
+        },
+        {
+          "status": "evaluated",
+          "program_index": 60
+        },
+        {
+          "status": "evaluated",
+          "program_index": 61
+        },
+        {
+          "status": "evaluated",
+          "program_index": 62
+        },
+        {
+          "status": "evaluated",
+          "program_index": 63
+        }
+      ],
+      "evaluation_requests": 64,
+      "future": [],
+      "search_expansions": 25228
+    },
+    "guided": {
+      "graphs": [
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "identity",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot270",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot180",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "righthalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "compress",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "bottomhalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lefthalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "trim",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "rot90",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "tophalf",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "hconcat",
+              "args": [
+                "x0",
+                "I"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            }
+          ],
+          "output": "x1"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vmirror",
+              "args": [
+                "I"
+              ]
+            },
+            {
+              "id": "x1",
+              "op": "vmirror",
+              "args": [
+                "x0"
+              ]
+            },
+            {
+              "id": "x2",
+              "op": "vmirror",
+              "args": [
+                "x1"
+              ]
+            }
+          ],
+          "output": "x2"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "cover",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "paint",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hupscale",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "underpaint",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "canvas",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "subgrid",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "downscale",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vconcat",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vupscale",
+              "args": [
+                "I",
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "partition",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "palette",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "outbox",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hfrontier",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "halve",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "asindices",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "positive",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "frontiers",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "height",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "hline",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "even",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "mostcommon",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "maximum",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "fgpartition",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "cmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "merge",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "color",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lrcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "backdrop",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "lowermost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "llcorner",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "double",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "minimum",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "dneighbors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "leftmost",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "width",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "mostcolor",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vperiod",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vfrontier",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "normalize",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "vline",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "neighbors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "dmirror",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "center",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "leastcolor",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "numcolors",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "leastcommon",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        },
+        {
+          "steps": [
+            {
+              "id": "x0",
+              "op": "centerofmass",
+              "args": [
+                "I"
+              ]
+            }
+          ],
+          "output": "x0"
+        }
+      ],
+      "predictions": [
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ]
+      ],
+      "posterior": {
+        "weights": [
+          0.0,
+          0.0,
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.25,
+          0.25,
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "unique_programs": 64,
+        "consistent_programs": 4,
+        "failed": false,
+        "failure_forecast": null
+      },
+      "attempts": 64,
+      "records": [
+        {
+          "status": "evaluated",
+          "program_index": 0
+        },
+        {
+          "status": "evaluated",
+          "program_index": 1
+        },
+        {
+          "status": "evaluated",
+          "program_index": 2
+        },
+        {
+          "status": "evaluated",
+          "program_index": 3
+        },
+        {
+          "status": "evaluated",
+          "program_index": 4
+        },
+        {
+          "status": "evaluated",
+          "program_index": 5
+        },
+        {
+          "status": "evaluated",
+          "program_index": 6
+        },
+        {
+          "status": "evaluated",
+          "program_index": 7
+        },
+        {
+          "status": "evaluated",
+          "program_index": 8
+        },
+        {
+          "status": "evaluated",
+          "program_index": 9
+        },
+        {
+          "status": "evaluated",
+          "program_index": 10
+        },
+        {
+          "status": "evaluated",
+          "program_index": 11
+        },
+        {
+          "status": "evaluated",
+          "program_index": 12
+        },
+        {
+          "status": "evaluated",
+          "program_index": 13
+        },
+        {
+          "status": "evaluated",
+          "program_index": 14
+        },
+        {
+          "status": "evaluated",
+          "program_index": 15
+        },
+        {
+          "status": "evaluated",
+          "program_index": 16
+        },
+        {
+          "status": "evaluated",
+          "program_index": 17
+        },
+        {
+          "status": "evaluated",
+          "program_index": 18
+        },
+        {
+          "status": "evaluated",
+          "program_index": 19
+        },
+        {
+          "status": "evaluated",
+          "program_index": 20
+        },
+        {
+          "status": "evaluated",
+          "program_index": 21
+        },
+        {
+          "status": "evaluated",
+          "program_index": 22
+        },
+        {
+          "status": "evaluated",
+          "program_index": 23
+        },
+        {
+          "status": "evaluated",
+          "program_index": 24
+        },
+        {
+          "status": "evaluated",
+          "program_index": 25
+        },
+        {
+          "status": "evaluated",
+          "program_index": 26
+        },
+        {
+          "status": "evaluated",
+          "program_index": 27
+        },
+        {
+          "status": "evaluated",
+          "program_index": 28
+        },
+        {
+          "status": "evaluated",
+          "program_index": 29
+        },
+        {
+          "status": "evaluated",
+          "program_index": 30
+        },
+        {
+          "status": "evaluated",
+          "program_index": 31
+        },
+        {
+          "status": "evaluated",
+          "program_index": 32
+        },
+        {
+          "status": "evaluated",
+          "program_index": 33
+        },
+        {
+          "status": "evaluated",
+          "program_index": 34
+        },
+        {
+          "status": "evaluated",
+          "program_index": 35
+        },
+        {
+          "status": "evaluated",
+          "program_index": 36
+        },
+        {
+          "status": "evaluated",
+          "program_index": 37
+        },
+        {
+          "status": "evaluated",
+          "program_index": 38
+        },
+        {
+          "status": "evaluated",
+          "program_index": 39
+        },
+        {
+          "status": "evaluated",
+          "program_index": 40
+        },
+        {
+          "status": "evaluated",
+          "program_index": 41
+        },
+        {
+          "status": "evaluated",
+          "program_index": 42
+        },
+        {
+          "status": "evaluated",
+          "program_index": 43
+        },
+        {
+          "status": "evaluated",
+          "program_index": 44
+        },
+        {
+          "status": "evaluated",
+          "program_index": 45
+        },
+        {
+          "status": "evaluated",
+          "program_index": 46
+        },
+        {
+          "status": "evaluated",
+          "program_index": 47
+        },
+        {
+          "status": "evaluated",
+          "program_index": 48
+        },
+        {
+          "status": "evaluated",
+          "program_index": 49
+        },
+        {
+          "status": "evaluated",
+          "program_index": 50
+        },
+        {
+          "status": "evaluated",
+          "program_index": 51
+        },
+        {
+          "status": "evaluated",
+          "program_index": 52
+        },
+        {
+          "status": "evaluated",
+          "program_index": 53
+        },
+        {
+          "status": "evaluated",
+          "program_index": 54
+        },
+        {
+          "status": "evaluated",
+          "program_index": 55
+        },
+        {
+          "status": "evaluated",
+          "program_index": 56
+        },
+        {
+          "status": "evaluated",
+          "program_index": 57
+        },
+        {
+          "status": "evaluated",
+          "program_index": 58
+        },
+        {
+          "status": "evaluated",
+          "program_index": 59
+        },
+        {
+          "status": "evaluated",
+          "program_index": 60
+        },
+        {
+          "status": "evaluated",
+          "program_index": 61
+        },
+        {
+          "status": "evaluated",
+          "program_index": 62
+        },
+        {
+          "status": "evaluated",
+          "program_index": 63
+        }
+      ],
+      "evaluation_requests": 64,
+      "future": [
+        {
+          "status": "ok",
+          "output": [
+            [
+              1,
+              2,
+              1,
+              2
+            ]
+          ],
+          "uid": 65534,
+          "read_only": true,
+          "network_denied": true,
+          "no_api_key": true
+        },
+        {
+          "status": "ok",
+          "output": [
+            [
+              1,
+              2,
+              2,
+              1
+            ]
+          ],
+          "uid": 65534,
+          "read_only": true,
+          "network_denied": true,
+          "no_api_key": true
+        },
+        {
+          "status": "ok",
+          "output": [
+            [
+              2,
+              1,
+              1,
+              2
+            ]
+          ],
+          "uid": 65534,
+          "read_only": true,
+          "network_denied": true,
+          "no_api_key": true
+        },
+        {
+          "status": "ok",
+          "output": [
+            [
+              2,
+              1,
+              2,
+              1
+            ]
+          ],
+          "uid": 65534,
+          "read_only": true,
+          "network_denied": true,
+          "no_api_key": true
+        }
+      ],
+      "search_expansions": 29464
+    }
+  },
+  "previous_prediction_sha256": "5194aa01cd21d828fcd93f9a8befccd5ec3873f98ca7722a8bcc1ce37788d09f",
+  "fresh_executions": 75,
+  "cached_requests": 57,
+  "calls": 0,
+  "cost_usd": 0,
+  "guide_is_handcrafted": true,
+  "llm_efficacy_claim": false
+}
