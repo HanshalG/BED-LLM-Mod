@@ -1,0 +1,60 @@
+{
+  "cost_usd": 0,
+  "model_calls": 0,
+  "paid_authority": false,
+  "source_code_executed": false,
+  "source_sha256": "7903440c59e4379f414b88704a01e9ba7f56adca7a5d6d363a614bd2f92afa12",
+  "tasks": {
+    "103": {
+      "diagnostic_points": 32,
+      "inputs": [
+        "R"
+      ],
+      "maximum_formula_return_difference": 0.0,
+      "maximum_output": 2.209860260563302,
+      "minimum_output": 0.6811663230658564,
+      "scientifically_valid_input_distribution": false
+    },
+    "457": {
+      "diagnostic_points": 32,
+      "inputs": [
+        "F",
+        "N",
+        "l",
+        "m"
+      ],
+      "maximum_formula_return_difference": 0.0,
+      "maximum_output": 2.0456954277222485,
+      "minimum_output": 0.23485674979364207,
+      "scientifically_valid_input_distribution": false
+    },
+    "458": {
+      "diagnostic_points": 32,
+      "inputs": [
+        "a",
+        "delta_p",
+        "eta",
+        "l"
+      ],
+      "maximum_formula_return_difference": 0.0,
+      "maximum_output": 0.1489470910084483,
+      "minimum_output": 0.00021208224889569476,
+      "scientifically_valid_input_distribution": false
+    },
+    "653": {
+      "diagnostic_points": 32,
+      "inputs": [
+        "B",
+        "L",
+        "a",
+        "g",
+        "m",
+        "r"
+      ],
+      "maximum_formula_return_difference": 0.0,
+      "maximum_output": 23.15795691771229,
+      "minimum_output": 1.8110821946683695,
+      "scientifically_valid_input_distribution": false
+    }
+  }
+}
