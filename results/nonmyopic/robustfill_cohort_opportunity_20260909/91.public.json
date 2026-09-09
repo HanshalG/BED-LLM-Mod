@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "0d12cc9c5dee7d3610873ad5aaafa893c78a8cfdd99af3565d82f719fd748958",
+  "extra_examples": 0,
+  "initial": [
+    "james",
+    "jm"
+  ],
+  "inputs": [
+    "charles",
+    "thomas",
+    "paul",
+    "chris",
+    "alice",
+    "laura",
+    "sarah",
+    "nigel",
+    "edith"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 320,
+    "positive_facts": 20
+  }
+}

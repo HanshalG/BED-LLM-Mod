@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "60de13e489e94cffdd66e6625645e21745dda097210838887c815b02180c20f5",
+  "extra_examples": 0,
+  "initial": [
+    "26 October,1998 (20 years old)",
+    "26 October,1998"
+  ],
+  "inputs": [
+    "25 September,1980 (38 years old)",
+    "22 July,1983 (35 years old)",
+    "30 October,1955 (63 years old)",
+    "23 November,1954 (64 years old)",
+    "28 December,1958 (60 years old)",
+    "21 October,1943 (75 years old)",
+    "21 April,1965 (53 years old)",
+    "11 July,1947 (71 years old)",
+    "11 July,1950 (74 years old)"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 5005,
+    "positive_facts": 143
+  }
+}

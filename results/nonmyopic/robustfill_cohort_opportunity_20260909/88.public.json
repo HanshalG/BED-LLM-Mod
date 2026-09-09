@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "735f24eb8cfc180376705d15f8ceb1bf97e73a00fc2a33c69348ab8b0fc922b8",
+  "extra_examples": 0,
+  "initial": [
+    "Exeter College, Turl St, Oxford OX1 3DP",
+    "OX1 3DP"
+  ],
+  "inputs": [
+    "Hertford College, Catte St, Oxford OX1 3BW",
+    "St Cross College, 61 St Giles, Oxford, OX1 3LZ",
+    "University College, Oxford, OX1 4BH",
+    "New College, Holywell St, Oxford OX1 3BN",
+    "Merton College, Merton St, Oxford OX1 4JD",
+    "University College, High Street, Oxford OX1 4BH",
+    "Jesus College, Turl St, Oxford OX1 3DW",
+    "Trinity College, Broad St, Oxford OX1 3BH",
+    "Worcester College, 1 Walton St, Oxford OX1 2HB"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 3010,
+    "positive_facts": 70
+  }
+}

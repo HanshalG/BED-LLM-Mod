@@ -1,0 +1,12 @@
+{
+  "distinct_rows": 93,
+  "expected_risk": {
+    "h1": 0.0,
+    "h2": 0.0,
+    "h3": 0.0,
+    "openloop": 0.0,
+    "random": 0.006585919415509259
+  },
+  "initial_risk": 0.348388671875,
+  "status": "complete"
+}

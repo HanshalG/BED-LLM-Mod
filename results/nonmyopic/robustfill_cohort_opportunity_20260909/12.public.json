@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "a1339cacc59eb0f61ceb97e07fc551fbb9b2f7d79ef941dbfb01cf939eb4f13d",
+  "extra_examples": 0,
+  "initial": [
+    "jim.smith@gmail.com",
+    "Jim Smith"
+  ],
+  "inputs": [
+    "ruby.clinton@mit.edu",
+    "jim.james@fas.harvard.edu",
+    "brent.harold@hotmail.com",
+    "matthew.rosman@yahoo.com",
+    "alan.turing@cam.ac.uk",
+    "thom.yorke@radiohead.com",
+    "lisa.simpson@yahoo.com",
+    "bob.smith@gmail.com",
+    "alice.cooper@rock.com"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 3960,
+    "positive_facts": 110
+  }
+}

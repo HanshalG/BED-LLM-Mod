@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "e0bd727539a4e366d4ccf83084084bc8710e1f0df20bd617cb3f58f98cbb22e5",
+  "extra_examples": 0,
+  "initial": [
+    "ILP 2016, London, UK, September 4-6, 2016",
+    "September, 2016"
+  ],
+  "inputs": [
+    "ILP 2015, Kyoto, Japan, August 20-22, 2015",
+    "ILP 2014, Nancy, France, September 14-16, 2014",
+    "ILP 2013, Rio de Janeiro, Brazil, August 28-30, 2013",
+    "ILP 2012, Dubrovnik, Croatia, September 17-19, 2012",
+    "ILP 2011, Windsor Great Park, UK, July 31 - August 3, 2011",
+    "ILP 2010, Florence, Italy, June 27-30, 2010",
+    "ILP 2009, Leuven, Belgium, July 02-04, 2009",
+    "ILP 2008, Prague, Czech Republic, September 10-12, 2008",
+    "ILP 2007, Corvallis, OR, USA, June 19-21, 2007"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 6550,
+    "positive_facts": 131
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "47a2ccd9901b15870c7e971c3f9b0189939a201f9d250d41f4130ecfa3c30670",
+  "extra_examples": 0,
+  "initial": [
+    "1 Journal of Biological Chemistry 54,695 1,652,432",
+    "54,695"
+  ],
+  "inputs": [
+    "2 Proc. Natl. Acad. Sci. USA (PNAS) 30,396 1,376,541",
+    "3 Nature 10,549 1,242,392",
+    "4 Science 9,369 1,125,022",
+    "5 Physical Review Letters 31,112 884,911",
+    "6 J. American Chemical Society 29,272 881,457",
+    "7 Physical Review B 48,888 612,377",
+    "8 Astrophysical Journal 26,418 581,299",
+    "9 New England Journal of Medicine 3,564 568,698",
+    "10 Applied Physics Letters 36,759 549,224"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 2668,
+    "positive_facts": 58
+  }
+}

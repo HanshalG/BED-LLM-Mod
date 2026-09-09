@@ -1,0 +1,167 @@
+{
+  "cost_usd": 0,
+  "full_prior_reference": false,
+  "implementation_sha256": "5aa53ced594f6dce1190cc977b93e6abf3a54417bb6035fc7c2abfb191882e18",
+  "model_calls": 0,
+  "paid_authority": false,
+  "results": {
+    "104": {
+      "distinct_rows": 58,
+      "expected_risk": {
+        "h1": 0.008095894607843136,
+        "h2": 0.008095894607843136,
+        "h3": 0.008095894607843136,
+        "openloop": 0.008095894607843136,
+        "random": 0.02564219331056532
+      },
+      "initial_risk": 0.4633839925130208,
+      "status": "complete"
+    },
+    "110": {
+      "distinct_rows": 93,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.006585919415509259
+      },
+      "initial_risk": 0.348388671875,
+      "status": "complete"
+    },
+    "12": {
+      "distinct_rows": 80,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.01154940166170635
+      },
+      "initial_risk": 0.3076375325520833,
+      "status": "complete"
+    },
+    "185": {
+      "distinct_rows": 24,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.01019004788283886
+      },
+      "initial_risk": 0.343231201171875,
+      "status": "complete"
+    },
+    "195": {
+      "distinct_rows": 53,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.08052825927734375
+      },
+      "initial_risk": 0.1610565185546875,
+      "status": "complete"
+    },
+    "272": {
+      "distinct_rows": 31,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.01931584497115667
+      },
+      "initial_risk": 0.3930002848307292,
+      "status": "complete"
+    },
+    "29": {
+      "distinct_rows": 59,
+      "expected_risk": {
+        "h1": 0.01698905686485674,
+        "h2": 0.01698905686485674,
+        "h3": 0.01698905686485674,
+        "openloop": 0.01698905686485674,
+        "random": 0.025991486292602548
+      },
+      "initial_risk": 0.3715871175130208,
+      "status": "complete"
+    },
+    "70": {
+      "distinct_rows": 174,
+      "expected_risk": {
+        "h1": 0.004134114583333333,
+        "h2": 0.004134114583333333,
+        "h3": 0.004134114583333333,
+        "openloop": 0.004134114583333333,
+        "random": 0.023480168389433148
+      },
+      "initial_risk": 0.4817911783854167,
+      "status": "complete"
+    },
+    "80": {
+      "distinct_rows": 14,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.0
+      },
+      "initial_risk": 0.0,
+      "status": "complete"
+    },
+    "88": {
+      "distinct_rows": 50,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.008473613547535749
+      },
+      "initial_risk": 0.3734486897786458,
+      "status": "complete"
+    },
+    "91": {
+      "distinct_rows": 31,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.0
+      },
+      "initial_risk": 0.09124755859375,
+      "status": "complete"
+    },
+    "98": {
+      "distinct_rows": 2,
+      "expected_risk": {
+        "h1": 0.0,
+        "h2": 0.0,
+        "h3": 0.0,
+        "openloop": 0.0,
+        "random": 0.0
+      },
+      "initial_risk": 0.0551605224609375,
+      "status": "complete"
+    }
+  },
+  "summary": {
+    "complete_tasks": 12,
+    "full_cohort_means": {
+      "h1": 0.002434922171336101,
+      "h2": 0.002434922171336101,
+      "h3": 0.002434922171336101,
+      "openloop": 0.002434922171336101,
+      "random": 0.017646411229057638
+    },
+    "nonmonotonic_tasks": [],
+    "strict_h2_improvements": 0,
+    "strict_h3_improvements": 0,
+    "total_tasks": 12
+  }
+}

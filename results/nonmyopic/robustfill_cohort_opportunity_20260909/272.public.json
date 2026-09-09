@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "0b3d155557ce9b1e56c1cdae8eedf06aa4f679c09ae1ae25a4a3ee01f172cfd6",
+  "extra_examples": 1,
+  "initial": [
+    "2007 spain alberto contador",
+    "Spain"
+  ],
+  "inputs": [
+    "2008 spain carlos sastre",
+    "2009 spain alberto contador",
+    "2010 luxembourg andy schleck",
+    "2011 australia cadel evans",
+    "2012 great britain bradley wiggins",
+    "2013 great britain chris froome",
+    "2014 italy vincenzo nibali",
+    "2015 great britain chris froome",
+    "2016 great britain chris froome"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 11,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 11,
+    "label_conflicts": 0,
+    "negative_facts": 4360,
+    "positive_facts": 109
+  }
+}

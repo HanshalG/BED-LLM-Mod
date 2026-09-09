@@ -1,0 +1,41 @@
+{
+  "example_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10"
+  ],
+  "exs_sha256": "778464cdc6e5d6479546bc63c1aec059f553369d3d4b50db41054c61faed8ea5",
+  "extra_examples": 0,
+  "initial": [
+    "32.995209(latitude), -96.687759(longitude)",
+    "32.995209 -96.687759"
+  ],
+  "inputs": [
+    "38.410809(latitude), -82.378563(longitude)",
+    "36.166019(latitude), -115.065933(longitude)",
+    "29.858896(latitude), -95.475952(longitude)",
+    "40.369873(latitude), -74.757622(longitude)",
+    "41.966038(latitude), -87.646660(longitude)",
+    "40.746647(latitude), -73.454643(longitude)",
+    "45.018974(latitude), -93.093773(longitude)",
+    "37.780544(latitude), -122.413055(longitude)",
+    "39.486244(latitude), -87.452957(longitude)"
+  ],
+  "source_metadata": {
+    "complete_function_outside_examples": false,
+    "contiguous_coordinates": true,
+    "distinct_inputs": 10,
+    "enough_for_one_initial_six_candidates_three_targets": true,
+    "examples": 10,
+    "label_conflicts": 0,
+    "negative_facts": 5050,
+    "positive_facts": 202
+  }
+}
