@@ -1,0 +1,80 @@
+{
+  "status": "source_graphs_compatible",
+  "rows": [
+    {
+      "task": "4be741c5",
+      "reference_steps": 12,
+      "first_operation": "first",
+      "generator_sha256": "9bcf33b12c0f870133741b2999a82e88159b1c711b79d365613bfa27ac3bdacf",
+      "verifier_sha256": "1d9bd8a14061402d1e5f6e2eac2f163839012ea918ae704f3e36665f4ef6905c",
+      "graph_compatible": true
+    },
+    {
+      "task": "b7249182",
+      "reference_steps": 40,
+      "first_operation": "objects",
+      "generator_sha256": "1220ff7625a9f7208e62578cd3d91478984b3bf38ab71b7f9d5c043d9b2d26eb",
+      "verifier_sha256": "3ac25ba562c0ba5cfbbe4e7488366d27712ec16d8cdd9e83dd4b3568eb91599c",
+      "graph_compatible": true
+    },
+    {
+      "task": "c1d99e64",
+      "reference_steps": 3,
+      "first_operation": "frontiers",
+      "generator_sha256": "f333c4907e7d4ab2165ae4c26d8bfd45db425170d059bcf851e016e889067a55",
+      "verifier_sha256": "f3fcc506f70b1a21f307439fcb3c8124b59bfe01392451402fd361869bcdda72",
+      "graph_compatible": true
+    },
+    {
+      "task": "963e52fc",
+      "reference_steps": 16,
+      "first_operation": "width",
+      "generator_sha256": "523bd0d5663f5334a57aa9e7ea82f7bff537ab45a204200929bf9b7c26b25eb2",
+      "verifier_sha256": "7344964523cd7081ce0923421ce650e3c8b10f63242983839a06fbbffd1fa608",
+      "graph_compatible": true
+    },
+    {
+      "task": "10fcaaa3",
+      "reference_steps": 8,
+      "first_operation": "hconcat",
+      "generator_sha256": "be0af23c72dbfe23c7f33be49f3f34e6a693d7521508ce356dd5715fb5d4ba9b",
+      "verifier_sha256": "2ed8c111fe3dffb7032bd380d4726dc3f973c91de878ed2ae9944c5e10faad19",
+      "graph_compatible": true
+    },
+    {
+      "task": "f35d900a",
+      "reference_steps": 21,
+      "first_operation": "objects",
+      "generator_sha256": "dcece2c208f34243626c816cb61bc82ccb343248d9757c78812f5a4251db22a4",
+      "verifier_sha256": "826db15fa22c1dc144b320e0088c93d7073815594cfbeaed5b5917361ccd5038",
+      "graph_compatible": true
+    },
+    {
+      "task": "a68b268e",
+      "reference_steps": 31,
+      "first_operation": "tophalf",
+      "generator_sha256": "2499171ee114d795c3c7901ed7fcf0ca366aca5f3b13ca5c333e44160a6f62f1",
+      "verifier_sha256": "23104127a3adecbc154dee93ec5208ea51b67948498a84268482204c6f4788b0",
+      "graph_compatible": true
+    },
+    {
+      "task": "c9f8e694",
+      "reference_steps": 18,
+      "first_operation": "astuple",
+      "generator_sha256": "8b7b894dff1bd05e39a59478071343a72b55ba3037173e004cd26437a7a5fd35",
+      "verifier_sha256": "952ccd340127bf7d85ea705801ac14ca35cc659a1337c47fbe7b46c45348cfcf",
+      "graph_compatible": true
+    }
+  ],
+  "cohort_sha256": "33f55e646da0e56835fd157278d941560697af9e6cfc438c0ee418b5394a0b40",
+  "source_hashes": {
+    "dsl.py": "c60faf5730a966fc1689c08bc96794cd97fd0311b8036e0f9b0c80e2d12f0f11",
+    "generators.py": "1f598cb13c9c7b223181ab35485ca77d9079b600ee3baef1bce750db71248726",
+    "verifiers.py": "e11c1ceed68ddb87fa544e3504f06d677c59698669a680e8124717f7703d80a1"
+  },
+  "examples_generated": 0,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_authorized": false,
+  "scope": "syntax/reference expressivity only; source generation and calibration untested"
+}
