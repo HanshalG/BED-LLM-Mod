@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Saved compile-failure diagnosis | $0 |9/24invalidbatches,47syntax/arityfailures,25otherstructurallyvalidslots discarded(notexecuted/rescored). New public compiler feedback primitive retains zero acceptedslots/onefuture repair,43tests; original36callreplay intact. REARC_COMPILE_FAILURE_INTERPRETATION_20260909.md; fresh controlled test needed, not efficacy evidence.
+
 2026-09-09 | Named-plan Luna-medium qualification | $0.14476104 |36normalcalls,354..3894reasoningtokens, exactreplay/new0. Whole-gridC/O.681388/.735417,2wins;querysupport3/12<8,canvas.512375/.367447 fails. Diversity3/6passes, neitherarm gainsquerycoverage. REARC_NAMED_PLAN_TERMINAL_RESULT_20260909.md; null/no depthauthority. Conservative dayspend1.24377013,balance23.337951391.
 
 2026-09-09 | Named-plan source and execution readiness | $0 | Six fresh tasks exclude26previous;18sourcepasses,60outputssealed,24promptchecks(max26690bytes),54focusedtests. Reserved36call/$2.88 Luna-medium runner ready with exact replay and dependency checks. REARC_NAMED_PLAN_READINESS_20260909.md; not yet paid evidence.

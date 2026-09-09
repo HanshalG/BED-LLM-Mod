@@ -1,0 +1,1023 @@
+{
+  "rows": [
+    {
+      "task": 0,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 0,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 0,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 0,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 1,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 1,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 2,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 3,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "expression syntax"
+        }
+      ]
+    },
+    {
+      "task": 1,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "expression syntax"
+        }
+      ]
+    },
+    {
+      "task": 1,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 1,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 2,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 2,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 2,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 2,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 3,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 3,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 3,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 1,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 2,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 3,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "computed call arity"
+        }
+      ]
+    },
+    {
+      "task": 3,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 1,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 2,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 3,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "computed call arity"
+        }
+      ]
+    },
+    {
+      "task": 4,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 4,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 4,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "computed call arity"
+        }
+      ]
+    },
+    {
+      "task": 4,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 5,
+      "arm": "contrasting",
+      "stage": "compile",
+      "batch_valid": true,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 5,
+      "arm": "contrasting",
+      "stage": "repair",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 1,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 2,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 3,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 4,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 5,
+          "valid": true
+        },
+        {
+          "slot": 6,
+          "valid": true
+        },
+        {
+          "slot": 7,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "task": 5,
+      "arm": "ordinary",
+      "stage": "compile",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": true
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 3,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "computed call arity"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "computed call arity"
+        }
+      ]
+    },
+    {
+      "task": 5,
+      "arm": "ordinary",
+      "stage": "repair",
+      "batch_valid": false,
+      "slots": [
+        {
+          "slot": 0,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 1,
+          "valid": true
+        },
+        {
+          "slot": 2,
+          "valid": true
+        },
+        {
+          "slot": 3,
+          "valid": true
+        },
+        {
+          "slot": 4,
+          "valid": true
+        },
+        {
+          "slot": 5,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 6,
+          "valid": false,
+          "error": "expression syntax"
+        },
+        {
+          "slot": 7,
+          "valid": false,
+          "error": "expression syntax"
+        }
+      ]
+    }
+  ],
+  "invalid_batches": 9,
+  "slot_errors": {
+    "expression syntax": 23,
+    "computed call arity": 24
+  },
+  "valid_slots_in_rejected_batches": 25,
+  "calls": 0,
+  "executions": 0,
+  "new_outputs": 0,
+  "cost_usd": 0,
+  "rescored": false,
+  "depth_authorized": false
+}
