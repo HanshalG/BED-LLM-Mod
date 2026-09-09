@@ -1,0 +1,156 @@
+{
+  "cost_usd": 0,
+  "fixed_source_read": false,
+  "model_calls": 0,
+  "network_reads": 5,
+  "opportunity_measured": false,
+  "paid_authorized": false,
+  "records": [
+    {
+      "functions": {
+        "get_new_command": {
+          "ast_nodes": 18,
+          "call_targets": [
+            "re.sub"
+          ],
+          "command_attributes": [
+            "script"
+          ],
+          "decorators": [
+            "sudo_support"
+          ],
+          "end_line": 13,
+          "start_line": 12,
+          "unused_arguments_syntactically": [
+            "settings"
+          ]
+        },
+        "match": {
+          "ast_nodes": 23,
+          "call_targets": [],
+          "command_attributes": [
+            "script",
+            "stderr"
+          ],
+          "decorators": [
+            "sudo_support"
+          ],
+          "end_line": 8,
+          "start_line": 6,
+          "unused_arguments_syntactically": [
+            "settings"
+          ]
+        }
+      },
+      "sha256": "ab846d41021297d9ffeb453d7229d7c25e8bdd3e52194f50206d9b6fcee83516",
+      "url": "https://raw.githubusercontent.com/nvbn/thefuck/42a8b4f639269886e468762e6d100b6f01aad8ab/thefuck/rules/mkdir_p.py"
+    },
+    {
+      "functions": {
+        "sudo_support": {
+          "ast_nodes": 108,
+          "call_targets": [
+            "Command",
+            "command.script.startswith",
+            "fn",
+            "isinstance",
+            "u'sudo {}'.format",
+            "wraps"
+          ],
+          "command_attributes": [
+            "script",
+            "stderr",
+            "stdout"
+          ],
+          "decorators": [],
+          "end_line": 76,
+          "start_line": 58,
+          "unused_arguments_syntactically": []
+        }
+      },
+      "sha256": "f7d1bf63293ed012d273421e584d83ccc0be1d9c6627d09d6027d6c298f44d8d",
+      "url": "https://raw.githubusercontent.com/nvbn/thefuck/42a8b4f639269886e468762e6d100b6f01aad8ab/thefuck/utils.py"
+    },
+    {
+      "functions": {},
+      "sha256": "b49394c296c400909559fbe86d42fe3b7e94d58b8cdcf854d4078e5c39894cde",
+      "url": "https://raw.githubusercontent.com/nvbn/thefuck/42a8b4f639269886e468762e6d100b6f01aad8ab/thefuck/types.py"
+    },
+    {
+      "functions": {
+        "read_user_choice": {
+          "ast_nodes": 148,
+          "call_targets": [
+            "OrderedDict",
+            "choice_map.items",
+            "choice_map.keys",
+            "click.Choice",
+            "click.prompt",
+            "enumerate",
+            "isinstance",
+            "u', '.join",
+            "u'Choose from {}'.format",
+            "u'Select {}:'.format",
+            "u'\\n'.join",
+            "u'{} - {}'.format",
+            "u'{}'.format"
+          ],
+          "command_attributes": [],
+          "decorators": [],
+          "end_line": 93,
+          "start_line": 61,
+          "unused_arguments_syntactically": []
+        }
+      },
+      "sha256": "05b13d1d0305c2277f46426ea1f2f84a64a3a8c28d3e94e6417e0e515a0f83e3",
+      "url": "https://raw.githubusercontent.com/cookiecutter/cookiecutter/5c282f020a8db7e5e7c4e7b51b010556ca31fb7f/cookiecutter/prompt.py"
+    },
+    {
+      "functions": {
+        "format_file_contents": {
+          "ast_nodes": 75,
+          "call_targets": [
+            "assert_equivalent",
+            "assert_stable",
+            "format_str",
+            "src_contents.strip"
+          ],
+          "command_attributes": [],
+          "decorators": [],
+          "end_line": 661,
+          "start_line": 642,
+          "unused_arguments_syntactically": []
+        },
+        "format_str": {
+          "ast_nodes": 212,
+          "call_targets": [
+            "EmptyLineTracker",
+            "Line",
+            "LineGenerator",
+            "detect_target_versions",
+            "elt.maybe_empty_lines",
+            "get_future_imports",
+            "lib2to3_parse",
+            "lines.visit",
+            "normalize_fmt_off",
+            "range",
+            "split_line",
+            "src_contents.lstrip",
+            "str",
+            "supports_feature"
+          ],
+          "command_attributes": [],
+          "decorators": [],
+          "end_line": 698,
+          "start_line": 664,
+          "unused_arguments_syntactically": []
+        }
+      },
+      "sha256": "a2a3a17242908ce2db5c562eb2ef36c15e9f1fa5fd0ecedac1d978181119c55e",
+      "url": "https://raw.githubusercontent.com/psf/black/026c81b83454f176a9f9253cbfb70be2c159d822/black.py"
+    }
+  ],
+  "runtime_equivalence_verified": false,
+  "source_executed": false,
+  "test_contents_read": false
+}
