@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Public source actual runtime | $0 |6syntheticcontainercases pass;sourcefailurephases isolated,runawayexit137,allprefixesreplay,nocontainersremain.12tests. REARC_PUBLIC_SOURCE_RUNTIME_RESULT_20260909.md; no benchmark/modelcalls, freshexactschedulequalificationnext.
+
 2026-09-09 | Public source failure journal | $0 |One-shot predispatch request + validatedprefix + boundedfailuremetadata;9synthetic tests, no benchmarks/sourcecalls/retry. REARC_PUBLIC_SOURCE_JOURNAL_READINESS_20260909.md; boundedtransport integration stillrequired beforefreshschedule/paidtest.
 
 2026-09-09 | Paired repair source preflight failure | $0 | Actualpubliccollector failed sourcegeneration beforepublicbank/paidrun;18smoke checks passed otherseeds. Request/cause metadata missing; no retry or replacement.68integration tests pass, intervention effectunmeasured. REARC_PAIRED_REPAIR_PREFLIGHT_FAILURE_20260909.md; needsjournaled exactschedule sourceinstrument, accountunchanged.

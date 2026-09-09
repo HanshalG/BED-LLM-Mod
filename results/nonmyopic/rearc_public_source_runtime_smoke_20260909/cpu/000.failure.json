@@ -1,0 +1,1 @@
+{"error_type": "RuntimeError", "index": 0, "phase": "transport", "request": {"mode": "input", "seed": 0, "task": "aaaaaa04"}, "returncode": 137, "status": "failed_closed", "stderr_bytes": 0, "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stdout_bytes": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}

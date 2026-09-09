@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: publicsource worker/transport integrated with journal;6actualsynthetic containerchecks pass(input/demo/generate/verify/grid/runawayexit137),12tests; allprefixesreplay, nocontainersremain. Sanitizedphase/errorclass prevents hiddenerrorleak, boundedresources unchanged. REARC_PUBLIC_SOURCE_RUNTIME_RESULT_20260909.md nextfresh frozen exactschedule cachedonce, notoldcohortretry or3seedextrapolation. Prior/currentprogress,benchmark/modelcalls0,accountunchanged,goalunachieved.
+
 2026-09-09 latest: new one-shot publicsourcejournal saves exactrequest beforedispatch,validatedsuccessprefix, boundedfailuremetadata; no rawfailurelabels/retry.9synthetic tests cover exit/timeout/size/malformed/leak/tamper. REARC_PUBLIC_SOURCE_JOURNAL_READINESS_20260909.md next actualboundedtransport+structuredworkererror integration, thenfresh exactschedule; oldfailedcohortnotreopened. Prior/currentprogress,calls0/accountunchanged,goalunachieved.
 
 2026-09-09 latest: paired-repair public preflight failed_closed with generic sourcegenerationfailed, no publicbank/paidrun/withheldlabels. Smoke18passed differentseeds; exactfailedrequest/cause lost by inheritedcollector, no rerun/replacement.68tests pass for integrated budget/replay but not realsourcecompatibility. REARC_PAIRED_REPAIR_PREFLIGHT_FAILURE_20260909.md; next journaled exact-schedule sourcequalification before freshcohort, effectunmeasured/notLLMnull. Prior/currentprogress,cost0/accountunchanged,goalunachieved.

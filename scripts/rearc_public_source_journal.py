@@ -71,6 +71,15 @@ def collect(root, schedule, dispatch):
                 stdout_sha256=hashlib.sha256(response.stdout).hexdigest(),
                 stderr_bytes=len(response.stderr),stderr_sha256=hashlib.sha256(response.stderr).hexdigest())
             if response.returncode:
+                try:
+                    failure=json.loads(response.stdout) if len(response.stdout)<=1024 else None
+                except (ValueError,UnicodeDecodeError):
+                    failure=None
+                if (isinstance(failure,dict) and set(failure)=={'status','phase','error_type'}
+                        and failure['status']=='source_failed'
+                        and failure['phase'] in ('request','source_import','generate','grid_validation','verify')
+                        and failure['error_type'] in ('ValueError','TypeError','KeyError','IndexError','NameError','AttributeError','ImportError','ModuleNotFoundError','MemoryError','RuntimeError','Exception')):
+                    evidence['worker_failure']=failure
                 raise RuntimeError('worker_exit')
             evidence['phase']='public_channel_validation'
             value = decode_public(response.stdout,request['mode'])
