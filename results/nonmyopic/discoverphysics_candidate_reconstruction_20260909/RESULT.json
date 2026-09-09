@@ -1,0 +1,51 @@
+{
+  "cache_sha256": "91ec721f6d122b0b7c6ee1afd191d2720029a7c7a4dcd628af688898ab5b79c8",
+  "candidate_trajectories": 216,
+  "cost_usd": 0,
+  "helper_hashes": {
+    "scripts/discoverphysics_dark_matter_executable_support.py": "01742ce61d839de98f8153169f2634f66b796ac6f0695e4f8e361ff4336c3a80",
+    "scripts/discoverphysics_dark_matter_grounded_policy.py": "f8f201d0991ca3c615144b8e638beb66428c3133bcf8589005389519e426f5ff",
+    "scripts/discoverphysics_dark_matter_opportunity.py": "f3afde6888b9124155d443b078d0e1f8b3c8f8711a2a2ec90c18e68179b4e0d7",
+    "scripts/discoverphysics_dark_matter_semantic_smoke.py": "0f6110f69e263671e9033c9a53dd3dfc81cda718673bc01be6676b0fc34c9663"
+  },
+  "max_eig_replay_error": 4.440892098500626e-16,
+  "model_calls": 0,
+  "model_sha256": "473cf5c883929a2cf8b6d862bebf69e1bb6b6401bea8c7b0edba955e847b7e1d",
+  "myopic_risk_root": "B",
+  "physical_endpoint_runs": 0,
+  "reconstructed_eig": {
+    "A": 1.1164342122949698,
+    "B": 1.276713523424076,
+    "C": 0.9391477722622095,
+    "D": 1.405767963127282
+  },
+  "risk_by_order": {
+    "128": {
+      "A": 2.1265516430709024,
+      "B": 1.4696862111827573,
+      "C": 2.942712964694469,
+      "D": 1.8657881773254488
+    },
+    "16": {
+      "A": 2.1265487366102445,
+      "B": 1.470164313982356,
+      "C": 2.942734992998334,
+      "D": 1.866135600230634
+    },
+    "32": {
+      "A": 2.126551638561984,
+      "B": 1.469740148194207,
+      "C": 2.9427129619475605,
+      "D": 1.8657783716195824
+    },
+    "64": {
+      "A": 2.1265516430690155,
+      "B": 1.4696855817665362,
+      "C": 2.9427129643768626,
+      "D": 1.865788344149105
+    }
+  },
+  "risk_max_refinement_delta": 6.294162211428755e-07,
+  "status": "complete",
+  "upstream_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5"
+}

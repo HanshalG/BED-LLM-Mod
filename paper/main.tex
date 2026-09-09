@@ -216,7 +216,7 @@ Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup &
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Held-out pass; regeneration null \\
 LongVidSearch 4-hop & Exact retrieval endpoint & 10/40 gaps replicated & Support smoke passes; ranking stops pre-endpoint & Policy unmeasured \\
 Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; holdout invalid \\
-DiscoverPhysics & LLM support, exact likelihood & Central scout & T1: 2.928/3.785/3.001; T2: 3.245/3.728/3.071; T3: 3.049/3.481/3.049 & Root robust; support nonreplication \\
+DiscoverPhysics & LLM support, exact likelihood & Central scout & T1: 2.928/3.785/3.001; T2: 3.245/3.728/3.071; T3: 3.049/3.481/3.049 & Objective-confounded; support nonreplication \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
 MediQ iMEDQA & A--D often not generative & Channel too sparse & 8/30 replies available & Gate failure \\
 \bottomrule
@@ -412,6 +412,15 @@ branch isolation again put B over D by 12.4\% ($[.2591,.6094]$), but generated
 and fixed B tied ($3.0491$ versus $3.0485$; $[-.0098,.0088]$). A frozen
 uncertainty clip made support gains positive on all three endpoints
 ($.28/.67/.20\%$), but failed preregistered $.5/1\%$ magnitude gates.
+
+A retrospective same-objective audit of the structured tree's exact initial
+model finds that one-step predictive-risk minimization also selects B:
+risks for A/B/C/D are $2.12655/1.46969/2.94271/1.86579$. Reconstructed
+observations reproduce the saved EIG scores within $4.5\times10^{-16}$;
+the maximum quadrature refinement change is $6.3\times10^{-7}$.
+Thus the B--D contrast changes objective as well as horizon and does not isolate
+the value of depth. This audit concerns the first query, not equivalence of
+complete continuation policies; it opens no new physical endpoint.
 
 \paragraph{LLM-native retrieval passes once but is not execution-robust.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking
@@ -664,9 +673,11 @@ history-blind controls reproduce conditioning gains and selective calibration,
 but their pooled selected-root mean remains null. A fully fresh control stopped
 at mechanics after 3,072 clean responses with its policy endpoint sealed.
 
-DiscoverPhysics remains a narrow, unstable simulator-grounded LLM-native result.
-Its first tree gives 22.6\% non-myopic and 2.41\% branch-support gains; a
-fresh structured tree retains the former but reverses the support effect. Despite exact
+DiscoverPhysics remains an objective-confounded policy contrast with an unstable
+LLM-support contribution. Its first tree gives a 22.6\% B--D policy difference
+and 2.41\% branch-support gain; a fresh structured tree retains the former but
+reverses the support effect. One-step prediction-risk selection already chooses
+B in the structured tree, so that root contrast does not isolate non-myopia. Despite exact
 rather than learned likelihoods, support does not replicate across generations.
 Rock Diagnosis uses an exact finite simulator and
 does not test robustness to learned likelihoods or open responses. Animals is only partially paired. Natural
