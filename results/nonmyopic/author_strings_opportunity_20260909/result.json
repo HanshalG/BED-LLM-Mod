@@ -1,0 +1,16 @@
+{
+  "cost_usd": 0,
+  "error_type": "ValueError",
+  "forecast_sha256": "0e567b7429a6e4f7c37e836074701ebea6541fc0bc5bd54f5fa7a6829f866ffe",
+  "implementation_sha256": {
+    "/Users/hanshalgoyal/BED-LLM-Mod/scripts/author_strings_opportunity.py": "e8fca95561611e8bdb6d029b505f4b4bd12c5bfba76c76f425b28a272f6a4670",
+    "environments/chembench_mopen/horizon.py": "0e1ea03e14f797930258e31a7776badef5269f3187d00dc362c6c7f7b43336fb",
+    "environments/program_induction/reference.py": "d2d2a9966c7b72764a299a1c5b9aa3be202f398a44ccf66a5d835566597a0e30",
+    "environments/string_induction/finite.py": "7159bc2a3207afe6cddd87a784ceef79037a381e99e6416fdefd6b3ac791648c",
+    "scripts/author_strings_audit.py": "f7854f96641bd1ae1171e4c7b358c0107f9196da50c3b4cf9170bfbe06f22877"
+  },
+  "model_calls": 0,
+  "paid_authority": false,
+  "protocol_sha256": "e6db22df793b2199b7a74869e6fff21673e181db616693e1a29ffd0cded317f0",
+  "status": "failed_closed"
+}
