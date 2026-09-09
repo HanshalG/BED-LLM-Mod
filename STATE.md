@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: fixed-slot search runtime banks raw prefix before conversion; actual synthetic worker56slots/6invalid/6872assignments, exact zero-call replay. Slot forecast preserves failed future-program mass and explicit all-invalid failure.21tests/1.37s, original paid replay unchanged, no containers/cost. HERB_SLOT_RUNTIME_RESULT_20260909.md next integrate and adversarial-test prospective qualification before fresh Luna-medium cohort. Previous/current progress, goal unachieved.
+
 2026-09-09 latest engineering follow-up: separate herb_safe_guidance preserves/rejects proposal slots atomically, leaving closed study replay intact. Actual zero-call worker smoke exposed another grammar/converter mismatch (unknown callable); paid readiness remains incomplete. HERB_SAFE_GUIDANCE_BOUNDARY_RESULT_20260909.md requires raw-search banking and fixed invalid slots next, no refill/retry/cohort reopening. Previous/current turns progress; account unchanged; goal unachieved.
 
 2026-09-09 latest: Luna medium expression qualification executed once from f32440fc; six clean calls/$0.02757011, then adapter failed on absent three-argument lbind grammar rule. Two updates completed with visible-example matches, not held-out evidence. No target labels or depth tests opened. Exact failure replay passes; 38 prelaunch tests passed. REARC_EXPRESSION_TERMINAL_RESULT_20260909.md records next synthetic arity-robustness dependency; bank remains closed. Account balance $23.581723111, conservative London-day spend $0.99999841. Goal unachieved.
