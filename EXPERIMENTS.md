@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Mechanism controller/source readiness | $0 | Frozen8c230795;6freshIDs/18sourcepasses/66publicrequests with60withheldoutputssealed,24promptchecksmax31138bytes.17tests/.64s;36callcontroller and$.08receipt/requestcontract, budgetdispatch/replay still pending. REARC_MECHANISM_CONTROLLER_SOURCE_RESULT_20260909.md; no modelcalls or scientificpositive.
+
 2026-09-09 | Prospective contrasting-mechanism interface | $0 | Matched3calls/16program attempts vsordinary planning, strictpublicschema, no labels-as-diversity;12tests/.36s. Frozen support protocol proposes6fresh tasks with preupdate answercoverage/diversity/pairedscore gates; source and new budgettransport pending, no paid authority. REARC_MECHANISM_INTERFACE_RESULT_20260909.md; goal unmet.
 
 2026-09-09 | Saved root opportunity/support audit | $0 | Demo1 predictive entropies .636514/0/0/undefined; observed-output probabilities1/3,1,0,undefined. Winningtask's4rootprograms unanimously wrong, recoverybranch absent from simulator. No newexecution or labels;3tests. REARC_SLOT_OPPORTUNITY_INTERPRETATION_20260909.md; no depth authorization or gate rescue.

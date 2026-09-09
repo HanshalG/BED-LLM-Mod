@@ -1,0 +1,343 @@
+{
+  "status": "passed",
+  "cohort_sha256": "f623d049f0773e33ac0916a3d9d21124c11519a403beb1308443790407b683ca",
+  "source_commit": "e5b7f1d06362a76f9d3b8c25154ff1fafca897ce",
+  "source_hashes": {
+    "dsl.py": "c60faf5730a966fc1689c08bc96794cd97fd0311b8036e0f9b0c80e2d12f0f11",
+    "utils.py": "48e11e45f804a37fcb0e62005c879ece7d5f0e1593d3fd53f5f978d31666540a",
+    "generators.py": "1f598cb13c9c7b223181ab35485ca77d9079b600ee3baef1bce750db71248726",
+    "verifiers.py": "e11c1ceed68ddb87fa544e3504f06d677c59698669a680e8124717f7703d80a1"
+  },
+  "module_sha256": "af1bf38477478e657d77073e9afd2036d9bf93709e885c3303d7831e89204b12",
+  "image": "sha256:989bb9480c980a0e6722f366bf7dbf68bf6c097e66ed1fe450885989e5ef0b49",
+  "rows": [
+    {
+      "task": "d8c310e9",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        12,
+        24
+      ],
+      "output_shape": [
+        12,
+        24
+      ],
+      "identity": false,
+      "input_sha256": "d3c10e99cfad2371d3ededbb0cabd791b841ea27963e4704124b351a44dab741",
+      "output_sha256": "66be7cb8db26db87d898a8094113778c2b70360b181cd2debd8c5daa40fc3d0f",
+      "verifier_sha256": "66be7cb8db26db87d898a8094113778c2b70360b181cd2debd8c5daa40fc3d0f",
+      "returncode": 0
+    },
+    {
+      "task": "d8c310e9",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        13,
+        21
+      ],
+      "output_shape": [
+        13,
+        21
+      ],
+      "identity": false,
+      "input_sha256": "8626a018ae724a9d97c9af2dfd228e64b74d8ed2d9dda34f93bebdfc4ae80b9c",
+      "output_sha256": "782c937dd1216479aaeb2ec3b20a3925ca60e8dbd5e1844fa7ade666bab4d48d",
+      "verifier_sha256": "782c937dd1216479aaeb2ec3b20a3925ca60e8dbd5e1844fa7ade666bab4d48d",
+      "returncode": 0
+    },
+    {
+      "task": "d8c310e9",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        6,
+        23
+      ],
+      "output_shape": [
+        6,
+        23
+      ],
+      "identity": false,
+      "input_sha256": "a61aad1a9cbd71cf4df32ecfb48e7b22f96637bc16bd59b431bb314c116fe336",
+      "output_sha256": "0053bcc9c00de614598ef9087255661aa46b1ebf3181e35a57de74f6a019c71f",
+      "verifier_sha256": "0053bcc9c00de614598ef9087255661aa46b1ebf3181e35a57de74f6a019c71f",
+      "returncode": 0
+    },
+    {
+      "task": "673ef223",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        22,
+        13
+      ],
+      "output_shape": [
+        22,
+        13
+      ],
+      "identity": false,
+      "input_sha256": "f091a33775326514ab7bf97895855ad3bdceda2d73d7b4d05e6dcf5da0147399",
+      "output_sha256": "c0b9a7b12ffb14f5d737a168c90122f11314d74d6dffd9e12a1ba534a24e72a3",
+      "verifier_sha256": "c0b9a7b12ffb14f5d737a168c90122f11314d74d6dffd9e12a1ba534a24e72a3",
+      "returncode": 0
+    },
+    {
+      "task": "673ef223",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        8,
+        21
+      ],
+      "output_shape": [
+        8,
+        21
+      ],
+      "identity": false,
+      "input_sha256": "1d0804e8d9b3e533a89ef02281a86f6af7b8c085392e0fdfebfce8a9220e9ec6",
+      "output_sha256": "823c58705846bcf9627deeb22139b6bf49f57d5fc69b669b5660a3a199486cb8",
+      "verifier_sha256": "823c58705846bcf9627deeb22139b6bf49f57d5fc69b669b5660a3a199486cb8",
+      "returncode": 0
+    },
+    {
+      "task": "673ef223",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        7,
+        21
+      ],
+      "output_shape": [
+        7,
+        21
+      ],
+      "identity": false,
+      "input_sha256": "e15be7cf132f68873f2fe48ac4e623868fe27af68a123116d9b84a1a3b2c4398",
+      "output_sha256": "6e79083fc57396b90587ba09c6d8938613531c848675a39198ce13d6b8a5d838",
+      "verifier_sha256": "6e79083fc57396b90587ba09c6d8938613531c848675a39198ce13d6b8a5d838",
+      "returncode": 0
+    },
+    {
+      "task": "9f236235",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        29,
+        29
+      ],
+      "output_shape": [
+        6,
+        10
+      ],
+      "identity": false,
+      "input_sha256": "61dca70765228af36492e65a89be65b37c9fdaf9d8cafd430b9d71f25a0249b8",
+      "output_sha256": "16526365c2204a8ee923165ace08d290d13690d3b8bf2da5e454e6295692a818",
+      "verifier_sha256": "16526365c2204a8ee923165ace08d290d13690d3b8bf2da5e454e6295692a818",
+      "returncode": 0
+    },
+    {
+      "task": "9f236235",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        19,
+        11
+      ],
+      "output_shape": [
+        10,
+        4
+      ],
+      "identity": false,
+      "input_sha256": "26cf920276643854f9792b0197c6bf8c52868f6098a67d56616d4196ccfd7f81",
+      "output_sha256": "3f6091090d7ee451483d33e715a55d01a9a2b8392b93d2931ddabe68bd5c13b1",
+      "verifier_sha256": "3f6091090d7ee451483d33e715a55d01a9a2b8392b93d2931ddabe68bd5c13b1",
+      "returncode": 0
+    },
+    {
+      "task": "9f236235",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        11,
+        19
+      ],
+      "output_shape": [
+        3,
+        10
+      ],
+      "identity": false,
+      "input_sha256": "905109c725edf4b3dacbab68f94055f4d0886a02e740f4320ef58e0fbbf94af6",
+      "output_sha256": "e97654b38bc34fa810be0f854aee96a15be8bfade1b6852f2a86dc301ddb91ed",
+      "verifier_sha256": "e97654b38bc34fa810be0f854aee96a15be8bfade1b6852f2a86dc301ddb91ed",
+      "returncode": 0
+    },
+    {
+      "task": "017c7c7b",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        10,
+        21
+      ],
+      "output_shape": [
+        15,
+        21
+      ],
+      "identity": false,
+      "input_sha256": "e2159f40b6a08b46b3e542938cba858fa6a1c10b65e77038746f92b7d7df3b51",
+      "output_sha256": "3073e981b11266b2220c2b9da0d6c61b8a8f9b763d382206ddc123b3b9b9806f",
+      "verifier_sha256": "3073e981b11266b2220c2b9da0d6c61b8a8f9b763d382206ddc123b3b9b9806f",
+      "returncode": 0
+    },
+    {
+      "task": "017c7c7b",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        16,
+        6
+      ],
+      "output_shape": [
+        24,
+        6
+      ],
+      "identity": false,
+      "input_sha256": "77b2ceaf6bb25046b15b44391b146aca027f39c9512cf6570f693be0c10942be",
+      "output_sha256": "cb09c5908296f49f5d13cc0f164a22a6cbbacb8c3a753752ae972866c4cf21cd",
+      "verifier_sha256": "cb09c5908296f49f5d13cc0f164a22a6cbbacb8c3a753752ae972866c4cf21cd",
+      "returncode": 0
+    },
+    {
+      "task": "017c7c7b",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        8,
+        20
+      ],
+      "output_shape": [
+        12,
+        20
+      ],
+      "identity": false,
+      "input_sha256": "c4ed6d59832e90027a75a1403e37ec193fab0859ddc2a6391952901572eec478",
+      "output_sha256": "350aad57330e19dab875a3641bb28651148f7b97ca45286e44d6854000bfa0f0",
+      "verifier_sha256": "350aad57330e19dab875a3641bb28651148f7b97ca45286e44d6854000bfa0f0",
+      "returncode": 0
+    },
+    {
+      "task": "363442ee",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        26,
+        25
+      ],
+      "output_shape": [
+        26,
+        25
+      ],
+      "identity": false,
+      "input_sha256": "f128d15f76ff362c8b61d0ec50d6ea30ea3c21f852185b714b12f60048e33af7",
+      "output_sha256": "6ab924ffbefa7ad12a1631551808516ad6bc553bf9adfd10dd0a49460056d89d",
+      "verifier_sha256": "6ab924ffbefa7ad12a1631551808516ad6bc553bf9adfd10dd0a49460056d89d",
+      "returncode": 0
+    },
+    {
+      "task": "363442ee",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        20,
+        13
+      ],
+      "output_shape": [
+        20,
+        13
+      ],
+      "identity": false,
+      "input_sha256": "dcc28efd67a2a2a04d1b108344fdf33274d002ee2cd78c68824b8aec9227e0bf",
+      "output_sha256": "75d1512f6b6c73f3a26fb1f56e333b29685ea931cdc27b1a2527eba228a79216",
+      "verifier_sha256": "75d1512f6b6c73f3a26fb1f56e333b29685ea931cdc27b1a2527eba228a79216",
+      "returncode": 0
+    },
+    {
+      "task": "363442ee",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        12,
+        16
+      ],
+      "output_shape": [
+        12,
+        16
+      ],
+      "identity": false,
+      "input_sha256": "0700cfd1d78f861d4883187d2653e45a0b8144a958ee35fee35a8cc61c0bdf32",
+      "output_sha256": "a97d220da13db7e50f9e38e0f4d158ec7d25d6b6641f3642c7913e54b4d4a326",
+      "verifier_sha256": "a97d220da13db7e50f9e38e0f4d158ec7d25d6b6641f3642c7913e54b4d4a326",
+      "returncode": 0
+    },
+    {
+      "task": "3de23699",
+      "seed": 38000,
+      "status": "ok",
+      "input_shape": [
+        13,
+        22
+      ],
+      "output_shape": [
+        5,
+        20
+      ],
+      "identity": false,
+      "input_sha256": "8e5fcb7caf3893b70d51750a89b7f11d0a4f2e5daba18adc0de5e5412d56f9d5",
+      "output_sha256": "670a6b1bedc31c59831ccd6d2cd5c7bf8c245428e79914fc2beecfbb303434d7",
+      "verifier_sha256": "670a6b1bedc31c59831ccd6d2cd5c7bf8c245428e79914fc2beecfbb303434d7",
+      "returncode": 0
+    },
+    {
+      "task": "3de23699",
+      "seed": 38001,
+      "status": "ok",
+      "input_shape": [
+        21,
+        8
+      ],
+      "output_shape": [
+        14,
+        3
+      ],
+      "identity": false,
+      "input_sha256": "687c19a8580943af2407453fc53a63c524314a5edf9fb1a7d5d595b4ff19242c",
+      "output_sha256": "333e03d798ce7965e8016b0e2d3194c02b0bfc4b8230ba2be9d468e6687d7bdd",
+      "verifier_sha256": "333e03d798ce7965e8016b0e2d3194c02b0bfc4b8230ba2be9d468e6687d7bdd",
+      "returncode": 0
+    },
+    {
+      "task": "3de23699",
+      "seed": 38002,
+      "status": "ok",
+      "input_shape": [
+        7,
+        21
+      ],
+      "output_shape": [
+        3,
+        7
+      ],
+      "identity": false,
+      "input_sha256": "9a800ee31a0ef2cc698d35e2f982b2c6da8c75451c5b7930cfc64fb0060120e4",
+      "output_sha256": "a17ce9e4a6e0224d2b4d15cdcab300e11a2c4d7def909c3054bfa4f235a8006e",
+      "verifier_sha256": "a17ce9e4a6e0224d2b4d15cdcab300e11a2c4d7def909c3054bfa4f235a8006e",
+      "returncode": 0
+    }
+  ],
+  "calls": 0,
+  "cost_usd": 0,
+  "examples_emitted": false,
+  "paid_authorized": false
+}

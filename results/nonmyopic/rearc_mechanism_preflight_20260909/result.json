@@ -1,0 +1,153 @@
+{
+  "status": "public_prompt_preflight_pass",
+  "calls": 0,
+  "withheld_labels_opened": false,
+  "paid_authorized": false,
+  "public_sha256": "509e3d6a6a4a379862f1c69c45f3ee9ccfe49d0a5d2c71ae4506a1d66f11f65a",
+  "request_bytes": [
+    {
+      "task_index": 0,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 12882
+    },
+    {
+      "task_index": 0,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 27737
+    },
+    {
+      "task_index": 0,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 12740
+    },
+    {
+      "task_index": 0,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 27704
+    },
+    {
+      "task_index": 1,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 11446
+    },
+    {
+      "task_index": 1,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 26301
+    },
+    {
+      "task_index": 1,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 11304
+    },
+    {
+      "task_index": 1,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 26268
+    },
+    {
+      "task_index": 2,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 16029
+    },
+    {
+      "task_index": 2,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 30884
+    },
+    {
+      "task_index": 2,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 15887
+    },
+    {
+      "task_index": 2,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 30851
+    },
+    {
+      "task_index": 3,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 8001
+    },
+    {
+      "task_index": 3,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 22856
+    },
+    {
+      "task_index": 3,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 7859
+    },
+    {
+      "task_index": 3,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 22823
+    },
+    {
+      "task_index": 4,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 16283
+    },
+    {
+      "task_index": 4,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 31138
+    },
+    {
+      "task_index": 4,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 16141
+    },
+    {
+      "task_index": 4,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 31105
+    },
+    {
+      "task_index": 5,
+      "mode": "contrasting",
+      "stage": "plan",
+      "bytes": 11218
+    },
+    {
+      "task_index": 5,
+      "mode": "contrasting",
+      "stage": "compile",
+      "bytes": 26073
+    },
+    {
+      "task_index": 5,
+      "mode": "ordinary",
+      "stage": "plan",
+      "bytes": 11076
+    },
+    {
+      "task_index": 5,
+      "mode": "ordinary",
+      "stage": "compile",
+      "bytes": 26040
+    }
+  ]
+}
