@@ -1,0 +1,879 @@
+{
+  "status": "complete_metadata_audit",
+  "source_commit": "24b5535f37ca92745ddb4c3a5a5381b6ccfa87ce",
+  "manifest_sha256": "e0bf610850e97660385e54362d1a242288f3e6add616a4f98f612aeb89fce524",
+  "graphviz_version": "dot - graphviz version 13.0.1 (20250615.1724)",
+  "rows": [
+    {
+      "path": "eval/src/main/resources/mqtt/ActiveMQ/invalid.dot",
+      "sha256": "995ac033dbb1bcf3d3729721ac1d22ac75d664cfb18d1769318f0f7d9f372ab2",
+      "status": "valid",
+      "states": 5,
+      "reachable_states": 5,
+      "transitions": 55,
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "output_symbols": 8,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/ActiveMQ/non_clean.dot",
+      "sha256": "eb9c09d2747cdc386c2b2e432ffd45459f9f1ae888bbcbaae72656561283e81b",
+      "status": "valid",
+      "states": 12,
+      "reachable_states": 12,
+      "transitions": 72,
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "output_symbols": 18,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/ActiveMQ/simple.dot",
+      "sha256": "602e50e5b531025a66109a216dde35cd3f4e0e94c65536934570fefaf5aa181a",
+      "status": "valid",
+      "states": 4,
+      "reachable_states": 4,
+      "transitions": 28,
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/ActiveMQ/single_client.dot",
+      "sha256": "76d46848aa97125b466cf83a687342a37df08f8d47fe293ad7fdd07ead22804c",
+      "status": "valid",
+      "states": 8,
+      "reachable_states": 8,
+      "transitions": 88,
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "output_symbols": 11,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/ActiveMQ/two_client_will_retain.dot",
+      "sha256": "410fc7d836cdc89377fa8b471fb507604540709c7b48791c2b42b8f39206a57a",
+      "status": "valid",
+      "states": 18,
+      "reachable_states": 18,
+      "transitions": 162,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 21,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/invalid.dot",
+      "sha256": "cc45003dec4956cfe4ca87e3a327b21e29ae67b817f0a38d7d314bccbbba7573",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 33,
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/non_clean.dot",
+      "sha256": "05a523c09f34d6b97235f1ae05e4da51ef638465334a62a59dbddb5fb1affda8",
+      "status": "valid",
+      "states": 12,
+      "reachable_states": 12,
+      "transitions": 72,
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "output_symbols": 18,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/simple.dot",
+      "sha256": "564eee60057675b3926525910201ba571f55043829c471933f731263be9d1e86",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 21,
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/single_client.dot",
+      "sha256": "01e523f651d290950b751dda1878c2e1be852ee4ff5b573c7ba7a0a318b3c2fe",
+      "status": "valid",
+      "states": 10,
+      "reachable_states": 10,
+      "transitions": 110,
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "output_symbols": 10,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/two_client.dot",
+      "sha256": "3906e586f0622edb4363cad9e232307a3da6eedbc03fca9455dc78d63e0ced5a",
+      "status": "valid",
+      "states": 16,
+      "reachable_states": 16,
+      "transitions": 144,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectTCPC1",
+        "PublishQoS0C2",
+        "PublishQoS1C1",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 42,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/two_client_same_id.dot",
+      "sha256": "a9dfdd3757205c28193e15f99b4bff57f071c7a0cb354fa59f5413b1c5a17cf4",
+      "status": "valid",
+      "states": 7,
+      "reachable_states": 7,
+      "transitions": 77,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectC1",
+        "DisconnectC2",
+        "DisconnectTCPC1",
+        "PublishC1",
+        "PublishC2",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 13,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/VerneMQ/two_client_will_retain.dot",
+      "sha256": "8f9fd5b2efcf13952811df08c244cfe38f4712678a9fb96868fadd3fcfe7e9c1",
+      "status": "valid",
+      "states": 17,
+      "reachable_states": 17,
+      "transitions": 153,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 18,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/invalid.dot",
+      "sha256": "0205db5bfd6237485954c73d89215e88cdd3403f411eb09056546871cc353dce",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 33,
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "output_symbols": 6,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/non_clean.dot",
+      "sha256": "a26a177b945e5952274c8f1c440e51d700bc1c44af47e5c070891664eb482707",
+      "status": "valid",
+      "states": 12,
+      "reachable_states": 12,
+      "transitions": 72,
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "output_symbols": 20,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/simple.dot",
+      "sha256": "564eee60057675b3926525910201ba571f55043829c471933f731263be9d1e86",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 21,
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/single_client.dot",
+      "sha256": "02286a00bfc63f8883a4f667f390b2a8ac54b68faf58ef6f382f7f5997a05c67",
+      "status": "valid",
+      "states": 10,
+      "reachable_states": 10,
+      "transitions": 110,
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "output_symbols": 11,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/two_client.dot",
+      "sha256": "2b6e9d9e39ae3cbd36e52975199067850d5e42b6fe35ce6fa465f034079f06d4",
+      "status": "valid",
+      "states": 16,
+      "reachable_states": 16,
+      "transitions": 144,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectTCPC1",
+        "PublishQoS0C2",
+        "PublishQoS1C1",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 48,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/two_client_same_id.dot",
+      "sha256": "b196cfd48d6c32a183143dec51a10f73241a6f116bb513a876e66fd2cc14ce0f",
+      "status": "valid",
+      "states": 7,
+      "reachable_states": 7,
+      "transitions": 77,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectC1",
+        "DisconnectC2",
+        "DisconnectTCPC1",
+        "PublishC1",
+        "PublishC2",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 13,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/emqtt/two_client_will_retain.dot",
+      "sha256": "7e731044f798c0c18184c4cbdfca849d833e39c79f64d3d0fd790aa7096ae555",
+      "status": "valid",
+      "states": 18,
+      "reachable_states": 18,
+      "transitions": 162,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 21,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/invalid.dot",
+      "sha256": "45a02e8e7bc9ecae6bba826a55a153a61a34514b2b469580191456b55cc0f649",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 33,
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "output_symbols": 6,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/non_clean.dot",
+      "sha256": "4c8d2e69c3c2f9441d4e0b2aa15861c2b3c266c4cd8cc3ec645c9840e389afaa",
+      "status": "valid",
+      "states": 10,
+      "reachable_states": 10,
+      "transitions": 60,
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "output_symbols": 17,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/simple.dot",
+      "sha256": "b89d35a96dca1a785c8f7c2d6cb236d151091d8716a660404e38986f3d7820da",
+      "status": "valid",
+      "states": 5,
+      "reachable_states": 5,
+      "transitions": 35,
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "output_symbols": 8,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/single_client.dot",
+      "sha256": "e429a6f9366ef6537b12e14966475d05be22f5944df2049ae82ebb3486780bea",
+      "status": "valid",
+      "states": 10,
+      "reachable_states": 10,
+      "transitions": 110,
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "output_symbols": 13,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/two_client.dot",
+      "sha256": "3014644fdb2f278b6c245f51007da8851cc78004631fe385e17e2ec1952cf040",
+      "status": "valid",
+      "states": 9,
+      "reachable_states": 9,
+      "transitions": 81,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectTCPC1",
+        "PublishQoS0C2",
+        "PublishQoS1C1",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 27,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/hbmqtt/two_client_will_retain.dot",
+      "sha256": "2c7864fd03f12cd76eb5bd1240832ee644258917c5a1b3678804b945e25ddecd",
+      "status": "valid",
+      "states": 17,
+      "reachable_states": 17,
+      "transitions": 153,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 22,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/invalid.dot",
+      "sha256": "cc45003dec4956cfe4ca87e3a327b21e29ae67b817f0a38d7d314bccbbba7573",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 33,
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/mosquitto.dot",
+      "sha256": "564eee60057675b3926525910201ba571f55043829c471933f731263be9d1e86",
+      "status": "valid",
+      "states": 3,
+      "reachable_states": 3,
+      "transitions": 21,
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "output_symbols": 7,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/non_clean.dot",
+      "sha256": "503506098e950890d6d5bdb4388be400bf5e4f3837b401e593dad36d8cf9721d",
+      "status": "valid",
+      "states": 12,
+      "reachable_states": 12,
+      "transitions": 72,
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "output_symbols": 18,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/single_client.dot",
+      "sha256": "a866b9fc0a6b55a6f9f2535e65e3c04553cc23a101ca768fa2d84bbb32ce4b31",
+      "status": "valid",
+      "states": 10,
+      "reachable_states": 10,
+      "transitions": 110,
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "output_symbols": 11,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/two_client.dot",
+      "sha256": "52c1cbc38a059eafdfe4614f928267353c4d434a028119febca22ef17c82c54a",
+      "status": "valid",
+      "states": 16,
+      "reachable_states": 16,
+      "transitions": 144,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectTCPC1",
+        "PublishQoS0C2",
+        "PublishQoS1C1",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 42,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/two_client_same_id.dot",
+      "sha256": "4362f46539ed762b677e8e55fe66346d5c8ce2ea248a544a4c71281bafeb7cf3",
+      "status": "valid",
+      "states": 7,
+      "reachable_states": 7,
+      "transitions": 77,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectC1",
+        "DisconnectC2",
+        "DisconnectTCPC1",
+        "PublishC1",
+        "PublishC2",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 13,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    },
+    {
+      "path": "eval/src/main/resources/mqtt/mosquitto/two_client_will_retain.dot",
+      "sha256": "ea23d33948e4c11f35f6135c218da41148799c7f591813e3e54319dd5fca2212",
+      "status": "valid",
+      "states": 18,
+      "reachable_states": 18,
+      "transitions": 162,
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "output_symbols": 21,
+      "total_deterministic": true,
+      "explicit_reset_state": true
+    }
+  ],
+  "groups": [
+    {
+      "scenario": "invalid",
+      "input_alphabet": [
+        "Connect",
+        "ConnectNonClean",
+        "Disconnect",
+        "PublishQoS0Dup",
+        "PublishQoSMinus1",
+        "PublishWildCard",
+        "Subscribe",
+        "SubscribeMinus1",
+        "SubscribeWildMatch",
+        "UnSubScribe",
+        "UnSubscribeWildMatch"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/ActiveMQ/invalid.dot",
+        "eval/src/main/resources/mqtt/VerneMQ/invalid.dot",
+        "eval/src/main/resources/mqtt/emqtt/invalid.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/invalid.dot",
+        "eval/src/main/resources/mqtt/mosquitto/invalid.dot"
+      ]
+    },
+    {
+      "scenario": "mosquitto",
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/mosquitto/mosquitto.dot"
+      ]
+    },
+    {
+      "scenario": "non_clean",
+      "input_alphabet": [
+        "ConnectC1",
+        "ConnectC2",
+        "DisconnectC2",
+        "PublishQoS1C1",
+        "SubscribeC2QoS1",
+        "UnSubscribeC2"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/ActiveMQ/non_clean.dot",
+        "eval/src/main/resources/mqtt/VerneMQ/non_clean.dot",
+        "eval/src/main/resources/mqtt/emqtt/non_clean.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/non_clean.dot",
+        "eval/src/main/resources/mqtt/mosquitto/non_clean.dot"
+      ]
+    },
+    {
+      "scenario": "simple",
+      "input_alphabet": [
+        "Connect",
+        "Disconnect",
+        "DisconnectTCP",
+        "Ping",
+        "Publish",
+        "Subscribe",
+        "UnSubScribe"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/ActiveMQ/simple.dot",
+        "eval/src/main/resources/mqtt/VerneMQ/simple.dot",
+        "eval/src/main/resources/mqtt/emqtt/simple.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/simple.dot"
+      ]
+    },
+    {
+      "scenario": "single_client",
+      "input_alphabet": [
+        "Connect",
+        "DeleteRetained",
+        "Disconnect",
+        "DisconnectTCP",
+        "PublishQoS0",
+        "PublishQoS1",
+        "PublishRetain",
+        "Subscribe",
+        "SubscribeRetained",
+        "UnSubScribe",
+        "UnSubScribeRetained"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/ActiveMQ/single_client.dot",
+        "eval/src/main/resources/mqtt/VerneMQ/single_client.dot",
+        "eval/src/main/resources/mqtt/emqtt/single_client.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/single_client.dot",
+        "eval/src/main/resources/mqtt/mosquitto/single_client.dot"
+      ]
+    },
+    {
+      "scenario": "two_client",
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectTCPC1",
+        "PublishQoS0C2",
+        "PublishQoS1C1",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/VerneMQ/two_client.dot",
+        "eval/src/main/resources/mqtt/emqtt/two_client.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/two_client.dot",
+        "eval/src/main/resources/mqtt/mosquitto/two_client.dot"
+      ]
+    },
+    {
+      "scenario": "two_client_same_id",
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC2",
+        "DisconnectC1",
+        "DisconnectC2",
+        "DisconnectTCPC1",
+        "PublishC1",
+        "PublishC2",
+        "SubscribeC1",
+        "SubscribeC2",
+        "UnSubScribeC1",
+        "UnSubScribeC2"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/VerneMQ/two_client_same_id.dot",
+        "eval/src/main/resources/mqtt/emqtt/two_client_same_id.dot",
+        "eval/src/main/resources/mqtt/mosquitto/two_client_same_id.dot"
+      ]
+    },
+    {
+      "scenario": "two_client_will_retain",
+      "input_alphabet": [
+        "ConnectC1WithWill",
+        "ConnectC1WithWillRetain",
+        "ConnectC2",
+        "DeleteRetainedC1",
+        "DeleteRetainedC2",
+        "DisconnectC1",
+        "DisconnectTCPC1",
+        "SubscribeC2",
+        "UnSubScribeC2"
+      ],
+      "paths": [
+        "eval/src/main/resources/mqtt/ActiveMQ/two_client_will_retain.dot",
+        "eval/src/main/resources/mqtt/VerneMQ/two_client_will_retain.dot",
+        "eval/src/main/resources/mqtt/emqtt/two_client_will_retain.dot",
+        "eval/src/main/resources/mqtt/hbmqtt/two_client_will_retain.dot",
+        "eval/src/main/resources/mqtt/mosquitto/two_client_will_retain.dot"
+      ]
+    }
+  ],
+  "model_calls": 0,
+  "protocol_steps": 0,
+  "cost_usd": 0,
+  "paid_authorized": false,
+  "scope": "source metadata; transition bytes parsed locally but no response trace generated"
+}
