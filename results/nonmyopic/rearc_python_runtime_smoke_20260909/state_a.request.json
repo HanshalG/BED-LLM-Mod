@@ -1,0 +1,1 @@
+{"code": "n=0\ndef transform(g):\n global n\n n+=1\n return [[n]]", "expected": [[1]], "input": [[1]]}

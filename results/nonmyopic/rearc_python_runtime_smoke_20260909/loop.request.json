@@ -1,0 +1,1 @@
+{"code": "def transform(g):\n while True: pass", "expected": "runtime_failed", "input": [[1]]}

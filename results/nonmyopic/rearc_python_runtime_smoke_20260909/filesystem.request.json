@@ -1,0 +1,1 @@
+{"code": "def transform(g): return open(\"/tmp/not-authorized\",\"w\")", "expected": "failed", "input": [[1]]}

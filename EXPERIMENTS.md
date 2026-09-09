@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Native Python runtime mechanics | $0 |7unit/9actualsyntheticchecks pass insidefreshisolatedcontainers;floodfill/resize/stateisolation,failuresbounded. REARC_NATIVE_PYTHON_RUNTIME_RESULT_20260909.md; no benchmark/modelcalls orpredictiveclaim, compatibility/controllerstillrequired.
+
 2026-09-09 | Representation/source reassessment | $0 |Saved public typeflow and plan-implementation inconsistencies; pinnedPoetiq source (a6947cff) and BARC/CodeARC primarysources favor testing nativecode representation, not importingfirst-fit stopping/hostexecutor. REARC_REPRESENTATION_REASSESSMENT_20260909.md; no newoutputs/calls, predictive/depth gates unchanged.
 
 2026-09-09 | Exact-schedule paired repair | $0.09916568 |24normalLunamedcalls/exactreplay;3/6actionabledemofit<4,hiddenlabelsclosed. Active3tasks:structuralrescue2/3vs0/3generic,demorescue1;overallboth3/6. Identical inactiveprompts/seeds stilldiffer. REARC_EXACT_REPAIR_TERMINAL_RESULT_20260909.md; no predictive/depthclaim, remaining3.65706419.

@@ -1,0 +1,1 @@
+{"code": "def transform(g): return [[99]]", "expected": "failed", "input": [[1]]}

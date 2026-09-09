@@ -1,0 +1,1 @@
+{"code": "def transform(g):\n x=[0]*100000000\n return g", "expected": "runtime_failed", "input": [[1]]}

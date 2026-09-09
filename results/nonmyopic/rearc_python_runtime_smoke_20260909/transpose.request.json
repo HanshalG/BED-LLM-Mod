@@ -1,0 +1,1 @@
+{"code": "def transform(g): return [list(r) for r in zip(*g)]", "expected": [[1, 4], [2, 5], [3, 6]], "input": [[1, 2, 3], [4, 5, 6]]}
