@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Scene inventory vs raw Luna-medium | $0.18161996 | Frozen d0d3e785;24normalcalls/exactreplay,inventoryfit2/4vsraw1/4 below3/4gate,36futurelabelsclosed.447runtimeok/8failed;rawtask1repairSyntaxErrorbatch. Observedfit benefit only,no transfer/planning claim. REARC_SCENE_TERMINAL_RESULT_20260909.md;budgetremaining3.10986396,balance22.691585481,no uncertainty added. Cohortclosed.
+
 2026-09-09 | Scene paid readiness | $0 | Initial preflight byteoverflow preserved; compactJSON(no facts removed) V2 passes24checks,max57829bytes.31tests include terminal/interrupt exactreplay,cap and authorization failure. Live exactroute/budget pass,1.92fullblock authorized; source/public unchanged. No modelcalls yet; freeze runner before launch.
 
 2026-09-09 | Scene-interface fresh source and panel | $0 | Frozen d5a73b71,4/4firstcandidates reference-valid,44channels plus4prescribed second observations,36futureoutputssealed. Exactpool/schedule/publicreplay;25tests/1.10s inclwrong-diffuse supportnull,24callseedpairing,sealing. No modelcalls,accountunchanged. REARC_SCENE_SOURCE_PANEL_RESULT_20260909.md; paid transport/preflight/replay required next.

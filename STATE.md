@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: scene experiment d0d3e785 completed24normalLunamedcalls/$0.18161996, exact24callreplay/new0. Inventorytwo-examplefit2/4vsraw1/4 butbelow3/4gate =>coverage null,36futurelabelsclosed,nodepth.447validgridreturns/8failures;rawtask1repairatomicSyntaxError. REARC_SCENE_TERMINAL_RESULT_20260909.md; stop serial minor text-gridprompt tweaks, next substantiallynew semanticgrounding/text-native executable opportunity assessment, notcohortrerun/gaterescue. Balance22.691585481,dayremaining3.10986396. Previous/currentprogress,goalunmet.
+
 2026-09-09 latest: scene paid runner integrated,31tests incl exact24call/interrupt replay and budget guards. Initialzero-callpreflight byteoverflow banked; losslesscompactJSON amendment before responses makesV2all24checkspass,max57829. REARC_SCENE_PAID_READINESS_20260909.md; account/routeverified,1.92blockauthorized from3.29148392remaining. Preparing one frozen launch; no modelcalls yet,goalunmet.
 
 2026-09-09 latest: scene panel/source frozen d5a73b71; first4 fresh candidates pass44 source checks, four prescribed second observations hash-bound,36 futureoutputssealed. Exact journal/schedule/public replay;25focusedtests pass. REARC_SCENE_SOURCE_PANEL_RESULT_20260909.md; next actual prompt preflight and paid budget/response/failure replay integration before24calls/$1.92. Reuse saved bank, no new source or old-cohort retries. No API cost/accountchange; previous/current progress,goalunmet.
