@@ -1,0 +1,40 @@
+{
+  "cost_usd": 0,
+  "declared_card_license": "mit",
+  "model_calls": 0,
+  "paid_authority": false,
+  "scope": "Only predesignated development tasks 1 and 10",
+  "source_commit": "33e166058404fd5eec3ec0f5080df9befbe884a8",
+  "tasks": {
+    "1": {
+      "complete_function_outside_examples": false,
+      "contiguous_coordinates": true,
+      "distinct_inputs": 10,
+      "enough_for_one_initial_six_candidates_three_targets": true,
+      "examples": 10,
+      "label_conflicts": 0,
+      "negative_facts": 799,
+      "positive_facts": 47,
+      "sha256": {
+        "bias.pl": "14a735756169f0a70a10a7b4cf70b07973a30f1c424651fcf86767aaa58371f2",
+        "bk.pl": "b3ab6398b9b054090cbfa89e3cf8874c8c01cb0aed652cdca07c8854e8408c25",
+        "exs.pl": "4820860c45307f8303bb61ef0e0208b2a03dc1362a0d6e9a7c4b6c7ca6d4c31a"
+      }
+    },
+    "10": {
+      "complete_function_outside_examples": false,
+      "contiguous_coordinates": true,
+      "distinct_inputs": 10,
+      "enough_for_one_initial_six_candidates_three_targets": true,
+      "examples": 10,
+      "label_conflicts": 0,
+      "negative_facts": 3762,
+      "positive_facts": 114,
+      "sha256": {
+        "bias.pl": "e6cf9f5b986f0a2dfe26e6a977669c949accee58a8c6e0c654bb35b556179afe",
+        "bk.pl": "c3bb3bb0a9e713c477b7b2206578dc93618aed18461e33ffca8fc058838fe74b",
+        "exs.pl": "f713fc19d682c9a9ab144c10ba5f8078747c1c275d5a378c6ef968cbaba95124"
+      }
+    }
+  }
+}
