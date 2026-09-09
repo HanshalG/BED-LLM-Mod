@@ -67,3 +67,11 @@ def test_invalid_tree_never_reads_targets(tmp_path):
     with pytest.raises(ValueError, match='operator fields'):
         probe.collect(Block(), public()['457'], ['1'], lambda: pytest.fail('targets opened'))
     assert not (tmp_path/'forecasts.json').exists()
+
+
+def test_banked_tree_null_replay():
+    result = probe.replay(probe.ROOT)
+    assert result['status'] == 'replay_valid'
+    assert not result['descriptive_repair_signal']
+    assert len(set(result['losses'].values())) == 1
+    assert result['accepted_cost_usd'] == pytest.approx(.0078981)
