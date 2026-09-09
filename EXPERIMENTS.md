@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Luna-medium second-observation native revision | $0.20918020 |36normalcalls/exactreplay;awarefit1/4<3,36futurelabelsclosed, no depth.639runtimeok/5failed,observedsemanticfitbottleneck. REARC_NATIVE_REVISION_TERMINAL_RESULT_20260909.md;remaining3.29148392,balance22.873205441,no uncertainty added,closedcohort.
+
 2026-09-09 | Native revision source and panel | $0 | Frozen6dfb3299;4tasks/44channels pass, no rejection/retry, exactreplay.4secondanswers+36futurelabelsclosed;8initialpromptchecks max18261bytes. REARC_NATIVE_REVISION_SOURCE_PANEL_RESULT_20260909.md; matchedaware/blind/initial scoring implemented, budgetrevealbank stillneeded,noAPI.
 
 2026-09-09 | Native second-observation revision controller | $0 | Sharedinitial16 +16revised/arm,9calls/task, aware-vsblind proposer butbothposteriorsconditionon2examples.17tests/.52s; prospective4task36callprotocol, no cohort orpaidcall. REARC_NATIVE_REVISION_PROTOCOL_20260909.md; source/panel/budgetreplay dependencies pending, not non-myopic efficacy.

@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: native revision a68aa895 completed36normalcalls/$0.20918020; aware two-example fit[false,true,false,false]1/4<3 =>coverage null,36futureoutputsclosed. Allbatchesstructuralvalid;639cachedgridreturns/5failures. Exact36callreplay/new0,41prelaunchtests. REARC_NATIVE_REVISION_TERMINAL_RESULT_20260909.md; stop escalatingexamples/depth blindly, next savedpublic semantic-vs-code audit before prospectivelynew observationinterface/text-native route. Balance22.873205441/dayremaining3.29148392;prior/currentprogress,goalunmet.
+
 2026-09-09 latest: revision4taskpanel/source frozen6dfb3299;first4candidates all44channelspass, exactpool/schedulereplay. Foursecondanswers+36futureoutputssealed. Initial8promptchecks max18261bytes, publicSHA48eea756. REARC_NATIVE_REVISION_SOURCE_PANEL_RESULT_20260909.md; next budgetedreveal/endpointbank andresponse/failurereplay before36Lunamedcalls/$2.88. Reusecachedsource, accountunchanged/noAPI;prior/currentprogress,goalunmet.
 
 2026-09-09 latest: native revision controller implemented: shared16initialslots bankedbeforesecondanswer, aware/blind3calls each, final32slots each conditioned onbothobservations.17focusedtests pass for9calls/revealordering/blindprivacy/sharedfilter. REARC_NATIVE_REVISION_PROTOCOL_20260909.md freezes4task36call/$2.88screen andsupport6/8+pairedscore+supportrecoverygates; candidate/source/panel/budgetreplay stillrequired. No newcohort/calls; accountunchanged. Prior/currentprogress,fullgoalunmet.
