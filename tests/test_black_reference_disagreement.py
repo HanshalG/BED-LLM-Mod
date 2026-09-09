@@ -3,7 +3,7 @@ import subprocess
 
 import pytest
 
-from scripts.black_reference_disagreement import inputs, run_container, summarize
+from scripts.black_reference_disagreement import inputs, parent_binding, run_container, summarize
 
 
 def test_fixed_disjoint_domain():
@@ -30,3 +30,9 @@ def test_timeout_cleans_only_owned_container():
     name = args[args.index('--name')+1]
     assert name.startswith('bed-black-audit-')
     assert cleanup.call_args.args[0] == ['docker', 'rm', '-f', name]
+
+
+def test_wrong_parent_tag_rejected():
+    with patch('scripts.black_reference_disagreement.checked', return_value='[{"Id":"wrong"}]'):
+        with pytest.raises(ValueError, match='parent image changed'):
+            parent_binding()
