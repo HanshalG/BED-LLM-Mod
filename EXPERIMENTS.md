@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Bounded source-qualified representation pool | $0 | Frozen d8854f79;6valid/7attempted tasks,1reference rejection,69sourceattempts. Exactreplay/18promptchecks/36tests pass;60outputssealed,noAPI. REARC_SOURCE_QUALIFIED_REPRESENTATION_RESULT_20260909.md; budgeted nativebank stillneeded before comparison,accountunchanged.
+
 2026-09-09 | Representation exact-source gate | $0 | Frozen fc29ca61;46/66publicchannels pass then8731374e/46201 verify ValueError. Replay exact/new0; cohortclosed, no publicbank/modelcalls/endpoints. REARC_REPRESENTATION_SOURCE_FAILURE_20260909.md; sourcevalid finitepool design needed prospectively, not an LLM null.24tests/.62s, accountunchanged.
 
 2026-09-09 | Shared-plan representation controller | $0 | Python-vsDSL five-call updates, six-task/30-call panel, unchanged predictive gates, 28 focused tests/.61s. Synthetic ties fail qualification and coverage null leaves labels closed. Prospective REARC_REPRESENTATION_PROTOCOL_20260909.md; fresh cohort/source and paid bank integration still pending. Authenticated account unchanged, no new model calls or efficacy claim.
