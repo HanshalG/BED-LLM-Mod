@@ -1,0 +1,25 @@
+{
+  "selected_ids": [
+    "4be741c5",
+    "b7249182",
+    "c1d99e64",
+    "963e52fc",
+    "10fcaaa3",
+    "f35d900a",
+    "a68b268e",
+    "c9f8e694"
+  ],
+  "excluded_ids": [
+    "1a07d186",
+    "1b2d62fb",
+    "67e8384a",
+    "264363fd"
+  ],
+  "source_commit": "e5b7f1d06362a76f9d3b8c25154ff1fafca897ce",
+  "selection": "first8 SHA256(bed-rearc-feedback-v1:+id), excluding closed four; no replacement",
+  "source_bodies_inspected": false,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "paid_authorized": false,
+  "scope": "source-contract audit only"
+}
