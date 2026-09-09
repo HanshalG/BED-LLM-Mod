@@ -43,7 +43,7 @@ def metadata(raw):
     for edge in value['edges']:
         src,dst=nodes[edge['tail']],nodes[edge['head']]
         if src=='__start0':
-            if 'label' in edge or dst not in states: raise ValueError('start edge')
+            if edge.get('label','') or dst not in states: raise ValueError('start edge')
             start.append(dst);continue
         if src not in states or dst not in states: raise ValueError('state reference')
         inp,sep,out=edge.get('label','').partition('/')
