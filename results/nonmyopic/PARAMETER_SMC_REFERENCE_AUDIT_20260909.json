@@ -1,0 +1,1009 @@
+{
+  "cost_usd": 0,
+  "model_calls": 0,
+  "old_gate_changed": false,
+  "paid_authorized": false,
+  "protocol_sha256": "eb181ff9fa953b704ec3c00b96f4ab0efed87fde213320858d4ce47579e9ee01",
+  "references": {
+    "four_modes": {
+      "log_evidence": -3.5758623334749715,
+      "mean": [
+        0.0,
+        0.0,
+        0.0,
+        1.9898435945683453
+      ],
+      "mode_mass": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "variance": [
+        0.9949217972841726,
+        0.9949217972841726,
+        0.9898693827111683,
+        0.020104829146010195
+      ]
+    },
+    "one_parameter": {
+      "log_evidence": 6.512373605475288,
+      "mean": [
+        0.23183812653054253,
+        0.7146519852554184,
+        1.2832538655049088,
+        1.8271854048333362
+      ],
+      "variance": [
+        5.0531675869514775e-05,
+        0.0003077101692670115,
+        0.0006167403608023932,
+        0.0008312236611552113
+      ]
+    }
+  },
+  "rows": [
+    {
+      "absolute_log_evidence_error": 0.06477728593734433,
+      "acceptance_rate": 0.6924913194444444,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9678,
+      "max_mean_error": 0.0011170300062688376,
+      "max_mean_error_in_posterior_sd": 0.03896616578308206,
+      "max_relative_variance_error": 0.022779901041759754,
+      "mean": [
+        0.2315611330644307,
+        0.7139701863998712,
+        1.2822905520583725,
+        1.8260683748270674
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.013661165998200886,
+      "seed": 0,
+      "unique_particles": 510,
+      "variance": [
+        4.948292259987548e-05,
+        0.0003010225672561339,
+        0.0006029189019107618,
+        0.0008122884684105263
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.0747179012165331,
+      "acceptance_rate": 0.6847873263888888,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9686,
+      "max_mean_error": 0.0014715794127053705,
+      "max_mean_error_in_posterior_sd": 0.051041655843108866,
+      "max_relative_variance_error": 0.03741170789023429,
+      "mean": [
+        0.231478380516722,
+        0.713760473209087,
+        1.2819881703839793,
+        1.8257138254206309
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007761790999211371,
+      "seed": 1,
+      "unique_particles": 506,
+      "variance": [
+        5.242215216634906e-05,
+        0.00031912036420575404,
+        0.0006394786456833045,
+        0.0008617782462087321
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.04718086199961036,
+      "acceptance_rate": 0.6858723958333334,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9683,
+      "max_mean_error": 0.00016421000747657288,
+      "max_mean_error_in_posterior_sd": 0.005695615619006803,
+      "max_relative_variance_error": 0.07408346215924233,
+      "mean": [
+        0.23180329727554455,
+        0.7145594438008226,
+        1.283116151805677,
+        1.8270211948258597
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007832249997591134,
+      "seed": 2,
+      "unique_particles": 504,
+      "variance": [
+        5.408044450732545e-05,
+        0.0003298877315924562,
+        0.000661990263437908,
+        0.0008928035878022702
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.039293130951776334,
+      "acceptance_rate": 0.6948784722222222,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9696,
+      "max_mean_error": 0.0009319932962312816,
+      "max_mean_error_in_posterior_sd": 0.03232613929197847,
+      "max_relative_variance_error": 0.044350798020996174,
+      "mean": [
+        0.23206457980567405,
+        0.7152147678489702,
+        1.284054523084153,
+        1.8281173981295675
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007469707998097874,
+      "seed": 3,
+      "unique_particles": 506,
+      "variance": [
+        4.8370230807377835e-05,
+        0.00029432481530673526,
+        0.0005895781045837525,
+        0.0007943582284490435
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.13397402086382293,
+      "acceptance_rate": 0.6804470486111112,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9702,
+      "max_mean_error": 0.0007775801383105296,
+      "max_mean_error_in_posterior_sd": 0.027085244651822316,
+      "max_relative_variance_error": 0.011812054660013671,
+      "mean": [
+        0.23164558934742938,
+        0.7141777477576853,
+        1.2825834800378733,
+        1.8264078246950257
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007995457999641076,
+      "seed": 4,
+      "unique_particles": 505,
+      "variance": [
+        4.998956536889409e-05,
+        0.00030424610841741343,
+        0.000609575225345844,
+        0.0008214052018349492
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.032067546111582246,
+      "acceptance_rate": 0.68359375,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9701,
+      "max_mean_error": 0.00029527924636818526,
+      "max_mean_error_in_posterior_sd": 0.010502802896047258,
+      "max_relative_variance_error": 0.024878177554767955,
+      "mean": [
+        0.23191278637247464,
+        0.7148341605493321,
+        1.2835095226030184,
+        1.8274806840797044
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.00746695799898589,
+      "seed": 5,
+      "unique_particles": 502,
+      "variance": [
+        5.1601346196161266e-05,
+        0.00031476489686357373,
+        0.000631653929192525,
+        0.0008519029909851548
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.11952462278040343,
+      "acceptance_rate": 0.6902126736111112,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9689,
+      "max_mean_error": 0.0015579521227118143,
+      "max_mean_error_in_posterior_sd": 0.05403748882386571,
+      "max_relative_variance_error": 0.05362574175820112,
+      "mean": [
+        0.2314583359420404,
+        0.7137096621357633,
+        1.2819146908863777,
+        1.8256274527106244
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007907125000201631,
+      "seed": 6,
+      "unique_particles": 503,
+      "variance": [
+        5.304963970633704e-05,
+        0.0003236015264551676,
+        0.0006493794100315945,
+        0.000875798646551627
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.03574753453513679,
+      "acceptance_rate": 0.6916232638888888,
+      "fixture": "one_parameter",
+      "likelihood_rows": 9679,
+      "max_mean_error": 0.0001355768034771998,
+      "max_mean_error_in_posterior_sd": 0.004702474418740408,
+      "max_relative_variance_error": 0.08186928463628118,
+      "mean": [
+        0.2318110068271828,
+        0.7145775704829513,
+        1.2831411248106508,
+        1.827049828029859
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 6,
+      "seconds": 0.007414875006361399,
+      "seed": 7,
+      "unique_particles": 503,
+      "variance": [
+        5.466866802442438e-05,
+        0.0003328559949762601,
+        0.0006670907937417706,
+        0.0008990555730029357
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.04126733358063017,
+      "acceptance_rate": 0.6834852430555556,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38750,
+      "max_mean_error": 5.516838775632138e-05,
+      "max_mean_error_in_posterior_sd": 0.0025121810279109917,
+      "max_relative_variance_error": 0.055170781946521585,
+      "mean": [
+        0.2318202685320344,
+        0.7146129549420634,
+        1.2832036040043642,
+        1.82713023644558
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015076417003001552,
+      "seed": 0,
+      "unique_particles": 2025,
+      "variance": [
+        4.774676451049272e-05,
+        0.00029074598853885664,
+        0.0005827246295811602,
+        0.0007853644017968278
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.08219669294959608,
+      "acceptance_rate": 0.6833767361111112,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38757,
+      "max_mean_error": 2.2511657420842823e-05,
+      "max_mean_error_in_posterior_sd": 0.0007808156736986633,
+      "max_relative_variance_error": 0.038346533432620955,
+      "mean": [
+        0.2318407392495391,
+        0.714661927405469,
+        1.2832713791636974,
+        1.827207916490757
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.01517920799960848,
+      "seed": 1,
+      "unique_particles": 2024,
+      "variance": [
+        4.859396127137806e-05,
+        0.00029596857639870207,
+        0.0005932832619091339,
+        0.0007996631398406998
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.0045183018303287525,
+      "acceptance_rate": 0.6859809027777778,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38773,
+      "max_mean_error": 0.0007373494485152232,
+      "max_mean_error_in_posterior_sd": 0.025637717783364978,
+      "max_relative_variance_error": 0.00686828910735815,
+      "mean": [
+        0.2320203738769082,
+        0.7151011726186312,
+        1.283889276763377,
+        1.8279227542818515
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.014928417003829964,
+      "seed": 2,
+      "unique_particles": 2018,
+      "variance": [
+        5.087874202846591e-05,
+        0.00030953741765516184,
+        0.0006200081686158058,
+        0.0008353391160418591
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.051226471802942264,
+      "acceptance_rate": 0.694091796875,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38771,
+      "max_mean_error": 0.0002543269906096768,
+      "max_mean_error_in_posterior_sd": 0.008821318519567875,
+      "max_relative_variance_error": 0.04610192033113569,
+      "mean": [
+        0.23177894782012723,
+        0.7145017302220645,
+        1.2830370287220492,
+        1.8269310778427266
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015057416996569373,
+      "seed": 3,
+      "unique_particles": 2015,
+      "variance": [
+        5.286128316464992e-05,
+        0.00032179049285297227,
+        0.0006448113382875711,
+        0.0008689447249166904
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.02434679602222012,
+      "acceptance_rate": 0.6873101128472222,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38771,
+      "max_mean_error": 0.0003670639615316329,
+      "max_mean_error_in_posterior_sd": 0.012731594527040901,
+      "max_relative_variance_error": 0.0023752010245956523,
+      "mean": [
+        0.23174782340290606,
+        0.714428894317018,
+        1.2829378020456188,
+        1.8268183408718046
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015067542000906542,
+      "seed": 4,
+      "unique_particles": 2020,
+      "variance": [
+        5.0635523461452304e-05,
+        0.00030839244006690425,
+        0.0006181721540191195,
+        0.0008331979844468553
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.035988377933722226,
+      "acceptance_rate": 0.6892903645833334,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38775,
+      "max_mean_error": 0.00022250998647987963,
+      "max_mean_error_in_posterior_sd": 0.007717747376392998,
+      "max_relative_variance_error": 0.048105674936942955,
+      "mean": [
+        0.23188928085871013,
+        0.7147826136279958,
+        1.2834431485210975,
+        1.8274079148198161
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015085708000697196,
+      "seed": 5,
+      "unique_particles": 2012,
+      "variance": [
+        4.8122875900881466e-05,
+        0.000292973558744087,
+        0.0005871164840112072,
+        0.0007912370859117831
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.037778362556087686,
+      "acceptance_rate": 0.6919487847222222,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38728,
+      "max_mean_error": 8.223688366282289e-06,
+      "max_mean_error_in_posterior_sd": 0.00028523820578672256,
+      "max_relative_variance_error": 0.009954021312984507,
+      "mean": [
+        0.23183945925806118,
+        0.714656136625433,
+        1.2832605355624387,
+        1.8271936285217025
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015175166001426987,
+      "seed": 6,
+      "unique_particles": 2020,
+      "variance": [
+        5.00286824909288e-05,
+        0.0003048306058745316,
+        0.0006112208378572471,
+        0.0008239683850001889
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.01806247051976939,
+      "acceptance_rate": 0.6908637152777778,
+      "fixture": "one_parameter",
+      "likelihood_rows": 38745,
+      "max_mean_error": 1.3009147372677887e-05,
+      "max_mean_error_in_posterior_sd": 0.0004512216039960677,
+      "max_relative_variance_error": 0.01939675380310335,
+      "mean": [
+        0.23183984773930502,
+        0.7146580003467963,
+        1.2832641208738853,
+        1.827198413980709
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 6,
+      "seconds": 0.015087959000084084,
+      "seed": 7,
+      "unique_particles": 2021,
+      "variance": [
+        4.9551525393415575e-05,
+        0.0003017715013967382,
+        0.0006048729038201252,
+        0.0008152520598280904
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.1530370064015032,
+      "acceptance_rate": 0.3071986607142857,
+      "fixture": "four_modes",
+      "likelihood_rows": 11214,
+      "max_mean_error": 0.33005477561319535,
+      "max_mean_error_in_posterior_sd": 0.3308960235220448,
+      "max_relative_variance_error": 0.10191048963629812,
+      "mean": [
+        0.33005477561319535,
+        -0.13905048207550788,
+        -0.26469031278782745,
+        1.9878319477522506
+      ],
+      "mode_masses": [
+        0.13671875,
+        0.19921875,
+        0.43359375,
+        0.23046875
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.009709250000014435,
+      "seed": 0,
+      "unique_particles": 193,
+      "variance": [
+        0.8935288297731169,
+        0.9660319265086227,
+        0.9178185464195896,
+        0.02115997182405135
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.1501277052991301,
+      "acceptance_rate": 0.3235677083333333,
+      "fixture": "four_modes",
+      "likelihood_rows": 11214,
+      "max_mean_error": 0.38477777039967387,
+      "max_mean_error_in_posterior_sd": 0.3867417232691028,
+      "max_relative_variance_error": 0.14330966363236775,
+      "mean": [
+        -0.17610948473744797,
+        -0.2892203885862798,
+        0.38477777039967387,
+        1.9952006603615575
+      ],
+      "mode_masses": [
+        0.462890625,
+        0.123046875,
+        0.18359375,
+        0.23046875
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.0086315829976229,
+      "seed": 1,
+      "unique_particles": 164,
+      "variance": [
+        0.9727321783684468,
+        0.9078054982046142,
+        0.8480115344348513,
+        0.021204195690481663
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.058562149045730205,
+      "acceptance_rate": 0.30943080357142855,
+      "fixture": "four_modes",
+      "likelihood_rows": 11225,
+      "max_mean_error": 0.2171968557165711,
+      "max_mean_error_in_posterior_sd": 0.21775044988996484,
+      "max_relative_variance_error": 0.09190058845201021,
+      "mean": [
+        0.2171968557165711,
+        -0.1395764307843033,
+        0.17495796131886712,
+        1.985066758297119
+      ],
+      "mode_masses": [
+        0.275390625,
+        0.1171875,
+        0.294921875,
+        0.3125
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.008998208002594765,
+      "seed": 2,
+      "unique_particles": 162,
+      "variance": [
+        0.9527966828141899,
+        0.9656140213192772,
+        0.9537709518900691,
+        0.01825718351676473
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.0628723783280214,
+      "acceptance_rate": 0.31594122023809523,
+      "fixture": "four_modes",
+      "likelihood_rows": 11204,
+      "max_mean_error": 0.22394932544200055,
+      "max_mean_error_in_posterior_sd": 0.22452013039813642,
+      "max_relative_variance_error": 0.05233375922235983,
+      "mean": [
+        -0.22394932544200055,
+        -0.14744653122632326,
+        -0.062405134636492665,
+        1.9802643498765289
+      ],
+      "mode_masses": [
+        0.330078125,
+        0.287109375,
+        0.244140625,
+        0.138671875
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.00875020800594939,
+      "seed": 3,
+      "unique_particles": 186,
+      "variance": [
+        0.9428537995000252,
+        0.9655167704399006,
+        0.9767413053381491,
+        0.02110482703479479
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.4448507563562889,
+      "acceptance_rate": 0.3306361607142857,
+      "fixture": "four_modes",
+      "likelihood_rows": 11206,
+      "max_mean_error": 0.09459703612043804,
+      "max_mean_error_in_posterior_sd": 0.09483814627759855,
+      "max_relative_variance_error": 0.3559529774306849,
+      "mean": [
+        0.06995768656615557,
+        -0.09459703612043804,
+        -0.05637737141477738,
+        1.9937580535918393
+      ],
+      "mode_masses": [
+        0.23828125,
+        0.22265625,
+        0.3046875,
+        0.234375
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.008878500004357193,
+      "seed": 4,
+      "unique_particles": 196,
+      "variance": [
+        0.9880623701687429,
+        0.9918530062706377,
+        0.9917228458903479,
+        0.02726120294126774
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.01808317416725247,
+      "acceptance_rate": 0.3165922619047619,
+      "fixture": "four_modes",
+      "likelihood_rows": 11199,
+      "max_mean_error": 0.11500785816963124,
+      "max_mean_error_in_posterior_sd": 0.11530099169574584,
+      "max_relative_variance_error": 0.020192785600394725,
+      "mean": [
+        0.11500785816963124,
+        -0.011955170455050866,
+        0.041989378328177895,
+        1.9930571600265132
+      ],
+      "mode_masses": [
+        0.234375,
+        0.205078125,
+        0.271484375,
+        0.2890625
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.008878082997398451,
+      "seed": 5,
+      "unique_particles": 179,
+      "variance": [
+        0.9836658547218998,
+        0.9960215717632462,
+        0.9906090259316364,
+        0.020510801650488145
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.01552754488602881,
+      "acceptance_rate": 0.31556919642857145,
+      "fixture": "four_modes",
+      "likelihood_rows": 11208,
+      "max_mean_error": 0.13271508183696046,
+      "max_mean_error_in_posterior_sd": 0.14360373086916142,
+      "max_relative_variance_error": 0.14938009237586436,
+      "mean": [
+        -0.02399159594261372,
+        -0.13271508183696046,
+        -0.12145140209248742,
+        1.9694818063280153
+      ],
+      "mode_masses": [
+        0.26171875,
+        0.251953125,
+        0.3046875,
+        0.181640625
+      ],
+      "numerical_qualified": true,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.008777875002124347,
+      "seed": 6,
+      "unique_particles": 181,
+      "variance": [
+        0.9980761155570954,
+        0.9532168011480522,
+        0.9541867434052702,
+        0.01710156791097822
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.18004208284282397,
+      "acceptance_rate": 0.3162202380952381,
+      "fixture": "four_modes",
+      "likelihood_rows": 11217,
+      "max_mean_error": 0.16345360947668733,
+      "max_mean_error_in_posterior_sd": 0.16428789671998834,
+      "max_relative_variance_error": 0.11235916176676064,
+      "mean": [
+        -0.12178608762251786,
+        -0.11803827081062118,
+        0.16345360947668733,
+        2.0064558373118206
+      ],
+      "mode_masses": [
+        0.353515625,
+        0.20703125,
+        0.20703125,
+        0.232421875
+      ],
+      "numerical_qualified": false,
+      "particles": 512,
+      "rungs": 7,
+      "seconds": 0.009146583004621789,
+      "seed": 7,
+      "unique_particles": 176,
+      "variance": [
+        0.9880978585045539,
+        0.9895930942929062,
+        0.9797811676438146,
+        0.01784586739570055
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.021336022322807846,
+      "acceptance_rate": 0.3133138020833333,
+      "fixture": "four_modes",
+      "likelihood_rows": 44815,
+      "max_mean_error": 0.19412505808299146,
+      "max_mean_error_in_posterior_sd": 0.19461984655822015,
+      "max_relative_variance_error": 0.06191213581977417,
+      "mean": [
+        0.19412505808299146,
+        -0.01136246774782021,
+        -0.0056850585764562514,
+        1.9909777747340298
+      ],
+      "mode_masses": [
+        0.20361328125,
+        0.19873046875,
+        0.302734375,
+        0.294921875
+      ],
+      "numerical_qualified": false,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017959791999601293,
+      "seed": 0,
+      "unique_particles": 672,
+      "variance": [
+        0.9626957663631248,
+        0.9904683645218576,
+        0.9906310568351167,
+        0.018860096233289058
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.12468119456481963,
+      "acceptance_rate": 0.3124302455357143,
+      "fixture": "four_modes",
+      "likelihood_rows": 44845,
+      "max_mean_error": 0.07948291117843823,
+      "max_mean_error_in_posterior_sd": 0.0796854982571857,
+      "max_relative_variance_error": 0.06506716560105652,
+      "mean": [
+        -0.04285549050508041,
+        -0.07948291117843823,
+        0.04590346203578014,
+        1.988301136056416
+      ],
+      "mode_masses": [
+        0.29248046875,
+        0.228515625,
+        0.24755859375,
+        0.2314453125
+      ],
+      "numerical_qualified": false,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017310750001342967,
+      "seed": 1,
+      "unique_particles": 731,
+      "variance": [
+        0.9934323005031461,
+        0.9867147093174432,
+        0.9860584037546146,
+        0.0187966648985858
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.08616044881848639,
+      "acceptance_rate": 0.31784784226190477,
+      "fixture": "four_modes",
+      "likelihood_rows": 44845,
+      "max_mean_error": 0.10532141949422938,
+      "max_mean_error_in_posterior_sd": 0.10585899291956828,
+      "max_relative_variance_error": 0.05043063828470462,
+      "mean": [
+        -0.03663215358019623,
+        0.039873014764414405,
+        -0.10532141949422938,
+        1.9845133849392347
+      ],
+      "mode_masses": [
+        0.224609375,
+        0.294921875,
+        0.2548828125,
+        0.2255859375
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.01704441699985182,
+      "seed": 2,
+      "unique_particles": 692,
+      "variance": [
+        0.9847690592124356,
+        0.9968125537444575,
+        0.9738089314678969,
+        0.021118728512448424
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.22929820293998615,
+      "acceptance_rate": 0.3146158854166667,
+      "fixture": "four_modes",
+      "likelihood_rows": 44819,
+      "max_mean_error": 0.11335900671730853,
+      "max_mean_error_in_posterior_sd": 0.11364793762937613,
+      "max_relative_variance_error": 0.12232047895714848,
+      "mean": [
+        -0.09097592278238945,
+        0.11335900671730853,
+        -0.04788045279481467,
+        1.9844745599451126
+      ],
+      "mode_masses": [
+        0.23193359375,
+        0.31298828125,
+        0.2119140625,
+        0.2431640625
+      ],
+      "numerical_qualified": false,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.01693070799956331,
+      "seed": 3,
+      "unique_particles": 713,
+      "variance": [
+        0.980443128454528,
+        0.9829045485605342,
+        0.9817441475697408,
+        0.01764559681551859
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.12690956344751791,
+      "acceptance_rate": 0.31308128720238093,
+      "fixture": "four_modes",
+      "likelihood_rows": 44831,
+      "max_mean_error": 0.05195793210130584,
+      "max_mean_error_in_posterior_sd": 0.05222313175079172,
+      "max_relative_variance_error": 0.07147649491313013,
+      "mean": [
+        -0.0006701204112837763,
+        -0.024800095818589992,
+        0.05195793210130584,
+        1.9896572415152738
+      ],
+      "mode_masses": [
+        0.267578125,
+        0.232421875,
+        0.2431640625,
+        0.2568359375
+      ],
+      "numerical_qualified": false,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017057082994142547,
+      "seed": 4,
+      "unique_particles": 705,
+      "variance": [
+        0.9932716856756608,
+        0.9957700620256407,
+        0.9865945309036461,
+        0.018667806427826047
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.0558576938616242,
+      "acceptance_rate": 0.3141508556547619,
+      "fixture": "four_modes",
+      "likelihood_rows": 44811,
+      "max_mean_error": 0.12855584088134767,
+      "max_mean_error_in_posterior_sd": 0.12921200563930269,
+      "max_relative_variance_error": 0.04801335028656517,
+      "mean": [
+        0.06000347977586452,
+        -0.04120275844170209,
+        -0.12855584088134767,
+        1.9896661008590668
+      ],
+      "mode_masses": [
+        0.21142578125,
+        0.25830078125,
+        0.30712890625,
+        0.22314453125
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017321125000307802,
+      "seed": 5,
+      "unique_particles": 763,
+      "variance": [
+        0.9935105347642227,
+        0.9908574812064372,
+        0.9729895072927671,
+        0.021070129350249128
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.05571831778632985,
+      "acceptance_rate": 0.31196521577380953,
+      "fixture": "four_modes",
+      "likelihood_rows": 44826,
+      "max_mean_error": 0.06845443415422507,
+      "max_mean_error_in_posterior_sd": 0.0688038339707547,
+      "max_relative_variance_error": 0.010606631776309383,
+      "mean": [
+        -0.059907260760220564,
+        -0.012889567579936237,
+        -0.06845443415422507,
+        1.9907433486210486
+      ],
+      "mode_masses": [
+        0.2509765625,
+        0.27880859375,
+        0.25634765625,
+        0.2138671875
+      ],
+      "numerical_qualified": true,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017620582999370527,
+      "seed": 6,
+      "unique_particles": 684,
+      "variance": [
+        0.9905218360835834,
+        0.9964664916932859,
+        0.9859797345896881,
+        0.02031807366568754
+      ]
+    },
+    {
+      "absolute_log_evidence_error": 0.03512004145317649,
+      "acceptance_rate": 0.3176850818452381,
+      "fixture": "four_modes",
+      "likelihood_rows": 44844,
+      "max_mean_error": 0.18338080381769908,
+      "max_mean_error_in_posterior_sd": 0.183848207197784,
+      "max_relative_variance_error": 0.043469101221838446,
+      "mean": [
+        -0.18338080381769908,
+        -0.12887926533202043,
+        0.04927778619664985,
+        1.9788559093067466
+      ],
+      "mode_masses": [
+        0.34033203125,
+        0.251953125,
+        0.22412109375,
+        0.18359375
+      ],
+      "numerical_qualified": false,
+      "particles": 2048,
+      "rungs": 7,
+      "seconds": 0.017724165998515673,
+      "seed": 7,
+      "unique_particles": 765,
+      "variance": [
+        0.9645785863994323,
+        0.9640389386659702,
+        0.9768754989714488,
+        0.02097876799920588
+      ]
+    }
+  ],
+  "smc_sha256": "08a14879f52016e73751fc345bee2b8fd70136a0ed995c23285dfc9eab2d87bd",
+  "status": "complete"
+}
