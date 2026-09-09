@@ -1,0 +1,86 @@
+{
+  "contract_sha256": "086dd8821fa8b3f8c6e79be8ee5fed4f9dc7bd9935bcccc8f7b05967b68b2e74",
+  "cost_usd": 0,
+  "model_calls": 0,
+  "network_reads": 6,
+  "patches_or_tests_read": false,
+  "records": [
+    {
+      "files": {
+        "projects/black/bugs/9/bug.info": {
+          "metadata": {
+            "buggy_commit_id": "026c81b83454f176a9f9253cbfb70be2c159d822",
+            "fixed_commit_id": "d6db1c12a8e14833fe22da377cddc2bd1f43dc14",
+            "python_version": "3.8.3",
+            "test_file": "tests/data/python2_print_function.py;tests/test_black.py"
+          },
+          "sha256": "a25d377adfa773d3ad7b8b457f48c1c38ea0e614c5cecc01c8f2a8ef053fd38d"
+        },
+        "projects/black/project.info": {
+          "metadata": {
+            "cause": "N.A.",
+            "github_url": "https://github.com/psf/black",
+            "status": "OK"
+          },
+          "sha256": "a03b008c4335dd0fd539ae83f1da00a1bd65e1dfbd038ea1326169f19cb7fdb8"
+        }
+      },
+      "path": "projects/black/bugs/9/bug.info",
+      "project": "black"
+    },
+    {
+      "files": {
+        "projects/cookiecutter/bugs/3/bug.info": {
+          "metadata": {
+            "buggy_commit_id": "5c282f020a8db7e5e7c4e7b51b010556ca31fb7f",
+            "fixed_commit_id": "7129d474206761a6156925db78eee4b62a0e3944",
+            "python_version": "3.6.9",
+            "pythonpath": "cookiecutter/build/lib/",
+            "test_file": "tests/test_read_user_choice.py"
+          },
+          "sha256": "6cb00df7f13e3899355728c1985428c938614d577260b3cfa8d62c70664e1ed0"
+        },
+        "projects/cookiecutter/project.info": {
+          "metadata": {
+            "cause": "N.A.",
+            "github_url": "https://github.com/cookiecutter/cookiecutter",
+            "status": "OK"
+          },
+          "sha256": "bc9ad25bc9d215662b85f45ddceb4fe6f11979f7a29fe4e0ba97c33602446469"
+        }
+      },
+      "path": "projects/cookiecutter/bugs/3/bug.info",
+      "project": "cookiecutter"
+    },
+    {
+      "files": {
+        "projects/thefuck/bugs/25/bug.info": {
+          "metadata": {
+            "buggy_commit_id": "42a8b4f639269886e468762e6d100b6f01aad8ab",
+            "fixed_commit_id": "298c04f89c081dc16c8653aa017ca85dd14bfad6",
+            "python_version": "3.7.0",
+            "test_file": "tests/rules/test_mkdir_p.py"
+          },
+          "sha256": "ad263c178215bc9d0d03853e9698bba35f3b477f8e272220699c2fc5f226a845"
+        },
+        "projects/thefuck/project.info": {
+          "metadata": {
+            "cause": "N.A.",
+            "github_url": "https://github.com/nvbn/thefuck",
+            "status": "OK"
+          },
+          "sha256": "6231abc346d1426fabb0c7e0ee55a0c34cc56511fbd1687c481f602fa0ea4474"
+        }
+      },
+      "path": "projects/thefuck/bugs/25/bug.info",
+      "project": "thefuck"
+    }
+  ],
+  "revision": "11c5f1eea954a42132cfd06bf257766a7963e0fd",
+  "selection": [
+    "projects/black/bugs/9/bug.info",
+    "projects/cookiecutter/bugs/3/bug.info",
+    "projects/thefuck/bugs/25/bug.info"
+  ],
+  "source_executed": false
+}
