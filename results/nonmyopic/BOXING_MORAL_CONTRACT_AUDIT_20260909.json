@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "attribute": "count",
+      "exported_feature": 0,
+      "group1": [
+        "boy"
+      ],
+      "group2": [],
+      "mismatch": true,
+      "simulator_feature": 1
+    },
+    {
+      "attribute": "age",
+      "exported_feature": 0,
+      "group1": [
+        "boy"
+      ],
+      "group2": [
+        "old_man"
+      ],
+      "mismatch": true,
+      "simulator_feature": 1
+    },
+    {
+      "attribute": "gender",
+      "exported_feature": 0,
+      "group1": [
+        "large_woman"
+      ],
+      "group2": [
+        "large_man"
+      ],
+      "mismatch": true,
+      "simulator_feature": -1
+    },
+    {
+      "attribute": "social_status",
+      "exported_feature": -1,
+      "group1": [
+        "male_doctor"
+      ],
+      "group2": [
+        "homeless"
+      ],
+      "mismatch": true,
+      "simulator_feature": 1
+    }
+  ],
+  "cost_usd": 0,
+  "environment_instantiated": false,
+  "model_calls": 0,
+  "paid_authority": false,
+  "rationale_receives_hidden_weights": true,
+  "source_sha256": "1934c2ff397764925a3d290e61e6ae1cabcfc95c81357442ba7571d5b77d610f",
+  "source_url": "https://raw.githubusercontent.com/kanishkg/boxing-gym/b43e38cb03d09c13efa9cf4d9bae740d51157bfd/src/boxing_gym/envs/moral_machines.py",
+  "step_calls_chat_completion": true
+}
