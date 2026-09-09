@@ -27,7 +27,8 @@ def public_case(bk, exs):
     if any(not e.startswith('e') or not e[1:].isdigit() for e in xs):
         raise ValueError('invalid example ID')
     ids = sorted(xs, key=lambda e: int(e[1:]))[:10]
-    string = lambda chars: ''.join(chars[i] for i in sorted(chars))
+    def string(chars):
+        return ''.join(chars[i] for i in sorted(chars))
     inputs = [string(xs[e]) for e in ids]
     if len(ids) != 10 or len(set(inputs)) != 10:
         raise ValueError('first ten IDs must have ten distinct inputs')
