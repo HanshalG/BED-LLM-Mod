@@ -1,0 +1,1 @@
+{"status":"execution_error","trace":[{"arguments":[{"kind":"callable"},{"kind":"callable"},{"kind":"callable"}],"id":"x0","op":"fork","result":{"kind":"callable"}},{"arguments":[{"kind":"callable"},{"kind":"int","length":null},{"kind":"callable"}],"error_type":"TypeError","id":"x1","op":"lbind"}]}

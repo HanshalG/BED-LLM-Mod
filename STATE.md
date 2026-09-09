@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: Luna medium expression qualification executed once from f32440fc; six clean calls/$0.02757011, then adapter failed on absent three-argument lbind grammar rule. Two updates completed with visible-example matches, not held-out evidence. No target labels or depth tests opened. Exact failure replay passes; 38 prelaunch tests passed. REARC_EXPRESSION_TERMINAL_RESULT_20260909.md records next synthetic arity-robustness dependency; bank remains closed. Account balance $23.581723111, conservative London-day spend $0.99999841. Goal unachieved.
+
 A few lines per session: what you did, found, doing next. Ledger spends in
 `EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
 The result is positive and open-ended now: keep strengthening it, don't stop.
