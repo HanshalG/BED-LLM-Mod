@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Prospective contrasting-mechanism interface | $0 | Matched3calls/16program attempts vsordinary planning, strictpublicschema, no labels-as-diversity;12tests/.36s. Frozen support protocol proposes6fresh tasks with preupdate answercoverage/diversity/pairedscore gates; source and new budgettransport pending, no paid authority. REARC_MECHANISM_INTERFACE_RESULT_20260909.md; goal unmet.
+
 2026-09-09 | Saved root opportunity/support audit | $0 | Demo1 predictive entropies .636514/0/0/undefined; observed-output probabilities1/3,1,0,undefined. Winningtask's4rootprograms unanimously wrong, recoverybranch absent from simulator. No newexecution or labels;3tests. REARC_SLOT_OPPORTUNITY_INTERPRETATION_20260909.md; no depth authorization or gate rescue.
 
 2026-09-09 | Luna-medium fixed-slot qualification | $0.09445668 |24clean calls, initialcoverage3/4. Mean Brier aware.25/blind.50/initial.50/direct.25/symbolic1.0; only1taskwin<2gate, qualification false. Exact replay zero calls; targets opened only after sealing. Useful single-task support recovery, not non-myopia; no depth authorization. REARC_SLOT_TERMINAL_RESULT_20260909.md. Conservative account-wide day spend1.09445509; balance23.487266431.
