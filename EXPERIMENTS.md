@@ -1237,3 +1237,5 @@ metrics land.
 2026-09-09 | RE-ARC symbolic beam mechanics | $0 |Generic first-order gridbaseline finds two-step composition;2tests/.09s, attempt/storage bounds. Explicitly not fullDSL/object/higher-order or49stepcompetitor; no taskexecution or LLMnecessity claim. Isolated worker and frozenstudy still pending. Account unchanged.
 
 2026-09-09 | RE-ARC symbolic container and conditioning | $0 |Isolated23op search finds mirror:25743attempts/5317invalid, no benchmark examples. Exact finite-pool conditioning/duplicate treatment/failure semantics,5tests/.18s. Fixed future3demo/8target seeds per frozen task before generation; no model requests or held-out outcomes opened. Account unchanged.
+
+2026-09-09 | RE-ARC fixed qualification protocol/controller | $0 |Frozen max12calls/.72, literalpredictive gates and same-history controls;4tests/.24s verifyblindprivacy,source-panelcoverage,endpointordering andpositive/null fixtures. Paidtransport/sourcecollector/replay stillrequired beforecalls, no targetexamplegenerated. Account unchanged.
