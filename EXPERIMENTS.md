@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Scene paid readiness | $0 | Initial preflight byteoverflow preserved; compactJSON(no facts removed) V2 passes24checks,max57829bytes.31tests include terminal/interrupt exactreplay,cap and authorization failure. Live exactroute/budget pass,1.92fullblock authorized; source/public unchanged. No modelcalls yet; freeze runner before launch.
+
 2026-09-09 | Scene-interface fresh source and panel | $0 | Frozen d5a73b71,4/4firstcandidates reference-valid,44channels plus4prescribed second observations,36futureoutputssealed. Exactpool/schedule/publicreplay;25tests/1.10s inclwrong-diffuse supportnull,24callseedpairing,sealing. No modelcalls,accountunchanged. REARC_SCENE_SOURCE_PANEL_RESULT_20260909.md; paid transport/preflight/replay required next.
 
 2026-09-09 | Scene-facts observation-interface prototype | $0 | Saved-only role-binding/near-fit diagnosis; deterministic color/component inventory and matched six-call native updater.15 focused tests pass; prospective4-task24-call/$1.92 protocol frozen before source/response selection. No unseen outputs/model calls, no semantic or planning win claimed. Ledger authenticated unchanged, remaining3.29148392; source/panel/budget replay required next.

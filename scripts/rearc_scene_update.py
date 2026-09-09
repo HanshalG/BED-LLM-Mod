@@ -32,7 +32,7 @@ def scene_update(*, inputs, observations, dsl_source, request, diagnose,
             if arm == 'inventory':
                 payload = json.loads(prompt[1]['content'])
                 payload['public_scene_facts'] = copy.deepcopy(facts)
-                prompt[1]['content'] = json.dumps(payload, sort_keys=True)
+                prompt[1]['content'] = json.dumps(payload, sort_keys=True, separators=(',', ':'))
                 prompt[0]['content'] += (
                     ' Public scene facts are deterministic measurements of the '
                     'listed grids, not new examples or inferred semantic roles. '
