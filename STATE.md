@@ -1,5 +1,7 @@
 # STATE — living project state
 
+2026-09-09 latest: cached-only scene opportunity audit finds all successful pools unanimous on all9publicinputs: task1inventory11consistent,task3raw4/inventory10; otherarmsunsupported. Thus fixedsupportinternalheadroom0,notactualaccuracy.3tests,newcalls/executions/labels0. REARC_SCENE_OPPORTUNITY_DECISION_20260909.md adds ReplaySCM source comparison and requires joint predictive diversity/calibration plus genuine budgeted horizon opportunity before newpaidroute. No minorprompt/depthsweep; accountunchanged,previous/currentprogress,goalunmet.
+
 2026-09-09 latest: scene experiment d0d3e785 completed24normalLunamedcalls/$0.18161996, exact24callreplay/new0. Inventorytwo-examplefit2/4vsraw1/4 butbelow3/4gate =>coverage null,36futurelabelsclosed,nodepth.447validgridreturns/8failures;rawtask1repairatomicSyntaxError. REARC_SCENE_TERMINAL_RESULT_20260909.md; stop serial minor text-gridprompt tweaks, next substantiallynew semanticgrounding/text-native executable opportunity assessment, notcohortrerun/gaterescue. Balance22.691585481,dayremaining3.10986396. Previous/currentprogress,goalunmet.
 
 2026-09-09 latest: scene paid runner integrated,31tests incl exact24call/interrupt replay and budget guards. Initialzero-callpreflight byteoverflow banked; losslesscompactJSON amendment before responses makesV2all24checkspass,max57829. REARC_SCENE_PAID_READINESS_20260909.md; account/routeverified,1.92blockauthorized from3.29148392remaining. Preparing one frozen launch; no modelcalls yet,goalunmet.

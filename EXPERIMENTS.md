@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Scene saved-support opportunity audit | $0 | Exactclosedreplay;successfulpools11/4/10programs allunanimous on9publicinputs,zero internal targetrisk to numericalprecision. Unsupporteddistinctfromcertainty;3tests. No actualfutureoutputs/newexecution/API. Paper-only ReplaySCM review doesnotestablishLLM/horizonadvantage. Requiresjointbelief+opportunitybeforepaidroute;accountunchanged,goalunmet.
+
 2026-09-09 | Scene inventory vs raw Luna-medium | $0.18161996 | Frozen d0d3e785;24normalcalls/exactreplay,inventoryfit2/4vsraw1/4 below3/4gate,36futurelabelsclosed.447runtimeok/8failed;rawtask1repairSyntaxErrorbatch. Observedfit benefit only,no transfer/planning claim. REARC_SCENE_TERMINAL_RESULT_20260909.md;budgetremaining3.10986396,balance22.691585481,no uncertainty added. Cohortclosed.
 
 2026-09-09 | Scene paid readiness | $0 | Initial preflight byteoverflow preserved; compactJSON(no facts removed) V2 passes24checks,max57829bytes.31tests include terminal/interrupt exactreplay,cap and authorization failure. Live exactroute/budget pass,1.92fullblock authorized; source/public unchanged. No modelcalls yet; freeze runner before launch.
