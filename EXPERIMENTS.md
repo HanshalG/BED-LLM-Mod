@@ -1,5 +1,7 @@
 # Experiments Ledger
 
+2026-09-09 | Luna-medium fixed-slot qualification | $0.09445668 |24clean calls, initialcoverage3/4. Mean Brier aware.25/blind.50/initial.50/direct.25/symbolic1.0; only1taskwin<2gate, qualification false. Exact replay zero calls; targets opened only after sealing. Useful single-task support recovery, not non-myopia; no depth authorization. REARC_SLOT_TERMINAL_RESULT_20260909.md. Conservative account-wide day spend1.09445509; balance23.487266431.
+
 2026-09-09 | Fixed-slot controller and disjoint source preflight | $0 | Frozen63acab86;12/12hash-onlysourcepasses,44publicrequests with targetoutputssealed,12proposalbodiespass max28083bytes.26tests/1.44s enforce exactcalls, privacy, failures, slots and sealing. Next nested bank/replay and paid transport; no model calls or predictive result. REARC_SLOT_CONTROLLER_SOURCE_RESULT_20260909.md.
 
 2026-09-09 | Fixed-slot search/forecast mechanics | $0 | Actual synthetic worker56slots/6conversion failures/6872assignments with raw prefix retained; exact replay no process.21tests/1.37s preserve failed future prediction mass and all-invalid forecast, old paid prefix unchanged. HERB_SLOT_RUNTIME_RESULT_20260909.md. Engineering only; next integrated prospective qualification, no depth authority or prior cohort reopening.

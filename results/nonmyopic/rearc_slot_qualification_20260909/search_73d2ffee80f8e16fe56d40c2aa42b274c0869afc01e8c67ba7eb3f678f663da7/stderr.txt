@@ -1,0 +1,4 @@
+┌ Warning: Assignment to `status` in soft scope is ambiguous because a global variable by the same name exists: `status` will be treated as a new local. Disambiguate by using `local status` to suppress this warning or `global status` to assign to the existing global variable.
+└ @ /app/herb_search_worker.jl:27
+┌ Warning: Assignment to `failure` in soft scope is ambiguous because a global variable by the same name exists: `failure` will be treated as a new local. Disambiguate by using `local failure` to suppress this warning or `global failure` to assign to the existing global variable.
+└ @ /app/herb_search_worker.jl:27
