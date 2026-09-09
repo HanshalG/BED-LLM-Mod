@@ -1,0 +1,16 @@
+{
+  "retained_programs": 2,
+  "retained_weights": [
+    0.5,
+    0.5
+  ],
+  "correct_prior_expected_brier": 0.25,
+  "correct_after_query_expected_brier": 0.0,
+  "query_value": 0.25,
+  "merged_predicted_brier": 0.0,
+  "merged_actual_expected_brier": 0.5,
+  "model_calls": 0,
+  "cost_usd": 0,
+  "benchmark_examples": 0,
+  "scope": "exact regression for destructive demonstration-only equivalence; not a depth result or Herb runtime test"
+}
