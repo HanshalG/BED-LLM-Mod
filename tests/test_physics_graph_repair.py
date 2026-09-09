@@ -69,3 +69,24 @@ def test_graph_semantic_failure_never_reads_targets(tmp_path):
     with pytest.raises(ValueError, match='reference'):
         probe.collect(Block(), public()['457'], ['1'], lambda: pytest.fail('targets opened'))
     assert not (tmp_path/'forecasts.json').exists()
+
+
+def test_banked_graph_failure_without_second_call_or_targets():
+    root = probe.ROOT
+    report = json.loads((root/'result.json').read_text())
+    assert report['status'] == 'failed_closed' and report['calls'] == 1
+    assert not report['endpoints_opened'] and report['uncertain_exposure_usd'] == 0
+    for name in ('refresh.request.json', 'forecasts.json', 'outcomes.json'):
+        assert not (root/name).exists()
+    assert set(report['implementation_sha256']) == set(probe.BINDINGS)
+    for path, digest in report['implementation_sha256'].items():
+        assert hashlib.sha256(probe.Path(path).read_bytes()).hexdigest() == digest
+    case = probe.previous.load('public.json')
+    initial = probe.previous.load('forecasts.json')['pools']['semantic']
+    assert json.loads((root/'control.request.json').read_text()) == probe.body(case, initial, 'control')
+    raw = json.loads((root/'control.response.json').read_text())
+    text = probe.previous.parent.luna.validate_response(raw)
+    jsonschema.validate(json.loads(text), probe.scalar_graph.schema())
+    with pytest.raises(ValueError, match='arity or backward reference'):
+        probe.scalar_graph.decode(text, len(case['names']))
+    assert raw['usage']['cost'] == pytest.approx(report['accepted_cost_usd'], abs=1e-12)
