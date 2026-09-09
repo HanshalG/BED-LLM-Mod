@@ -10,8 +10,8 @@ from environments.chembench_mopen.adaptive_parameter_integral import adaptive_pa
 from scripts.parameter_smc_reference_audit import fixture, OBS, SIGMA
 
 
-def main():
-    path = Path('results/nonmyopic/ADAPTIVE_PARAMETER_REFERENCE_20260909.json')
+def main(output_path='results/nonmyopic/ADAPTIVE_PARAMETER_REFERENCE_20260909.json'):
+    path = Path(output_path)
     if path.exists():
         raise RuntimeError('already banked')
     data = {'model_calls': 0, 'cost_usd': 0, 'rows': [], 'backend_sha256': hashlib.sha256(

@@ -27,6 +27,8 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
         raise ValueError('finite analytic likelihood bound required')
     rows = 0
     checks = []
+    scaling = 1.
+    evidence_only = True
 
     def integrand(unit):
         nonlocal rows
@@ -35,19 +37,35 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
         rows += len(unit)
         nodes = lower + unit*(upper-lower)
         ll = np.asarray(likelihood(nodes), float)
-        pred = np.asarray(predict(nodes), float)
         if (ll.shape != (len(unit),) or np.isnan(ll).any() or np.isposinf(ll).any()
-                or np.any(ll > log_likelihood_bound + 1e-10)
-                or pred.shape != (len(unit), output_size) or not np.isfinite(pred).all()):
+                or np.any(ll > log_likelihood_bound + 1e-10)):
             raise IntegrationUnresolved('invalid callback or violated likelihood bound')
         with np.errstate(over='raise', invalid='raise'):
-            density = np.exp(ll-log_likelihood_bound)
+            density = np.exp(ll-log_likelihood_bound)/scaling
+            if evidence_only:
+                return density
+            pred = np.asarray(predict(nodes), float)
+            if pred.shape != (len(unit), output_size) or not np.isfinite(pred).all():
+                raise IntegrationUnresolved('invalid prediction callback')
             return density[:, None]*np.column_stack((np.ones(len(unit)), pred, pred**2))
 
     try:
+        # Absolute tolerances can accept an almost-zero integral without locating
+        # a narrow likelihood peak. Evidence is positive, so use relative control.
+        pilot = cubature(integrand, np.zeros(len(lower)), np.ones(len(lower)),
+                         rtol=1e-7, atol=0., max_subdivisions=1000)
+        checks.append({'partition': 'evidence_pilot', 'status': pilot.status,
+                       'integrals': float(pilot.estimate), 'errors': float(pilot.error),
+                       'subdivisions': pilot.subdivisions, 'cumulative_rows': rows})
+        if (pilot.status != 'converged' or not np.isfinite(pilot.estimate)
+                or pilot.estimate <= 0 or not np.isfinite(pilot.error)
+                or pilot.error/pilot.estimate > 1e-5):
+            raise IntegrationUnresolved('unresolved evidence pilot')
+        scaling = float(pilot.estimate)
+        evidence_only = False
         for split in (False, True):
             result = cubature(integrand, np.zeros(len(lower)), np.ones(len(lower)),
-                              rtol=1e-7, atol=1e-12, max_subdivisions=1000,
+                              rtol=1e-7, atol=1e-9, max_subdivisions=1000,
                               points=[np.full(len(lower), .5)] if split else None)
             value, error = np.asarray(result.estimate), np.asarray(result.error)
             check = {'partition': 'midpoint' if split else 'whole',
@@ -71,10 +89,11 @@ def adaptive_parameter_integral(lower, upper, likelihood, predict, *, output_siz
                 raise IntegrationUnresolved('unresolved normalized moments')
             if (variance < -1e-10).any():
                 raise IntegrationUnresolved('negative variance')
-            check.update(log_evidence=float(np.log(z)+log_likelihood_bound),
+            check.update(log_evidence=float(np.log(z)+np.log(scaling)+log_likelihood_bound),
                          mean=mean.tolist(), variance=np.maximum(variance, 0).tolist())
-        if (abs(checks[0]['log_evidence']-checks[1]['log_evidence']) > 1e-4
-                or any(not np.allclose(checks[0][key], checks[1][key], atol=1e-6, rtol=1e-3)
+        if (abs(checks[-2]['log_evidence']-checks[-1]['log_evidence']) > 1e-4
+                or abs(checks[-1]['log_evidence']-(np.log(scaling)+log_likelihood_bound)) > 1e-4
+                or any(not np.allclose(checks[-2][key], checks[-1][key], atol=1e-6, rtol=1e-3)
                        for key in ('mean', 'variance'))):
             raise IntegrationUnresolved('partition disagreement')
         return {'status': 'agreement', 'checks': checks, 'evaluated_rows': rows,
